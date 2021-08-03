@@ -1296,10 +1296,10 @@ fn with_test() {
 }
 
 #[test]
-fn try_with_test() {
+#[allow(deprecated)]
+fn try_with_test_deprec() {
 	#[rustfmt::skip]
 	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
-		(64, "90", DecoderOptions::NONE, Instruction::with(Code::Nopd)),
 		(64, "48B9FFFFFFFFFFFFFFFF", DecoderOptions::NONE, Instruction::try_with_reg_i64(Code::Mov_r64_imm64, Register::RCX, -1).unwrap()),
 		(64, "48B9FFFFFFFFFFFFFFFF", DecoderOptions::NONE, Instruction::try_with_reg_i32(Code::Mov_r64_imm64, Register::RCX, -1).unwrap()),
 		(64, "48B9123456789ABCDE31", DecoderOptions::NONE, Instruction::try_with_reg_u64(Code::Mov_r64_imm64, Register::RCX, 0x31DE_BC9A_7856_3412).unwrap()),
@@ -1313,14 +1313,6 @@ fn try_with_test() {
 		(32, "6A5A", DecoderOptions::NONE, Instruction::try_with_i32(Code::Pushd_imm8, 0x5A).unwrap()),
 		(64, "6A5A", DecoderOptions::NONE, Instruction::try_with_i32(Code::Pushq_imm8, 0x5A).unwrap()),
 		(64, "685AA512A4", DecoderOptions::NONE, Instruction::try_with_i32(Code::Pushq_imm32, -0x5BED_5AA6).unwrap()),
-		(32, "66705A", DecoderOptions::NONE, Instruction::try_with_branch(Code::Jo_rel8_16, 0x4D).unwrap()),
-		(32, "705A", DecoderOptions::NONE, Instruction::try_with_branch(Code::Jo_rel8_32, 0x8000_004C).unwrap()),
-		(64, "705A", DecoderOptions::NONE, Instruction::try_with_branch(Code::Jo_rel8_64, 0x8000_0000_0000_004C).unwrap()),
-		(32, "669A12345678", DecoderOptions::NONE, Instruction::try_with_far_branch(Code::Call_ptr1616, 0x7856, 0x3412).unwrap()),
-		(32, "9A123456789ABC", DecoderOptions::NONE, Instruction::try_with_far_branch(Code::Call_ptr1632, 0xBC9A, 0x7856_3412).unwrap()),
-		(16, "C7F85AA5", DecoderOptions::NONE, Instruction::try_with_xbegin(16, 0x254E).unwrap()),
-		(32, "C7F85AA51234", DecoderOptions::NONE, Instruction::try_with_xbegin(32, 0xB412_A550).unwrap()),
-		(64, "C7F85AA51234", DecoderOptions::NONE, Instruction::try_with_xbegin(64, 0x8000_0000_3412_A550).unwrap()),
 		(64, "00D1", DecoderOptions::NONE, Instruction::with_reg_reg(Code::Add_rm8_r8, Register::CL, Register::DL)),
 		(64, "64028C7501EFCDAB", DecoderOptions::NONE, Instruction::with_reg_mem(Code::Add_r8_rm8, Register::CL, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS))),
 		(64, "80C15A", DecoderOptions::NONE, Instruction::try_with_reg_i32(Code::Add_rm8_imm8, Register::CL, 0x5A).unwrap()),
@@ -1363,6 +1355,78 @@ fn try_with_test() {
 		(64, "64660FA4947501EFCDAB5A", DecoderOptions::NONE, Instruction::try_with_mem_reg_u32(Code::Shld_rm16_r16_imm8, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), Register::DX, 0x5A).unwrap()),
 		(64, "F20F78CAA5FD", DecoderOptions::NONE, Instruction::try_with_reg_reg_i32_i32(Code::Insertq_xmm_xmm_imm8_imm8, Register::XMM1, Register::XMM2, 0xA5, 0xFD).unwrap()),
 		(64, "F20F78CAA5FD", DecoderOptions::NONE, Instruction::try_with_reg_reg_u32_u32(Code::Insertq_xmm_xmm_imm8_imm8, Register::XMM1, Register::XMM2, 0xA5, 0xFD).unwrap()),
+	];
+	with_test_core(tests);
+}
+
+#[test]
+fn try_with_test() {
+	#[rustfmt::skip]
+	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
+		(64, "90", DecoderOptions::NONE, Instruction::with(Code::Nopd)),
+		(64, "48B9FFFFFFFFFFFFFFFF", DecoderOptions::NONE, Instruction::with2(Code::Mov_r64_imm64, Register::RCX, -1).unwrap()),
+		(64, "48B9FFFFFFFFFFFFFFFF", DecoderOptions::NONE, Instruction::with2(Code::Mov_r64_imm64, Register::RCX, -1).unwrap()),
+		(64, "48B9123456789ABCDE31", DecoderOptions::NONE, Instruction::with2(Code::Mov_r64_imm64, Register::RCX, 0x31DE_BC9A_7856_3412u64).unwrap()),
+		(64, "48B9FFFFFFFF00000000", DecoderOptions::NONE, Instruction::with2(Code::Mov_r64_imm64, Register::RCX, 0xFFFF_FFFFu32).unwrap()),
+		(64, "8FC1", DecoderOptions::NONE, Instruction::with1(Code::Pop_rm64, Register::RCX).unwrap()),
+		(64, "648F847501EFCDAB", DecoderOptions::NONE, Instruction::with1(Code::Pop_rm64, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS)).unwrap()),
+		(64, "C6F85A", DecoderOptions::NONE, Instruction::with1(Code::Xabort_imm8, 0x5A).unwrap()),
+		(64, "66685AA5", DecoderOptions::NONE, Instruction::with1(Code::Push_imm16, 0xA55A).unwrap()),
+		(32, "685AA51234", DecoderOptions::NONE, Instruction::with1(Code::Pushd_imm32, 0x3412_A55A).unwrap()),
+		(64, "666A5A", DecoderOptions::NONE, Instruction::with1(Code::Pushw_imm8, 0x5A).unwrap()),
+		(32, "6A5A", DecoderOptions::NONE, Instruction::with1(Code::Pushd_imm8, 0x5A).unwrap()),
+		(64, "6A5A", DecoderOptions::NONE, Instruction::with1(Code::Pushq_imm8, 0x5A).unwrap()),
+		(64, "685AA512A4", DecoderOptions::NONE, Instruction::with1(Code::Pushq_imm32, -0x5BED_5AA6).unwrap()),
+		(32, "66705A", DecoderOptions::NONE, Instruction::try_with_branch(Code::Jo_rel8_16, 0x4D).unwrap()),
+		(32, "705A", DecoderOptions::NONE, Instruction::try_with_branch(Code::Jo_rel8_32, 0x8000_004C).unwrap()),
+		(64, "705A", DecoderOptions::NONE, Instruction::try_with_branch(Code::Jo_rel8_64, 0x8000_0000_0000_004C).unwrap()),
+		(32, "669A12345678", DecoderOptions::NONE, Instruction::try_with_far_branch(Code::Call_ptr1616, 0x7856, 0x3412).unwrap()),
+		(32, "9A123456789ABC", DecoderOptions::NONE, Instruction::try_with_far_branch(Code::Call_ptr1632, 0xBC9A, 0x7856_3412).unwrap()),
+		(16, "C7F85AA5", DecoderOptions::NONE, Instruction::try_with_xbegin(16, 0x254E).unwrap()),
+		(32, "C7F85AA51234", DecoderOptions::NONE, Instruction::try_with_xbegin(32, 0xB412_A550).unwrap()),
+		(64, "C7F85AA51234", DecoderOptions::NONE, Instruction::try_with_xbegin(64, 0x8000_0000_3412_A550).unwrap()),
+		(64, "00D1", DecoderOptions::NONE, Instruction::with2(Code::Add_rm8_r8, Register::CL, Register::DL).unwrap()),
+		(64, "64028C7501EFCDAB", DecoderOptions::NONE, Instruction::with2(Code::Add_r8_rm8, Register::CL, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS)).unwrap()),
+		(64, "80C15A", DecoderOptions::NONE, Instruction::with2(Code::Add_rm8_imm8, Register::CL, 0x5A).unwrap()),
+		(64, "6681C15AA5", DecoderOptions::NONE, Instruction::with2(Code::Add_rm16_imm16, Register::CX, 0xA55A).unwrap()),
+		(64, "81C15AA51234", DecoderOptions::NONE, Instruction::with2(Code::Add_rm32_imm32, Register::ECX, 0x3412_A55A).unwrap()),
+		(64, "48B904152637A55A5678", DecoderOptions::NONE, Instruction::with2(Code::Mov_r64_imm64, Register::RCX, 0x7856_5AA5_3726_1504u64).unwrap()),
+		(64, "6683C15A", DecoderOptions::NONE, Instruction::with2(Code::Add_rm16_imm8, Register::CX, 0x5A).unwrap()),
+		(64, "83C15A", DecoderOptions::NONE, Instruction::with2(Code::Add_rm32_imm8, Register::ECX, 0x5A).unwrap()),
+		(64, "4883C15A", DecoderOptions::NONE, Instruction::with2(Code::Add_rm64_imm8, Register::RCX, 0x5A).unwrap()),
+		(64, "4881C15AA51234", DecoderOptions::NONE, Instruction::with2(Code::Add_rm64_imm32, Register::RCX, 0x3412_A55A).unwrap()),
+		(64, "64A0123456789ABCDEF0", DecoderOptions::NONE, Instruction::with2(Code::Mov_AL_moffs8, Register::AL, MemoryOperand::with_base_displ_size_bcst_seg(Register::None, 0xF0DE_BC9A_7856_3412u64 as i64, 8, false, Register::FS)).unwrap()),
+		(64, "6400947501EFCDAB", DecoderOptions::NONE, Instruction::with2(Code::Add_rm8_r8, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), Register::DL).unwrap()),
+		(64, "6480847501EFCDAB5A", DecoderOptions::NONE, Instruction::with2(Code::Add_rm8_imm8, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x5A).unwrap()),
+		(64, "646681847501EFCDAB5AA5", DecoderOptions::NONE, Instruction::with2(Code::Add_rm16_imm16, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0xA55A).unwrap()),
+		(64, "6481847501EFCDAB5AA51234", DecoderOptions::NONE, Instruction::with2(Code::Add_rm32_imm32, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x3412_A55A).unwrap()),
+		(64, "646683847501EFCDAB5A", DecoderOptions::NONE, Instruction::with2(Code::Add_rm16_imm8, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x5A).unwrap()),
+		(64, "6483847501EFCDAB5A", DecoderOptions::NONE, Instruction::with2(Code::Add_rm32_imm8, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x5A).unwrap()),
+		(64, "644883847501EFCDAB5A", DecoderOptions::NONE, Instruction::with2(Code::Add_rm64_imm8, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x5A).unwrap()),
+		(64, "644881847501EFCDAB5AA51234", DecoderOptions::NONE, Instruction::with2(Code::Add_rm64_imm32, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x3412_A55A).unwrap()),
+		(64, "E65A", DecoderOptions::NONE, Instruction::with2(Code::Out_imm8_AL, 0x5A, Register::AL).unwrap()),
+		(64, "E65A", DecoderOptions::NONE, Instruction::with2(Code::Out_imm8_AL, 0x5A, Register::AL).unwrap()),
+		(64, "66C85AA5A6", DecoderOptions::NONE, Instruction::with2(Code::Enterw_imm16_imm8, 0xA55A, 0xA6).unwrap()),
+		(64, "66C85AA5A6", DecoderOptions::NONE, Instruction::with2(Code::Enterw_imm16_imm8, 0xA55A, 0xA6).unwrap()),
+		(64, "64A2123456789ABCDEF0", DecoderOptions::NONE, Instruction::with2(Code::Mov_moffs8_AL, MemoryOperand::with_base_displ_size_bcst_seg(Register::None, 0xF0DE_BC9A_7856_3412u64 as i64, 8, false, Register::FS), Register::AL).unwrap()),
+		(64, "6669CAA55A", DecoderOptions::NONE, Instruction::with3(Code::Imul_r16_rm16_imm16, Register::CX, Register::DX, 0x5AA5).unwrap()),
+		(64, "69CA5AA51234", DecoderOptions::NONE, Instruction::with3(Code::Imul_r32_rm32_imm32, Register::ECX, Register::EDX, 0x3412_A55A).unwrap()),
+		(64, "666BCA5A", DecoderOptions::NONE, Instruction::with3(Code::Imul_r16_rm16_imm8, Register::CX, Register::DX, 0x5A).unwrap()),
+		(64, "6BCA5A", DecoderOptions::NONE, Instruction::with3(Code::Imul_r32_rm32_imm8, Register::ECX, Register::EDX, 0x5A).unwrap()),
+		(64, "486BCA5A", DecoderOptions::NONE, Instruction::with3(Code::Imul_r64_rm64_imm8, Register::RCX, Register::RDX, 0x5A).unwrap()),
+		(64, "4869CA5AA512A4", DecoderOptions::NONE, Instruction::with3(Code::Imul_r64_rm64_imm32, Register::RCX, Register::RDX, -0x5BED_5AA6).unwrap()),
+		(64, "6466698C7501EFCDAB5AA5", DecoderOptions::NONE, Instruction::with3(Code::Imul_r16_rm16_imm16, Register::CX, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0xA55A).unwrap()),
+		(64, "64698C7501EFCDAB5AA51234", DecoderOptions::NONE, Instruction::with3(Code::Imul_r32_rm32_imm32, Register::ECX, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x3412_A55A).unwrap()),
+		(64, "64666B8C7501EFCDAB5A", DecoderOptions::NONE, Instruction::with3(Code::Imul_r16_rm16_imm8, Register::CX, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x5A).unwrap()),
+		(64, "646B8C7501EFCDAB5A", DecoderOptions::NONE, Instruction::with3(Code::Imul_r32_rm32_imm8, Register::ECX, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x5A).unwrap()),
+		(64, "64486B8C7501EFCDAB5A", DecoderOptions::NONE, Instruction::with3(Code::Imul_r64_rm64_imm8, Register::RCX, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x5A).unwrap()),
+		(64, "6448698C7501EFCDAB5AA512A4", DecoderOptions::NONE, Instruction::with3(Code::Imul_r64_rm64_imm32, Register::RCX, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), -0x5BED_5AA6).unwrap()),
+		(64, "660F78C1A5FD", DecoderOptions::NONE, Instruction::with3(Code::Extrq_xmm_imm8_imm8, Register::XMM1, 0xA5, 0xFD).unwrap()),
+		(64, "660F78C1A5FD", DecoderOptions::NONE, Instruction::with3(Code::Extrq_xmm_imm8_imm8, Register::XMM1, 0xA5, 0xFD).unwrap()),
+		(64, "64660FA4947501EFCDAB5A", DecoderOptions::NONE, Instruction::with3(Code::Shld_rm16_r16_imm8, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), Register::DX, 0x5A).unwrap()),
+		(64, "64660FA4947501EFCDAB5A", DecoderOptions::NONE, Instruction::with3(Code::Shld_rm16_r16_imm8, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), Register::DX, 0x5A).unwrap()),
+		(64, "F20F78CAA5FD", DecoderOptions::NONE, Instruction::with4(Code::Insertq_xmm_xmm_imm8_imm8, Register::XMM1, Register::XMM2, 0xA5, 0xFD).unwrap()),
+		(64, "F20F78CAA5FD", DecoderOptions::NONE, Instruction::with4(Code::Insertq_xmm_xmm_imm8_imm8, Register::XMM1, Register::XMM2, 0xA5, 0xFD).unwrap()),
 		(16, "0FB855AA", DecoderOptions::JMPE, Instruction::try_with_branch(Code::Jmpe_disp16, 0xAA55).unwrap()),
 		(32, "0FB8123455AA", DecoderOptions::JMPE, Instruction::try_with_branch(Code::Jmpe_disp32, 0xAA55_3412).unwrap()),
 		(32, "64676E", DecoderOptions::NONE, Instruction::try_with_outsb(16, Register::FS, RepPrefixKind::None).unwrap()),
@@ -1720,7 +1784,8 @@ fn with_test_vex() {
 
 #[test]
 #[cfg(not(feature = "no_vex"))]
-fn try_with_test_vex() {
+#[allow(deprecated)]
+fn try_with_test_vex_deprec() {
 	#[rustfmt::skip]
 	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
 		(64, "C5E814CB", DecoderOptions::NONE, Instruction::with_reg_reg_reg(Code::VEX_Vunpcklps_xmm_xmm_xmmm128, Register::XMM1, Register::XMM2, Register::XMM3)),
@@ -1736,6 +1801,31 @@ fn try_with_test_vex() {
 		(64, "64C4E3E9488C7501EFCDAB31", DecoderOptions::NONE, Instruction::try_with_reg_reg_reg_mem_u32(Code::VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, Register::XMM1, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x1).unwrap()),
 		(64, "64C4E369488C7501EFCDAB41", DecoderOptions::NONE, Instruction::try_with_reg_reg_mem_reg_i32(Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), Register::XMM4, 0x1).unwrap()),
 		(64, "64C4E369488C7501EFCDAB41", DecoderOptions::NONE, Instruction::try_with_reg_reg_mem_reg_u32(Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), Register::XMM4, 0x1).unwrap()),
+		(32, "6467C5F9F7D3", DecoderOptions::NONE, Instruction::try_with_vmaskmovdqu(16, Register::XMM2, Register::XMM3, Register::FS).unwrap()),
+		(64, "6467C5F9F7D3", DecoderOptions::NONE, Instruction::try_with_vmaskmovdqu(32, Register::XMM2, Register::XMM3, Register::FS).unwrap()),
+		(64, "64C5F9F7D3", DecoderOptions::NONE, Instruction::try_with_vmaskmovdqu(64, Register::XMM2, Register::XMM3, Register::FS).unwrap()),
+	];
+	with_test_core(tests);
+}
+
+#[test]
+#[cfg(not(feature = "no_vex"))]
+fn try_with_test_vex() {
+	#[rustfmt::skip]
+	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
+		(64, "C5E814CB", DecoderOptions::NONE, Instruction::with3(Code::VEX_Vunpcklps_xmm_xmm_xmmm128, Register::XMM1, Register::XMM2, Register::XMM3).unwrap()),
+		(64, "64C5E8148C7501EFCDAB", DecoderOptions::NONE, Instruction::with3(Code::VEX_Vunpcklps_xmm_xmm_xmmm128, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS)).unwrap()),
+		(64, "64C4E261908C7501EFCDAB", DecoderOptions::NONE, Instruction::with3(Code::VEX_Vpgatherdd_xmm_vm32x_xmm, Register::XMM1, MemoryOperand::new(Register::RBP, Register::XMM6, 2, -0x5432_10FF, 8, false, Register::FS), Register::XMM3).unwrap()),
+		(64, "64C4E2692E9C7501EFCDAB", DecoderOptions::NONE, Instruction::with3(Code::VEX_Vmaskmovps_m128_xmm_xmm, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), Register::XMM2, Register::XMM3).unwrap()),
+		(64, "C4E3694ACB40", DecoderOptions::NONE, Instruction::with4(Code::VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Register::XMM1, Register::XMM2, Register::XMM3, Register::XMM4).unwrap()),
+		(64, "64C4E3E95C8C7501EFCDAB30", DecoderOptions::NONE, Instruction::with4(Code::VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128, Register::XMM1, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS)).unwrap()),
+		(64, "64C4E3694A8C7501EFCDAB40", DecoderOptions::NONE, Instruction::with4(Code::VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), Register::XMM4).unwrap()),
+		(64, "C4E36948CB40", DecoderOptions::NONE, Instruction::with5(Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Register::XMM1, Register::XMM2, Register::XMM3, Register::XMM4, 0x0).unwrap()),
+		(64, "C4E36948CB40", DecoderOptions::NONE, Instruction::with5(Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Register::XMM1, Register::XMM2, Register::XMM3, Register::XMM4, 0x0).unwrap()),
+		(64, "64C4E3E9488C7501EFCDAB31", DecoderOptions::NONE, Instruction::with5(Code::VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, Register::XMM1, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x1).unwrap()),
+		(64, "64C4E3E9488C7501EFCDAB31", DecoderOptions::NONE, Instruction::with5(Code::VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, Register::XMM1, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x1).unwrap()),
+		(64, "64C4E369488C7501EFCDAB41", DecoderOptions::NONE, Instruction::with5(Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), Register::XMM4, 0x1).unwrap()),
+		(64, "64C4E369488C7501EFCDAB41", DecoderOptions::NONE, Instruction::with5(Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), Register::XMM4, 0x1).unwrap()),
 		(32, "6467C5F9F7D3", DecoderOptions::NONE, Instruction::try_with_vmaskmovdqu(16, Register::XMM2, Register::XMM3, Register::FS).unwrap()),
 		(64, "6467C5F9F7D3", DecoderOptions::NONE, Instruction::try_with_vmaskmovdqu(32, Register::XMM2, Register::XMM3, Register::FS).unwrap()),
 		(64, "64C5F9F7D3", DecoderOptions::NONE, Instruction::try_with_vmaskmovdqu(64, Register::XMM2, Register::XMM3, Register::FS).unwrap()),
@@ -1761,7 +1851,8 @@ fn with_test_evex() {
 
 #[test]
 #[cfg(not(feature = "no_evex"))]
-fn try_with_test_evex() {
+#[allow(deprecated)]
+fn try_with_test_evex_deprec() {
 	#[rustfmt::skip]
 	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
 		(64, "62F1F50873D2A5", DecoderOptions::NONE, Instruction::try_with_reg_reg_i32(Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register::XMM1, Register::XMM2, 0xA5).unwrap()),
@@ -1770,6 +1861,21 @@ fn try_with_test_evex() {
 		(64, "62F16D08C4CBA5", DecoderOptions::NONE, Instruction::try_with_reg_reg_reg_u32(Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM1, Register::XMM2, Register::EBX, 0xA5).unwrap()),
 		(64, "6462F16D08C48C7501EFCDABA5", DecoderOptions::NONE, Instruction::try_with_reg_reg_mem_i32(Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0xA5).unwrap()),
 		(64, "6462F16D08C48C7501EFCDABA5", DecoderOptions::NONE, Instruction::try_with_reg_reg_mem_u32(Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0xA5).unwrap()),
+	];
+	with_test_core(tests);
+}
+
+#[test]
+#[cfg(not(feature = "no_evex"))]
+fn try_with_test_evex() {
+	#[rustfmt::skip]
+	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
+		(64, "62F1F50873D2A5", DecoderOptions::NONE, Instruction::with3(Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register::XMM1, Register::XMM2, 0xA5).unwrap()),
+		(64, "6462F1F50873947501EFCDABA5", DecoderOptions::NONE, Instruction::with3(Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register::XMM1, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0xA5).unwrap()),
+		(64, "62F16D08C4CBA5", DecoderOptions::NONE, Instruction::with4(Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM1, Register::XMM2, Register::EBX, 0xA5).unwrap()),
+		(64, "62F16D08C4CBA5", DecoderOptions::NONE, Instruction::with4(Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM1, Register::XMM2, Register::EBX, 0xA5).unwrap()),
+		(64, "6462F16D08C48C7501EFCDABA5", DecoderOptions::NONE, Instruction::with4(Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0xA5).unwrap()),
+		(64, "6462F16D08C48C7501EFCDABA5", DecoderOptions::NONE, Instruction::with4(Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0xA5).unwrap()),
 	];
 	with_test_core(tests);
 }
@@ -1944,7 +2050,7 @@ fn get_set_op_kind_panics_if_invalid_input() {
 
 #[test]
 fn get_set_op_kind_fails_if_invalid_input() {
-	let mut instr = Instruction::try_with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
+	let mut instr = Instruction::with2(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
 
 	let _ = instr.try_op_kind(0).unwrap();
 	let _ = instr.try_op_kind(1).unwrap();
@@ -1963,7 +2069,7 @@ fn get_set_op_kind_fails_if_invalid_input() {
 
 #[test]
 fn try_immediate_fails_if_invalid_input() {
-	let instr = Instruction::try_with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
+	let instr = Instruction::with2(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
 
 	assert!(instr.try_immediate(0).is_err());
 	assert!(instr.try_immediate(1).is_ok());
@@ -2093,7 +2199,7 @@ fn get_set_immediate_fails_if_invalid_input() {
 
 #[test]
 fn try_get_set_immediate_fails_if_invalid_input() {
-	let mut instr = Instruction::try_with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
+	let mut instr = Instruction::with2(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
 
 	assert!(instr.try_immediate(0).is_err());
 	let _ = instr.try_immediate(1).unwrap();
@@ -2151,7 +2257,7 @@ fn get_set_register_panics_if_invalid_input() {
 
 #[test]
 fn get_set_register_fails_if_invalid_input() {
-	let mut instr = Instruction::try_with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
+	let mut instr = Instruction::with2(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
 
 	for i in 0..IcedConstants::MAX_OP_COUNT as u32 {
 		let _ = instr.try_op_register(i).unwrap();
@@ -2342,32 +2448,32 @@ fn get_declare_xxx_value_fails_if_invalid_input() {
 fn encode_invalid_reg_op_size() {
 	#[rustfmt::skip]
 	let tests: Vec<(u32, Instruction)> = vec![
-		(16, Instruction::with_reg_mem(Code::Movdir64b_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX))),
-		(32, Instruction::with_reg_mem(Code::Movdir64b_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX))),
+		(16, Instruction::with2(Code::Movdir64b_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX)).unwrap()),
+		(32, Instruction::with2(Code::Movdir64b_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX)).unwrap()),
 
-		(16, Instruction::with_reg_mem(Code::Movdir64b_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX))),
-		(32, Instruction::with_reg_mem(Code::Movdir64b_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX))),
-		(64, Instruction::with_reg_mem(Code::Movdir64b_r32_m512, Register::ECX, MemoryOperand::with_base(Register::RBX))),
+		(16, Instruction::with2(Code::Movdir64b_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX)).unwrap()),
+		(32, Instruction::with2(Code::Movdir64b_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX)).unwrap()),
+		(64, Instruction::with2(Code::Movdir64b_r32_m512, Register::ECX, MemoryOperand::with_base(Register::RBX)).unwrap()),
 
-		(64, Instruction::with_reg_mem(Code::Movdir64b_r64_m512, Register::RCX, MemoryOperand::with_base(Register::EBX))),
+		(64, Instruction::with2(Code::Movdir64b_r64_m512, Register::RCX, MemoryOperand::with_base(Register::EBX)).unwrap()),
 
-		(16, Instruction::with_reg_mem(Code::Enqcmds_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX))),
-		(32, Instruction::with_reg_mem(Code::Enqcmds_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX))),
+		(16, Instruction::with2(Code::Enqcmds_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX)).unwrap()),
+		(32, Instruction::with2(Code::Enqcmds_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX)).unwrap()),
 
-		(16, Instruction::with_reg_mem(Code::Enqcmds_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX))),
-		(32, Instruction::with_reg_mem(Code::Enqcmds_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX))),
-		(64, Instruction::with_reg_mem(Code::Enqcmds_r32_m512, Register::ECX, MemoryOperand::with_base(Register::RBX))),
+		(16, Instruction::with2(Code::Enqcmds_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX)).unwrap()),
+		(32, Instruction::with2(Code::Enqcmds_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX)).unwrap()),
+		(64, Instruction::with2(Code::Enqcmds_r32_m512, Register::ECX, MemoryOperand::with_base(Register::RBX)).unwrap()),
 
-		(64, Instruction::with_reg_mem(Code::Enqcmds_r64_m512, Register::RCX, MemoryOperand::with_base(Register::EBX))),
+		(64, Instruction::with2(Code::Enqcmds_r64_m512, Register::RCX, MemoryOperand::with_base(Register::EBX)).unwrap()),
 
-		(16, Instruction::with_reg_mem(Code::Enqcmd_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX))),
-		(32, Instruction::with_reg_mem(Code::Enqcmd_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX))),
+		(16, Instruction::with2(Code::Enqcmd_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX)).unwrap()),
+		(32, Instruction::with2(Code::Enqcmd_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX)).unwrap()),
 
-		(16, Instruction::with_reg_mem(Code::Enqcmd_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX))),
-		(32, Instruction::with_reg_mem(Code::Enqcmd_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX))),
-		(64, Instruction::with_reg_mem(Code::Enqcmd_r32_m512, Register::ECX, MemoryOperand::with_base(Register::RBX))),
+		(16, Instruction::with2(Code::Enqcmd_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX)).unwrap()),
+		(32, Instruction::with2(Code::Enqcmd_r32_m512, Register::ECX, MemoryOperand::with_base(Register::BX)).unwrap()),
+		(64, Instruction::with2(Code::Enqcmd_r32_m512, Register::ECX, MemoryOperand::with_base(Register::RBX)).unwrap()),
 
-		(64, Instruction::with_reg_mem(Code::Enqcmd_r64_m512, Register::RCX, MemoryOperand::with_base(Register::EBX))),
+		(64, Instruction::with2(Code::Enqcmd_r64_m512, Register::RCX, MemoryOperand::with_base(Register::EBX)).unwrap()),
 	];
 	for (bitness, instr) in tests {
 		let mut encoder = Encoder::new(bitness);
@@ -2557,11 +2663,12 @@ fn create_fails_if_invalid_bitness_vex() {
 #[test]
 #[cfg(not(feature = "no_evex"))]
 fn encoding_instruction_requiring_opmask_fails_if_no_opmask() {
-	let instr = Instruction::with_reg_mem(
+	let instr = Instruction::with2(
 		Code::EVEX_Vpgatherdd_xmm_k1_vm32x,
 		Register::XMM1,
 		MemoryOperand::with_base_index_scale(Register::RDX, Register::XMM3, 4),
-	);
+	)
+	.unwrap();
 	assert!(!instr.has_op_mask());
 	let mut encoder = Encoder::new(64);
 	let error_message = encoder.encode(&instr, 0).expect_err("It should fail to encode an invalid instruction");
@@ -2836,7 +2943,8 @@ fn create_imm_works() {
 }
 
 #[test]
-fn try_create_imm_works() {
+#[allow(deprecated)]
+fn try_create_imm_works_deprec() {
 	// OpKind::Immediate8
 	for &imm in &[-0x80i32, 0xFF] {
 		let instr = Instruction::try_with_reg_i32(Code::Add_rm8_imm8, Register::CL, imm).unwrap();
@@ -3069,6 +3177,244 @@ fn try_create_imm_works() {
 	}
 	for &imm in &[u64::MIN, u64::MAX] {
 		let instr = Instruction::try_with_reg_u64(Code::Mov_r64_imm64, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate64(), imm);
+	}
+}
+
+#[test]
+fn try_create_imm_works() {
+	// OpKind::Immediate8
+	for &imm in &[-0x80i32, 0xFF] {
+		let instr = Instruction::with2(Code::Add_rm8_imm8, Register::CL, imm).unwrap();
+		assert_eq!(instr.immediate8(), imm as u8);
+	}
+	for &imm in &[-0x81i32, 0x100] {
+		assert!(Instruction::with2(Code::Add_rm8_imm8, Register::CL, imm).is_err());
+	}
+	for &imm in &[-0x80i64, 0xFF] {
+		let instr = Instruction::with2(Code::Add_rm8_imm8, Register::CL, imm).unwrap();
+		assert_eq!(instr.immediate8(), imm as u8);
+	}
+	for &imm in &[-0x81i64, 0x100] {
+		assert!(Instruction::with2(Code::Add_rm8_imm8, Register::CL, imm).is_err());
+	}
+	for &imm in &[0u32, 0xFF] {
+		let instr = Instruction::with2(Code::Add_rm8_imm8, Register::CL, imm).unwrap();
+		assert_eq!(instr.immediate8() as u32, imm);
+	}
+	for &imm in &[0x100u32, 0xFFFF_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm8_imm8, Register::CL, imm).is_err());
+	}
+	for &imm in &[0u64, 0xFF] {
+		let instr = Instruction::with2(Code::Add_rm8_imm8, Register::CL, imm).unwrap();
+		assert_eq!(instr.immediate8() as u64, imm);
+	}
+	for &imm in &[0x100u64, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm8_imm8, Register::CL, imm).is_err());
+	}
+
+	// OpKind::Immediate8_2nd
+	for &imm in &[-0x80i32, 0xFF] {
+		let instr = Instruction::with2(Code::Enterq_imm16_imm8, 0, imm).unwrap();
+		assert_eq!(instr.immediate8_2nd(), imm as u8);
+	}
+	for &imm in &[-0x81i32, 0x100] {
+		assert!(Instruction::with2(Code::Enterq_imm16_imm8, 0, imm).is_err());
+	}
+	for &imm in &[0u32, 0xFF] {
+		let instr = Instruction::with2(Code::Enterq_imm16_imm8, 0, imm).unwrap();
+		assert_eq!(instr.immediate8_2nd() as u32, imm);
+	}
+	for &imm in &[0x100u32, 0xFFFF_FFFF] {
+		assert!(Instruction::with2(Code::Enterq_imm16_imm8, 0, imm).is_err());
+	}
+
+	// OpKind::Immediate8to16
+	for &imm in &[-0x80i32, 0x7F] {
+		let instr = Instruction::with2(Code::Add_rm16_imm8, Register::CX, imm).unwrap();
+		assert_eq!(instr.immediate8to16() as i32, imm);
+	}
+	for &imm in &[-0x81i32, 0x80] {
+		assert!(Instruction::with2(Code::Add_rm16_imm8, Register::CX, imm).is_err());
+	}
+	for &imm in &[-0x80i64, 0x7F] {
+		let instr = Instruction::with2(Code::Add_rm16_imm8, Register::CX, imm).unwrap();
+		assert_eq!(instr.immediate8to16() as i64, imm);
+	}
+	for &imm in &[-0x81i64, 0x80] {
+		assert!(Instruction::with2(Code::Add_rm16_imm8, Register::CX, imm).is_err());
+	}
+	for &imm in &[0u32, 0x7F, 0xFF80, 0xFFFF] {
+		let instr = Instruction::with2(Code::Add_rm16_imm8, Register::CX, imm).unwrap();
+		assert_eq!(instr.immediate8to16() as u16 as u32, imm);
+	}
+	for &imm in &[0x80u32, 0xFF7F, 0x0001_0000, 0xFFFF_FFFF, 0x0001_FF80, 0x0001_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm16_imm8, Register::CX, imm).is_err());
+	}
+	for &imm in &[0u64, 0x7F, 0xFF80, 0xFFFF] {
+		let instr = Instruction::with2(Code::Add_rm16_imm8, Register::CX, imm).unwrap();
+		assert_eq!(instr.immediate8to16() as u16 as u64, imm);
+	}
+	for &imm in &[0x80u64, 0xFF7F, 0x0001_0000, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF, 0x0001_FF80, 0x0001_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm16_imm8, Register::CX, imm).is_err());
+	}
+
+	// OpKind::Immediate8to32
+	for &imm in &[-0x80i32, 0x7F] {
+		let instr = Instruction::with2(Code::Add_rm32_imm8, Register::ECX, imm).unwrap();
+		assert_eq!(instr.immediate8to32(), imm);
+	}
+	for &imm in &[-0x81i32, 0x80] {
+		assert!(Instruction::with2(Code::Add_rm32_imm8, Register::ECX, imm).is_err());
+	}
+	for &imm in &[-0x80i64, 0x7F] {
+		let instr = Instruction::with2(Code::Add_rm32_imm8, Register::ECX, imm).unwrap();
+		assert_eq!(instr.immediate8to32() as i64, imm);
+	}
+	for &imm in &[-0x81i64, 0x80] {
+		assert!(Instruction::with2(Code::Add_rm32_imm8, Register::ECX, imm).is_err());
+	}
+	for &imm in &[0u32, 0x7F, 0xFFFF_FF80, 0xFFFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm32_imm8, Register::ECX, imm).unwrap();
+		assert_eq!(instr.immediate8to32() as u32, imm);
+	}
+	for &imm in &[0x80u32, 0xFFFF_FF7F] {
+		assert!(Instruction::with2(Code::Add_rm32_imm8, Register::ECX, imm).is_err());
+	}
+	for &imm in &[0u64, 0x7F, 0xFFFF_FF80, 0xFFFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm32_imm8, Register::ECX, imm).unwrap();
+		assert_eq!(instr.immediate8to32() as u32 as u64, imm);
+	}
+	for &imm in &[0x80u64, 0xFFFF_FF7F, 0x0001_0000_0000, 0xFFFF_FFFF_FFFF_FFFF, 0x0001_FFFF_FF80, 0x0001_FFFF_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm32_imm8, Register::ECX, imm).is_err());
+	}
+
+	// OpKind::Immediate8to64
+	for &imm in &[-0x80i32, 0x7F] {
+		let instr = Instruction::with2(Code::Add_rm64_imm8, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate8to64(), imm as i64);
+	}
+	for &imm in &[-0x81i32, 0x80] {
+		assert!(Instruction::with2(Code::Add_rm64_imm8, Register::RCX, imm).is_err());
+	}
+	for &imm in &[-0x80i64, 0x7F] {
+		let instr = Instruction::with2(Code::Add_rm64_imm8, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate8to64(), imm);
+	}
+	for &imm in &[-0x81i64, 0x80] {
+		assert!(Instruction::with2(Code::Add_rm64_imm8, Register::RCX, imm).is_err());
+	}
+	for &imm in &[0u32, 0x7F] {
+		let instr = Instruction::with2(Code::Add_rm64_imm8, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate8to64(), imm as i64);
+	}
+	for &imm in &[0x80u32, 0xFFFF_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm64_imm8, Register::RCX, imm).is_err());
+	}
+	for &imm in &[0u64, 0x7F, 0xFFFF_FFFF_FFFF_FF80, 0xFFFF_FFFF_FFFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm64_imm8, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate8to64() as u64, imm);
+	}
+	for &imm in &[0x80u64, 0xFFFF_FFFF_FFFF_FF7F] {
+		assert!(Instruction::with2(Code::Add_rm64_imm8, Register::RCX, imm).is_err());
+	}
+
+	// OpKind::Immediate32to64
+	for &imm in &[-0x8000_0000i32, 0x7FFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm64_imm32, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate32to64(), imm as i64);
+	}
+	for &imm in &[-0x8000_0000i64, 0x7FFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm64_imm32, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate32to64(), imm);
+	}
+	for &imm in &[-0x8000_0001i64, 0x8000_0000] {
+		assert!(Instruction::with2(Code::Add_rm64_imm32, Register::RCX, imm).is_err());
+	}
+	for &imm in &[0u32, 0x7FFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm64_imm32, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate32to64(), imm as i64);
+	}
+	for &imm in &[0x8000_0000u32, 0xFFFF_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm64_imm32, Register::RCX, imm).is_err());
+	}
+	for &imm in &[0u64, 0x7FFF_FFFF, 0xFFFF_FFFF_8000_0000, 0xFFFF_FFFF_FFFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm64_imm32, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate32to64() as u64, imm);
+	}
+	for &imm in &[0x8000_0000u64, 0x0001_0000_0000, 0xFFFF_FFFF_7FFF_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm64_imm32, Register::RCX, imm).is_err());
+	}
+
+	// OpKind::Immediate16
+	for &imm in &[-0x8000i32, 0xFFFF] {
+		let instr = Instruction::with2(Code::Add_rm16_imm16, Register::CX, imm).unwrap();
+		assert_eq!(instr.immediate16(), imm as u16);
+	}
+	for &imm in &[-0x8001i32, 0x0001_0000] {
+		assert!(Instruction::with2(Code::Add_rm16_imm16, Register::CX, imm).is_err());
+	}
+	for &imm in &[-0x8000i64, 0xFFFF] {
+		let instr = Instruction::with2(Code::Add_rm16_imm16, Register::CX, imm).unwrap();
+		assert_eq!(instr.immediate16(), imm as u16);
+	}
+	for &imm in &[-0x8001i64, 0x0001_0000] {
+		assert!(Instruction::with2(Code::Add_rm16_imm16, Register::CX, imm).is_err());
+	}
+	for &imm in &[0u32, 0xFFFF] {
+		let instr = Instruction::with2(Code::Add_rm16_imm16, Register::CX, imm).unwrap();
+		assert_eq!(instr.immediate16() as u32, imm);
+	}
+	for &imm in &[0x0001_0000u32, 0xFFFF_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm16_imm16, Register::CX, imm).is_err());
+	}
+	for &imm in &[0u64, 0xFFFF] {
+		let instr = Instruction::with2(Code::Add_rm16_imm16, Register::CX, imm).unwrap();
+		assert_eq!(instr.immediate16() as u64, imm);
+	}
+	for &imm in &[0x0001_0000u64, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm16_imm16, Register::CX, imm).is_err());
+	}
+
+	// OpKind::Immediate32
+	for &imm in &[-0x8000_0000i32, 0x7FFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm32_imm32, Register::ECX, imm).unwrap();
+		assert_eq!(instr.immediate32(), imm as u32);
+	}
+	for &imm in &[-0x8000_0000i64, 0xFFFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm32_imm32, Register::ECX, imm).unwrap();
+		assert_eq!(instr.immediate32(), imm as u32);
+	}
+	for &imm in &[-0x8000_0001i64, 0x0001_0000_0000] {
+		assert!(Instruction::with2(Code::Add_rm32_imm32, Register::ECX, imm).is_err());
+	}
+	for &imm in &[0u32, 0xFFFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm32_imm32, Register::ECX, imm).unwrap();
+		assert_eq!(instr.immediate32(), imm);
+	}
+	for &imm in &[0u64, 0xFFFF_FFFF] {
+		let instr = Instruction::with2(Code::Add_rm32_imm32, Register::ECX, imm).unwrap();
+		assert_eq!(instr.immediate32() as u64, imm);
+	}
+	for &imm in &[0x0001_0000_0000u64, 0xFFFF_FFFF_FFFF_FFFF] {
+		assert!(Instruction::with2(Code::Add_rm32_imm32, Register::ECX, imm).is_err());
+	}
+
+	// OpKind::Immediate64
+	for &imm in &[i32::MIN, i32::MAX] {
+		let instr = Instruction::with2(Code::Mov_r64_imm64, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate64(), imm as u64);
+	}
+	for &imm in &[i64::MIN, i64::MAX] {
+		let instr = Instruction::with2(Code::Mov_r64_imm64, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate64(), imm as u64);
+	}
+	for &imm in &[u32::MIN, u32::MAX] {
+		let instr = Instruction::with2(Code::Mov_r64_imm64, Register::RCX, imm).unwrap();
+		assert_eq!(instr.immediate64(), imm as u64);
+	}
+	for &imm in &[u64::MIN, u64::MAX] {
+		let instr = Instruction::with2(Code::Mov_r64_imm64, Register::RCX, imm).unwrap();
 		assert_eq!(instr.immediate64(), imm);
 	}
 }

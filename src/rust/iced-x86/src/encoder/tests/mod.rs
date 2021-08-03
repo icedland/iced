@@ -319,41 +319,41 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 
 	#[allow(unused_mut)]
 	let mut tests: Vec<(u32, &'static str, u64, Instruction)> = vec![
-		(16, "0F10 8C 3412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory16)),
-		(32, "0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory32)),
-		(64, "41 0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory64)),
+		(16, "0F10 8C 3412", RIP, Instruction::with2(Code::Movups_xmm_xmmm128, Register::XMM1, memory16).unwrap()),
+		(32, "0F10 8E 78563412", RIP, Instruction::with2(Code::Movups_xmm_xmmm128, Register::XMM1, memory32).unwrap()),
+		(64, "41 0F10 8E 78563412", RIP, Instruction::with2(Code::Movups_xmm_xmmm128, Register::XMM1, memory64).unwrap()),
 	];
 
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	#[cfg(not(feature = "no_vex"))]
 	{
-		tests.push((16, "C5F8 10 8C 3412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory16)));
-		tests.push((32, "C5F8 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory32)));
-		tests.push((64, "C4C178 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory64)));
+		tests.push((16, "C5F8 10 8C 3412", RIP, Instruction::with2(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory16).unwrap()));
+		tests.push((32, "C5F8 10 8E 78563412", RIP, Instruction::with2(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory32).unwrap()));
+		tests.push((64, "C4C178 10 8E 78563412", RIP, Instruction::with2(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory64).unwrap()));
 	}
 
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	#[cfg(not(feature = "no_evex"))]
 	{
-		tests.push((16, "62 F17C08 10 8C 3412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory16)));
-		tests.push((32, "62 F17C08 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory32)));
-		tests.push((64, "62 D17C08 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory64)));
+		tests.push((16, "62 F17C08 10 8C 3412", RIP, Instruction::with2(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory16).unwrap()));
+		tests.push((32, "62 F17C08 10 8E 78563412", RIP, Instruction::with2(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory32).unwrap()));
+		tests.push((64, "62 D17C08 10 8E 78563412", RIP, Instruction::with2(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory64).unwrap()));
 	}
 
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	#[cfg(not(feature = "no_xop"))]
 	{
-		tests.push((16, "8F E878C0 8C 3412 A5", RIP, Instruction::try_with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory16, 0xA5).unwrap()));
-		tests.push((32, "8F E878C0 8E 78563412 A5", RIP, Instruction::try_with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory32, 0xA5).unwrap()));
-		tests.push((64, "8F C878C0 8E 78563412 A5", RIP, Instruction::try_with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory64, 0xA5).unwrap()));
+		tests.push((16, "8F E878C0 8C 3412 A5", RIP, Instruction::with3(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory16, 0xA5).unwrap()));
+		tests.push((32, "8F E878C0 8E 78563412 A5", RIP, Instruction::with3(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory32, 0xA5).unwrap()));
+		tests.push((64, "8F C878C0 8E 78563412 A5", RIP, Instruction::with3(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory64, 0xA5).unwrap()));
 	}
 
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	#[cfg(not(feature = "no_d3now"))]
 	{
-		tests.push((16, "0F0F 8C 3412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory16)));
-		tests.push((32, "0F0F 8E 78563412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory32)));
-		tests.push((64, "0F0F 8E 78563412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory64)));
+		tests.push((16, "0F0F 8C 3412 0C", RIP, Instruction::with2(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory16).unwrap()));
+		tests.push((32, "0F0F 8E 78563412 0C", RIP, Instruction::with2(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory32).unwrap()));
+		tests.push((64, "0F0F 8E 78563412 0C", RIP, Instruction::with2(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory64).unwrap()));
 	}
 
 	// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
@@ -371,7 +371,7 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 #[test]
 fn encode_bp_with_no_displ() {
 	let mut encoder = Encoder::new(16);
-	let instr = Instruction::with_reg_mem(Code::Mov_r16_rm16, Register::AX, MemoryOperand::with_base(Register::BP));
+	let instr = Instruction::with2(Code::Mov_r16_rm16, Register::AX, MemoryOperand::with_base(Register::BP)).unwrap();
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x8B, 0x46, 0x00];
 	let actual = encoder.take_buffer();
@@ -382,7 +382,7 @@ fn encode_bp_with_no_displ() {
 #[test]
 fn encode_ebp_with_no_displ() {
 	let mut encoder = Encoder::new(32);
-	let instr = Instruction::with_reg_mem(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base(Register::EBP));
+	let instr = Instruction::with2(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base(Register::EBP)).unwrap();
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x8B, 0x45, 0x00];
 	let actual = encoder.take_buffer();
@@ -393,7 +393,7 @@ fn encode_ebp_with_no_displ() {
 #[test]
 fn encode_ebp_edx_with_no_displ() {
 	let mut encoder = Encoder::new(32);
-	let instr = Instruction::with_reg_mem(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base_index(Register::EBP, Register::EDX));
+	let instr = Instruction::with2(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base_index(Register::EBP, Register::EDX)).unwrap();
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x8B, 0x44, 0x15, 0x00];
 	let actual = encoder.take_buffer();
@@ -404,7 +404,7 @@ fn encode_ebp_edx_with_no_displ() {
 #[test]
 fn encode_r13d_with_no_displ() {
 	let mut encoder = Encoder::new(64);
-	let instr = Instruction::with_reg_mem(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base(Register::R13D));
+	let instr = Instruction::with2(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base(Register::R13D)).unwrap();
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x67, 0x41, 0x8B, 0x45, 0x00];
 	let actual = encoder.take_buffer();
@@ -415,7 +415,7 @@ fn encode_r13d_with_no_displ() {
 #[test]
 fn encode_r13d_edx_with_no_displ() {
 	let mut encoder = Encoder::new(64);
-	let instr = Instruction::with_reg_mem(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base_index(Register::R13D, Register::EDX));
+	let instr = Instruction::with2(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base_index(Register::R13D, Register::EDX)).unwrap();
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x67, 0x41, 0x8B, 0x44, 0x15, 0x00];
 	let actual = encoder.take_buffer();
@@ -426,7 +426,7 @@ fn encode_r13d_edx_with_no_displ() {
 #[test]
 fn encode_rbp_with_no_displ() {
 	let mut encoder = Encoder::new(64);
-	let instr = Instruction::with_reg_mem(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base(Register::RBP));
+	let instr = Instruction::with2(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base(Register::RBP)).unwrap();
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x48, 0x8B, 0x45, 0x00];
 	let actual = encoder.take_buffer();
@@ -437,7 +437,7 @@ fn encode_rbp_with_no_displ() {
 #[test]
 fn encode_rbp_rdx_with_no_displ() {
 	let mut encoder = Encoder::new(64);
-	let instr = Instruction::with_reg_mem(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base_index(Register::RBP, Register::RDX));
+	let instr = Instruction::with2(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base_index(Register::RBP, Register::RDX)).unwrap();
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x48, 0x8B, 0x44, 0x15, 0x00];
 	let actual = encoder.take_buffer();
@@ -448,7 +448,7 @@ fn encode_rbp_rdx_with_no_displ() {
 #[test]
 fn encode_r13_with_no_displ() {
 	let mut encoder = Encoder::new(64);
-	let instr = Instruction::with_reg_mem(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base(Register::R13));
+	let instr = Instruction::with2(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base(Register::R13)).unwrap();
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x49, 0x8B, 0x45, 0x00];
 	let actual = encoder.take_buffer();
@@ -459,7 +459,7 @@ fn encode_r13_with_no_displ() {
 #[test]
 fn encode_r13_rdx_with_no_displ() {
 	let mut encoder = Encoder::new(64);
-	let instr = Instruction::with_reg_mem(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base_index(Register::R13, Register::RDX));
+	let instr = Instruction::with2(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base_index(Register::R13, Register::RDX)).unwrap();
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x49, 0x8B, 0x44, 0x15, 0x00];
 	let actual = encoder.take_buffer();
@@ -1040,7 +1040,7 @@ fn op_code_info_is_available_in_mode_panics_if_invalid_bitness_128() {
 #[test]
 fn write_byte_works() {
 	let mut encoder = Encoder::new(64);
-	let instr = Instruction::with_reg_reg(Code::Add_r64_rm64, Register::R8, Register::RBP);
+	let instr = Instruction::with2(Code::Add_r64_rm64, Register::R8, Register::RBP).unwrap();
 	encoder.write_u8(0x90);
 	assert_eq!(encoder.encode(&instr, 0x5555_5555).unwrap(), 3);
 	encoder.write_u8(0xCC);

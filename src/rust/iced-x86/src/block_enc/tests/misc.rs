@@ -185,11 +185,12 @@ fn encode_slice_with_invalid_bitness_fails_128() {
 
 #[test]
 fn encode_rip_rel_mem_op() {
-	let instr = Instruction::with_reg_mem(
+	let instr = Instruction::with2(
 		Code::Add_r32_rm32,
 		Register::ECX,
 		MemoryOperand::new(Register::RIP, Register::None, 1, 0x1234_5678_9ABC_DEF1, 8, false, Register::None),
-	);
+	)
+	.unwrap();
 	let vec_result = BlockEncoder::encode_slice(64, &[InstructionBlock::new(&[instr], 0x1234_5678_ABCD_EF02)], BlockEncoderOptions::NONE).unwrap();
 	assert_eq!(vec_result.len(), 1);
 	let result = &vec_result[0];

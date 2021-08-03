@@ -3870,6 +3870,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -3888,7 +3892,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -3907,7 +3911,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -3923,6 +3927,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -3939,6 +3947,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -3958,7 +3970,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -3978,7 +3990,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -3998,7 +4010,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4018,7 +4030,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4035,6 +4047,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4054,7 +4070,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4074,7 +4090,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4094,7 +4110,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4114,7 +4130,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4131,6 +4147,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4150,7 +4170,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4170,7 +4190,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4188,6 +4208,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4208,7 +4232,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4229,7 +4253,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4247,6 +4271,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4267,7 +4295,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4288,7 +4316,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4306,6 +4334,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4326,7 +4358,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4347,7 +4379,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4365,6 +4397,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4385,7 +4421,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4406,7 +4442,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4425,6 +4461,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4446,7 +4486,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4468,7 +4508,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4487,6 +4527,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4508,7 +4552,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4530,7 +4574,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4549,6 +4593,10 @@ class Instruction:
 		### Returns:
 
 		- `Instruction`: Created instruction
+
+		### Raises:
+
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4570,7 +4618,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4592,7 +4640,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4615,7 +4663,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4638,7 +4686,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4661,7 +4709,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4684,7 +4732,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4707,7 +4755,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod
@@ -4730,7 +4778,7 @@ class Instruction:
 
 		### Raises:
 
-		- ValueError: If the immediate is invalid
+		- ValueError: If one of the operands is invalid (basic checks)
 		"""
 		...
 	@staticmethod

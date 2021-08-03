@@ -3375,6 +3375,10 @@ impl Instruction {
 
 	/// Creates an instruction with 1 operand
 	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value (a [`Code`] enum value)
@@ -3384,15 +3388,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createReg")]
-	pub fn with_reg(code: Code, register: Register) -> Self {
-		Self(iced_x86_rust::Instruction::with_reg(code_to_iced(code), register_to_iced(register)))
+	pub fn with_reg(code: Code, register: Register) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with1(code_to_iced(code), register_to_iced(register)).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 1 operand
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3403,14 +3407,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createI32")]
 	pub fn with_i32(code: Code, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_i32(code_to_iced(code), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with1(code_to_iced(code), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 1 operand
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3421,10 +3425,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createU32")]
 	pub fn with_u32(code: Code, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_u32(code_to_iced(code), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with1(code_to_iced(code), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 1 operand
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3434,11 +3442,15 @@ impl Instruction {
 	/// [`Code`]: enum.Code.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMem")]
-	pub fn with_mem(code: Code, memory: MemoryOperand) -> Self {
-		Self(iced_x86_rust::Instruction::with_mem(code_to_iced(code), memory.0))
+	pub fn with_mem(code: Code, memory: MemoryOperand) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with1(code_to_iced(code), memory.0).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3450,15 +3462,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegReg")]
-	pub fn with_reg_reg(code: Code, register1: Register, register2: Register) -> Self {
-		Self(iced_x86_rust::Instruction::with_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2)))
+	pub fn with_reg_reg(code: Code, register1: Register, register2: Register) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register1), register_to_iced(register2)).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3471,14 +3483,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegI32")]
 	pub fn with_reg_i32(code: Code, register: Register, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_i32(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3491,14 +3503,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegU32")]
 	pub fn with_reg_u32(code: Code, register: Register, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_u32(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3512,7 +3524,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegI64")]
 	pub fn with_reg_i64(code: Code, register: Register, immediate: i64) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_i64(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3521,7 +3533,7 @@ impl Instruction {
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3537,14 +3549,14 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "createRegI64")]
 	pub fn with_reg_i64(code: Code, register: Register, #[allow(non_snake_case)] immediateHi: u32, #[allow(non_snake_case)] immediateLo: u32) -> Result<Instruction, JsValue> {
 		let immediate = (((immediateHi as u64) << 32) | (immediateLo as u64)) as i64;
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_i64(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3558,7 +3570,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegU64")]
 	pub fn with_reg_u64(code: Code, register: Register, immediate: u64) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_u64(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3567,7 +3579,7 @@ impl Instruction {
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3583,10 +3595,14 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "createRegU64")]
 	pub fn with_reg_u64(code: Code, register: Register, #[allow(non_snake_case)] immediateHi: u32, #[allow(non_snake_case)] immediateLo: u32) -> Result<Instruction, JsValue> {
 		let immediate = ((immediateHi as u64) << 32) | (immediateLo as u64);
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_u64(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3598,15 +3614,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMem")]
-	pub fn with_reg_mem(code: Code, register: Register, memory: MemoryOperand) -> Self {
-		Self(iced_x86_rust::Instruction::with_reg_mem(code_to_iced(code), register_to_iced(register), memory.0))
+	pub fn with_reg_mem(code: Code, register: Register, memory: MemoryOperand) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), memory.0).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3619,14 +3635,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createI32Reg")]
 	pub fn with_i32_reg(code: Code, immediate: i32, register: Register) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_i32_reg(code_to_iced(code), immediate, register_to_iced(register)).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), immediate, register_to_iced(register)).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3639,14 +3655,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createU32Reg")]
 	pub fn with_u32_reg(code: Code, immediate: u32, register: Register) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_u32_reg(code_to_iced(code), immediate, register_to_iced(register)).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), immediate, register_to_iced(register)).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3658,14 +3674,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createI32I32")]
 	pub fn with_i32_i32(code: Code, immediate1: i32, immediate2: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_i32_i32(code_to_iced(code), immediate1, immediate2).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), immediate1, immediate2).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3677,10 +3693,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createU32U32")]
 	pub fn with_u32_u32(code: Code, immediate1: u32, immediate2: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_u32_u32(code_to_iced(code), immediate1, immediate2).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), immediate1, immediate2).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3692,15 +3712,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemReg")]
-	pub fn with_mem_reg(code: Code, memory: MemoryOperand, register: Register) -> Self {
-		Self(iced_x86_rust::Instruction::with_mem_reg(code_to_iced(code), memory.0, register_to_iced(register)))
+	pub fn with_mem_reg(code: Code, memory: MemoryOperand, register: Register) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), memory.0, register_to_iced(register)).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3712,14 +3732,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemI32")]
 	pub fn with_mem_i32(code: Code, memory: MemoryOperand, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_mem_i32(code_to_iced(code), memory.0, immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), memory.0, immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 2 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3731,10 +3751,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemU32")]
 	pub fn with_mem_u32(code: Code, memory: MemoryOperand, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_mem_u32(code_to_iced(code), memory.0, immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), memory.0, immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3747,15 +3771,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegReg")]
-	pub fn with_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register) -> Self {
-		Self(iced_x86_rust::Instruction::with_reg_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3)))
+	pub fn with_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3)).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3769,14 +3793,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegI32")]
 	pub fn with_reg_reg_i32(code: Code, register1: Register, register2: Register, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3790,10 +3814,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegU32")]
 	pub fn with_reg_reg_u32(code: Code, register1: Register, register2: Register, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3806,15 +3834,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMem")]
-	pub fn with_reg_reg_mem(code: Code, register1: Register, register2: Register, memory: MemoryOperand) -> Self {
-		Self(iced_x86_rust::Instruction::with_reg_reg_mem(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0))
+	pub fn with_reg_reg_mem(code: Code, register1: Register, register2: Register, memory: MemoryOperand) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3828,14 +3856,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegI32I32")]
 	pub fn with_reg_i32_i32(code: Code, register: Register, immediate1: i32, immediate2: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_i32_i32(code_to_iced(code), register_to_iced(register), immediate1, immediate2).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), register_to_iced(register), immediate1, immediate2).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3849,10 +3877,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegU32U32")]
 	pub fn with_reg_u32_u32(code: Code, register: Register, immediate1: u32, immediate2: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_u32_u32(code_to_iced(code), register_to_iced(register), immediate1, immediate2).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), register_to_iced(register), immediate1, immediate2).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3865,15 +3897,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMemReg")]
-	pub fn with_reg_mem_reg(code: Code, register1: Register, memory: MemoryOperand, register2: Register) -> Self {
-		Self(iced_x86_rust::Instruction::with_reg_mem_reg(code_to_iced(code), register_to_iced(register1), memory.0, register_to_iced(register2)))
+	pub fn with_reg_mem_reg(code: Code, register1: Register, memory: MemoryOperand, register2: Register) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), register_to_iced(register1), memory.0, register_to_iced(register2)).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3887,14 +3919,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMemI32")]
 	pub fn with_reg_mem_i32(code: Code, register: Register, memory: MemoryOperand, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_mem_i32(code_to_iced(code), register_to_iced(register), memory.0, immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), register_to_iced(register), memory.0, immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3908,10 +3940,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMemU32")]
 	pub fn with_reg_mem_u32(code: Code, register: Register, memory: MemoryOperand, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_mem_u32(code_to_iced(code), register_to_iced(register), memory.0, immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), register_to_iced(register), memory.0, immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3924,15 +3960,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemRegReg")]
-	pub fn with_mem_reg_reg(code: Code, memory: MemoryOperand, register1: Register, register2: Register) -> Self {
-		Self(iced_x86_rust::Instruction::with_mem_reg_reg(code_to_iced(code), memory.0, register_to_iced(register1), register_to_iced(register2)))
+	pub fn with_mem_reg_reg(code: Code, memory: MemoryOperand, register1: Register, register2: Register) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), memory.0, register_to_iced(register1), register_to_iced(register2)).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3946,14 +3982,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemRegI32")]
 	pub fn with_mem_reg_i32(code: Code, memory: MemoryOperand, register: Register, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_mem_reg_i32(code_to_iced(code), memory.0, register_to_iced(register), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), memory.0, register_to_iced(register), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 3 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3967,10 +4003,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemRegU32")]
 	pub fn with_mem_reg_u32(code: Code, memory: MemoryOperand, register: Register, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_mem_reg_u32(code_to_iced(code), memory.0, register_to_iced(register), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with3(code_to_iced(code), memory.0, register_to_iced(register), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 4 operands
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -3984,15 +4024,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegReg")]
-	pub fn with_reg_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register, register4: Register) -> Self {
-		Self(iced_x86_rust::Instruction::with_reg_reg_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4)))
+	pub fn with_reg_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register, register4: Register) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with4(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4)).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 4 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4007,14 +4047,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegI32")]
 	pub fn with_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with4(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 4 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4029,10 +4069,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegU32")]
 	pub fn with_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with4(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 4 operands
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4046,15 +4090,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegMem")]
-	pub fn with_reg_reg_reg_mem(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand) -> Self {
-		Self(iced_x86_rust::Instruction::with_reg_reg_reg_mem(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0))
+	pub fn with_reg_reg_reg_mem(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with4(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 4 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4069,14 +4113,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegI32I32")]
 	pub fn with_reg_reg_i32_i32(code: Code, register1: Register, register2: Register, immediate1: i32, immediate2: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_i32_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with4(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 4 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4091,10 +4135,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegU32U32")]
 	pub fn with_reg_reg_u32_u32(code: Code, register1: Register, register2: Register, immediate1: u32, immediate2: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_u32_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with4(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 4 operands
+	///
+	/// # Throws
+	///
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4108,15 +4156,15 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemReg")]
-	pub fn with_reg_reg_mem_reg(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register) -> Self {
-		Self(iced_x86_rust::Instruction::with_reg_reg_mem_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3)))
+	pub fn with_reg_reg_mem_reg(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register) -> Result<Instruction, JsValue> {
+		Ok(Self(iced_x86_rust::Instruction::with4(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3)).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 4 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4131,14 +4179,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemI32")]
 	pub fn with_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_mem_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with4(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 4 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4153,14 +4201,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemU32")]
 	pub fn with_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_mem_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with4(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 5 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4176,14 +4224,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegRegI32")]
 	pub fn with_reg_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with5(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 5 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4199,14 +4247,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegRegU32")]
 	pub fn with_reg_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with5(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 5 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4222,14 +4270,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegMemI32")]
 	pub fn with_reg_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_reg_mem_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with5(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 5 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4245,14 +4293,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegMemU32")]
 	pub fn with_reg_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_reg_mem_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with5(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 5 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4268,14 +4316,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemRegI32")]
 	pub fn with_reg_reg_mem_reg_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: i32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_mem_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with5(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates an instruction with 5 operands
 	///
 	/// # Throws
 	///
-	/// Throws if the immediate is invalid
+	/// Throws if one of the operands is invalid (basic checks)
 	///
 	/// # Arguments
 	///
@@ -4291,7 +4339,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemRegU32")]
 	pub fn with_reg_reg_mem_reg_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: u32) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_reg_reg_mem_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate).map_err(to_js_error)?))
+		Ok(Self(iced_x86_rust::Instruction::with5(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate).map_err(to_js_error)?))
 	}
 
 	/// Creates a new near/short branch instruction

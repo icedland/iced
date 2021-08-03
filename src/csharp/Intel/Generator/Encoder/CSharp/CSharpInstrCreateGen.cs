@@ -66,7 +66,7 @@ namespace Generator.Encoder.CSharp {
 				case MethodArgType.UInt16:
 					writer.Write("ushort");
 					break;
-				case MethodArgType.PreferedInt32:
+				case MethodArgType.PreferredInt32:
 				case MethodArgType.Int32:
 				case MethodArgType.ArrayIndex:
 				case MethodArgType.ArrayLength:
@@ -154,7 +154,7 @@ namespace Generator.Encoder.CSharp {
 			writer.WriteLine("return instruction;");
 		}
 
-		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group) {
+		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group, int id) {
 			WriteDocs(writer, method);
 			writer.Write("public static Instruction Create(");
 			WriteMethodDeclArgs(writer, method);
@@ -197,7 +197,7 @@ namespace Generator.Encoder.CSharp {
 					case MethodArgType.RepPrefixKind:
 					case MethodArgType.UInt8:
 					case MethodArgType.UInt16:
-					case MethodArgType.PreferedInt32:
+					case MethodArgType.PreferredInt32:
 					case MethodArgType.ArrayIndex:
 					case MethodArgType.ArrayLength:
 					case MethodArgType.ByteArray:

@@ -2071,13 +2071,16 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register, /)")]
 	fn create_reg(code: u32, register: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_reg(code, register) })
+		Ok(Instruction { instr: iced_x86::Instruction::with1(code, register).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 1 operand
@@ -2090,13 +2093,13 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, immediate, /)")]
 	fn create_i32(code: u32, immediate: i32) -> PyResult<Self> {
 		let code = to_code(code)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_i32(code, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with1(code, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 1 operand
@@ -2109,13 +2112,13 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, immediate, /)")]
 	fn create_u32(code: u32, immediate: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_u32(code, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with1(code, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 1 operand
@@ -2126,12 +2129,15 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, memory, /)")]
 	fn create_mem(code: u32, memory: MemoryOperand) -> PyResult<Self> {
 		let code = to_code(code)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_mem(code, memory.mem) })
+		Ok(Instruction { instr: iced_x86::Instruction::with1(code, memory.mem).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2143,6 +2149,9 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, /)")]
@@ -2150,7 +2159,7 @@ impl Instruction {
 		let code = to_code(code)?;
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_reg_reg(code, register1, register2) })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, register1, register2).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2164,14 +2173,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register, immediate, /)")]
 	fn create_reg_i32(code: u32, register: u32, immediate: i32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_i32(code, register, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, register, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2185,14 +2194,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register, immediate, /)")]
 	fn create_reg_u32(code: u32, register: u32, immediate: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_u32(code, register, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, register, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2206,14 +2215,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register, immediate, /)")]
 	fn create_reg_i64(code: u32, register: u32, immediate: i64) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_i64(code, register, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, register, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2227,14 +2236,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register, immediate, /)")]
 	fn create_reg_u64(code: u32, register: u32, immediate: u64) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_u64(code, register, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, register, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2246,13 +2255,16 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register, memory, /)")]
 	fn create_reg_mem(code: u32, register: u32, memory: MemoryOperand) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_reg_mem(code, register, memory.mem) })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, register, memory.mem).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2266,14 +2278,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, immediate, register, /)")]
 	fn create_i32_reg(code: u32, immediate: i32, register: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_i32_reg(code, immediate, register).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, immediate, register).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2287,14 +2299,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, immediate, register, /)")]
 	fn create_u32_reg(code: u32, immediate: u32, register: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_u32_reg(code, immediate, register).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, immediate, register).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2308,13 +2320,13 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, immediate1, immediate2, /)")]
 	fn create_i32_i32(code: u32, immediate1: i32, immediate2: i32) -> PyResult<Self> {
 		let code = to_code(code)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_i32_i32(code, immediate1, immediate2).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, immediate1, immediate2).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2328,13 +2340,13 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, immediate1, immediate2, /)")]
 	fn create_u32_u32(code: u32, immediate1: u32, immediate2: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_u32_u32(code, immediate1, immediate2).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, immediate1, immediate2).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2346,13 +2358,16 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, memory, register, /)")]
 	fn create_mem_reg(code: u32, memory: MemoryOperand, register: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_mem_reg(code, memory.mem, register) })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, memory.mem, register).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2366,13 +2381,13 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, memory, immediate, /)")]
 	fn create_mem_i32(code: u32, memory: MemoryOperand, immediate: i32) -> PyResult<Self> {
 		let code = to_code(code)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_mem_i32(code, memory.mem, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, memory.mem, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 2 operands
@@ -2386,13 +2401,13 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, memory, immediate, /)")]
 	fn create_mem_u32(code: u32, memory: MemoryOperand, immediate: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_mem_u32(code, memory.mem, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with2(code, memory.mem, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2405,6 +2420,9 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, register3, /)")]
@@ -2413,7 +2431,7 @@ impl Instruction {
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_reg_reg_reg(code, register1, register2, register3) })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, register1, register2, register3).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2428,7 +2446,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, immediate, /)")]
@@ -2436,7 +2454,7 @@ impl Instruction {
 		let code = to_code(code)?;
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_i32(code, register1, register2, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, register1, register2, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2451,7 +2469,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, immediate, /)")]
@@ -2459,7 +2477,7 @@ impl Instruction {
 		let code = to_code(code)?;
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_u32(code, register1, register2, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, register1, register2, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2472,6 +2490,9 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, memory, /)")]
@@ -2479,7 +2500,7 @@ impl Instruction {
 		let code = to_code(code)?;
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_reg_reg_mem(code, register1, register2, memory.mem) })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, register1, register2, memory.mem).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2494,14 +2515,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register, immediate1, immediate2, /)")]
 	fn create_reg_i32_i32(code: u32, register: u32, immediate1: i32, immediate2: i32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_i32_i32(code, register, immediate1, immediate2).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, register, immediate1, immediate2).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2516,14 +2537,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register, immediate1, immediate2, /)")]
 	fn create_reg_u32_u32(code: u32, register: u32, immediate1: u32, immediate2: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_u32_u32(code, register, immediate1, immediate2).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, register, immediate1, immediate2).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2536,6 +2557,9 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, memory, register2, /)")]
@@ -2543,7 +2567,7 @@ impl Instruction {
 		let code = to_code(code)?;
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_reg_mem_reg(code, register1, memory.mem, register2) })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, register1, memory.mem, register2).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2558,14 +2582,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register, memory, immediate, /)")]
 	fn create_reg_mem_i32(code: u32, register: u32, memory: MemoryOperand, immediate: i32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_mem_i32(code, register, memory.mem, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, register, memory.mem, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2580,14 +2604,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register, memory, immediate, /)")]
 	fn create_reg_mem_u32(code: u32, register: u32, memory: MemoryOperand, immediate: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_mem_u32(code, register, memory.mem, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, register, memory.mem, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2600,6 +2624,9 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, memory, register1, register2, /)")]
@@ -2607,7 +2634,7 @@ impl Instruction {
 		let code = to_code(code)?;
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_mem_reg_reg(code, memory.mem, register1, register2) })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, memory.mem, register1, register2).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2622,14 +2649,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, memory, register, immediate, /)")]
 	fn create_mem_reg_i32(code: u32, memory: MemoryOperand, register: u32, immediate: i32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_mem_reg_i32(code, memory.mem, register, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, memory.mem, register, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 3 operands
@@ -2644,14 +2671,14 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, memory, register, immediate, /)")]
 	fn create_mem_reg_u32(code: u32, memory: MemoryOperand, register: u32, immediate: u32) -> PyResult<Self> {
 		let code = to_code(code)?;
 		let register = to_register(register)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_mem_reg_u32(code, memory.mem, register, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with3(code, memory.mem, register, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 4 operands
@@ -2665,6 +2692,9 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, register3, register4, /)")]
@@ -2674,7 +2704,7 @@ impl Instruction {
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
 		let register4 = to_register(register4)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_reg_reg_reg_reg(code, register1, register2, register3, register4) })
+		Ok(Instruction { instr: iced_x86::Instruction::with4(code, register1, register2, register3, register4).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 4 operands
@@ -2690,7 +2720,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, register3, immediate, /)")]
@@ -2699,7 +2729,7 @@ impl Instruction {
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_reg_i32(code, register1, register2, register3, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with4(code, register1, register2, register3, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 4 operands
@@ -2715,7 +2745,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, register3, immediate, /)")]
@@ -2724,7 +2754,7 @@ impl Instruction {
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_reg_u32(code, register1, register2, register3, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with4(code, register1, register2, register3, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 4 operands
@@ -2738,6 +2768,9 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, register3, memory, /)")]
@@ -2746,7 +2779,7 @@ impl Instruction {
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_reg_reg_reg_mem(code, register1, register2, register3, memory.mem) })
+		Ok(Instruction { instr: iced_x86::Instruction::with4(code, register1, register2, register3, memory.mem).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 4 operands
@@ -2762,7 +2795,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, immediate1, immediate2, /)")]
@@ -2770,7 +2803,7 @@ impl Instruction {
 		let code = to_code(code)?;
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_i32_i32(code, register1, register2, immediate1, immediate2).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with4(code, register1, register2, immediate1, immediate2).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 4 operands
@@ -2786,7 +2819,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, immediate1, immediate2, /)")]
@@ -2794,7 +2827,7 @@ impl Instruction {
 		let code = to_code(code)?;
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_u32_u32(code, register1, register2, immediate1, immediate2).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with4(code, register1, register2, immediate1, immediate2).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 4 operands
@@ -2808,6 +2841,9 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`Instruction`: Created instruction
+	///
+	/// Raises:
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, memory, register3, /)")]
@@ -2816,7 +2852,7 @@ impl Instruction {
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_reg_reg_mem_reg(code, register1, register2, memory.mem, register3) })
+		Ok(Instruction { instr: iced_x86::Instruction::with4(code, register1, register2, memory.mem, register3).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 4 operands
@@ -2832,7 +2868,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, memory, immediate, /)")]
@@ -2840,7 +2876,7 @@ impl Instruction {
 		let code = to_code(code)?;
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_mem_i32(code, register1, register2, memory.mem, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with4(code, register1, register2, memory.mem, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 4 operands
@@ -2856,7 +2892,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, memory, immediate, /)")]
@@ -2864,7 +2900,7 @@ impl Instruction {
 		let code = to_code(code)?;
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_mem_u32(code, register1, register2, memory.mem, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with4(code, register1, register2, memory.mem, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 5 operands
@@ -2881,7 +2917,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, register3, register4, immediate, /)")]
@@ -2891,7 +2927,7 @@ impl Instruction {
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
 		let register4 = to_register(register4)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_reg_reg_i32(code, register1, register2, register3, register4, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with5(code, register1, register2, register3, register4, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 5 operands
@@ -2908,7 +2944,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, register3, register4, immediate, /)")]
@@ -2918,7 +2954,7 @@ impl Instruction {
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
 		let register4 = to_register(register4)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_reg_reg_u32(code, register1, register2, register3, register4, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with5(code, register1, register2, register3, register4, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 5 operands
@@ -2935,7 +2971,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, register3, memory, immediate, /)")]
@@ -2944,7 +2980,7 @@ impl Instruction {
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_reg_mem_i32(code, register1, register2, register3, memory.mem, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with5(code, register1, register2, register3, memory.mem, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 5 operands
@@ -2961,7 +2997,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, register3, memory, immediate, /)")]
@@ -2970,7 +3006,7 @@ impl Instruction {
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_reg_mem_u32(code, register1, register2, register3, memory.mem, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with5(code, register1, register2, register3, memory.mem, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 5 operands
@@ -2987,7 +3023,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, memory, register3, immediate, /)")]
@@ -2996,7 +3032,7 @@ impl Instruction {
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_mem_reg_i32(code, register1, register2, memory.mem, register3, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with5(code, register1, register2, memory.mem, register3, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates an instruction with 5 operands
@@ -3013,7 +3049,7 @@ impl Instruction {
 	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
-	///     ValueError: If the immediate is invalid
+	///     ValueError: If one of the operands is invalid (basic checks)
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(code, register1, register2, memory, register3, immediate, /)")]
@@ -3022,7 +3058,7 @@ impl Instruction {
 		let register1 = to_register(register1)?;
 		let register2 = to_register(register2)?;
 		let register3 = to_register(register3)?;
-		Ok(Instruction { instr: iced_x86::Instruction::try_with_reg_reg_mem_reg_u32(code, register1, register2, memory.mem, register3, immediate).map_err(to_value_error)? })
+		Ok(Instruction { instr: iced_x86::Instruction::with5(code, register1, register2, memory.mem, register3, immediate).map_err(to_value_error)? })
 	}
 
 	/// Creates a new near/short branch instruction

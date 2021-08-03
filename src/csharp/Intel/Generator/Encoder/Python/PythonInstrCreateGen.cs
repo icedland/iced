@@ -85,9 +85,11 @@ namespace Generator.Encoder.Python {
 			}
 		}
 
-		void GenerateMethod(FileWriter writer, CreateMethod method, bool canFail, Action<GenerateMethodContext> genMethod, string? rustMethodName = null, string? pythonMethodName = null) {
-			rustMethodName ??= Rust.InstrCreateGenImpl.GetCreateName(sb, method, Rust.GenCreateNameArgs.RustNames);
-			if (canFail)
+		void GenerateMethod(FileWriter writer, CreateMethod method, bool canFail, Action<GenerateMethodContext> genMethod,
+			string? rustMethodName = null, string? pythonMethodName = null) {
+			if (rustMethodName is null)
+				rustMethodName = Rust.InstrCreateGenImpl.GetRustOverloadedCreateName(method);
+			else if (canFail)
 				rustMethodName = "try_" + rustMethodName;
 			pythonMethodName ??= Rust.InstrCreateGenImpl.GetCreateName(sb, method, genNames);
 			var info = new GeneratedMethodInfo(method, canFail, rustMethodName, pythonMethodName, rustIdConverter, idConverter);
@@ -123,7 +125,7 @@ namespace Generator.Encoder.Python {
 				case MethodArgType.Int32:
 					ctx.Writer.Write("i32");
 					break;
-				case MethodArgType.PreferedInt32:
+				case MethodArgType.PreferredInt32:
 				case MethodArgType.UInt32:
 					ctx.Writer.Write("u32");
 					break;
@@ -202,7 +204,7 @@ namespace Generator.Encoder.Python {
 				MethodArgType.UInt8 => ("int", "int", "``u8``"),
 				MethodArgType.UInt16 => ("int", "int", "``u16``"),
 				MethodArgType.Int32 => ("int", "int", "``i32``"),
-				MethodArgType.PreferedInt32 or MethodArgType.UInt32 => ("int", "int", "``u32``"),
+				MethodArgType.PreferredInt32 or MethodArgType.UInt32 => ("int", "int", "``u32``"),
 				MethodArgType.Int64 => ("int", "int", "``i64``"),
 				MethodArgType.UInt64 => ("int", "int", "``u64``"),
 				MethodArgType.ByteSlice => ("bytes, bytearray", "Union[bytes, bytearray]", null),
@@ -312,15 +314,15 @@ namespace Generator.Encoder.Python {
 			}
 		}
 
-		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group) {
-			bool canFail = Rust.InstrCreateGenImpl.HasTryMethod(method);
+		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group, int id) {
+			bool canFail = method.Args.Count > 1;
 			GenerateMethod(writer, method, canFail, GenCreate);
 		}
 
 		void GenCreate(GenerateMethodContext ctx) {
 			Func<IEnumerable<(string type, string text)>>? getThrowsDocs = null;
 			if (ctx.Info.CanFail)
-				getThrowsDocs = () => new[] { ("ValueError", "If the immediate is invalid") };
+				getThrowsDocs = () => new[] { ("ValueError", "If one of the operands is invalid (basic checks)") };
 			WriteMethod(ctx, getThrowsDocs);
 			WriteCall(ctx);
 			ctx.Writer.WriteLine("}");

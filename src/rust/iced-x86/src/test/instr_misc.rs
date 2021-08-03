@@ -24,7 +24,7 @@ fn invalid_code_value_is_zero() {
 fn eq_and_hash_ignore_some_fields() {
 	use core::hash::{Hash, Hasher};
 	use std::collections::hash_map::DefaultHasher;
-	let mut instr1 = Instruction::try_with_reg_reg_mem_reg_u32(
+	let mut instr1 = Instruction::with5(
 		Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4,
 		Register::XMM1,
 		Register::XMM2,

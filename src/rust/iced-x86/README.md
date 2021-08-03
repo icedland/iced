@@ -236,11 +236,11 @@ This example uses a [`BlockEncoder`] to encode created [`Instruction`]s.
 ```rust
 use iced_x86::{
     BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, Formatter, GasFormatter,
-    Instruction, InstructionBlock, MemoryOperand, Register,
+    IcedError, Instruction, InstructionBlock, MemoryOperand, Register,
 };
 
 #[allow(dead_code)]
-pub(crate) fn how_to_encode_instructions() {
+pub(crate) fn how_to_encode_instructions() -> Result<(), IcedError> {
     let bitness = 64;
 
     // All created instructions get an IP of 0. The label id is just an IP.
@@ -259,50 +259,44 @@ pub(crate) fn how_to_encode_instructions() {
 
     let label1 = create_label();
 
-    let mut instructions: Vec<Instruction> = Vec::new();
-    instructions.push(Instruction::with_reg(Code::Push_r64, Register::RBP));
-    instructions.push(Instruction::with_reg(Code::Push_r64, Register::RDI));
-    instructions.push(Instruction::with_reg(Code::Push_r64, Register::RSI));
-    instructions
-        .push(Instruction::try_with_reg_u32(Code::Sub_rm64_imm32, Register::RSP, 0x50).unwrap());
-    instructions.push(Instruction::with(Code::VEX_Vzeroupper));
-    instructions.push(Instruction::with_reg_mem(
-        Code::Lea_r64_m,
-        Register::RBP,
-        MemoryOperand::with_base_displ(Register::RSP, 0x60),
-    ));
-    instructions.push(Instruction::with_reg_reg(Code::Mov_r64_rm64, Register::RSI, Register::RCX));
-    instructions.push(Instruction::with_reg_mem(
-        Code::Lea_r64_m,
-        Register::RDI,
-        MemoryOperand::with_base_displ(Register::RBP, -0x38),
-    ));
-    instructions
-        .push(Instruction::try_with_reg_i32(Code::Mov_r32_imm32, Register::ECX, 0x0A).unwrap());
-    instructions.push(Instruction::with_reg_reg(Code::Xor_r32_rm32, Register::EAX, Register::EAX));
-    instructions.push(Instruction::try_with_rep_stosd(bitness).unwrap());
-    instructions.push(
-        Instruction::try_with_reg_u64(Code::Cmp_rm64_imm32, Register::RSI, 0x1234_5678).unwrap(),
-    );
-    // Create a branch instruction that references label1
-    instructions.push(Instruction::try_with_branch(Code::Jne_rel32_64, label1).unwrap());
-    instructions.push(Instruction::with(Code::Nopd));
-    // Add the instruction that is the target of the branch
-    instructions.push(add_label(
-        label1,
-        Instruction::with_reg_reg(Code::Xor_r32_rm32, Register::R15D, Register::R15D),
-    ));
+    let mut instructions = vec![
+        Instruction::with1(Code::Push_r64, Register::RBP)?,
+        Instruction::with1(Code::Push_r64, Register::RDI)?,
+        Instruction::with1(Code::Push_r64, Register::RSI)?,
+        Instruction::with2(Code::Sub_rm64_imm32, Register::RSP, 0x50)?,
+        Instruction::with(Code::VEX_Vzeroupper),
+        Instruction::with2(
+            Code::Lea_r64_m,
+            Register::RBP,
+            MemoryOperand::with_base_displ(Register::RSP, 0x60),
+        )?,
+        Instruction::with2(Code::Mov_r64_rm64, Register::RSI, Register::RCX)?,
+        Instruction::with2(
+            Code::Lea_r64_m,
+            Register::RDI,
+            MemoryOperand::with_base_displ(Register::RBP, -0x38),
+        )?,
+        Instruction::with2(Code::Mov_r32_imm32, Register::ECX, 0x0A)?,
+        Instruction::with2(Code::Xor_r32_rm32, Register::EAX, Register::EAX)?,
+        Instruction::try_with_rep_stosd(bitness)?,
+        Instruction::with2(Code::Cmp_rm64_imm32, Register::RSI, 0x1234_5678)?,
+        // Create a branch instruction that references label1
+        Instruction::try_with_branch(Code::Jne_rel32_64, label1)?,
+        Instruction::with(Code::Nopd),
+        // Add the instruction that is the target of the branch
+        add_label(label1, Instruction::with2(Code::Xor_r32_rm32, Register::R15D, Register::R15D)?),
+    ];
 
     // Create an instruction that accesses some data using an RIP relative memory operand
     let data1 = create_label();
-    instructions.push(Instruction::with_reg_mem(
+    instructions.push(Instruction::with2(
         Code::Lea_r64_m,
         Register::R14,
         MemoryOperand::with_base_displ(Register::RIP, data1 as i64),
-    ));
+    )?);
     instructions.push(Instruction::with(Code::Nopd));
     let raw_data: &[u8] = &[0x12, 0x34, 0x56, 0x78];
-    instructions.push(add_label(data1, Instruction::try_with_declare_byte(raw_data).unwrap()));
+    instructions.push(add_label(data1, Instruction::try_with_declare_byte(raw_data)?));
 
     // Use BlockEncoder to encode a block of instructions. This block can contain any
     // number of branches and any number of instructions. It does support encoding more
@@ -332,10 +326,11 @@ pub(crate) fn how_to_encode_instructions() {
         formatter.format(&instruction, &mut output);
         println!("{:016X} {}", instruction.ip(), output);
     }
-    let db = Instruction::try_with_declare_byte(bytes_data).unwrap();
+    let db = Instruction::try_with_declare_byte(bytes_data)?;
     output.clear();
     formatter.format(&db, &mut output);
     println!("{:016X} {}", decoder.ip(), output);
+    Ok(())
 }
 /*
 Output:
