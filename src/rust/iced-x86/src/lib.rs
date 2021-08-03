@@ -149,6 +149,8 @@ mod iced_features;
 #[cfg(feature = "instr_info")]
 mod info;
 mod instruction;
+#[cfg(feature = "encoder")]
+mod instruction_create;
 mod instruction_internal;
 mod instruction_memory_sizes;
 mod instruction_op_counts;

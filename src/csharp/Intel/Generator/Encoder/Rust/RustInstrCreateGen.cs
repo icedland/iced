@@ -30,7 +30,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
-			(TargetLanguage.Rust, "Create", generatorContext.Types.Dirs.GetRustFilename("instruction.rs"));
+			(TargetLanguage.Rust, "Create", generatorContext.Types.Dirs.GetRustFilename("instruction_create.rs"));
 
 		enum TryMethodKind {
 			// Can never fail
