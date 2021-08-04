@@ -1943,7 +1943,7 @@ impl Instruction {
 	/// * `target`: Target address
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn try_with_branch(code: Code, target: u64) -> Result<Self, IcedError> {
+	pub fn with_branch(code: Code, target: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
@@ -1954,14 +1954,13 @@ impl Instruction {
 		Ok(instruction)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_branch() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_branch() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_branch(code: Code, target: u64) -> Self {
-		Instruction::try_with_branch(code, target).unwrap()
+	pub fn try_with_branch(code: Code, target: u64) -> Result<Self, IcedError> {
+		Instruction::with_branch(code, target)
 	}
 
 	/// Creates a new far branch instruction
@@ -1977,7 +1976,7 @@ impl Instruction {
 	/// * `offset`: Offset
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn try_with_far_branch(code: Code, selector: u16, offset: u32) -> Result<Self, IcedError> {
+	pub fn with_far_branch(code: Code, selector: u16, offset: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
@@ -1989,14 +1988,13 @@ impl Instruction {
 		Ok(instruction)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_far_branch() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_far_branch() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_far_branch(code: Code, selector: u16, offset: u32) -> Self {
-		Instruction::try_with_far_branch(code, selector, offset).unwrap()
+	pub fn try_with_far_branch(code: Code, selector: u16, offset: u32) -> Result<Self, IcedError> {
+		Instruction::with_far_branch(code, selector, offset)
 	}
 
 	/// Creates a new `XBEGIN` instruction
@@ -2011,7 +2009,7 @@ impl Instruction {
 	/// * `target`: Target address
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn try_with_xbegin(bitness: u32, target: u64) -> Result<Self, IcedError> {
+	pub fn with_xbegin(bitness: u32, target: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 
 		match bitness {
@@ -2040,14 +2038,13 @@ impl Instruction {
 		Ok(instruction)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_xbegin() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_xbegin() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_xbegin(bitness: u32, target: u64) -> Self {
-		Instruction::try_with_xbegin(bitness, target).unwrap()
+	pub fn try_with_xbegin(bitness: u32, target: u64) -> Result<Self, IcedError> {
+		Instruction::with_xbegin(bitness, target)
 	}
 
 	#[deprecated(since = "1.11.0", note = "Use with2() with a MemoryOperand arg instead")]
@@ -2086,18 +2083,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_outsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_outsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Outsb_DX_m8, address_size, Register::DX, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_outsb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_outsb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_outsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_outsb(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_outsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_outsb(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP OUTSB` instruction
@@ -2111,18 +2107,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_outsb(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_outsb(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Outsb_DX_m8, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_outsb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_outsb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_outsb(address_size: u32) -> Self {
-		Instruction::try_with_rep_outsb(address_size).unwrap()
+	pub fn try_with_rep_outsb(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_outsb(address_size)
 	}
 
 	/// Creates a `OUTSW` instruction
@@ -2141,18 +2136,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_outsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_outsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Outsw_DX_m16, address_size, Register::DX, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_outsw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_outsw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_outsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_outsw(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_outsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_outsw(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP OUTSW` instruction
@@ -2166,18 +2160,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_outsw(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_outsw(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Outsw_DX_m16, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_outsw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_outsw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_outsw(address_size: u32) -> Self {
-		Instruction::try_with_rep_outsw(address_size).unwrap()
+	pub fn try_with_rep_outsw(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_outsw(address_size)
 	}
 
 	/// Creates a `OUTSD` instruction
@@ -2196,18 +2189,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_outsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_outsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Outsd_DX_m32, address_size, Register::DX, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_outsd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_outsd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_outsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_outsd(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_outsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_outsd(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP OUTSD` instruction
@@ -2221,18 +2213,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_outsd(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_outsd(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Outsd_DX_m32, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_outsd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_outsd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_outsd(address_size: u32) -> Self {
-		Instruction::try_with_rep_outsd(address_size).unwrap()
+	pub fn try_with_rep_outsd(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_outsd(address_size)
 	}
 
 	/// Creates a `LODSB` instruction
@@ -2251,18 +2242,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_lodsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_lodsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Lodsb_AL_m8, address_size, Register::AL, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_lodsb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_lodsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_lodsb(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_lodsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_lodsb(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP LODSB` instruction
@@ -2276,18 +2266,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_lodsb(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_lodsb(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Lodsb_AL_m8, address_size, Register::AL, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_lodsb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_lodsb(address_size: u32) -> Self {
-		Instruction::try_with_rep_lodsb(address_size).unwrap()
+	pub fn try_with_rep_lodsb(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_lodsb(address_size)
 	}
 
 	/// Creates a `LODSW` instruction
@@ -2306,18 +2295,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_lodsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_lodsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Lodsw_AX_m16, address_size, Register::AX, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_lodsw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_lodsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_lodsw(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_lodsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_lodsw(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP LODSW` instruction
@@ -2331,18 +2319,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_lodsw(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_lodsw(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Lodsw_AX_m16, address_size, Register::AX, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_lodsw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_lodsw(address_size: u32) -> Self {
-		Instruction::try_with_rep_lodsw(address_size).unwrap()
+	pub fn try_with_rep_lodsw(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_lodsw(address_size)
 	}
 
 	/// Creates a `LODSD` instruction
@@ -2361,18 +2348,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_lodsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_lodsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Lodsd_EAX_m32, address_size, Register::EAX, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_lodsd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_lodsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_lodsd(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_lodsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_lodsd(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP LODSD` instruction
@@ -2386,18 +2372,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_lodsd(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_lodsd(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Lodsd_EAX_m32, address_size, Register::EAX, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_lodsd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_lodsd(address_size: u32) -> Self {
-		Instruction::try_with_rep_lodsd(address_size).unwrap()
+	pub fn try_with_rep_lodsd(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_lodsd(address_size)
 	}
 
 	/// Creates a `LODSQ` instruction
@@ -2416,18 +2401,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_lodsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_lodsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Lodsq_RAX_m64, address_size, Register::RAX, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_lodsq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_lodsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_lodsq(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_lodsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_lodsq(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP LODSQ` instruction
@@ -2441,18 +2425,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_lodsq(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_lodsq(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_segrsi(Code::Lodsq_RAX_m64, address_size, Register::RAX, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_lodsq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_lodsq(address_size: u32) -> Self {
-		Instruction::try_with_rep_lodsq(address_size).unwrap()
+	pub fn try_with_rep_lodsq(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_lodsq(address_size)
 	}
 
 	/// Creates a `SCASB` instruction
@@ -2469,18 +2452,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_scasb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_scasb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_scasb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_scasb(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_scasb(address_size, rep_prefix).unwrap()
+	pub fn try_with_scasb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_scasb(address_size, rep_prefix)
 	}
 
 	/// Creates a `REPE SCASB` instruction
@@ -2494,18 +2476,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repe_scasb(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repe_scasb(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repe_scasb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repe_scasb(address_size: u32) -> Self {
-		Instruction::try_with_repe_scasb(address_size).unwrap()
+	pub fn try_with_repe_scasb(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repe_scasb(address_size)
 	}
 
 	/// Creates a `REPNE SCASB` instruction
@@ -2519,18 +2500,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repne_scasb(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repne_scasb(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, RepPrefixKind::Repne)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repne_scasb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repne_scasb(address_size: u32) -> Self {
-		Instruction::try_with_repne_scasb(address_size).unwrap()
+	pub fn try_with_repne_scasb(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repne_scasb(address_size)
 	}
 
 	/// Creates a `SCASW` instruction
@@ -2547,18 +2527,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_scasw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_scasw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_scasw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_scasw(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_scasw(address_size, rep_prefix).unwrap()
+	pub fn try_with_scasw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_scasw(address_size, rep_prefix)
 	}
 
 	/// Creates a `REPE SCASW` instruction
@@ -2572,18 +2551,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repe_scasw(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repe_scasw(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repe_scasw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repe_scasw(address_size: u32) -> Self {
-		Instruction::try_with_repe_scasw(address_size).unwrap()
+	pub fn try_with_repe_scasw(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repe_scasw(address_size)
 	}
 
 	/// Creates a `REPNE SCASW` instruction
@@ -2597,18 +2575,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repne_scasw(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repne_scasw(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, RepPrefixKind::Repne)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repne_scasw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repne_scasw(address_size: u32) -> Self {
-		Instruction::try_with_repne_scasw(address_size).unwrap()
+	pub fn try_with_repne_scasw(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repne_scasw(address_size)
 	}
 
 	/// Creates a `SCASD` instruction
@@ -2625,18 +2602,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_scasd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_scasd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_scasd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_scasd(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_scasd(address_size, rep_prefix).unwrap()
+	pub fn try_with_scasd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_scasd(address_size, rep_prefix)
 	}
 
 	/// Creates a `REPE SCASD` instruction
@@ -2650,18 +2626,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repe_scasd(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repe_scasd(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repe_scasd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repe_scasd(address_size: u32) -> Self {
-		Instruction::try_with_repe_scasd(address_size).unwrap()
+	pub fn try_with_repe_scasd(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repe_scasd(address_size)
 	}
 
 	/// Creates a `REPNE SCASD` instruction
@@ -2675,18 +2650,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repne_scasd(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repne_scasd(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, RepPrefixKind::Repne)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repne_scasd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repne_scasd(address_size: u32) -> Self {
-		Instruction::try_with_repne_scasd(address_size).unwrap()
+	pub fn try_with_repne_scasd(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repne_scasd(address_size)
 	}
 
 	/// Creates a `SCASQ` instruction
@@ -2703,18 +2677,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_scasq(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_scasq(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_scasq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_scasq(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_scasq(address_size, rep_prefix).unwrap()
+	pub fn try_with_scasq(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_scasq(address_size, rep_prefix)
 	}
 
 	/// Creates a `REPE SCASQ` instruction
@@ -2728,18 +2701,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repe_scasq(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repe_scasq(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repe_scasq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repe_scasq(address_size: u32) -> Self {
-		Instruction::try_with_repe_scasq(address_size).unwrap()
+	pub fn try_with_repe_scasq(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repe_scasq(address_size)
 	}
 
 	/// Creates a `REPNE SCASQ` instruction
@@ -2753,18 +2725,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repne_scasq(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repne_scasq(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, RepPrefixKind::Repne)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repne_scasq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repne_scasq(address_size: u32) -> Self {
-		Instruction::try_with_repne_scasq(address_size).unwrap()
+	pub fn try_with_repne_scasq(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repne_scasq(address_size)
 	}
 
 	/// Creates a `INSB` instruction
@@ -2781,18 +2752,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_insb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_insb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Insb_m8_DX, address_size, Register::DX, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_insb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_insb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_insb(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_insb(address_size, rep_prefix).unwrap()
+	pub fn try_with_insb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_insb(address_size, rep_prefix)
 	}
 
 	/// Creates a `REP INSB` instruction
@@ -2806,18 +2776,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_insb(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_insb(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Insb_m8_DX, address_size, Register::DX, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_insb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_insb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_insb(address_size: u32) -> Self {
-		Instruction::try_with_rep_insb(address_size).unwrap()
+	pub fn try_with_rep_insb(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_insb(address_size)
 	}
 
 	/// Creates a `INSW` instruction
@@ -2834,18 +2803,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_insw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_insw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Insw_m16_DX, address_size, Register::DX, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_insw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_insw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_insw(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_insw(address_size, rep_prefix).unwrap()
+	pub fn try_with_insw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_insw(address_size, rep_prefix)
 	}
 
 	/// Creates a `REP INSW` instruction
@@ -2859,18 +2827,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_insw(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_insw(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Insw_m16_DX, address_size, Register::DX, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_insw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_insw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_insw(address_size: u32) -> Self {
-		Instruction::try_with_rep_insw(address_size).unwrap()
+	pub fn try_with_rep_insw(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_insw(address_size)
 	}
 
 	/// Creates a `INSD` instruction
@@ -2887,18 +2854,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_insd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_insd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Insd_m32_DX, address_size, Register::DX, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_insd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_insd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_insd(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_insd(address_size, rep_prefix).unwrap()
+	pub fn try_with_insd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_insd(address_size, rep_prefix)
 	}
 
 	/// Creates a `REP INSD` instruction
@@ -2912,18 +2878,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_insd(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_insd(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Insd_m32_DX, address_size, Register::DX, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_insd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_insd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_insd(address_size: u32) -> Self {
-		Instruction::try_with_rep_insd(address_size).unwrap()
+	pub fn try_with_rep_insd(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_insd(address_size)
 	}
 
 	/// Creates a `STOSB` instruction
@@ -2940,18 +2905,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_stosb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_stosb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Stosb_m8_AL, address_size, Register::AL, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_stosb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_stosb(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_stosb(address_size, rep_prefix).unwrap()
+	pub fn try_with_stosb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_stosb(address_size, rep_prefix)
 	}
 
 	/// Creates a `REP STOSB` instruction
@@ -2965,18 +2929,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_stosb(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_stosb(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Stosb_m8_AL, address_size, Register::AL, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_stosb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_stosb(address_size: u32) -> Self {
-		Instruction::try_with_rep_stosb(address_size).unwrap()
+	pub fn try_with_rep_stosb(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_stosb(address_size)
 	}
 
 	/// Creates a `STOSW` instruction
@@ -2993,18 +2956,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_stosw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_stosw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Stosw_m16_AX, address_size, Register::AX, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_stosw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_stosw(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_stosw(address_size, rep_prefix).unwrap()
+	pub fn try_with_stosw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_stosw(address_size, rep_prefix)
 	}
 
 	/// Creates a `REP STOSW` instruction
@@ -3018,18 +2980,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_stosw(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_stosw(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Stosw_m16_AX, address_size, Register::AX, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_stosw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_stosw(address_size: u32) -> Self {
-		Instruction::try_with_rep_stosw(address_size).unwrap()
+	pub fn try_with_rep_stosw(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_stosw(address_size)
 	}
 
 	/// Creates a `STOSD` instruction
@@ -3046,18 +3007,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_stosd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_stosd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Stosd_m32_EAX, address_size, Register::EAX, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_stosd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_stosd(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_stosd(address_size, rep_prefix).unwrap()
+	pub fn try_with_stosd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_stosd(address_size, rep_prefix)
 	}
 
 	/// Creates a `REP STOSD` instruction
@@ -3071,18 +3031,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_stosd(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_stosd(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Stosd_m32_EAX, address_size, Register::EAX, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_stosd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_stosd(address_size: u32) -> Self {
-		Instruction::try_with_rep_stosd(address_size).unwrap()
+	pub fn try_with_rep_stosd(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_stosd(address_size)
 	}
 
 	/// Creates a `STOSQ` instruction
@@ -3099,18 +3058,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_stosq(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_stosq(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Stosq_m64_RAX, address_size, Register::RAX, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_stosq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_stosq(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_stosq(address_size, rep_prefix).unwrap()
+	pub fn try_with_stosq(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_stosq(address_size, rep_prefix)
 	}
 
 	/// Creates a `REP STOSQ` instruction
@@ -3124,18 +3082,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_stosq(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_stosq(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_reg(Code::Stosq_m64_RAX, address_size, Register::RAX, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_stosq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_stosq(address_size: u32) -> Self {
-		Instruction::try_with_rep_stosq(address_size).unwrap()
+	pub fn try_with_rep_stosq(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_stosq(address_size)
 	}
 
 	/// Creates a `CMPSB` instruction
@@ -3154,18 +3111,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_cmpsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_cmpsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_cmpsb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_cmpsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_cmpsb(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_cmpsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_cmpsb(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REPE CMPSB` instruction
@@ -3179,18 +3135,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repe_cmpsb(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repe_cmpsb(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repe_cmpsb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repe_cmpsb(address_size: u32) -> Self {
-		Instruction::try_with_repe_cmpsb(address_size).unwrap()
+	pub fn try_with_repe_cmpsb(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repe_cmpsb(address_size)
 	}
 
 	/// Creates a `REPNE CMPSB` instruction
@@ -3204,18 +3159,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repne_cmpsb(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repne_cmpsb(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, Register::None, RepPrefixKind::Repne)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repne_cmpsb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repne_cmpsb(address_size: u32) -> Self {
-		Instruction::try_with_repne_cmpsb(address_size).unwrap()
+	pub fn try_with_repne_cmpsb(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repne_cmpsb(address_size)
 	}
 
 	/// Creates a `CMPSW` instruction
@@ -3234,18 +3188,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_cmpsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_cmpsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_cmpsw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_cmpsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_cmpsw(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_cmpsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_cmpsw(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REPE CMPSW` instruction
@@ -3259,18 +3212,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repe_cmpsw(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repe_cmpsw(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repe_cmpsw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repe_cmpsw(address_size: u32) -> Self {
-		Instruction::try_with_repe_cmpsw(address_size).unwrap()
+	pub fn try_with_repe_cmpsw(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repe_cmpsw(address_size)
 	}
 
 	/// Creates a `REPNE CMPSW` instruction
@@ -3284,18 +3236,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repne_cmpsw(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repne_cmpsw(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, Register::None, RepPrefixKind::Repne)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repne_cmpsw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repne_cmpsw(address_size: u32) -> Self {
-		Instruction::try_with_repne_cmpsw(address_size).unwrap()
+	pub fn try_with_repne_cmpsw(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repne_cmpsw(address_size)
 	}
 
 	/// Creates a `CMPSD` instruction
@@ -3314,18 +3265,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_cmpsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_cmpsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_cmpsd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_cmpsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_cmpsd(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_cmpsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_cmpsd(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REPE CMPSD` instruction
@@ -3339,18 +3289,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repe_cmpsd(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repe_cmpsd(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repe_cmpsd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repe_cmpsd(address_size: u32) -> Self {
-		Instruction::try_with_repe_cmpsd(address_size).unwrap()
+	pub fn try_with_repe_cmpsd(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repe_cmpsd(address_size)
 	}
 
 	/// Creates a `REPNE CMPSD` instruction
@@ -3364,18 +3313,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repne_cmpsd(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repne_cmpsd(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, Register::None, RepPrefixKind::Repne)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repne_cmpsd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repne_cmpsd(address_size: u32) -> Self {
-		Instruction::try_with_repne_cmpsd(address_size).unwrap()
+	pub fn try_with_repne_cmpsd(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repne_cmpsd(address_size)
 	}
 
 	/// Creates a `CMPSQ` instruction
@@ -3394,18 +3342,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_cmpsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_cmpsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_cmpsq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_cmpsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_cmpsq(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_cmpsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_cmpsq(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REPE CMPSQ` instruction
@@ -3419,18 +3366,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repe_cmpsq(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repe_cmpsq(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repe_cmpsq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repe_cmpsq(address_size: u32) -> Self {
-		Instruction::try_with_repe_cmpsq(address_size).unwrap()
+	pub fn try_with_repe_cmpsq(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repe_cmpsq(address_size)
 	}
 
 	/// Creates a `REPNE CMPSQ` instruction
@@ -3444,18 +3390,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_repne_cmpsq(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_repne_cmpsq(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, Register::None, RepPrefixKind::Repne)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_repne_cmpsq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_repne_cmpsq(address_size: u32) -> Self {
-		Instruction::try_with_repne_cmpsq(address_size).unwrap()
+	pub fn try_with_repne_cmpsq(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_repne_cmpsq(address_size)
 	}
 
 	/// Creates a `MOVSB` instruction
@@ -3474,18 +3419,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_movsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_movsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_segrsi(Code::Movsb_m8_m8, address_size, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_movsb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_movsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_movsb(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_movsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_movsb(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP MOVSB` instruction
@@ -3499,18 +3443,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_movsb(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_movsb(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_segrsi(Code::Movsb_m8_m8, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsb() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_movsb() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_movsb(address_size: u32) -> Self {
-		Instruction::try_with_rep_movsb(address_size).unwrap()
+	pub fn try_with_rep_movsb(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_movsb(address_size)
 	}
 
 	/// Creates a `MOVSW` instruction
@@ -3529,18 +3472,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_movsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_movsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_segrsi(Code::Movsw_m16_m16, address_size, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_movsw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_movsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_movsw(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_movsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_movsw(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP MOVSW` instruction
@@ -3554,18 +3496,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_movsw(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_movsw(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_segrsi(Code::Movsw_m16_m16, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsw() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_movsw() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_movsw(address_size: u32) -> Self {
-		Instruction::try_with_rep_movsw(address_size).unwrap()
+	pub fn try_with_rep_movsw(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_movsw(address_size)
 	}
 
 	/// Creates a `MOVSD` instruction
@@ -3584,18 +3525,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_movsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_movsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_segrsi(Code::Movsd_m32_m32, address_size, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_movsd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_movsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_movsd(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_movsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_movsd(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP MOVSD` instruction
@@ -3609,18 +3549,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_movsd(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_movsd(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_segrsi(Code::Movsd_m32_m32, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsd() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_movsd() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_movsd(address_size: u32) -> Self {
-		Instruction::try_with_rep_movsd(address_size).unwrap()
+	pub fn try_with_rep_movsd(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_movsd(address_size)
 	}
 
 	/// Creates a `MOVSQ` instruction
@@ -3639,18 +3578,17 @@ impl Instruction {
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_movsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+	pub fn with_movsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_segrsi(Code::Movsq_m64_m64, address_size, segment_prefix, rep_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_movsq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_movsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
-		Instruction::try_with_movsq(address_size, segment_prefix, rep_prefix).unwrap()
+	pub fn try_with_movsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
+		Instruction::with_movsq(address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `REP MOVSQ` instruction
@@ -3664,18 +3602,17 @@ impl Instruction {
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_rep_movsq(address_size: u32) -> Result<Self, IcedError> {
+	pub fn with_rep_movsq(address_size: u32) -> Result<Self, IcedError> {
 		instruction_internal::with_string_esrdi_segrsi(Code::Movsq_m64_m64, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_rep_movsq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_rep_movsq(address_size: u32) -> Self {
-		Instruction::try_with_rep_movsq(address_size).unwrap()
+	pub fn try_with_rep_movsq(address_size: u32) -> Result<Self, IcedError> {
+		Instruction::with_rep_movsq(address_size)
 	}
 
 	/// Creates a `MASKMOVQ` instruction
@@ -3694,18 +3631,17 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_maskmovq(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
+	pub fn with_maskmovq(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
 		instruction_internal::with_maskmov(Code::Maskmovq_rDI_mm_mm, address_size, register1, register2, segment_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_maskmovq() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_maskmovq() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_maskmovq(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Self {
-		Instruction::try_with_maskmovq(address_size, register1, register2, segment_prefix).unwrap()
+	pub fn try_with_maskmovq(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
+		Instruction::with_maskmovq(address_size, register1, register2, segment_prefix)
 	}
 
 	/// Creates a `MASKMOVDQU` instruction
@@ -3724,18 +3660,17 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_maskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
+	pub fn with_maskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
 		instruction_internal::with_maskmov(Code::Maskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_maskmovdqu() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_maskmovdqu() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_maskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Self {
-		Instruction::try_with_maskmovdqu(address_size, register1, register2, segment_prefix).unwrap()
+	pub fn try_with_maskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
+		Instruction::with_maskmovdqu(address_size, register1, register2, segment_prefix)
 	}
 
 	/// Creates a `VMASKMOVDQU` instruction
@@ -3754,29 +3689,19 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[inline]
 	#[rustfmt::skip]
-	pub fn try_with_vmaskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
+	pub fn with_vmaskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
 		instruction_internal::with_maskmov(Code::VEX_Vmaskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_vmaskmovdqu() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_vmaskmovdqu() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_vmaskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Self {
-		Instruction::try_with_vmaskmovdqu(address_size, register1, register2, segment_prefix).unwrap()
+	pub fn try_with_vmaskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
+		Instruction::with_vmaskmovdqu(address_size, register1, register2, segment_prefix)
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -3798,22 +3723,12 @@ impl Instruction {
 	/// * `b0`: Byte 0
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_1(b0: u8) -> Self {
 		Instruction::try_with_declare_byte_1(b0).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -3837,23 +3752,12 @@ impl Instruction {
 	/// * `b1`: Byte 1
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_2(b0: u8, b1: u8) -> Self {
 		Instruction::try_with_declare_byte_2(b0, b1).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -3879,24 +3783,12 @@ impl Instruction {
 	/// * `b2`: Byte 2
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_3(b0: u8, b1: u8, b2: u8) -> Self {
 		Instruction::try_with_declare_byte_3(b0, b1, b2).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -3924,25 +3816,12 @@ impl Instruction {
 	/// * `b3`: Byte 3
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_4(b0: u8, b1: u8, b2: u8, b3: u8) -> Self {
 		Instruction::try_with_declare_byte_4(b0, b1, b2, b3).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -3972,26 +3851,12 @@ impl Instruction {
 	/// * `b4`: Byte 4
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_5(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8) -> Self {
 		Instruction::try_with_declare_byte_5(b0, b1, b2, b3, b4).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4023,27 +3888,12 @@ impl Instruction {
 	/// * `b5`: Byte 5
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_6(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8) -> Self {
 		Instruction::try_with_declare_byte_6(b0, b1, b2, b3, b4, b5).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
-	/// * `b6`: Byte 6
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4077,28 +3927,12 @@ impl Instruction {
 	/// * `b6`: Byte 6
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_7(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8) -> Self {
 		Instruction::try_with_declare_byte_7(b0, b1, b2, b3, b4, b5, b6).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
-	/// * `b6`: Byte 6
-	/// * `b7`: Byte 7
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4134,29 +3968,12 @@ impl Instruction {
 	/// * `b7`: Byte 7
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Self {
 		Instruction::try_with_declare_byte_8(b0, b1, b2, b3, b4, b5, b6, b7).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
-	/// * `b6`: Byte 6
-	/// * `b7`: Byte 7
-	/// * `b8`: Byte 8
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4194,30 +4011,12 @@ impl Instruction {
 	/// * `b8`: Byte 8
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Self {
 		Instruction::try_with_declare_byte_9(b0, b1, b2, b3, b4, b5, b6, b7, b8).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
-	/// * `b6`: Byte 6
-	/// * `b7`: Byte 7
-	/// * `b8`: Byte 8
-	/// * `b9`: Byte 9
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4257,31 +4056,12 @@ impl Instruction {
 	/// * `b9`: Byte 9
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Self {
 		Instruction::try_with_declare_byte_10(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
-	/// * `b6`: Byte 6
-	/// * `b7`: Byte 7
-	/// * `b8`: Byte 8
-	/// * `b9`: Byte 9
-	/// * `b10`: Byte 10
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4323,32 +4103,12 @@ impl Instruction {
 	/// * `b10`: Byte 10
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Self {
 		Instruction::try_with_declare_byte_11(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
-	/// * `b6`: Byte 6
-	/// * `b7`: Byte 7
-	/// * `b8`: Byte 8
-	/// * `b9`: Byte 9
-	/// * `b10`: Byte 10
-	/// * `b11`: Byte 11
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4392,33 +4152,12 @@ impl Instruction {
 	/// * `b11`: Byte 11
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Self {
 		Instruction::try_with_declare_byte_12(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
-	/// * `b6`: Byte 6
-	/// * `b7`: Byte 7
-	/// * `b8`: Byte 8
-	/// * `b9`: Byte 9
-	/// * `b10`: Byte 10
-	/// * `b11`: Byte 11
-	/// * `b12`: Byte 12
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4464,34 +4203,12 @@ impl Instruction {
 	/// * `b12`: Byte 12
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Self {
 		Instruction::try_with_declare_byte_13(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
-	/// * `b6`: Byte 6
-	/// * `b7`: Byte 7
-	/// * `b8`: Byte 8
-	/// * `b9`: Byte 9
-	/// * `b10`: Byte 10
-	/// * `b11`: Byte 11
-	/// * `b12`: Byte 12
-	/// * `b13`: Byte 13
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4539,35 +4256,12 @@ impl Instruction {
 	/// * `b13`: Byte 13
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Self {
 		Instruction::try_with_declare_byte_14(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
-	/// * `b6`: Byte 6
-	/// * `b7`: Byte 7
-	/// * `b8`: Byte 8
-	/// * `b9`: Byte 9
-	/// * `b10`: Byte 10
-	/// * `b11`: Byte 11
-	/// * `b12`: Byte 12
-	/// * `b13`: Byte 13
-	/// * `b14`: Byte 14
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4617,36 +4311,12 @@ impl Instruction {
 	/// * `b14`: Byte 14
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Self {
 		Instruction::try_with_declare_byte_15(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14).unwrap()
 	}
 
-	/// Creates a `db`/`.byte` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `b0`: Byte 0
-	/// * `b1`: Byte 1
-	/// * `b2`: Byte 2
-	/// * `b3`: Byte 3
-	/// * `b4`: Byte 4
-	/// * `b5`: Byte 5
-	/// * `b6`: Byte 6
-	/// * `b7`: Byte 7
-	/// * `b8`: Byte 8
-	/// * `b9`: Byte 9
-	/// * `b10`: Byte 10
-	/// * `b11`: Byte 11
-	/// * `b12`: Byte 12
-	/// * `b13`: Byte 13
-	/// * `b14`: Byte 14
-	/// * `b15`: Byte 15
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4698,7 +4368,7 @@ impl Instruction {
 	/// * `b15`: Byte 15
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Self {
 		Instruction::try_with_declare_byte_16(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15).unwrap()
@@ -4715,7 +4385,7 @@ impl Instruction {
 	/// * `data`: Data
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn try_with_declare_byte(data: &[u8]) -> Result<Self, IcedError> {
+	pub fn with_declare_byte(data: &[u8]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 16 - 1 {
 			return Err(IcedError::new("Invalid slice length"));
 		}
@@ -4732,25 +4402,15 @@ impl Instruction {
 		Ok(instruction)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_declare_byte() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_declare_byte(data: &[u8]) -> Self {
-		Instruction::try_with_declare_byte(data).unwrap()
+	pub fn try_with_declare_byte(data: &[u8]) -> Result<Self, IcedError> {
+		Instruction::with_declare_byte(data)
 	}
 
-	/// Creates a `dw`/`.word` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `w0`: Word 0
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4772,22 +4432,12 @@ impl Instruction {
 	/// * `w0`: Word 0
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_word_1(w0: u16) -> Self {
 		Instruction::try_with_declare_word_1(w0).unwrap()
 	}
 
-	/// Creates a `dw`/`.word` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `w0`: Word 0
-	/// * `w1`: Word 1
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4811,23 +4461,12 @@ impl Instruction {
 	/// * `w1`: Word 1
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_word_2(w0: u16, w1: u16) -> Self {
 		Instruction::try_with_declare_word_2(w0, w1).unwrap()
 	}
 
-	/// Creates a `dw`/`.word` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `w0`: Word 0
-	/// * `w1`: Word 1
-	/// * `w2`: Word 2
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4853,24 +4492,12 @@ impl Instruction {
 	/// * `w2`: Word 2
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_word_3(w0: u16, w1: u16, w2: u16) -> Self {
 		Instruction::try_with_declare_word_3(w0, w1, w2).unwrap()
 	}
 
-	/// Creates a `dw`/`.word` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `w0`: Word 0
-	/// * `w1`: Word 1
-	/// * `w2`: Word 2
-	/// * `w3`: Word 3
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4898,25 +4525,12 @@ impl Instruction {
 	/// * `w3`: Word 3
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_word_4(w0: u16, w1: u16, w2: u16, w3: u16) -> Self {
 		Instruction::try_with_declare_word_4(w0, w1, w2, w3).unwrap()
 	}
 
-	/// Creates a `dw`/`.word` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `w0`: Word 0
-	/// * `w1`: Word 1
-	/// * `w2`: Word 2
-	/// * `w3`: Word 3
-	/// * `w4`: Word 4
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4946,26 +4560,12 @@ impl Instruction {
 	/// * `w4`: Word 4
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_word_5(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16) -> Self {
 		Instruction::try_with_declare_word_5(w0, w1, w2, w3, w4).unwrap()
 	}
 
-	/// Creates a `dw`/`.word` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `w0`: Word 0
-	/// * `w1`: Word 1
-	/// * `w2`: Word 2
-	/// * `w3`: Word 3
-	/// * `w4`: Word 4
-	/// * `w5`: Word 5
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -4997,27 +4597,12 @@ impl Instruction {
 	/// * `w5`: Word 5
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_word_6(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16) -> Self {
 		Instruction::try_with_declare_word_6(w0, w1, w2, w3, w4, w5).unwrap()
 	}
 
-	/// Creates a `dw`/`.word` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `w0`: Word 0
-	/// * `w1`: Word 1
-	/// * `w2`: Word 2
-	/// * `w3`: Word 3
-	/// * `w4`: Word 4
-	/// * `w5`: Word 5
-	/// * `w6`: Word 6
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -5051,28 +4636,12 @@ impl Instruction {
 	/// * `w6`: Word 6
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_word_7(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16) -> Self {
 		Instruction::try_with_declare_word_7(w0, w1, w2, w3, w4, w5, w6).unwrap()
 	}
 
-	/// Creates a `dw`/`.word` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `w0`: Word 0
-	/// * `w1`: Word 1
-	/// * `w2`: Word 2
-	/// * `w3`: Word 3
-	/// * `w4`: Word 4
-	/// * `w5`: Word 5
-	/// * `w6`: Word 6
-	/// * `w7`: Word 7
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -5108,7 +4677,7 @@ impl Instruction {
 	/// * `w7`: Word 7
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Self {
 		Instruction::try_with_declare_word_8(w0, w1, w2, w3, w4, w5, w6, w7).unwrap()
@@ -5126,7 +4695,7 @@ impl Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	#[allow(trivial_casts)]
-	pub fn try_with_declare_word_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
+	pub fn with_declare_word_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 16 - 1 || (data.len() & 1) != 0 {
 			return Err(IcedError::new("Invalid slice length"));
 		}
@@ -5144,14 +4713,13 @@ impl Instruction {
 		Ok(instruction)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_slice_u8() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_declare_word_slice_u8() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_declare_word_slice_u8(data: &[u8]) -> Self {
-		Instruction::try_with_declare_word_slice_u8(data).unwrap()
+	pub fn try_with_declare_word_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
+		Instruction::with_declare_word_slice_u8(data)
 	}
 
 	/// Creates a `dw`/`.word` asm directive
@@ -5165,7 +4733,7 @@ impl Instruction {
 	/// * `data`: Data
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn try_with_declare_word(data: &[u16]) -> Result<Self, IcedError> {
+	pub fn with_declare_word(data: &[u16]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 8 - 1 {
 			return Err(IcedError::new("Invalid slice length"));
 		}
@@ -5182,25 +4750,15 @@ impl Instruction {
 		Ok(instruction)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_declare_word() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_declare_word(data: &[u16]) -> Self {
-		Instruction::try_with_declare_word(data).unwrap()
+	pub fn try_with_declare_word(data: &[u16]) -> Result<Self, IcedError> {
+		Instruction::with_declare_word(data)
 	}
 
-	/// Creates a `dd`/`.int` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `d0`: Dword 0
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -5222,22 +4780,12 @@ impl Instruction {
 	/// * `d0`: Dword 0
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_dword_1(d0: u32) -> Self {
 		Instruction::try_with_declare_dword_1(d0).unwrap()
 	}
 
-	/// Creates a `dd`/`.int` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `d0`: Dword 0
-	/// * `d1`: Dword 1
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -5261,23 +4809,12 @@ impl Instruction {
 	/// * `d1`: Dword 1
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_dword_2(d0: u32, d1: u32) -> Self {
 		Instruction::try_with_declare_dword_2(d0, d1).unwrap()
 	}
 
-	/// Creates a `dd`/`.int` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `d0`: Dword 0
-	/// * `d1`: Dword 1
-	/// * `d2`: Dword 2
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -5303,24 +4840,12 @@ impl Instruction {
 	/// * `d2`: Dword 2
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_dword_3(d0: u32, d1: u32, d2: u32) -> Self {
 		Instruction::try_with_declare_dword_3(d0, d1, d2).unwrap()
 	}
 
-	/// Creates a `dd`/`.int` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `d0`: Dword 0
-	/// * `d1`: Dword 1
-	/// * `d2`: Dword 2
-	/// * `d3`: Dword 3
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -5348,7 +4873,7 @@ impl Instruction {
 	/// * `d3`: Dword 3
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_dword_4(d0: u32, d1: u32, d2: u32, d3: u32) -> Self {
 		Instruction::try_with_declare_dword_4(d0, d1, d2, d3).unwrap()
@@ -5366,7 +4891,7 @@ impl Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	#[allow(trivial_casts)]
-	pub fn try_with_declare_dword_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
+	pub fn with_declare_dword_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 16 - 1 || (data.len() & 3) != 0 {
 			return Err(IcedError::new("Invalid slice length"));
 		}
@@ -5384,14 +4909,13 @@ impl Instruction {
 		Ok(instruction)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_slice_u8() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_declare_dword_slice_u8() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_declare_dword_slice_u8(data: &[u8]) -> Self {
-		Instruction::try_with_declare_dword_slice_u8(data).unwrap()
+	pub fn try_with_declare_dword_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
+		Instruction::with_declare_dword_slice_u8(data)
 	}
 
 	/// Creates a `dd`/`.int` asm directive
@@ -5405,7 +4929,7 @@ impl Instruction {
 	/// * `data`: Data
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn try_with_declare_dword(data: &[u32]) -> Result<Self, IcedError> {
+	pub fn with_declare_dword(data: &[u32]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 4 - 1 {
 			return Err(IcedError::new("Invalid slice length"));
 		}
@@ -5422,25 +4946,15 @@ impl Instruction {
 		Ok(instruction)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_declare_dword() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_declare_dword(data: &[u32]) -> Self {
-		Instruction::try_with_declare_dword(data).unwrap()
+	pub fn try_with_declare_dword(data: &[u32]) -> Result<Self, IcedError> {
+		Instruction::with_declare_dword(data)
 	}
 
-	/// Creates a `dq`/`.quad` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `q0`: Qword 0
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -5462,22 +4976,12 @@ impl Instruction {
 	/// * `q0`: Qword 0
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_qword_1(q0: u64) -> Self {
 		Instruction::try_with_declare_qword_1(q0).unwrap()
 	}
 
-	/// Creates a `dq`/`.quad` asm directive
-	///
-	/// # Errors
-	///
-	/// Fails NEVER!
-	///
-	/// # Arguments
-	///
-	/// * `q0`: Qword 0
-	/// * `q1`: Qword 1
 	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
@@ -5501,7 +5005,7 @@ impl Instruction {
 	/// * `q1`: Qword 1
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	#[rustfmt::skip]
 	pub fn with_declare_qword_2(q0: u64, q1: u64) -> Self {
 		Instruction::try_with_declare_qword_2(q0, q1).unwrap()
@@ -5519,7 +5023,7 @@ impl Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	#[allow(trivial_casts)]
-	pub fn try_with_declare_qword_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
+	pub fn with_declare_qword_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 16 - 1 || (data.len() & 7) != 0 {
 			return Err(IcedError::new("Invalid slice length"));
 		}
@@ -5538,14 +5042,13 @@ impl Instruction {
 		Ok(instruction)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword_slice_u8() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_declare_qword_slice_u8() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_declare_qword_slice_u8(data: &[u8]) -> Self {
-		Instruction::try_with_declare_qword_slice_u8(data).unwrap()
+	pub fn try_with_declare_qword_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
+		Instruction::with_declare_qword_slice_u8(data)
 	}
 
 	/// Creates a `dq`/`.quad` asm directive
@@ -5559,7 +5062,7 @@ impl Instruction {
 	/// * `data`: Data
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn try_with_declare_qword(data: &[u64]) -> Result<Self, IcedError> {
+	pub fn with_declare_qword(data: &[u64]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 2 - 1 {
 			return Err(IcedError::new("Invalid slice length"));
 		}
@@ -5576,14 +5079,13 @@ impl Instruction {
 		Ok(instruction)
 	}
 
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword() instead")]
+	#[deprecated(since = "1.14.0", note = "Use with_declare_qword() instead")]
 	#[doc(hidden)]
 	#[allow(clippy::unwrap_used)]
-	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
-	pub fn with_declare_qword(data: &[u64]) -> Self {
-		Instruction::try_with_declare_qword(data).unwrap()
+	pub fn try_with_declare_qword(data: &[u64]) -> Result<Self, IcedError> {
+		Instruction::with_declare_qword(data)
 	}
 }
 // GENERATOR-END: Create

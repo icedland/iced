@@ -115,7 +115,8 @@ This method produces the following output:
 #[allow(dead_code)]
 pub(crate) fn how_to_disassemble() {
     let bytes = EXAMPLE_CODE;
-    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
+    let mut decoder =
+        Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
     // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
     // For fastest code, see `SpecializedFormatter` which is ~3.3x faster. Use it if formatting
@@ -278,10 +279,10 @@ pub(crate) fn how_to_encode_instructions() -> Result<(), IcedError> {
         )?,
         Instruction::with2(Code::Mov_r32_imm32, Register::ECX, 0x0A)?,
         Instruction::with2(Code::Xor_r32_rm32, Register::EAX, Register::EAX)?,
-        Instruction::try_with_rep_stosd(bitness)?,
+        Instruction::with_rep_stosd(bitness)?,
         Instruction::with2(Code::Cmp_rm64_imm32, Register::RSI, 0x1234_5678)?,
         // Create a branch instruction that references label1
-        Instruction::try_with_branch(Code::Jne_rel32_64, label1)?,
+        Instruction::with_branch(Code::Jne_rel32_64, label1)?,
         Instruction::with(Code::Nopd),
         // Add the instruction that is the target of the branch
         add_label(label1, Instruction::with2(Code::Xor_r32_rm32, Register::R15D, Register::R15D)?),
@@ -296,7 +297,7 @@ pub(crate) fn how_to_encode_instructions() -> Result<(), IcedError> {
     )?);
     instructions.push(Instruction::with(Code::Nopd));
     let raw_data: &[u8] = &[0x12, 0x34, 0x56, 0x78];
-    instructions.push(add_label(data1, Instruction::try_with_declare_byte(raw_data)?));
+    instructions.push(add_label(data1, Instruction::with_declare_byte(raw_data)?));
 
     // Use BlockEncoder to encode a block of instructions. This block can contain any
     // number of branches and any number of instructions. It does support encoding more
@@ -326,7 +327,7 @@ pub(crate) fn how_to_encode_instructions() -> Result<(), IcedError> {
         formatter.format(&instruction, &mut output);
         println!("{:016X} {}", instruction.ip(), output);
     }
-    let db = Instruction::try_with_declare_byte(bytes_data)?;
+    let db = Instruction::with_declare_byte(bytes_data)?;
     output.clear();
     formatter.format(&db, &mut output);
     println!("{:016X} {}", decoder.ip(), output);
@@ -449,7 +450,8 @@ impl FormatterOutput for MyFormatterOutput {
 #[allow(dead_code)]
 pub(crate) fn how_to_colorize_text() {
     let bytes = EXAMPLE_CODE;
-    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
+    let mut decoder =
+        Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
     let mut formatter = IntelFormatter::new();
     formatter.options_mut().set_first_operand_char_index(8);
@@ -552,7 +554,12 @@ pub(crate) fn how_to_move_code() {
     println!("Original code:");
     disassemble(&example_code, EXAMPLE_CODE_RIP);
 
-    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, &example_code, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
+    let mut decoder = Decoder::with_ip(
+        EXAMPLE_CODE_BITNESS,
+        &example_code,
+        EXAMPLE_CODE_RIP,
+        DecoderOptions::NONE,
+    );
 
     // In 64-bit mode, we need 12 bytes to jump to any address:
     //      mov rax,imm64   // 10
@@ -610,7 +617,7 @@ pub(crate) fn how_to_move_code() {
     };
     if add {
         orig_instructions
-            .push(Instruction::try_with_branch(Code::Jmp_rel32_64, jmp_back_addr).unwrap());
+            .push(Instruction::with_branch(Code::Jmp_rel32_64, jmp_back_addr).unwrap());
     }
 
     // Relocate the code to some new location. It can fix short/near branches and
@@ -901,7 +908,12 @@ This method produces the following output:
 */
 #[allow(dead_code)]
 pub(crate) fn how_to_get_instruction_info() {
-    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
+    let mut decoder = Decoder::with_ip(
+        EXAMPLE_CODE_BITNESS,
+        EXAMPLE_CODE,
+        EXAMPLE_CODE_RIP,
+        DecoderOptions::NONE,
+    );
 
     // Use a factory to create the instruction info if you need register and
     // memory usage. If it's something else, eg. encoding, flags, etc, there

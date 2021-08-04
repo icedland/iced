@@ -150,7 +150,7 @@ fn encode_declare_byte() {
 		#[rustfmt::skip]
 		let instructions = [
 			Instruction::with(Code::Nopd),
-			Instruction::try_with_declare_byte(&info.0).unwrap(),
+			Instruction::with_declare_byte(&info.0).unwrap(),
 			Instruction::with(Code::Nopd),
 		];
 

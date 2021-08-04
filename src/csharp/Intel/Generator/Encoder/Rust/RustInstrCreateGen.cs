@@ -146,39 +146,29 @@ namespace Generator.Encoder.Rust {
 		[Flags]
 		enum GenTryFlags : uint {
 			None			= 0,
-			CanFail			= 1,
-			NoFooter		= 2,
-			TrivialCasts	= 4,
-			CanNotFail		= 8,
-			NoDocs			= 0x10,
-			TraitMethod		= 0x20,
-			NoGenErrorMethod= 0x40,
-			AllowUnwrapUsed	= 0x80,
-			Inline			= 0x100,
+			NoFooter		= 1,
+			TrivialCasts	= 2,
+			NoDocs			= 4,
+			CallNoDocs		= 8,
+			TraitMethod		= 0x10,
+			AllowUnwrapUsed	= 0x20,
+			Inline			= 0x40,
+			DocHidden		= 0x80,
 		}
-		void GenerateTryMethods(FileWriter writer, CreateMethod method, int opCount, GenTryFlags flags,
-			Action<GenerateTryMethodContext, TryMethodKind> genBody, Action<TryMethodKind>? writeError, string methodName,
-			RustDeprecatedInfo? deprecatedInfo = null, RustDeprecatedInfo? otherDeprecatedInfo = null) {
-			bool docs = (flags & GenTryFlags.NoDocs) == 0;
-			var ctx = new GenerateTryMethodContext(writer, method, opCount, methodName, "try_" + methodName);
 
-			var deprecMsg = deprecatedInfo?.GetAttribute();
+		void GenerateTryMethodsDeprecateTry(FileWriter writer, CreateMethod method, int opCount, GenTryFlags flags,
+			Action<GenerateTryMethodContext, TryMethodKind> genBody, Action<TryMethodKind>? writeError, string methodName) {
 
-			TryMethodKind kind;
-			if ((flags & (GenTryFlags.CanFail | GenTryFlags.CanNotFail)) != 0)
-				kind = TryMethodKind.Result;
-			else
-				kind = TryMethodKind.Normal;
-			GenerateMethodAndBody(ctx, flags, genBody, writeError, deprecatedInfo, kind);
-
-			if ((flags & (GenTryFlags.CanFail | GenTryFlags.CanNotFail)) != 0 && (flags & GenTryFlags.NoGenErrorMethod) == 0) {
-				ctx.Writer.WriteLine();
-				GenerateCallNewMethod(ctx, flags, writeError, otherDeprecatedInfo);
-			}
+			var tryMethodName = "try_" + methodName;
+			var ctx = new GenerateTryMethodContext(writer, method, opCount, methodName, tryMethodName);
+			GenerateMethodAndBody(ctx, flags, genBody, writeError, null, TryMethodKind.Result, methodName);
+			ctx.Writer.WriteLine();
+			var deprec = new RustDeprecatedInfo("1.14.0", $"Use {methodName}() instead");
+			GenerateCallNewMethod(ctx, flags | GenTryFlags.NoDocs, writeError, deprec, TryMethodKind.Result, tryMethodName, methodName);
 		}
 
 		void GenerateMethodAndBody(GenerateTryMethodContext ctx, GenTryFlags flags, Action<GenerateTryMethodContext, TryMethodKind> genBody,
-			Action<TryMethodKind>? writeError, RustDeprecatedInfo? deprecatedInfo, TryMethodKind kind) {
+			Action<TryMethodKind>? writeError, RustDeprecatedInfo? deprecatedInfo, TryMethodKind kind, string? methodName = null) {
 			bool docs = (flags & GenTryFlags.NoDocs) == 0;
 			var deprecMsg = deprecatedInfo?.GetAttribute();
 
@@ -190,10 +180,10 @@ namespace Generator.Encoder.Rust {
 			}
 			if (deprecMsg is not null)
 				ctx.Writer.WriteLine(deprecMsg);
-			if ((flags & GenTryFlags.CanNotFail) != 0 || deprecMsg is not null)
+			if ((flags & GenTryFlags.DocHidden) != 0 || deprecMsg is not null)
 				ctx.Writer.WriteLine(RustConstants.DocHidden);
-			var name = kind == TryMethodKind.Result ? ctx.TryMethodName : ctx.MethodName;
-			WriteMethod(ctx.Writer, ctx.Method, name, kind, flags);
+			methodName ??= kind == TryMethodKind.Result ? ctx.TryMethodName : ctx.MethodName;
+			WriteMethod(ctx.Writer, ctx.Method, methodName, kind, flags);
 			using (ctx.Writer.Indent()) {
 				genBody(ctx, kind);
 				if ((flags & GenTryFlags.NoFooter) == 0)
@@ -202,42 +192,31 @@ namespace Generator.Encoder.Rust {
 			ctx.Writer.WriteLine("}");
 		}
 
-		void GenerateCallNewMethod(GenerateTryMethodContext ctx, GenTryFlags flags, Action<TryMethodKind>? writeError, RustDeprecatedInfo? deprecatedInfo,
-			TryMethodKind? kind = null) {
-			bool docs = (flags & GenTryFlags.NoDocs) == 0;
+		void GenerateCallNewMethod(GenerateTryMethodContext ctx, GenTryFlags flags, Action<TryMethodKind>? writeError,
+			RustDeprecatedInfo? deprecatedInfo, TryMethodKind kind) =>
+			GenerateCallNewMethod(ctx, flags, writeError, deprecatedInfo, kind, ctx.MethodName,ctx.TryMethodName);
+
+		void GenerateCallNewMethod(GenerateTryMethodContext ctx, GenTryFlags flags, Action<TryMethodKind>? writeError,
+			RustDeprecatedInfo? deprecatedInfo, TryMethodKind kind, string methodName, string calledMethodName) {
+			bool docs = (flags & (GenTryFlags.NoDocs | GenTryFlags.CallNoDocs)) == 0;
 			var deprecMsg = deprecatedInfo?.GetAttribute();
 
-			TryMethodKind kind2;
-			Action? docsWriteError = null;
-			if (kind is TryMethodKind kind3)
-				kind2 = kind3;
-			else if ((flags & GenTryFlags.CanNotFail) != 0)
-				kind2 = TryMethodKind.Normal;
-			else
-				kind2 = TryMethodKind.Panic;
-			if (kind2 != TryMethodKind.Normal) {
-				if (docs) {
-					if (writeError is null)
-						throw new InvalidOperationException();
-					docsWriteError = () => writeError(kind2);
-				}
+			if (docs) {
+				Action? docsWriteError = null;
+				if (writeError is not null)
+					docsWriteError = () => writeError(kind);
+				WriteDocs(ctx.Writer, ctx.Method, kind, docsWriteError);
 			}
-			bool isDeprec = (flags & GenTryFlags.CanFail) != 0;
-			if (docs && !isDeprec)
-				WriteDocs(ctx.Writer, ctx.Method, kind2, docsWriteError);
-			if (isDeprec || deprecMsg is not null) {
-				if (deprecMsg is not null)
-					ctx.Writer.WriteLine(deprecMsg);
-				else
-					throw new InvalidOperationException("Missing deprecation message");
+			if (deprecMsg is not null)
+				ctx.Writer.WriteLine(deprecMsg);
+			if ((flags & GenTryFlags.DocHidden) != 0 || deprecMsg is not null)
 				ctx.Writer.WriteLine(RustConstants.DocHidden);
-			}
 			ctx.Writer.WriteLine(RustConstants.AttributeAllowUnwrapUsed);
-			WriteMethod(ctx.Writer, ctx.Method, ctx.MethodName, kind2, flags & GenTryFlags.Inline);
+			WriteMethod(ctx.Writer, ctx.Method, methodName, kind, flags & GenTryFlags.Inline);
 			using (ctx.Writer.Indent()) {
 				sb.Clear();
 				sb.Append("Instruction::");
-				sb.Append(ctx.TryMethodName);
+				sb.Append(calledMethodName);
 				sb.Append('(');
 				for (int i = 0; i < ctx.Method.Args.Count; i++) {
 					if (i > 0)
@@ -246,7 +225,7 @@ namespace Generator.Encoder.Rust {
 					sb.Append(argName);
 				}
 				sb.Append(")");
-				if (kind2 != TryMethodKind.Result)
+				if (kind != TryMethodKind.Result)
 					sb.Append(".unwrap()");
 				ctx.Writer.WriteLine(sb.ToString());
 			}
@@ -270,19 +249,21 @@ namespace Generator.Encoder.Rust {
 				var newName = InstrCreateGenImpl.GetRustOverloadedCreateName(method);
 				var deprec = new RustDeprecatedInfo("1.14.0", $"Use {newName}() instead");
 
-				if (opCount == 0)
-					GenerateTryMethods(writer, method, opCount, GenTryFlags.None, GenCreateBody, null, methodName, null);
+				if (opCount == 0) {
+					var ctx = new GenerateTryMethodContext(writer, method, opCount, methodName, "try_" + methodName);
+					GenerateMethodAndBody(ctx, GenTryFlags.None, GenCreateBody, null, null, TryMethodKind.Normal);
+				}
 				else if (InstrCreateGenImpl.HasTryMethod(method)) {
 					var ctx = new GenerateTryMethodContext(writer, method, opCount, "try_" + methodName, newName);
-					GenerateCallNewMethod(ctx, GenTryFlags.NoDocs | GenTryFlags.CanFail | GenTryFlags.Inline, null, deprec, TryMethodKind.Result);
+					GenerateCallNewMethod(ctx, GenTryFlags.NoDocs | GenTryFlags.CallNoDocs | GenTryFlags.Inline, null, deprec, TryMethodKind.Result);
 					writer.WriteLine();
 					ctx = new GenerateTryMethodContext(writer, method, opCount, methodName, newName);
-					GenerateCallNewMethod(ctx, GenTryFlags.NoDocs | GenTryFlags.CanNotFail | GenTryFlags.Inline, null, deprec);
+					GenerateCallNewMethod(ctx, GenTryFlags.NoDocs | GenTryFlags.DocHidden | GenTryFlags.Inline, null, deprec, TryMethodKind.Normal);
 				}
 				else {
 					var flags = GenTryFlags.NoDocs | GenTryFlags.Inline;
 					var ctx = new GenerateTryMethodContext(writer, method, opCount, methodName, newName);
-					GenerateCallNewMethod(ctx, flags, null, deprec);
+					GenerateCallNewMethod(ctx, flags, null, deprec, TryMethodKind.Panic);
 				}
 			}
 			// 1 == generate new with{1,2,3,4,5}() impl methods
@@ -300,7 +281,7 @@ namespace Generator.Encoder.Rust {
 				writer.WriteLine("> for Instruction {");
 				using (writer.Indent()) {
 					var methodName = InstrCreateGenImpl.GetRustOverloadedCreateName(method);
-					var flags = GenTryFlags.CanFail | GenTryFlags.NoDocs | GenTryFlags.TraitMethod | GenTryFlags.NoGenErrorMethod;
+					var flags = GenTryFlags.NoDocs | GenTryFlags.TraitMethod;
 					var ctx = new GenerateTryMethodContext(writer, method, opCount, methodName, methodName);
 					GenerateMethodAndBody(ctx, flags, GenCreateBody, null, null, TryMethodKind.Result);
 				}
@@ -379,9 +360,7 @@ namespace Generator.Encoder.Rust {
 			if (method.Args.Count != 2)
 				throw new InvalidOperationException();
 			Action<TryMethodKind> writeError = kind => docWriter.WriteLine(writer, GetErrorString(kind, "if the created instruction doesn't have a near branch operand"));
-			var name = RustInstrCreateGenNames.with_branch;
-			var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{name}() instead");
-			GenerateTryMethods(writer, method, 1, GenTryFlags.CanFail, GenCreateBranch, writeError, name, otherDeprecatedInfo: deprec);
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.None, GenCreateBranch, writeError, RustInstrCreateGenNames.with_branch);
 		}
 
 		void GenCreateBranch(GenerateTryMethodContext ctx, TryMethodKind kind) {
@@ -395,9 +374,7 @@ namespace Generator.Encoder.Rust {
 			if (method.Args.Count != 3)
 				throw new InvalidOperationException();
 			Action<TryMethodKind> writeError = kind => docWriter.WriteLine(writer, GetErrorString(kind, "if the created instruction doesn't have a far branch operand"));
-			var name = RustInstrCreateGenNames.with_far_branch;
-			var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{name}() instead");
-			GenerateTryMethods(writer, method, 1, GenTryFlags.CanFail, GenCreateFarBranch, writeError, name, otherDeprecatedInfo: deprec);
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.None, GenCreateFarBranch, writeError, RustInstrCreateGenNames.with_far_branch);
 		}
 
 		void GenCreateFarBranch(GenerateTryMethodContext ctx, TryMethodKind kind) {
@@ -412,9 +389,7 @@ namespace Generator.Encoder.Rust {
 			if (method.Args.Count != 2)
 				throw new InvalidOperationException();
 			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
-			var name = RustInstrCreateGenNames.with_xbegin;
-			var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{name}() instead");
-			GenerateTryMethods(writer, method, 1, GenTryFlags.CanFail, GenCreateXbegin, writeError, name, otherDeprecatedInfo: deprec);
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.None, GenCreateXbegin, writeError, RustInstrCreateGenNames.with_xbegin);
 		}
 
 		void GenCreateXbegin(GenerateTryMethodContext ctx, TryMethodKind kind) {
@@ -465,7 +440,8 @@ namespace Generator.Encoder.Rust {
 
 			var deprec = new RustDeprecatedInfo("1.11.0", $"Use with2() with a MemoryOperand arg instead");
 			var flags = GenTryFlags.NoFooter | GenTryFlags.AllowUnwrapUsed;
-			GenerateTryMethods(writer, method, 2, flags, (ctx, _) => GenCreateMemory64(ctx, memOp, regOp), null, name, deprec);
+			var ctx = new GenerateTryMethodContext(writer, method, 2, name, "try_" + name);
+			GenerateMethodAndBody(ctx, flags, (ctx, _) => GenCreateMemory64(ctx, memOp, regOp), null, deprec, TryMethodKind.Normal);
 		}
 
 		void GenCreateMemory64(GenerateTryMethodContext ctx, int memOp, int regOp) {
@@ -497,9 +473,8 @@ namespace Generator.Encoder.Rust {
 		protected override void GenCreateString_Reg_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
-			var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{methodName}() instead");
-			GenerateTryMethods(writer, method, 1, GenTryFlags.CanFail | GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateString_Reg_SegRSI(ctx, kind, code, register), writeError, methodName, otherDeprecatedInfo: deprec);
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
+				(ctx, _) => GenCreateString_Reg_SegRSI(ctx, kind, code, register), writeError, methodName);
 		}
 
 		void GenCreateString_Reg_SegRSI(GenerateTryMethodContext ctx, StringMethodKind kind, EnumValue code, EnumValue register) {
@@ -542,9 +517,8 @@ namespace Generator.Encoder.Rust {
 		protected override void GenCreateString_Reg_ESRDI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
-			var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{methodName}() instead");
-			GenerateTryMethods(writer, method, 1, GenTryFlags.CanFail | GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateString_Reg_ESRDI(ctx, kind, code, register), writeError, methodName, otherDeprecatedInfo: deprec);
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
+				(ctx, _) => GenCreateString_Reg_ESRDI(ctx, kind, code, register), writeError, methodName);
 		}
 
 		void GenCreateString_Reg_ESRDI(GenerateTryMethodContext ctx, StringMethodKind kind, EnumValue code, EnumValue register) {
@@ -583,9 +557,8 @@ namespace Generator.Encoder.Rust {
 		protected override void GenCreateString_ESRDI_Reg(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
-			var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{methodName}() instead");
-			GenerateTryMethods(writer, method, 1, GenTryFlags.CanFail | GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateString_ESRDI_Reg(ctx, kind, code, register), writeError, methodName, otherDeprecatedInfo: deprec);
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
+				(ctx, _) => GenCreateString_ESRDI_Reg(ctx, kind, code, register), writeError, methodName);
 		}
 
 		void GenCreateString_ESRDI_Reg(GenerateTryMethodContext ctx, StringMethodKind kind, EnumValue code, EnumValue register) {
@@ -624,9 +597,8 @@ namespace Generator.Encoder.Rust {
 		protected override void GenCreateString_SegRSI_ESRDI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code) {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
-			var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{methodName}() instead");
-			GenerateTryMethods(writer, method, 1, GenTryFlags.CanFail | GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateString_SegRSI_ESRDI(ctx, kind, code), writeError, methodName, otherDeprecatedInfo: deprec);
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
+				(ctx, _) => GenCreateString_SegRSI_ESRDI(ctx, kind, code), writeError, methodName);
 		}
 
 		void GenCreateString_SegRSI_ESRDI(GenerateTryMethodContext ctx, StringMethodKind kind, EnumValue code) {
@@ -665,9 +637,8 @@ namespace Generator.Encoder.Rust {
 		protected override void GenCreateString_ESRDI_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code) {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
-			var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{methodName}() instead");
-			GenerateTryMethods(writer, method, 1, GenTryFlags.CanFail | GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateString_ESRDI_SegRSI(ctx, kind, code), writeError, methodName, otherDeprecatedInfo: deprec);
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
+				(ctx, _) => GenCreateString_ESRDI_SegRSI(ctx, kind, code), writeError, methodName);
 		}
 
 		void GenCreateString_ESRDI_SegRSI(GenerateTryMethodContext ctx, StringMethodKind kind, EnumValue code) {
@@ -706,9 +677,8 @@ namespace Generator.Encoder.Rust {
 		protected override void GenCreateMaskmov(FileWriter writer, CreateMethod method, string methodBaseName, EnumValue code) {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
-			var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{methodName}() instead");
-			GenerateTryMethods(writer, method, 1, GenTryFlags.CanFail | GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateMaskmov(ctx, code), writeError, methodName, otherDeprecatedInfo: deprec);
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
+				(ctx, _) => GenCreateMaskmov(ctx, code), writeError, methodName);
 		}
 
 		void GenCreateMaskmov(GenerateTryMethodContext ctx, EnumValue code) {
@@ -762,9 +732,11 @@ namespace Generator.Encoder.Rust {
 			methodName = RustInstrCreateGenNames.AppendArgCount(methodName, method.Args.Count);
 
 			writer.WriteLine();
-			Action<TryMethodKind> writeError = kind => WriteDeclareDataError(writer, kind);
-			GenerateTryMethods(writer, method, 0, GenTryFlags.CanNotFail,
-				(ctx, _) => GenCreateDeclareData(ctx, code, setValueName), writeError, methodName);
+			var ctx = new GenerateTryMethodContext(writer, method, 0, methodName, "try_" + methodName);
+			GenerateMethodAndBody(ctx, GenTryFlags.DocHidden | GenTryFlags.NoDocs, (ctx, _) => GenCreateDeclareData(ctx, code, setValueName),
+				null, null, TryMethodKind.Result);
+			ctx.Writer.WriteLine();
+			GenerateCallNewMethod(ctx, GenTryFlags.Inline, null, null, TryMethodKind.Normal);
 		}
 
 		void GenCreateDeclareData(GenerateTryMethodContext ctx, EnumValue code, string setValueName) {
@@ -775,9 +747,6 @@ namespace Generator.Encoder.Rust {
 				ctx.Writer.WriteLine($"instruction.try_{setValueName}({i}, {idConverter.Argument(ctx.Method.Args[i].Name)})?;");
 		}
 
-		void WriteDeclareDataError(FileWriter writer, TryMethodKind kind) =>
-			docWriter.WriteLine(writer, GetErrorString(kind, "NEVER!"));
-
 		void WriteDataError(FileWriter writer, TryMethodKind kind, CreateMethod method, string extra) {
 			var msg = GetErrorString(kind, $"if `{idConverter.Argument(method.Args[0].Name)}.len()` {extra}");
 			docWriter.WriteLine(writer, msg);
@@ -786,9 +755,8 @@ namespace Generator.Encoder.Rust {
 		void GenCreateDeclareDataSlice(FileWriter writer, CreateMethod method, int elemSize, EnumValue code, string methodName, string setDeclValueName) {
 			writer.WriteLine();
 			Action<TryMethodKind> writeError = kind => WriteDataError(writer, kind, method, $"is not 1-{16 / elemSize}");
-			var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{methodName}() instead");
-			GenerateTryMethods(writer, method, 0, GenTryFlags.CanFail,
-				(ctx, _) => GenCreateDeclareDataSlice(ctx, elemSize, code, setDeclValueName), writeError, methodName, otherDeprecatedInfo: deprec);
+			GenerateTryMethodsDeprecateTry(writer, method, 0, GenTryFlags.CallNoDocs,
+				(ctx, _) => GenCreateDeclareDataSlice(ctx, elemSize, code, setDeclValueName), writeError, methodName);
 		}
 
 		void GenCreateDeclareDataSlice(GenerateTryMethodContext ctx, int elemSize, EnumValue code, string setDeclValueName) {
@@ -835,11 +803,9 @@ namespace Generator.Encoder.Rust {
 				case ArrayType.ByteSlice:
 					writer.WriteLine();
 					Action<TryMethodKind> writeError = kind => WriteDataError(writer, kind, method, $"is not 2-16 or not a multiple of 2");
-					const GenTryFlags flags = GenTryFlags.CanFail | GenTryFlags.TrivialCasts;
+					const GenTryFlags flags = GenTryFlags.TrivialCasts;
 					var name = RustInstrCreateGenNames.with_declare_word_slice_u8;
-					var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{name}() instead");
-					GenerateTryMethods(writer, method, 0, flags,
-						(ctx, _) => GenerateDeclWordByteSlice(ctx), writeError, name, otherDeprecatedInfo: deprec);
+					GenerateTryMethodsDeprecateTry(writer, method, 0, flags, (ctx, _) => GenerateDeclWordByteSlice(ctx), writeError, name);
 					break;
 
 					void GenerateDeclWordByteSlice(GenerateTryMethodContext ctx) {
@@ -880,11 +846,9 @@ namespace Generator.Encoder.Rust {
 				case ArrayType.ByteSlice:
 					writer.WriteLine();
 					Action<TryMethodKind> writeError = kind => WriteDataError(writer, kind, method, $"is not 4-16 or not a multiple of 4");
-					const GenTryFlags flags = GenTryFlags.CanFail | GenTryFlags.TrivialCasts;
+					const GenTryFlags flags = GenTryFlags.TrivialCasts;
 					var name = RustInstrCreateGenNames.with_declare_dword_slice_u8;
-					var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{name}() instead");
-					GenerateTryMethods(writer, method, 0, flags,
-						(ctx, _) => GenerateDeclDwordByteSlice(ctx), writeError, name, otherDeprecatedInfo: deprec);
+					GenerateTryMethodsDeprecateTry(writer, method, 0, flags, (ctx, _) => GenerateDeclDwordByteSlice(ctx), writeError, name);
 					break;
 
 					void GenerateDeclDwordByteSlice(GenerateTryMethodContext ctx) {
@@ -925,11 +889,9 @@ namespace Generator.Encoder.Rust {
 				case ArrayType.ByteSlice:
 					writer.WriteLine();
 					Action<TryMethodKind> writeError = kind => WriteDataError(writer, kind, method, $"is not 8-16 or not a multiple of 8");
-					const GenTryFlags flags = GenTryFlags.CanFail | GenTryFlags.TrivialCasts;
+					const GenTryFlags flags = GenTryFlags.TrivialCasts;
 					var name = RustInstrCreateGenNames.with_declare_qword_slice_u8;
-					var deprec = new RustDeprecatedInfo("1.10.0", $"This method can panic, use try_{name}() instead");
-					GenerateTryMethods(writer, method, 0, flags,
-						(ctx, _) => GenerateDeclQwordByteSlice(ctx), writeError, name, otherDeprecatedInfo: deprec);
+					GenerateTryMethodsDeprecateTry(writer, method, 0, flags, (ctx, _) => GenerateDeclQwordByteSlice(ctx), writeError, name);
 					break;
 
 					void GenerateDeclQwordByteSlice(GenerateTryMethodContext ctx) {

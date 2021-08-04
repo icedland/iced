@@ -233,7 +233,7 @@ namespace Generator.Encoder.RustJS {
 			WriteDocs(ctx, () => docWriter.WriteLine(ctx.Writer, "Throws if the created instruction doesn't have a near branch operand"));
 			const string rustName = Rust.RustInstrCreateGenNames.with_branch;
 			WriteMethod(ctx, rustName, "createBranch", canFail);
-			WriteCall(ctx, rustName, canFail, canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -245,7 +245,7 @@ namespace Generator.Encoder.RustJS {
 			WriteDocs(ctx, () => docWriter.WriteLine(ctx.Writer, "Throws if the created instruction doesn't have a far branch operand"));
 			const string rustName = Rust.RustInstrCreateGenNames.with_far_branch;
 			WriteMethod(ctx, rustName, "createFarBranch", canFail);
-			WriteCall(ctx, rustName, canFail, canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -257,7 +257,7 @@ namespace Generator.Encoder.RustJS {
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			const string rustName = Rust.RustInstrCreateGenNames.with_xbegin;
 			WriteMethod(ctx, rustName, "createXbegin", canFail);
-			WriteCall(ctx, rustName, canFail, canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -279,7 +279,7 @@ namespace Generator.Encoder.RustJS {
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			var rustName = rustIdConverter.Method("With" + methodBaseName);
 			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
-			WriteCall(ctx, rustName, canFail, canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -338,7 +338,7 @@ namespace Generator.Encoder.RustJS {
 			ctx.Writer.WriteLine();
 			WriteDocs(ctx, () => WriteDataThrows(ctx, $"is not 1-{16 / elemSize}"));
 			WriteMethod(ctx, rustName, jsName, canFail);
-			WriteCall(ctx, rustName, canFail, canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 

@@ -66,7 +66,7 @@ fn test_serde<F: Fn(&Instruction) -> Instruction>(f: F) {
 	}
 	#[cfg(feature = "encoder")]
 	{
-		let instr = Instruction::try_with_declare_byte(b"\x03\x73\x27\x80\xE7\x49\x11\xEB\xB2\xFA\x13\xC8\x87\x42\xF7\x4B").unwrap();
+		let instr = Instruction::with_declare_byte(b"\x03\x73\x27\x80\xE7\x49\x11\xEB\xB2\xFA\x13\xC8\x87\x42\xF7\x4B").unwrap();
 		let de_instr = f(&instr);
 		assert!(instr.eq_all_bits(&de_instr));
 	}
