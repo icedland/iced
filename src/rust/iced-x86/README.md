@@ -494,7 +494,7 @@ Uses instruction info API and the encoder to patch a function to jump to the pro
 ```rust
 use iced_x86::{
     BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, FlowControl, Formatter,
-    Instruction, InstructionBlock, NasmFormatter, OpKind,
+    IcedError, Instruction, InstructionBlock, NasmFormatter, OpKind,
 };
 
 // Decodes instructions from some address, then encodes them starting at some
@@ -549,7 +549,7 @@ Moved code:
 00007FFAC48ACDB0 jmp 00007FFAC46ACDB0h
 */
 #[allow(dead_code)]
-pub(crate) fn how_to_move_code() {
+pub(crate) fn how_to_move_code() -> Result<(), IcedError> {
     let example_code = EXAMPLE_CODE.to_vec();
     println!("Original code:");
     disassemble(&example_code, EXAMPLE_CODE_RIP);
@@ -616,8 +616,7 @@ pub(crate) fn how_to_move_code() {
         }
     };
     if add {
-        orig_instructions
-            .push(Instruction::with_branch(Code::Jmp_rel32_64, jmp_back_addr).unwrap());
+        orig_instructions.push(Instruction::with_branch(Code::Jmp_rel32_64, jmp_back_addr)?);
     }
 
     // Relocate the code to some new location. It can fix short/near branches and
@@ -661,6 +660,8 @@ pub(crate) fn how_to_move_code() {
     // Disassemble the moved code
     println!("Moved code:");
     disassemble(&new_code, relocated_base_address);
+
+	Ok(())
 }
 
 fn disassemble(data: &[u8], ip: u64) {
