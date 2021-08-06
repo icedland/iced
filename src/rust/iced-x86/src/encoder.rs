@@ -1375,8 +1375,8 @@ impl Encoder {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// # fn main() -> Result<(), IcedError> {
 	///
+	/// # fn main() -> Result<(), IcedError> {
 	/// let mut encoder = Encoder::new(64);
 	/// let instr = Instruction::with2(Code::Add_r64_rm64, Register::R8, Register::RBP)?;
 	/// encoder.write_u8(0x90);

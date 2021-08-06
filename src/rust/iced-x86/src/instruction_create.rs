@@ -65,8 +65,8 @@ impl Instruction {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// # fn main() -> Result<(), IcedError> {
 	///
+	/// # fn main() -> Result<(), IcedError> {
 	/// let _ = Instruction::with1(Code::Pop_rm64, Register::RCX)?;
 	/// let _ = Instruction::with1(Code::Pop_rm64, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS))?;
 	/// # Ok(())
@@ -99,8 +99,8 @@ impl Instruction {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// # fn main() -> Result<(), IcedError> {
 	///
+	/// # fn main() -> Result<(), IcedError> {
 	/// let _ = Instruction::with2(Code::Add_rm8_r8, Register::CL, Register::DL)?;
 	/// let _ = Instruction::with2(Code::Add_r8_rm8, Register::CL, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS))?;
 	/// # Ok(())
@@ -134,8 +134,8 @@ impl Instruction {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// # fn main() -> Result<(), IcedError> {
 	///
+	/// # fn main() -> Result<(), IcedError> {
 	/// let _ = Instruction::with3(Code::Imul_r16_rm16_imm16, Register::CX, Register::DX, 0x5AA5)?;
 	/// let _ = Instruction::with3(Code::Imul_r16_rm16_imm16, Register::CX, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0xA55A)?;
 	/// # Ok(())
@@ -170,8 +170,8 @@ impl Instruction {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// # fn main() -> Result<(), IcedError> {
 	///
+	/// # fn main() -> Result<(), IcedError> {
 	/// let _ = Instruction::with4(Code::Insertq_xmm_xmm_imm8_imm8, Register::XMM1, Register::XMM2, 0xA5, 0xFD)?;
 	/// let _ = Instruction::with4(Code::VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128, Register::XMM1, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS))?;
 	/// # Ok(())
@@ -207,8 +207,8 @@ impl Instruction {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// # fn main() -> Result<(), IcedError> {
 	///
+	/// # fn main() -> Result<(), IcedError> {
 	/// let _ = Instruction::with5(Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Register::XMM1, Register::XMM2, Register::XMM3, Register::XMM4, 0x0)?;
 	/// let _ = Instruction::with5(Code::VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, Register::XMM1, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0x1)?;
 	/// # Ok(())

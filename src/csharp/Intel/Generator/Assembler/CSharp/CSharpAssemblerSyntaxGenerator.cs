@@ -484,7 +484,7 @@ namespace Generator.Assembler.CSharp {
 								// Implemented manually
 								continue;
 							}
-							var groupBitness = group.AllOpCodeFlags & BitnessMaskFlags;
+							var groupBitness = group.AllDefFlags & BitnessMaskFlags;
 							if ((groupBitness & bitnessFlags) == 0)
 								continue;
 
@@ -564,37 +564,37 @@ namespace Generator.Assembler.CSharp {
 				case ArgKind.Register64:
 					argType = "AssemblerRegister64";
 					break;
-				case ArgKind.RegisterMM:
+				case ArgKind.RegisterMm:
 					argType = "AssemblerRegisterMM";
 					break;
-				case ArgKind.RegisterXMM:
+				case ArgKind.RegisterXmm:
 					argType = "AssemblerRegisterXMM";
 					break;
-				case ArgKind.RegisterYMM:
+				case ArgKind.RegisterYmm:
 					argType = "AssemblerRegisterYMM";
 					break;
-				case ArgKind.RegisterZMM:
+				case ArgKind.RegisterZmm:
 					argType = "AssemblerRegisterZMM";
 					break;
-				case ArgKind.RegisterTMM:
+				case ArgKind.RegisterTmm:
 					argType = "AssemblerRegisterTMM";
 					break;
 				case ArgKind.RegisterK:
 					argType = "AssemblerRegisterK";
 					break;
-				case ArgKind.RegisterCR:
+				case ArgKind.RegisterCr:
 					argType = "AssemblerRegisterCR";
 					break;
-				case ArgKind.RegisterTR:
+				case ArgKind.RegisterTr:
 					argType = "AssemblerRegisterTR";
 					break;
-				case ArgKind.RegisterDR:
+				case ArgKind.RegisterDr:
 					argType = "AssemblerRegisterDR";
 					break;
-				case ArgKind.RegisterST:
+				case ArgKind.RegisterSt:
 					argType = "AssemblerRegisterST";
 					break;
-				case ArgKind.RegisterBND:
+				case ArgKind.RegisterBnd:
 					argType = "AssemblerRegisterBND";
 					break;
 				case ArgKind.RegisterSegment:
@@ -638,7 +638,7 @@ namespace Generator.Assembler.CSharp {
 			// Write documentation
 			var methodDoc = new StringBuilder();
 			methodDoc.Append($"{group.Name} instruction.");
-			foreach (var def in group.Defs) {
+			foreach (var def in group.GetDefsAndParentDefs()) {
 				if (!string.IsNullOrEmpty(def.Code.Documentation)) {
 					methodDoc.Append("#(p:)#");
 					methodDoc.Append(def.Code.Documentation);
@@ -685,10 +685,8 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine(");");
 				}
 				else {
-					if (!group.RootOpCodeNode.IsEmpty) {
-						writer.WriteLine("Code op;");
-						GenerateOpCodeSelector(writer, group, renderArgs);
-					}
+					writer.WriteLine("Code op;");
+					GenerateOpCodeSelector(writer, group, renderArgs);
 
 					if (group.HasLabel)
 						writer.Write("AddInstruction(Instruction.CreateBranch(op");
@@ -801,43 +799,31 @@ namespace Generator.Assembler.CSharp {
 			fullMethodName.Append(methodName);
 			foreach (var renderArg in renderArgs) {
 				fullMethodName.Append('_');
-				switch (renderArg.Kind) {
-				case ArgKind.Register8:
-				case ArgKind.Register16:
-				case ArgKind.Register32:
-				case ArgKind.Register64:
-				case ArgKind.RegisterK:
-				case ArgKind.RegisterST:
-				case ArgKind.RegisterSegment:
-				case ArgKind.RegisterBND:
-				case ArgKind.RegisterMM:
-				case ArgKind.RegisterXMM:
-				case ArgKind.RegisterYMM:
-				case ArgKind.RegisterZMM:
-				case ArgKind.RegisterCR:
-				case ArgKind.RegisterDR:
-				case ArgKind.RegisterTR:
-				case ArgKind.RegisterTMM:
-					fullMethodName.Append(renderArg.Kind.ToString().Replace("Register", "reg"));
-					break;
-				case ArgKind.Memory:
-					fullMethodName.Append('m');
-					break;
-				case ArgKind.Immediate:
-					fullMethodName.Append('i');
-					break;
-				case ArgKind.ImmediateUnsigned:
-					fullMethodName.Append('u');
-					break;
-				case ArgKind.Label:
-					fullMethodName.Append('l');
-					break;
-				case ArgKind.LabelUlong:
-					fullMethodName.Append("lu");
-					break;
-				default:
-					throw new ArgumentOutOfRangeException($"{renderArg.Kind}");
-				}
+				var name = renderArg.Kind switch {
+					ArgKind.Register8 => "reg8",
+					ArgKind.Register16 => "reg16",
+					ArgKind.Register32 => "reg32",
+					ArgKind.Register64 => "reg64",
+					ArgKind.RegisterK => "regK",
+					ArgKind.RegisterSt => "regST",
+					ArgKind.RegisterSegment => "regSegment",
+					ArgKind.RegisterBnd => "regBND",
+					ArgKind.RegisterMm => "regMM",
+					ArgKind.RegisterXmm => "regXMM",
+					ArgKind.RegisterYmm => "regYMM",
+					ArgKind.RegisterZmm => "regZMM",
+					ArgKind.RegisterCr => "regCR",
+					ArgKind.RegisterDr => "regDR",
+					ArgKind.RegisterTr => "regTR",
+					ArgKind.RegisterTmm => "regTMM",
+					ArgKind.Memory => "m",
+					ArgKind.Immediate => "i",
+					ArgKind.ImmediateUnsigned => "u",
+					ArgKind.Label => "l",
+					ArgKind.LabelUlong => "lu",
+					_ => throw new ArgumentOutOfRangeException($"{renderArg.Kind}"),
+				};
+				fullMethodName.Append(name);
 			}
 
 			var fullMethodNameStr = fullMethodName.ToString();
@@ -1704,7 +1690,7 @@ namespace Generator.Assembler.CSharp {
 				else {
 					switch (bitness) {
 					case 16:
-						if (args.Count == 2 && (args[0].Kind == ArgKind.RegisterBND || args[1].Kind == ArgKind.RegisterBND))
+						if (args.Count == 2 && (args[0].Kind == ArgKind.RegisterBnd || args[1].Kind == ArgKind.RegisterBnd))
 							yield return "__dword_ptr[edi]";
 						else
 							yield return "__dword_ptr[di]";

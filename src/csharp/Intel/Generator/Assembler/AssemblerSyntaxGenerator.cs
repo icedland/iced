@@ -432,17 +432,17 @@ namespace Generator.Assembler {
 			var opcodes = new List<InstructionDef>();
 			foreach (var group in orderedGroups) {
 				if (group.HasRegisterMemoryMappedToRegister) {
-					var inputOpCodes = group.Defs;
+					var inputDefs = group.Defs;
 					opcodes.Clear();
 					signatures.Clear();
 					// First-pass to select only register versions
-					FilterOpCodesRegister(group, inputOpCodes, opcodes, signatures, false);
+					FilterOpCodesRegister(group, inputDefs, opcodes, signatures, false);
 
 					// Second-pass to populate with RM versions
-					FilterOpCodesRegister(group, inputOpCodes, opcodes, signatures, true);
+					FilterOpCodesRegister(group, inputDefs, opcodes, signatures, true);
 
-					inputOpCodes.Clear();
-					inputOpCodes.AddRange(opcodes);
+					inputDefs.Clear();
+					inputDefs.AddRange(opcodes);
 				}
 
 				// Update the selector graph for this group of opcodes
@@ -463,17 +463,17 @@ namespace Generator.Assembler {
 				RegisterKind.GPR64 => (ArgKind.Register64, ArgKind.Register64Memory),
 				RegisterKind.IP => (ArgKind.Unknown, ArgKind.Unknown),
 				RegisterKind.Segment => (ArgKind.RegisterSegment, ArgKind.Unknown),
-				RegisterKind.ST => (ArgKind.RegisterST, ArgKind.Unknown),
-				RegisterKind.CR => (ArgKind.RegisterCR, ArgKind.Unknown),
-				RegisterKind.DR => (ArgKind.RegisterDR, ArgKind.Unknown),
-				RegisterKind.TR => (ArgKind.RegisterTR, ArgKind.Unknown),
-				RegisterKind.BND => (ArgKind.RegisterBND, ArgKind.RegisterBNDMemory),
+				RegisterKind.ST => (ArgKind.RegisterSt, ArgKind.Unknown),
+				RegisterKind.CR => (ArgKind.RegisterCr, ArgKind.Unknown),
+				RegisterKind.DR => (ArgKind.RegisterDr, ArgKind.Unknown),
+				RegisterKind.TR => (ArgKind.RegisterTr, ArgKind.Unknown),
+				RegisterKind.BND => (ArgKind.RegisterBnd, ArgKind.RegisterBndMemory),
 				RegisterKind.K => (ArgKind.RegisterK, ArgKind.RegisterKMemory),
-				RegisterKind.MM => (ArgKind.RegisterMM, ArgKind.RegisterMMMemory),
-				RegisterKind.XMM => (ArgKind.RegisterXMM, ArgKind.RegisterXMMMemory),
-				RegisterKind.YMM => (ArgKind.RegisterYMM, ArgKind.RegisterYMMMemory),
-				RegisterKind.ZMM => (ArgKind.RegisterZMM, ArgKind.RegisterZMMMemory),
-				RegisterKind.TMM => (ArgKind.RegisterTMM, ArgKind.Unknown),
+				RegisterKind.MM => (ArgKind.RegisterMm, ArgKind.RegisterMmMemory),
+				RegisterKind.XMM => (ArgKind.RegisterXmm, ArgKind.RegisterXmmMemory),
+				RegisterKind.YMM => (ArgKind.RegisterYmm, ArgKind.RegisterYmmMemory),
+				RegisterKind.ZMM => (ArgKind.RegisterZmm, ArgKind.RegisterZmmMemory),
+				RegisterKind.TMM => (ArgKind.RegisterTmm, ArgKind.Unknown),
 				_ => throw new InvalidOperationException(),
 			};
 			var argKind = isRegMem ? rm : reg;
@@ -489,11 +489,11 @@ namespace Generator.Assembler {
 				ArgKind.Register32Memory => memory ? ArgKind.Memory : ArgKind.Register32,
 				ArgKind.Register64Memory => memory ? ArgKind.Memory : ArgKind.Register64,
 				ArgKind.RegisterKMemory => memory ? ArgKind.Memory : ArgKind.RegisterK,
-				ArgKind.RegisterBNDMemory => memory ? ArgKind.Memory : ArgKind.RegisterBND,
-				ArgKind.RegisterMMMemory => memory ? ArgKind.Memory : ArgKind.RegisterMM,
-				ArgKind.RegisterXMMMemory => memory ? ArgKind.Memory : ArgKind.RegisterXMM,
-				ArgKind.RegisterYMMMemory => memory ? ArgKind.Memory : ArgKind.RegisterYMM,
-				ArgKind.RegisterZMMMemory => memory ? ArgKind.Memory : ArgKind.RegisterZMM,
+				ArgKind.RegisterBndMemory => memory ? ArgKind.Memory : ArgKind.RegisterBnd,
+				ArgKind.RegisterMmMemory => memory ? ArgKind.Memory : ArgKind.RegisterMm,
+				ArgKind.RegisterXmmMemory => memory ? ArgKind.Memory : ArgKind.RegisterXmm,
+				ArgKind.RegisterYmmMemory => memory ? ArgKind.Memory : ArgKind.RegisterYmm,
+				ArgKind.RegisterZmmMemory => memory ? ArgKind.Memory : ArgKind.RegisterZmm,
 				_ => kind,
 			};
 
@@ -529,15 +529,15 @@ namespace Generator.Assembler {
 
 				if ((argFlags & OpCodeArgFlags.HasImmediateByteEqual1) != 0) {
 					// handle imm8 == 1 
-					var opcodesWithImmediateByteEqual1 = new List<InstructionDef>();
-					var opcodesOthers = new List<InstructionDef>();
-					var indices = CollectByOperandKindPredicate(opcodes, IsImmediateByteEqual1, opcodesWithImmediateByteEqual1, opcodesOthers);
+					var defsWithImmediateByteEqual1 = new List<InstructionDef>();
+					var defsOthers = new List<InstructionDef>();
+					var indices = CollectByOperandKindPredicate(opcodes, IsImmediateByteEqual1, defsWithImmediateByteEqual1, defsOthers);
 					if (indices.Count != 1)
 						throw new InvalidOperationException();
 					var newFlags = argFlags & ~OpCodeArgFlags.HasImmediateByteEqual1;
 					return new OpCodeSelector(indices[0], OpCodeSelectorKind.ImmediateByteEqual1) {
-						IfTrue = BuildSelectorGraph(group, signature, newFlags, opcodesWithImmediateByteEqual1),
-						IfFalse = BuildSelectorGraph(group, signature, newFlags, opcodesOthers)
+						IfTrue = BuildSelectorGraph(group, signature, newFlags, defsWithImmediateByteEqual1),
+						IfFalse = BuildSelectorGraph(group, signature, newFlags, defsOthers)
 					};
 				}
 				else if (group.IsBranch) {
@@ -691,9 +691,9 @@ namespace Generator.Assembler {
 
 					if ((argFlags & OpCodeArgFlags.HasImmediateByteSignExtended) != 0) {
 						// handle imm >= sbyte.MinValue && imm <= byte.MaxValue 
-						var opcodesWithImmediateByteSigned = new List<InstructionDef>();
-						var opcodesOthers = new List<InstructionDef>();
-						var indices = CollectByOperandKindPredicate(opcodes, IsImmediateByteSigned, opcodesWithImmediateByteSigned, opcodesOthers);
+						var defsWithImmediateByteSigned = new List<InstructionDef>();
+						var defsOthers = new List<InstructionDef>();
+						var indices = CollectByOperandKindPredicate(opcodes, IsImmediateByteSigned, defsWithImmediateByteSigned, defsOthers);
 
 						var selectorKind = OpCodeSelectorKind.ImmediateByteSigned8;
 						int opSize;
@@ -713,8 +713,8 @@ namespace Generator.Assembler {
 							throw new InvalidOperationException();
 						var newFlags = argFlags & ~OpCodeArgFlags.HasImmediateByteSignExtended;
 						return new OpCodeSelector(indices[0], selectorKind) {
-							IfTrue = BuildSelectorGraph(group, signature, newFlags, opcodesWithImmediateByteSigned),
-							IfFalse = BuildSelectorGraph(group, signature, newFlags, opcodesOthers)
+							IfTrue = BuildSelectorGraph(group, signature, newFlags, defsWithImmediateByteSigned),
+							IfFalse = BuildSelectorGraph(group, signature, newFlags, defsOthers)
 						};
 					}
 
@@ -794,6 +794,8 @@ namespace Generator.Assembler {
 
 				previousSelector = newSelector;
 			}
+			if (rootNode.IsEmpty)
+				throw new InvalidOperationException();
 			return rootNode;
 		}
 
@@ -979,9 +981,9 @@ namespace Generator.Assembler {
 		static bool IsRegister(ArgKind kind) =>
 			kind switch {
 				ArgKind.Register8 or ArgKind.Register16 or ArgKind.Register32 or ArgKind.Register64 or ArgKind.RegisterK or
-				ArgKind.RegisterST or ArgKind.RegisterSegment or ArgKind.RegisterBND or ArgKind.RegisterMM or ArgKind.RegisterXMM or
-				ArgKind.RegisterYMM or ArgKind.RegisterZMM or ArgKind.RegisterCR or ArgKind.RegisterDR or ArgKind.RegisterTR or
-				ArgKind.RegisterTMM => true,
+				ArgKind.RegisterSt or ArgKind.RegisterSegment or ArgKind.RegisterBnd or ArgKind.RegisterMm or ArgKind.RegisterXmm or
+				ArgKind.RegisterYmm or ArgKind.RegisterZmm or ArgKind.RegisterCr or ArgKind.RegisterDr or ArgKind.RegisterTr or
+				ArgKind.RegisterTmm => true,
 				_ => false,
 			};
 
@@ -1125,16 +1127,16 @@ namespace Generator.Assembler {
 			HasImmediateUnsigned = 1 << 20,
 		}
 
-		void FilterOpCodesRegister(OpCodeInfoGroup group, List<InstructionDef> inputOpCodes, List<InstructionDef> opcodes,
+		void FilterOpCodesRegister(OpCodeInfoGroup group, List<InstructionDef> inputDefs, List<InstructionDef> opcodes,
 			HashSet<Signature> signatures, bool allowMemory) {
 			var bitnessFlags = InstructionDefFlags1.None;
 			var vexOrEvexFlags = OpCodeArgFlags.None;
 
-			foreach (var code in inputOpCodes) {
+			foreach (var def in inputDefs) {
 				var registerSignature = new Signature();
 				bool isValid = true;
-				for (int i = 0; i < code.OpKindDefs.Length; i++) {
-					var argKind = GetFilterRegisterKindFromOpKind(code.OpKindDefs[i], GetMemorySizeInBits(memDefs, defs, code), allowMemory);
+				for (int i = 0; i < def.OpKindDefs.Length; i++) {
+					var argKind = GetFilterRegisterKindFromOpKind(def.OpKindDefs[i], GetMemorySizeInBits(memDefs, defs, def), allowMemory);
 					if (argKind == ArgKind.Unknown) {
 						isValid = false;
 						break;
@@ -1143,8 +1145,8 @@ namespace Generator.Assembler {
 					registerSignature.AddArgKind(argKind);
 				}
 
-				var codeBitnessFlags = code.Flags1 & BitnessMaskFlags;
-				var codeEvexFlags = code.Encoding switch {
+				var codeBitnessFlags = def.Flags1 & BitnessMaskFlags;
+				var codeEvexFlags = def.Encoding switch {
 					EncodingKind.VEX => OpCodeArgFlags.HasVex,
 					EncodingKind.EVEX => OpCodeArgFlags.HasEvex,
 					_ => OpCodeArgFlags.None,
@@ -1157,8 +1159,8 @@ namespace Generator.Assembler {
 					(group.Flags & (OpCodeArgFlags.RoundingControl | OpCodeArgFlags.SuppressAllExceptions)) != 0)) {
 					bitnessFlags |= codeBitnessFlags;
 					vexOrEvexFlags |= codeEvexFlags;
-					if (!opcodes.Contains(code))
-						opcodes.Add(code);
+					if (!opcodes.Contains(def))
+						opcodes.Add(def);
 				}
 			}
 		}
@@ -1199,7 +1201,7 @@ namespace Generator.Assembler {
 					Register.DS => ArgKind.FilterRegisterDS,
 					Register.FS => ArgKind.FilterRegisterFS,
 					Register.GS => ArgKind.FilterRegisterGS,
-					Register.ST0 => ArgKind.RegisterST,
+					Register.ST0 => ArgKind.RegisterSt,
 					_ => throw new InvalidOperationException(),
 				};
 
@@ -1216,18 +1218,18 @@ namespace Generator.Assembler {
 					Register.AX => ArgKind.Register16,
 					Register.EAX => ArgKind.Register32,
 					Register.RAX => ArgKind.Register64,
-					Register.ST0 => ArgKind.RegisterST,
+					Register.ST0 => ArgKind.RegisterSt,
 					Register.ES => ArgKind.RegisterSegment,
-					Register.BND0 => ArgKind.RegisterBND,
-					Register.CR0 => ArgKind.RegisterCR,
-					Register.DR0 => ArgKind.RegisterTR,
-					Register.TR0 => ArgKind.RegisterDR,
+					Register.BND0 => ArgKind.RegisterBnd,
+					Register.CR0 => ArgKind.RegisterCr,
+					Register.DR0 => ArgKind.RegisterTr,
+					Register.TR0 => ArgKind.RegisterDr,
 					Register.K0 => ArgKind.RegisterK,
-					Register.MM0 => ArgKind.RegisterMM,
-					Register.XMM0 => ArgKind.RegisterXMM,
-					Register.YMM0 => ArgKind.RegisterYMM,
-					Register.ZMM0 => ArgKind.RegisterZMM,
-					Register.TMM0 => ArgKind.RegisterTMM,
+					Register.MM0 => ArgKind.RegisterMm,
+					Register.XMM0 => ArgKind.RegisterXmm,
+					Register.YMM0 => ArgKind.RegisterYmm,
+					Register.ZMM0 => ArgKind.RegisterZmm,
+					Register.TMM0 => ArgKind.RegisterTmm,
 					_ => throw new InvalidOperationException(),
 				};
 
@@ -1384,13 +1386,17 @@ namespace Generator.Assembler {
 				if (pseudoOpsKind is not null)
 					groupsWithPseudo.Add(key, group);
 			}
+			if (group.MnemonicName != mnemonicName)
+				throw new InvalidOperationException();
+			if (group.NumberOfLeadingArgsToDiscard != numberLeadingArgsToDiscard)
+				throw new InvalidOperationException();
 			if (group.RootPseudoOpsKind != pseudoOpsKind)
 				throw new InvalidOperationException();
 
 			if (!group.Defs.Contains(def))
 				group.Defs.Add(def);
 			group.Flags |= opCodeArgFlags;
-			group.AllOpCodeFlags |= def.Flags1;
+			group.AllDefFlags |= def.Flags1;
 
 			group.UpdateMaxArgSizes(argSizes);
 
@@ -1456,6 +1462,8 @@ namespace Generator.Assembler {
 				var pseudoInfo = FormatterConstants.GetPseudoOps(pseudo);
 
 				// Create new signature without last imm argument
+				if (group.Signature.GetArgKind(group.Signature.ArgCount - 1) != ArgKind.Immediate)
+					throw new InvalidOperationException();
 				var signature = new Signature();
 				for (int i = 0; i < group.Signature.ArgCount - 1; i++)
 					signature.AddArgKind(group.Signature.GetArgKind(i));
@@ -1470,7 +1478,7 @@ namespace Generator.Assembler {
 
 					var newGroup = new OpCodeInfoGroup(memDefs, defs, name, group.MnemonicName, signature, 0, null, group, imm) {
 						Flags = OpCodeArgFlags.Pseudo,
-						AllOpCodeFlags = group.AllOpCodeFlags,
+						AllDefFlags = group.AllDefFlags,
 					};
 					newGroup.UpdateMaxArgSizes(newMaxArgSizes);
 					groups.Add(key, newGroup);
@@ -1547,28 +1555,28 @@ namespace Generator.Assembler {
 			Register32,
 			Register64,
 			RegisterK,
-			RegisterST,
+			RegisterSt,
 			RegisterSegment,
-			RegisterBND,
-			RegisterMM,
-			RegisterXMM,
-			RegisterYMM,
-			RegisterZMM,
-			RegisterCR,
-			RegisterDR,
-			RegisterTR,
-			RegisterTMM,
+			RegisterBnd,
+			RegisterMm,
+			RegisterXmm,
+			RegisterYmm,
+			RegisterZmm,
+			RegisterCr,
+			RegisterDr,
+			RegisterTr,
+			RegisterTmm,
 
 			Register8Memory,
 			Register16Memory,
 			Register32Memory,
 			Register64Memory,
 			RegisterKMemory,
-			RegisterBNDMemory,
-			RegisterMMMemory,
-			RegisterXMMMemory,
-			RegisterYMMMemory,
-			RegisterZMMMemory,
+			RegisterBndMemory,
+			RegisterMmMemory,
+			RegisterXmmMemory,
+			RegisterYmmMemory,
+			RegisterZmmMemory,
 
 			Memory,
 			Immediate,
@@ -1616,7 +1624,7 @@ namespace Generator.Assembler {
 
 			public string MnemonicName { get; }
 			public string Name { get; }
-			public InstructionDefFlags1 AllOpCodeFlags { get; set; }
+			public InstructionDefFlags1 AllDefFlags { get; set; }
 			public OpCodeArgFlags Flags { get; set; }
 			public PseudoOpsKind? RootPseudoOpsKind { get; }
 			public OpCodeInfoGroup? ParentPseudoOpsKind { get; }
@@ -1632,6 +1640,16 @@ namespace Generator.Assembler {
 			public List<InstructionDef> Defs { get; }
 			public List<int> MaxArgSizes { get; }
 			public int NumberOfLeadingArgsToDiscard { get; }
+			public bool AddNameSuffix { get; set; }
+
+			public IEnumerable<InstructionDef> GetDefsAndParentDefs() {
+				foreach (var def in Defs)
+					yield return def;
+				if (ParentPseudoOpsKind is OpCodeInfoGroup parent) {
+					foreach (var def in parent.GetDefsAndParentDefs())
+						yield return def;
+				}
+			}
 
 			public void UpdateMaxArgSizes(List<int> argSizes) {
 				if (MaxArgSizes.Count == 0)

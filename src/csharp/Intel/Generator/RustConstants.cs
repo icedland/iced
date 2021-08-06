@@ -14,6 +14,7 @@ namespace Generator {
 		public const string AttributeCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
 		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
 		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
+		public const string InnerAttributeAllowNonCamelCaseTypes = "#![allow(non_camel_case_types)]";
 		public const string AttributeMustUse = "#[must_use]";
 		public const string AttributeNonExhaustive = "#[cfg_attr(not(feature = \"exhaustive_enums\"), non_exhaustive)]";
 		public const string AttributeInline = "#[inline]";
