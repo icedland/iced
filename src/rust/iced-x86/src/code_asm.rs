@@ -5,6 +5,8 @@
 //!
 //! TODO:
 
+#![allow(clippy::unused_self, clippy::todo, clippy::unused_self)] //TODO:
+
 mod fn_asm_impl;
 mod fn_asm_pub;
 mod fn_asm_traits;
@@ -19,6 +21,7 @@ pub use crate::code_asm::reg::*;
 pub use crate::code_asm::registers::*;
 pub use crate::IcedError;
 use crate::{BlockEncoderOptions, Code, Instruction, MemoryOperand, Register};
+use alloc::vec::Vec;
 use core::hash::{Hash, Hasher};
 use core::usize;
 
