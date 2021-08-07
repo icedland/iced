@@ -166,7 +166,7 @@ namespace Generator.Constants.CSharp {
 		string GetValueString(Constant constant) {
 			var enumType = EnumUtils.GetEnumType(genTypes, constant.Kind);
 			var enumValue = enumType.Values.First(a => a.Value == constant.ValueUInt64);
-			return $"{enumType.Name(idConverter)}.{enumValue.Name(idConverter)}";
+			return idConverter.ToDeclTypeAndValue(enumValue);
 		}
 	}
 }

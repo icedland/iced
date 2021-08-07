@@ -158,7 +158,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void adc_reg32_u() {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.adc(eax, (uint)int.MaxValue), Instruction.Create(Code.Adc_EAX_imm32, eax, (uint)(uint)int.MaxValue));
-			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 				TestAssembler(c => c.adc(edx, (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Adc_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MinValue)));
 				TestAssembler(c => c.adc(edx, (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Adc_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 			} /* else */ TestAssembler(c => c.adc(edx, (uint)int.MaxValue), Instruction.Create(Code.Adc_rm32_imm32, edx, (uint)(uint)int.MaxValue));
@@ -167,7 +167,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void adc_m_u() {
 			{ /* if (dst.Size == MemoryOperandSize.Dword) */
-				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+				{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 					TestAssembler(c => c.adc(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Adc_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MinValue)));
 					TestAssembler(c => c.adc(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Adc_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 				} /* else */ TestAssembler(c => c.adc(__dword_ptr[rdx], (uint)int.MaxValue), Instruction.Create(Code.Adc_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)int.MaxValue));
@@ -349,7 +349,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void add_reg32_u() {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.add(eax, (uint)int.MaxValue), Instruction.Create(Code.Add_EAX_imm32, eax, (uint)(uint)int.MaxValue));
-			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 				TestAssembler(c => c.add(edx, (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Add_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MinValue)));
 				TestAssembler(c => c.add(edx, (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Add_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 			} /* else */ TestAssembler(c => c.add(edx, (uint)int.MaxValue), Instruction.Create(Code.Add_rm32_imm32, edx, (uint)(uint)int.MaxValue));
@@ -358,7 +358,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void add_m_u() {
 			{ /* if (dst.Size == MemoryOperandSize.Dword) */
-				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+				{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 					TestAssembler(c => c.add(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Add_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MinValue)));
 					TestAssembler(c => c.add(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Add_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 				} /* else */ TestAssembler(c => c.add(__dword_ptr[rdx], (uint)int.MaxValue), Instruction.Create(Code.Add_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)int.MaxValue));
@@ -710,7 +710,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void and_reg32_u() {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.and(eax, (uint)int.MaxValue), Instruction.Create(Code.And_EAX_imm32, eax, (uint)(uint)int.MaxValue));
-			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 				TestAssembler(c => c.and(edx, (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.And_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MinValue)));
 				TestAssembler(c => c.and(edx, (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.And_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 			} /* else */ TestAssembler(c => c.and(edx, (uint)int.MaxValue), Instruction.Create(Code.And_rm32_imm32, edx, (uint)(uint)int.MaxValue));
@@ -719,7 +719,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void and_m_u() {
 			{ /* if (dst.Size == MemoryOperandSize.Dword) */
-				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+				{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 					TestAssembler(c => c.and(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.And_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MinValue)));
 					TestAssembler(c => c.and(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.And_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 				} /* else */ TestAssembler(c => c.and(__dword_ptr[rdx], (uint)int.MaxValue), Instruction.Create(Code.And_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)int.MaxValue));
@@ -2575,7 +2575,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void cmp_reg32_u() {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.cmp(eax, (uint)int.MaxValue), Instruction.Create(Code.Cmp_EAX_imm32, eax, (uint)(uint)int.MaxValue));
-			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 				TestAssembler(c => c.cmp(edx, (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Cmp_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MinValue)));
 				TestAssembler(c => c.cmp(edx, (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Cmp_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 			} /* else */ TestAssembler(c => c.cmp(edx, (uint)int.MaxValue), Instruction.Create(Code.Cmp_rm32_imm32, edx, (uint)(uint)int.MaxValue));
@@ -2584,7 +2584,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void cmp_m_u() {
 			{ /* if (dst.Size == MemoryOperandSize.Dword) */
-				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+				{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 					TestAssembler(c => c.cmp(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Cmp_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MinValue)));
 					TestAssembler(c => c.cmp(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Cmp_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 				} /* else */ TestAssembler(c => c.cmp(__dword_ptr[rdx], (uint)int.MaxValue), Instruction.Create(Code.Cmp_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)int.MaxValue));
@@ -4853,7 +4853,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void imul_reg32_reg32_u() {
-			{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+			{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 				TestAssembler(c => c.imul(edx, ebx, (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Imul_r32_rm32_imm8, edx, ebx, (uint)(uint)unchecked((uint)sbyte.MinValue)));
 				TestAssembler(c => c.imul(edx, ebx, (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Imul_r32_rm32_imm8, edx, ebx, (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 			} /* else */ TestAssembler(c => c.imul(edx, ebx, (uint)int.MaxValue), Instruction.Create(Code.Imul_r32_rm32_imm32, edx, ebx, (uint)(uint)int.MaxValue));
@@ -4869,7 +4869,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void imul_reg32_m_u() {
-			{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+			{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 				TestAssembler(c => c.imul(edx, __dword_ptr[rcx], (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Imul_r32_rm32_imm8, edx, __dword_ptr[rcx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MinValue)));
 				TestAssembler(c => c.imul(edx, __dword_ptr[rcx], (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Imul_r32_rm32_imm8, edx, __dword_ptr[rcx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 			} /* else */ TestAssembler(c => c.imul(edx, __dword_ptr[rcx], (uint)int.MaxValue), Instruction.Create(Code.Imul_r32_rm32_imm32, edx, __dword_ptr[rcx].ToMemoryOperand(Bitness), (uint)(uint)int.MaxValue));
@@ -5098,199 +5098,199 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void ja_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.ja(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Ja_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.ja(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Ja_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.ja(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Ja_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.ja(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Ja_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void ja_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.ja(12752), Instruction.CreateBranch(Code.Ja_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.ja(12752), Instruction.CreateBranch(Code.Ja_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.ja(12752), Instruction.CreateBranch(Code.Ja_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.ja(12752), Instruction.CreateBranch(Code.Ja_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jae_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jae(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jae_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jae(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jae_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jae(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jae_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jae(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jae_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jae_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jae(12752), Instruction.CreateBranch(Code.Jae_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jae(12752), Instruction.CreateBranch(Code.Jae_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jae(12752), Instruction.CreateBranch(Code.Jae_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jae(12752), Instruction.CreateBranch(Code.Jae_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jb_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jb(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jb_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jb(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jb_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jb(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jb_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jb(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jb_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jb_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jb(12752), Instruction.CreateBranch(Code.Jb_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jb(12752), Instruction.CreateBranch(Code.Jb_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jb(12752), Instruction.CreateBranch(Code.Jb_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jb(12752), Instruction.CreateBranch(Code.Jb_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jbe_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jbe_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jbe_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jbe_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jbe_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jbe_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jbe(12752), Instruction.CreateBranch(Code.Jbe_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jbe(12752), Instruction.CreateBranch(Code.Jbe_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jbe(12752), Instruction.CreateBranch(Code.Jbe_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jbe(12752), Instruction.CreateBranch(Code.Jbe_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void je_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.je(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Je_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.je(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Je_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.je(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Je_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.je(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Je_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void je_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.je(12752), Instruction.CreateBranch(Code.Je_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.je(12752), Instruction.CreateBranch(Code.Je_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.je(12752), Instruction.CreateBranch(Code.Je_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.je(12752), Instruction.CreateBranch(Code.Je_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jg_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jg(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jg_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jg(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jg_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jg(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jg_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jg(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jg_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jg_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jg(12752), Instruction.CreateBranch(Code.Jg_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jg(12752), Instruction.CreateBranch(Code.Jg_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jg(12752), Instruction.CreateBranch(Code.Jg_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jg(12752), Instruction.CreateBranch(Code.Jg_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jge_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jge(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jge_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jge(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jge_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jge(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jge_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jge(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jge_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jge_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jge(12752), Instruction.CreateBranch(Code.Jge_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jge(12752), Instruction.CreateBranch(Code.Jge_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jge(12752), Instruction.CreateBranch(Code.Jge_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jge(12752), Instruction.CreateBranch(Code.Jge_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jl_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jl(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jl_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jl(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jl_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jl(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jl_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jl(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jl_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jl_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jl(12752), Instruction.CreateBranch(Code.Jl_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jl(12752), Instruction.CreateBranch(Code.Jl_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jl(12752), Instruction.CreateBranch(Code.Jl_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jl(12752), Instruction.CreateBranch(Code.Jl_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jle_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jle(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jle_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jle(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jle_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jle(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jle_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jle(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jle_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jle_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jle(12752), Instruction.CreateBranch(Code.Jle_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jle(12752), Instruction.CreateBranch(Code.Jle_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jle(12752), Instruction.CreateBranch(Code.Jle_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jle(12752), Instruction.CreateBranch(Code.Jle_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5330,155 +5330,155 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jmp_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmp_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmp_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmp_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmp_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jmp_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jmp(12752), Instruction.CreateBranch(Code.Jmp_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jmp(12752), Instruction.CreateBranch(Code.Jmp_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jmp(12752), Instruction.CreateBranch(Code.Jmp_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jmp(12752), Instruction.CreateBranch(Code.Jmp_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jne_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jne_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jne_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jne_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jne_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jne_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jne(12752), Instruction.CreateBranch(Code.Jne_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jne(12752), Instruction.CreateBranch(Code.Jne_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jne(12752), Instruction.CreateBranch(Code.Jne_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jne(12752), Instruction.CreateBranch(Code.Jne_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jno_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jno(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jno_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jno(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jno_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jno(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jno_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jno(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jno_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jno_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jno(12752), Instruction.CreateBranch(Code.Jno_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jno(12752), Instruction.CreateBranch(Code.Jno_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jno(12752), Instruction.CreateBranch(Code.Jno_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jno(12752), Instruction.CreateBranch(Code.Jno_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jnp_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jnp_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jnp_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jnp_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jnp_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jnp_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jnp(12752), Instruction.CreateBranch(Code.Jnp_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jnp(12752), Instruction.CreateBranch(Code.Jnp_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jnp(12752), Instruction.CreateBranch(Code.Jnp_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jnp(12752), Instruction.CreateBranch(Code.Jnp_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jns_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jns(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jns_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jns(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jns_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jns(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jns_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jns(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jns_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jns_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jns(12752), Instruction.CreateBranch(Code.Jns_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jns(12752), Instruction.CreateBranch(Code.Jns_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jns(12752), Instruction.CreateBranch(Code.Jns_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jns(12752), Instruction.CreateBranch(Code.Jns_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jo_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jo(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jo_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jo(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jo_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jo(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jo_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jo(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jo_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jo_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jo(12752), Instruction.CreateBranch(Code.Jo_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jo(12752), Instruction.CreateBranch(Code.Jo_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jo(12752), Instruction.CreateBranch(Code.Jo_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jo(12752), Instruction.CreateBranch(Code.Jo_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jp_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jp_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jp_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jp_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jp_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jp_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jp(12752), Instruction.CreateBranch(Code.Jp_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.jp(12752), Instruction.CreateBranch(Code.Jp_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jp(12752), Instruction.CreateBranch(Code.Jp_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.jp(12752), Instruction.CreateBranch(Code.Jp_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5494,23 +5494,23 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void js_l() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.js(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Js_rel8_64, 1), 1), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.js(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Js_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.js(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Js_rel32_64, 1), 1), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.js(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Js_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void js_lu() {
-			{ /* if (PreferBranchShort) */
+			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.js(12752), Instruction.CreateBranch(Code.Js_rel8_64, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
+					TestAssembler(c => c.js(12752), Instruction.CreateBranch(Code.Js_rel8_64, 12752), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.BranchUlong);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.js(12752), Instruction.CreateBranch(Code.Js_rel32_64, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+				TestAssembler(c => c.js(12752), Instruction.CreateBranch(Code.Js_rel32_64, 12752), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.BranchUlong);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -7853,7 +7853,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void or_reg32_u() {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.or(eax, (uint)int.MaxValue), Instruction.Create(Code.Or_EAX_imm32, eax, (uint)(uint)int.MaxValue));
-			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 				TestAssembler(c => c.or(edx, (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Or_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MinValue)));
 				TestAssembler(c => c.or(edx, (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Or_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 			} /* else */ TestAssembler(c => c.or(edx, (uint)int.MaxValue), Instruction.Create(Code.Or_rm32_imm32, edx, (uint)(uint)int.MaxValue));
@@ -7862,7 +7862,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void or_m_u() {
 			{ /* if (dst.Size == MemoryOperandSize.Dword) */
-				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+				{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 					TestAssembler(c => c.or(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Or_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MinValue)));
 					TestAssembler(c => c.or(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Or_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 				} /* else */ TestAssembler(c => c.or(__dword_ptr[rdx], (uint)int.MaxValue), Instruction.Create(Code.Or_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)int.MaxValue));
@@ -11063,7 +11063,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void push_u() {
 			{ /* if (Bitness >= 32) */
-				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+				{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 					{
 						// Skipping Pushd_imm8 - Not supported for Bit64
 					}
@@ -12840,7 +12840,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void sbb_reg32_u() {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.sbb(eax, (uint)int.MaxValue), Instruction.Create(Code.Sbb_EAX_imm32, eax, (uint)(uint)int.MaxValue));
-			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 				TestAssembler(c => c.sbb(edx, (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sbb_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MinValue)));
 				TestAssembler(c => c.sbb(edx, (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sbb_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 			} /* else */ TestAssembler(c => c.sbb(edx, (uint)int.MaxValue), Instruction.Create(Code.Sbb_rm32_imm32, edx, (uint)(uint)int.MaxValue));
@@ -12849,7 +12849,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void sbb_m_u() {
 			{ /* if (dst.Size == MemoryOperandSize.Dword) */
-				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+				{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 					TestAssembler(c => c.sbb(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sbb_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MinValue)));
 					TestAssembler(c => c.sbb(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sbb_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 				} /* else */ TestAssembler(c => c.sbb(__dword_ptr[rdx], (uint)int.MaxValue), Instruction.Create(Code.Sbb_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)int.MaxValue));
@@ -14095,7 +14095,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void sub_reg32_u() {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.sub(eax, (uint)int.MaxValue), Instruction.Create(Code.Sub_EAX_imm32, eax, (uint)(uint)int.MaxValue));
-			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 				TestAssembler(c => c.sub(edx, (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sub_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MinValue)));
 				TestAssembler(c => c.sub(edx, (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sub_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 			} /* else */ TestAssembler(c => c.sub(edx, (uint)int.MaxValue), Instruction.Create(Code.Sub_rm32_imm32, edx, (uint)(uint)int.MaxValue));
@@ -14104,7 +14104,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void sub_m_u() {
 			{ /* if (dst.Size == MemoryOperandSize.Dword) */
-				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+				{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 					TestAssembler(c => c.sub(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sub_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MinValue)));
 					TestAssembler(c => c.sub(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sub_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 				} /* else */ TestAssembler(c => c.sub(__dword_ptr[rdx], (uint)int.MaxValue), Instruction.Create(Code.Sub_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)int.MaxValue));
@@ -60771,7 +60771,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void xor_reg32_u() {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.xor(eax, (uint)int.MaxValue), Instruction.Create(Code.Xor_EAX_imm32, eax, (uint)(uint)int.MaxValue));
-			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 				TestAssembler(c => c.xor(edx, (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Xor_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MinValue)));
 				TestAssembler(c => c.xor(edx, (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Xor_rm32_imm8, edx, (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 			} /* else */ TestAssembler(c => c.xor(edx, (uint)int.MaxValue), Instruction.Create(Code.Xor_rm32_imm32, edx, (uint)(uint)int.MaxValue));
@@ -60780,7 +60780,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void xor_m_u() {
 			{ /* if (dst.Size == MemoryOperandSize.Dword) */
-				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
+				{ /* if (imm <= (uint)sbyte.MaxValue || 0xFFFF_FF80 <= imm) */
 					TestAssembler(c => c.xor(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Xor_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MinValue)));
 					TestAssembler(c => c.xor(__dword_ptr[rdx], (uint)unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Xor_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)unchecked((uint)sbyte.MaxValue)));
 				} /* else */ TestAssembler(c => c.xor(__dword_ptr[rdx], (uint)int.MaxValue), Instruction.Create(Code.Xor_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), (uint)(uint)int.MaxValue));

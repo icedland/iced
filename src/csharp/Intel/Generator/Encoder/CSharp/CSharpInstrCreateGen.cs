@@ -124,7 +124,7 @@ namespace Generator.Encoder.CSharp {
 				writer.Write(idConverter.Argument(arg.Name));
 				switch (arg.DefaultValue) {
 				case EnumValue enumValue:
-					writer.Write($" = {enumValue.DeclaringType.Name(idConverter)}.{enumValue.Name(idConverter)}");
+					writer.Write($" = {idConverter.ToDeclTypeAndValue(enumValue)}");
 					break;
 				case null:
 					break;
@@ -145,7 +145,7 @@ namespace Generator.Encoder.CSharp {
 
 		void WriteInitializeInstruction(FileWriter writer, EnumValue code) {
 			writer.WriteLine("Instruction instruction = default;");
-			writer.WriteLine($"instruction.Code = {code.DeclaringType.Name(idConverter)}.{code.Name(idConverter)};");
+			writer.WriteLine($"instruction.Code = {idConverter.ToDeclTypeAndValue(code)};");
 		}
 
 		static void WriteMethodFooter(FileWriter writer, int args) {
@@ -162,12 +162,8 @@ namespace Generator.Encoder.CSharp {
 			using (writer.Indent()) {
 				WriteInitializeInstruction(writer, method);
 				var args = method.Args;
-				var codeName = idConverter.Argument(args[0].Name);
-				var opKindStr = genTypes[TypeIds.OpKind].Name(idConverter);
-				var registerStr = genTypes[TypeIds.OpKind][nameof(OpKind.Register)].Name(idConverter);
-				var memoryStr = genTypes[TypeIds.OpKind][nameof(OpKind.Memory)].Name(idConverter);
-				var immediate64Str = genTypes[TypeIds.OpKind][nameof(OpKind.Immediate64)].Name(idConverter);
-				var immediate8_2ndStr = genTypes[TypeIds.OpKind][nameof(OpKind.Immediate8_2nd)].Name(idConverter);
+				var registerStr = idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.Register)]);
+				var memoryStr = idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.Memory)]);
 				bool multipleInts = args.Where(a => a.Type == MethodArgType.Int32 || a.Type == MethodArgType.UInt32).Count() > 1;
 				for (int i = 1; i < args.Count; i++) {
 					int op = i - 1;
@@ -175,13 +171,13 @@ namespace Generator.Encoder.CSharp {
 					writer.WriteLine();
 					switch (arg.Type) {
 					case MethodArgType.Register:
-						writer.WriteLine($"Static.Assert({opKindStr}.{registerStr} == 0 ? 0 : -1);");
-						writer.WriteLine($"//instruction.Op{op}Kind = {opKindStr}.{registerStr};");
+						writer.WriteLine($"Static.Assert({registerStr} == 0 ? 0 : -1);");
+						writer.WriteLine($"//instruction.Op{op}Kind = {registerStr};");
 						writer.WriteLine($"instruction.Op{op}Register = {idConverter.Argument(arg.Name)};");
 						break;
 
 					case MethodArgType.Memory:
-						writer.WriteLine($"instruction.Op{op}Kind = {opKindStr}.{memoryStr};");
+						writer.WriteLine($"instruction.Op{op}Kind = {memoryStr};");
 						writer.WriteLine($"InitMemoryOperand(ref instruction, {idConverter.Argument(arg.Name)});");
 						break;
 
@@ -266,29 +262,27 @@ namespace Generator.Encoder.CSharp {
 			using (writer.Indent()) {
 				writer.WriteLine("Instruction instruction = default;");
 				var bitnessName = idConverter.Argument(method.Args[0].Name);
-				var opKindName = genTypes[TypeIds.OpKind].Name(idConverter);
-				var codeName = codeType.Name(idConverter);
 				writer.WriteLine($"switch ({bitnessName}) {{");
 				writer.WriteLine($"case 16:");
 				using (writer.Indent()) {
-					writer.WriteLine($"instruction.Code = {codeName}.{codeType[nameof(Code.Xbegin_rel16)].Name(idConverter)};");
-					writer.WriteLine($"instruction.Op0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.Code = {idConverter.ToDeclTypeAndValue(codeType[nameof(Code.Xbegin_rel16)])};");
+					writer.WriteLine($"instruction.Op0Kind = {idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)])};");
 					writer.WriteLine($"instruction.NearBranch32 = (uint){idConverter.Argument(method.Args[1].Name)};");
 					writer.WriteLine($"break;");
 				}
 				writer.WriteLine();
 				writer.WriteLine($"case 32:");
 				using (writer.Indent()) {
-					writer.WriteLine($"instruction.Code = {codeName}.{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)};");
-					writer.WriteLine($"instruction.Op0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.Code = {idConverter.ToDeclTypeAndValue(codeType[nameof(Code.Xbegin_rel32)])};");
+					writer.WriteLine($"instruction.Op0Kind = {idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)])};");
 					writer.WriteLine($"instruction.NearBranch32 = (uint){idConverter.Argument(method.Args[1].Name)};");
 					writer.WriteLine($"break;");
 				}
 				writer.WriteLine();
 				writer.WriteLine($"case 64:");
 				using (writer.Indent()) {
-					writer.WriteLine($"instruction.Code = {codeName}.{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)};");
-					writer.WriteLine($"instruction.Op0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)].Name(idConverter)};");
+					writer.WriteLine($"instruction.Code = {idConverter.ToDeclTypeAndValue(codeType[nameof(Code.Xbegin_rel32)])};");
+					writer.WriteLine($"instruction.Op0Kind = {idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)])};");
 					writer.WriteLine($"instruction.NearBranch64 = {idConverter.Argument(method.Args[1].Name)};");
 					writer.WriteLine($"break;");
 				}
@@ -323,8 +317,7 @@ namespace Generator.Encoder.CSharp {
 			WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") {");
 			using (writer.Indent()) {
-				var regNone = genTypes[TypeIds.Register][nameof(Register.None)];
-				var regStr = $"{regNone.DeclaringType.Name(idConverter)}.{regNone.Name(idConverter)}";
+				var regStr = idConverter.ToDeclTypeAndValue(genTypes[TypeIds.Register][nameof(Register.None)]);
 				var addrStr = idConverter.Argument(method.Args[1 + memOp].Name);
 				var segPrefStr = idConverter.Argument(method.Args[3].Name);
 				var memOpStr = $"new MemoryOperand({regStr}, (long){addrStr}, 8, false, {segPrefStr})";
@@ -340,7 +333,7 @@ namespace Generator.Encoder.CSharp {
 		}
 
 		static void WriteComma(FileWriter writer) => writer.Write(", ");
-		void Write(FileWriter writer, EnumValue value) => writer.Write($"{value.DeclaringType.Name(idConverter)}.{value.Name(idConverter)}");
+		void Write(FileWriter writer, EnumValue value) => writer.Write(idConverter.ToDeclTypeAndValue(value));
 		void Write(FileWriter writer, MethodArg arg) => writer.Write(idConverter.Argument(arg.Name));
 
 		protected override void GenCreateString_Reg_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {

@@ -103,7 +103,7 @@ namespace Generator.Encoder.Rust {
 
 		void WriteInitializeInstruction(FileWriter writer, EnumValue code) {
 			writer.WriteLine("let mut instruction = Self::default();");
-			writer.WriteLine($"instruction.set_code({code.DeclaringType.Name(idConverter)}::{code.Name(idConverter)});");
+			writer.WriteLine($"instruction.set_code({idConverter.ToDeclTypeAndValue(code)});");
 		}
 
 		static void WriteMethodFooter(FileWriter writer, int opCount, TryMethodKind kind) {
@@ -294,12 +294,6 @@ namespace Generator.Encoder.Rust {
 		void GenCreateBody(GenerateTryMethodContext ctx, TryMethodKind kind) {
 			WriteInitializeInstruction(ctx.Writer, ctx.Method);
 			var args = ctx.Method.Args;
-			var codeName = idConverter.Argument(args[0].Name);
-			var opKindStr = genTypes[TypeIds.OpKind].Name(idConverter);
-			var registerStr = genTypes[TypeIds.OpKind][nameof(OpKind.Register)].Name(idConverter);
-			var memoryStr = genTypes[TypeIds.OpKind][nameof(OpKind.Memory)].Name(idConverter);
-			var immediate64Str = genTypes[TypeIds.OpKind][nameof(OpKind.Immediate64)].Name(idConverter);
-			var immediate8_2ndStr = genTypes[TypeIds.OpKind][nameof(OpKind.Immediate8_2nd)].Name(idConverter);
 			bool multipleInts = args.Where(a => a.Type == MethodArgType.Int32 || a.Type == MethodArgType.UInt32).Count() > 1;
 			string methodName;
 			for (int i = 1; i < args.Count; i++) {
@@ -308,13 +302,13 @@ namespace Generator.Encoder.Rust {
 				ctx.Writer.WriteLine();
 				switch (arg.Type) {
 				case MethodArgType.Register:
-					ctx.Writer.WriteLine($"const_assert_eq!({opKindStr}::{registerStr} as u32, 0);");
-					ctx.Writer.WriteLine($"//instruction.set_op{op}_kind({opKindStr}::{registerStr});");
+					ctx.Writer.WriteLine($"const_assert_eq!({idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.Register)])} as u32, 0);");
+					ctx.Writer.WriteLine($"//instruction.set_op{op}_kind({idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.Register)])});");
 					ctx.Writer.WriteLine($"instruction.set_op{op}_register({idConverter.Argument(arg.Name)});");
 					break;
 
 				case MethodArgType.Memory:
-					ctx.Writer.WriteLine($"instruction.set_op{op}_kind({opKindStr}::{memoryStr});");
+					ctx.Writer.WriteLine($"instruction.set_op{op}_kind({idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.Memory)])});");
 					ctx.Writer.WriteLine($"Instruction::init_memory_operand(&mut instruction, &{idConverter.Argument(arg.Name)});");
 					break;
 
@@ -394,25 +388,23 @@ namespace Generator.Encoder.Rust {
 
 		void GenCreateXbegin(GenerateTryMethodContext ctx, TryMethodKind kind) {
 			ctx.Writer.WriteLine($"let mut instruction = Self::default();");
-			var opKindName = genTypes[TypeIds.OpKind].Name(idConverter);
-			var codeName = codeType.Name(idConverter);
 			ctx.Writer.WriteLine();
 			ctx.Writer.WriteLine($"match bitness {{");
 			ctx.Writer.WriteLine($"	16 => {{");
-			ctx.Writer.WriteLine($"		instruction.set_code({codeName}::{codeType[nameof(Code.Xbegin_rel16)].Name(idConverter)});");
-			ctx.Writer.WriteLine($"		instruction.set_op0_kind({opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)});");
+			ctx.Writer.WriteLine($"		instruction.set_code({idConverter.ToDeclTypeAndValue(codeType[nameof(Code.Xbegin_rel16)])});");
+			ctx.Writer.WriteLine($"		instruction.set_op0_kind({idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)])});");
 			ctx.Writer.WriteLine($"		instruction.set_near_branch32({idConverter.Argument(ctx.Method.Args[1].Name)} as u32);");
 			ctx.Writer.WriteLine($"	}}");
 			ctx.Writer.WriteLine();
 			ctx.Writer.WriteLine($"	32 => {{");
-			ctx.Writer.WriteLine($"		instruction.set_code({codeName}::{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
-			ctx.Writer.WriteLine($"		instruction.set_op0_kind({opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)});");
+			ctx.Writer.WriteLine($"		instruction.set_code({idConverter.ToDeclTypeAndValue(codeType[nameof(Code.Xbegin_rel32)])});");
+			ctx.Writer.WriteLine($"		instruction.set_op0_kind({idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)])});");
 			ctx.Writer.WriteLine($"		instruction.set_near_branch32({idConverter.Argument(ctx.Method.Args[1].Name)} as u32);");
 			ctx.Writer.WriteLine($"	}}");
 			ctx.Writer.WriteLine();
 			ctx.Writer.WriteLine($"	64 => {{");
-			ctx.Writer.WriteLine($"		instruction.set_code({codeName}::{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
-			ctx.Writer.WriteLine($"		instruction.set_op0_kind({opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)].Name(idConverter)});");
+			ctx.Writer.WriteLine($"		instruction.set_code({idConverter.ToDeclTypeAndValue(codeType[nameof(Code.Xbegin_rel32)])});");
+			ctx.Writer.WriteLine($"		instruction.set_op0_kind({idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)])});");
 			ctx.Writer.WriteLine($"		instruction.set_near_branch64({idConverter.Argument(ctx.Method.Args[1].Name)});");
 			ctx.Writer.WriteLine($"	}}");
 			ctx.Writer.WriteLine();
@@ -445,8 +437,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		void GenCreateMemory64(GenerateTryMethodContext ctx, int memOp, int regOp) {
-			var regNone = genTypes[TypeIds.Register][nameof(Register.None)];
-			var regStr = $"{regNone.DeclaringType.Name(idConverter)}::{regNone.Name(idConverter)}";
+			var regStr = idConverter.ToDeclTypeAndValue(genTypes[TypeIds.Register][nameof(Register.None)]);
 			var addrStr = idConverter.Argument(ctx.Method.Args[1 + memOp].Name);
 			var segPrefStr = idConverter.Argument(ctx.Method.Args[3].Name);
 			var memOpStr = $"MemoryOperand::with_base_displ_size_bcst_seg({regStr}, {addrStr} as i64, 8, false, {segPrefStr})";
@@ -460,7 +451,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		static void WriteComma(FileWriter writer) => writer.Write(", ");
-		void Write(FileWriter writer, EnumValue value) => writer.Write($"{value.DeclaringType.Name(idConverter)}::{value.Name(idConverter)}");
+		void Write(FileWriter writer, EnumValue value) => writer.Write(idConverter.ToDeclTypeAndValue(value));
 		void Write(FileWriter writer, MethodArg arg) => writer.Write(idConverter.Argument(arg.Name));
 
 		void WriteAddrSizeOrBitnessPanic(FileWriter writer, CreateMethod method, TryMethodKind kind) {

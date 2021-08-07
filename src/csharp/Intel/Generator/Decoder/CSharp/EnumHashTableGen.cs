@@ -61,11 +61,10 @@ namespace Generator.Decoder.CSharp {
 				foreach (var value in enumValues) {
 					if (value.DeprecatedInfo.IsDeprecated && value.DeprecatedInfo.IsError)
 						continue;
-					var name = value.Name(idConverter);
 					var key = value.RawName;
 					if (lowerCase)
 						key = key.ToLowerInvariant();
-					writer.WriteLine($"{{ \"{key}\", {enumStr}.{name} }},");
+					writer.WriteLine($"{{ \"{key}\", {idConverter.ToDeclTypeAndValue(value)} }},");
 				}
 			}
 			writer.WriteLine("};");

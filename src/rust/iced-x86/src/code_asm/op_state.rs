@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-#![allow(dead_code)] //TODO: REMOVE
-
 use crate::{Register, RegisterUnderlyingType, RoundingControl, RoundingControlUnderlyingType};
 use core::{fmt, mem};
 use static_assertions::const_assert_eq;
@@ -58,7 +56,7 @@ impl CodeAsmOpStateFlags1 {
 	pub const SEGMENT_MASK: u8 = 7;
 	pub const SIZE_SHIFT: u8 = 3;
 	pub const SIZE_MASK: u8 = 7;
-	// [6] = FREE
+	// [6] = FREE (also update merge())
 	pub const BROADCAST: u8 = 0x80;
 }
 
@@ -80,14 +78,49 @@ pub(crate) struct CodeAsmOpState {
 }
 
 impl CodeAsmOpState {
-	#[inline]
 	#[must_use]
+	#[inline]
 	pub const fn new() -> Self {
 		Self { flags1: CodeAsmOpStateFlags1::NONE, flags2: CodeAsmOpStateFlags2::NONE }
 	}
 
-	#[inline]
 	#[must_use]
+	#[inline]
+	pub fn is_default(&self) -> bool {
+		(self.flags1 | self.flags2) == 0
+	}
+
+	#[must_use]
+	pub fn merge(&self, other: CodeAsmOpState) -> Self {
+		const FLAGS1_KEEP: u8 = CodeAsmOpStateFlags1::BROADCAST;
+		const FLAGS2_KEEP: u8 = (CodeAsmOpStateFlags2::OP_MASK_MASK << CodeAsmOpStateFlags2::OP_MASK_SHIFT)
+			| CodeAsmOpStateFlags2::SUPPRESS_ALL_EXCEPTIONS
+			| CodeAsmOpStateFlags2::ZEROING_MASKING;
+
+		// Verify that all values are valid. If `self` and `other` have both set an opmask register,
+		// we'll produce the wrong result but still a valid enum variant.
+		const_assert_eq!(CodeAsmOpStateFlags2::OP_MASK_MASK, 7);
+
+		let mut flags1 = (self.flags1 | other.flags1) & FLAGS1_KEEP;
+		let mut flags2 = (self.flags2 | other.flags2) & FLAGS2_KEEP;
+
+		macro_rules! copy_bits {
+			($flags_name:ident, $mask:expr, $shift:expr) => {{
+				const BITS: u8 = $mask << $shift;
+				// No error if it's set in both `self` and `other`
+				let bits = if (self.$flags_name & BITS) != 0 { self.$flags_name } else { other.$flags_name };
+				$flags_name |= bits & BITS;
+			}};
+		}
+		copy_bits!(flags1, CodeAsmOpStateFlags1::SEGMENT_MASK, CodeAsmOpStateFlags1::SEGMENT_SHIFT);
+		copy_bits!(flags1, CodeAsmOpStateFlags1::SIZE_MASK, CodeAsmOpStateFlags1::SIZE_SHIFT);
+		copy_bits!(flags2, CodeAsmOpStateFlags2::ROUNDING_CONTROL_MASK, CodeAsmOpStateFlags2::ROUNDING_CONTROL_SHIFT);
+
+		Self { flags1, flags2 }
+	}
+
+	#[must_use]
+	#[inline]
 	#[allow(trivial_numeric_casts)]
 	pub fn size(&self) -> MemoryOperandSize {
 		// SAFETY: we only store valid variants
@@ -106,8 +139,8 @@ impl CodeAsmOpState {
 			| (((size as u8) << CodeAsmOpStateFlags1::SIZE_SHIFT) | CodeAsmOpStateFlags1::BROADCAST);
 	}
 
-	#[inline]
 	#[must_use]
+	#[inline]
 	#[allow(trivial_numeric_casts)]
 	pub fn segment(&self) -> Register {
 		let number = ((self.flags1 >> CodeAsmOpStateFlags1::SEGMENT_SHIFT) & CodeAsmOpStateFlags1::SEGMENT_MASK).wrapping_sub(1);
@@ -160,10 +193,10 @@ impl CodeAsmOpState {
 		self.set_segment(6);
 	}
 
-	#[inline]
 	#[must_use]
+	#[inline]
 	#[allow(trivial_numeric_casts)]
-	fn op_mask(&self) -> Register {
+	pub fn op_mask(&self) -> Register {
 		let number = (self.flags2 >> CodeAsmOpStateFlags2::OP_MASK_SHIFT) & CodeAsmOpStateFlags2::OP_MASK_MASK;
 		const_assert_eq!(CodeAsmOpStateFlags2::OP_MASK_MASK, 7);
 		if number == 0 {
@@ -222,8 +255,8 @@ impl CodeAsmOpState {
 		self.set_op_mask(7);
 	}
 
-	#[inline]
 	#[must_use]
+	#[inline]
 	#[allow(trivial_numeric_casts)]
 	pub fn rounding_control(&self) -> RoundingControl {
 		let number = (self.flags2 >> CodeAsmOpStateFlags2::ROUNDING_CONTROL_SHIFT) & CodeAsmOpStateFlags2::ROUNDING_CONTROL_MASK;
@@ -232,13 +265,39 @@ impl CodeAsmOpState {
 	}
 
 	#[inline]
-	#[must_use]
-	pub fn broadcasting(&self) -> bool {
-		(self.flags1 & CodeAsmOpStateFlags1::BROADCAST) != 0
+	fn set_rounding_control(&mut self, rc: RoundingControl) {
+		self.flags2 = (self.flags2 & !(CodeAsmOpStateFlags2::ROUNDING_CONTROL_MASK << CodeAsmOpStateFlags2::ROUNDING_CONTROL_SHIFT))
+			| ((rc as u8) << CodeAsmOpStateFlags2::ROUNDING_CONTROL_SHIFT);
 	}
 
 	#[inline]
+	pub fn rn_sae(&mut self) {
+		self.set_rounding_control(RoundingControl::RoundToNearest);
+	}
+
+	#[inline]
+	pub fn rd_sae(&mut self) {
+		self.set_rounding_control(RoundingControl::RoundDown);
+	}
+
+	#[inline]
+	pub fn ru_sae(&mut self) {
+		self.set_rounding_control(RoundingControl::RoundUp);
+	}
+
+	#[inline]
+	pub fn rz_sae(&mut self) {
+		self.set_rounding_control(RoundingControl::RoundTowardZero);
+	}
+
 	#[must_use]
+	#[inline]
+	pub fn is_broadcast(&self) -> bool {
+		(self.flags1 & CodeAsmOpStateFlags1::BROADCAST) != 0
+	}
+
+	#[must_use]
+	#[inline]
 	pub fn suppress_all_exceptions(&self) -> bool {
 		(self.flags2 & CodeAsmOpStateFlags2::SUPPRESS_ALL_EXCEPTIONS) != 0
 	}
@@ -248,8 +307,8 @@ impl CodeAsmOpState {
 		self.flags2 |= CodeAsmOpStateFlags2::SUPPRESS_ALL_EXCEPTIONS;
 	}
 
-	#[inline]
 	#[must_use]
+	#[inline]
 	pub fn zeroing_masking(&self) -> bool {
 		(self.flags2 & CodeAsmOpStateFlags2::ZEROING_MASKING) != 0
 	}

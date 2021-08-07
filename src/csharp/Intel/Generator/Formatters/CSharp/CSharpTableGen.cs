@@ -278,15 +278,13 @@ namespace Generator.Formatters.CSharp {
 		protected override void GenerateFormatterFlowControl((EnumValue flowCtrl, EnumValue[] code)[] infos) {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.FormatterNamespace, "FormatterUtils.cs");
 			new FileUpdater(TargetLanguage.CSharp, "FormatterFlowControlSwitch", filename).Generate(writer => {
-				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
-				var flowCtrlStr = genTypes[TypeIds.FormatterFlowControl].Name(idConverter);
 				foreach (var info in infos) {
 					if (info.code.Length == 0)
 						continue;
 					foreach (var c in info.code)
-						writer.WriteLine($"case {codeStr}.{c.Name(idConverter)}:");
+						writer.WriteLine($"case {idConverter.ToDeclTypeAndValue(c)}:");
 					using (writer.Indent())
-						writer.WriteLine($"return {flowCtrlStr}.{info.flowCtrl.Name(idConverter)};");
+						writer.WriteLine($"return {idConverter.ToDeclTypeAndValue(info.flowCtrl)};");
 				}
 			});
 		}

@@ -95,7 +95,7 @@ namespace Generator.InstructionInfo.Rust {
 				writer.WriteLine($"pub(crate) static CPUID: [&[{cpuidFeatureTypeStr}]; {cpuidFeatures.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var info in cpuidFeatures)
-						writer.WriteLine($"&[{string.Join(", ", info.cpuidFeatures.Select(a => $"{cpuidFeatureTypeStr}::{a.Name(idConverter)}"))}],// {info.cpuidInternal.Name(idConverter)}");
+						writer.WriteLine($"&[{string.Join(", ", info.cpuidFeatures.Select(a => idConverter.ToDeclTypeAndValue(a)))}],// {info.cpuidInternal.Name(idConverter)}");
 				}
 				writer.WriteLine("];");
 			}
@@ -123,7 +123,7 @@ namespace Generator.InstructionInfo.Rust {
 				using (writer.Indent()) {
 					foreach (var value in opInfo.Values) {
 						var v = ToOpAccess(value);
-						writer.WriteLine($"{opAccessTypeStr}::{v.Name(idConverter)},");
+						writer.WriteLine($"{idConverter.ToDeclTypeAndValue(v)},");
 					}
 				}
 				writer.WriteLine("];");
@@ -352,7 +352,7 @@ namespace Generator.InstructionInfo.Rust {
 						writer.WriteLine(feature);
 					var bar = string.Empty;
 					foreach (var def in defs) {
-						writer.WriteLine($"{bar}{def.Code.DeclaringType.Name(idConverter)}::{def.Code.Name(idConverter)}");
+						writer.WriteLine($"{bar}{idConverter.ToDeclTypeAndValue(def.Code)}");
 						bar = "| ";
 					}
 					writer.WriteLine("=> true,");
@@ -386,7 +386,7 @@ namespace Generator.InstructionInfo.Rust {
 				foreach (var (info, defs) in tdefs) {
 					var bar = string.Empty;
 					foreach (var def in defs) {
-						writer.WriteLine($"{bar}{def.Code.DeclaringType.Name(idConverter)}::{def.Code.Name(idConverter)}");
+						writer.WriteLine($"{bar}{idConverter.ToDeclTypeAndValue(def.Code)}");
 						bar = "| ";
 					}
 					var conditionalStr = info.Conditional ? "true" : "false";
@@ -414,7 +414,7 @@ namespace Generator.InstructionInfo.Rust {
 					for (int i = 0; i < defs.Length; i++) {
 						var def = defs[i];
 						var finalExpr = i + 1 == defs.Length ? expr : string.Empty;
-						writer.WriteLine($"{bar}{def.Code.DeclaringType.Name(idConverter)}::{def.Code.Name(idConverter)}{finalExpr}");
+						writer.WriteLine($"{bar}{idConverter.ToDeclTypeAndValue(def.Code)}{finalExpr}");
 						bar = "| ";
 					}
 				}

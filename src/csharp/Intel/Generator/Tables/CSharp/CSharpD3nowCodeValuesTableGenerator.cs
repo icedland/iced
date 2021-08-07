@@ -22,9 +22,8 @@ namespace Generator.Tables.CSharp {
 		}
 
 		void WriteTable(FileWriter writer, (int index, EnumValue enumValue)[] infos) {
-			var codeName = genTypes[TypeIds.Code].Name(idConverter);
 			foreach (var info in infos.OrderByDescending(a => a.index))
-				writer.WriteLine($"result[0x{info.index:X2}] = {codeName}.{info.enumValue.Name(idConverter)};");
+				writer.WriteLine($"result[0x{info.index:X2}] = {idConverter.ToDeclTypeAndValue(info.enumValue)};");
 		}
 	}
 }

@@ -40,8 +40,16 @@ pub struct __AsmRegister8 {
 
 #[rustfmt::skip]
 impl __AsmRegister8 {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
 	}
 }
 
@@ -87,8 +95,16 @@ pub struct __AsmRegister16 {
 
 #[rustfmt::skip]
 impl __AsmRegister16 {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
 	}
 }
 
@@ -134,8 +150,126 @@ pub struct __AsmRegister32 {
 
 #[rustfmt::skip]
 impl __AsmRegister32 {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register, state: CodeAsmOpState::new() }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn state(&self) -> CodeAsmOpState {
+		self.state
+	}
+
+	/// Adds a `{k1}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k1(mut self) -> Self {
+		self.state.set_k1();
+		self
+	}
+
+	/// Adds a `{k2}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k2(mut self) -> Self {
+		self.state.set_k2();
+		self
+	}
+
+	/// Adds a `{k3}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k3(mut self) -> Self {
+		self.state.set_k3();
+		self
+	}
+
+	/// Adds a `{k4}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k4(mut self) -> Self {
+		self.state.set_k4();
+		self
+	}
+
+	/// Adds a `{k5}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k5(mut self) -> Self {
+		self.state.set_k5();
+		self
+	}
+
+	/// Adds a `{k6}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k6(mut self) -> Self {
+		self.state.set_k6();
+		self
+	}
+
+	/// Adds a `{k7}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k7(mut self) -> Self {
+		self.state.set_k7();
+		self
+	}
+
+	/// Enables zeroing masking `{z}`
+	#[must_use]
+	#[inline]
+	pub fn z(mut self) -> Self {
+		self.state.set_zeroing_masking();
+		self
+	}
+
+	/// Enables suppress all exceptions `{sae}`
+	#[must_use]
+	#[inline]
+	pub fn sae(mut self) -> Self {
+		self.state.set_suppress_all_exceptions();
+		self
+	}
+
+	/// Round to nearest (even)
+	#[must_use]
+	#[inline]
+	pub fn rn_sae(mut self) -> Self {
+		self.state.rn_sae();
+		self
+	}
+
+	/// Round down (toward -inf)
+	#[must_use]
+	#[inline]
+	pub fn rd_sae(mut self) -> Self {
+		self.state.rd_sae();
+		self
+	}
+
+	/// Round up (toward +inf)
+	#[must_use]
+	#[inline]
+	pub fn ru_sae(mut self) -> Self {
+		self.state.ru_sae();
+		self
+	}
+
+	/// Round toward zero (truncate)
+	#[must_use]
+	#[inline]
+	pub fn rz_sae(mut self) -> Self {
+		self.state.rz_sae();
+		self
 	}
 }
 
@@ -181,8 +315,126 @@ pub struct __AsmRegister64 {
 
 #[rustfmt::skip]
 impl __AsmRegister64 {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register, state: CodeAsmOpState::new() }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn state(&self) -> CodeAsmOpState {
+		self.state
+	}
+
+	/// Adds a `{k1}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k1(mut self) -> Self {
+		self.state.set_k1();
+		self
+	}
+
+	/// Adds a `{k2}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k2(mut self) -> Self {
+		self.state.set_k2();
+		self
+	}
+
+	/// Adds a `{k3}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k3(mut self) -> Self {
+		self.state.set_k3();
+		self
+	}
+
+	/// Adds a `{k4}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k4(mut self) -> Self {
+		self.state.set_k4();
+		self
+	}
+
+	/// Adds a `{k5}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k5(mut self) -> Self {
+		self.state.set_k5();
+		self
+	}
+
+	/// Adds a `{k6}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k6(mut self) -> Self {
+		self.state.set_k6();
+		self
+	}
+
+	/// Adds a `{k7}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k7(mut self) -> Self {
+		self.state.set_k7();
+		self
+	}
+
+	/// Enables zeroing masking `{z}`
+	#[must_use]
+	#[inline]
+	pub fn z(mut self) -> Self {
+		self.state.set_zeroing_masking();
+		self
+	}
+
+	/// Enables suppress all exceptions `{sae}`
+	#[must_use]
+	#[inline]
+	pub fn sae(mut self) -> Self {
+		self.state.set_suppress_all_exceptions();
+		self
+	}
+
+	/// Round to nearest (even)
+	#[must_use]
+	#[inline]
+	pub fn rn_sae(mut self) -> Self {
+		self.state.rn_sae();
+		self
+	}
+
+	/// Round down (toward -inf)
+	#[must_use]
+	#[inline]
+	pub fn rd_sae(mut self) -> Self {
+		self.state.rd_sae();
+		self
+	}
+
+	/// Round up (toward +inf)
+	#[must_use]
+	#[inline]
+	pub fn ru_sae(mut self) -> Self {
+		self.state.ru_sae();
+		self
+	}
+
+	/// Round toward zero (truncate)
+	#[must_use]
+	#[inline]
+	pub fn rz_sae(mut self) -> Self {
+		self.state.rz_sae();
+		self
 	}
 }
 
@@ -228,8 +480,16 @@ pub struct __AsmRegisterSegment {
 
 #[rustfmt::skip]
 impl __AsmRegisterSegment {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
 	}
 }
 
@@ -275,8 +535,16 @@ pub struct __AsmRegisterCr {
 
 #[rustfmt::skip]
 impl __AsmRegisterCr {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
 	}
 }
 
@@ -322,8 +590,16 @@ pub struct __AsmRegisterDr {
 
 #[rustfmt::skip]
 impl __AsmRegisterDr {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
 	}
 }
 
@@ -369,8 +645,16 @@ pub struct __AsmRegisterTr {
 
 #[rustfmt::skip]
 impl __AsmRegisterTr {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
 	}
 }
 
@@ -416,8 +700,16 @@ pub struct __AsmRegisterSt {
 
 #[rustfmt::skip]
 impl __AsmRegisterSt {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
 	}
 }
 
@@ -463,8 +755,16 @@ pub struct __AsmRegisterMm {
 
 #[rustfmt::skip]
 impl __AsmRegisterMm {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
 	}
 }
 
@@ -510,8 +810,126 @@ pub struct __AsmRegisterXmm {
 
 #[rustfmt::skip]
 impl __AsmRegisterXmm {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register, state: CodeAsmOpState::new() }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn state(&self) -> CodeAsmOpState {
+		self.state
+	}
+
+	/// Adds a `{k1}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k1(mut self) -> Self {
+		self.state.set_k1();
+		self
+	}
+
+	/// Adds a `{k2}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k2(mut self) -> Self {
+		self.state.set_k2();
+		self
+	}
+
+	/// Adds a `{k3}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k3(mut self) -> Self {
+		self.state.set_k3();
+		self
+	}
+
+	/// Adds a `{k4}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k4(mut self) -> Self {
+		self.state.set_k4();
+		self
+	}
+
+	/// Adds a `{k5}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k5(mut self) -> Self {
+		self.state.set_k5();
+		self
+	}
+
+	/// Adds a `{k6}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k6(mut self) -> Self {
+		self.state.set_k6();
+		self
+	}
+
+	/// Adds a `{k7}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k7(mut self) -> Self {
+		self.state.set_k7();
+		self
+	}
+
+	/// Enables zeroing masking `{z}`
+	#[must_use]
+	#[inline]
+	pub fn z(mut self) -> Self {
+		self.state.set_zeroing_masking();
+		self
+	}
+
+	/// Enables suppress all exceptions `{sae}`
+	#[must_use]
+	#[inline]
+	pub fn sae(mut self) -> Self {
+		self.state.set_suppress_all_exceptions();
+		self
+	}
+
+	/// Round to nearest (even)
+	#[must_use]
+	#[inline]
+	pub fn rn_sae(mut self) -> Self {
+		self.state.rn_sae();
+		self
+	}
+
+	/// Round down (toward -inf)
+	#[must_use]
+	#[inline]
+	pub fn rd_sae(mut self) -> Self {
+		self.state.rd_sae();
+		self
+	}
+
+	/// Round up (toward +inf)
+	#[must_use]
+	#[inline]
+	pub fn ru_sae(mut self) -> Self {
+		self.state.ru_sae();
+		self
+	}
+
+	/// Round toward zero (truncate)
+	#[must_use]
+	#[inline]
+	pub fn rz_sae(mut self) -> Self {
+		self.state.rz_sae();
+		self
 	}
 }
 
@@ -557,8 +975,126 @@ pub struct __AsmRegisterYmm {
 
 #[rustfmt::skip]
 impl __AsmRegisterYmm {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register, state: CodeAsmOpState::new() }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn state(&self) -> CodeAsmOpState {
+		self.state
+	}
+
+	/// Adds a `{k1}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k1(mut self) -> Self {
+		self.state.set_k1();
+		self
+	}
+
+	/// Adds a `{k2}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k2(mut self) -> Self {
+		self.state.set_k2();
+		self
+	}
+
+	/// Adds a `{k3}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k3(mut self) -> Self {
+		self.state.set_k3();
+		self
+	}
+
+	/// Adds a `{k4}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k4(mut self) -> Self {
+		self.state.set_k4();
+		self
+	}
+
+	/// Adds a `{k5}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k5(mut self) -> Self {
+		self.state.set_k5();
+		self
+	}
+
+	/// Adds a `{k6}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k6(mut self) -> Self {
+		self.state.set_k6();
+		self
+	}
+
+	/// Adds a `{k7}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k7(mut self) -> Self {
+		self.state.set_k7();
+		self
+	}
+
+	/// Enables zeroing masking `{z}`
+	#[must_use]
+	#[inline]
+	pub fn z(mut self) -> Self {
+		self.state.set_zeroing_masking();
+		self
+	}
+
+	/// Enables suppress all exceptions `{sae}`
+	#[must_use]
+	#[inline]
+	pub fn sae(mut self) -> Self {
+		self.state.set_suppress_all_exceptions();
+		self
+	}
+
+	/// Round to nearest (even)
+	#[must_use]
+	#[inline]
+	pub fn rn_sae(mut self) -> Self {
+		self.state.rn_sae();
+		self
+	}
+
+	/// Round down (toward -inf)
+	#[must_use]
+	#[inline]
+	pub fn rd_sae(mut self) -> Self {
+		self.state.rd_sae();
+		self
+	}
+
+	/// Round up (toward +inf)
+	#[must_use]
+	#[inline]
+	pub fn ru_sae(mut self) -> Self {
+		self.state.ru_sae();
+		self
+	}
+
+	/// Round toward zero (truncate)
+	#[must_use]
+	#[inline]
+	pub fn rz_sae(mut self) -> Self {
+		self.state.rz_sae();
+		self
 	}
 }
 
@@ -604,8 +1140,126 @@ pub struct __AsmRegisterZmm {
 
 #[rustfmt::skip]
 impl __AsmRegisterZmm {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register, state: CodeAsmOpState::new() }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn state(&self) -> CodeAsmOpState {
+		self.state
+	}
+
+	/// Adds a `{k1}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k1(mut self) -> Self {
+		self.state.set_k1();
+		self
+	}
+
+	/// Adds a `{k2}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k2(mut self) -> Self {
+		self.state.set_k2();
+		self
+	}
+
+	/// Adds a `{k3}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k3(mut self) -> Self {
+		self.state.set_k3();
+		self
+	}
+
+	/// Adds a `{k4}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k4(mut self) -> Self {
+		self.state.set_k4();
+		self
+	}
+
+	/// Adds a `{k5}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k5(mut self) -> Self {
+		self.state.set_k5();
+		self
+	}
+
+	/// Adds a `{k6}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k6(mut self) -> Self {
+		self.state.set_k6();
+		self
+	}
+
+	/// Adds a `{k7}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k7(mut self) -> Self {
+		self.state.set_k7();
+		self
+	}
+
+	/// Enables zeroing masking `{z}`
+	#[must_use]
+	#[inline]
+	pub fn z(mut self) -> Self {
+		self.state.set_zeroing_masking();
+		self
+	}
+
+	/// Enables suppress all exceptions `{sae}`
+	#[must_use]
+	#[inline]
+	pub fn sae(mut self) -> Self {
+		self.state.set_suppress_all_exceptions();
+		self
+	}
+
+	/// Round to nearest (even)
+	#[must_use]
+	#[inline]
+	pub fn rn_sae(mut self) -> Self {
+		self.state.rn_sae();
+		self
+	}
+
+	/// Round down (toward -inf)
+	#[must_use]
+	#[inline]
+	pub fn rd_sae(mut self) -> Self {
+		self.state.rd_sae();
+		self
+	}
+
+	/// Round up (toward +inf)
+	#[must_use]
+	#[inline]
+	pub fn ru_sae(mut self) -> Self {
+		self.state.ru_sae();
+		self
+	}
+
+	/// Round toward zero (truncate)
+	#[must_use]
+	#[inline]
+	pub fn rz_sae(mut self) -> Self {
+		self.state.rz_sae();
+		self
 	}
 }
 
@@ -651,8 +1305,16 @@ pub struct __AsmRegisterTmm {
 
 #[rustfmt::skip]
 impl __AsmRegisterTmm {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
 	}
 }
 
@@ -698,8 +1360,126 @@ pub struct __AsmRegisterK {
 
 #[rustfmt::skip]
 impl __AsmRegisterK {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register, state: CodeAsmOpState::new() }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn state(&self) -> CodeAsmOpState {
+		self.state
+	}
+
+	/// Adds a `{k1}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k1(mut self) -> Self {
+		self.state.set_k1();
+		self
+	}
+
+	/// Adds a `{k2}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k2(mut self) -> Self {
+		self.state.set_k2();
+		self
+	}
+
+	/// Adds a `{k3}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k3(mut self) -> Self {
+		self.state.set_k3();
+		self
+	}
+
+	/// Adds a `{k4}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k4(mut self) -> Self {
+		self.state.set_k4();
+		self
+	}
+
+	/// Adds a `{k5}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k5(mut self) -> Self {
+		self.state.set_k5();
+		self
+	}
+
+	/// Adds a `{k6}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k6(mut self) -> Self {
+		self.state.set_k6();
+		self
+	}
+
+	/// Adds a `{k7}` opmask register
+	#[must_use]
+	#[inline]
+	pub fn k7(mut self) -> Self {
+		self.state.set_k7();
+		self
+	}
+
+	/// Enables zeroing masking `{z}`
+	#[must_use]
+	#[inline]
+	pub fn z(mut self) -> Self {
+		self.state.set_zeroing_masking();
+		self
+	}
+
+	/// Enables suppress all exceptions `{sae}`
+	#[must_use]
+	#[inline]
+	pub fn sae(mut self) -> Self {
+		self.state.set_suppress_all_exceptions();
+		self
+	}
+
+	/// Round to nearest (even)
+	#[must_use]
+	#[inline]
+	pub fn rn_sae(mut self) -> Self {
+		self.state.rn_sae();
+		self
+	}
+
+	/// Round down (toward -inf)
+	#[must_use]
+	#[inline]
+	pub fn rd_sae(mut self) -> Self {
+		self.state.rd_sae();
+		self
+	}
+
+	/// Round up (toward +inf)
+	#[must_use]
+	#[inline]
+	pub fn ru_sae(mut self) -> Self {
+		self.state.ru_sae();
+		self
+	}
+
+	/// Round toward zero (truncate)
+	#[must_use]
+	#[inline]
+	pub fn rz_sae(mut self) -> Self {
+		self.state.rz_sae();
+		self
 	}
 }
 
@@ -745,8 +1525,16 @@ pub struct __AsmRegisterBnd {
 
 #[rustfmt::skip]
 impl __AsmRegisterBnd {
+	#[must_use]
+	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
 		Self { register }
+	}
+
+	#[must_use]
+	#[inline]
+	pub(crate) fn register(&self) -> Register {
+		self.register
 	}
 }
 

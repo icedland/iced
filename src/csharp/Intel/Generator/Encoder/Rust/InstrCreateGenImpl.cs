@@ -174,10 +174,8 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
-		public static string GetRustOverloadedCreateName(CreateMethod method) {
-			int opCount = method.Args.Count - 1;
-			return opCount == 0 ? "with" : "with" + opCount.ToString();
-		}
+		public static string GetRustOverloadedCreateName(CreateMethod method) => GetRustOverloadedCreateName(method.Args.Count - 1);
+		public static string GetRustOverloadedCreateName(int argCount) => argCount == 0 ? "with" : "with" + argCount.ToString();
 
 		public string GetCreateName(CreateMethod method, GenCreateNameArgs genNames) => GetCreateName(sb, method, genNames);
 

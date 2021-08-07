@@ -48,7 +48,7 @@ namespace Generator.Tables.CSharp {
 			writer.WriteLine($"{(publicField ? "internal " : string.Empty)}static readonly Dictionary<string, {declTypeStr}> {fieldName} = new Dictionary<string, {declTypeStr}>({constants.Length}, StringComparer.Ordinal) {{");
 			using (writer.Indent()) {
 				foreach (var constant in constants)
-					writer.WriteLine($"{{ \"{constant.name}\", {declTypeStr}.{constant.value.Name(idConverter)} }},");
+					writer.WriteLine($"{{ \"{constant.name}\", {idConverter.ToDeclTypeAndValue(constant.value)} }},");
 			}
 			writer.WriteLine("};");
 		}

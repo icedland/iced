@@ -43,7 +43,7 @@ impl Error for IcedError {
 }
 
 impl fmt::Display for IcedError {
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", &self.error)
 	}

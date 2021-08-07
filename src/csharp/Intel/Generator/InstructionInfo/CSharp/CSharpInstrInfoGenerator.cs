@@ -169,7 +169,7 @@ namespace Generator.InstructionInfo.CSharp {
 				using (writer.Indent()) {
 					foreach (var value in opInfo.Values) {
 						var v = ToOpAccess(value);
-						writer.WriteLine($"{opAccessTypeStr}.{v.Name(idConverter)},");
+						writer.WriteLine($"{idConverter.ToDeclTypeAndValue(v)},");
 					}
 				}
 				writer.WriteLine("};");
@@ -396,7 +396,7 @@ namespace Generator.InstructionInfo.CSharp {
 					if (feature is not null)
 						writer.WriteLineNoIndent($"#if {feature}");
 					foreach (var def in defs)
-						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
+						writer.WriteLine($"case {idConverter.ToDeclTypeAndValue(def.Code)}:");
 					using (writer.Indent())
 						writer.WriteLine("return true;");
 					if (feature is not null)
@@ -430,7 +430,7 @@ namespace Generator.InstructionInfo.CSharp {
 			new FileUpdater(TargetLanguage.CSharp, "FpuStackIncrementInfoTable", filename).Generate(writer => {
 				foreach (var (info, defs) in tdefs) {
 					foreach (var def in defs)
-						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
+						writer.WriteLine($"case {idConverter.ToDeclTypeAndValue(def.Code)}:");
 					using (writer.Indent()) {
 						var conditionalStr = info.Conditional ? "true" : "false";
 						var writesTopStr = info.WritesTop ? "true" : "false";
@@ -448,7 +448,7 @@ namespace Generator.InstructionInfo.CSharp {
 					if (feature is not null)
 						writer.WriteLineNoIndent($"#if {feature}");
 					foreach (var def in defs)
-						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
+						writer.WriteLine($"case {idConverter.ToDeclTypeAndValue(def.Code)}:");
 					using (writer.Indent()) {
 						switch (info.Kind) {
 						case StackInfoKind.Increment:

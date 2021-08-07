@@ -24,11 +24,10 @@ namespace Generator.Tables.Rust {
 
 		void WriteTable(FileWriter writer, RegisterDef[] defs) {
 			var genTypes = generatorContext.Types;
-			var regName = genTypes[TypeIds.Register].Name(idConverter);
 			if (genTypes[TypeIds.Register].Values.Length > 0x100)
 				throw new InvalidOperationException();
 			foreach (var def in defs)
-				writer.WriteLine($"RegisterInfo {{ register: {regName}::{def.Register.Name(idConverter)}, base: {regName}::{def.BaseRegister.Name(idConverter)}, full_register32: {regName}::{def.FullRegister32.Name(idConverter)}, full_register: {regName}::{def.FullRegister.Name(idConverter)}, size: {def.Size} }},");
+				writer.WriteLine($"RegisterInfo {{ register: {idConverter.ToDeclTypeAndValue(def.Register)}, base: {idConverter.ToDeclTypeAndValue(def.BaseRegister)}, full_register32: {idConverter.ToDeclTypeAndValue(def.FullRegister32)}, full_register: {idConverter.ToDeclTypeAndValue(def.FullRegister)}, size: {def.Size} }},");
 		}
 	}
 }

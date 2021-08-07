@@ -97,7 +97,7 @@ namespace Generator.Encoder.Rust {
 				writer.WriteLine($"pub(super) static {name}: [{declTypeStr}; {table.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var info in table)
-						writer.WriteLine($"{declTypeStr}::{info.opCodeOperandKind.Name(idConverter)},");
+						writer.WriteLine($"{idConverter.ToDeclTypeAndValue(info.opCodeOperandKind)},");
 				}
 				writer.WriteLine("];");
 			}
@@ -300,7 +300,7 @@ namespace Generator.Encoder.Rust {
 			}
 
 			void WriteField(FileWriter writer, string name, EnumValue value) =>
-				writer.WriteLine($"{name}: {value.DeclaringType.Name(idConverter)}::{value.Name(idConverter)},");
+				writer.WriteLine($"{name}: {idConverter.ToDeclTypeAndValue(value)},");
 
 			void WriteFieldBool(FileWriter writer, string name, bool value) =>
 				writer.WriteLine($"{name}: {(value ? "true" : "false")},");
@@ -401,7 +401,7 @@ namespace Generator.Encoder.Rust {
 					return;
 				var bar = string.Empty;
 				foreach (var value in codeValues) {
-					writer.WriteLine($"{bar}{value.DeclaringType.Name(idConverter)}::{value.Name(idConverter)}");
+					writer.WriteLine($"{bar}{idConverter.ToDeclTypeAndValue(value)}");
 					bar = "| ";
 				}
 				writer.WriteLine($"=> {statement},");
@@ -412,7 +412,7 @@ namespace Generator.Encoder.Rust {
 			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
 				string @return = useReturn ? "return " : string.Empty;
 				foreach (var info in notInstrStrings)
-					writer.WriteLine($"{info.code.DeclaringType.Name(idConverter)}::{info.code.Name(idConverter)} => {@return}String::from(\"{info.result}\"),");
+					writer.WriteLine($"{idConverter.ToDeclTypeAndValue(info.code)} => {@return}String::from(\"{info.result}\"),");
 			});
 		}
 
@@ -483,7 +483,7 @@ namespace Generator.Encoder.Rust {
 						writer.WriteLine(feature);
 					var bar = string.Empty;
 					foreach (var def in info.defs) {
-						writer.Write($"{bar}{def.Code.DeclaringType.Name(idConverter)}::{def.Code.Name(idConverter)}");
+						writer.Write($"{bar}{idConverter.ToDeclTypeAndValue(def.Code)}");
 						bar = " | ";
 					}
 					writer.WriteLine(" => {");

@@ -318,7 +318,7 @@ namespace Generator.Assembler {
 						switch (opKindDef.BranchOffsetSize) {
 						case 8:
 							argKind = ArgKind.Label;
-							opCodeArgFlags |= OpCodeArgFlags.HasBranchShort;
+							opCodeArgFlags |= OpCodeArgFlags.HasShortBranch;
 							opCodeArgFlags |= OpCodeArgFlags.HasLabel;
 							break;
 						case 16:
@@ -543,10 +543,10 @@ namespace Generator.Assembler {
 				else if (group.IsBranch) {
 					var branchShort = new List<InstructionDef>();
 					var branchNear = new List<InstructionDef>();
-					CollectByOperandKindPredicate(opcodes, IsBranchShort, branchShort, branchNear);
+					CollectByOperandKindPredicate(opcodes, IsShortBranch, branchShort, branchNear);
 					if (branchShort.Count > 0 && branchNear.Count > 0) {
-						var newFlags = argFlags & ~(OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchNear);
-						return new OpCodeSelector(OpCodeSelectorKind.BranchShort) {
+						var newFlags = argFlags & ~(OpCodeArgFlags.HasShortBranch | OpCodeArgFlags.HasBranchNear);
+						return new OpCodeSelector(OpCodeSelectorKind.ShortBranch) {
 							IfTrue = BuildSelectorGraph(group, signature, newFlags, branchShort),
 							IfFalse = BuildSelectorGraph(group, signature, newFlags, branchNear)
 						};
@@ -917,7 +917,7 @@ namespace Generator.Assembler {
 			return argIndices;
 		}
 
-		static bool? IsBranchShort(OpCodeOperandKindDef def) =>
+		static bool? IsShortBranch(OpCodeOperandKindDef def) =>
 			def.OperandEncoding switch {
 				OperandEncoding.NearBranch or OperandEncoding.Xbegin or OperandEncoding.AbsNearBranch => def.BranchOffsetSize == 8,
 				_ => null,
@@ -978,7 +978,7 @@ namespace Generator.Assembler {
 			return selectorsList.First(x => x.Count == selectorsList.Max(x => x.Count));
 		}
 
-		static bool IsRegister(ArgKind kind) =>
+		protected static bool IsRegister(ArgKind kind) =>
 			kind switch {
 				ArgKind.Register8 or ArgKind.Register16 or ArgKind.Register32 or ArgKind.Register64 or ArgKind.RegisterK or
 				ArgKind.RegisterSt or ArgKind.RegisterSegment or ArgKind.RegisterBnd or ArgKind.RegisterMm or ArgKind.RegisterXmm or
@@ -1108,7 +1108,7 @@ namespace Generator.Assembler {
 			HasImmediateByteLessThanBits = 1 << 1,
 			HasImmediateByteSignExtended = 1 << 2,
 			HasLabel = 1 << 3,
-			HasBranchShort = 1 << 4,
+			HasShortBranch = 1 << 4,
 			HasBranchNear = 1 << 5,
 			HasVex = 1 << 6,
 			HasEvex = 1 << 7,
@@ -1117,14 +1117,13 @@ namespace Generator.Assembler {
 			HasZeroingMask = 1 << 10,
 			HasKMask = 1 << 11,
 			HasBroadcast = 1 << 12,
-			Pseudo = 1 << 13,
-			SuppressAllExceptions = 1 << 14,
-			RoundingControl = 1 << 15,
-			IsBroadcastXYZ = 1 << 16,
-			HasLabelUlong = 1 << 17,
-			HasImmediateByte = 1 << 18,
-			UnsignedUIntNotSupported = 1 << 19,
-			HasImmediateUnsigned = 1 << 20,
+			SuppressAllExceptions = 1 << 13,
+			RoundingControl = 1 << 14,
+			IsBroadcastXYZ = 1 << 15,
+			HasLabelUlong = 1 << 16,
+			HasImmediateByte = 1 << 17,
+			UnsignedUIntNotSupported = 1 << 18,
+			HasImmediateUnsigned = 1 << 19,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup group, List<InstructionDef> inputDefs, List<InstructionDef> opcodes,
@@ -1477,7 +1476,6 @@ namespace Generator.Assembler {
 						continue;
 
 					var newGroup = new OpCodeInfoGroup(memDefs, defs, name, group.MnemonicName, signature, 0, null, group, imm) {
-						Flags = OpCodeArgFlags.Pseudo,
 						AllDefFlags = group.AllDefFlags,
 					};
 					newGroup.UpdateMaxArgSizes(newMaxArgSizes);
@@ -1631,10 +1629,13 @@ namespace Generator.Assembler {
 			public int PseudoOpsKindImmediateValue { get; }
 			public bool HasLabel => (Flags & OpCodeArgFlags.HasLabel) != 0;
 			public bool HasSpecialInstructionEncoding => (Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0;
-			public bool IsBranch => (Flags & (OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchNear)) != 0;
+			public bool IsBranch => (Flags & (OpCodeArgFlags.HasShortBranch | OpCodeArgFlags.HasBranchNear)) != 0;
 			public bool HasRegisterMemoryMappedToRegister => (Flags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) != 0;
 			public bool HasVexAndEvex => (Flags & (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) == (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex);
 			public bool HasImmediateUnsigned => (Flags & OpCodeArgFlags.HasImmediateUnsigned) != 0;
+			public bool HasOpMaskOrZeroingMasking => (Flags & (OpCodeArgFlags.HasKMask | OpCodeArgFlags.HasZeroingMask)) != 0;
+			public bool HasBroadcast => (Flags & OpCodeArgFlags.HasBroadcast) != 0;
+			public bool HasSaeOrRc => (Flags & (OpCodeArgFlags.SuppressAllExceptions | OpCodeArgFlags.RoundingControl)) != 0;
 			public Signature Signature { get; }
 			public OpCodeNode RootOpCodeNode { get; set; }
 			public List<InstructionDef> Defs { get; }
@@ -1729,7 +1730,7 @@ namespace Generator.Assembler {
 				OpCodeSelectorKind.Vex => (OpCodeArgFlags.HasVex, OpCodeArgFlags.HasEvex),
 				OpCodeSelectorKind.EvexBroadcastX or OpCodeSelectorKind.EvexBroadcastY or
 				OpCodeSelectorKind.EvexBroadcastZ => (OpCodeArgFlags.HasEvex | OpCodeArgFlags.HasBroadcast, OpCodeArgFlags.None),
-				OpCodeSelectorKind.BranchShort => (OpCodeArgFlags.HasBranchShort, OpCodeArgFlags.HasBranchNear),
+				OpCodeSelectorKind.ShortBranch => (OpCodeArgFlags.HasShortBranch, OpCodeArgFlags.HasBranchNear),
 				_ => (OpCodeArgFlags.None, OpCodeArgFlags.None),
 			};
 
@@ -1763,6 +1764,22 @@ namespace Generator.Assembler {
 			}
 
 			return name;
+		}
+
+		// Gets indexes of the args (if any) with State/Flags (eg. {k1}, {z}, bcst)
+		protected static IEnumerable<int> GetStateArgIndexes(OpCodeInfoGroup group) {
+			if (group.HasOpMaskOrZeroingMasking)
+				yield return 0;
+
+			if (group.HasBroadcast || group.HasSaeOrRc) {
+				for (int i = group.Signature.ArgCount - 1; i >= 0; i--) {
+					var argKind = group.Signature.GetArgKind(i);
+					if ((group.HasBroadcast && argKind == ArgKind.Memory) || (group.HasSaeOrRc && !IsArgKindImmediate(argKind))) {
+						yield return i;
+						break;
+					}
+				}
+			}
 		}
 
 		protected readonly struct OpCodeNode {
@@ -1803,7 +1820,7 @@ namespace Generator.Assembler {
 			Bitness32,
 			Bitness16,
 
-			BranchShort,
+			ShortBranch,
 
 			ImmediateInt,
 			ImmediateByte,

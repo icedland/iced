@@ -351,17 +351,15 @@ namespace Generator.Formatters.Rust {
 		protected override void GenerateFormatterFlowControl((EnumValue flowCtrl, EnumValue[] code)[] infos) {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("formatter", "fmt_utils.rs");
 			new FileUpdater(TargetLanguage.Rust, "FormatterFlowControlSwitch", filename).Generate(writer => {
-				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
-				var flowCtrlStr = genTypes[TypeIds.FormatterFlowControl].Name(idConverter);
 				foreach (var info in infos) {
 					if (info.code.Length == 0)
 						continue;
 					var bar = string.Empty;
 					foreach (var c in info.code) {
-						writer.WriteLine($"{bar}{codeStr}::{c.Name(idConverter)}");
+						writer.WriteLine($"{bar}{idConverter.ToDeclTypeAndValue(c)}");
 						bar = "| ";
 					}
-					writer.WriteLine($"=> {flowCtrlStr}::{info.flowCtrl.Name(idConverter)},");
+					writer.WriteLine($"=> {idConverter.ToDeclTypeAndValue(info.flowCtrl)},");
 				}
 			});
 		}

@@ -49,7 +49,6 @@ namespace Generator.Encoder.CSharp {
 			}
 
 			void Generate(FileWriter writer, string name, string? define, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
-				var declTypeStr = genTypes[TypeIds.OpCodeOperandKind].Name(idConverter);
 				if (define is not null)
 					writer.WriteLineNoIndent($"#if {define}");
 				writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
@@ -59,7 +58,7 @@ namespace Generator.Encoder.CSharp {
 				writer.WriteLineNoIndent("#endif");
 				using (writer.Indent()) {
 					foreach (var info in table)
-						writer.WriteLine($"(byte){declTypeStr}.{info.opCodeOperandKind.Name(idConverter)},");
+						writer.WriteLine($"(byte){idConverter.ToDeclTypeAndValue(info.opCodeOperandKind)},");
 				}
 				writer.WriteLine("};");
 				if (define is not null)
@@ -107,7 +106,7 @@ namespace Generator.Encoder.CSharp {
 								writer.Write(", ");
 							switch (ctorArgs[j]) {
 							case EnumValue value:
-								writer.Write($"{value.DeclaringType.Name(idConverter)}.{value.Name(idConverter)}");
+								writer.Write(idConverter.ToDeclTypeAndValue(value));
 								break;
 							case int value:
 								writer.Write(value.ToString());
@@ -200,7 +199,7 @@ namespace Generator.Encoder.CSharp {
 				if (codeValues.Length == 0)
 					return;
 				foreach (var value in codeValues)
-					writer.WriteLine($"case {value.DeclaringType.Name(idConverter)}.{value.Name(idConverter)}:");
+					writer.WriteLine($"case {idConverter.ToDeclTypeAndValue(value)}:");
 				using (writer.Indent()) {
 					foreach (var statement in statements)
 						writer.WriteLine(statement);
@@ -213,7 +212,7 @@ namespace Generator.Encoder.CSharp {
 		void GenerateNotInstrCases(string filename, string id, (EnumValue code, string result)[] notInstrStrings) {
 			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {
 				foreach (var info in notInstrStrings)
-					writer.WriteLine($"{info.code.DeclaringType.Name(idConverter)}.{info.code.Name(idConverter)} => \"{info.result}\",");
+					writer.WriteLine($"{idConverter.ToDeclTypeAndValue(info.code)} => \"{info.result}\",");
 			});
 		}
 
@@ -251,7 +250,7 @@ namespace Generator.Encoder.CSharp {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "OpCodeInfo.cs");
 			new FileUpdater(TargetLanguage.CSharp, "ToDecoderOptionsTable", filename).Generate(writer => {
 				foreach (var (_, decoderOptions) in values)
-					writer.WriteLine($"{decoderOptions.DeclaringType.Name(idConverter)}.{decoderOptions.Name(idConverter)},");
+					writer.WriteLine($"{idConverter.ToDeclTypeAndValue(decoderOptions)},");
 			});
 		}
 
@@ -263,7 +262,7 @@ namespace Generator.Encoder.CSharp {
 					if (feature is not null)
 						writer.WriteLineNoIndent($"#if {feature}");
 					foreach (var def in info.defs)
-						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
+						writer.WriteLine($"case {idConverter.ToDeclTypeAndValue(def.Code)}:");
 					using (writer.Indent()) {
 						foreach (var op in info.Ops) {
 							writer.WriteLine("WriteOpSeparator();");
