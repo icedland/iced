@@ -183,7 +183,7 @@ build_test_current_version() {
 	cargo fmt -- --color always --check
 
 	echo "==== DOC ===="
-	cargo doc --color always
+	cargo doc --color always --features "serde code_asm"
 
 	echo "==== BUILD RELEASE ===="
 	cargo build --color always --release --features "serde code_asm"
