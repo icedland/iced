@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -615,12 +614,24 @@ namespace Generator.Assembler.CSharp {
 				case ArgKind.ImmediateUnsigned:
 					argName = $"imm{(immArg == 0 ? "" : immArg.ToString(CultureInfo.InvariantCulture))}";
 					immArg++;
-					Debug.Assert(maxArgSize > 0 && maxArgSize <= 8);
-					bool isSigned = argKind == ArgKind.Immediate;
-					argType = maxArgSize == 8 ? (isSigned ? "long" : "ulong") :
-						maxArgSize == 4 ? (isSigned ? "int" : "uint") :
-						maxArgSize == 2 ? (isSigned ? "short" : "ushort") :
-						(isSigned ? "sbyte" : "byte");
+					if (argKind == ArgKind.Immediate) {
+						argType = maxArgSize switch {
+							1 => "sbyte",
+							2 => "short",
+							4 => "int",
+							8 => "long",
+							_ => throw new InvalidOperationException(),
+						};
+					}
+					else {
+						argType = maxArgSize switch {
+							1 => "byte",
+							2 => "ushort",
+							4 => "uint",
+							8 => "ulong",
+							_ => throw new InvalidOperationException(),
+						};
+					}
 					break;
 
 				default:
@@ -970,7 +981,7 @@ namespace Generator.Assembler.CSharp {
 				var argValueForAssembler = argValues[i]?.ToString();
 				var argValueForInstructionCreate = argValueForAssembler;
 
-				if (argValueForAssembler is null) {
+				if (argValueForAssembler is null || argValueForInstructionCreate is null) {
 					var localBitness = forceBitness > 0 ? forceBitness : bitness;
 
 					argValueForAssembler = GetDefaultArgument(localBitness, def.OpKindDefs[group.NumberOfLeadingArgsToDiscard + i],
@@ -999,9 +1010,7 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 
-				Debug.Assert(argValueForAssembler is not null);
 				assemblerArgs.Add(argValueForAssembler);
-				Debug.Assert(argValueForInstructionCreate is not null);
 				instructionCreateArgs.Add(argValueForInstructionCreate);
 			}
 
@@ -1814,26 +1823,6 @@ namespace Generator.Assembler.CSharp {
 					"sbyte" or "short" or "int" or "long" => true,
 					_ => false,
 				};
-
-			public int GetArgSize() =>
-				Type switch {
-					"byte" or "sbyte" => 1,
-					"short" or "ushort" => 2,
-					"int" or "uint" => 4,
-					"long" or "ulong" => 8,
-					_ => throw new ArgumentException($"Invalid {Type}"),
-				};
-
-			public string GetSignedTypeFromUnsigned() {
-				Debug.Assert(!IsTypeSigned());
-				return Type switch {
-					"byte" => "sbyte",
-					"ushort" => "short",
-					"uint" => "int",
-					"ulong" => "long",
-					_ => throw new ArgumentException($"Invalid {Type}"),
-				};
-			}
 		}
 	}
 }

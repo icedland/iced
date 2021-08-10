@@ -1655,13 +1655,15 @@ namespace Generator.Assembler {
 			public void UpdateMaxArgSizes(List<int> argSizes) {
 				if (MaxArgSizes.Count == 0)
 					MaxArgSizes.AddRange(argSizes);
-				Debug.Assert(Signature.ArgCount == argSizes.Count);
+				if (Signature.ArgCount != argSizes.Count)
+					throw new InvalidOperationException();
 				for (int i = 0; i < MaxArgSizes.Count; i++)
 					MaxArgSizes[i] = Math.Max(MaxArgSizes[i], argSizes[i]);
 			}
 
 			public int OrderOpCodesPerOpKindPriority(InstructionDef x, InstructionDef y) {
-				Debug.Assert(x.OpKindDefs.Length == y.OpKindDefs.Length);
+				if (x.OpKindDefs.Length != y.OpKindDefs.Length)
+					throw new InvalidOperationException();
 				int result;
 				for (int i = 0; i < x.OpKindDefs.Length; i++) {
 					if (!IsRegister(Signature.GetArgKind(i)))
