@@ -768,28 +768,6 @@ namespace Generator.Assembler.CSharp {
 			return flags;
 		}
 
-		string? GetDefine(OpCodeInfoGroup group) {
-			EncodingFlags flags;
-			if (group.ParentPseudoOpsKind is OpCodeInfoGroup parent)
-				flags = GetEncodingFlags(parent);
-			else
-				flags = GetEncodingFlags(group);
-			if (flags == EncodingFlags.None)
-				throw new InvalidOperationException();
-			if (flags == EncodingFlags.Legacy)
-				return null;
-			var defines = new List<string>();
-			if ((flags & EncodingFlags.VEX) != 0)
-				defines.Add(CSharpConstants.VexDefine);
-			if ((flags & EncodingFlags.EVEX) != 0)
-				defines.Add(CSharpConstants.EvexDefine);
-			if ((flags & EncodingFlags.XOP) != 0)
-				defines.Add(CSharpConstants.XopDefine);
-			if ((flags & EncodingFlags.D3NOW) != 0)
-				defines.Add(CSharpConstants.D3nowDefine);
-			return string.Join(" && ", defines.ToArray());
-		}
-
 		void RenderTests(int bitness, InstructionDefFlags1 bitnessFlags, FileWriter writer, string methodName, OpCodeInfoGroup group,
 			RenderArg[] renderArgs) {
 			var fullMethodName = new StringBuilder();
@@ -826,9 +804,6 @@ namespace Generator.Assembler.CSharp {
 			var fullMethodNameStr = fullMethodName.ToString();
 			if (IgnoredTestsPerBitness.TryGetValue(bitness, out var ignoredTests) && ignoredTests.Contains(fullMethodNameStr))
 				return;
-			var define = GetDefine(group);
-			if (define is not null)
-				writer.WriteLineNoIndent($"#if {define}");
 			writer.WriteLine("[Fact]");
 			writer.WriteLine($"public void {fullMethodNameStr}() {{");
 			using (writer.Indent()) {
@@ -846,8 +821,6 @@ namespace Generator.Assembler.CSharp {
 				}
 			}
 			writer.WriteLine("}");
-			if (define is not null)
-				writer.WriteLineNoIndent("#endif");
 			writer.WriteLine(); ;
 		}
 
