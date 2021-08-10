@@ -14,6 +14,11 @@ namespace Generator.Assembler.Rust {
 	[Generator(TargetLanguage.Rust)]
 	sealed class RustAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
 		const string AsmRegisterPrefix = "__AsmRegister";
+		const string AsmMemoryOperand = "__AsmMemoryOperand";
+		const string CodeLabel = "CodeLabel";
+		const string CodeAssembler = "CodeAssembler";
+		const string CodeAsmOpState = "CodeAsmOpState";
+		const string ErrorType = "IcedError";
 		readonly IdentifierConverter idConverter;
 		readonly EnumType registerType;
 		readonly EnumType memoryOperandSizeType;
@@ -121,7 +126,7 @@ namespace Generator.Assembler.Rust {
 
 				var registerTypeName = registerType.Name(idConverter);
 
-				writer.WriteLine("use crate::code_asm::op_state::CodeAsmOpState;");
+				writer.WriteLine($"use crate::code_asm::op_state::{CodeAsmOpState};");
 				writer.WriteLine($"use crate::{registerTypeName};");
 				foreach (var reg in infos) {
 					var (structName, modName, doc) = GetAsmRegisterInfo(reg.Kind);
@@ -155,12 +160,12 @@ namespace Generator.Assembler.Rust {
 					writer.WriteLine("#[derive(Debug, Copy, Clone, Eq, PartialEq)]");
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					if (!reg.NeedsState)
-						writer.WriteLine("#[repr(transparent)]");
+						writer.WriteLine(RustConstants.AttrTransparent);
 					writer.WriteLine($"pub struct {structName} {{");
 					using (writer.Indent()) {
 						writer.WriteLine($"register: {registerTypeName},");
 						if (reg.NeedsState)
-							writer.WriteLine("state: CodeAsmOpState,");
+							writer.WriteLine($"state: {CodeAsmOpState},");
 					}
 					writer.WriteLine("}");
 					writer.WriteLine();
@@ -172,7 +177,7 @@ namespace Generator.Assembler.Rust {
 						writer.WriteLine($"pub(crate) const fn new(register: {registerTypeName}) -> Self {{");
 						using (writer.Indent()) {
 							if (reg.NeedsState)
-								writer.WriteLine("Self { register, state: CodeAsmOpState::new() }");
+								writer.WriteLine($"Self {{ register, state: {CodeAsmOpState}::new() }}");
 							else
 								writer.WriteLine("Self { register }");
 						}
@@ -190,7 +195,7 @@ namespace Generator.Assembler.Rust {
 							writer.WriteLine();
 							writer.WriteLine(RustConstants.AttributeMustUse);
 							writer.WriteLine(RustConstants.AttributeInline);
-							writer.WriteLine("pub(crate) fn state(&self) -> CodeAsmOpState {");
+							writer.WriteLine($"pub(crate) fn state(&self) -> {CodeAsmOpState} {{");
 							using (writer.Indent())
 								writer.WriteLine("self.state");
 							writer.WriteLine("}");
@@ -309,7 +314,7 @@ namespace Generator.Assembler.Rust {
 					writer.WriteLine(RustConstants.AttributeMustUse);
 					writer.WriteLine(RustConstants.AttributeInline);
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
-					writer.WriteLine($"pub fn {fnName}<M: Into<__AsmMemoryOperand>>(mem: M) -> __AsmMemoryOperand {{");
+					writer.WriteLine($"pub fn {fnName}<M: Into<{AsmMemoryOperand}>>(mem: M) -> {AsmMemoryOperand} {{");
 					using (writer.Indent())
 						writer.WriteLine($"mem.into().{fnName}()");
 					writer.WriteLine("}");
@@ -339,7 +344,7 @@ namespace Generator.Assembler.Rust {
 			public int ArgCount => Groups[0].Signature.ArgCount;
 		}
 
-		TraitGroup[] CreateTraitGroups(OpCodeInfoGroup[] groups) {
+		static TraitGroup[] CreateTraitGroups(OpCodeInfoGroup[] groups) {
 			var dict = new Dictionary<string, Dictionary<int, List<OpCodeInfoGroup>>>(StringComparer.Ordinal);
 
 			foreach (var group in groups) {
@@ -412,7 +417,7 @@ namespace Generator.Assembler.Rust {
 				writer.WriteFileHeader();
 				writer.WriteLine(RustConstants.InnerAttributeAllowNonCamelCaseTypes);
 				writer.WriteLine();
-				writer.WriteLine("use crate::IcedError;");
+				writer.WriteLine($"use crate::{ErrorType};");
 
 				foreach (var traitGroup in traitGroups) {
 					var opCount = traitGroup.ArgCount;
@@ -427,7 +432,7 @@ namespace Generator.Assembler.Rust {
 						writer.Write($"fn {traitFnName}(&mut self");
 						for (int i = 0; i < opCount; i++)
 							writer.Write($", {GetFnArgName(i)}: {GetGenericParameterTypeName(i)}");
-						writer.WriteLine(") -> Result<(), IcedError>;");
+						writer.WriteLine($") -> Result<(), {ErrorType}>;");
 					}
 					writer.WriteLine("}");
 				}
@@ -520,11 +525,11 @@ namespace Generator.Assembler.Rust {
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine("use crate::code_asm::fn_asm_traits::*;");
-				writer.WriteLine("use crate::code_asm::CodeAssembler;");
-				writer.WriteLine("use crate::IcedError;");
+				writer.WriteLine($"use crate::code_asm::{CodeAssembler};");
+				writer.WriteLine($"use crate::{ErrorType};");
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine("impl CodeAssembler {");
+				writer.WriteLine($"impl {CodeAssembler} {{");
 				var defHash = new HashSet<InstructionDef>();
 				var sortedDefs = new List<InstructionDef>();
 				using (writer.Indent()) {
@@ -572,7 +577,7 @@ namespace Generator.Assembler.Rust {
 						writer.Write($"(&mut self");
 						for (int i = 0; i < opCount; i++)
 							writer.Write($", {GetFnArgName(i)}: {GetGenericParameterTypeName(i)}");
-						writer.WriteLine(") -> Result<(), IcedError>");
+						writer.WriteLine($") -> Result<(), {ErrorType}>");
 						writer.WriteLine("where");
 						using (writer.Indent()) {
 							writer.Write($"Self: {traitName}");
@@ -613,7 +618,7 @@ namespace Generator.Assembler.Rust {
 				ArgKind.RegisterDr => AsmRegisterPrefix + "Dr",
 				ArgKind.RegisterTr => AsmRegisterPrefix + "Tr",
 				ArgKind.RegisterTmm => AsmRegisterPrefix + "Tmm",
-				ArgKind.Memory => "__AsmMemoryOperand",
+				ArgKind.Memory => AsmMemoryOperand,
 				ArgKind.Immediate => maxArgSize switch {
 					1 or 2 or 4 => "i32",
 					8 => "i64",
@@ -624,7 +629,7 @@ namespace Generator.Assembler.Rust {
 					8 => "u64",
 					_ => throw new InvalidOperationException(),
 				},
-				ArgKind.Label => "CodeLabel",
+				ArgKind.Label => CodeLabel,
 				ArgKind.LabelUlong => "u64",
 				_ => throw new InvalidOperationException($"Invalid arg kind: {argKind}"),
 			};
@@ -646,10 +651,13 @@ namespace Generator.Assembler.Rust {
 				writer.WriteLine();
 				writer.WriteLine("use crate::code_asm::fn_asm_traits::*;");
 				writer.WriteLine("use crate::code_asm::mem::*;");
-				writer.WriteLine("use crate::code_asm::op_state::MemoryOperandSize;");
+				writer.WriteLine($"use crate::code_asm::op_state::{memoryOperandSizeType.Name(idConverter)};");
 				writer.WriteLine("use crate::code_asm::reg::*;");
-				writer.WriteLine("use crate::code_asm::{CodeAssembler, CodeLabel};");
-				writer.WriteLine("use crate::{Code, IcedError, Instruction, Register, RepPrefixKind};");
+				writer.WriteLine($"use crate::code_asm::{{{CodeAssembler}, {CodeLabel}}};");
+				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
+				var registerStr = registerType.Name(idConverter);
+				var repPrefixKindStr = genTypes[TypeIds.RepPrefixKind].Name(idConverter);
+				writer.WriteLine($"use crate::{{{codeStr}, {ErrorType}, Instruction, {registerStr}, {repPrefixKindStr}}};");
 				writer.WriteLine("use core::i8;");
 
 				void WriteArg(FileWriter writer, string argExpr, ArgKind kind) {
@@ -680,7 +688,7 @@ namespace Generator.Assembler.Rust {
 							WriteGenericArgumentTypes(writer, group, opCount);
 							writer.Write(">");
 						}
-						writer.WriteLine(" for CodeAssembler {");
+						writer.WriteLine($" for {CodeAssembler} {{");
 						using (writer.Indent()) {
 							// Add #[inline] if the body is short (1-2 lines)
 							bool inline = group.ParentPseudoOpsKind is not null ||
@@ -696,7 +704,7 @@ namespace Generator.Assembler.Rust {
 								var maxArgSize = group.MaxArgSizes[i];
 								writer.Write(ToTypeString(group.Signature.GetArgKind(i), maxArgSize));
 							}
-							writer.WriteLine(") -> Result<(), IcedError> {");
+							writer.WriteLine($") -> Result<(), {ErrorType}> {{");
 							using (writer.Indent()) {
 								if (group.ParentPseudoOpsKind is OpCodeInfoGroup parent) {
 									writer.Write($"<Self as {GetTraitName(parent)}<");
@@ -814,7 +822,7 @@ namespace Generator.Assembler.Rust {
 					if (selector.IfFalse.IsEmpty) {
 						writer.WriteLine("} else {");
 						using (writer.Indent())
-							writer.WriteLine($"return Err(IcedError::new(\"{group.Name}: invalid operands\"));");
+							writer.WriteLine($"return Err({ErrorType}::new(\"{group.Name}: invalid operands\"));");
 						writer.WriteLine($"}}{semiColon}");
 					}
 					else {

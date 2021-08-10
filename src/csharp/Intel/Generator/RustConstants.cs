@@ -8,6 +8,7 @@ namespace Generator {
 	static class RustConstants {
 		public const string DocHidden = "#[doc(hidden)]";
 
+		public const string AttrTransparent = "#[repr(transparent)]";
 		public const string AttrReprU32 = "#[repr(u32)]";
 		public const string AttributeNoRustFmt = "#[rustfmt::skip]";
 		public const string AttributeCopyClone = "#[derive(Copy, Clone)]";
