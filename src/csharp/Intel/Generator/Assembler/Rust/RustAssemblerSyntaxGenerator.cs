@@ -13,8 +13,8 @@ using Generator.Tables;
 namespace Generator.Assembler.Rust {
 	[Generator(TargetLanguage.Rust)]
 	sealed class RustAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
-		const string AsmRegisterPrefix = "__AsmRegister";
-		const string AsmMemoryOperand = "__AsmMemoryOperand";
+		const string AsmRegisterPrefix = "AsmRegister";
+		const string AsmMemoryOperand = "AsmMemoryOperand";
 		const string CodeLabel = "CodeLabel";
 		const string CodeAssembler = "CodeAssembler";
 		const string CodeAsmOpState = "CodeAsmOpState";

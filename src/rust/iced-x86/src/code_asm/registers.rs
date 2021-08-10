@@ -36,28 +36,28 @@ pub mod gpr8 {
 	//! All 8-bit general purpose registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegister8;
+	use crate::code_asm::reg::AsmRegister8;
 	use crate::Register;
-	pub const al: __AsmRegister8 = __AsmRegister8::new(Register::AL);
-	pub const cl: __AsmRegister8 = __AsmRegister8::new(Register::CL);
-	pub const dl: __AsmRegister8 = __AsmRegister8::new(Register::DL);
-	pub const bl: __AsmRegister8 = __AsmRegister8::new(Register::BL);
-	pub const ah: __AsmRegister8 = __AsmRegister8::new(Register::AH);
-	pub const ch: __AsmRegister8 = __AsmRegister8::new(Register::CH);
-	pub const dh: __AsmRegister8 = __AsmRegister8::new(Register::DH);
-	pub const bh: __AsmRegister8 = __AsmRegister8::new(Register::BH);
-	pub const spl: __AsmRegister8 = __AsmRegister8::new(Register::SPL);
-	pub const bpl: __AsmRegister8 = __AsmRegister8::new(Register::BPL);
-	pub const sil: __AsmRegister8 = __AsmRegister8::new(Register::SIL);
-	pub const dil: __AsmRegister8 = __AsmRegister8::new(Register::DIL);
-	pub const r8b: __AsmRegister8 = __AsmRegister8::new(Register::R8L);
-	pub const r9b: __AsmRegister8 = __AsmRegister8::new(Register::R9L);
-	pub const r10b: __AsmRegister8 = __AsmRegister8::new(Register::R10L);
-	pub const r11b: __AsmRegister8 = __AsmRegister8::new(Register::R11L);
-	pub const r12b: __AsmRegister8 = __AsmRegister8::new(Register::R12L);
-	pub const r13b: __AsmRegister8 = __AsmRegister8::new(Register::R13L);
-	pub const r14b: __AsmRegister8 = __AsmRegister8::new(Register::R14L);
-	pub const r15b: __AsmRegister8 = __AsmRegister8::new(Register::R15L);
+	pub const al: AsmRegister8 = AsmRegister8::new(Register::AL);
+	pub const cl: AsmRegister8 = AsmRegister8::new(Register::CL);
+	pub const dl: AsmRegister8 = AsmRegister8::new(Register::DL);
+	pub const bl: AsmRegister8 = AsmRegister8::new(Register::BL);
+	pub const ah: AsmRegister8 = AsmRegister8::new(Register::AH);
+	pub const ch: AsmRegister8 = AsmRegister8::new(Register::CH);
+	pub const dh: AsmRegister8 = AsmRegister8::new(Register::DH);
+	pub const bh: AsmRegister8 = AsmRegister8::new(Register::BH);
+	pub const spl: AsmRegister8 = AsmRegister8::new(Register::SPL);
+	pub const bpl: AsmRegister8 = AsmRegister8::new(Register::BPL);
+	pub const sil: AsmRegister8 = AsmRegister8::new(Register::SIL);
+	pub const dil: AsmRegister8 = AsmRegister8::new(Register::DIL);
+	pub const r8b: AsmRegister8 = AsmRegister8::new(Register::R8L);
+	pub const r9b: AsmRegister8 = AsmRegister8::new(Register::R9L);
+	pub const r10b: AsmRegister8 = AsmRegister8::new(Register::R10L);
+	pub const r11b: AsmRegister8 = AsmRegister8::new(Register::R11L);
+	pub const r12b: AsmRegister8 = AsmRegister8::new(Register::R12L);
+	pub const r13b: AsmRegister8 = AsmRegister8::new(Register::R13L);
+	pub const r14b: AsmRegister8 = AsmRegister8::new(Register::R14L);
+	pub const r15b: AsmRegister8 = AsmRegister8::new(Register::R15L);
 }
 
 #[rustfmt::skip]
@@ -65,24 +65,24 @@ pub mod gpr16 {
 	//! All 16-bit general purpose registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegister16;
+	use crate::code_asm::reg::AsmRegister16;
 	use crate::Register;
-	pub const ax: __AsmRegister16 = __AsmRegister16::new(Register::AX);
-	pub const cx: __AsmRegister16 = __AsmRegister16::new(Register::CX);
-	pub const dx: __AsmRegister16 = __AsmRegister16::new(Register::DX);
-	pub const bx: __AsmRegister16 = __AsmRegister16::new(Register::BX);
-	pub const sp: __AsmRegister16 = __AsmRegister16::new(Register::SP);
-	pub const bp: __AsmRegister16 = __AsmRegister16::new(Register::BP);
-	pub const si: __AsmRegister16 = __AsmRegister16::new(Register::SI);
-	pub const di: __AsmRegister16 = __AsmRegister16::new(Register::DI);
-	pub const r8w: __AsmRegister16 = __AsmRegister16::new(Register::R8W);
-	pub const r9w: __AsmRegister16 = __AsmRegister16::new(Register::R9W);
-	pub const r10w: __AsmRegister16 = __AsmRegister16::new(Register::R10W);
-	pub const r11w: __AsmRegister16 = __AsmRegister16::new(Register::R11W);
-	pub const r12w: __AsmRegister16 = __AsmRegister16::new(Register::R12W);
-	pub const r13w: __AsmRegister16 = __AsmRegister16::new(Register::R13W);
-	pub const r14w: __AsmRegister16 = __AsmRegister16::new(Register::R14W);
-	pub const r15w: __AsmRegister16 = __AsmRegister16::new(Register::R15W);
+	pub const ax: AsmRegister16 = AsmRegister16::new(Register::AX);
+	pub const cx: AsmRegister16 = AsmRegister16::new(Register::CX);
+	pub const dx: AsmRegister16 = AsmRegister16::new(Register::DX);
+	pub const bx: AsmRegister16 = AsmRegister16::new(Register::BX);
+	pub const sp: AsmRegister16 = AsmRegister16::new(Register::SP);
+	pub const bp: AsmRegister16 = AsmRegister16::new(Register::BP);
+	pub const si: AsmRegister16 = AsmRegister16::new(Register::SI);
+	pub const di: AsmRegister16 = AsmRegister16::new(Register::DI);
+	pub const r8w: AsmRegister16 = AsmRegister16::new(Register::R8W);
+	pub const r9w: AsmRegister16 = AsmRegister16::new(Register::R9W);
+	pub const r10w: AsmRegister16 = AsmRegister16::new(Register::R10W);
+	pub const r11w: AsmRegister16 = AsmRegister16::new(Register::R11W);
+	pub const r12w: AsmRegister16 = AsmRegister16::new(Register::R12W);
+	pub const r13w: AsmRegister16 = AsmRegister16::new(Register::R13W);
+	pub const r14w: AsmRegister16 = AsmRegister16::new(Register::R14W);
+	pub const r15w: AsmRegister16 = AsmRegister16::new(Register::R15W);
 }
 
 #[rustfmt::skip]
@@ -90,24 +90,24 @@ pub mod gpr32 {
 	//! All 32-bit general purpose registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegister32;
+	use crate::code_asm::reg::AsmRegister32;
 	use crate::Register;
-	pub const eax: __AsmRegister32 = __AsmRegister32::new(Register::EAX);
-	pub const ecx: __AsmRegister32 = __AsmRegister32::new(Register::ECX);
-	pub const edx: __AsmRegister32 = __AsmRegister32::new(Register::EDX);
-	pub const ebx: __AsmRegister32 = __AsmRegister32::new(Register::EBX);
-	pub const esp: __AsmRegister32 = __AsmRegister32::new(Register::ESP);
-	pub const ebp: __AsmRegister32 = __AsmRegister32::new(Register::EBP);
-	pub const esi: __AsmRegister32 = __AsmRegister32::new(Register::ESI);
-	pub const edi: __AsmRegister32 = __AsmRegister32::new(Register::EDI);
-	pub const r8d: __AsmRegister32 = __AsmRegister32::new(Register::R8D);
-	pub const r9d: __AsmRegister32 = __AsmRegister32::new(Register::R9D);
-	pub const r10d: __AsmRegister32 = __AsmRegister32::new(Register::R10D);
-	pub const r11d: __AsmRegister32 = __AsmRegister32::new(Register::R11D);
-	pub const r12d: __AsmRegister32 = __AsmRegister32::new(Register::R12D);
-	pub const r13d: __AsmRegister32 = __AsmRegister32::new(Register::R13D);
-	pub const r14d: __AsmRegister32 = __AsmRegister32::new(Register::R14D);
-	pub const r15d: __AsmRegister32 = __AsmRegister32::new(Register::R15D);
+	pub const eax: AsmRegister32 = AsmRegister32::new(Register::EAX);
+	pub const ecx: AsmRegister32 = AsmRegister32::new(Register::ECX);
+	pub const edx: AsmRegister32 = AsmRegister32::new(Register::EDX);
+	pub const ebx: AsmRegister32 = AsmRegister32::new(Register::EBX);
+	pub const esp: AsmRegister32 = AsmRegister32::new(Register::ESP);
+	pub const ebp: AsmRegister32 = AsmRegister32::new(Register::EBP);
+	pub const esi: AsmRegister32 = AsmRegister32::new(Register::ESI);
+	pub const edi: AsmRegister32 = AsmRegister32::new(Register::EDI);
+	pub const r8d: AsmRegister32 = AsmRegister32::new(Register::R8D);
+	pub const r9d: AsmRegister32 = AsmRegister32::new(Register::R9D);
+	pub const r10d: AsmRegister32 = AsmRegister32::new(Register::R10D);
+	pub const r11d: AsmRegister32 = AsmRegister32::new(Register::R11D);
+	pub const r12d: AsmRegister32 = AsmRegister32::new(Register::R12D);
+	pub const r13d: AsmRegister32 = AsmRegister32::new(Register::R13D);
+	pub const r14d: AsmRegister32 = AsmRegister32::new(Register::R14D);
+	pub const r15d: AsmRegister32 = AsmRegister32::new(Register::R15D);
 }
 
 #[rustfmt::skip]
@@ -115,24 +115,24 @@ pub mod gpr64 {
 	//! All 64-bit general purpose registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegister64;
+	use crate::code_asm::reg::AsmRegister64;
 	use crate::Register;
-	pub const rax: __AsmRegister64 = __AsmRegister64::new(Register::RAX);
-	pub const rcx: __AsmRegister64 = __AsmRegister64::new(Register::RCX);
-	pub const rdx: __AsmRegister64 = __AsmRegister64::new(Register::RDX);
-	pub const rbx: __AsmRegister64 = __AsmRegister64::new(Register::RBX);
-	pub const rsp: __AsmRegister64 = __AsmRegister64::new(Register::RSP);
-	pub const rbp: __AsmRegister64 = __AsmRegister64::new(Register::RBP);
-	pub const rsi: __AsmRegister64 = __AsmRegister64::new(Register::RSI);
-	pub const rdi: __AsmRegister64 = __AsmRegister64::new(Register::RDI);
-	pub const r8: __AsmRegister64 = __AsmRegister64::new(Register::R8);
-	pub const r9: __AsmRegister64 = __AsmRegister64::new(Register::R9);
-	pub const r10: __AsmRegister64 = __AsmRegister64::new(Register::R10);
-	pub const r11: __AsmRegister64 = __AsmRegister64::new(Register::R11);
-	pub const r12: __AsmRegister64 = __AsmRegister64::new(Register::R12);
-	pub const r13: __AsmRegister64 = __AsmRegister64::new(Register::R13);
-	pub const r14: __AsmRegister64 = __AsmRegister64::new(Register::R14);
-	pub const r15: __AsmRegister64 = __AsmRegister64::new(Register::R15);
+	pub const rax: AsmRegister64 = AsmRegister64::new(Register::RAX);
+	pub const rcx: AsmRegister64 = AsmRegister64::new(Register::RCX);
+	pub const rdx: AsmRegister64 = AsmRegister64::new(Register::RDX);
+	pub const rbx: AsmRegister64 = AsmRegister64::new(Register::RBX);
+	pub const rsp: AsmRegister64 = AsmRegister64::new(Register::RSP);
+	pub const rbp: AsmRegister64 = AsmRegister64::new(Register::RBP);
+	pub const rsi: AsmRegister64 = AsmRegister64::new(Register::RSI);
+	pub const rdi: AsmRegister64 = AsmRegister64::new(Register::RDI);
+	pub const r8: AsmRegister64 = AsmRegister64::new(Register::R8);
+	pub const r9: AsmRegister64 = AsmRegister64::new(Register::R9);
+	pub const r10: AsmRegister64 = AsmRegister64::new(Register::R10);
+	pub const r11: AsmRegister64 = AsmRegister64::new(Register::R11);
+	pub const r12: AsmRegister64 = AsmRegister64::new(Register::R12);
+	pub const r13: AsmRegister64 = AsmRegister64::new(Register::R13);
+	pub const r14: AsmRegister64 = AsmRegister64::new(Register::R14);
+	pub const r15: AsmRegister64 = AsmRegister64::new(Register::R15);
 }
 
 #[rustfmt::skip]
@@ -140,14 +140,14 @@ pub mod segment {
 	//! All segment registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterSegment;
+	use crate::code_asm::reg::AsmRegisterSegment;
 	use crate::Register;
-	pub const es: __AsmRegisterSegment = __AsmRegisterSegment::new(Register::ES);
-	pub const cs: __AsmRegisterSegment = __AsmRegisterSegment::new(Register::CS);
-	pub const ss: __AsmRegisterSegment = __AsmRegisterSegment::new(Register::SS);
-	pub const ds: __AsmRegisterSegment = __AsmRegisterSegment::new(Register::DS);
-	pub const fs: __AsmRegisterSegment = __AsmRegisterSegment::new(Register::FS);
-	pub const gs: __AsmRegisterSegment = __AsmRegisterSegment::new(Register::GS);
+	pub const es: AsmRegisterSegment = AsmRegisterSegment::new(Register::ES);
+	pub const cs: AsmRegisterSegment = AsmRegisterSegment::new(Register::CS);
+	pub const ss: AsmRegisterSegment = AsmRegisterSegment::new(Register::SS);
+	pub const ds: AsmRegisterSegment = AsmRegisterSegment::new(Register::DS);
+	pub const fs: AsmRegisterSegment = AsmRegisterSegment::new(Register::FS);
+	pub const gs: AsmRegisterSegment = AsmRegisterSegment::new(Register::GS);
 }
 
 #[rustfmt::skip]
@@ -155,16 +155,16 @@ pub mod st {
 	//! All FPU registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterSt;
+	use crate::code_asm::reg::AsmRegisterSt;
 	use crate::Register;
-	pub const st0: __AsmRegisterSt = __AsmRegisterSt::new(Register::ST0);
-	pub const st1: __AsmRegisterSt = __AsmRegisterSt::new(Register::ST1);
-	pub const st2: __AsmRegisterSt = __AsmRegisterSt::new(Register::ST2);
-	pub const st3: __AsmRegisterSt = __AsmRegisterSt::new(Register::ST3);
-	pub const st4: __AsmRegisterSt = __AsmRegisterSt::new(Register::ST4);
-	pub const st5: __AsmRegisterSt = __AsmRegisterSt::new(Register::ST5);
-	pub const st6: __AsmRegisterSt = __AsmRegisterSt::new(Register::ST6);
-	pub const st7: __AsmRegisterSt = __AsmRegisterSt::new(Register::ST7);
+	pub const st0: AsmRegisterSt = AsmRegisterSt::new(Register::ST0);
+	pub const st1: AsmRegisterSt = AsmRegisterSt::new(Register::ST1);
+	pub const st2: AsmRegisterSt = AsmRegisterSt::new(Register::ST2);
+	pub const st3: AsmRegisterSt = AsmRegisterSt::new(Register::ST3);
+	pub const st4: AsmRegisterSt = AsmRegisterSt::new(Register::ST4);
+	pub const st5: AsmRegisterSt = AsmRegisterSt::new(Register::ST5);
+	pub const st6: AsmRegisterSt = AsmRegisterSt::new(Register::ST6);
+	pub const st7: AsmRegisterSt = AsmRegisterSt::new(Register::ST7);
 }
 
 #[rustfmt::skip]
@@ -172,24 +172,24 @@ pub mod cr {
 	//! All control registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterCr;
+	use crate::code_asm::reg::AsmRegisterCr;
 	use crate::Register;
-	pub const cr0: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR0);
-	pub const cr1: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR1);
-	pub const cr2: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR2);
-	pub const cr3: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR3);
-	pub const cr4: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR4);
-	pub const cr5: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR5);
-	pub const cr6: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR6);
-	pub const cr7: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR7);
-	pub const cr8: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR8);
-	pub const cr9: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR9);
-	pub const cr10: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR10);
-	pub const cr11: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR11);
-	pub const cr12: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR12);
-	pub const cr13: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR13);
-	pub const cr14: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR14);
-	pub const cr15: __AsmRegisterCr = __AsmRegisterCr::new(Register::CR15);
+	pub const cr0: AsmRegisterCr = AsmRegisterCr::new(Register::CR0);
+	pub const cr1: AsmRegisterCr = AsmRegisterCr::new(Register::CR1);
+	pub const cr2: AsmRegisterCr = AsmRegisterCr::new(Register::CR2);
+	pub const cr3: AsmRegisterCr = AsmRegisterCr::new(Register::CR3);
+	pub const cr4: AsmRegisterCr = AsmRegisterCr::new(Register::CR4);
+	pub const cr5: AsmRegisterCr = AsmRegisterCr::new(Register::CR5);
+	pub const cr6: AsmRegisterCr = AsmRegisterCr::new(Register::CR6);
+	pub const cr7: AsmRegisterCr = AsmRegisterCr::new(Register::CR7);
+	pub const cr8: AsmRegisterCr = AsmRegisterCr::new(Register::CR8);
+	pub const cr9: AsmRegisterCr = AsmRegisterCr::new(Register::CR9);
+	pub const cr10: AsmRegisterCr = AsmRegisterCr::new(Register::CR10);
+	pub const cr11: AsmRegisterCr = AsmRegisterCr::new(Register::CR11);
+	pub const cr12: AsmRegisterCr = AsmRegisterCr::new(Register::CR12);
+	pub const cr13: AsmRegisterCr = AsmRegisterCr::new(Register::CR13);
+	pub const cr14: AsmRegisterCr = AsmRegisterCr::new(Register::CR14);
+	pub const cr15: AsmRegisterCr = AsmRegisterCr::new(Register::CR15);
 }
 
 #[rustfmt::skip]
@@ -197,24 +197,24 @@ pub mod dr {
 	//! All debug registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterDr;
+	use crate::code_asm::reg::AsmRegisterDr;
 	use crate::Register;
-	pub const dr0: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR0);
-	pub const dr1: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR1);
-	pub const dr2: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR2);
-	pub const dr3: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR3);
-	pub const dr4: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR4);
-	pub const dr5: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR5);
-	pub const dr6: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR6);
-	pub const dr7: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR7);
-	pub const dr8: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR8);
-	pub const dr9: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR9);
-	pub const dr10: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR10);
-	pub const dr11: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR11);
-	pub const dr12: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR12);
-	pub const dr13: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR13);
-	pub const dr14: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR14);
-	pub const dr15: __AsmRegisterDr = __AsmRegisterDr::new(Register::DR15);
+	pub const dr0: AsmRegisterDr = AsmRegisterDr::new(Register::DR0);
+	pub const dr1: AsmRegisterDr = AsmRegisterDr::new(Register::DR1);
+	pub const dr2: AsmRegisterDr = AsmRegisterDr::new(Register::DR2);
+	pub const dr3: AsmRegisterDr = AsmRegisterDr::new(Register::DR3);
+	pub const dr4: AsmRegisterDr = AsmRegisterDr::new(Register::DR4);
+	pub const dr5: AsmRegisterDr = AsmRegisterDr::new(Register::DR5);
+	pub const dr6: AsmRegisterDr = AsmRegisterDr::new(Register::DR6);
+	pub const dr7: AsmRegisterDr = AsmRegisterDr::new(Register::DR7);
+	pub const dr8: AsmRegisterDr = AsmRegisterDr::new(Register::DR8);
+	pub const dr9: AsmRegisterDr = AsmRegisterDr::new(Register::DR9);
+	pub const dr10: AsmRegisterDr = AsmRegisterDr::new(Register::DR10);
+	pub const dr11: AsmRegisterDr = AsmRegisterDr::new(Register::DR11);
+	pub const dr12: AsmRegisterDr = AsmRegisterDr::new(Register::DR12);
+	pub const dr13: AsmRegisterDr = AsmRegisterDr::new(Register::DR13);
+	pub const dr14: AsmRegisterDr = AsmRegisterDr::new(Register::DR14);
+	pub const dr15: AsmRegisterDr = AsmRegisterDr::new(Register::DR15);
 }
 
 #[rustfmt::skip]
@@ -222,16 +222,16 @@ pub mod tr {
 	//! All test registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterTr;
+	use crate::code_asm::reg::AsmRegisterTr;
 	use crate::Register;
-	pub const tr0: __AsmRegisterTr = __AsmRegisterTr::new(Register::TR0);
-	pub const tr1: __AsmRegisterTr = __AsmRegisterTr::new(Register::TR1);
-	pub const tr2: __AsmRegisterTr = __AsmRegisterTr::new(Register::TR2);
-	pub const tr3: __AsmRegisterTr = __AsmRegisterTr::new(Register::TR3);
-	pub const tr4: __AsmRegisterTr = __AsmRegisterTr::new(Register::TR4);
-	pub const tr5: __AsmRegisterTr = __AsmRegisterTr::new(Register::TR5);
-	pub const tr6: __AsmRegisterTr = __AsmRegisterTr::new(Register::TR6);
-	pub const tr7: __AsmRegisterTr = __AsmRegisterTr::new(Register::TR7);
+	pub const tr0: AsmRegisterTr = AsmRegisterTr::new(Register::TR0);
+	pub const tr1: AsmRegisterTr = AsmRegisterTr::new(Register::TR1);
+	pub const tr2: AsmRegisterTr = AsmRegisterTr::new(Register::TR2);
+	pub const tr3: AsmRegisterTr = AsmRegisterTr::new(Register::TR3);
+	pub const tr4: AsmRegisterTr = AsmRegisterTr::new(Register::TR4);
+	pub const tr5: AsmRegisterTr = AsmRegisterTr::new(Register::TR5);
+	pub const tr6: AsmRegisterTr = AsmRegisterTr::new(Register::TR6);
+	pub const tr7: AsmRegisterTr = AsmRegisterTr::new(Register::TR7);
 }
 
 #[rustfmt::skip]
@@ -239,12 +239,12 @@ pub mod bnd {
 	//! All bound registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterBnd;
+	use crate::code_asm::reg::AsmRegisterBnd;
 	use crate::Register;
-	pub const bnd0: __AsmRegisterBnd = __AsmRegisterBnd::new(Register::BND0);
-	pub const bnd1: __AsmRegisterBnd = __AsmRegisterBnd::new(Register::BND1);
-	pub const bnd2: __AsmRegisterBnd = __AsmRegisterBnd::new(Register::BND2);
-	pub const bnd3: __AsmRegisterBnd = __AsmRegisterBnd::new(Register::BND3);
+	pub const bnd0: AsmRegisterBnd = AsmRegisterBnd::new(Register::BND0);
+	pub const bnd1: AsmRegisterBnd = AsmRegisterBnd::new(Register::BND1);
+	pub const bnd2: AsmRegisterBnd = AsmRegisterBnd::new(Register::BND2);
+	pub const bnd3: AsmRegisterBnd = AsmRegisterBnd::new(Register::BND3);
 }
 
 #[rustfmt::skip]
@@ -252,16 +252,16 @@ pub mod k {
 	//! All opmask registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterK;
+	use crate::code_asm::reg::AsmRegisterK;
 	use crate::Register;
-	pub const k0: __AsmRegisterK = __AsmRegisterK::new(Register::K0);
-	pub const k1: __AsmRegisterK = __AsmRegisterK::new(Register::K1);
-	pub const k2: __AsmRegisterK = __AsmRegisterK::new(Register::K2);
-	pub const k3: __AsmRegisterK = __AsmRegisterK::new(Register::K3);
-	pub const k4: __AsmRegisterK = __AsmRegisterK::new(Register::K4);
-	pub const k5: __AsmRegisterK = __AsmRegisterK::new(Register::K5);
-	pub const k6: __AsmRegisterK = __AsmRegisterK::new(Register::K6);
-	pub const k7: __AsmRegisterK = __AsmRegisterK::new(Register::K7);
+	pub const k0: AsmRegisterK = AsmRegisterK::new(Register::K0);
+	pub const k1: AsmRegisterK = AsmRegisterK::new(Register::K1);
+	pub const k2: AsmRegisterK = AsmRegisterK::new(Register::K2);
+	pub const k3: AsmRegisterK = AsmRegisterK::new(Register::K3);
+	pub const k4: AsmRegisterK = AsmRegisterK::new(Register::K4);
+	pub const k5: AsmRegisterK = AsmRegisterK::new(Register::K5);
+	pub const k6: AsmRegisterK = AsmRegisterK::new(Register::K6);
+	pub const k7: AsmRegisterK = AsmRegisterK::new(Register::K7);
 }
 
 #[rustfmt::skip]
@@ -269,16 +269,16 @@ pub mod mm {
 	//! All MMX registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterMm;
+	use crate::code_asm::reg::AsmRegisterMm;
 	use crate::Register;
-	pub const mm0: __AsmRegisterMm = __AsmRegisterMm::new(Register::MM0);
-	pub const mm1: __AsmRegisterMm = __AsmRegisterMm::new(Register::MM1);
-	pub const mm2: __AsmRegisterMm = __AsmRegisterMm::new(Register::MM2);
-	pub const mm3: __AsmRegisterMm = __AsmRegisterMm::new(Register::MM3);
-	pub const mm4: __AsmRegisterMm = __AsmRegisterMm::new(Register::MM4);
-	pub const mm5: __AsmRegisterMm = __AsmRegisterMm::new(Register::MM5);
-	pub const mm6: __AsmRegisterMm = __AsmRegisterMm::new(Register::MM6);
-	pub const mm7: __AsmRegisterMm = __AsmRegisterMm::new(Register::MM7);
+	pub const mm0: AsmRegisterMm = AsmRegisterMm::new(Register::MM0);
+	pub const mm1: AsmRegisterMm = AsmRegisterMm::new(Register::MM1);
+	pub const mm2: AsmRegisterMm = AsmRegisterMm::new(Register::MM2);
+	pub const mm3: AsmRegisterMm = AsmRegisterMm::new(Register::MM3);
+	pub const mm4: AsmRegisterMm = AsmRegisterMm::new(Register::MM4);
+	pub const mm5: AsmRegisterMm = AsmRegisterMm::new(Register::MM5);
+	pub const mm6: AsmRegisterMm = AsmRegisterMm::new(Register::MM6);
+	pub const mm7: AsmRegisterMm = AsmRegisterMm::new(Register::MM7);
 }
 
 #[rustfmt::skip]
@@ -286,40 +286,40 @@ pub mod xmm {
 	//! All 128-bit vector registers (XMM).
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterXmm;
+	use crate::code_asm::reg::AsmRegisterXmm;
 	use crate::Register;
-	pub const xmm0: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM0);
-	pub const xmm1: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM1);
-	pub const xmm2: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM2);
-	pub const xmm3: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM3);
-	pub const xmm4: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM4);
-	pub const xmm5: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM5);
-	pub const xmm6: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM6);
-	pub const xmm7: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM7);
-	pub const xmm8: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM8);
-	pub const xmm9: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM9);
-	pub const xmm10: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM10);
-	pub const xmm11: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM11);
-	pub const xmm12: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM12);
-	pub const xmm13: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM13);
-	pub const xmm14: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM14);
-	pub const xmm15: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM15);
-	pub const xmm16: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM16);
-	pub const xmm17: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM17);
-	pub const xmm18: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM18);
-	pub const xmm19: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM19);
-	pub const xmm20: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM20);
-	pub const xmm21: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM21);
-	pub const xmm22: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM22);
-	pub const xmm23: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM23);
-	pub const xmm24: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM24);
-	pub const xmm25: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM25);
-	pub const xmm26: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM26);
-	pub const xmm27: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM27);
-	pub const xmm28: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM28);
-	pub const xmm29: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM29);
-	pub const xmm30: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM30);
-	pub const xmm31: __AsmRegisterXmm = __AsmRegisterXmm::new(Register::XMM31);
+	pub const xmm0: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM0);
+	pub const xmm1: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM1);
+	pub const xmm2: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM2);
+	pub const xmm3: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM3);
+	pub const xmm4: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM4);
+	pub const xmm5: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM5);
+	pub const xmm6: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM6);
+	pub const xmm7: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM7);
+	pub const xmm8: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM8);
+	pub const xmm9: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM9);
+	pub const xmm10: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM10);
+	pub const xmm11: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM11);
+	pub const xmm12: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM12);
+	pub const xmm13: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM13);
+	pub const xmm14: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM14);
+	pub const xmm15: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM15);
+	pub const xmm16: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM16);
+	pub const xmm17: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM17);
+	pub const xmm18: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM18);
+	pub const xmm19: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM19);
+	pub const xmm20: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM20);
+	pub const xmm21: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM21);
+	pub const xmm22: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM22);
+	pub const xmm23: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM23);
+	pub const xmm24: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM24);
+	pub const xmm25: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM25);
+	pub const xmm26: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM26);
+	pub const xmm27: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM27);
+	pub const xmm28: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM28);
+	pub const xmm29: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM29);
+	pub const xmm30: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM30);
+	pub const xmm31: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM31);
 }
 
 #[rustfmt::skip]
@@ -327,40 +327,40 @@ pub mod ymm {
 	//! All 256-bit vector registers (YMM).
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterYmm;
+	use crate::code_asm::reg::AsmRegisterYmm;
 	use crate::Register;
-	pub const ymm0: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM0);
-	pub const ymm1: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM1);
-	pub const ymm2: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM2);
-	pub const ymm3: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM3);
-	pub const ymm4: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM4);
-	pub const ymm5: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM5);
-	pub const ymm6: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM6);
-	pub const ymm7: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM7);
-	pub const ymm8: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM8);
-	pub const ymm9: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM9);
-	pub const ymm10: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM10);
-	pub const ymm11: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM11);
-	pub const ymm12: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM12);
-	pub const ymm13: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM13);
-	pub const ymm14: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM14);
-	pub const ymm15: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM15);
-	pub const ymm16: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM16);
-	pub const ymm17: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM17);
-	pub const ymm18: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM18);
-	pub const ymm19: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM19);
-	pub const ymm20: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM20);
-	pub const ymm21: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM21);
-	pub const ymm22: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM22);
-	pub const ymm23: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM23);
-	pub const ymm24: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM24);
-	pub const ymm25: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM25);
-	pub const ymm26: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM26);
-	pub const ymm27: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM27);
-	pub const ymm28: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM28);
-	pub const ymm29: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM29);
-	pub const ymm30: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM30);
-	pub const ymm31: __AsmRegisterYmm = __AsmRegisterYmm::new(Register::YMM31);
+	pub const ymm0: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM0);
+	pub const ymm1: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM1);
+	pub const ymm2: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM2);
+	pub const ymm3: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM3);
+	pub const ymm4: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM4);
+	pub const ymm5: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM5);
+	pub const ymm6: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM6);
+	pub const ymm7: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM7);
+	pub const ymm8: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM8);
+	pub const ymm9: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM9);
+	pub const ymm10: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM10);
+	pub const ymm11: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM11);
+	pub const ymm12: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM12);
+	pub const ymm13: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM13);
+	pub const ymm14: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM14);
+	pub const ymm15: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM15);
+	pub const ymm16: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM16);
+	pub const ymm17: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM17);
+	pub const ymm18: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM18);
+	pub const ymm19: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM19);
+	pub const ymm20: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM20);
+	pub const ymm21: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM21);
+	pub const ymm22: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM22);
+	pub const ymm23: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM23);
+	pub const ymm24: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM24);
+	pub const ymm25: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM25);
+	pub const ymm26: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM26);
+	pub const ymm27: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM27);
+	pub const ymm28: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM28);
+	pub const ymm29: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM29);
+	pub const ymm30: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM30);
+	pub const ymm31: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM31);
 }
 
 #[rustfmt::skip]
@@ -368,40 +368,40 @@ pub mod zmm {
 	//! All 512-bit vector registers (ZMM).
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterZmm;
+	use crate::code_asm::reg::AsmRegisterZmm;
 	use crate::Register;
-	pub const zmm0: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM0);
-	pub const zmm1: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM1);
-	pub const zmm2: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM2);
-	pub const zmm3: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM3);
-	pub const zmm4: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM4);
-	pub const zmm5: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM5);
-	pub const zmm6: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM6);
-	pub const zmm7: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM7);
-	pub const zmm8: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM8);
-	pub const zmm9: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM9);
-	pub const zmm10: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM10);
-	pub const zmm11: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM11);
-	pub const zmm12: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM12);
-	pub const zmm13: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM13);
-	pub const zmm14: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM14);
-	pub const zmm15: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM15);
-	pub const zmm16: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM16);
-	pub const zmm17: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM17);
-	pub const zmm18: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM18);
-	pub const zmm19: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM19);
-	pub const zmm20: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM20);
-	pub const zmm21: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM21);
-	pub const zmm22: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM22);
-	pub const zmm23: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM23);
-	pub const zmm24: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM24);
-	pub const zmm25: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM25);
-	pub const zmm26: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM26);
-	pub const zmm27: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM27);
-	pub const zmm28: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM28);
-	pub const zmm29: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM29);
-	pub const zmm30: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM30);
-	pub const zmm31: __AsmRegisterZmm = __AsmRegisterZmm::new(Register::ZMM31);
+	pub const zmm0: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM0);
+	pub const zmm1: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM1);
+	pub const zmm2: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM2);
+	pub const zmm3: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM3);
+	pub const zmm4: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM4);
+	pub const zmm5: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM5);
+	pub const zmm6: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM6);
+	pub const zmm7: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM7);
+	pub const zmm8: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM8);
+	pub const zmm9: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM9);
+	pub const zmm10: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM10);
+	pub const zmm11: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM11);
+	pub const zmm12: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM12);
+	pub const zmm13: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM13);
+	pub const zmm14: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM14);
+	pub const zmm15: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM15);
+	pub const zmm16: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM16);
+	pub const zmm17: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM17);
+	pub const zmm18: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM18);
+	pub const zmm19: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM19);
+	pub const zmm20: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM20);
+	pub const zmm21: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM21);
+	pub const zmm22: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM22);
+	pub const zmm23: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM23);
+	pub const zmm24: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM24);
+	pub const zmm25: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM25);
+	pub const zmm26: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM26);
+	pub const zmm27: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM27);
+	pub const zmm28: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM28);
+	pub const zmm29: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM29);
+	pub const zmm30: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM30);
+	pub const zmm31: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM31);
 }
 
 #[rustfmt::skip]
@@ -409,16 +409,16 @@ pub mod tmm {
 	//! All tile registers.
 	#![allow(non_upper_case_globals)]
 	#![allow(missing_docs)]
-	use crate::code_asm::reg::__AsmRegisterTmm;
+	use crate::code_asm::reg::AsmRegisterTmm;
 	use crate::Register;
-	pub const tmm0: __AsmRegisterTmm = __AsmRegisterTmm::new(Register::TMM0);
-	pub const tmm1: __AsmRegisterTmm = __AsmRegisterTmm::new(Register::TMM1);
-	pub const tmm2: __AsmRegisterTmm = __AsmRegisterTmm::new(Register::TMM2);
-	pub const tmm3: __AsmRegisterTmm = __AsmRegisterTmm::new(Register::TMM3);
-	pub const tmm4: __AsmRegisterTmm = __AsmRegisterTmm::new(Register::TMM4);
-	pub const tmm5: __AsmRegisterTmm = __AsmRegisterTmm::new(Register::TMM5);
-	pub const tmm6: __AsmRegisterTmm = __AsmRegisterTmm::new(Register::TMM6);
-	pub const tmm7: __AsmRegisterTmm = __AsmRegisterTmm::new(Register::TMM7);
+	pub const tmm0: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM0);
+	pub const tmm1: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM1);
+	pub const tmm2: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM2);
+	pub const tmm3: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM3);
+	pub const tmm4: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM4);
+	pub const tmm5: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM5);
+	pub const tmm6: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM6);
+	pub const tmm7: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM7);
 }
 
 pub use self::bnd::*;

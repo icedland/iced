@@ -34,12 +34,12 @@ use crate::Register;
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
 #[repr(transparent)]
-pub struct __AsmRegister8 {
+pub struct AsmRegister8 {
 	register: Register,
 }
 
 #[rustfmt::skip]
-impl __AsmRegister8 {
+impl AsmRegister8 {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -54,9 +54,9 @@ impl __AsmRegister8 {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegister8> for Register {
+impl From<AsmRegister8> for Register {
 	#[inline]
-	fn from(reg: __AsmRegister8) -> Self {
+	fn from(reg: AsmRegister8) -> Self {
 		reg.register
 	}
 }
@@ -89,12 +89,12 @@ impl From<__AsmRegister8> for Register {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
 #[repr(transparent)]
-pub struct __AsmRegister16 {
+pub struct AsmRegister16 {
 	register: Register,
 }
 
 #[rustfmt::skip]
-impl __AsmRegister16 {
+impl AsmRegister16 {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -109,9 +109,9 @@ impl __AsmRegister16 {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegister16> for Register {
+impl From<AsmRegister16> for Register {
 	#[inline]
-	fn from(reg: __AsmRegister16) -> Self {
+	fn from(reg: AsmRegister16) -> Self {
 		reg.register
 	}
 }
@@ -143,13 +143,13 @@ impl From<__AsmRegister16> for Register {
 /// ```
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
-pub struct __AsmRegister32 {
+pub struct AsmRegister32 {
 	register: Register,
 	state: CodeAsmOpState,
 }
 
 #[rustfmt::skip]
-impl __AsmRegister32 {
+impl AsmRegister32 {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -274,9 +274,9 @@ impl __AsmRegister32 {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegister32> for Register {
+impl From<AsmRegister32> for Register {
 	#[inline]
-	fn from(reg: __AsmRegister32) -> Self {
+	fn from(reg: AsmRegister32) -> Self {
 		reg.register
 	}
 }
@@ -308,13 +308,13 @@ impl From<__AsmRegister32> for Register {
 /// ```
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
-pub struct __AsmRegister64 {
+pub struct AsmRegister64 {
 	register: Register,
 	state: CodeAsmOpState,
 }
 
 #[rustfmt::skip]
-impl __AsmRegister64 {
+impl AsmRegister64 {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -439,9 +439,9 @@ impl __AsmRegister64 {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegister64> for Register {
+impl From<AsmRegister64> for Register {
 	#[inline]
-	fn from(reg: __AsmRegister64) -> Self {
+	fn from(reg: AsmRegister64) -> Self {
 		reg.register
 	}
 }
@@ -474,12 +474,12 @@ impl From<__AsmRegister64> for Register {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
 #[repr(transparent)]
-pub struct __AsmRegisterSegment {
+pub struct AsmRegisterSegment {
 	register: Register,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterSegment {
+impl AsmRegisterSegment {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -494,9 +494,9 @@ impl __AsmRegisterSegment {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterSegment> for Register {
+impl From<AsmRegisterSegment> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterSegment) -> Self {
+	fn from(reg: AsmRegisterSegment) -> Self {
 		reg.register
 	}
 }
@@ -529,12 +529,12 @@ impl From<__AsmRegisterSegment> for Register {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
 #[repr(transparent)]
-pub struct __AsmRegisterCr {
+pub struct AsmRegisterCr {
 	register: Register,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterCr {
+impl AsmRegisterCr {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -549,9 +549,9 @@ impl __AsmRegisterCr {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterCr> for Register {
+impl From<AsmRegisterCr> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterCr) -> Self {
+	fn from(reg: AsmRegisterCr) -> Self {
 		reg.register
 	}
 }
@@ -584,12 +584,12 @@ impl From<__AsmRegisterCr> for Register {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
 #[repr(transparent)]
-pub struct __AsmRegisterDr {
+pub struct AsmRegisterDr {
 	register: Register,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterDr {
+impl AsmRegisterDr {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -604,9 +604,9 @@ impl __AsmRegisterDr {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterDr> for Register {
+impl From<AsmRegisterDr> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterDr) -> Self {
+	fn from(reg: AsmRegisterDr) -> Self {
 		reg.register
 	}
 }
@@ -639,12 +639,12 @@ impl From<__AsmRegisterDr> for Register {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
 #[repr(transparent)]
-pub struct __AsmRegisterTr {
+pub struct AsmRegisterTr {
 	register: Register,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterTr {
+impl AsmRegisterTr {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -659,9 +659,9 @@ impl __AsmRegisterTr {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterTr> for Register {
+impl From<AsmRegisterTr> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterTr) -> Self {
+	fn from(reg: AsmRegisterTr) -> Self {
 		reg.register
 	}
 }
@@ -694,12 +694,12 @@ impl From<__AsmRegisterTr> for Register {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
 #[repr(transparent)]
-pub struct __AsmRegisterSt {
+pub struct AsmRegisterSt {
 	register: Register,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterSt {
+impl AsmRegisterSt {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -714,9 +714,9 @@ impl __AsmRegisterSt {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterSt> for Register {
+impl From<AsmRegisterSt> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterSt) -> Self {
+	fn from(reg: AsmRegisterSt) -> Self {
 		reg.register
 	}
 }
@@ -749,12 +749,12 @@ impl From<__AsmRegisterSt> for Register {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
 #[repr(transparent)]
-pub struct __AsmRegisterMm {
+pub struct AsmRegisterMm {
 	register: Register,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterMm {
+impl AsmRegisterMm {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -769,9 +769,9 @@ impl __AsmRegisterMm {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterMm> for Register {
+impl From<AsmRegisterMm> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterMm) -> Self {
+	fn from(reg: AsmRegisterMm) -> Self {
 		reg.register
 	}
 }
@@ -803,13 +803,13 @@ impl From<__AsmRegisterMm> for Register {
 /// ```
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
-pub struct __AsmRegisterXmm {
+pub struct AsmRegisterXmm {
 	register: Register,
 	state: CodeAsmOpState,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterXmm {
+impl AsmRegisterXmm {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -934,9 +934,9 @@ impl __AsmRegisterXmm {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterXmm> for Register {
+impl From<AsmRegisterXmm> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterXmm) -> Self {
+	fn from(reg: AsmRegisterXmm) -> Self {
 		reg.register
 	}
 }
@@ -968,13 +968,13 @@ impl From<__AsmRegisterXmm> for Register {
 /// ```
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
-pub struct __AsmRegisterYmm {
+pub struct AsmRegisterYmm {
 	register: Register,
 	state: CodeAsmOpState,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterYmm {
+impl AsmRegisterYmm {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -1099,9 +1099,9 @@ impl __AsmRegisterYmm {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterYmm> for Register {
+impl From<AsmRegisterYmm> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterYmm) -> Self {
+	fn from(reg: AsmRegisterYmm) -> Self {
 		reg.register
 	}
 }
@@ -1133,13 +1133,13 @@ impl From<__AsmRegisterYmm> for Register {
 /// ```
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
-pub struct __AsmRegisterZmm {
+pub struct AsmRegisterZmm {
 	register: Register,
 	state: CodeAsmOpState,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterZmm {
+impl AsmRegisterZmm {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -1264,9 +1264,9 @@ impl __AsmRegisterZmm {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterZmm> for Register {
+impl From<AsmRegisterZmm> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterZmm) -> Self {
+	fn from(reg: AsmRegisterZmm) -> Self {
 		reg.register
 	}
 }
@@ -1299,12 +1299,12 @@ impl From<__AsmRegisterZmm> for Register {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
 #[repr(transparent)]
-pub struct __AsmRegisterTmm {
+pub struct AsmRegisterTmm {
 	register: Register,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterTmm {
+impl AsmRegisterTmm {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -1319,9 +1319,9 @@ impl __AsmRegisterTmm {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterTmm> for Register {
+impl From<AsmRegisterTmm> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterTmm) -> Self {
+	fn from(reg: AsmRegisterTmm) -> Self {
 		reg.register
 	}
 }
@@ -1353,13 +1353,13 @@ impl From<__AsmRegisterTmm> for Register {
 /// ```
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
-pub struct __AsmRegisterK {
+pub struct AsmRegisterK {
 	register: Register,
 	state: CodeAsmOpState,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterK {
+impl AsmRegisterK {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -1484,9 +1484,9 @@ impl __AsmRegisterK {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterK> for Register {
+impl From<AsmRegisterK> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterK) -> Self {
+	fn from(reg: AsmRegisterK) -> Self {
 		reg.register
 	}
 }
@@ -1519,12 +1519,12 @@ impl From<__AsmRegisterK> for Register {
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[rustfmt::skip]
 #[repr(transparent)]
-pub struct __AsmRegisterBnd {
+pub struct AsmRegisterBnd {
 	register: Register,
 }
 
 #[rustfmt::skip]
-impl __AsmRegisterBnd {
+impl AsmRegisterBnd {
 	#[must_use]
 	#[inline]
 	pub(crate) const fn new(register: Register) -> Self {
@@ -1539,9 +1539,9 @@ impl __AsmRegisterBnd {
 }
 
 #[rustfmt::skip]
-impl From<__AsmRegisterBnd> for Register {
+impl From<AsmRegisterBnd> for Register {
 	#[inline]
-	fn from(reg: __AsmRegisterBnd) -> Self {
+	fn from(reg: AsmRegisterBnd) -> Self {
 		reg.register
 	}
 }
