@@ -382,14 +382,153 @@ impl CodeAssembler {
 		self.next_anon_label
 	}
 
+	#[inline]
+	fn decl_data_verify_no_prefixes(&self) -> Result<(), IcedError> {
+		if self.prefix_flags != 0 {
+			Err(IcedError::new("db/dw/dd/dq: No prefixes are allowed"))
+		} else {
+			Ok(())
+		}
+	}
+
 	/// Adds data
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
 	///
 	/// # Arguments
 	///
 	/// * `data`: The data that will be added at the current position
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.int3()?;
+	/// a.db(b"\x16\x85\x10\xA0\xFA\x9E\x11\xEB\x97\x34\x3B\x7E\xB7\x2B\x92\x63\x16\x85")?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xCC\x16\x85\x10\xA0\xFA\x9E\x11\xEB\x97\x34\x3B\x7E\xB7\x2B\x92\x63\x16\x85\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
-	pub fn db(&mut self, _data: &[u8]) {
-		//TODO:
+	pub fn db(&mut self, data: &[u8]) -> Result<(), IcedError> {
+		self.decl_data_verify_no_prefixes()?;
+		for bytes in data.chunks(16) {
+			self.add_instr(Instruction::with_declare_byte(bytes)?)?;
+		}
+
+		Ok(())
+	}
+
+	/// Adds data
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
+	///
+	/// # Arguments
+	///
+	/// * `data`: The data that will be added at the current position
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.int3()?;
+	/// a.dw(&[0x4068, 0x7956, 0xFA9F, 0x11EB, 0x9467, 0x77FA, 0x747C, 0xD088, 0x4068])?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xCC\x68\x40\x56\x79\x9F\xFA\xEB\x11\x67\x94\xFA\x77\x7C\x74\x88\xD0\x68\x40\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn dw(&mut self, data: &[u16]) -> Result<(), IcedError> {
+		self.decl_data_verify_no_prefixes()?;
+		for words in data.chunks(16 / 2) {
+			self.add_instr(Instruction::with_declare_word(words)?)?;
+		}
+
+		Ok(())
+	}
+
+	/// Adds data
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
+	///
+	/// # Arguments
+	///
+	/// * `data`: The data that will be added at the current position
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.int3()?;
+	/// a.dd(&[0x40687956, 0xFA9F11EB, 0x946777FA, 0x747CD088, 0x40687C58])?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xCC\x56\x79\x68\x40\xEB\x11\x9F\xFA\xFA\x77\x67\x94\x88\xD0\x7C\x74\x58\x7C\x68\x40\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn dd(&mut self, data: &[u32]) -> Result<(), IcedError> {
+		self.decl_data_verify_no_prefixes()?;
+		for dwords in data.chunks(16 / 4) {
+			self.add_instr(Instruction::with_declare_dword(dwords)?)?;
+		}
+
+		Ok(())
+	}
+
+	/// Adds data
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
+	///
+	/// # Arguments
+	///
+	/// * `data`: The data that will be added at the current position
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.int3()?;
+	/// a.dq(&[0x40687956FA9F11EB, 0x946777FA747CD088, 0x40687C58FA9F11EB])?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xCC\xEB\x11\x9F\xFA\x56\x79\x68\x40\x88\xD0\x7C\x74\xFA\x77\x67\x94\xEB\x11\x9F\xFA\x58\x7C\x68\x40\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn dq(&mut self, data: &[u64]) -> Result<(), IcedError> {
+		self.decl_data_verify_no_prefixes()?;
+		for qwords in data.chunks(16 / 8) {
+			self.add_instr(Instruction::with_declare_qword(qwords)?)?;
+		}
+
+		Ok(())
 	}
 
 	/// Adds nops, preferring long nops over short nops
