@@ -10,7 +10,7 @@
 use crate::code_asm::op_state::CodeAsmOpState;
 use crate::code_asm::{CodeAssembler, CodeAssemblerOptions, CodeLabel, PrefixFlags};
 use crate::IcedError;
-use crate::{BlockEncoderOptions, Code, Instruction, MemoryOperand, Register};
+use crate::{BlockEncoder, BlockEncoderOptions, Code, Instruction, InstructionBlock, MemoryOperand, Register};
 use alloc::vec::Vec;
 use core::usize;
 
@@ -267,6 +267,15 @@ impl CodeAssembler {
 	}
 
 	pub(crate) fn add_instr(&mut self, mut instruction: Instruction) -> Result<(), IcedError> {
+		if !self.current_label.is_empty() && self.defined_anon_label {
+			return Err(IcedError::new("You can't create both an anonymous label and a normal label"));
+		}
+		if !self.current_label.is_empty() {
+			instruction.set_ip(self.current_label.id());
+		} else if self.defined_anon_label {
+			instruction.set_ip(self.current_anon_label.id());
+		}
+
 		if self.prefix_flags != 0 {
 			if (self.prefix_flags & PrefixFlags::XACQUIRE) != 0 {
 				instruction.set_has_xacquire_prefix(true);
@@ -288,6 +297,8 @@ impl CodeAssembler {
 		}
 
 		self.instructions.push(instruction);
+		self.current_label = CodeLabel::default();
+		self.defined_anon_label = false;
 		self.prefix_flags = PrefixFlags::NONE;
 		Ok(())
 	}
@@ -302,26 +313,24 @@ impl CodeAssembler {
 	///
 	/// * `ip`: Base address of all instructions
 	#[inline]
-	pub fn assemble(&mut self, ip: u64) -> Result<(), IcedError> {
-		self.assemble_options(ip, BlockEncoderOptions::NONE)
-	}
+	pub fn assemble(&mut self, ip: u64) -> Result<Vec<u8>, IcedError> {
+		if self.prefix_flags != 0 {
+			return Err(IcedError::new("Unused prefixes. Did you forget to add an instruction?"));
+		}
+		if !self.current_label.is_empty() {
+			return Err(IcedError::new("Unused label. Did you forget to add an instruction?"));
+		}
+		if self.defined_anon_label {
+			return Err(IcedError::new("Unused anonymous label. Did you forget to add an instruction?"));
+		}
+		if !self.next_anon_label.is_empty() {
+			return Err(IcedError::new("Unused anonymous fwd() label. Did you forget to call anonymous_label()?"));
+		}
 
-	/// Encodes all added instructions and returns the result
-	///
-	/// # Errors
-	///
-	/// Fails if an error was detected (eg. an invalid instruction operand)
-	///
-	/// # Arguments
-	///
-	/// * `ip`: Base address of all instructions
-	/// * `options`: Encoder options (see [`BlockEncoderOptions`])
-	///
-	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html
-	#[allow(clippy::missing_inline_in_public_items)]
-	pub fn assemble_options(&mut self, _ip: u64, _options: u32) -> Result<(), IcedError> {
-		//TODO:
-		todo!()
+		let options = BlockEncoderOptions::NONE;
+		let block = InstructionBlock::new(self.instructions(), ip);
+		let result = BlockEncoder::encode(self.bitness(), block, options)?;
+		Ok(result.code_buffer)
 	}
 
 	/// Gets the bitness (16, 32 or 64)
