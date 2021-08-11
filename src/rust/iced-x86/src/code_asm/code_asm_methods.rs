@@ -69,6 +69,23 @@ impl CodeAssembler {
 	}
 
 	/// Adds a `REP` prefix to the next added instruction
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	///
+	/// a.rep().stosq()?;
+	/// a.nop()?;
+	///
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, vec![0xF3, 0x48, 0xAB, 0x90]);
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[must_use]
 	#[inline]
 	pub fn rep(&mut self) -> &mut Self {
@@ -77,6 +94,23 @@ impl CodeAssembler {
 	}
 
 	/// Adds a `REPE` prefix to the next added instruction
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	///
+	/// a.repe().cmpsb()?;
+	/// a.nop()?;
+	///
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, vec![0xF3, 0xA6, 0x90]);
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[must_use]
 	#[inline]
 	pub fn repe(&mut self) -> &mut Self {
@@ -85,6 +119,23 @@ impl CodeAssembler {
 	}
 
 	/// Adds a `REPNE` prefix to the next added instruction
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	///
+	/// a.repne().scasb()?;
+	/// a.nop()?;
+	///
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, vec![0xF2, 0xAE, 0x90]);
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[must_use]
 	#[inline]
 	pub fn repne(&mut self) -> &mut Self {
@@ -108,7 +159,28 @@ impl CodeAssembler {
 		self
 	}
 
-	/// Gets all added instructions
+	/// Gets all added instructions, see also [`take_instructions()`] and [`assemble()`]
+	///
+	/// [`take_instructions()`]: #method.take_instructions
+	/// [`assemble()`]: #method.assemble
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.push(rcx)?;
+	/// a.xor(rcx, rdx)?;
+	/// assert_eq!(a.instructions(), vec![
+	///     Instruction::with1(Code::Push_r64, Register::RCX)?,
+	///     Instruction::with2(Code::Xor_rm64_r64, Register::RCX, Register::RDX)?,
+	/// ]);
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[must_use]
 	#[inline]
 	pub fn instructions(&self) -> &[Instruction] {
@@ -118,6 +190,28 @@ impl CodeAssembler {
 	/// Takes ownership of all instructions and returns them. Instruction state is also reset (see [`reset()`])
 	///
 	/// [`reset()`]: #method.reset
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.push(rcx)?;
+	/// a.xor(rcx, rdx)?;
+	/// assert_eq!(a.instructions().len(), 2);
+	/// let instrs = a.take_instructions();
+	/// assert_eq!(a.instructions().len(), 0);
+	/// assert_eq!(instrs.len(), 2);
+	/// assert_eq!(instrs, vec![
+	///     Instruction::with1(Code::Push_r64, Register::RCX)?,
+	///     Instruction::with2(Code::Xor_rm64_r64, Register::RCX, Register::RDX)?,
+	/// ]);
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[must_use]
 	#[inline]
 	pub fn take_instructions(&mut self) -> Vec<Instruction> {
@@ -126,7 +220,23 @@ impl CodeAssembler {
 		instrs
 	}
 
-	/// Resets all instructions and labels
+	/// Resets all instructions and labels so this instance can be re-used
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.push(rcx)?;
+	/// a.xor(rcx, rdx)?;
+	/// assert_eq!(a.instructions().len(), 2);
+	/// a.reset();
+	/// assert_eq!(a.instructions().len(), 0);
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[inline]
 	pub fn reset(&mut self) {
 		self.instructions.clear();
@@ -157,10 +267,31 @@ impl CodeAssembler {
 	///
 	/// # Errors
 	///
-	/// Fails if the label wasn't created by [`current_label()`], if this method was called
+	/// Fails if the label wasn't created by [`create_label()`], if this method was called
 	/// multiple times for the same label, or if the next instruction already has a label.
 	///
-	/// [`current_label()`]: #method.current_label
+	/// [`create_label()`]: #method.create_label
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// let mut label1 = a.create_label();
+	/// a.push(rcx)?;
+	/// // The address of this label is the next added instruction
+	/// a.set_current_label(&mut label1)?;
+	/// a.xor(rcx, rdx)?;
+	/// // Target is the `xor rcx, rdx` instruction
+	/// a.je(label1)?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\x51\x48\x31\xD1\x74\xFB\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn set_current_label(&mut self, label: &mut CodeLabel) -> Result<(), IcedError> {
 		if label.is_empty() {
@@ -185,6 +316,33 @@ impl CodeAssembler {
 	///
 	/// [`bwd()`]: #method.bwd
 	/// [`fwd()`]: #method.fwd
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.push(rcx)?;
+	/// // The address of this label is the next added instruction
+	/// a.anonymous_label()?;
+	/// a.xor(rcx, rdx)?;
+	/// // Target is the `xor rcx, rdx` instruction
+	/// let anon = a.bwd()?; // Unfortunately, Rust forces us to create a local
+	/// a.je(anon)?;
+	/// // Target is the `sub eax, eax` instruction
+	/// let anon = a.fwd(); // Unfortunately, Rust forces us to create a local
+	/// a.js(anon)?;
+	/// a.nop()?;
+	/// // Create the label referenced by `fwd()` above
+	/// a.anonymous_label()?;
+	/// a.sub(eax, eax)?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\x51\x48\x31\xD1\x74\xFB\x78\x01\x90\x29\xC0");
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn anonymous_label(&mut self) -> Result<(), IcedError> {
 		if self.defined_anon_label {
@@ -312,6 +470,27 @@ impl CodeAssembler {
 	/// # Arguments
 	///
 	/// * `ip`: Base address of all instructions
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// let mut label1 = a.create_label();
+	/// a.push(rcx)?;
+	/// // The address of this label is the next added instruction
+	/// a.set_current_label(&mut label1)?;
+	/// a.xor(rcx, rdx)?;
+	/// // Target is the `xor rcx, rdx` instruction
+	/// a.je(label1)?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\x51\x48\x31\xD1\x74\xFB\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[inline]
 	pub fn assemble(&mut self, ip: u64) -> Result<Vec<u8>, IcedError> {
 		if self.prefix_flags != 0 {
