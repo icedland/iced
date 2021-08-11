@@ -317,9 +317,6 @@ impl CodeAssembler {
 		if self.prefix_flags != 0 {
 			return Err(IcedError::new("Unused prefixes. Did you forget to add an instruction?"));
 		}
-		if !self.current_label.is_empty() {
-			return Err(IcedError::new("Unused label. Did you forget to add an instruction?"));
-		}
 		if self.defined_anon_label {
 			return Err(IcedError::new("Unused anonymous label. Did you forget to add an instruction?"));
 		}
