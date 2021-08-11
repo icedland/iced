@@ -186,14 +186,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				var ex = Assert.Throws<InvalidOperationException>(() => assembler.rep.Assemble(writer, 0));
 				Assert.Contains("Unused prefixes", ex.Message);
 			}
-			{
-				var assembler = new Assembler(Bitness);
-				var label = assembler.CreateLabel(("BadLabel"));
-				assembler.Label(ref label);
-				var writer = new CodeWriterImpl();
-				var ex = Assert.Throws<InvalidOperationException>(() => assembler.Assemble(writer, 0));
-				Assert.Contains("Unused label", ex.Message);
-			}
 		}
 
 		[Fact]

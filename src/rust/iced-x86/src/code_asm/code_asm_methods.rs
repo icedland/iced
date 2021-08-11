@@ -175,7 +175,7 @@ impl CodeAssembler {
 	/// assert_eq!(a.instructions(), vec![
 	///     Instruction::with1(Code::Push_r64, Register::RCX)?,
 	///     Instruction::with2(Code::Xor_rm64_r64, Register::RCX, Register::RDX)?,
-	/// ]);
+	/// ].as_slice());
 	/// # Ok(())
 	/// # }
 	/// ```

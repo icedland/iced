@@ -19,6 +19,7 @@ pub use crate::IcedError;
 use crate::Instruction;
 use alloc::vec::Vec;
 use core::hash::{Hash, Hasher};
+use core::usize;
 
 mod private {
 	pub trait Sealed {}
