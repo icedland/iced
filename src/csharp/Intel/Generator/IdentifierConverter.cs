@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Generator.Enums;
 
 namespace Generator {
 	/// <summary>
@@ -12,6 +13,7 @@ namespace Generator {
 	abstract class IdentifierConverter {
 		readonly StringBuilder sb = new StringBuilder();
 
+		protected abstract string EnumSeparator { get; }
 		public abstract string Type(string name);
 		public abstract string Field(string name);
 		public abstract string EnumField(string name);
@@ -22,6 +24,8 @@ namespace Generator {
 		public abstract string Static(string name);
 		public abstract string Namespace(string name);
 		public abstract string Argument(string name);
+		public string ToDeclTypeAndValue(EnumValue value) =>
+			$"{value.DeclaringType.Name(this)}{EnumSeparator}{value.Name(this)}";
 
 		protected string ToSnakeCase(string name) => ToSnakeCase(name, upper: false);
 
@@ -75,6 +79,7 @@ namespace Generator {
 	sealed class CSharpIdentifierConverter : IdentifierConverter {
 		public static IdentifierConverter Create() => new CSharpIdentifierConverter();
 		CSharpIdentifierConverter() { }
+		protected override string EnumSeparator => ".";
 		public override string Type(string name) => name;
 		public override string Field(string name) => Escape(name);
 		public override string EnumField(string name) => Escape(name);
@@ -115,6 +120,7 @@ namespace Generator {
 	sealed class RustIdentifierConverter : IdentifierConverter {
 		public static IdentifierConverter Create() => new RustIdentifierConverter();
 		RustIdentifierConverter() { }
+		protected override string EnumSeparator => "::";
 		public override string Type(string name) => name;
 		public override string Field(string name) => ToSnakeCase(name);
 		public override string EnumField(string name) => name;
@@ -130,6 +136,7 @@ namespace Generator {
 	sealed class RustJSIdentifierConverter : IdentifierConverter {
 		public static IdentifierConverter Create() => new RustJSIdentifierConverter();
 		RustJSIdentifierConverter() { }
+		protected override string EnumSeparator => "::";
 		public override string Type(string name) => name;
 		public override string Field(string name) => ToLowerCamelCase(name);
 		public override string EnumField(string name) => name;
@@ -145,6 +152,7 @@ namespace Generator {
 	sealed class PythonIdentifierConverter : IdentifierConverter {
 		public static IdentifierConverter Create() => new PythonIdentifierConverter();
 		PythonIdentifierConverter() { }
+		protected override string EnumSeparator => ".";
 		public override string Type(string name) => name;
 		public override string Field(string name) => "__" + ToSnakeCase(name);
 		public override string EnumField(string name) => ToScreamingSnakeCase(name);

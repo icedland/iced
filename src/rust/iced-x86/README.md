@@ -115,7 +115,8 @@ This method produces the following output:
 #[allow(dead_code)]
 pub(crate) fn how_to_disassemble() {
     let bytes = EXAMPLE_CODE;
-    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
+    let mut decoder =
+        Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
     // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
     // For fastest code, see `SpecializedFormatter` which is ~3.3x faster. Use it if formatting
@@ -236,11 +237,11 @@ This example uses a [`BlockEncoder`] to encode created [`Instruction`]s.
 ```rust
 use iced_x86::{
     BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, Formatter, GasFormatter,
-    Instruction, InstructionBlock, MemoryOperand, Register,
+    IcedError, Instruction, InstructionBlock, MemoryOperand, Register,
 };
 
 #[allow(dead_code)]
-pub(crate) fn how_to_encode_instructions() {
+pub(crate) fn how_to_encode_instructions() -> Result<(), IcedError> {
     let bitness = 64;
 
     // All created instructions get an IP of 0. The label id is just an IP.
@@ -259,50 +260,44 @@ pub(crate) fn how_to_encode_instructions() {
 
     let label1 = create_label();
 
-    let mut instructions: Vec<Instruction> = Vec::new();
-    instructions.push(Instruction::with_reg(Code::Push_r64, Register::RBP));
-    instructions.push(Instruction::with_reg(Code::Push_r64, Register::RDI));
-    instructions.push(Instruction::with_reg(Code::Push_r64, Register::RSI));
-    instructions
-        .push(Instruction::try_with_reg_u32(Code::Sub_rm64_imm32, Register::RSP, 0x50).unwrap());
-    instructions.push(Instruction::with(Code::VEX_Vzeroupper));
-    instructions.push(Instruction::with_reg_mem(
-        Code::Lea_r64_m,
-        Register::RBP,
-        MemoryOperand::with_base_displ(Register::RSP, 0x60),
-    ));
-    instructions.push(Instruction::with_reg_reg(Code::Mov_r64_rm64, Register::RSI, Register::RCX));
-    instructions.push(Instruction::with_reg_mem(
-        Code::Lea_r64_m,
-        Register::RDI,
-        MemoryOperand::with_base_displ(Register::RBP, -0x38),
-    ));
-    instructions
-        .push(Instruction::try_with_reg_i32(Code::Mov_r32_imm32, Register::ECX, 0x0A).unwrap());
-    instructions.push(Instruction::with_reg_reg(Code::Xor_r32_rm32, Register::EAX, Register::EAX));
-    instructions.push(Instruction::try_with_rep_stosd(bitness).unwrap());
-    instructions.push(
-        Instruction::try_with_reg_u64(Code::Cmp_rm64_imm32, Register::RSI, 0x1234_5678).unwrap(),
-    );
-    // Create a branch instruction that references label1
-    instructions.push(Instruction::try_with_branch(Code::Jne_rel32_64, label1).unwrap());
-    instructions.push(Instruction::with(Code::Nopd));
-    // Add the instruction that is the target of the branch
-    instructions.push(add_label(
-        label1,
-        Instruction::with_reg_reg(Code::Xor_r32_rm32, Register::R15D, Register::R15D),
-    ));
+    let mut instructions = vec![
+        Instruction::with1(Code::Push_r64, Register::RBP)?,
+        Instruction::with1(Code::Push_r64, Register::RDI)?,
+        Instruction::with1(Code::Push_r64, Register::RSI)?,
+        Instruction::with2(Code::Sub_rm64_imm32, Register::RSP, 0x50)?,
+        Instruction::with(Code::VEX_Vzeroupper),
+        Instruction::with2(
+            Code::Lea_r64_m,
+            Register::RBP,
+            MemoryOperand::with_base_displ(Register::RSP, 0x60),
+        )?,
+        Instruction::with2(Code::Mov_r64_rm64, Register::RSI, Register::RCX)?,
+        Instruction::with2(
+            Code::Lea_r64_m,
+            Register::RDI,
+            MemoryOperand::with_base_displ(Register::RBP, -0x38),
+        )?,
+        Instruction::with2(Code::Mov_r32_imm32, Register::ECX, 0x0A)?,
+        Instruction::with2(Code::Xor_r32_rm32, Register::EAX, Register::EAX)?,
+        Instruction::with_rep_stosd(bitness)?,
+        Instruction::with2(Code::Cmp_rm64_imm32, Register::RSI, 0x1234_5678)?,
+        // Create a branch instruction that references label1
+        Instruction::with_branch(Code::Jne_rel32_64, label1)?,
+        Instruction::with(Code::Nopd),
+        // Add the instruction that is the target of the branch
+        add_label(label1, Instruction::with2(Code::Xor_r32_rm32, Register::R15D, Register::R15D)?),
+    ];
 
     // Create an instruction that accesses some data using an RIP relative memory operand
     let data1 = create_label();
-    instructions.push(Instruction::with_reg_mem(
+    instructions.push(Instruction::with2(
         Code::Lea_r64_m,
         Register::R14,
         MemoryOperand::with_base_displ(Register::RIP, data1 as i64),
-    ));
+    )?);
     instructions.push(Instruction::with(Code::Nopd));
     let raw_data: &[u8] = &[0x12, 0x34, 0x56, 0x78];
-    instructions.push(add_label(data1, Instruction::try_with_declare_byte(raw_data).unwrap()));
+    instructions.push(add_label(data1, Instruction::with_declare_byte(raw_data)?));
 
     // Use BlockEncoder to encode a block of instructions. This block can contain any
     // number of branches and any number of instructions. It does support encoding more
@@ -332,10 +327,11 @@ pub(crate) fn how_to_encode_instructions() {
         formatter.format(&instruction, &mut output);
         println!("{:016X} {}", instruction.ip(), output);
     }
-    let db = Instruction::try_with_declare_byte(bytes_data).unwrap();
+    let db = Instruction::with_declare_byte(bytes_data)?;
     output.clear();
     formatter.format(&db, &mut output);
     println!("{:016X} {}", decoder.ip(), output);
+    Ok(())
 }
 /*
 Output:
@@ -454,7 +450,8 @@ impl FormatterOutput for MyFormatterOutput {
 #[allow(dead_code)]
 pub(crate) fn how_to_colorize_text() {
     let bytes = EXAMPLE_CODE;
-    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
+    let mut decoder =
+        Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
     let mut formatter = IntelFormatter::new();
     formatter.options_mut().set_first_operand_char_index(8);
@@ -497,7 +494,7 @@ Uses instruction info API and the encoder to patch a function to jump to the pro
 ```rust
 use iced_x86::{
     BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, FlowControl, Formatter,
-    Instruction, InstructionBlock, NasmFormatter, OpKind,
+    IcedError, Instruction, InstructionBlock, NasmFormatter, OpKind,
 };
 
 // Decodes instructions from some address, then encodes them starting at some
@@ -552,12 +549,17 @@ Moved code:
 00007FFAC48ACDB0 jmp 00007FFAC46ACDB0h
 */
 #[allow(dead_code)]
-pub(crate) fn how_to_move_code() {
+pub(crate) fn how_to_move_code() -> Result<(), IcedError> {
     let example_code = EXAMPLE_CODE.to_vec();
     println!("Original code:");
     disassemble(&example_code, EXAMPLE_CODE_RIP);
 
-    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, &example_code, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
+    let mut decoder = Decoder::with_ip(
+        EXAMPLE_CODE_BITNESS,
+        &example_code,
+        EXAMPLE_CODE_RIP,
+        DecoderOptions::NONE,
+    );
 
     // In 64-bit mode, we need 12 bytes to jump to any address:
     //      mov rax,imm64   // 10
@@ -614,8 +616,7 @@ pub(crate) fn how_to_move_code() {
         }
     };
     if add {
-        orig_instructions
-            .push(Instruction::try_with_branch(Code::Jmp_rel32_64, jmp_back_addr).unwrap());
+        orig_instructions.push(Instruction::with_branch(Code::Jmp_rel32_64, jmp_back_addr)?);
     }
 
     // Relocate the code to some new location. It can fix short/near branches and
@@ -659,6 +660,8 @@ pub(crate) fn how_to_move_code() {
     // Disassemble the moved code
     println!("Moved code:");
     disassemble(&new_code, relocated_base_address);
+
+	Ok(())
 }
 
 fn disassemble(data: &[u8], ip: u64) {
@@ -906,7 +909,12 @@ This method produces the following output:
 */
 #[allow(dead_code)]
 pub(crate) fn how_to_get_instruction_info() {
-    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
+    let mut decoder = Decoder::with_ip(
+        EXAMPLE_CODE_BITNESS,
+        EXAMPLE_CODE,
+        EXAMPLE_CODE_RIP,
+        DecoderOptions::NONE,
+    );
 
     // Use a factory to create the instruction info if you need register and
     // memory usage. If it's something else, eg. encoding, flags, etc, there

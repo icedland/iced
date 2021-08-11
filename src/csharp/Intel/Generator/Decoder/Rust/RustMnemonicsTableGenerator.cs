@@ -34,7 +34,7 @@ namespace Generator.Decoder.Rust {
 					foreach (var def in defs) {
 						if (def.Mnemonic.Value > ushort.MaxValue)
 							throw new InvalidOperationException();
-						writer.WriteLine($"{mnemonicName}::{def.Mnemonic.Name(idConverter)},// {def.Code.Name(idConverter)}");
+						writer.WriteLine($"{idConverter.ToDeclTypeAndValue(def.Mnemonic)},// {def.Code.Name(idConverter)}");
 					}
 				}
 				writer.WriteLine("];");

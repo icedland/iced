@@ -89,10 +89,10 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 
 	#[cfg(feature = "encoder")]
 	{
-		let db = Instruction::try_with_declare_byte(&[0; 8]).unwrap();
+		let db = Instruction::with_declare_byte(&[0; 8]).unwrap();
 		#[allow(deprecated)]
 		{
-			assert_eq!(Instruction::with_declare_byte(&[0; 8]), db);
+			assert_eq!(Instruction::try_with_declare_byte(&[0; 8]).unwrap(), db);
 		};
 		assert_eq!(db.declare_data_len(), 8);
 		for i in 0..db.declare_data_len() as u32 {
@@ -124,10 +124,10 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 
 	#[cfg(feature = "encoder")]
 	{
-		let dw = Instruction::try_with_declare_word(&[0; 4]).unwrap();
+		let dw = Instruction::with_declare_word(&[0; 4]).unwrap();
 		#[allow(deprecated)]
 		{
-			assert_eq!(Instruction::with_declare_word(&[0; 4]), dw);
+			assert_eq!(Instruction::try_with_declare_word(&[0; 4]).unwrap(), dw);
 		};
 		assert_eq!(dw.declare_data_len(), 4);
 		for i in 0..dw.declare_data_len() as u32 {
@@ -159,10 +159,10 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 
 	#[cfg(feature = "encoder")]
 	{
-		let dd = Instruction::try_with_declare_dword(&[8; 2]).unwrap();
+		let dd = Instruction::with_declare_dword(&[8; 2]).unwrap();
 		#[allow(deprecated)]
 		{
-			assert_eq!(Instruction::with_declare_dword(&[8; 2]), dd);
+			assert_eq!(Instruction::try_with_declare_dword(&[8; 2]).unwrap(), dd);
 		};
 		assert_eq!(dd.declare_data_len(), 2);
 		for i in 0..dd.declare_data_len() as u32 {
@@ -194,10 +194,10 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 
 	#[cfg(feature = "encoder")]
 	{
-		let dq = Instruction::try_with_declare_qword(&[0; 1]).unwrap();
+		let dq = Instruction::with_declare_qword(&[0; 1]).unwrap();
 		#[allow(deprecated)]
 		{
-			assert_eq!(Instruction::with_declare_qword(&[0; 1]), dq);
+			assert_eq!(Instruction::try_with_declare_qword(&[0; 1]).unwrap(), dq);
 		};
 		assert_eq!(dq.declare_data_len(), 1);
 		for i in 0..dq.declare_data_len() as u32 {

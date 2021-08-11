@@ -22,9 +22,8 @@ namespace Generator.Tables.Rust {
 		}
 
 		void WriteTable(FileWriter writer, MemorySizeDef[] defs) {
-			var memSizeName = generatorContext.Types[TypeIds.MemorySize].Name(idConverter);
 			foreach (var info in defs)
-				writer.WriteLine($"MemorySizeInfo {{ size: {info.Size}, element_size: {info.ElementSize}, memory_size: {memSizeName}::{info.MemorySize.Name(idConverter)}, element_type: {memSizeName}::{info.ElementType.Name(idConverter)}, is_signed: {(info.IsSigned ? "true" : "false")}, is_broadcast: {(info.IsBroadcast ? "true" : "false")} }},");
+				writer.WriteLine($"MemorySizeInfo {{ size: {info.Size}, element_size: {info.ElementSize}, memory_size: {idConverter.ToDeclTypeAndValue(info.MemorySize)}, element_type: {idConverter.ToDeclTypeAndValue(info.ElementType)}, is_signed: {(info.IsSigned ? "true" : "false")}, is_broadcast: {(info.IsBroadcast ? "true" : "false")} }},");
 		}
 	}
 }

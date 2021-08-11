@@ -13,13 +13,13 @@ namespace Iced.Intel {
 	/// High-Level Assembler.
 	/// </summary>
 	public partial class Assembler {
-		readonly InstructionList _instructions;
-		ulong _currentLabelId;
-		Label _label;
-		Label _currentAnonLabel;
-		Label _nextAnonLabel;
-		bool _definedAnonLabel;
-		PrefixFlags _nextPrefixFlags;
+		readonly InstructionList instructions;
+		ulong currentLabelId;
+		Label currentLabel;
+		Label currentAnonLabel;
+		Label nextAnonLabel;
+		bool definedAnonLabel;
+		PrefixFlags prefixFlags;
 
 		/// <summary>
 		/// Creates a new instance of this assembler 
@@ -35,13 +35,15 @@ namespace Iced.Intel {
 				throw new ArgumentOutOfRangeException(nameof(bitness));
 			}
 			Bitness = bitness;
-			_instructions = new InstructionList();
-			_label = default;
-			_currentAnonLabel = default;
-			_nextAnonLabel = default;
-			_definedAnonLabel = false;
+			instructions = new InstructionList();
+			currentLabelId = 0;
+			currentLabel = default;
+			currentAnonLabel = default;
+			nextAnonLabel = default;
+			definedAnonLabel = false;
+			prefixFlags = PrefixFlags.None;
 			PreferVex = true;
-			PreferBranchShort = true;
+			PreferShortBranch = true;
 		}
 
 		/// <summary>
@@ -57,24 +59,34 @@ namespace Iced.Intel {
 		/// <summary>
 		/// <c>true</c> to prefer short branch encoding. This is the default. 
 		/// </summary>
-		public bool PreferBranchShort { get; set; }
+		public bool PreferShortBranch { get; set; }
+
+		/// <summary>
+		/// <c>true</c> to prefer short branch encoding. This is the default. 
+		/// </summary>
+		[System.Obsolete("Use " + nameof(PreferShortBranch) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool PreferBranchShort {
+			get => PreferShortBranch;
+			set => PreferShortBranch = value;
+		}
 
 		/// <summary>
 		/// Gets the instructions.
 		/// </summary>
-		public IReadOnlyList<Instruction> Instructions => _instructions;
+		public IReadOnlyList<Instruction> Instructions => instructions;
 
 		/// <summary>
 		/// Reset the current set of instructions and labels added to this instance. 
 		/// </summary>
 		public void Reset() {
-			_instructions.Clear();
-			_currentLabelId = 0;
-			_label = default;
-			_currentAnonLabel = default;
-			_nextAnonLabel = default;
-			_definedAnonLabel = false;
-			_nextPrefixFlags = PrefixFlags.None;
+			instructions.Clear();
+			currentLabelId = 0;
+			currentLabel = default;
+			currentAnonLabel = default;
+			nextAnonLabel = default;
+			definedAnonLabel = false;
+			prefixFlags = PrefixFlags.None;
 		}
 
 		/// <summary>
@@ -83,15 +95,15 @@ namespace Iced.Intel {
 		/// <param name="name">Optional name of the label.</param>
 		/// <returns></returns>
 		public Label CreateLabel(string? name = null) {
-			_currentLabelId++;
-			var label = new Label(name, _currentLabelId);
+			currentLabelId++;
+			var label = new Label(name, currentLabelId);
 			return label;
 		}
 
 		/// <summary>
 		/// Gets the current label used by this instance.
 		/// </summary>
-		public Label CurrentLabel => _label;
+		public Label CurrentLabel => currentLabel;
 
 		/// <summary>
 		/// Use the specified label.
@@ -99,11 +111,14 @@ namespace Iced.Intel {
 		/// <param name="label">Label to use</param>
 		/// <exception cref="ArgumentException"></exception>
 		public void Label(ref Label label) {
-			if (label.IsEmpty) throw new ArgumentException($"Invalid label. Must be created via {nameof(CreateLabel)}", nameof(label));
-			if (label.InstructionIndex >= 0) throw new ArgumentException($"Cannot reuse label. The specified label is already associated with an instruction at index {label.InstructionIndex}.", nameof(label));
-			if (!_label.IsEmpty) throw new ArgumentException("At most one label per instruction is allowed");
-			label.InstructionIndex = _instructions.Count;
-			_label = label;
+			if (label.IsEmpty)
+				throw new ArgumentException($"Invalid label. Must be created via {nameof(CreateLabel)}", nameof(label));
+			if (label.InstructionIndex >= 0)
+				throw new ArgumentException($"Cannot reuse label. The specified label is already associated with an instruction at index {label.InstructionIndex}.", nameof(label));
+			if (!currentLabel.IsEmpty)
+				throw new ArgumentException("At most one label per instruction is allowed");
+			label.InstructionIndex = instructions.Count;
+			currentLabel = label;
 		}
 
 		/// <summary>
@@ -111,14 +126,14 @@ namespace Iced.Intel {
 		/// and <see cref="F"/> (forward anonymous label).
 		/// </summary>
 		public void AnonymousLabel() {
-			if (_definedAnonLabel)
+			if (definedAnonLabel)
 				throw new InvalidOperationException("At most one anonymous label per instruction is allowed");
-			if (_nextAnonLabel.IsEmpty)
-				_currentAnonLabel = CreateLabel();
+			if (nextAnonLabel.IsEmpty)
+				currentAnonLabel = CreateLabel();
 			else
-				_currentAnonLabel = _nextAnonLabel;
-			_nextAnonLabel = default;
-			_definedAnonLabel = true;
+				currentAnonLabel = nextAnonLabel;
+			nextAnonLabel = default;
+			definedAnonLabel = true;
 		}
 
 		/// <summary>
@@ -127,9 +142,9 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Label @B {
 			get {
-				if (_currentAnonLabel.IsEmpty)
+				if (currentAnonLabel.IsEmpty)
 					throw new InvalidOperationException("No anonymous label has been created yet");
-				return _currentAnonLabel;
+				return currentAnonLabel;
 			}
 		}
 
@@ -139,9 +154,9 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Label @F {
 			get {
-				if (_nextAnonLabel.IsEmpty)
-					_nextAnonLabel = CreateLabel();
-				return _nextAnonLabel;
+				if (nextAnonLabel.IsEmpty)
+					nextAnonLabel = CreateLabel();
+				return nextAnonLabel;
 			}
 		}
 
@@ -157,45 +172,33 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="instruction"></param>
 		public void AddInstruction(ref Instruction instruction) {
-			if (!_label.IsEmpty && _definedAnonLabel)
+			if (!currentLabel.IsEmpty && definedAnonLabel)
 				throw new InvalidOperationException("You can't create both an anonymous label and a normal label");
-			if (!_label.IsEmpty)
-				instruction.IP = _label.Id;
-			else if (_definedAnonLabel)
-				instruction.IP = _currentAnonLabel.Id;
+			if (!currentLabel.IsEmpty)
+				instruction.IP = currentLabel.Id;
+			else if (definedAnonLabel)
+				instruction.IP = currentAnonLabel.Id;
 
 			// Setup prefixes
-			if (_nextPrefixFlags != PrefixFlags.None) {
-				if ((_nextPrefixFlags & PrefixFlags.Lock) != 0) {
+			if (prefixFlags != PrefixFlags.None) {
+				if ((prefixFlags & PrefixFlags.Lock) != 0)
 					instruction.HasLockPrefix = true;
-				}
-				if ((_nextPrefixFlags & PrefixFlags.Xacquire) != 0) {
+				if ((prefixFlags & PrefixFlags.Xacquire) != 0)
 					instruction.HasXacquirePrefix = true;
-				}
-				if ((_nextPrefixFlags & PrefixFlags.Xrelease) != 0) {
+				if ((prefixFlags & PrefixFlags.Xrelease) != 0)
 					instruction.HasXreleasePrefix = true;
-				}
-				if ((_nextPrefixFlags & PrefixFlags.Rep) != 0) {
-					instruction.HasRepPrefix = true;
-				}
-				else if ((_nextPrefixFlags & PrefixFlags.Repe) != 0) {
+				if ((prefixFlags & PrefixFlags.Repe) != 0)
 					instruction.HasRepePrefix = true;
-				}
-				else if ((_nextPrefixFlags & PrefixFlags.Repne) != 0) {
+				else if ((prefixFlags & PrefixFlags.Repne) != 0)
 					instruction.HasRepnePrefix = true;
-				}
-				if ((_nextPrefixFlags & PrefixFlags.Bnd) != 0) {
-					instruction.HasRepnePrefix = true;
-				}
-				if ((_nextPrefixFlags & PrefixFlags.Notrack) != 0) {
+				if ((prefixFlags & PrefixFlags.Notrack) != 0)
 					instruction.SegmentPrefix = Register.DS;
-				}
 			}
 
-			_instructions.Add(instruction);
-			_label = default;
-			_definedAnonLabel = false;
-			_nextPrefixFlags = PrefixFlags.None;
+			instructions.Add(instruction);
+			currentLabel = default;
+			definedAnonLabel = false;
+			prefixFlags = PrefixFlags.None;
 		}
 
 		/// <summary>
@@ -203,24 +206,20 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="instruction"></param>
 		/// <param name="flags">Operand flags passed.</param>
-		void AddInstruction(Instruction instruction, AssemblerOperandFlags flags = AssemblerOperandFlags.None) {
+		void AddInstruction(Instruction instruction, AssemblerOperandFlags flags) {
 			if (flags != AssemblerOperandFlags.None) {
-				if ((flags & AssemblerOperandFlags.Broadcast) != 0) {
+				if ((flags & AssemblerOperandFlags.Broadcast) != 0)
 					instruction.IsBroadcast = true;
-				}
-				if ((flags & AssemblerOperandFlags.Zeroing) != 0) {
+				if ((flags & AssemblerOperandFlags.Zeroing) != 0)
 					instruction.ZeroingMasking = true;
-				}
 				if ((flags & AssemblerOperandFlags.RegisterMask) != 0) {
 					// register mask is shift by 2 (starts at index 1 for K1)
 					instruction.OpMask = (Register)((int)Register.K0 + (((int)(flags & AssemblerOperandFlags.RegisterMask)) >> 6));
 				}
-				if ((flags & AssemblerOperandFlags.SuppressAllExceptions) != 0) {
+				if ((flags & AssemblerOperandFlags.SuppressAllExceptions) != 0)
 					instruction.SuppressAllExceptions = true;
-				}
-				if ((flags & AssemblerOperandFlags.RoundControlMask) != 0) {
+				if ((flags & AssemblerOperandFlags.RoundControlMask) != 0)
 					instruction.RoundingControl = (RoundingControl)((((int)(flags & AssemblerOperandFlags.RoundControlMask)) >> 3));
-				}
 			}
 			AddInstruction(ref instruction);
 		}
@@ -232,7 +231,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler @lock {
 			get {
-				_nextPrefixFlags |= PrefixFlags.Lock;
+				prefixFlags |= PrefixFlags.Lock;
 				return this;
 			}
 		}
@@ -244,7 +243,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler xacquire {
 			get {
-				_nextPrefixFlags |= PrefixFlags.Xacquire;
+				prefixFlags |= PrefixFlags.Xacquire;
 				return this;
 			}
 		}
@@ -256,7 +255,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler xrelease {
 			get {
-				_nextPrefixFlags |= PrefixFlags.Xrelease;
+				prefixFlags |= PrefixFlags.Xrelease;
 				return this;
 			}
 		}
@@ -268,7 +267,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler rep {
 			get {
-				_nextPrefixFlags |= PrefixFlags.Rep;
+				prefixFlags |= PrefixFlags.Repe;
 				return this;
 			}
 		}
@@ -280,7 +279,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler repe {
 			get {
-				_nextPrefixFlags |= PrefixFlags.Repe;
+				prefixFlags |= PrefixFlags.Repe;
 				return this;
 			}
 		}
@@ -292,7 +291,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler repne {
 			get {
-				_nextPrefixFlags |= PrefixFlags.Repne;
+				prefixFlags |= PrefixFlags.Repne;
 				return this;
 			}
 		}
@@ -304,7 +303,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler bnd {
 			get {
-				_nextPrefixFlags |= PrefixFlags.Bnd;
+				prefixFlags |= PrefixFlags.Repne;
 				return this;
 			}
 		}
@@ -316,7 +315,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler notrack {
 			get {
-				_nextPrefixFlags |= PrefixFlags.Notrack;
+				prefixFlags |= PrefixFlags.Notrack;
 				return this;
 			}
 		}
@@ -383,78 +382,79 @@ namespace Iced.Intel {
 
 		/// <summary>xlatb instruction.</summary>
 		public void xlatb() {
-			if (Bitness == 64)
-				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.RBX, Register.AL, 1)));
-			else if (Bitness == 32)
-				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.EBX, Register.AL, 1)));
-			else
-				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.BX, Register.AL, 1)));
+			var baseReg = Bitness switch {
+				64 => Register.RBX,
+				32 => Register.EBX,
+				_ => Register.BX,
+			};
+			AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(baseReg, Register.AL)));
 		}
 
 		/// <summary>
 		/// Generates multibyte NOP instructions
 		/// </summary>
-		/// <param name="amount">Number of bytes</param>
-		public void nop(int amount) {
-			if (amount < 0)
-				throw new ArgumentOutOfRangeException(nameof(amount));
-			if (amount == 0) return;
+		/// <param name="sizeInBytes">Size in bytes of all nops</param>
+		public void nop(int sizeInBytes) {
+			if (sizeInBytes < 0)
+				throw new ArgumentOutOfRangeException(nameof(sizeInBytes));
+			if (this.prefixFlags != PrefixFlags.None)
+				throw new InvalidOperationException("No prefixes are allowed");
+			if (sizeInBytes == 0)
+				return;
 
 			const int maxMultibyteNopInstructionLength = 9;
 
-			int cycles = Math.DivRem(amount, maxMultibyteNopInstructionLength, out int rest);
+			int cycles = Math.DivRem(sizeInBytes, maxMultibyteNopInstructionLength, out int rest);
 
-			for (int i = 0; i < cycles; i++) {
+			for (int i = 0; i < cycles; i++)
 				AppendNop(maxMultibyteNopInstructionLength);
-			}
 			if (rest > 0)
 				AppendNop(rest);
 
 			void AppendNop(int amount) {
 				switch (amount) {
 				case 1:
-					db(0x90); //NOP
+					db(0x90); // NOP
 					break;
 				case 2:
-					db(0x66, 0x90); //66 NOP
+					db(0x66, 0x90); // 66 NOP
 					break;
 				case 3:
-					db(0x0F, 0x1F, 0x00); //NOP dword ptr [eax] or NOP word ptr [bx+si]
+					db(0x0F, 0x1F, 0x00); // NOP dword ptr [eax] or NOP word ptr [bx+si]
 					break;
 				case 4:
-					db(0x0F, 0x1F, 0x40, 0x00); //NOP dword ptr [eax + 00] or NOP word ptr [bx+si]
+					db(0x0F, 0x1F, 0x40, 0x00); // NOP dword ptr [eax + 00] or NOP word ptr [bx+si]
 					break;
 				case 5:
-					if (Bitness >= 32)
-						db(0x0F, 0x1F, 0x44, 0x00, 0x00); //NOP dword ptr [eax + eax*1 + 00]
+					if (Bitness != 16)
+						db(0x0F, 0x1F, 0x44, 0x00, 0x00); // NOP dword ptr [eax + eax*1 + 00]
 					else
-						db(0x0F, 0x1F, 0x80, 0x00, 0x00); //NOP word ptr[bx + si]
+						db(0x0F, 0x1F, 0x80, 0x00, 0x00); // NOP word ptr[bx + si]
 					break;
 				case 6:
-					if (Bitness >= 32)
-						db(0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00); //66 NOP dword ptr [eax + eax*1 + 00]
+					if (Bitness != 16)
+						db(0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00); // 66 NOP dword ptr [eax + eax*1 + 00]
 					else
-						db(0x66, 0x0F, 0x1F, 0x80, 0x00, 0x00); //NOP dword ptr [bx+si]
+						db(0x66, 0x0F, 0x1F, 0x80, 0x00, 0x00); // NOP dword ptr [bx+si]
 					break;
 				case 7:
-					if (Bitness >= 32)
-						db(0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00); //NOP dword ptr [eax + 00000000]
+					if (Bitness != 16)
+						db(0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00); // NOP dword ptr [eax + 00000000]
 					else
-						db(0x67, 0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00); //NOP dword ptr [eax+eax]
+						db(0x67, 0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00); // NOP dword ptr [eax+eax]
 					break;
 				case 8:
-					if (Bitness >= 32)
-						db(0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); //NOP dword ptr [eax + eax*1 + 00000000]
+					if (Bitness != 16)
+						db(0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // NOP dword ptr [eax + eax*1 + 00000000]
 					else
-						db(0x67, 0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00); //NOP word ptr [eax]
+						db(0x67, 0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00); // NOP word ptr [eax]
 					break;
 				case 9:
-					if (Bitness >= 32)
-						db(0x66, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); //66 NOP dword ptr [eax + eax*1 + 00000000] 	
+					if (Bitness != 16)
+						db(0x66, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // 66 NOP dword ptr [eax + eax*1 + 00000000] 	
 					else
-						db(0x67, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); //NOP word ptr [eax+eax]	
+						db(0x67, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // NOP word ptr [eax+eax]	
 					break;
-
 				}
 			}
 		}
@@ -468,9 +468,8 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		/// <exception cref="InvalidOperationException"></exception>
 		public AssemblerResult Assemble(CodeWriter writer, ulong rip, BlockEncoderOptions options = BlockEncoderOptions.None) {
-			if (!TryAssemble(writer, rip, out var errorMessage, out var assemblerResult, options)) {
+			if (!TryAssemble(writer, rip, out var errorMessage, out var assemblerResult, options))
 				throw new InvalidOperationException(errorMessage);
-			}
 			return assemblerResult;
 		}
 
@@ -490,28 +489,22 @@ namespace Iced.Intel {
 			assemblerResult = default;
 
 			// Protect against using a prefix without actually using it
-			if (_nextPrefixFlags != PrefixFlags.None) {
-				errorMessage = $"Unused prefixes {_nextPrefixFlags}. You must emit an instruction after using an instruction prefix.";
+			if (prefixFlags != PrefixFlags.None) {
+				errorMessage = $"Unused prefixes {prefixFlags}. You must emit an instruction after using an instruction prefix.";
 				return false;
 			}
 
-			// Protect against a label emitted without being attached to an instruction
-			if (!_label.IsEmpty) {
-				errorMessage = $"Unused label {_label}. You must emit an instruction after emitting a label.";
-				return false;
-			}
-
-			if (_definedAnonLabel) {
+			if (definedAnonLabel) {
 				errorMessage = "Unused anonymous label. You must emit an instruction after emitting a label.";
 				return false;
 			}
 
-			if (!_nextAnonLabel.IsEmpty) {
+			if (!nextAnonLabel.IsEmpty) {
 				errorMessage = "Found an @F anonymous label reference but there was no call to " + nameof(AnonymousLabel);
 				return false;
 			}
 
-			var blocks = new[] { new InstructionBlock(writer, _instructions, rip) };
+			var blocks = new[] { new InstructionBlock(writer, instructions, rip) };
 			if (BlockEncoder.TryEncode(Bitness, blocks, out errorMessage, out var blockResults, options)) {
 				assemblerResult = new AssemblerResult(blockResults);
 				return true;
@@ -546,11 +539,9 @@ namespace Iced.Intel {
 			Xacquire = 1 << 0,
 			Xrelease = 1 << 1,
 			Lock = 1 << 2,
-			Rep = 1 << 3,
-			Repe = 1 << 4,
-			Repne = 1 << 5,
-			Bnd = 1 << 6,
-			Notrack = 1 << 7,
+			Repe = 1 << 3,
+			Repne = 1 << 4,
+			Notrack = 1 << 5,
 		}
 	}
 }

@@ -21,7 +21,7 @@ namespace Generator.Encoder {
 		UInt32,
 		Int64,
 		UInt64,
-		PreferedInt32,
+		PreferredInt32,
 		ArrayIndex,
 		ArrayLength,
 		ByteArray,
@@ -59,7 +59,7 @@ namespace Generator.Encoder {
 
 	abstract class InstrCreateGen {
 		protected abstract (TargetLanguage language, string id, string filename) GetFileInfo();
-		protected abstract void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group);
+		protected abstract void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group, int id);
 		protected abstract void GenCreateBranch(FileWriter writer, CreateMethod method);
 		protected abstract void GenCreateFarBranch(FileWriter writer, CreateMethod method);
 		protected abstract void GenCreateXbegin(FileWriter writer, CreateMethod method);
@@ -81,6 +81,7 @@ namespace Generator.Encoder {
 		protected readonly GenTypes genTypes;
 		protected readonly EnumType codeType;
 		readonly Dictionary<string, EnumValue> toCode;
+		bool writeItemSep;
 
 		protected InstrCreateGen(GenTypes genTypes) {
 			this.genTypes = genTypes;
@@ -97,25 +98,35 @@ namespace Generator.Encoder {
 			if (genTypes[TypeIds.OpKind][nameof(OpKind.Register)].Value != 0)
 				throw new InvalidOperationException();
 			var (language, id, filename) = GetFileInfo();
-			new FileUpdater(language, id, filename).Generate(writer => {
-				GenerateCreateMethods(writer);
-				GenerateCreateBranch(writer);
-				GenerateCreateFarBranch(writer);
-				GenerateCreateXbegin(writer);
-				GenCreateMemory64(writer);
-				GenCreateStringInstructions(writer);
-				GenCreateDeclareXxx(writer);
-			});
+			new FileUpdater(language, id, filename).Generate(Generate);
 		}
 
-		void GenerateCreateMethods(FileWriter writer) {
+		protected virtual void Generate(FileWriter writer) {
+			GenCreateMethods(writer, 0);
+			GenTheRest(writer);
+		}
+
+		protected void GenTheRest(FileWriter writer) {
+			GenCreateBranch(writer);
+			GenCreateFarBranch(writer);
+			GenCreateXbegin(writer);
+			GenCreateMemory64(writer);
+			GenCreateStringInstructions(writer);
+			GenCreateDeclareXxx(writer);
+		}
+
+		protected void ResetItemSeparator() => writeItemSep = false;
+		protected void WriteItemSeparator(FileWriter writer) {
+			if (writeItemSep)
+				writer.WriteLine();
+			writeItemSep = true;
+		}
+
+		protected void GenCreateMethods(FileWriter writer, int id) {
 			var groups = new InstructionGroups(genTypes).GetGroups();
-			bool writeLine = false;
 			foreach (var info in GetCreateMethods(groups)) {
-				if (writeLine)
-					writer.WriteLine();
-				writeLine = true;
-				GenCreate(writer, info.method, info.group);
+				WriteItemSeparator(writer);
+				GenCreate(writer, info.method, info.group, id);
 			}
 		}
 
@@ -128,9 +139,9 @@ namespace Generator.Encoder {
 		}
 
 		static void AddCodeArg(CreateMethod method) => method.Args.Add(new MethodArg("Code value", MethodArgType.Code, "code"));
-		static void AddAddressSizeArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferedInt32, "addressSize"));
+		static void AddAddressSizeArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferredInt32, "addressSize"));
 		static void AddTargetArg(CreateMethod method) => method.Args.Add(new MethodArg("Target address", MethodArgType.UInt64, "target"));
-		static void AddBitnessArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferedInt32, "bitness"));
+		static void AddBitnessArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferredInt32, "bitness"));
 		void AddSegmentPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Segment override or #(e:Register.None)#", MethodArgType.Register, "segmentPrefix", genTypes[TypeIds.Register][nameof(Register.None)]));
 		void AddRepPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Rep prefix or #(e:RepPrefixKind.None)#", MethodArgType.RepPrefixKind, "repPrefix", genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.None)]));
 
@@ -198,16 +209,16 @@ namespace Generator.Encoder {
 			return (regCount, immCount, memCount);
 		}
 
-		void GenerateCreateBranch(FileWriter writer) {
-			writer.WriteLine();
+		void GenCreateBranch(FileWriter writer) {
+			WriteItemSeparator(writer);
 			var method = new CreateMethod("Creates a new near/short branch instruction");
 			AddCodeArg(method);
 			AddTargetArg(method);
 			GenCreateBranch(writer, method);
 		}
 
-		void GenerateCreateFarBranch(FileWriter writer) {
-			writer.WriteLine();
+		void GenCreateFarBranch(FileWriter writer) {
+			WriteItemSeparator(writer);
 			var method = new CreateMethod("Creates a new far branch instruction");
 			AddCodeArg(method);
 			method.Args.Add(new MethodArg("Selector/segment value", MethodArgType.UInt16, "selector"));
@@ -215,8 +226,8 @@ namespace Generator.Encoder {
 			GenCreateFarBranch(writer, method);
 		}
 
-		void GenerateCreateXbegin(FileWriter writer) {
-			writer.WriteLine();
+		void GenCreateXbegin(FileWriter writer) {
+			WriteItemSeparator(writer);
 			var method = new CreateMethod("Creates a new #(c:XBEGIN)# instruction");
 			AddBitnessArg(method);
 			AddTargetArg(method);
@@ -227,7 +238,7 @@ namespace Generator.Encoder {
 		void GenCreateMemory64(FileWriter writer) {
 			if (!CallGenCreateMemory64)
 				return;
-			writer.WriteLine();
+			WriteItemSeparator(writer);
 			{
 				var method = new CreateMethod("Creates an instruction with a 64-bit memory offset as the second operand, eg. #(c:mov al,[123456789ABCDEF0])#");
 				AddCodeArg(method);
@@ -236,7 +247,7 @@ namespace Generator.Encoder {
 				AddSegmentPrefixArg(method);
 				GenCreateMemory64(writer, method);
 			}
-			writer.WriteLine();
+			WriteItemSeparator(writer);
 			{
 				var method = new CreateMethod("Creates an instruction with a 64-bit memory offset as the first operand, eg. #(c:mov [123456789ABCDEF0],al)#");
 				AddCodeArg(method);
@@ -279,7 +290,7 @@ namespace Generator.Encoder {
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 					var name = baseName;
 					AddAddressSizeArg(method);
@@ -288,7 +299,7 @@ namespace Generator.Encoder {
 					GenCreateString_Reg_SegRSI(writer, method, StringMethodKind.Full, name, code, register);
 				}
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:REP {mnemonicUpper})# instruction");
 					var name = "Rep" + baseName;
 					AddAddressSizeArg(method);
@@ -310,7 +321,7 @@ namespace Generator.Encoder {
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 					var name = baseName;
 					AddAddressSizeArg(method);
@@ -318,14 +329,14 @@ namespace Generator.Encoder {
 					GenCreateString_Reg_ESRDI(writer, method, StringMethodKind.Full, name, code, register);
 				}
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:REPE {mnemonicUpper})# instruction");
 					var name = "Repe" + baseName;
 					AddAddressSizeArg(method);
 					GenCreateString_Reg_ESRDI(writer, method, StringMethodKind.Repe, name, code, register);
 				}
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:REPNE {mnemonicUpper})# instruction");
 					var name = "Repne" + baseName;
 					AddAddressSizeArg(method);
@@ -350,7 +361,7 @@ namespace Generator.Encoder {
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 					var name = baseName;
 					AddAddressSizeArg(method);
@@ -358,7 +369,7 @@ namespace Generator.Encoder {
 					GenCreateString_ESRDI_Reg(writer, method, StringMethodKind.Full, name, code, register);
 				}
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:REP {mnemonicUpper})# instruction");
 					var name = "Rep" + baseName;
 					AddAddressSizeArg(method);
@@ -380,7 +391,7 @@ namespace Generator.Encoder {
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 					var name = baseName;
 					AddAddressSizeArg(method);
@@ -389,14 +400,14 @@ namespace Generator.Encoder {
 					GenCreateString_SegRSI_ESRDI(writer, method, StringMethodKind.Full, name, code);
 				}
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:REPE {mnemonicUpper})# instruction");
 					var name = "Repe" + baseName;
 					AddAddressSizeArg(method);
 					GenCreateString_SegRSI_ESRDI(writer, method, StringMethodKind.Repe, name, code);
 				}
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:REPNE {mnemonicUpper})# instruction");
 					var name = "Repne" + baseName;
 					AddAddressSizeArg(method);
@@ -418,7 +429,7 @@ namespace Generator.Encoder {
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 					var name = baseName;
 					AddAddressSizeArg(method);
@@ -427,7 +438,7 @@ namespace Generator.Encoder {
 					GenCreateString_ESRDI_SegRSI(writer, method, StringMethodKind.Full, name, code);
 				}
 				{
-					writer.WriteLine();
+					WriteItemSeparator(writer);
 					var method = new CreateMethod($"Creates a #(c:REP {mnemonicUpper})# instruction");
 					var name = "Rep" + baseName;
 					AddAddressSizeArg(method);
@@ -447,7 +458,7 @@ namespace Generator.Encoder {
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
-				writer.WriteLine();
+				WriteItemSeparator(writer);
 				var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 				var name = baseName;
 				AddAddressSizeArg(method);

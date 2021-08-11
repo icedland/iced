@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -17,6 +16,7 @@ namespace Generator.Assembler.CSharp {
 	sealed class CSharpAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly CSharpDocCommentWriter docWriter;
+		readonly EnumType registerType;
 		readonly EnumType memoryOperandSizeType;
 
 		static readonly List<(string, int, string[], string)> declareDataList = new List<(string, int, string[], string)> {
@@ -37,6 +37,7 @@ namespace Generator.Assembler.CSharp {
 			: base(generatorContext.Types) {
 			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
+			registerType = genTypes[TypeIds.Register];
 			memoryOperandSizeType = genTypes[TypeIds.CodeAsmMemoryOperandSize];
 		}
 
@@ -63,7 +64,7 @@ namespace Generator.Assembler.CSharp {
 				_ => throw new InvalidOperationException(),
 			};
 
-		protected override void GenerateRegisters() {
+		protected override void GenerateRegisters((RegisterKind kind, RegisterDef[] regs)[] regGroups) {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Assembler", "AssemblerRegisters.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
@@ -74,20 +75,10 @@ namespace Generator.Assembler.CSharp {
 				using (writer.Indent()) {
 					writer.WriteLine("public static partial class AssemblerRegisters {");
 					using (writer.Indent()) {
-						foreach (var regDef in regDefs) {
-							switch (regDef.GetRegisterKind()) {
-							case RegisterKind.None:
-							case RegisterKind.IP:
-								continue;
-							}
-
-							var registerName = regDef.Name;
-							// st(0) -> st0 etc
-							if (regDef.GetRegisterKind() == RegisterKind.ST)
-								registerName = regDef.Register.RawName;
-							var assemblerRegisterName = registerName.ToLowerInvariant();
+						foreach (var regDef in regGroups.SelectMany(a => a.regs)) {
+							var asmRegName = GetAsmRegisterName(regDef);
 							var registerTypeName = $"AssemblerRegister{GetRegisterSuffix(regDef)}";
-							writer.WriteLine($"public static readonly {registerTypeName} {assemblerRegisterName} = new {registerTypeName}({regDef.Register.DeclaringType.Name(idConverter)}.{regDef.Register.Name(idConverter)});");
+							writer.WriteLine($"public static readonly {registerTypeName} {asmRegName} = new {registerTypeName}({idConverter.ToDeclTypeAndValue(regDef.Register)});");
 						}
 					}
 					writer.WriteLine("}");
@@ -109,6 +100,9 @@ namespace Generator.Assembler.CSharp {
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				using (writer.Indent()) {
+					var regNoneName = idConverter.ToDeclTypeAndValue(registerType[nameof(Register.None)]);
+					var registerTypeName = registerType.Name(idConverter);
+					var memOpNoneName = idConverter.ToDeclTypeAndValue(memoryOperandSizeType[nameof(MemoryOperandSize.None)]);
 					for (int i = 0; i < infos.Length; i++) {
 						var reg = infos[i];
 						var className = $"AssemblerRegister{GetRegisterSuffix(reg.Kind)}";
@@ -133,11 +127,6 @@ namespace Generator.Assembler.CSharp {
 							RegisterKind.TMM => "TMM",
 							_ => throw new InvalidOperationException(),
 						};
-
-						var regNoneName = genTypes[TypeIds.Register][nameof(Register.None)].Name(idConverter);
-						var registerTypeName = genTypes[TypeIds.Register].Name(idConverter);
-						var memOpNoneName = genTypes[TypeIds.CodeAsmMemoryOperandSize][nameof(MemoryOperandSize.None)].Name(idConverter);
-						var memOpTypeName = genTypes[TypeIds.CodeAsmMemoryOperandSize].Name(idConverter);
 
 						if (i != 0)
 							writer.WriteLine();
@@ -181,9 +170,6 @@ namespace Generator.Assembler.CSharp {
 								}
 								writer.WriteLine("}");
 								writer.WriteLine();
-								writer.WriteLine("/// <summary>");
-								writer.WriteLine("/// Gets the mask associated with this register.");
-								writer.WriteLine("/// </summary>");
 								writer.WriteLine("internal readonly AssemblerOperandFlags Flags;");
 								for (int j = 1; j <= 7; j++) {
 									writer.WriteLine();
@@ -200,27 +186,27 @@ namespace Generator.Assembler.CSharp {
 								if (reg.HasSaeOrEr) {
 									writer.WriteLine();
 									writer.WriteLine("/// <summary>");
-									writer.WriteLine("/// Suppress all exceptions.");
+									writer.WriteLine("/// Suppress all exceptions");
 									writer.WriteLine("/// </summary>");
 									writer.WriteLine($"public {className} sae => new {className}(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);");
 									writer.WriteLine();
 									writer.WriteLine("/// <summary>");
-									writer.WriteLine("/// Rounding to nearest.");
+									writer.WriteLine("/// Round to nearest (even)");
 									writer.WriteLine("/// </summary>");
 									writer.WriteLine($"public {className} rn_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);");
 									writer.WriteLine();
 									writer.WriteLine("/// <summary>");
-									writer.WriteLine("/// Rounding down.");
+									writer.WriteLine("/// Round down (toward -inf)");
 									writer.WriteLine("/// </summary>");
 									writer.WriteLine($"public {className} rd_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);");
 									writer.WriteLine();
 									writer.WriteLine("/// <summary>");
-									writer.WriteLine("/// Rounding up.");
+									writer.WriteLine("/// Round up (toward +inf)");
 									writer.WriteLine("/// </summary>");
 									writer.WriteLine($"public {className} ru_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);");
 									writer.WriteLine();
 									writer.WriteLine("/// <summary>");
-									writer.WriteLine("/// Rounding toward zero.");
+									writer.WriteLine("/// Round toward zero (truncate)");
 									writer.WriteLine("/// </summary>");
 									writer.WriteLine($"public {className} rz_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);");
 								}
@@ -242,7 +228,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <returns></returns>");
 								writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, {className} right) =>");
 								using (writer.Indent())
-									writer.WriteLine($"new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, right, 1, 0, AssemblerOperandFlags.None);");
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, left, right, 1, 0, AssemblerOperandFlags.None);");
 								if (reg.IsGPR32_64) {
 									foreach (var mm in new[] { "XMM", "YMM", "ZMM" }) {
 										writer.WriteLine();
@@ -254,7 +240,7 @@ namespace Generator.Assembler.CSharp {
 										writer.WriteLine("/// <returns></returns>");
 										writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, AssemblerRegister{mm} right) =>");
 										using (writer.Indent())
-											writer.WriteLine($"new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, right, 1, 0, AssemblerOperandFlags.None);");
+											writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, left, right, 1, 0, AssemblerOperandFlags.None);");
 									}
 								}
 							}
@@ -268,7 +254,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <returns></returns>");
 								writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, int displacement) =>");
 								using (writer.Indent())
-									writer.WriteLine($"new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, {registerTypeName}.{regNoneName}, 1, displacement, AssemblerOperandFlags.None);");
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, left, {regNoneName}, 1, displacement, AssemblerOperandFlags.None);");
 								writer.WriteLine();
 								writer.WriteLine("/// <summary>");
 								writer.WriteLine("/// Subtracts a register (base) with a displacement and return a memory operand.");
@@ -278,7 +264,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <returns></returns>");
 								writer.WriteLine($"public static AssemblerMemoryOperand operator -({className} left, int displacement) =>");
 								using (writer.Indent())
-									writer.WriteLine($"new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, {registerTypeName}.{regNoneName}, 1, -displacement, AssemblerOperandFlags.None);");
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, left, {regNoneName}, 1, -displacement, AssemblerOperandFlags.None);");
 								writer.WriteLine();
 								writer.WriteLine("/// <summary>");
 								writer.WriteLine("/// Multiplies an index register by a scale and return a memory operand.");
@@ -288,7 +274,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <returns></returns>");
 								writer.WriteLine($"public static AssemblerMemoryOperand operator *({className} left, int scale) =>");
 								using (writer.Indent())
-									writer.WriteLine($"new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, {registerTypeName}.{regNoneName}, left, scale, 0, AssemblerOperandFlags.None);");
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, {regNoneName}, left, scale, 0, AssemblerOperandFlags.None);");
 							}
 							if (reg.NeedsState) {
 								writer.WriteLine();
@@ -335,7 +321,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)");
 								writer.WriteLine("/// </summary>");
 								writer.WriteLine("/// <param name=\"register\">Size of this memory operand.</param>");
-								writer.WriteLine($"public AssemblerMemoryOperand this[{className} register] => new AssemblerMemoryOperand(Size, Segment, register, {registerTypeName}.{regNoneName}, 1, 0, Flags);");
+								writer.WriteLine($"public AssemblerMemoryOperand this[{className} register] => new AssemblerMemoryOperand(Size, Segment, register, {regNoneName}, 1, 0, Flags);");
 							}
 							writer.WriteLine("}");
 						}
@@ -352,10 +338,7 @@ namespace Generator.Assembler.CSharp {
 				writer.WriteFileHeader();
 				writer.WriteLineNoIndent($"#if {CSharpConstants.CodeAssemblerDefine}");
 
-				var memOpSizeType = genTypes[TypeIds.CodeAsmMemoryOperandSize];
-				var memOpSizeTypeStr = memOpSizeType.Name(idConverter);
-				var regType = genTypes[TypeIds.Register];
-				var regNoneStr = $"{regType.Name(idConverter)}.{regType[nameof(Register.None)].Name(idConverter)}";
+				var regNoneStr = idConverter.ToDeclTypeAndValue(registerType[nameof(Register.None)]);
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				using (writer.Indent()) {
@@ -366,23 +349,22 @@ namespace Generator.Assembler.CSharp {
 					using (writer.Indent()) {
 						for (int i = 0; i < infos.Length; i++) {
 							var info = infos[i];
-							var (name, desc) = info.Kind switch {
-								MemorySizeFnKind.Ptr => (string.Empty, "no"),
-								MemorySizeFnKind.Bcst => ("bcst", "no"),
-								_ => (info.Name.Replace(' ', '_'), AOrAn(info.Kind, $"<c>{info.Name.ToUpperInvariant()}</c>")),
+							var doc = info.GetMethodDocs("Gets", s => $"<c>{s}</c>");
+							var name = info.Kind switch {
+								MemorySizeFnKind.Ptr => string.Empty,
+								_ => info.Name.Replace(' ', '_'),
 							};
-							var bcstDesc = info.IsBroadcast ? "broadcasted " : string.Empty;
 
 							if (i != 0)
 								writer.WriteLine();
 							writer.WriteLine("/// <summary>");
-							writer.WriteLine($"/// Gets a {bcstDesc}memory operand with {desc} size hint");
+							writer.WriteLine($"/// {doc}");
 							writer.WriteLine("/// </summary>");
-							var enumValueStr = memOpSizeType[info.Size.ToString()].Name(idConverter);
+							var enumValueStr = idConverter.ToDeclTypeAndValue(memoryOperandSizeType[info.Size.ToString()]);
 							if (info.IsBroadcast)
-								writer.WriteLine($"public static readonly AssemblerMemoryOperandFactory __{name} = new AssemblerMemoryOperandFactory({memOpSizeTypeStr}.{enumValueStr}, {regNoneStr}, AssemblerOperandFlags.Broadcast);");
+								writer.WriteLine($"public static readonly AssemblerMemoryOperandFactory __{name} = new AssemblerMemoryOperandFactory({enumValueStr}, {regNoneStr}, AssemblerOperandFlags.Broadcast);");
 							else
-								writer.WriteLine($"public static readonly AssemblerMemoryOperandFactory __{name} = new AssemblerMemoryOperandFactory({memOpSizeTypeStr}.{enumValueStr});");
+								writer.WriteLine($"public static readonly AssemblerMemoryOperandFactory __{name} = new AssemblerMemoryOperandFactory({enumValueStr});");
 						}
 					}
 					writer.WriteLine("}");
@@ -391,6 +373,7 @@ namespace Generator.Assembler.CSharp {
 				writer.WriteLineNoIndent("#endif");
 			}
 		}
+
 		protected override void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
 			GenerateCode(groups);
 			GenerateTests(groups);
@@ -405,7 +388,11 @@ namespace Generator.Assembler.CSharp {
 				using (writer.Indent()) {
 					writer.WriteLine("public partial class Assembler {");
 					using (writer.Indent()) {
+						bool methodSep = false;
 						foreach (var group in groups) {
+							if (methodSep)
+								writer.WriteLine();
+							methodSep = true;
 							var renderArgs = GetRenderArgs(group);
 							var methodName = idConverter.Method(group.Name);
 							GenerateAssemblerCode(writer, methodName, group, renderArgs);
@@ -429,6 +416,7 @@ namespace Generator.Assembler.CSharp {
 					var type = types[typeIndex];
 					bool isUnsafe = type == "float" || type == "double";
 					for (int i = 1; i <= argCount; i++) {
+						writer.WriteLine();
 						docWriter.WriteSummary(writer, $"Creates a {name} asm directive with the type {type}.", "");
 						writer.Write($"public {(isUnsafe ? "unsafe " : "")}void {name}(");
 						for (int j = 0; j < i; j++) {
@@ -493,13 +481,13 @@ namespace Generator.Assembler.CSharp {
 								// Implemented manually
 								continue;
 							}
-							var groupBitness = group.AllOpCodeFlags & BitnessMaskFlags;
+							var groupBitness = group.AllDefFlags & BitnessMaskFlags;
 							if ((groupBitness & bitnessFlags) == 0)
 								continue;
 
-							var renderArgs = GetRenderArgs(@group);
-							var methodName = idConverter.Method(@group.Name);
-							RenderTests(bitness, bitnessFlags, writerTests, methodName, @group, renderArgs);
+							var renderArgs = GetRenderArgs(group);
+							var methodName = idConverter.Method(group.Name);
+							RenderTests(bitness, bitnessFlags, writerTests, methodName, group, renderArgs);
 						}
 					}
 
@@ -528,12 +516,14 @@ namespace Generator.Assembler.CSharp {
 						using (writer.Indent()) {
 							writer.Write($"TestAssemblerDeclareData(c => c.{name}(");
 							for (int j = 0; j < i; j++) {
-								if (j > 0) writer.Write(", ");
+								if (j > 0)
+									writer.Write(", ");
 								writer.Write($"({type}){j + 1}");
 							}
 							writer.Write($"), new {type}[] {{");
 							for (int j = 0; j < i; j++) {
-								if (j > 0) writer.Write(", ");
+								if (j > 0)
+									writer.Write(", ");
 								writer.Write($"({type}){j + 1}");
 							}
 							writer.WriteLine("});");
@@ -545,8 +535,8 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		static List<RenderArg> GetRenderArgs(OpCodeInfoGroup group) {
-			var renderArgs = new List<RenderArg>();
+		static RenderArg[] GetRenderArgs(OpCodeInfoGroup group) {
+			var renderArgs = new RenderArg[group.Signature.ArgCount];
 			int immArg = 0;
 			var signature = group.Signature;
 			for (int i = 0; i < signature.ArgCount; i++) {
@@ -571,37 +561,37 @@ namespace Generator.Assembler.CSharp {
 				case ArgKind.Register64:
 					argType = "AssemblerRegister64";
 					break;
-				case ArgKind.RegisterMM:
+				case ArgKind.RegisterMm:
 					argType = "AssemblerRegisterMM";
 					break;
-				case ArgKind.RegisterXMM:
+				case ArgKind.RegisterXmm:
 					argType = "AssemblerRegisterXMM";
 					break;
-				case ArgKind.RegisterYMM:
+				case ArgKind.RegisterYmm:
 					argType = "AssemblerRegisterYMM";
 					break;
-				case ArgKind.RegisterZMM:
+				case ArgKind.RegisterZmm:
 					argType = "AssemblerRegisterZMM";
 					break;
-				case ArgKind.RegisterTMM:
+				case ArgKind.RegisterTmm:
 					argType = "AssemblerRegisterTMM";
 					break;
 				case ArgKind.RegisterK:
 					argType = "AssemblerRegisterK";
 					break;
-				case ArgKind.RegisterCR:
+				case ArgKind.RegisterCr:
 					argType = "AssemblerRegisterCR";
 					break;
-				case ArgKind.RegisterTR:
+				case ArgKind.RegisterTr:
 					argType = "AssemblerRegisterTR";
 					break;
-				case ArgKind.RegisterDR:
+				case ArgKind.RegisterDr:
 					argType = "AssemblerRegisterDR";
 					break;
-				case ArgKind.RegisterST:
+				case ArgKind.RegisterSt:
 					argType = "AssemblerRegisterST";
 					break;
-				case ArgKind.RegisterBND:
+				case ArgKind.RegisterBnd:
 					argType = "AssemblerRegisterBND";
 					break;
 				case ArgKind.RegisterSegment:
@@ -624,67 +614,81 @@ namespace Generator.Assembler.CSharp {
 				case ArgKind.ImmediateUnsigned:
 					argName = $"imm{(immArg == 0 ? "" : immArg.ToString(CultureInfo.InvariantCulture))}";
 					immArg++;
-					Debug.Assert(maxArgSize > 0 && maxArgSize <= 8);
-					bool isSigned = argKind == ArgKind.Immediate;
-					argType = maxArgSize == 8 ? (isSigned ? "long" : "ulong") :
-						maxArgSize == 4 ? (isSigned ? "int" : "uint") :
-						maxArgSize == 2 ? (isSigned ? "short" : "ushort") :
-						(isSigned ? "sbyte" : "byte");
+					if (argKind == ArgKind.Immediate) {
+						argType = maxArgSize switch {
+							1 => "sbyte",
+							2 => "short",
+							4 => "int",
+							8 => "long",
+							_ => throw new InvalidOperationException(),
+						};
+					}
+					else {
+						argType = maxArgSize switch {
+							1 => "byte",
+							2 => "ushort",
+							4 => "uint",
+							8 => "ulong",
+							_ => throw new InvalidOperationException(),
+						};
+					}
 					break;
 
 				default:
 					throw new ArgumentOutOfRangeException($"{argKind}");
 				}
 
-				renderArgs.Add(new RenderArg(argName, argType, argKind));
+				renderArgs[i] = new RenderArg(argName, argType, argKind);
 			}
 			return renderArgs;
 		}
 
-		void GenerateAssemblerCode(FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
+		void GenerateAssemblerCode(FileWriter writer, string methodName, OpCodeInfoGroup group, RenderArg[] renderArgs) {
 			// Write documentation
 			var methodDoc = new StringBuilder();
 			methodDoc.Append($"{group.Name} instruction.");
-			foreach (var code in group.Items) {
-				if (!string.IsNullOrEmpty(code.Code.Documentation)) {
+			foreach (var def in group.GetDefsAndParentDefs()) {
+				if (!string.IsNullOrEmpty(def.Code.Documentation)) {
 					methodDoc.Append("#(p:)#");
-					methodDoc.Append(code.Code.Documentation);
+					methodDoc.Append(def.Code.Documentation);
 				}
 			}
 
 			docWriter.WriteSummary(writer, methodDoc.ToString(), "");
 
 			writer.Write($"public void {methodName}(");
-			int realArgCount = 0;
-			for (var i = 0; i < renderArgs.Count; i++) {
+			for (var i = 0; i < renderArgs.Length; i++) {
 				var renderArg = renderArgs[i];
-				if (realArgCount > 0) writer.Write(", ");
+				if (i > 0)
+					writer.Write(", ");
 				writer.Write($"{renderArg.Type} {renderArg.Name}");
-				realArgCount++;
+			}
+
+			void WriteArg(FileWriter writer, string argExpr, ArgKind kind) {
+				writer.Write(argExpr);
+				if (kind == ArgKind.Label)
+					writer.Write(".Id");
+				else if (kind == ArgKind.Memory)
+					writer.Write(".ToMemoryOperand(Bitness)");
 			}
 
 			writer.WriteLine(") {");
 			using (writer.Indent()) {
 				if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
-					writer.Write($"AddInstruction(Instruction.Create{group.MemoName}(Bitness");
-					for (var i = 0; i < renderArgs.Count; i++) {
+					writer.Write($"AddInstruction(Instruction.Create{group.MnemonicName}(Bitness");
+					for (var i = 0; i < renderArgs.Length; i++) {
 						var renderArg = renderArgs[i];
 						writer.Write(", ");
-						writer.Write(renderArg.Name);
-						if (renderArg.Kind == ArgKind.Label)
-							writer.Write(".Id");
-						else if (renderArg.Kind == ArgKind.Memory)
-							writer.Write(".ToMemoryOperand(Bitness)");
+						WriteArg(writer, renderArg.Name, renderArg.Kind);
 					}
-
 					writer.WriteLine("));");
 				}
-				else if (group.Flags == OpCodeArgFlags.Pseudo) {
-					Debug.Assert(group.ParentPseudoOpsKind is not null);
+				else if (group.ParentPseudoOpsKind is not null) {
 					writer.Write($"{group.ParentPseudoOpsKind.Name}(");
-					for (var i = 0; i < renderArgs.Count; i++) {
+					for (var i = 0; i < renderArgs.Length; i++) {
 						var renderArg = renderArgs[i];
-						if (i > 0) writer.Write(", ");
+						if (i > 0)
+							writer.Write(", ");
 						writer.Write(renderArg.Name);
 					}
 					writer.Write(", ");
@@ -692,60 +696,44 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine(");");
 				}
 				else {
-					if (!group.RootOpCodeNode.IsEmpty) {
-						writer.WriteLine("Code op;");
+					string codeExpr;
+					if (group.RootOpCodeNode.Def is InstructionDef def)
+						codeExpr = idConverter.ToDeclTypeAndValue(def.Code);
+					else {
+						codeExpr = "code";
+						writer.WriteLine($"Code {codeExpr};");
 						GenerateOpCodeSelector(writer, group, renderArgs);
 					}
 
 					if (group.HasLabel)
-						writer.Write("AddInstruction(Instruction.CreateBranch(op");
+						writer.Write("AddInstruction(Instruction.CreateBranch(");
 					else
-						writer.Write("AddInstruction(Instruction.Create(op");
+						writer.Write("AddInstruction(Instruction.Create(");
+					writer.Write(codeExpr);
 
-					for (var i = 0; i < renderArgs.Count; i++) {
+					for (var i = 0; i < renderArgs.Length; i++) {
 						var renderArg = renderArgs[i];
 						writer.Write(", ");
 
-						var argName = renderArg.Name;
+						var argExpr = renderArg.Name;
 
 						// Perform casting for unsigned
 						if (IsArgKindImmediate(renderArg.Kind) && !renderArg.IsTypeSigned()) {
-							if (renderArg.Type == "ulong")
-								argName = $"(ulong){argName}";
-							else if (renderArg.Type != "uint")
-								argName = $"(uint){argName}";
+							if (renderArg.Type != "ulong" && renderArg.Type != "uint")
+								argExpr = $"(uint){argExpr}";
 						}
 
-						writer.Write(argName);
-						if (renderArg.Kind == ArgKind.Label)
-							writer.Write(".Id");
-						else if (renderArg.Kind == ArgKind.Memory)
-							writer.Write(".ToMemoryOperand(Bitness)");
+						WriteArg(writer, argExpr, renderArg.Kind);
 					}
 
 					writer.Write(")");
 
-					bool hasFlags = false;
-					if ((group.Flags & (OpCodeArgFlags.HasKMask | OpCodeArgFlags.HasZeroingMask)) != 0) {
-						writer.Write($", {renderArgs[0].Name}.Flags");
-						hasFlags = true;
-					}
-
-					bool hasBroadcast = (group.Flags & OpCodeArgFlags.HasBroadcast) != 0;
-					bool hasSaeOrRoundingControl = (group.Flags & (OpCodeArgFlags.SuppressAllExceptions | OpCodeArgFlags.RoundingControl)) != 0;
-					if (hasBroadcast || hasSaeOrRoundingControl) {
-						for (int i = renderArgs.Count - 1; i >= 0; i--) {
-							var argKind = renderArgs[i].Kind;
-							if (hasBroadcast && argKind == ArgKind.Memory || hasSaeOrRoundingControl && !IsArgKindImmediate(argKind)) {
-								if (hasFlags)
-									writer.Write(" | ");
-								else
-									writer.Write(", ");
-
-								writer.Write($"{renderArgs[i].Name}.Flags");
-								break;
-							}
-						}
+					var stateArgsList = new List<string>();
+					foreach (var index in GetStateArgIndexes(group))
+						stateArgsList.Add($"{renderArgs[index].Name}.Flags");
+					if (stateArgsList.Count > 0) {
+						var s = string.Join(" | ", stateArgsList);
+						writer.Write(", " + s);
 					}
 
 					writer.WriteLine(");");
@@ -767,7 +755,7 @@ namespace Generator.Assembler.CSharp {
 
 		EncodingFlags GetEncodingFlags(OpCodeInfoGroup group) {
 			var flags = EncodingFlags.None;
-			foreach (var def in group.Items.Select(a => defs[(int)a.Code.Value])) {
+			foreach (var def in group.Defs.Select(a => defs[(int)a.Code.Value])) {
 				flags |= def.Encoding switch {
 					EncodingKind.Legacy => EncodingFlags.Legacy,
 					EncodingKind.VEX => EncodingFlags.VEX,
@@ -780,107 +768,69 @@ namespace Generator.Assembler.CSharp {
 			return flags;
 		}
 
-		string? GetDefine(OpCodeInfoGroup group) {
-			EncodingFlags flags;
-			if (group.ParentPseudoOpsKind is OpCodeInfoGroup parent)
-				flags = GetEncodingFlags(parent);
-			else
-				flags = GetEncodingFlags(group);
-			if (flags == EncodingFlags.None)
-				throw new InvalidOperationException();
-			if (flags == EncodingFlags.Legacy)
-				return null;
-			var defines = new List<string>();
-			if ((flags & EncodingFlags.VEX) != 0)
-				defines.Add(CSharpConstants.VexDefine);
-			if ((flags & EncodingFlags.EVEX) != 0)
-				defines.Add(CSharpConstants.EvexDefine);
-			if ((flags & EncodingFlags.XOP) != 0)
-				defines.Add(CSharpConstants.XopDefine);
-			if ((flags & EncodingFlags.D3NOW) != 0)
-				defines.Add(CSharpConstants.D3nowDefine);
-			return string.Join(" && ", defines.ToArray());
-		}
-
-		void RenderTests(int bitness, InstructionDefFlags1 bitnessFlags, FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
+		void RenderTests(int bitness, InstructionDefFlags1 bitnessFlags, FileWriter writer, string methodName, OpCodeInfoGroup group,
+			RenderArg[] renderArgs) {
 			var fullMethodName = new StringBuilder();
 			fullMethodName.Append(methodName);
 			foreach (var renderArg in renderArgs) {
 				fullMethodName.Append('_');
-				switch (renderArg.Kind) {
-				case ArgKind.Register8:
-				case ArgKind.Register16:
-				case ArgKind.Register32:
-				case ArgKind.Register64:
-				case ArgKind.RegisterK:
-				case ArgKind.RegisterST:
-				case ArgKind.RegisterSegment:
-				case ArgKind.RegisterBND:
-				case ArgKind.RegisterMM:
-				case ArgKind.RegisterXMM:
-				case ArgKind.RegisterYMM:
-				case ArgKind.RegisterZMM:
-				case ArgKind.RegisterCR:
-				case ArgKind.RegisterDR:
-				case ArgKind.RegisterTR:
-				case ArgKind.RegisterTMM:
-					fullMethodName.Append(renderArg.Kind.ToString().Replace("Register", "reg"));
-					break;
-				case ArgKind.Memory:
-					fullMethodName.Append('m');
-					break;
-				case ArgKind.Immediate:
-					fullMethodName.Append('i');
-					break;
-				case ArgKind.ImmediateUnsigned:
-					fullMethodName.Append('u');
-					break;
-				case ArgKind.Label:
-					fullMethodName.Append('l');
-					break;
-				case ArgKind.LabelUlong:
-					fullMethodName.Append("lu");
-					break;
-				default:
-					throw new ArgumentOutOfRangeException($"{renderArg.Kind}");
-				}
+				var name = renderArg.Kind switch {
+					ArgKind.Register8 => "reg8",
+					ArgKind.Register16 => "reg16",
+					ArgKind.Register32 => "reg32",
+					ArgKind.Register64 => "reg64",
+					ArgKind.RegisterK => "regK",
+					ArgKind.RegisterSt => "regST",
+					ArgKind.RegisterSegment => "regSegment",
+					ArgKind.RegisterBnd => "regBND",
+					ArgKind.RegisterMm => "regMM",
+					ArgKind.RegisterXmm => "regXMM",
+					ArgKind.RegisterYmm => "regYMM",
+					ArgKind.RegisterZmm => "regZMM",
+					ArgKind.RegisterCr => "regCR",
+					ArgKind.RegisterDr => "regDR",
+					ArgKind.RegisterTr => "regTR",
+					ArgKind.RegisterTmm => "regTMM",
+					ArgKind.Memory => "m",
+					ArgKind.Immediate => "i",
+					ArgKind.ImmediateUnsigned => "u",
+					ArgKind.Label => "l",
+					ArgKind.LabelUlong => "lu",
+					_ => throw new ArgumentOutOfRangeException($"{renderArg.Kind}"),
+				};
+				fullMethodName.Append(name);
 			}
 
 			var fullMethodNameStr = fullMethodName.ToString();
 			if (IgnoredTestsPerBitness.TryGetValue(bitness, out var ignoredTests) && ignoredTests.Contains(fullMethodNameStr))
 				return;
-			var define = GetDefine(group);
-			if (define is not null)
-				writer.WriteLineNoIndent($"#if {define}");
 			writer.WriteLine("[Fact]");
 			writer.WriteLine($"public void {fullMethodNameStr}() {{");
 			using (writer.Indent()) {
-				var argValues = new List<object?>(renderArgs.Count);
-				for (int i = 0; i < renderArgs.Count; i++)
+				var argValues = new List<object?>(renderArgs.Length);
+				for (int i = 0; i < renderArgs.Length; i++)
 					argValues.Add(null);
 
-				if (group.Flags == OpCodeArgFlags.Pseudo) {
-					Debug.Assert(group.ParentPseudoOpsKind is not null);
-					GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, @group, methodName, renderArgs, argValues, OpCodeArgFlags.Default, group.ParentPseudoOpsKind.Items[0]);
+				if (group.ParentPseudoOpsKind is not null) {
+					GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, group, methodName, renderArgs, argValues,
+						OpCodeArgFlags.None, group.ParentPseudoOpsKind.Defs[0]);
 				}
-				else
-					GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, group.RootOpCodeNode, renderArgs, argValues, OpCodeArgFlags.Default);
+				else {
+					GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, group.RootOpCodeNode, renderArgs,
+						argValues, OpCodeArgFlags.None);
+				}
 			}
 			writer.WriteLine("}");
-			if (define is not null)
-				writer.WriteLineNoIndent("#endif");
 			writer.WriteLine(); ;
 		}
 
-		void GenerateOpCodeTest(FileWriter writer, int bitness, InstructionDefFlags1 bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags) {
-			var opCodeInfo = node.Def;
-			if (opCodeInfo is not null)
-				GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, @group, methodName, args, argValues, contextFlags, opCodeInfo);
-			else {
-				var selector = node.Selector;
-				Debug.Assert(selector is not null);
+		void GenerateOpCodeTest(FileWriter writer, int bitness, InstructionDefFlags1 bitnessFlags, OpCodeInfoGroup group, string methodName,
+			OpCodeNode node, RenderArg[] args, List<object?> argValues, OpCodeArgFlags contextFlags) {
+			if (node.Def is InstructionDef def)
+				GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, group, methodName, args, argValues, contextFlags, def);
+			else if (node.Selector is OpCodeSelector selector) {
 				var argKind = selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default;
-				var condition = GetArgConditionForOpCodeKind(argKind, selector.Kind, selector.ArgIndex);
+				var condition = GetArgConditionForOpCodeKind(argKind, selector.Kind);
 				var isSelectorSupportedByBitness = IsSelectorSupportedByBitness(bitness, selector.Kind, out var continueElse);
 				var (contextIfFlags, contextElseFlags) = GetIfElseContextFlags(selector.Kind);
 				if (isSelectorSupportedByBitness) {
@@ -890,7 +840,8 @@ namespace Generator.Assembler.CSharp {
 							var newArgValues = new List<object?>(argValues);
 							if (selector.ArgIndex >= 0)
 								newArgValues[selector.ArgIndex] = argValue;
-							GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfTrue, args, newArgValues, contextFlags | contextIfFlags);
+							GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfTrue, args,
+								newArgValues, contextFlags | contextIfFlags);
 						}
 					}
 				}
@@ -904,7 +855,8 @@ namespace Generator.Assembler.CSharp {
 							var newArgValues = new List<object?>(argValues);
 							if (selector.ArgIndex >= 0)
 								newArgValues[selector.ArgIndex] = argValue;
-							GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfFalse, args, newArgValues, contextFlags | contextElseFlags);
+							GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfFalse, args, newArgValues,
+								contextFlags | contextElseFlags);
 						}
 					}
 					else
@@ -928,11 +880,12 @@ namespace Generator.Assembler.CSharp {
 									bitnessFlags = InstructionDefFlags1.Bit32;
 								}
 
-								writer.WriteLine("AssertInvalid( () => {");
+								writer.WriteLine("AssertInvalid(() => {");
 								using (writer.Indent()) {
 									var newArgValues = new List<object?>(argValues);
 									newArgValues[selector.ArgIndex] = newArg;
-									GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfTrue, args, newArgValues, contextFlags | contextIfFlags);
+									GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfTrue, args, newArgValues,
+										contextFlags | contextIfFlags);
 									isGenerated = true;
 								}
 								writer.WriteLine("});");
@@ -949,9 +902,12 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("}");
 				}
 			}
+			else
+				throw new InvalidOperationException();
 		}
 
-		bool GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, InstructionDefFlags1 bitnessFlags, OpCodeInfoGroup @group, string methodName, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags, InstructionDef def) {
+		bool GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, InstructionDefFlags1 bitnessFlags, OpCodeInfoGroup group,
+			string methodName, RenderArg[] args, List<object?> argValues, OpCodeArgFlags contextFlags, InstructionDef def) {
 			if ((def.Flags1 & bitnessFlags) == 0) {
 				writer.WriteLine("{");
 				using (writer.Indent())
@@ -998,11 +954,13 @@ namespace Generator.Assembler.CSharp {
 				var argValueForAssembler = argValues[i]?.ToString();
 				var argValueForInstructionCreate = argValueForAssembler;
 
-				if (argValueForAssembler is null) {
+				if (argValueForAssembler is null || argValueForInstructionCreate is null) {
 					var localBitness = forceBitness > 0 ? forceBitness : bitness;
 
-					argValueForAssembler = GetDefaultArgument(localBitness, def.OpKindDefs[@group.NumberOfLeadingArgToDiscard + i], isMemory, true, i, renderArg);
-					argValueForInstructionCreate = GetDefaultArgument(localBitness, def.OpKindDefs[@group.NumberOfLeadingArgToDiscard + i], isMemory, false, i, renderArg);
+					argValueForAssembler = GetDefaultArgument(localBitness, def.OpKindDefs[group.NumberOfLeadingArgsToDiscard + i],
+						isMemory, true, i, renderArg);
+					argValueForInstructionCreate = GetDefaultArgument(localBitness, def.OpKindDefs[group.NumberOfLeadingArgsToDiscard + i],
+						isMemory, false, i, renderArg);
 				}
 
 				if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0 && i == 0) {
@@ -1025,9 +983,7 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 
-				Debug.Assert(argValueForAssembler is not null);
 				assemblerArgs.Add(argValueForAssembler);
-				Debug.Assert(argValueForInstructionCreate is not null);
 				instructionCreateArgs.Add(argValueForInstructionCreate);
 			}
 
@@ -1038,27 +994,27 @@ namespace Generator.Assembler.CSharp {
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferEvex");
 			if ((contextFlags & OpCodeArgFlags.HasBroadcast) != 0)
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.Broadcast");
-			if ((contextFlags & OpCodeArgFlags.HasBranchShort) != 0)
-				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchShort");
+			if ((contextFlags & OpCodeArgFlags.HasShortBranch) != 0)
+				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferShortBranch");
 			if ((contextFlags & OpCodeArgFlags.HasBranchNear) != 0)
-				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchNear");
+				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferNearBranch");
 			if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0)
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.Fwait");
-			if (@group.HasLabel)
+			if (group.HasLabel)
 				optionalOpCodeFlags.Add((group.Flags & OpCodeArgFlags.HasLabelUlong) == 0 ? "LocalOpCodeFlags.Branch" : "LocalOpCodeFlags.BranchUlong");
 
-			if (group.Flags == OpCodeArgFlags.Pseudo)
+			if (group.ParentPseudoOpsKind is not null)
 				instructionCreateArgs.Add($"{group.PseudoOpsKindImmediateValue}");
 
 			string beginInstruction = $"Instruction.Create(Code.{def.Code.Name(idConverter)}";
 			string endInstruction = ")";
-			if ((@group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
-				beginInstruction = $"Instruction.Create{@group.MemoName}(Bitness";
-				if (@group.HasLabel && (group.Flags & OpCodeArgFlags.HasLabelUlong) == 0)
+			if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
+				beginInstruction = $"Instruction.Create{group.MnemonicName}(Bitness";
+				if (group.HasLabel && (group.Flags & OpCodeArgFlags.HasLabelUlong) == 0)
 					beginInstruction = $"AssignLabel({beginInstruction}, {instructionCreateArgs[0]})";
 			}
-			else if (@group.HasLabel) {
-				beginInstruction = (@group.Flags & OpCodeArgFlags.HasLabelUlong) == 0 ?
+			else if (group.HasLabel) {
+				beginInstruction = (group.Flags & OpCodeArgFlags.HasLabelUlong) == 0 ?
 					$"AssignLabel(Instruction.CreateBranch(Code.{def.Code.Name(idConverter)}, {instructionCreateArgs[0]})" :
 					$"Instruction.CreateBranch(Code.{def.Code.Name(idConverter)}";
 			}
@@ -1210,24 +1166,21 @@ namespace Generator.Assembler.CSharp {
 				_ => throw new InvalidOperationException(),
 			};
 
-		void GenerateOpCodeSelector(FileWriter writer, OpCodeInfoGroup group, List<RenderArg> args) =>
+		void GenerateOpCodeSelector(FileWriter writer, OpCodeInfoGroup group, RenderArg[] args) =>
 			GenerateOpCodeSelector(writer, group, true, group.RootOpCodeNode, args);
 
-		void GenerateOpCodeSelector(FileWriter writer, OpCodeInfoGroup group, bool isLeaf, OpCodeNode node, List<RenderArg> args) {
-			var opCodeInfo = node.Def;
-			if (opCodeInfo is not null) {
+		void GenerateOpCodeSelector(FileWriter writer, OpCodeInfoGroup group, bool isLeaf, OpCodeNode node, RenderArg[] args) {
+			if (node.Def is InstructionDef def) {
 				if (isLeaf)
-					writer.Write("op = ");
-				writer.Write($"Code.{opCodeInfo.Code.Name(idConverter)}");
+					writer.Write("code = ");
+				writer.Write($"Code.{def.Code.Name(idConverter)}");
 				if (isLeaf)
 					writer.WriteLine(";");
 			}
-			else {
-				var selector = node.Selector;
-				Debug.Assert(selector is not null);
-				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind, selector.ArgIndex);
+			else if (node.Selector is OpCodeSelector selector) {
+				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind);
 				if (selector.IsConditionInlineable) {
-					writer.Write($"op = {condition} ? ");
+					writer.Write($"code = {condition} ? ");
 					GenerateOpCodeSelector(writer, group, false, selector.IfTrue, args);
 					writer.Write(" : ");
 					GenerateOpCodeSelector(writer, group, false, selector.IfFalse, args);
@@ -1244,8 +1197,8 @@ namespace Generator.Assembler.CSharp {
 					else {
 						writer.WriteLine("{");
 						using (writer.Indent()) {
-							writer.Write($"throw NoOpCodeFoundFor(Mnemonic.{group.MemoName}");
-							for (var i = 0; i < args.Count; i++) {
+							writer.Write($"throw NoOpCodeFoundFor(Mnemonic.{group.MnemonicName}");
+							for (var i = 0; i < args.Length; i++) {
 								var renderArg = args[i];
 								writer.Write(", ");
 								writer.Write(renderArg.Name);
@@ -1258,89 +1211,91 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 			}
+			else
+				throw new InvalidOperationException();
 		}
 
-		string GetArgConditionForOpCodeKind(RenderArg arg, OpCodeSelectorKind selectorKind, int index) {
-			var regName = arg.Name;
-			var otherRegName = arg.Name == "src" ? "dst" : "src";
+		string GetArgConditionForOpCodeKind(RenderArg arg, OpCodeSelectorKind selectorKind) {
+			var argName = arg.Name;
+			var otherArgName = arg.Name == "src" ? "dst" : "src";
 			return selectorKind switch {
-				OpCodeSelectorKind.MemOffs64_RAX => $"{otherRegName}.Value == Register.RAX && Bitness == 64 && {regName}.IsDisplacementOnly",
-				OpCodeSelectorKind.MemOffs64_EAX => $"{otherRegName}.Value == Register.EAX && Bitness == 64 && {regName}.IsDisplacementOnly",
-				OpCodeSelectorKind.MemOffs64_AX => $"{otherRegName}.Value == Register.AX && Bitness == 64 && {regName}.IsDisplacementOnly",
-				OpCodeSelectorKind.MemOffs64_AL => $"{otherRegName}.Value == Register.AL && Bitness == 64 && {regName}.IsDisplacementOnly",
-				OpCodeSelectorKind.MemOffs_RAX => $"{otherRegName}.Value == Register.RAX && Bitness < 64 && {regName}.IsDisplacementOnly",
-				OpCodeSelectorKind.MemOffs_EAX => $"{otherRegName}.Value == Register.EAX && Bitness < 64 && {regName}.IsDisplacementOnly",
-				OpCodeSelectorKind.MemOffs_AX => $"{otherRegName}.Value == Register.AX && Bitness < 64 && {regName}.IsDisplacementOnly",
-				OpCodeSelectorKind.MemOffs_AL => $"{otherRegName}.Value == Register.AL && Bitness < 64 && {regName}.IsDisplacementOnly",
+				OpCodeSelectorKind.MemOffs64_RAX => $"{otherArgName}.Value == {GetRegisterString(nameof(Register.RAX))} && Bitness == 64 && {argName}.IsDisplacementOnly",
+				OpCodeSelectorKind.MemOffs64_EAX => $"{otherArgName}.Value == {GetRegisterString(nameof(Register.EAX))} && Bitness == 64 && {argName}.IsDisplacementOnly",
+				OpCodeSelectorKind.MemOffs64_AX => $"{otherArgName}.Value == {GetRegisterString(nameof(Register.AX))} && Bitness == 64 && {argName}.IsDisplacementOnly",
+				OpCodeSelectorKind.MemOffs64_AL => $"{otherArgName}.Value == {GetRegisterString(nameof(Register.AL))} && Bitness == 64 && {argName}.IsDisplacementOnly",
+				OpCodeSelectorKind.MemOffs_RAX => $"{otherArgName}.Value == {GetRegisterString(nameof(Register.RAX))} && Bitness < 64 && {argName}.IsDisplacementOnly",
+				OpCodeSelectorKind.MemOffs_EAX => $"{otherArgName}.Value == {GetRegisterString(nameof(Register.EAX))} && Bitness < 64 && {argName}.IsDisplacementOnly",
+				OpCodeSelectorKind.MemOffs_AX => $"{otherArgName}.Value == {GetRegisterString(nameof(Register.AX))} && Bitness < 64 && {argName}.IsDisplacementOnly",
+				OpCodeSelectorKind.MemOffs_AL => $"{otherArgName}.Value == {GetRegisterString(nameof(Register.AL))} && Bitness < 64 && {argName}.IsDisplacementOnly",
 				OpCodeSelectorKind.Bitness64 => "Bitness == 64",
 				OpCodeSelectorKind.Bitness32 => "Bitness >= 32",
 				OpCodeSelectorKind.Bitness16 => "Bitness >= 16",
-				OpCodeSelectorKind.BranchShort => "PreferBranchShort",
-				OpCodeSelectorKind.ImmediateByteEqual1 => $"{regName} == 1",
-				OpCodeSelectorKind.ImmediateByteSigned8 => !arg.IsTypeSigned() ?
-					$"{regName} <= ({arg.Type})sbyte.MaxValue || (0xFFFF_FF80 <= {regName} && {regName} <= 0xFFFF_FFFF)" :
-					$"{regName} >= sbyte.MinValue && {regName} <= sbyte.MaxValue",
+				OpCodeSelectorKind.ShortBranch => "PreferShortBranch",
+				OpCodeSelectorKind.ImmediateByteEqual1 => $"{argName} == 1",
+				OpCodeSelectorKind.ImmediateByteSigned8 or OpCodeSelectorKind.ImmediateByteSigned8To32 => !arg.IsTypeSigned() ?
+					$"{argName} <= ({arg.Type})sbyte.MaxValue || 0xFFFF_FF80 <= {argName}" :
+					$"{argName} >= sbyte.MinValue && {argName} <= sbyte.MaxValue",
 				OpCodeSelectorKind.ImmediateByteSigned8To16 => !arg.IsTypeSigned() ?
-					$"{regName} <= ({arg.Type})sbyte.MaxValue || (0xFF80 <= {regName} && {regName} <= 0xFFFF)" :
-					$"{regName} >= sbyte.MinValue && {regName} <= sbyte.MaxValue",
-				OpCodeSelectorKind.ImmediateByteSigned8To32 => !arg.IsTypeSigned() ?
-					$"{regName} <= ({arg.Type})sbyte.MaxValue || (0xFFFF_FF80 <= {regName} && {regName} <= 0xFFFF_FFFF)" :
-					$"{regName} >= sbyte.MinValue && {regName} <= sbyte.MaxValue",
+					$"{argName} <= ({arg.Type})sbyte.MaxValue || (0xFF80 <= {argName} && {argName} <= 0xFFFF)" :
+					$"{argName} >= sbyte.MinValue && {argName} <= sbyte.MaxValue",
 				OpCodeSelectorKind.Vex => "PreferVex",
-				OpCodeSelectorKind.EvexBroadcastX => $"{regName}.IsBroadcast",
-				OpCodeSelectorKind.EvexBroadcastY => $"{regName}.IsBroadcast",
-				OpCodeSelectorKind.EvexBroadcastZ => $"{regName}.IsBroadcast",
-				OpCodeSelectorKind.RegisterCL => $"{regName} == Register.CL",
-				OpCodeSelectorKind.RegisterAL => $"{regName} == Register.AL",
-				OpCodeSelectorKind.RegisterAX => $"{regName} == Register.AX",
-				OpCodeSelectorKind.RegisterEAX => $"{regName} == Register.EAX",
-				OpCodeSelectorKind.RegisterRAX => $"{regName} == Register.RAX",
-				OpCodeSelectorKind.RegisterBND => $"{regName} == Register.IsBND()",
-				OpCodeSelectorKind.RegisterES => $"{regName} == Register.ES",
-				OpCodeSelectorKind.RegisterCS => $"{regName} == Register.CS",
-				OpCodeSelectorKind.RegisterSS => $"{regName} == Register.SS",
-				OpCodeSelectorKind.RegisterDS => $"{regName} == Register.DS",
-				OpCodeSelectorKind.RegisterFS => $"{regName} == Register.FS",
-				OpCodeSelectorKind.RegisterGS => $"{regName} == Register.GS",
-				OpCodeSelectorKind.RegisterDX => $"{regName} == Register.DX",
-				OpCodeSelectorKind.Register8 => $"{regName}.IsGPR8()",
-				OpCodeSelectorKind.Register16 => $"{regName}.IsGPR16()",
-				OpCodeSelectorKind.Register32 => $"{regName}.IsGPR32()",
-				OpCodeSelectorKind.Register64 => $"{regName}.IsGPR64()",
-				OpCodeSelectorKind.RegisterK => $"{regName}.IsK()",
-				OpCodeSelectorKind.RegisterST0 => $"{regName} == Register.ST0",
-				OpCodeSelectorKind.RegisterST => $"{regName}.IsST()",
-				OpCodeSelectorKind.RegisterSegment => $"{regName}.IsSegmentRegister()",
-				OpCodeSelectorKind.RegisterCR => $"{regName}.IsCR()",
-				OpCodeSelectorKind.RegisterDR => $"{regName}.IsDR()",
-				OpCodeSelectorKind.RegisterTR => $"{regName}.IsTR()",
-				OpCodeSelectorKind.RegisterMM => $"{regName}.IsMM()",
-				OpCodeSelectorKind.RegisterXMM => $"{regName}.IsXMM()",
-				OpCodeSelectorKind.RegisterYMM => $"{regName}.IsYMM()",
-				OpCodeSelectorKind.RegisterZMM => $"{regName}.IsZMM()",
-				OpCodeSelectorKind.RegisterTMM => $"{regName}.IsTMM()",
-				OpCodeSelectorKind.Memory8 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Byte))}",
-				OpCodeSelectorKind.Memory16 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Word))}",
-				OpCodeSelectorKind.Memory32 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Dword))}",
-				OpCodeSelectorKind.Memory48 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Fword))}",
-				OpCodeSelectorKind.Memory64 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Qword))}",
-				OpCodeSelectorKind.Memory80 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Tbyte))}",
-				OpCodeSelectorKind.MemoryMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Qword))}",
-				OpCodeSelectorKind.MemoryXMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Xword))}",
-				OpCodeSelectorKind.MemoryYMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Yword))}",
-				OpCodeSelectorKind.MemoryZMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Zword))}",
-				OpCodeSelectorKind.MemoryIndex32Xmm => $"{regName}.Index.IsXMM()",
-				OpCodeSelectorKind.MemoryIndex64Xmm => $"{regName}.Index.IsXMM()",
-				OpCodeSelectorKind.MemoryIndex32Ymm => $"{regName}.Index.IsYMM()",
-				OpCodeSelectorKind.MemoryIndex64Ymm => $"{regName}.Index.IsYMM()",
-				OpCodeSelectorKind.MemoryIndex32Zmm => $"{regName}.Index.IsZMM()",
-				OpCodeSelectorKind.MemoryIndex64Zmm => $"{regName}.Index.IsZMM()",
-				_ => $"invalid_selector_{selectorKind}_for_arg_{regName}",
+				OpCodeSelectorKind.EvexBroadcastX => $"{argName}.IsBroadcast",
+				OpCodeSelectorKind.EvexBroadcastY => $"{argName}.IsBroadcast",
+				OpCodeSelectorKind.EvexBroadcastZ => $"{argName}.IsBroadcast",
+				OpCodeSelectorKind.RegisterCL => $"{argName} == {GetRegisterString(nameof(Register.CL))}",
+				OpCodeSelectorKind.RegisterAL => $"{argName} == {GetRegisterString(nameof(Register.AL))}",
+				OpCodeSelectorKind.RegisterAX => $"{argName} == {GetRegisterString(nameof(Register.AX))}",
+				OpCodeSelectorKind.RegisterEAX => $"{argName} == {GetRegisterString(nameof(Register.EAX))}",
+				OpCodeSelectorKind.RegisterRAX => $"{argName} == {GetRegisterString(nameof(Register.RAX))}",
+				OpCodeSelectorKind.RegisterBND => $"{argName}.IsBND()",
+				OpCodeSelectorKind.RegisterES => $"{argName} == {GetRegisterString(nameof(Register.ES))}",
+				OpCodeSelectorKind.RegisterCS => $"{argName} == {GetRegisterString(nameof(Register.CS))}",
+				OpCodeSelectorKind.RegisterSS => $"{argName} == {GetRegisterString(nameof(Register.SS))}",
+				OpCodeSelectorKind.RegisterDS => $"{argName} == {GetRegisterString(nameof(Register.DS))}",
+				OpCodeSelectorKind.RegisterFS => $"{argName} == {GetRegisterString(nameof(Register.FS))}",
+				OpCodeSelectorKind.RegisterGS => $"{argName} == {GetRegisterString(nameof(Register.GS))}",
+				OpCodeSelectorKind.RegisterDX => $"{argName} == {GetRegisterString(nameof(Register.DX))}",
+				OpCodeSelectorKind.Register8 => $"{argName}.IsGPR8()",
+				OpCodeSelectorKind.Register16 => $"{argName}.IsGPR16()",
+				OpCodeSelectorKind.Register32 => $"{argName}.IsGPR32()",
+				OpCodeSelectorKind.Register64 => $"{argName}.IsGPR64()",
+				OpCodeSelectorKind.RegisterK => $"{argName}.IsK()",
+				OpCodeSelectorKind.RegisterST0 => $"{argName} == {GetRegisterString(nameof(Register.ST0))}",
+				OpCodeSelectorKind.RegisterST => $"{argName}.IsST()",
+				OpCodeSelectorKind.RegisterSegment => $"{argName}.IsSegmentRegister()",
+				OpCodeSelectorKind.RegisterCR => $"{argName}.IsCR()",
+				OpCodeSelectorKind.RegisterDR => $"{argName}.IsDR()",
+				OpCodeSelectorKind.RegisterTR => $"{argName}.IsTR()",
+				OpCodeSelectorKind.RegisterMM => $"{argName}.IsMM()",
+				OpCodeSelectorKind.RegisterXMM => $"{argName}.IsXMM()",
+				OpCodeSelectorKind.RegisterYMM => $"{argName}.IsYMM()",
+				OpCodeSelectorKind.RegisterZMM => $"{argName}.IsZMM()",
+				OpCodeSelectorKind.RegisterTMM => $"{argName}.IsTMM()",
+				OpCodeSelectorKind.Memory8 => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Byte))}",
+				OpCodeSelectorKind.Memory16 => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Word))}",
+				OpCodeSelectorKind.Memory32 => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Dword))}",
+				OpCodeSelectorKind.Memory48 => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Fword))}",
+				OpCodeSelectorKind.Memory64 => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Qword))}",
+				OpCodeSelectorKind.Memory80 => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Tbyte))}",
+				OpCodeSelectorKind.MemoryMM => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Qword))}",
+				OpCodeSelectorKind.MemoryXMM => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Xword))}",
+				OpCodeSelectorKind.MemoryYMM => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Yword))}",
+				OpCodeSelectorKind.MemoryZMM => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Zword))}",
+				OpCodeSelectorKind.MemoryIndex32Xmm => $"{argName}.Index.IsXMM()",
+				OpCodeSelectorKind.MemoryIndex64Xmm => $"{argName}.Index.IsXMM()",
+				OpCodeSelectorKind.MemoryIndex32Ymm => $"{argName}.Index.IsYMM()",
+				OpCodeSelectorKind.MemoryIndex64Ymm => $"{argName}.Index.IsYMM()",
+				OpCodeSelectorKind.MemoryIndex32Zmm => $"{argName}.Index.IsZMM()",
+				OpCodeSelectorKind.MemoryIndex64Zmm => $"{argName}.Index.IsZMM()",
+				_ => throw new InvalidOperationException(),
 			};
 		}
 
+		string GetRegisterString(string fieldName) =>
+			idConverter.ToDeclTypeAndValue(registerType[fieldName]);
+
 		string GetMemOpSizeString(string fieldName) =>
-			$"{memoryOperandSizeType.Name(idConverter)}.{memoryOperandSizeType[fieldName].Name(idConverter)}";
+			idConverter.ToDeclTypeAndValue(memoryOperandSizeType[fieldName]);
 
 		static string? GetInvalidArgValue(int bitness, OpCodeSelectorKind selectorKind, int argIndex) =>
 			selectorKind switch {
@@ -1370,7 +1325,7 @@ namespace Generator.Assembler.CSharp {
 				_ => null,
 			};
 
-		static IEnumerable<string?> GetArgValue(int bitness, OpCodeSelectorKind selectorKind, bool isElseBranch, int index, List<RenderArg> args) {
+		static IEnumerable<string?> GetArgValue(int bitness, OpCodeSelectorKind selectorKind, bool isElseBranch, int index, RenderArg[] args) {
 			switch (selectorKind) {
 			case OpCodeSelectorKind.MemOffs64_RAX:
 			case OpCodeSelectorKind.MemOffs64_EAX:
@@ -1411,11 +1366,11 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeSelectorKind.Bitness16:
 				yield return "todo_bitness_16";
 				break;
-			case OpCodeSelectorKind.BranchShort:
+			case OpCodeSelectorKind.ShortBranch:
 				if (isElseBranch)
-					yield return "c.PreferBranchShort = false;";
+					yield return "c.ShortBranch = false;";
 				else
-					yield return "c.PreferBranchShort = true;";
+					yield return "c.ShortBranch = true;";
 				break;
 			case OpCodeSelectorKind.ImmediateByteEqual1:
 				if (isElseBranch)
@@ -1697,7 +1652,7 @@ namespace Generator.Assembler.CSharp {
 				else {
 					switch (bitness) {
 					case 16:
-						if (args.Count == 2 && (args[0].Kind == ArgKind.RegisterBND || args[1].Kind == ArgKind.RegisterBND))
+						if (args.Length == 2 && (args[0].Kind == ArgKind.RegisterBnd || args[1].Kind == ArgKind.RegisterBnd))
 							yield return "__dword_ptr[edi]";
 						else
 							yield return "__dword_ptr[di]";
@@ -1825,42 +1780,22 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		struct RenderArg {
+		readonly struct RenderArg {
 			public RenderArg(string name, string type, ArgKind kind) {
 				Name = name;
 				Type = type;
 				Kind = kind;
 			}
 
-			public string Name;
-			public string Type;
-			public ArgKind Kind;
+			public readonly string Name;
+			public readonly string Type;
+			public readonly ArgKind Kind;
 
 			public bool IsTypeSigned() =>
 				Type switch {
 					"sbyte" or "short" or "int" or "long" => true,
 					_ => false,
 				};
-
-			public int GetArgSize() =>
-				Type switch {
-					"byte" or "sbyte" => 1,
-					"short" or "ushort" => 2,
-					"int" or "uint" => 4,
-					"long" or "ulong" => 8,
-					_ => throw new ArgumentException($"Invalid {Type}"),
-				};
-
-			public string GetSignedTypeFromUnsigned() {
-				Debug.Assert(!IsTypeSigned());
-				return Type switch {
-					"byte" => "sbyte",
-					"ushort" => "short",
-					"uint" => "int",
-					"ulong" => "long",
-					_ => throw new ArgumentException($"Invalid {Type}"),
-				};
-			}
 		}
 	}
 }

@@ -21,7 +21,6 @@ namespace Generator.Decoder.CSharp {
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			const string ClassName = "InstructionMemorySizes";
-			var memSizeName = genTypes[TypeIds.MemorySize].Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, ClassName + ".g.cs")))) {
 				writer.WriteFileHeader();
 
@@ -42,7 +41,7 @@ namespace Generator.Decoder.CSharp {
 								if (def.Memory.Value == 0)
 									value = "0";
 								else
-									value = $"(byte){memSizeName}.{def.Memory.Name(idConverter)}";
+									value = $"(byte){idConverter.ToDeclTypeAndValue(def.Memory)}";
 								writer.WriteLine($"{value},// {def.Code.Name(idConverter)}");
 							}
 						}
@@ -61,7 +60,7 @@ namespace Generator.Decoder.CSharp {
 								if (def.MemoryBroadcast.Value == 0)
 									value = "0";
 								else
-									value = $"(byte){memSizeName}.{def.MemoryBroadcast.Name(idConverter)}";
+									value = $"(byte){idConverter.ToDeclTypeAndValue(def.MemoryBroadcast)}";
 								writer.WriteLine($"{value},// {def.Code.Name(idConverter)}");
 							}
 						}

@@ -149,7 +149,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.CC_le, new PartialEnumFileInfo("CC_le", dirs.GetRustFilename("formatter", "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.CC_g, new PartialEnumFileInfo("CC_g", dirs.GetRustFilename("formatter", "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.OptionsProps, new PartialEnumFileInfo("OptionsProps", dirs.GetRustFilename("formatter", "tests", "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
-			toPartialFileInfo.Add(TypeIds.CodeAsmMemoryOperandSize, null);
+			toPartialFileInfo.Add(TypeIds.CodeAsmMemoryOperandSize, new PartialEnumFileInfo("MemoryOperandSize", dirs.GetRustFilename("code_asm", "op_state.rs"), new[] { RustConstants.AttributeCopyEqOrdHash }));
 		}
 
 		public override void Generate(EnumType enumType) {
@@ -242,7 +242,7 @@ namespace Generator.Enums.Rust {
 					// have value 0, there must be no other enum fields == 0.
 					if (defaultValue.Value != 0 && enumValues.Any(a => a.Value == 0))
 						throw new InvalidOperationException();
-					writer.WriteLine($"{enumTypeName}::{defaultValue.Name(idConverter)}");
+					writer.WriteLine(idConverter.ToDeclTypeAndValue(defaultValue));
 				}
 				writer.WriteLine("}");
 			}
@@ -283,7 +283,7 @@ namespace Generator.Enums.Rust {
 					writer.WriteLine($"{pub}fn values() -> impl Iterator<Item = {enumTypeName}> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {{");
 					using (writer.Indent()) {
 						if (enumType.Values.Length == 1) {
-							writer.WriteLine($"static VALUES: [{enumTypeName}; 1] = [{enumTypeName}::{enumType.Values[0].Name(idConverter)}];");
+							writer.WriteLine($"static VALUES: [{enumTypeName}; 1] = [{idConverter.ToDeclTypeAndValue(enumType.Values[0])}];");
 							writer.WriteLine($"VALUES.iter().copied()");
 						}
 						else {
@@ -341,7 +341,7 @@ namespace Generator.Enums.Rust {
 							writer.WriteLine($"if value < {icedConstValue}{castToFromType} {{");
 							using (writer.Indent()) {
 								if (enumType.Values.Length == 1)
-									writer.WriteLine($"Ok({enumTypeName}::{enumType.Values[0].Name(idConverter)})");
+									writer.WriteLine($"Ok({idConverter.ToDeclTypeAndValue(enumType.Values[0])})");
 								else {
 									writer.WriteLine("// SAFETY: all values 0-max are valid enum values");
 									writer.WriteLine($"Ok(unsafe {{ mem::transmute(value as {enumUnderlyingType}) }})");

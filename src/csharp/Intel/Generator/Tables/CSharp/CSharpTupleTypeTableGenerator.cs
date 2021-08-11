@@ -25,7 +25,7 @@ namespace Generator.Tables.CSharp {
 		void WriteTable(FileWriter writer, TupleTypeInfo[] infos) {
 			var tupleTypeName = genTypes[TypeIds.TupleType].Name(idConverter);
 			foreach (var info in infos) {
-				writer.WriteCommentLine($"{tupleTypeName}.{info.Value.Name(idConverter)}");
+				writer.WriteCommentLine(idConverter.ToDeclTypeAndValue(info.Value));
 				if (info.N > byte.MaxValue)
 					throw new InvalidOperationException();
 				if (info.Nbcst > byte.MaxValue)

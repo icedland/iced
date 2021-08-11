@@ -33,7 +33,7 @@ namespace Generator.Decoder.Rust {
 					foreach (var def in defs) {
 						if (def.Memory.Value > byte.MaxValue)
 							throw new InvalidOperationException();
-						string value = $"{memSizeName}::{def.Memory.Name(idConverter)}";
+						var value = idConverter.ToDeclTypeAndValue(def.Memory);
 						writer.WriteLine($"{value},// {def.Code.Name(idConverter)}");
 					}
 				}
@@ -45,7 +45,7 @@ namespace Generator.Decoder.Rust {
 					foreach (var def in defs) {
 						if (def.MemoryBroadcast.Value > byte.MaxValue)
 							throw new InvalidOperationException();
-						string value = $"{memSizeName}::{def.MemoryBroadcast.Name(idConverter)}";
+						var value = idConverter.ToDeclTypeAndValue(def.MemoryBroadcast);
 						writer.WriteLine($"{value},// {def.Code.Name(idConverter)}");
 					}
 				}

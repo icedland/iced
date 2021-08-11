@@ -35,7 +35,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			var c = new Assembler(Bitness);
 			Assert.Equal(Bitness, c.Bitness);
 			Assert.True(c.PreferVex);
-			Assert.True(c.PreferBranchShort);
+			Assert.True(c.PreferShortBranch);
 			Assert.Empty(c.Instructions);
 			Assert.True(c.CurrentLabel.IsEmpty);
 		}
@@ -47,10 +47,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			c.add(rax, rcx);
 			_ = c.@lock;
 			c.PreferVex = false;
-			c.PreferBranchShort = false;
+			c.PreferShortBranch = false;
 			c.Reset();
 			Assert.False(c.PreferVex);
-			Assert.False(c.PreferBranchShort);
+			Assert.False(c.PreferShortBranch);
 			Assert.Empty(c.Instructions);
 			Assert.True(c.CurrentLabel.IsEmpty);
 			var writer = new CodeWriterImpl();

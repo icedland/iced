@@ -311,9 +311,9 @@ fn decode_with_too_few_bytes_left() {
 #[test]
 #[cfg(feature = "encoder")]
 fn instruction_operator_eq_neq() {
-	let instr1a = Instruction::with_reg_reg(Code::Mov_r64_rm64, Register::RAX, Register::RCX);
+	let instr1a = Instruction::with2(Code::Mov_r64_rm64, Register::RAX, Register::RCX).unwrap();
 	let instr1b = instr1a;
-	let instr2 = Instruction::with_reg_reg(Code::Mov_r64_rm64, Register::RAX, Register::RDX);
+	let instr2 = Instruction::with2(Code::Mov_r64_rm64, Register::RAX, Register::RDX).unwrap();
 	assert_eq!(instr1a == instr1b, true);
 	assert_eq!(instr1a == instr2, false);
 	assert_eq!(instr1a != instr2, true);

@@ -24,10 +24,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				assembler.PreferVex = true;
 			else if ((flags & LocalOpCodeFlags.PreferEvex) != 0)
 				assembler.PreferVex = false;
-			if ((flags & LocalOpCodeFlags.PreferBranchShort) != 0)
-				assembler.PreferBranchShort = true;
-			else if ((flags & LocalOpCodeFlags.PreferBranchNear) != 0)
-				assembler.PreferBranchShort = false;
+			if ((flags & LocalOpCodeFlags.PreferShortBranch) != 0)
+				assembler.PreferShortBranch = true;
+			else if ((flags & LocalOpCodeFlags.PreferNearBranch) != 0)
+				assembler.PreferShortBranch = false;
 			fAsm(assembler);
 
 			// Expecting only one instruction
@@ -217,8 +217,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			Fwait = 1 << 0,
 			PreferVex = 1 << 1,
 			PreferEvex = 1 << 2,
-			PreferBranchShort = 1 << 3,
-			PreferBranchNear = 1 << 4,
+			PreferShortBranch = 1 << 3,
+			PreferNearBranch = 1 << 4,
 			Branch = 1 << 5,
 			Broadcast = 1 << 6,
 			BranchUlong = 1 << 7,

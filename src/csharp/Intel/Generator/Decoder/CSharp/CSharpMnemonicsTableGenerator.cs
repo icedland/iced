@@ -21,7 +21,6 @@ namespace Generator.Decoder.CSharp {
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			const string ClassName = "MnemonicUtilsData";
-			var mnemonicName = genTypes[TypeIds.Mnemonic].Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, ClassName + ".g.cs")))) {
 				writer.WriteFileHeader();
 
@@ -34,7 +33,7 @@ namespace Generator.Decoder.CSharp {
 							foreach (var def in defs) {
 								if (def.Mnemonic.Value > ushort.MaxValue)
 									throw new InvalidOperationException();
-								writer.WriteLine($"(ushort){mnemonicName}.{def.Mnemonic.Name(idConverter)},// {def.Code.Name(idConverter)}");
+								writer.WriteLine($"(ushort){idConverter.ToDeclTypeAndValue(def.Mnemonic)},// {def.Code.Name(idConverter)}");
 							}
 						}
 						writer.WriteLine("};");

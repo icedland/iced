@@ -135,7 +135,7 @@ namespace Generator.Encoder.RustJS {
 				genMethod(new GenMethodContext(writer, method, method, null, null));
 		}
 
-		void WriteCall(in GenMethodContext ctx, string rustName, bool canFail) {
+		void WriteCall(in GenMethodContext ctx, string rustName, bool canFail, bool isTryMethod) {
 			using (ctx.Writer.Indent()) {
 				var toLocalName = new Dictionary<int, string>();
 				foreach (var info in ctx.SplitArgs) {
@@ -152,7 +152,7 @@ namespace Generator.Encoder.RustJS {
 				if (canFail)
 					sb.Append("Ok(");
 				sb.Append("Self(iced_x86_rust::Instruction::");
-				if (canFail)
+				if (isTryMethod)
 					sb.Append("try_");
 				sb.Append(rustName);
 				sb.Append('(');
@@ -209,18 +209,19 @@ namespace Generator.Encoder.RustJS {
 				ctx.Writer.WriteLine(") -> Self {");
 		}
 
-		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group) =>
+		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group, int id) =>
 			GenerateMethod(writer, method, GenCreate);
 
 		void GenCreate(GenMethodContext ctx) {
-			bool canFail = Rust.InstrCreateGenImpl.HasTryMethod(ctx.Method);
+			bool canFail = ctx.Method.Args.Count > 1;
 			Action? writeThrows = null;
 			if (canFail)
-				writeThrows = () => docWriter.WriteLine(ctx.Writer, "Throws if the immediate is invalid");
+				writeThrows = () => docWriter.WriteLine(ctx.Writer, "Throws if one of the operands is invalid (basic checks)");
 			WriteDocs(ctx, writeThrows);
-			var rustName = gen.GetCreateName(ctx.OrigMethod, Rust.GenCreateNameArgs.RustNames);
-			WriteMethod(ctx, rustName, gen.GetCreateName(ctx.OrigMethod, genNames), canFail);
-			WriteCall(ctx, rustName, canFail);
+			var rustJsName = gen.GetCreateName(ctx.OrigMethod, Rust.GenCreateNameArgs.RustNames);
+			var rustName = Rust.InstrCreateGenImpl.GetRustOverloadedCreateName(ctx.OrigMethod);
+			WriteMethod(ctx, rustJsName, gen.GetCreateName(ctx.OrigMethod, genNames), canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -232,7 +233,7 @@ namespace Generator.Encoder.RustJS {
 			WriteDocs(ctx, () => docWriter.WriteLine(ctx.Writer, "Throws if the created instruction doesn't have a near branch operand"));
 			const string rustName = Rust.RustInstrCreateGenNames.with_branch;
 			WriteMethod(ctx, rustName, "createBranch", canFail);
-			WriteCall(ctx, rustName, canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -244,7 +245,7 @@ namespace Generator.Encoder.RustJS {
 			WriteDocs(ctx, () => docWriter.WriteLine(ctx.Writer, "Throws if the created instruction doesn't have a far branch operand"));
 			const string rustName = Rust.RustInstrCreateGenNames.with_far_branch;
 			WriteMethod(ctx, rustName, "createFarBranch", canFail);
-			WriteCall(ctx, rustName, canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -256,7 +257,7 @@ namespace Generator.Encoder.RustJS {
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			const string rustName = Rust.RustInstrCreateGenNames.with_xbegin;
 			WriteMethod(ctx, rustName, "createXbegin", canFail);
-			WriteCall(ctx, rustName, canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -278,7 +279,7 @@ namespace Generator.Encoder.RustJS {
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			var rustName = rustIdConverter.Method("With" + methodBaseName);
 			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
-			WriteCall(ctx, rustName, canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -315,7 +316,7 @@ namespace Generator.Encoder.RustJS {
 			jsName = jsName + "_" + ctx.OrigMethod.Args.Count.ToString();
 			rustName = Rust.RustInstrCreateGenNames.AppendArgCount(rustName, ctx.OrigMethod.Args.Count);
 			WriteMethod(ctx, rustName, jsName, canFail);
-			WriteCall(ctx, rustName, canFail);
+			WriteCall(ctx, rustName, canFail, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -337,7 +338,7 @@ namespace Generator.Encoder.RustJS {
 			ctx.Writer.WriteLine();
 			WriteDocs(ctx, () => WriteDataThrows(ctx, $"is not 1-{16 / elemSize}"));
 			WriteMethod(ctx, rustName, jsName, canFail);
-			WriteCall(ctx, rustName, canFail);
+			WriteCall(ctx, rustName, canFail, false);
 			ctx.Writer.WriteLine("}");
 		}
 

@@ -195,9 +195,6 @@ namespace Iced.Intel {
 			Flags = flags;
 		}
 
-		/// <summary>
-		/// Gets the mask associated with this register.
-		/// </summary>
 		internal readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
@@ -241,27 +238,27 @@ namespace Iced.Intel {
 		public AssemblerRegister32 z => new AssemblerRegister32(Value, Flags | AssemblerOperandFlags.Zeroing);
 
 		/// <summary>
-		/// Suppress all exceptions.
+		/// Suppress all exceptions
 		/// </summary>
 		public AssemblerRegister32 sae => new AssemblerRegister32(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
 
 		/// <summary>
-		/// Rounding to nearest.
+		/// Round to nearest (even)
 		/// </summary>
 		public AssemblerRegister32 rn_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
 
 		/// <summary>
-		/// Rounding down.
+		/// Round down (toward -inf)
 		/// </summary>
 		public AssemblerRegister32 rd_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
 
 		/// <summary>
-		/// Rounding up.
+		/// Round up (toward +inf)
 		/// </summary>
 		public AssemblerRegister32 ru_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
 
 		/// <summary>
-		/// Rounding toward zero.
+		/// Round toward zero (truncate)
 		/// </summary>
 		public AssemblerRegister32 rz_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
@@ -401,9 +398,6 @@ namespace Iced.Intel {
 			Flags = flags;
 		}
 
-		/// <summary>
-		/// Gets the mask associated with this register.
-		/// </summary>
 		internal readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
@@ -447,27 +441,27 @@ namespace Iced.Intel {
 		public AssemblerRegister64 z => new AssemblerRegister64(Value, Flags | AssemblerOperandFlags.Zeroing);
 
 		/// <summary>
-		/// Suppress all exceptions.
+		/// Suppress all exceptions
 		/// </summary>
 		public AssemblerRegister64 sae => new AssemblerRegister64(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
 
 		/// <summary>
-		/// Rounding to nearest.
+		/// Round to nearest (even)
 		/// </summary>
 		public AssemblerRegister64 rn_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
 
 		/// <summary>
-		/// Rounding down.
+		/// Round down (toward -inf)
 		/// </summary>
 		public AssemblerRegister64 rd_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
 
 		/// <summary>
-		/// Rounding up.
+		/// Round up (toward +inf)
 		/// </summary>
 		public AssemblerRegister64 ru_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
 
 		/// <summary>
-		/// Rounding toward zero.
+		/// Round toward zero (truncate)
 		/// </summary>
 		public AssemblerRegister64 rz_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
@@ -931,9 +925,6 @@ namespace Iced.Intel {
 			Flags = flags;
 		}
 
-		/// <summary>
-		/// Gets the mask associated with this register.
-		/// </summary>
 		internal readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
@@ -977,27 +968,27 @@ namespace Iced.Intel {
 		public AssemblerRegisterXMM z => new AssemblerRegisterXMM(Value, Flags | AssemblerOperandFlags.Zeroing);
 
 		/// <summary>
-		/// Suppress all exceptions.
+		/// Suppress all exceptions
 		/// </summary>
 		public AssemblerRegisterXMM sae => new AssemblerRegisterXMM(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
 
 		/// <summary>
-		/// Rounding to nearest.
+		/// Round to nearest (even)
 		/// </summary>
 		public AssemblerRegisterXMM rn_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
 
 		/// <summary>
-		/// Rounding down.
+		/// Round down (toward -inf)
 		/// </summary>
 		public AssemblerRegisterXMM rd_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
 
 		/// <summary>
-		/// Rounding up.
+		/// Round up (toward +inf)
 		/// </summary>
 		public AssemblerRegisterXMM ru_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
 
 		/// <summary>
-		/// Rounding toward zero.
+		/// Round toward zero (truncate)
 		/// </summary>
 		public AssemblerRegisterXMM rz_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
@@ -1093,9 +1084,6 @@ namespace Iced.Intel {
 			Flags = flags;
 		}
 
-		/// <summary>
-		/// Gets the mask associated with this register.
-		/// </summary>
 		internal readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
@@ -1139,27 +1127,27 @@ namespace Iced.Intel {
 		public AssemblerRegisterYMM z => new AssemblerRegisterYMM(Value, Flags | AssemblerOperandFlags.Zeroing);
 
 		/// <summary>
-		/// Suppress all exceptions.
+		/// Suppress all exceptions
 		/// </summary>
 		public AssemblerRegisterYMM sae => new AssemblerRegisterYMM(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
 
 		/// <summary>
-		/// Rounding to nearest.
+		/// Round to nearest (even)
 		/// </summary>
 		public AssemblerRegisterYMM rn_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
 
 		/// <summary>
-		/// Rounding down.
+		/// Round down (toward -inf)
 		/// </summary>
 		public AssemblerRegisterYMM rd_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
 
 		/// <summary>
-		/// Rounding up.
+		/// Round up (toward +inf)
 		/// </summary>
 		public AssemblerRegisterYMM ru_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
 
 		/// <summary>
-		/// Rounding toward zero.
+		/// Round toward zero (truncate)
 		/// </summary>
 		public AssemblerRegisterYMM rz_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
@@ -1255,9 +1243,6 @@ namespace Iced.Intel {
 			Flags = flags;
 		}
 
-		/// <summary>
-		/// Gets the mask associated with this register.
-		/// </summary>
 		internal readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
@@ -1301,27 +1286,27 @@ namespace Iced.Intel {
 		public AssemblerRegisterZMM z => new AssemblerRegisterZMM(Value, Flags | AssemblerOperandFlags.Zeroing);
 
 		/// <summary>
-		/// Suppress all exceptions.
+		/// Suppress all exceptions
 		/// </summary>
 		public AssemblerRegisterZMM sae => new AssemblerRegisterZMM(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
 
 		/// <summary>
-		/// Rounding to nearest.
+		/// Round to nearest (even)
 		/// </summary>
 		public AssemblerRegisterZMM rn_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
 
 		/// <summary>
-		/// Rounding down.
+		/// Round down (toward -inf)
 		/// </summary>
 		public AssemblerRegisterZMM rd_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
 
 		/// <summary>
-		/// Rounding up.
+		/// Round up (toward +inf)
 		/// </summary>
 		public AssemblerRegisterZMM ru_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
 
 		/// <summary>
-		/// Rounding toward zero.
+		/// Round toward zero (truncate)
 		/// </summary>
 		public AssemblerRegisterZMM rz_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
@@ -1471,9 +1456,6 @@ namespace Iced.Intel {
 			Flags = flags;
 		}
 
-		/// <summary>
-		/// Gets the mask associated with this register.
-		/// </summary>
 		internal readonly AssemblerOperandFlags Flags;
 
 		/// <summary>

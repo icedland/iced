@@ -72,6 +72,52 @@ namespace Generator.Encoder.Rust {
 			return true;
 		}
 
+		public string GetArgTypeString(MethodArg arg) {
+			switch (arg.Type) {
+			case MethodArgType.Code:
+				return genTypes[TypeIds.Code].Name(idConverter);
+			case MethodArgType.Register:
+				return genTypes[TypeIds.Register].Name(idConverter);
+			case MethodArgType.RepPrefixKind:
+				return genTypes[TypeIds.RepPrefixKind].Name(idConverter);
+			case MethodArgType.Memory:
+				return "MemoryOperand";
+			case MethodArgType.UInt8:
+				return "u8";
+			case MethodArgType.UInt16:
+				return "u16";
+			case MethodArgType.Int32:
+				return "i32";
+			case MethodArgType.PreferredInt32:
+			case MethodArgType.UInt32:
+				return "u32";
+			case MethodArgType.Int64:
+				return "i64";
+			case MethodArgType.UInt64:
+				return "u64";
+			case MethodArgType.ByteSlice:
+				return "&[u8]";
+			case MethodArgType.WordSlice:
+				return "&[u16]";
+			case MethodArgType.DwordSlice:
+				return "&[u32]";
+			case MethodArgType.QwordSlice:
+				return "&[u64]";
+			case MethodArgType.ByteArray:
+			case MethodArgType.WordArray:
+			case MethodArgType.DwordArray:
+			case MethodArgType.QwordArray:
+			case MethodArgType.BytePtr:
+			case MethodArgType.WordPtr:
+			case MethodArgType.DwordPtr:
+			case MethodArgType.QwordPtr:
+			case MethodArgType.ArrayIndex:
+			case MethodArgType.ArrayLength:
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
 		public void WriteMethodDeclArgs(FileWriter writer, CreateMethod method) {
 			bool comma = false;
 			foreach (var arg in method.Args) {
@@ -85,63 +131,7 @@ namespace Generator.Encoder.Rust {
 				}
 				writer.Write(argName);
 				writer.Write(": ");
-				switch (arg.Type) {
-				case MethodArgType.Code:
-					writer.Write(genTypes[TypeIds.Code].Name(idConverter));
-					break;
-				case MethodArgType.Register:
-					writer.Write(genTypes[TypeIds.Register].Name(idConverter));
-					break;
-				case MethodArgType.RepPrefixKind:
-					writer.Write(genTypes[TypeIds.RepPrefixKind].Name(idConverter));
-					break;
-				case MethodArgType.Memory:
-					writer.Write("MemoryOperand");
-					break;
-				case MethodArgType.UInt8:
-					writer.Write("u8");
-					break;
-				case MethodArgType.UInt16:
-					writer.Write("u16");
-					break;
-				case MethodArgType.Int32:
-					writer.Write("i32");
-					break;
-				case MethodArgType.PreferedInt32:
-				case MethodArgType.UInt32:
-					writer.Write("u32");
-					break;
-				case MethodArgType.Int64:
-					writer.Write("i64");
-					break;
-				case MethodArgType.UInt64:
-					writer.Write("u64");
-					break;
-				case MethodArgType.ByteSlice:
-					writer.Write("&[u8]");
-					break;
-				case MethodArgType.WordSlice:
-					writer.Write("&[u16]");
-					break;
-				case MethodArgType.DwordSlice:
-					writer.Write("&[u32]");
-					break;
-				case MethodArgType.QwordSlice:
-					writer.Write("&[u64]");
-					break;
-				case MethodArgType.ByteArray:
-				case MethodArgType.WordArray:
-				case MethodArgType.DwordArray:
-				case MethodArgType.QwordArray:
-				case MethodArgType.BytePtr:
-				case MethodArgType.WordPtr:
-				case MethodArgType.DwordPtr:
-				case MethodArgType.QwordPtr:
-				case MethodArgType.ArrayIndex:
-				case MethodArgType.ArrayLength:
-				default:
-					throw new InvalidOperationException();
-				}
+				writer.Write(GetArgTypeString(arg));
 			}
 		}
 
@@ -155,7 +145,7 @@ namespace Generator.Encoder.Rust {
 			case MethodArgType.UInt16:
 			case MethodArgType.Int32:
 			case MethodArgType.UInt32:
-			case MethodArgType.PreferedInt32:
+			case MethodArgType.PreferredInt32:
 			case MethodArgType.ByteSlice:
 			case MethodArgType.WordSlice:
 			case MethodArgType.DwordSlice:
@@ -183,6 +173,9 @@ namespace Generator.Encoder.Rust {
 				throw new ArgumentOutOfRangeException(nameof(type));
 			}
 		}
+
+		public static string GetRustOverloadedCreateName(CreateMethod method) => GetRustOverloadedCreateName(method.Args.Count - 1);
+		public static string GetRustOverloadedCreateName(int argCount) => argCount == 0 ? "with" : "with" + argCount.ToString();
 
 		public string GetCreateName(CreateMethod method, GenCreateNameArgs genNames) => GetCreateName(sb, method, genNames);
 
@@ -219,7 +212,7 @@ namespace Generator.Encoder.Rust {
 				case MethodArgType.RepPrefixKind:
 				case MethodArgType.UInt8:
 				case MethodArgType.UInt16:
-				case MethodArgType.PreferedInt32:
+				case MethodArgType.PreferredInt32:
 				case MethodArgType.ArrayIndex:
 				case MethodArgType.ArrayLength:
 				case MethodArgType.ByteArray:

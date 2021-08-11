@@ -30,11 +30,10 @@ namespace Generator.Tables.Rust {
 					throw new InvalidOperationException();
 				values[info.index] = info.enumValue;
 			}
-			var codeName = genTypes[TypeIds.Code].Name(idConverter);
 			var invalid = genTypes[TypeIds.Code][nameof(Code.INVALID)];
 			foreach (var value in values) {
 				var enumValue = value ?? invalid;
-				writer.WriteLine($"{codeName}::{enumValue.Name(idConverter)},");
+				writer.WriteLine($"{idConverter.ToDeclTypeAndValue(enumValue)},");
 			}
 		}
 	}
