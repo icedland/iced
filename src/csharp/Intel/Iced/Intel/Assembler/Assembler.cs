@@ -393,16 +393,18 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Generates multibyte NOP instructions
 		/// </summary>
-		/// <param name="amount">Number of bytes</param>
-		public void nop(int amount) {
-			if (amount < 0)
-				throw new ArgumentOutOfRangeException(nameof(amount));
-			if (amount == 0)
+		/// <param name="sizeInBytes">Size in bytes of all nops</param>
+		public void nop(int sizeInBytes) {
+			if (sizeInBytes < 0)
+				throw new ArgumentOutOfRangeException(nameof(sizeInBytes));
+			if (this.prefixFlags != PrefixFlags.None)
+				throw new InvalidOperationException("No prefixes are allowed");
+			if (sizeInBytes == 0)
 				return;
 
 			const int maxMultibyteNopInstructionLength = 9;
 
-			int cycles = Math.DivRem(amount, maxMultibyteNopInstructionLength, out int rest);
+			int cycles = Math.DivRem(sizeInBytes, maxMultibyteNopInstructionLength, out int rest);
 
 			for (int i = 0; i < cycles; i++)
 				AppendNop(maxMultibyteNopInstructionLength);
@@ -424,36 +426,35 @@ namespace Iced.Intel {
 					db(0x0F, 0x1F, 0x40, 0x00); // NOP dword ptr [eax + 00] or NOP word ptr [bx+si]
 					break;
 				case 5:
-					if (Bitness >= 32)
+					if (Bitness != 16)
 						db(0x0F, 0x1F, 0x44, 0x00, 0x00); // NOP dword ptr [eax + eax*1 + 00]
 					else
 						db(0x0F, 0x1F, 0x80, 0x00, 0x00); // NOP word ptr[bx + si]
 					break;
 				case 6:
-					if (Bitness >= 32)
+					if (Bitness != 16)
 						db(0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00); // 66 NOP dword ptr [eax + eax*1 + 00]
 					else
 						db(0x66, 0x0F, 0x1F, 0x80, 0x00, 0x00); // NOP dword ptr [bx+si]
 					break;
 				case 7:
-					if (Bitness >= 32)
+					if (Bitness != 16)
 						db(0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00); // NOP dword ptr [eax + 00000000]
 					else
 						db(0x67, 0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00); // NOP dword ptr [eax+eax]
 					break;
 				case 8:
-					if (Bitness >= 32)
+					if (Bitness != 16)
 						db(0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // NOP dword ptr [eax + eax*1 + 00000000]
 					else
 						db(0x67, 0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00); // NOP word ptr [eax]
 					break;
 				case 9:
-					if (Bitness >= 32)
+					if (Bitness != 16)
 						db(0x66, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // 66 NOP dword ptr [eax + eax*1 + 00000000] 	
 					else
 						db(0x67, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // NOP word ptr [eax+eax]	
 					break;
-
 				}
 			}
 		}

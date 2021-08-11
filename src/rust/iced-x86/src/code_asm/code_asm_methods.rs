@@ -5,8 +5,6 @@
 // putting all generated methods (thousands of methods) ahead of non-generated fns
 // such as the constructor, prefix fns, etc.
 
-#![allow(clippy::unused_self, clippy::todo, clippy::unused_self)] //TODO:
-
 use crate::code_asm::op_state::CodeAsmOpState;
 use crate::code_asm::{CodeAssembler, CodeAssemblerOptions, CodeLabel, PrefixFlags};
 use crate::IcedError;
@@ -540,10 +538,84 @@ impl CodeAssembler {
 	/// # Arguments
 	///
 	/// * `size`: Size in bytes of all nops
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.nops_with_size(17)?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes.len(), 17);
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
-	pub fn nops_with_size(_size: usize) -> Result<(), IcedError> {
-		//TODO:
-		todo!()
+	pub fn nops_with_size(&mut self, size: usize) -> Result<(), IcedError> {
+		if self.prefix_flags != 0 {
+			return Err(IcedError::new("No prefixes are allowed"));
+		}
+
+		const MAX_NOP_LEN: usize = 9;
+		if size >= MAX_NOP_LEN {
+			let bytes = self.get_nop_bytes(MAX_NOP_LEN);
+			for _ in 0..size / MAX_NOP_LEN {
+				self.db(bytes)?;
+			}
+		}
+		match size % MAX_NOP_LEN {
+			0 => {}
+			remaining => self.db(self.get_nop_bytes(remaining))?,
+		}
+
+		Ok(())
+	}
+
+	fn get_nop_bytes(&self, size: usize) -> &'static [u8] {
+		match size {
+			1 => &[0x90],                   // NOP
+			2 => &[0x66, 0x90],             // 66 NOP
+			3 => &[0x0F, 0x1F, 0x00],       // NOP dword ptr [eax] or NOP word ptr [bx+si]
+			4 => &[0x0F, 0x1F, 0x40, 0x00], // NOP dword ptr [eax + 00] or NOP word ptr [bx+si]
+			5 => {
+				if self.bitness() != 16 {
+					&[0x0F, 0x1F, 0x44, 0x00, 0x00] // NOP dword ptr [eax + eax*1 + 00]
+				} else {
+					&[0x0F, 0x1F, 0x80, 0x00, 0x00] // NOP word ptr[bx + si]
+				}
+			}
+			6 => {
+				if self.bitness() != 16 {
+					&[0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00] // 66 NOP dword ptr [eax + eax*1 + 00]
+				} else {
+					&[0x66, 0x0F, 0x1F, 0x80, 0x00, 0x00] // NOP dword ptr [bx+si]
+				}
+			}
+			7 => {
+				if self.bitness() != 16 {
+					&[0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00] // NOP dword ptr [eax + 00000000]
+				} else {
+					&[0x67, 0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00] // NOP dword ptr [eax+eax]
+				}
+			}
+			8 => {
+				if self.bitness() != 16 {
+					&[0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00] // NOP dword ptr [eax + eax*1 + 00000000]
+				} else {
+					&[0x67, 0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00] // NOP word ptr [eax]
+				}
+			}
+			9 => {
+				if self.bitness() != 16 {
+					&[0x66, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00] // 66 NOP dword ptr [eax + eax*1 + 00000000]
+				} else {
+					&[0x67, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00] // NOP word ptr [eax+eax]
+				}
+			}
+			_ => unreachable!(),
+		}
 	}
 
 	pub(crate) fn add_instr_with_state(&mut self, mut instruction: Instruction, state: CodeAsmOpState) -> Result<(), IcedError> {
