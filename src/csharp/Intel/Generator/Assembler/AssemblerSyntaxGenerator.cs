@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Generator.Enums;
+using Generator.Enums.Decoder;
 using Generator.Enums.Formatter;
 using Generator.Formatters;
 using Generator.Tables;
@@ -23,6 +24,7 @@ namespace Generator.Assembler {
 		readonly Dictionary<EnumValue, string> mapOpCodeToNewName;
 		readonly Dictionary<EnumValue, Code> toOrigCodeValue;
 		readonly HashSet<EnumValue> ambiguousBcst;
+		readonly EnumType decoderOptions;
 		int stackDepth;
 
 		protected Code GetOrigCodeValue(EnumValue value) {
@@ -90,6 +92,7 @@ namespace Generator.Assembler {
 				list.Add(key);
 			}
 			ambiguousBcst = ambigDict.Where(a => a.Value.Count >= 2).SelectMany(a => a.Value).Select(a => a.Code).ToHashSet();
+			decoderOptions = genTypes[TypeIds.DecoderOptions];
 		}
 
 		protected const InstructionDefFlags1 BitnessMaskFlags = InstructionDefFlags1.Bit64 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit16;
@@ -1782,6 +1785,33 @@ namespace Generator.Assembler {
 					}
 				}
 			}
+		}
+
+		protected List<EnumValue> GetDecoderOptions(int bitness, InstructionDef def) {
+			var list = new List<EnumValue>();
+
+			if (def.DecoderOption.Value != 0)
+				list.Add(decoderOptions[def.DecoderOption.RawName]);
+			switch (bitness) {
+			case 16:
+				if ((def.Flags2 & InstructionDefFlags2.IntelDecoder16) == 0 && (def.Flags2 & InstructionDefFlags2.AmdDecoder16) != 0)
+					list.Add(decoderOptions[nameof(DecoderOptions.AMD)]);
+				break;
+			case 32:
+				if ((def.Flags2 & InstructionDefFlags2.IntelDecoder32) == 0 && (def.Flags2 & InstructionDefFlags2.AmdDecoder32) != 0)
+					list.Add(decoderOptions[nameof(DecoderOptions.AMD)]);
+				break;
+			case 64:
+				if ((def.Flags2 & InstructionDefFlags2.IntelDecoder64) == 0 && (def.Flags2 & InstructionDefFlags2.AmdDecoder64) != 0)
+					list.Add(decoderOptions[nameof(DecoderOptions.AMD)]);
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
+			if ((def.Flags3 & InstructionDefFlags3.ReservedNop) != 0)
+				list.Add(decoderOptions[nameof(DecoderOptions.ForceReservedNop)]);
+
+			return list;
 		}
 
 		protected readonly struct OpCodeNode {

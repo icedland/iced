@@ -1027,8 +1027,16 @@ namespace Generator.Assembler.CSharp {
 			var assemblerArgsStr = string.Join(", ", assemblerArgs);
 			var instructionCreateArgsStr = instructionCreateArgs.Count > 0 ? $", {string.Join(", ", instructionCreateArgs)}" : string.Empty;
 			var optionalOpCodeFlagsStr = optionalOpCodeFlags.Count > 0 ? $", {string.Join(" | ", optionalOpCodeFlags)}" : string.Empty;
+			var decoderOptions = GetDecoderOptions(bitness, def);
+			string decoderOptionsStr;
+			if (decoderOptions.Count != 0) {
+				var options = string.Join(" | ", decoderOptions.Select(x => idConverter.ToDeclTypeAndValue(x)));
+				decoderOptionsStr = $", decoderOptions: {options}";
+			}
+			else
+				decoderOptionsStr = string.Empty;
 
-			writer.WriteLine($"TestAssembler(c => c.{methodName}({assemblerArgsStr}), {beginInstruction}{instructionCreateArgsStr}{endInstruction}{optionalOpCodeFlagsStr});");
+			writer.WriteLine($"TestAssembler(c => c.{methodName}({assemblerArgsStr}), {beginInstruction}{instructionCreateArgsStr}{endInstruction}{optionalOpCodeFlagsStr}{decoderOptionsStr});");
 			return true;
 		}
 

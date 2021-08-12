@@ -16,7 +16,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		public int Bitness => bitness;
 
-		protected void TestAssembler(Action<Assembler> fAsm, Instruction expectedInst, LocalOpCodeFlags flags = LocalOpCodeFlags.None) {
+		protected void TestAssembler(Action<Assembler> fAsm, Instruction expectedInst, LocalOpCodeFlags flags = LocalOpCodeFlags.None,
+			DecoderOptions decoderOptions = DecoderOptions.None) {
 			var assembler = new Assembler(bitness);
 
 			// Encode the instruction
@@ -44,28 +45,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			if ((flags & LocalOpCodeFlags.IgnoreCode) != 0)
 				expectedInst.Code = inst.Code;
 			Assert.Equal(expectedInst, inst);
-
-			// Special for decoding options
-			var opCode = inst.Code.ToOpCode();
-			var decoderOptions = opCode.DecoderOption;
-			switch (bitness) {
-			case 16:
-				if (!opCode.IntelDecoder16 && opCode.AmdDecoder16)
-					decoderOptions |= DecoderOptions.AMD;
-				break;
-			case 32:
-				if (!opCode.IntelDecoder32 && opCode.AmdDecoder32)
-					decoderOptions |= DecoderOptions.AMD;
-				break;
-			case 64:
-				if (!opCode.IntelDecoder64 && opCode.AmdDecoder64)
-					decoderOptions |= DecoderOptions.AMD;
-				break;
-			default:
-				throw new InvalidOperationException();
-			}
-			if (opCode.IsReservedNop)
-				decoderOptions |= DecoderOptions.ForceReservedNop;
 
 			// Check decoding back against the original instruction
 			var instructionAsBytes = new System.Text.StringBuilder();
