@@ -289,46 +289,6 @@ impl AsmMemoryOperand {
 		self
 	}
 
-	/// Enables suppress all exceptions `{sae}`
-	#[must_use]
-	#[inline]
-	pub fn sae(mut self) -> Self {
-		self.state.set_suppress_all_exceptions();
-		self
-	}
-
-	/// Round to nearest (even)
-	#[must_use]
-	#[inline]
-	pub fn rn_sae(mut self) -> Self {
-		self.state.rn_sae();
-		self
-	}
-
-	/// Round down (toward -inf)
-	#[must_use]
-	#[inline]
-	pub fn rd_sae(mut self) -> Self {
-		self.state.rd_sae();
-		self
-	}
-
-	/// Round up (toward +inf)
-	#[must_use]
-	#[inline]
-	pub fn ru_sae(mut self) -> Self {
-		self.state.ru_sae();
-		self
-	}
-
-	/// Round toward zero (truncate)
-	#[must_use]
-	#[inline]
-	pub fn rz_sae(mut self) -> Self {
-		self.state.rz_sae();
-		self
-	}
-
 	#[must_use]
 	#[inline]
 	pub(crate) fn is_displacement_only(&self) -> bool {
