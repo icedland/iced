@@ -13,6 +13,11 @@ use alloc::vec::Vec;
 use core::usize;
 
 impl CodeAssembler {
+	const MAX_DB_COUNT: usize = 16;
+	const MAX_DW_COUNT: usize = CodeAssembler::MAX_DB_COUNT / 2;
+	const MAX_DD_COUNT: usize = CodeAssembler::MAX_DB_COUNT / 4;
+	const MAX_DQ_COUNT: usize = CodeAssembler::MAX_DB_COUNT / 8;
+
 	/// Creates a new instance
 	///
 	/// # Errors
@@ -417,7 +422,7 @@ impl CodeAssembler {
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn db(&mut self, data: &[u8]) -> Result<(), IcedError> {
 		self.decl_data_verify_no_prefixes()?;
-		for bytes in data.chunks(16) {
+		for bytes in data.chunks(CodeAssembler::MAX_DB_COUNT) {
 			self.add_instr(Instruction::with_declare_byte(bytes)?)?;
 		}
 
@@ -442,17 +447,56 @@ impl CodeAssembler {
 	/// # fn main() -> Result<(), IcedError> {
 	/// let mut a = CodeAssembler::new(64)?;
 	/// a.int3()?;
-	/// a.dw(&[0x4068, 0x7956, 0xFA9F, 0x11EB, 0x9467, 0x77FA, 0x747C, 0xD088, 0x4068])?;
+	/// a.db_i(&[0x16, -0x7B, 0x10, -0x60, -0x06, -0x62, 0x11, -0x15, -0x69, 0x34, 0x3B, 0x7E, -0x49, 0x2B, -0x6E, 0x63, 0x16, -0x7B])?;
 	/// a.nop()?;
 	/// let bytes = a.assemble(0x1234_5678)?;
-	/// assert_eq!(bytes, b"\xCC\x68\x40\x56\x79\x9F\xFA\xEB\x11\x67\x94\xFA\x77\x7C\x74\x88\xD0\x68\x40\x90");
+	/// assert_eq!(bytes, b"\xCC\x16\x85\x10\xA0\xFA\x9E\x11\xEB\x97\x34\x3B\x7E\xB7\x2B\x92\x63\x16\x85\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn db_i(&mut self, data: &[i8]) -> Result<(), IcedError> {
+		self.decl_data_verify_no_prefixes()?;
+		let mut tmp = [0; CodeAssembler::MAX_DB_COUNT];
+		for bytes in data.chunks(CodeAssembler::MAX_DB_COUNT) {
+			for (t, b) in tmp.iter_mut().zip(bytes.iter()) {
+				*t = *b as u8;
+			}
+			self.add_instr(Instruction::with_declare_byte(&tmp[0..bytes.len()])?)?;
+		}
+
+		Ok(())
+	}
+
+	/// Adds data
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
+	///
+	/// # Arguments
+	///
+	/// * `data`: The data that will be added at the current position
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.int3()?;
+	/// a.dw(&[0x4068, 0x7956, 0xFA9F, 0x11EB, 0x9467, 0x77FA, 0x747C, 0xD088, 0x7D7E])?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xCC\x68\x40\x56\x79\x9F\xFA\xEB\x11\x67\x94\xFA\x77\x7C\x74\x88\xD0\x7E\x7D\x90");
 	/// # Ok(())
 	/// # }
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn dw(&mut self, data: &[u16]) -> Result<(), IcedError> {
 		self.decl_data_verify_no_prefixes()?;
-		for words in data.chunks(16 / 2) {
+		for words in data.chunks(CodeAssembler::MAX_DW_COUNT) {
 			self.add_instr(Instruction::with_declare_word(words)?)?;
 		}
 
@@ -477,17 +521,56 @@ impl CodeAssembler {
 	/// # fn main() -> Result<(), IcedError> {
 	/// let mut a = CodeAssembler::new(64)?;
 	/// a.int3()?;
-	/// a.dd(&[0x40687956, 0xFA9F11EB, 0x946777FA, 0x747CD088, 0x40687C58])?;
+	/// a.dw_i(&[0x4068, 0x7956, -0x0561, 0x11EB, -0x6B99, 0x77FA, 0x747C, -0x2F78, 0x7D7E])?;
 	/// a.nop()?;
 	/// let bytes = a.assemble(0x1234_5678)?;
-	/// assert_eq!(bytes, b"\xCC\x56\x79\x68\x40\xEB\x11\x9F\xFA\xFA\x77\x67\x94\x88\xD0\x7C\x74\x58\x7C\x68\x40\x90");
+	/// assert_eq!(bytes, b"\xCC\x68\x40\x56\x79\x9F\xFA\xEB\x11\x67\x94\xFA\x77\x7C\x74\x88\xD0\x7E\x7D\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn dw_i(&mut self, data: &[i16]) -> Result<(), IcedError> {
+		self.decl_data_verify_no_prefixes()?;
+		let mut tmp = [0; CodeAssembler::MAX_DW_COUNT];
+		for words in data.chunks(CodeAssembler::MAX_DW_COUNT) {
+			for (t, w) in tmp.iter_mut().zip(words.iter()) {
+				*t = *w as u16;
+			}
+			self.add_instr(Instruction::with_declare_word(&tmp[0..words.len()])?)?;
+		}
+
+		Ok(())
+	}
+
+	/// Adds data
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
+	///
+	/// # Arguments
+	///
+	/// * `data`: The data that will be added at the current position
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.int3()?;
+	/// a.dd(&[0x40687956, 0xFA9F11EB, 0x946777FA, 0x747CD088, 0x7D7E7C58])?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xCC\x56\x79\x68\x40\xEB\x11\x9F\xFA\xFA\x77\x67\x94\x88\xD0\x7C\x74\x58\x7C\x7E\x7D\x90");
 	/// # Ok(())
 	/// # }
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn dd(&mut self, data: &[u32]) -> Result<(), IcedError> {
 		self.decl_data_verify_no_prefixes()?;
-		for dwords in data.chunks(16 / 4) {
+		for dwords in data.chunks(CodeAssembler::MAX_DD_COUNT) {
 			self.add_instr(Instruction::with_declare_dword(dwords)?)?;
 		}
 
@@ -512,18 +595,174 @@ impl CodeAssembler {
 	/// # fn main() -> Result<(), IcedError> {
 	/// let mut a = CodeAssembler::new(64)?;
 	/// a.int3()?;
-	/// a.dq(&[0x40687956FA9F11EB, 0x946777FA747CD088, 0x40687C58FA9F11EB])?;
+	/// a.dd_i(&[0x40687956, -0x0560EE15, -0x6B988806, 0x747CD088, 0x7D7E7C58])?;
 	/// a.nop()?;
 	/// let bytes = a.assemble(0x1234_5678)?;
-	/// assert_eq!(bytes, b"\xCC\xEB\x11\x9F\xFA\x56\x79\x68\x40\x88\xD0\x7C\x74\xFA\x77\x67\x94\xEB\x11\x9F\xFA\x58\x7C\x68\x40\x90");
+	/// assert_eq!(bytes, b"\xCC\x56\x79\x68\x40\xEB\x11\x9F\xFA\xFA\x77\x67\x94\x88\xD0\x7C\x74\x58\x7C\x7E\x7D\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn dd_i(&mut self, data: &[i32]) -> Result<(), IcedError> {
+		self.decl_data_verify_no_prefixes()?;
+		let mut tmp = [0; CodeAssembler::MAX_DD_COUNT];
+		for dwords in data.chunks(CodeAssembler::MAX_DD_COUNT) {
+			for (t, d) in tmp.iter_mut().zip(dwords.iter()) {
+				*t = *d as u32;
+			}
+			self.add_instr(Instruction::with_declare_dword(&tmp[0..dwords.len()])?)?;
+		}
+
+		Ok(())
+	}
+
+	/// Adds data
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
+	///
+	/// # Arguments
+	///
+	/// * `data`: The data that will be added at the current position
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.int3()?;
+	/// a.dd_f32(&[3.14, -1234.5678, 1e12, -3.14, 1234.5678, -1e12])?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xCC\xC3\xF5\x48\x40\x2B\x52\x9A\xC4\xA5\xD4\x68\x53\xC3\xF5\x48\xC0\x2B\x52\x9A\x44\xA5\xD4\x68\xD3\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn dd_f32(&mut self, data: &[f32]) -> Result<(), IcedError> {
+		self.decl_data_verify_no_prefixes()?;
+		let mut tmp = [0; CodeAssembler::MAX_DD_COUNT];
+		for dwords in data.chunks(CodeAssembler::MAX_DD_COUNT) {
+			for (t, d) in tmp.iter_mut().zip(dwords.iter()) {
+				*t = f32::to_bits(*d);
+			}
+			self.add_instr(Instruction::with_declare_dword(&tmp[0..dwords.len()])?)?;
+		}
+
+		Ok(())
+	}
+
+	/// Adds data
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
+	///
+	/// # Arguments
+	///
+	/// * `data`: The data that will be added at the current position
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.int3()?;
+	/// a.dq(&[0x40687956FA9F11EB, 0x946777FA747CD088, 0x7D7E7C5814C2BA6E])?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xCC\xEB\x11\x9F\xFA\x56\x79\x68\x40\x88\xD0\x7C\x74\xFA\x77\x67\x94\x6E\xBA\xC2\x14\x58\x7C\x7E\x7D\x90");
 	/// # Ok(())
 	/// # }
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn dq(&mut self, data: &[u64]) -> Result<(), IcedError> {
 		self.decl_data_verify_no_prefixes()?;
-		for qwords in data.chunks(16 / 8) {
+		for qwords in data.chunks(CodeAssembler::MAX_DQ_COUNT) {
 			self.add_instr(Instruction::with_declare_qword(qwords)?)?;
+		}
+
+		Ok(())
+	}
+
+	/// Adds data
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
+	///
+	/// # Arguments
+	///
+	/// * `data`: The data that will be added at the current position
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.int3()?;
+	/// a.dq_i(&[0x40687956FA9F11EB, -0x6B9888058B832F78, 0x7D7E7C5814C2BA6E])?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xCC\xEB\x11\x9F\xFA\x56\x79\x68\x40\x88\xD0\x7C\x74\xFA\x77\x67\x94\x6E\xBA\xC2\x14\x58\x7C\x7E\x7D\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn dq_i(&mut self, data: &[i64]) -> Result<(), IcedError> {
+		self.decl_data_verify_no_prefixes()?;
+		let mut tmp = [0; CodeAssembler::MAX_DQ_COUNT];
+		for qwords in data.chunks(CodeAssembler::MAX_DQ_COUNT) {
+			for (t, q) in tmp.iter_mut().zip(qwords.iter()) {
+				*t = *q as u64;
+			}
+			self.add_instr(Instruction::with_declare_qword(&tmp[0..qwords.len()])?)?;
+		}
+
+		Ok(())
+	}
+
+	/// Adds data
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
+	///
+	/// # Arguments
+	///
+	/// * `data`: The data that will be added at the current position
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.int3()?;
+	/// a.dq_f64(&[3.14, -1234.5678, 1e123])?;
+	/// a.nop()?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xCC\x1F\x85\xEB\x51\xB8\x1E\x09\x40\xAD\xFA\x5C\x6D\x45\x4A\x93\xC0\xF1\x72\xF8\xA5\x25\x34\x78\x59\x90");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn dq_f64(&mut self, data: &[f64]) -> Result<(), IcedError> {
+		self.decl_data_verify_no_prefixes()?;
+		let mut tmp = [0; CodeAssembler::MAX_DQ_COUNT];
+		for qwords in data.chunks(CodeAssembler::MAX_DQ_COUNT) {
+			for (t, q) in tmp.iter_mut().zip(qwords.iter()) {
+				*t = f64::to_bits(*q);
+			}
+			self.add_instr(Instruction::with_declare_qword(&tmp[0..qwords.len()])?)?;
 		}
 
 		Ok(())
