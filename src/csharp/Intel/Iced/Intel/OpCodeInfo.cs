@@ -12,6 +12,7 @@ namespace Iced.Intel {
 	/// Opcode info
 	/// </summary>
 	public sealed class OpCodeInfo {
+#pragma warning disable CS0649
 		readonly string toOpCodeStringValue;
 		readonly string toInstructionStringValue;
 		readonly EncFlags2 encFlags2;
@@ -34,6 +35,7 @@ namespace Iced.Intel {
 		readonly byte op3Kind;
 		readonly byte op4Kind;
 		readonly Flags flags;
+#pragma warning restore CS0649
 
 		[Flags]
 		enum Flags : uint {

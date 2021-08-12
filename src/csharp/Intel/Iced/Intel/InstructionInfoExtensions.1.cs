@@ -6,6 +6,9 @@ using System.Runtime.CompilerServices;
 using Iced.Intel.InstructionInfoInternal;
 
 namespace Iced.Intel {
+	/// <summary>
+	/// Extension methods
+	/// </summary>
 	public static partial class InstructionInfoExtensions {
 		/// <summary>
 		/// Gets the encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
