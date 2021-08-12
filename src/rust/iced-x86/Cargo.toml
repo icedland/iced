@@ -11,6 +11,8 @@ readme = "README.md"
 # At most 5 keywords can be used
 keywords = ["disassembler", "assembler", "x86", "amd64", "x86_64"]
 categories = ["no-std", "development-tools::debugging", "encoding", "hardware-support", "wasm"]
+# Don't include the tests when uploading to crates.io
+exclude = ["/src/**/test/", "/src/**/tests/", "/src/**/test_utils/"]
 
 # These features are documented in README.md / lib.rs
 [features]
