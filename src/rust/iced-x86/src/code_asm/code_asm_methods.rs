@@ -259,13 +259,6 @@ impl CodeAssembler {
 		CodeLabel::new(self.current_label_id)
 	}
 
-	/// Gets the current label
-	#[must_use]
-	#[inline]
-	pub fn current_label(&self) -> CodeLabel {
-		self.current_label
-	}
-
 	/// Initializes the label to the next instruction
 	///
 	/// # Errors
