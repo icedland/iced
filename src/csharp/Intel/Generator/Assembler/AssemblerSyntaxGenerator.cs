@@ -327,7 +327,7 @@ namespace Generator.Assembler {
 						case 16:
 						case 32:
 							argKind = ArgKind.Label;
-							opCodeArgFlags |= OpCodeArgFlags.HasBranchNear;
+							opCodeArgFlags |= OpCodeArgFlags.HasNearBranch;
 							opCodeArgFlags |= OpCodeArgFlags.HasLabel;
 							break;
 						default:
@@ -548,7 +548,7 @@ namespace Generator.Assembler {
 					var branchNear = new List<InstructionDef>();
 					CollectByOperandKindPredicate(opcodes, IsShortBranch, branchShort, branchNear);
 					if (branchShort.Count > 0 && branchNear.Count > 0) {
-						var newFlags = argFlags & ~(OpCodeArgFlags.HasShortBranch | OpCodeArgFlags.HasBranchNear);
+						var newFlags = argFlags & ~(OpCodeArgFlags.HasShortBranch | OpCodeArgFlags.HasNearBranch);
 						return new OpCodeSelector(OpCodeSelectorKind.ShortBranch) {
 							IfTrue = BuildSelectorGraph(group, signature, newFlags, branchShort),
 							IfFalse = BuildSelectorGraph(group, signature, newFlags, branchNear)
@@ -1112,7 +1112,7 @@ namespace Generator.Assembler {
 			HasImmediateByteSignExtended = 1 << 2,
 			HasLabel = 1 << 3,
 			HasShortBranch = 1 << 4,
-			HasBranchNear = 1 << 5,
+			HasNearBranch = 1 << 5,
 			HasVex = 1 << 6,
 			HasEvex = 1 << 7,
 			HasRegisterMemoryMappedToRegister = 1 << 8,
@@ -1632,7 +1632,7 @@ namespace Generator.Assembler {
 			public int PseudoOpsKindImmediateValue { get; }
 			public bool HasLabel => (Flags & OpCodeArgFlags.HasLabel) != 0;
 			public bool HasSpecialInstructionEncoding => (Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0;
-			public bool IsBranch => (Flags & (OpCodeArgFlags.HasShortBranch | OpCodeArgFlags.HasBranchNear)) != 0;
+			public bool IsBranch => (Flags & (OpCodeArgFlags.HasShortBranch | OpCodeArgFlags.HasNearBranch)) != 0;
 			public bool HasRegisterMemoryMappedToRegister => (Flags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) != 0;
 			public bool HasVexAndEvex => (Flags & (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) == (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex);
 			public bool HasImmediateUnsigned => (Flags & OpCodeArgFlags.HasImmediateUnsigned) != 0;
@@ -1735,7 +1735,7 @@ namespace Generator.Assembler {
 				OpCodeSelectorKind.Vex => (OpCodeArgFlags.HasVex, OpCodeArgFlags.HasEvex),
 				OpCodeSelectorKind.EvexBroadcastX or OpCodeSelectorKind.EvexBroadcastY or
 				OpCodeSelectorKind.EvexBroadcastZ => (OpCodeArgFlags.HasEvex | OpCodeArgFlags.HasBroadcast, OpCodeArgFlags.None),
-				OpCodeSelectorKind.ShortBranch => (OpCodeArgFlags.HasShortBranch, OpCodeArgFlags.HasBranchNear),
+				OpCodeSelectorKind.ShortBranch => (OpCodeArgFlags.HasShortBranch, OpCodeArgFlags.HasNearBranch),
 				_ => (OpCodeArgFlags.None, OpCodeArgFlags.None),
 			};
 

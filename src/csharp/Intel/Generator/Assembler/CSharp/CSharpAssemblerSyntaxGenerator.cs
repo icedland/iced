@@ -996,7 +996,7 @@ namespace Generator.Assembler.CSharp {
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.Broadcast");
 			if ((contextFlags & OpCodeArgFlags.HasShortBranch) != 0)
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferShortBranch");
-			if ((contextFlags & OpCodeArgFlags.HasBranchNear) != 0)
+			if ((contextFlags & OpCodeArgFlags.HasNearBranch) != 0)
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferNearBranch");
 			if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0)
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.Fwait");
