@@ -23,10 +23,6 @@ use alloc::vec::Vec;
 use core::hash::{Hash, Hasher};
 use core::usize;
 
-mod private {
-	pub trait Sealed {}
-}
-
 struct PrefixFlags;
 impl PrefixFlags {
 	const NONE: u8 = 0x00;
