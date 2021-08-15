@@ -1718,7 +1718,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void call_l() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.call(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Call_rel32_64, 1), 1), LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.call(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Call_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -1737,14 +1737,14 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void ccs_encrypt() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.ccs_encrypt(), Instruction.Create(Code.Ccs_encrypt_64));
+				TestAssembler(c => c.ccs_encrypt(), Instruction.Create(Code.Ccs_encrypt_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void ccs_hash() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.ccs_hash(), Instruction.Create(Code.Ccs_hash_64));
+				TestAssembler(c => c.ccs_hash(), Instruction.Create(Code.Ccs_hash_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -4980,10 +4980,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void ja_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.ja(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Ja_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.ja(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Ja_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.ja(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Ja_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.ja(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Ja_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5002,10 +5002,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jae_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jae(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jae_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jae(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jae_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jae(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jae_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jae(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jae_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5024,10 +5024,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jb_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jb(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jb_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jb(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jb_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jb(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jb_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jb(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jb_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5046,10 +5046,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jbe_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jbe_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jbe_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jbe_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jbe_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5068,10 +5068,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void je_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.je(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Je_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.je(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Je_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.je(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Je_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.je(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Je_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5090,10 +5090,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jg_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jg(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jg_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jg(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jg_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jg(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jg_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jg(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jg_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5112,10 +5112,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jge_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jge(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jge_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jge(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jge_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jge(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jge_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jge(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jge_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5134,10 +5134,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jl_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jl(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jl_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jl(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jl_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jl(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jl_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jl(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jl_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5156,10 +5156,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jle_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jle(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jle_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jle(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jle_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jle(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jle_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jle(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jle_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5212,10 +5212,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jmp_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmp_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmp_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmp_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmp_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5234,10 +5234,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jne_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jne_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jne_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jne_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jne_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5256,10 +5256,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jno_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jno(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jno_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jno(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jno_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jno(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jno_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jno(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jno_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5278,10 +5278,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jnp_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jnp_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jnp_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jnp_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jnp_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5300,10 +5300,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jns_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jns(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jns_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jns(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jns_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jns(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jns_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jns(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jns_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5322,10 +5322,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jo_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jo(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jo_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jo(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jo_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jo(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jo_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jo(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jo_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5344,10 +5344,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jp_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.jp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jp_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.jp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jp_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.jp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jp_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jp(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jp_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5364,7 +5364,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jrcxz_l() {
-			TestAssembler(c => c.jrcxz(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jrcxz_rel8_64, 1), 1), LocalOpCodeFlags.Branch);
+			TestAssembler(c => c.jrcxz(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jrcxz_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.Branch);
 		}
 
 		[Fact]
@@ -5376,10 +5376,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void js_l() {
 			{ /* if (PreferShortBranch) */
 				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.js(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Js_rel8_64, 1), 1), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
+					TestAssembler(c => c.js(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Js_rel8_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferShortBranch | LocalOpCodeFlags.Branch);
 				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 			} /* else */ { /* if (Bitness == 64) */
-				TestAssembler(c => c.js(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Js_rel32_64, 1), 1), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.js(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Js_rel32_64, FirstLabelId), FirstLabelId), LocalOpCodeFlags.PreferNearBranch | LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -5989,7 +5989,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void loop_l() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.loop(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loop_rel8_64_RCX, 1), 1), LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.loop(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loop_rel8_64_RCX, FirstLabelId), FirstLabelId), LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -6003,7 +6003,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void loope_l() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.loope(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loope_rel8_64_RCX, 1), 1), LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.loope(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loope_rel8_64_RCX, FirstLabelId), FirstLabelId), LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -6017,7 +6017,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void loopne_l() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.loopne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loopne_rel8_64_RCX, 1), 1), LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.loopne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loopne_rel8_64_RCX, FirstLabelId), FirstLabelId), LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -6317,7 +6317,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void montmul() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.montmul(), Instruction.Create(Code.Montmul_64));
+				TestAssembler(c => c.montmul(), Instruction.Create(Code.Montmul_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -47870,35 +47870,35 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void xcryptcbc() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xcryptcbc(), Instruction.Create(Code.Xcryptcbc_64));
+				TestAssembler(c => c.xcryptcbc(), Instruction.Create(Code.Xcryptcbc_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void xcryptcfb() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xcryptcfb(), Instruction.Create(Code.Xcryptcfb_64));
+				TestAssembler(c => c.xcryptcfb(), Instruction.Create(Code.Xcryptcfb_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void xcryptctr() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xcryptctr(), Instruction.Create(Code.Xcryptctr_64));
+				TestAssembler(c => c.xcryptctr(), Instruction.Create(Code.Xcryptctr_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void xcryptecb() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xcryptecb(), Instruction.Create(Code.Xcryptecb_64));
+				TestAssembler(c => c.xcryptecb(), Instruction.Create(Code.Xcryptecb_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void xcryptofb() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xcryptofb(), Instruction.Create(Code.Xcryptofb_64));
+				TestAssembler(c => c.xcryptofb(), Instruction.Create(Code.Xcryptofb_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -48176,21 +48176,21 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void xsha1() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xsha1(), Instruction.Create(Code.Xsha1_64));
+				TestAssembler(c => c.xsha1(), Instruction.Create(Code.Xsha1_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void xsha256() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xsha256(), Instruction.Create(Code.Xsha256_64));
+				TestAssembler(c => c.xsha256(), Instruction.Create(Code.Xsha256_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void xstore() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xstore(), Instruction.Create(Code.Xstore_64));
+				TestAssembler(c => c.xstore(), Instruction.Create(Code.Xstore_64), LocalOpCodeFlags.RemoveRepRepnePrefixes);
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 

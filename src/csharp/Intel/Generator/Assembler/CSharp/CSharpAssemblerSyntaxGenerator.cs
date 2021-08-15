@@ -1002,6 +1002,13 @@ namespace Generator.Assembler.CSharp {
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.Fwait");
 			if (group.HasLabel)
 				optionalOpCodeFlags.Add((group.Flags & OpCodeArgFlags.HasLabelUlong) == 0 ? "LocalOpCodeFlags.Branch" : "LocalOpCodeFlags.BranchUlong");
+			foreach (var cpuid in def.Cpuid) {
+				if (cpuid.RawName.Contains("PADLOCK", StringComparison.Ordinal)) {
+					// They're mandatory prefix instructions but the REP prefix isn't cleared since it's shown in disassembly
+					optionalOpCodeFlags.Add("LocalOpCodeFlags.RemoveRepRepnePrefixes");
+					break;
+				}
+			}
 
 			if (group.ParentPseudoOpsKind is not null)
 				instructionCreateArgs.Add($"{group.PseudoOpsKindImmediateValue}");
@@ -1047,7 +1054,7 @@ namespace Generator.Assembler.CSharp {
 			case OperandEncoding.AbsNearBranch:
 				if (arg.Kind == ArgKind.LabelUlong)
 					return "12752";
-				return isAssembler ? "CreateAndEmitLabel(c)" : "1"; // First id of label starts at 1
+				return isAssembler ? "CreateAndEmitLabel(c)" : "FirstLabelId";
 
 			case OperandEncoding.Immediate:
 				return (def.ImmediateSize, def.ImmediateSignExtSize) switch {
