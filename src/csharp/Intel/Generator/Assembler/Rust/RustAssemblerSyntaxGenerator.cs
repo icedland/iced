@@ -853,7 +853,7 @@ namespace Generator.Assembler.Rust {
 				OpCodeSelectorKind.Bitness16 => "self.bitness() >= 16",
 				OpCodeSelectorKind.ShortBranch => "self.prefer_short_branch()",
 				OpCodeSelectorKind.ImmediateByteEqual1 => $"{argName} == 1",
-				OpCodeSelectorKind.ImmediateByteSigned8 or OpCodeSelectorKind.ImmediateByteSigned8To32 => argKind == ArgKind.ImmediateUnsigned ?
+				OpCodeSelectorKind.ImmediateByteSigned8To32 or OpCodeSelectorKind.ImmediateByteSigned8To64 => argKind == ArgKind.ImmediateUnsigned ?
 					$"{argName} <= i8::MAX as {argType} || 0xFFFF_FF80 <= {argName}" :
 					$"{argName} >= i8::MIN as {argType} && {argName} <= i8::MAX as {argType}",
 				OpCodeSelectorKind.ImmediateByteSigned8To16 => argKind == ArgKind.ImmediateUnsigned ?
@@ -916,6 +916,22 @@ namespace Generator.Assembler.Rust {
 
 		void GenerateTests(TraitGroup[] traitGroups) {
 			//TODO:
+		}
+
+		protected override TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, ulong address) {
+			throw new InvalidOperationException(); //TODO:
+		}
+
+		protected override TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, Register @base, Register index, int scale, int displ) {
+			throw new InvalidOperationException(); //TODO:
+		}
+
+		protected override TestArgValueBitness RegToTestArgValue(Register register) {
+			throw new InvalidOperationException(); //TODO:
+		}
+
+		protected override TestArgValueBitness ImmToTestArgValue(int immediate, int immSizeBits, int argSizeBits, bool argIsSigned) {
+			throw new InvalidOperationException(); //TODO:
 		}
 	}
 }

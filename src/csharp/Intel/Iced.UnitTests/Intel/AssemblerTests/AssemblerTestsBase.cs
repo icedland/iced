@@ -83,7 +83,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			if (asmInstr.Code != Code.Jmpe_disp16 && asmInstr.Code != Code.Jmpe_disp32 && (flags & TestInstrFlags.Branch) != 0)
 				asmInstr.NearBranch64 = 0;
 
-			// Short branches can be fixed if the target is too far away.
+			// Short branches can be re-written if the target is too far away.
 			// Eg. `loopne target` => `loopne jmpt; jmp short skip; jmpt: jmp near target; skip:`
 			if ((flags & TestInstrFlags.BranchU64) != 0) {
 				asmInstr.Code = asmInstr.Code.ToShortBranch();
