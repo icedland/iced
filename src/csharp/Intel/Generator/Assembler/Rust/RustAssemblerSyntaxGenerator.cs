@@ -630,7 +630,7 @@ namespace Generator.Assembler.Rust {
 					_ => throw new InvalidOperationException(),
 				},
 				ArgKind.Label => CodeLabel,
-				ArgKind.LabelUlong => "u64",
+				ArgKind.LabelU64 => "u64",
 				_ => throw new InvalidOperationException($"Invalid arg kind: {argKind}"),
 			};
 
@@ -860,9 +860,8 @@ namespace Generator.Assembler.Rust {
 					$"{argName} <= i8::MAX as {argType} || (0xFF80 <= {argName} && {argName} <= 0xFFFF)" :
 					$"{argName} >= i8::MIN as {argType} && {argName} <= i8::MAX as {argType}",
 				OpCodeSelectorKind.Vex => "self.prefer_vex()",
-				OpCodeSelectorKind.EvexBroadcastX => $"{argName}.is_broadcast()",
-				OpCodeSelectorKind.EvexBroadcastY => $"{argName}.is_broadcast()",
-				OpCodeSelectorKind.EvexBroadcastZ => $"{argName}.is_broadcast()",
+				OpCodeSelectorKind.EvexBroadcastX or OpCodeSelectorKind.EvexBroadcastY or OpCodeSelectorKind.EvexBroadcastZ =>
+					$"{argName}.is_broadcast()",
 				OpCodeSelectorKind.RegisterCL => $"{argName}.register() == {GetRegisterString(nameof(Register.CL))}",
 				OpCodeSelectorKind.RegisterAL => $"{argName}.register() == {GetRegisterString(nameof(Register.AL))}",
 				OpCodeSelectorKind.RegisterAX => $"{argName}.register() == {GetRegisterString(nameof(Register.AX))}",
@@ -902,12 +901,9 @@ namespace Generator.Assembler.Rust {
 				OpCodeSelectorKind.MemoryXMM => $"{argName}.size() == {GetMemOpSizeString(nameof(MemoryOperandSize.Xword))}",
 				OpCodeSelectorKind.MemoryYMM => $"{argName}.size() == {GetMemOpSizeString(nameof(MemoryOperandSize.Yword))}",
 				OpCodeSelectorKind.MemoryZMM => $"{argName}.size() == {GetMemOpSizeString(nameof(MemoryOperandSize.Zword))}",
-				OpCodeSelectorKind.MemoryIndex32Xmm => $"{argName}.index().is_xmm()",
-				OpCodeSelectorKind.MemoryIndex64Xmm => $"{argName}.index().is_xmm()",
-				OpCodeSelectorKind.MemoryIndex32Ymm => $"{argName}.index().is_ymm()",
-				OpCodeSelectorKind.MemoryIndex64Ymm => $"{argName}.index().is_ymm()",
-				OpCodeSelectorKind.MemoryIndex32Zmm => $"{argName}.index().is_zmm()",
-				OpCodeSelectorKind.MemoryIndex64Zmm => $"{argName}.index().is_zmm()",
+				OpCodeSelectorKind.MemoryIndex32Xmm or OpCodeSelectorKind.MemoryIndex64Xmm => $"{argName}.index().is_xmm()",
+				OpCodeSelectorKind.MemoryIndex32Ymm or OpCodeSelectorKind.MemoryIndex64Ymm => $"{argName}.index().is_ymm()",
+				OpCodeSelectorKind.MemoryIndex32Zmm or OpCodeSelectorKind.MemoryIndex64Zmm => $"{argName}.index().is_zmm()",
 				_ => throw new InvalidOperationException(),
 			};
 		}

@@ -25,6 +25,7 @@ namespace Generator.Assembler {
 		readonly Dictionary<EnumValue, Code> toOrigCodeValue;
 		readonly HashSet<EnumValue> ambiguousBcst;
 		readonly EnumType decoderOptions;
+		readonly EnumType testInstrFlags;
 		int stackDepth;
 
 		protected Code GetOrigCodeValue(EnumValue value) {
@@ -93,6 +94,7 @@ namespace Generator.Assembler {
 			}
 			ambiguousBcst = ambigDict.Where(a => a.Value.Count >= 2).SelectMany(a => a.Value).Select(a => a.Code).ToHashSet();
 			decoderOptions = genTypes[TypeIds.DecoderOptions];
+			testInstrFlags = genTypes[TypeIds.TestInstrFlags];
 		}
 
 		protected const InstructionDefFlags1 BitnessMaskFlags = InstructionDefFlags1.Bit64 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit16;
@@ -1438,7 +1440,7 @@ namespace Generator.Assembler {
 					var argKind = signature.GetArgKind(i);
 					switch (argKind) {
 					case ArgKind.Label:
-						argKind = ArgKind.LabelUlong;
+						argKind = ArgKind.LabelU64;
 						break;
 					}
 					newLabelULongSignature.AddArgKind(argKind);
@@ -1583,7 +1585,7 @@ namespace Generator.Assembler {
 			Immediate,
 			ImmediateUnsigned,
 			Label,
-			LabelUlong,
+			LabelU64,
 
 			FilterRegisterDX,
 			FilterRegisterCL,
@@ -1813,6 +1815,60 @@ namespace Generator.Assembler {
 
 			return list;
 		}
+
+		protected List<EnumValue> GetInstrTestFlags(InstructionDef def, OpCodeInfoGroup group, OpCodeArgFlags flags) {
+			var instrFlags = new List<EnumValue>();
+			if ((flags & OpCodeArgFlags.HasVex) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.PreferVex)]);
+			if ((flags & OpCodeArgFlags.HasEvex) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.PreferEvex)]);
+			if ((flags & OpCodeArgFlags.HasBroadcast) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.Broadcast)]);
+			if ((flags & OpCodeArgFlags.HasShortBranch) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.PreferShortBranch)]);
+			if ((flags & OpCodeArgFlags.HasNearBranch) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.PreferNearBranch)]);
+			if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.Fwait)]);
+			if (group.HasLabel) {
+				instrFlags.Add((group.Flags & OpCodeArgFlags.HasLabelUlong) == 0 ?
+					testInstrFlags[nameof(TestInstrFlags.Branch)] : testInstrFlags[nameof(TestInstrFlags.BranchU64)]);
+			}
+			foreach (var cpuid in def.Cpuid) {
+				if (cpuid.RawName.Contains("PADLOCK", StringComparison.Ordinal)) {
+					// They're mandatory prefix instructions but the REP prefix isn't cleared since it's shown in disassembly
+					instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.RemoveRepRepnePrefixes)]);
+					break;
+				}
+			}
+			return instrFlags;
+		}
+
+		protected static string GetTestMethodArgName(ArgKind kind) =>
+			kind switch {
+				ArgKind.Register8 => "r8",
+				ArgKind.Register16 => "r16",
+				ArgKind.Register32 => "r32",
+				ArgKind.Register64 => "r64",
+				ArgKind.RegisterK => "k",
+				ArgKind.RegisterSt => "st",
+				ArgKind.RegisterSegment => "seg",
+				ArgKind.RegisterBnd => "bnd",
+				ArgKind.RegisterMm => "mm",
+				ArgKind.RegisterXmm => "xmm",
+				ArgKind.RegisterYmm => "ymm",
+				ArgKind.RegisterZmm => "zmm",
+				ArgKind.RegisterCr => "cr",
+				ArgKind.RegisterDr => "dr",
+				ArgKind.RegisterTr => "tr",
+				ArgKind.RegisterTmm => "tmm",
+				ArgKind.Memory => "m",
+				ArgKind.Immediate => "i",
+				ArgKind.ImmediateUnsigned => "u",
+				ArgKind.Label => "l",
+				ArgKind.LabelU64 => "lu64",
+				_ => throw new ArgumentOutOfRangeException(kind.ToString()),
+			};
 
 		protected readonly struct OpCodeNode {
 			readonly object value;

@@ -28,9 +28,9 @@ namespace Generator.Assembler.CSharp {
 
 		static readonly Dictionary<int, HashSet<string>> IgnoredTestsPerBitness = new Dictionary<int, HashSet<string>>() {
 			// generates  System.InvalidOperationException : Operand 0: Expected: NearBranch16, actual: NearBranch32 : 0x1 jecxz 000031D0h
-			{ 16, new HashSet<string> { "jecxz_lu" } },
+			{ 16, new HashSet<string> { "jecxz_lu64" } },
 			// generates  System.InvalidOperationException : Operand 0: Expected: NearBranch32, actual: NearBranch16 : 0x1 jcxz 31D0h
-			{ 32, new HashSet<string> { "jcxz_lu" } },
+			{ 32, new HashSet<string> { "jcxz_lu64" } },
 		};
 
 		public CSharpAssemblerSyntaxGenerator(GeneratorContext generatorContext)
@@ -602,7 +602,7 @@ namespace Generator.Assembler.CSharp {
 					argType = "Label";
 					break;
 
-				case ArgKind.LabelUlong:
+				case ArgKind.LabelU64:
 					argType = "ulong";
 					break;
 
@@ -774,31 +774,7 @@ namespace Generator.Assembler.CSharp {
 			fullMethodName.Append(methodName);
 			foreach (var renderArg in renderArgs) {
 				fullMethodName.Append('_');
-				var name = renderArg.Kind switch {
-					ArgKind.Register8 => "reg8",
-					ArgKind.Register16 => "reg16",
-					ArgKind.Register32 => "reg32",
-					ArgKind.Register64 => "reg64",
-					ArgKind.RegisterK => "regK",
-					ArgKind.RegisterSt => "regST",
-					ArgKind.RegisterSegment => "regSegment",
-					ArgKind.RegisterBnd => "regBND",
-					ArgKind.RegisterMm => "regMM",
-					ArgKind.RegisterXmm => "regXMM",
-					ArgKind.RegisterYmm => "regYMM",
-					ArgKind.RegisterZmm => "regZMM",
-					ArgKind.RegisterCr => "regCR",
-					ArgKind.RegisterDr => "regDR",
-					ArgKind.RegisterTr => "regTR",
-					ArgKind.RegisterTmm => "regTMM",
-					ArgKind.Memory => "m",
-					ArgKind.Immediate => "i",
-					ArgKind.ImmediateUnsigned => "u",
-					ArgKind.Label => "l",
-					ArgKind.LabelUlong => "lu",
-					_ => throw new ArgumentOutOfRangeException($"{renderArg.Kind}"),
-				};
-				fullMethodName.Append(name);
+				fullMethodName.Append(GetTestMethodArgName(renderArg.Kind));
 			}
 
 			var fullMethodNameStr = fullMethodName.ToString();
@@ -919,33 +895,23 @@ namespace Generator.Assembler.CSharp {
 
 			var assemblerArgs = new List<string>();
 			var instructionCreateArgs = new List<string>();
-			int forceBitness = 0;
-			// Special case for movdir64b, the memory operand should match the register size
-			// TODO: Ideally this should be handled in the base class
-			switch (GetOrigCodeValue(def.Code)) {
-			case Code.Bndmov_bndm64_bnd:
-			case Code.Bndmov_bnd_bndm64:
-			case Code.Bndldx_bnd_mib:
-			case Code.Bndstx_mib_bnd:
-				if (bitness == 16)
-					forceBitness = 32;
-				break;
-
-			case Code.Movdir64b_r16_m512:
-			case Code.Enqcmds_r16_m512:
-			case Code.Enqcmd_r16_m512:
-				forceBitness = 16;
-				break;
-			case Code.Movdir64b_r32_m512:
-			case Code.Enqcmds_r32_m512:
-			case Code.Enqcmd_r32_m512:
-				forceBitness = 32;
-				break;
-			case Code.Movdir64b_r64_m512:
-			case Code.Enqcmds_r64_m512:
-			case Code.Enqcmd_r64_m512:
-				forceBitness = 64;
-				break;
+			int argBitness = bitness;
+			foreach (var kindDef in def.OpKindDefs) {
+				// 16-bit addressing not allowed if it's MPX instructions
+				if (bitness == 16 && (kindDef.MIB || kindDef.MPX)) {
+					argBitness = 32;
+					break;
+				}
+				// A few instructions (eg. MOVDIR64B) have a reg op with an address. Use the correct address size.
+				if (kindDef.OperandEncoding == OperandEncoding.RegModrmReg && kindDef.Memory) {
+					argBitness = kindDef.Register switch {
+						Register.AX => 16,
+						Register.EAX => 32,
+						Register.RAX => 64,
+						_ => throw new InvalidOperationException(),
+					};
+					break;
+				}
 			}
 
 			for (var i = 0; i < argValues.Count; i++) {
@@ -955,11 +921,9 @@ namespace Generator.Assembler.CSharp {
 				var argValueForInstructionCreate = argValueForAssembler;
 
 				if (argValueForAssembler is null || argValueForInstructionCreate is null) {
-					var localBitness = forceBitness > 0 ? forceBitness : bitness;
-
-					argValueForAssembler = GetDefaultArgument(localBitness, def.OpKindDefs[group.NumberOfLeadingArgsToDiscard + i],
+					argValueForAssembler = GetDefaultArgument(argBitness, def.OpKindDefs[group.NumberOfLeadingArgsToDiscard + i],
 						isMemory, true, i, renderArg);
-					argValueForInstructionCreate = GetDefaultArgument(localBitness, def.OpKindDefs[group.NumberOfLeadingArgsToDiscard + i],
+					argValueForInstructionCreate = GetDefaultArgument(argBitness, def.OpKindDefs[group.NumberOfLeadingArgsToDiscard + i],
 						isMemory, false, i, renderArg);
 				}
 
@@ -987,29 +951,6 @@ namespace Generator.Assembler.CSharp {
 				instructionCreateArgs.Add(argValueForInstructionCreate);
 			}
 
-			var optionalOpCodeFlags = new List<string>();
-			if ((contextFlags & OpCodeArgFlags.HasVex) != 0)
-				optionalOpCodeFlags.Add("TestInstrFlags.PreferVex");
-			if ((contextFlags & OpCodeArgFlags.HasEvex) != 0)
-				optionalOpCodeFlags.Add("TestInstrFlags.PreferEvex");
-			if ((contextFlags & OpCodeArgFlags.HasBroadcast) != 0)
-				optionalOpCodeFlags.Add("TestInstrFlags.Broadcast");
-			if ((contextFlags & OpCodeArgFlags.HasShortBranch) != 0)
-				optionalOpCodeFlags.Add("TestInstrFlags.PreferShortBranch");
-			if ((contextFlags & OpCodeArgFlags.HasNearBranch) != 0)
-				optionalOpCodeFlags.Add("TestInstrFlags.PreferNearBranch");
-			if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0)
-				optionalOpCodeFlags.Add("TestInstrFlags.Fwait");
-			if (group.HasLabel)
-				optionalOpCodeFlags.Add((group.Flags & OpCodeArgFlags.HasLabelUlong) == 0 ? "TestInstrFlags.Branch" : "TestInstrFlags.BranchU64");
-			foreach (var cpuid in def.Cpuid) {
-				if (cpuid.RawName.Contains("PADLOCK", StringComparison.Ordinal)) {
-					// They're mandatory prefix instructions but the REP prefix isn't cleared since it's shown in disassembly
-					optionalOpCodeFlags.Add("TestInstrFlags.RemoveRepRepnePrefixes");
-					break;
-				}
-			}
-
 			if (group.ParentPseudoOpsKind is not null)
 				instructionCreateArgs.Add($"{group.PseudoOpsKindImmediateValue}");
 
@@ -1033,7 +974,9 @@ namespace Generator.Assembler.CSharp {
 
 			var assemblerArgsStr = string.Join(", ", assemblerArgs);
 			var instructionCreateArgsStr = instructionCreateArgs.Count > 0 ? $", {string.Join(", ", instructionCreateArgs)}" : string.Empty;
-			var optionalOpCodeFlagsStr = optionalOpCodeFlags.Count > 0 ? $", {string.Join(" | ", optionalOpCodeFlags)}" : string.Empty;
+			var instrFlags = GetInstrTestFlags(def, group, contextFlags);
+			var optionalOpCodeFlagsStr = instrFlags.Count > 0 ?
+				$", {string.Join(" | ", instrFlags.Select(x => idConverter.ToDeclTypeAndValue(x)))}" : string.Empty;
 			var decoderOptions = GetDecoderOptions(bitness, def);
 			string decoderOptionsStr;
 			if (decoderOptions.Count != 0) {
@@ -1052,7 +995,7 @@ namespace Generator.Assembler.CSharp {
 			case OperandEncoding.NearBranch:
 			case OperandEncoding.Xbegin:
 			case OperandEncoding.AbsNearBranch:
-				if (arg.Kind == ArgKind.LabelUlong)
+				if (arg.Kind == ArgKind.LabelU64)
 					return "12752";
 				return isAssembler ? "CreateAndEmitLabel(c)" : "FirstLabelId";
 
@@ -1254,9 +1197,8 @@ namespace Generator.Assembler.CSharp {
 					$"{argName} <= ({arg.Type})sbyte.MaxValue || (0xFF80 <= {argName} && {argName} <= 0xFFFF)" :
 					$"{argName} >= sbyte.MinValue && {argName} <= sbyte.MaxValue",
 				OpCodeSelectorKind.Vex => "PreferVex",
-				OpCodeSelectorKind.EvexBroadcastX => $"{argName}.IsBroadcast",
-				OpCodeSelectorKind.EvexBroadcastY => $"{argName}.IsBroadcast",
-				OpCodeSelectorKind.EvexBroadcastZ => $"{argName}.IsBroadcast",
+				OpCodeSelectorKind.EvexBroadcastX or OpCodeSelectorKind.EvexBroadcastY or OpCodeSelectorKind.EvexBroadcastZ =>
+					$"{argName}.IsBroadcast",
 				OpCodeSelectorKind.RegisterCL => $"{argName} == {GetRegisterString(nameof(Register.CL))}",
 				OpCodeSelectorKind.RegisterAL => $"{argName} == {GetRegisterString(nameof(Register.AL))}",
 				OpCodeSelectorKind.RegisterAX => $"{argName} == {GetRegisterString(nameof(Register.AX))}",
@@ -1296,12 +1238,9 @@ namespace Generator.Assembler.CSharp {
 				OpCodeSelectorKind.MemoryXMM => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Xword))}",
 				OpCodeSelectorKind.MemoryYMM => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Yword))}",
 				OpCodeSelectorKind.MemoryZMM => $"{argName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Zword))}",
-				OpCodeSelectorKind.MemoryIndex32Xmm => $"{argName}.Index.IsXMM()",
-				OpCodeSelectorKind.MemoryIndex64Xmm => $"{argName}.Index.IsXMM()",
-				OpCodeSelectorKind.MemoryIndex32Ymm => $"{argName}.Index.IsYMM()",
-				OpCodeSelectorKind.MemoryIndex64Ymm => $"{argName}.Index.IsYMM()",
-				OpCodeSelectorKind.MemoryIndex32Zmm => $"{argName}.Index.IsZMM()",
-				OpCodeSelectorKind.MemoryIndex64Zmm => $"{argName}.Index.IsZMM()",
+				OpCodeSelectorKind.MemoryIndex32Xmm or OpCodeSelectorKind.MemoryIndex64Xmm => $"{argName}.Index.IsXMM()",
+				OpCodeSelectorKind.MemoryIndex32Ymm or OpCodeSelectorKind.MemoryIndex64Ymm => $"{argName}.Index.IsYMM()",
+				OpCodeSelectorKind.MemoryIndex32Zmm or OpCodeSelectorKind.MemoryIndex64Zmm => $"{argName}.Index.IsZMM()",
 				_ => throw new InvalidOperationException(),
 			};
 		}
