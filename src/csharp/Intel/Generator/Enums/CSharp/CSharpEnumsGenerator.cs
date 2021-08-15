@@ -165,6 +165,8 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.CC_g, new PartialEnumFileInfo("CC_g", CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "FormatterOptions.cs"), "byte"));
 
 			toPartialFileInfo.Add(TypeIds.OptionsProps, new PartialEnumFileInfo("OptionsProps", dirs.GetCSharpTestFilename("Intel", "FormatterTests", "OptionsProps.cs"), null));
+
+			toPartialFileInfo.Add(TypeIds.TestInstrFlags, new PartialEnumFileInfo("TestInstrFlags", dirs.GetCSharpTestFilename("Intel", "AssemblerTests", "AssemblerTestsBase.cs"), null));
 		}
 
 		public override void Generate(EnumType enumType) {

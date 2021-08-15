@@ -989,23 +989,23 @@ namespace Generator.Assembler.CSharp {
 
 			var optionalOpCodeFlags = new List<string>();
 			if ((contextFlags & OpCodeArgFlags.HasVex) != 0)
-				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferVex");
+				optionalOpCodeFlags.Add("TestInstrFlags.PreferVex");
 			if ((contextFlags & OpCodeArgFlags.HasEvex) != 0)
-				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferEvex");
+				optionalOpCodeFlags.Add("TestInstrFlags.PreferEvex");
 			if ((contextFlags & OpCodeArgFlags.HasBroadcast) != 0)
-				optionalOpCodeFlags.Add("LocalOpCodeFlags.Broadcast");
+				optionalOpCodeFlags.Add("TestInstrFlags.Broadcast");
 			if ((contextFlags & OpCodeArgFlags.HasShortBranch) != 0)
-				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferShortBranch");
+				optionalOpCodeFlags.Add("TestInstrFlags.PreferShortBranch");
 			if ((contextFlags & OpCodeArgFlags.HasNearBranch) != 0)
-				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferNearBranch");
+				optionalOpCodeFlags.Add("TestInstrFlags.PreferNearBranch");
 			if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0)
-				optionalOpCodeFlags.Add("LocalOpCodeFlags.Fwait");
+				optionalOpCodeFlags.Add("TestInstrFlags.Fwait");
 			if (group.HasLabel)
-				optionalOpCodeFlags.Add((group.Flags & OpCodeArgFlags.HasLabelUlong) == 0 ? "LocalOpCodeFlags.Branch" : "LocalOpCodeFlags.BranchUlong");
+				optionalOpCodeFlags.Add((group.Flags & OpCodeArgFlags.HasLabelUlong) == 0 ? "TestInstrFlags.Branch" : "TestInstrFlags.BranchU64");
 			foreach (var cpuid in def.Cpuid) {
 				if (cpuid.RawName.Contains("PADLOCK", StringComparison.Ordinal)) {
 					// They're mandatory prefix instructions but the REP prefix isn't cleared since it's shown in disassembly
-					optionalOpCodeFlags.Add("LocalOpCodeFlags.RemoveRepRepnePrefixes");
+					optionalOpCodeFlags.Add("TestInstrFlags.RemoveRepRepnePrefixes");
 					break;
 				}
 			}
