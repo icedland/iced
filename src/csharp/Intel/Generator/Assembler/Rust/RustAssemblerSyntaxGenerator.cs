@@ -918,7 +918,7 @@ namespace Generator.Assembler.Rust {
 			//TODO:
 		}
 
-		protected override TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, ulong address) {
+		protected override TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, int bitness, ulong address) {
 			throw new InvalidOperationException(); //TODO:
 		}
 
@@ -930,8 +930,15 @@ namespace Generator.Assembler.Rust {
 			throw new InvalidOperationException(); //TODO:
 		}
 
-		protected override TestArgValueBitness ImmToTestArgValue(int immediate, int immSizeBits, int argSizeBits, bool argIsSigned) {
+		protected override TestArgValueBitness UnsignedImmToTestArgValue(ulong immediate, int encImmSizeBits, int immSizeBits, int argSizeBits) {
 			throw new InvalidOperationException(); //TODO:
 		}
+
+		protected override TestArgValueBitness SignedImmToTestArgValue(long immediate, int encImmSizeBits, int immSizeBits, int argSizeBits) {
+			throw new InvalidOperationException(); //TODO:
+		}
+
+		protected override TestArgValueBitness LabelToTestArgValue() =>
+			throw new InvalidOperationException(); //TODO:
 	}
 }

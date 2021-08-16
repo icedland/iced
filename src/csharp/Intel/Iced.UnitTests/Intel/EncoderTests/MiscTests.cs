@@ -543,6 +543,16 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.False(op.IsBroadcast);
 				Assert.Equal(Register.None, op.SegmentPrefix);
 			}
+			{
+				var op = new MemoryOperand(0x1234_5678_9ABC_DEF1, 8);
+				Assert.Equal(Register.None, op.Base);
+				Assert.Equal(Register.None, op.Index);
+				Assert.Equal(1, op.Scale);
+				Assert.Equal(0x1234_5678_9ABC_DEF1, op.Displacement);
+				Assert.Equal(8, op.DisplSize);
+				Assert.False(op.IsBroadcast);
+				Assert.Equal(Register.None, op.SegmentPrefix);
+			}
 		}
 
 #if OPCODE_INFO

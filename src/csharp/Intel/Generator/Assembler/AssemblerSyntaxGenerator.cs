@@ -24,12 +24,11 @@ namespace Generator.Assembler {
 		readonly Dictionary<EnumValue, string> mapOpCodeToNewName;
 		readonly Dictionary<EnumValue, Code> toOrigCodeValue;
 		readonly HashSet<EnumValue> ambiguousBcst;
-		readonly EnumType decoderOptions;
-		readonly EnumType testInstrFlags;
+		protected readonly EnumType decoderOptions;
+		protected readonly EnumType testInstrFlags;
 		readonly (RegisterKind kind, RegisterDef[] regs)[] regGroups;
 		readonly RegisterClassInfo[] regClasses;
 		readonly MemorySizeFuncInfo[] memSizeFnInfos;
-		readonly Dictionary<Register, RegisterDef> toRegisterDef;
 		readonly Dictionary<MemorySizeFnKind, MemorySizeFuncInfo> toFnInfo;
 		int stackDepth;
 
@@ -103,11 +102,8 @@ namespace Generator.Assembler {
 			regGroups = GetRegisterGroups();
 			regClasses = GetRegisterClassInfos();
 			memSizeFnInfos = GetMemorySizeFunctions();
-			toRegisterDef = regGroups.SelectMany(x => x.regs).ToDictionary(x => x.GetRegister(), x => x);
 			toFnInfo = memSizeFnInfos.ToDictionary(x => x.Kind, x => x);
 		}
-
-		protected const InstructionDefFlags1 BitnessMaskFlags = InstructionDefFlags1.Bit64 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit16;
 
 		protected sealed class RegisterClassInfo {
 			public readonly RegisterKind Kind;
@@ -207,7 +203,7 @@ namespace Generator.Assembler {
 			return registerName.ToLowerInvariant();
 		}
 
-		protected RegisterDef GetRegisterDef(Register register) => toRegisterDef[register];
+		protected RegisterDef GetRegisterDef(Register register) => regDefs[(int)register];
 
 		protected abstract void GenerateRegisters((RegisterKind kind, RegisterDef[] regs)[] regGroups);
 		protected abstract void GenerateRegisterClasses(RegisterClassInfo[] infos);
@@ -1141,7 +1137,7 @@ namespace Generator.Assembler {
 					registerSignature.AddArgKind(argKind);
 				}
 
-				var codeBitnessFlags = def.Flags1 & BitnessMaskFlags;
+				var codeBitnessFlags = def.Flags1 & (InstructionDefFlags1.Bit64 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit16);
 				var codeEvexFlags = def.Encoding switch {
 					EncodingKind.VEX => OpCodeArgFlags.HasVex,
 					EncodingKind.EVEX => OpCodeArgFlags.HasEvex,
@@ -1862,37 +1858,50 @@ namespace Generator.Assembler {
 				_ => throw new ArgumentOutOfRangeException(kind.ToString()),
 			};
 
-		protected abstract TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, ulong address);
+		protected static bool IsBitnessSupported(int bitness, InstructionDefFlags1 flags) {
+			var bitnessFlags = bitness switch {
+				64 => InstructionDefFlags1.Bit64,
+				32 => InstructionDefFlags1.Bit32,
+				16 => InstructionDefFlags1.Bit16,
+				_ => throw new InvalidOperationException(),
+			};
+			return (flags & bitnessFlags) != 0;
+		}
+
+		protected abstract TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, int bitness, ulong address);
 		protected abstract TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, Register @base, Register index, int scale, int displ);
 		protected abstract TestArgValueBitness RegToTestArgValue(Register register);
-		protected abstract TestArgValueBitness ImmToTestArgValue(int immediate, int immSizeBits, int argSizeBits, bool argIsSigned);
+		protected abstract TestArgValueBitness UnsignedImmToTestArgValue(ulong immediate, int encImmSizeBits, int immSizeBits, int argSizeBits);
+		protected abstract TestArgValueBitness SignedImmToTestArgValue(long immediate, int encImmSizeBits, int immSizeBits, int argSizeBits);
+		protected abstract TestArgValueBitness LabelToTestArgValue();
 
 		protected TestArgValue? GetInvalidArgValue(OpCodeSelectorKind selectorKind, int argIndex) =>
 			selectorKind switch {
 				OpCodeSelectorKind.Memory8 or OpCodeSelectorKind.Memory16 or OpCodeSelectorKind.Memory32 or OpCodeSelectorKind.Memory48 or
 				OpCodeSelectorKind.Memory80 or OpCodeSelectorKind.Memory64 =>
 					new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.RDX, Register.None, 1, 0)
 					),
 				OpCodeSelectorKind.MemoryMM or OpCodeSelectorKind.MemoryXMM or OpCodeSelectorKind.MemoryYMM or OpCodeSelectorKind.MemoryZMM =>
 					new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.RDX, Register.None, 1, 0)
 					),
 				OpCodeSelectorKind.MemoryIndex32Xmm or OpCodeSelectorKind.MemoryIndex64Xmm or OpCodeSelectorKind.MemoryIndex64Ymm or
 				OpCodeSelectorKind.MemoryIndex32Ymm =>
 					new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.ZMM0 + argIndex, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.ZMM0 + argIndex, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.ZMM0 + argIndex, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.ZMM0 + argIndex, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.ZMM0 + argIndex, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.ZMM0 + argIndex, 1, 0)
 					),
 				_ => null,
 			};
 
-		protected IEnumerable<TestArgValue?> GetArgValue(OpCodeSelectorKind selectorKind, bool isElseBranch, int argIndex, Signature signature) {
+		protected IEnumerable<TestArgValue?> GetArgValue(OpCodeSelectorKind selectorKind, bool isElseBranch, int argIndex, Signature signature,
+			int argSizeBits) {
 			switch (selectorKind) {
 			case OpCodeSelectorKind.MemOffs64_RAX:
 			case OpCodeSelectorKind.MemOffs64_EAX:
@@ -1901,21 +1910,25 @@ namespace Generator.Assembler {
 				if (isElseBranch) {
 					if (argIndex == 0) {
 						yield return new TestArgValue(
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.DI, Register.None, 0, 0),
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.None, 0, 0),
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDI, Register.None, 0, 0)
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.DI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDI, Register.None, 1, 0)
 						);
 					}
 					else {
 						yield return new TestArgValue(
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 0, 0),
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ESI, Register.None, 0, 0),
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RSI, Register.None, 0, 0)
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ESI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RSI, Register.None, 1, 0)
 						);
 					}
 				}
 				else
-					yield return new TestArgValue(MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 0x123456789ABCDEF0));
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 16, 0x89AB),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 32, 0x89ABCDEF),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 64, 0x89ABCDEF01234567)
+					);
 				break;
 			case OpCodeSelectorKind.MemOffs_RAX:
 			case OpCodeSelectorKind.MemOffs_EAX:
@@ -1924,24 +1937,24 @@ namespace Generator.Assembler {
 				if (isElseBranch) {
 					if (argIndex == 0) {
 						yield return new TestArgValue(
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.DI, Register.None, 0, 0),
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.None, 0, 0),
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDI, Register.None, 0, 0)
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.DI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDI, Register.None, 1, 0)
 						);
 					}
 					else {
 						yield return new TestArgValue(
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 0, 0),
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ESI, Register.None, 0, 0),
-							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RSI, Register.None, 0, 0)
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ESI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RSI, Register.None, 1, 0)
 						);
 					}
 				}
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 0x1234),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 0x1234567),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 0x1234567)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 16, 0x1234),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 32, 0x12345678),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 64, 0x123456789ABCDEF0)
 					);
 				}
 				break;
@@ -1958,10 +1971,18 @@ namespace Generator.Assembler {
 				yield return null;
 				break;
 			case OpCodeSelectorKind.ImmediateByteEqual1:
-				if (isElseBranch)
-					yield return new TestArgValue(ImmToTestArgValue(2, 8, 8, true));
-				else
-					yield return new TestArgValue(ImmToTestArgValue(1, 8, 8, true));
+				if (isElseBranch) {
+					if (signature.GetArgKind(argIndex) == ArgKind.Immediate)
+						yield return new TestArgValue(SignedImmToTestArgValue(2, 8, 8, argSizeBits));
+					else
+						yield return new TestArgValue(UnsignedImmToTestArgValue(2, 8, 8, argSizeBits));
+				}
+				else {
+					if (signature.GetArgKind(argIndex) == ArgKind.Immediate)
+						yield return new TestArgValue(SignedImmToTestArgValue(1, 8, 8, argSizeBits));
+					else
+						yield return new TestArgValue(UnsignedImmToTestArgValue(1, 8, 8, argSizeBits));
+				}
 				break;
 			case OpCodeSelectorKind.ImmediateByteSigned8To16:
 			case OpCodeSelectorKind.ImmediateByteSigned8To32:
@@ -1976,12 +1997,12 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					if (signature.GetArgKind(argIndex) == ArgKind.Immediate) {
-						yield return new TestArgValue(ImmToTestArgValue(sbyte.MinValue, 8, immSize, true));
-						yield return new TestArgValue(ImmToTestArgValue(sbyte.MaxValue, 8, immSize, true));
+						yield return new TestArgValue(SignedImmToTestArgValue(sbyte.MinValue, 8, immSize, argSizeBits));
+						yield return new TestArgValue(SignedImmToTestArgValue(sbyte.MaxValue, 8, immSize, argSizeBits));
 					}
 					else {
-						yield return new TestArgValue(ImmToTestArgValue(sbyte.MinValue, 8, immSize, false));
-						yield return new TestArgValue(ImmToTestArgValue(sbyte.MaxValue, 8, immSize, false));
+						yield return new TestArgValue(UnsignedImmToTestArgValue(unchecked((ulong)sbyte.MinValue), 8, immSize, argSizeBits));
+						yield return new TestArgValue(UnsignedImmToTestArgValue((ulong)sbyte.MaxValue, 8, immSize, argSizeBits));
 					}
 				}
 
@@ -1997,9 +2018,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordBcst], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordBcst], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordBcst], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordBcst], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordBcst], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordBcst], Register.RDX, Register.None, 1, 0)
 					);
 				}
 				break;
@@ -2182,9 +2203,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.RDX, Register.None, 1, 0)
 					);
 				}
 				break;
@@ -2193,9 +2214,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.WordPtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.WordPtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.WordPtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.WordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.WordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.WordPtr], Register.RDX, Register.None, 1, 0)
 					);
 				}
 				break;
@@ -2204,9 +2225,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordPtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordPtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordPtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordPtr], Register.RDX, Register.None, 1, 0)
 					);
 				}
 				break;
@@ -2215,9 +2236,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.TwordPtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.TwordPtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.TwordPtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.TwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.TwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.TwordPtr], Register.RDX, Register.None, 1, 0)
 					);
 				}
 				break;
@@ -2226,9 +2247,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.FwordPtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.FwordPtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.FwordPtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.FwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.FwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.FwordPtr], Register.RDX, Register.None, 1, 0)
 					);
 				}
 				break;
@@ -2238,9 +2259,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.QwordPtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.QwordPtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.QwordPtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.QwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.QwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.QwordPtr], Register.RDX, Register.None, 1, 0)
 					);
 				}
 				break;
@@ -2249,9 +2270,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.XmmwordPtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.XmmwordPtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.XmmwordPtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.XmmwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.XmmwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.XmmwordPtr], Register.RDX, Register.None, 1, 0)
 					);
 				}
 				break;
@@ -2260,9 +2281,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.YmmwordPtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.YmmwordPtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.YmmwordPtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.YmmwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.YmmwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.YmmwordPtr], Register.RDX, Register.None, 1, 0)
 					);
 				}
 				break;
@@ -2271,9 +2292,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.DI, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.EDX, Register.None, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.RDX, Register.None, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.RDX, Register.None, 1, 0)
 					);
 				}
 				break;
@@ -2283,9 +2304,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.XMM0 + argIndex + 2, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.XMM0 + argIndex + 2, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.XMM0 + argIndex + 2, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.XMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.XMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.XMM0 + argIndex + 2, 1, 0)
 					);
 				}
 				break;
@@ -2295,9 +2316,9 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.YMM0 + argIndex + 2, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.YMM0 + argIndex + 2, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.YMM0 + argIndex + 2, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.YMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.YMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.YMM0 + argIndex + 2, 1, 0)
 					);
 				}
 				break;
@@ -2307,15 +2328,178 @@ namespace Generator.Assembler {
 					yield return null;
 				else {
 					yield return new TestArgValue(
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.ZMM0 + argIndex + 2, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.ZMM0 + argIndex + 2, 0, 0),
-						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.ZMM0 + argIndex + 2, 0, 0)
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.ZMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.ZMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.ZMM0 + argIndex + 2, 1, 0)
 					);
 				}
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(selectorKind), selectorKind, null);
 			}
+		}
+
+		protected TestArgValue GetDefaultArgument(OpCodeOperandKindDef def, int index, ArgKind argKind, int argSizeBits) {
+			switch (def.OperandEncoding) {
+			case OperandEncoding.NearBranch:
+			case OperandEncoding.Xbegin:
+			case OperandEncoding.AbsNearBranch:
+				if (argKind == ArgKind.LabelU64)
+					return new TestArgValue(UnsignedImmToTestArgValue(12752, 64, 64, argSizeBits));
+				return new TestArgValue(LabelToTestArgValue());
+
+			case OperandEncoding.Immediate:
+				bool isSigned = argKind == ArgKind.Immediate;
+				return (def.ImmediateSize, def.ImmediateSignExtSize) switch {
+					(4, 4) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(3, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(3, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(8, 8) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(-5, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(127, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(8, 16) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(-5, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(5, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(8, 32) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(-9, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(9, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(8, 64) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(-10, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(10, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(16, 16) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(0x40B7, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(0x40B7, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(32, 32) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(int.MaxValue, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(int.MaxValue, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(32, 64) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(int.MinValue, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(unchecked((ulong)int.MinValue), def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(64, 64) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(long.MinValue, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(unchecked((ulong)long.MinValue), def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					_ => throw new InvalidOperationException(),
+				};
+
+			case OperandEncoding.ImpliedRegister:
+				return new TestArgValue(RegToTestArgValue(def.Register));
+
+			case OperandEncoding.RegImm:
+			case OperandEncoding.RegOpCode:
+			case OperandEncoding.RegModrmReg:
+			case OperandEncoding.RegModrmRm:
+			case OperandEncoding.RegVvvvv:
+				return new TestArgValue(RegToTestArgValue(GetRegMemSizeInfo(def, index).reg));
+
+			case OperandEncoding.RegMemModrmRm:
+				var (reg, memSizeFnKind) = GetRegMemSizeInfo(def, index);
+				if (argKind == ArgKind.Memory && def.OperandEncoding == OperandEncoding.RegMemModrmRm) {
+					return new TestArgValue(
+						MemToTestArgValue(toFnInfo[memSizeFnKind], Register.SI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[memSizeFnKind], Register.ECX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[memSizeFnKind], Register.RCX, Register.None, 1, 0)
+					);
+				}
+				else
+					return new TestArgValue(RegToTestArgValue(reg));
+
+			case OperandEncoding.MemModrmRm:
+				if (def.SibRequired) {
+					return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ECX, Register.EDX, 2, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RCX, Register.RDX, 4, 0)
+					);
+				}
+				else if (def.MIB) {
+					return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ECX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RCX, Register.None, 1, 0)
+					);
+				}
+				else if (def.Vsib) {
+					return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, def.Register + index + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, def.Register + index + 2, 1, 0)
+					);
+				}
+				else {
+					return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ECX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RCX, Register.None, 1, 0)
+					);
+				}
+
+			case OperandEncoding.MemOffset:
+				return new TestArgValue(
+					MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 16, 0x6789),
+					MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 32, 0x6789ABCD),
+					MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 64, 0x6789ABCDEF012345)
+				);
+
+			case OperandEncoding.None:
+			case OperandEncoding.FarBranch:
+			case OperandEncoding.SegRBX:
+			case OperandEncoding.SegRSI:
+			case OperandEncoding.SegRDI:
+			case OperandEncoding.ESRDI:
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
+		static readonly Register[] r8Values = new Register[] { Register.DL, Register.BL, Register.AH, Register.CH, Register.DH };
+		static readonly Register[] r16Values = new Register[] { Register.DX, Register.BX, Register.SP, Register.BP, Register.SI };
+		static readonly Register[] r32Values = new Register[] { Register.EDX, Register.EBX, Register.ESP, Register.EBP, Register.ESI };
+		static readonly Register[] r64Values = new Register[] { Register.RDX, Register.RBX, Register.RSP, Register.RBP, Register.RSI };
+		static (Register reg, MemorySizeFnKind kind) GetRegMemSizeInfo(OpCodeOperandKindDef def, int index) =>
+			def.Register switch {
+				Register.AL => (r8Values[index], MemorySizeFnKind.BytePtr),
+				Register.AX => (r16Values[index], MemorySizeFnKind.WordPtr),
+				Register.EAX => (r32Values[index], MemorySizeFnKind.DwordPtr),
+				Register.RAX => (r64Values[index], MemorySizeFnKind.QwordPtr),
+				Register.MM0 => (Register.MM0 + index + 2, MemorySizeFnKind.QwordPtr),
+				Register.XMM0 => (Register.XMM0 + index + 2, MemorySizeFnKind.XmmwordPtr),
+				Register.YMM0 => (Register.YMM0 + index + 2, MemorySizeFnKind.YmmwordPtr),
+				Register.ZMM0 => (Register.ZMM0 + index + 2, MemorySizeFnKind.ZmmwordPtr),
+				Register.TMM0 => (Register.TMM0 + index + 2, MemorySizeFnKind.Ptr),
+				Register.BND0 => (Register.BND0 + index + 2, MemorySizeFnKind.Ptr),
+				Register.K0 => (Register.K0 + index + 2, MemorySizeFnKind.Ptr),
+				Register.ES => (Register.DS, MemorySizeFnKind.Ptr),
+				Register.CR0 => (Register.CR2, MemorySizeFnKind.Ptr),
+				Register.DR0 => (Register.DR1, MemorySizeFnKind.Ptr),
+				Register.TR0 => (Register.TR1, MemorySizeFnKind.Ptr),
+				Register.ST0 => (Register.ST1, MemorySizeFnKind.Ptr),
+				_ => throw new InvalidOperationException(),
+			};
+
+		protected static int GetArgBitness(int bitness, InstructionDef def) {
+			foreach (var kindDef in def.OpKindDefs) {
+				if (bitness == 16 && (kindDef.MIB || kindDef.MPX || kindDef.Vsib || kindDef.SibRequired))
+					return 32;
+				if (kindDef.OperandEncoding == OperandEncoding.RegModrmReg && kindDef.Memory) {
+					return kindDef.Register switch {
+						Register.AX => 16,
+						Register.EAX => 32,
+						Register.RAX => 64,
+						_ => throw new InvalidOperationException(),
+					};
+				}
+			}
+
+			return bitness;
 		}
 
 		protected sealed class TestArgValues {
@@ -2327,14 +2511,8 @@ namespace Generator.Assembler {
 			}
 
 			public TestArgValueBitness? GetArgValue(int bitness, int index) {
-				if (Args[index] is TestArgValue argValue) {
-					return bitness switch {
-						16 => argValue.Bitness16,
-						32 => argValue.Bitness32,
-						64 => argValue.Bitness64,
-						_ => throw new InvalidOperationException(),
-					};
-				}
+				if (Args[index] is TestArgValue argValue)
+					return argValue.Get(bitness);
 				else
 					return null;
 			}
@@ -2364,6 +2542,14 @@ namespace Generator.Assembler {
 				Bitness32 = b32;
 				Bitness64 = b64;
 			}
+
+			public TestArgValueBitness Get(int bitness) =>
+				bitness switch {
+					16 => Bitness16,
+					32 => Bitness32,
+					64 => Bitness64,
+					_ => throw new InvalidOperationException(),
+				};
 		}
 
 		protected sealed class TestArgValueBitness {

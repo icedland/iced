@@ -244,6 +244,21 @@ namespace Iced.Intel {
 			DisplSize = 0;
 			IsBroadcast = false;
 		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="displacement">Memory displacement</param>
+		/// <param name="displSize">0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <see cref="sbyte"/>), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
+		public MemoryOperand(ulong displacement, int displSize) {
+			SegmentPrefix = Register.None;
+			Base = Register.None;
+			Index = Register.None;
+			Scale = 1;
+			Displacement = (long)displacement;
+			DisplSize = displSize;
+			IsBroadcast = false;
+		}
 	}
 }
 #endif
