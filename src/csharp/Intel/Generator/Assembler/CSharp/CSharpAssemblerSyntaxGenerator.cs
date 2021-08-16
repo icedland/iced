@@ -1269,26 +1269,31 @@ namespace Generator.Assembler.CSharp {
 			new(GetAsmRegisterName(GetRegisterDef(register)));
 
 		protected override TestArgValueBitness ImmToTestArgValue(int immediate, int immSizeBits, int argSizeBits, bool argIsSigned) {
-			bool isNeg = immediate < 0;
-			if (isNeg)
-				immediate = -immediate;
 			string s;
-			if (immediate <= 9)
-				s = immediate.ToString();
-			else
-				s = "0x" + immediate.ToString("X");
-			if (isNeg)
-				s = "-" + s;
-
-			if (!argIsSigned) {
+			if (argIsSigned) {
+				bool isNeg = immediate < 0;
 				if (isNeg)
-					s = "(" + s + ")";
-				var castType = argSizeBits switch {
-					16 => "ushort",
-					32 => "uint",
+					immediate = -immediate;
+				if (immediate <= 9)
+					s = immediate.ToString();
+				else
+					s = "0x" + immediate.ToString("X");
+				if (isNeg)
+					s = "-" + s;
+			}
+			else {
+				uint imm = (uint)immediate;
+				var (castType, mask) = argSizeBits switch {
+					16 => ("ushort", ushort.MaxValue),
+					32 => ("uint", uint.MaxValue),
 					_ => throw new InvalidOperationException(),
 				};
-				s = $"unchecked(({castType}){s})";
+				imm &= mask;
+				if (imm <= 9)
+					s = imm.ToString();
+				else
+					s = "0x" + imm.ToString("X");
+				s = $"({castType}){s}";
 			}
 			return new(s);
 		}
