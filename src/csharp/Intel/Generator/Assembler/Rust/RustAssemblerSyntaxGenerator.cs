@@ -3,9 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using Generator.Encoder.Rust;
 using Generator.Enums;
+using Generator.Enums.Decoder;
 using Generator.Enums.Encoder;
 using Generator.IO;
 using Generator.Tables;
@@ -19,6 +22,8 @@ namespace Generator.Assembler.Rust {
 		const string CodeAssembler = "CodeAssembler";
 		const string CodeAsmOpState = "CodeAsmOpState";
 		const string ErrorType = "IcedError";
+		const string CreatedLabelName = "lbl";
+		const string FirstLabelIdName = "FIRST_LABEL_ID";
 		readonly IdentifierConverter idConverter;
 		readonly EnumType registerType;
 		readonly EnumType memoryOperandSizeType;
@@ -267,14 +272,15 @@ namespace Generator.Assembler.Rust {
 			}
 		}
 
+		static string GetName(MemorySizeFuncInfo fnInfo) => fnInfo.Name.Replace(' ', '_');
+
 		protected override void GenerateMemorySizeFunctions(MemorySizeFuncInfo[] infos) {
-			string GetFuncName(MemorySizeFuncInfo info) => info.Name.Replace(' ', '_');
 			var filename = genTypes.Dirs.GetRustFilename("code_asm", "mem.rs");
 
 			new FileUpdater(TargetLanguage.Rust, "AsmMemoryOperandPtrMethods", filename).Generate(writer => {
 				for (int i = 0; i < infos.Length; i++) {
 					var info = infos[i];
-					var fnName = GetFuncName(info);
+					var fnName = GetName(info);
 					var calledFnName = info.IsBroadcast ? "bcst" : "ptr";
 
 					if (i != 0)
@@ -295,7 +301,7 @@ namespace Generator.Assembler.Rust {
 			new FileUpdater(TargetLanguage.Rust, "GlobalPtrMethods", filename).Generate(writer => {
 				for (int i = 0; i < infos.Length; i++) {
 					var info = infos[i];
-					var fnName = GetFuncName(info);
+					var fnName = GetName(info);
 					var doc = info.GetMethodDocs("Creates", s => $"`{s}`");
 
 					if (i != 0)
@@ -383,19 +389,20 @@ namespace Generator.Assembler.Rust {
 		static string GetTraitName(OpCodeInfoGroup group) {
 			var name = "CodeAsm" + char.ToUpperInvariant(group.Name[0]).ToString() + group.Name[1..];
 			if (group.AddNameSuffix)
-				name += group.Signature.ArgCount.ToString();
+				name += group.Signature.ArgCount.ToString(CultureInfo.InvariantCulture);
 			return EscapeKeyword(name);
 		}
 
 		static string GetTraitFnName(TraitGroup traitGroup) => GetTraitFnName(traitGroup.Groups[0]);
 		static string GetTraitFnName(OpCodeInfoGroup group) {
 			if (group.AddNameSuffix)
-				return EscapeKeyword(group.Name + "_" + group.Signature.ArgCount.ToString());
+				return EscapeKeyword(group.Name + "_" + group.Signature.ArgCount.ToString(CultureInfo.InvariantCulture));
 			return EscapeKeyword(group.Name);
 		}
 
-		static string GetPubFnName(TraitGroup traitGroup) => GetTraitFnName(traitGroup);
-		static string GetFnArgName(int argIndex) => "op" + argIndex.ToString();
+		static string GetPubFnName(TraitGroup traitGroup) => GetPubFnName(traitGroup.Groups[0]);
+		static string GetPubFnName(OpCodeInfoGroup group) => GetTraitFnName(group);
+		static string GetFnArgName(int argIndex) => "op" + argIndex.ToString(CultureInfo.InvariantCulture);
 		static string GetGenericParameterTypeName(int gpIndex) => gpNames[gpIndex];
 		static readonly string[] gpNames = new[] { "T", "U", "V", "W", "X" };
 
@@ -643,6 +650,12 @@ namespace Generator.Assembler.Rust {
 			}
 		}
 
+		static bool SpecialInstructionHasSegmentArg(string mnemonicName) =>
+			!(mnemonicName.StartsWith("Ins", StringComparison.Ordinal) ||
+			mnemonicName.StartsWith("Scas", StringComparison.Ordinal) ||
+			mnemonicName.StartsWith("Stos", StringComparison.Ordinal) ||
+			mnemonicName.StartsWith("Xbegin", StringComparison.Ordinal));
+
 		void GenerateAsmImpl(TraitGroup[] traitGroups) {
 			var filename = genTypes.Dirs.GetRustFilename("code_asm", "fn_asm_impl.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
@@ -660,7 +673,7 @@ namespace Generator.Assembler.Rust {
 				writer.WriteLine($"use crate::{{{codeStr}, {ErrorType}, Instruction, {registerStr}, {repPrefixKindStr}}};");
 				writer.WriteLine("use core::i8;");
 
-				void WriteArg(FileWriter writer, string argExpr, ArgKind kind) {
+				static void WriteArg(FileWriter writer, string argExpr, ArgKind kind) {
 					writer.Write(argExpr);
 					if (IsRegister(kind))
 						writer.Write(".register()");
@@ -723,12 +736,7 @@ namespace Generator.Assembler.Rust {
 										writer.Write(", ");
 										WriteArg(writer, GetFnArgName(i), group.Signature.GetArgKind(i));
 									}
-									bool noSeg =
-										group.MnemonicName.StartsWith("Ins", StringComparison.Ordinal) ||
-										group.MnemonicName.StartsWith("Scas", StringComparison.Ordinal) ||
-										group.MnemonicName.StartsWith("Stos", StringComparison.Ordinal) ||
-										group.MnemonicName.StartsWith("Xbegin", StringComparison.Ordinal);
-									if (!noSeg) {
+									if (SpecialInstructionHasSegmentArg(group.MnemonicName)) {
 										writer.Write(", ");
 										writer.Write(registerNoneStr);
 									}
@@ -915,30 +923,324 @@ namespace Generator.Assembler.Rust {
 			idConverter.ToDeclTypeAndValue(memoryOperandSizeType[fieldName]);
 
 		void GenerateTests(TraitGroup[] traitGroups) {
-			//TODO:
+			foreach (var bitness in new[] { 16, 32, 64 }) {
+				var bitnessFlag = bitness switch {
+					16 => InstructionDefFlags1.Bit16,
+					32 => InstructionDefFlags1.Bit32,
+					64 => InstructionDefFlags1.Bit64,
+					_ => throw new InvalidOperationException(),
+				};
+
+				var filename = genTypes.Dirs.GetRustFilename("code_asm", "tests", $"instr{bitness}.rs");
+				using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
+					writer.WriteFileHeader();
+					writer.WriteLine("#![allow(clippy::unreadable_literal)]");
+					writer.WriteLine();
+					var codeStr = genTypes[TypeIds.Code].Name(idConverter);
+					var registerStr = registerType.Name(idConverter);
+					var decoderOptsStr = genTypes[TypeIds.DecoderOptions].Name(idConverter);
+					var repPrefixKindStr = genTypes[TypeIds.RepPrefixKind].Name(idConverter);
+					writer.WriteLine($"use crate::code_asm::tests::{{add_op_mask, assign_label, create_and_emit_label, test_instr, TestInstrFlags, {FirstLabelIdName}}};");
+					writer.WriteLine("use crate::code_asm::*;");
+					writer.WriteLine($"use crate::{{{codeStr}, {decoderOptsStr}, Instruction, MemoryOperand, {registerStr}, {repPrefixKindStr}}};");
+					var sb = new StringBuilder();
+					foreach (var traitGroup in traitGroups) {
+						foreach (var group in traitGroup.Groups) {
+							if ((group.AllDefFlags & bitnessFlag) == 0)
+								continue;
+							if (group.Name == "xbegin")
+								continue; // Implemented manually
+
+							var testFnName = GetTestMethodName(sb, group);
+							if (ignoredTestsPerBitness.TryGetValue(bitness, out var ignoredTests) && ignoredTests.Contains(testFnName))
+								continue;
+							writer.WriteLine();
+							writer.WriteLine("#[test]");
+							writer.WriteLine(RustConstants.AttributeNoRustFmt);
+							writer.WriteLine($"fn {testFnName}() {{");
+							var args = new TestArgValues(traitGroup.ArgCount);
+							using (writer.Indent()) {
+								if (group.ParentPseudoOpsKind is OpCodeInfoGroup parent)
+									GenerateTestsForInstr(writer, bitness, group, parent.Defs[0], OpCodeArgFlags.None, args);
+								else
+									GenerateTests(writer, bitness, group, group.RootOpCodeNode, OpCodeArgFlags.None, args, false);
+							}
+							writer.WriteLine("}");
+						}
+					}
+				}
+			}
+		}
+
+		static string GetTestMethodName(StringBuilder sb, OpCodeInfoGroup group) {
+			sb.Clear();
+			sb.Append(group.Name.ToLowerInvariant());
+			for (int i = 0; i < group.Signature.ArgCount; i++) {
+				sb.Append('_');
+				sb.Append(GetTestMethodArgName(group.Signature.GetArgKind(i)));
+			}
+			return sb.ToString();
+		}
+
+		void GenerateTests(FileWriter writer, int bitness, OpCodeInfoGroup group, OpCodeNode node, OpCodeArgFlags contextFlags, TestArgValues args, bool inElse) {
+			if (node.Def is InstructionDef def) {
+				if (inElse) {
+					writer.WriteLine("*/ {");
+					using (writer.Indent())
+						GenerateTestsForInstr(writer, bitness, group, def, contextFlags, args);
+					writer.WriteLine("}");
+				}
+				else
+					GenerateTestsForInstr(writer, bitness, group, def, contextFlags, args);
+			}
+			else if (node.Selector is OpCodeSelector selector) {
+				var (argKind, maxArgSize) = GetArgInfo(group, selector.ArgIndex);
+				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex, argKind, maxArgSize, selector.Kind);
+				var isSelectorSupportedByBitness = IsSelectorSupportedByBitness(bitness, selector.Kind, out var continueElse);
+				var (contextIfFlags, contextElseFlags) = GetIfElseContextFlags(selector.Kind);
+				if (!inElse)
+					writer.Write("/* ");
+				writer.WriteLine($"if {condition} */ {{");
+				if (isSelectorSupportedByBitness) {
+					using (writer.Indent()) {
+						foreach (var argValue in GetArgValue(selector.Kind, false, selector.ArgIndex, group.Signature, maxArgSize * 8)) {
+							var oldValue = args.Set(selector.ArgIndex, argValue);
+							GenerateTests(writer, bitness, group, selector.IfTrue, contextFlags | contextIfFlags, args, false);
+							args.Restore(selector.ArgIndex, oldValue);
+						}
+					}
+				}
+				else {
+					using (writer.Indent())
+						writer.WriteLine($"// skip `if {condition}` since it's not supported by the current test bitness");
+				}
+				if (selector.IfFalse.IsEmpty) {
+					writer.WriteLine("} /* else */ {");
+					//TODO: gen an invalid test here
+					writer.WriteLine("}");
+				}
+				else {
+					if (continueElse) {
+						writer.Write("} /* else ");
+						foreach (var argValue in GetArgValue(selector.Kind, true, selector.ArgIndex, group.Signature, maxArgSize * 8)) {
+							var oldValue = args.Set(selector.ArgIndex, argValue);
+							GenerateTests(writer, bitness, group, selector.IfFalse, contextFlags | contextElseFlags, args, true);
+							args.Restore(selector.ArgIndex, oldValue);
+						}
+					}
+					else {
+						writer.WriteLine($"}} /* else */ {{");
+						using (writer.Indent())
+							writer.WriteLine($"// skip `if !({condition})` since it's not supported by the current test bitness");
+						writer.WriteLine("}");
+					}
+				}
+			}
+			else
+				throw new InvalidOperationException();
+		}
+
+		void GenerateTestsForInstr(FileWriter writer, int bitness, OpCodeInfoGroup group, InstructionDef def, OpCodeArgFlags contextFlags,
+			TestArgValues args) {
+			if (!IsBitnessSupported(bitness, def.Flags1)) {
+				writer.WriteLine($"// Skipping {def.Code.Name(idConverter)} - Not supported by current bitness");
+				return;
+			}
+			writer.WriteLine($"// {def.Code.RawName}");
+
+			var withFns = new List<(string pre, string post)>();
+			var asmArgs = new List<string>();
+			var withArgs = new List<string>();
+			int argBitness = GetArgBitness(bitness, def);
+			if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0)
+				withArgs.Add(bitness.ToString(CultureInfo.InvariantCulture));
+			else
+				withArgs.Add(idConverter.ToDeclTypeAndValue(def.Code));
+			bool hasLabel = false;
+			for (var i = 0; i < args.Args.Count; i++) {
+				var argKind = group.Signature.GetArgKind(i);
+				if (argKind == ArgKind.Label)
+					hasLabel = true;
+				var asmArg = args.GetArgValue(argBitness, i)?.AsmStr;
+				var withArg = args.GetArgValue(argBitness, i)?.WithStr;
+
+				if (asmArg is null || withArg is null) {
+					var argValue = GetDefaultArgument(def.OpKindDefs[group.NumberOfLeadingArgsToDiscard + i], i, argKind, group.MaxArgSizes[i] * 8);
+					asmArg = argValue.Get(argBitness).AsmStr;
+					withArg = argValue.Get(argBitness).WithStr;
+				}
+
+				if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0 && i == 0) {
+					asmArg += ".k1()";
+					var opMask = idConverter.ToDeclTypeAndValue(GetRegisterDef(Register.K1).Register);
+					withFns.Add(("add_op_mask(", $", {opMask})"));
+				}
+
+				asmArgs.Add(asmArg);
+				withArgs.Add(withArg);
+			}
+			int extraArgsCount = 0;
+			if (group.ParentPseudoOpsKind is not null) {
+				extraArgsCount++;
+				withArgs.Add(SignedImmToTestArgValue(group.PseudoOpsKindImmediateValue, 8, 8, 32).WithStr);
+			}
+			if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
+				if (SpecialInstructionHasSegmentArg(group.MnemonicName))
+					withArgs.Add(idConverter.ToDeclTypeAndValue(GetRegisterDef(Register.None).Register));
+				if ((group.Defs[0].Flags3 & InstructionDefFlags3.IsStringOp) != 0)
+					withArgs.Add(idConverter.ToDeclTypeAndValue(genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.None)]));
+			}
+			if (group.HasLabel && (group.Flags & OpCodeArgFlags.HasLabelUlong) == 0)
+				withFns.Add(("assign_label(", $", {withArgs[1]})"));
+
+			var asmName = GetPubFnName(group);
+			var asmArgsStr = string.Join(", ", asmArgs);
+			var asmBody = $"a.{asmName}({asmArgsStr}).unwrap()";
+			if (hasLabel)
+				asmBody = $"{{ let {CreatedLabelName} = create_and_emit_label(a); {asmBody} }}";
+			writer.WriteLine($"test_instr({bitness}, |a| {asmBody},");
+			using (writer.Indent()) {
+				string withFailStr = ".unwrap()";
+				string withFnName;
+				if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0)
+					withFnName = $"with_{group.MnemonicName.ToLowerInvariant()}";
+				else if (group.HasLabel)
+					withFnName = RustInstrCreateGenNames.with_branch;
+				else {
+					if (group.Signature.ArgCount == 0)
+						withFailStr = string.Empty;
+					withFnName = InstrCreateGenImpl.GetRustOverloadedCreateName(group.Signature.ArgCount + extraArgsCount);
+				}
+				var withArgsStr = string.Join(", ", withArgs);
+				var withFnsPreStr = string.Join(string.Empty, ((IEnumerable<(string pre, string post)>)withFns).Reverse().Select(x => x.pre));
+				var withFnsPostStr = string.Join(string.Empty, withFns.Select(x => x.post));
+				writer.WriteLine($"{withFnsPreStr}Instruction::{withFnName}({withArgsStr}){withFailStr}{withFnsPostStr},");
+
+				var instrFlags = GetInstrTestFlags(def, group, contextFlags);
+				if (instrFlags.Count == 0)
+					instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.None)]);
+				var testInstrFlagsStr = string.Join(" | ",
+					instrFlags.Select(x => $"{x.DeclaringType.Name(idConverter)}::{idConverter.Constant(x.RawName)}"));
+				var decOpts = GetDecoderOptions(bitness, def);
+				if (decOpts.Count == 0)
+					decOpts.Add(decoderOptions[nameof(DecoderOptions.None)]);
+				var decOptsStr = string.Join(" | ",
+					decOpts.Select(x => $"{x.DeclaringType.Name(idConverter)}::{idConverter.Constant(x.RawName)}"));
+				writer.WriteLine($"{testInstrFlagsStr}, {decOptsStr});");
+			}
 		}
 
 		protected override TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, int bitness, ulong address) {
-			throw new InvalidOperationException(); //TODO:
+			var memName = GetName(size);
+			var asmStr = $"{memName}(0x{address:X}u64)";
+			var withStr = $"MemoryOperand::with_displ(0x{address:X}u64, {bitness / 8})";
+			return new TestArgValueBitness(asmStr, withStr);
 		}
 
 		protected override TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, Register @base, Register index, int scale, int displ) {
-			throw new InvalidOperationException(); //TODO:
+			if (scale != 1 && scale != 2 && scale != 4 && scale != 8)
+				throw new InvalidOperationException();
+			var sb = new StringBuilder();
+			sb.Append(GetName(size));
+			sb.Append('(');
+			bool plus = false;
+			if (@base != Register.None) {
+				plus = true;
+				sb.Append(GetAsmRegisterName(GetRegisterDef(@base)));
+			}
+			if (index != Register.None) {
+				if (plus)
+					sb.Append('+');
+				plus = true;
+				sb.Append(GetAsmRegisterName(GetRegisterDef(index)));
+				if (scale > 1) {
+					sb.Append('*');
+					sb.Append(scale);
+				}
+			}
+			if (displ != 0) {
+				bool isNeg = displ < 0;
+				if (isNeg)
+					displ = -displ;
+				if (plus)
+					sb.Append(isNeg ? '-' : '+');
+				sb.Append("0x");
+				sb.Append(displ.ToString("X", CultureInfo.InvariantCulture));
+			}
+			sb.Append(')');
+			var asmStr = sb.ToString();
+
+			var baseStr = idConverter.ToDeclTypeAndValue(GetRegisterDef(@base).Register);
+			var indexStr = idConverter.ToDeclTypeAndValue(GetRegisterDef(index).Register);
+			var displStr = displ < 0 ?
+				"-0x" + (-displ).ToString("X", CultureInfo.InvariantCulture) :
+				"0x" + displ.ToString("X", CultureInfo.InvariantCulture);
+			displStr += "i64";
+			var displSize = displ == 0 ? "0" : "1";
+			var isBcstStr = size.IsBroadcast ? "true" : "false";
+			var regNoneStr = idConverter.ToDeclTypeAndValue(GetRegisterDef(Register.None).Register);
+			var withStr = $"MemoryOperand::new({baseStr}, {indexStr}, {scale}, {displStr}, {displSize}, {isBcstStr}, {regNoneStr})";
+
+			return new(asmStr, withStr);
 		}
 
 		protected override TestArgValueBitness RegToTestArgValue(Register register) {
-			throw new InvalidOperationException(); //TODO:
+			var regDef = GetRegisterDef(register);
+			var asmReg = GetAsmRegisterName(regDef);
+			var withReg = idConverter.ToDeclTypeAndValue(regDef.Register);
+			return new(asmReg, withReg);
 		}
 
 		protected override TestArgValueBitness UnsignedImmToTestArgValue(ulong immediate, int encImmSizeBits, int immSizeBits, int argSizeBits) {
-			throw new InvalidOperationException(); //TODO:
+			if (encImmSizeBits > immSizeBits)
+				throw new InvalidOperationException();
+			var (castType, mask) = immSizeBits switch {
+				4 or 8 => ("u32", byte.MaxValue),
+				16 => ("u32", ushort.MaxValue),
+				32 => ("u32", uint.MaxValue),
+				64 => ("u64", ulong.MaxValue),
+				_ => throw new InvalidOperationException(),
+			};
+			immediate &= mask;
+			string numStr;
+			if (immediate <= 9)
+				numStr = immediate.ToString(CultureInfo.InvariantCulture);
+			else
+				numStr = "0x" + immediate.ToString("X", CultureInfo.InvariantCulture);
+
+			var asmStr = numStr + castType;
+			var withStr = asmStr;
+
+			return new(asmStr, withStr);
 		}
 
 		protected override TestArgValueBitness SignedImmToTestArgValue(long immediate, int encImmSizeBits, int immSizeBits, int argSizeBits) {
-			throw new InvalidOperationException(); //TODO:
+			if (encImmSizeBits > immSizeBits)
+				throw new InvalidOperationException();
+			var castType = argSizeBits switch {
+				4 or 8 => "i32",
+				16 => "i32",
+				32 => "i32",
+				64 => "i64",
+				_ => throw new InvalidOperationException(),
+			};
+			bool isNeg = immediate < 0;
+			if (isNeg)
+				immediate = -immediate;
+			string numStr;
+			if ((ulong)immediate <= 9)
+				numStr = immediate.ToString(CultureInfo.InvariantCulture);
+			else
+				numStr = "0x" + immediate.ToString("X", CultureInfo.InvariantCulture);
+			if (isNeg)
+				numStr = "-" + numStr;
+
+			var asmStr = numStr + castType;
+			var withStr = asmStr;
+
+			return new(asmStr, withStr);
 		}
 
-		protected override TestArgValueBitness LabelToTestArgValue() =>
-			throw new InvalidOperationException(); //TODO:
+		protected override TestArgValueBitness LabelToTestArgValue() => new(CreatedLabelName, FirstLabelIdName);
 	}
 }

@@ -55,8 +55,7 @@ impl CodeAsmOpStateFlags1 {
 	pub const SEGMENT_SHIFT: u8 = 0;
 	pub const SEGMENT_MASK: u8 = 7;
 	pub const SIZE_SHIFT: u8 = 3;
-	pub const SIZE_MASK: u8 = 7;
-	// [6] = FREE (also update merge())
+	pub const SIZE_MASK: u8 = 0xF;
 	pub const BROADCAST: u8 = 0x80;
 }
 

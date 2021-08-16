@@ -798,6 +798,16 @@ fn verify_memory_operand_ctors() {
 		assert!(!op.is_broadcast);
 		assert_eq!(op.segment_prefix, Register::None);
 	}
+	{
+		let op = MemoryOperand::with_displ(0x1234_5678_9ABC_DEF1, 8);
+		assert_eq!(op.base, Register::None);
+		assert_eq!(op.index, Register::None);
+		assert_eq!(op.scale, 1);
+		assert_eq!(op.displacement, 0x1234_5678_9ABC_DEF1);
+		assert_eq!(op.displ_size, 8);
+		assert!(!op.is_broadcast);
+		assert_eq!(op.segment_prefix, Register::None);
+	}
 }
 
 #[cfg(feature = "op_code_info")]

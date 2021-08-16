@@ -936,6 +936,12 @@ impl CodeAssembler {
 	/// ```
 	#[inline]
 	pub fn assemble(&mut self, ip: u64) -> Result<Vec<u8>, IcedError> {
+		self.assemble_options(ip, BlockEncoderOptions::NONE)
+	}
+
+	// Used by tests, we shouldn't expose this since using the BlockEncoder is currently an impl detail
+	#[inline]
+	pub(crate) fn assemble_options(&mut self, ip: u64, options: u32) -> Result<Vec<u8>, IcedError> {
 		if self.prefix_flags != 0 {
 			return Err(IcedError::new("Unused prefixes. Did you forget to add an instruction?"));
 		}
@@ -949,7 +955,6 @@ impl CodeAssembler {
 			return Err(IcedError::new("Unused anonymous fwd() label. Did you forget to call anonymous_label()?"));
 		}
 
-		let options = BlockEncoderOptions::NONE;
 		let block = InstructionBlock::new(self.instructions(), ip);
 		let result = BlockEncoder::encode(self.bitness(), block, options)?;
 		Ok(result.code_buffer)

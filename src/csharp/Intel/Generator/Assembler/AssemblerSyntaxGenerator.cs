@@ -32,6 +32,13 @@ namespace Generator.Assembler {
 		readonly Dictionary<MemorySizeFnKind, MemorySizeFuncInfo> toFnInfo;
 		int stackDepth;
 
+		protected static readonly Dictionary<int, HashSet<string>> ignoredTestsPerBitness = new() {
+			// generates  System.InvalidOperationException : Operand 0: Expected: NearBranch16, actual: NearBranch32 : 0x1 jecxz 000031D0h
+			{ 16, new HashSet<string> { "jecxz_lu64" } },
+			// generates  System.InvalidOperationException : Operand 0: Expected: NearBranch32, actual: NearBranch16 : 0x1 jcxz 31D0h
+			{ 32, new HashSet<string> { "jcxz_lu64" } },
+		};
+
 		protected Code GetOrigCodeValue(EnumValue value) {
 			if (value.DeclaringType.TypeId != TypeIds.Code)
 				throw new InvalidOperationException();

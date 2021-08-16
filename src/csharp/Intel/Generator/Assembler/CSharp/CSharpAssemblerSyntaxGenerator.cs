@@ -26,13 +26,6 @@ namespace Generator.Assembler.CSharp {
 			("dq", 8, new[] { "ulong", "long", "double" }, "CreateDeclareQword"),
 		};
 
-		static readonly Dictionary<int, HashSet<string>> IgnoredTestsPerBitness = new() {
-			// generates  System.InvalidOperationException : Operand 0: Expected: NearBranch16, actual: NearBranch32 : 0x1 jecxz 000031D0h
-			{ 16, new HashSet<string> { "jecxz_lu64" } },
-			// generates  System.InvalidOperationException : Operand 0: Expected: NearBranch32, actual: NearBranch16 : 0x1 jcxz 31D0h
-			{ 32, new HashSet<string> { "jcxz_lu64" } },
-		};
-
 		public CSharpAssemblerSyntaxGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
 			idConverter = CSharpIdentifierConverter.Create();
@@ -474,11 +467,8 @@ namespace Generator.Assembler.CSharp {
 						writerTests.WriteLine();
 
 						foreach (var group in groups) {
-							switch (group.Name) {
-							case "xbegin":
-								// Implemented manually
-								continue;
-							}
+							if (group.Name == "xbegin")
+								continue; // Implemented manually
 							if (!IsBitnessSupported(bitness, group.AllDefFlags))
 								continue;
 
@@ -748,7 +738,7 @@ namespace Generator.Assembler.CSharp {
 			}
 
 			var fullMethodNameStr = fullMethodName.ToString();
-			if (IgnoredTestsPerBitness.TryGetValue(bitness, out var ignoredTests) && ignoredTests.Contains(fullMethodNameStr))
+			if (ignoredTestsPerBitness.TryGetValue(bitness, out var ignoredTests) && ignoredTests.Contains(fullMethodNameStr))
 				return;
 			writer.WriteLine("[Fact]");
 			writer.WriteLine($"public void {fullMethodNameStr}() {{");
@@ -1095,7 +1085,6 @@ namespace Generator.Assembler.CSharp {
 		protected override TestArgValueBitness UnsignedImmToTestArgValue(ulong immediate, int encImmSizeBits, int immSizeBits, int argSizeBits) {
 			if (encImmSizeBits > immSizeBits)
 				throw new InvalidOperationException();
-			string s;
 			var (asmCastType, withCastType, mask) = immSizeBits switch {
 				4 => (argSizeBits == 8 ? "(byte)" : "U", "U", byte.MaxValue),
 				8 => (argSizeBits == immSizeBits ? "(byte)" : "U", "U", byte.MaxValue),
@@ -1105,13 +1094,14 @@ namespace Generator.Assembler.CSharp {
 				_ => throw new InvalidOperationException(),
 			};
 			immediate &= mask;
+			string numStr;
 			if (immediate <= 9)
-				s = immediate.ToString(CultureInfo.InvariantCulture);
+				numStr = immediate.ToString(CultureInfo.InvariantCulture);
 			else
-				s = "0x" + immediate.ToString("X", CultureInfo.InvariantCulture);
+				numStr = "0x" + immediate.ToString("X", CultureInfo.InvariantCulture);
 
-			var asmStr = AddCastOrSuffix(s, asmCastType);
-			var withStr = AddCastOrSuffix(s, withCastType);
+			var asmStr = AddCastOrSuffix(numStr, asmCastType);
+			var withStr = AddCastOrSuffix(numStr, withCastType);
 
 			return new(asmStr, withStr);
 		}
@@ -1119,18 +1109,18 @@ namespace Generator.Assembler.CSharp {
 		protected override TestArgValueBitness SignedImmToTestArgValue(long immediate, int encImmSizeBits, int immSizeBits, int argSizeBits) {
 			if (encImmSizeBits > immSizeBits)
 				throw new InvalidOperationException();
-			string s;
 			bool isNeg = immediate < 0;
 			if (isNeg)
 				immediate = -immediate;
+			string numStr;
 			if ((ulong)immediate <= 9)
-				s = immediate.ToString(CultureInfo.InvariantCulture);
+				numStr = immediate.ToString(CultureInfo.InvariantCulture);
 			else
-				s = "0x" + immediate.ToString("X", CultureInfo.InvariantCulture);
+				numStr = "0x" + immediate.ToString("X", CultureInfo.InvariantCulture);
 			if (isNeg)
-				s = "-" + s;
+				numStr = "-" + numStr;
 
-			return new(s);
+			return new(numStr);
 		}
 
 		protected override TestArgValueBitness LabelToTestArgValue() =>

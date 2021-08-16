@@ -231,4 +231,26 @@ impl MemoryOperand {
 	pub fn with_base(base: Register) -> Self {
 		Self { segment_prefix: Register::None, base, index: Register::None, scale: 1, displacement: 0, displ_size: 0, is_broadcast: false }
 	}
+
+	/// Constructor
+	///
+	/// # Arguments
+	///
+	/// * `displacement`: Memory displacement
+	/// * `displ_size`: 2 (16-bit), 4 (32-bit) or 8 (64-bit)
+	///
+	/// [`Register::None`]: enum.Register.html#variant.None
+	#[must_use]
+	#[inline]
+	pub fn with_displ(displacement: u64, displ_size: u32) -> Self {
+		Self {
+			segment_prefix: Register::None,
+			base: Register::None,
+			index: Register::None,
+			scale: 1,
+			displacement: displacement as i64,
+			displ_size,
+			is_broadcast: false,
+		}
+	}
 }
