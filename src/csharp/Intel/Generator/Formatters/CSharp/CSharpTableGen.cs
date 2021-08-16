@@ -16,9 +16,7 @@ namespace Generator.Formatters.CSharp {
 		readonly IdentifierConverter idConverter;
 
 		public CSharpTableGen(GeneratorContext generatorContext)
-			: base(generatorContext.Types) {
-			idConverter = CSharpIdentifierConverter.Create();
-		}
+			: base(generatorContext.Types) => idConverter = CSharpIdentifierConverter.Create();
 
 		protected override void Generate(MemorySizeDef[] defs) {
 			GenerateFast(defs);

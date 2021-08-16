@@ -8,9 +8,7 @@ namespace Generator.Decoder.CSharp {
 		public string ClassName { get; }
 
 		public CSharpDecoderTableSerializer(GenTypes genTypes, string className, DecoderTableSerializerInfo info)
-			: base(genTypes, CSharpIdentifierConverter.Create(), info) {
-			ClassName = className;
-		}
+			: base(genTypes, CSharpIdentifierConverter.Create(), info) => ClassName = className;
 
 		public void Serialize(FileWriter writer) {
 			writer.WriteFileHeader();

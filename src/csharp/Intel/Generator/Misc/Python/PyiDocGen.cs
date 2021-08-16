@@ -14,7 +14,7 @@ namespace Generator.Misc.Python {
 	//
 	// Tested: VSCode(Jedi, Pylance, Microsoft)
 	sealed class PyiDocGen {
-		readonly List<string> converted = new List<string>();
+		readonly List<string> converted = new();
 
 		const string HeaderPrefix = "###";
 
@@ -184,7 +184,7 @@ namespace Generator.Misc.Python {
 				}
 				string col;
 				if (isLastCol)
-					col = line.Substring(colDef.start).Trim();
+					col = line[colDef.start..].Trim();
 				else
 					col = line.Substring(colDef.start, colDef.length).Trim();
 				cols.Add(col);

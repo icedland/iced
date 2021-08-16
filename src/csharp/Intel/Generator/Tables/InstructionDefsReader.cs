@@ -62,7 +62,7 @@ namespace Generator.Tables {
 		const string DefBeginPrefix = "INSTRUCTION:";
 		const string DefEnd = "END";
 
-		static readonly HashSet<string> flagsMustHaveKeyValue = new HashSet<string>(StringComparer.Ordinal) {
+		static readonly HashSet<string> flagsMustHaveKeyValue = new(StringComparer.Ordinal) {
 			"vmx",
 			"fpu-push",
 			"fpu-cond-push",
@@ -3485,13 +3485,13 @@ namespace Generator.Tables {
 
 	sealed class FastState {
 		public string? Mnemonic;
-		public List<EnumValue> Flags = new List<EnumValue>();
+		public List<EnumValue> Flags = new();
 	}
 	abstract class FmtState {
 		public string? Mnemonic;
-		public List<EnumValue> Flags = new List<EnumValue>();
+		public List<EnumValue> Flags = new();
 		public EnumValue? CtorKind;
-		public List<object> Args = new List<object>();
+		public List<object> Args = new();
 
 		public bool UsedFlags;
 		public List<EnumValue> GetUsedFlags() {

@@ -19,7 +19,7 @@ namespace Generator.Documentation.Python {
 		int summaryLineNumber;
 		bool hasColonText;
 
-		static readonly Dictionary<string, string> toTypeInfo = new Dictionary<string, string>(StringComparer.Ordinal) {
+		static readonly Dictionary<string, string> toTypeInfo = new(StringComparer.Ordinal) {
 			{ "bcd", "bcd" },
 			{ "bf16", "bfloat16" },
 			{ "f16", "f16" },

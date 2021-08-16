@@ -19,14 +19,14 @@ namespace Generator.Assembler.CSharp {
 		readonly EnumType registerType;
 		readonly EnumType memoryOperandSizeType;
 
-		static readonly List<(string, int, string[], string)> declareDataList = new List<(string, int, string[], string)> {
+		static readonly List<(string, int, string[], string)> declareDataList = new() {
 			("db", 1, new[] { "byte", "sbyte" }, "CreateDeclareByte"),
 			("dw", 2, new[] { "ushort", "short" }, "CreateDeclareWord"),
 			("dd", 4, new[] { "uint", "int", "float" }, "CreateDeclareDword"),
 			("dq", 8, new[] { "ulong", "long", "double" }, "CreateDeclareQword"),
 		};
 
-		static readonly Dictionary<int, HashSet<string>> IgnoredTestsPerBitness = new Dictionary<int, HashSet<string>>() {
+		static readonly Dictionary<int, HashSet<string>> IgnoredTestsPerBitness = new() {
 			// generates  System.InvalidOperationException : Operand 0: Expected: NearBranch16, actual: NearBranch32 : 0x1 jecxz 000031D0h
 			{ 16, new HashSet<string> { "jecxz_lu64" } },
 			// generates  System.InvalidOperationException : Operand 0: Expected: NearBranch32, actual: NearBranch16 : 0x1 jcxz 31D0h
@@ -1077,7 +1077,7 @@ namespace Generator.Assembler.CSharp {
 				if (plus)
 					sb.Append(isNeg ? '-' : '+');
 				sb.Append("0x");
-				sb.Append(displ.ToString("X"));
+				sb.Append(displ.ToString("X", CultureInfo.InvariantCulture));
 			}
 			sb.Append(']');
 			return new(sb.ToString());
@@ -1085,7 +1085,7 @@ namespace Generator.Assembler.CSharp {
 
 		protected override TestArgValueBitness RegToTestArgValue(Register register) =>
 			new(GetAsmRegisterName(GetRegisterDef(register)));
-		
+
 		static string AddCastOrSuffix(string number, string castOrSuffix) {
 			if (castOrSuffix.StartsWith("("))
 				return castOrSuffix + number;
@@ -1106,9 +1106,9 @@ namespace Generator.Assembler.CSharp {
 			};
 			immediate &= mask;
 			if (immediate <= 9)
-				s = immediate.ToString();
+				s = immediate.ToString(CultureInfo.InvariantCulture);
 			else
-				s = "0x" + immediate.ToString("X");
+				s = "0x" + immediate.ToString("X", CultureInfo.InvariantCulture);
 
 			var asmStr = AddCastOrSuffix(s, asmCastType);
 			var withStr = AddCastOrSuffix(s, withCastType);
@@ -1124,9 +1124,9 @@ namespace Generator.Assembler.CSharp {
 			if (isNeg)
 				immediate = -immediate;
 			if ((ulong)immediate <= 9)
-				s = immediate.ToString();
+				s = immediate.ToString(CultureInfo.InvariantCulture);
 			else
-				s = "0x" + immediate.ToString("X");
+				s = "0x" + immediate.ToString("X", CultureInfo.InvariantCulture);
 			if (isNeg)
 				s = "-" + s;
 

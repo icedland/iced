@@ -11,7 +11,7 @@ namespace Generator {
 	/// Converts C# PascalCase identifiers to eg. snake_case
 	/// </summary>
 	abstract class IdentifierConverter {
-		readonly StringBuilder sb = new StringBuilder();
+		readonly StringBuilder sb = new();
 
 		protected abstract string EnumSeparator { get; }
 		public abstract string Type(string name);
@@ -91,7 +91,7 @@ namespace Generator {
 		public override string Namespace(string name) => Escape(name);
 		public override string Argument(string name) => Escape(name);
 
-		static readonly HashSet<string> keywords = new HashSet<string>(StringComparer.Ordinal) {
+		static readonly HashSet<string> keywords = new(StringComparer.Ordinal) {
 			"abstract", "as", "base", "bool",
 			"break", "byte", "case", "catch",
 			"char", "checked", "class", "const",

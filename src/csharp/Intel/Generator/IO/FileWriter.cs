@@ -76,8 +76,8 @@ namespace Generator.IO {
 			public void Dispose() => writer.UnindentPrivate(indent);
 		}
 
-		public Indenter Indent() => new Indenter(this, 1);
-		public Indenter Indent(int indent) => new Indenter(this, indent);
+		public Indenter Indent() => new(this, 1);
+		public Indenter Indent(int indent) => new(this, indent);
 
 		void IndentPrivate(int indent) {
 			if (indent < 0)

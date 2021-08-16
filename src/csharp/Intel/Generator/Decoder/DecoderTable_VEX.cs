@@ -19,7 +19,6 @@ namespace Generator.Decoder {
 			var RM = kind[nameof(VexOpCodeHandlerKind.RM)];
 			var Group = kind[nameof(VexOpCodeHandlerKind.Group)];
 			var W = kind[nameof(VexOpCodeHandlerKind.W)];
-			var MandatoryPrefix2_1 = kind[nameof(VexOpCodeHandlerKind.MandatoryPrefix2_1)];
 			var MandatoryPrefix2_4 = kind[nameof(VexOpCodeHandlerKind.MandatoryPrefix2_4)];
 			var MandatoryPrefix2_NoModRM = kind[nameof(VexOpCodeHandlerKind.MandatoryPrefix2_NoModRM)];
 			var VectorLength_NoModRM = kind[nameof(VexOpCodeHandlerKind.VectorLength_NoModRM)];
@@ -29,21 +28,18 @@ namespace Generator.Decoder {
 			var G_VK = kind[nameof(VexOpCodeHandlerKind.G_VK)];
 			var Gv_Ev_Gv = kind[nameof(VexOpCodeHandlerKind.Gv_Ev_Gv)];
 			var Gv_Ev_Ib = kind[nameof(VexOpCodeHandlerKind.Gv_Ev_Ib)];
-			var Gv_Ev_Id = kind[nameof(VexOpCodeHandlerKind.Gv_Ev_Id)];
 			var Gv_GPR_Ib = kind[nameof(VexOpCodeHandlerKind.Gv_GPR_Ib)];
 			var Gv_Gv_Ev = kind[nameof(VexOpCodeHandlerKind.Gv_Gv_Ev)];
 			var Gv_RX = kind[nameof(VexOpCodeHandlerKind.Gv_RX)];
 			var Gv_W = kind[nameof(VexOpCodeHandlerKind.Gv_W)];
 			var GvM_VX_Ib = kind[nameof(VexOpCodeHandlerKind.GvM_VX_Ib)];
 			var HRIb = kind[nameof(VexOpCodeHandlerKind.HRIb)];
-			var Hv_Ed_Id = kind[nameof(VexOpCodeHandlerKind.Hv_Ed_Id)];
 			var Hv_Ev = kind[nameof(VexOpCodeHandlerKind.Hv_Ev)];
 			var M = kind[nameof(VexOpCodeHandlerKind.M)];
 			var MHV = kind[nameof(VexOpCodeHandlerKind.MHV)];
 			var M_VK = kind[nameof(VexOpCodeHandlerKind.M_VK)];
 			var MV = kind[nameof(VexOpCodeHandlerKind.MV)];
 			var rDI_VX_RX = kind[nameof(VexOpCodeHandlerKind.rDI_VX_RX)];
-			var RdRq = kind[nameof(VexOpCodeHandlerKind.RdRq)];
 			var Simple = kind[nameof(VexOpCodeHandlerKind.Simple)];
 			var VHEv = kind[nameof(VexOpCodeHandlerKind.VHEv)];
 			var VHEvIb = kind[nameof(VexOpCodeHandlerKind.VHEvIb)];
@@ -65,7 +61,6 @@ namespace Generator.Decoder {
 			var VM = kind[nameof(VexOpCodeHandlerKind.VM)];
 			var VW_2 = kind[nameof(VexOpCodeHandlerKind.VW_2)];
 			var VW_3 = kind[nameof(VexOpCodeHandlerKind.VW_3)];
-			var VWH = kind[nameof(VexOpCodeHandlerKind.VWH)];
 			var VWIb_2 = kind[nameof(VexOpCodeHandlerKind.VWIb_2)];
 			var VWIb_3 = kind[nameof(VexOpCodeHandlerKind.VWIb_3)];
 			var VX_Ev = kind[nameof(VexOpCodeHandlerKind.VX_Ev)];
@@ -77,8 +72,6 @@ namespace Generator.Decoder {
 			var SIBMEM_VT = kind[nameof(VexOpCodeHandlerKind.SIBMEM_VT)];
 			var VT = kind[nameof(VexOpCodeHandlerKind.VT)];
 			var VT_RT_HT = kind[nameof(VexOpCodeHandlerKind.VT_RT_HT)];
-			var Group8x64 = kind[nameof(VexOpCodeHandlerKind.Group8x64)];
-			var Bitness = kind[nameof(VexOpCodeHandlerKind.Bitness)];
 
 			var eax = reg[nameof(Register.EAX)];
 			var rax = reg[nameof(Register.RAX)];

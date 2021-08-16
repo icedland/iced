@@ -8,9 +8,7 @@ namespace Generator.Decoder.Rust {
 		public string TableName { get; }
 
 		public RustDecoderTableSerializer(GenTypes genTypes, string tableName, DecoderTableSerializerInfo info)
-			: base(genTypes, RustIdentifierConverter.Create(), info) {
-			TableName = tableName;
-		}
+			: base(genTypes, RustIdentifierConverter.Create(), info) => TableName = tableName;
 
 		public void Serialize(FileWriter writer) {
 			writer.WriteFileHeader();

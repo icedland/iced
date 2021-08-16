@@ -29,7 +29,7 @@ namespace Generator.Tables {
 			instrFlags = ParsedInstructionFlags.None;
 		}
 
-		public bool TryParseMemorySize(string s, out int value) {
+		static bool TryParseMemorySize(string s, out int value) {
 			Debug.Assert(s.StartsWith("m", StringComparison.Ordinal));
 			var s2 = s.AsSpan()["m".Length..];
 			if (s2.EndsWith("bcst", StringComparison.Ordinal))

@@ -15,7 +15,7 @@ namespace Generator.Documentation.Rust {
 		readonly List<(string @ref, string url)> refUrls;
 		readonly HashSet<string> usedRefs;
 
-		static readonly Dictionary<string, (string type, bool isKeyword)> toTypeInfo = new Dictionary<string, (string type, bool isKeyword)>(StringComparer.Ordinal) {
+		static readonly Dictionary<string, (string type, bool isKeyword)> toTypeInfo = new(StringComparer.Ordinal) {
 			{ "bcd", ("bcd", false) },
 			{ "bf16", ("bfloat16", false) },
 			{ "f16", ("f16", false) },

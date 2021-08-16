@@ -53,7 +53,7 @@ namespace Generator.Encoder {
 
 	sealed class CreateMethod {
 		public readonly List<string> Docs;
-		public readonly List<MethodArg> Args = new List<MethodArg>();
+		public readonly List<MethodArg> Args = new();
 		public CreateMethod(params string[] docs) => Docs = docs.ToList();
 	}
 

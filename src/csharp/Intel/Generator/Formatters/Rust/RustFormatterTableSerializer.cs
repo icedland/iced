@@ -9,9 +9,7 @@ namespace Generator.Formatters.Rust {
 		readonly string filename;
 
 		public RustFormatterTableSerializer(string filename, FmtInstructionDef[] defs, EnumType ctorKindEnum)
-			: base(defs, RustIdentifierConverter.Create(), ctorKindEnum["Previous"]) {
-			this.filename = filename;
-		}
+			: base(defs, RustIdentifierConverter.Create(), ctorKindEnum["Previous"]) => this.filename = filename;
 
 		public override string GetFilename(GenTypes genTypes) => filename;
 

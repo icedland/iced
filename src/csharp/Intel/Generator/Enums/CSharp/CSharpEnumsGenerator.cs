@@ -48,7 +48,7 @@ namespace Generator.Enums.CSharp {
 			deprecatedWriter = new CSharpDeprecatedWriter(idConverter);
 
 			var dirs = genTypes.Dirs;
-			toFullFileInfo = new Dictionary<TypeId, FullEnumFileInfo?>();
+			toFullFileInfo = new();
 			toFullFileInfo.Add(TypeIds.Code, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.Code) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(TypeIds.CodeSize, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.CodeSize) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(TypeIds.ConditionCode, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.ConditionCode) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.InstructionInfoDefine));
@@ -99,7 +99,7 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.MemorySizeOptions, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.MemorySizeOptions) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.AnyFormatterDefine));
 			toFullFileInfo.Add(TypeIds.CodeAsmMemoryOperandSize, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Assembler", "MemoryOperandSize.g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.CodeAssemblerDefine));
 
-			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo?>();
+			toPartialFileInfo = new();
 			toPartialFileInfo.Add(TypeIds.InstrFlags1, new PartialEnumFileInfo("InstrFlags1", CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Instruction.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.OpSize, new PartialEnumFileInfo("OpSize", CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Decoder.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.StateFlags, new PartialEnumFileInfo("StateFlags", CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Decoder.cs"), "uint"));

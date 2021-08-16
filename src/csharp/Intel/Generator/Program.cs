@@ -55,10 +55,10 @@ namespace Generator {
 	}
 
 	sealed class CommandLineOptions {
-		public readonly HashSet<TargetLanguage> Languages = new HashSet<TargetLanguage>();
+		public readonly HashSet<TargetLanguage> Languages = new();
 		public GeneratorFlags GeneratorFlags = GeneratorFlags.None;
-		public readonly HashSet<string> IncludeCpuid = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-		public readonly HashSet<string> ExcludeCpuid = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+		public readonly HashSet<string> IncludeCpuid = new(StringComparer.OrdinalIgnoreCase);
+		public readonly HashSet<string> ExcludeCpuid = new(StringComparer.OrdinalIgnoreCase);
 	}
 
 	static class Program {

@@ -14,7 +14,7 @@ namespace Generator.Constants {
 
 		public const string FirstBroadcastMemorySizeName = "FirstBroadcastMemorySize";
 
-		static Dictionary<TypeId, string> toEnumCountName = new Dictionary<TypeId, string>();
+		static readonly Dictionary<TypeId, string> toEnumCountName = new();
 		static bool toEnumCountNameInitd = false;
 		static Dictionary<TypeId, string> GetEnumCountNameDict() {
 			if (!toEnumCountNameInitd)

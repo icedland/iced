@@ -12,7 +12,7 @@ namespace Generator.Documentation.CSharp {
 		readonly IdentifierConverter idConverter;
 		readonly StringBuilder sb;
 
-		static readonly Dictionary<string, (string type, bool isKeyword)> toTypeInfo = new Dictionary<string, (string type, bool isKeyword)>(StringComparer.Ordinal) {
+		static readonly Dictionary<string, (string type, bool isKeyword)> toTypeInfo = new(StringComparer.Ordinal) {
 			{ "bcd", ("bcd", false) },
 			{ "bf16", ("bfloat16", false) },
 			{ "f16", ("float16", false) },

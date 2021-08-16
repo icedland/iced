@@ -306,7 +306,7 @@ namespace Generator.Encoder.Python {
 						break;
 					}
 				}
-				sb.Append(")");
+				sb.Append(')');
 				if (ctx.Info.CanFail)
 					sb.Append(".map_err(to_value_error)?");
 				sb.Append(" })");

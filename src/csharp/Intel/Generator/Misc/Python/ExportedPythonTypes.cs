@@ -14,7 +14,7 @@ namespace Generator.Misc.Python {
 	}
 
 	sealed class ExportedPythonTypes {
-		readonly Dictionary<string, EnumType> toEnumType = new Dictionary<string, EnumType>(StringComparer.Ordinal);
+		readonly Dictionary<string, EnumType> toEnumType = new(StringComparer.Ordinal);
 		public List<EnumType> Enums { get; } = new List<EnumType>();
 
 		public void AddEnum(EnumType enumType) {

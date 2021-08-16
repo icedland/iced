@@ -88,7 +88,7 @@ namespace Generator.Formatters {
 		}
 
 		sealed class InfoSorterOptimizeSize : IComparer<Info> {
-			public static readonly InfoSorterOptimizeSize Instance = new InfoSorterOptimizeSize();
+			public static readonly InfoSorterOptimizeSize Instance = new();
 			InfoSorterOptimizeSize() { }
 			public int Compare([AllowNull] Info x, [AllowNull] Info y) {
 				int c = y!.Count - x!.Count;
@@ -102,7 +102,7 @@ namespace Generator.Formatters {
 		}
 
 		sealed class InfoSorterMinimizeDiff : IComparer<Info> {
-			public static readonly InfoSorterMinimizeDiff Instance = new InfoSorterMinimizeDiff();
+			public static readonly InfoSorterMinimizeDiff Instance = new();
 			InfoSorterMinimizeDiff() { }
 			public int Compare([AllowNull] Info x, [AllowNull] Info y) {
 				int c = x!.ApproxCode.CompareTo(y!.ApproxCode);

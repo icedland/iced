@@ -11,9 +11,7 @@ namespace Generator.Tables.CSharp {
 		readonly IdentifierConverter idConverter;
 
 		public CSharpD3nowCodeValuesTableGenerator(GeneratorContext generatorContext)
-			: base(generatorContext.Types) {
-			idConverter = CSharpIdentifierConverter.Create();
-		}
+			: base(generatorContext.Types) => idConverter = CSharpIdentifierConverter.Create();
 
 		protected override void Generate((int index, EnumValue enumValue)[] infos) {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.DecoderNamespace, "OpCodeHandlers_D3NOW.cs");

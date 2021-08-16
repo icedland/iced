@@ -31,7 +31,7 @@ namespace Generator.Constants.Rust {
 			constantsWriter = new RustConstantsWriter(genTypes, idConverter, new RustDocCommentWriter(idConverter), new RustDeprecatedWriter(idConverter));
 
 			var dirs = generatorContext.Types.Dirs;
-			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo?>();
+			toPartialFileInfo = new();
 			toPartialFileInfo.Add(TypeIds.IcedConstants, new PartialConstantsFileInfo("IcedConstants", dirs.GetRustFilename("iced_constants.rs")));
 			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", dirs.GetRustFilename("decoder", "tests", "test_parser.rs"), true));
 			toPartialFileInfo.Add(TypeIds.DecoderConstants, new PartialConstantsFileInfo("DecoderConstants", dirs.GetRustFilename("test_utils", "decoder_constants.rs")));

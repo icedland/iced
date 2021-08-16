@@ -85,7 +85,7 @@ namespace Generator.Tables {
 			return true;
 		}
 
-		static readonly HashSet<string> impliedAccessKeyHasValue = new HashSet<string>(StringComparer.Ordinal) {
+		static readonly HashSet<string> impliedAccessKeyHasValue = new(StringComparer.Ordinal) {
 			"cr", "cw", "crcw", "r", "w", "rw", "rcw",
 			"shift-mask", "shift-mask-1F-mod",
 			"enter", "leave",
@@ -260,12 +260,12 @@ namespace Generator.Tables {
 			}
 		}
 
-		static readonly Dictionary<ImplAccConditionKind, ImplAccConditionKind> toPosCond = new Dictionary<ImplAccConditionKind, ImplAccConditionKind> {
+		static readonly Dictionary<ImplAccConditionKind, ImplAccConditionKind> toPosCond = new() {
 			{ ImplAccConditionKind.None, ImplAccConditionKind.None },
 			{ ImplAccConditionKind.Bit64, ImplAccConditionKind.Bit64 },
 			{ ImplAccConditionKind.NotBit64, ImplAccConditionKind.Bit64 },
 		};
-		static readonly Dictionary<ImplAccConditionKind, ImplAccConditionKind> toNegCond = new Dictionary<ImplAccConditionKind, ImplAccConditionKind> {
+		static readonly Dictionary<ImplAccConditionKind, ImplAccConditionKind> toNegCond = new() {
 			{ ImplAccConditionKind.None, ImplAccConditionKind.None },
 			{ ImplAccConditionKind.Bit64, ImplAccConditionKind.NotBit64 },
 			{ ImplAccConditionKind.NotBit64, ImplAccConditionKind.NotBit64 },
