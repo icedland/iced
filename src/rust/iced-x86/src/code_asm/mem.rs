@@ -279,14 +279,6 @@ impl AsmMemoryOperand {
 		self
 	}
 
-	/// Enables zeroing-masking `{z}`
-	#[must_use]
-	#[inline]
-	pub fn z(mut self) -> Self {
-		self.state.set_zeroing_masking();
-		self
-	}
-
 	#[must_use]
 	#[inline]
 	pub(crate) fn is_displacement_only(&self) -> bool {
