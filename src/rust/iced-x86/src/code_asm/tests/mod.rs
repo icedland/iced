@@ -515,6 +515,19 @@ fn nops_errors() {
 }
 
 #[test]
+fn add_instruction() {
+	let mut a = CodeAssembler::new(64).unwrap();
+	a.nop().unwrap();
+	let mut lbl = a.create_label();
+	a.set_current_label(&mut lbl).unwrap();
+	a.add_instruction(Instruction::with1(Code::Pop_r64, Register::RDX).unwrap()).unwrap();
+	a.int3().unwrap();
+	a.je(lbl).unwrap();
+	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
+	assert_eq!(bytes, b"\x90\x5A\xCC\x74\xFC");
+}
+
+#[test]
 fn test_call_far() {
 	test_instr(
 		16,

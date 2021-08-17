@@ -850,6 +850,36 @@ impl CodeAssembler {
 		}
 	}
 
+	/// Adds an instruction created by the decoder or by `Instruction::with*()` methods
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
+	///
+	/// # Arguments
+	///
+	/// * `instruction`: Instruction to add
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// a.nop()?;
+	/// a.add_instruction(Instruction::with1(Code::Push_r64, Register::RCX)?)?;
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\x90\x51");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[inline]
+	pub fn add_instruction(&mut self, instruction: Instruction) -> Result<(), IcedError> {
+		self.add_instr(instruction)
+	}
+
 	pub(crate) fn add_instr_with_state(&mut self, mut instruction: Instruction, state: CodeAsmOpState) -> Result<(), IcedError> {
 		if !state.is_default() {
 			if state.is_broadcast() {
