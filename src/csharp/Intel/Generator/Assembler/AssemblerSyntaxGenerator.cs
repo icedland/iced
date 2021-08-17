@@ -1845,7 +1845,7 @@ namespace Generator.Assembler {
 				ArgKind.Register16 => "r16",
 				ArgKind.Register32 => "r32",
 				ArgKind.Register64 => "r64",
-				ArgKind.RegisterK => "k",
+				ArgKind.RegisterK => "kr",
 				ArgKind.RegisterSt => "st",
 				ArgKind.RegisterSegment => "seg",
 				ArgKind.RegisterBnd => "bnd",

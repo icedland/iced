@@ -8791,7 +8791,7 @@ fn js_lu64() {
 
 #[test]
 #[rustfmt::skip]
-fn kaddb_k_k_k() {
+fn kaddb_kr_kr_kr() {
 	// VEX_Kaddb_kr_kr_kr
 	test_instr(32, |a| a.kaddb(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kaddb_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8800,7 +8800,7 @@ fn kaddb_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kaddd_k_k_k() {
+fn kaddd_kr_kr_kr() {
 	// VEX_Kaddd_kr_kr_kr
 	test_instr(32, |a| a.kaddd(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kaddd_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8809,7 +8809,7 @@ fn kaddd_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kaddq_k_k_k() {
+fn kaddq_kr_kr_kr() {
 	// VEX_Kaddq_kr_kr_kr
 	test_instr(32, |a| a.kaddq(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kaddq_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8818,7 +8818,7 @@ fn kaddq_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kaddw_k_k_k() {
+fn kaddw_kr_kr_kr() {
 	// VEX_Kaddw_kr_kr_kr
 	test_instr(32, |a| a.kaddw(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kaddw_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8827,7 +8827,7 @@ fn kaddw_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kandb_k_k_k() {
+fn kandb_kr_kr_kr() {
 	// VEX_Kandb_kr_kr_kr
 	test_instr(32, |a| a.kandb(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kandb_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8836,7 +8836,7 @@ fn kandb_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kandd_k_k_k() {
+fn kandd_kr_kr_kr() {
 	// VEX_Kandd_kr_kr_kr
 	test_instr(32, |a| a.kandd(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kandd_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8845,7 +8845,7 @@ fn kandd_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kandnb_k_k_k() {
+fn kandnb_kr_kr_kr() {
 	// VEX_Kandnb_kr_kr_kr
 	test_instr(32, |a| a.kandnb(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kandnb_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8854,7 +8854,7 @@ fn kandnb_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kandnd_k_k_k() {
+fn kandnd_kr_kr_kr() {
 	// VEX_Kandnd_kr_kr_kr
 	test_instr(32, |a| a.kandnd(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kandnd_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8863,7 +8863,7 @@ fn kandnd_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kandnq_k_k_k() {
+fn kandnq_kr_kr_kr() {
 	// VEX_Kandnq_kr_kr_kr
 	test_instr(32, |a| a.kandnq(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kandnq_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8872,7 +8872,7 @@ fn kandnq_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kandnw_k_k_k() {
+fn kandnw_kr_kr_kr() {
 	// VEX_Kandnw_kr_kr_kr
 	test_instr(32, |a| a.kandnw(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kandnw_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8881,7 +8881,7 @@ fn kandnw_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kandq_k_k_k() {
+fn kandq_kr_kr_kr() {
 	// VEX_Kandq_kr_kr_kr
 	test_instr(32, |a| a.kandq(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kandq_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8890,7 +8890,7 @@ fn kandq_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kandw_k_k_k() {
+fn kandw_kr_kr_kr() {
 	// VEX_Kandw_kr_kr_kr
 	test_instr(32, |a| a.kandw(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kandw_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -8899,7 +8899,7 @@ fn kandw_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovb_k_r32() {
+fn kmovb_kr_r32() {
 	// VEX_Kmovb_kr_r32
 	test_instr(32, |a| a.kmovb(k2, ebx).unwrap(),
 		Instruction::with2(Code::VEX_Kmovb_kr_r32, Register::K2, Register::EBX).unwrap(),
@@ -8908,7 +8908,7 @@ fn kmovb_k_r32() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovb_r32_k() {
+fn kmovb_r32_kr() {
 	// VEX_Kmovb_r32_kr
 	test_instr(32, |a| a.kmovb(edx, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovb_r32_kr, Register::EDX, Register::K3).unwrap(),
@@ -8917,7 +8917,7 @@ fn kmovb_r32_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovb_k_k() {
+fn kmovb_kr_kr() {
 	// VEX_Kmovb_kr_km8
 	test_instr(32, |a| a.kmovb(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovb_kr_km8, Register::K2, Register::K3).unwrap(),
@@ -8926,7 +8926,7 @@ fn kmovb_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovb_m_k() {
+fn kmovb_m_kr() {
 	// VEX_Kmovb_m8_kr
 	test_instr(32, |a| a.kmovb(ptr(ecx), k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovb_m8_kr, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::K3).unwrap(),
@@ -8935,7 +8935,7 @@ fn kmovb_m_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovb_k_m() {
+fn kmovb_kr_m() {
 	// VEX_Kmovb_kr_km8
 	test_instr(32, |a| a.kmovb(k2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Kmovb_kr_km8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -8944,7 +8944,7 @@ fn kmovb_k_m() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovd_k_r32() {
+fn kmovd_kr_r32() {
 	// VEX_Kmovd_kr_r32
 	test_instr(32, |a| a.kmovd(k2, ebx).unwrap(),
 		Instruction::with2(Code::VEX_Kmovd_kr_r32, Register::K2, Register::EBX).unwrap(),
@@ -8953,7 +8953,7 @@ fn kmovd_k_r32() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovd_r32_k() {
+fn kmovd_r32_kr() {
 	// VEX_Kmovd_r32_kr
 	test_instr(32, |a| a.kmovd(edx, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovd_r32_kr, Register::EDX, Register::K3).unwrap(),
@@ -8962,7 +8962,7 @@ fn kmovd_r32_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovd_k_k() {
+fn kmovd_kr_kr() {
 	// VEX_Kmovd_kr_km32
 	test_instr(32, |a| a.kmovd(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovd_kr_km32, Register::K2, Register::K3).unwrap(),
@@ -8971,7 +8971,7 @@ fn kmovd_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovd_m_k() {
+fn kmovd_m_kr() {
 	// VEX_Kmovd_m32_kr
 	test_instr(32, |a| a.kmovd(ptr(ecx), k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovd_m32_kr, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::K3).unwrap(),
@@ -8980,7 +8980,7 @@ fn kmovd_m_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovd_k_m() {
+fn kmovd_kr_m() {
 	// VEX_Kmovd_kr_km32
 	test_instr(32, |a| a.kmovd(k2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Kmovd_kr_km32, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -8989,7 +8989,7 @@ fn kmovd_k_m() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovq_k_k() {
+fn kmovq_kr_kr() {
 	// VEX_Kmovq_kr_km64
 	test_instr(32, |a| a.kmovq(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovq_kr_km64, Register::K2, Register::K3).unwrap(),
@@ -8998,7 +8998,7 @@ fn kmovq_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovq_m_k() {
+fn kmovq_m_kr() {
 	// VEX_Kmovq_m64_kr
 	test_instr(32, |a| a.kmovq(ptr(ecx), k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovq_m64_kr, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::K3).unwrap(),
@@ -9007,7 +9007,7 @@ fn kmovq_m_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovq_k_m() {
+fn kmovq_kr_m() {
 	// VEX_Kmovq_kr_km64
 	test_instr(32, |a| a.kmovq(k2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Kmovq_kr_km64, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -9016,7 +9016,7 @@ fn kmovq_k_m() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovw_k_r32() {
+fn kmovw_kr_r32() {
 	// VEX_Kmovw_kr_r32
 	test_instr(32, |a| a.kmovw(k2, ebx).unwrap(),
 		Instruction::with2(Code::VEX_Kmovw_kr_r32, Register::K2, Register::EBX).unwrap(),
@@ -9025,7 +9025,7 @@ fn kmovw_k_r32() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovw_r32_k() {
+fn kmovw_r32_kr() {
 	// VEX_Kmovw_r32_kr
 	test_instr(32, |a| a.kmovw(edx, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovw_r32_kr, Register::EDX, Register::K3).unwrap(),
@@ -9034,7 +9034,7 @@ fn kmovw_r32_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovw_k_k() {
+fn kmovw_kr_kr() {
 	// VEX_Kmovw_kr_km16
 	test_instr(32, |a| a.kmovw(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovw_kr_km16, Register::K2, Register::K3).unwrap(),
@@ -9043,7 +9043,7 @@ fn kmovw_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovw_m_k() {
+fn kmovw_m_kr() {
 	// VEX_Kmovw_m16_kr
 	test_instr(32, |a| a.kmovw(ptr(ecx), k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovw_m16_kr, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::K3).unwrap(),
@@ -9052,7 +9052,7 @@ fn kmovw_m_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kmovw_k_m() {
+fn kmovw_kr_m() {
 	// VEX_Kmovw_kr_km16
 	test_instr(32, |a| a.kmovw(k2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Kmovw_kr_km16, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -9061,7 +9061,7 @@ fn kmovw_k_m() {
 
 #[test]
 #[rustfmt::skip]
-fn knotb_k_k() {
+fn knotb_kr_kr() {
 	// VEX_Knotb_kr_kr
 	test_instr(32, |a| a.knotb(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Knotb_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9070,7 +9070,7 @@ fn knotb_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn knotd_k_k() {
+fn knotd_kr_kr() {
 	// VEX_Knotd_kr_kr
 	test_instr(32, |a| a.knotd(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Knotd_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9079,7 +9079,7 @@ fn knotd_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn knotq_k_k() {
+fn knotq_kr_kr() {
 	// VEX_Knotq_kr_kr
 	test_instr(32, |a| a.knotq(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Knotq_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9088,7 +9088,7 @@ fn knotq_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn knotw_k_k() {
+fn knotw_kr_kr() {
 	// VEX_Knotw_kr_kr
 	test_instr(32, |a| a.knotw(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Knotw_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9097,7 +9097,7 @@ fn knotw_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn korb_k_k_k() {
+fn korb_kr_kr_kr() {
 	// VEX_Korb_kr_kr_kr
 	test_instr(32, |a| a.korb(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Korb_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9106,7 +9106,7 @@ fn korb_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kord_k_k_k() {
+fn kord_kr_kr_kr() {
 	// VEX_Kord_kr_kr_kr
 	test_instr(32, |a| a.kord(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kord_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9115,7 +9115,7 @@ fn kord_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn korq_k_k_k() {
+fn korq_kr_kr_kr() {
 	// VEX_Korq_kr_kr_kr
 	test_instr(32, |a| a.korq(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Korq_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9124,7 +9124,7 @@ fn korq_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kortestb_k_k() {
+fn kortestb_kr_kr() {
 	// VEX_Kortestb_kr_kr
 	test_instr(32, |a| a.kortestb(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kortestb_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9133,7 +9133,7 @@ fn kortestb_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kortestd_k_k() {
+fn kortestd_kr_kr() {
 	// VEX_Kortestd_kr_kr
 	test_instr(32, |a| a.kortestd(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kortestd_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9142,7 +9142,7 @@ fn kortestd_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kortestq_k_k() {
+fn kortestq_kr_kr() {
 	// VEX_Kortestq_kr_kr
 	test_instr(32, |a| a.kortestq(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kortestq_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9151,7 +9151,7 @@ fn kortestq_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kortestw_k_k() {
+fn kortestw_kr_kr() {
 	// VEX_Kortestw_kr_kr
 	test_instr(32, |a| a.kortestw(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Kortestw_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9160,7 +9160,7 @@ fn kortestw_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn korw_k_k_k() {
+fn korw_kr_kr_kr() {
 	// VEX_Korw_kr_kr_kr
 	test_instr(32, |a| a.korw(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Korw_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9169,7 +9169,7 @@ fn korw_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftlb_k_k_i() {
+fn kshiftlb_kr_kr_i() {
 	// VEX_Kshiftlb_kr_kr_imm8
 	test_instr(32, |a| a.kshiftlb(k2, k3, -5i32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftlb_kr_kr_imm8, Register::K2, Register::K3, -5i32).unwrap(),
@@ -9178,7 +9178,7 @@ fn kshiftlb_k_k_i() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftlb_k_k_u() {
+fn kshiftlb_kr_kr_u() {
 	// VEX_Kshiftlb_kr_kr_imm8
 	test_instr(32, |a| a.kshiftlb(k2, k3, 0x7Fu32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftlb_kr_kr_imm8, Register::K2, Register::K3, 0x7Fu32).unwrap(),
@@ -9187,7 +9187,7 @@ fn kshiftlb_k_k_u() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftld_k_k_i() {
+fn kshiftld_kr_kr_i() {
 	// VEX_Kshiftld_kr_kr_imm8
 	test_instr(32, |a| a.kshiftld(k2, k3, -5i32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftld_kr_kr_imm8, Register::K2, Register::K3, -5i32).unwrap(),
@@ -9196,7 +9196,7 @@ fn kshiftld_k_k_i() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftld_k_k_u() {
+fn kshiftld_kr_kr_u() {
 	// VEX_Kshiftld_kr_kr_imm8
 	test_instr(32, |a| a.kshiftld(k2, k3, 0x7Fu32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftld_kr_kr_imm8, Register::K2, Register::K3, 0x7Fu32).unwrap(),
@@ -9205,7 +9205,7 @@ fn kshiftld_k_k_u() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftlq_k_k_i() {
+fn kshiftlq_kr_kr_i() {
 	// VEX_Kshiftlq_kr_kr_imm8
 	test_instr(32, |a| a.kshiftlq(k2, k3, -5i32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftlq_kr_kr_imm8, Register::K2, Register::K3, -5i32).unwrap(),
@@ -9214,7 +9214,7 @@ fn kshiftlq_k_k_i() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftlq_k_k_u() {
+fn kshiftlq_kr_kr_u() {
 	// VEX_Kshiftlq_kr_kr_imm8
 	test_instr(32, |a| a.kshiftlq(k2, k3, 0x7Fu32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftlq_kr_kr_imm8, Register::K2, Register::K3, 0x7Fu32).unwrap(),
@@ -9223,7 +9223,7 @@ fn kshiftlq_k_k_u() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftlw_k_k_i() {
+fn kshiftlw_kr_kr_i() {
 	// VEX_Kshiftlw_kr_kr_imm8
 	test_instr(32, |a| a.kshiftlw(k2, k3, -5i32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftlw_kr_kr_imm8, Register::K2, Register::K3, -5i32).unwrap(),
@@ -9232,7 +9232,7 @@ fn kshiftlw_k_k_i() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftlw_k_k_u() {
+fn kshiftlw_kr_kr_u() {
 	// VEX_Kshiftlw_kr_kr_imm8
 	test_instr(32, |a| a.kshiftlw(k2, k3, 0x7Fu32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftlw_kr_kr_imm8, Register::K2, Register::K3, 0x7Fu32).unwrap(),
@@ -9241,7 +9241,7 @@ fn kshiftlw_k_k_u() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftrb_k_k_i() {
+fn kshiftrb_kr_kr_i() {
 	// VEX_Kshiftrb_kr_kr_imm8
 	test_instr(32, |a| a.kshiftrb(k2, k3, -5i32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftrb_kr_kr_imm8, Register::K2, Register::K3, -5i32).unwrap(),
@@ -9250,7 +9250,7 @@ fn kshiftrb_k_k_i() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftrb_k_k_u() {
+fn kshiftrb_kr_kr_u() {
 	// VEX_Kshiftrb_kr_kr_imm8
 	test_instr(32, |a| a.kshiftrb(k2, k3, 0x7Fu32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftrb_kr_kr_imm8, Register::K2, Register::K3, 0x7Fu32).unwrap(),
@@ -9259,7 +9259,7 @@ fn kshiftrb_k_k_u() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftrd_k_k_i() {
+fn kshiftrd_kr_kr_i() {
 	// VEX_Kshiftrd_kr_kr_imm8
 	test_instr(32, |a| a.kshiftrd(k2, k3, -5i32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftrd_kr_kr_imm8, Register::K2, Register::K3, -5i32).unwrap(),
@@ -9268,7 +9268,7 @@ fn kshiftrd_k_k_i() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftrd_k_k_u() {
+fn kshiftrd_kr_kr_u() {
 	// VEX_Kshiftrd_kr_kr_imm8
 	test_instr(32, |a| a.kshiftrd(k2, k3, 0x7Fu32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftrd_kr_kr_imm8, Register::K2, Register::K3, 0x7Fu32).unwrap(),
@@ -9277,7 +9277,7 @@ fn kshiftrd_k_k_u() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftrq_k_k_i() {
+fn kshiftrq_kr_kr_i() {
 	// VEX_Kshiftrq_kr_kr_imm8
 	test_instr(32, |a| a.kshiftrq(k2, k3, -5i32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftrq_kr_kr_imm8, Register::K2, Register::K3, -5i32).unwrap(),
@@ -9286,7 +9286,7 @@ fn kshiftrq_k_k_i() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftrq_k_k_u() {
+fn kshiftrq_kr_kr_u() {
 	// VEX_Kshiftrq_kr_kr_imm8
 	test_instr(32, |a| a.kshiftrq(k2, k3, 0x7Fu32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftrq_kr_kr_imm8, Register::K2, Register::K3, 0x7Fu32).unwrap(),
@@ -9295,7 +9295,7 @@ fn kshiftrq_k_k_u() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftrw_k_k_i() {
+fn kshiftrw_kr_kr_i() {
 	// VEX_Kshiftrw_kr_kr_imm8
 	test_instr(32, |a| a.kshiftrw(k2, k3, -5i32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftrw_kr_kr_imm8, Register::K2, Register::K3, -5i32).unwrap(),
@@ -9304,7 +9304,7 @@ fn kshiftrw_k_k_i() {
 
 #[test]
 #[rustfmt::skip]
-fn kshiftrw_k_k_u() {
+fn kshiftrw_kr_kr_u() {
 	// VEX_Kshiftrw_kr_kr_imm8
 	test_instr(32, |a| a.kshiftrw(k2, k3, 0x7Fu32).unwrap(),
 		Instruction::with3(Code::VEX_Kshiftrw_kr_kr_imm8, Register::K2, Register::K3, 0x7Fu32).unwrap(),
@@ -9313,7 +9313,7 @@ fn kshiftrw_k_k_u() {
 
 #[test]
 #[rustfmt::skip]
-fn ktestb_k_k() {
+fn ktestb_kr_kr() {
 	// VEX_Ktestb_kr_kr
 	test_instr(32, |a| a.ktestb(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Ktestb_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9322,7 +9322,7 @@ fn ktestb_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn ktestd_k_k() {
+fn ktestd_kr_kr() {
 	// VEX_Ktestd_kr_kr
 	test_instr(32, |a| a.ktestd(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Ktestd_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9331,7 +9331,7 @@ fn ktestd_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn ktestq_k_k() {
+fn ktestq_kr_kr() {
 	// VEX_Ktestq_kr_kr
 	test_instr(32, |a| a.ktestq(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Ktestq_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9340,7 +9340,7 @@ fn ktestq_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn ktestw_k_k() {
+fn ktestw_kr_kr() {
 	// VEX_Ktestw_kr_kr
 	test_instr(32, |a| a.ktestw(k2, k3).unwrap(),
 		Instruction::with2(Code::VEX_Ktestw_kr_kr, Register::K2, Register::K3).unwrap(),
@@ -9349,7 +9349,7 @@ fn ktestw_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kunpckbw_k_k_k() {
+fn kunpckbw_kr_kr_kr() {
 	// VEX_Kunpckbw_kr_kr_kr
 	test_instr(32, |a| a.kunpckbw(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kunpckbw_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9358,7 +9358,7 @@ fn kunpckbw_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kunpckdq_k_k_k() {
+fn kunpckdq_kr_kr_kr() {
 	// VEX_Kunpckdq_kr_kr_kr
 	test_instr(32, |a| a.kunpckdq(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kunpckdq_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9367,7 +9367,7 @@ fn kunpckdq_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kunpckwd_k_k_k() {
+fn kunpckwd_kr_kr_kr() {
 	// VEX_Kunpckwd_kr_kr_kr
 	test_instr(32, |a| a.kunpckwd(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kunpckwd_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9376,7 +9376,7 @@ fn kunpckwd_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kxnorb_k_k_k() {
+fn kxnorb_kr_kr_kr() {
 	// VEX_Kxnorb_kr_kr_kr
 	test_instr(32, |a| a.kxnorb(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kxnorb_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9385,7 +9385,7 @@ fn kxnorb_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kxnord_k_k_k() {
+fn kxnord_kr_kr_kr() {
 	// VEX_Kxnord_kr_kr_kr
 	test_instr(32, |a| a.kxnord(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kxnord_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9394,7 +9394,7 @@ fn kxnord_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kxnorq_k_k_k() {
+fn kxnorq_kr_kr_kr() {
 	// VEX_Kxnorq_kr_kr_kr
 	test_instr(32, |a| a.kxnorq(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kxnorq_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9403,7 +9403,7 @@ fn kxnorq_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kxnorw_k_k_k() {
+fn kxnorw_kr_kr_kr() {
 	// VEX_Kxnorw_kr_kr_kr
 	test_instr(32, |a| a.kxnorw(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kxnorw_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9412,7 +9412,7 @@ fn kxnorw_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kxorb_k_k_k() {
+fn kxorb_kr_kr_kr() {
 	// VEX_Kxorb_kr_kr_kr
 	test_instr(32, |a| a.kxorb(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kxorb_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9421,7 +9421,7 @@ fn kxorb_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kxord_k_k_k() {
+fn kxord_kr_kr_kr() {
 	// VEX_Kxord_kr_kr_kr
 	test_instr(32, |a| a.kxord(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kxord_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9430,7 +9430,7 @@ fn kxord_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kxorq_k_k_k() {
+fn kxorq_kr_kr_kr() {
 	// VEX_Kxorq_kr_kr_kr
 	test_instr(32, |a| a.kxorq(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kxorq_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -9439,7 +9439,7 @@ fn kxorq_k_k_k() {
 
 #[test]
 #[rustfmt::skip]
-fn kxorw_k_k_k() {
+fn kxorw_kr_kr_kr() {
 	// VEX_Kxorw_kr_kr_kr
 	test_instr(32, |a| a.kxorw(k2, k3, k4).unwrap(),
 		Instruction::with3(Code::VEX_Kxorw_kr_kr_kr, Register::K2, Register::K3, Register::K4).unwrap(),
@@ -24896,7 +24896,7 @@ fn vbroadcastss_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ospd_k_xmm_xmm() {
+fn vcmpeq_ospd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpeq_ospd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x10i32).unwrap(), Register::K1),
@@ -24914,7 +24914,7 @@ fn vcmpeq_ospd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ospd_k_ymm_ymm() {
+fn vcmpeq_ospd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpeq_ospd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x10i32).unwrap(), Register::K1),
@@ -24932,7 +24932,7 @@ fn vcmpeq_ospd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ospd_k_zmm_zmm() {
+fn vcmpeq_ospd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_ospd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x10i32).unwrap(), Register::K1),
@@ -24941,7 +24941,7 @@ fn vcmpeq_ospd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ospd_k_xmm_m() {
+fn vcmpeq_ospd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpeq_ospd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -24959,7 +24959,7 @@ fn vcmpeq_ospd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ospd_k_ymm_m() {
+fn vcmpeq_ospd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpeq_ospd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -24977,7 +24977,7 @@ fn vcmpeq_ospd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ospd_k_zmm_m() {
+fn vcmpeq_ospd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_ospd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -24986,7 +24986,7 @@ fn vcmpeq_ospd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osph_k_xmm_xmm() {
+fn vcmpeq_osph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpeq_osph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x10i32).unwrap(), Register::K1),
@@ -24995,7 +24995,7 @@ fn vcmpeq_osph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osph_k_ymm_ymm() {
+fn vcmpeq_osph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpeq_osph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x10i32).unwrap(), Register::K1),
@@ -25004,7 +25004,7 @@ fn vcmpeq_osph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osph_k_zmm_zmm() {
+fn vcmpeq_osph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_osph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x10i32).unwrap(), Register::K1),
@@ -25013,7 +25013,7 @@ fn vcmpeq_osph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osph_k_xmm_m() {
+fn vcmpeq_osph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpeq_osph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -25022,7 +25022,7 @@ fn vcmpeq_osph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osph_k_ymm_m() {
+fn vcmpeq_osph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpeq_osph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -25031,7 +25031,7 @@ fn vcmpeq_osph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osph_k_zmm_m() {
+fn vcmpeq_osph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_osph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -25040,7 +25040,7 @@ fn vcmpeq_osph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osps_k_xmm_xmm() {
+fn vcmpeq_osps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpeq_osps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x10i32).unwrap(), Register::K1),
@@ -25058,7 +25058,7 @@ fn vcmpeq_osps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osps_k_ymm_ymm() {
+fn vcmpeq_osps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpeq_osps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x10i32).unwrap(), Register::K1),
@@ -25076,7 +25076,7 @@ fn vcmpeq_osps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osps_k_zmm_zmm() {
+fn vcmpeq_osps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_osps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x10i32).unwrap(), Register::K1),
@@ -25085,7 +25085,7 @@ fn vcmpeq_osps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osps_k_xmm_m() {
+fn vcmpeq_osps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpeq_osps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -25103,7 +25103,7 @@ fn vcmpeq_osps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osps_k_ymm_m() {
+fn vcmpeq_osps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpeq_osps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -25121,7 +25121,7 @@ fn vcmpeq_osps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osps_k_zmm_m() {
+fn vcmpeq_osps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_osps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -25130,7 +25130,7 @@ fn vcmpeq_osps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ossd_k_xmm_xmm() {
+fn vcmpeq_ossd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_ossd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x10i32).unwrap(), Register::K1),
@@ -25148,7 +25148,7 @@ fn vcmpeq_ossd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ossd_k_xmm_m() {
+fn vcmpeq_ossd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_ossd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -25166,7 +25166,7 @@ fn vcmpeq_ossd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ossh_k_xmm_xmm() {
+fn vcmpeq_ossh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_ossh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x10i32).unwrap(), Register::K1),
@@ -25175,7 +25175,7 @@ fn vcmpeq_ossh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ossh_k_xmm_m() {
+fn vcmpeq_ossh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_ossh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -25184,7 +25184,7 @@ fn vcmpeq_ossh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osss_k_xmm_xmm() {
+fn vcmpeq_osss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_osss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x10i32).unwrap(), Register::K1),
@@ -25202,7 +25202,7 @@ fn vcmpeq_osss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_osss_k_xmm_m() {
+fn vcmpeq_osss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_osss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x10i32).unwrap(), Register::K1),
@@ -25220,7 +25220,7 @@ fn vcmpeq_osss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqpd_k_xmm_xmm() {
+fn vcmpeq_uqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpeq_uqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 8i32).unwrap(), Register::K1),
@@ -25238,7 +25238,7 @@ fn vcmpeq_uqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqpd_k_ymm_ymm() {
+fn vcmpeq_uqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpeq_uqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 8i32).unwrap(), Register::K1),
@@ -25256,7 +25256,7 @@ fn vcmpeq_uqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqpd_k_zmm_zmm() {
+fn vcmpeq_uqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 8i32).unwrap(), Register::K1),
@@ -25265,7 +25265,7 @@ fn vcmpeq_uqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqpd_k_xmm_m() {
+fn vcmpeq_uqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpeq_uqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25283,7 +25283,7 @@ fn vcmpeq_uqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqpd_k_ymm_m() {
+fn vcmpeq_uqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpeq_uqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25301,7 +25301,7 @@ fn vcmpeq_uqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqpd_k_zmm_m() {
+fn vcmpeq_uqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25310,7 +25310,7 @@ fn vcmpeq_uqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqph_k_xmm_xmm() {
+fn vcmpeq_uqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpeq_uqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 8i32).unwrap(), Register::K1),
@@ -25319,7 +25319,7 @@ fn vcmpeq_uqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqph_k_ymm_ymm() {
+fn vcmpeq_uqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpeq_uqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 8i32).unwrap(), Register::K1),
@@ -25328,7 +25328,7 @@ fn vcmpeq_uqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqph_k_zmm_zmm() {
+fn vcmpeq_uqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 8i32).unwrap(), Register::K1),
@@ -25337,7 +25337,7 @@ fn vcmpeq_uqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqph_k_xmm_m() {
+fn vcmpeq_uqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpeq_uqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25346,7 +25346,7 @@ fn vcmpeq_uqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqph_k_ymm_m() {
+fn vcmpeq_uqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpeq_uqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25355,7 +25355,7 @@ fn vcmpeq_uqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqph_k_zmm_m() {
+fn vcmpeq_uqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25364,7 +25364,7 @@ fn vcmpeq_uqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqps_k_xmm_xmm() {
+fn vcmpeq_uqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpeq_uqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 8i32).unwrap(), Register::K1),
@@ -25382,7 +25382,7 @@ fn vcmpeq_uqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqps_k_ymm_ymm() {
+fn vcmpeq_uqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpeq_uqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 8i32).unwrap(), Register::K1),
@@ -25400,7 +25400,7 @@ fn vcmpeq_uqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqps_k_zmm_zmm() {
+fn vcmpeq_uqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 8i32).unwrap(), Register::K1),
@@ -25409,7 +25409,7 @@ fn vcmpeq_uqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqps_k_xmm_m() {
+fn vcmpeq_uqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpeq_uqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25427,7 +25427,7 @@ fn vcmpeq_uqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqps_k_ymm_m() {
+fn vcmpeq_uqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpeq_uqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25445,7 +25445,7 @@ fn vcmpeq_uqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqps_k_zmm_m() {
+fn vcmpeq_uqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25454,7 +25454,7 @@ fn vcmpeq_uqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqsd_k_xmm_xmm() {
+fn vcmpeq_uqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 8i32).unwrap(), Register::K1),
@@ -25472,7 +25472,7 @@ fn vcmpeq_uqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqsd_k_xmm_m() {
+fn vcmpeq_uqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25490,7 +25490,7 @@ fn vcmpeq_uqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqsh_k_xmm_xmm() {
+fn vcmpeq_uqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 8i32).unwrap(), Register::K1),
@@ -25499,7 +25499,7 @@ fn vcmpeq_uqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqsh_k_xmm_m() {
+fn vcmpeq_uqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25508,7 +25508,7 @@ fn vcmpeq_uqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqss_k_xmm_xmm() {
+fn vcmpeq_uqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 8i32).unwrap(), Register::K1),
@@ -25526,7 +25526,7 @@ fn vcmpeq_uqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uqss_k_xmm_m() {
+fn vcmpeq_uqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 8i32).unwrap(), Register::K1),
@@ -25544,7 +25544,7 @@ fn vcmpeq_uqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uspd_k_xmm_xmm() {
+fn vcmpeq_uspd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpeq_uspd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x18i32).unwrap(), Register::K1),
@@ -25562,7 +25562,7 @@ fn vcmpeq_uspd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uspd_k_ymm_ymm() {
+fn vcmpeq_uspd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpeq_uspd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x18i32).unwrap(), Register::K1),
@@ -25580,7 +25580,7 @@ fn vcmpeq_uspd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uspd_k_zmm_zmm() {
+fn vcmpeq_uspd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uspd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x18i32).unwrap(), Register::K1),
@@ -25589,7 +25589,7 @@ fn vcmpeq_uspd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uspd_k_xmm_m() {
+fn vcmpeq_uspd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpeq_uspd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25607,7 +25607,7 @@ fn vcmpeq_uspd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uspd_k_ymm_m() {
+fn vcmpeq_uspd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpeq_uspd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25625,7 +25625,7 @@ fn vcmpeq_uspd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_uspd_k_zmm_m() {
+fn vcmpeq_uspd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_uspd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25634,7 +25634,7 @@ fn vcmpeq_uspd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usph_k_xmm_xmm() {
+fn vcmpeq_usph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpeq_usph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x18i32).unwrap(), Register::K1),
@@ -25643,7 +25643,7 @@ fn vcmpeq_usph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usph_k_ymm_ymm() {
+fn vcmpeq_usph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpeq_usph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x18i32).unwrap(), Register::K1),
@@ -25652,7 +25652,7 @@ fn vcmpeq_usph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usph_k_zmm_zmm() {
+fn vcmpeq_usph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_usph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x18i32).unwrap(), Register::K1),
@@ -25661,7 +25661,7 @@ fn vcmpeq_usph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usph_k_xmm_m() {
+fn vcmpeq_usph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpeq_usph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25670,7 +25670,7 @@ fn vcmpeq_usph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usph_k_ymm_m() {
+fn vcmpeq_usph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpeq_usph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25679,7 +25679,7 @@ fn vcmpeq_usph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usph_k_zmm_m() {
+fn vcmpeq_usph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_usph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25688,7 +25688,7 @@ fn vcmpeq_usph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usps_k_xmm_xmm() {
+fn vcmpeq_usps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpeq_usps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x18i32).unwrap(), Register::K1),
@@ -25706,7 +25706,7 @@ fn vcmpeq_usps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usps_k_ymm_ymm() {
+fn vcmpeq_usps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpeq_usps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x18i32).unwrap(), Register::K1),
@@ -25724,7 +25724,7 @@ fn vcmpeq_usps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usps_k_zmm_zmm() {
+fn vcmpeq_usps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_usps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x18i32).unwrap(), Register::K1),
@@ -25733,7 +25733,7 @@ fn vcmpeq_usps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usps_k_xmm_m() {
+fn vcmpeq_usps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpeq_usps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25751,7 +25751,7 @@ fn vcmpeq_usps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usps_k_ymm_m() {
+fn vcmpeq_usps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpeq_usps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25769,7 +25769,7 @@ fn vcmpeq_usps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usps_k_zmm_m() {
+fn vcmpeq_usps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_usps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25778,7 +25778,7 @@ fn vcmpeq_usps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ussd_k_xmm_xmm() {
+fn vcmpeq_ussd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_ussd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x18i32).unwrap(), Register::K1),
@@ -25796,7 +25796,7 @@ fn vcmpeq_ussd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ussd_k_xmm_m() {
+fn vcmpeq_ussd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpeq_ussd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25814,7 +25814,7 @@ fn vcmpeq_ussd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ussh_k_xmm_xmm() {
+fn vcmpeq_ussh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_ussh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x18i32).unwrap(), Register::K1),
@@ -25823,7 +25823,7 @@ fn vcmpeq_ussh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_ussh_k_xmm_m() {
+fn vcmpeq_ussh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpeq_ussh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25832,7 +25832,7 @@ fn vcmpeq_ussh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usss_k_xmm_xmm() {
+fn vcmpeq_usss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_usss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x18i32).unwrap(), Register::K1),
@@ -25850,7 +25850,7 @@ fn vcmpeq_usss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeq_usss_k_xmm_m() {
+fn vcmpeq_usss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpeq_usss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x18i32).unwrap(), Register::K1),
@@ -25868,7 +25868,7 @@ fn vcmpeq_usss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqpd_k_xmm_xmm() {
+fn vcmpeqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpeqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0i32).unwrap(), Register::K1),
@@ -25886,7 +25886,7 @@ fn vcmpeqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqpd_k_ymm_ymm() {
+fn vcmpeqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpeqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0i32).unwrap(), Register::K1),
@@ -25904,7 +25904,7 @@ fn vcmpeqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqpd_k_zmm_zmm() {
+fn vcmpeqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpeqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0i32).unwrap(), Register::K1),
@@ -25913,7 +25913,7 @@ fn vcmpeqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqpd_k_xmm_m() {
+fn vcmpeqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpeqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -25931,7 +25931,7 @@ fn vcmpeqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqpd_k_ymm_m() {
+fn vcmpeqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpeqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -25949,7 +25949,7 @@ fn vcmpeqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqpd_k_zmm_m() {
+fn vcmpeqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpeqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -25958,7 +25958,7 @@ fn vcmpeqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqph_k_xmm_xmm() {
+fn vcmpeqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpeqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0i32).unwrap(), Register::K1),
@@ -25967,7 +25967,7 @@ fn vcmpeqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqph_k_ymm_ymm() {
+fn vcmpeqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpeqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0i32).unwrap(), Register::K1),
@@ -25976,7 +25976,7 @@ fn vcmpeqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqph_k_zmm_zmm() {
+fn vcmpeqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpeqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0i32).unwrap(), Register::K1),
@@ -25985,7 +25985,7 @@ fn vcmpeqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqph_k_xmm_m() {
+fn vcmpeqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpeqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -25994,7 +25994,7 @@ fn vcmpeqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqph_k_ymm_m() {
+fn vcmpeqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpeqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -26003,7 +26003,7 @@ fn vcmpeqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqph_k_zmm_m() {
+fn vcmpeqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpeqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -26012,7 +26012,7 @@ fn vcmpeqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqps_k_xmm_xmm() {
+fn vcmpeqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpeqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0i32).unwrap(), Register::K1),
@@ -26030,7 +26030,7 @@ fn vcmpeqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqps_k_ymm_ymm() {
+fn vcmpeqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpeqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0i32).unwrap(), Register::K1),
@@ -26048,7 +26048,7 @@ fn vcmpeqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqps_k_zmm_zmm() {
+fn vcmpeqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpeqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0i32).unwrap(), Register::K1),
@@ -26057,7 +26057,7 @@ fn vcmpeqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqps_k_xmm_m() {
+fn vcmpeqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpeqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -26075,7 +26075,7 @@ fn vcmpeqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqps_k_ymm_m() {
+fn vcmpeqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpeqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -26093,7 +26093,7 @@ fn vcmpeqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqps_k_zmm_m() {
+fn vcmpeqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpeqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -26102,7 +26102,7 @@ fn vcmpeqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqsd_k_xmm_xmm() {
+fn vcmpeqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpeqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0i32).unwrap(), Register::K1),
@@ -26120,7 +26120,7 @@ fn vcmpeqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqsd_k_xmm_m() {
+fn vcmpeqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpeqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -26138,7 +26138,7 @@ fn vcmpeqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqsh_k_xmm_xmm() {
+fn vcmpeqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpeqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0i32).unwrap(), Register::K1),
@@ -26147,7 +26147,7 @@ fn vcmpeqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqsh_k_xmm_m() {
+fn vcmpeqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpeqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -26156,7 +26156,7 @@ fn vcmpeqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqss_k_xmm_xmm() {
+fn vcmpeqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpeqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0i32).unwrap(), Register::K1),
@@ -26174,7 +26174,7 @@ fn vcmpeqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpeqss_k_xmm_m() {
+fn vcmpeqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpeqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -26192,7 +26192,7 @@ fn vcmpeqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_ospd_k_xmm_xmm() {
+fn vcmpfalse_ospd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpfalse_ospd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26210,7 +26210,7 @@ fn vcmpfalse_ospd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_ospd_k_ymm_ymm() {
+fn vcmpfalse_ospd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpfalse_ospd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26228,7 +26228,7 @@ fn vcmpfalse_ospd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_ospd_k_zmm_zmm() {
+fn vcmpfalse_ospd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_ospd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26237,7 +26237,7 @@ fn vcmpfalse_ospd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_ospd_k_xmm_m() {
+fn vcmpfalse_ospd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpfalse_ospd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26255,7 +26255,7 @@ fn vcmpfalse_ospd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_ospd_k_ymm_m() {
+fn vcmpfalse_ospd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpfalse_ospd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26273,7 +26273,7 @@ fn vcmpfalse_ospd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_ospd_k_zmm_m() {
+fn vcmpfalse_ospd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_ospd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26282,7 +26282,7 @@ fn vcmpfalse_ospd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osph_k_xmm_xmm() {
+fn vcmpfalse_osph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpfalse_osph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26291,7 +26291,7 @@ fn vcmpfalse_osph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osph_k_ymm_ymm() {
+fn vcmpfalse_osph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpfalse_osph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26300,7 +26300,7 @@ fn vcmpfalse_osph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osph_k_zmm_zmm() {
+fn vcmpfalse_osph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_osph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26309,7 +26309,7 @@ fn vcmpfalse_osph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osph_k_xmm_m() {
+fn vcmpfalse_osph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpfalse_osph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26318,7 +26318,7 @@ fn vcmpfalse_osph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osph_k_ymm_m() {
+fn vcmpfalse_osph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpfalse_osph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26327,7 +26327,7 @@ fn vcmpfalse_osph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osph_k_zmm_m() {
+fn vcmpfalse_osph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_osph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26336,7 +26336,7 @@ fn vcmpfalse_osph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osps_k_xmm_xmm() {
+fn vcmpfalse_osps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpfalse_osps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26354,7 +26354,7 @@ fn vcmpfalse_osps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osps_k_ymm_ymm() {
+fn vcmpfalse_osps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpfalse_osps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26372,7 +26372,7 @@ fn vcmpfalse_osps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osps_k_zmm_zmm() {
+fn vcmpfalse_osps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_osps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26381,7 +26381,7 @@ fn vcmpfalse_osps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osps_k_xmm_m() {
+fn vcmpfalse_osps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpfalse_osps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26399,7 +26399,7 @@ fn vcmpfalse_osps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osps_k_ymm_m() {
+fn vcmpfalse_osps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpfalse_osps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26417,7 +26417,7 @@ fn vcmpfalse_osps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osps_k_zmm_m() {
+fn vcmpfalse_osps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_osps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26426,7 +26426,7 @@ fn vcmpfalse_osps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_ossd_k_xmm_xmm() {
+fn vcmpfalse_ossd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_ossd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26444,7 +26444,7 @@ fn vcmpfalse_ossd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_ossd_k_xmm_m() {
+fn vcmpfalse_ossd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_ossd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26462,7 +26462,7 @@ fn vcmpfalse_ossd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_ossh_k_xmm_xmm() {
+fn vcmpfalse_ossh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_ossh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26471,7 +26471,7 @@ fn vcmpfalse_ossh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_ossh_k_xmm_m() {
+fn vcmpfalse_ossh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_ossh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26480,7 +26480,7 @@ fn vcmpfalse_ossh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osss_k_xmm_xmm() {
+fn vcmpfalse_osss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_osss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Bi32).unwrap(), Register::K1),
@@ -26498,7 +26498,7 @@ fn vcmpfalse_osss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalse_osss_k_xmm_m() {
+fn vcmpfalse_osss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpfalse_osss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Bi32).unwrap(), Register::K1),
@@ -26516,7 +26516,7 @@ fn vcmpfalse_osss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsepd_k_xmm_xmm() {
+fn vcmpfalsepd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpfalsepd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xBi32).unwrap(), Register::K1),
@@ -26534,7 +26534,7 @@ fn vcmpfalsepd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsepd_k_ymm_ymm() {
+fn vcmpfalsepd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpfalsepd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xBi32).unwrap(), Register::K1),
@@ -26552,7 +26552,7 @@ fn vcmpfalsepd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsepd_k_zmm_zmm() {
+fn vcmpfalsepd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpfalsepd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xBi32).unwrap(), Register::K1),
@@ -26561,7 +26561,7 @@ fn vcmpfalsepd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsepd_k_xmm_m() {
+fn vcmpfalsepd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpfalsepd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26579,7 +26579,7 @@ fn vcmpfalsepd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsepd_k_ymm_m() {
+fn vcmpfalsepd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpfalsepd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26597,7 +26597,7 @@ fn vcmpfalsepd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsepd_k_zmm_m() {
+fn vcmpfalsepd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpfalsepd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26606,7 +26606,7 @@ fn vcmpfalsepd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseph_k_xmm_xmm() {
+fn vcmpfalseph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpfalseph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xBi32).unwrap(), Register::K1),
@@ -26615,7 +26615,7 @@ fn vcmpfalseph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseph_k_ymm_ymm() {
+fn vcmpfalseph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpfalseph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xBi32).unwrap(), Register::K1),
@@ -26624,7 +26624,7 @@ fn vcmpfalseph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseph_k_zmm_zmm() {
+fn vcmpfalseph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpfalseph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xBi32).unwrap(), Register::K1),
@@ -26633,7 +26633,7 @@ fn vcmpfalseph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseph_k_xmm_m() {
+fn vcmpfalseph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpfalseph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26642,7 +26642,7 @@ fn vcmpfalseph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseph_k_ymm_m() {
+fn vcmpfalseph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpfalseph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26651,7 +26651,7 @@ fn vcmpfalseph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseph_k_zmm_m() {
+fn vcmpfalseph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpfalseph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26660,7 +26660,7 @@ fn vcmpfalseph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseps_k_xmm_xmm() {
+fn vcmpfalseps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpfalseps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xBi32).unwrap(), Register::K1),
@@ -26678,7 +26678,7 @@ fn vcmpfalseps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseps_k_ymm_ymm() {
+fn vcmpfalseps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpfalseps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xBi32).unwrap(), Register::K1),
@@ -26696,7 +26696,7 @@ fn vcmpfalseps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseps_k_zmm_zmm() {
+fn vcmpfalseps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpfalseps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xBi32).unwrap(), Register::K1),
@@ -26705,7 +26705,7 @@ fn vcmpfalseps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseps_k_xmm_m() {
+fn vcmpfalseps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpfalseps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26723,7 +26723,7 @@ fn vcmpfalseps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseps_k_ymm_m() {
+fn vcmpfalseps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpfalseps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26741,7 +26741,7 @@ fn vcmpfalseps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalseps_k_zmm_m() {
+fn vcmpfalseps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpfalseps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26750,7 +26750,7 @@ fn vcmpfalseps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsesd_k_xmm_xmm() {
+fn vcmpfalsesd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpfalsesd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xBi32).unwrap(), Register::K1),
@@ -26768,7 +26768,7 @@ fn vcmpfalsesd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsesd_k_xmm_m() {
+fn vcmpfalsesd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpfalsesd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26786,7 +26786,7 @@ fn vcmpfalsesd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsesh_k_xmm_xmm() {
+fn vcmpfalsesh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpfalsesh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xBi32).unwrap(), Register::K1),
@@ -26795,7 +26795,7 @@ fn vcmpfalsesh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsesh_k_xmm_m() {
+fn vcmpfalsesh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpfalsesh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26804,7 +26804,7 @@ fn vcmpfalsesh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsess_k_xmm_xmm() {
+fn vcmpfalsess_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpfalsess(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xBi32).unwrap(), Register::K1),
@@ -26822,7 +26822,7 @@ fn vcmpfalsess_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpfalsess_k_xmm_m() {
+fn vcmpfalsess_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpfalsess(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xBi32).unwrap(), Register::K1),
@@ -26840,7 +26840,7 @@ fn vcmpfalsess_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqpd_k_xmm_xmm() {
+fn vcmpge_oqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpge_oqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Di32).unwrap(), Register::K1),
@@ -26858,7 +26858,7 @@ fn vcmpge_oqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqpd_k_ymm_ymm() {
+fn vcmpge_oqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpge_oqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Di32).unwrap(), Register::K1),
@@ -26876,7 +26876,7 @@ fn vcmpge_oqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqpd_k_zmm_zmm() {
+fn vcmpge_oqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Di32).unwrap(), Register::K1),
@@ -26885,7 +26885,7 @@ fn vcmpge_oqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqpd_k_xmm_m() {
+fn vcmpge_oqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpge_oqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -26903,7 +26903,7 @@ fn vcmpge_oqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqpd_k_ymm_m() {
+fn vcmpge_oqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpge_oqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -26921,7 +26921,7 @@ fn vcmpge_oqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqpd_k_zmm_m() {
+fn vcmpge_oqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -26930,7 +26930,7 @@ fn vcmpge_oqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqph_k_xmm_xmm() {
+fn vcmpge_oqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpge_oqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Di32).unwrap(), Register::K1),
@@ -26939,7 +26939,7 @@ fn vcmpge_oqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqph_k_ymm_ymm() {
+fn vcmpge_oqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpge_oqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Di32).unwrap(), Register::K1),
@@ -26948,7 +26948,7 @@ fn vcmpge_oqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqph_k_zmm_zmm() {
+fn vcmpge_oqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Di32).unwrap(), Register::K1),
@@ -26957,7 +26957,7 @@ fn vcmpge_oqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqph_k_xmm_m() {
+fn vcmpge_oqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpge_oqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -26966,7 +26966,7 @@ fn vcmpge_oqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqph_k_ymm_m() {
+fn vcmpge_oqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpge_oqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -26975,7 +26975,7 @@ fn vcmpge_oqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqph_k_zmm_m() {
+fn vcmpge_oqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -26984,7 +26984,7 @@ fn vcmpge_oqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqps_k_xmm_xmm() {
+fn vcmpge_oqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpge_oqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Di32).unwrap(), Register::K1),
@@ -27002,7 +27002,7 @@ fn vcmpge_oqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqps_k_ymm_ymm() {
+fn vcmpge_oqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpge_oqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Di32).unwrap(), Register::K1),
@@ -27020,7 +27020,7 @@ fn vcmpge_oqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqps_k_zmm_zmm() {
+fn vcmpge_oqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Di32).unwrap(), Register::K1),
@@ -27029,7 +27029,7 @@ fn vcmpge_oqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqps_k_xmm_m() {
+fn vcmpge_oqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpge_oqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -27047,7 +27047,7 @@ fn vcmpge_oqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqps_k_ymm_m() {
+fn vcmpge_oqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpge_oqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -27065,7 +27065,7 @@ fn vcmpge_oqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqps_k_zmm_m() {
+fn vcmpge_oqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -27074,7 +27074,7 @@ fn vcmpge_oqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqsd_k_xmm_xmm() {
+fn vcmpge_oqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Di32).unwrap(), Register::K1),
@@ -27092,7 +27092,7 @@ fn vcmpge_oqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqsd_k_xmm_m() {
+fn vcmpge_oqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -27110,7 +27110,7 @@ fn vcmpge_oqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqsh_k_xmm_xmm() {
+fn vcmpge_oqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Di32).unwrap(), Register::K1),
@@ -27119,7 +27119,7 @@ fn vcmpge_oqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqsh_k_xmm_m() {
+fn vcmpge_oqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -27128,7 +27128,7 @@ fn vcmpge_oqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqss_k_xmm_xmm() {
+fn vcmpge_oqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Di32).unwrap(), Register::K1),
@@ -27146,7 +27146,7 @@ fn vcmpge_oqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpge_oqss_k_xmm_m() {
+fn vcmpge_oqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpge_oqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Di32).unwrap(), Register::K1),
@@ -27164,7 +27164,7 @@ fn vcmpge_oqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgepd_k_xmm_xmm() {
+fn vcmpgepd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpgepd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xDi32).unwrap(), Register::K1),
@@ -27182,7 +27182,7 @@ fn vcmpgepd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgepd_k_ymm_ymm() {
+fn vcmpgepd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpgepd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xDi32).unwrap(), Register::K1),
@@ -27200,7 +27200,7 @@ fn vcmpgepd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgepd_k_zmm_zmm() {
+fn vcmpgepd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpgepd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xDi32).unwrap(), Register::K1),
@@ -27209,7 +27209,7 @@ fn vcmpgepd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgepd_k_xmm_m() {
+fn vcmpgepd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpgepd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27227,7 +27227,7 @@ fn vcmpgepd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgepd_k_ymm_m() {
+fn vcmpgepd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpgepd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27245,7 +27245,7 @@ fn vcmpgepd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgepd_k_zmm_m() {
+fn vcmpgepd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpgepd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27254,7 +27254,7 @@ fn vcmpgepd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeph_k_xmm_xmm() {
+fn vcmpgeph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpgeph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xDi32).unwrap(), Register::K1),
@@ -27263,7 +27263,7 @@ fn vcmpgeph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeph_k_ymm_ymm() {
+fn vcmpgeph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpgeph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xDi32).unwrap(), Register::K1),
@@ -27272,7 +27272,7 @@ fn vcmpgeph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeph_k_zmm_zmm() {
+fn vcmpgeph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpgeph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xDi32).unwrap(), Register::K1),
@@ -27281,7 +27281,7 @@ fn vcmpgeph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeph_k_xmm_m() {
+fn vcmpgeph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpgeph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27290,7 +27290,7 @@ fn vcmpgeph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeph_k_ymm_m() {
+fn vcmpgeph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpgeph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27299,7 +27299,7 @@ fn vcmpgeph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeph_k_zmm_m() {
+fn vcmpgeph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpgeph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27308,7 +27308,7 @@ fn vcmpgeph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeps_k_xmm_xmm() {
+fn vcmpgeps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpgeps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xDi32).unwrap(), Register::K1),
@@ -27326,7 +27326,7 @@ fn vcmpgeps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeps_k_ymm_ymm() {
+fn vcmpgeps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpgeps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xDi32).unwrap(), Register::K1),
@@ -27344,7 +27344,7 @@ fn vcmpgeps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeps_k_zmm_zmm() {
+fn vcmpgeps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpgeps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xDi32).unwrap(), Register::K1),
@@ -27353,7 +27353,7 @@ fn vcmpgeps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeps_k_xmm_m() {
+fn vcmpgeps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpgeps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27371,7 +27371,7 @@ fn vcmpgeps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeps_k_ymm_m() {
+fn vcmpgeps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpgeps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27389,7 +27389,7 @@ fn vcmpgeps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgeps_k_zmm_m() {
+fn vcmpgeps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpgeps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27398,7 +27398,7 @@ fn vcmpgeps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgesd_k_xmm_xmm() {
+fn vcmpgesd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpgesd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xDi32).unwrap(), Register::K1),
@@ -27416,7 +27416,7 @@ fn vcmpgesd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgesd_k_xmm_m() {
+fn vcmpgesd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpgesd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27434,7 +27434,7 @@ fn vcmpgesd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgesh_k_xmm_xmm() {
+fn vcmpgesh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpgesh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xDi32).unwrap(), Register::K1),
@@ -27443,7 +27443,7 @@ fn vcmpgesh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgesh_k_xmm_m() {
+fn vcmpgesh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpgesh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27452,7 +27452,7 @@ fn vcmpgesh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgess_k_xmm_xmm() {
+fn vcmpgess_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpgess(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xDi32).unwrap(), Register::K1),
@@ -27470,7 +27470,7 @@ fn vcmpgess_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgess_k_xmm_m() {
+fn vcmpgess_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpgess(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xDi32).unwrap(), Register::K1),
@@ -27488,7 +27488,7 @@ fn vcmpgess_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqpd_k_xmm_xmm() {
+fn vcmpgt_oqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpgt_oqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27506,7 +27506,7 @@ fn vcmpgt_oqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqpd_k_ymm_ymm() {
+fn vcmpgt_oqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpgt_oqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27524,7 +27524,7 @@ fn vcmpgt_oqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqpd_k_zmm_zmm() {
+fn vcmpgt_oqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27533,7 +27533,7 @@ fn vcmpgt_oqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqpd_k_xmm_m() {
+fn vcmpgt_oqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpgt_oqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27551,7 +27551,7 @@ fn vcmpgt_oqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqpd_k_ymm_m() {
+fn vcmpgt_oqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpgt_oqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27569,7 +27569,7 @@ fn vcmpgt_oqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqpd_k_zmm_m() {
+fn vcmpgt_oqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27578,7 +27578,7 @@ fn vcmpgt_oqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqph_k_xmm_xmm() {
+fn vcmpgt_oqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpgt_oqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27587,7 +27587,7 @@ fn vcmpgt_oqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqph_k_ymm_ymm() {
+fn vcmpgt_oqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpgt_oqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27596,7 +27596,7 @@ fn vcmpgt_oqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqph_k_zmm_zmm() {
+fn vcmpgt_oqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27605,7 +27605,7 @@ fn vcmpgt_oqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqph_k_xmm_m() {
+fn vcmpgt_oqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpgt_oqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27614,7 +27614,7 @@ fn vcmpgt_oqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqph_k_ymm_m() {
+fn vcmpgt_oqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpgt_oqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27623,7 +27623,7 @@ fn vcmpgt_oqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqph_k_zmm_m() {
+fn vcmpgt_oqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27632,7 +27632,7 @@ fn vcmpgt_oqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqps_k_xmm_xmm() {
+fn vcmpgt_oqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpgt_oqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27650,7 +27650,7 @@ fn vcmpgt_oqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqps_k_ymm_ymm() {
+fn vcmpgt_oqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpgt_oqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27668,7 +27668,7 @@ fn vcmpgt_oqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqps_k_zmm_zmm() {
+fn vcmpgt_oqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27677,7 +27677,7 @@ fn vcmpgt_oqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqps_k_xmm_m() {
+fn vcmpgt_oqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpgt_oqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27695,7 +27695,7 @@ fn vcmpgt_oqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqps_k_ymm_m() {
+fn vcmpgt_oqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpgt_oqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27713,7 +27713,7 @@ fn vcmpgt_oqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqps_k_zmm_m() {
+fn vcmpgt_oqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27722,7 +27722,7 @@ fn vcmpgt_oqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqsd_k_xmm_xmm() {
+fn vcmpgt_oqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27740,7 +27740,7 @@ fn vcmpgt_oqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqsd_k_xmm_m() {
+fn vcmpgt_oqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27758,7 +27758,7 @@ fn vcmpgt_oqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqsh_k_xmm_xmm() {
+fn vcmpgt_oqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27767,7 +27767,7 @@ fn vcmpgt_oqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqsh_k_xmm_m() {
+fn vcmpgt_oqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27776,7 +27776,7 @@ fn vcmpgt_oqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqss_k_xmm_xmm() {
+fn vcmpgt_oqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Ei32).unwrap(), Register::K1),
@@ -27794,7 +27794,7 @@ fn vcmpgt_oqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgt_oqss_k_xmm_m() {
+fn vcmpgt_oqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpgt_oqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ei32).unwrap(), Register::K1),
@@ -27812,7 +27812,7 @@ fn vcmpgt_oqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtpd_k_xmm_xmm() {
+fn vcmpgtpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpgtpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xEi32).unwrap(), Register::K1),
@@ -27830,7 +27830,7 @@ fn vcmpgtpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtpd_k_ymm_ymm() {
+fn vcmpgtpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpgtpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xEi32).unwrap(), Register::K1),
@@ -27848,7 +27848,7 @@ fn vcmpgtpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtpd_k_zmm_zmm() {
+fn vcmpgtpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpgtpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xEi32).unwrap(), Register::K1),
@@ -27857,7 +27857,7 @@ fn vcmpgtpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtpd_k_xmm_m() {
+fn vcmpgtpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpgtpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -27875,7 +27875,7 @@ fn vcmpgtpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtpd_k_ymm_m() {
+fn vcmpgtpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpgtpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -27893,7 +27893,7 @@ fn vcmpgtpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtpd_k_zmm_m() {
+fn vcmpgtpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpgtpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -27902,7 +27902,7 @@ fn vcmpgtpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtph_k_xmm_xmm() {
+fn vcmpgtph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpgtph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xEi32).unwrap(), Register::K1),
@@ -27911,7 +27911,7 @@ fn vcmpgtph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtph_k_ymm_ymm() {
+fn vcmpgtph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpgtph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xEi32).unwrap(), Register::K1),
@@ -27920,7 +27920,7 @@ fn vcmpgtph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtph_k_zmm_zmm() {
+fn vcmpgtph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpgtph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xEi32).unwrap(), Register::K1),
@@ -27929,7 +27929,7 @@ fn vcmpgtph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtph_k_xmm_m() {
+fn vcmpgtph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpgtph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -27938,7 +27938,7 @@ fn vcmpgtph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtph_k_ymm_m() {
+fn vcmpgtph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpgtph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -27947,7 +27947,7 @@ fn vcmpgtph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtph_k_zmm_m() {
+fn vcmpgtph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpgtph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -27956,7 +27956,7 @@ fn vcmpgtph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtps_k_xmm_xmm() {
+fn vcmpgtps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpgtps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xEi32).unwrap(), Register::K1),
@@ -27974,7 +27974,7 @@ fn vcmpgtps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtps_k_ymm_ymm() {
+fn vcmpgtps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpgtps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xEi32).unwrap(), Register::K1),
@@ -27992,7 +27992,7 @@ fn vcmpgtps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtps_k_zmm_zmm() {
+fn vcmpgtps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpgtps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xEi32).unwrap(), Register::K1),
@@ -28001,7 +28001,7 @@ fn vcmpgtps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtps_k_xmm_m() {
+fn vcmpgtps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpgtps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -28019,7 +28019,7 @@ fn vcmpgtps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtps_k_ymm_m() {
+fn vcmpgtps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpgtps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -28037,7 +28037,7 @@ fn vcmpgtps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtps_k_zmm_m() {
+fn vcmpgtps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpgtps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -28046,7 +28046,7 @@ fn vcmpgtps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtsd_k_xmm_xmm() {
+fn vcmpgtsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpgtsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xEi32).unwrap(), Register::K1),
@@ -28064,7 +28064,7 @@ fn vcmpgtsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtsd_k_xmm_m() {
+fn vcmpgtsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpgtsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -28082,7 +28082,7 @@ fn vcmpgtsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtsh_k_xmm_xmm() {
+fn vcmpgtsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpgtsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xEi32).unwrap(), Register::K1),
@@ -28091,7 +28091,7 @@ fn vcmpgtsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtsh_k_xmm_m() {
+fn vcmpgtsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpgtsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -28100,7 +28100,7 @@ fn vcmpgtsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtss_k_xmm_xmm() {
+fn vcmpgtss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpgtss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xEi32).unwrap(), Register::K1),
@@ -28118,7 +28118,7 @@ fn vcmpgtss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpgtss_k_xmm_m() {
+fn vcmpgtss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpgtss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xEi32).unwrap(), Register::K1),
@@ -28136,7 +28136,7 @@ fn vcmpgtss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqpd_k_xmm_xmm() {
+fn vcmple_oqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmple_oqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x12i32).unwrap(), Register::K1),
@@ -28154,7 +28154,7 @@ fn vcmple_oqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqpd_k_ymm_ymm() {
+fn vcmple_oqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmple_oqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x12i32).unwrap(), Register::K1),
@@ -28172,7 +28172,7 @@ fn vcmple_oqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqpd_k_zmm_zmm() {
+fn vcmple_oqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmple_oqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x12i32).unwrap(), Register::K1),
@@ -28181,7 +28181,7 @@ fn vcmple_oqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqpd_k_xmm_m() {
+fn vcmple_oqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmple_oqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28199,7 +28199,7 @@ fn vcmple_oqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqpd_k_ymm_m() {
+fn vcmple_oqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmple_oqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28217,7 +28217,7 @@ fn vcmple_oqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqpd_k_zmm_m() {
+fn vcmple_oqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmple_oqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28226,7 +28226,7 @@ fn vcmple_oqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqph_k_xmm_xmm() {
+fn vcmple_oqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmple_oqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x12i32).unwrap(), Register::K1),
@@ -28235,7 +28235,7 @@ fn vcmple_oqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqph_k_ymm_ymm() {
+fn vcmple_oqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmple_oqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x12i32).unwrap(), Register::K1),
@@ -28244,7 +28244,7 @@ fn vcmple_oqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqph_k_zmm_zmm() {
+fn vcmple_oqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmple_oqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x12i32).unwrap(), Register::K1),
@@ -28253,7 +28253,7 @@ fn vcmple_oqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqph_k_xmm_m() {
+fn vcmple_oqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmple_oqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28262,7 +28262,7 @@ fn vcmple_oqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqph_k_ymm_m() {
+fn vcmple_oqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmple_oqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28271,7 +28271,7 @@ fn vcmple_oqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqph_k_zmm_m() {
+fn vcmple_oqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmple_oqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28280,7 +28280,7 @@ fn vcmple_oqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqps_k_xmm_xmm() {
+fn vcmple_oqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmple_oqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x12i32).unwrap(), Register::K1),
@@ -28298,7 +28298,7 @@ fn vcmple_oqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqps_k_ymm_ymm() {
+fn vcmple_oqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmple_oqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x12i32).unwrap(), Register::K1),
@@ -28316,7 +28316,7 @@ fn vcmple_oqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqps_k_zmm_zmm() {
+fn vcmple_oqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmple_oqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x12i32).unwrap(), Register::K1),
@@ -28325,7 +28325,7 @@ fn vcmple_oqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqps_k_xmm_m() {
+fn vcmple_oqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmple_oqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28343,7 +28343,7 @@ fn vcmple_oqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqps_k_ymm_m() {
+fn vcmple_oqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmple_oqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28361,7 +28361,7 @@ fn vcmple_oqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqps_k_zmm_m() {
+fn vcmple_oqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmple_oqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28370,7 +28370,7 @@ fn vcmple_oqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqsd_k_xmm_xmm() {
+fn vcmple_oqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmple_oqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x12i32).unwrap(), Register::K1),
@@ -28388,7 +28388,7 @@ fn vcmple_oqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqsd_k_xmm_m() {
+fn vcmple_oqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmple_oqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28406,7 +28406,7 @@ fn vcmple_oqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqsh_k_xmm_xmm() {
+fn vcmple_oqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmple_oqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x12i32).unwrap(), Register::K1),
@@ -28415,7 +28415,7 @@ fn vcmple_oqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqsh_k_xmm_m() {
+fn vcmple_oqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmple_oqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28424,7 +28424,7 @@ fn vcmple_oqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqss_k_xmm_xmm() {
+fn vcmple_oqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmple_oqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x12i32).unwrap(), Register::K1),
@@ -28442,7 +28442,7 @@ fn vcmple_oqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmple_oqss_k_xmm_m() {
+fn vcmple_oqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmple_oqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x12i32).unwrap(), Register::K1),
@@ -28460,7 +28460,7 @@ fn vcmple_oqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplepd_k_xmm_xmm() {
+fn vcmplepd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmplepd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -28478,7 +28478,7 @@ fn vcmplepd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplepd_k_ymm_ymm() {
+fn vcmplepd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmplepd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -28496,7 +28496,7 @@ fn vcmplepd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplepd_k_zmm_zmm() {
+fn vcmplepd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmplepd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -28505,7 +28505,7 @@ fn vcmplepd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplepd_k_xmm_m() {
+fn vcmplepd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmplepd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28523,7 +28523,7 @@ fn vcmplepd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplepd_k_ymm_m() {
+fn vcmplepd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmplepd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28541,7 +28541,7 @@ fn vcmplepd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplepd_k_zmm_m() {
+fn vcmplepd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmplepd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28550,7 +28550,7 @@ fn vcmplepd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleph_k_xmm_xmm() {
+fn vcmpleph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpleph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -28559,7 +28559,7 @@ fn vcmpleph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleph_k_ymm_ymm() {
+fn vcmpleph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpleph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -28568,7 +28568,7 @@ fn vcmpleph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleph_k_zmm_zmm() {
+fn vcmpleph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpleph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -28577,7 +28577,7 @@ fn vcmpleph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleph_k_xmm_m() {
+fn vcmpleph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpleph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28586,7 +28586,7 @@ fn vcmpleph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleph_k_ymm_m() {
+fn vcmpleph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpleph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28595,7 +28595,7 @@ fn vcmpleph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleph_k_zmm_m() {
+fn vcmpleph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpleph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28604,7 +28604,7 @@ fn vcmpleph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleps_k_xmm_xmm() {
+fn vcmpleps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpleps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -28622,7 +28622,7 @@ fn vcmpleps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleps_k_ymm_ymm() {
+fn vcmpleps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpleps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -28640,7 +28640,7 @@ fn vcmpleps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleps_k_zmm_zmm() {
+fn vcmpleps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpleps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -28649,7 +28649,7 @@ fn vcmpleps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleps_k_xmm_m() {
+fn vcmpleps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpleps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28667,7 +28667,7 @@ fn vcmpleps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleps_k_ymm_m() {
+fn vcmpleps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpleps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28685,7 +28685,7 @@ fn vcmpleps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpleps_k_zmm_m() {
+fn vcmpleps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpleps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28694,7 +28694,7 @@ fn vcmpleps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplesd_k_xmm_xmm() {
+fn vcmplesd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmplesd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -28712,7 +28712,7 @@ fn vcmplesd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplesd_k_xmm_m() {
+fn vcmplesd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmplesd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28730,7 +28730,7 @@ fn vcmplesd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplesh_k_xmm_xmm() {
+fn vcmplesh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmplesh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -28739,7 +28739,7 @@ fn vcmplesh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplesh_k_xmm_m() {
+fn vcmplesh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmplesh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28748,7 +28748,7 @@ fn vcmplesh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpless_k_xmm_xmm() {
+fn vcmpless_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpless(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -28766,7 +28766,7 @@ fn vcmpless_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpless_k_xmm_m() {
+fn vcmpless_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpless(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -28784,7 +28784,7 @@ fn vcmpless_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqpd_k_xmm_xmm() {
+fn vcmplt_oqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmplt_oqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x11i32).unwrap(), Register::K1),
@@ -28802,7 +28802,7 @@ fn vcmplt_oqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqpd_k_ymm_ymm() {
+fn vcmplt_oqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmplt_oqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x11i32).unwrap(), Register::K1),
@@ -28820,7 +28820,7 @@ fn vcmplt_oqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqpd_k_zmm_zmm() {
+fn vcmplt_oqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x11i32).unwrap(), Register::K1),
@@ -28829,7 +28829,7 @@ fn vcmplt_oqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqpd_k_xmm_m() {
+fn vcmplt_oqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmplt_oqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -28847,7 +28847,7 @@ fn vcmplt_oqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqpd_k_ymm_m() {
+fn vcmplt_oqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmplt_oqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -28865,7 +28865,7 @@ fn vcmplt_oqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqpd_k_zmm_m() {
+fn vcmplt_oqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -28874,7 +28874,7 @@ fn vcmplt_oqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqph_k_xmm_xmm() {
+fn vcmplt_oqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmplt_oqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x11i32).unwrap(), Register::K1),
@@ -28883,7 +28883,7 @@ fn vcmplt_oqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqph_k_ymm_ymm() {
+fn vcmplt_oqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmplt_oqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x11i32).unwrap(), Register::K1),
@@ -28892,7 +28892,7 @@ fn vcmplt_oqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqph_k_zmm_zmm() {
+fn vcmplt_oqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x11i32).unwrap(), Register::K1),
@@ -28901,7 +28901,7 @@ fn vcmplt_oqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqph_k_xmm_m() {
+fn vcmplt_oqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmplt_oqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -28910,7 +28910,7 @@ fn vcmplt_oqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqph_k_ymm_m() {
+fn vcmplt_oqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmplt_oqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -28919,7 +28919,7 @@ fn vcmplt_oqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqph_k_zmm_m() {
+fn vcmplt_oqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -28928,7 +28928,7 @@ fn vcmplt_oqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqps_k_xmm_xmm() {
+fn vcmplt_oqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmplt_oqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x11i32).unwrap(), Register::K1),
@@ -28946,7 +28946,7 @@ fn vcmplt_oqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqps_k_ymm_ymm() {
+fn vcmplt_oqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmplt_oqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x11i32).unwrap(), Register::K1),
@@ -28964,7 +28964,7 @@ fn vcmplt_oqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqps_k_zmm_zmm() {
+fn vcmplt_oqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x11i32).unwrap(), Register::K1),
@@ -28973,7 +28973,7 @@ fn vcmplt_oqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqps_k_xmm_m() {
+fn vcmplt_oqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmplt_oqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -28991,7 +28991,7 @@ fn vcmplt_oqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqps_k_ymm_m() {
+fn vcmplt_oqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmplt_oqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -29009,7 +29009,7 @@ fn vcmplt_oqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqps_k_zmm_m() {
+fn vcmplt_oqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -29018,7 +29018,7 @@ fn vcmplt_oqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqsd_k_xmm_xmm() {
+fn vcmplt_oqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x11i32).unwrap(), Register::K1),
@@ -29036,7 +29036,7 @@ fn vcmplt_oqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqsd_k_xmm_m() {
+fn vcmplt_oqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -29054,7 +29054,7 @@ fn vcmplt_oqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqsh_k_xmm_xmm() {
+fn vcmplt_oqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x11i32).unwrap(), Register::K1),
@@ -29063,7 +29063,7 @@ fn vcmplt_oqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqsh_k_xmm_m() {
+fn vcmplt_oqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -29072,7 +29072,7 @@ fn vcmplt_oqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqss_k_xmm_xmm() {
+fn vcmplt_oqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x11i32).unwrap(), Register::K1),
@@ -29090,7 +29090,7 @@ fn vcmplt_oqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmplt_oqss_k_xmm_m() {
+fn vcmplt_oqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmplt_oqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x11i32).unwrap(), Register::K1),
@@ -29108,7 +29108,7 @@ fn vcmplt_oqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltpd_k_xmm_xmm() {
+fn vcmpltpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpltpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -29126,7 +29126,7 @@ fn vcmpltpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltpd_k_ymm_ymm() {
+fn vcmpltpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpltpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -29144,7 +29144,7 @@ fn vcmpltpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltpd_k_zmm_zmm() {
+fn vcmpltpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpltpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -29153,7 +29153,7 @@ fn vcmpltpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltpd_k_xmm_m() {
+fn vcmpltpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpltpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29171,7 +29171,7 @@ fn vcmpltpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltpd_k_ymm_m() {
+fn vcmpltpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpltpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29189,7 +29189,7 @@ fn vcmpltpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltpd_k_zmm_m() {
+fn vcmpltpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpltpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29198,7 +29198,7 @@ fn vcmpltpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltph_k_xmm_xmm() {
+fn vcmpltph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpltph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -29207,7 +29207,7 @@ fn vcmpltph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltph_k_ymm_ymm() {
+fn vcmpltph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpltph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -29216,7 +29216,7 @@ fn vcmpltph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltph_k_zmm_zmm() {
+fn vcmpltph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpltph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -29225,7 +29225,7 @@ fn vcmpltph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltph_k_xmm_m() {
+fn vcmpltph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpltph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29234,7 +29234,7 @@ fn vcmpltph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltph_k_ymm_m() {
+fn vcmpltph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpltph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29243,7 +29243,7 @@ fn vcmpltph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltph_k_zmm_m() {
+fn vcmpltph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpltph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29252,7 +29252,7 @@ fn vcmpltph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltps_k_xmm_xmm() {
+fn vcmpltps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpltps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -29270,7 +29270,7 @@ fn vcmpltps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltps_k_ymm_ymm() {
+fn vcmpltps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpltps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -29288,7 +29288,7 @@ fn vcmpltps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltps_k_zmm_zmm() {
+fn vcmpltps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpltps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -29297,7 +29297,7 @@ fn vcmpltps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltps_k_xmm_m() {
+fn vcmpltps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpltps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29315,7 +29315,7 @@ fn vcmpltps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltps_k_ymm_m() {
+fn vcmpltps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpltps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29333,7 +29333,7 @@ fn vcmpltps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltps_k_zmm_m() {
+fn vcmpltps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpltps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29342,7 +29342,7 @@ fn vcmpltps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltsd_k_xmm_xmm() {
+fn vcmpltsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpltsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -29360,7 +29360,7 @@ fn vcmpltsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltsd_k_xmm_m() {
+fn vcmpltsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpltsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29378,7 +29378,7 @@ fn vcmpltsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltsh_k_xmm_xmm() {
+fn vcmpltsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpltsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -29387,7 +29387,7 @@ fn vcmpltsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltsh_k_xmm_m() {
+fn vcmpltsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpltsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29396,7 +29396,7 @@ fn vcmpltsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltss_k_xmm_xmm() {
+fn vcmpltss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpltss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -29414,7 +29414,7 @@ fn vcmpltss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpltss_k_xmm_m() {
+fn vcmpltss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpltss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -29432,7 +29432,7 @@ fn vcmpltss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqpd_k_xmm_xmm() {
+fn vcmpneq_oqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpneq_oqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xCi32).unwrap(), Register::K1),
@@ -29450,7 +29450,7 @@ fn vcmpneq_oqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqpd_k_ymm_ymm() {
+fn vcmpneq_oqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpneq_oqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xCi32).unwrap(), Register::K1),
@@ -29468,7 +29468,7 @@ fn vcmpneq_oqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqpd_k_zmm_zmm() {
+fn vcmpneq_oqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xCi32).unwrap(), Register::K1),
@@ -29477,7 +29477,7 @@ fn vcmpneq_oqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqpd_k_xmm_m() {
+fn vcmpneq_oqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpneq_oqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29495,7 +29495,7 @@ fn vcmpneq_oqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqpd_k_ymm_m() {
+fn vcmpneq_oqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpneq_oqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29513,7 +29513,7 @@ fn vcmpneq_oqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqpd_k_zmm_m() {
+fn vcmpneq_oqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29522,7 +29522,7 @@ fn vcmpneq_oqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqph_k_xmm_xmm() {
+fn vcmpneq_oqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpneq_oqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xCi32).unwrap(), Register::K1),
@@ -29531,7 +29531,7 @@ fn vcmpneq_oqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqph_k_ymm_ymm() {
+fn vcmpneq_oqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpneq_oqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xCi32).unwrap(), Register::K1),
@@ -29540,7 +29540,7 @@ fn vcmpneq_oqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqph_k_zmm_zmm() {
+fn vcmpneq_oqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xCi32).unwrap(), Register::K1),
@@ -29549,7 +29549,7 @@ fn vcmpneq_oqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqph_k_xmm_m() {
+fn vcmpneq_oqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpneq_oqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29558,7 +29558,7 @@ fn vcmpneq_oqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqph_k_ymm_m() {
+fn vcmpneq_oqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpneq_oqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29567,7 +29567,7 @@ fn vcmpneq_oqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqph_k_zmm_m() {
+fn vcmpneq_oqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29576,7 +29576,7 @@ fn vcmpneq_oqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqps_k_xmm_xmm() {
+fn vcmpneq_oqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpneq_oqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xCi32).unwrap(), Register::K1),
@@ -29594,7 +29594,7 @@ fn vcmpneq_oqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqps_k_ymm_ymm() {
+fn vcmpneq_oqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpneq_oqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xCi32).unwrap(), Register::K1),
@@ -29612,7 +29612,7 @@ fn vcmpneq_oqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqps_k_zmm_zmm() {
+fn vcmpneq_oqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xCi32).unwrap(), Register::K1),
@@ -29621,7 +29621,7 @@ fn vcmpneq_oqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqps_k_xmm_m() {
+fn vcmpneq_oqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpneq_oqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29639,7 +29639,7 @@ fn vcmpneq_oqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqps_k_ymm_m() {
+fn vcmpneq_oqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpneq_oqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29657,7 +29657,7 @@ fn vcmpneq_oqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqps_k_zmm_m() {
+fn vcmpneq_oqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29666,7 +29666,7 @@ fn vcmpneq_oqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqsd_k_xmm_xmm() {
+fn vcmpneq_oqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xCi32).unwrap(), Register::K1),
@@ -29684,7 +29684,7 @@ fn vcmpneq_oqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqsd_k_xmm_m() {
+fn vcmpneq_oqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29702,7 +29702,7 @@ fn vcmpneq_oqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqsh_k_xmm_xmm() {
+fn vcmpneq_oqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xCi32).unwrap(), Register::K1),
@@ -29711,7 +29711,7 @@ fn vcmpneq_oqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqsh_k_xmm_m() {
+fn vcmpneq_oqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29720,7 +29720,7 @@ fn vcmpneq_oqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqss_k_xmm_xmm() {
+fn vcmpneq_oqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xCi32).unwrap(), Register::K1),
@@ -29738,7 +29738,7 @@ fn vcmpneq_oqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_oqss_k_xmm_m() {
+fn vcmpneq_oqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_oqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xCi32).unwrap(), Register::K1),
@@ -29756,7 +29756,7 @@ fn vcmpneq_oqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ospd_k_xmm_xmm() {
+fn vcmpneq_ospd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpneq_ospd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -29774,7 +29774,7 @@ fn vcmpneq_ospd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ospd_k_ymm_ymm() {
+fn vcmpneq_ospd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpneq_ospd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -29792,7 +29792,7 @@ fn vcmpneq_ospd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ospd_k_zmm_zmm() {
+fn vcmpneq_ospd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_ospd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -29801,7 +29801,7 @@ fn vcmpneq_ospd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ospd_k_xmm_m() {
+fn vcmpneq_ospd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpneq_ospd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -29819,7 +29819,7 @@ fn vcmpneq_ospd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ospd_k_ymm_m() {
+fn vcmpneq_ospd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpneq_ospd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -29837,7 +29837,7 @@ fn vcmpneq_ospd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ospd_k_zmm_m() {
+fn vcmpneq_ospd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_ospd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -29846,7 +29846,7 @@ fn vcmpneq_ospd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osph_k_xmm_xmm() {
+fn vcmpneq_osph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpneq_osph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -29855,7 +29855,7 @@ fn vcmpneq_osph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osph_k_ymm_ymm() {
+fn vcmpneq_osph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpneq_osph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -29864,7 +29864,7 @@ fn vcmpneq_osph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osph_k_zmm_zmm() {
+fn vcmpneq_osph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_osph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -29873,7 +29873,7 @@ fn vcmpneq_osph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osph_k_xmm_m() {
+fn vcmpneq_osph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpneq_osph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -29882,7 +29882,7 @@ fn vcmpneq_osph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osph_k_ymm_m() {
+fn vcmpneq_osph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpneq_osph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -29891,7 +29891,7 @@ fn vcmpneq_osph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osph_k_zmm_m() {
+fn vcmpneq_osph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_osph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -29900,7 +29900,7 @@ fn vcmpneq_osph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osps_k_xmm_xmm() {
+fn vcmpneq_osps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpneq_osps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -29918,7 +29918,7 @@ fn vcmpneq_osps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osps_k_ymm_ymm() {
+fn vcmpneq_osps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpneq_osps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -29936,7 +29936,7 @@ fn vcmpneq_osps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osps_k_zmm_zmm() {
+fn vcmpneq_osps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_osps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -29945,7 +29945,7 @@ fn vcmpneq_osps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osps_k_xmm_m() {
+fn vcmpneq_osps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpneq_osps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -29963,7 +29963,7 @@ fn vcmpneq_osps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osps_k_ymm_m() {
+fn vcmpneq_osps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpneq_osps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -29981,7 +29981,7 @@ fn vcmpneq_osps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osps_k_zmm_m() {
+fn vcmpneq_osps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_osps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -29990,7 +29990,7 @@ fn vcmpneq_osps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ossd_k_xmm_xmm() {
+fn vcmpneq_ossd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_ossd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -30008,7 +30008,7 @@ fn vcmpneq_ossd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ossd_k_xmm_m() {
+fn vcmpneq_ossd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_ossd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -30026,7 +30026,7 @@ fn vcmpneq_ossd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ossh_k_xmm_xmm() {
+fn vcmpneq_ossh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_ossh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -30035,7 +30035,7 @@ fn vcmpneq_ossh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ossh_k_xmm_m() {
+fn vcmpneq_ossh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_ossh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -30044,7 +30044,7 @@ fn vcmpneq_ossh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osss_k_xmm_xmm() {
+fn vcmpneq_osss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_osss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Ci32).unwrap(), Register::K1),
@@ -30062,7 +30062,7 @@ fn vcmpneq_osss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_osss_k_xmm_m() {
+fn vcmpneq_osss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_osss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ci32).unwrap(), Register::K1),
@@ -30080,7 +30080,7 @@ fn vcmpneq_osss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_uspd_k_xmm_xmm() {
+fn vcmpneq_uspd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpneq_uspd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x14i32).unwrap(), Register::K1),
@@ -30098,7 +30098,7 @@ fn vcmpneq_uspd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_uspd_k_ymm_ymm() {
+fn vcmpneq_uspd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpneq_uspd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x14i32).unwrap(), Register::K1),
@@ -30116,7 +30116,7 @@ fn vcmpneq_uspd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_uspd_k_zmm_zmm() {
+fn vcmpneq_uspd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_uspd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x14i32).unwrap(), Register::K1),
@@ -30125,7 +30125,7 @@ fn vcmpneq_uspd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_uspd_k_xmm_m() {
+fn vcmpneq_uspd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpneq_uspd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30143,7 +30143,7 @@ fn vcmpneq_uspd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_uspd_k_ymm_m() {
+fn vcmpneq_uspd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpneq_uspd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30161,7 +30161,7 @@ fn vcmpneq_uspd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_uspd_k_zmm_m() {
+fn vcmpneq_uspd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_uspd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30170,7 +30170,7 @@ fn vcmpneq_uspd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usph_k_xmm_xmm() {
+fn vcmpneq_usph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpneq_usph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x14i32).unwrap(), Register::K1),
@@ -30179,7 +30179,7 @@ fn vcmpneq_usph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usph_k_ymm_ymm() {
+fn vcmpneq_usph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpneq_usph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x14i32).unwrap(), Register::K1),
@@ -30188,7 +30188,7 @@ fn vcmpneq_usph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usph_k_zmm_zmm() {
+fn vcmpneq_usph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_usph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x14i32).unwrap(), Register::K1),
@@ -30197,7 +30197,7 @@ fn vcmpneq_usph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usph_k_xmm_m() {
+fn vcmpneq_usph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpneq_usph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30206,7 +30206,7 @@ fn vcmpneq_usph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usph_k_ymm_m() {
+fn vcmpneq_usph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpneq_usph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30215,7 +30215,7 @@ fn vcmpneq_usph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usph_k_zmm_m() {
+fn vcmpneq_usph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_usph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30224,7 +30224,7 @@ fn vcmpneq_usph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usps_k_xmm_xmm() {
+fn vcmpneq_usps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpneq_usps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x14i32).unwrap(), Register::K1),
@@ -30242,7 +30242,7 @@ fn vcmpneq_usps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usps_k_ymm_ymm() {
+fn vcmpneq_usps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpneq_usps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x14i32).unwrap(), Register::K1),
@@ -30260,7 +30260,7 @@ fn vcmpneq_usps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usps_k_zmm_zmm() {
+fn vcmpneq_usps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_usps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x14i32).unwrap(), Register::K1),
@@ -30269,7 +30269,7 @@ fn vcmpneq_usps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usps_k_xmm_m() {
+fn vcmpneq_usps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpneq_usps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30287,7 +30287,7 @@ fn vcmpneq_usps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usps_k_ymm_m() {
+fn vcmpneq_usps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpneq_usps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30305,7 +30305,7 @@ fn vcmpneq_usps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usps_k_zmm_m() {
+fn vcmpneq_usps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_usps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30314,7 +30314,7 @@ fn vcmpneq_usps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ussd_k_xmm_xmm() {
+fn vcmpneq_ussd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_ussd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x14i32).unwrap(), Register::K1),
@@ -30332,7 +30332,7 @@ fn vcmpneq_ussd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ussd_k_xmm_m() {
+fn vcmpneq_ussd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpneq_ussd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30350,7 +30350,7 @@ fn vcmpneq_ussd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ussh_k_xmm_xmm() {
+fn vcmpneq_ussh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_ussh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x14i32).unwrap(), Register::K1),
@@ -30359,7 +30359,7 @@ fn vcmpneq_ussh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_ussh_k_xmm_m() {
+fn vcmpneq_ussh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpneq_ussh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30368,7 +30368,7 @@ fn vcmpneq_ussh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usss_k_xmm_xmm() {
+fn vcmpneq_usss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_usss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x14i32).unwrap(), Register::K1),
@@ -30386,7 +30386,7 @@ fn vcmpneq_usss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneq_usss_k_xmm_m() {
+fn vcmpneq_usss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpneq_usss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x14i32).unwrap(), Register::K1),
@@ -30404,7 +30404,7 @@ fn vcmpneq_usss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqpd_k_xmm_xmm() {
+fn vcmpneqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpneqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -30422,7 +30422,7 @@ fn vcmpneqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqpd_k_ymm_ymm() {
+fn vcmpneqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpneqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -30440,7 +30440,7 @@ fn vcmpneqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqpd_k_zmm_zmm() {
+fn vcmpneqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpneqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -30449,7 +30449,7 @@ fn vcmpneqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqpd_k_xmm_m() {
+fn vcmpneqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpneqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30467,7 +30467,7 @@ fn vcmpneqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqpd_k_ymm_m() {
+fn vcmpneqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpneqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30485,7 +30485,7 @@ fn vcmpneqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqpd_k_zmm_m() {
+fn vcmpneqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpneqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30494,7 +30494,7 @@ fn vcmpneqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqph_k_xmm_xmm() {
+fn vcmpneqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpneqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -30503,7 +30503,7 @@ fn vcmpneqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqph_k_ymm_ymm() {
+fn vcmpneqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpneqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -30512,7 +30512,7 @@ fn vcmpneqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqph_k_zmm_zmm() {
+fn vcmpneqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpneqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -30521,7 +30521,7 @@ fn vcmpneqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqph_k_xmm_m() {
+fn vcmpneqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpneqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30530,7 +30530,7 @@ fn vcmpneqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqph_k_ymm_m() {
+fn vcmpneqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpneqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30539,7 +30539,7 @@ fn vcmpneqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqph_k_zmm_m() {
+fn vcmpneqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpneqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30548,7 +30548,7 @@ fn vcmpneqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqps_k_xmm_xmm() {
+fn vcmpneqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpneqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -30566,7 +30566,7 @@ fn vcmpneqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqps_k_ymm_ymm() {
+fn vcmpneqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpneqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -30584,7 +30584,7 @@ fn vcmpneqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqps_k_zmm_zmm() {
+fn vcmpneqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpneqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -30593,7 +30593,7 @@ fn vcmpneqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqps_k_xmm_m() {
+fn vcmpneqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpneqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30611,7 +30611,7 @@ fn vcmpneqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqps_k_ymm_m() {
+fn vcmpneqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpneqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30629,7 +30629,7 @@ fn vcmpneqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqps_k_zmm_m() {
+fn vcmpneqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpneqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30638,7 +30638,7 @@ fn vcmpneqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqsd_k_xmm_xmm() {
+fn vcmpneqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpneqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -30656,7 +30656,7 @@ fn vcmpneqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqsd_k_xmm_m() {
+fn vcmpneqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpneqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30674,7 +30674,7 @@ fn vcmpneqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqsh_k_xmm_xmm() {
+fn vcmpneqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpneqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -30683,7 +30683,7 @@ fn vcmpneqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqsh_k_xmm_m() {
+fn vcmpneqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpneqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30692,7 +30692,7 @@ fn vcmpneqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqss_k_xmm_xmm() {
+fn vcmpneqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpneqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -30710,7 +30710,7 @@ fn vcmpneqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpneqss_k_xmm_m() {
+fn vcmpneqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpneqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -30728,7 +30728,7 @@ fn vcmpneqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqpd_k_xmm_xmm() {
+fn vcmpnge_uqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpnge_uqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x19i32).unwrap(), Register::K1),
@@ -30746,7 +30746,7 @@ fn vcmpnge_uqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqpd_k_ymm_ymm() {
+fn vcmpnge_uqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpnge_uqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x19i32).unwrap(), Register::K1),
@@ -30764,7 +30764,7 @@ fn vcmpnge_uqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqpd_k_zmm_zmm() {
+fn vcmpnge_uqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x19i32).unwrap(), Register::K1),
@@ -30773,7 +30773,7 @@ fn vcmpnge_uqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqpd_k_xmm_m() {
+fn vcmpnge_uqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpnge_uqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -30791,7 +30791,7 @@ fn vcmpnge_uqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqpd_k_ymm_m() {
+fn vcmpnge_uqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpnge_uqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -30809,7 +30809,7 @@ fn vcmpnge_uqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqpd_k_zmm_m() {
+fn vcmpnge_uqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -30818,7 +30818,7 @@ fn vcmpnge_uqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqph_k_xmm_xmm() {
+fn vcmpnge_uqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpnge_uqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x19i32).unwrap(), Register::K1),
@@ -30827,7 +30827,7 @@ fn vcmpnge_uqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqph_k_ymm_ymm() {
+fn vcmpnge_uqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpnge_uqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x19i32).unwrap(), Register::K1),
@@ -30836,7 +30836,7 @@ fn vcmpnge_uqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqph_k_zmm_zmm() {
+fn vcmpnge_uqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x19i32).unwrap(), Register::K1),
@@ -30845,7 +30845,7 @@ fn vcmpnge_uqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqph_k_xmm_m() {
+fn vcmpnge_uqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpnge_uqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -30854,7 +30854,7 @@ fn vcmpnge_uqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqph_k_ymm_m() {
+fn vcmpnge_uqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpnge_uqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -30863,7 +30863,7 @@ fn vcmpnge_uqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqph_k_zmm_m() {
+fn vcmpnge_uqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -30872,7 +30872,7 @@ fn vcmpnge_uqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqps_k_xmm_xmm() {
+fn vcmpnge_uqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpnge_uqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x19i32).unwrap(), Register::K1),
@@ -30890,7 +30890,7 @@ fn vcmpnge_uqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqps_k_ymm_ymm() {
+fn vcmpnge_uqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpnge_uqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x19i32).unwrap(), Register::K1),
@@ -30908,7 +30908,7 @@ fn vcmpnge_uqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqps_k_zmm_zmm() {
+fn vcmpnge_uqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x19i32).unwrap(), Register::K1),
@@ -30917,7 +30917,7 @@ fn vcmpnge_uqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqps_k_xmm_m() {
+fn vcmpnge_uqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpnge_uqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -30935,7 +30935,7 @@ fn vcmpnge_uqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqps_k_ymm_m() {
+fn vcmpnge_uqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpnge_uqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -30953,7 +30953,7 @@ fn vcmpnge_uqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqps_k_zmm_m() {
+fn vcmpnge_uqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -30962,7 +30962,7 @@ fn vcmpnge_uqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqsd_k_xmm_xmm() {
+fn vcmpnge_uqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x19i32).unwrap(), Register::K1),
@@ -30980,7 +30980,7 @@ fn vcmpnge_uqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqsd_k_xmm_m() {
+fn vcmpnge_uqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -30998,7 +30998,7 @@ fn vcmpnge_uqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqsh_k_xmm_xmm() {
+fn vcmpnge_uqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x19i32).unwrap(), Register::K1),
@@ -31007,7 +31007,7 @@ fn vcmpnge_uqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqsh_k_xmm_m() {
+fn vcmpnge_uqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -31016,7 +31016,7 @@ fn vcmpnge_uqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqss_k_xmm_xmm() {
+fn vcmpnge_uqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x19i32).unwrap(), Register::K1),
@@ -31034,7 +31034,7 @@ fn vcmpnge_uqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnge_uqss_k_xmm_m() {
+fn vcmpnge_uqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpnge_uqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x19i32).unwrap(), Register::K1),
@@ -31052,7 +31052,7 @@ fn vcmpnge_uqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngepd_k_xmm_xmm() {
+fn vcmpngepd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpngepd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 9i32).unwrap(), Register::K1),
@@ -31070,7 +31070,7 @@ fn vcmpngepd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngepd_k_ymm_ymm() {
+fn vcmpngepd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpngepd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 9i32).unwrap(), Register::K1),
@@ -31088,7 +31088,7 @@ fn vcmpngepd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngepd_k_zmm_zmm() {
+fn vcmpngepd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpngepd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 9i32).unwrap(), Register::K1),
@@ -31097,7 +31097,7 @@ fn vcmpngepd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngepd_k_xmm_m() {
+fn vcmpngepd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpngepd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31115,7 +31115,7 @@ fn vcmpngepd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngepd_k_ymm_m() {
+fn vcmpngepd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpngepd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31133,7 +31133,7 @@ fn vcmpngepd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngepd_k_zmm_m() {
+fn vcmpngepd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpngepd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31142,7 +31142,7 @@ fn vcmpngepd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeph_k_xmm_xmm() {
+fn vcmpngeph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpngeph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 9i32).unwrap(), Register::K1),
@@ -31151,7 +31151,7 @@ fn vcmpngeph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeph_k_ymm_ymm() {
+fn vcmpngeph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpngeph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 9i32).unwrap(), Register::K1),
@@ -31160,7 +31160,7 @@ fn vcmpngeph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeph_k_zmm_zmm() {
+fn vcmpngeph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpngeph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 9i32).unwrap(), Register::K1),
@@ -31169,7 +31169,7 @@ fn vcmpngeph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeph_k_xmm_m() {
+fn vcmpngeph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpngeph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31178,7 +31178,7 @@ fn vcmpngeph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeph_k_ymm_m() {
+fn vcmpngeph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpngeph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31187,7 +31187,7 @@ fn vcmpngeph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeph_k_zmm_m() {
+fn vcmpngeph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpngeph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31196,7 +31196,7 @@ fn vcmpngeph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeps_k_xmm_xmm() {
+fn vcmpngeps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpngeps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 9i32).unwrap(), Register::K1),
@@ -31214,7 +31214,7 @@ fn vcmpngeps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeps_k_ymm_ymm() {
+fn vcmpngeps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpngeps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 9i32).unwrap(), Register::K1),
@@ -31232,7 +31232,7 @@ fn vcmpngeps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeps_k_zmm_zmm() {
+fn vcmpngeps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpngeps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 9i32).unwrap(), Register::K1),
@@ -31241,7 +31241,7 @@ fn vcmpngeps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeps_k_xmm_m() {
+fn vcmpngeps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpngeps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31259,7 +31259,7 @@ fn vcmpngeps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeps_k_ymm_m() {
+fn vcmpngeps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpngeps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31277,7 +31277,7 @@ fn vcmpngeps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngeps_k_zmm_m() {
+fn vcmpngeps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpngeps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31286,7 +31286,7 @@ fn vcmpngeps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngesd_k_xmm_xmm() {
+fn vcmpngesd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpngesd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 9i32).unwrap(), Register::K1),
@@ -31304,7 +31304,7 @@ fn vcmpngesd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngesd_k_xmm_m() {
+fn vcmpngesd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpngesd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31322,7 +31322,7 @@ fn vcmpngesd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngesh_k_xmm_xmm() {
+fn vcmpngesh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpngesh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 9i32).unwrap(), Register::K1),
@@ -31331,7 +31331,7 @@ fn vcmpngesh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngesh_k_xmm_m() {
+fn vcmpngesh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpngesh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31340,7 +31340,7 @@ fn vcmpngesh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngess_k_xmm_xmm() {
+fn vcmpngess_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpngess(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 9i32).unwrap(), Register::K1),
@@ -31358,7 +31358,7 @@ fn vcmpngess_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngess_k_xmm_m() {
+fn vcmpngess_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpngess(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 9i32).unwrap(), Register::K1),
@@ -31376,7 +31376,7 @@ fn vcmpngess_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqpd_k_xmm_xmm() {
+fn vcmpngt_uqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpngt_uqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31394,7 +31394,7 @@ fn vcmpngt_uqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqpd_k_ymm_ymm() {
+fn vcmpngt_uqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpngt_uqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31412,7 +31412,7 @@ fn vcmpngt_uqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqpd_k_zmm_zmm() {
+fn vcmpngt_uqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31421,7 +31421,7 @@ fn vcmpngt_uqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqpd_k_xmm_m() {
+fn vcmpngt_uqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpngt_uqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31439,7 +31439,7 @@ fn vcmpngt_uqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqpd_k_ymm_m() {
+fn vcmpngt_uqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpngt_uqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31457,7 +31457,7 @@ fn vcmpngt_uqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqpd_k_zmm_m() {
+fn vcmpngt_uqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31466,7 +31466,7 @@ fn vcmpngt_uqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqph_k_xmm_xmm() {
+fn vcmpngt_uqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpngt_uqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31475,7 +31475,7 @@ fn vcmpngt_uqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqph_k_ymm_ymm() {
+fn vcmpngt_uqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpngt_uqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31484,7 +31484,7 @@ fn vcmpngt_uqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqph_k_zmm_zmm() {
+fn vcmpngt_uqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31493,7 +31493,7 @@ fn vcmpngt_uqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqph_k_xmm_m() {
+fn vcmpngt_uqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpngt_uqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31502,7 +31502,7 @@ fn vcmpngt_uqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqph_k_ymm_m() {
+fn vcmpngt_uqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpngt_uqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31511,7 +31511,7 @@ fn vcmpngt_uqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqph_k_zmm_m() {
+fn vcmpngt_uqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31520,7 +31520,7 @@ fn vcmpngt_uqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqps_k_xmm_xmm() {
+fn vcmpngt_uqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpngt_uqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31538,7 +31538,7 @@ fn vcmpngt_uqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqps_k_ymm_ymm() {
+fn vcmpngt_uqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpngt_uqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31556,7 +31556,7 @@ fn vcmpngt_uqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqps_k_zmm_zmm() {
+fn vcmpngt_uqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31565,7 +31565,7 @@ fn vcmpngt_uqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqps_k_xmm_m() {
+fn vcmpngt_uqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpngt_uqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31583,7 +31583,7 @@ fn vcmpngt_uqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqps_k_ymm_m() {
+fn vcmpngt_uqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpngt_uqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31601,7 +31601,7 @@ fn vcmpngt_uqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqps_k_zmm_m() {
+fn vcmpngt_uqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31610,7 +31610,7 @@ fn vcmpngt_uqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqsd_k_xmm_xmm() {
+fn vcmpngt_uqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31628,7 +31628,7 @@ fn vcmpngt_uqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqsd_k_xmm_m() {
+fn vcmpngt_uqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31646,7 +31646,7 @@ fn vcmpngt_uqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqsh_k_xmm_xmm() {
+fn vcmpngt_uqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31655,7 +31655,7 @@ fn vcmpngt_uqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqsh_k_xmm_m() {
+fn vcmpngt_uqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31664,7 +31664,7 @@ fn vcmpngt_uqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqss_k_xmm_xmm() {
+fn vcmpngt_uqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Ai32).unwrap(), Register::K1),
@@ -31682,7 +31682,7 @@ fn vcmpngt_uqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngt_uqss_k_xmm_m() {
+fn vcmpngt_uqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpngt_uqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Ai32).unwrap(), Register::K1),
@@ -31700,7 +31700,7 @@ fn vcmpngt_uqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtpd_k_xmm_xmm() {
+fn vcmpngtpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpngtpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xAi32).unwrap(), Register::K1),
@@ -31718,7 +31718,7 @@ fn vcmpngtpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtpd_k_ymm_ymm() {
+fn vcmpngtpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpngtpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xAi32).unwrap(), Register::K1),
@@ -31736,7 +31736,7 @@ fn vcmpngtpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtpd_k_zmm_zmm() {
+fn vcmpngtpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpngtpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xAi32).unwrap(), Register::K1),
@@ -31745,7 +31745,7 @@ fn vcmpngtpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtpd_k_xmm_m() {
+fn vcmpngtpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpngtpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31763,7 +31763,7 @@ fn vcmpngtpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtpd_k_ymm_m() {
+fn vcmpngtpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpngtpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31781,7 +31781,7 @@ fn vcmpngtpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtpd_k_zmm_m() {
+fn vcmpngtpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpngtpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31790,7 +31790,7 @@ fn vcmpngtpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtph_k_xmm_xmm() {
+fn vcmpngtph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpngtph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xAi32).unwrap(), Register::K1),
@@ -31799,7 +31799,7 @@ fn vcmpngtph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtph_k_ymm_ymm() {
+fn vcmpngtph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpngtph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xAi32).unwrap(), Register::K1),
@@ -31808,7 +31808,7 @@ fn vcmpngtph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtph_k_zmm_zmm() {
+fn vcmpngtph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpngtph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xAi32).unwrap(), Register::K1),
@@ -31817,7 +31817,7 @@ fn vcmpngtph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtph_k_xmm_m() {
+fn vcmpngtph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpngtph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31826,7 +31826,7 @@ fn vcmpngtph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtph_k_ymm_m() {
+fn vcmpngtph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpngtph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31835,7 +31835,7 @@ fn vcmpngtph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtph_k_zmm_m() {
+fn vcmpngtph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpngtph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31844,7 +31844,7 @@ fn vcmpngtph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtps_k_xmm_xmm() {
+fn vcmpngtps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpngtps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xAi32).unwrap(), Register::K1),
@@ -31862,7 +31862,7 @@ fn vcmpngtps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtps_k_ymm_ymm() {
+fn vcmpngtps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpngtps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xAi32).unwrap(), Register::K1),
@@ -31880,7 +31880,7 @@ fn vcmpngtps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtps_k_zmm_zmm() {
+fn vcmpngtps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpngtps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xAi32).unwrap(), Register::K1),
@@ -31889,7 +31889,7 @@ fn vcmpngtps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtps_k_xmm_m() {
+fn vcmpngtps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpngtps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31907,7 +31907,7 @@ fn vcmpngtps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtps_k_ymm_m() {
+fn vcmpngtps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpngtps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31925,7 +31925,7 @@ fn vcmpngtps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtps_k_zmm_m() {
+fn vcmpngtps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpngtps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31934,7 +31934,7 @@ fn vcmpngtps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtsd_k_xmm_xmm() {
+fn vcmpngtsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpngtsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xAi32).unwrap(), Register::K1),
@@ -31952,7 +31952,7 @@ fn vcmpngtsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtsd_k_xmm_m() {
+fn vcmpngtsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpngtsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31970,7 +31970,7 @@ fn vcmpngtsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtsh_k_xmm_xmm() {
+fn vcmpngtsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpngtsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xAi32).unwrap(), Register::K1),
@@ -31979,7 +31979,7 @@ fn vcmpngtsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtsh_k_xmm_m() {
+fn vcmpngtsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpngtsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -31988,7 +31988,7 @@ fn vcmpngtsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtss_k_xmm_xmm() {
+fn vcmpngtss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpngtss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xAi32).unwrap(), Register::K1),
@@ -32006,7 +32006,7 @@ fn vcmpngtss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpngtss_k_xmm_m() {
+fn vcmpngtss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpngtss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xAi32).unwrap(), Register::K1),
@@ -32024,7 +32024,7 @@ fn vcmpngtss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqpd_k_xmm_xmm() {
+fn vcmpnle_uqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpnle_uqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x16i32).unwrap(), Register::K1),
@@ -32042,7 +32042,7 @@ fn vcmpnle_uqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqpd_k_ymm_ymm() {
+fn vcmpnle_uqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpnle_uqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x16i32).unwrap(), Register::K1),
@@ -32060,7 +32060,7 @@ fn vcmpnle_uqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqpd_k_zmm_zmm() {
+fn vcmpnle_uqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x16i32).unwrap(), Register::K1),
@@ -32069,7 +32069,7 @@ fn vcmpnle_uqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqpd_k_xmm_m() {
+fn vcmpnle_uqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpnle_uqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32087,7 +32087,7 @@ fn vcmpnle_uqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqpd_k_ymm_m() {
+fn vcmpnle_uqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpnle_uqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32105,7 +32105,7 @@ fn vcmpnle_uqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqpd_k_zmm_m() {
+fn vcmpnle_uqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32114,7 +32114,7 @@ fn vcmpnle_uqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqph_k_xmm_xmm() {
+fn vcmpnle_uqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpnle_uqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x16i32).unwrap(), Register::K1),
@@ -32123,7 +32123,7 @@ fn vcmpnle_uqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqph_k_ymm_ymm() {
+fn vcmpnle_uqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpnle_uqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x16i32).unwrap(), Register::K1),
@@ -32132,7 +32132,7 @@ fn vcmpnle_uqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqph_k_zmm_zmm() {
+fn vcmpnle_uqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x16i32).unwrap(), Register::K1),
@@ -32141,7 +32141,7 @@ fn vcmpnle_uqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqph_k_xmm_m() {
+fn vcmpnle_uqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpnle_uqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32150,7 +32150,7 @@ fn vcmpnle_uqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqph_k_ymm_m() {
+fn vcmpnle_uqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpnle_uqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32159,7 +32159,7 @@ fn vcmpnle_uqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqph_k_zmm_m() {
+fn vcmpnle_uqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32168,7 +32168,7 @@ fn vcmpnle_uqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqps_k_xmm_xmm() {
+fn vcmpnle_uqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpnle_uqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x16i32).unwrap(), Register::K1),
@@ -32186,7 +32186,7 @@ fn vcmpnle_uqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqps_k_ymm_ymm() {
+fn vcmpnle_uqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpnle_uqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x16i32).unwrap(), Register::K1),
@@ -32204,7 +32204,7 @@ fn vcmpnle_uqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqps_k_zmm_zmm() {
+fn vcmpnle_uqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x16i32).unwrap(), Register::K1),
@@ -32213,7 +32213,7 @@ fn vcmpnle_uqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqps_k_xmm_m() {
+fn vcmpnle_uqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpnle_uqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32231,7 +32231,7 @@ fn vcmpnle_uqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqps_k_ymm_m() {
+fn vcmpnle_uqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpnle_uqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32249,7 +32249,7 @@ fn vcmpnle_uqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqps_k_zmm_m() {
+fn vcmpnle_uqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32258,7 +32258,7 @@ fn vcmpnle_uqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqsd_k_xmm_xmm() {
+fn vcmpnle_uqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x16i32).unwrap(), Register::K1),
@@ -32276,7 +32276,7 @@ fn vcmpnle_uqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqsd_k_xmm_m() {
+fn vcmpnle_uqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32294,7 +32294,7 @@ fn vcmpnle_uqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqsh_k_xmm_xmm() {
+fn vcmpnle_uqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x16i32).unwrap(), Register::K1),
@@ -32303,7 +32303,7 @@ fn vcmpnle_uqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqsh_k_xmm_m() {
+fn vcmpnle_uqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32312,7 +32312,7 @@ fn vcmpnle_uqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqss_k_xmm_xmm() {
+fn vcmpnle_uqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x16i32).unwrap(), Register::K1),
@@ -32330,7 +32330,7 @@ fn vcmpnle_uqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnle_uqss_k_xmm_m() {
+fn vcmpnle_uqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpnle_uqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x16i32).unwrap(), Register::K1),
@@ -32348,7 +32348,7 @@ fn vcmpnle_uqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlepd_k_xmm_xmm() {
+fn vcmpnlepd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpnlepd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -32366,7 +32366,7 @@ fn vcmpnlepd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlepd_k_ymm_ymm() {
+fn vcmpnlepd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpnlepd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -32384,7 +32384,7 @@ fn vcmpnlepd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlepd_k_zmm_zmm() {
+fn vcmpnlepd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpnlepd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -32393,7 +32393,7 @@ fn vcmpnlepd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlepd_k_xmm_m() {
+fn vcmpnlepd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpnlepd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32411,7 +32411,7 @@ fn vcmpnlepd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlepd_k_ymm_m() {
+fn vcmpnlepd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpnlepd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32429,7 +32429,7 @@ fn vcmpnlepd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlepd_k_zmm_m() {
+fn vcmpnlepd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpnlepd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32438,7 +32438,7 @@ fn vcmpnlepd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleph_k_xmm_xmm() {
+fn vcmpnleph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpnleph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -32447,7 +32447,7 @@ fn vcmpnleph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleph_k_ymm_ymm() {
+fn vcmpnleph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpnleph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -32456,7 +32456,7 @@ fn vcmpnleph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleph_k_zmm_zmm() {
+fn vcmpnleph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpnleph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -32465,7 +32465,7 @@ fn vcmpnleph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleph_k_xmm_m() {
+fn vcmpnleph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpnleph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32474,7 +32474,7 @@ fn vcmpnleph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleph_k_ymm_m() {
+fn vcmpnleph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpnleph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32483,7 +32483,7 @@ fn vcmpnleph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleph_k_zmm_m() {
+fn vcmpnleph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpnleph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32492,7 +32492,7 @@ fn vcmpnleph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleps_k_xmm_xmm() {
+fn vcmpnleps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpnleps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -32510,7 +32510,7 @@ fn vcmpnleps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleps_k_ymm_ymm() {
+fn vcmpnleps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpnleps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -32528,7 +32528,7 @@ fn vcmpnleps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleps_k_zmm_zmm() {
+fn vcmpnleps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpnleps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -32537,7 +32537,7 @@ fn vcmpnleps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleps_k_xmm_m() {
+fn vcmpnleps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpnleps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32555,7 +32555,7 @@ fn vcmpnleps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleps_k_ymm_m() {
+fn vcmpnleps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpnleps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32573,7 +32573,7 @@ fn vcmpnleps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnleps_k_zmm_m() {
+fn vcmpnleps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpnleps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32582,7 +32582,7 @@ fn vcmpnleps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlesd_k_xmm_xmm() {
+fn vcmpnlesd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpnlesd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -32600,7 +32600,7 @@ fn vcmpnlesd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlesd_k_xmm_m() {
+fn vcmpnlesd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpnlesd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32618,7 +32618,7 @@ fn vcmpnlesd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlesh_k_xmm_xmm() {
+fn vcmpnlesh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpnlesh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -32627,7 +32627,7 @@ fn vcmpnlesh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlesh_k_xmm_m() {
+fn vcmpnlesh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpnlesh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32636,7 +32636,7 @@ fn vcmpnlesh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnless_k_xmm_xmm() {
+fn vcmpnless_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpnless(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -32654,7 +32654,7 @@ fn vcmpnless_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnless_k_xmm_m() {
+fn vcmpnless_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpnless(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -32672,7 +32672,7 @@ fn vcmpnless_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqpd_k_xmm_xmm() {
+fn vcmpnlt_uqpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpnlt_uqpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x15i32).unwrap(), Register::K1),
@@ -32690,7 +32690,7 @@ fn vcmpnlt_uqpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqpd_k_ymm_ymm() {
+fn vcmpnlt_uqpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpnlt_uqpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x15i32).unwrap(), Register::K1),
@@ -32708,7 +32708,7 @@ fn vcmpnlt_uqpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqpd_k_zmm_zmm() {
+fn vcmpnlt_uqpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x15i32).unwrap(), Register::K1),
@@ -32717,7 +32717,7 @@ fn vcmpnlt_uqpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqpd_k_xmm_m() {
+fn vcmpnlt_uqpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpnlt_uqpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32735,7 +32735,7 @@ fn vcmpnlt_uqpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqpd_k_ymm_m() {
+fn vcmpnlt_uqpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpnlt_uqpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32753,7 +32753,7 @@ fn vcmpnlt_uqpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqpd_k_zmm_m() {
+fn vcmpnlt_uqpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32762,7 +32762,7 @@ fn vcmpnlt_uqpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqph_k_xmm_xmm() {
+fn vcmpnlt_uqph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpnlt_uqph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x15i32).unwrap(), Register::K1),
@@ -32771,7 +32771,7 @@ fn vcmpnlt_uqph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqph_k_ymm_ymm() {
+fn vcmpnlt_uqph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpnlt_uqph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x15i32).unwrap(), Register::K1),
@@ -32780,7 +32780,7 @@ fn vcmpnlt_uqph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqph_k_zmm_zmm() {
+fn vcmpnlt_uqph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x15i32).unwrap(), Register::K1),
@@ -32789,7 +32789,7 @@ fn vcmpnlt_uqph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqph_k_xmm_m() {
+fn vcmpnlt_uqph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpnlt_uqph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32798,7 +32798,7 @@ fn vcmpnlt_uqph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqph_k_ymm_m() {
+fn vcmpnlt_uqph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpnlt_uqph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32807,7 +32807,7 @@ fn vcmpnlt_uqph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqph_k_zmm_m() {
+fn vcmpnlt_uqph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32816,7 +32816,7 @@ fn vcmpnlt_uqph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqps_k_xmm_xmm() {
+fn vcmpnlt_uqps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpnlt_uqps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x15i32).unwrap(), Register::K1),
@@ -32834,7 +32834,7 @@ fn vcmpnlt_uqps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqps_k_ymm_ymm() {
+fn vcmpnlt_uqps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpnlt_uqps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x15i32).unwrap(), Register::K1),
@@ -32852,7 +32852,7 @@ fn vcmpnlt_uqps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqps_k_zmm_zmm() {
+fn vcmpnlt_uqps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x15i32).unwrap(), Register::K1),
@@ -32861,7 +32861,7 @@ fn vcmpnlt_uqps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqps_k_xmm_m() {
+fn vcmpnlt_uqps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpnlt_uqps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32879,7 +32879,7 @@ fn vcmpnlt_uqps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqps_k_ymm_m() {
+fn vcmpnlt_uqps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpnlt_uqps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32897,7 +32897,7 @@ fn vcmpnlt_uqps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqps_k_zmm_m() {
+fn vcmpnlt_uqps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32906,7 +32906,7 @@ fn vcmpnlt_uqps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqsd_k_xmm_xmm() {
+fn vcmpnlt_uqsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x15i32).unwrap(), Register::K1),
@@ -32924,7 +32924,7 @@ fn vcmpnlt_uqsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqsd_k_xmm_m() {
+fn vcmpnlt_uqsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32942,7 +32942,7 @@ fn vcmpnlt_uqsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqsh_k_xmm_xmm() {
+fn vcmpnlt_uqsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x15i32).unwrap(), Register::K1),
@@ -32951,7 +32951,7 @@ fn vcmpnlt_uqsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqsh_k_xmm_m() {
+fn vcmpnlt_uqsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32960,7 +32960,7 @@ fn vcmpnlt_uqsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqss_k_xmm_xmm() {
+fn vcmpnlt_uqss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x15i32).unwrap(), Register::K1),
@@ -32978,7 +32978,7 @@ fn vcmpnlt_uqss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnlt_uqss_k_xmm_m() {
+fn vcmpnlt_uqss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpnlt_uqss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x15i32).unwrap(), Register::K1),
@@ -32996,7 +32996,7 @@ fn vcmpnlt_uqss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltpd_k_xmm_xmm() {
+fn vcmpnltpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpnltpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -33014,7 +33014,7 @@ fn vcmpnltpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltpd_k_ymm_ymm() {
+fn vcmpnltpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpnltpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -33032,7 +33032,7 @@ fn vcmpnltpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltpd_k_zmm_zmm() {
+fn vcmpnltpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpnltpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -33041,7 +33041,7 @@ fn vcmpnltpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltpd_k_xmm_m() {
+fn vcmpnltpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpnltpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33059,7 +33059,7 @@ fn vcmpnltpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltpd_k_ymm_m() {
+fn vcmpnltpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpnltpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33077,7 +33077,7 @@ fn vcmpnltpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltpd_k_zmm_m() {
+fn vcmpnltpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpnltpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33086,7 +33086,7 @@ fn vcmpnltpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltph_k_xmm_xmm() {
+fn vcmpnltph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpnltph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -33095,7 +33095,7 @@ fn vcmpnltph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltph_k_ymm_ymm() {
+fn vcmpnltph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpnltph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -33104,7 +33104,7 @@ fn vcmpnltph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltph_k_zmm_zmm() {
+fn vcmpnltph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpnltph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -33113,7 +33113,7 @@ fn vcmpnltph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltph_k_xmm_m() {
+fn vcmpnltph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpnltph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33122,7 +33122,7 @@ fn vcmpnltph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltph_k_ymm_m() {
+fn vcmpnltph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpnltph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33131,7 +33131,7 @@ fn vcmpnltph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltph_k_zmm_m() {
+fn vcmpnltph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpnltph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33140,7 +33140,7 @@ fn vcmpnltph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltps_k_xmm_xmm() {
+fn vcmpnltps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpnltps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -33158,7 +33158,7 @@ fn vcmpnltps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltps_k_ymm_ymm() {
+fn vcmpnltps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpnltps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -33176,7 +33176,7 @@ fn vcmpnltps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltps_k_zmm_zmm() {
+fn vcmpnltps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpnltps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -33185,7 +33185,7 @@ fn vcmpnltps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltps_k_xmm_m() {
+fn vcmpnltps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpnltps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33203,7 +33203,7 @@ fn vcmpnltps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltps_k_ymm_m() {
+fn vcmpnltps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpnltps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33221,7 +33221,7 @@ fn vcmpnltps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltps_k_zmm_m() {
+fn vcmpnltps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpnltps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33230,7 +33230,7 @@ fn vcmpnltps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltsd_k_xmm_xmm() {
+fn vcmpnltsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpnltsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -33248,7 +33248,7 @@ fn vcmpnltsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltsd_k_xmm_m() {
+fn vcmpnltsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpnltsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33266,7 +33266,7 @@ fn vcmpnltsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltsh_k_xmm_xmm() {
+fn vcmpnltsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpnltsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -33275,7 +33275,7 @@ fn vcmpnltsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltsh_k_xmm_m() {
+fn vcmpnltsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpnltsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33284,7 +33284,7 @@ fn vcmpnltsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltss_k_xmm_xmm() {
+fn vcmpnltss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpnltss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -33302,7 +33302,7 @@ fn vcmpnltss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpnltss_k_xmm_m() {
+fn vcmpnltss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpnltss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -33320,7 +33320,7 @@ fn vcmpnltss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_spd_k_xmm_xmm() {
+fn vcmpord_spd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpord_spd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x17i32).unwrap(), Register::K1),
@@ -33338,7 +33338,7 @@ fn vcmpord_spd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_spd_k_ymm_ymm() {
+fn vcmpord_spd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpord_spd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x17i32).unwrap(), Register::K1),
@@ -33356,7 +33356,7 @@ fn vcmpord_spd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_spd_k_zmm_zmm() {
+fn vcmpord_spd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpord_spd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x17i32).unwrap(), Register::K1),
@@ -33365,7 +33365,7 @@ fn vcmpord_spd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_spd_k_xmm_m() {
+fn vcmpord_spd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpord_spd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33383,7 +33383,7 @@ fn vcmpord_spd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_spd_k_ymm_m() {
+fn vcmpord_spd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpord_spd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33401,7 +33401,7 @@ fn vcmpord_spd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_spd_k_zmm_m() {
+fn vcmpord_spd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpord_spd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33410,7 +33410,7 @@ fn vcmpord_spd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sph_k_xmm_xmm() {
+fn vcmpord_sph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpord_sph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x17i32).unwrap(), Register::K1),
@@ -33419,7 +33419,7 @@ fn vcmpord_sph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sph_k_ymm_ymm() {
+fn vcmpord_sph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpord_sph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x17i32).unwrap(), Register::K1),
@@ -33428,7 +33428,7 @@ fn vcmpord_sph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sph_k_zmm_zmm() {
+fn vcmpord_sph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpord_sph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x17i32).unwrap(), Register::K1),
@@ -33437,7 +33437,7 @@ fn vcmpord_sph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sph_k_xmm_m() {
+fn vcmpord_sph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpord_sph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33446,7 +33446,7 @@ fn vcmpord_sph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sph_k_ymm_m() {
+fn vcmpord_sph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpord_sph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33455,7 +33455,7 @@ fn vcmpord_sph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sph_k_zmm_m() {
+fn vcmpord_sph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpord_sph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33464,7 +33464,7 @@ fn vcmpord_sph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sps_k_xmm_xmm() {
+fn vcmpord_sps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpord_sps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x17i32).unwrap(), Register::K1),
@@ -33482,7 +33482,7 @@ fn vcmpord_sps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sps_k_ymm_ymm() {
+fn vcmpord_sps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpord_sps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x17i32).unwrap(), Register::K1),
@@ -33500,7 +33500,7 @@ fn vcmpord_sps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sps_k_zmm_zmm() {
+fn vcmpord_sps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpord_sps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x17i32).unwrap(), Register::K1),
@@ -33509,7 +33509,7 @@ fn vcmpord_sps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sps_k_xmm_m() {
+fn vcmpord_sps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpord_sps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33527,7 +33527,7 @@ fn vcmpord_sps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sps_k_ymm_m() {
+fn vcmpord_sps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpord_sps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33545,7 +33545,7 @@ fn vcmpord_sps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sps_k_zmm_m() {
+fn vcmpord_sps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpord_sps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33554,7 +33554,7 @@ fn vcmpord_sps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_ssd_k_xmm_xmm() {
+fn vcmpord_ssd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpord_ssd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x17i32).unwrap(), Register::K1),
@@ -33572,7 +33572,7 @@ fn vcmpord_ssd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_ssd_k_xmm_m() {
+fn vcmpord_ssd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpord_ssd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33590,7 +33590,7 @@ fn vcmpord_ssd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_ssh_k_xmm_xmm() {
+fn vcmpord_ssh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpord_ssh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x17i32).unwrap(), Register::K1),
@@ -33599,7 +33599,7 @@ fn vcmpord_ssh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_ssh_k_xmm_m() {
+fn vcmpord_ssh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpord_ssh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33608,7 +33608,7 @@ fn vcmpord_ssh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sss_k_xmm_xmm() {
+fn vcmpord_sss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpord_sss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x17i32).unwrap(), Register::K1),
@@ -33626,7 +33626,7 @@ fn vcmpord_sss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpord_sss_k_xmm_m() {
+fn vcmpord_sss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpord_sss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x17i32).unwrap(), Register::K1),
@@ -33644,7 +33644,7 @@ fn vcmpord_sss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordpd_k_xmm_xmm() {
+fn vcmpordpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpordpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -33662,7 +33662,7 @@ fn vcmpordpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordpd_k_ymm_ymm() {
+fn vcmpordpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpordpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -33680,7 +33680,7 @@ fn vcmpordpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordpd_k_zmm_zmm() {
+fn vcmpordpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpordpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -33689,7 +33689,7 @@ fn vcmpordpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordpd_k_xmm_m() {
+fn vcmpordpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpordpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33707,7 +33707,7 @@ fn vcmpordpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordpd_k_ymm_m() {
+fn vcmpordpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpordpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33725,7 +33725,7 @@ fn vcmpordpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordpd_k_zmm_m() {
+fn vcmpordpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpordpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33734,7 +33734,7 @@ fn vcmpordpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordph_k_xmm_xmm() {
+fn vcmpordph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpordph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -33743,7 +33743,7 @@ fn vcmpordph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordph_k_ymm_ymm() {
+fn vcmpordph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpordph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -33752,7 +33752,7 @@ fn vcmpordph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordph_k_zmm_zmm() {
+fn vcmpordph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpordph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -33761,7 +33761,7 @@ fn vcmpordph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordph_k_xmm_m() {
+fn vcmpordph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpordph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33770,7 +33770,7 @@ fn vcmpordph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordph_k_ymm_m() {
+fn vcmpordph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpordph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33779,7 +33779,7 @@ fn vcmpordph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordph_k_zmm_m() {
+fn vcmpordph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpordph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33788,7 +33788,7 @@ fn vcmpordph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordps_k_xmm_xmm() {
+fn vcmpordps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpordps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -33806,7 +33806,7 @@ fn vcmpordps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordps_k_ymm_ymm() {
+fn vcmpordps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpordps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -33824,7 +33824,7 @@ fn vcmpordps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordps_k_zmm_zmm() {
+fn vcmpordps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpordps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -33833,7 +33833,7 @@ fn vcmpordps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordps_k_xmm_m() {
+fn vcmpordps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpordps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33851,7 +33851,7 @@ fn vcmpordps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordps_k_ymm_m() {
+fn vcmpordps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpordps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33869,7 +33869,7 @@ fn vcmpordps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordps_k_zmm_m() {
+fn vcmpordps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpordps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33878,7 +33878,7 @@ fn vcmpordps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordsd_k_xmm_xmm() {
+fn vcmpordsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpordsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -33896,7 +33896,7 @@ fn vcmpordsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordsd_k_xmm_m() {
+fn vcmpordsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpordsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33914,7 +33914,7 @@ fn vcmpordsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordsh_k_xmm_xmm() {
+fn vcmpordsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpordsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -33923,7 +33923,7 @@ fn vcmpordsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordsh_k_xmm_m() {
+fn vcmpordsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpordsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33932,7 +33932,7 @@ fn vcmpordsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordss_k_xmm_xmm() {
+fn vcmpordss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpordss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -33950,7 +33950,7 @@ fn vcmpordss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpordss_k_xmm_m() {
+fn vcmpordss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpordss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -33968,7 +33968,7 @@ fn vcmpordss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_xmm_xmm_i() {
+fn vcmppd_kr_xmm_xmm_i() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmppd(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -33986,7 +33986,7 @@ fn vcmppd_xmm_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_ymm_ymm_i() {
+fn vcmppd_kr_ymm_ymm_i() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmppd(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -34004,7 +34004,7 @@ fn vcmppd_ymm_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_zmm_zmm_i() {
+fn vcmppd_kr_zmm_zmm_i() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmppd(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -34013,7 +34013,7 @@ fn vcmppd_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_xmm_m_i() {
+fn vcmppd_kr_xmm_m_i() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmppd(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34031,7 +34031,7 @@ fn vcmppd_xmm_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_ymm_m_i() {
+fn vcmppd_kr_ymm_m_i() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmppd(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34049,7 +34049,7 @@ fn vcmppd_ymm_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_zmm_m_i() {
+fn vcmppd_kr_zmm_m_i() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmppd(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34058,7 +34058,7 @@ fn vcmppd_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_xmm_xmm_u() {
+fn vcmppd_kr_xmm_xmm_u() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmppd(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34076,7 +34076,7 @@ fn vcmppd_xmm_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_ymm_ymm_u() {
+fn vcmppd_kr_ymm_ymm_u() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmppd(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34094,7 +34094,7 @@ fn vcmppd_ymm_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_zmm_zmm_u() {
+fn vcmppd_kr_zmm_zmm_u() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmppd(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34103,7 +34103,7 @@ fn vcmppd_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_xmm_m_u() {
+fn vcmppd_kr_xmm_m_u() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmppd(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34121,7 +34121,7 @@ fn vcmppd_xmm_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_ymm_m_u() {
+fn vcmppd_kr_ymm_m_u() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmppd(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34139,7 +34139,7 @@ fn vcmppd_ymm_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmppd_k_zmm_m_u() {
+fn vcmppd_kr_zmm_m_u() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmppd(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34148,7 +34148,7 @@ fn vcmppd_k_zmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_xmm_xmm_i() {
+fn vcmpph_kr_xmm_xmm_i() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpph(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -34157,7 +34157,7 @@ fn vcmpph_k_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_ymm_ymm_i() {
+fn vcmpph_kr_ymm_ymm_i() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpph(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -34166,7 +34166,7 @@ fn vcmpph_k_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_zmm_zmm_i() {
+fn vcmpph_kr_zmm_zmm_i() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpph(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -34175,7 +34175,7 @@ fn vcmpph_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_xmm_m_i() {
+fn vcmpph_kr_xmm_m_i() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpph(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34184,7 +34184,7 @@ fn vcmpph_k_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_ymm_m_i() {
+fn vcmpph_kr_ymm_m_i() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpph(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34193,7 +34193,7 @@ fn vcmpph_k_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_zmm_m_i() {
+fn vcmpph_kr_zmm_m_i() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpph(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34202,7 +34202,7 @@ fn vcmpph_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_xmm_xmm_u() {
+fn vcmpph_kr_xmm_xmm_u() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpph(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34211,7 +34211,7 @@ fn vcmpph_k_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_ymm_ymm_u() {
+fn vcmpph_kr_ymm_ymm_u() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpph(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34220,7 +34220,7 @@ fn vcmpph_k_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_zmm_zmm_u() {
+fn vcmpph_kr_zmm_zmm_u() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpph(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34229,7 +34229,7 @@ fn vcmpph_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_xmm_m_u() {
+fn vcmpph_kr_xmm_m_u() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpph(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34238,7 +34238,7 @@ fn vcmpph_k_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_ymm_m_u() {
+fn vcmpph_kr_ymm_m_u() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpph(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34247,7 +34247,7 @@ fn vcmpph_k_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpph_k_zmm_m_u() {
+fn vcmpph_kr_zmm_m_u() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpph(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34256,7 +34256,7 @@ fn vcmpph_k_zmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_xmm_xmm_i() {
+fn vcmpps_kr_xmm_xmm_i() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpps(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -34274,7 +34274,7 @@ fn vcmpps_xmm_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_ymm_ymm_i() {
+fn vcmpps_kr_ymm_ymm_i() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpps(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -34292,7 +34292,7 @@ fn vcmpps_ymm_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_zmm_zmm_i() {
+fn vcmpps_kr_zmm_zmm_i() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpps(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -34301,7 +34301,7 @@ fn vcmpps_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_xmm_m_i() {
+fn vcmpps_kr_xmm_m_i() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpps(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34319,7 +34319,7 @@ fn vcmpps_xmm_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_ymm_m_i() {
+fn vcmpps_kr_ymm_m_i() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpps(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34337,7 +34337,7 @@ fn vcmpps_ymm_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_zmm_m_i() {
+fn vcmpps_kr_zmm_m_i() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpps(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34346,7 +34346,7 @@ fn vcmpps_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_xmm_xmm_u() {
+fn vcmpps_kr_xmm_xmm_u() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpps(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34364,7 +34364,7 @@ fn vcmpps_xmm_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_ymm_ymm_u() {
+fn vcmpps_kr_ymm_ymm_u() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpps(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34382,7 +34382,7 @@ fn vcmpps_ymm_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_zmm_zmm_u() {
+fn vcmpps_kr_zmm_zmm_u() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpps(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34391,7 +34391,7 @@ fn vcmpps_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_xmm_m_u() {
+fn vcmpps_kr_xmm_m_u() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpps(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34409,7 +34409,7 @@ fn vcmpps_xmm_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_ymm_m_u() {
+fn vcmpps_kr_ymm_m_u() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpps(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34427,7 +34427,7 @@ fn vcmpps_ymm_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpps_k_zmm_m_u() {
+fn vcmpps_kr_zmm_m_u() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpps(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34436,7 +34436,7 @@ fn vcmpps_k_zmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpsd_k_xmm_xmm_i() {
+fn vcmpsd_kr_xmm_xmm_i() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpsd(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -34454,7 +34454,7 @@ fn vcmpsd_xmm_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpsd_k_xmm_m_i() {
+fn vcmpsd_kr_xmm_m_i() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpsd(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34472,7 +34472,7 @@ fn vcmpsd_xmm_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpsd_k_xmm_xmm_u() {
+fn vcmpsd_kr_xmm_xmm_u() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpsd(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34490,7 +34490,7 @@ fn vcmpsd_xmm_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpsd_k_xmm_m_u() {
+fn vcmpsd_kr_xmm_m_u() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpsd(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34508,7 +34508,7 @@ fn vcmpsd_xmm_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpsh_k_xmm_xmm_i() {
+fn vcmpsh_kr_xmm_xmm_i() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpsh(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -34517,7 +34517,7 @@ fn vcmpsh_k_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpsh_k_xmm_m_i() {
+fn vcmpsh_kr_xmm_m_i() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpsh(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34526,7 +34526,7 @@ fn vcmpsh_k_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpsh_k_xmm_xmm_u() {
+fn vcmpsh_kr_xmm_xmm_u() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpsh(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34535,7 +34535,7 @@ fn vcmpsh_k_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpsh_k_xmm_m_u() {
+fn vcmpsh_kr_xmm_m_u() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpsh(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34544,7 +34544,7 @@ fn vcmpsh_k_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpss_k_xmm_xmm_i() {
+fn vcmpss_kr_xmm_xmm_i() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpss(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -34562,7 +34562,7 @@ fn vcmpss_xmm_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpss_k_xmm_m_i() {
+fn vcmpss_kr_xmm_m_i() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpss(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -34580,7 +34580,7 @@ fn vcmpss_xmm_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpss_k_xmm_xmm_u() {
+fn vcmpss_kr_xmm_xmm_u() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpss(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -34598,7 +34598,7 @@ fn vcmpss_xmm_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpss_k_xmm_m_u() {
+fn vcmpss_kr_xmm_m_u() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpss(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -34616,7 +34616,7 @@ fn vcmpss_xmm_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_uspd_k_xmm_xmm() {
+fn vcmptrue_uspd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmptrue_uspd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34634,7 +34634,7 @@ fn vcmptrue_uspd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_uspd_k_ymm_ymm() {
+fn vcmptrue_uspd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmptrue_uspd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34652,7 +34652,7 @@ fn vcmptrue_uspd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_uspd_k_zmm_zmm() {
+fn vcmptrue_uspd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmptrue_uspd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34661,7 +34661,7 @@ fn vcmptrue_uspd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_uspd_k_xmm_m() {
+fn vcmptrue_uspd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmptrue_uspd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34679,7 +34679,7 @@ fn vcmptrue_uspd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_uspd_k_ymm_m() {
+fn vcmptrue_uspd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmptrue_uspd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34697,7 +34697,7 @@ fn vcmptrue_uspd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_uspd_k_zmm_m() {
+fn vcmptrue_uspd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmptrue_uspd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34706,7 +34706,7 @@ fn vcmptrue_uspd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usph_k_xmm_xmm() {
+fn vcmptrue_usph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmptrue_usph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34715,7 +34715,7 @@ fn vcmptrue_usph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usph_k_ymm_ymm() {
+fn vcmptrue_usph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmptrue_usph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34724,7 +34724,7 @@ fn vcmptrue_usph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usph_k_zmm_zmm() {
+fn vcmptrue_usph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmptrue_usph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34733,7 +34733,7 @@ fn vcmptrue_usph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usph_k_xmm_m() {
+fn vcmptrue_usph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmptrue_usph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34742,7 +34742,7 @@ fn vcmptrue_usph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usph_k_ymm_m() {
+fn vcmptrue_usph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmptrue_usph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34751,7 +34751,7 @@ fn vcmptrue_usph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usph_k_zmm_m() {
+fn vcmptrue_usph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmptrue_usph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34760,7 +34760,7 @@ fn vcmptrue_usph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usps_k_xmm_xmm() {
+fn vcmptrue_usps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmptrue_usps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34778,7 +34778,7 @@ fn vcmptrue_usps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usps_k_ymm_ymm() {
+fn vcmptrue_usps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmptrue_usps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34796,7 +34796,7 @@ fn vcmptrue_usps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usps_k_zmm_zmm() {
+fn vcmptrue_usps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmptrue_usps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34805,7 +34805,7 @@ fn vcmptrue_usps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usps_k_xmm_m() {
+fn vcmptrue_usps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmptrue_usps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34823,7 +34823,7 @@ fn vcmptrue_usps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usps_k_ymm_m() {
+fn vcmptrue_usps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmptrue_usps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34841,7 +34841,7 @@ fn vcmptrue_usps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usps_k_zmm_m() {
+fn vcmptrue_usps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmptrue_usps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34850,7 +34850,7 @@ fn vcmptrue_usps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_ussd_k_xmm_xmm() {
+fn vcmptrue_ussd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmptrue_ussd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34868,7 +34868,7 @@ fn vcmptrue_ussd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_ussd_k_xmm_m() {
+fn vcmptrue_ussd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmptrue_ussd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34886,7 +34886,7 @@ fn vcmptrue_ussd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_ussh_k_xmm_xmm() {
+fn vcmptrue_ussh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmptrue_ussh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34895,7 +34895,7 @@ fn vcmptrue_ussh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_ussh_k_xmm_m() {
+fn vcmptrue_ussh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmptrue_ussh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34904,7 +34904,7 @@ fn vcmptrue_ussh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usss_k_xmm_xmm() {
+fn vcmptrue_usss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmptrue_usss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x1Fi32).unwrap(), Register::K1),
@@ -34922,7 +34922,7 @@ fn vcmptrue_usss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrue_usss_k_xmm_m() {
+fn vcmptrue_usss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmptrue_usss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x1Fi32).unwrap(), Register::K1),
@@ -34940,7 +34940,7 @@ fn vcmptrue_usss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruepd_k_xmm_xmm() {
+fn vcmptruepd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmptruepd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xFi32).unwrap(), Register::K1),
@@ -34958,7 +34958,7 @@ fn vcmptruepd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruepd_k_ymm_ymm() {
+fn vcmptruepd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmptruepd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xFi32).unwrap(), Register::K1),
@@ -34976,7 +34976,7 @@ fn vcmptruepd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruepd_k_zmm_zmm() {
+fn vcmptruepd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmptruepd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xFi32).unwrap(), Register::K1),
@@ -34985,7 +34985,7 @@ fn vcmptruepd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruepd_k_xmm_m() {
+fn vcmptruepd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmptruepd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35003,7 +35003,7 @@ fn vcmptruepd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruepd_k_ymm_m() {
+fn vcmptruepd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmptruepd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35021,7 +35021,7 @@ fn vcmptruepd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruepd_k_zmm_m() {
+fn vcmptruepd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmptruepd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35030,7 +35030,7 @@ fn vcmptruepd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueph_k_xmm_xmm() {
+fn vcmptrueph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmptrueph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xFi32).unwrap(), Register::K1),
@@ -35039,7 +35039,7 @@ fn vcmptrueph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueph_k_ymm_ymm() {
+fn vcmptrueph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmptrueph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xFi32).unwrap(), Register::K1),
@@ -35048,7 +35048,7 @@ fn vcmptrueph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueph_k_zmm_zmm() {
+fn vcmptrueph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmptrueph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xFi32).unwrap(), Register::K1),
@@ -35057,7 +35057,7 @@ fn vcmptrueph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueph_k_xmm_m() {
+fn vcmptrueph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmptrueph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35066,7 +35066,7 @@ fn vcmptrueph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueph_k_ymm_m() {
+fn vcmptrueph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmptrueph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35075,7 +35075,7 @@ fn vcmptrueph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueph_k_zmm_m() {
+fn vcmptrueph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmptrueph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35084,7 +35084,7 @@ fn vcmptrueph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueps_k_xmm_xmm() {
+fn vcmptrueps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmptrueps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0xFi32).unwrap(), Register::K1),
@@ -35102,7 +35102,7 @@ fn vcmptrueps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueps_k_ymm_ymm() {
+fn vcmptrueps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmptrueps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0xFi32).unwrap(), Register::K1),
@@ -35120,7 +35120,7 @@ fn vcmptrueps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueps_k_zmm_zmm() {
+fn vcmptrueps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmptrueps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0xFi32).unwrap(), Register::K1),
@@ -35129,7 +35129,7 @@ fn vcmptrueps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueps_k_xmm_m() {
+fn vcmptrueps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmptrueps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35147,7 +35147,7 @@ fn vcmptrueps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueps_k_ymm_m() {
+fn vcmptrueps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmptrueps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35165,7 +35165,7 @@ fn vcmptrueps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptrueps_k_zmm_m() {
+fn vcmptrueps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmptrueps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35174,7 +35174,7 @@ fn vcmptrueps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruesd_k_xmm_xmm() {
+fn vcmptruesd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmptruesd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xFi32).unwrap(), Register::K1),
@@ -35192,7 +35192,7 @@ fn vcmptruesd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruesd_k_xmm_m() {
+fn vcmptruesd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmptruesd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35210,7 +35210,7 @@ fn vcmptruesd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruesh_k_xmm_xmm() {
+fn vcmptruesh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmptruesh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xFi32).unwrap(), Register::K1),
@@ -35219,7 +35219,7 @@ fn vcmptruesh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruesh_k_xmm_m() {
+fn vcmptruesh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmptruesh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35228,7 +35228,7 @@ fn vcmptruesh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruess_k_xmm_xmm() {
+fn vcmptruess_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmptruess(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0xFi32).unwrap(), Register::K1),
@@ -35246,7 +35246,7 @@ fn vcmptruess_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmptruess_k_xmm_m() {
+fn vcmptruess_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmptruess(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0xFi32).unwrap(), Register::K1),
@@ -35264,7 +35264,7 @@ fn vcmptruess_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_spd_k_xmm_xmm() {
+fn vcmpunord_spd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpunord_spd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x13i32).unwrap(), Register::K1),
@@ -35282,7 +35282,7 @@ fn vcmpunord_spd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_spd_k_ymm_ymm() {
+fn vcmpunord_spd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpunord_spd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x13i32).unwrap(), Register::K1),
@@ -35300,7 +35300,7 @@ fn vcmpunord_spd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_spd_k_zmm_zmm() {
+fn vcmpunord_spd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpunord_spd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x13i32).unwrap(), Register::K1),
@@ -35309,7 +35309,7 @@ fn vcmpunord_spd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_spd_k_xmm_m() {
+fn vcmpunord_spd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpunord_spd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35327,7 +35327,7 @@ fn vcmpunord_spd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_spd_k_ymm_m() {
+fn vcmpunord_spd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpunord_spd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35345,7 +35345,7 @@ fn vcmpunord_spd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_spd_k_zmm_m() {
+fn vcmpunord_spd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpunord_spd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35354,7 +35354,7 @@ fn vcmpunord_spd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sph_k_xmm_xmm() {
+fn vcmpunord_sph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpunord_sph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x13i32).unwrap(), Register::K1),
@@ -35363,7 +35363,7 @@ fn vcmpunord_sph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sph_k_ymm_ymm() {
+fn vcmpunord_sph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpunord_sph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x13i32).unwrap(), Register::K1),
@@ -35372,7 +35372,7 @@ fn vcmpunord_sph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sph_k_zmm_zmm() {
+fn vcmpunord_sph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpunord_sph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x13i32).unwrap(), Register::K1),
@@ -35381,7 +35381,7 @@ fn vcmpunord_sph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sph_k_xmm_m() {
+fn vcmpunord_sph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpunord_sph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35390,7 +35390,7 @@ fn vcmpunord_sph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sph_k_ymm_m() {
+fn vcmpunord_sph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpunord_sph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35399,7 +35399,7 @@ fn vcmpunord_sph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sph_k_zmm_m() {
+fn vcmpunord_sph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpunord_sph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35408,7 +35408,7 @@ fn vcmpunord_sph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sps_k_xmm_xmm() {
+fn vcmpunord_sps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpunord_sps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x13i32).unwrap(), Register::K1),
@@ -35426,7 +35426,7 @@ fn vcmpunord_sps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sps_k_ymm_ymm() {
+fn vcmpunord_sps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpunord_sps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x13i32).unwrap(), Register::K1),
@@ -35444,7 +35444,7 @@ fn vcmpunord_sps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sps_k_zmm_zmm() {
+fn vcmpunord_sps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpunord_sps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 0x13i32).unwrap(), Register::K1),
@@ -35453,7 +35453,7 @@ fn vcmpunord_sps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sps_k_xmm_m() {
+fn vcmpunord_sps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpunord_sps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35471,7 +35471,7 @@ fn vcmpunord_sps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sps_k_ymm_m() {
+fn vcmpunord_sps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpunord_sps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35489,7 +35489,7 @@ fn vcmpunord_sps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sps_k_zmm_m() {
+fn vcmpunord_sps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpunord_sps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35498,7 +35498,7 @@ fn vcmpunord_sps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_ssd_k_xmm_xmm() {
+fn vcmpunord_ssd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpunord_ssd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x13i32).unwrap(), Register::K1),
@@ -35516,7 +35516,7 @@ fn vcmpunord_ssd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_ssd_k_xmm_m() {
+fn vcmpunord_ssd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpunord_ssd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35534,7 +35534,7 @@ fn vcmpunord_ssd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_ssh_k_xmm_xmm() {
+fn vcmpunord_ssh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpunord_ssh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x13i32).unwrap(), Register::K1),
@@ -35543,7 +35543,7 @@ fn vcmpunord_ssh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_ssh_k_xmm_m() {
+fn vcmpunord_ssh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpunord_ssh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35552,7 +35552,7 @@ fn vcmpunord_ssh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sss_k_xmm_xmm() {
+fn vcmpunord_sss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpunord_sss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 0x13i32).unwrap(), Register::K1),
@@ -35570,7 +35570,7 @@ fn vcmpunord_sss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunord_sss_k_xmm_m() {
+fn vcmpunord_sss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpunord_sss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x13i32).unwrap(), Register::K1),
@@ -35588,7 +35588,7 @@ fn vcmpunord_sss_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordpd_k_xmm_xmm() {
+fn vcmpunordpd_kr_xmm_xmm() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpunordpd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -35606,7 +35606,7 @@ fn vcmpunordpd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordpd_k_ymm_ymm() {
+fn vcmpunordpd_kr_ymm_ymm() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpunordpd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -35624,7 +35624,7 @@ fn vcmpunordpd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordpd_k_zmm_zmm() {
+fn vcmpunordpd_kr_zmm_zmm() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpunordpd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -35633,7 +35633,7 @@ fn vcmpunordpd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordpd_k_xmm_m() {
+fn vcmpunordpd_kr_xmm_m() {
 	// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vcmpunordpd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35651,7 +35651,7 @@ fn vcmpunordpd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordpd_k_ymm_m() {
+fn vcmpunordpd_kr_ymm_m() {
 	// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vcmpunordpd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35669,7 +35669,7 @@ fn vcmpunordpd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordpd_k_zmm_m() {
+fn vcmpunordpd_kr_zmm_m() {
 	// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	test_instr(32, |a| a.vcmpunordpd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35678,7 +35678,7 @@ fn vcmpunordpd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordph_k_xmm_xmm() {
+fn vcmpunordph_kr_xmm_xmm() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpunordph(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -35687,7 +35687,7 @@ fn vcmpunordph_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordph_k_ymm_ymm() {
+fn vcmpunordph_kr_ymm_ymm() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpunordph(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -35696,7 +35696,7 @@ fn vcmpunordph_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordph_k_zmm_zmm() {
+fn vcmpunordph_kr_zmm_zmm() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpunordph(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -35705,7 +35705,7 @@ fn vcmpunordph_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordph_k_xmm_m() {
+fn vcmpunordph_kr_xmm_m() {
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
 	test_instr(32, |a| a.vcmpunordph(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35714,7 +35714,7 @@ fn vcmpunordph_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordph_k_ymm_m() {
+fn vcmpunordph_kr_ymm_m() {
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
 	test_instr(32, |a| a.vcmpunordph(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35723,7 +35723,7 @@ fn vcmpunordph_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordph_k_zmm_m() {
+fn vcmpunordph_kr_zmm_m() {
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
 	test_instr(32, |a| a.vcmpunordph(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35732,7 +35732,7 @@ fn vcmpunordph_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordps_k_xmm_xmm() {
+fn vcmpunordps_kr_xmm_xmm() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpunordps(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -35750,7 +35750,7 @@ fn vcmpunordps_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordps_k_ymm_ymm() {
+fn vcmpunordps_kr_ymm_ymm() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpunordps(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -35768,7 +35768,7 @@ fn vcmpunordps_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordps_k_zmm_zmm() {
+fn vcmpunordps_kr_zmm_zmm() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpunordps(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -35777,7 +35777,7 @@ fn vcmpunordps_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordps_k_xmm_m() {
+fn vcmpunordps_kr_xmm_m() {
 	// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vcmpunordps(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35795,7 +35795,7 @@ fn vcmpunordps_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordps_k_ymm_m() {
+fn vcmpunordps_kr_ymm_m() {
 	// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vcmpunordps(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35813,7 +35813,7 @@ fn vcmpunordps_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordps_k_zmm_m() {
+fn vcmpunordps_kr_zmm_m() {
 	// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	test_instr(32, |a| a.vcmpunordps(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35822,7 +35822,7 @@ fn vcmpunordps_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordsd_k_xmm_xmm() {
+fn vcmpunordsd_kr_xmm_xmm() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpunordsd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -35840,7 +35840,7 @@ fn vcmpunordsd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordsd_k_xmm_m() {
+fn vcmpunordsd_kr_xmm_m() {
 	// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	test_instr(32, |a| a.vcmpunordsd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35858,7 +35858,7 @@ fn vcmpunordsd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordsh_k_xmm_xmm() {
+fn vcmpunordsh_kr_xmm_xmm() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpunordsh(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -35867,7 +35867,7 @@ fn vcmpunordsh_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordsh_k_xmm_m() {
+fn vcmpunordsh_kr_xmm_m() {
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
 	test_instr(32, |a| a.vcmpunordsh(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -35876,7 +35876,7 @@ fn vcmpunordsh_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordss_k_xmm_xmm() {
+fn vcmpunordss_kr_xmm_xmm() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpunordss(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -35894,7 +35894,7 @@ fn vcmpunordss_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vcmpunordss_k_xmm_m() {
+fn vcmpunordss_kr_xmm_m() {
 	// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	test_instr(32, |a| a.vcmpunordss(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -48299,7 +48299,7 @@ fn vfnmsubss_xmm_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspd_k_xmm_i() {
+fn vfpclasspd_kr_xmm_i() {
 	// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
 	test_instr(32, |a| a.vfpclasspd(k2.k1(), xmm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8, Register::K2, Register::XMM3, -5i32).unwrap(), Register::K1),
@@ -48308,7 +48308,7 @@ fn vfpclasspd_k_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspd_k_ymm_i() {
+fn vfpclasspd_kr_ymm_i() {
 	// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
 	test_instr(32, |a| a.vfpclasspd(k2.k1(), ymm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8, Register::K2, Register::YMM3, -5i32).unwrap(), Register::K1),
@@ -48317,7 +48317,7 @@ fn vfpclasspd_k_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspd_k_zmm_i() {
+fn vfpclasspd_kr_zmm_i() {
 	// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
 	test_instr(32, |a| a.vfpclasspd(k2.k1(), zmm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8, Register::K2, Register::ZMM3, -5i32).unwrap(), Register::K1),
@@ -48326,7 +48326,7 @@ fn vfpclasspd_k_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspd_k_m_i() {
+fn vfpclasspd_kr_m_i() {
 	/* if op1.is_broadcast() */ {
 		// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
 		test_instr(32, |a| a.vfpclasspd(k2.k1(), dword_bcst(edx), -5i32).unwrap(),
@@ -48353,7 +48353,7 @@ fn vfpclasspd_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspd_k_xmm_u() {
+fn vfpclasspd_kr_xmm_u() {
 	// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
 	test_instr(32, |a| a.vfpclasspd(k2.k1(), xmm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8, Register::K2, Register::XMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48362,7 +48362,7 @@ fn vfpclasspd_k_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspd_k_ymm_u() {
+fn vfpclasspd_kr_ymm_u() {
 	// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
 	test_instr(32, |a| a.vfpclasspd(k2.k1(), ymm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8, Register::K2, Register::YMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48371,7 +48371,7 @@ fn vfpclasspd_k_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspd_k_zmm_u() {
+fn vfpclasspd_kr_zmm_u() {
 	// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
 	test_instr(32, |a| a.vfpclasspd(k2.k1(), zmm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8, Register::K2, Register::ZMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48380,7 +48380,7 @@ fn vfpclasspd_k_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspd_k_m_u() {
+fn vfpclasspd_kr_m_u() {
 	/* if op1.is_broadcast() */ {
 		// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
 		test_instr(32, |a| a.vfpclasspd(k2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
@@ -48407,7 +48407,7 @@ fn vfpclasspd_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspdx_k_m_i() {
+fn vfpclasspdx_kr_m_i() {
 	// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
 	test_instr(32, |a| a.vfpclasspdx(k2.k1(), xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48416,7 +48416,7 @@ fn vfpclasspdx_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspdx_k_m_u() {
+fn vfpclasspdx_kr_m_u() {
 	// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
 	test_instr(32, |a| a.vfpclasspdx(k2.k1(), xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48425,7 +48425,7 @@ fn vfpclasspdx_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspdy_k_m_i() {
+fn vfpclasspdy_kr_m_i() {
 	// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
 	test_instr(32, |a| a.vfpclasspdy(k2.k1(), ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48434,7 +48434,7 @@ fn vfpclasspdy_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspdy_k_m_u() {
+fn vfpclasspdy_kr_m_u() {
 	// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
 	test_instr(32, |a| a.vfpclasspdy(k2.k1(), ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48443,7 +48443,7 @@ fn vfpclasspdy_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspdz_k_m_i() {
+fn vfpclasspdz_kr_m_i() {
 	// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
 	test_instr(32, |a| a.vfpclasspdz(k2.k1(), zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48452,7 +48452,7 @@ fn vfpclasspdz_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspdz_k_m_u() {
+fn vfpclasspdz_kr_m_u() {
 	// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
 	test_instr(32, |a| a.vfpclasspdz(k2.k1(), zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48461,7 +48461,7 @@ fn vfpclasspdz_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassph_k_xmm_i() {
+fn vfpclassph_kr_xmm_i() {
 	// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
 	test_instr(32, |a| a.vfpclassph(k2.k1(), xmm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, Register::K2, Register::XMM3, -5i32).unwrap(), Register::K1),
@@ -48470,7 +48470,7 @@ fn vfpclassph_k_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassph_k_ymm_i() {
+fn vfpclassph_kr_ymm_i() {
 	// EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
 	test_instr(32, |a| a.vfpclassph(k2.k1(), ymm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8, Register::K2, Register::YMM3, -5i32).unwrap(), Register::K1),
@@ -48479,7 +48479,7 @@ fn vfpclassph_k_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassph_k_zmm_i() {
+fn vfpclassph_kr_zmm_i() {
 	// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
 	test_instr(32, |a| a.vfpclassph(k2.k1(), zmm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8, Register::K2, Register::ZMM3, -5i32).unwrap(), Register::K1),
@@ -48488,7 +48488,7 @@ fn vfpclassph_k_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassph_k_m_i() {
+fn vfpclassph_kr_m_i() {
 	/* if op1.is_broadcast() */ {
 		// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
 		test_instr(32, |a| a.vfpclassph(k2.k1(), dword_bcst(edx), -5i32).unwrap(),
@@ -48515,7 +48515,7 @@ fn vfpclassph_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassph_k_xmm_u() {
+fn vfpclassph_kr_xmm_u() {
 	// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
 	test_instr(32, |a| a.vfpclassph(k2.k1(), xmm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, Register::K2, Register::XMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48524,7 +48524,7 @@ fn vfpclassph_k_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassph_k_ymm_u() {
+fn vfpclassph_kr_ymm_u() {
 	// EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
 	test_instr(32, |a| a.vfpclassph(k2.k1(), ymm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8, Register::K2, Register::YMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48533,7 +48533,7 @@ fn vfpclassph_k_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassph_k_zmm_u() {
+fn vfpclassph_kr_zmm_u() {
 	// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
 	test_instr(32, |a| a.vfpclassph(k2.k1(), zmm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8, Register::K2, Register::ZMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48542,7 +48542,7 @@ fn vfpclassph_k_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassph_k_m_u() {
+fn vfpclassph_kr_m_u() {
 	/* if op1.is_broadcast() */ {
 		// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
 		test_instr(32, |a| a.vfpclassph(k2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
@@ -48569,7 +48569,7 @@ fn vfpclassph_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassphx_k_m_i() {
+fn vfpclassphx_kr_m_i() {
 	// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
 	test_instr(32, |a| a.vfpclassphx(k2.k1(), xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48578,7 +48578,7 @@ fn vfpclassphx_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassphx_k_m_u() {
+fn vfpclassphx_kr_m_u() {
 	// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
 	test_instr(32, |a| a.vfpclassphx(k2.k1(), xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48587,7 +48587,7 @@ fn vfpclassphx_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassphy_k_m_i() {
+fn vfpclassphy_kr_m_i() {
 	// EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
 	test_instr(32, |a| a.vfpclassphy(k2.k1(), ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48596,7 +48596,7 @@ fn vfpclassphy_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassphy_k_m_u() {
+fn vfpclassphy_kr_m_u() {
 	// EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
 	test_instr(32, |a| a.vfpclassphy(k2.k1(), ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48605,7 +48605,7 @@ fn vfpclassphy_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassphz_k_m_i() {
+fn vfpclassphz_kr_m_i() {
 	// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
 	test_instr(32, |a| a.vfpclassphz(k2.k1(), zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48614,7 +48614,7 @@ fn vfpclassphz_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassphz_k_m_u() {
+fn vfpclassphz_kr_m_u() {
 	// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
 	test_instr(32, |a| a.vfpclassphz(k2.k1(), zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48623,7 +48623,7 @@ fn vfpclassphz_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassps_k_xmm_i() {
+fn vfpclassps_kr_xmm_i() {
 	// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
 	test_instr(32, |a| a.vfpclassps(k2.k1(), xmm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8, Register::K2, Register::XMM3, -5i32).unwrap(), Register::K1),
@@ -48632,7 +48632,7 @@ fn vfpclassps_k_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassps_k_ymm_i() {
+fn vfpclassps_kr_ymm_i() {
 	// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
 	test_instr(32, |a| a.vfpclassps(k2.k1(), ymm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8, Register::K2, Register::YMM3, -5i32).unwrap(), Register::K1),
@@ -48641,7 +48641,7 @@ fn vfpclassps_k_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassps_k_zmm_i() {
+fn vfpclassps_kr_zmm_i() {
 	// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
 	test_instr(32, |a| a.vfpclassps(k2.k1(), zmm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8, Register::K2, Register::ZMM3, -5i32).unwrap(), Register::K1),
@@ -48650,7 +48650,7 @@ fn vfpclassps_k_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassps_k_m_i() {
+fn vfpclassps_kr_m_i() {
 	/* if op1.is_broadcast() */ {
 		// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
 		test_instr(32, |a| a.vfpclassps(k2.k1(), dword_bcst(edx), -5i32).unwrap(),
@@ -48677,7 +48677,7 @@ fn vfpclassps_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassps_k_xmm_u() {
+fn vfpclassps_kr_xmm_u() {
 	// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
 	test_instr(32, |a| a.vfpclassps(k2.k1(), xmm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8, Register::K2, Register::XMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48686,7 +48686,7 @@ fn vfpclassps_k_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassps_k_ymm_u() {
+fn vfpclassps_kr_ymm_u() {
 	// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
 	test_instr(32, |a| a.vfpclassps(k2.k1(), ymm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8, Register::K2, Register::YMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48695,7 +48695,7 @@ fn vfpclassps_k_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassps_k_zmm_u() {
+fn vfpclassps_kr_zmm_u() {
 	// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
 	test_instr(32, |a| a.vfpclassps(k2.k1(), zmm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8, Register::K2, Register::ZMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48704,7 +48704,7 @@ fn vfpclassps_k_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassps_k_m_u() {
+fn vfpclassps_kr_m_u() {
 	/* if op1.is_broadcast() */ {
 		// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
 		test_instr(32, |a| a.vfpclassps(k2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
@@ -48731,7 +48731,7 @@ fn vfpclassps_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspsx_k_m_i() {
+fn vfpclasspsx_kr_m_i() {
 	// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
 	test_instr(32, |a| a.vfpclasspsx(k2.k1(), xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48740,7 +48740,7 @@ fn vfpclasspsx_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspsx_k_m_u() {
+fn vfpclasspsx_kr_m_u() {
 	// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
 	test_instr(32, |a| a.vfpclasspsx(k2.k1(), xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48749,7 +48749,7 @@ fn vfpclasspsx_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspsy_k_m_i() {
+fn vfpclasspsy_kr_m_i() {
 	// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
 	test_instr(32, |a| a.vfpclasspsy(k2.k1(), ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48758,7 +48758,7 @@ fn vfpclasspsy_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspsy_k_m_u() {
+fn vfpclasspsy_kr_m_u() {
 	// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
 	test_instr(32, |a| a.vfpclasspsy(k2.k1(), ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48767,7 +48767,7 @@ fn vfpclasspsy_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspsz_k_m_i() {
+fn vfpclasspsz_kr_m_i() {
 	// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
 	test_instr(32, |a| a.vfpclasspsz(k2.k1(), zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48776,7 +48776,7 @@ fn vfpclasspsz_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasspsz_k_m_u() {
+fn vfpclasspsz_kr_m_u() {
 	// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
 	test_instr(32, |a| a.vfpclasspsz(k2.k1(), zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48785,7 +48785,7 @@ fn vfpclasspsz_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasssd_k_xmm_i() {
+fn vfpclasssd_kr_xmm_i() {
 	// EVEX_Vfpclasssd_kr_k1_xmmm64_imm8
 	test_instr(32, |a| a.vfpclasssd(k2.k1(), xmm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasssd_kr_k1_xmmm64_imm8, Register::K2, Register::XMM3, -5i32).unwrap(), Register::K1),
@@ -48794,7 +48794,7 @@ fn vfpclasssd_k_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasssd_k_m_i() {
+fn vfpclasssd_kr_m_i() {
 	// EVEX_Vfpclasssd_kr_k1_xmmm64_imm8
 	test_instr(32, |a| a.vfpclasssd(k2.k1(), xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasssd_kr_k1_xmmm64_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48803,7 +48803,7 @@ fn vfpclasssd_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasssd_k_xmm_u() {
+fn vfpclasssd_kr_xmm_u() {
 	// EVEX_Vfpclasssd_kr_k1_xmmm64_imm8
 	test_instr(32, |a| a.vfpclasssd(k2.k1(), xmm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasssd_kr_k1_xmmm64_imm8, Register::K2, Register::XMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48812,7 +48812,7 @@ fn vfpclasssd_k_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasssd_k_m_u() {
+fn vfpclasssd_kr_m_u() {
 	// EVEX_Vfpclasssd_kr_k1_xmmm64_imm8
 	test_instr(32, |a| a.vfpclasssd(k2.k1(), xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasssd_kr_k1_xmmm64_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48821,7 +48821,7 @@ fn vfpclasssd_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasssh_k_xmm_i() {
+fn vfpclasssh_kr_xmm_i() {
 	// EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
 	test_instr(32, |a| a.vfpclasssh(k2.k1(), xmm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasssh_kr_k1_xmmm16_imm8, Register::K2, Register::XMM3, -5i32).unwrap(), Register::K1),
@@ -48830,7 +48830,7 @@ fn vfpclasssh_k_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasssh_k_m_i() {
+fn vfpclasssh_kr_m_i() {
 	// EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
 	test_instr(32, |a| a.vfpclasssh(k2.k1(), xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasssh_kr_k1_xmmm16_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48839,7 +48839,7 @@ fn vfpclasssh_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasssh_k_xmm_u() {
+fn vfpclasssh_kr_xmm_u() {
 	// EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
 	test_instr(32, |a| a.vfpclasssh(k2.k1(), xmm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasssh_kr_k1_xmmm16_imm8, Register::K2, Register::XMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48848,7 +48848,7 @@ fn vfpclasssh_k_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclasssh_k_m_u() {
+fn vfpclasssh_kr_m_u() {
 	// EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
 	test_instr(32, |a| a.vfpclasssh(k2.k1(), xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclasssh_kr_k1_xmmm16_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -48857,7 +48857,7 @@ fn vfpclasssh_k_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassss_k_xmm_i() {
+fn vfpclassss_kr_xmm_i() {
 	// EVEX_Vfpclassss_kr_k1_xmmm32_imm8
 	test_instr(32, |a| a.vfpclassss(k2.k1(), xmm3, -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassss_kr_k1_xmmm32_imm8, Register::K2, Register::XMM3, -5i32).unwrap(), Register::K1),
@@ -48866,7 +48866,7 @@ fn vfpclassss_k_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassss_k_m_i() {
+fn vfpclassss_kr_m_i() {
 	// EVEX_Vfpclassss_kr_k1_xmmm32_imm8
 	test_instr(32, |a| a.vfpclassss(k2.k1(), xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassss_kr_k1_xmmm32_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -48875,7 +48875,7 @@ fn vfpclassss_k_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassss_k_xmm_u() {
+fn vfpclassss_kr_xmm_u() {
 	// EVEX_Vfpclassss_kr_k1_xmmm32_imm8
 	test_instr(32, |a| a.vfpclassss(k2.k1(), xmm3, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassss_kr_k1_xmmm32_imm8, Register::K2, Register::XMM3, 0x7Fu32).unwrap(), Register::K1),
@@ -48884,7 +48884,7 @@ fn vfpclassss_k_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vfpclassss_k_m_u() {
+fn vfpclassss_kr_m_u() {
 	// EVEX_Vfpclassss_kr_k1_xmmm32_imm8
 	test_instr(32, |a| a.vfpclassss(k2.k1(), xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vfpclassss_kr_k1_xmmm32_imm8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -54528,7 +54528,7 @@ fn vorps_zmm_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectd_k_xmm_xmm() {
+fn vp2intersectd_kr_xmm_xmm() {
 	// EVEX_Vp2intersectd_kp1_xmm_xmmm128b32
 	test_instr(32, |a| a.vp2intersectd(k2, xmm3, xmm4).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectd_kp1_xmm_xmmm128b32, Register::K2, Register::XMM3, Register::XMM4).unwrap(),
@@ -54537,7 +54537,7 @@ fn vp2intersectd_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectd_k_ymm_ymm() {
+fn vp2intersectd_kr_ymm_ymm() {
 	// EVEX_Vp2intersectd_kp1_ymm_ymmm256b32
 	test_instr(32, |a| a.vp2intersectd(k2, ymm3, ymm4).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectd_kp1_ymm_ymmm256b32, Register::K2, Register::YMM3, Register::YMM4).unwrap(),
@@ -54546,7 +54546,7 @@ fn vp2intersectd_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectd_k_zmm_zmm() {
+fn vp2intersectd_kr_zmm_zmm() {
 	// EVEX_Vp2intersectd_kp1_zmm_zmmm512b32
 	test_instr(32, |a| a.vp2intersectd(k2, zmm3, zmm4).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectd_kp1_zmm_zmmm512b32, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(),
@@ -54555,7 +54555,7 @@ fn vp2intersectd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectd_k_xmm_m() {
+fn vp2intersectd_kr_xmm_m() {
 	// EVEX_Vp2intersectd_kp1_xmm_xmmm128b32
 	test_instr(32, |a| a.vp2intersectd(k2, xmm3, xmmword_ptr(ecx)).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectd_kp1_xmm_xmmm128b32, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -54564,7 +54564,7 @@ fn vp2intersectd_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectd_k_ymm_m() {
+fn vp2intersectd_kr_ymm_m() {
 	// EVEX_Vp2intersectd_kp1_ymm_ymmm256b32
 	test_instr(32, |a| a.vp2intersectd(k2, ymm3, ymmword_ptr(ecx)).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectd_kp1_ymm_ymmm256b32, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -54573,7 +54573,7 @@ fn vp2intersectd_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectd_k_zmm_m() {
+fn vp2intersectd_kr_zmm_m() {
 	// EVEX_Vp2intersectd_kp1_zmm_zmmm512b32
 	test_instr(32, |a| a.vp2intersectd(k2, zmm3, zmmword_ptr(ecx)).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectd_kp1_zmm_zmmm512b32, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -54582,7 +54582,7 @@ fn vp2intersectd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectq_k_xmm_xmm() {
+fn vp2intersectq_kr_xmm_xmm() {
 	// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
 	test_instr(32, |a| a.vp2intersectq(k2, xmm3, xmm4).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectq_kp1_xmm_xmmm128b64, Register::K2, Register::XMM3, Register::XMM4).unwrap(),
@@ -54591,7 +54591,7 @@ fn vp2intersectq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectq_k_ymm_ymm() {
+fn vp2intersectq_kr_ymm_ymm() {
 	// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
 	test_instr(32, |a| a.vp2intersectq(k2, ymm3, ymm4).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectq_kp1_ymm_ymmm256b64, Register::K2, Register::YMM3, Register::YMM4).unwrap(),
@@ -54600,7 +54600,7 @@ fn vp2intersectq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectq_k_zmm_zmm() {
+fn vp2intersectq_kr_zmm_zmm() {
 	// EVEX_Vp2intersectq_kp1_zmm_zmmm512b64
 	test_instr(32, |a| a.vp2intersectq(k2, zmm3, zmm4).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectq_kp1_zmm_zmmm512b64, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(),
@@ -54609,7 +54609,7 @@ fn vp2intersectq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectq_k_xmm_m() {
+fn vp2intersectq_kr_xmm_m() {
 	// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
 	test_instr(32, |a| a.vp2intersectq(k2, xmm3, xmmword_ptr(ecx)).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectq_kp1_xmm_xmmm128b64, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -54618,7 +54618,7 @@ fn vp2intersectq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectq_k_ymm_m() {
+fn vp2intersectq_kr_ymm_m() {
 	// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
 	test_instr(32, |a| a.vp2intersectq(k2, ymm3, ymmword_ptr(ecx)).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectq_kp1_ymm_ymmm256b64, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -54627,7 +54627,7 @@ fn vp2intersectq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vp2intersectq_k_zmm_m() {
+fn vp2intersectq_kr_zmm_m() {
 	// EVEX_Vp2intersectq_kp1_zmm_zmmm512b64
 	test_instr(32, |a| a.vp2intersectq(k2, zmm3, zmmword_ptr(ecx)).unwrap(),
 		Instruction::with3(Code::EVEX_Vp2intersectq_kp1_zmm_zmmm512b64, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -57218,7 +57218,7 @@ fn vpbroadcastd_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpbroadcastmb2q_xmm_k() {
+fn vpbroadcastmb2q_xmm_kr() {
 	// EVEX_Vpbroadcastmb2q_xmm_kr
 	test_instr(32, |a| a.vpbroadcastmb2q(xmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpbroadcastmb2q_xmm_kr, Register::XMM2, Register::K3).unwrap(),
@@ -57227,7 +57227,7 @@ fn vpbroadcastmb2q_xmm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpbroadcastmb2q_ymm_k() {
+fn vpbroadcastmb2q_ymm_kr() {
 	// EVEX_Vpbroadcastmb2q_ymm_kr
 	test_instr(32, |a| a.vpbroadcastmb2q(ymm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpbroadcastmb2q_ymm_kr, Register::YMM2, Register::K3).unwrap(),
@@ -57236,7 +57236,7 @@ fn vpbroadcastmb2q_ymm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpbroadcastmb2q_zmm_k() {
+fn vpbroadcastmb2q_zmm_kr() {
 	// EVEX_Vpbroadcastmb2q_zmm_kr
 	test_instr(32, |a| a.vpbroadcastmb2q(zmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpbroadcastmb2q_zmm_kr, Register::ZMM2, Register::K3).unwrap(),
@@ -57245,7 +57245,7 @@ fn vpbroadcastmb2q_zmm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpbroadcastmw2d_xmm_k() {
+fn vpbroadcastmw2d_xmm_kr() {
 	// EVEX_Vpbroadcastmw2d_xmm_kr
 	test_instr(32, |a| a.vpbroadcastmw2d(xmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpbroadcastmw2d_xmm_kr, Register::XMM2, Register::K3).unwrap(),
@@ -57254,7 +57254,7 @@ fn vpbroadcastmw2d_xmm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpbroadcastmw2d_ymm_k() {
+fn vpbroadcastmw2d_ymm_kr() {
 	// EVEX_Vpbroadcastmw2d_ymm_kr
 	test_instr(32, |a| a.vpbroadcastmw2d(ymm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpbroadcastmw2d_ymm_kr, Register::YMM2, Register::K3).unwrap(),
@@ -57263,7 +57263,7 @@ fn vpbroadcastmw2d_ymm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpbroadcastmw2d_zmm_k() {
+fn vpbroadcastmw2d_zmm_kr() {
 	// EVEX_Vpbroadcastmw2d_zmm_kr
 	test_instr(32, |a| a.vpbroadcastmw2d(zmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpbroadcastmw2d_zmm_kr, Register::ZMM2, Register::K3).unwrap(),
@@ -57897,7 +57897,7 @@ fn vpcmov_ymm_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_xmm_xmm_i() {
+fn vpcmpb_kr_xmm_xmm_i() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -57906,7 +57906,7 @@ fn vpcmpb_k_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_ymm_ymm_i() {
+fn vpcmpb_kr_ymm_ymm_i() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -57915,7 +57915,7 @@ fn vpcmpb_k_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_zmm_zmm_i() {
+fn vpcmpb_kr_zmm_zmm_i() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -57924,7 +57924,7 @@ fn vpcmpb_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_xmm_m_i() {
+fn vpcmpb_kr_xmm_m_i() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -57933,7 +57933,7 @@ fn vpcmpb_k_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_ymm_m_i() {
+fn vpcmpb_kr_ymm_m_i() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -57942,7 +57942,7 @@ fn vpcmpb_k_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_zmm_m_i() {
+fn vpcmpb_kr_zmm_m_i() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -57951,7 +57951,7 @@ fn vpcmpb_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_xmm_xmm_u() {
+fn vpcmpb_kr_xmm_xmm_u() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -57960,7 +57960,7 @@ fn vpcmpb_k_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_ymm_ymm_u() {
+fn vpcmpb_kr_ymm_ymm_u() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -57969,7 +57969,7 @@ fn vpcmpb_k_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_zmm_zmm_u() {
+fn vpcmpb_kr_zmm_zmm_u() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -57978,7 +57978,7 @@ fn vpcmpb_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_xmm_m_u() {
+fn vpcmpb_kr_xmm_m_u() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -57987,7 +57987,7 @@ fn vpcmpb_k_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_ymm_m_u() {
+fn vpcmpb_kr_ymm_m_u() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -57996,7 +57996,7 @@ fn vpcmpb_k_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpb_k_zmm_m_u() {
+fn vpcmpb_kr_zmm_m_u() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpb(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -58005,7 +58005,7 @@ fn vpcmpb_k_zmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_xmm_xmm_i() {
+fn vpcmpd_kr_xmm_xmm_i() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -58014,7 +58014,7 @@ fn vpcmpd_k_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_ymm_ymm_i() {
+fn vpcmpd_kr_ymm_ymm_i() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -58023,7 +58023,7 @@ fn vpcmpd_k_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_zmm_zmm_i() {
+fn vpcmpd_kr_zmm_zmm_i() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -58032,7 +58032,7 @@ fn vpcmpd_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_xmm_m_i() {
+fn vpcmpd_kr_xmm_m_i() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -58041,7 +58041,7 @@ fn vpcmpd_k_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_ymm_m_i() {
+fn vpcmpd_kr_ymm_m_i() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -58050,7 +58050,7 @@ fn vpcmpd_k_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_zmm_m_i() {
+fn vpcmpd_kr_zmm_m_i() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -58059,7 +58059,7 @@ fn vpcmpd_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_xmm_xmm_u() {
+fn vpcmpd_kr_xmm_xmm_u() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -58068,7 +58068,7 @@ fn vpcmpd_k_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_ymm_ymm_u() {
+fn vpcmpd_kr_ymm_ymm_u() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -58077,7 +58077,7 @@ fn vpcmpd_k_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_zmm_zmm_u() {
+fn vpcmpd_kr_zmm_zmm_u() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -58086,7 +58086,7 @@ fn vpcmpd_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_xmm_m_u() {
+fn vpcmpd_kr_xmm_m_u() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -58095,7 +58095,7 @@ fn vpcmpd_k_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_ymm_m_u() {
+fn vpcmpd_kr_ymm_m_u() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -58104,7 +58104,7 @@ fn vpcmpd_k_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpd_k_zmm_m_u() {
+fn vpcmpd_kr_zmm_m_u() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpd(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -58113,7 +58113,7 @@ fn vpcmpd_k_zmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqb_k_xmm_xmm() {
+fn vpcmpeqb_kr_xmm_xmm() {
 	// EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vpcmpeqb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -58131,7 +58131,7 @@ fn vpcmpeqb_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqb_k_ymm_ymm() {
+fn vpcmpeqb_kr_ymm_ymm() {
 	// EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vpcmpeqb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -58149,7 +58149,7 @@ fn vpcmpeqb_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqb_k_zmm_zmm() {
+fn vpcmpeqb_kr_zmm_zmm() {
 	// EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vpcmpeqb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -58158,7 +58158,7 @@ fn vpcmpeqb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqb_k_xmm_m() {
+fn vpcmpeqb_kr_xmm_m() {
 	// EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vpcmpeqb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58176,7 +58176,7 @@ fn vpcmpeqb_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqb_k_ymm_m() {
+fn vpcmpeqb_kr_ymm_m() {
 	// EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vpcmpeqb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58194,7 +58194,7 @@ fn vpcmpeqb_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqb_k_zmm_m() {
+fn vpcmpeqb_kr_zmm_m() {
 	// EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vpcmpeqb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58203,7 +58203,7 @@ fn vpcmpeqb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqd_k_xmm_xmm() {
+fn vpcmpeqd_kr_xmm_xmm() {
 	// EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32
 	test_instr(32, |a| a.vpcmpeqd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -58221,7 +58221,7 @@ fn vpcmpeqd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqd_k_ymm_ymm() {
+fn vpcmpeqd_kr_ymm_ymm() {
 	// EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32
 	test_instr(32, |a| a.vpcmpeqd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -58239,7 +58239,7 @@ fn vpcmpeqd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqd_k_zmm_zmm() {
+fn vpcmpeqd_kr_zmm_zmm() {
 	// EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32
 	test_instr(32, |a| a.vpcmpeqd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -58248,7 +58248,7 @@ fn vpcmpeqd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqd_k_xmm_m() {
+fn vpcmpeqd_kr_xmm_m() {
 	// EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32
 	test_instr(32, |a| a.vpcmpeqd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58266,7 +58266,7 @@ fn vpcmpeqd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqd_k_ymm_m() {
+fn vpcmpeqd_kr_ymm_m() {
 	// EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32
 	test_instr(32, |a| a.vpcmpeqd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58284,7 +58284,7 @@ fn vpcmpeqd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqd_k_zmm_m() {
+fn vpcmpeqd_kr_zmm_m() {
 	// EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32
 	test_instr(32, |a| a.vpcmpeqd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58293,7 +58293,7 @@ fn vpcmpeqd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqq_k_xmm_xmm() {
+fn vpcmpeqq_kr_xmm_xmm() {
 	// EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64
 	test_instr(32, |a| a.vpcmpeqq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -58311,7 +58311,7 @@ fn vpcmpeqq_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqq_k_ymm_ymm() {
+fn vpcmpeqq_kr_ymm_ymm() {
 	// EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64
 	test_instr(32, |a| a.vpcmpeqq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -58329,7 +58329,7 @@ fn vpcmpeqq_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqq_k_zmm_zmm() {
+fn vpcmpeqq_kr_zmm_zmm() {
 	// EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64
 	test_instr(32, |a| a.vpcmpeqq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -58338,7 +58338,7 @@ fn vpcmpeqq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqq_k_xmm_m() {
+fn vpcmpeqq_kr_xmm_m() {
 	// EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64
 	test_instr(32, |a| a.vpcmpeqq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58356,7 +58356,7 @@ fn vpcmpeqq_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqq_k_ymm_m() {
+fn vpcmpeqq_kr_ymm_m() {
 	// EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64
 	test_instr(32, |a| a.vpcmpeqq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58374,7 +58374,7 @@ fn vpcmpeqq_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqq_k_zmm_m() {
+fn vpcmpeqq_kr_zmm_m() {
 	// EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64
 	test_instr(32, |a| a.vpcmpeqq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58383,7 +58383,7 @@ fn vpcmpeqq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequb_k_xmm_xmm() {
+fn vpcmpequb_kr_xmm_xmm() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpequb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 0i32).unwrap(), Register::K1),
@@ -58392,7 +58392,7 @@ fn vpcmpequb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequb_k_ymm_ymm() {
+fn vpcmpequb_kr_ymm_ymm() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpequb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 0i32).unwrap(), Register::K1),
@@ -58401,7 +58401,7 @@ fn vpcmpequb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequb_k_zmm_zmm() {
+fn vpcmpequb_kr_zmm_zmm() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpequb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0i32).unwrap(), Register::K1),
@@ -58410,7 +58410,7 @@ fn vpcmpequb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequb_k_xmm_m() {
+fn vpcmpequb_kr_xmm_m() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpequb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58419,7 +58419,7 @@ fn vpcmpequb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequb_k_ymm_m() {
+fn vpcmpequb_kr_ymm_m() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpequb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58428,7 +58428,7 @@ fn vpcmpequb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequb_k_zmm_m() {
+fn vpcmpequb_kr_zmm_m() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpequb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58437,7 +58437,7 @@ fn vpcmpequb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequd_k_xmm_xmm() {
+fn vpcmpequd_kr_xmm_xmm() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpequd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0i32).unwrap(), Register::K1),
@@ -58446,7 +58446,7 @@ fn vpcmpequd_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequd_k_ymm_ymm() {
+fn vpcmpequd_kr_ymm_ymm() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpequd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0i32).unwrap(), Register::K1),
@@ -58455,7 +58455,7 @@ fn vpcmpequd_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequd_k_zmm_zmm() {
+fn vpcmpequd_kr_zmm_zmm() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpequd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0i32).unwrap(), Register::K1),
@@ -58464,7 +58464,7 @@ fn vpcmpequd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequd_k_xmm_m() {
+fn vpcmpequd_kr_xmm_m() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpequd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58473,7 +58473,7 @@ fn vpcmpequd_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequd_k_ymm_m() {
+fn vpcmpequd_kr_ymm_m() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpequd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58482,7 +58482,7 @@ fn vpcmpequd_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequd_k_zmm_m() {
+fn vpcmpequd_kr_zmm_m() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpequd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58491,7 +58491,7 @@ fn vpcmpequd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequq_k_xmm_xmm() {
+fn vpcmpequq_kr_xmm_xmm() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpequq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0i32).unwrap(), Register::K1),
@@ -58500,7 +58500,7 @@ fn vpcmpequq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequq_k_ymm_ymm() {
+fn vpcmpequq_kr_ymm_ymm() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpequq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0i32).unwrap(), Register::K1),
@@ -58509,7 +58509,7 @@ fn vpcmpequq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequq_k_zmm_zmm() {
+fn vpcmpequq_kr_zmm_zmm() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpequq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0i32).unwrap(), Register::K1),
@@ -58518,7 +58518,7 @@ fn vpcmpequq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequq_k_xmm_m() {
+fn vpcmpequq_kr_xmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpequq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58527,7 +58527,7 @@ fn vpcmpequq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequq_k_ymm_m() {
+fn vpcmpequq_kr_ymm_m() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpequq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58536,7 +58536,7 @@ fn vpcmpequq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequq_k_zmm_m() {
+fn vpcmpequq_kr_zmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpequq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58545,7 +58545,7 @@ fn vpcmpequq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequw_k_xmm_xmm() {
+fn vpcmpequw_kr_xmm_xmm() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpequw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 0i32).unwrap(), Register::K1),
@@ -58554,7 +58554,7 @@ fn vpcmpequw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequw_k_ymm_ymm() {
+fn vpcmpequw_kr_ymm_ymm() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpequw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 0i32).unwrap(), Register::K1),
@@ -58563,7 +58563,7 @@ fn vpcmpequw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequw_k_zmm_zmm() {
+fn vpcmpequw_kr_zmm_zmm() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpequw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0i32).unwrap(), Register::K1),
@@ -58572,7 +58572,7 @@ fn vpcmpequw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequw_k_xmm_m() {
+fn vpcmpequw_kr_xmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpequw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58581,7 +58581,7 @@ fn vpcmpequw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequw_k_ymm_m() {
+fn vpcmpequw_kr_ymm_m() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpequw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58590,7 +58590,7 @@ fn vpcmpequw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpequw_k_zmm_m() {
+fn vpcmpequw_kr_zmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpequw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0i32).unwrap(), Register::K1),
@@ -58599,7 +58599,7 @@ fn vpcmpequw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqw_k_xmm_xmm() {
+fn vpcmpeqw_kr_xmm_xmm() {
 	// EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vpcmpeqw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -58617,7 +58617,7 @@ fn vpcmpeqw_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqw_k_ymm_ymm() {
+fn vpcmpeqw_kr_ymm_ymm() {
 	// EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vpcmpeqw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -58635,7 +58635,7 @@ fn vpcmpeqw_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqw_k_zmm_zmm() {
+fn vpcmpeqw_kr_zmm_zmm() {
 	// EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vpcmpeqw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -58644,7 +58644,7 @@ fn vpcmpeqw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqw_k_xmm_m() {
+fn vpcmpeqw_kr_xmm_m() {
 	// EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vpcmpeqw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58662,7 +58662,7 @@ fn vpcmpeqw_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqw_k_ymm_m() {
+fn vpcmpeqw_kr_ymm_m() {
 	// EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vpcmpeqw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58680,7 +58680,7 @@ fn vpcmpeqw_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpeqw_k_zmm_m() {
+fn vpcmpeqw_kr_zmm_m() {
 	// EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vpcmpeqw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -58761,7 +58761,7 @@ fn vpcmpestrm_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseb_k_xmm_xmm() {
+fn vpcmpfalseb_kr_xmm_xmm() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpfalseb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -58770,7 +58770,7 @@ fn vpcmpfalseb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseb_k_ymm_ymm() {
+fn vpcmpfalseb_kr_ymm_ymm() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpfalseb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -58779,7 +58779,7 @@ fn vpcmpfalseb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseb_k_zmm_zmm() {
+fn vpcmpfalseb_kr_zmm_zmm() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpfalseb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -58788,7 +58788,7 @@ fn vpcmpfalseb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseb_k_xmm_m() {
+fn vpcmpfalseb_kr_xmm_m() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpfalseb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58797,7 +58797,7 @@ fn vpcmpfalseb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseb_k_ymm_m() {
+fn vpcmpfalseb_kr_ymm_m() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpfalseb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58806,7 +58806,7 @@ fn vpcmpfalseb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseb_k_zmm_m() {
+fn vpcmpfalseb_kr_zmm_m() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpfalseb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58815,7 +58815,7 @@ fn vpcmpfalseb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsed_k_xmm_xmm() {
+fn vpcmpfalsed_kr_xmm_xmm() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpfalsed(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -58824,7 +58824,7 @@ fn vpcmpfalsed_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsed_k_ymm_ymm() {
+fn vpcmpfalsed_kr_ymm_ymm() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpfalsed(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -58833,7 +58833,7 @@ fn vpcmpfalsed_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsed_k_zmm_zmm() {
+fn vpcmpfalsed_kr_zmm_zmm() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpfalsed(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -58842,7 +58842,7 @@ fn vpcmpfalsed_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsed_k_xmm_m() {
+fn vpcmpfalsed_kr_xmm_m() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpfalsed(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58851,7 +58851,7 @@ fn vpcmpfalsed_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsed_k_ymm_m() {
+fn vpcmpfalsed_kr_ymm_m() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpfalsed(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58860,7 +58860,7 @@ fn vpcmpfalsed_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsed_k_zmm_m() {
+fn vpcmpfalsed_kr_zmm_m() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpfalsed(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58869,7 +58869,7 @@ fn vpcmpfalsed_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseq_k_xmm_xmm() {
+fn vpcmpfalseq_kr_xmm_xmm() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpfalseq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -58878,7 +58878,7 @@ fn vpcmpfalseq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseq_k_ymm_ymm() {
+fn vpcmpfalseq_kr_ymm_ymm() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpfalseq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -58887,7 +58887,7 @@ fn vpcmpfalseq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseq_k_zmm_zmm() {
+fn vpcmpfalseq_kr_zmm_zmm() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpfalseq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -58896,7 +58896,7 @@ fn vpcmpfalseq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseq_k_xmm_m() {
+fn vpcmpfalseq_kr_xmm_m() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpfalseq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58905,7 +58905,7 @@ fn vpcmpfalseq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseq_k_ymm_m() {
+fn vpcmpfalseq_kr_ymm_m() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpfalseq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58914,7 +58914,7 @@ fn vpcmpfalseq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseq_k_zmm_m() {
+fn vpcmpfalseq_kr_zmm_m() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpfalseq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58923,7 +58923,7 @@ fn vpcmpfalseq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseub_k_xmm_xmm() {
+fn vpcmpfalseub_kr_xmm_xmm() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpfalseub(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -58932,7 +58932,7 @@ fn vpcmpfalseub_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseub_k_ymm_ymm() {
+fn vpcmpfalseub_kr_ymm_ymm() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpfalseub(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -58941,7 +58941,7 @@ fn vpcmpfalseub_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseub_k_zmm_zmm() {
+fn vpcmpfalseub_kr_zmm_zmm() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpfalseub(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -58950,7 +58950,7 @@ fn vpcmpfalseub_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseub_k_xmm_m() {
+fn vpcmpfalseub_kr_xmm_m() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpfalseub(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58959,7 +58959,7 @@ fn vpcmpfalseub_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseub_k_ymm_m() {
+fn vpcmpfalseub_kr_ymm_m() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpfalseub(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58968,7 +58968,7 @@ fn vpcmpfalseub_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseub_k_zmm_m() {
+fn vpcmpfalseub_kr_zmm_m() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpfalseub(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -58977,7 +58977,7 @@ fn vpcmpfalseub_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseud_k_xmm_xmm() {
+fn vpcmpfalseud_kr_xmm_xmm() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpfalseud(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -58986,7 +58986,7 @@ fn vpcmpfalseud_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseud_k_ymm_ymm() {
+fn vpcmpfalseud_kr_ymm_ymm() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpfalseud(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -58995,7 +58995,7 @@ fn vpcmpfalseud_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseud_k_zmm_zmm() {
+fn vpcmpfalseud_kr_zmm_zmm() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpfalseud(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -59004,7 +59004,7 @@ fn vpcmpfalseud_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseud_k_xmm_m() {
+fn vpcmpfalseud_kr_xmm_m() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpfalseud(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59013,7 +59013,7 @@ fn vpcmpfalseud_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseud_k_ymm_m() {
+fn vpcmpfalseud_kr_ymm_m() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpfalseud(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59022,7 +59022,7 @@ fn vpcmpfalseud_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseud_k_zmm_m() {
+fn vpcmpfalseud_kr_zmm_m() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpfalseud(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59031,7 +59031,7 @@ fn vpcmpfalseud_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuq_k_xmm_xmm() {
+fn vpcmpfalseuq_kr_xmm_xmm() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpfalseuq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -59040,7 +59040,7 @@ fn vpcmpfalseuq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuq_k_ymm_ymm() {
+fn vpcmpfalseuq_kr_ymm_ymm() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpfalseuq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -59049,7 +59049,7 @@ fn vpcmpfalseuq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuq_k_zmm_zmm() {
+fn vpcmpfalseuq_kr_zmm_zmm() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpfalseuq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -59058,7 +59058,7 @@ fn vpcmpfalseuq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuq_k_xmm_m() {
+fn vpcmpfalseuq_kr_xmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpfalseuq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59067,7 +59067,7 @@ fn vpcmpfalseuq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuq_k_ymm_m() {
+fn vpcmpfalseuq_kr_ymm_m() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpfalseuq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59076,7 +59076,7 @@ fn vpcmpfalseuq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuq_k_zmm_m() {
+fn vpcmpfalseuq_kr_zmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpfalseuq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59085,7 +59085,7 @@ fn vpcmpfalseuq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuw_k_xmm_xmm() {
+fn vpcmpfalseuw_kr_xmm_xmm() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpfalseuw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -59094,7 +59094,7 @@ fn vpcmpfalseuw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuw_k_ymm_ymm() {
+fn vpcmpfalseuw_kr_ymm_ymm() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpfalseuw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -59103,7 +59103,7 @@ fn vpcmpfalseuw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuw_k_zmm_zmm() {
+fn vpcmpfalseuw_kr_zmm_zmm() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpfalseuw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -59112,7 +59112,7 @@ fn vpcmpfalseuw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuw_k_xmm_m() {
+fn vpcmpfalseuw_kr_xmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpfalseuw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59121,7 +59121,7 @@ fn vpcmpfalseuw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuw_k_ymm_m() {
+fn vpcmpfalseuw_kr_ymm_m() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpfalseuw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59130,7 +59130,7 @@ fn vpcmpfalseuw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalseuw_k_zmm_m() {
+fn vpcmpfalseuw_kr_zmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpfalseuw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59139,7 +59139,7 @@ fn vpcmpfalseuw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsew_k_xmm_xmm() {
+fn vpcmpfalsew_kr_xmm_xmm() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpfalsew(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 3i32).unwrap(), Register::K1),
@@ -59148,7 +59148,7 @@ fn vpcmpfalsew_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsew_k_ymm_ymm() {
+fn vpcmpfalsew_kr_ymm_ymm() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpfalsew(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 3i32).unwrap(), Register::K1),
@@ -59157,7 +59157,7 @@ fn vpcmpfalsew_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsew_k_zmm_zmm() {
+fn vpcmpfalsew_kr_zmm_zmm() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpfalsew(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 3i32).unwrap(), Register::K1),
@@ -59166,7 +59166,7 @@ fn vpcmpfalsew_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsew_k_xmm_m() {
+fn vpcmpfalsew_kr_xmm_m() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpfalsew(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59175,7 +59175,7 @@ fn vpcmpfalsew_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsew_k_ymm_m() {
+fn vpcmpfalsew_kr_ymm_m() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpfalsew(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59184,7 +59184,7 @@ fn vpcmpfalsew_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpfalsew_k_zmm_m() {
+fn vpcmpfalsew_kr_zmm_m() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpfalsew(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 3i32).unwrap(), Register::K1),
@@ -59193,7 +59193,7 @@ fn vpcmpfalsew_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtb_k_xmm_xmm() {
+fn vpcmpgtb_kr_xmm_xmm() {
 	// EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vpcmpgtb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -59211,7 +59211,7 @@ fn vpcmpgtb_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtb_k_ymm_ymm() {
+fn vpcmpgtb_kr_ymm_ymm() {
 	// EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vpcmpgtb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -59229,7 +59229,7 @@ fn vpcmpgtb_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtb_k_zmm_zmm() {
+fn vpcmpgtb_kr_zmm_zmm() {
 	// EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vpcmpgtb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -59238,7 +59238,7 @@ fn vpcmpgtb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtb_k_xmm_m() {
+fn vpcmpgtb_kr_xmm_m() {
 	// EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vpcmpgtb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59256,7 +59256,7 @@ fn vpcmpgtb_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtb_k_ymm_m() {
+fn vpcmpgtb_kr_ymm_m() {
 	// EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vpcmpgtb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59274,7 +59274,7 @@ fn vpcmpgtb_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtb_k_zmm_m() {
+fn vpcmpgtb_kr_zmm_m() {
 	// EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vpcmpgtb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59283,7 +59283,7 @@ fn vpcmpgtb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtd_k_xmm_xmm() {
+fn vpcmpgtd_kr_xmm_xmm() {
 	// EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32
 	test_instr(32, |a| a.vpcmpgtd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -59301,7 +59301,7 @@ fn vpcmpgtd_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtd_k_ymm_ymm() {
+fn vpcmpgtd_kr_ymm_ymm() {
 	// EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32
 	test_instr(32, |a| a.vpcmpgtd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -59319,7 +59319,7 @@ fn vpcmpgtd_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtd_k_zmm_zmm() {
+fn vpcmpgtd_kr_zmm_zmm() {
 	// EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32
 	test_instr(32, |a| a.vpcmpgtd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -59328,7 +59328,7 @@ fn vpcmpgtd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtd_k_xmm_m() {
+fn vpcmpgtd_kr_xmm_m() {
 	// EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32
 	test_instr(32, |a| a.vpcmpgtd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59346,7 +59346,7 @@ fn vpcmpgtd_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtd_k_ymm_m() {
+fn vpcmpgtd_kr_ymm_m() {
 	// EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32
 	test_instr(32, |a| a.vpcmpgtd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59364,7 +59364,7 @@ fn vpcmpgtd_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtd_k_zmm_m() {
+fn vpcmpgtd_kr_zmm_m() {
 	// EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32
 	test_instr(32, |a| a.vpcmpgtd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59373,7 +59373,7 @@ fn vpcmpgtd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtq_k_xmm_xmm() {
+fn vpcmpgtq_kr_xmm_xmm() {
 	// EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64
 	test_instr(32, |a| a.vpcmpgtq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -59391,7 +59391,7 @@ fn vpcmpgtq_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtq_k_ymm_ymm() {
+fn vpcmpgtq_kr_ymm_ymm() {
 	// EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64
 	test_instr(32, |a| a.vpcmpgtq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -59409,7 +59409,7 @@ fn vpcmpgtq_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtq_k_zmm_zmm() {
+fn vpcmpgtq_kr_zmm_zmm() {
 	// EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64
 	test_instr(32, |a| a.vpcmpgtq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -59418,7 +59418,7 @@ fn vpcmpgtq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtq_k_xmm_m() {
+fn vpcmpgtq_kr_xmm_m() {
 	// EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64
 	test_instr(32, |a| a.vpcmpgtq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59436,7 +59436,7 @@ fn vpcmpgtq_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtq_k_ymm_m() {
+fn vpcmpgtq_kr_ymm_m() {
 	// EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64
 	test_instr(32, |a| a.vpcmpgtq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59454,7 +59454,7 @@ fn vpcmpgtq_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtq_k_zmm_m() {
+fn vpcmpgtq_kr_zmm_m() {
 	// EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64
 	test_instr(32, |a| a.vpcmpgtq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59463,7 +59463,7 @@ fn vpcmpgtq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtw_k_xmm_xmm() {
+fn vpcmpgtw_kr_xmm_xmm() {
 	// EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vpcmpgtw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -59481,7 +59481,7 @@ fn vpcmpgtw_xmm_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtw_k_ymm_ymm() {
+fn vpcmpgtw_kr_ymm_ymm() {
 	// EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vpcmpgtw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -59499,7 +59499,7 @@ fn vpcmpgtw_ymm_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtw_k_zmm_zmm() {
+fn vpcmpgtw_kr_zmm_zmm() {
 	// EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vpcmpgtw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -59508,7 +59508,7 @@ fn vpcmpgtw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtw_k_xmm_m() {
+fn vpcmpgtw_kr_xmm_m() {
 	// EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vpcmpgtw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59526,7 +59526,7 @@ fn vpcmpgtw_xmm_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtw_k_ymm_m() {
+fn vpcmpgtw_kr_ymm_m() {
 	// EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vpcmpgtw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59544,7 +59544,7 @@ fn vpcmpgtw_ymm_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpgtw_k_zmm_m() {
+fn vpcmpgtw_kr_zmm_m() {
 	// EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vpcmpgtw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -59625,7 +59625,7 @@ fn vpcmpistrm_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleb_k_xmm_xmm() {
+fn vpcmpleb_kr_xmm_xmm() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpleb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -59634,7 +59634,7 @@ fn vpcmpleb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleb_k_ymm_ymm() {
+fn vpcmpleb_kr_ymm_ymm() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpleb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -59643,7 +59643,7 @@ fn vpcmpleb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleb_k_zmm_zmm() {
+fn vpcmpleb_kr_zmm_zmm() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpleb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -59652,7 +59652,7 @@ fn vpcmpleb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleb_k_xmm_m() {
+fn vpcmpleb_kr_xmm_m() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpleb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59661,7 +59661,7 @@ fn vpcmpleb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleb_k_ymm_m() {
+fn vpcmpleb_kr_ymm_m() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpleb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59670,7 +59670,7 @@ fn vpcmpleb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleb_k_zmm_m() {
+fn vpcmpleb_kr_zmm_m() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpleb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59679,7 +59679,7 @@ fn vpcmpleb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpled_k_xmm_xmm() {
+fn vpcmpled_kr_xmm_xmm() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpled(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -59688,7 +59688,7 @@ fn vpcmpled_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpled_k_ymm_ymm() {
+fn vpcmpled_kr_ymm_ymm() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpled(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -59697,7 +59697,7 @@ fn vpcmpled_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpled_k_zmm_zmm() {
+fn vpcmpled_kr_zmm_zmm() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpled(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -59706,7 +59706,7 @@ fn vpcmpled_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpled_k_xmm_m() {
+fn vpcmpled_kr_xmm_m() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpled(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59715,7 +59715,7 @@ fn vpcmpled_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpled_k_ymm_m() {
+fn vpcmpled_kr_ymm_m() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpled(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59724,7 +59724,7 @@ fn vpcmpled_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpled_k_zmm_m() {
+fn vpcmpled_kr_zmm_m() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpled(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59733,7 +59733,7 @@ fn vpcmpled_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleq_k_xmm_xmm() {
+fn vpcmpleq_kr_xmm_xmm() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpleq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -59742,7 +59742,7 @@ fn vpcmpleq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleq_k_ymm_ymm() {
+fn vpcmpleq_kr_ymm_ymm() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpleq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -59751,7 +59751,7 @@ fn vpcmpleq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleq_k_zmm_zmm() {
+fn vpcmpleq_kr_zmm_zmm() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpleq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -59760,7 +59760,7 @@ fn vpcmpleq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleq_k_xmm_m() {
+fn vpcmpleq_kr_xmm_m() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpleq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59769,7 +59769,7 @@ fn vpcmpleq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleq_k_ymm_m() {
+fn vpcmpleq_kr_ymm_m() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpleq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59778,7 +59778,7 @@ fn vpcmpleq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleq_k_zmm_m() {
+fn vpcmpleq_kr_zmm_m() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpleq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59787,7 +59787,7 @@ fn vpcmpleq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleub_k_xmm_xmm() {
+fn vpcmpleub_kr_xmm_xmm() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpleub(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -59796,7 +59796,7 @@ fn vpcmpleub_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleub_k_ymm_ymm() {
+fn vpcmpleub_kr_ymm_ymm() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpleub(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -59805,7 +59805,7 @@ fn vpcmpleub_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleub_k_zmm_zmm() {
+fn vpcmpleub_kr_zmm_zmm() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpleub(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -59814,7 +59814,7 @@ fn vpcmpleub_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleub_k_xmm_m() {
+fn vpcmpleub_kr_xmm_m() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpleub(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59823,7 +59823,7 @@ fn vpcmpleub_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleub_k_ymm_m() {
+fn vpcmpleub_kr_ymm_m() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpleub(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59832,7 +59832,7 @@ fn vpcmpleub_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleub_k_zmm_m() {
+fn vpcmpleub_kr_zmm_m() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpleub(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59841,7 +59841,7 @@ fn vpcmpleub_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleud_k_xmm_xmm() {
+fn vpcmpleud_kr_xmm_xmm() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpleud(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -59850,7 +59850,7 @@ fn vpcmpleud_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleud_k_ymm_ymm() {
+fn vpcmpleud_kr_ymm_ymm() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpleud(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -59859,7 +59859,7 @@ fn vpcmpleud_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleud_k_zmm_zmm() {
+fn vpcmpleud_kr_zmm_zmm() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpleud(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -59868,7 +59868,7 @@ fn vpcmpleud_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleud_k_xmm_m() {
+fn vpcmpleud_kr_xmm_m() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpleud(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59877,7 +59877,7 @@ fn vpcmpleud_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleud_k_ymm_m() {
+fn vpcmpleud_kr_ymm_m() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpleud(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59886,7 +59886,7 @@ fn vpcmpleud_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleud_k_zmm_m() {
+fn vpcmpleud_kr_zmm_m() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpleud(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59895,7 +59895,7 @@ fn vpcmpleud_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuq_k_xmm_xmm() {
+fn vpcmpleuq_kr_xmm_xmm() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpleuq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -59904,7 +59904,7 @@ fn vpcmpleuq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuq_k_ymm_ymm() {
+fn vpcmpleuq_kr_ymm_ymm() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpleuq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -59913,7 +59913,7 @@ fn vpcmpleuq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuq_k_zmm_zmm() {
+fn vpcmpleuq_kr_zmm_zmm() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpleuq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -59922,7 +59922,7 @@ fn vpcmpleuq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuq_k_xmm_m() {
+fn vpcmpleuq_kr_xmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpleuq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59931,7 +59931,7 @@ fn vpcmpleuq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuq_k_ymm_m() {
+fn vpcmpleuq_kr_ymm_m() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpleuq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59940,7 +59940,7 @@ fn vpcmpleuq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuq_k_zmm_m() {
+fn vpcmpleuq_kr_zmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpleuq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59949,7 +59949,7 @@ fn vpcmpleuq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuw_k_xmm_xmm() {
+fn vpcmpleuw_kr_xmm_xmm() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpleuw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -59958,7 +59958,7 @@ fn vpcmpleuw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuw_k_ymm_ymm() {
+fn vpcmpleuw_kr_ymm_ymm() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpleuw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -59967,7 +59967,7 @@ fn vpcmpleuw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuw_k_zmm_zmm() {
+fn vpcmpleuw_kr_zmm_zmm() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpleuw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -59976,7 +59976,7 @@ fn vpcmpleuw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuw_k_xmm_m() {
+fn vpcmpleuw_kr_xmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpleuw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59985,7 +59985,7 @@ fn vpcmpleuw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuw_k_ymm_m() {
+fn vpcmpleuw_kr_ymm_m() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpleuw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -59994,7 +59994,7 @@ fn vpcmpleuw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpleuw_k_zmm_m() {
+fn vpcmpleuw_kr_zmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpleuw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -60003,7 +60003,7 @@ fn vpcmpleuw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmplew_k_xmm_xmm() {
+fn vpcmplew_kr_xmm_xmm() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmplew(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 2i32).unwrap(), Register::K1),
@@ -60012,7 +60012,7 @@ fn vpcmplew_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmplew_k_ymm_ymm() {
+fn vpcmplew_kr_ymm_ymm() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmplew(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 2i32).unwrap(), Register::K1),
@@ -60021,7 +60021,7 @@ fn vpcmplew_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmplew_k_zmm_zmm() {
+fn vpcmplew_kr_zmm_zmm() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmplew(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 2i32).unwrap(), Register::K1),
@@ -60030,7 +60030,7 @@ fn vpcmplew_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmplew_k_xmm_m() {
+fn vpcmplew_kr_xmm_m() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmplew(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -60039,7 +60039,7 @@ fn vpcmplew_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmplew_k_ymm_m() {
+fn vpcmplew_kr_ymm_m() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmplew(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -60048,7 +60048,7 @@ fn vpcmplew_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmplew_k_zmm_m() {
+fn vpcmplew_kr_zmm_m() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmplew(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(), Register::K1),
@@ -60057,7 +60057,7 @@ fn vpcmplew_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltb_k_xmm_xmm() {
+fn vpcmpltb_kr_xmm_xmm() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpltb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -60066,7 +60066,7 @@ fn vpcmpltb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltb_k_ymm_ymm() {
+fn vpcmpltb_kr_ymm_ymm() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpltb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -60075,7 +60075,7 @@ fn vpcmpltb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltb_k_zmm_zmm() {
+fn vpcmpltb_kr_zmm_zmm() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpltb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -60084,7 +60084,7 @@ fn vpcmpltb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltb_k_xmm_m() {
+fn vpcmpltb_kr_xmm_m() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpltb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60093,7 +60093,7 @@ fn vpcmpltb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltb_k_ymm_m() {
+fn vpcmpltb_kr_ymm_m() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpltb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60102,7 +60102,7 @@ fn vpcmpltb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltb_k_zmm_m() {
+fn vpcmpltb_kr_zmm_m() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpltb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60111,7 +60111,7 @@ fn vpcmpltb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltd_k_xmm_xmm() {
+fn vpcmpltd_kr_xmm_xmm() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpltd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -60120,7 +60120,7 @@ fn vpcmpltd_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltd_k_ymm_ymm() {
+fn vpcmpltd_kr_ymm_ymm() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpltd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -60129,7 +60129,7 @@ fn vpcmpltd_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltd_k_zmm_zmm() {
+fn vpcmpltd_kr_zmm_zmm() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpltd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -60138,7 +60138,7 @@ fn vpcmpltd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltd_k_xmm_m() {
+fn vpcmpltd_kr_xmm_m() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpltd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60147,7 +60147,7 @@ fn vpcmpltd_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltd_k_ymm_m() {
+fn vpcmpltd_kr_ymm_m() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpltd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60156,7 +60156,7 @@ fn vpcmpltd_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltd_k_zmm_m() {
+fn vpcmpltd_kr_zmm_m() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpltd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60165,7 +60165,7 @@ fn vpcmpltd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltq_k_xmm_xmm() {
+fn vpcmpltq_kr_xmm_xmm() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpltq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -60174,7 +60174,7 @@ fn vpcmpltq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltq_k_ymm_ymm() {
+fn vpcmpltq_kr_ymm_ymm() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpltq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -60183,7 +60183,7 @@ fn vpcmpltq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltq_k_zmm_zmm() {
+fn vpcmpltq_kr_zmm_zmm() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpltq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -60192,7 +60192,7 @@ fn vpcmpltq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltq_k_xmm_m() {
+fn vpcmpltq_kr_xmm_m() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpltq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60201,7 +60201,7 @@ fn vpcmpltq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltq_k_ymm_m() {
+fn vpcmpltq_kr_ymm_m() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpltq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60210,7 +60210,7 @@ fn vpcmpltq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltq_k_zmm_m() {
+fn vpcmpltq_kr_zmm_m() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpltq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60219,7 +60219,7 @@ fn vpcmpltq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltub_k_xmm_xmm() {
+fn vpcmpltub_kr_xmm_xmm() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpltub(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -60228,7 +60228,7 @@ fn vpcmpltub_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltub_k_ymm_ymm() {
+fn vpcmpltub_kr_ymm_ymm() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpltub(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -60237,7 +60237,7 @@ fn vpcmpltub_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltub_k_zmm_zmm() {
+fn vpcmpltub_kr_zmm_zmm() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpltub(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -60246,7 +60246,7 @@ fn vpcmpltub_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltub_k_xmm_m() {
+fn vpcmpltub_kr_xmm_m() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpltub(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60255,7 +60255,7 @@ fn vpcmpltub_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltub_k_ymm_m() {
+fn vpcmpltub_kr_ymm_m() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpltub(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60264,7 +60264,7 @@ fn vpcmpltub_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltub_k_zmm_m() {
+fn vpcmpltub_kr_zmm_m() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpltub(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60273,7 +60273,7 @@ fn vpcmpltub_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltud_k_xmm_xmm() {
+fn vpcmpltud_kr_xmm_xmm() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpltud(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -60282,7 +60282,7 @@ fn vpcmpltud_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltud_k_ymm_ymm() {
+fn vpcmpltud_kr_ymm_ymm() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpltud(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -60291,7 +60291,7 @@ fn vpcmpltud_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltud_k_zmm_zmm() {
+fn vpcmpltud_kr_zmm_zmm() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpltud(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -60300,7 +60300,7 @@ fn vpcmpltud_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltud_k_xmm_m() {
+fn vpcmpltud_kr_xmm_m() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpltud(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60309,7 +60309,7 @@ fn vpcmpltud_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltud_k_ymm_m() {
+fn vpcmpltud_kr_ymm_m() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpltud(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60318,7 +60318,7 @@ fn vpcmpltud_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltud_k_zmm_m() {
+fn vpcmpltud_kr_zmm_m() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpltud(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60327,7 +60327,7 @@ fn vpcmpltud_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuq_k_xmm_xmm() {
+fn vpcmpltuq_kr_xmm_xmm() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpltuq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -60336,7 +60336,7 @@ fn vpcmpltuq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuq_k_ymm_ymm() {
+fn vpcmpltuq_kr_ymm_ymm() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpltuq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -60345,7 +60345,7 @@ fn vpcmpltuq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuq_k_zmm_zmm() {
+fn vpcmpltuq_kr_zmm_zmm() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpltuq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -60354,7 +60354,7 @@ fn vpcmpltuq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuq_k_xmm_m() {
+fn vpcmpltuq_kr_xmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpltuq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60363,7 +60363,7 @@ fn vpcmpltuq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuq_k_ymm_m() {
+fn vpcmpltuq_kr_ymm_m() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpltuq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60372,7 +60372,7 @@ fn vpcmpltuq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuq_k_zmm_m() {
+fn vpcmpltuq_kr_zmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpltuq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60381,7 +60381,7 @@ fn vpcmpltuq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuw_k_xmm_xmm() {
+fn vpcmpltuw_kr_xmm_xmm() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpltuw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -60390,7 +60390,7 @@ fn vpcmpltuw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuw_k_ymm_ymm() {
+fn vpcmpltuw_kr_ymm_ymm() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpltuw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -60399,7 +60399,7 @@ fn vpcmpltuw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuw_k_zmm_zmm() {
+fn vpcmpltuw_kr_zmm_zmm() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpltuw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -60408,7 +60408,7 @@ fn vpcmpltuw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuw_k_xmm_m() {
+fn vpcmpltuw_kr_xmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpltuw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60417,7 +60417,7 @@ fn vpcmpltuw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuw_k_ymm_m() {
+fn vpcmpltuw_kr_ymm_m() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpltuw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60426,7 +60426,7 @@ fn vpcmpltuw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltuw_k_zmm_m() {
+fn vpcmpltuw_kr_zmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpltuw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60435,7 +60435,7 @@ fn vpcmpltuw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltw_k_xmm_xmm() {
+fn vpcmpltw_kr_xmm_xmm() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpltw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 1i32).unwrap(), Register::K1),
@@ -60444,7 +60444,7 @@ fn vpcmpltw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltw_k_ymm_ymm() {
+fn vpcmpltw_kr_ymm_ymm() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpltw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 1i32).unwrap(), Register::K1),
@@ -60453,7 +60453,7 @@ fn vpcmpltw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltw_k_zmm_zmm() {
+fn vpcmpltw_kr_zmm_zmm() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpltw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 1i32).unwrap(), Register::K1),
@@ -60462,7 +60462,7 @@ fn vpcmpltw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltw_k_xmm_m() {
+fn vpcmpltw_kr_xmm_m() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpltw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60471,7 +60471,7 @@ fn vpcmpltw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltw_k_ymm_m() {
+fn vpcmpltw_kr_ymm_m() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpltw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60480,7 +60480,7 @@ fn vpcmpltw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpltw_k_zmm_m() {
+fn vpcmpltw_kr_zmm_m() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpltw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(), Register::K1),
@@ -60489,7 +60489,7 @@ fn vpcmpltw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqb_k_xmm_xmm() {
+fn vpcmpneqb_kr_xmm_xmm() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpneqb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -60498,7 +60498,7 @@ fn vpcmpneqb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqb_k_ymm_ymm() {
+fn vpcmpneqb_kr_ymm_ymm() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpneqb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -60507,7 +60507,7 @@ fn vpcmpneqb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqb_k_zmm_zmm() {
+fn vpcmpneqb_kr_zmm_zmm() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpneqb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -60516,7 +60516,7 @@ fn vpcmpneqb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqb_k_xmm_m() {
+fn vpcmpneqb_kr_xmm_m() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpneqb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60525,7 +60525,7 @@ fn vpcmpneqb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqb_k_ymm_m() {
+fn vpcmpneqb_kr_ymm_m() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpneqb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60534,7 +60534,7 @@ fn vpcmpneqb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqb_k_zmm_m() {
+fn vpcmpneqb_kr_zmm_m() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpneqb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60543,7 +60543,7 @@ fn vpcmpneqb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqd_k_xmm_xmm() {
+fn vpcmpneqd_kr_xmm_xmm() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpneqd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -60552,7 +60552,7 @@ fn vpcmpneqd_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqd_k_ymm_ymm() {
+fn vpcmpneqd_kr_ymm_ymm() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpneqd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -60561,7 +60561,7 @@ fn vpcmpneqd_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqd_k_zmm_zmm() {
+fn vpcmpneqd_kr_zmm_zmm() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpneqd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -60570,7 +60570,7 @@ fn vpcmpneqd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqd_k_xmm_m() {
+fn vpcmpneqd_kr_xmm_m() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpneqd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60579,7 +60579,7 @@ fn vpcmpneqd_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqd_k_ymm_m() {
+fn vpcmpneqd_kr_ymm_m() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpneqd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60588,7 +60588,7 @@ fn vpcmpneqd_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqd_k_zmm_m() {
+fn vpcmpneqd_kr_zmm_m() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpneqd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60597,7 +60597,7 @@ fn vpcmpneqd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqq_k_xmm_xmm() {
+fn vpcmpneqq_kr_xmm_xmm() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpneqq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -60606,7 +60606,7 @@ fn vpcmpneqq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqq_k_ymm_ymm() {
+fn vpcmpneqq_kr_ymm_ymm() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpneqq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -60615,7 +60615,7 @@ fn vpcmpneqq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqq_k_zmm_zmm() {
+fn vpcmpneqq_kr_zmm_zmm() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpneqq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -60624,7 +60624,7 @@ fn vpcmpneqq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqq_k_xmm_m() {
+fn vpcmpneqq_kr_xmm_m() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpneqq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60633,7 +60633,7 @@ fn vpcmpneqq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqq_k_ymm_m() {
+fn vpcmpneqq_kr_ymm_m() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpneqq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60642,7 +60642,7 @@ fn vpcmpneqq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqq_k_zmm_m() {
+fn vpcmpneqq_kr_zmm_m() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpneqq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60651,7 +60651,7 @@ fn vpcmpneqq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequb_k_xmm_xmm() {
+fn vpcmpnequb_kr_xmm_xmm() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnequb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -60660,7 +60660,7 @@ fn vpcmpnequb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequb_k_ymm_ymm() {
+fn vpcmpnequb_kr_ymm_ymm() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnequb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -60669,7 +60669,7 @@ fn vpcmpnequb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequb_k_zmm_zmm() {
+fn vpcmpnequb_kr_zmm_zmm() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnequb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -60678,7 +60678,7 @@ fn vpcmpnequb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequb_k_xmm_m() {
+fn vpcmpnequb_kr_xmm_m() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnequb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60687,7 +60687,7 @@ fn vpcmpnequb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequb_k_ymm_m() {
+fn vpcmpnequb_kr_ymm_m() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnequb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60696,7 +60696,7 @@ fn vpcmpnequb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequb_k_zmm_m() {
+fn vpcmpnequb_kr_zmm_m() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnequb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60705,7 +60705,7 @@ fn vpcmpnequb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequd_k_xmm_xmm() {
+fn vpcmpnequd_kr_xmm_xmm() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpnequd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -60714,7 +60714,7 @@ fn vpcmpnequd_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequd_k_ymm_ymm() {
+fn vpcmpnequd_kr_ymm_ymm() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpnequd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -60723,7 +60723,7 @@ fn vpcmpnequd_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequd_k_zmm_zmm() {
+fn vpcmpnequd_kr_zmm_zmm() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpnequd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -60732,7 +60732,7 @@ fn vpcmpnequd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequd_k_xmm_m() {
+fn vpcmpnequd_kr_xmm_m() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpnequd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60741,7 +60741,7 @@ fn vpcmpnequd_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequd_k_ymm_m() {
+fn vpcmpnequd_kr_ymm_m() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpnequd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60750,7 +60750,7 @@ fn vpcmpnequd_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequd_k_zmm_m() {
+fn vpcmpnequd_kr_zmm_m() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpnequd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60759,7 +60759,7 @@ fn vpcmpnequd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequq_k_xmm_xmm() {
+fn vpcmpnequq_kr_xmm_xmm() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpnequq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -60768,7 +60768,7 @@ fn vpcmpnequq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequq_k_ymm_ymm() {
+fn vpcmpnequq_kr_ymm_ymm() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpnequq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -60777,7 +60777,7 @@ fn vpcmpnequq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequq_k_zmm_zmm() {
+fn vpcmpnequq_kr_zmm_zmm() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpnequq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -60786,7 +60786,7 @@ fn vpcmpnequq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequq_k_xmm_m() {
+fn vpcmpnequq_kr_xmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpnequq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60795,7 +60795,7 @@ fn vpcmpnequq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequq_k_ymm_m() {
+fn vpcmpnequq_kr_ymm_m() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpnequq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60804,7 +60804,7 @@ fn vpcmpnequq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequq_k_zmm_m() {
+fn vpcmpnequq_kr_zmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpnequq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60813,7 +60813,7 @@ fn vpcmpnequq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequw_k_xmm_xmm() {
+fn vpcmpnequw_kr_xmm_xmm() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnequw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -60822,7 +60822,7 @@ fn vpcmpnequw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequw_k_ymm_ymm() {
+fn vpcmpnequw_kr_ymm_ymm() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnequw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -60831,7 +60831,7 @@ fn vpcmpnequw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequw_k_zmm_zmm() {
+fn vpcmpnequw_kr_zmm_zmm() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnequw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -60840,7 +60840,7 @@ fn vpcmpnequw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequw_k_xmm_m() {
+fn vpcmpnequw_kr_xmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnequw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60849,7 +60849,7 @@ fn vpcmpnequw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequw_k_ymm_m() {
+fn vpcmpnequw_kr_ymm_m() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnequw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60858,7 +60858,7 @@ fn vpcmpnequw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnequw_k_zmm_m() {
+fn vpcmpnequw_kr_zmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnequw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60867,7 +60867,7 @@ fn vpcmpnequw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqw_k_xmm_xmm() {
+fn vpcmpneqw_kr_xmm_xmm() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpneqw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 4i32).unwrap(), Register::K1),
@@ -60876,7 +60876,7 @@ fn vpcmpneqw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqw_k_ymm_ymm() {
+fn vpcmpneqw_kr_ymm_ymm() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpneqw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 4i32).unwrap(), Register::K1),
@@ -60885,7 +60885,7 @@ fn vpcmpneqw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqw_k_zmm_zmm() {
+fn vpcmpneqw_kr_zmm_zmm() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpneqw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 4i32).unwrap(), Register::K1),
@@ -60894,7 +60894,7 @@ fn vpcmpneqw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqw_k_xmm_m() {
+fn vpcmpneqw_kr_xmm_m() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpneqw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60903,7 +60903,7 @@ fn vpcmpneqw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqw_k_ymm_m() {
+fn vpcmpneqw_kr_ymm_m() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpneqw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60912,7 +60912,7 @@ fn vpcmpneqw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpneqw_k_zmm_m() {
+fn vpcmpneqw_kr_zmm_m() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpneqw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 4i32).unwrap(), Register::K1),
@@ -60921,7 +60921,7 @@ fn vpcmpneqw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleb_k_xmm_xmm() {
+fn vpcmpnleb_kr_xmm_xmm() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnleb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -60930,7 +60930,7 @@ fn vpcmpnleb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleb_k_ymm_ymm() {
+fn vpcmpnleb_kr_ymm_ymm() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnleb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -60939,7 +60939,7 @@ fn vpcmpnleb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleb_k_zmm_zmm() {
+fn vpcmpnleb_kr_zmm_zmm() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnleb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -60948,7 +60948,7 @@ fn vpcmpnleb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleb_k_xmm_m() {
+fn vpcmpnleb_kr_xmm_m() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnleb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -60957,7 +60957,7 @@ fn vpcmpnleb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleb_k_ymm_m() {
+fn vpcmpnleb_kr_ymm_m() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnleb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -60966,7 +60966,7 @@ fn vpcmpnleb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleb_k_zmm_m() {
+fn vpcmpnleb_kr_zmm_m() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnleb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -60975,7 +60975,7 @@ fn vpcmpnleb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnled_k_xmm_xmm() {
+fn vpcmpnled_kr_xmm_xmm() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpnled(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -60984,7 +60984,7 @@ fn vpcmpnled_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnled_k_ymm_ymm() {
+fn vpcmpnled_kr_ymm_ymm() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpnled(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -60993,7 +60993,7 @@ fn vpcmpnled_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnled_k_zmm_zmm() {
+fn vpcmpnled_kr_zmm_zmm() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpnled(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -61002,7 +61002,7 @@ fn vpcmpnled_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnled_k_xmm_m() {
+fn vpcmpnled_kr_xmm_m() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpnled(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61011,7 +61011,7 @@ fn vpcmpnled_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnled_k_ymm_m() {
+fn vpcmpnled_kr_ymm_m() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpnled(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61020,7 +61020,7 @@ fn vpcmpnled_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnled_k_zmm_m() {
+fn vpcmpnled_kr_zmm_m() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpnled(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61029,7 +61029,7 @@ fn vpcmpnled_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleq_k_xmm_xmm() {
+fn vpcmpnleq_kr_xmm_xmm() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpnleq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -61038,7 +61038,7 @@ fn vpcmpnleq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleq_k_ymm_ymm() {
+fn vpcmpnleq_kr_ymm_ymm() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpnleq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -61047,7 +61047,7 @@ fn vpcmpnleq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleq_k_zmm_zmm() {
+fn vpcmpnleq_kr_zmm_zmm() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpnleq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -61056,7 +61056,7 @@ fn vpcmpnleq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleq_k_xmm_m() {
+fn vpcmpnleq_kr_xmm_m() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpnleq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61065,7 +61065,7 @@ fn vpcmpnleq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleq_k_ymm_m() {
+fn vpcmpnleq_kr_ymm_m() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpnleq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61074,7 +61074,7 @@ fn vpcmpnleq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleq_k_zmm_m() {
+fn vpcmpnleq_kr_zmm_m() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpnleq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61083,7 +61083,7 @@ fn vpcmpnleq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleub_k_xmm_xmm() {
+fn vpcmpnleub_kr_xmm_xmm() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnleub(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -61092,7 +61092,7 @@ fn vpcmpnleub_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleub_k_ymm_ymm() {
+fn vpcmpnleub_kr_ymm_ymm() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnleub(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -61101,7 +61101,7 @@ fn vpcmpnleub_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleub_k_zmm_zmm() {
+fn vpcmpnleub_kr_zmm_zmm() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnleub(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -61110,7 +61110,7 @@ fn vpcmpnleub_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleub_k_xmm_m() {
+fn vpcmpnleub_kr_xmm_m() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnleub(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61119,7 +61119,7 @@ fn vpcmpnleub_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleub_k_ymm_m() {
+fn vpcmpnleub_kr_ymm_m() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnleub(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61128,7 +61128,7 @@ fn vpcmpnleub_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleub_k_zmm_m() {
+fn vpcmpnleub_kr_zmm_m() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnleub(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61137,7 +61137,7 @@ fn vpcmpnleub_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleud_k_xmm_xmm() {
+fn vpcmpnleud_kr_xmm_xmm() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpnleud(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -61146,7 +61146,7 @@ fn vpcmpnleud_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleud_k_ymm_ymm() {
+fn vpcmpnleud_kr_ymm_ymm() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpnleud(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -61155,7 +61155,7 @@ fn vpcmpnleud_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleud_k_zmm_zmm() {
+fn vpcmpnleud_kr_zmm_zmm() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpnleud(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -61164,7 +61164,7 @@ fn vpcmpnleud_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleud_k_xmm_m() {
+fn vpcmpnleud_kr_xmm_m() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpnleud(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61173,7 +61173,7 @@ fn vpcmpnleud_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleud_k_ymm_m() {
+fn vpcmpnleud_kr_ymm_m() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpnleud(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61182,7 +61182,7 @@ fn vpcmpnleud_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleud_k_zmm_m() {
+fn vpcmpnleud_kr_zmm_m() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpnleud(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61191,7 +61191,7 @@ fn vpcmpnleud_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuq_k_xmm_xmm() {
+fn vpcmpnleuq_kr_xmm_xmm() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpnleuq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -61200,7 +61200,7 @@ fn vpcmpnleuq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuq_k_ymm_ymm() {
+fn vpcmpnleuq_kr_ymm_ymm() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpnleuq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -61209,7 +61209,7 @@ fn vpcmpnleuq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuq_k_zmm_zmm() {
+fn vpcmpnleuq_kr_zmm_zmm() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpnleuq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -61218,7 +61218,7 @@ fn vpcmpnleuq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuq_k_xmm_m() {
+fn vpcmpnleuq_kr_xmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpnleuq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61227,7 +61227,7 @@ fn vpcmpnleuq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuq_k_ymm_m() {
+fn vpcmpnleuq_kr_ymm_m() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpnleuq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61236,7 +61236,7 @@ fn vpcmpnleuq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuq_k_zmm_m() {
+fn vpcmpnleuq_kr_zmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpnleuq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61245,7 +61245,7 @@ fn vpcmpnleuq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuw_k_xmm_xmm() {
+fn vpcmpnleuw_kr_xmm_xmm() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnleuw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -61254,7 +61254,7 @@ fn vpcmpnleuw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuw_k_ymm_ymm() {
+fn vpcmpnleuw_kr_ymm_ymm() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnleuw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -61263,7 +61263,7 @@ fn vpcmpnleuw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuw_k_zmm_zmm() {
+fn vpcmpnleuw_kr_zmm_zmm() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnleuw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -61272,7 +61272,7 @@ fn vpcmpnleuw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuw_k_xmm_m() {
+fn vpcmpnleuw_kr_xmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnleuw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61281,7 +61281,7 @@ fn vpcmpnleuw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuw_k_ymm_m() {
+fn vpcmpnleuw_kr_ymm_m() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnleuw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61290,7 +61290,7 @@ fn vpcmpnleuw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnleuw_k_zmm_m() {
+fn vpcmpnleuw_kr_zmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnleuw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61299,7 +61299,7 @@ fn vpcmpnleuw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnlew_k_xmm_xmm() {
+fn vpcmpnlew_kr_xmm_xmm() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnlew(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 6i32).unwrap(), Register::K1),
@@ -61308,7 +61308,7 @@ fn vpcmpnlew_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnlew_k_ymm_ymm() {
+fn vpcmpnlew_kr_ymm_ymm() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnlew(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 6i32).unwrap(), Register::K1),
@@ -61317,7 +61317,7 @@ fn vpcmpnlew_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnlew_k_zmm_zmm() {
+fn vpcmpnlew_kr_zmm_zmm() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnlew(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 6i32).unwrap(), Register::K1),
@@ -61326,7 +61326,7 @@ fn vpcmpnlew_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnlew_k_xmm_m() {
+fn vpcmpnlew_kr_xmm_m() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnlew(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61335,7 +61335,7 @@ fn vpcmpnlew_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnlew_k_ymm_m() {
+fn vpcmpnlew_kr_ymm_m() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnlew(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61344,7 +61344,7 @@ fn vpcmpnlew_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnlew_k_zmm_m() {
+fn vpcmpnlew_kr_zmm_m() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnlew(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 6i32).unwrap(), Register::K1),
@@ -61353,7 +61353,7 @@ fn vpcmpnlew_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltb_k_xmm_xmm() {
+fn vpcmpnltb_kr_xmm_xmm() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnltb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -61362,7 +61362,7 @@ fn vpcmpnltb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltb_k_ymm_ymm() {
+fn vpcmpnltb_kr_ymm_ymm() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnltb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -61371,7 +61371,7 @@ fn vpcmpnltb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltb_k_zmm_zmm() {
+fn vpcmpnltb_kr_zmm_zmm() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnltb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -61380,7 +61380,7 @@ fn vpcmpnltb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltb_k_xmm_m() {
+fn vpcmpnltb_kr_xmm_m() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnltb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61389,7 +61389,7 @@ fn vpcmpnltb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltb_k_ymm_m() {
+fn vpcmpnltb_kr_ymm_m() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnltb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61398,7 +61398,7 @@ fn vpcmpnltb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltb_k_zmm_m() {
+fn vpcmpnltb_kr_zmm_m() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnltb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61407,7 +61407,7 @@ fn vpcmpnltb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltd_k_xmm_xmm() {
+fn vpcmpnltd_kr_xmm_xmm() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpnltd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -61416,7 +61416,7 @@ fn vpcmpnltd_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltd_k_ymm_ymm() {
+fn vpcmpnltd_kr_ymm_ymm() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpnltd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -61425,7 +61425,7 @@ fn vpcmpnltd_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltd_k_zmm_zmm() {
+fn vpcmpnltd_kr_zmm_zmm() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpnltd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -61434,7 +61434,7 @@ fn vpcmpnltd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltd_k_xmm_m() {
+fn vpcmpnltd_kr_xmm_m() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpnltd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61443,7 +61443,7 @@ fn vpcmpnltd_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltd_k_ymm_m() {
+fn vpcmpnltd_kr_ymm_m() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpnltd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61452,7 +61452,7 @@ fn vpcmpnltd_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltd_k_zmm_m() {
+fn vpcmpnltd_kr_zmm_m() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpnltd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61461,7 +61461,7 @@ fn vpcmpnltd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltq_k_xmm_xmm() {
+fn vpcmpnltq_kr_xmm_xmm() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpnltq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -61470,7 +61470,7 @@ fn vpcmpnltq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltq_k_ymm_ymm() {
+fn vpcmpnltq_kr_ymm_ymm() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpnltq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -61479,7 +61479,7 @@ fn vpcmpnltq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltq_k_zmm_zmm() {
+fn vpcmpnltq_kr_zmm_zmm() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpnltq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -61488,7 +61488,7 @@ fn vpcmpnltq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltq_k_xmm_m() {
+fn vpcmpnltq_kr_xmm_m() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpnltq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61497,7 +61497,7 @@ fn vpcmpnltq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltq_k_ymm_m() {
+fn vpcmpnltq_kr_ymm_m() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpnltq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61506,7 +61506,7 @@ fn vpcmpnltq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltq_k_zmm_m() {
+fn vpcmpnltq_kr_zmm_m() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpnltq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61515,7 +61515,7 @@ fn vpcmpnltq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltub_k_xmm_xmm() {
+fn vpcmpnltub_kr_xmm_xmm() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnltub(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -61524,7 +61524,7 @@ fn vpcmpnltub_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltub_k_ymm_ymm() {
+fn vpcmpnltub_kr_ymm_ymm() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnltub(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -61533,7 +61533,7 @@ fn vpcmpnltub_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltub_k_zmm_zmm() {
+fn vpcmpnltub_kr_zmm_zmm() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnltub(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -61542,7 +61542,7 @@ fn vpcmpnltub_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltub_k_xmm_m() {
+fn vpcmpnltub_kr_xmm_m() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnltub(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61551,7 +61551,7 @@ fn vpcmpnltub_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltub_k_ymm_m() {
+fn vpcmpnltub_kr_ymm_m() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnltub(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61560,7 +61560,7 @@ fn vpcmpnltub_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltub_k_zmm_m() {
+fn vpcmpnltub_kr_zmm_m() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnltub(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61569,7 +61569,7 @@ fn vpcmpnltub_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltud_k_xmm_xmm() {
+fn vpcmpnltud_kr_xmm_xmm() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpnltud(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -61578,7 +61578,7 @@ fn vpcmpnltud_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltud_k_ymm_ymm() {
+fn vpcmpnltud_kr_ymm_ymm() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpnltud(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -61587,7 +61587,7 @@ fn vpcmpnltud_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltud_k_zmm_zmm() {
+fn vpcmpnltud_kr_zmm_zmm() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpnltud(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -61596,7 +61596,7 @@ fn vpcmpnltud_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltud_k_xmm_m() {
+fn vpcmpnltud_kr_xmm_m() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpnltud(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61605,7 +61605,7 @@ fn vpcmpnltud_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltud_k_ymm_m() {
+fn vpcmpnltud_kr_ymm_m() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpnltud(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61614,7 +61614,7 @@ fn vpcmpnltud_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltud_k_zmm_m() {
+fn vpcmpnltud_kr_zmm_m() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpnltud(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61623,7 +61623,7 @@ fn vpcmpnltud_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuq_k_xmm_xmm() {
+fn vpcmpnltuq_kr_xmm_xmm() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpnltuq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -61632,7 +61632,7 @@ fn vpcmpnltuq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuq_k_ymm_ymm() {
+fn vpcmpnltuq_kr_ymm_ymm() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpnltuq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -61641,7 +61641,7 @@ fn vpcmpnltuq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuq_k_zmm_zmm() {
+fn vpcmpnltuq_kr_zmm_zmm() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpnltuq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -61650,7 +61650,7 @@ fn vpcmpnltuq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuq_k_xmm_m() {
+fn vpcmpnltuq_kr_xmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpnltuq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61659,7 +61659,7 @@ fn vpcmpnltuq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuq_k_ymm_m() {
+fn vpcmpnltuq_kr_ymm_m() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpnltuq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61668,7 +61668,7 @@ fn vpcmpnltuq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuq_k_zmm_m() {
+fn vpcmpnltuq_kr_zmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpnltuq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61677,7 +61677,7 @@ fn vpcmpnltuq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuw_k_xmm_xmm() {
+fn vpcmpnltuw_kr_xmm_xmm() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnltuw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -61686,7 +61686,7 @@ fn vpcmpnltuw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuw_k_ymm_ymm() {
+fn vpcmpnltuw_kr_ymm_ymm() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnltuw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -61695,7 +61695,7 @@ fn vpcmpnltuw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuw_k_zmm_zmm() {
+fn vpcmpnltuw_kr_zmm_zmm() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnltuw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -61704,7 +61704,7 @@ fn vpcmpnltuw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuw_k_xmm_m() {
+fn vpcmpnltuw_kr_xmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnltuw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61713,7 +61713,7 @@ fn vpcmpnltuw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuw_k_ymm_m() {
+fn vpcmpnltuw_kr_ymm_m() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnltuw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61722,7 +61722,7 @@ fn vpcmpnltuw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltuw_k_zmm_m() {
+fn vpcmpnltuw_kr_zmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnltuw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61731,7 +61731,7 @@ fn vpcmpnltuw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltw_k_xmm_xmm() {
+fn vpcmpnltw_kr_xmm_xmm() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnltw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 5i32).unwrap(), Register::K1),
@@ -61740,7 +61740,7 @@ fn vpcmpnltw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltw_k_ymm_ymm() {
+fn vpcmpnltw_kr_ymm_ymm() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnltw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 5i32).unwrap(), Register::K1),
@@ -61749,7 +61749,7 @@ fn vpcmpnltw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltw_k_zmm_zmm() {
+fn vpcmpnltw_kr_zmm_zmm() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnltw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 5i32).unwrap(), Register::K1),
@@ -61758,7 +61758,7 @@ fn vpcmpnltw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltw_k_xmm_m() {
+fn vpcmpnltw_kr_xmm_m() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpnltw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61767,7 +61767,7 @@ fn vpcmpnltw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltw_k_ymm_m() {
+fn vpcmpnltw_kr_ymm_m() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpnltw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61776,7 +61776,7 @@ fn vpcmpnltw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpnltw_k_zmm_m() {
+fn vpcmpnltw_kr_zmm_m() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpnltw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 5i32).unwrap(), Register::K1),
@@ -61785,7 +61785,7 @@ fn vpcmpnltw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_xmm_xmm_i() {
+fn vpcmpq_kr_xmm_xmm_i() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -61794,7 +61794,7 @@ fn vpcmpq_k_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_ymm_ymm_i() {
+fn vpcmpq_kr_ymm_ymm_i() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -61803,7 +61803,7 @@ fn vpcmpq_k_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_zmm_zmm_i() {
+fn vpcmpq_kr_zmm_zmm_i() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -61812,7 +61812,7 @@ fn vpcmpq_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_xmm_m_i() {
+fn vpcmpq_kr_xmm_m_i() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -61821,7 +61821,7 @@ fn vpcmpq_k_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_ymm_m_i() {
+fn vpcmpq_kr_ymm_m_i() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -61830,7 +61830,7 @@ fn vpcmpq_k_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_zmm_m_i() {
+fn vpcmpq_kr_zmm_m_i() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -61839,7 +61839,7 @@ fn vpcmpq_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_xmm_xmm_u() {
+fn vpcmpq_kr_xmm_xmm_u() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -61848,7 +61848,7 @@ fn vpcmpq_k_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_ymm_ymm_u() {
+fn vpcmpq_kr_ymm_ymm_u() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -61857,7 +61857,7 @@ fn vpcmpq_k_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_zmm_zmm_u() {
+fn vpcmpq_kr_zmm_zmm_u() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -61866,7 +61866,7 @@ fn vpcmpq_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_xmm_m_u() {
+fn vpcmpq_kr_xmm_m_u() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -61875,7 +61875,7 @@ fn vpcmpq_k_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_ymm_m_u() {
+fn vpcmpq_kr_ymm_m_u() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -61884,7 +61884,7 @@ fn vpcmpq_k_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpq_k_zmm_m_u() {
+fn vpcmpq_kr_zmm_m_u() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpq(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -61893,7 +61893,7 @@ fn vpcmpq_k_zmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueb_k_xmm_xmm() {
+fn vpcmptrueb_kr_xmm_xmm() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmptrueb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -61902,7 +61902,7 @@ fn vpcmptrueb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueb_k_ymm_ymm() {
+fn vpcmptrueb_kr_ymm_ymm() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmptrueb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -61911,7 +61911,7 @@ fn vpcmptrueb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueb_k_zmm_zmm() {
+fn vpcmptrueb_kr_zmm_zmm() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmptrueb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -61920,7 +61920,7 @@ fn vpcmptrueb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueb_k_xmm_m() {
+fn vpcmptrueb_kr_xmm_m() {
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmptrueb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -61929,7 +61929,7 @@ fn vpcmptrueb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueb_k_ymm_m() {
+fn vpcmptrueb_kr_ymm_m() {
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmptrueb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -61938,7 +61938,7 @@ fn vpcmptrueb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueb_k_zmm_m() {
+fn vpcmptrueb_kr_zmm_m() {
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmptrueb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -61947,7 +61947,7 @@ fn vpcmptrueb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrued_k_xmm_xmm() {
+fn vpcmptrued_kr_xmm_xmm() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmptrued(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -61956,7 +61956,7 @@ fn vpcmptrued_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrued_k_ymm_ymm() {
+fn vpcmptrued_kr_ymm_ymm() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmptrued(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -61965,7 +61965,7 @@ fn vpcmptrued_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrued_k_zmm_zmm() {
+fn vpcmptrued_kr_zmm_zmm() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmptrued(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -61974,7 +61974,7 @@ fn vpcmptrued_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrued_k_xmm_m() {
+fn vpcmptrued_kr_xmm_m() {
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmptrued(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -61983,7 +61983,7 @@ fn vpcmptrued_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrued_k_ymm_m() {
+fn vpcmptrued_kr_ymm_m() {
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmptrued(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -61992,7 +61992,7 @@ fn vpcmptrued_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrued_k_zmm_m() {
+fn vpcmptrued_kr_zmm_m() {
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmptrued(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62001,7 +62001,7 @@ fn vpcmptrued_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueq_k_xmm_xmm() {
+fn vpcmptrueq_kr_xmm_xmm() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmptrueq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -62010,7 +62010,7 @@ fn vpcmptrueq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueq_k_ymm_ymm() {
+fn vpcmptrueq_kr_ymm_ymm() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmptrueq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -62019,7 +62019,7 @@ fn vpcmptrueq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueq_k_zmm_zmm() {
+fn vpcmptrueq_kr_zmm_zmm() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmptrueq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -62028,7 +62028,7 @@ fn vpcmptrueq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueq_k_xmm_m() {
+fn vpcmptrueq_kr_xmm_m() {
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmptrueq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62037,7 +62037,7 @@ fn vpcmptrueq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueq_k_ymm_m() {
+fn vpcmptrueq_kr_ymm_m() {
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmptrueq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62046,7 +62046,7 @@ fn vpcmptrueq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueq_k_zmm_m() {
+fn vpcmptrueq_kr_zmm_m() {
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmptrueq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62055,7 +62055,7 @@ fn vpcmptrueq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueub_k_xmm_xmm() {
+fn vpcmptrueub_kr_xmm_xmm() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmptrueub(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -62064,7 +62064,7 @@ fn vpcmptrueub_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueub_k_ymm_ymm() {
+fn vpcmptrueub_kr_ymm_ymm() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmptrueub(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -62073,7 +62073,7 @@ fn vpcmptrueub_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueub_k_zmm_zmm() {
+fn vpcmptrueub_kr_zmm_zmm() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmptrueub(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -62082,7 +62082,7 @@ fn vpcmptrueub_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueub_k_xmm_m() {
+fn vpcmptrueub_kr_xmm_m() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmptrueub(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62091,7 +62091,7 @@ fn vpcmptrueub_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueub_k_ymm_m() {
+fn vpcmptrueub_kr_ymm_m() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmptrueub(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62100,7 +62100,7 @@ fn vpcmptrueub_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueub_k_zmm_m() {
+fn vpcmptrueub_kr_zmm_m() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmptrueub(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62109,7 +62109,7 @@ fn vpcmptrueub_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueud_k_xmm_xmm() {
+fn vpcmptrueud_kr_xmm_xmm() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmptrueud(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -62118,7 +62118,7 @@ fn vpcmptrueud_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueud_k_ymm_ymm() {
+fn vpcmptrueud_kr_ymm_ymm() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmptrueud(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -62127,7 +62127,7 @@ fn vpcmptrueud_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueud_k_zmm_zmm() {
+fn vpcmptrueud_kr_zmm_zmm() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmptrueud(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -62136,7 +62136,7 @@ fn vpcmptrueud_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueud_k_xmm_m() {
+fn vpcmptrueud_kr_xmm_m() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmptrueud(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62145,7 +62145,7 @@ fn vpcmptrueud_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueud_k_ymm_m() {
+fn vpcmptrueud_kr_ymm_m() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmptrueud(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62154,7 +62154,7 @@ fn vpcmptrueud_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueud_k_zmm_m() {
+fn vpcmptrueud_kr_zmm_m() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmptrueud(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62163,7 +62163,7 @@ fn vpcmptrueud_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuq_k_xmm_xmm() {
+fn vpcmptrueuq_kr_xmm_xmm() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmptrueuq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -62172,7 +62172,7 @@ fn vpcmptrueuq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuq_k_ymm_ymm() {
+fn vpcmptrueuq_kr_ymm_ymm() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmptrueuq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -62181,7 +62181,7 @@ fn vpcmptrueuq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuq_k_zmm_zmm() {
+fn vpcmptrueuq_kr_zmm_zmm() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmptrueuq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -62190,7 +62190,7 @@ fn vpcmptrueuq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuq_k_xmm_m() {
+fn vpcmptrueuq_kr_xmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmptrueuq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62199,7 +62199,7 @@ fn vpcmptrueuq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuq_k_ymm_m() {
+fn vpcmptrueuq_kr_ymm_m() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmptrueuq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62208,7 +62208,7 @@ fn vpcmptrueuq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuq_k_zmm_m() {
+fn vpcmptrueuq_kr_zmm_m() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmptrueuq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62217,7 +62217,7 @@ fn vpcmptrueuq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuw_k_xmm_xmm() {
+fn vpcmptrueuw_kr_xmm_xmm() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmptrueuw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -62226,7 +62226,7 @@ fn vpcmptrueuw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuw_k_ymm_ymm() {
+fn vpcmptrueuw_kr_ymm_ymm() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmptrueuw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -62235,7 +62235,7 @@ fn vpcmptrueuw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuw_k_zmm_zmm() {
+fn vpcmptrueuw_kr_zmm_zmm() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmptrueuw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -62244,7 +62244,7 @@ fn vpcmptrueuw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuw_k_xmm_m() {
+fn vpcmptrueuw_kr_xmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmptrueuw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62253,7 +62253,7 @@ fn vpcmptrueuw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuw_k_ymm_m() {
+fn vpcmptrueuw_kr_ymm_m() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmptrueuw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62262,7 +62262,7 @@ fn vpcmptrueuw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptrueuw_k_zmm_m() {
+fn vpcmptrueuw_kr_zmm_m() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmptrueuw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62271,7 +62271,7 @@ fn vpcmptrueuw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptruew_k_xmm_xmm() {
+fn vpcmptruew_kr_xmm_xmm() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmptruew(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 7i32).unwrap(), Register::K1),
@@ -62280,7 +62280,7 @@ fn vpcmptruew_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptruew_k_ymm_ymm() {
+fn vpcmptruew_kr_ymm_ymm() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmptruew(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 7i32).unwrap(), Register::K1),
@@ -62289,7 +62289,7 @@ fn vpcmptruew_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptruew_k_zmm_zmm() {
+fn vpcmptruew_kr_zmm_zmm() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmptruew(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 7i32).unwrap(), Register::K1),
@@ -62298,7 +62298,7 @@ fn vpcmptruew_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptruew_k_xmm_m() {
+fn vpcmptruew_kr_xmm_m() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmptruew(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62307,7 +62307,7 @@ fn vpcmptruew_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptruew_k_ymm_m() {
+fn vpcmptruew_kr_ymm_m() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmptruew(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62316,7 +62316,7 @@ fn vpcmptruew_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmptruew_k_zmm_m() {
+fn vpcmptruew_kr_zmm_m() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmptruew(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 7i32).unwrap(), Register::K1),
@@ -62325,7 +62325,7 @@ fn vpcmptruew_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_xmm_xmm_i() {
+fn vpcmpub_kr_xmm_xmm_i() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -62334,7 +62334,7 @@ fn vpcmpub_k_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_ymm_ymm_i() {
+fn vpcmpub_kr_ymm_ymm_i() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -62343,7 +62343,7 @@ fn vpcmpub_k_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_zmm_zmm_i() {
+fn vpcmpub_kr_zmm_zmm_i() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -62352,7 +62352,7 @@ fn vpcmpub_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_xmm_m_i() {
+fn vpcmpub_kr_xmm_m_i() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62361,7 +62361,7 @@ fn vpcmpub_k_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_ymm_m_i() {
+fn vpcmpub_kr_ymm_m_i() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62370,7 +62370,7 @@ fn vpcmpub_k_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_zmm_m_i() {
+fn vpcmpub_kr_zmm_m_i() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62379,7 +62379,7 @@ fn vpcmpub_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_xmm_xmm_u() {
+fn vpcmpub_kr_xmm_xmm_u() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62388,7 +62388,7 @@ fn vpcmpub_k_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_ymm_ymm_u() {
+fn vpcmpub_kr_ymm_ymm_u() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62397,7 +62397,7 @@ fn vpcmpub_k_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_zmm_zmm_u() {
+fn vpcmpub_kr_zmm_zmm_u() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62406,7 +62406,7 @@ fn vpcmpub_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_xmm_m_u() {
+fn vpcmpub_kr_xmm_m_u() {
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62415,7 +62415,7 @@ fn vpcmpub_k_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_ymm_m_u() {
+fn vpcmpub_kr_ymm_m_u() {
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62424,7 +62424,7 @@ fn vpcmpub_k_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpub_k_zmm_m_u() {
+fn vpcmpub_kr_zmm_m_u() {
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpub(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62433,7 +62433,7 @@ fn vpcmpub_k_zmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_xmm_xmm_i() {
+fn vpcmpud_kr_xmm_xmm_i() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -62442,7 +62442,7 @@ fn vpcmpud_k_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_ymm_ymm_i() {
+fn vpcmpud_kr_ymm_ymm_i() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -62451,7 +62451,7 @@ fn vpcmpud_k_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_zmm_zmm_i() {
+fn vpcmpud_kr_zmm_zmm_i() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -62460,7 +62460,7 @@ fn vpcmpud_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_xmm_m_i() {
+fn vpcmpud_kr_xmm_m_i() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62469,7 +62469,7 @@ fn vpcmpud_k_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_ymm_m_i() {
+fn vpcmpud_kr_ymm_m_i() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62478,7 +62478,7 @@ fn vpcmpud_k_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_zmm_m_i() {
+fn vpcmpud_kr_zmm_m_i() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62487,7 +62487,7 @@ fn vpcmpud_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_xmm_xmm_u() {
+fn vpcmpud_kr_xmm_xmm_u() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62496,7 +62496,7 @@ fn vpcmpud_k_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_ymm_ymm_u() {
+fn vpcmpud_kr_ymm_ymm_u() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62505,7 +62505,7 @@ fn vpcmpud_k_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_zmm_zmm_u() {
+fn vpcmpud_kr_zmm_zmm_u() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62514,7 +62514,7 @@ fn vpcmpud_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_xmm_m_u() {
+fn vpcmpud_kr_xmm_m_u() {
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62523,7 +62523,7 @@ fn vpcmpud_k_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_ymm_m_u() {
+fn vpcmpud_kr_ymm_m_u() {
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62532,7 +62532,7 @@ fn vpcmpud_k_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpud_k_zmm_m_u() {
+fn vpcmpud_kr_zmm_m_u() {
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 	test_instr(32, |a| a.vpcmpud(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62541,7 +62541,7 @@ fn vpcmpud_k_zmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_xmm_xmm_i() {
+fn vpcmpuq_kr_xmm_xmm_i() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -62550,7 +62550,7 @@ fn vpcmpuq_k_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_ymm_ymm_i() {
+fn vpcmpuq_kr_ymm_ymm_i() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -62559,7 +62559,7 @@ fn vpcmpuq_k_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_zmm_zmm_i() {
+fn vpcmpuq_kr_zmm_zmm_i() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -62568,7 +62568,7 @@ fn vpcmpuq_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_xmm_m_i() {
+fn vpcmpuq_kr_xmm_m_i() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62577,7 +62577,7 @@ fn vpcmpuq_k_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_ymm_m_i() {
+fn vpcmpuq_kr_ymm_m_i() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62586,7 +62586,7 @@ fn vpcmpuq_k_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_zmm_m_i() {
+fn vpcmpuq_kr_zmm_m_i() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62595,7 +62595,7 @@ fn vpcmpuq_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_xmm_xmm_u() {
+fn vpcmpuq_kr_xmm_xmm_u() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62604,7 +62604,7 @@ fn vpcmpuq_k_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_ymm_ymm_u() {
+fn vpcmpuq_kr_ymm_ymm_u() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62613,7 +62613,7 @@ fn vpcmpuq_k_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_zmm_zmm_u() {
+fn vpcmpuq_kr_zmm_zmm_u() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62622,7 +62622,7 @@ fn vpcmpuq_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_xmm_m_u() {
+fn vpcmpuq_kr_xmm_m_u() {
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62631,7 +62631,7 @@ fn vpcmpuq_k_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_ymm_m_u() {
+fn vpcmpuq_kr_ymm_m_u() {
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62640,7 +62640,7 @@ fn vpcmpuq_k_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuq_k_zmm_m_u() {
+fn vpcmpuq_kr_zmm_m_u() {
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 	test_instr(32, |a| a.vpcmpuq(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62649,7 +62649,7 @@ fn vpcmpuq_k_zmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_xmm_xmm_i() {
+fn vpcmpuw_kr_xmm_xmm_i() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -62658,7 +62658,7 @@ fn vpcmpuw_k_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_ymm_ymm_i() {
+fn vpcmpuw_kr_ymm_ymm_i() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -62667,7 +62667,7 @@ fn vpcmpuw_k_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_zmm_zmm_i() {
+fn vpcmpuw_kr_zmm_zmm_i() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -62676,7 +62676,7 @@ fn vpcmpuw_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_xmm_m_i() {
+fn vpcmpuw_kr_xmm_m_i() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62685,7 +62685,7 @@ fn vpcmpuw_k_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_ymm_m_i() {
+fn vpcmpuw_kr_ymm_m_i() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62694,7 +62694,7 @@ fn vpcmpuw_k_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_zmm_m_i() {
+fn vpcmpuw_kr_zmm_m_i() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62703,7 +62703,7 @@ fn vpcmpuw_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_xmm_xmm_u() {
+fn vpcmpuw_kr_xmm_xmm_u() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62712,7 +62712,7 @@ fn vpcmpuw_k_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_ymm_ymm_u() {
+fn vpcmpuw_kr_ymm_ymm_u() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62721,7 +62721,7 @@ fn vpcmpuw_k_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_zmm_zmm_u() {
+fn vpcmpuw_kr_zmm_zmm_u() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62730,7 +62730,7 @@ fn vpcmpuw_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_xmm_m_u() {
+fn vpcmpuw_kr_xmm_m_u() {
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62739,7 +62739,7 @@ fn vpcmpuw_k_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_ymm_m_u() {
+fn vpcmpuw_kr_ymm_m_u() {
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62748,7 +62748,7 @@ fn vpcmpuw_k_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpuw_k_zmm_m_u() {
+fn vpcmpuw_kr_zmm_m_u() {
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpuw(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62757,7 +62757,7 @@ fn vpcmpuw_k_zmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_xmm_xmm_i() {
+fn vpcmpw_kr_xmm_xmm_i() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), xmm3, xmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
@@ -62766,7 +62766,7 @@ fn vpcmpw_k_xmm_xmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_ymm_ymm_i() {
+fn vpcmpw_kr_ymm_ymm_i() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), ymm3, ymm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
@@ -62775,7 +62775,7 @@ fn vpcmpw_k_ymm_ymm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_zmm_zmm_i() {
+fn vpcmpw_kr_zmm_zmm_i() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), zmm3, zmm4, -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, -5i32).unwrap(), Register::K1),
@@ -62784,7 +62784,7 @@ fn vpcmpw_k_zmm_zmm_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_xmm_m_i() {
+fn vpcmpw_kr_xmm_m_i() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62793,7 +62793,7 @@ fn vpcmpw_k_xmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_ymm_m_i() {
+fn vpcmpw_kr_ymm_m_i() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62802,7 +62802,7 @@ fn vpcmpw_k_ymm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_zmm_m_i() {
+fn vpcmpw_kr_zmm_m_i() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), zmm3, zmmword_ptr(ecx), -5i32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
@@ -62811,7 +62811,7 @@ fn vpcmpw_k_zmm_m_i() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_xmm_xmm_u() {
+fn vpcmpw_kr_xmm_xmm_u() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), xmm3, xmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62820,7 +62820,7 @@ fn vpcmpw_k_xmm_xmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_ymm_ymm_u() {
+fn vpcmpw_kr_ymm_ymm_u() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), ymm3, ymm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62829,7 +62829,7 @@ fn vpcmpw_k_ymm_ymm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_zmm_zmm_u() {
+fn vpcmpw_kr_zmm_zmm_u() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), zmm3, zmm4, 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, Register::ZMM4, 0x7Fu32).unwrap(), Register::K1),
@@ -62838,7 +62838,7 @@ fn vpcmpw_k_zmm_zmm_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_xmm_m_u() {
+fn vpcmpw_kr_xmm_m_u() {
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62847,7 +62847,7 @@ fn vpcmpw_k_xmm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_ymm_m_u() {
+fn vpcmpw_kr_ymm_m_u() {
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -62856,7 +62856,7 @@ fn vpcmpw_k_ymm_m_u() {
 
 #[test]
 #[rustfmt::skip]
-fn vpcmpw_k_zmm_m_u() {
+fn vpcmpw_kr_zmm_m_u() {
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	test_instr(32, |a| a.vpcmpw(k2.k1(), zmm3, zmmword_ptr(ecx), 0x7Fu32).unwrap(),
 		add_op_mask(Instruction::with4(Code::EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
@@ -70185,7 +70185,7 @@ fn vpminuw_zmm_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovb2m_k_xmm() {
+fn vpmovb2m_kr_xmm() {
 	// EVEX_Vpmovb2m_kr_xmm
 	test_instr(32, |a| a.vpmovb2m(k2, xmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovb2m_kr_xmm, Register::K2, Register::XMM3).unwrap(),
@@ -70194,7 +70194,7 @@ fn vpmovb2m_k_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovb2m_k_ymm() {
+fn vpmovb2m_kr_ymm() {
 	// EVEX_Vpmovb2m_kr_ymm
 	test_instr(32, |a| a.vpmovb2m(k2, ymm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovb2m_kr_ymm, Register::K2, Register::YMM3).unwrap(),
@@ -70203,7 +70203,7 @@ fn vpmovb2m_k_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovb2m_k_zmm() {
+fn vpmovb2m_kr_zmm() {
 	// EVEX_Vpmovb2m_kr_zmm
 	test_instr(32, |a| a.vpmovb2m(k2, zmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovb2m_kr_zmm, Register::K2, Register::ZMM3).unwrap(),
@@ -70212,7 +70212,7 @@ fn vpmovb2m_k_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovd2m_k_xmm() {
+fn vpmovd2m_kr_xmm() {
 	// EVEX_Vpmovd2m_kr_xmm
 	test_instr(32, |a| a.vpmovd2m(k2, xmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovd2m_kr_xmm, Register::K2, Register::XMM3).unwrap(),
@@ -70221,7 +70221,7 @@ fn vpmovd2m_k_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovd2m_k_ymm() {
+fn vpmovd2m_kr_ymm() {
 	// EVEX_Vpmovd2m_kr_ymm
 	test_instr(32, |a| a.vpmovd2m(k2, ymm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovd2m_kr_ymm, Register::K2, Register::YMM3).unwrap(),
@@ -70230,7 +70230,7 @@ fn vpmovd2m_k_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovd2m_k_zmm() {
+fn vpmovd2m_kr_zmm() {
 	// EVEX_Vpmovd2m_kr_zmm
 	test_instr(32, |a| a.vpmovd2m(k2, zmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovd2m_kr_zmm, Register::K2, Register::ZMM3).unwrap(),
@@ -70347,7 +70347,7 @@ fn vpmovdw_m_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2b_xmm_k() {
+fn vpmovm2b_xmm_kr() {
 	// EVEX_Vpmovm2b_xmm_kr
 	test_instr(32, |a| a.vpmovm2b(xmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2b_xmm_kr, Register::XMM2, Register::K3).unwrap(),
@@ -70356,7 +70356,7 @@ fn vpmovm2b_xmm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2b_ymm_k() {
+fn vpmovm2b_ymm_kr() {
 	// EVEX_Vpmovm2b_ymm_kr
 	test_instr(32, |a| a.vpmovm2b(ymm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2b_ymm_kr, Register::YMM2, Register::K3).unwrap(),
@@ -70365,7 +70365,7 @@ fn vpmovm2b_ymm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2b_zmm_k() {
+fn vpmovm2b_zmm_kr() {
 	// EVEX_Vpmovm2b_zmm_kr
 	test_instr(32, |a| a.vpmovm2b(zmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2b_zmm_kr, Register::ZMM2, Register::K3).unwrap(),
@@ -70374,7 +70374,7 @@ fn vpmovm2b_zmm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2d_xmm_k() {
+fn vpmovm2d_xmm_kr() {
 	// EVEX_Vpmovm2d_xmm_kr
 	test_instr(32, |a| a.vpmovm2d(xmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2d_xmm_kr, Register::XMM2, Register::K3).unwrap(),
@@ -70383,7 +70383,7 @@ fn vpmovm2d_xmm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2d_ymm_k() {
+fn vpmovm2d_ymm_kr() {
 	// EVEX_Vpmovm2d_ymm_kr
 	test_instr(32, |a| a.vpmovm2d(ymm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2d_ymm_kr, Register::YMM2, Register::K3).unwrap(),
@@ -70392,7 +70392,7 @@ fn vpmovm2d_ymm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2d_zmm_k() {
+fn vpmovm2d_zmm_kr() {
 	// EVEX_Vpmovm2d_zmm_kr
 	test_instr(32, |a| a.vpmovm2d(zmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2d_zmm_kr, Register::ZMM2, Register::K3).unwrap(),
@@ -70401,7 +70401,7 @@ fn vpmovm2d_zmm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2q_xmm_k() {
+fn vpmovm2q_xmm_kr() {
 	// EVEX_Vpmovm2q_xmm_kr
 	test_instr(32, |a| a.vpmovm2q(xmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2q_xmm_kr, Register::XMM2, Register::K3).unwrap(),
@@ -70410,7 +70410,7 @@ fn vpmovm2q_xmm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2q_ymm_k() {
+fn vpmovm2q_ymm_kr() {
 	// EVEX_Vpmovm2q_ymm_kr
 	test_instr(32, |a| a.vpmovm2q(ymm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2q_ymm_kr, Register::YMM2, Register::K3).unwrap(),
@@ -70419,7 +70419,7 @@ fn vpmovm2q_ymm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2q_zmm_k() {
+fn vpmovm2q_zmm_kr() {
 	// EVEX_Vpmovm2q_zmm_kr
 	test_instr(32, |a| a.vpmovm2q(zmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2q_zmm_kr, Register::ZMM2, Register::K3).unwrap(),
@@ -70428,7 +70428,7 @@ fn vpmovm2q_zmm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2w_xmm_k() {
+fn vpmovm2w_xmm_kr() {
 	// EVEX_Vpmovm2w_xmm_kr
 	test_instr(32, |a| a.vpmovm2w(xmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2w_xmm_kr, Register::XMM2, Register::K3).unwrap(),
@@ -70437,7 +70437,7 @@ fn vpmovm2w_xmm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2w_ymm_k() {
+fn vpmovm2w_ymm_kr() {
 	// EVEX_Vpmovm2w_ymm_kr
 	test_instr(32, |a| a.vpmovm2w(ymm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2w_ymm_kr, Register::YMM2, Register::K3).unwrap(),
@@ -70446,7 +70446,7 @@ fn vpmovm2w_ymm_k() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovm2w_zmm_k() {
+fn vpmovm2w_zmm_kr() {
 	// EVEX_Vpmovm2w_zmm_kr
 	test_instr(32, |a| a.vpmovm2w(zmm2, k3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovm2w_zmm_kr, Register::ZMM2, Register::K3).unwrap(),
@@ -70473,7 +70473,7 @@ fn vpmovmskb_r32_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovq2m_k_xmm() {
+fn vpmovq2m_kr_xmm() {
 	// EVEX_Vpmovq2m_kr_xmm
 	test_instr(32, |a| a.vpmovq2m(k2, xmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovq2m_kr_xmm, Register::K2, Register::XMM3).unwrap(),
@@ -70482,7 +70482,7 @@ fn vpmovq2m_k_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovq2m_k_ymm() {
+fn vpmovq2m_kr_ymm() {
 	// EVEX_Vpmovq2m_kr_ymm
 	test_instr(32, |a| a.vpmovq2m(k2, ymm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovq2m_kr_ymm, Register::K2, Register::YMM3).unwrap(),
@@ -70491,7 +70491,7 @@ fn vpmovq2m_k_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovq2m_k_zmm() {
+fn vpmovq2m_kr_zmm() {
 	// EVEX_Vpmovq2m_kr_zmm
 	test_instr(32, |a| a.vpmovq2m(k2, zmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovq2m_kr_zmm, Register::K2, Register::ZMM3).unwrap(),
@@ -71802,7 +71802,7 @@ fn vpmovuswb_m_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovw2m_k_xmm() {
+fn vpmovw2m_kr_xmm() {
 	// EVEX_Vpmovw2m_kr_xmm
 	test_instr(32, |a| a.vpmovw2m(k2, xmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovw2m_kr_xmm, Register::K2, Register::XMM3).unwrap(),
@@ -71811,7 +71811,7 @@ fn vpmovw2m_k_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovw2m_k_ymm() {
+fn vpmovw2m_kr_ymm() {
 	// EVEX_Vpmovw2m_kr_ymm
 	test_instr(32, |a| a.vpmovw2m(k2, ymm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovw2m_kr_ymm, Register::K2, Register::YMM3).unwrap(),
@@ -71820,7 +71820,7 @@ fn vpmovw2m_k_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpmovw2m_k_zmm() {
+fn vpmovw2m_kr_zmm() {
 	// EVEX_Vpmovw2m_kr_zmm
 	test_instr(32, |a| a.vpmovw2m(k2, zmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vpmovw2m_kr_zmm, Register::K2, Register::ZMM3).unwrap(),
@@ -75833,7 +75833,7 @@ fn vpshufb_zmm_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpshufbitqmb_k_xmm_xmm() {
+fn vpshufbitqmb_kr_xmm_xmm() {
 	// EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vpshufbitqmb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -75842,7 +75842,7 @@ fn vpshufbitqmb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpshufbitqmb_k_ymm_ymm() {
+fn vpshufbitqmb_kr_ymm_ymm() {
 	// EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vpshufbitqmb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -75851,7 +75851,7 @@ fn vpshufbitqmb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpshufbitqmb_k_zmm_zmm() {
+fn vpshufbitqmb_kr_zmm_zmm() {
 	// EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vpshufbitqmb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -75860,7 +75860,7 @@ fn vpshufbitqmb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vpshufbitqmb_k_xmm_m() {
+fn vpshufbitqmb_kr_xmm_m() {
 	// EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vpshufbitqmb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -75869,7 +75869,7 @@ fn vpshufbitqmb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpshufbitqmb_k_ymm_m() {
+fn vpshufbitqmb_kr_ymm_m() {
 	// EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vpshufbitqmb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -75878,7 +75878,7 @@ fn vpshufbitqmb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vpshufbitqmb_k_zmm_m() {
+fn vpshufbitqmb_kr_zmm_m() {
 	// EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vpshufbitqmb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80289,7 +80289,7 @@ fn vptest_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmb_k_xmm_xmm() {
+fn vptestmb_kr_xmm_xmm() {
 	// EVEX_Vptestmb_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vptestmb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmb_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -80298,7 +80298,7 @@ fn vptestmb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmb_k_ymm_ymm() {
+fn vptestmb_kr_ymm_ymm() {
 	// EVEX_Vptestmb_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vptestmb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmb_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -80307,7 +80307,7 @@ fn vptestmb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmb_k_zmm_zmm() {
+fn vptestmb_kr_zmm_zmm() {
 	// EVEX_Vptestmb_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vptestmb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmb_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -80316,7 +80316,7 @@ fn vptestmb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmb_k_xmm_m() {
+fn vptestmb_kr_xmm_m() {
 	// EVEX_Vptestmb_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vptestmb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmb_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80325,7 +80325,7 @@ fn vptestmb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmb_k_ymm_m() {
+fn vptestmb_kr_ymm_m() {
 	// EVEX_Vptestmb_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vptestmb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmb_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80334,7 +80334,7 @@ fn vptestmb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmb_k_zmm_m() {
+fn vptestmb_kr_zmm_m() {
 	// EVEX_Vptestmb_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vptestmb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmb_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80343,7 +80343,7 @@ fn vptestmb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmd_k_xmm_xmm() {
+fn vptestmd_kr_xmm_xmm() {
 	// EVEX_Vptestmd_kr_k1_xmm_xmmm128b32
 	test_instr(32, |a| a.vptestmd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmd_kr_k1_xmm_xmmm128b32, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -80352,7 +80352,7 @@ fn vptestmd_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmd_k_ymm_ymm() {
+fn vptestmd_kr_ymm_ymm() {
 	// EVEX_Vptestmd_kr_k1_ymm_ymmm256b32
 	test_instr(32, |a| a.vptestmd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmd_kr_k1_ymm_ymmm256b32, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -80361,7 +80361,7 @@ fn vptestmd_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmd_k_zmm_zmm() {
+fn vptestmd_kr_zmm_zmm() {
 	// EVEX_Vptestmd_kr_k1_zmm_zmmm512b32
 	test_instr(32, |a| a.vptestmd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmd_kr_k1_zmm_zmmm512b32, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -80370,7 +80370,7 @@ fn vptestmd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmd_k_xmm_m() {
+fn vptestmd_kr_xmm_m() {
 	// EVEX_Vptestmd_kr_k1_xmm_xmmm128b32
 	test_instr(32, |a| a.vptestmd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmd_kr_k1_xmm_xmmm128b32, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80379,7 +80379,7 @@ fn vptestmd_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmd_k_ymm_m() {
+fn vptestmd_kr_ymm_m() {
 	// EVEX_Vptestmd_kr_k1_ymm_ymmm256b32
 	test_instr(32, |a| a.vptestmd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmd_kr_k1_ymm_ymmm256b32, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80388,7 +80388,7 @@ fn vptestmd_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmd_k_zmm_m() {
+fn vptestmd_kr_zmm_m() {
 	// EVEX_Vptestmd_kr_k1_zmm_zmmm512b32
 	test_instr(32, |a| a.vptestmd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmd_kr_k1_zmm_zmmm512b32, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80397,7 +80397,7 @@ fn vptestmd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmq_k_xmm_xmm() {
+fn vptestmq_kr_xmm_xmm() {
 	// EVEX_Vptestmq_kr_k1_xmm_xmmm128b64
 	test_instr(32, |a| a.vptestmq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmq_kr_k1_xmm_xmmm128b64, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -80406,7 +80406,7 @@ fn vptestmq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmq_k_ymm_ymm() {
+fn vptestmq_kr_ymm_ymm() {
 	// EVEX_Vptestmq_kr_k1_ymm_ymmm256b64
 	test_instr(32, |a| a.vptestmq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmq_kr_k1_ymm_ymmm256b64, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -80415,7 +80415,7 @@ fn vptestmq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmq_k_zmm_zmm() {
+fn vptestmq_kr_zmm_zmm() {
 	// EVEX_Vptestmq_kr_k1_zmm_zmmm512b64
 	test_instr(32, |a| a.vptestmq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmq_kr_k1_zmm_zmmm512b64, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -80424,7 +80424,7 @@ fn vptestmq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmq_k_xmm_m() {
+fn vptestmq_kr_xmm_m() {
 	// EVEX_Vptestmq_kr_k1_xmm_xmmm128b64
 	test_instr(32, |a| a.vptestmq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmq_kr_k1_xmm_xmmm128b64, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80433,7 +80433,7 @@ fn vptestmq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmq_k_ymm_m() {
+fn vptestmq_kr_ymm_m() {
 	// EVEX_Vptestmq_kr_k1_ymm_ymmm256b64
 	test_instr(32, |a| a.vptestmq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmq_kr_k1_ymm_ymmm256b64, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80442,7 +80442,7 @@ fn vptestmq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmq_k_zmm_m() {
+fn vptestmq_kr_zmm_m() {
 	// EVEX_Vptestmq_kr_k1_zmm_zmmm512b64
 	test_instr(32, |a| a.vptestmq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmq_kr_k1_zmm_zmmm512b64, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80451,7 +80451,7 @@ fn vptestmq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmw_k_xmm_xmm() {
+fn vptestmw_kr_xmm_xmm() {
 	// EVEX_Vptestmw_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vptestmw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmw_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -80460,7 +80460,7 @@ fn vptestmw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmw_k_ymm_ymm() {
+fn vptestmw_kr_ymm_ymm() {
 	// EVEX_Vptestmw_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vptestmw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmw_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -80469,7 +80469,7 @@ fn vptestmw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmw_k_zmm_zmm() {
+fn vptestmw_kr_zmm_zmm() {
 	// EVEX_Vptestmw_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vptestmw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmw_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -80478,7 +80478,7 @@ fn vptestmw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmw_k_xmm_m() {
+fn vptestmw_kr_xmm_m() {
 	// EVEX_Vptestmw_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vptestmw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmw_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80487,7 +80487,7 @@ fn vptestmw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmw_k_ymm_m() {
+fn vptestmw_kr_ymm_m() {
 	// EVEX_Vptestmw_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vptestmw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmw_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80496,7 +80496,7 @@ fn vptestmw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestmw_k_zmm_m() {
+fn vptestmw_kr_zmm_m() {
 	// EVEX_Vptestmw_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vptestmw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestmw_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80505,7 +80505,7 @@ fn vptestmw_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmb_k_xmm_xmm() {
+fn vptestnmb_kr_xmm_xmm() {
 	// EVEX_Vptestnmb_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vptestnmb(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmb_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -80514,7 +80514,7 @@ fn vptestnmb_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmb_k_ymm_ymm() {
+fn vptestnmb_kr_ymm_ymm() {
 	// EVEX_Vptestnmb_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vptestnmb(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmb_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -80523,7 +80523,7 @@ fn vptestnmb_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmb_k_zmm_zmm() {
+fn vptestnmb_kr_zmm_zmm() {
 	// EVEX_Vptestnmb_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vptestnmb(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmb_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -80532,7 +80532,7 @@ fn vptestnmb_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmb_k_xmm_m() {
+fn vptestnmb_kr_xmm_m() {
 	// EVEX_Vptestnmb_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vptestnmb(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmb_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80541,7 +80541,7 @@ fn vptestnmb_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmb_k_ymm_m() {
+fn vptestnmb_kr_ymm_m() {
 	// EVEX_Vptestnmb_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vptestnmb(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmb_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80550,7 +80550,7 @@ fn vptestnmb_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmb_k_zmm_m() {
+fn vptestnmb_kr_zmm_m() {
 	// EVEX_Vptestnmb_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vptestnmb(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmb_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80559,7 +80559,7 @@ fn vptestnmb_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmd_k_xmm_xmm() {
+fn vptestnmd_kr_xmm_xmm() {
 	// EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32
 	test_instr(32, |a| a.vptestnmd(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -80568,7 +80568,7 @@ fn vptestnmd_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmd_k_ymm_ymm() {
+fn vptestnmd_kr_ymm_ymm() {
 	// EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32
 	test_instr(32, |a| a.vptestnmd(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -80577,7 +80577,7 @@ fn vptestnmd_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmd_k_zmm_zmm() {
+fn vptestnmd_kr_zmm_zmm() {
 	// EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32
 	test_instr(32, |a| a.vptestnmd(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -80586,7 +80586,7 @@ fn vptestnmd_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmd_k_xmm_m() {
+fn vptestnmd_kr_xmm_m() {
 	// EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32
 	test_instr(32, |a| a.vptestnmd(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80595,7 +80595,7 @@ fn vptestnmd_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmd_k_ymm_m() {
+fn vptestnmd_kr_ymm_m() {
 	// EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32
 	test_instr(32, |a| a.vptestnmd(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80604,7 +80604,7 @@ fn vptestnmd_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmd_k_zmm_m() {
+fn vptestnmd_kr_zmm_m() {
 	// EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32
 	test_instr(32, |a| a.vptestnmd(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80613,7 +80613,7 @@ fn vptestnmd_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmq_k_xmm_xmm() {
+fn vptestnmq_kr_xmm_xmm() {
 	// EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64
 	test_instr(32, |a| a.vptestnmq(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -80622,7 +80622,7 @@ fn vptestnmq_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmq_k_ymm_ymm() {
+fn vptestnmq_kr_ymm_ymm() {
 	// EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64
 	test_instr(32, |a| a.vptestnmq(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -80631,7 +80631,7 @@ fn vptestnmq_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmq_k_zmm_zmm() {
+fn vptestnmq_kr_zmm_zmm() {
 	// EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64
 	test_instr(32, |a| a.vptestnmq(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -80640,7 +80640,7 @@ fn vptestnmq_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmq_k_xmm_m() {
+fn vptestnmq_kr_xmm_m() {
 	// EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64
 	test_instr(32, |a| a.vptestnmq(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80649,7 +80649,7 @@ fn vptestnmq_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmq_k_ymm_m() {
+fn vptestnmq_kr_ymm_m() {
 	// EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64
 	test_instr(32, |a| a.vptestnmq(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80658,7 +80658,7 @@ fn vptestnmq_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmq_k_zmm_m() {
+fn vptestnmq_kr_zmm_m() {
 	// EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64
 	test_instr(32, |a| a.vptestnmq(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80667,7 +80667,7 @@ fn vptestnmq_k_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmw_k_xmm_xmm() {
+fn vptestnmw_kr_xmm_xmm() {
 	// EVEX_Vptestnmw_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vptestnmw(k2.k1(), xmm3, xmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmw_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
@@ -80676,7 +80676,7 @@ fn vptestnmw_k_xmm_xmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmw_k_ymm_ymm() {
+fn vptestnmw_kr_ymm_ymm() {
 	// EVEX_Vptestnmw_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vptestnmw(k2.k1(), ymm3, ymm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmw_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
@@ -80685,7 +80685,7 @@ fn vptestnmw_k_ymm_ymm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmw_k_zmm_zmm() {
+fn vptestnmw_kr_zmm_zmm() {
 	// EVEX_Vptestnmw_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vptestnmw(k2.k1(), zmm3, zmm4).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmw_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, Register::ZMM4).unwrap(), Register::K1),
@@ -80694,7 +80694,7 @@ fn vptestnmw_k_zmm_zmm() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmw_k_xmm_m() {
+fn vptestnmw_kr_xmm_m() {
 	// EVEX_Vptestnmw_kr_k1_xmm_xmmm128
 	test_instr(32, |a| a.vptestnmw(k2.k1(), xmm3, xmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmw_kr_k1_xmm_xmmm128, Register::K2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80703,7 +80703,7 @@ fn vptestnmw_k_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmw_k_ymm_m() {
+fn vptestnmw_kr_ymm_m() {
 	// EVEX_Vptestnmw_kr_k1_ymm_ymmm256
 	test_instr(32, |a| a.vptestnmw(k2.k1(), ymm3, ymmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmw_kr_k1_ymm_ymmm256, Register::K2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
@@ -80712,7 +80712,7 @@ fn vptestnmw_k_ymm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vptestnmw_k_zmm_m() {
+fn vptestnmw_kr_zmm_m() {
 	// EVEX_Vptestnmw_kr_k1_zmm_zmmm512
 	test_instr(32, |a| a.vptestnmw(k2.k1(), zmm3, zmmword_ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vptestnmw_kr_k1_zmm_zmmm512, Register::K2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
