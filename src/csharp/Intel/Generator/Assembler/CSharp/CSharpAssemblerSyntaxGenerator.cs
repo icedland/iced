@@ -245,7 +245,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <param name=\"left\">The base register</param>");
 								writer.WriteLine("/// <param name=\"displacement\">The displacement</param>");
 								writer.WriteLine("/// <returns></returns>");
-								writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, int displacement) =>");
+								writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, long displacement) =>");
 								using (writer.Indent())
 									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, left, {regNoneName}, 1, displacement, AssemblerOperandFlags.None);");
 								writer.WriteLine();
@@ -255,7 +255,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <param name=\"left\">The base register</param>");
 								writer.WriteLine("/// <param name=\"displacement\">The displacement</param>");
 								writer.WriteLine("/// <returns></returns>");
-								writer.WriteLine($"public static AssemblerMemoryOperand operator -({className} left, int displacement) =>");
+								writer.WriteLine($"public static AssemblerMemoryOperand operator -({className} left, long displacement) =>");
 								using (writer.Indent())
 									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, left, {regNoneName}, 1, -displacement, AssemblerOperandFlags.None);");
 								writer.WriteLine();

@@ -108,7 +108,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, int displacement) =>
+		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -117,7 +117,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegister16 left, int displacement) =>
+		public static AssemblerMemoryOperand operator -(AssemblerRegister16 left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -311,7 +311,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, int displacement) =>
+		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -320,7 +320,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegister32 left, int displacement) =>
+		public static AssemblerMemoryOperand operator -(AssemblerRegister32 left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -514,7 +514,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, int displacement) =>
+		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -523,7 +523,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegister64 left, int displacement) =>
+		public static AssemblerMemoryOperand operator -(AssemblerRegister64 left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -1005,7 +1005,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegisterXMM left, int displacement) =>
+		public static AssemblerMemoryOperand operator +(AssemblerRegisterXMM left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -1014,7 +1014,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegisterXMM left, int displacement) =>
+		public static AssemblerMemoryOperand operator -(AssemblerRegisterXMM left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -1164,7 +1164,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegisterYMM left, int displacement) =>
+		public static AssemblerMemoryOperand operator +(AssemblerRegisterYMM left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -1173,7 +1173,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegisterYMM left, int displacement) =>
+		public static AssemblerMemoryOperand operator -(AssemblerRegisterYMM left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -1323,7 +1323,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegisterZMM left, int displacement) =>
+		public static AssemblerMemoryOperand operator +(AssemblerRegisterZMM left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
@@ -1332,7 +1332,7 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegisterZMM left, int displacement) =>
+		public static AssemblerMemoryOperand operator -(AssemblerRegisterZMM left, long displacement) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
