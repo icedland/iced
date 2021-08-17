@@ -1034,8 +1034,7 @@ namespace Generator.Assembler.CSharp {
 		protected override TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, int bitness, ulong address) {
 			var memName = GetName(size);
 			var asmStr = $"{memName}[0x{address:X}]";
-			//TODO: var withStr = $"new MemoryOperand(0x{address:X}, {bitness / 8})";
-			var withStr = asmStr;
+			var withStr = $"new MemoryOperand(0x{address:X}, {bitness / 8})";
 			return new TestArgValueBitness(asmStr, withStr);
 		}
 

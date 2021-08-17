@@ -183,7 +183,7 @@ namespace Iced.Intel {
 			else if (Displacement == 0) {
 				dispSize = 0;
 			}
-			return new MemoryOperand(Base, Index, Scale, (int)Displacement, dispSize, (Flags & AssemblerOperandFlags.Broadcast) != 0, Segment);
+			return new MemoryOperand(Base, Index, Scale, Displacement, dispSize, (Flags & AssemblerOperandFlags.Broadcast) != 0, Segment);
 		}
 
 		/// <inheritdoc />
