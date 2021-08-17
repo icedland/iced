@@ -22,7 +22,7 @@ use core::ops::{Add, Mul, Sub};
 /// // byte ptr [rax]
 /// let _ = byte_ptr(rax);
 /// // <???> ptr gs:[rcx*4+123]
-/// let _ = ptr(rcx * 4 + 123).gs();
+/// let _ = mem(rcx * 4 + 123).gs();
 /// // qword bcst [rdx+xmm0*8+123]
 /// let _ = qword_bcst(rdx + xmm0 * 8 + 123);
 /// ```
@@ -41,8 +41,8 @@ impl AsmMemoryOperand {
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
-	pub(crate) fn ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::None);
+	pub(crate) fn mem(mut self) -> Self {
+		self.state.mem(MemoryOperandSize::None);
 		self
 	}
 
@@ -50,7 +50,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn byte_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Byte);
+		self.state.mem(MemoryOperandSize::Byte);
 		self
 	}
 
@@ -58,7 +58,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn word_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Word);
+		self.state.mem(MemoryOperandSize::Word);
 		self
 	}
 
@@ -66,7 +66,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn dword_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Dword);
+		self.state.mem(MemoryOperandSize::Dword);
 		self
 	}
 
@@ -74,7 +74,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn qword_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Qword);
+		self.state.mem(MemoryOperandSize::Qword);
 		self
 	}
 
@@ -82,7 +82,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn mmword_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Qword);
+		self.state.mem(MemoryOperandSize::Qword);
 		self
 	}
 
@@ -90,7 +90,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn tbyte_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Tbyte);
+		self.state.mem(MemoryOperandSize::Tbyte);
 		self
 	}
 
@@ -98,7 +98,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn tword_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Tbyte);
+		self.state.mem(MemoryOperandSize::Tbyte);
 		self
 	}
 
@@ -106,7 +106,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn fword_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Fword);
+		self.state.mem(MemoryOperandSize::Fword);
 		self
 	}
 
@@ -114,7 +114,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn oword_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Xword);
+		self.state.mem(MemoryOperandSize::Xword);
 		self
 	}
 
@@ -122,7 +122,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn xmmword_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Xword);
+		self.state.mem(MemoryOperandSize::Xword);
 		self
 	}
 
@@ -130,7 +130,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn ymmword_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Yword);
+		self.state.mem(MemoryOperandSize::Yword);
 		self
 	}
 
@@ -138,7 +138,7 @@ impl AsmMemoryOperand {
 	#[inline]
 	#[rustfmt::skip]
 	pub(crate) fn zmmword_ptr(mut self) -> Self {
-		self.state.ptr(MemoryOperandSize::Zword);
+		self.state.mem(MemoryOperandSize::Zword);
 		self
 	}
 
@@ -578,15 +578,15 @@ impl Add<AsmMemoryOperand> for AsmMemoryOperand {
 /// ```
 /// use iced_x86::code_asm::*;
 ///
-/// let _ = ptr(rax);
-/// let _ = ptr(0x1234_5678).fs();
-/// let _ = ptr(rdx * 4 + rcx - 123);
+/// let _ = mem(rax);
+/// let _ = mem(0x1234_5678).fs();
+/// let _ = mem(rdx * 4 + rcx - 123);
 /// ```
 #[must_use]
 #[inline]
 #[rustfmt::skip]
-pub fn ptr<M: Into<AsmMemoryOperand>>(mem: M) -> AsmMemoryOperand {
-	mem.into().ptr()
+pub fn mem<M: Into<AsmMemoryOperand>>(mem: M) -> AsmMemoryOperand {
+	mem.into().mem()
 }
 
 /// Creates a memory operand with a `BYTE PTR` size hint

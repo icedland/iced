@@ -54,14 +54,14 @@ impl CodeAssemblerOptions {
 /// // You can also call word_ptr(), dword_bcst() etc to create memory operands.
 /// let _ = rax; // register
 /// let _ = rax + 0; // memory with no size hint
-/// let _ = ptr(rax); // memory with no size hint
+/// let _ = mem(rax); // memory with no size hint
 /// let _ = rax + rcx * 4 - 123; // memory with no size hint
 /// // To create a memory operand with only a displacement or only a base register,
 /// // you can call one of the memory fns:
 /// let _ = qword_ptr(123); // memory with a qword size hint
 /// let _ = dword_bcst(rcx); // memory (broadcast) with a dword size hint
 /// // To add a segment override, call the segment methods:
-/// let _ = ptr(rax).fs(); // fs:[rax]
+/// let _ = mem(rax).fs(); // fs:[rax]
 ///
 /// // Each mnemonic is a method
 /// a.push(rcx)?;
@@ -91,7 +91,7 @@ impl CodeAssemblerOptions {
 /// // You can force EVEX like so:
 /// a.set_prefer_vex(false);
 /// a.vucomiss(xmm31, xmm15.sae())?;
-/// a.vucomiss(xmm31, ptr(rcx))?;
+/// a.vucomiss(xmm31, mem(rcx))?;
 ///
 /// // Encode all added instructions
 /// let bytes = a.assemble(0x1234_5678)?;

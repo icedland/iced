@@ -127,7 +127,7 @@ impl CodeAsmOpState {
 	}
 
 	#[inline]
-	pub fn ptr(&mut self, size: MemoryOperandSize) {
+	pub fn mem(&mut self, size: MemoryOperandSize) {
 		self.flags1 = (self.flags1 & !((CodeAsmOpStateFlags1::SIZE_MASK << CodeAsmOpStateFlags1::SIZE_SHIFT) | CodeAsmOpStateFlags1::BROADCAST))
 			| ((size as u8) << CodeAsmOpStateFlags1::SIZE_SHIFT);
 	}
