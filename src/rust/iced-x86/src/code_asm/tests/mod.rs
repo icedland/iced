@@ -515,6 +515,20 @@ fn nops_errors() {
 }
 
 #[test]
+fn invalid_instr_fails() {
+	let mut a = CodeAssembler::new(64).unwrap();
+	a.aaa().unwrap();
+	assert!(a.assemble(0x1234_5678_9ABC_DEF0).is_err());
+
+	let mut a = CodeAssembler::new(64).unwrap();
+	assert!(a.pop(cs).is_err());
+
+	let mut a = CodeAssembler::new(64).unwrap();
+	a.push(cs).unwrap();
+	assert!(a.assemble(0x1234_5678_9ABC_DEF0).is_err());
+}
+
+#[test]
 fn add_instruction() {
 	let mut a = CodeAssembler::new(64).unwrap();
 	a.nop().unwrap();
