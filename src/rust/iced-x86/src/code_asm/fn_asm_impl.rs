@@ -16923,10 +16923,10 @@ impl CodeAsmPush<i32> for CodeAssembler {
 			if op0 >= i8::MIN as i32 && op0 <= i8::MAX as i32 { Code::Pushq_imm8 } else { Code::Pushq_imm32 }
 		} else if self.bitness() >= 32 {
 			if op0 >= i8::MIN as i32 && op0 <= i8::MAX as i32 { Code::Pushd_imm8 } else { Code::Pushd_imm32 }
-		} else if self.bitness() >= 16 {
-			if op0 >= i8::MIN as i32 && op0 <= i8::MAX as i32 { Code::Pushw_imm8 } else { Code::Push_imm16 }
+		} else if op0 >= i8::MIN as i32 && op0 <= i8::MAX as i32 {
+			Code::Pushw_imm8
 		} else {
-			return Err(IcedError::new("push: invalid operands"));
+			Code::Push_imm16
 		};
 		self.add_instr(Instruction::with1(code, op0)?)
 	}
@@ -16937,10 +16937,10 @@ impl CodeAsmPush<u32> for CodeAssembler {
 	fn push(&mut self, op0: u32) -> Result<(), IcedError> {
 		let code = if self.bitness() >= 32 {
 			if op0 <= i8::MAX as u32 || 0xFFFF_FF80 <= op0 { Code::Pushd_imm8 } else { Code::Pushd_imm32 }
-		} else if self.bitness() >= 16 {
-			if op0 <= i8::MAX as u32 || (0xFF80 <= op0 && op0 <= 0xFFFF) { Code::Pushw_imm8 } else { Code::Push_imm16 }
+		} else if op0 <= i8::MAX as u32 || (0xFF80 <= op0 && op0 <= 0xFFFF) {
+			Code::Pushw_imm8
 		} else {
-			return Err(IcedError::new("push: invalid operands"));
+			Code::Push_imm16
 		};
 		self.add_instr(Instruction::with1(code, op0)?)
 	}

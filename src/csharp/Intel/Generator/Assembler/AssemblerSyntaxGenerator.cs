@@ -750,12 +750,6 @@ namespace Generator.Assembler {
 				switch (kind) {
 				case OpCodeSelectorKind.Bitness32:
 				case OpCodeSelectorKind.Bitness16:
-					// Bitness32/Bitness16 can be last without a condition
-					if (list.Count == 1 && selectorIndex + 1 == selectors.Count)
-						node = new OpCodeNode(list[0]);
-					else
-						goto default;
-					break;
 				case OpCodeSelectorKind.Register8:
 				case OpCodeSelectorKind.Register16:
 				case OpCodeSelectorKind.Register32:

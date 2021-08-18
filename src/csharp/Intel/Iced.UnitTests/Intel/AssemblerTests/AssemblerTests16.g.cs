@@ -9610,29 +9610,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void push_i() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { // skip (Bitness >= 32) not supported by this Assembler bitness
-			} /* else */ { /* if (Bitness >= 16) */
-				{ /* if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) */
-					TestAssembler(c => c.push(-0x80), Instruction.Create(Code.Pushw_imm8, -0x80));
-					TestAssembler(c => c.push(0x7F), Instruction.Create(Code.Pushw_imm8, 0x7F));
-				} /* else */ TestAssembler(c => c.push(0x40B7), Instruction.Create(Code.Push_imm16, 0x40B7));
-			}
-			{
-				// See manual test for this case push
-			}
+			} /* else */ { /* if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) */
+				TestAssembler(c => c.push(-0x80), Instruction.Create(Code.Pushw_imm8, -0x80));
+				TestAssembler(c => c.push(0x7F), Instruction.Create(Code.Pushw_imm8, 0x7F));
+			} /* else */ TestAssembler(c => c.push(0x40B7), Instruction.Create(Code.Push_imm16, 0x40B7));
 		}
 
 		[Fact]
 		public void push_u() {
 			{ // skip (Bitness >= 32) not supported by this Assembler bitness
-			} /* else */ { /* if (Bitness >= 16) */
-				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFF80 <= imm && imm <= 0xFFFF)) */
-					TestAssembler(c => c.push(0xFF80U), Instruction.Create(Code.Pushw_imm8, 0xFF80U));
-					TestAssembler(c => c.push(0x7FU), Instruction.Create(Code.Pushw_imm8, 0x7FU));
-				} /* else */ TestAssembler(c => c.push(0x40B7U), Instruction.Create(Code.Push_imm16, 0x40B7U));
-			}
-			{
-				// Already tested by signed version
-			}
+			} /* else */ { /* if (imm <= (uint)sbyte.MaxValue || (0xFF80 <= imm && imm <= 0xFFFF)) */
+				TestAssembler(c => c.push(0xFF80U), Instruction.Create(Code.Pushw_imm8, 0xFF80U));
+				TestAssembler(c => c.push(0x7FU), Instruction.Create(Code.Pushw_imm8, 0x7FU));
+			} /* else */ TestAssembler(c => c.push(0x40B7U), Instruction.Create(Code.Push_imm16, 0x40B7U));
 		}
 
 		[Fact]

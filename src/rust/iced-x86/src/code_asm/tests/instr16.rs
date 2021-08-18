@@ -18562,45 +18562,39 @@ fn push_i() {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
 	} /* else if self.bitness() >= 32 */ {
 		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
-	} /* else if self.bitness() >= 16 */ {
-		/* if op0 >= i8::MIN as i32 && op0 <= i8::MAX as i32 */ {
-			// Pushw_imm8
-			test_instr(16, |a| a.push(-0x80i32).unwrap(),
-				Instruction::with1(Code::Pushw_imm8, -0x80i32).unwrap(),
-				TestInstrFlags::NONE, DecoderOptions::NONE);
-			// Pushw_imm8
-			test_instr(16, |a| a.push(0x7Fi32).unwrap(),
-				Instruction::with1(Code::Pushw_imm8, 0x7Fi32).unwrap(),
-				TestInstrFlags::NONE, DecoderOptions::NONE);
-		} /* else */ {
-			// Push_imm16
-			test_instr(16, |a| a.push(0x40B7i32).unwrap(),
-				Instruction::with1(Code::Push_imm16, 0x40B7i32).unwrap(),
-				TestInstrFlags::NONE, DecoderOptions::NONE);
-		}
+	} /* else if op0 >= i8::MIN as i32 && op0 <= i8::MAX as i32 */ {
+		// Pushw_imm8
+		test_instr(16, |a| a.push(-0x80i32).unwrap(),
+			Instruction::with1(Code::Pushw_imm8, -0x80i32).unwrap(),
+			TestInstrFlags::NONE, DecoderOptions::NONE);
+		// Pushw_imm8
+		test_instr(16, |a| a.push(0x7Fi32).unwrap(),
+			Instruction::with1(Code::Pushw_imm8, 0x7Fi32).unwrap(),
+			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Push_imm16
+		test_instr(16, |a| a.push(0x40B7i32).unwrap(),
+			Instruction::with1(Code::Push_imm16, 0x40B7i32).unwrap(),
+			TestInstrFlags::NONE, DecoderOptions::NONE);
 	}
 	/* if self.bitness() == 64 */ {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
 	} /* else if self.bitness() >= 32 */ {
 		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
-	} /* else if self.bitness() >= 16 */ {
-		/* if op0 >= i8::MIN as i32 && op0 <= i8::MAX as i32 */ {
-			// Pushw_imm8
-			test_instr(16, |a| a.push(-0x80).unwrap(),
-				Instruction::with1(Code::Pushw_imm8, -0x80i32).unwrap(),
-				TestInstrFlags::NONE, DecoderOptions::NONE);
-			// Pushw_imm8
-			test_instr(16, |a| a.push(0x7F).unwrap(),
-				Instruction::with1(Code::Pushw_imm8, 0x7Fi32).unwrap(),
-				TestInstrFlags::NONE, DecoderOptions::NONE);
-		} /* else */ {
-			// Push_imm16
-			test_instr(16, |a| a.push(0x40B7).unwrap(),
-				Instruction::with1(Code::Push_imm16, 0x40B7i32).unwrap(),
-				TestInstrFlags::NONE, DecoderOptions::NONE);
-		}
+	} /* else if op0 >= i8::MIN as i32 && op0 <= i8::MAX as i32 */ {
+		// Pushw_imm8
+		test_instr(16, |a| a.push(-0x80).unwrap(),
+			Instruction::with1(Code::Pushw_imm8, -0x80i32).unwrap(),
+			TestInstrFlags::NONE, DecoderOptions::NONE);
+		// Pushw_imm8
+		test_instr(16, |a| a.push(0x7F).unwrap(),
+			Instruction::with1(Code::Pushw_imm8, 0x7Fi32).unwrap(),
+			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Push_imm16
+		test_instr(16, |a| a.push(0x40B7).unwrap(),
+			Instruction::with1(Code::Push_imm16, 0x40B7i32).unwrap(),
+			TestInstrFlags::NONE, DecoderOptions::NONE);
 	}
 }
 
@@ -18609,23 +18603,20 @@ fn push_i() {
 fn push_u() {
 	/* if self.bitness() >= 32 */ {
 		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
-	} /* else if self.bitness() >= 16 */ {
-		/* if op0 <= i8::MAX as u32 || (0xFF80 <= op0 && op0 <= 0xFFFF) */ {
-			// Pushw_imm8
-			test_instr(16, |a| a.push(0xFF80u32).unwrap(),
-				Instruction::with1(Code::Pushw_imm8, 0xFF80u32).unwrap(),
-				TestInstrFlags::NONE, DecoderOptions::NONE);
-			// Pushw_imm8
-			test_instr(16, |a| a.push(0x7Fu32).unwrap(),
-				Instruction::with1(Code::Pushw_imm8, 0x7Fu32).unwrap(),
-				TestInstrFlags::NONE, DecoderOptions::NONE);
-		} /* else */ {
-			// Push_imm16
-			test_instr(16, |a| a.push(0x40B7u32).unwrap(),
-				Instruction::with1(Code::Push_imm16, 0x40B7u32).unwrap(),
-				TestInstrFlags::NONE, DecoderOptions::NONE);
-		}
+	} /* else if op0 <= i8::MAX as u32 || (0xFF80 <= op0 && op0 <= 0xFFFF) */ {
+		// Pushw_imm8
+		test_instr(16, |a| a.push(0xFF80u32).unwrap(),
+			Instruction::with1(Code::Pushw_imm8, 0xFF80u32).unwrap(),
+			TestInstrFlags::NONE, DecoderOptions::NONE);
+		// Pushw_imm8
+		test_instr(16, |a| a.push(0x7Fu32).unwrap(),
+			Instruction::with1(Code::Pushw_imm8, 0x7Fu32).unwrap(),
+			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Push_imm16
+		test_instr(16, |a| a.push(0x40B7u32).unwrap(),
+			Instruction::with1(Code::Push_imm16, 0x40B7u32).unwrap(),
+			TestInstrFlags::NONE, DecoderOptions::NONE);
 	}
 }
 
