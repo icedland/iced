@@ -56,7 +56,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	/// * `op0`: First operand (eg. a [`Register`], an integer, or a [`MemoryOperand`])
+	/// * `op0`: First operand (eg. a [`Register`], an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), or a [`MemoryOperand`])
 	///
 	/// [`Register`]: enum.Register.html
 	/// [`MemoryOperand`]: struct.MemoryOperand.html
@@ -89,7 +89,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	/// * `op0`: First operand (eg. a [`Register`], an integer, or a [`MemoryOperand`])
+	/// * `op0`: First operand (eg. a [`Register`], an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), or a [`MemoryOperand`])
 	/// * `op1`: Second operand
 	///
 	/// [`Register`]: enum.Register.html
@@ -123,7 +123,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	/// * `op0`: First operand (eg. a [`Register`], an integer, or a [`MemoryOperand`])
+	/// * `op0`: First operand (eg. a [`Register`], an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), or a [`MemoryOperand`])
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	///
@@ -158,7 +158,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	/// * `op0`: First operand (eg. a [`Register`], an integer, or a [`MemoryOperand`])
+	/// * `op0`: First operand (eg. a [`Register`], an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), or a [`MemoryOperand`])
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -194,7 +194,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	/// * `op0`: First operand (eg. a [`Register`], an integer, or a [`MemoryOperand`])
+	/// * `op0`: First operand (eg. a [`Register`], an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), or a [`MemoryOperand`])
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand

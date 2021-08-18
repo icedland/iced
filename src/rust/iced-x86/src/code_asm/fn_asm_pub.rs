@@ -38,7 +38,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn aad<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -59,7 +59,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn aam<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -115,7 +115,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn adc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -138,7 +138,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn adcx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -178,7 +178,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn add<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -200,7 +200,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn addpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -222,7 +222,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn addps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -244,7 +244,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn addsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -266,7 +266,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn addss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -288,7 +288,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn addsubpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -310,7 +310,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn addsubps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -333,7 +333,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn adox<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -355,7 +355,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn aesdec<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -377,7 +377,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn aesdec128kl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -399,7 +399,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn aesdec256kl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -421,7 +421,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn aesdeclast<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -443,7 +443,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn aesdecwide128kl<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -464,7 +464,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn aesdecwide256kl<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -485,7 +485,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn aesenc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -507,7 +507,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn aesenc128kl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -529,7 +529,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn aesenc256kl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -551,7 +551,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn aesenclast<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -573,7 +573,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn aesencwide128kl<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -594,7 +594,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn aesencwide256kl<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -615,7 +615,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn aesimc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -637,7 +637,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -695,7 +695,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn and<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -718,7 +718,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -741,7 +741,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn andnpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -763,7 +763,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn andnps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -785,7 +785,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn andpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -807,7 +807,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn andps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -830,7 +830,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn arpl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -889,7 +889,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -913,7 +913,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blcfill<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -936,7 +936,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blci<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -959,7 +959,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blcic<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -982,7 +982,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blcmsk<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1005,7 +1005,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blcs<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1027,7 +1027,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -1050,7 +1050,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -1073,7 +1073,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blendvpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1095,7 +1095,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blendvps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1118,7 +1118,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blsfill<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1141,7 +1141,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blsi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1164,7 +1164,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blsic<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1187,7 +1187,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blsmsk<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1210,7 +1210,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn blsr<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1233,7 +1233,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bndcl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1256,7 +1256,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bndcn<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1279,7 +1279,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bndcu<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1301,7 +1301,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bndldx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1324,7 +1324,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bndmk<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1349,7 +1349,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bndmov<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1371,7 +1371,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bndstx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1394,7 +1394,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bound<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1418,7 +1418,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bsf<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1442,7 +1442,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bsr<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1466,7 +1466,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn bswap<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -1492,7 +1492,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bt<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1519,7 +1519,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn btc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1546,7 +1546,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn btr<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1573,7 +1573,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn bts<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -1596,7 +1596,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -1627,7 +1627,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn call<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -1805,7 +1805,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn cldemote<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -1826,7 +1826,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn clflush<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -1847,7 +1847,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn clflushopt<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -1902,7 +1902,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn clrssbsy<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -1957,7 +1957,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn clwb<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -2016,7 +2016,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmova<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2040,7 +2040,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovae<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2064,7 +2064,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2088,7 +2088,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovbe<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2112,7 +2112,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmove<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2136,7 +2136,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovg<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2160,7 +2160,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovge<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2184,7 +2184,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2208,7 +2208,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovle<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2232,7 +2232,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovne<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2256,7 +2256,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovno<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2280,7 +2280,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovnp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2304,7 +2304,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovns<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2328,7 +2328,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovo<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2352,7 +2352,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2376,7 +2376,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmovs<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2416,7 +2416,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2438,7 +2438,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpeqpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2460,7 +2460,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpeqps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2482,7 +2482,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpeqsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2504,7 +2504,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpeqss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2526,7 +2526,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmplepd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2548,7 +2548,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpleps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2570,7 +2570,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmplesd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2592,7 +2592,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpless<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2614,7 +2614,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpltpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2636,7 +2636,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpltps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2658,7 +2658,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpltsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2680,7 +2680,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpltss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2702,7 +2702,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpneqpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2724,7 +2724,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpneqps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2746,7 +2746,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpneqsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2768,7 +2768,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpneqss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2790,7 +2790,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpnlepd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2812,7 +2812,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpnleps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2834,7 +2834,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpnlesd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2856,7 +2856,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpnless<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2878,7 +2878,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpnltpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2900,7 +2900,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpnltps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2922,7 +2922,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpnltsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2944,7 +2944,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpnltss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2966,7 +2966,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpordpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -2988,7 +2988,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpordps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3010,7 +3010,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpordsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3032,7 +3032,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpordss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3054,7 +3054,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -3077,7 +3077,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -3134,7 +3134,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -3174,7 +3174,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -3214,7 +3214,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpunordpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3236,7 +3236,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpunordps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3258,7 +3258,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpunordsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3280,7 +3280,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpunordss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3305,7 +3305,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cmpxchg<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3327,7 +3327,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn cmpxchg16b<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -3348,7 +3348,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn cmpxchg8b<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -3369,7 +3369,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn comisd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3391,7 +3391,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn comiss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3485,7 +3485,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn crc32<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3507,7 +3507,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtdq2pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3529,7 +3529,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtdq2ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3551,7 +3551,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtpd2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3573,7 +3573,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtpd2pi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3595,7 +3595,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtpd2ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3617,7 +3617,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtpi2pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3639,7 +3639,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtpi2ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3661,7 +3661,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtps2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3683,7 +3683,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtps2pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3705,7 +3705,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtps2pi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3728,7 +3728,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtsd2si<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3750,7 +3750,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtsd2ss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3773,7 +3773,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtsi2sd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3796,7 +3796,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtsi2ss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3818,7 +3818,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtss2sd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3841,7 +3841,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvtss2si<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3863,7 +3863,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvttpd2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3885,7 +3885,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvttpd2pi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3907,7 +3907,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvttps2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3929,7 +3929,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvttps2pi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3952,7 +3952,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvttsd2si<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -3975,7 +3975,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn cvttss2si<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4070,7 +4070,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn dec<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -4094,7 +4094,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn div<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -4115,7 +4115,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn divpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4137,7 +4137,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn divps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4159,7 +4159,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn divsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4181,7 +4181,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn divss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4220,7 +4220,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -4243,7 +4243,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -4334,7 +4334,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn encodekey128<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4356,7 +4356,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn encodekey256<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4414,7 +4414,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn enqcmd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4438,7 +4438,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn enqcmds<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4462,7 +4462,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn enter<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4519,7 +4519,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -4542,7 +4542,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn extrq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4564,7 +4564,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -4622,7 +4622,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fadd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -4644,7 +4644,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fadd_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4666,7 +4666,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn faddp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4688,7 +4688,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fbld<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -4709,7 +4709,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fbstp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -4764,7 +4764,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcmovb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4786,7 +4786,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcmovbe<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4808,7 +4808,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcmove<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4830,7 +4830,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcmovnb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4852,7 +4852,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcmovnbe<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4874,7 +4874,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcmovne<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4896,7 +4896,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcmovnu<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4918,7 +4918,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcmovu<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4941,7 +4941,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fcom<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -4962,7 +4962,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcom_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -4984,7 +4984,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcomi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -5006,7 +5006,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcomip<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -5029,7 +5029,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fcomp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5050,7 +5050,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fcomp_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -5141,7 +5141,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fdiv<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5163,7 +5163,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fdiv_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -5185,7 +5185,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fdivp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -5208,7 +5208,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fdivr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5230,7 +5230,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fdivr_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -5252,7 +5252,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fdivrp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -5308,7 +5308,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn ffree<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5329,7 +5329,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn ffreep<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5351,7 +5351,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fiadd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5373,7 +5373,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn ficom<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5395,7 +5395,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn ficomp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5417,7 +5417,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fidiv<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5439,7 +5439,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fidivr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5462,7 +5462,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fild<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5484,7 +5484,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fimul<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5540,7 +5540,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fist<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5563,7 +5563,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fistp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5586,7 +5586,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fisttp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5608,7 +5608,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fisub<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5630,7 +5630,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fisubr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5654,7 +5654,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fld<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5692,7 +5692,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fldcw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5714,7 +5714,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fldenv<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5838,7 +5838,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fmul<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -5860,7 +5860,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fmul_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -5882,7 +5882,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fmulp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -5990,7 +5990,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fnsave<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6028,7 +6028,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fnstcw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6049,7 +6049,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fnstdw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6071,7 +6071,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fnstenv<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6092,7 +6092,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fnstsg<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6114,7 +6114,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fnstsw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6221,7 +6221,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn frstor<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6260,7 +6260,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fsave<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6368,7 +6368,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fst<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6389,7 +6389,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fstcw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6410,7 +6410,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fstdw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6432,7 +6432,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fstenv<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6456,7 +6456,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fstp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6477,7 +6477,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fstpnce<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6498,7 +6498,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fstsg<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6520,7 +6520,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fstsw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6542,7 +6542,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fsub<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6564,7 +6564,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fsub_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -6586,7 +6586,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fsubp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -6609,7 +6609,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fsubr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6631,7 +6631,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fsubr_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -6653,7 +6653,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fsubrp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -6692,7 +6692,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fucom<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -6714,7 +6714,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fucomi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -6736,7 +6736,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fucomip<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -6758,7 +6758,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fucomp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -6814,7 +6814,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn fxch<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -6836,7 +6836,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fxrstor<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6857,7 +6857,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fxrstor64<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6878,7 +6878,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fxsave<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -6899,7 +6899,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn fxsave64<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7005,7 +7005,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -7028,7 +7028,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -7051,7 +7051,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn gf2p8mulb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7073,7 +7073,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn haddpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7095,7 +7095,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn haddps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7134,7 +7134,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn hreset<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7155,7 +7155,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn hsubpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7177,7 +7177,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn hsubps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7200,7 +7200,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ibts<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7225,7 +7225,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn idiv<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7249,7 +7249,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn imul<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7272,7 +7272,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn imul_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7299,7 +7299,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -7327,7 +7327,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn in_<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7354,7 +7354,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn inc<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7375,7 +7375,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn incsspd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7396,7 +7396,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn incsspq<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7451,7 +7451,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -7474,7 +7474,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn insertq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7496,7 +7496,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -7537,7 +7537,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn int<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7627,7 +7627,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn invept<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7649,7 +7649,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn invlpg<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7709,7 +7709,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn invpcid<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7732,7 +7732,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn invvpid<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -7810,7 +7810,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn ja<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7836,7 +7836,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jae<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7862,7 +7862,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jb<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7888,7 +7888,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jbe<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7909,7 +7909,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jcxz<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7935,7 +7935,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn je<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7956,7 +7956,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jecxz<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -7982,7 +7982,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jg<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8008,7 +8008,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jge<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8034,7 +8034,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jl<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8060,7 +8060,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jle<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8092,7 +8092,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jmp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8116,7 +8116,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jmpe<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8142,7 +8142,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jne<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8168,7 +8168,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jno<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8194,7 +8194,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jnp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8220,7 +8220,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jns<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8246,7 +8246,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jo<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8272,7 +8272,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8293,7 +8293,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn jrcxz<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8319,7 +8319,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn js<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -8340,7 +8340,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8363,7 +8363,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8386,7 +8386,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8409,7 +8409,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8432,7 +8432,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8455,7 +8455,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8478,7 +8478,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8501,7 +8501,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8524,7 +8524,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8547,7 +8547,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8570,7 +8570,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8593,7 +8593,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8619,7 +8619,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn kmovb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8644,7 +8644,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn kmovd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8669,7 +8669,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn kmovq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8694,7 +8694,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn kmovw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8716,7 +8716,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn knotb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8738,7 +8738,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn knotd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8760,7 +8760,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn knotq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8782,7 +8782,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn knotw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8804,7 +8804,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8827,7 +8827,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8850,7 +8850,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8873,7 +8873,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn kortestb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8895,7 +8895,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn kortestd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8917,7 +8917,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn kortestq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8939,7 +8939,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn kortestw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -8961,7 +8961,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -8984,7 +8984,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9007,7 +9007,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9030,7 +9030,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9053,7 +9053,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9076,7 +9076,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9099,7 +9099,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9122,7 +9122,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9145,7 +9145,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9168,7 +9168,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ktestb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9190,7 +9190,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ktestd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9212,7 +9212,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ktestq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9234,7 +9234,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ktestw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9256,7 +9256,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9279,7 +9279,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9302,7 +9302,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9325,7 +9325,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9348,7 +9348,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9371,7 +9371,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9394,7 +9394,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9417,7 +9417,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9440,7 +9440,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9463,7 +9463,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9486,7 +9486,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -9528,7 +9528,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn lar<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9550,7 +9550,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn lddqu<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9572,7 +9572,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn ldmxcsr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -9594,7 +9594,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn lds<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9616,7 +9616,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn ldtilecfg<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -9639,7 +9639,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn lea<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9681,7 +9681,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn les<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9722,7 +9722,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn lfs<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9746,7 +9746,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn lgdt<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -9769,7 +9769,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn lgs<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -9793,7 +9793,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn lidt<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -9816,7 +9816,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn lkgs<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -9839,7 +9839,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn lldt<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -9861,7 +9861,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn llwpcb<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -9884,7 +9884,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn lmsw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -9922,7 +9922,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn loadiwkey<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10014,7 +10014,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn loop_<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -10037,7 +10037,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn loope<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -10060,7 +10060,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn loopne<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -10083,7 +10083,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn lsl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10107,7 +10107,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn lss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10131,7 +10131,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn ltr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -10153,7 +10153,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -10177,7 +10177,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -10202,7 +10202,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn lzcnt<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10224,7 +10224,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn maskmovdqu<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10246,7 +10246,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn maskmovq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10268,7 +10268,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn maxpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10290,7 +10290,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn maxps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10312,7 +10312,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn maxsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10334,7 +10334,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn maxss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10390,7 +10390,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn minpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10412,7 +10412,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn minps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10434,7 +10434,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn minsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10456,7 +10456,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn minss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10574,7 +10574,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn mov<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10597,7 +10597,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movapd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10620,7 +10620,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movaps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10647,7 +10647,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movbe<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10672,7 +10672,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10694,7 +10694,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movddup<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10718,7 +10718,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movdir64b<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10741,7 +10741,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movdiri<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10763,7 +10763,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movdq2q<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10786,7 +10786,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movdqa<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10809,7 +10809,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movdqu<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10831,7 +10831,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movhlps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10854,7 +10854,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movhpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10877,7 +10877,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movhps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10899,7 +10899,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movlhps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10922,7 +10922,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movlpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10945,7 +10945,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movlps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10968,7 +10968,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movmskpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -10991,7 +10991,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movmskps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11013,7 +11013,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movntdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11035,7 +11035,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movntdqa<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11058,7 +11058,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movnti<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11080,7 +11080,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movntpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11102,7 +11102,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movntps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11124,7 +11124,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movntq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11146,7 +11146,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movntsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11168,7 +11168,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movntss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11197,7 +11197,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11219,7 +11219,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movq2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11276,7 +11276,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movsd_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11298,7 +11298,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movshdup<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11320,7 +11320,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movsldup<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11360,7 +11360,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11404,7 +11404,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movsx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11428,7 +11428,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movsxd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11451,7 +11451,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movupd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11474,7 +11474,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movups<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11501,7 +11501,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn movzx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11523,7 +11523,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -11549,7 +11549,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn mul<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -11570,7 +11570,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn mulpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11592,7 +11592,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn mulps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11614,7 +11614,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn mulsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11636,7 +11636,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn mulss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11659,7 +11659,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -11719,7 +11719,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn neg<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -11760,7 +11760,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn nop_1<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -11784,7 +11784,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn not<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -11823,7 +11823,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn or<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11845,7 +11845,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn orpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11867,7 +11867,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn orps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11894,7 +11894,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn out<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11968,7 +11968,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pabsb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -11991,7 +11991,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pabsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12014,7 +12014,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pabsw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12037,7 +12037,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn packssdw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12060,7 +12060,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn packsswb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12082,7 +12082,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn packusdw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12105,7 +12105,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn packuswb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12128,7 +12128,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn paddb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12151,7 +12151,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn paddd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12174,7 +12174,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn paddq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12197,7 +12197,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn paddsb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12219,7 +12219,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn paddsiw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12242,7 +12242,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn paddsw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12265,7 +12265,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn paddusb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12288,7 +12288,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn paddusw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12311,7 +12311,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn paddw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12334,7 +12334,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -12358,7 +12358,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pand<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12381,7 +12381,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pandn<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12420,7 +12420,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn paveb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12443,7 +12443,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pavgb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12465,7 +12465,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pavgusb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12488,7 +12488,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pavgw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12510,7 +12510,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pblendvb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12532,7 +12532,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -12555,7 +12555,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pclmulhqhqdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12577,7 +12577,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pclmulhqlqdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12599,7 +12599,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pclmullqhqdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12621,7 +12621,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pclmullqlqdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12643,7 +12643,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -12667,7 +12667,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pcmpeqb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12690,7 +12690,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pcmpeqd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12712,7 +12712,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pcmpeqq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12735,7 +12735,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pcmpeqw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12757,7 +12757,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -12780,7 +12780,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -12803,7 +12803,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -12826,7 +12826,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -12850,7 +12850,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pcmpgtb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12873,7 +12873,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pcmpgtd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12895,7 +12895,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pcmpgtq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12918,7 +12918,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pcmpgtw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -12940,7 +12940,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -12963,7 +12963,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13021,7 +13021,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13044,7 +13044,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pdistib<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13067,7 +13067,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13091,7 +13091,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13114,7 +13114,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13137,7 +13137,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13164,7 +13164,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13187,7 +13187,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pf2id<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13209,7 +13209,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pf2iw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13231,7 +13231,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfacc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13253,7 +13253,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfadd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13275,7 +13275,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfcmpeq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13297,7 +13297,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfcmpge<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13319,7 +13319,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfcmpgt<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13341,7 +13341,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfmax<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13363,7 +13363,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfmin<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13385,7 +13385,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfmul<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13407,7 +13407,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfnacc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13429,7 +13429,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfpnacc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13451,7 +13451,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfrcp<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13473,7 +13473,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfrcpit1<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13495,7 +13495,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfrcpit2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13517,7 +13517,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfrcpv<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13539,7 +13539,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfrsqit1<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13561,7 +13561,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfrsqrt<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13583,7 +13583,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfrsqrtv<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13605,7 +13605,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfsub<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13627,7 +13627,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pfsubr<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13650,7 +13650,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn phaddd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13673,7 +13673,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn phaddsw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13696,7 +13696,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn phaddw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13718,7 +13718,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn phminposuw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13741,7 +13741,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn phsubd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13764,7 +13764,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn phsubsw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13787,7 +13787,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn phsubw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13809,7 +13809,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pi2fd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13831,7 +13831,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pi2fw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13854,7 +13854,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13877,7 +13877,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13900,7 +13900,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13926,7 +13926,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -13949,7 +13949,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmachriw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13972,7 +13972,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmaddubsw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -13995,7 +13995,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmaddwd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14017,7 +14017,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmagw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14039,7 +14039,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmaxsb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14061,7 +14061,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmaxsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14084,7 +14084,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmaxsw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14107,7 +14107,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmaxub<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14129,7 +14129,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmaxud<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14151,7 +14151,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmaxuw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14173,7 +14173,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pminsb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14195,7 +14195,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pminsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14218,7 +14218,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pminsw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14241,7 +14241,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pminub<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14263,7 +14263,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pminud<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14285,7 +14285,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pminuw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14310,7 +14310,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovmskb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14332,7 +14332,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovsxbd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14354,7 +14354,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovsxbq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14376,7 +14376,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovsxbw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14398,7 +14398,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovsxdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14420,7 +14420,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovsxwd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14442,7 +14442,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovsxwq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14464,7 +14464,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovzxbd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14486,7 +14486,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovzxbq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14508,7 +14508,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovzxbw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14530,7 +14530,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovzxdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14552,7 +14552,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovzxwd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14574,7 +14574,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmovzxwq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14596,7 +14596,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmuldq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14618,7 +14618,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmulhriw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14641,7 +14641,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmulhrsw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14663,7 +14663,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmulhrw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14685,7 +14685,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmulhrw_cyrix<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14708,7 +14708,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmulhuw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14731,7 +14731,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmulhw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14753,7 +14753,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmulld<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14776,7 +14776,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmullw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14799,7 +14799,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmuludq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14821,7 +14821,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmvgezb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14843,7 +14843,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmvlzb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14865,7 +14865,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmvnzb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14887,7 +14887,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pmvzb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -14926,7 +14926,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn pop<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -14983,7 +14983,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn popcnt<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15057,7 +15057,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn por<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15079,7 +15079,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn prefetch<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -15100,7 +15100,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn prefetchnta<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -15121,7 +15121,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn prefetcht0<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -15142,7 +15142,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn prefetcht1<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -15163,7 +15163,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn prefetcht2<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -15184,7 +15184,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn prefetchw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -15205,7 +15205,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn prefetchwt1<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -15227,7 +15227,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psadbw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15250,7 +15250,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pshufb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15272,7 +15272,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -15295,7 +15295,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -15318,7 +15318,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -15341,7 +15341,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -15365,7 +15365,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psignb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15388,7 +15388,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psignd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15411,7 +15411,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psignw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15436,7 +15436,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pslld<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15458,7 +15458,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pslldq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15483,7 +15483,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psllq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15508,7 +15508,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psllw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15550,7 +15550,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psrad<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15575,7 +15575,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psraw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15600,7 +15600,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psrld<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15622,7 +15622,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psrldq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15647,7 +15647,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psrlq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15672,7 +15672,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psrlw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15695,7 +15695,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psubb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15718,7 +15718,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psubd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15741,7 +15741,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psubq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15764,7 +15764,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psubsb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15786,7 +15786,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psubsiw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15809,7 +15809,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psubsw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15832,7 +15832,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psubusb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15855,7 +15855,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psubusw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15878,7 +15878,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn psubw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15900,7 +15900,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pswapd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15922,7 +15922,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ptest<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15945,7 +15945,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn ptwrite<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -15967,7 +15967,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn punpckhbw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -15990,7 +15990,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn punpckhdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16012,7 +16012,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn punpckhqdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16035,7 +16035,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn punpckhwd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16058,7 +16058,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn punpcklbw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16081,7 +16081,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn punpckldq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16103,7 +16103,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn punpcklqdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16126,7 +16126,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn punpcklwd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16173,7 +16173,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn push<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -16299,7 +16299,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn pxor<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16332,7 +16332,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn rcl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16354,7 +16354,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn rcpps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16376,7 +16376,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn rcpss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16409,7 +16409,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn rcr<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16432,7 +16432,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rdfsbase<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -16454,7 +16454,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rdgsbase<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -16510,7 +16510,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rdpid<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -16584,7 +16584,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rdrand<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -16607,7 +16607,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rdseed<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -16628,7 +16628,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rdshr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -16649,7 +16649,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rdsspd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -16670,7 +16670,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rdsspq<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -16744,7 +16744,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn reservednop_0f0d<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16768,7 +16768,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn reservednop_0f18<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16792,7 +16792,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn reservednop_0f19<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16816,7 +16816,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn reservednop_0f1a<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16840,7 +16840,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn reservednop_0f1b<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16864,7 +16864,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn reservednop_0f1c<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16888,7 +16888,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn reservednop_0f1d<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16912,7 +16912,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn reservednop_0f1e<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16936,7 +16936,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn reservednop_0f1f<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -16979,7 +16979,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn ret_1<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17021,7 +17021,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn retf_1<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17087,7 +17087,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn rol<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -17120,7 +17120,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ror<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -17143,7 +17143,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -17166,7 +17166,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -17189,7 +17189,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -17212,7 +17212,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -17235,7 +17235,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -17258,7 +17258,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn rsdc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -17280,7 +17280,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rsldt<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17318,7 +17318,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn rsqrtps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -17340,7 +17340,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn rsqrtss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -17362,7 +17362,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rstorssp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17383,7 +17383,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn rsts<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17432,7 +17432,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sal<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -17482,7 +17482,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sar<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -17505,7 +17505,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -17563,7 +17563,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sbb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -17704,7 +17704,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn senduipi<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17742,7 +17742,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn seta<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17763,7 +17763,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setae<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17784,7 +17784,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setb<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17805,7 +17805,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setbe<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17826,7 +17826,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn sete<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17847,7 +17847,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setg<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17868,7 +17868,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setge<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17889,7 +17889,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setl<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17910,7 +17910,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setle<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17931,7 +17931,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setne<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17952,7 +17952,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setno<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17973,7 +17973,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setnp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -17994,7 +17994,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setns<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18015,7 +18015,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn seto<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18036,7 +18036,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn setp<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18057,7 +18057,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn sets<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18114,7 +18114,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn sgdt<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18135,7 +18135,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sha1msg1<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18157,7 +18157,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sha1msg2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18179,7 +18179,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sha1nexte<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18201,7 +18201,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -18224,7 +18224,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sha256msg1<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18246,7 +18246,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sha256msg2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18268,7 +18268,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sha256rnds2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18301,7 +18301,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn shl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18328,7 +18328,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -18352,7 +18352,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -18386,7 +18386,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn shr<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18413,7 +18413,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -18437,7 +18437,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -18460,7 +18460,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -18483,7 +18483,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -18508,7 +18508,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn sidt<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18548,7 +18548,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn sldt<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18570,7 +18570,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn slwpcb<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18627,7 +18627,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn smsw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18648,7 +18648,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sqrtpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18670,7 +18670,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sqrtps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18692,7 +18692,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sqrtsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18714,7 +18714,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sqrtss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -18821,7 +18821,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn stmxcsr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18912,7 +18912,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn str<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18933,7 +18933,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn sttilecfg<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -18989,7 +18989,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn sub<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19011,7 +19011,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn subpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19033,7 +19033,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn subps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19055,7 +19055,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn subsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19077,7 +19077,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn subss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19099,7 +19099,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn svdc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19121,7 +19121,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn svldt<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -19142,7 +19142,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn svts<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -19283,7 +19283,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn t1mskc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19322,7 +19322,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -19345,7 +19345,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -19368,7 +19368,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -19391,7 +19391,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -19414,7 +19414,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -19448,7 +19448,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn test<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19487,7 +19487,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn tileloadd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19509,7 +19509,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn tileloaddt1<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19548,7 +19548,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn tilestored<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19570,7 +19570,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn tilezero<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -19609,7 +19609,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn tpause<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -19632,7 +19632,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn tzcnt<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19655,7 +19655,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn tzmsk<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19677,7 +19677,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ucomisd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19699,7 +19699,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ucomiss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19740,7 +19740,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ud0_2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19764,7 +19764,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn ud1<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19822,7 +19822,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn umonitor<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -19848,7 +19848,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn umov<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19871,7 +19871,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn umwait<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -19892,7 +19892,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn unpckhpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19914,7 +19914,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn unpckhps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19936,7 +19936,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn unpcklpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19958,7 +19958,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn unpcklps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -19980,7 +19980,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20003,7 +20003,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20026,7 +20026,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20049,7 +20049,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20076,7 +20076,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20101,7 +20101,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20128,7 +20128,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20152,7 +20152,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20175,7 +20175,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20199,7 +20199,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20223,7 +20223,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20247,7 +20247,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20274,7 +20274,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20301,7 +20301,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20328,7 +20328,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20355,7 +20355,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20378,7 +20378,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vaesimc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20400,7 +20400,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20425,7 +20425,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -20451,7 +20451,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -20479,7 +20479,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20506,7 +20506,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20533,7 +20533,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20560,7 +20560,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20585,7 +20585,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20610,7 +20610,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -20634,7 +20634,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -20659,7 +20659,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -20684,7 +20684,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -20709,7 +20709,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -20733,7 +20733,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcastf128<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20756,7 +20756,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcastf32x2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20779,7 +20779,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcastf32x4<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20801,7 +20801,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcastf32x8<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20824,7 +20824,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcastf64x2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20846,7 +20846,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcastf64x4<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20868,7 +20868,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcasti128<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20892,7 +20892,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcasti32x2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20915,7 +20915,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcasti32x4<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20937,7 +20937,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcasti32x8<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20960,7 +20960,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcasti64x2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -20982,7 +20982,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcasti64x4<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -21007,7 +21007,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcastsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -21035,7 +21035,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vbroadcastss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -21061,7 +21061,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21086,7 +21086,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21113,7 +21113,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21137,7 +21137,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21160,7 +21160,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21184,7 +21184,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21211,7 +21211,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21236,7 +21236,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21263,7 +21263,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21287,7 +21287,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21310,7 +21310,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21334,7 +21334,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21361,7 +21361,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21386,7 +21386,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21413,7 +21413,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21437,7 +21437,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21460,7 +21460,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21484,7 +21484,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21511,7 +21511,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21536,7 +21536,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21563,7 +21563,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21587,7 +21587,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21610,7 +21610,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21634,7 +21634,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21661,7 +21661,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21686,7 +21686,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21713,7 +21713,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21737,7 +21737,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21760,7 +21760,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21784,7 +21784,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21811,7 +21811,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21836,7 +21836,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21863,7 +21863,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21887,7 +21887,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21910,7 +21910,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21934,7 +21934,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21961,7 +21961,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -21986,7 +21986,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22013,7 +22013,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22037,7 +22037,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22060,7 +22060,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22084,7 +22084,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22111,7 +22111,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22136,7 +22136,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22163,7 +22163,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22187,7 +22187,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22210,7 +22210,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22234,7 +22234,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22261,7 +22261,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22286,7 +22286,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22313,7 +22313,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22337,7 +22337,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22360,7 +22360,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22384,7 +22384,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22411,7 +22411,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22436,7 +22436,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22463,7 +22463,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22487,7 +22487,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22510,7 +22510,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22534,7 +22534,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22561,7 +22561,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22586,7 +22586,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22613,7 +22613,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22637,7 +22637,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22660,7 +22660,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22684,7 +22684,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22711,7 +22711,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22736,7 +22736,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22763,7 +22763,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22787,7 +22787,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22810,7 +22810,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22834,7 +22834,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22861,7 +22861,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22886,7 +22886,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22913,7 +22913,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22937,7 +22937,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22960,7 +22960,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -22984,7 +22984,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23011,7 +23011,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23036,7 +23036,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23063,7 +23063,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23087,7 +23087,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23110,7 +23110,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23134,7 +23134,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23161,7 +23161,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23186,7 +23186,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23213,7 +23213,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23237,7 +23237,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23260,7 +23260,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23284,7 +23284,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23311,7 +23311,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23336,7 +23336,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23363,7 +23363,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23387,7 +23387,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23410,7 +23410,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23434,7 +23434,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23461,7 +23461,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23486,7 +23486,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23513,7 +23513,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23537,7 +23537,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23560,7 +23560,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23584,7 +23584,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23611,7 +23611,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23636,7 +23636,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23663,7 +23663,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23687,7 +23687,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23710,7 +23710,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23734,7 +23734,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23761,7 +23761,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23786,7 +23786,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23813,7 +23813,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23837,7 +23837,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23860,7 +23860,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23884,7 +23884,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23911,7 +23911,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23936,7 +23936,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23963,7 +23963,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -23987,7 +23987,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24010,7 +24010,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24034,7 +24034,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24061,7 +24061,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24086,7 +24086,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24113,7 +24113,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24137,7 +24137,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24160,7 +24160,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24184,7 +24184,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24211,7 +24211,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24236,7 +24236,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24263,7 +24263,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24287,7 +24287,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24310,7 +24310,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24334,7 +24334,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24361,7 +24361,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24386,7 +24386,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24413,7 +24413,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24437,7 +24437,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24460,7 +24460,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24484,7 +24484,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24511,7 +24511,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24536,7 +24536,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24563,7 +24563,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24587,7 +24587,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24610,7 +24610,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24634,7 +24634,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24661,7 +24661,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24686,7 +24686,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24713,7 +24713,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24737,7 +24737,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24760,7 +24760,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24784,7 +24784,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24811,7 +24811,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24836,7 +24836,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24863,7 +24863,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24887,7 +24887,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24910,7 +24910,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24934,7 +24934,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24961,7 +24961,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -24986,7 +24986,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25013,7 +25013,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25037,7 +25037,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25060,7 +25060,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25084,7 +25084,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25111,7 +25111,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25136,7 +25136,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25163,7 +25163,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25187,7 +25187,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25210,7 +25210,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25234,7 +25234,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25261,7 +25261,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -25287,7 +25287,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -25315,7 +25315,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -25340,7 +25340,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -25364,7 +25364,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -25389,7 +25389,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -25417,7 +25417,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25442,7 +25442,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25469,7 +25469,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25493,7 +25493,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25516,7 +25516,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25540,7 +25540,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25567,7 +25567,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25592,7 +25592,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25619,7 +25619,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25643,7 +25643,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25666,7 +25666,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25690,7 +25690,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25717,7 +25717,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25742,7 +25742,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25769,7 +25769,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25793,7 +25793,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25816,7 +25816,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25840,7 +25840,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25867,7 +25867,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25892,7 +25892,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25919,7 +25919,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25943,7 +25943,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25966,7 +25966,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -25990,7 +25990,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -26014,7 +26014,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcomisd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26036,7 +26036,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcomish<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26059,7 +26059,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcomiss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26083,7 +26083,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcompresspd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26107,7 +26107,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcompressps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26133,7 +26133,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtdq2pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26157,7 +26157,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtdq2ph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26179,7 +26179,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtdq2phx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26201,7 +26201,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtdq2phy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26227,7 +26227,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtdq2ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26251,7 +26251,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -26276,7 +26276,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtneps2bf16<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26298,7 +26298,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtneps2bf16x<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26320,7 +26320,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtneps2bf16y<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26346,7 +26346,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26368,7 +26368,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2dqx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26390,7 +26390,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2dqy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26414,7 +26414,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2ph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26436,7 +26436,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2phx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26458,7 +26458,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2phy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26480,7 +26480,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2phz<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26506,7 +26506,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26528,7 +26528,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2psx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26550,7 +26550,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2psy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26574,7 +26574,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2qq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26598,7 +26598,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2udq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26620,7 +26620,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2udqx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26642,7 +26642,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2udqy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26666,7 +26666,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtpd2uqq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26690,7 +26690,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtph2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26714,7 +26714,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtph2pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26740,7 +26740,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtph2ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26764,7 +26764,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtph2psx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26788,7 +26788,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtph2qq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26812,7 +26812,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtph2udq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26836,7 +26836,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtph2uqq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26860,7 +26860,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtph2uw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26884,7 +26884,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtph2w<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26910,7 +26910,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtps2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26936,7 +26936,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtps2pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -26962,7 +26962,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -26987,7 +26987,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtps2phx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27009,7 +27009,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtps2phxx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27031,7 +27031,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtps2phxy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27055,7 +27055,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtps2qq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27079,7 +27079,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtps2udq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27103,7 +27103,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtps2uqq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27127,7 +27127,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtqq2pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27151,7 +27151,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtqq2ph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27173,7 +27173,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtqq2phx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27195,7 +27195,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtqq2phy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27217,7 +27217,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtqq2phz<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27241,7 +27241,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtqq2ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27263,7 +27263,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtqq2psx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27285,7 +27285,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtqq2psy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27307,7 +27307,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -27333,7 +27333,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtsd2si<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27356,7 +27356,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -27380,7 +27380,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtsd2usi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27402,7 +27402,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -27426,7 +27426,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtsh2si<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27448,7 +27448,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -27472,7 +27472,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtsh2usi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27497,7 +27497,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -27521,7 +27521,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -27547,7 +27547,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -27571,7 +27571,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -27594,7 +27594,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -27620,7 +27620,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtss2si<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27643,7 +27643,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtss2usi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27669,7 +27669,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttpd2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27691,7 +27691,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttpd2dqx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27713,7 +27713,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttpd2dqy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27737,7 +27737,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttpd2qq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27761,7 +27761,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttpd2udq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27783,7 +27783,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttpd2udqx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27805,7 +27805,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttpd2udqy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27829,7 +27829,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttpd2uqq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27853,7 +27853,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttph2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27877,7 +27877,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttph2qq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27901,7 +27901,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttph2udq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27925,7 +27925,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttph2uqq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27949,7 +27949,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttph2uw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27973,7 +27973,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttph2w<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -27999,7 +27999,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttps2dq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28023,7 +28023,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttps2qq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28047,7 +28047,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttps2udq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28071,7 +28071,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttps2uqq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28096,7 +28096,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttsd2si<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28119,7 +28119,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttsd2usi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28142,7 +28142,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttsh2si<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28165,7 +28165,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttsh2usi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28190,7 +28190,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttss2si<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28213,7 +28213,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvttss2usi<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28237,7 +28237,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtudq2pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28261,7 +28261,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtudq2ph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28283,7 +28283,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtudq2phx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28305,7 +28305,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtudq2phy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28329,7 +28329,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtudq2ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28353,7 +28353,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtuqq2pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28377,7 +28377,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtuqq2ph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28399,7 +28399,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtuqq2phx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28421,7 +28421,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtuqq2phy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28443,7 +28443,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtuqq2phz<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28467,7 +28467,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtuqq2ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28489,7 +28489,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtuqq2psx<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28511,7 +28511,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtuqq2psy<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28534,7 +28534,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -28558,7 +28558,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -28582,7 +28582,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -28607,7 +28607,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtuw2ph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28631,7 +28631,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vcvtw2ph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28655,7 +28655,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -28683,7 +28683,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -28708,7 +28708,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -28735,7 +28735,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -28759,7 +28759,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -28782,7 +28782,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -28806,7 +28806,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -28831,7 +28831,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -28854,7 +28854,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -28879,7 +28879,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -28905,7 +28905,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn verr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -28928,7 +28928,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn verw<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -28949,7 +28949,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vexp2pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28971,7 +28971,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vexp2ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -28995,7 +28995,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vexpandpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -29019,7 +29019,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vexpandps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -29041,7 +29041,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29065,7 +29065,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29088,7 +29088,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29112,7 +29112,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29135,7 +29135,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29158,7 +29158,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29182,7 +29182,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29205,7 +29205,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29229,7 +29229,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29252,7 +29252,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29278,7 +29278,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29303,7 +29303,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29326,7 +29326,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29351,7 +29351,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29374,7 +29374,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29399,7 +29399,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -29425,7 +29425,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -29449,7 +29449,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -29473,7 +29473,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -29501,7 +29501,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29526,7 +29526,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29553,7 +29553,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29577,7 +29577,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29600,7 +29600,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29624,7 +29624,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29651,7 +29651,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29676,7 +29676,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29703,7 +29703,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29727,7 +29727,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29750,7 +29750,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29774,7 +29774,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29801,7 +29801,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29826,7 +29826,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29853,7 +29853,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29877,7 +29877,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29900,7 +29900,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29924,7 +29924,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29949,7 +29949,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29972,7 +29972,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -29998,7 +29998,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -30025,7 +30025,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -30050,7 +30050,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -30075,7 +30075,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -30103,7 +30103,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30128,7 +30128,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30155,7 +30155,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30182,7 +30182,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30207,7 +30207,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30234,7 +30234,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30261,7 +30261,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30286,7 +30286,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30313,7 +30313,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30339,7 +30339,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -30366,7 +30366,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -30394,7 +30394,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30419,7 +30419,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30446,7 +30446,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30470,7 +30470,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30493,7 +30493,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30517,7 +30517,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30544,7 +30544,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30569,7 +30569,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30596,7 +30596,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30620,7 +30620,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30643,7 +30643,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30667,7 +30667,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30694,7 +30694,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30719,7 +30719,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30746,7 +30746,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30770,7 +30770,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30793,7 +30793,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30817,7 +30817,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30844,7 +30844,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30869,7 +30869,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30896,7 +30896,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30923,7 +30923,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30948,7 +30948,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -30975,7 +30975,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31002,7 +31002,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31027,7 +31027,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31054,7 +31054,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31080,7 +31080,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -31107,7 +31107,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -31134,7 +31134,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -31161,7 +31161,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -31186,7 +31186,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -31211,7 +31211,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -31237,7 +31237,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31260,7 +31260,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31287,7 +31287,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31312,7 +31312,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31339,7 +31339,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31363,7 +31363,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31386,7 +31386,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31410,7 +31410,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31437,7 +31437,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31462,7 +31462,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31489,7 +31489,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31513,7 +31513,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31536,7 +31536,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31560,7 +31560,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31587,7 +31587,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31612,7 +31612,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31639,7 +31639,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31663,7 +31663,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31686,7 +31686,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31710,7 +31710,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31736,7 +31736,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -31763,7 +31763,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -31788,7 +31788,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -31813,7 +31813,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -31841,7 +31841,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31866,7 +31866,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31893,7 +31893,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31917,7 +31917,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31940,7 +31940,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31964,7 +31964,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -31991,7 +31991,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32016,7 +32016,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32043,7 +32043,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32067,7 +32067,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32090,7 +32090,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32114,7 +32114,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32141,7 +32141,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32166,7 +32166,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32193,7 +32193,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32217,7 +32217,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32240,7 +32240,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32264,7 +32264,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32290,7 +32290,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -32317,7 +32317,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -32342,7 +32342,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -32367,7 +32367,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -32393,7 +32393,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32416,7 +32416,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32439,7 +32439,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32462,7 +32462,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32487,7 +32487,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32510,7 +32510,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32533,7 +32533,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32556,7 +32556,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32581,7 +32581,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32604,7 +32604,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32627,7 +32627,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32650,7 +32650,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32673,7 +32673,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32696,7 +32696,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32719,7 +32719,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32743,7 +32743,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vfrczpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -32766,7 +32766,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vfrczps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -32788,7 +32788,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vfrczsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -32810,7 +32810,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vfrczss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -32834,7 +32834,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vgatherdpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -32857,7 +32857,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32882,7 +32882,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vgatherdps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -32905,7 +32905,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -32928,7 +32928,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vgatherpf0dpd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -32949,7 +32949,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vgatherpf0dps<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -32970,7 +32970,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vgatherpf0qpd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -32991,7 +32991,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vgatherpf0qps<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -33012,7 +33012,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vgatherpf1dpd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -33033,7 +33033,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vgatherpf1dps<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -33054,7 +33054,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vgatherpf1qpd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -33075,7 +33075,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vgatherpf1qps<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -33098,7 +33098,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vgatherqpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -33121,7 +33121,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33146,7 +33146,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vgatherqps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -33169,7 +33169,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33194,7 +33194,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vgetexppd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -33218,7 +33218,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vgetexpph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -33242,7 +33242,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vgetexpps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -33264,7 +33264,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33287,7 +33287,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33310,7 +33310,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33335,7 +33335,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33360,7 +33360,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33385,7 +33385,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33408,7 +33408,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33432,7 +33432,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33456,7 +33456,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33484,7 +33484,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33512,7 +33512,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33540,7 +33540,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33564,7 +33564,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33588,7 +33588,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33612,7 +33612,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33636,7 +33636,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -33659,7 +33659,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33684,7 +33684,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33708,7 +33708,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33733,7 +33733,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33757,7 +33757,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33781,7 +33781,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33806,7 +33806,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33830,7 +33830,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33855,7 +33855,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33879,7 +33879,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33904,7 +33904,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -33929,7 +33929,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vlddqu<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -33951,7 +33951,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vldmxcsr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -33972,7 +33972,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmaskmovdqu<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -33997,7 +33997,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34023,7 +34023,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34050,7 +34050,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34075,7 +34075,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34102,7 +34102,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34126,7 +34126,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34149,7 +34149,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34173,7 +34173,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34213,7 +34213,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vmclear<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -34272,7 +34272,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34297,7 +34297,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34324,7 +34324,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34348,7 +34348,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34371,7 +34371,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34395,7 +34395,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34480,7 +34480,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovapd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34511,7 +34511,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovaps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34536,7 +34536,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34562,7 +34562,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovddup<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34587,7 +34587,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovdqa<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34614,7 +34614,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovdqa32<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34641,7 +34641,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovdqa64<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34666,7 +34666,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovdqu<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34693,7 +34693,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovdqu16<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34720,7 +34720,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovdqu32<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34747,7 +34747,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovdqu64<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34774,7 +34774,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovdqu8<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34797,7 +34797,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34821,7 +34821,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovhpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34844,7 +34844,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34868,7 +34868,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovhps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34891,7 +34891,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34915,7 +34915,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34939,7 +34939,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovlpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -34962,7 +34962,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -34986,7 +34986,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovlps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35009,7 +35009,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35035,7 +35035,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovmskpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35060,7 +35060,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovmskps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35086,7 +35086,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovntdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35112,7 +35112,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovntdqa<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35138,7 +35138,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovntpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35164,7 +35164,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovntps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35193,7 +35193,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35218,7 +35218,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35241,7 +35241,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35265,7 +35265,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovsh<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35287,7 +35287,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35314,7 +35314,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovshdup<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35340,7 +35340,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovsldup<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35365,7 +35365,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35388,7 +35388,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35420,7 +35420,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovupd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35451,7 +35451,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovups<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35476,7 +35476,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmovw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35499,7 +35499,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -35523,7 +35523,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vmptrld<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -35544,7 +35544,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vmptrst<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -35566,7 +35566,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmread<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35647,7 +35647,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35672,7 +35672,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35699,7 +35699,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35723,7 +35723,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35746,7 +35746,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35770,7 +35770,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35794,7 +35794,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vmwrite<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -35833,7 +35833,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vmxon<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -35858,7 +35858,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35885,7 +35885,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35910,7 +35910,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35935,7 +35935,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35958,7 +35958,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -35981,7 +35981,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36008,7 +36008,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpabsb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -36034,7 +36034,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpabsd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -36058,7 +36058,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpabsq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -36084,7 +36084,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpabsw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -36110,7 +36110,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36137,7 +36137,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36164,7 +36164,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36191,7 +36191,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36218,7 +36218,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36245,7 +36245,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36272,7 +36272,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36299,7 +36299,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36326,7 +36326,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36353,7 +36353,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36380,7 +36380,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36407,7 +36407,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36434,7 +36434,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -36459,7 +36459,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36484,7 +36484,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36508,7 +36508,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36533,7 +36533,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36558,7 +36558,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36583,7 +36583,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36610,7 +36610,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36637,7 +36637,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36661,7 +36661,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -36687,7 +36687,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36712,7 +36712,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36737,7 +36737,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36762,7 +36762,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -36786,7 +36786,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -36811,7 +36811,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -36842,7 +36842,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpbroadcastb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -36871,7 +36871,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpbroadcastd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -36895,7 +36895,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpbroadcastmb2q<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -36919,7 +36919,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpbroadcastmw2d<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -36948,7 +36948,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpbroadcastq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -36977,7 +36977,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpbroadcastw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -37003,7 +37003,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37030,7 +37030,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37057,7 +37057,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37084,7 +37084,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37111,7 +37111,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -37138,7 +37138,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -37164,7 +37164,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -37190,7 +37190,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -37218,7 +37218,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37245,7 +37245,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37272,7 +37272,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37297,7 +37297,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37322,7 +37322,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37347,7 +37347,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37372,7 +37372,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37399,7 +37399,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37422,7 +37422,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37445,7 +37445,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37468,7 +37468,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37491,7 +37491,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37516,7 +37516,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37541,7 +37541,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37566,7 +37566,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37591,7 +37591,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37616,7 +37616,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37641,7 +37641,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37666,7 +37666,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37691,7 +37691,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37718,7 +37718,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37745,7 +37745,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37772,7 +37772,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37799,7 +37799,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37822,7 +37822,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37845,7 +37845,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37870,7 +37870,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37895,7 +37895,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37920,7 +37920,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37945,7 +37945,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37970,7 +37970,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -37995,7 +37995,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38020,7 +38020,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38045,7 +38045,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38070,7 +38070,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38095,7 +38095,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38120,7 +38120,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38145,7 +38145,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38170,7 +38170,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38195,7 +38195,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38220,7 +38220,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38245,7 +38245,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38270,7 +38270,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38295,7 +38295,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38320,7 +38320,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38345,7 +38345,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38370,7 +38370,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38395,7 +38395,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38420,7 +38420,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38445,7 +38445,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38470,7 +38470,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38495,7 +38495,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38520,7 +38520,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38545,7 +38545,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38570,7 +38570,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38595,7 +38595,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38620,7 +38620,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38645,7 +38645,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38670,7 +38670,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38695,7 +38695,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38720,7 +38720,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38745,7 +38745,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38770,7 +38770,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38795,7 +38795,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38820,7 +38820,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38845,7 +38845,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38870,7 +38870,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -38896,7 +38896,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38921,7 +38921,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38946,7 +38946,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38971,7 +38971,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -38996,7 +38996,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39021,7 +39021,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39046,7 +39046,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39071,7 +39071,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39096,7 +39096,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -39122,7 +39122,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -39148,7 +39148,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -39174,7 +39174,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -39200,7 +39200,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -39224,7 +39224,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -39248,7 +39248,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -39272,7 +39272,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39295,7 +39295,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39318,7 +39318,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39341,7 +39341,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39364,7 +39364,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39387,7 +39387,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39410,7 +39410,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39433,7 +39433,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39456,7 +39456,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39479,7 +39479,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39502,7 +39502,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39525,7 +39525,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39548,7 +39548,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39571,7 +39571,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39594,7 +39594,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39617,7 +39617,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39640,7 +39640,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39663,7 +39663,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39686,7 +39686,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39709,7 +39709,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39732,7 +39732,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39755,7 +39755,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39778,7 +39778,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39801,7 +39801,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39824,7 +39824,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39847,7 +39847,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39870,7 +39870,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39893,7 +39893,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39916,7 +39916,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39939,7 +39939,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39962,7 +39962,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -39985,7 +39985,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40008,7 +40008,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40031,7 +40031,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40054,7 +40054,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40077,7 +40077,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40100,7 +40100,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40123,7 +40123,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40146,7 +40146,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40169,7 +40169,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40192,7 +40192,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40215,7 +40215,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40238,7 +40238,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40261,7 +40261,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40284,7 +40284,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40307,7 +40307,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40330,7 +40330,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40353,7 +40353,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40376,7 +40376,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40399,7 +40399,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40422,7 +40422,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40445,7 +40445,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40468,7 +40468,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40491,7 +40491,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40514,7 +40514,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40537,7 +40537,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40562,7 +40562,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpcompressb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -40586,7 +40586,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpcompressd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -40610,7 +40610,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpcompressq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -40634,7 +40634,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpcompressw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -40656,7 +40656,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -40680,7 +40680,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40703,7 +40703,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40726,7 +40726,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40749,7 +40749,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40772,7 +40772,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40795,7 +40795,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40818,7 +40818,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40841,7 +40841,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -40864,7 +40864,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -40888,7 +40888,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -40912,7 +40912,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -40936,7 +40936,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -40960,7 +40960,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -40986,7 +40986,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpconflictd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -41010,7 +41010,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpconflictq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -41036,7 +41036,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41063,7 +41063,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41090,7 +41090,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41117,7 +41117,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41140,7 +41140,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -41164,7 +41164,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -41190,7 +41190,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41215,7 +41215,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41240,7 +41240,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41265,7 +41265,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41290,7 +41290,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41315,7 +41315,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41340,7 +41340,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41365,7 +41365,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41391,7 +41391,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -41419,7 +41419,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -41453,7 +41453,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41485,7 +41485,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41512,7 +41512,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41537,7 +41537,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41564,7 +41564,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41589,7 +41589,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41614,7 +41614,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41639,7 +41639,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41664,7 +41664,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41689,7 +41689,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41714,7 +41714,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41739,7 +41739,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41764,7 +41764,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpexpandb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -41788,7 +41788,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpexpandd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -41812,7 +41812,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpexpandq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -41836,7 +41836,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpexpandw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -41861,7 +41861,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41885,7 +41885,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41909,7 +41909,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41937,7 +41937,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -41962,7 +41962,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpgatherdd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -41985,7 +41985,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -42010,7 +42010,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpgatherdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42033,7 +42033,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -42058,7 +42058,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpgatherqd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42081,7 +42081,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -42106,7 +42106,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpgatherqq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42129,7 +42129,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -42152,7 +42152,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphaddbd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42174,7 +42174,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphaddbq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42196,7 +42196,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphaddbw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42219,7 +42219,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -42242,7 +42242,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphadddq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42265,7 +42265,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -42288,7 +42288,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphaddubd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42310,7 +42310,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphaddubq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42332,7 +42332,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphaddubw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42354,7 +42354,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphaddudq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42376,7 +42376,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphadduwd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42398,7 +42398,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphadduwq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42421,7 +42421,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -42444,7 +42444,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphaddwd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42466,7 +42466,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphaddwq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42488,7 +42488,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphminposuw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42510,7 +42510,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphsubbw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42533,7 +42533,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -42556,7 +42556,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphsubdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42579,7 +42579,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -42603,7 +42603,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -42626,7 +42626,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vphsubwd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42651,7 +42651,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42676,7 +42676,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42701,7 +42701,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42728,7 +42728,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42754,7 +42754,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vplzcntd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42778,7 +42778,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vplzcntq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -42800,7 +42800,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42824,7 +42824,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42848,7 +42848,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42872,7 +42872,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42896,7 +42896,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42920,7 +42920,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42944,7 +42944,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42968,7 +42968,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -42992,7 +42992,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -43016,7 +43016,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -43040,7 +43040,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -43064,7 +43064,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -43090,7 +43090,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43115,7 +43115,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43142,7 +43142,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43169,7 +43169,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43195,7 +43195,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43221,7 +43221,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43248,7 +43248,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43275,7 +43275,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43300,7 +43300,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43327,7 +43327,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43354,7 +43354,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43381,7 +43381,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43406,7 +43406,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43433,7 +43433,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43460,7 +43460,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43487,7 +43487,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43512,7 +43512,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43539,7 +43539,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43566,7 +43566,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43593,7 +43593,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43618,7 +43618,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43645,7 +43645,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -43670,7 +43670,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovb2m<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43694,7 +43694,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovd2m<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43718,7 +43718,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovdb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43742,7 +43742,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovdw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43766,7 +43766,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovm2b<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43790,7 +43790,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovm2d<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43814,7 +43814,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovm2q<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43838,7 +43838,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovm2w<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43863,7 +43863,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovmskb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43887,7 +43887,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovq2m<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43911,7 +43911,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovqb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43935,7 +43935,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovqd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43959,7 +43959,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovqw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -43983,7 +43983,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsdb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44007,7 +44007,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsdw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44031,7 +44031,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsqb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44055,7 +44055,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsqd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44079,7 +44079,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsqw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44103,7 +44103,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovswb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44129,7 +44129,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsxbd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44155,7 +44155,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsxbq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44181,7 +44181,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsxbw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44207,7 +44207,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsxdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44233,7 +44233,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsxwd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44259,7 +44259,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovsxwq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44283,7 +44283,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovusdb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44307,7 +44307,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovusdw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44331,7 +44331,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovusqb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44355,7 +44355,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovusqd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44379,7 +44379,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovusqw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44403,7 +44403,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovuswb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44427,7 +44427,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovw2m<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44451,7 +44451,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovwb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44477,7 +44477,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovzxbd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44503,7 +44503,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovzxbq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44529,7 +44529,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovzxbw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44555,7 +44555,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovzxdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44581,7 +44581,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovzxwd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44607,7 +44607,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpmovzxwq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44633,7 +44633,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -44660,7 +44660,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -44687,7 +44687,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -44714,7 +44714,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -44741,7 +44741,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -44766,7 +44766,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -44793,7 +44793,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -44818,7 +44818,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -44845,7 +44845,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -44870,7 +44870,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpopcntb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44894,7 +44894,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpopcntd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44918,7 +44918,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpopcntq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44942,7 +44942,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpopcntw<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -44965,7 +44965,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -44990,7 +44990,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45015,7 +45015,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45039,7 +45039,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -45065,7 +45065,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45090,7 +45090,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45115,7 +45115,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45140,7 +45140,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45165,7 +45165,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45190,7 +45190,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45215,7 +45215,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45240,7 +45240,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45265,7 +45265,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45290,7 +45290,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45315,7 +45315,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45340,7 +45340,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45367,7 +45367,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45392,7 +45392,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpscatterdd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -45416,7 +45416,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpscatterdq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -45440,7 +45440,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpscatterqd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -45464,7 +45464,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vpscatterqq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -45487,7 +45487,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45511,7 +45511,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45535,7 +45535,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45559,7 +45559,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45583,7 +45583,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45607,7 +45607,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45632,7 +45632,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -45658,7 +45658,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -45684,7 +45684,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45709,7 +45709,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45734,7 +45734,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45759,7 +45759,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -45784,7 +45784,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45808,7 +45808,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45833,7 +45833,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -45859,7 +45859,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -45885,7 +45885,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45910,7 +45910,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45935,7 +45935,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -45960,7 +45960,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -45988,7 +45988,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46013,7 +46013,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46040,7 +46040,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46067,7 +46067,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46094,7 +46094,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46118,7 +46118,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46142,7 +46142,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46166,7 +46166,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46198,7 +46198,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46225,7 +46225,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46257,7 +46257,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46284,7 +46284,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46311,7 +46311,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46336,7 +46336,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46368,7 +46368,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46400,7 +46400,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46428,7 +46428,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46455,7 +46455,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46480,7 +46480,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46505,7 +46505,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46537,7 +46537,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46569,7 +46569,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46596,7 +46596,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46628,7 +46628,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46655,7 +46655,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46682,7 +46682,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46707,7 +46707,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46739,7 +46739,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46766,7 +46766,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46793,7 +46793,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46820,7 +46820,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46847,7 +46847,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46874,7 +46874,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46901,7 +46901,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46928,7 +46928,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46955,7 +46955,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -46980,7 +46980,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -47006,7 +47006,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -47031,7 +47031,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vptest<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -47055,7 +47055,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47080,7 +47080,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47105,7 +47105,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47130,7 +47130,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47155,7 +47155,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47180,7 +47180,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47205,7 +47205,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47230,7 +47230,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47257,7 +47257,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47284,7 +47284,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47311,7 +47311,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47338,7 +47338,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47365,7 +47365,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47392,7 +47392,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47419,7 +47419,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47446,7 +47446,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47470,7 +47470,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47495,7 +47495,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47520,7 +47520,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47545,7 +47545,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -47571,7 +47571,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -47595,7 +47595,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -47619,7 +47619,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -47645,7 +47645,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrcp14pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -47669,7 +47669,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrcp14ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -47691,7 +47691,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47714,7 +47714,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47737,7 +47737,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrcp28pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -47759,7 +47759,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrcp28ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -47781,7 +47781,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47804,7 +47804,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47829,7 +47829,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrcpph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -47852,7 +47852,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrcpps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -47874,7 +47874,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47897,7 +47897,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47922,7 +47922,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47947,7 +47947,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47972,7 +47972,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -47995,7 +47995,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -48019,7 +48019,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -48043,7 +48043,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -48069,7 +48069,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48094,7 +48094,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48119,7 +48119,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48142,7 +48142,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -48166,7 +48166,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -48190,7 +48190,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -48215,7 +48215,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48239,7 +48239,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48262,7 +48262,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -48286,7 +48286,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -48312,7 +48312,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrsqrt14pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -48336,7 +48336,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrsqrt14ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -48358,7 +48358,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48381,7 +48381,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48404,7 +48404,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrsqrt28pd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -48426,7 +48426,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrsqrt28ps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -48448,7 +48448,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48471,7 +48471,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48496,7 +48496,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrsqrtph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -48519,7 +48519,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vrsqrtps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -48541,7 +48541,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48564,7 +48564,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48589,7 +48589,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48614,7 +48614,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48639,7 +48639,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48662,7 +48662,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48685,7 +48685,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48708,7 +48708,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -48733,7 +48733,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vscatterdpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -48757,7 +48757,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vscatterdps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -48779,7 +48779,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vscatterpf0dpd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -48800,7 +48800,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vscatterpf0dps<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -48821,7 +48821,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vscatterpf0qpd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -48842,7 +48842,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vscatterpf0qps<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -48863,7 +48863,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vscatterpf1dpd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -48884,7 +48884,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vscatterpf1dps<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -48905,7 +48905,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vscatterpf1qpd<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -48926,7 +48926,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vscatterpf1qps<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -48949,7 +48949,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vscatterqpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -48973,7 +48973,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vscatterqps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -48996,7 +48996,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -49021,7 +49021,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -49046,7 +49046,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -49071,7 +49071,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -49099,7 +49099,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -49127,7 +49127,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -49155,7 +49155,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vsqrtpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -49179,7 +49179,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vsqrtph<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -49205,7 +49205,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vsqrtps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -49228,7 +49228,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49251,7 +49251,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49275,7 +49275,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49298,7 +49298,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn vstmxcsr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -49323,7 +49323,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49348,7 +49348,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49375,7 +49375,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49399,7 +49399,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49422,7 +49422,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49446,7 +49446,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49470,7 +49470,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vtestpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -49493,7 +49493,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vtestps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -49516,7 +49516,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vucomisd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -49538,7 +49538,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vucomish<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -49561,7 +49561,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn vucomiss<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -49587,7 +49587,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49614,7 +49614,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49641,7 +49641,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49668,7 +49668,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49695,7 +49695,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49722,7 +49722,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	#[inline]
@@ -49831,7 +49831,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn wrfsbase<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -49853,7 +49853,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn wrgsbase<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -49908,7 +49908,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn wrshr<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -49929,7 +49929,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn wrssd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -49951,7 +49951,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn wrssq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -49990,7 +49990,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn wrussd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -50012,7 +50012,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn wrussq<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -50034,7 +50034,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xabort<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50058,7 +50058,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn xadd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -50081,7 +50081,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xbegin<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50103,7 +50103,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn xbts<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -50131,7 +50131,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn xchg<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -50300,7 +50300,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn xor<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -50322,7 +50322,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn xorpd<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -50344,7 +50344,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	/// * `op1`: Second operand
 	#[inline]
 	pub fn xorps<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
@@ -50383,7 +50383,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xrstor<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50404,7 +50404,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xrstor64<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50425,7 +50425,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xrstors<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50446,7 +50446,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xrstors64<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50467,7 +50467,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xsave<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50488,7 +50488,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xsave64<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50509,7 +50509,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xsavec<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50530,7 +50530,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xsavec64<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50551,7 +50551,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xsaveopt<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50572,7 +50572,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xsaveopt64<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50593,7 +50593,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xsaves<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where
@@ -50614,7 +50614,7 @@ impl CodeAssembler {
 	///
 	/// # Arguments
 	///
-	/// * `op0`: First operand (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
 	#[inline]
 	pub fn xsaves64<T>(&mut self, op0: T) -> Result<(), IcedError>
 	where

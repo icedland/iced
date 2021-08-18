@@ -612,7 +612,7 @@ namespace Generator.Assembler.Rust {
 							writer.WriteLine("/// # Arguments");
 							writer.WriteLine("///");
 							for (int i = 0; i < opCount; i++) {
-								var desc = i != 0 ? string.Empty : " (eg. an integer (`i32`/`u32`/`i64`/`u64`), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)";
+								var desc = i != 0 ? string.Empty : " (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)";
 								writer.WriteLine($"/// * `{GetFnArgName(i)}`: {opDescs[i]}{desc}");
 							}
 						}
