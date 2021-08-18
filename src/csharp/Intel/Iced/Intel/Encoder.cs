@@ -760,7 +760,7 @@ namespace Iced.Intel {
 
 			if (baseReg != Register.None || indexReg != Register.None) {
 				if ((long)instruction.MemoryDisplacement64 < short.MinValue || (long)instruction.MemoryDisplacement64 > ushort.MaxValue) {
-					ErrorMessage = $"Operand {operand}: Displacement must fit in a ushort or a short";
+					ErrorMessage = $"Operand {operand}: Displacement must fit in a short or a ushort";
 					return;
 				}
 				Displ = instruction.MemoryDisplacement32;
@@ -785,9 +785,9 @@ namespace Iced.Intel {
 					}
 				}
 				else if (displSize == 1) {
-					// This if check should always fail when we're here
+					// This if check should never be true when we're here
 					if ((int)Displ < sbyte.MinValue || (int)Displ > sbyte.MaxValue) {
-						ErrorMessage = $"Operand {operand}: Displacement must fit in a sbyte";
+						ErrorMessage = $"Operand {operand}: Displacement must fit in an sbyte";
 						return;
 					}
 					ModRM |= 0x40;
@@ -937,9 +937,9 @@ namespace Iced.Intel {
 				DisplSize = DisplSize.Size4;
 			}
 			else if (displSize == 1) {
-				// This if check should always fail when we're here
+				// This if check should never be true when we're here
 				if ((int)Displ < sbyte.MinValue || (int)Displ > sbyte.MaxValue) {
-					ErrorMessage = $"Operand {operand}: Displacement must fit in a sbyte";
+					ErrorMessage = $"Operand {operand}: Displacement must fit in an sbyte";
 					return;
 				}
 				ModRM |= 0x40;

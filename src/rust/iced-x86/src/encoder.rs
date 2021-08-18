@@ -935,7 +935,7 @@ impl Encoder {
 					return;
 				}
 			} else if displ_size == 1 {
-				// This if check should always fail when we're here
+				// This if check should never be true when we're here
 				if (self.displ as i32) < i8::MIN as i32 || (self.displ as i32) > i8::MAX as i32 {
 					self.set_error_message(format!("Operand {}: Displacement must fit in an i8", operand));
 					return;
@@ -1083,7 +1083,7 @@ impl Encoder {
 			debug_assert!(index != Register::None);
 			self.displ_size = DisplSize::Size4;
 		} else if displ_size == 1 {
-			// This if check should always fail when we're here
+			// This if check should never be true when we're here
 			if (self.displ as i32) < i8::MIN as i32 || (self.displ as i32) > i8::MAX as i32 {
 				self.set_error_message(format!("Operand {}: Displacement must fit in an i8", operand));
 				return;
