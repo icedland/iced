@@ -137,11 +137,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			return instruction;
 		}
 
-		protected static Instruction ApplyK1(Instruction instruction) {
-			instruction.OpMask = Register.K1;
-			return instruction;
-		}
-
 		protected static Instruction ApplyK(Instruction instruction, Register k) {
 			instruction.OpMask = k;
 			return instruction;

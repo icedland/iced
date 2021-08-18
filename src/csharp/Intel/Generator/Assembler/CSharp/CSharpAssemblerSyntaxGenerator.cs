@@ -746,7 +746,7 @@ namespace Generator.Assembler.CSharp {
 				var args = new TestArgValues(renderArgs.Length);
 
 				if (group.ParentPseudoOpsKind is not null)
-					GenerateTestAssemblerForOpCode(writer, bitness, group, renderArgs, args, OpCodeArgFlags.None, group.ParentPseudoOpsKind.Defs[0]);
+					GenerateTestAssemblerForOpCode(writer, bitness, group, args, OpCodeArgFlags.None, group.ParentPseudoOpsKind.Defs[0]);
 				else
 					GenerateOpCodeTest(writer, bitness, group, group.RootOpCodeNode, renderArgs, args, OpCodeArgFlags.None);
 			}
@@ -754,13 +754,13 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine();
 		}
 
-		void GenerateOpCodeTest(FileWriter writer, int bitness, OpCodeInfoGroup group, OpCodeNode node, RenderArg[] args,
-			TestArgValues argValues, OpCodeArgFlags contextFlags) {
+		void GenerateOpCodeTest(FileWriter writer, int bitness, OpCodeInfoGroup group, OpCodeNode node, RenderArg[] renderArgs,
+			TestArgValues args, OpCodeArgFlags contextFlags) {
 			if (node.Def is InstructionDef def)
-				GenerateTestAssemblerForOpCode(writer, bitness, group, args, argValues, contextFlags, def);
+				GenerateTestAssemblerForOpCode(writer, bitness, group, args, contextFlags, def);
 			else if (node.Selector is OpCodeSelector selector) {
 				var maxArgSize = selector.ArgIndex >= 0 ? group.MaxArgSizes[selector.ArgIndex] : 0;
-				var argKind = selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default;
+				var argKind = selector.ArgIndex >= 0 ? renderArgs[selector.ArgIndex] : default;
 				var condition = GetArgConditionForOpCodeKind(argKind, selector.Kind);
 				var isSelectorSupportedByBitness = IsSelectorSupportedByBitness(bitness, selector.Kind, out var continueElse);
 				var (contextIfFlags, contextElseFlags) = GetIfElseContextFlags(selector.Kind);
@@ -768,10 +768,9 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine($"{{ /* if ({condition}) */");
 					using (writer.Indent()) {
 						foreach (var argValue in GetArgValue(selector.Kind, false, selector.ArgIndex, group.Signature, maxArgSize * 8)) {
-							var oldValue = argValues.Set(selector.ArgIndex, argValue);
-							GenerateOpCodeTest(writer, bitness, group, selector.IfTrue, args,
-								argValues, contextFlags | contextIfFlags);
-							argValues.Restore(selector.ArgIndex, oldValue);
+							var oldValue = args.Set(selector.ArgIndex, argValue);
+							GenerateOpCodeTest(writer, bitness, group, selector.IfTrue, renderArgs, args, contextFlags | contextIfFlags);
+							args.Restore(selector.ArgIndex, oldValue);
 						}
 					}
 				}
@@ -782,10 +781,9 @@ namespace Generator.Assembler.CSharp {
 					if (continueElse) {
 						writer.Write("} /* else */ ");
 						foreach (var argValue in GetArgValue(selector.Kind, true, selector.ArgIndex, group.Signature, maxArgSize * 8)) {
-							var oldValue = argValues.Set(selector.ArgIndex, argValue);
-							GenerateOpCodeTest(writer, bitness, group, selector.IfFalse, args, argValues,
-								contextFlags | contextElseFlags);
-							argValues.Restore(selector.ArgIndex, oldValue);
+							var oldValue = args.Set(selector.ArgIndex, argValue);
+							GenerateOpCodeTest(writer, bitness, group, selector.IfFalse, renderArgs, args, contextFlags | contextElseFlags);
+							args.Restore(selector.ArgIndex, oldValue);
 						}
 					}
 					else
@@ -810,10 +808,9 @@ namespace Generator.Assembler.CSharp {
 
 								writer.WriteLine("AssertInvalid(() => {");
 								using (writer.Indent()) {
-									var oldValue = argValues.Set(selector.ArgIndex, newArg);
-									GenerateOpCodeTest(writer, bitness, group, selector.IfTrue, args, argValues,
-										contextFlags | contextIfFlags);
-									argValues.Restore(selector.ArgIndex, oldValue);
+									var oldValue = args.Set(selector.ArgIndex, newArg);
+									GenerateOpCodeTest(writer, bitness, group, selector.IfTrue, renderArgs, args, contextFlags | contextIfFlags);
+									args.Restore(selector.ArgIndex, oldValue);
 									isGenerated = true;
 								}
 								writer.WriteLine("});");
@@ -834,60 +831,55 @@ namespace Generator.Assembler.CSharp {
 				throw new InvalidOperationException();
 		}
 
-		bool GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, OpCodeInfoGroup group, RenderArg[] args, TestArgValues argValues,
+		bool GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, OpCodeInfoGroup group, TestArgValues args,
 			OpCodeArgFlags contextFlags, InstructionDef def) {
 			if (!IsBitnessSupported(bitness, def.Flags1)) {
 				writer.WriteLine($"// Skipping {def.Code.Name(idConverter)} - Not supported by current bitness");
 				return false;
 			}
 
-			var assemblerArgs = new List<string>();
-			var instructionCreateArgs = new List<string>();
+			var withFns = new List<(string pre, string post)>();
+			var asmArgs = new List<string>();
+			var withArgs = new List<string>();
 			int argBitness = GetArgBitness(bitness, def);
-			for (var i = 0; i < argValues.Args.Count; i++) {
-				var renderArg = args[i];
-				var argValueForAssembler = argValues.GetArgValue(argBitness, i)?.AsmStr;
-				var argValueForInstructionCreate = argValues.GetArgValue(argBitness, i)?.WithStr;
+			if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0)
+				withArgs.Add(bitness.ToString(CultureInfo.InvariantCulture));
+			else
+				withArgs.Add(idConverter.ToDeclTypeAndValue(def.Code));
+			for (var i = 0; i < args.Args.Count; i++) {
+				var argKind = group.Signature.GetArgKind(i);
+				var asmArg = args.GetArgValue(argBitness, i)?.AsmStr;
+				var withArg = args.GetArgValue(argBitness, i)?.WithStr;
 
-				if (argValueForAssembler is null || argValueForInstructionCreate is null) {
-					var argValue = GetDefaultArgument(def.OpKindDefs[group.NumberOfLeadingArgsToDiscard + i], i, renderArg.Kind, group.MaxArgSizes[i] * 8);
-					argValueForAssembler = argValue.Get(argBitness).AsmStr;
-					argValueForInstructionCreate = argValue.Get(argBitness).WithStr;
+				if (asmArg is null || withArg is null) {
+					var argValue = GetDefaultArgument(def.OpKindDefs[group.NumberOfLeadingArgsToDiscard + i], i, argKind, group.MaxArgSizes[i] * 8);
+					asmArg = argValue.Get(argBitness).AsmStr;
+					withArg = argValue.Get(argBitness).WithStr;
 				}
-				bool hasRealInstrCreateValue = argValueForAssembler != argValueForInstructionCreate;
 
-				if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0 && i == 0)
-					argValueForAssembler += ".k1";
+				if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0 && i == 0) {
+					asmArg += ".k1";
+					var opMask = idConverter.ToDeclTypeAndValue(GetRegisterDef(Register.K1).Register);
+					withFns.Add(("ApplyK(", $", {opMask})"));
+				}
 
-				if (renderArg.Kind == ArgKind.Memory && !hasRealInstrCreateValue)
-					argValueForInstructionCreate += ".ToMemoryOperand(Bitness)";
-
-				assemblerArgs.Add(argValueForAssembler);
-				instructionCreateArgs.Add(argValueForInstructionCreate);
+				asmArgs.Add(asmArg);
+				withArgs.Add(withArg);
 			}
 			if (group.ParentPseudoOpsKind is not null)
-				instructionCreateArgs.Add($"{group.PseudoOpsKindImmediateValue}");
+				withArgs.Add($"{group.PseudoOpsKindImmediateValue}");
+			if (group.HasLabel && (group.Flags & OpCodeArgFlags.HasLabelUlong) == 0)
+				withFns.Add(("AssignLabel(", $", {withArgs[1]})"));
 
-			string beginInstruction = $"Instruction.Create(Code.{def.Code.Name(idConverter)}";
-			string endInstruction = ")";
-			if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
-				beginInstruction = $"Instruction.Create{group.MnemonicName}(Bitness";
-				if (group.HasLabel && (group.Flags & OpCodeArgFlags.HasLabelUlong) == 0)
-					beginInstruction = $"AssignLabel({beginInstruction}, {instructionCreateArgs[0]})";
-			}
-			else if (group.HasLabel) {
-				beginInstruction = (group.Flags & OpCodeArgFlags.HasLabelUlong) == 0 ?
-					$"AssignLabel(Instruction.CreateBranch(Code.{def.Code.Name(idConverter)}, {instructionCreateArgs[0]})" :
-					$"Instruction.CreateBranch(Code.{def.Code.Name(idConverter)}";
-			}
-
-			if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0) {
-				beginInstruction = $"ApplyK1({beginInstruction}";
-				endInstruction = "))";
-			}
-
-			var assemblerArgsStr = string.Join(", ", assemblerArgs);
-			var instructionCreateArgsStr = instructionCreateArgs.Count > 0 ? $", {string.Join(", ", instructionCreateArgs)}" : string.Empty;
+			string withFnName;
+			if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0)
+				withFnName = $"Create{group.MnemonicName}";
+			else if (group.HasLabel)
+				withFnName = "CreateBranch";
+			else
+				withFnName = "Create";
+			var asmName = idConverter.Method(group.Name);
+			var asmArgsStr = string.Join(", ", asmArgs);
 			var instrFlags = GetInstrTestFlags(def, group, contextFlags);
 			var testInstrFlagsStr = instrFlags.Count > 0 ?
 				$", {string.Join(" | ", instrFlags.Select(x => idConverter.ToDeclTypeAndValue(x)))}" : string.Empty;
@@ -900,7 +892,10 @@ namespace Generator.Assembler.CSharp {
 			else
 				decoderOptionsStr = string.Empty;
 
-			writer.WriteLine($"TestAssembler(c => c.{idConverter.Method(group.Name)}({assemblerArgsStr}), {beginInstruction}{instructionCreateArgsStr}{endInstruction}{testInstrFlagsStr}{decoderOptionsStr});");
+			var withArgsStr = string.Join(", ", withArgs);
+			var withFnsPreStr = string.Join(string.Empty, ((IEnumerable<(string pre, string post)>)withFns).Reverse().Select(x => x.pre));
+			var withFnsPostStr = string.Join(string.Empty, withFns.Select(x => x.post));
+			writer.WriteLine($"TestAssembler(c => c.{asmName}({asmArgsStr}), {withFnsPreStr}Instruction.{withFnName}({withArgsStr}){withFnsPostStr}{testInstrFlagsStr}{decoderOptionsStr});");
 			return true;
 		}
 
@@ -1069,11 +1064,27 @@ namespace Generator.Assembler.CSharp {
 				sb.Append(displ.ToString("X", CultureInfo.InvariantCulture));
 			}
 			sb.Append(']');
-			return new(sb.ToString());
+			var asmStr = sb.ToString();
+
+			var baseStr = idConverter.ToDeclTypeAndValue(GetRegisterDef(@base).Register);
+			var indexStr = idConverter.ToDeclTypeAndValue(GetRegisterDef(index).Register);
+			var displStr = displ < 0 ?
+				"-0x" + (-displ).ToString("X", CultureInfo.InvariantCulture) :
+				"0x" + displ.ToString("X", CultureInfo.InvariantCulture);
+			var displSize = displ == 0 ? "0" : "1";
+			var isBcstStr = size.IsBroadcast ? "true" : "false";
+			var regNoneStr = idConverter.ToDeclTypeAndValue(GetRegisterDef(Register.None).Register);
+			var withStr = $"new MemoryOperand({baseStr}, {indexStr}, {scale}, {displStr}, {displSize}, {isBcstStr}, {regNoneStr})";
+
+			return new(asmStr, withStr);
 		}
 
-		protected override TestArgValueBitness RegToTestArgValue(Register register) =>
-			new(GetAsmRegisterName(GetRegisterDef(register)));
+		protected override TestArgValueBitness RegToTestArgValue(Register register) {
+			var regDef = GetRegisterDef(register);
+			var asmReg = GetAsmRegisterName(regDef);
+			var withReg = idConverter.ToDeclTypeAndValue(regDef.Register);
+			return new(asmReg, withReg);
+		}
 
 		static string AddCastOrSuffix(string number, string castOrSuffix) {
 			if (castOrSuffix.StartsWith("("))
@@ -1122,8 +1133,7 @@ namespace Generator.Assembler.CSharp {
 			return new(numStr);
 		}
 
-		protected override TestArgValueBitness LabelToTestArgValue() =>
-			new("CreateAndEmitLabel(c)", "FirstLabelId");
+		protected override TestArgValueBitness LabelToTestArgValue() => new("CreateAndEmitLabel(c)", "FirstLabelId");
 
 		readonly struct RenderArg {
 			public RenderArg(string name, string type, ArgKind kind) {
