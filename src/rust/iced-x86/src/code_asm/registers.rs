@@ -58,6 +58,14 @@ pub mod gpr8 {
 	pub const r13b: AsmRegister8 = AsmRegister8::new(Register::R13L);
 	pub const r14b: AsmRegister8 = AsmRegister8::new(Register::R14L);
 	pub const r15b: AsmRegister8 = AsmRegister8::new(Register::R15L);
+	/// Gets a `GPR8` register or `None` if input is invalid.
+	pub fn get_gpr8(register: Register) -> Option<AsmRegister8> {
+		if register.is_gpr8() {
+			Some(AsmRegister8::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -83,6 +91,14 @@ pub mod gpr16 {
 	pub const r13w: AsmRegister16 = AsmRegister16::new(Register::R13W);
 	pub const r14w: AsmRegister16 = AsmRegister16::new(Register::R14W);
 	pub const r15w: AsmRegister16 = AsmRegister16::new(Register::R15W);
+	/// Gets a `GPR16` register or `None` if input is invalid.
+	pub fn get_gpr16(register: Register) -> Option<AsmRegister16> {
+		if register.is_gpr16() {
+			Some(AsmRegister16::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -108,6 +124,14 @@ pub mod gpr32 {
 	pub const r13d: AsmRegister32 = AsmRegister32::new(Register::R13D);
 	pub const r14d: AsmRegister32 = AsmRegister32::new(Register::R14D);
 	pub const r15d: AsmRegister32 = AsmRegister32::new(Register::R15D);
+	/// Gets a `GPR32` register or `None` if input is invalid.
+	pub fn get_gpr32(register: Register) -> Option<AsmRegister32> {
+		if register.is_gpr32() {
+			Some(AsmRegister32::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -133,6 +157,14 @@ pub mod gpr64 {
 	pub const r13: AsmRegister64 = AsmRegister64::new(Register::R13);
 	pub const r14: AsmRegister64 = AsmRegister64::new(Register::R14);
 	pub const r15: AsmRegister64 = AsmRegister64::new(Register::R15);
+	/// Gets a `GPR64` register or `None` if input is invalid.
+	pub fn get_gpr64(register: Register) -> Option<AsmRegister64> {
+		if register.is_gpr64() {
+			Some(AsmRegister64::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -148,6 +180,14 @@ pub mod segment {
 	pub const ds: AsmRegisterSegment = AsmRegisterSegment::new(Register::DS);
 	pub const fs: AsmRegisterSegment = AsmRegisterSegment::new(Register::FS);
 	pub const gs: AsmRegisterSegment = AsmRegisterSegment::new(Register::GS);
+	/// Gets a `SEGMENT` register or `None` if input is invalid.
+	pub fn get_segment(register: Register) -> Option<AsmRegisterSegment> {
+		if register.is_segment_register() {
+			Some(AsmRegisterSegment::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -165,6 +205,14 @@ pub mod st {
 	pub const st5: AsmRegisterSt = AsmRegisterSt::new(Register::ST5);
 	pub const st6: AsmRegisterSt = AsmRegisterSt::new(Register::ST6);
 	pub const st7: AsmRegisterSt = AsmRegisterSt::new(Register::ST7);
+	/// Gets an `ST` register or `None` if input is invalid.
+	pub fn get_st(register: Register) -> Option<AsmRegisterSt> {
+		if register.is_st() {
+			Some(AsmRegisterSt::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -190,6 +238,14 @@ pub mod cr {
 	pub const cr13: AsmRegisterCr = AsmRegisterCr::new(Register::CR13);
 	pub const cr14: AsmRegisterCr = AsmRegisterCr::new(Register::CR14);
 	pub const cr15: AsmRegisterCr = AsmRegisterCr::new(Register::CR15);
+	/// Gets a `CR` register or `None` if input is invalid.
+	pub fn get_cr(register: Register) -> Option<AsmRegisterCr> {
+		if register.is_cr() {
+			Some(AsmRegisterCr::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -215,6 +271,14 @@ pub mod dr {
 	pub const dr13: AsmRegisterDr = AsmRegisterDr::new(Register::DR13);
 	pub const dr14: AsmRegisterDr = AsmRegisterDr::new(Register::DR14);
 	pub const dr15: AsmRegisterDr = AsmRegisterDr::new(Register::DR15);
+	/// Gets a `DR` register or `None` if input is invalid.
+	pub fn get_dr(register: Register) -> Option<AsmRegisterDr> {
+		if register.is_dr() {
+			Some(AsmRegisterDr::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -232,6 +296,14 @@ pub mod tr {
 	pub const tr5: AsmRegisterTr = AsmRegisterTr::new(Register::TR5);
 	pub const tr6: AsmRegisterTr = AsmRegisterTr::new(Register::TR6);
 	pub const tr7: AsmRegisterTr = AsmRegisterTr::new(Register::TR7);
+	/// Gets a `TR` register or `None` if input is invalid.
+	pub fn get_tr(register: Register) -> Option<AsmRegisterTr> {
+		if register.is_tr() {
+			Some(AsmRegisterTr::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -245,6 +317,14 @@ pub mod bnd {
 	pub const bnd1: AsmRegisterBnd = AsmRegisterBnd::new(Register::BND1);
 	pub const bnd2: AsmRegisterBnd = AsmRegisterBnd::new(Register::BND2);
 	pub const bnd3: AsmRegisterBnd = AsmRegisterBnd::new(Register::BND3);
+	/// Gets a `BND` register or `None` if input is invalid.
+	pub fn get_bnd(register: Register) -> Option<AsmRegisterBnd> {
+		if register.is_bnd() {
+			Some(AsmRegisterBnd::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -262,6 +342,14 @@ pub mod k {
 	pub const k5: AsmRegisterK = AsmRegisterK::new(Register::K5);
 	pub const k6: AsmRegisterK = AsmRegisterK::new(Register::K6);
 	pub const k7: AsmRegisterK = AsmRegisterK::new(Register::K7);
+	/// Gets a `K` register or `None` if input is invalid.
+	pub fn get_k(register: Register) -> Option<AsmRegisterK> {
+		if register.is_k() {
+			Some(AsmRegisterK::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -279,6 +367,14 @@ pub mod mm {
 	pub const mm5: AsmRegisterMm = AsmRegisterMm::new(Register::MM5);
 	pub const mm6: AsmRegisterMm = AsmRegisterMm::new(Register::MM6);
 	pub const mm7: AsmRegisterMm = AsmRegisterMm::new(Register::MM7);
+	/// Gets an `MM` register or `None` if input is invalid.
+	pub fn get_mm(register: Register) -> Option<AsmRegisterMm> {
+		if register.is_mm() {
+			Some(AsmRegisterMm::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -320,6 +416,14 @@ pub mod xmm {
 	pub const xmm29: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM29);
 	pub const xmm30: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM30);
 	pub const xmm31: AsmRegisterXmm = AsmRegisterXmm::new(Register::XMM31);
+	/// Gets an `XMM` register or `None` if input is invalid.
+	pub fn get_xmm(register: Register) -> Option<AsmRegisterXmm> {
+		if register.is_xmm() {
+			Some(AsmRegisterXmm::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -361,6 +465,14 @@ pub mod ymm {
 	pub const ymm29: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM29);
 	pub const ymm30: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM30);
 	pub const ymm31: AsmRegisterYmm = AsmRegisterYmm::new(Register::YMM31);
+	/// Gets a `YMM` register or `None` if input is invalid.
+	pub fn get_ymm(register: Register) -> Option<AsmRegisterYmm> {
+		if register.is_ymm() {
+			Some(AsmRegisterYmm::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -402,6 +514,14 @@ pub mod zmm {
 	pub const zmm29: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM29);
 	pub const zmm30: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM30);
 	pub const zmm31: AsmRegisterZmm = AsmRegisterZmm::new(Register::ZMM31);
+	/// Gets a `ZMM` register or `None` if input is invalid.
+	pub fn get_zmm(register: Register) -> Option<AsmRegisterZmm> {
+		if register.is_zmm() {
+			Some(AsmRegisterZmm::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 #[rustfmt::skip]
@@ -419,6 +539,14 @@ pub mod tmm {
 	pub const tmm5: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM5);
 	pub const tmm6: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM6);
 	pub const tmm7: AsmRegisterTmm = AsmRegisterTmm::new(Register::TMM7);
+	/// Gets a `TMM` register or `None` if input is invalid.
+	pub fn get_tmm(register: Register) -> Option<AsmRegisterTmm> {
+		if register.is_tmm() {
+			Some(AsmRegisterTmm::new(register))
+		} else {
+			None
+		}
+	}
 }
 
 pub use self::bnd::*;

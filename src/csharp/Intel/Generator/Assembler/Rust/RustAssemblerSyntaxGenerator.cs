@@ -73,58 +73,88 @@ namespace Generator.Assembler.Rust {
 				foreach (var (kind, regs) in regGroups) {
 					Array.Sort(regs, (a, b) => a.Register.Value.CompareTo(b.Register.Value));
 
-					var (structName, modName, doc) = GetAsmRegisterInfo(kind);
+					var asmInfo = GetAsmRegisterInfo(kind);
 					writer.WriteLine();
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
-					writer.WriteLine($"pub mod {modName} {{");
+					writer.WriteLine($"pub mod {asmInfo.ModName} {{");
 					using (writer.Indent()) {
-						writer.WriteLine($"//! {doc}");
+						writer.WriteLine($"//! {asmInfo.Doc}");
 						writer.WriteLine("#![allow(non_upper_case_globals)]");
 						writer.WriteLine("#![allow(missing_docs)]");
-						writer.WriteLine($"use crate::code_asm::reg::{structName};");
+						writer.WriteLine($"use crate::code_asm::reg::{asmInfo.StructName};");
 						writer.WriteLine($"use crate::{registerTypeName};");
 						foreach (var regDef in regs) {
 							var asmRegName = GetAsmRegisterName(regDef);
-							writer.WriteLine($"pub const {asmRegName}: {structName} = {structName}::new({idConverter.ToDeclTypeAndValue(regDef.Register)});");
+							writer.WriteLine($"pub const {asmRegName}: {asmInfo.StructName} = {asmInfo.StructName}::new({idConverter.ToDeclTypeAndValue(regDef.Register)});");
 						}
+						var aOrAn = kind switch {
+							RegisterKind.IP or RegisterKind.ST or RegisterKind.MM or RegisterKind.XMM => "an",
+							RegisterKind.GPR8 or RegisterKind.GPR16 or RegisterKind.GPR32 or RegisterKind.GPR64 or
+							RegisterKind.Segment or RegisterKind.CR or RegisterKind.DR or RegisterKind.TR or
+							RegisterKind.BND or RegisterKind.K or RegisterKind.YMM or RegisterKind.ZMM or
+							RegisterKind.TMM => "a",
+							_ => throw new InvalidOperationException(),
+						};
+						writer.WriteLine($"/// Gets {aOrAn} `{asmInfo.ModName.ToUpperInvariant()}` register or `None` if input is invalid.");
+						writer.WriteLine($"pub fn get_{asmInfo.ModName}(register: Register) -> Option<{asmInfo.StructName}> {{");
+						using (writer.Indent()) {
+							writer.WriteLine($"if register.{asmInfo.FnIsRegName}() {{");
+							using (writer.Indent())
+								writer.WriteLine($"Some({asmInfo.StructName}::new(register))");
+							writer.WriteLine("} else {");
+							using (writer.Indent())
+								writer.WriteLine("None");
+							writer.WriteLine("}");
+						}
+						writer.WriteLine("}");
 					}
 					writer.WriteLine("}");
 				}
 
 				writer.WriteLine();
-				foreach (var (kind, regs) in regGroups.OrderBy(a => GetAsmRegisterInfo(a.kind).modName, StringComparer.Ordinal)) {
-					var modName = GetAsmRegisterInfo(kind).modName;
+				foreach (var (kind, regs) in regGroups.OrderBy(a => GetAsmRegisterInfo(a.kind).ModName, StringComparer.Ordinal)) {
+					var modName = GetAsmRegisterInfo(kind).ModName;
 					writer.WriteLine($"pub use self::{modName}::*;");
 				}
 			}
 		}
 
-		static (string structName, string modName, string doc) GetAsmRegisterInfo(RegisterKind kind) {
-			var (suffix, modName, doc) = kind switch {
+		readonly struct AsmRegisterInfo {
+			public readonly string StructName;
+			public readonly string ModName;
+			public readonly string FnIsRegName;
+			public readonly string Doc;
+
+			public AsmRegisterInfo(string structName, string modName, string fnIsRegName, string doc) {
+				StructName = structName;
+				ModName = modName;
+				FnIsRegName = fnIsRegName;
+				Doc = doc;
+			}
+		}
+
+		static AsmRegisterInfo GetAsmRegisterInfo(RegisterKind kind) =>
+			kind switch {
 				RegisterKind.None => throw new InvalidOperationException(),
-				RegisterKind.GPR8 => ("8", "gpr8", "All 8-bit general purpose registers."),
-				RegisterKind.GPR16 => ("16", "gpr16", "All 16-bit general purpose registers."),
-				RegisterKind.GPR32 => ("32", "gpr32", "All 32-bit general purpose registers."),
-				RegisterKind.GPR64 => ("64", "gpr64", "All 64-bit general purpose registers."),
-				RegisterKind.IP => ("Ip", "ip", "All instruction pointer registers."),
-				RegisterKind.Segment => ("Segment", "segment", "All segment registers."),
-				RegisterKind.ST => ("St", "st", "All FPU registers."),
-				RegisterKind.CR => ("Cr", "cr", "All control registers."),
-				RegisterKind.DR => ("Dr", "dr", "All debug registers."),
-				RegisterKind.TR => ("Tr", "tr", "All test registers."),
-				RegisterKind.BND => ("Bnd", "bnd", "All bound registers."),
-				RegisterKind.K => ("K", "k", "All opmask registers."),
-				RegisterKind.MM => ("Mm", "mm", "All MMX registers."),
-				RegisterKind.XMM => ("Xmm", "xmm", "All 128-bit vector registers (XMM)."),
-				RegisterKind.YMM => ("Ymm", "ymm", "All 256-bit vector registers (YMM)."),
-				RegisterKind.ZMM => ("Zmm", "zmm", "All 512-bit vector registers (ZMM)."),
-				RegisterKind.TMM => ("Tmm", "tmm", "All tile registers."),
+				RegisterKind.GPR8 => new(AsmRegisterPrefix + "8", "gpr8", "is_gpr8", "All 8-bit general purpose registers."),
+				RegisterKind.GPR16 => new(AsmRegisterPrefix + "16", "gpr16", "is_gpr16", "All 16-bit general purpose registers."),
+				RegisterKind.GPR32 => new(AsmRegisterPrefix + "32", "gpr32", "is_gpr32", "All 32-bit general purpose registers."),
+				RegisterKind.GPR64 => new(AsmRegisterPrefix + "64", "gpr64", "is_gpr64", "All 64-bit general purpose registers."),
+				RegisterKind.IP => new(AsmRegisterPrefix + "Ip", "ip", "is_ip", "All instruction pointer registers."),
+				RegisterKind.Segment => new(AsmRegisterPrefix + "Segment", "segment", "is_segment_register", "All segment registers."),
+				RegisterKind.ST => new(AsmRegisterPrefix + "St", "st", "is_st", "All FPU registers."),
+				RegisterKind.CR => new(AsmRegisterPrefix + "Cr", "cr", "is_cr", "All control registers."),
+				RegisterKind.DR => new(AsmRegisterPrefix + "Dr", "dr", "is_dr", "All debug registers."),
+				RegisterKind.TR => new(AsmRegisterPrefix + "Tr", "tr", "is_tr", "All test registers."),
+				RegisterKind.BND => new(AsmRegisterPrefix + "Bnd", "bnd", "is_bnd", "All bound registers."),
+				RegisterKind.K => new(AsmRegisterPrefix + "K", "k", "is_k", "All opmask registers."),
+				RegisterKind.MM => new(AsmRegisterPrefix + "Mm", "mm", "is_mm", "All MMX registers."),
+				RegisterKind.XMM => new(AsmRegisterPrefix + "Xmm", "xmm", "is_xmm", "All 128-bit vector registers (XMM)."),
+				RegisterKind.YMM => new(AsmRegisterPrefix + "Ymm", "ymm", "is_ymm", "All 256-bit vector registers (YMM)."),
+				RegisterKind.ZMM => new(AsmRegisterPrefix + "Zmm", "zmm", "is_zmm", "All 512-bit vector registers (ZMM)."),
+				RegisterKind.TMM => new(AsmRegisterPrefix + "Tmm", "tmm", "is_tmm", "All tile registers."),
 				_ => throw new InvalidOperationException(),
 			};
-			var structName = AsmRegisterPrefix + suffix;
-
-			return (structName, modName, doc);
-		}
 
 		protected override void GenerateRegisterClasses(RegisterClassInfo[] infos) {
 			var filename = genTypes.Dirs.GetRustFilename("code_asm", "reg.rs");
@@ -136,10 +166,10 @@ namespace Generator.Assembler.Rust {
 				writer.WriteLine($"use crate::code_asm::op_state::{CodeAsmOpState};");
 				writer.WriteLine($"use crate::{registerTypeName};");
 				foreach (var reg in infos) {
-					var (structName, modName, doc) = GetAsmRegisterInfo(reg.Kind);
+					var asmInfo = GetAsmRegisterInfo(reg.Kind);
 
 					writer.WriteLine();
-					writer.WriteLine($"/// {doc}");
+					writer.WriteLine($"/// {asmInfo.Doc}");
 					writer.WriteLine("///");
 					writer.WriteLine("/// This type is *not* part of the public API! It's an implementation detail.");
 					writer.WriteLine("/// The register identifiers, however, *are* part of the public API.");
@@ -162,13 +192,13 @@ namespace Generator.Assembler.Rust {
 					writer.WriteLine("///");
 					writer.WriteLine("/// ```");
 					writer.WriteLine("/// # #![allow(unused_imports)]");
-					writer.WriteLine($"/// use iced_x86::code_asm::registers::{modName}::*;");
+					writer.WriteLine($"/// use iced_x86::code_asm::registers::{asmInfo.ModName}::*;");
 					writer.WriteLine("/// ```");
 					writer.WriteLine("#[derive(Debug, Copy, Clone, Eq, PartialEq)]");
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					if (!reg.NeedsState)
 						writer.WriteLine(RustConstants.AttrTransparent);
-					writer.WriteLine($"pub struct {structName} {{");
+					writer.WriteLine($"pub struct {asmInfo.StructName} {{");
 					using (writer.Indent()) {
 						writer.WriteLine($"register: {registerTypeName},");
 						if (reg.NeedsState)
@@ -177,7 +207,7 @@ namespace Generator.Assembler.Rust {
 					writer.WriteLine("}");
 					writer.WriteLine();
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
-					writer.WriteLine($"impl {structName} {{");
+					writer.WriteLine($"impl {asmInfo.StructName} {{");
 					using (writer.Indent()) {
 						writer.WriteLine(RustConstants.AttributeMustUse);
 						writer.WriteLine(RustConstants.AttributeInline);
@@ -261,10 +291,10 @@ namespace Generator.Assembler.Rust {
 					writer.WriteLine("}");
 					writer.WriteLine();
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
-					writer.WriteLine($"impl From<{structName}> for {registerTypeName} {{");
+					writer.WriteLine($"impl From<{asmInfo.StructName}> for {registerTypeName} {{");
 					using (writer.Indent()) {
 						writer.WriteLine("#[inline]");
-						writer.WriteLine($"fn from(reg: {structName}) -> Self {{");
+						writer.WriteLine($"fn from(reg: {asmInfo.StructName}) -> Self {{");
 						using (writer.Indent())
 							writer.WriteLine("reg.register");
 						writer.WriteLine("}");
