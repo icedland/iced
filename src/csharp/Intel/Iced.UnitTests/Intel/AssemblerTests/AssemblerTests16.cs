@@ -24,12 +24,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void xbegin_label() {
-			TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateXbegin(Bitness, 1), 1), LocalOpCodeFlags.Branch);
+			TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateXbegin(Bitness, FirstLabelId), FirstLabelId), TestInstrFlags.Branch);
 		}
 
 		[Fact]
 		public void xbegin_offset() {
-			TestAssembler(c => c.xbegin(12752), Instruction.CreateXbegin(Bitness, 12752), LocalOpCodeFlags.BranchUlong);
+			TestAssembler(c => c.xbegin(12752), Instruction.CreateXbegin(Bitness, 12752), TestInstrFlags.BranchU64);
 		}
 	}
 }

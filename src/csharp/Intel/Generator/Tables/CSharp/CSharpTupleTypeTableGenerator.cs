@@ -23,7 +23,6 @@ namespace Generator.Tables.CSharp {
 		}
 
 		void WriteTable(FileWriter writer, TupleTypeInfo[] infos) {
-			var tupleTypeName = genTypes[TypeIds.TupleType].Name(idConverter);
 			foreach (var info in infos) {
 				writer.WriteCommentLine(idConverter.ToDeclTypeAndValue(info.Value));
 				if (info.N > byte.MaxValue)

@@ -8,6 +8,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class Utils {
+#if GAS || INTEL || MASM || NASM
 		public static IEnumerable<Formatter> GetAllFormatters() {
 #if GAS
 			yield return new GasFormatter();
@@ -22,6 +23,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			yield return new NasmFormatter();
 #endif
 		}
+#endif
 
 		public static string[] Filter(string[] strings, HashSet<int> removed) {
 			if (removed.Count == 0)

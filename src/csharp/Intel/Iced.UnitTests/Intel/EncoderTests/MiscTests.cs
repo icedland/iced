@@ -121,7 +121,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(actual.Length, (int)len);
 			Assert.Equal(expected, actual);
 		}
-		
+
 		[Fact]
 		void Encode_EBP_EDX_with_no_displ() {
 			var writer = new CodeWriterImpl();
@@ -543,6 +543,16 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.False(op.IsBroadcast);
 				Assert.Equal(Register.None, op.SegmentPrefix);
 			}
+			{
+				var op = new MemoryOperand(0x1234_5678_9ABC_DEF1, 8);
+				Assert.Equal(Register.None, op.Base);
+				Assert.Equal(Register.None, op.Index);
+				Assert.Equal(1, op.Scale);
+				Assert.Equal(0x1234_5678_9ABC_DEF1, op.Displacement);
+				Assert.Equal(8, op.DisplSize);
+				Assert.False(op.IsBroadcast);
+				Assert.Equal(Register.None, op.SegmentPrefix);
+			}
 		}
 
 #if OPCODE_INFO
@@ -601,6 +611,187 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				yield return new object[] { 64, Instruction.Create(Code.Enqcmd_r32_m512, Register.ECX, new MemoryOperand(Register.RBX)) };
 
 				yield return new object[] { 64, Instruction.Create(Code.Enqcmd_r64_m512, Register.RCX, new MemoryOperand(Register.EBX)) };
+			}
+		}
+
+		static bool EncodeOk(int bitness, Instruction instruction) {
+			var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+			return encoder.TryEncode(instruction, 0x1234, out _, out _);
+		}
+
+		static bool EncodeErr(int bitness, Instruction instruction) {
+			var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+			return !encoder.TryEncode(instruction, 0x1234, out _, out _);
+		}
+
+		[Fact]
+		void InvalidDispl16() {
+			const int bitness = 16;
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x0_0000UL, 2))));
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x0_FFFFUL, 2))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x1_0000UL, 2))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0xFFFF_FFFF_FFFF_FFFFUL, 2))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(0x0_0000UL, 2))));
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(0x0_FFFFUL, 2))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(0x1_0000UL, 2))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(0xFFFF_FFFF_FFFF_FFFFUL, 2))));
+
+			foreach (var displSize in new[] { 1, 2 }) {
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, 0L, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, -1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, 1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, -0x0_8000, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, 0x0_FFFF, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, -0x0_8001, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, 0x1_0000, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, -0x8000_0000_0000_0000, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, 0x7FFF_FFFF_FFFF_FFFF, displSize))));
+			}
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BP, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BP, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BP, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBP, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBP, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBP, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -1, 0))));
+
+			foreach (var displSize in new[] { 1, 4 }) {
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0L, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -0x8000_0000, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0xFFFF_FFFF, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -0x8000_0001, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0x1_0000_0000, displSize))));
+			}
+		}
+
+		[Fact]
+		void InvalidDispl32() {
+			const int bitness = 32;
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x0_0000UL, 2))));
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x0_FFFFUL, 2))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x1_0000UL, 2))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0xFFFF_FFFF_FFFF_FFFFUL, 2))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x0_0000_0000UL, 4))));
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x0_FFFF_FFFFUL, 4))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x1_0000_0000UL, 4))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0xFFFF_FFFF_FFFF_FFFFUL, 4))));
+
+			foreach (var displSize in new[] { 1, 4 }) {
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 0L, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, -1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, -0x8000_0000, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 0xFFFF_FFFF, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, -0x8000_0001, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 0x1_0000_0000, displSize))));
+			}
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BP, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BP, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BP, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBP, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBP, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBP, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -1, 0))));
+
+			foreach (var displSize in new[] { 1, 4 }) {
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0L, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -0x8000_0000, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0xFFFF_FFFF, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -0x8000_0001, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0x1_0000_0000, displSize))));
+			}
+		}
+
+		[Fact]
+		void InvalidDispl64() {
+			const int bitness = 64;
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x0_0000_0000UL, 4))));
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x0_FFFF_FFFFUL, 4))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x1_0000_0000UL, 4))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0xFFFF_FFFF_FFFF_FFFFUL, 4))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0x0000_0000_0000_0000UL, 8))));
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(0xFFFF_FFFF_FFFF_FFFFUL, 8))));
+
+			foreach (var displSize in new[] { 1, 8 }) {
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 0L, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, -1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, -0x8000_0000, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 0xFFFF_FFFF, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, -0x8000_0001, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 0x1_0000_0000, displSize))));
+			}
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBP, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBP, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBP, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.R13D, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.R13D, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.R13D, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBP, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBP, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBP, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.R13, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.R13, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.R13, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -1, 0))));
+
+			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, 0L, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, 1, 0))));
+			Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, -1, 0))));
+
+			foreach (var displSize in new[] { 1, 4 }) {
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0L, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -0x8000_0000, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0xFFFF_FFFF, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, -0x8000_0001, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBX, 0x1_0000_0000, displSize))));
+			}
+
+			foreach (var displSize in new[] { 1, 8 }) {
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, 0L, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, -1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, 1, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, -0x8000_0000, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, 0x7FFF_FFFF, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, -0x8000_0001, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, 0x8000_0000, displSize))));
 			}
 		}
 	}

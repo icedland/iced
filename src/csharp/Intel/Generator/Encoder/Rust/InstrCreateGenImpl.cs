@@ -18,7 +18,7 @@ namespace Generator.Encoder.Rust {
 		public string UInt64;
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
-		public static readonly GenCreateNameArgs RustNames = new GenCreateNameArgs {
+		public static readonly GenCreateNameArgs RustNames = new() {
 			CreatePrefix = "with",
 			Register = "_reg",
 			Memory = "_mem",
@@ -72,51 +72,24 @@ namespace Generator.Encoder.Rust {
 			return true;
 		}
 
-		public string GetArgTypeString(MethodArg arg) {
-			switch (arg.Type) {
-			case MethodArgType.Code:
-				return genTypes[TypeIds.Code].Name(idConverter);
-			case MethodArgType.Register:
-				return genTypes[TypeIds.Register].Name(idConverter);
-			case MethodArgType.RepPrefixKind:
-				return genTypes[TypeIds.RepPrefixKind].Name(idConverter);
-			case MethodArgType.Memory:
-				return "MemoryOperand";
-			case MethodArgType.UInt8:
-				return "u8";
-			case MethodArgType.UInt16:
-				return "u16";
-			case MethodArgType.Int32:
-				return "i32";
-			case MethodArgType.PreferredInt32:
-			case MethodArgType.UInt32:
-				return "u32";
-			case MethodArgType.Int64:
-				return "i64";
-			case MethodArgType.UInt64:
-				return "u64";
-			case MethodArgType.ByteSlice:
-				return "&[u8]";
-			case MethodArgType.WordSlice:
-				return "&[u16]";
-			case MethodArgType.DwordSlice:
-				return "&[u32]";
-			case MethodArgType.QwordSlice:
-				return "&[u64]";
-			case MethodArgType.ByteArray:
-			case MethodArgType.WordArray:
-			case MethodArgType.DwordArray:
-			case MethodArgType.QwordArray:
-			case MethodArgType.BytePtr:
-			case MethodArgType.WordPtr:
-			case MethodArgType.DwordPtr:
-			case MethodArgType.QwordPtr:
-			case MethodArgType.ArrayIndex:
-			case MethodArgType.ArrayLength:
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		public string GetArgTypeString(MethodArg arg) =>
+			arg.Type switch {
+				MethodArgType.Code => genTypes[TypeIds.Code].Name(idConverter),
+				MethodArgType.Register => genTypes[TypeIds.Register].Name(idConverter),
+				MethodArgType.RepPrefixKind => genTypes[TypeIds.RepPrefixKind].Name(idConverter),
+				MethodArgType.Memory => "MemoryOperand",
+				MethodArgType.UInt8 => "u8",
+				MethodArgType.UInt16 => "u16",
+				MethodArgType.Int32 => "i32",
+				MethodArgType.PreferredInt32 or MethodArgType.UInt32 => "u32",
+				MethodArgType.Int64 => "i64",
+				MethodArgType.UInt64 => "u64",
+				MethodArgType.ByteSlice => "&[u8]",
+				MethodArgType.WordSlice => "&[u16]",
+				MethodArgType.DwordSlice => "&[u32]",
+				MethodArgType.QwordSlice => "&[u64]",
+				_ => throw new InvalidOperationException(),
+			};
 
 		public void WriteMethodDeclArgs(FileWriter writer, CreateMethod method) {
 			bool comma = false;
@@ -135,44 +108,17 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
-		public static bool Is64BitArgument(MethodArgType type) {
-			switch (type) {
-			case MethodArgType.Code:
-			case MethodArgType.Register:
-			case MethodArgType.RepPrefixKind:
-			case MethodArgType.Memory:
-			case MethodArgType.UInt8:
-			case MethodArgType.UInt16:
-			case MethodArgType.Int32:
-			case MethodArgType.UInt32:
-			case MethodArgType.PreferredInt32:
-			case MethodArgType.ByteSlice:
-			case MethodArgType.WordSlice:
-			case MethodArgType.DwordSlice:
-			case MethodArgType.QwordSlice:
-				return false;
-
-			case MethodArgType.Int64:
-			case MethodArgType.UInt64:
-				return true;
-
-			case MethodArgType.ArrayIndex:
-			case MethodArgType.ArrayLength:
+		public static bool Is64BitArgument(MethodArgType type) =>
+			type switch {
+				MethodArgType.Code or MethodArgType.Register or MethodArgType.RepPrefixKind or MethodArgType.Memory or
+				MethodArgType.UInt8 or MethodArgType.UInt16 or MethodArgType.Int32 or MethodArgType.UInt32 or
+				MethodArgType.PreferredInt32 or MethodArgType.ByteSlice or MethodArgType.WordSlice or MethodArgType.DwordSlice or
+				MethodArgType.QwordSlice => false,
+				MethodArgType.Int64 or MethodArgType.UInt64 => true,
 				// Never used, but if they're used in the future, they should be converted to u32 types if RustJS
-				throw new InvalidOperationException();
-
-			case MethodArgType.ByteArray:
-			case MethodArgType.WordArray:
-			case MethodArgType.DwordArray:
-			case MethodArgType.QwordArray:
-			case MethodArgType.BytePtr:
-			case MethodArgType.WordPtr:
-			case MethodArgType.DwordPtr:
-			case MethodArgType.QwordPtr:
-			default:
-				throw new ArgumentOutOfRangeException(nameof(type));
-			}
-		}
+				MethodArgType.ArrayIndex or MethodArgType.ArrayLength => throw new InvalidOperationException(),
+				_ => throw new ArgumentOutOfRangeException(nameof(type)),
+			};
 
 		public static string GetRustOverloadedCreateName(CreateMethod method) => GetRustOverloadedCreateName(method.Args.Count - 1);
 		public static string GetRustOverloadedCreateName(int argCount) => argCount == 0 ? "with" : "with" + argCount.ToString();

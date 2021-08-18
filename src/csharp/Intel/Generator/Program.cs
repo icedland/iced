@@ -55,10 +55,10 @@ namespace Generator {
 	}
 
 	sealed class CommandLineOptions {
-		public readonly HashSet<TargetLanguage> Languages = new HashSet<TargetLanguage>();
+		public readonly HashSet<TargetLanguage> Languages = new();
 		public GeneratorFlags GeneratorFlags = GeneratorFlags.None;
-		public readonly HashSet<string> IncludeCpuid = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-		public readonly HashSet<string> ExcludeCpuid = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+		public readonly HashSet<string> IncludeCpuid = new(StringComparer.OrdinalIgnoreCase);
+		public readonly HashSet<string> ExcludeCpuid = new(StringComparer.OrdinalIgnoreCase);
 	}
 
 	static class Program {
@@ -291,7 +291,7 @@ Options:
 
 		static GeneratorContext CreateGeneratorContext(GeneratorFlags flags, HashSet<string> includeCpuid, HashSet<string> excludeCpuid) {
 			var dir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(typeof(Program).Assembly.Location)))))));
-			if (dir is null || !File.Exists(Path.Combine(dir, "csharp", "Iced.sln")))
+			if (dir is null || !File.Exists(Path.Combine(dir, "csharp", "Intel", "Iced.sln")))
 				throw new InvalidOperationException();
 			return new GeneratorContext(dir, flags, includeCpuid, excludeCpuid);
 		}

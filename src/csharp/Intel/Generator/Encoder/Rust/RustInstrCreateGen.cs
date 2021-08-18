@@ -67,7 +67,7 @@ namespace Generator.Encoder.Rust {
 			gen.WriteDocs(writer, method, sectionTitle, writeSection);
 		}
 
-		static void WriteMethodAttributes(FileWriter writer, CreateMethod method, bool inline, bool canFail, GenTryFlags flags) {
+		static void WriteMethodAttributes(FileWriter writer, bool inline, bool canFail, GenTryFlags flags) {
 			if ((flags & GenTryFlags.Inline) != 0)
 				inline = true;
 			if (!canFail)
@@ -82,7 +82,7 @@ namespace Generator.Encoder.Rust {
 
 		void WriteMethod(FileWriter writer, CreateMethod method, string name, TryMethodKind kind, GenTryFlags flags) {
 			bool inline = kind == TryMethodKind.Panic || (flags & GenTryFlags.NoFooter) != 0;
-			WriteMethodAttributes(writer, method, inline, kind == TryMethodKind.Result, flags);
+			WriteMethodAttributes(writer, inline, kind == TryMethodKind.Result, flags);
 			var pub = (flags & GenTryFlags.TraitMethod) != 0 ? "" : "pub ";
 			writer.Write($"{pub}fn {name}(");
 			gen.WriteMethodDeclArgs(writer, method);
@@ -194,7 +194,7 @@ namespace Generator.Encoder.Rust {
 
 		void GenerateCallNewMethod(GenerateTryMethodContext ctx, GenTryFlags flags, Action<TryMethodKind>? writeError,
 			RustDeprecatedInfo? deprecatedInfo, TryMethodKind kind) =>
-			GenerateCallNewMethod(ctx, flags, writeError, deprecatedInfo, kind, ctx.MethodName,ctx.TryMethodName);
+			GenerateCallNewMethod(ctx, flags, writeError, deprecatedInfo, kind, ctx.MethodName, ctx.TryMethodName);
 
 		void GenerateCallNewMethod(GenerateTryMethodContext ctx, GenTryFlags flags, Action<TryMethodKind>? writeError,
 			RustDeprecatedInfo? deprecatedInfo, TryMethodKind kind, string methodName, string calledMethodName) {
@@ -224,7 +224,7 @@ namespace Generator.Encoder.Rust {
 					var argName = idConverter.Argument(ctx.Method.Args[i].Name);
 					sb.Append(argName);
 				}
-				sb.Append(")");
+				sb.Append(')');
 				if (kind != TryMethodKind.Result)
 					sb.Append(".unwrap()");
 				ctx.Writer.WriteLine(sb.ToString());
@@ -353,8 +353,8 @@ namespace Generator.Encoder.Rust {
 		protected override void GenCreateBranch(FileWriter writer, CreateMethod method) {
 			if (method.Args.Count != 2)
 				throw new InvalidOperationException();
-			Action<TryMethodKind> writeError = kind => docWriter.WriteLine(writer, GetErrorString(kind, "if the created instruction doesn't have a near branch operand"));
-			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.None, GenCreateBranch, writeError, RustInstrCreateGenNames.with_branch);
+			void WriteError(TryMethodKind kind) => docWriter.WriteLine(writer, GetErrorString(kind, "if the created instruction doesn't have a near branch operand"));
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.None, GenCreateBranch, WriteError, RustInstrCreateGenNames.with_branch);
 		}
 
 		void GenCreateBranch(GenerateTryMethodContext ctx, TryMethodKind kind) {
@@ -367,8 +367,8 @@ namespace Generator.Encoder.Rust {
 		protected override void GenCreateFarBranch(FileWriter writer, CreateMethod method) {
 			if (method.Args.Count != 3)
 				throw new InvalidOperationException();
-			Action<TryMethodKind> writeError = kind => docWriter.WriteLine(writer, GetErrorString(kind, "if the created instruction doesn't have a far branch operand"));
-			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.None, GenCreateFarBranch, writeError, RustInstrCreateGenNames.with_far_branch);
+			void WriteError(TryMethodKind kind) => docWriter.WriteLine(writer, GetErrorString(kind, "if the created instruction doesn't have a far branch operand"));
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.None, GenCreateFarBranch, WriteError, RustInstrCreateGenNames.with_far_branch);
 		}
 
 		void GenCreateFarBranch(GenerateTryMethodContext ctx, TryMethodKind kind) {
@@ -382,8 +382,8 @@ namespace Generator.Encoder.Rust {
 		protected override void GenCreateXbegin(FileWriter writer, CreateMethod method) {
 			if (method.Args.Count != 2)
 				throw new InvalidOperationException();
-			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
-			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.None, GenCreateXbegin, writeError, RustInstrCreateGenNames.with_xbegin);
+			void WriteError(TryMethodKind kind) => WriteAddrSizeOrBitnessPanic(writer, method, kind);
+			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.None, GenCreateXbegin, WriteError, RustInstrCreateGenNames.with_xbegin);
 		}
 
 		void GenCreateXbegin(GenerateTryMethodContext ctx, TryMethodKind kind) {
@@ -463,9 +463,9 @@ namespace Generator.Encoder.Rust {
 
 		protected override void GenCreateString_Reg_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
 			var methodName = idConverter.Method("With" + methodBaseName);
-			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
+			void WriteError(TryMethodKind kind) => WriteAddrSizeOrBitnessPanic(writer, method, kind);
 			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateString_Reg_SegRSI(ctx, kind, code, register), writeError, methodName);
+				(ctx, _) => GenCreateString_Reg_SegRSI(ctx, kind, code, register), WriteError, methodName);
 		}
 
 		void GenCreateString_Reg_SegRSI(GenerateTryMethodContext ctx, StringMethodKind kind, EnumValue code, EnumValue register) {
@@ -507,9 +507,9 @@ namespace Generator.Encoder.Rust {
 
 		protected override void GenCreateString_Reg_ESRDI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
 			var methodName = idConverter.Method("With" + methodBaseName);
-			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
+			void WriteError(TryMethodKind kind) => WriteAddrSizeOrBitnessPanic(writer, method, kind);
 			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateString_Reg_ESRDI(ctx, kind, code, register), writeError, methodName);
+				(ctx, _) => GenCreateString_Reg_ESRDI(ctx, kind, code, register), WriteError, methodName);
 		}
 
 		void GenCreateString_Reg_ESRDI(GenerateTryMethodContext ctx, StringMethodKind kind, EnumValue code, EnumValue register) {
@@ -547,9 +547,9 @@ namespace Generator.Encoder.Rust {
 
 		protected override void GenCreateString_ESRDI_Reg(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
 			var methodName = idConverter.Method("With" + methodBaseName);
-			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
+			void WriteError(TryMethodKind kind) => WriteAddrSizeOrBitnessPanic(writer, method, kind);
 			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateString_ESRDI_Reg(ctx, kind, code, register), writeError, methodName);
+				(ctx, _) => GenCreateString_ESRDI_Reg(ctx, kind, code, register), WriteError, methodName);
 		}
 
 		void GenCreateString_ESRDI_Reg(GenerateTryMethodContext ctx, StringMethodKind kind, EnumValue code, EnumValue register) {
@@ -587,9 +587,9 @@ namespace Generator.Encoder.Rust {
 
 		protected override void GenCreateString_SegRSI_ESRDI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code) {
 			var methodName = idConverter.Method("With" + methodBaseName);
-			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
+			void WriteError(TryMethodKind kind) => WriteAddrSizeOrBitnessPanic(writer, method, kind);
 			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateString_SegRSI_ESRDI(ctx, kind, code), writeError, methodName);
+				(ctx, _) => GenCreateString_SegRSI_ESRDI(ctx, kind, code), WriteError, methodName);
 		}
 
 		void GenCreateString_SegRSI_ESRDI(GenerateTryMethodContext ctx, StringMethodKind kind, EnumValue code) {
@@ -627,9 +627,9 @@ namespace Generator.Encoder.Rust {
 
 		protected override void GenCreateString_ESRDI_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code) {
 			var methodName = idConverter.Method("With" + methodBaseName);
-			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
+			void WriteError(TryMethodKind kind) => WriteAddrSizeOrBitnessPanic(writer, method, kind);
 			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateString_ESRDI_SegRSI(ctx, kind, code), writeError, methodName);
+				(ctx, _) => GenCreateString_ESRDI_SegRSI(ctx, kind, code), WriteError, methodName);
 		}
 
 		void GenCreateString_ESRDI_SegRSI(GenerateTryMethodContext ctx, StringMethodKind kind, EnumValue code) {
@@ -667,9 +667,9 @@ namespace Generator.Encoder.Rust {
 
 		protected override void GenCreateMaskmov(FileWriter writer, CreateMethod method, string methodBaseName, EnumValue code) {
 			var methodName = idConverter.Method("With" + methodBaseName);
-			Action<TryMethodKind> writeError = kind => WriteAddrSizeOrBitnessPanic(writer, method, kind);
+			void WriteError(TryMethodKind kind) => WriteAddrSizeOrBitnessPanic(writer, method, kind);
 			GenerateTryMethodsDeprecateTry(writer, method, 1, GenTryFlags.NoFooter,
-				(ctx, _) => GenCreateMaskmov(ctx, code), writeError, methodName);
+				(ctx, _) => GenCreateMaskmov(ctx, code), WriteError, methodName);
 		}
 
 		void GenCreateMaskmov(GenerateTryMethodContext ctx, EnumValue code) {
@@ -745,9 +745,9 @@ namespace Generator.Encoder.Rust {
 
 		void GenCreateDeclareDataSlice(FileWriter writer, CreateMethod method, int elemSize, EnumValue code, string methodName, string setDeclValueName) {
 			writer.WriteLine();
-			Action<TryMethodKind> writeError = kind => WriteDataError(writer, kind, method, $"is not 1-{16 / elemSize}");
+			void WriteError(TryMethodKind kind) => WriteDataError(writer, kind, method, $"is not 1-{16 / elemSize}");
 			GenerateTryMethodsDeprecateTry(writer, method, 0, GenTryFlags.CallNoDocs,
-				(ctx, _) => GenCreateDeclareDataSlice(ctx, elemSize, code, setDeclValueName), writeError, methodName);
+				(ctx, _) => GenCreateDeclareDataSlice(ctx, elemSize, code, setDeclValueName), WriteError, methodName);
 		}
 
 		void GenCreateDeclareDataSlice(GenerateTryMethodContext ctx, int elemSize, EnumValue code, string setDeclValueName) {

@@ -39,7 +39,7 @@ namespace Generator.Enums.Rust {
 			constantsWriter = new RustConstantsWriter(genTypes, idConverter, docWriter, deprecatedWriter);
 
 			var dirs = generatorContext.Types.Dirs;
-			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo?>();
+			toPartialFileInfo = new();
 			toPartialFileInfo.Add(TypeIds.Code, new PartialEnumFileInfo("Code", dirs.GetRustFilename("code.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.CodeSize, new PartialEnumFileInfo("CodeSize", dirs.GetRustFilename("enums.rs"), RustConstants.AttributeCopyEqOrdHash));
 			toPartialFileInfo.Add(TypeIds.ConditionCode, new PartialEnumFileInfo("ConditionCode", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.FeatureInstrInfo, RustConstants.AttributeAllowNonCamelCaseTypes }));
@@ -150,6 +150,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.CC_g, new PartialEnumFileInfo("CC_g", dirs.GetRustFilename("formatter", "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.OptionsProps, new PartialEnumFileInfo("OptionsProps", dirs.GetRustFilename("formatter", "tests", "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.CodeAsmMemoryOperandSize, new PartialEnumFileInfo("MemoryOperandSize", dirs.GetRustFilename("code_asm", "op_state.rs"), new[] { RustConstants.AttributeCopyEqOrdHash }));
+			toPartialFileInfo.Add(TypeIds.TestInstrFlags, new PartialEnumFileInfo("TestInstrFlags", dirs.GetRustFilename("code_asm", "tests", "mod.rs"), new[] { RustConstants.AttributeCopyEqOrdHash }));
 		}
 
 		public override void Generate(EnumType enumType) {

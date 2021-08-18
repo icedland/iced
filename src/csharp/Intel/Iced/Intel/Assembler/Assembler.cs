@@ -494,6 +494,12 @@ namespace Iced.Intel {
 				return false;
 			}
 
+			// Protect against a label emitted without being attached to an instruction
+			if (!currentLabel.IsEmpty) {
+				errorMessage = $"Unused label {currentLabel}. You must emit an instruction after emitting a label.";
+				return false;
+			}
+
 			if (definedAnonLabel) {
 				errorMessage = "Unused anonymous label. You must emit an instruction after emitting a label.";
 				return false;

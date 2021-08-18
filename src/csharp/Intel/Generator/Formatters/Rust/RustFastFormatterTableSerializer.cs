@@ -8,9 +8,7 @@ namespace Generator.Formatters.Rust {
 		readonly string filename;
 
 		public RustFastFormatterTableSerializer(string filename, FastFmtInstructionDef[] defs)
-			: base(defs, RustIdentifierConverter.Create()) {
-			this.filename = filename;
-		}
+			: base(defs, RustIdentifierConverter.Create()) => this.filename = filename;
 
 		public override string GetFilename(GenTypes genTypes) => filename;
 

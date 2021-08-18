@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Generator.Enums;
+using Generator.Enums.Decoder;
 using Generator.Enums.Formatter;
 using Generator.Formatters;
 using Generator.Tables;
@@ -23,7 +24,20 @@ namespace Generator.Assembler {
 		readonly Dictionary<EnumValue, string> mapOpCodeToNewName;
 		readonly Dictionary<EnumValue, Code> toOrigCodeValue;
 		readonly HashSet<EnumValue> ambiguousBcst;
+		protected readonly EnumType decoderOptions;
+		protected readonly EnumType testInstrFlags;
+		readonly (RegisterKind kind, RegisterDef[] regs)[] regGroups;
+		readonly RegisterClassInfo[] regClasses;
+		readonly MemorySizeFuncInfo[] memSizeFnInfos;
+		readonly Dictionary<MemorySizeFnKind, MemorySizeFuncInfo> toFnInfo;
 		int stackDepth;
+
+		protected static readonly Dictionary<int, HashSet<string>> ignoredTestsPerBitness = new() {
+			// generates  System.InvalidOperationException : Operand 0: Expected: NearBranch16, actual: NearBranch32 : 0x1 jecxz 000031D0h
+			{ 16, new HashSet<string> { "jecxz_lu64" } },
+			// generates  System.InvalidOperationException : Operand 0: Expected: NearBranch32, actual: NearBranch16 : 0x1 jcxz 31D0h
+			{ 32, new HashSet<string> { "jcxz_lu64" } },
+		};
 
 		protected Code GetOrigCodeValue(EnumValue value) {
 			if (value.DeclaringType.TypeId != TypeIds.Code)
@@ -90,9 +104,13 @@ namespace Generator.Assembler {
 				list.Add(key);
 			}
 			ambiguousBcst = ambigDict.Where(a => a.Value.Count >= 2).SelectMany(a => a.Value).Select(a => a.Code).ToHashSet();
+			decoderOptions = genTypes[TypeIds.DecoderOptions];
+			testInstrFlags = genTypes[TypeIds.TestInstrFlags];
+			regGroups = GetRegisterGroups();
+			regClasses = GetRegisterClassInfos();
+			memSizeFnInfos = GetMemorySizeFunctions();
+			toFnInfo = memSizeFnInfos.ToDictionary(x => x.Kind, x => x);
 		}
-
-		protected const InstructionDefFlags1 BitnessMaskFlags = InstructionDefFlags1.Bit64 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit16;
 
 		protected sealed class RegisterClassInfo {
 			public readonly RegisterKind Kind;
@@ -172,33 +190,16 @@ namespace Generator.Assembler {
 				return $"{verb} a {bcstDesc}memory operand with {desc} size hint";
 			}
 
-			static string AOrAn(MemorySizeFnKind kind, string s) {
-				switch (kind) {
-				case MemorySizeFnKind.MmwordPtr:
-				case MemorySizeFnKind.FwordPtr:
-				case MemorySizeFnKind.OwordPtr:
-				case MemorySizeFnKind.XmmwordPtr:
-					return $"an {s}";
-
-				case MemorySizeFnKind.Ptr:
-				case MemorySizeFnKind.BytePtr:
-				case MemorySizeFnKind.WordPtr:
-				case MemorySizeFnKind.DwordPtr:
-				case MemorySizeFnKind.QwordPtr:
-				case MemorySizeFnKind.TbytePtr:
-				case MemorySizeFnKind.TwordPtr:
-				case MemorySizeFnKind.YmmwordPtr:
-				case MemorySizeFnKind.ZmmwordPtr:
-				case MemorySizeFnKind.Bcst:
-				case MemorySizeFnKind.WordBcst:
-				case MemorySizeFnKind.DwordBcst:
-				case MemorySizeFnKind.QwordBcst:
-					return $"a {s}";
-
-				default:
-					throw new InvalidOperationException();
-				}
-			}
+			static string AOrAn(MemorySizeFnKind kind, string s) =>
+				kind switch {
+					MemorySizeFnKind.MmwordPtr or MemorySizeFnKind.FwordPtr or MemorySizeFnKind.OwordPtr or
+					MemorySizeFnKind.XmmwordPtr => $"an {s}",
+					MemorySizeFnKind.Ptr or MemorySizeFnKind.BytePtr or MemorySizeFnKind.WordPtr or MemorySizeFnKind.DwordPtr or
+					MemorySizeFnKind.QwordPtr or MemorySizeFnKind.TbytePtr or MemorySizeFnKind.TwordPtr or MemorySizeFnKind.YmmwordPtr or
+					MemorySizeFnKind.ZmmwordPtr or MemorySizeFnKind.Bcst or MemorySizeFnKind.WordBcst or MemorySizeFnKind.DwordBcst or
+					MemorySizeFnKind.QwordBcst => $"a {s}",
+					_ => throw new InvalidOperationException(),
+				};
 		}
 
 		protected static string GetAsmRegisterName(RegisterDef regDef) {
@@ -209,15 +210,17 @@ namespace Generator.Assembler {
 			return registerName.ToLowerInvariant();
 		}
 
+		protected RegisterDef GetRegisterDef(Register register) => regDefs[(int)register];
+
 		protected abstract void GenerateRegisters((RegisterKind kind, RegisterDef[] regs)[] regGroups);
 		protected abstract void GenerateRegisterClasses(RegisterClassInfo[] infos);
 		protected abstract void GenerateMemorySizeFunctions(MemorySizeFuncInfo[] infos);
 		protected abstract void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] opCodes);
 
 		public void Generate() {
-			GenerateRegisters(GetRegisterGroups());
-			GenerateRegisterClasses(GetRegisterClassInfos());
-			GenerateMemorySizeFunctions(GetMemorySizeFunctions());
+			GenerateRegisters(regGroups);
+			GenerateRegisterClasses(regClasses);
+			GenerateMemorySizeFunctions(memSizeFnInfos);
 			GenerateOpCodes();
 		}
 
@@ -250,12 +253,11 @@ namespace Generator.Assembler {
 		}
 
 		(RegisterKind kind, RegisterDef[] regs)[] GetRegisterGroups() {
-			bool IgnoreRegister(RegisterKind kind) {
-				return kind switch {
+			static bool IgnoreRegister(RegisterKind kind) =>
+				kind switch {
 					RegisterKind.None or RegisterKind.IP => true,
 					_ => false,
 				};
-			}
 
 			var regGroups = regDefs.
 				Where(a => !IgnoreRegister(a.GetRegisterKind())).
@@ -324,7 +326,7 @@ namespace Generator.Assembler {
 						case 16:
 						case 32:
 							argKind = ArgKind.Label;
-							opCodeArgFlags |= OpCodeArgFlags.HasBranchNear;
+							opCodeArgFlags |= OpCodeArgFlags.HasNearBranch;
 							opCodeArgFlags |= OpCodeArgFlags.HasLabel;
 							break;
 						default:
@@ -545,7 +547,7 @@ namespace Generator.Assembler {
 					var branchNear = new List<InstructionDef>();
 					CollectByOperandKindPredicate(opcodes, IsShortBranch, branchShort, branchNear);
 					if (branchShort.Count > 0 && branchNear.Count > 0) {
-						var newFlags = argFlags & ~(OpCodeArgFlags.HasShortBranch | OpCodeArgFlags.HasBranchNear);
+						var newFlags = argFlags & ~(OpCodeArgFlags.HasShortBranch | OpCodeArgFlags.HasNearBranch);
 						return new OpCodeSelector(OpCodeSelectorKind.ShortBranch) {
 							IfTrue = BuildSelectorGraph(group, signature, newFlags, branchShort),
 							IfFalse = BuildSelectorGraph(group, signature, newFlags, branchNear)
@@ -695,19 +697,17 @@ namespace Generator.Assembler {
 						var defsOthers = new List<InstructionDef>();
 						var indices = CollectByOperandKindPredicate(opcodes, IsImmediateByteSigned, defsWithImmediateByteSigned, defsOthers);
 
-						var selectorKind = OpCodeSelectorKind.ImmediateByteSigned8;
 						int opSize;
 						if (isPushImm)
 							opSize = GetImmediateSizeInBits(opcodes[0]);
 						else
 							opSize = GetMemorySizeInBits(memDefs, defs, opcodes[0]);
-						if (opSize > 1) {
-							switch (opSize) {
-							case 32: selectorKind = OpCodeSelectorKind.ImmediateByteSigned8To32; break;
-							case 16: selectorKind = OpCodeSelectorKind.ImmediateByteSigned8To16; break;
-							default: break;
-							}
-						}
+						var selectorKind = opSize switch {
+							64 => OpCodeSelectorKind.ImmediateByteSigned8To64,
+							32 => OpCodeSelectorKind.ImmediateByteSigned8To32,
+							16 => OpCodeSelectorKind.ImmediateByteSigned8To16,
+							_ => throw new InvalidOperationException(),
+						};
 
 						if (indices.Count != 1)
 							throw new InvalidOperationException();
@@ -750,12 +750,6 @@ namespace Generator.Assembler {
 				switch (kind) {
 				case OpCodeSelectorKind.Bitness32:
 				case OpCodeSelectorKind.Bitness16:
-					// Bitness32/Bitness16 can be last without a condition
-					if (list.Count == 1 && selectorIndex + 1 == selectors.Count)
-						node = new OpCodeNode(list[0]);
-					else
-						goto default;
-					break;
 				case OpCodeSelectorKind.Register8:
 				case OpCodeSelectorKind.Register16:
 				case OpCodeSelectorKind.Register32:
@@ -1109,7 +1103,7 @@ namespace Generator.Assembler {
 			HasImmediateByteSignExtended = 1 << 2,
 			HasLabel = 1 << 3,
 			HasShortBranch = 1 << 4,
-			HasBranchNear = 1 << 5,
+			HasNearBranch = 1 << 5,
 			HasVex = 1 << 6,
 			HasEvex = 1 << 7,
 			HasRegisterMemoryMappedToRegister = 1 << 8,
@@ -1124,6 +1118,7 @@ namespace Generator.Assembler {
 			HasImmediateByte = 1 << 17,
 			UnsignedUIntNotSupported = 1 << 18,
 			HasImmediateUnsigned = 1 << 19,
+			GenerateInvalidTest = 1 << 20,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup group, List<InstructionDef> inputDefs, List<InstructionDef> opcodes,
@@ -1144,7 +1139,7 @@ namespace Generator.Assembler {
 					registerSignature.AddArgKind(argKind);
 				}
 
-				var codeBitnessFlags = def.Flags1 & BitnessMaskFlags;
+				var codeBitnessFlags = def.Flags1 & (InstructionDefFlags1.Bit64 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit16);
 				var codeEvexFlags = def.Encoding switch {
 					EncodingKind.VEX => OpCodeArgFlags.HasVex,
 					EncodingKind.EVEX => OpCodeArgFlags.HasEvex,
@@ -1435,7 +1430,7 @@ namespace Generator.Assembler {
 					var argKind = signature.GetArgKind(i);
 					switch (argKind) {
 					case ArgKind.Label:
-						argKind = ArgKind.LabelUlong;
+						argKind = ArgKind.LabelU64;
 						break;
 					}
 					newLabelULongSignature.AddArgKind(argKind);
@@ -1520,6 +1515,14 @@ namespace Generator.Assembler {
 				argCount++;
 			}
 
+			public bool HasKind(ArgKind kind) {
+				for (int i = 0; i < argCount; i++) {
+					if (GetArgKind(i) == kind)
+						return true;
+				}
+				return false;
+			}
+
 			public override string ToString() {
 				var builder = new StringBuilder();
 				builder.Append('(');
@@ -1580,7 +1583,7 @@ namespace Generator.Assembler {
 			Immediate,
 			ImmediateUnsigned,
 			Label,
-			LabelUlong,
+			LabelU64,
 
 			FilterRegisterDX,
 			FilterRegisterCL,
@@ -1629,7 +1632,7 @@ namespace Generator.Assembler {
 			public int PseudoOpsKindImmediateValue { get; }
 			public bool HasLabel => (Flags & OpCodeArgFlags.HasLabel) != 0;
 			public bool HasSpecialInstructionEncoding => (Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0;
-			public bool IsBranch => (Flags & (OpCodeArgFlags.HasShortBranch | OpCodeArgFlags.HasBranchNear)) != 0;
+			public bool IsBranch => (Flags & (OpCodeArgFlags.HasShortBranch | OpCodeArgFlags.HasNearBranch)) != 0;
 			public bool HasRegisterMemoryMappedToRegister => (Flags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) != 0;
 			public bool HasVexAndEvex => (Flags & (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) == (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex);
 			public bool HasImmediateUnsigned => (Flags & OpCodeArgFlags.HasImmediateUnsigned) != 0;
@@ -1732,7 +1735,7 @@ namespace Generator.Assembler {
 				OpCodeSelectorKind.Vex => (OpCodeArgFlags.HasVex, OpCodeArgFlags.HasEvex),
 				OpCodeSelectorKind.EvexBroadcastX or OpCodeSelectorKind.EvexBroadcastY or
 				OpCodeSelectorKind.EvexBroadcastZ => (OpCodeArgFlags.HasEvex | OpCodeArgFlags.HasBroadcast, OpCodeArgFlags.None),
-				OpCodeSelectorKind.ShortBranch => (OpCodeArgFlags.HasShortBranch, OpCodeArgFlags.HasBranchNear),
+				OpCodeSelectorKind.ShortBranch => (OpCodeArgFlags.HasShortBranch, OpCodeArgFlags.HasNearBranch),
 				_ => (OpCodeArgFlags.None, OpCodeArgFlags.None),
 			};
 
@@ -1755,12 +1758,12 @@ namespace Generator.Assembler {
 				for (int i = 0; i < def.OpKindDefs.Length; i++) {
 					var opKindDef = def.OpKindDefs[i];
 					if (opKindDef.OperandEncoding == OperandEncoding.RegMemModrmRm) {
-						switch (opKindDef.Register) {
-						case Register.XMM0: return $"{name}x";
-						case Register.YMM0: return $"{name}y";
-						case Register.ZMM0: return $"{name}z";
-						default: throw new InvalidOperationException();
-						}
+						return opKindDef.Register switch {
+							Register.XMM0 => $"{name}x",
+							Register.YMM0 => $"{name}y",
+							Register.ZMM0 => $"{name}z",
+							_ => throw new InvalidOperationException(),
+						};
 					}
 				}
 			}
@@ -1784,6 +1787,804 @@ namespace Generator.Assembler {
 			}
 		}
 
+		protected List<EnumValue> GetDecoderOptions(int bitness, InstructionDef def) {
+			var list = new List<EnumValue>();
+
+			if (def.DecoderOption.Value != 0)
+				list.Add(decoderOptions[def.DecoderOption.RawName]);
+			switch (bitness) {
+			case 16:
+				if ((def.Flags2 & InstructionDefFlags2.IntelDecoder16) == 0 && (def.Flags2 & InstructionDefFlags2.AmdDecoder16) != 0)
+					list.Add(decoderOptions[nameof(DecoderOptions.AMD)]);
+				break;
+			case 32:
+				if ((def.Flags2 & InstructionDefFlags2.IntelDecoder32) == 0 && (def.Flags2 & InstructionDefFlags2.AmdDecoder32) != 0)
+					list.Add(decoderOptions[nameof(DecoderOptions.AMD)]);
+				break;
+			case 64:
+				if ((def.Flags2 & InstructionDefFlags2.IntelDecoder64) == 0 && (def.Flags2 & InstructionDefFlags2.AmdDecoder64) != 0)
+					list.Add(decoderOptions[nameof(DecoderOptions.AMD)]);
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
+			if ((def.Flags3 & InstructionDefFlags3.ReservedNop) != 0)
+				list.Add(decoderOptions[nameof(DecoderOptions.ForceReservedNop)]);
+
+			return list;
+		}
+
+		protected List<EnumValue> GetInstrTestFlags(InstructionDef def, OpCodeInfoGroup group, OpCodeArgFlags flags) {
+			var instrFlags = new List<EnumValue>();
+			if ((flags & OpCodeArgFlags.HasVex) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.PreferVex)]);
+			if ((flags & OpCodeArgFlags.HasEvex) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.PreferEvex)]);
+			if ((flags & OpCodeArgFlags.HasBroadcast) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.Broadcast)]);
+			if ((flags & OpCodeArgFlags.HasShortBranch) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.PreferShortBranch)]);
+			if ((flags & OpCodeArgFlags.HasNearBranch) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.PreferNearBranch)]);
+			if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.Fwait)]);
+			if (group.HasLabel) {
+				instrFlags.Add((group.Flags & OpCodeArgFlags.HasLabelUlong) == 0 ?
+					testInstrFlags[nameof(TestInstrFlags.Branch)] : testInstrFlags[nameof(TestInstrFlags.BranchU64)]);
+			}
+			foreach (var cpuid in def.Cpuid) {
+				if (cpuid.RawName.Contains("PADLOCK", StringComparison.Ordinal)) {
+					// They're mandatory prefix instructions but the REP prefix isn't cleared since it's shown in disassembly
+					instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.RemoveRepRepnePrefixes)]);
+					break;
+				}
+			}
+			return instrFlags;
+		}
+
+		protected static string GetTestMethodArgName(ArgKind kind) =>
+			kind switch {
+				ArgKind.Register8 => "r8",
+				ArgKind.Register16 => "r16",
+				ArgKind.Register32 => "r32",
+				ArgKind.Register64 => "r64",
+				ArgKind.RegisterK => "kr",
+				ArgKind.RegisterSt => "st",
+				ArgKind.RegisterSegment => "seg",
+				ArgKind.RegisterBnd => "bnd",
+				ArgKind.RegisterMm => "mm",
+				ArgKind.RegisterXmm => "xmm",
+				ArgKind.RegisterYmm => "ymm",
+				ArgKind.RegisterZmm => "zmm",
+				ArgKind.RegisterCr => "cr",
+				ArgKind.RegisterDr => "dr",
+				ArgKind.RegisterTr => "tr",
+				ArgKind.RegisterTmm => "tmm",
+				ArgKind.Memory => "m",
+				ArgKind.Immediate => "i",
+				ArgKind.ImmediateUnsigned => "u",
+				ArgKind.Label => "l",
+				ArgKind.LabelU64 => "lu64",
+				_ => throw new ArgumentOutOfRangeException(kind.ToString()),
+			};
+
+		protected static bool IsBitnessSupported(int bitness, InstructionDefFlags1 flags) {
+			var bitnessFlags = bitness switch {
+				64 => InstructionDefFlags1.Bit64,
+				32 => InstructionDefFlags1.Bit32,
+				16 => InstructionDefFlags1.Bit16,
+				_ => throw new InvalidOperationException(),
+			};
+			return (flags & bitnessFlags) != 0;
+		}
+
+		protected abstract TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, int bitness, ulong address);
+		protected abstract TestArgValueBitness MemToTestArgValue(MemorySizeFuncInfo size, Register @base, Register index, int scale, int displ);
+		protected abstract TestArgValueBitness RegToTestArgValue(Register register);
+		protected abstract TestArgValueBitness UnsignedImmToTestArgValue(ulong immediate, int encImmSizeBits, int immSizeBits, int argSizeBits);
+		protected abstract TestArgValueBitness SignedImmToTestArgValue(long immediate, int encImmSizeBits, int immSizeBits, int argSizeBits);
+		protected abstract TestArgValueBitness LabelToTestArgValue();
+
+		protected TestArgValue? GetInvalidArgValue(OpCodeSelectorKind selectorKind, int argIndex) =>
+			selectorKind switch {
+				OpCodeSelectorKind.Memory8 or OpCodeSelectorKind.Memory16 or OpCodeSelectorKind.Memory32 or OpCodeSelectorKind.Memory48 or
+				OpCodeSelectorKind.Memory80 or OpCodeSelectorKind.Memory64 =>
+					new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.RDX, Register.None, 1, 0)
+					),
+				OpCodeSelectorKind.MemoryMM or OpCodeSelectorKind.MemoryXMM or OpCodeSelectorKind.MemoryYMM or OpCodeSelectorKind.MemoryZMM =>
+					new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.RDX, Register.None, 1, 0)
+					),
+				OpCodeSelectorKind.MemoryIndex32Xmm or OpCodeSelectorKind.MemoryIndex64Xmm or OpCodeSelectorKind.MemoryIndex64Ymm or
+				OpCodeSelectorKind.MemoryIndex32Ymm =>
+					new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.ZMM0 + argIndex, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.ZMM0 + argIndex, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.ZMM0 + argIndex, 1, 0)
+					),
+				_ => null,
+			};
+
+		protected IEnumerable<TestArgValue?> GetArgValue(OpCodeSelectorKind selectorKind, bool isElseBranch, int argIndex, Signature signature,
+			int argSizeBits) {
+			switch (selectorKind) {
+			case OpCodeSelectorKind.MemOffs64_RAX:
+			case OpCodeSelectorKind.MemOffs64_EAX:
+			case OpCodeSelectorKind.MemOffs64_AX:
+			case OpCodeSelectorKind.MemOffs64_AL:
+				if (isElseBranch) {
+					if (argIndex == 0) {
+						yield return new TestArgValue(
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.DI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDI, Register.None, 1, 0)
+						);
+					}
+					else {
+						yield return new TestArgValue(
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ESI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RSI, Register.None, 1, 0)
+						);
+					}
+				}
+				else
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 16, 0x89AB),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 32, 0x89ABCDEF),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 64, 0x89ABCDEF01234567)
+					);
+				break;
+			case OpCodeSelectorKind.MemOffs_RAX:
+			case OpCodeSelectorKind.MemOffs_EAX:
+			case OpCodeSelectorKind.MemOffs_AX:
+			case OpCodeSelectorKind.MemOffs_AL:
+				if (isElseBranch) {
+					if (argIndex == 0) {
+						yield return new TestArgValue(
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.DI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDI, Register.None, 1, 0)
+						);
+					}
+					else {
+						yield return new TestArgValue(
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ESI, Register.None, 1, 0),
+							MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RSI, Register.None, 1, 0)
+						);
+					}
+				}
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 16, 0x1234),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 32, 0x12345678),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 64, 0x123456789ABCDEF0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.Bitness64:
+				yield return null;
+				break;
+			case OpCodeSelectorKind.Bitness32:
+				yield return null;
+				break;
+			case OpCodeSelectorKind.Bitness16:
+				yield return null;
+				break;
+			case OpCodeSelectorKind.ShortBranch:
+				yield return null;
+				break;
+			case OpCodeSelectorKind.ImmediateByteEqual1:
+				if (isElseBranch) {
+					if (signature.GetArgKind(argIndex) == ArgKind.Immediate)
+						yield return new TestArgValue(SignedImmToTestArgValue(2, 8, 8, argSizeBits));
+					else
+						yield return new TestArgValue(UnsignedImmToTestArgValue(2, 8, 8, argSizeBits));
+				}
+				else {
+					if (signature.GetArgKind(argIndex) == ArgKind.Immediate)
+						yield return new TestArgValue(SignedImmToTestArgValue(1, 8, 8, argSizeBits));
+					else
+						yield return new TestArgValue(UnsignedImmToTestArgValue(1, 8, 8, argSizeBits));
+				}
+				break;
+			case OpCodeSelectorKind.ImmediateByteSigned8To16:
+			case OpCodeSelectorKind.ImmediateByteSigned8To32:
+			case OpCodeSelectorKind.ImmediateByteSigned8To64: {
+				int immSize = selectorKind switch {
+					OpCodeSelectorKind.ImmediateByteSigned8To16 => 16,
+					OpCodeSelectorKind.ImmediateByteSigned8To32 => 32,
+					OpCodeSelectorKind.ImmediateByteSigned8To64 => 64,
+					_ => throw new InvalidOperationException(),
+				};
+				if (isElseBranch)
+					yield return null;
+				else {
+					if (signature.GetArgKind(argIndex) == ArgKind.Immediate) {
+						yield return new TestArgValue(SignedImmToTestArgValue(sbyte.MinValue, 8, immSize, argSizeBits));
+						yield return new TestArgValue(SignedImmToTestArgValue(sbyte.MaxValue, 8, immSize, argSizeBits));
+					}
+					else {
+						yield return new TestArgValue(UnsignedImmToTestArgValue(unchecked((ulong)sbyte.MinValue), 8, immSize, argSizeBits));
+						yield return new TestArgValue(UnsignedImmToTestArgValue((ulong)sbyte.MaxValue, 8, immSize, argSizeBits));
+					}
+				}
+
+				break;
+			}
+			case OpCodeSelectorKind.Vex:
+				yield return null;
+				break;
+			case OpCodeSelectorKind.EvexBroadcastX:
+			case OpCodeSelectorKind.EvexBroadcastY:
+			case OpCodeSelectorKind.EvexBroadcastZ:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordBcst], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordBcst], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordBcst], Register.RDX, Register.None, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.RegisterCL:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.CL));
+				break;
+			case OpCodeSelectorKind.RegisterAL:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.AL));
+				break;
+			case OpCodeSelectorKind.RegisterAX:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.AX));
+				break;
+			case OpCodeSelectorKind.RegisterEAX:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.EAX));
+				break;
+			case OpCodeSelectorKind.RegisterRAX:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.RAX));
+				break;
+			case OpCodeSelectorKind.RegisterBND:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.BND0));
+				break;
+			case OpCodeSelectorKind.RegisterES:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.ES));
+				break;
+			case OpCodeSelectorKind.RegisterCS:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.CS));
+				break;
+			case OpCodeSelectorKind.RegisterSS:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.SS));
+				break;
+			case OpCodeSelectorKind.RegisterDS:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.DS));
+				break;
+			case OpCodeSelectorKind.RegisterFS:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.FS));
+				break;
+			case OpCodeSelectorKind.RegisterGS:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.GS));
+				break;
+			case OpCodeSelectorKind.RegisterDX:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.DX));
+				break;
+			case OpCodeSelectorKind.Register8:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.BL));
+				break;
+			case OpCodeSelectorKind.Register16:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.BX));
+				break;
+			case OpCodeSelectorKind.Register32:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.EBX));
+				break;
+			case OpCodeSelectorKind.Register64:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.RBX));
+				break;
+			case OpCodeSelectorKind.RegisterK:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.K0 + argIndex + 2));
+				break;
+			case OpCodeSelectorKind.RegisterST0:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.ST0));
+				break;
+			case OpCodeSelectorKind.RegisterST:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.ST3));
+				break;
+			case OpCodeSelectorKind.RegisterSegment:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.FS));
+				break;
+			case OpCodeSelectorKind.RegisterCR:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.CR3));
+				break;
+			case OpCodeSelectorKind.RegisterDR:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.DR5));
+				break;
+			case OpCodeSelectorKind.RegisterTR:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.TR4));
+				break;
+			case OpCodeSelectorKind.RegisterMM:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.MM0 + argIndex + 2));
+				break;
+			case OpCodeSelectorKind.RegisterXMM:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.XMM0 + argIndex + 2));
+				break;
+			case OpCodeSelectorKind.RegisterYMM:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.YMM0 + argIndex + 2));
+				break;
+			case OpCodeSelectorKind.RegisterZMM:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.ZMM0 + argIndex + 2));
+				break;
+			case OpCodeSelectorKind.RegisterTMM:
+				if (isElseBranch)
+					yield return null;
+				else
+					yield return new TestArgValue(RegToTestArgValue(Register.TMM0 + argIndex + 2));
+				break;
+			case OpCodeSelectorKind.Memory8:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.BytePtr], Register.RDX, Register.None, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.Memory16:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.WordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.WordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.WordPtr], Register.RDX, Register.None, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.Memory32:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.DwordPtr], Register.RDX, Register.None, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.Memory80:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.TwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.TwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.TwordPtr], Register.RDX, Register.None, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.Memory48:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.FwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.FwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.FwordPtr], Register.RDX, Register.None, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.Memory64:
+			case OpCodeSelectorKind.MemoryMM:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.QwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.QwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.QwordPtr], Register.RDX, Register.None, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.MemoryXMM:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.XmmwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.XmmwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.XmmwordPtr], Register.RDX, Register.None, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.MemoryYMM:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.YmmwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.YmmwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.YmmwordPtr], Register.RDX, Register.None, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.MemoryZMM:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.DI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.EDX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.ZmmwordPtr], Register.RDX, Register.None, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.MemoryIndex32Xmm:
+			case OpCodeSelectorKind.MemoryIndex64Xmm:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.XMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.XMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.XMM0 + argIndex + 2, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.MemoryIndex32Ymm:
+			case OpCodeSelectorKind.MemoryIndex64Ymm:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.YMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.YMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.YMM0 + argIndex + 2, 1, 0)
+					);
+				}
+				break;
+			case OpCodeSelectorKind.MemoryIndex32Zmm:
+			case OpCodeSelectorKind.MemoryIndex64Zmm:
+				if (isElseBranch)
+					yield return null;
+				else {
+					yield return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDI, Register.ZMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, Register.ZMM0 + argIndex + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, Register.ZMM0 + argIndex + 2, 1, 0)
+					);
+				}
+				break;
+			default:
+				throw new ArgumentOutOfRangeException(nameof(selectorKind), selectorKind, null);
+			}
+		}
+
+		protected TestArgValue GetDefaultArgument(OpCodeOperandKindDef def, int index, ArgKind argKind, int argSizeBits) {
+			switch (def.OperandEncoding) {
+			case OperandEncoding.NearBranch:
+			case OperandEncoding.Xbegin:
+			case OperandEncoding.AbsNearBranch:
+				if (argKind == ArgKind.LabelU64)
+					return new TestArgValue(UnsignedImmToTestArgValue(12752, 64, 64, argSizeBits));
+				return new TestArgValue(LabelToTestArgValue());
+
+			case OperandEncoding.Immediate:
+				bool isSigned = argKind == ArgKind.Immediate;
+				return (def.ImmediateSize, def.ImmediateSignExtSize) switch {
+					(4, 4) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(3, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(3, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(8, 8) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(-5, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(127, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(8, 16) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(-5, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(5, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(8, 32) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(-9, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(9, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(8, 64) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(-10, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(10, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(16, 16) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(0x40B7, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(0x40B7, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(32, 32) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(int.MaxValue, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(int.MaxValue, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(32, 64) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(int.MinValue, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(unchecked((ulong)int.MinValue), def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					(64, 64) => new TestArgValue(isSigned ?
+						SignedImmToTestArgValue(long.MinValue, def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits) :
+						UnsignedImmToTestArgValue(unchecked((ulong)long.MinValue), def.ImmediateSize, def.ImmediateSignExtSize, argSizeBits)
+					),
+					_ => throw new InvalidOperationException(),
+				};
+
+			case OperandEncoding.ImpliedRegister:
+				return new TestArgValue(RegToTestArgValue(def.Register));
+
+			case OperandEncoding.RegImm:
+			case OperandEncoding.RegOpCode:
+			case OperandEncoding.RegModrmReg:
+			case OperandEncoding.RegModrmRm:
+			case OperandEncoding.RegVvvvv:
+				return new TestArgValue(RegToTestArgValue(GetRegMemSizeInfo(def, index).reg));
+
+			case OperandEncoding.RegMemModrmRm:
+				var (reg, memSizeFnKind) = GetRegMemSizeInfo(def, index);
+				if (argKind == ArgKind.Memory && def.OperandEncoding == OperandEncoding.RegMemModrmRm) {
+					return new TestArgValue(
+						MemToTestArgValue(toFnInfo[memSizeFnKind], Register.SI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[memSizeFnKind], Register.ECX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[memSizeFnKind], Register.RCX, Register.None, 1, 0)
+					);
+				}
+				else
+					return new TestArgValue(RegToTestArgValue(reg));
+
+			case OperandEncoding.MemModrmRm:
+				if (def.SibRequired) {
+					return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ECX, Register.EDX, 2, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RCX, Register.RDX, 4, 0)
+					);
+				}
+				else if (def.MIB) {
+					return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ECX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RCX, Register.None, 1, 0)
+					);
+				}
+				else if (def.Vsib) {
+					return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.EDX, def.Register + index + 2, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RDX, def.Register + index + 2, 1, 0)
+					);
+				}
+				else {
+					return new TestArgValue(
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.SI, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.ECX, Register.None, 1, 0),
+						MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], Register.RCX, Register.None, 1, 0)
+					);
+				}
+
+			case OperandEncoding.MemOffset:
+				return new TestArgValue(
+					MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 16, 0x6789),
+					MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 32, 0x6789ABCD),
+					MemToTestArgValue(toFnInfo[MemorySizeFnKind.Ptr], 64, 0x6789ABCDEF012345)
+				);
+
+			case OperandEncoding.None:
+			case OperandEncoding.FarBranch:
+			case OperandEncoding.SegRBX:
+			case OperandEncoding.SegRSI:
+			case OperandEncoding.SegRDI:
+			case OperandEncoding.ESRDI:
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
+		static readonly Register[] r8Values = new Register[] { Register.DL, Register.BL, Register.AH, Register.CH, Register.DH };
+		static readonly Register[] r16Values = new Register[] { Register.DX, Register.BX, Register.SP, Register.BP, Register.SI };
+		static readonly Register[] r32Values = new Register[] { Register.EDX, Register.EBX, Register.ESP, Register.EBP, Register.ESI };
+		static readonly Register[] r64Values = new Register[] { Register.RDX, Register.RBX, Register.RSP, Register.RBP, Register.RSI };
+		static (Register reg, MemorySizeFnKind kind) GetRegMemSizeInfo(OpCodeOperandKindDef def, int index) =>
+			def.Register switch {
+				Register.AL => (r8Values[index], MemorySizeFnKind.BytePtr),
+				Register.AX => (r16Values[index], MemorySizeFnKind.WordPtr),
+				Register.EAX => (r32Values[index], MemorySizeFnKind.DwordPtr),
+				Register.RAX => (r64Values[index], MemorySizeFnKind.QwordPtr),
+				Register.MM0 => (Register.MM0 + index + 2, MemorySizeFnKind.QwordPtr),
+				Register.XMM0 => (Register.XMM0 + index + 2, MemorySizeFnKind.XmmwordPtr),
+				Register.YMM0 => (Register.YMM0 + index + 2, MemorySizeFnKind.YmmwordPtr),
+				Register.ZMM0 => (Register.ZMM0 + index + 2, MemorySizeFnKind.ZmmwordPtr),
+				Register.TMM0 => (Register.TMM0 + index + 2, MemorySizeFnKind.Ptr),
+				Register.BND0 => (Register.BND0 + index + 2, MemorySizeFnKind.Ptr),
+				Register.K0 => (Register.K0 + index + 2, MemorySizeFnKind.Ptr),
+				Register.ES => (Register.DS, MemorySizeFnKind.Ptr),
+				Register.CR0 => (Register.CR2, MemorySizeFnKind.Ptr),
+				Register.DR0 => (Register.DR1, MemorySizeFnKind.Ptr),
+				Register.TR0 => (Register.TR1, MemorySizeFnKind.Ptr),
+				Register.ST0 => (Register.ST1, MemorySizeFnKind.Ptr),
+				_ => throw new InvalidOperationException(),
+			};
+
+		protected static int GetArgBitness(int bitness, InstructionDef def) {
+			foreach (var kindDef in def.OpKindDefs) {
+				if (bitness == 16 && (kindDef.MIB || kindDef.MPX || kindDef.Vsib || kindDef.SibRequired))
+					return 32;
+				if (kindDef.OperandEncoding == OperandEncoding.RegModrmReg && kindDef.Memory) {
+					return kindDef.Register switch {
+						Register.AX => 16,
+						Register.EAX => 32,
+						Register.RAX => 64,
+						_ => throw new InvalidOperationException(),
+					};
+				}
+			}
+
+			return bitness;
+		}
+
+		protected static int GetInvalidTestBitness(int bitness, OpCodeInfoGroup group) {
+			// Force fake bitness support to allow to generate a throw for the last selector
+			if (bitness == 64 && (group.Name == "bndcn" ||
+								  group.Name == "bndmk" ||
+								  group.Name == "bndcu" ||
+								  group.Name == "bndcl")) {
+				return 32;
+			}
+			return bitness;
+		}
+
+		protected sealed class TestArgValues {
+			public readonly List<TestArgValue?> Args;
+			public TestArgValues(int argCount) {
+				Args = new(argCount);
+				for (int i = 0; i < argCount; i++)
+					Args.Add(null);
+			}
+
+			public TestArgValueBitness? GetArgValue(int bitness, int index) {
+				if (Args[index] is TestArgValue argValue)
+					return argValue.Get(bitness);
+				else
+					return null;
+			}
+
+			public TestArgValue? Set(int index, TestArgValue? arg) {
+				if (index < 0)
+					return null;
+				var old = Args[index];
+				Args[index] = arg;
+				return old;
+			}
+
+			public void Restore(int index, TestArgValue? old) {
+				if (index >= 0)
+					Args[index] = old;
+			}
+		}
+
+		protected sealed class TestArgValue {
+			public readonly TestArgValueBitness Bitness16;
+			public readonly TestArgValueBitness Bitness32;
+			public readonly TestArgValueBitness Bitness64;
+
+			public TestArgValue(TestArgValueBitness b) : this(b, b, b) { }
+			public TestArgValue(TestArgValueBitness b16, TestArgValueBitness b32, TestArgValueBitness b64) {
+				Bitness16 = b16;
+				Bitness32 = b32;
+				Bitness64 = b64;
+			}
+
+			public TestArgValueBitness Get(int bitness) =>
+				bitness switch {
+					16 => Bitness16,
+					32 => Bitness32,
+					64 => Bitness64,
+					_ => throw new InvalidOperationException(),
+				};
+		}
+
+		protected sealed class TestArgValueBitness {
+			// String used when calling CodeAssembler methods, eg. `eax`, `byte_ptr(rcx+rdx*4)`, etc.
+			public readonly string AsmStr;
+			// String used when calling Instruction::with*() methods, eg. `Register::EAX`, etc.
+			public readonly string WithStr;
+			public TestArgValueBitness(string asmStr) : this(asmStr, asmStr) { }
+			public TestArgValueBitness(string asmStr, string withStr) {
+				AsmStr = asmStr;
+				WithStr = withStr;
+			}
+		}
+
 		protected readonly struct OpCodeNode {
 			readonly object value;
 
@@ -1793,8 +2594,8 @@ namespace Generator.Assembler {
 			public bool IsEmpty => value is null;
 			public InstructionDef? Def => value as InstructionDef;
 			public OpCodeSelector? Selector => value as OpCodeSelector;
-			public static implicit operator OpCodeNode(InstructionDef def) => new OpCodeNode(def);
-			public static implicit operator OpCodeNode(OpCodeSelector selector) => new OpCodeNode(selector);
+			public static implicit operator OpCodeNode(InstructionDef def) => new(def);
+			public static implicit operator OpCodeNode(OpCodeSelector selector) => new(selector);
 		}
 
 		protected sealed class OpCodeSelector {
@@ -1827,9 +2628,9 @@ namespace Generator.Assembler {
 			ImmediateInt,
 			ImmediateByte,
 			ImmediateByteEqual1,
-			ImmediateByteSigned8,
 			ImmediateByteSigned8To16,
 			ImmediateByteSigned8To32,
+			ImmediateByteSigned8To64,
 			ImmediateByteWith2Bits,
 
 			Vex,

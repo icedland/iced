@@ -5,6 +5,9 @@
 using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
+	/// <summary>
+	/// Extension methods
+	/// </summary>
 	public static partial class InstructionInfoExtensions {
 		/// <summary>
 		/// Checks if it's a <c>Jcc SHORT</c> or <c>Jcc NEAR</c> instruction

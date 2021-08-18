@@ -69,7 +69,8 @@ namespace Generator.Tables {
 			Name = name;
 		}
 
-		public Tables.RegisterKind GetRegisterKind() => (Tables.RegisterKind)RegisterKind.Value;
-		public Tables.RegisterClass GetRegisterClass() => (Tables.RegisterClass)RegisterClass.Value;
+		public Register GetRegister() => (Register)Register.Value;
+		public RegisterKind GetRegisterKind() => (RegisterKind)RegisterKind.Value;
+		public RegisterClass GetRegisterClass() => (RegisterClass)RegisterClass.Value;
 	}
 }

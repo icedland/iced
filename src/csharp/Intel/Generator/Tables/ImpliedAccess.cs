@@ -57,8 +57,8 @@ namespace Generator.Tables {
 
 	sealed class ImplAccCondition : IEquatable<ImplAccCondition?> {
 		public readonly ImplAccConditionKind Kind;
-		public readonly List<ImplAccStatement> TrueStatements = new List<ImplAccStatement>();
-		public readonly List<ImplAccStatement> FalseStatements = new List<ImplAccStatement>();
+		public readonly List<ImplAccStatement> TrueStatements = new();
+		public readonly List<ImplAccStatement> FalseStatements = new();
 		public ImplAccCondition(ImplAccConditionKind kind) => Kind = kind;
 
 		public override bool Equals(object? obj) => Equals(obj as ImplAccCondition);

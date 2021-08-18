@@ -23,7 +23,7 @@ namespace Generator.Misc.Python {
 
 	[DebuggerDisplay("Count = {Attributes.Count}")]
 	sealed class RustAttributes {
-		public readonly List<RustAttribute> Attributes = new List<RustAttribute>();
+		public readonly List<RustAttribute> Attributes = new();
 
 		public bool Any(params AttributeKind[] attributes) {
 			foreach (var attr in Attributes) {
@@ -137,7 +137,7 @@ namespace Generator.Misc.Python {
 
 	[DebuggerDisplay("Count = {Sections.Count}")]
 	sealed class DocComments {
-		public readonly List<DocCommentSection> Sections = new List<DocCommentSection>();
+		public readonly List<DocCommentSection> Sections = new();
 
 		public void AddText(TextDocCommentSection text) {
 			if (text.Lines.Length == 0)

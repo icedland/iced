@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
+MinimumVisualStudioVersion = 16.0.29318.209
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator", "Generator\Generator.csproj", "{04B4A88F-A186-4BA1-B8EC-799393B3E10F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Iced", "Iced\Iced.csproj", "{13F19BFE-FCB6-4E65-BBE9-9C8E60BCB577}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Iced.UnitTests", "Iced.UnitTests\Iced.UnitTests.csproj", "{0990E973-7216-4968-9D54-33DCEAD123EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{B30C9637-0018-4014-9E85-8D8A1C25BCF8}"
+	ProjectSection(SolutionItems) = preProject
+		..\Directory.Build.props = ..\Directory.Build.props
+		..\LICENSE.txt = ..\LICENSE.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IcedFuzzer", "IcedFuzzer", "{CF0D8174-316A-4F39-8305-D3852A039AFF}"
+	ProjectSection(SolutionItems) = preProject
+		IcedFuzzer\README.md = IcedFuzzer\README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IcedFuzzer", "IcedFuzzer\IcedFuzzer\IcedFuzzer.csproj", "{A89245C7-C09D-4297-98E5-4CD08CEDA60B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IcedFuzzer.Core", "IcedFuzzer\IcedFuzzer.Core\IcedFuzzer.Core.csproj", "{2BDA2EF5-F387-4FD8-948E-01ACBECC830C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04B4A88F-A186-4BA1-B8EC-799393B3E10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B4A88F-A186-4BA1-B8EC-799393B3E10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B4A88F-A186-4BA1-B8EC-799393B3E10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B4A88F-A186-4BA1-B8EC-799393B3E10F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13F19BFE-FCB6-4E65-BBE9-9C8E60BCB577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13F19BFE-FCB6-4E65-BBE9-9C8E60BCB577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13F19BFE-FCB6-4E65-BBE9-9C8E60BCB577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13F19BFE-FCB6-4E65-BBE9-9C8E60BCB577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0990E973-7216-4968-9D54-33DCEAD123EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0990E973-7216-4968-9D54-33DCEAD123EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0990E973-7216-4968-9D54-33DCEAD123EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0990E973-7216-4968-9D54-33DCEAD123EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A89245C7-C09D-4297-98E5-4CD08CEDA60B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A89245C7-C09D-4297-98E5-4CD08CEDA60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A89245C7-C09D-4297-98E5-4CD08CEDA60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A89245C7-C09D-4297-98E5-4CD08CEDA60B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BDA2EF5-F387-4FD8-948E-01ACBECC830C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BDA2EF5-F387-4FD8-948E-01ACBECC830C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BDA2EF5-F387-4FD8-948E-01ACBECC830C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BDA2EF5-F387-4FD8-948E-01ACBECC830C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A89245C7-C09D-4297-98E5-4CD08CEDA60B} = {CF0D8174-316A-4F39-8305-D3852A039AFF}
+		{2BDA2EF5-F387-4FD8-948E-01ACBECC830C} = {CF0D8174-316A-4F39-8305-D3852A039AFF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {699E470D-9D53-4638-9A18-B0D388E05B2C}
+	EndGlobalSection
+EndGlobal

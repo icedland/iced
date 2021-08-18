@@ -23,7 +23,6 @@ namespace Generator.Tables.Rust {
 		}
 
 		void WriteTable(FileWriter writer, TupleTypeInfo[] infos) {
-			var tupleTypeName = generatorContext.Types[TypeIds.TupleType].Name(idConverter);
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
 			writer.WriteLine($"static TUPLE_TYPE_TBL: [(u8, u8); {infos.Length}] = [");
 			using (writer.Indent()) {

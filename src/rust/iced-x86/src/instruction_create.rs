@@ -27,7 +27,7 @@ mod private {
 
 use self::private::{With1, With2, With3, With4, With5};
 use crate::instruction_internal;
-use crate::{Code, CodeSize, IcedError, Instruction, MemoryOperand, OpKind, Register, RepPrefixKind};
+use crate::{Code, IcedError, Instruction, MemoryOperand, OpKind, Register, RepPrefixKind};
 use core::{u16, u32, u64};
 use static_assertions::const_assert_eq;
 
@@ -37,12 +37,7 @@ impl Instruction {
 		instruction.set_memory_index(memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
-		let addr_size = instruction_internal::get_address_size_in_bytes(memory.base, memory.index, memory.displ_size, CodeSize::Unknown);
-		if addr_size == 8 {
-			instruction.set_memory_displacement64(memory.displacement as u64);
-		} else {
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, memory.displacement as u32);
-		}
+		instruction.set_memory_displacement64(memory.displacement as u64);
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 	}
@@ -56,7 +51,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	/// * `op0`: First operand (eg. a [`Register`], an integer, or a [`MemoryOperand`])
+	/// * `op0`: First operand (eg. a [`Register`], an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), or a [`MemoryOperand`])
 	///
 	/// [`Register`]: enum.Register.html
 	/// [`MemoryOperand`]: struct.MemoryOperand.html
@@ -89,7 +84,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	/// * `op0`: First operand (eg. a [`Register`], an integer, or a [`MemoryOperand`])
+	/// * `op0`: First operand (eg. a [`Register`], an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), or a [`MemoryOperand`])
 	/// * `op1`: Second operand
 	///
 	/// [`Register`]: enum.Register.html
@@ -123,7 +118,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	/// * `op0`: First operand (eg. a [`Register`], an integer, or a [`MemoryOperand`])
+	/// * `op0`: First operand (eg. a [`Register`], an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), or a [`MemoryOperand`])
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	///
@@ -158,7 +153,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	/// * `op0`: First operand (eg. a [`Register`], an integer, or a [`MemoryOperand`])
+	/// * `op0`: First operand (eg. a [`Register`], an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), or a [`MemoryOperand`])
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand
@@ -194,7 +189,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	/// * `op0`: First operand (eg. a [`Register`], an integer, or a [`MemoryOperand`])
+	/// * `op0`: First operand (eg. a [`Register`], an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), or a [`MemoryOperand`])
 	/// * `op1`: Second operand
 	/// * `op2`: Third operand
 	/// * `op3`: Fourth operand

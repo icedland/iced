@@ -9,6 +9,6 @@ namespace Generator.IO {
 		static readonly Encoding fileEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
 
 		public static StreamWriter OpenWrite(string filename) =>
-			new StreamWriter(filename, append: false, fileEncoding);
+			new(filename, append: false, fileEncoding);
 	}
 }

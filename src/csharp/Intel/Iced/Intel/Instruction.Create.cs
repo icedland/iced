@@ -378,11 +378,7 @@ namespace Iced.Intel {
 			instruction.InternalMemoryIndex = memory.Index;
 			instruction.MemoryIndexScale = memory.Scale;
 			instruction.MemoryDisplSize = memory.DisplSize;
-			int addrSize = InstructionUtils.GetAddressSizeInBytes(memory.Base, memory.Index, memory.DisplSize, CodeSize.Unknown);
-			if (addrSize == 8)
-				instruction.MemoryDisplacement64 = (ulong)memory.Displacement;
-			else
-				instruction.InternalMemoryDisplacement64_lo = (uint)memory.Displacement;
+			instruction.MemoryDisplacement64 = (ulong)memory.Displacement;
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 		}

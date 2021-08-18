@@ -50,7 +50,7 @@ namespace Generator.Tables {
 		public ParsedOpCodeFlags Flags;
 
 		public static OpCodeDef CreateDefault(EncodingKind encoding) =>
-			new OpCodeDef {
+			new() {
 				Encoding = encoding,
 				MandatoryPrefix = MandatoryPrefix.None,
 				WBit = OpCodeW.None,
