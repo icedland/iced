@@ -84,6 +84,15 @@ impl CodeAssemblerOptions {
 /// a.jne(loop_lbl1)?;
 /// a.set_current_label(&mut after_loop1)?;
 ///
+/// // It's possible to reference labels with RIP-relative addressing
+/// let mut skip_data = a.create_label();
+/// let mut data = a.create_label();
+/// a.jmp(skip_data)?;
+/// a.set_current_label(&mut data)?;
+/// a.db(b"\x90\xCC\xF1\x90")?;
+/// a.set_current_label(&mut skip_data)?;
+/// a.lea(rax, mem(data))?;
+///
 /// // AVX512 opmasks, {z}, {sae}, {er} and broadcasting are also supported:
 /// a.vsqrtps(zmm16.k2().z(), dword_bcst(rcx))?;
 /// a.vsqrtps(zmm1.k2().z(), zmm23.rd_sae())?;
@@ -95,13 +104,13 @@ impl CodeAssemblerOptions {
 ///
 /// // Encode all added instructions
 /// let bytes = a.assemble(0x1234_5678)?;
-/// assert_eq!(bytes.len(), 48);
+/// assert_eq!(bytes.len(), 61);
 /// // If you don't want to encode them, you can get all instructions by calling
 /// // one of these methods:
 /// let instrs = a.instructions(); // Get a reference to the internal vec
-/// assert_eq!(instrs.len(), 13);
+/// assert_eq!(instrs.len(), 16);
 /// let instrs = a.take_instructions(); // Take ownership of the vec with all instructions
-/// assert_eq!(instrs.len(), 13);
+/// assert_eq!(instrs.len(), 16);
 /// assert_eq!(a.instructions().len(), 0);
 /// # Ok(())
 /// # }

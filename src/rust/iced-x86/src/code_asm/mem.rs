@@ -2,7 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::code_asm::op_state::{CodeAsmOpState, MemoryOperandSize};
-use crate::code_asm::{AsmRegister16, AsmRegister32, AsmRegister64, AsmRegisterXmm, AsmRegisterYmm, AsmRegisterZmm};
+use crate::code_asm::{AsmRegister16, AsmRegister32, AsmRegister64, AsmRegisterXmm, AsmRegisterYmm, AsmRegisterZmm, CodeLabel};
 use crate::{MemoryOperand, Register};
 use core::ops::{Add, Mul, Sub};
 
@@ -558,6 +558,13 @@ impl Add<AsmMemoryOperand> for AsmMemoryOperand {
 		self.displ = self.displ.wrapping_add(rhs.displ);
 		// The remaining fields aren't copied/updated from rhs, eg. segment register, rc, etc.
 		self
+	}
+}
+
+impl From<CodeLabel> for AsmMemoryOperand {
+	#[inline]
+	fn from(other: CodeLabel) -> Self {
+		AsmMemoryOperand { base: Register::RIP, index: Register::None, scale: 1, displ: other.id as i64, state: CodeAsmOpState::new() }
 	}
 }
 

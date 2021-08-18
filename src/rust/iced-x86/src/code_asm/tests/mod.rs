@@ -782,6 +782,23 @@ fn test_mem_ops_64() {
 }
 
 #[test]
+fn test_label_mem_ops() {
+	let mut a = CodeAssembler::new(64).unwrap();
+	let mut lbl1 = a.create_label();
+	let mut lbl2 = a.create_label();
+	a.nop().unwrap();
+	a.set_current_label(&mut lbl1).unwrap();
+	a.int1().unwrap();
+	a.lea(rax, mem(lbl1)).unwrap();
+	a.lea(rax, mem(lbl2)).unwrap();
+	a.int3().unwrap();
+	a.set_current_label(&mut lbl2).unwrap();
+	a.db(b"\x12\x34\x56\x78").unwrap();
+	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
+	assert_eq!(bytes, b"\x90\xF1\x48\x8D\x05\xF8\xFF\xFF\xFF\x48\x8D\x05\x01\x00\x00\x00\xCC\x12\x34\x56\x78");
+}
+
+#[test]
 fn test_call_far() {
 	test_instr(
 		16,
