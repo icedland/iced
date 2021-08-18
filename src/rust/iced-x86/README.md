@@ -12,6 +12,7 @@ iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, d
 - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
 - ✔️Blazing fast: Decodes >250 MB/s and decode+format >130 MB/s ([see here](https://github.com/icedland/disas-bench/tree/a865849deacfb6c33ee0e78f3a3ad7f4c82099f5#results))
 - ✔️Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
+- ✔️Create instructions with code assembler, eg. `asm.mov(eax, edx)`
 - ✔️The encoder can be used to re-encode decoded instructions at any address
 - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 - ✔️Supports `#![no_std]` and `WebAssembly`
@@ -52,32 +53,33 @@ You can enable/disable these in your `Cargo.toml` file.
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
 - `fast_fmt`: (✔️Enabled by default) Enables [`SpecializedFormatter<TraitOptions>`] (and [`FastFormatter`]) (masm syntax) which is ~3.3x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
+- `code_asm`: Enables [`CodeAssembler`] to allow easy creation of instructions, eg. `a.xor(ecx, dword_ptr(edx))` instead of using the more verbose `Instruction::with*()` methods.
 - `serde`: Enables serialization support ([`Instruction`]). Not guaranteed to work if different versions of iced was used to serialize and deserialize it.
 - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
 - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
-- `no_vex`: Disables all `VEX` instructions. See below for more info.
-- `no_evex`: Disables all `EVEX` instructions. See below for more info.
-- `no_xop`: Disables all `XOP` instructions. See below for more info.
-- `no_d3now`: Disables all `3DNow!` instructions. See below for more info.
-
-If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the generator again (before building iced) to generate even smaller output.
+- `no_vex`: Disables all `VEX` instructions
+- `no_evex`: Disables all `EVEX` instructions
+- `no_xop`: Disables all `XOP` instructions
+- `no_d3now`: Disables all `3DNow!` instructions
 
 [`BlockEncoder`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.BlockEncoder.html
-[`OpCodeInfo`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.OpCodeInfo.html
+[`CodeAssembler`]: https://docs.rs/iced-x86/1.13.0/iced_x86/code_asm/struct.CodeAssembler.html
 [`Instruction`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.Instruction.html
+[`OpCodeInfo`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.OpCodeInfo.html
 
 ## How-tos
 
 - [Disassemble (decode and format instructions)](#disassemble-decode-and-format-instructions)
-- [Disassemble as fast as possible](#disassemble-as-fast-as-possible)
-- [Create and encode instructions](#create-and-encode-instructions)
+- [Assemble instructions](#assemble-instructions)
 - [Disassemble with a symbol resolver](#disassemble-with-a-symbol-resolver)
 - [Disassemble with colorized text](#disassemble-with-colorized-text)
 - [Move code in memory (eg. hook a function)](#move-code-in-memory-eg-hook-a-function)
 - [Get instruction info, eg. read/written regs/mem, control flow info, etc](#get-instruction-info-eg-readwritten-regsmem-control-flow-info-etc)
 - [Get the virtual address of a memory operand](#get-the-virtual-address-of-a-memory-operand)
 - [Disassemble old/deprecated CPU instructions](#disassemble-olddeprecated-cpu-instructions)
+- [Disassemble as fast as possible](#disassemble-as-fast-as-possible)
+- [Create and encode instructions](#create-and-encode-instructions)
 
 ## Disassemble (decode and format instructions)
 
@@ -175,185 +177,94 @@ static EXAMPLE_CODE: &[u8] = &[
 ];
 ```
 
-## Disassemble as fast as possible
+## Assemble instructions
 
-For fastest possible disassembly you should set [`ENABLE_DB_DW_DD_DQ`] to `false`
-and you should also override the unsafe [`verify_output_has_enough_bytes_left()`] and return `false`.
+This allows you to easily create instructions (eg. `a.xor(eax, ecx)?`) without having to use the more verbose `Instruction::with*()` functions.
 
-[`ENABLE_DB_DW_DD_DQ`]: https://docs.rs/iced-x86/trait.SpecializedFormatterTraitOptions.html#associatedconstant.ENABLE_DB_DW_DD_DQ
-[`verify_output_has_enough_bytes_left()`]: https://docs.rs/iced-x86/trait.SpecializedFormatterTraitOptions.html#method.verify_output_has_enough_bytes_left
-
-```rust
-use iced_x86::{
-    Decoder, DecoderOptions, Instruction, SpecializedFormatter, SpecializedFormatterTraitOptions,
-};
-
-#[allow(dead_code)]
-pub(crate) fn how_to_disassemble_really_fast() {
-    struct MyTraitOptions;
-    impl SpecializedFormatterTraitOptions for MyTraitOptions {
-        // If you never create a db/dw/dd/dq 'instruction', we don't need this feature.
-        const ENABLE_DB_DW_DD_DQ: bool = false;
-        // For a few percent faster code, you can also override `verify_output_has_enough_bytes_left()` and return `false`
-        // unsafe fn verify_output_has_enough_bytes_left() -> bool {
-        //     false
-        // }
-    }
-    type MyFormatter = SpecializedFormatter<MyTraitOptions>;
-
-    // Assume this is a big slice and not just one instruction
-    let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
-    let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-
-    let mut output = String::new();
-    let mut instruction = Instruction::default();
-    let mut formatter = MyFormatter::new();
-    while decoder.can_decode() {
-        decoder.decode_out(&mut instruction);
-        output.clear();
-        formatter.format(&instruction, &mut output);
-        // do something with 'output' here, eg.:
-        //     println!("{}", output);
-    }
-}
-```
-
-Also add this to your `Cargo.toml` file:
+This requires the `code_asm` feature to use (not enabled by default). Add it to your `Cargo.toml`:
 
 ```toml
-[profile.release]
-codegen-units = 1
-lto = true
-opt-level = 3
+[dependencies.iced-x86]
+version = "1.13.0"
+features = ["code_asm"]
 ```
 
-## Create and encode instructions
-
-This example uses a [`BlockEncoder`] to encode created [`Instruction`]s.
-
-[`BlockEncoder`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.BlockEncoder.html
-[`Instruction`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.Instruction.html
-
 ```rust
-use iced_x86::{
-    BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, Formatter, GasFormatter,
-    IcedError, Instruction, InstructionBlock, MemoryOperand, Register,
-};
+use iced_x86::code_asm::*;
 
 #[allow(dead_code)]
-pub(crate) fn how_to_encode_instructions() -> Result<(), IcedError> {
-    let bitness = 64;
+pub(crate) fn how_to_use_code_assembler() -> Result<(), IcedError> {
+    let mut a = CodeAssembler::new(64)?;
 
-    // All created instructions get an IP of 0. The label id is just an IP.
-    // The branch instruction's *target* IP should be equal to the IP of the
-    // target instruction.
-    let mut label_id: u64 = 1;
-    let mut create_label = || {
-        let id = label_id;
-        label_id += 1;
-        id
-    };
-    fn add_label(id: u64, mut instruction: Instruction) -> Instruction {
-        instruction.set_ip(id);
-        instruction
-    }
+    // Anytime you add something to a register (or subtract from it), you create a
+    // memory operand. You can also call word_ptr(), dword_bcst() etc to create memory
+    // operands.
+    let _ = rax; // register
+    let _ = rax + 0; // memory with no size hint
+    let _ = mem(rax); // memory with no size hint
+    let _ = rax + rcx * 4 - 123; // memory with no size hint
+    // To create a memory operand with only a displacement or only a base register,
+    // you can call one of the memory fns:
+    let _ = qword_ptr(123); // memory with a qword size hint
+    let _ = dword_bcst(rcx); // memory (broadcast) with a dword size hint
+    // To add a segment override, call the segment methods:
+    let _ = mem(rax).fs(); // fs:[rax]
 
-    let label1 = create_label();
+    // Each mnemonic is a method
+    a.push(rcx)?;
+    // There are a few exceptions where you must append `_<opcount>` to the mnemonic to
+    // get the instruction you need:
+    a.ret()?;
+    a.ret_1(123)?;
+    // Use byte_ptr(), word_bcst(), etc to force the arg to a memory operand and to add a
+    // size hint
+    a.xor(byte_ptr(rdx+r14*4+123), 0x10)?;
+    // Prefixes are also methods
+    a.rep().stosd()?;
+    // Sometimes, you must add an integer suffix to help the compiler:
+    a.mov(rax, 0x1234_5678_9ABC_DEF0u64)?;
 
-    let mut instructions = vec![
-        Instruction::with1(Code::Push_r64, Register::RBP)?,
-        Instruction::with1(Code::Push_r64, Register::RDI)?,
-        Instruction::with1(Code::Push_r64, Register::RSI)?,
-        Instruction::with2(Code::Sub_rm64_imm32, Register::RSP, 0x50)?,
-        Instruction::with(Code::VEX_Vzeroupper),
-        Instruction::with2(
-            Code::Lea_r64_m,
-            Register::RBP,
-            MemoryOperand::with_base_displ(Register::RSP, 0x60),
-        )?,
-        Instruction::with2(Code::Mov_r64_rm64, Register::RSI, Register::RCX)?,
-        Instruction::with2(
-            Code::Lea_r64_m,
-            Register::RDI,
-            MemoryOperand::with_base_displ(Register::RBP, -0x38),
-        )?,
-        Instruction::with2(Code::Mov_r32_imm32, Register::ECX, 0x0A)?,
-        Instruction::with2(Code::Xor_r32_rm32, Register::EAX, Register::EAX)?,
-        Instruction::with_rep_stosd(bitness)?,
-        Instruction::with2(Code::Cmp_rm64_imm32, Register::RSI, 0x1234_5678)?,
-        // Create a branch instruction that references label1
-        Instruction::with_branch(Code::Jne_rel32_64, label1)?,
-        Instruction::with(Code::Nopd),
-        // Add the instruction that is the target of the branch
-        add_label(label1, Instruction::with2(Code::Xor_r32_rm32, Register::R15D, Register::R15D)?),
-    ];
+    // Create labels that can be referenced by code
+    let mut loop_lbl1 = a.create_label();
+    let mut after_loop1 = a.create_label();
+    a.mov(ecx, 10)?;
+    a.set_current_label(&mut loop_lbl1)?;
+    a.dec(ecx)?;
+    a.jp(after_loop1)?;
+    a.jne(loop_lbl1)?;
+    a.set_current_label(&mut after_loop1)?;
 
-    // Create an instruction that accesses some data using an RIP relative memory operand
-    let data1 = create_label();
-    instructions.push(Instruction::with2(
-        Code::Lea_r64_m,
-        Register::R14,
-        MemoryOperand::with_base_displ(Register::RIP, data1 as i64),
-    )?);
-    instructions.push(Instruction::with(Code::Nopd));
-    let raw_data: &[u8] = &[0x12, 0x34, 0x56, 0x78];
-    instructions.push(add_label(data1, Instruction::with_declare_byte(raw_data)?));
+    // It's possible to reference labels with RIP-relative addressing
+    let mut skip_data = a.create_label();
+    let mut data = a.create_label();
+    a.jmp(skip_data)?;
+    a.set_current_label(&mut data)?;
+    a.db(b"\x90\xCC\xF1\x90")?;
+    a.set_current_label(&mut skip_data)?;
+    a.lea(rax, mem(data))?;
 
-    // Use BlockEncoder to encode a block of instructions. This block can contain any
-    // number of branches and any number of instructions. It does support encoding more
-    // than one block but it's rarely needed.
-    // It uses Encoder to encode all instructions.
-    // If the target of a branch is too far away, it can fix it to use a longer branch.
-    // This can be disabled by enabling some BlockEncoderOptions flags.
-    let target_rip = 0x0000_1248_FC84_0000;
-    let block = InstructionBlock::new(&instructions, target_rip);
-    let result = match BlockEncoder::encode(bitness, block, BlockEncoderOptions::NONE) {
-        Err(error) => panic!("Failed to encode it: {}", error),
-        Ok(result) => result,
-    };
+    // AVX512 opmasks, {z}, {sae}, {er} and broadcasting are also supported:
+    a.vsqrtps(zmm16.k2().z(), dword_bcst(rcx))?;
+    a.vsqrtps(zmm1.k2().z(), zmm23.rd_sae())?;
+    // Sometimes, the encoder doesn't know if you want VEX or EVEX encoding.
+    // You can force EVEX like so:
+    a.set_prefer_vex(false);
+    a.vucomiss(xmm31, xmm15.sae())?;
+    a.vucomiss(xmm31, mem(rcx))?;
 
-    // Now disassemble the encoded instructions. Note that the 'jmp near'
-    // instruction was turned into a 'jmp short' instruction because we
-    // didn't disable branch optimizations.
-    let bytes = result.code_buffer;
-    let mut output = String::new();
-    let bytes_code = &bytes[0..bytes.len() - raw_data.len()];
-    let bytes_data = &bytes[bytes.len() - raw_data.len()..];
-    let mut decoder = Decoder::with_ip(bitness, bytes_code, target_rip, DecoderOptions::NONE);
-    let mut formatter = GasFormatter::new();
-    formatter.options_mut().set_first_operand_char_index(8);
-    for instruction in &mut decoder {
-        output.clear();
-        formatter.format(&instruction, &mut output);
-        println!("{:016X} {}", instruction.ip(), output);
-    }
-    let db = Instruction::with_declare_byte(bytes_data)?;
-    output.clear();
-    formatter.format(&db, &mut output);
-    println!("{:016X} {}", decoder.ip(), output);
+    // Encode all added instructions
+    let bytes = a.assemble(0x1234_5678)?;
+    assert_eq!(bytes.len(), 71);
+    // If you don't want to encode them, you can get all instructions by calling
+    // one of these methods:
+    let instrs = a.instructions(); // Get a reference to the internal vec
+    assert_eq!(instrs.len(), 17);
+    let instrs = a.take_instructions(); // Take ownership of the vec with all instructions
+    assert_eq!(instrs.len(), 17);
+    assert_eq!(a.instructions().len(), 0);
+
     Ok(())
 }
-/*
-Output:
-00001248FC840000 push    %rbp
-00001248FC840001 push    %rdi
-00001248FC840002 push    %rsi
-00001248FC840003 sub     $0x50,%rsp
-00001248FC84000A vzeroupper
-00001248FC84000D lea     0x60(%rsp),%rbp
-00001248FC840012 mov     %rcx,%rsi
-00001248FC840015 lea     -0x38(%rbp),%rdi
-00001248FC840019 mov     $0xA,%ecx
-00001248FC84001E xor     %eax,%eax
-00001248FC840020 rep stos %eax,(%rdi)
-00001248FC840022 cmp     $0x12345678,%rsi
-00001248FC840029 jne     0x00001248FC84002C
-00001248FC84002B nop
-00001248FC84002C xor     %r15d,%r15d
-00001248FC84002F lea     0x1248FC840037,%r14
-00001248FC840036 nop
-00001248FC840037 .byte   0x12,0x34,0x56,0x78
-*/
 ```
 
 ## Disassemble with a symbol resolver
@@ -1177,6 +1088,191 @@ pub(crate) fn how_to_disassemble_old_instrs() {
         println!("{:08X} {}", instruction.ip(), &output);
     }
 }
+```
+
+## Disassemble as fast as possible
+
+For fastest possible disassembly you should set [`ENABLE_DB_DW_DD_DQ`] to `false`
+and you should also override the unsafe [`verify_output_has_enough_bytes_left()`] and return `false`.
+
+[`ENABLE_DB_DW_DD_DQ`]: https://docs.rs/iced-x86/trait.SpecializedFormatterTraitOptions.html#associatedconstant.ENABLE_DB_DW_DD_DQ
+[`verify_output_has_enough_bytes_left()`]: https://docs.rs/iced-x86/trait.SpecializedFormatterTraitOptions.html#method.verify_output_has_enough_bytes_left
+
+```rust
+use iced_x86::{
+    Decoder, DecoderOptions, Instruction, SpecializedFormatter, SpecializedFormatterTraitOptions,
+};
+
+#[allow(dead_code)]
+pub(crate) fn how_to_disassemble_really_fast() {
+    struct MyTraitOptions;
+    impl SpecializedFormatterTraitOptions for MyTraitOptions {
+        // If you never create a db/dw/dd/dq 'instruction', we don't need this feature.
+        const ENABLE_DB_DW_DD_DQ: bool = false;
+        // For a few percent faster code, you can also override `verify_output_has_enough_bytes_left()` and return `false`
+        // unsafe fn verify_output_has_enough_bytes_left() -> bool {
+        //     false
+        // }
+    }
+    type MyFormatter = SpecializedFormatter<MyTraitOptions>;
+
+    // Assume this is a big slice and not just one instruction
+    let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
+    let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+
+    let mut output = String::new();
+    let mut instruction = Instruction::default();
+    let mut formatter = MyFormatter::new();
+    while decoder.can_decode() {
+        decoder.decode_out(&mut instruction);
+        output.clear();
+        formatter.format(&instruction, &mut output);
+        // do something with 'output' here, eg.:
+        //     println!("{}", output);
+    }
+}
+```
+
+Also add this to your `Cargo.toml` file:
+
+```toml
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+```
+
+## Create and encode instructions
+
+NOTE: It's much easier to just use [`CodeAssembler`], see the example above.
+This example shows how to create instructions without using it.
+
+This example uses a [`BlockEncoder`] to encode created [`Instruction`]s.
+
+[`BlockEncoder`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.BlockEncoder.html
+[`CodeAssembler`]: https://docs.rs/iced-x86/1.13.0/iced_x86/code_asm/struct.CodeAssembler.html
+[`Instruction`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.Instruction.html
+
+```rust
+use iced_x86::{
+    BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, Formatter, GasFormatter,
+    IcedError, Instruction, InstructionBlock, MemoryOperand, Register,
+};
+
+#[allow(dead_code)]
+pub(crate) fn how_to_encode_instructions() -> Result<(), IcedError> {
+    let bitness = 64;
+
+    // All created instructions get an IP of 0. The label id is just an IP.
+    // The branch instruction's *target* IP should be equal to the IP of the
+    // target instruction.
+    let mut label_id: u64 = 1;
+    let mut create_label = || {
+        let id = label_id;
+        label_id += 1;
+        id
+    };
+    fn add_label(id: u64, mut instruction: Instruction) -> Instruction {
+        instruction.set_ip(id);
+        instruction
+    }
+
+    let label1 = create_label();
+
+    let mut instructions = vec![
+        Instruction::with1(Code::Push_r64, Register::RBP)?,
+        Instruction::with1(Code::Push_r64, Register::RDI)?,
+        Instruction::with1(Code::Push_r64, Register::RSI)?,
+        Instruction::with2(Code::Sub_rm64_imm32, Register::RSP, 0x50)?,
+        Instruction::with(Code::VEX_Vzeroupper),
+        Instruction::with2(
+            Code::Lea_r64_m,
+            Register::RBP,
+            MemoryOperand::with_base_displ(Register::RSP, 0x60),
+        )?,
+        Instruction::with2(Code::Mov_r64_rm64, Register::RSI, Register::RCX)?,
+        Instruction::with2(
+            Code::Lea_r64_m,
+            Register::RDI,
+            MemoryOperand::with_base_displ(Register::RBP, -0x38),
+        )?,
+        Instruction::with2(Code::Mov_r32_imm32, Register::ECX, 0x0A)?,
+        Instruction::with2(Code::Xor_r32_rm32, Register::EAX, Register::EAX)?,
+        Instruction::with_rep_stosd(bitness)?,
+        Instruction::with2(Code::Cmp_rm64_imm32, Register::RSI, 0x1234_5678)?,
+        // Create a branch instruction that references label1
+        Instruction::with_branch(Code::Jne_rel32_64, label1)?,
+        Instruction::with(Code::Nopd),
+        // Add the instruction that is the target of the branch
+        add_label(label1, Instruction::with2(Code::Xor_r32_rm32, Register::R15D, Register::R15D)?),
+    ];
+
+    // Create an instruction that accesses some data using an RIP relative memory operand
+    let data1 = create_label();
+    instructions.push(Instruction::with2(
+        Code::Lea_r64_m,
+        Register::R14,
+        MemoryOperand::with_base_displ(Register::RIP, data1 as i64),
+    )?);
+    instructions.push(Instruction::with(Code::Nopd));
+    let raw_data: &[u8] = &[0x12, 0x34, 0x56, 0x78];
+    instructions.push(add_label(data1, Instruction::with_declare_byte(raw_data)?));
+
+    // Use BlockEncoder to encode a block of instructions. This block can contain any
+    // number of branches and any number of instructions. It does support encoding more
+    // than one block but it's rarely needed.
+    // It uses Encoder to encode all instructions.
+    // If the target of a branch is too far away, it can fix it to use a longer branch.
+    // This can be disabled by enabling some BlockEncoderOptions flags.
+    let target_rip = 0x0000_1248_FC84_0000;
+    let block = InstructionBlock::new(&instructions, target_rip);
+    let result = match BlockEncoder::encode(bitness, block, BlockEncoderOptions::NONE) {
+        Err(error) => panic!("Failed to encode it: {}", error),
+        Ok(result) => result,
+    };
+
+    // Now disassemble the encoded instructions. Note that the 'jmp near'
+    // instruction was turned into a 'jmp short' instruction because we
+    // didn't disable branch optimizations.
+    let bytes = result.code_buffer;
+    let mut output = String::new();
+    let bytes_code = &bytes[0..bytes.len() - raw_data.len()];
+    let bytes_data = &bytes[bytes.len() - raw_data.len()..];
+    let mut decoder = Decoder::with_ip(bitness, bytes_code, target_rip, DecoderOptions::NONE);
+    let mut formatter = GasFormatter::new();
+    formatter.options_mut().set_first_operand_char_index(8);
+    for instruction in &mut decoder {
+        output.clear();
+        formatter.format(&instruction, &mut output);
+        println!("{:016X} {}", instruction.ip(), output);
+    }
+    let db = Instruction::with_declare_byte(bytes_data)?;
+    output.clear();
+    formatter.format(&db, &mut output);
+    println!("{:016X} {}", decoder.ip(), output);
+    Ok(())
+}
+/*
+Output:
+00001248FC840000 push    %rbp
+00001248FC840001 push    %rdi
+00001248FC840002 push    %rsi
+00001248FC840003 sub     $0x50,%rsp
+00001248FC84000A vzeroupper
+00001248FC84000D lea     0x60(%rsp),%rbp
+00001248FC840012 mov     %rcx,%rsi
+00001248FC840015 lea     -0x38(%rbp),%rdi
+00001248FC840019 mov     $0xA,%ecx
+00001248FC84001E xor     %eax,%eax
+00001248FC840020 rep stos %eax,(%rdi)
+00001248FC840022 cmp     $0x12345678,%rsi
+00001248FC840029 jne     0x00001248FC84002C
+00001248FC84002B nop
+00001248FC84002C xor     %r15d,%r15d
+00001248FC84002F lea     0x1248FC840037,%r14
+00001248FC840036 nop
+00001248FC840037 .byte   0x12,0x34,0x56,0x78
+*/
 ```
 
 ## Minimum supported `rustc` version

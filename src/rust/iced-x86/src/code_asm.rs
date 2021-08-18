@@ -2,6 +2,18 @@
 // Copyright (C) 2018-present iced project and contributors
 
 //! Easier creating of instructions (eg. `a.mov(eax, ecx)`) than using `Instruction::with*()` functions.
+//!
+//! This requires the `code_asm` feature to use (not enabled by default). Add it to your `Cargo.toml`:
+//!
+//! ```toml
+//! [dependencies.iced-x86]
+//! version = "1.13.0"
+//! features = ["code_asm"]
+//! ```
+//!
+//! See [`CodeAssembler`] docs for usage.
+//!
+//! [`CodeAssembler`]: struct.CodeAssembler.html
 
 mod code_asm_methods;
 mod fn_asm_impl;
@@ -42,6 +54,14 @@ impl CodeAssemblerOptions {
 
 /// Creates and encodes instructions. It's easier to use this struct than to call `Instruction::with*()` functions.
 ///
+/// This requires the `code_asm` feature to use (not enabled by default). Add it to your `Cargo.toml`:
+///
+/// ```toml
+/// [dependencies.iced-x86]
+/// version = "1.13.0"
+/// features = ["code_asm"]
+/// ```
+///
 /// # Examples
 ///
 /// ```
@@ -50,8 +70,9 @@ impl CodeAssemblerOptions {
 /// # fn main() -> Result<(), IcedError> {
 /// let mut a = CodeAssembler::new(64)?;
 ///
-/// // Anytime you add something to a register (or subtract from it), you create a memory operand.
-/// // You can also call word_ptr(), dword_bcst() etc to create memory operands.
+/// // Anytime you add something to a register (or subtract from it), you create a
+/// // memory operand. You can also call word_ptr(), dword_bcst() etc to create memory
+/// // operands.
 /// let _ = rax; // register
 /// let _ = rax + 0; // memory with no size hint
 /// let _ = mem(rax); // memory with no size hint
@@ -65,14 +86,17 @@ impl CodeAssemblerOptions {
 ///
 /// // Each mnemonic is a method
 /// a.push(rcx)?;
-/// // There are a few exceptions where you must append `_<opcount>` to the mnemonic to get the
-/// // instruction you need:
+/// // There are a few exceptions where you must append `_<opcount>` to the mnemonic to
+/// // get the instruction you need:
 /// a.ret()?;
 /// a.ret_1(123)?;
-/// // Use byte_ptr(), word_bcst(), etc to force the arg to a memory operand and to add a size hint
+/// // Use byte_ptr(), word_bcst(), etc to force the arg to a memory operand and to add a
+/// // size hint
 /// a.xor(byte_ptr(rdx+r14*4+123), 0x10)?;
 /// // Prefixes are also methods
 /// a.rep().stosd()?;
+/// // Sometimes, you must add an integer suffix to help the compiler:
+/// a.mov(rax, 0x1234_5678_9ABC_DEF0u64)?;
 ///
 /// // Create labels that can be referenced by code
 /// let mut loop_lbl1 = a.create_label();
@@ -104,13 +128,13 @@ impl CodeAssemblerOptions {
 ///
 /// // Encode all added instructions
 /// let bytes = a.assemble(0x1234_5678)?;
-/// assert_eq!(bytes.len(), 61);
+/// assert_eq!(bytes.len(), 71);
 /// // If you don't want to encode them, you can get all instructions by calling
 /// // one of these methods:
 /// let instrs = a.instructions(); // Get a reference to the internal vec
-/// assert_eq!(instrs.len(), 16);
+/// assert_eq!(instrs.len(), 17);
 /// let instrs = a.take_instructions(); // Take ownership of the vec with all instructions
-/// assert_eq!(instrs.len(), 16);
+/// assert_eq!(instrs.len(), 17);
 /// assert_eq!(a.instructions().len(), 0);
 /// # Ok(())
 /// # }

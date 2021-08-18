@@ -10,7 +10,7 @@ iced is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, disas
 - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
 - ✔️Blazing fast: Decodes >250 MB/s and decode+format >130 MB/s (Rust, [see here](https://github.com/icedland/disas-bench/tree/a865849deacfb6c33ee0e78f3a3ad7f4c82099f5#results))
 - ✔️Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
-- ✔️.NET: High level Assembler providing a simple and lean syntax (e.g `asm.mov(eax, edx)`))
+- ✔️Create instructions with code assembler, eg. `asm.mov(eax, edx)`
 - ✔️The encoder can be used to re-encode decoded instructions at any address
 - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 - ✔️License: MIT

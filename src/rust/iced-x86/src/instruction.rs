@@ -41,8 +41,9 @@ impl InstrFlags1 {
 }
 // GENERATOR-END: InstrFlags1
 
-/// A 16/32/64-bit x86 instruction. Created by [`Decoder`] or by `Instruction::with*()` methods.
+/// A 16/32/64-bit x86 instruction. Created by [`Decoder`], by [`CodeAssembler`] or by `Instruction::with*()` methods.
 ///
+/// [`CodeAssembler`]: code_asm/struct.CodeAssembler.html
 /// [`Decoder`]: struct.Decoder.html
 #[derive(Debug, Default, Copy, Clone)]
 pub struct Instruction {
