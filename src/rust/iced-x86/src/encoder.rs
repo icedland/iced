@@ -37,7 +37,7 @@ use crate::instruction_internal;
 use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
-use core::{i16, i32, i8, mem, u32};
+use core::{i16, i32, i8, mem, u16, u32};
 use static_assertions::const_assert_eq;
 
 // GENERATOR-BEGIN: ImmSizes
@@ -643,11 +643,19 @@ impl Encoder {
 						self.encoder_flags |= EncoderFlags::P67;
 					}
 					self.displ_size = DisplSize::Size2;
+					if instruction.memory_displacement64() > u16::MAX as u64 {
+						self.set_error_message(format!("Operand {}: Displacement must fit in a u16", operand));
+						return;
+					}
 					self.displ = instruction.memory_displacement32();
 				}
 				4 => {
 					self.encoder_flags |= self.adrsize32_flags;
 					self.displ_size = DisplSize::Size4;
+					if instruction.memory_displacement64() > u32::MAX as u64 {
+						self.set_error_message(format!("Operand {}: Displacement must fit in a u32", operand));
+						return;
+					}
 					self.displ = instruction.memory_displacement32();
 				}
 				8 => {
@@ -882,6 +890,10 @@ impl Encoder {
 		} else if base == Register::None && index == Register::None {
 			self.mod_rm |= 6;
 			self.displ_size = DisplSize::Size2;
+			if instruction.memory_displacement64() > u16::MAX as u64 {
+				self.set_error_message(format!("Operand {}: Displacement must fit in a u16", operand));
+				return;
+			}
 			self.displ = instruction.memory_displacement32();
 		} else {
 			if cfg!(debug_assertions) {
@@ -896,22 +908,37 @@ impl Encoder {
 		}
 
 		if base != Register::None || index != Register::None {
+			if (instruction.memory_displacement64() as i64) < i16::MIN as i64 || (instruction.memory_displacement64() as i64) > u16::MAX as i64 {
+				self.set_error_message(format!("Operand {}: Displacement must fit in an i16 or a u16", operand));
+				return;
+			}
 			self.displ = instruction.memory_displacement32();
 			// [bp] => [bp+00]
 			if displ_size == 0 && base == Register::BP && index == Register::None {
 				displ_size = 1;
-				self.displ = 0;
+				if self.displ != 0 {
+					self.set_error_message(format!("Operand {}: Displacement must be 0 if displ_size == 0", operand));
+					return;
+				}
 			}
 			if displ_size == 1 {
 				if let Some(compressed_value) = self.try_convert_to_disp8n(self.displ as i16 as i32) {
-					self.displ = compressed_value as u8 as u32;
+					self.displ = compressed_value as u32;
 				} else {
 					displ_size = 2;
 				}
 			}
 			if displ_size == 0 {
-				// Nothing
+				if self.displ != 0 {
+					self.set_error_message(format!("Operand {}: Displacement must be 0 if displ_size == 0", operand));
+					return;
+				}
 			} else if displ_size == 1 {
+				// This if check should always fail when we're here
+				if (self.displ as i32) < i8::MIN as i32 || (self.displ as i32) > i8::MAX as i32 {
+					self.set_error_message(format!("Operand {}: Displacement must fit in an i8", operand));
+					return;
+				}
 				self.mod_rm |= 0x40;
 				self.displ_size = DisplSize::Size1;
 			} else if displ_size == 2 {
@@ -933,7 +960,6 @@ impl Encoder {
 		let base = instruction.memory_base();
 		let index = instruction.memory_index();
 		let mut displ_size = instruction.memory_displ_size();
-		self.displ = instruction.memory_displacement32();
 
 		let base_lo;
 		let base_hi;
@@ -995,9 +1021,14 @@ impl Encoder {
 			return;
 		}
 		let scale = instruction_internal::internal_get_memory_index_scale(instruction);
+		self.displ = instruction.memory_displacement32();
 		if base == Register::None && index == Register::None {
 			if vsib_index_reg_lo != Register::None {
 				self.set_error_message(format!("Operand {}: VSIB addressing can't use an offset-only address", operand));
+				return;
+			}
+			if (instruction.memory_displacement64() as i64) < i32::MIN as i64 || (instruction.memory_displacement64() as i64) > u32::MAX as i64 {
+				self.set_error_message(format!("Operand {}: Displacement must fit in an i32 or a u32", operand));
 				return;
 			}
 			if self.bitness == 64 || scale != 0 || (self.encoder_flags & EncoderFlags::MUST_USE_SIB) != 0 {
@@ -1016,15 +1047,31 @@ impl Encoder {
 		let base_num = if base == Register::None { -1 } else { (base as i32).wrapping_sub(base_lo as i32) };
 		let index_num = if index == Register::None { -1 } else { (index as i32).wrapping_sub(index_lo as i32) };
 
+		if addr_size == 64 {
+			if (instruction.memory_displacement64() as i64) < i32::MIN as i64 || (instruction.memory_displacement64() as i64) > i32::MAX as i64 {
+				self.set_error_message(format!("Operand {}: Displacement must fit in an i32", operand));
+				return;
+			}
+		} else {
+			debug_assert_eq!(addr_size, 32);
+			if (instruction.memory_displacement64() as i64) < i32::MIN as i64 || (instruction.memory_displacement64() as i64) > u32::MAX as i64 {
+				self.set_error_message(format!("Operand {}: Displacement must fit in an i32 or a u32", operand));
+				return;
+			}
+		}
+
 		// [ebp]/[ebp+index*scale] => [ebp+00]/[ebp+index*scale+00]
 		if displ_size == 0 && (base_num & 7) == 5 {
 			displ_size = 1;
-			self.displ = 0;
+			if self.displ != 0 {
+				self.set_error_message(format!("Operand {}: Displacement must be 0 if displ_size == 0", operand));
+				return;
+			}
 		}
 
 		if displ_size == 1 {
-			if let Some(compressed_value) = self.try_convert_to_disp8n(self.displ as i16 as i32) {
-				self.displ = compressed_value as i32 as u32;
+			if let Some(compressed_value) = self.try_convert_to_disp8n(self.displ as i32) {
+				self.displ = compressed_value as u32;
 			} else {
 				displ_size = addr_size / 8;
 			}
@@ -1035,12 +1082,22 @@ impl Encoder {
 			debug_assert!(index != Register::None);
 			self.displ_size = DisplSize::Size4;
 		} else if displ_size == 1 {
+			// This if check should always fail when we're here
+			if (self.displ as i32) < i8::MIN as i32 || (self.displ as i32) > i8::MAX as i32 {
+				self.set_error_message(format!("Operand {}: Displacement must fit in an i8", operand));
+				return;
+			}
 			self.mod_rm |= 0x40;
 			self.displ_size = DisplSize::Size1;
 		} else if displ_size == addr_size / 8 {
 			self.mod_rm |= 0x80;
 			self.displ_size = DisplSize::Size4;
-		} else if displ_size != 0 {
+		} else if displ_size == 0 {
+			if self.displ != 0 {
+				self.set_error_message(format!("Operand {}: Displacement must be 0 if displ_size == 0", operand));
+				return;
+			}
+		} else {
 			self.set_error_message_str("Invalid memory_displ_size() value");
 		}
 

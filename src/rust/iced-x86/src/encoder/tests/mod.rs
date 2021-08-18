@@ -1056,3 +1056,192 @@ fn write_byte_works() {
 	encoder.write_u8(0xCC);
 	assert_eq!(encoder.take_buffer(), vec![0x90, 0x4C, 0x03, 0xC5, 0xCC]);
 }
+
+macro_rules! encode_ok {
+	($bitness:expr, $instr:expr) => {
+		let mut encoder = Encoder::new($bitness);
+		let instr = $instr.unwrap();
+		assert!(encoder.encode(&instr, 0x1234).is_ok());
+	};
+}
+macro_rules! encode_err {
+	($bitness:expr, $instr:expr) => {
+		let mut encoder = Encoder::new($bitness);
+		let instr = $instr.unwrap();
+		assert!(encoder.encode(&instr, 0x1234).is_err());
+	};
+}
+
+#[test]
+#[rustfmt::skip]
+fn invalid_displ_16() {
+	const BITNESS: u32 = 16;
+
+	encode_ok!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x0_0000, 2)));
+	encode_ok!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x0_FFFF, 2)));
+	encode_err!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x1_0000, 2)));
+	encode_err!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0xFFFF_FFFF_FFFF_FFFF, 2)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_displ(0x0_0000, 2)));
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_displ(0x0_FFFF, 2)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_displ(0x1_0000, 2)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_displ(0xFFFF_FFFF_FFFF_FFFF, 2)));
+
+	for &displ_size in &[1, 2] {
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, 0, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, -1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, 1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, -0x0_8000, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, 0x0_FFFF, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, -0x0_8001, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, 0x1_0000, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, -0x8000_0000_0000_0000, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, 0x7FFF_FFFF_FFFF_FFFF, displ_size)));
+	}
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BP, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BP, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BP, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBP, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBP, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBP, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -1, 0)));
+
+	for &displ_size in &[1, 4] {
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -0x8000_0000, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0xFFFF_FFFF, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -0x8000_0001, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0x1_0000_0000, displ_size)));
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn invalid_displ_32() {
+	const BITNESS: u32 = 32;
+
+	encode_ok!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x0_0000, 2)));
+	encode_ok!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x0_FFFF, 2)));
+	encode_err!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x1_0000, 2)));
+	encode_err!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0xFFFF_FFFF_FFFF_FFFF, 2)));
+
+	encode_ok!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x0_0000_0000, 4)));
+	encode_ok!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x0_FFFF_FFFF, 4)));
+	encode_err!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x1_0000_0000, 4)));
+	encode_err!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0xFFFF_FFFF_FFFF_FFFF, 4)));
+
+	for &displ_size in &[1, 4] {
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 0, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, -1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, -0x8000_0000, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 0xFFFF_FFFF, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, -0x8000_0001, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 0x1_0000_0000, displ_size)));
+	}
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BP, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BP, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BP, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::BX, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBP, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBP, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBP, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -1, 0)));
+
+	for &displ_size in &[1, 4] {
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -0x8000_0000, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0xFFFF_FFFF, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -0x8000_0001, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0x1_0000_0000, displ_size)));
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn invalid_displ_64() {
+	const BITNESS: u32 = 64;
+
+	encode_ok!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x0_0000_0000, 4)));
+	encode_ok!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x0_FFFF_FFFF, 4)));
+	encode_err!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x1_0000_0000, 4)));
+	encode_err!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0xFFFF_FFFF_FFFF_FFFF, 4)));
+
+	encode_ok!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x0000_0000_0000_0000, 8)));
+	encode_ok!(BITNESS, Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0xFFFF_FFFF_FFFF_FFFF, 8)));
+
+	for &displ_size in &[1, 8] {
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 0, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, -1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, -0x8000_0000, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 0xFFFF_FFFF, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, -0x8000_0001, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 0x1_0000_0000, displ_size)));
+	}
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBP, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBP, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBP, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::R13D, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::R13D, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::R13D, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBP, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBP, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBP, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::R13, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::R13, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::R13, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -1, 0)));
+
+	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, 0, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, 1, 0)));
+	encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, -1, 0)));
+
+	for &displ_size in &[1, 4] {
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -0x8000_0000, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0xFFFF_FFFF, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, -0x8000_0001, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBX, 0x1_0000_0000, displ_size)));
+	}
+
+	for &displ_size in &[1, 8] {
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, 0, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, 1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, -1, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, -0x8000_0000, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, 0x7FFF_FFFF, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, -0x8000_0001, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, 0x8000_0000, displ_size)));
+	}
+}

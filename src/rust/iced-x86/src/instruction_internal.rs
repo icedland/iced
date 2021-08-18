@@ -143,7 +143,7 @@ pub(crate) fn internal_set_immediate64_hi(this: &mut Instruction, new_value: u32
 	this.mem_displ = new_value;
 }
 
-#[cfg(any(feature = "decoder", feature = "encoder"))]
+#[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_memory_displacement64_lo(this: &mut Instruction, new_value: u32) {
 	this.mem_displ = new_value;

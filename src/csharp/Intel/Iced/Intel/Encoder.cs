@@ -537,11 +537,19 @@ namespace Iced.Intel {
 					if (bitness == 32)
 						EncoderFlags |= EncoderFlags.P67;
 					DisplSize = DisplSize.Size2;
+					if (instruction.MemoryDisplacement64 > ushort.MaxValue) {
+						ErrorMessage = $"Operand {operand}: Displacement must fit in a ushort";
+						return;
+					}
 					Displ = instruction.MemoryDisplacement32;
 					break;
 				case 4:
 					EncoderFlags |= adrSize32Flags;
 					DisplSize = DisplSize.Size4;
+					if (instruction.MemoryDisplacement64 > uint.MaxValue) {
+						ErrorMessage = $"Operand {operand}: Displacement must fit in a uint";
+						return;
+					}
 					Displ = instruction.MemoryDisplacement32;
 					break;
 				case 8:
@@ -739,6 +747,10 @@ namespace Iced.Intel {
 			else if (baseReg == Register.None && indexReg == Register.None) {
 				ModRM |= 6;
 				DisplSize = DisplSize.Size2;
+				if (instruction.MemoryDisplacement64 > ushort.MaxValue) {
+					ErrorMessage = $"Operand {operand}: Displacement must fit in a ushort";
+					return;
+				}
 				Displ = instruction.MemoryDisplacement32;
 			}
 			else {
@@ -747,22 +759,37 @@ namespace Iced.Intel {
 			}
 
 			if (baseReg != Register.None || indexReg != Register.None) {
+				if ((long)instruction.MemoryDisplacement64 < short.MinValue || (long)instruction.MemoryDisplacement64 > ushort.MaxValue) {
+					ErrorMessage = $"Operand {operand}: Displacement must fit in a ushort or a short";
+					return;
+				}
 				Displ = instruction.MemoryDisplacement32;
 				// [bp] => [bp+00]
 				if (displSize == 0 && baseReg == Register.BP && indexReg == Register.None) {
 					displSize = 1;
-					Displ = 0;
+					if (Displ != 0) {
+						ErrorMessage = $"Operand {operand}: Displacement must be 0 if displSize == 0";
+						return;
+					}
 				}
 				if (displSize == 1) {
 					if (TryConvertToDisp8N((short)Displ, out sbyte compressedValue))
-						Displ = (byte)compressedValue;
+						Displ = (uint)compressedValue;
 					else
 						displSize = 2;
 				}
 				if (displSize == 0) {
-					// Nothing
+					if (Displ != 0) {
+						ErrorMessage = $"Operand {operand}: Displacement must be 0 if displSize == 0";
+						return;
+					}
 				}
 				else if (displSize == 1) {
+					// This if check should always fail when we're here
+					if ((int)Displ < sbyte.MinValue || (int)Displ > sbyte.MaxValue) {
+						ErrorMessage = $"Operand {operand}: Displacement must fit in a sbyte";
+						return;
+					}
 					ModRM |= 0x40;
 					DisplSize = DisplSize.Size1;
 				}
@@ -787,7 +814,6 @@ namespace Iced.Intel {
 			var baseReg = instruction.MemoryBase;
 			var indexReg = instruction.MemoryIndex;
 			var displSize = instruction.MemoryDisplSize;
-			Displ = instruction.MemoryDisplacement32;
 
 			Register baseRegLo, baseRegHi;
 			Register indexRegLo, indexRegHi;
@@ -848,9 +874,14 @@ namespace Iced.Intel {
 				return;
 			}
 			var scale = instruction.InternalMemoryIndexScale;
+			Displ = instruction.MemoryDisplacement32;
 			if (baseReg == Register.None && indexReg == Register.None) {
 				if (vsibIndexRegLo != Register.None) {
 					ErrorMessage = $"Operand {operand}: VSIB addressing can't use an offset-only address";
+					return;
+				}
+				if ((long)instruction.MemoryDisplacement64 < int.MinValue || (long)instruction.MemoryDisplacement64 > uint.MaxValue) {
+					ErrorMessage = $"Operand {operand}: Displacement must fit in an int or a uint";
 					return;
 				}
 				if (bitness == 64 || scale != 0 || (EncoderFlags & EncoderFlags.MustUseSib) != 0) {
@@ -870,14 +901,31 @@ namespace Iced.Intel {
 			int baseNum = baseReg == Register.None ? -1 : baseReg - baseRegLo;
 			int indexNum = indexReg == Register.None ? -1 : indexReg - indexRegLo;
 
+			if (addrSize == 64) {
+				if ((long)instruction.MemoryDisplacement64 < int.MinValue || (long)instruction.MemoryDisplacement64 > int.MaxValue) {
+					ErrorMessage = $"Operand {operand}: Displacement must fit in an int";
+					return;
+				}
+			}
+			else {
+				Debug.Assert(addrSize == 32);
+				if ((long)instruction.MemoryDisplacement64 < int.MinValue || (long)instruction.MemoryDisplacement64 > uint.MaxValue) {
+					ErrorMessage = $"Operand {operand}: Displacement must fit in an int or a uint";
+					return;
+				}
+			}
+
 			// [ebp]/[ebp+index*scale] => [ebp+00]/[ebp+index*scale+00]
 			if (displSize == 0 && (baseNum & 7) == 5) {
 				displSize = 1;
-				Displ = 0;
+				if (Displ != 0) {
+					ErrorMessage = $"Operand {operand}: Displacement must be 0 if displSize == 0";
+					return;
+				}
 			}
 
 			if (displSize == 1) {
-				if (TryConvertToDisp8N((short)Displ, out sbyte compressedValue))
+				if (TryConvertToDisp8N((int)Displ, out sbyte compressedValue))
 					Displ = (uint)compressedValue;
 				else
 					displSize = addrSize / 8;
@@ -889,6 +937,11 @@ namespace Iced.Intel {
 				DisplSize = DisplSize.Size4;
 			}
 			else if (displSize == 1) {
+				// This if check should always fail when we're here
+				if ((int)Displ < sbyte.MinValue || (int)Displ > sbyte.MaxValue) {
+					ErrorMessage = $"Operand {operand}: Displacement must fit in a sbyte";
+					return;
+				}
 				ModRM |= 0x40;
 				DisplSize = DisplSize.Size1;
 			}
@@ -896,7 +949,13 @@ namespace Iced.Intel {
 				ModRM |= 0x80;
 				DisplSize = DisplSize.Size4;
 			}
-			else if (displSize != 0)
+			else if (displSize == 0) {
+				if (Displ != 0) {
+					ErrorMessage = $"Operand {operand}: Displacement must be 0 if displSize == 0";
+					return;
+				}
+			}
+			else
 				throw new ArgumentException($"Invalid displSize = {displSize}");
 
 			if (indexReg == Register.None && (baseNum & 7) != 4 && scale == 0 && (EncoderFlags & EncoderFlags.MustUseSib) == 0) {
