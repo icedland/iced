@@ -791,40 +791,23 @@ namespace Generator.Assembler.CSharp {
 				}
 				else {
 					writer.WriteLine("}");
-					writer.WriteLine("{");
-					using (writer.Indent()) {
-						bool isGenerated = false;
-						// Don't generate AssertInvalid for unsigned as they are already tested by signed
-						if (isSelectorSupportedByBitness && selector.ArgIndex >= 0 && !group.HasImmediateUnsigned) {
-							var newArg = GetInvalidArgValue(selector.Kind, selector.ArgIndex);
-							if (newArg is not null) {
-								// Force fake bitness support to allow to generate a throw for the last selector
-								if (bitness == 64 && (group.Name == "bndcn" ||
-													  group.Name == "bndmk" ||
-													  group.Name == "bndcu" ||
-													  group.Name == "bndcl")) {
-									bitness = 32;
-								}
-
+					if (isSelectorSupportedByBitness && selector.ArgIndex >= 0) {
+						var newArg = GetInvalidArgValue(selector.Kind, selector.ArgIndex);
+						if (newArg is not null) {
+							writer.WriteLine("{");
+							using (writer.Indent()) {
+								int testBitness = GetInvalidTestBitness(bitness, group);
 								writer.WriteLine("AssertInvalid(() => {");
 								using (writer.Indent()) {
 									var oldValue = args.Set(selector.ArgIndex, newArg);
-									GenerateOpCodeTest(writer, bitness, group, selector.IfTrue, renderArgs, args, contextFlags | contextIfFlags);
+									GenerateOpCodeTest(writer, testBitness, group, selector.IfTrue, renderArgs, args, contextFlags | contextIfFlags);
 									args.Restore(selector.ArgIndex, oldValue);
-									isGenerated = true;
 								}
 								writer.WriteLine("});");
 							}
-						}
-
-						if (!isGenerated) {
-							if (group.HasImmediateUnsigned)
-								writer.WriteLine($"// Already tested by signed version");
-							else
-								writer.WriteLine($"// See manual test for this case {idConverter.Method(group.Name)}");
+							writer.WriteLine("}");
 						}
 					}
-					writer.WriteLine("}");
 				}
 			}
 			else

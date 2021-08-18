@@ -978,7 +978,7 @@ namespace Generator.Assembler.Rust {
 					var registerStr = registerType.Name(idConverter);
 					var decoderOptsStr = genTypes[TypeIds.DecoderOptions].Name(idConverter);
 					var repPrefixKindStr = genTypes[TypeIds.RepPrefixKind].Name(idConverter);
-					writer.WriteLine($"use crate::code_asm::tests::{{add_op_mask, assign_label, create_and_emit_label, test_instr, TestInstrFlags, {FirstLabelIdName}}};");
+					writer.WriteLine($"use crate::code_asm::tests::{{add_op_mask, assign_label, create_and_emit_label, test_instr, test_invalid_instr, TestInstrFlags, {FirstLabelIdName}}};");
 					writer.WriteLine("use crate::code_asm::*;");
 					writer.WriteLine($"use crate::{{{codeStr}, {decoderOptsStr}, Instruction, MemoryOperand, {registerStr}, {repPrefixKindStr}}};");
 					var sb = new StringBuilder();
@@ -1067,7 +1067,18 @@ namespace Generator.Assembler.Rust {
 				}
 				if (selector.IfFalse.IsEmpty) {
 					writer.WriteLine("} /* else */ {");
-					//TODO: gen an invalid test here
+					if (isSelectorSupportedByBitness && selector.ArgIndex >= 0) {
+						var newArg = GetInvalidArgValue(selector.Kind, selector.ArgIndex);
+						if (newArg is not null) {
+							using (writer.Indent()) {
+								int testBitness = GetInvalidTestBitness(bitness, group);
+								var oldValue = args.Set(selector.ArgIndex, newArg);
+								GenerateTests(writer, testBitness, group, selector.IfTrue,
+									contextFlags | contextIfFlags | OpCodeArgFlags.GenerateInvalidTest, args, false);
+								args.Restore(selector.ArgIndex, oldValue);
+							}
+						}
+					}
 					writer.WriteLine("}");
 				}
 				else {
@@ -1146,38 +1157,43 @@ namespace Generator.Assembler.Rust {
 
 			var asmName = GetPubFnName(group);
 			var asmArgsStr = string.Join(", ", asmArgs);
-			var asmBody = $"a.{asmName}({asmArgsStr}).unwrap()";
-			if (hasLabel)
-				asmBody = $"{{ let {CreatedLabelName} = create_and_emit_label(a); {asmBody} }}";
-			writer.WriteLine($"test_instr({bitness}, |a| {asmBody},");
-			using (writer.Indent()) {
-				string withFailStr = ".unwrap()";
-				string withFnName;
-				if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0)
-					withFnName = $"with_{group.MnemonicName.ToLowerInvariant()}";
-				else if (group.HasLabel)
-					withFnName = RustInstrCreateGenNames.with_branch;
-				else {
-					if (group.Signature.ArgCount == 0)
-						withFailStr = string.Empty;
-					withFnName = InstrCreateGenImpl.GetRustOverloadedCreateName(group.Signature.ArgCount + extraArgsCount);
-				}
-				var withArgsStr = string.Join(", ", withArgs);
-				var withFnsPreStr = string.Join(string.Empty, ((IEnumerable<(string pre, string post)>)withFns).Reverse().Select(x => x.pre));
-				var withFnsPostStr = string.Join(string.Empty, withFns.Select(x => x.post));
-				writer.WriteLine($"{withFnsPreStr}Instruction::{withFnName}({withArgsStr}){withFailStr}{withFnsPostStr},");
+			var asmBody = $"a.{asmName}({asmArgsStr})";
+			var instrFlags = GetInstrTestFlags(def, group, contextFlags);
+			if (instrFlags.Count == 0)
+				instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.None)]);
+			var testInstrFlagsStr = string.Join(" | ",
+				instrFlags.Select(x => $"{x.DeclaringType.Name(idConverter)}::{idConverter.Constant(x.RawName)}"));
+			if ((contextFlags & OpCodeArgFlags.GenerateInvalidTest) != 0)
+				writer.WriteLine($"test_invalid_instr({bitness}, |a| assert!({asmBody}.is_err()), {testInstrFlagsStr});");
+			else {
+				asmBody = $"{asmBody}.unwrap()";
+				if (hasLabel)
+					asmBody = $"{{ let {CreatedLabelName} = create_and_emit_label(a); {asmBody} }}";
+				writer.WriteLine($"test_instr({bitness}, |a| {asmBody},");
+				using (writer.Indent()) {
+					string withFailStr = ".unwrap()";
+					string withFnName;
+					if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0)
+						withFnName = $"with_{group.MnemonicName.ToLowerInvariant()}";
+					else if (group.HasLabel)
+						withFnName = RustInstrCreateGenNames.with_branch;
+					else {
+						if (group.Signature.ArgCount == 0)
+							withFailStr = string.Empty;
+						withFnName = InstrCreateGenImpl.GetRustOverloadedCreateName(group.Signature.ArgCount + extraArgsCount);
+					}
+					var withArgsStr = string.Join(", ", withArgs);
+					var withFnsPreStr = string.Join(string.Empty, ((IEnumerable<(string pre, string post)>)withFns).Reverse().Select(x => x.pre));
+					var withFnsPostStr = string.Join(string.Empty, withFns.Select(x => x.post));
+					writer.WriteLine($"{withFnsPreStr}Instruction::{withFnName}({withArgsStr}){withFailStr}{withFnsPostStr},");
 
-				var instrFlags = GetInstrTestFlags(def, group, contextFlags);
-				if (instrFlags.Count == 0)
-					instrFlags.Add(testInstrFlags[nameof(TestInstrFlags.None)]);
-				var testInstrFlagsStr = string.Join(" | ",
-					instrFlags.Select(x => $"{x.DeclaringType.Name(idConverter)}::{idConverter.Constant(x.RawName)}"));
-				var decOpts = GetDecoderOptions(bitness, def);
-				if (decOpts.Count == 0)
-					decOpts.Add(decoderOptions[nameof(DecoderOptions.None)]);
-				var decOptsStr = string.Join(" | ",
-					decOpts.Select(x => $"{x.DeclaringType.Name(idConverter)}::{idConverter.Constant(x.RawName)}"));
-				writer.WriteLine($"{testInstrFlagsStr}, {decOptsStr});");
+					var decOpts = GetDecoderOptions(bitness, def);
+					if (decOpts.Count == 0)
+						decOpts.Add(decoderOptions[nameof(DecoderOptions.None)]);
+					var decOptsStr = string.Join(" | ",
+						decOpts.Select(x => $"{x.DeclaringType.Name(idConverter)}::{idConverter.Constant(x.RawName)}"));
+					writer.WriteLine($"{testInstrFlagsStr}, {decOptsStr});");
+				}
 			}
 		}
 

@@ -1118,6 +1118,7 @@ namespace Generator.Assembler {
 			HasImmediateByte = 1 << 17,
 			UnsignedUIntNotSupported = 1 << 18,
 			HasImmediateUnsigned = 1 << 19,
+			GenerateInvalidTest = 1 << 20,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup group, List<InstructionDef> inputDefs, List<InstructionDef> opcodes,
@@ -2508,6 +2509,17 @@ namespace Generator.Assembler {
 				}
 			}
 
+			return bitness;
+		}
+
+		protected static int GetInvalidTestBitness(int bitness, OpCodeInfoGroup group) {
+			// Force fake bitness support to allow to generate a throw for the last selector
+			if (bitness == 64 && (group.Name == "bndcn" ||
+								  group.Name == "bndmk" ||
+								  group.Name == "bndcu" ||
+								  group.Name == "bndcl")) {
+				return 32;
+			}
 			return bitness;
 		}
 

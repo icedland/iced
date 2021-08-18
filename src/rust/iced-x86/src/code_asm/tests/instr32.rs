@@ -5,7 +5,7 @@
 
 #![allow(clippy::unreadable_literal)]
 
-use crate::code_asm::tests::{add_op_mask, assign_label, create_and_emit_label, test_instr, TestInstrFlags, FIRST_LABEL_ID};
+use crate::code_asm::tests::{add_op_mask, assign_label, create_and_emit_label, test_instr, test_invalid_instr, TestInstrFlags, FIRST_LABEL_ID};
 use crate::code_asm::*;
 use crate::{Code, DecoderOptions, Instruction, MemoryOperand, Register, RepPrefixKind};
 
@@ -317,6 +317,8 @@ fn adc_m_i() {
 			Instruction::with2(Code::Adc_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Adc_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.adc(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		/* if op1 >= i8::MIN as i32 && op1 <= i8::MAX as i32 */ {
@@ -363,6 +365,8 @@ fn adc_m_i() {
 			Instruction::with2(Code::Adc_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Adc_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.adc(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -473,6 +477,8 @@ fn adc_m_u() {
 			Instruction::with2(Code::Adc_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Adc_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.adc(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -740,6 +746,8 @@ fn add_m_i() {
 			Instruction::with2(Code::Add_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Add_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.add(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		/* if op1 >= i8::MIN as i32 && op1 <= i8::MAX as i32 */ {
@@ -786,6 +794,8 @@ fn add_m_i() {
 			Instruction::with2(Code::Add_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Add_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.add(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -896,6 +906,8 @@ fn add_m_u() {
 			Instruction::with2(Code::Add_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Add_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.add(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -1486,6 +1498,8 @@ fn and_m_i() {
 			Instruction::with2(Code::And_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// And_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.and(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		/* if op1 >= i8::MIN as i32 && op1 <= i8::MAX as i32 */ {
@@ -1532,6 +1546,8 @@ fn and_m_i() {
 			Instruction::with2(Code::And_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// And_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.and(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -1642,6 +1658,8 @@ fn and_m_u() {
 			Instruction::with2(Code::And_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// And_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.and(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2175,6 +2193,8 @@ fn bndcl_bnd_m() {
 			Instruction::with2(Code::Bndcl_bnd_rm32, Register::BND2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::MPX);
 	} /* else */ {
+		// Bndcl_bnd_rm32
+		test_invalid_instr(32, |a| assert!(a.bndcl(bnd2, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2198,6 +2218,8 @@ fn bndcn_bnd_m() {
 			Instruction::with2(Code::Bndcn_bnd_rm32, Register::BND2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::MPX);
 	} /* else */ {
+		// Bndcn_bnd_rm32
+		test_invalid_instr(32, |a| assert!(a.bndcn(bnd2, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2221,6 +2243,8 @@ fn bndcu_bnd_m() {
 			Instruction::with2(Code::Bndcu_bnd_rm32, Register::BND2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::MPX);
 	} /* else */ {
+		// Bndcu_bnd_rm32
+		test_invalid_instr(32, |a| assert!(a.bndcu(bnd2, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2244,6 +2268,8 @@ fn bndmk_bnd_m() {
 			Instruction::with2(Code::Bndmk_bnd_m32, Register::BND2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::MPX);
 	} /* else */ {
+		// Bndmk_bnd_m32
+		test_invalid_instr(32, |a| assert!(a.bndmk(bnd2, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2481,6 +2507,8 @@ fn bt_m_i() {
 			Instruction::with2(Code::Bt_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Bt_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.bt(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Bt_rm64_imm8 - Not supported by current bitness
@@ -2495,6 +2523,8 @@ fn bt_m_i() {
 			Instruction::with2(Code::Bt_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Bt_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.bt(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2532,6 +2562,8 @@ fn bt_m_u() {
 			Instruction::with2(Code::Bt_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Bt_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.bt(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2613,6 +2645,8 @@ fn btc_m_i() {
 			Instruction::with2(Code::Btc_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Btc_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.btc(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Btc_rm64_imm8 - Not supported by current bitness
@@ -2627,6 +2661,8 @@ fn btc_m_i() {
 			Instruction::with2(Code::Btc_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Btc_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.btc(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2664,6 +2700,8 @@ fn btc_m_u() {
 			Instruction::with2(Code::Btc_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Btc_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.btc(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2745,6 +2783,8 @@ fn btr_m_i() {
 			Instruction::with2(Code::Btr_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Btr_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.btr(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Btr_rm64_imm8 - Not supported by current bitness
@@ -2759,6 +2799,8 @@ fn btr_m_i() {
 			Instruction::with2(Code::Btr_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Btr_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.btr(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2796,6 +2838,8 @@ fn btr_m_u() {
 			Instruction::with2(Code::Btr_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Btr_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.btr(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2877,6 +2921,8 @@ fn bts_m_i() {
 			Instruction::with2(Code::Bts_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Bts_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.bts(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Bts_rm64_imm8 - Not supported by current bitness
@@ -2891,6 +2937,8 @@ fn bts_m_i() {
 			Instruction::with2(Code::Bts_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Bts_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.bts(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2928,6 +2976,8 @@ fn bts_m_u() {
 			Instruction::with2(Code::Bts_rm16_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Bts_rm16_imm8
+		test_invalid_instr(32, |a| assert!(a.bts(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -2994,6 +3044,8 @@ fn call_m() {
 			Instruction::with1(Code::Call_rm16, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Call_rm16
+		test_invalid_instr(32, |a| assert!(a.call(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -4029,6 +4081,8 @@ fn cmp_m_i() {
 			Instruction::with2(Code::Cmp_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Cmp_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.cmp(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		/* if op1 >= i8::MIN as i32 && op1 <= i8::MAX as i32 */ {
@@ -4075,6 +4129,8 @@ fn cmp_m_i() {
 			Instruction::with2(Code::Cmp_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Cmp_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.cmp(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -4185,6 +4241,8 @@ fn cmp_m_u() {
 			Instruction::with2(Code::Cmp_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Cmp_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.cmp(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -5139,6 +5197,8 @@ fn crc32_r32_m() {
 			Instruction::with2(Code::Crc32_r32_rm8, Register::EDX, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Crc32_r32_rm8
+		test_invalid_instr(32, |a| assert!(a.crc32(edx, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -5378,6 +5438,8 @@ fn cvtsi2sd_xmm_m() {
 			Instruction::with2(Code::Cvtsi2sd_xmm_rm32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Cvtsi2sd_xmm_rm32
+		test_invalid_instr(32, |a| assert!(a.cvtsi2sd(xmm2, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -5401,6 +5463,8 @@ fn cvtsi2ss_xmm_m() {
 			Instruction::with2(Code::Cvtsi2ss_xmm_rm32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Cvtsi2ss_xmm_rm32
+		test_invalid_instr(32, |a| assert!(a.cvtsi2ss(xmm2, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -5640,6 +5704,8 @@ fn dec_m() {
 			Instruction::with1(Code::Dec_rm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Dec_rm8
+		test_invalid_instr(32, |a| assert!(a.dec(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -5691,6 +5757,8 @@ fn div_m() {
 			Instruction::with1(Code::Div_rm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Div_rm8
+		test_invalid_instr(32, |a| assert!(a.div(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6118,6 +6186,8 @@ fn fadd_m() {
 			Instruction::with1(Code::Fadd_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fadd_m32fp
+		test_invalid_instr(32, |a| assert!(a.fadd(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6268,6 +6338,8 @@ fn fcom_m() {
 			Instruction::with1(Code::Fcom_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fcom_m32fp
+		test_invalid_instr(32, |a| assert!(a.fcom(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6312,6 +6384,8 @@ fn fcomp_m() {
 			Instruction::with1(Code::Fcomp_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fcomp_m32fp
+		test_invalid_instr(32, |a| assert!(a.fcomp(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6374,6 +6448,8 @@ fn fdiv_m() {
 			Instruction::with1(Code::Fdiv_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fdiv_m32fp
+		test_invalid_instr(32, |a| assert!(a.fdiv(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6416,6 +6492,8 @@ fn fdivr_m() {
 			Instruction::with1(Code::Fdivr_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fdivr_m32fp
+		test_invalid_instr(32, |a| assert!(a.fdivr(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6494,6 +6572,8 @@ fn fiadd_m() {
 			Instruction::with1(Code::Fiadd_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fiadd_m16int
+		test_invalid_instr(32, |a| assert!(a.fiadd(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6511,6 +6591,8 @@ fn ficom_m() {
 			Instruction::with1(Code::Ficom_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Ficom_m16int
+		test_invalid_instr(32, |a| assert!(a.ficom(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6528,6 +6610,8 @@ fn ficomp_m() {
 			Instruction::with1(Code::Ficomp_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Ficomp_m16int
+		test_invalid_instr(32, |a| assert!(a.ficomp(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6545,6 +6629,8 @@ fn fidiv_m() {
 			Instruction::with1(Code::Fidiv_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fidiv_m16int
+		test_invalid_instr(32, |a| assert!(a.fidiv(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6562,6 +6648,8 @@ fn fidivr_m() {
 			Instruction::with1(Code::Fidivr_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fidivr_m16int
+		test_invalid_instr(32, |a| assert!(a.fidivr(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6584,6 +6672,8 @@ fn fild_m() {
 			Instruction::with1(Code::Fild_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fild_m16int
+		test_invalid_instr(32, |a| assert!(a.fild(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6601,6 +6691,8 @@ fn fimul_m() {
 			Instruction::with1(Code::Fimul_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fimul_m16int
+		test_invalid_instr(32, |a| assert!(a.fimul(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6636,6 +6728,8 @@ fn fist_m() {
 			Instruction::with1(Code::Fist_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fist_m16int
+		test_invalid_instr(32, |a| assert!(a.fist(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6658,6 +6752,8 @@ fn fistp_m() {
 			Instruction::with1(Code::Fistp_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fistp_m16int
+		test_invalid_instr(32, |a| assert!(a.fistp(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6680,6 +6776,8 @@ fn fisttp_m() {
 			Instruction::with1(Code::Fisttp_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fisttp_m16int
+		test_invalid_instr(32, |a| assert!(a.fisttp(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6697,6 +6795,8 @@ fn fisub_m() {
 			Instruction::with1(Code::Fisub_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fisub_m16int
+		test_invalid_instr(32, |a| assert!(a.fisub(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6714,6 +6814,8 @@ fn fisubr_m() {
 			Instruction::with1(Code::Fisubr_m16int, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fisubr_m16int
+		test_invalid_instr(32, |a| assert!(a.fisubr(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6745,6 +6847,8 @@ fn fld_m() {
 			Instruction::with1(Code::Fld_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fld_m32fp
+		test_invalid_instr(32, |a| assert!(a.fld(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -6847,6 +6951,8 @@ fn fmul_m() {
 			Instruction::with1(Code::Fmul_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fmul_m32fp
+		test_invalid_instr(32, |a| assert!(a.fmul(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -7148,6 +7254,8 @@ fn fst_m() {
 			Instruction::with1(Code::Fst_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fst_m32fp
+		test_invalid_instr(32, |a| assert!(a.fst(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -7210,6 +7318,8 @@ fn fstp_m() {
 			Instruction::with1(Code::Fstp_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fstp_m32fp
+		test_invalid_instr(32, |a| assert!(a.fstp(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -7263,6 +7373,8 @@ fn fsub_m() {
 			Instruction::with1(Code::Fsub_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fsub_m32fp
+		test_invalid_instr(32, |a| assert!(a.fsub(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -7305,6 +7417,8 @@ fn fsubr_m() {
 			Instruction::with1(Code::Fsubr_m32fp, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Fsubr_m32fp
+		test_invalid_instr(32, |a| assert!(a.fsubr(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -7752,6 +7866,8 @@ fn idiv_m() {
 			Instruction::with1(Code::Idiv_rm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Idiv_rm8
+		test_invalid_instr(32, |a| assert!(a.idiv(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -7803,6 +7919,8 @@ fn imul_m() {
 			Instruction::with1(Code::Imul_rm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Imul_rm8
+		test_invalid_instr(32, |a| assert!(a.imul(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -8211,6 +8329,8 @@ fn inc_m() {
 			Instruction::with1(Code::Inc_rm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Inc_rm8
+		test_invalid_instr(32, |a| assert!(a.inc(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -9007,6 +9127,8 @@ fn jmp_m() {
 			Instruction::with1(Code::Jmp_rm16, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Jmp_rm16
+		test_invalid_instr(32, |a| assert!(a.jmp(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -11330,6 +11452,8 @@ fn mov_m_i() {
 			Instruction::with2(Code::Mov_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Mov_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.mov(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Mov_rm64_imm32 - Not supported by current bitness
@@ -11349,6 +11473,8 @@ fn mov_m_i() {
 			Instruction::with2(Code::Mov_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Mov_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.mov(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -11398,6 +11524,8 @@ fn mov_m_u() {
 			Instruction::with2(Code::Mov_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Mov_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.mov(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -12081,6 +12209,8 @@ fn movsx_r16_m() {
 			Instruction::with2(Code::Movsx_r16_rm8, Register::DX, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Movsx_r16_rm8
+		test_invalid_instr(32, |a| assert!(a.movsx(dx, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -12098,6 +12228,8 @@ fn movsx_r32_m() {
 			Instruction::with2(Code::Movsx_r32_rm8, Register::EDX, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Movsx_r32_rm8
+		test_invalid_instr(32, |a| assert!(a.movsx(edx, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -12205,6 +12337,8 @@ fn movzx_r16_m() {
 			Instruction::with2(Code::Movzx_r16_rm8, Register::DX, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Movzx_r16_rm8
+		test_invalid_instr(32, |a| assert!(a.movzx(dx, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -12222,6 +12356,8 @@ fn movzx_r32_m() {
 			Instruction::with2(Code::Movzx_r32_rm8, Register::EDX, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Movzx_r32_rm8
+		test_invalid_instr(32, |a| assert!(a.movzx(edx, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -12317,6 +12453,8 @@ fn mul_m() {
 			Instruction::with1(Code::Mul_rm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Mul_rm8
+		test_invalid_instr(32, |a| assert!(a.mul(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -12476,6 +12614,8 @@ fn neg_m() {
 			Instruction::with1(Code::Neg_rm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Neg_rm8
+		test_invalid_instr(32, |a| assert!(a.neg(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -12526,6 +12666,8 @@ fn nop_m() {
 			Instruction::with1(Code::Nop_rm16, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Nop_rm16
+		test_invalid_instr(32, |a| assert!(a.nop_1(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -12577,6 +12719,8 @@ fn not_m() {
 			Instruction::with1(Code::Not_rm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Not_rm8
+		test_invalid_instr(32, |a| assert!(a.not(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -12826,6 +12970,8 @@ fn or_m_i() {
 			Instruction::with2(Code::Or_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Or_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.or(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		/* if op1 >= i8::MIN as i32 && op1 <= i8::MAX as i32 */ {
@@ -12872,6 +13018,8 @@ fn or_m_i() {
 			Instruction::with2(Code::Or_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Or_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.or(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -12982,6 +13130,8 @@ fn or_m_u() {
 			Instruction::with2(Code::Or_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Or_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.or(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -16622,6 +16772,8 @@ fn pop_m() {
 			Instruction::with1(Code::Pop_rm16, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Pop_rm16
+		test_invalid_instr(32, |a| assert!(a.pop(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -18198,6 +18350,8 @@ fn ptwrite_m() {
 			Instruction::with1(Code::Ptwrite_rm32, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Ptwrite_rm32
+		test_invalid_instr(32, |a| assert!(a.ptwrite(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -18552,6 +18706,8 @@ fn push_m() {
 			Instruction::with1(Code::Push_rm16, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Push_rm16
+		test_invalid_instr(32, |a| assert!(a.push(zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -18761,6 +18917,8 @@ fn rcl_m_r8() {
 			Instruction::with2(Code::Rcl_rm8_CL, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::CL).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rcl_rm8_CL
+		test_invalid_instr(32, |a| assert!(a.rcl(zmmword_ptr(edx), cl).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -18867,6 +19025,8 @@ fn rcl_m_i() {
 				Instruction::with2(Code::Rcl_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Rcl_rm8_1
+			test_invalid_instr(32, |a| assert!(a.rcl(zmmword_ptr(edx), 1i32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Rcl_rm64_imm8 - Not supported by current bitness
@@ -18886,6 +19046,8 @@ fn rcl_m_i() {
 			Instruction::with2(Code::Rcl_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rcl_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.rcl(zmmword_ptr(edx), 2i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1 == 1 */ {
 		/* if op0.size() == MemoryOperandSize::Qword */ {
@@ -18906,6 +19068,8 @@ fn rcl_m_i() {
 				Instruction::with2(Code::Rcl_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Rcl_rm8_1
+			test_invalid_instr(32, |a| assert!(a.rcl(zmmword_ptr(edx), 1).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Rcl_rm64_imm8 - Not supported by current bitness
@@ -18925,6 +19089,8 @@ fn rcl_m_i() {
 			Instruction::with2(Code::Rcl_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rcl_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.rcl(zmmword_ptr(edx), 2).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -18998,6 +19164,8 @@ fn rcl_m_u() {
 				Instruction::with2(Code::Rcl_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1u32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Rcl_rm8_1
+			test_invalid_instr(32, |a| assert!(a.rcl(zmmword_ptr(edx), 1u32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Rcl_rm64_imm8 - Not supported by current bitness
@@ -19017,6 +19185,8 @@ fn rcl_m_u() {
 			Instruction::with2(Code::Rcl_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2u32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rcl_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.rcl(zmmword_ptr(edx), 2u32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -19104,6 +19274,8 @@ fn rcr_m_r8() {
 			Instruction::with2(Code::Rcr_rm8_CL, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::CL).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rcr_rm8_CL
+		test_invalid_instr(32, |a| assert!(a.rcr(zmmword_ptr(edx), cl).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -19210,6 +19382,8 @@ fn rcr_m_i() {
 				Instruction::with2(Code::Rcr_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Rcr_rm8_1
+			test_invalid_instr(32, |a| assert!(a.rcr(zmmword_ptr(edx), 1i32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Rcr_rm64_imm8 - Not supported by current bitness
@@ -19229,6 +19403,8 @@ fn rcr_m_i() {
 			Instruction::with2(Code::Rcr_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rcr_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.rcr(zmmword_ptr(edx), 2i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1 == 1 */ {
 		/* if op0.size() == MemoryOperandSize::Qword */ {
@@ -19249,6 +19425,8 @@ fn rcr_m_i() {
 				Instruction::with2(Code::Rcr_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Rcr_rm8_1
+			test_invalid_instr(32, |a| assert!(a.rcr(zmmword_ptr(edx), 1).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Rcr_rm64_imm8 - Not supported by current bitness
@@ -19268,6 +19446,8 @@ fn rcr_m_i() {
 			Instruction::with2(Code::Rcr_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rcr_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.rcr(zmmword_ptr(edx), 2).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -19341,6 +19521,8 @@ fn rcr_m_u() {
 				Instruction::with2(Code::Rcr_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1u32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Rcr_rm8_1
+			test_invalid_instr(32, |a| assert!(a.rcr(zmmword_ptr(edx), 1u32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Rcr_rm64_imm8 - Not supported by current bitness
@@ -19360,6 +19542,8 @@ fn rcr_m_u() {
 			Instruction::with2(Code::Rcr_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2u32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rcr_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.rcr(zmmword_ptr(edx), 2u32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -19989,6 +20173,8 @@ fn rol_m_r8() {
 			Instruction::with2(Code::Rol_rm8_CL, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::CL).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rol_rm8_CL
+		test_invalid_instr(32, |a| assert!(a.rol(zmmword_ptr(edx), cl).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -20095,6 +20281,8 @@ fn rol_m_i() {
 				Instruction::with2(Code::Rol_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Rol_rm8_1
+			test_invalid_instr(32, |a| assert!(a.rol(zmmword_ptr(edx), 1i32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Rol_rm64_imm8 - Not supported by current bitness
@@ -20114,6 +20302,8 @@ fn rol_m_i() {
 			Instruction::with2(Code::Rol_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rol_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.rol(zmmword_ptr(edx), 2i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1 == 1 */ {
 		/* if op0.size() == MemoryOperandSize::Qword */ {
@@ -20134,6 +20324,8 @@ fn rol_m_i() {
 				Instruction::with2(Code::Rol_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Rol_rm8_1
+			test_invalid_instr(32, |a| assert!(a.rol(zmmword_ptr(edx), 1).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Rol_rm64_imm8 - Not supported by current bitness
@@ -20153,6 +20345,8 @@ fn rol_m_i() {
 			Instruction::with2(Code::Rol_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rol_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.rol(zmmword_ptr(edx), 2).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -20226,6 +20420,8 @@ fn rol_m_u() {
 				Instruction::with2(Code::Rol_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1u32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Rol_rm8_1
+			test_invalid_instr(32, |a| assert!(a.rol(zmmword_ptr(edx), 1u32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Rol_rm64_imm8 - Not supported by current bitness
@@ -20245,6 +20441,8 @@ fn rol_m_u() {
 			Instruction::with2(Code::Rol_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2u32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Rol_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.rol(zmmword_ptr(edx), 2u32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -20296,6 +20494,8 @@ fn ror_m_r8() {
 			Instruction::with2(Code::Ror_rm8_CL, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::CL).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Ror_rm8_CL
+		test_invalid_instr(32, |a| assert!(a.ror(zmmword_ptr(edx), cl).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -20402,6 +20602,8 @@ fn ror_m_i() {
 				Instruction::with2(Code::Ror_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Ror_rm8_1
+			test_invalid_instr(32, |a| assert!(a.ror(zmmword_ptr(edx), 1i32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Ror_rm64_imm8 - Not supported by current bitness
@@ -20421,6 +20623,8 @@ fn ror_m_i() {
 			Instruction::with2(Code::Ror_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Ror_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.ror(zmmword_ptr(edx), 2i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1 == 1 */ {
 		/* if op0.size() == MemoryOperandSize::Qword */ {
@@ -20441,6 +20645,8 @@ fn ror_m_i() {
 				Instruction::with2(Code::Ror_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Ror_rm8_1
+			test_invalid_instr(32, |a| assert!(a.ror(zmmword_ptr(edx), 1).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Ror_rm64_imm8 - Not supported by current bitness
@@ -20460,6 +20666,8 @@ fn ror_m_i() {
 			Instruction::with2(Code::Ror_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Ror_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.ror(zmmword_ptr(edx), 2).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -20533,6 +20741,8 @@ fn ror_m_u() {
 				Instruction::with2(Code::Ror_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1u32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Ror_rm8_1
+			test_invalid_instr(32, |a| assert!(a.ror(zmmword_ptr(edx), 1u32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Ror_rm64_imm8 - Not supported by current bitness
@@ -20552,6 +20762,8 @@ fn ror_m_u() {
 			Instruction::with2(Code::Ror_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2u32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Ror_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.ror(zmmword_ptr(edx), 2u32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -20913,6 +21125,8 @@ fn sal_m_r8() {
 			Instruction::with2(Code::Sal_rm8_CL, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::CL).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sal_rm8_CL
+		test_invalid_instr(32, |a| assert!(a.sal(zmmword_ptr(edx), cl).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -21019,6 +21233,8 @@ fn sal_m_i() {
 				Instruction::with2(Code::Sal_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Sal_rm8_1
+			test_invalid_instr(32, |a| assert!(a.sal(zmmword_ptr(edx), 1i32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Sal_rm64_imm8 - Not supported by current bitness
@@ -21038,6 +21254,8 @@ fn sal_m_i() {
 			Instruction::with2(Code::Sal_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sal_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sal(zmmword_ptr(edx), 2i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1 == 1 */ {
 		/* if op0.size() == MemoryOperandSize::Qword */ {
@@ -21058,6 +21276,8 @@ fn sal_m_i() {
 				Instruction::with2(Code::Sal_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Sal_rm8_1
+			test_invalid_instr(32, |a| assert!(a.sal(zmmword_ptr(edx), 1).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Sal_rm64_imm8 - Not supported by current bitness
@@ -21077,6 +21297,8 @@ fn sal_m_i() {
 			Instruction::with2(Code::Sal_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sal_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sal(zmmword_ptr(edx), 2).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -21150,6 +21372,8 @@ fn sal_m_u() {
 				Instruction::with2(Code::Sal_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1u32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Sal_rm8_1
+			test_invalid_instr(32, |a| assert!(a.sal(zmmword_ptr(edx), 1u32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Sal_rm64_imm8 - Not supported by current bitness
@@ -21169,6 +21393,8 @@ fn sal_m_u() {
 			Instruction::with2(Code::Sal_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2u32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sal_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sal(zmmword_ptr(edx), 2u32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -21229,6 +21455,8 @@ fn sar_m_r8() {
 			Instruction::with2(Code::Sar_rm8_CL, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::CL).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sar_rm8_CL
+		test_invalid_instr(32, |a| assert!(a.sar(zmmword_ptr(edx), cl).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -21335,6 +21563,8 @@ fn sar_m_i() {
 				Instruction::with2(Code::Sar_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Sar_rm8_1
+			test_invalid_instr(32, |a| assert!(a.sar(zmmword_ptr(edx), 1i32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Sar_rm64_imm8 - Not supported by current bitness
@@ -21354,6 +21584,8 @@ fn sar_m_i() {
 			Instruction::with2(Code::Sar_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sar_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sar(zmmword_ptr(edx), 2i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1 == 1 */ {
 		/* if op0.size() == MemoryOperandSize::Qword */ {
@@ -21374,6 +21606,8 @@ fn sar_m_i() {
 				Instruction::with2(Code::Sar_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Sar_rm8_1
+			test_invalid_instr(32, |a| assert!(a.sar(zmmword_ptr(edx), 1).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Sar_rm64_imm8 - Not supported by current bitness
@@ -21393,6 +21627,8 @@ fn sar_m_i() {
 			Instruction::with2(Code::Sar_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sar_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sar(zmmword_ptr(edx), 2).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -21466,6 +21702,8 @@ fn sar_m_u() {
 				Instruction::with2(Code::Sar_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1u32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Sar_rm8_1
+			test_invalid_instr(32, |a| assert!(a.sar(zmmword_ptr(edx), 1u32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Sar_rm64_imm8 - Not supported by current bitness
@@ -21485,6 +21723,8 @@ fn sar_m_u() {
 			Instruction::with2(Code::Sar_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2u32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sar_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sar(zmmword_ptr(edx), 2u32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -21761,6 +22001,8 @@ fn sbb_m_i() {
 			Instruction::with2(Code::Sbb_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sbb_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sbb(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		/* if op1 >= i8::MIN as i32 && op1 <= i8::MAX as i32 */ {
@@ -21807,6 +22049,8 @@ fn sbb_m_i() {
 			Instruction::with2(Code::Sbb_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sbb_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sbb(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -21917,6 +22161,8 @@ fn sbb_m_u() {
 			Instruction::with2(Code::Sbb_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sbb_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sbb(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -22477,6 +22723,8 @@ fn shl_m_r8() {
 			Instruction::with2(Code::Shl_rm8_CL, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::CL).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Shl_rm8_CL
+		test_invalid_instr(32, |a| assert!(a.shl(zmmword_ptr(edx), cl).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -22583,6 +22831,8 @@ fn shl_m_i() {
 				Instruction::with2(Code::Shl_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Shl_rm8_1
+			test_invalid_instr(32, |a| assert!(a.shl(zmmword_ptr(edx), 1i32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Shl_rm64_imm8 - Not supported by current bitness
@@ -22602,6 +22852,8 @@ fn shl_m_i() {
 			Instruction::with2(Code::Shl_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Shl_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.shl(zmmword_ptr(edx), 2i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1 == 1 */ {
 		/* if op0.size() == MemoryOperandSize::Qword */ {
@@ -22622,6 +22874,8 @@ fn shl_m_i() {
 				Instruction::with2(Code::Shl_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Shl_rm8_1
+			test_invalid_instr(32, |a| assert!(a.shl(zmmword_ptr(edx), 1).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Shl_rm64_imm8 - Not supported by current bitness
@@ -22641,6 +22895,8 @@ fn shl_m_i() {
 			Instruction::with2(Code::Shl_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Shl_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.shl(zmmword_ptr(edx), 2).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -22714,6 +22970,8 @@ fn shl_m_u() {
 				Instruction::with2(Code::Shl_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1u32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Shl_rm8_1
+			test_invalid_instr(32, |a| assert!(a.shl(zmmword_ptr(edx), 1u32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Shl_rm64_imm8 - Not supported by current bitness
@@ -22733,6 +22991,8 @@ fn shl_m_u() {
 			Instruction::with2(Code::Shl_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2u32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Shl_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.shl(zmmword_ptr(edx), 2u32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -22926,6 +23186,8 @@ fn shr_m_r8() {
 			Instruction::with2(Code::Shr_rm8_CL, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::CL).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Shr_rm8_CL
+		test_invalid_instr(32, |a| assert!(a.shr(zmmword_ptr(edx), cl).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -23032,6 +23294,8 @@ fn shr_m_i() {
 				Instruction::with2(Code::Shr_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Shr_rm8_1
+			test_invalid_instr(32, |a| assert!(a.shr(zmmword_ptr(edx), 1i32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Shr_rm64_imm8 - Not supported by current bitness
@@ -23051,6 +23315,8 @@ fn shr_m_i() {
 			Instruction::with2(Code::Shr_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Shr_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.shr(zmmword_ptr(edx), 2i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1 == 1 */ {
 		/* if op0.size() == MemoryOperandSize::Qword */ {
@@ -23071,6 +23337,8 @@ fn shr_m_i() {
 				Instruction::with2(Code::Shr_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1i32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Shr_rm8_1
+			test_invalid_instr(32, |a| assert!(a.shr(zmmword_ptr(edx), 1).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Shr_rm64_imm8 - Not supported by current bitness
@@ -23090,6 +23358,8 @@ fn shr_m_i() {
 			Instruction::with2(Code::Shr_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Shr_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.shr(zmmword_ptr(edx), 2).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -23163,6 +23433,8 @@ fn shr_m_u() {
 				Instruction::with2(Code::Shr_rm8_1, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 1u32).unwrap(),
 				TestInstrFlags::NONE, DecoderOptions::NONE);
 		} /* else */ {
+			// Shr_rm8_1
+			test_invalid_instr(32, |a| assert!(a.shr(zmmword_ptr(edx), 1u32).is_err()), TestInstrFlags::NONE);
 		}
 	} /* else if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Shr_rm64_imm8 - Not supported by current bitness
@@ -23182,6 +23454,8 @@ fn shr_m_u() {
 			Instruction::with2(Code::Shr_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 2u32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Shr_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.shr(zmmword_ptr(edx), 2u32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -23958,6 +24232,8 @@ fn sub_m_i() {
 			Instruction::with2(Code::Sub_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sub_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sub(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		/* if op1 >= i8::MIN as i32 && op1 <= i8::MAX as i32 */ {
@@ -24004,6 +24280,8 @@ fn sub_m_i() {
 			Instruction::with2(Code::Sub_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sub_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sub(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -24114,6 +24392,8 @@ fn sub_m_u() {
 			Instruction::with2(Code::Sub_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Sub_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.sub(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -24435,6 +24715,8 @@ fn test_m_i() {
 			Instruction::with2(Code::Test_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Test_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.test(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		// Skipping Test_rm64_imm32 - Not supported by current bitness
@@ -24454,6 +24736,8 @@ fn test_m_i() {
 			Instruction::with2(Code::Test_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Test_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.test(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -24524,6 +24808,8 @@ fn test_m_u() {
 			Instruction::with2(Code::Test_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Test_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.test(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -38547,6 +38833,8 @@ fn vcvtdq2ph_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32
+		test_invalid_instr(32, |a| assert!(a.vcvtdq2ph(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -38769,6 +39057,8 @@ fn vcvtneps2bf16_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
+		test_invalid_instr(32, |a| assert!(a.vcvtneps2bf16(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -38873,6 +39163,13 @@ fn vcvtpd2dq_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else */ {
+		/* if self.prefer_vex() */ {
+			// VEX_Vcvtpd2dq_xmm_xmmm128
+			test_invalid_instr(32, |a| assert!(a.vcvtpd2dq(xmm2, byte_ptr(edx)).is_err()), TestInstrFlags::PREFER_VEX);
+		} /* else */ {
+			// EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64
+			test_invalid_instr(32, |a| assert!(a.vcvtpd2dq(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::PREFER_EVEX);
+		}
 	}
 }
 
@@ -38954,6 +39251,8 @@ fn vcvtpd2ph_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64
+		test_invalid_instr(32, |a| assert!(a.vcvtpd2ph(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -39058,6 +39357,13 @@ fn vcvtpd2ps_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else */ {
+		/* if self.prefer_vex() */ {
+			// VEX_Vcvtpd2ps_xmm_xmmm128
+			test_invalid_instr(32, |a| assert!(a.vcvtpd2ps(xmm2, byte_ptr(edx)).is_err()), TestInstrFlags::PREFER_VEX);
+		} /* else */ {
+			// EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64
+			test_invalid_instr(32, |a| assert!(a.vcvtpd2ps(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::PREFER_EVEX);
+		}
 	}
 }
 
@@ -39188,6 +39494,8 @@ fn vcvtpd2udq_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64
+		test_invalid_instr(32, |a| assert!(a.vcvtpd2udq(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -40232,6 +40540,8 @@ fn vcvtps2phx_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32
+		test_invalid_instr(32, |a| assert!(a.vcvtps2phx(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -40529,6 +40839,8 @@ fn vcvtqq2ph_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64
+		test_invalid_instr(32, |a| assert!(a.vcvtqq2ph(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -40605,6 +40917,8 @@ fn vcvtqq2ps_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64
+		test_invalid_instr(32, |a| assert!(a.vcvtqq2ps(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -40845,6 +41159,13 @@ fn vcvtsi2sd_xmm_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else */ {
+		/* if self.prefer_vex() */ {
+			// VEX_Vcvtsi2sd_xmm_xmm_rm32
+			test_invalid_instr(32, |a| assert!(a.vcvtsi2sd(xmm2, xmm3, zmmword_ptr(edx)).is_err()), TestInstrFlags::PREFER_VEX);
+		} /* else */ {
+			// EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
+			test_invalid_instr(32, |a| assert!(a.vcvtsi2sd(xmm2, xmm3, zmmword_ptr(edx)).is_err()), TestInstrFlags::PREFER_EVEX);
+		}
 	}
 }
 
@@ -40868,6 +41189,8 @@ fn vcvtsi2sh_xmm_xmm_m() {
 			Instruction::with3(Code::EVEX_Vcvtsi2sh_xmm_xmm_rm32_er, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtsi2sh_xmm_xmm_rm32_er
+		test_invalid_instr(32, |a| assert!(a.vcvtsi2sh(xmm2, xmm3, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -40909,6 +41232,13 @@ fn vcvtsi2ss_xmm_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else */ {
+		/* if self.prefer_vex() */ {
+			// VEX_Vcvtsi2ss_xmm_xmm_rm32
+			test_invalid_instr(32, |a| assert!(a.vcvtsi2ss(xmm2, xmm3, zmmword_ptr(edx)).is_err()), TestInstrFlags::PREFER_VEX);
+		} /* else */ {
+			// EVEX_Vcvtsi2ss_xmm_xmm_rm32_er
+			test_invalid_instr(32, |a| assert!(a.vcvtsi2ss(xmm2, xmm3, zmmword_ptr(edx)).is_err()), TestInstrFlags::PREFER_EVEX);
+		}
 	}
 }
 
@@ -41086,6 +41416,13 @@ fn vcvttpd2dq_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else */ {
+		/* if self.prefer_vex() */ {
+			// VEX_Vcvttpd2dq_xmm_xmmm128
+			test_invalid_instr(32, |a| assert!(a.vcvttpd2dq(xmm2, byte_ptr(edx)).is_err()), TestInstrFlags::PREFER_VEX);
+		} /* else */ {
+			// EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64
+			test_invalid_instr(32, |a| assert!(a.vcvttpd2dq(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::PREFER_EVEX);
+		}
 	}
 }
 
@@ -41216,6 +41553,8 @@ fn vcvttpd2udq_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64
+		test_invalid_instr(32, |a| assert!(a.vcvttpd2udq(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -42114,6 +42453,8 @@ fn vcvtudq2ph_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32
+		test_invalid_instr(32, |a| assert!(a.vcvtudq2ph(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -42303,6 +42644,8 @@ fn vcvtuqq2ph_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64
+		test_invalid_instr(32, |a| assert!(a.vcvtuqq2ph(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -42379,6 +42722,8 @@ fn vcvtuqq2ps_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64
+		test_invalid_instr(32, |a| assert!(a.vcvtuqq2ps(xmm2.k1(), byte_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -42429,6 +42774,8 @@ fn vcvtusi2sd_xmm_xmm_m() {
 			Instruction::with3(Code::EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
+		test_invalid_instr(32, |a| assert!(a.vcvtusi2sd(xmm2, xmm3, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -42452,6 +42799,8 @@ fn vcvtusi2sh_xmm_xmm_m() {
 			Instruction::with3(Code::EVEX_Vcvtusi2sh_xmm_xmm_rm32_er, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtusi2sh_xmm_xmm_rm32_er
+		test_invalid_instr(32, |a| assert!(a.vcvtusi2sh(xmm2, xmm3, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -42475,6 +42824,8 @@ fn vcvtusi2ss_xmm_xmm_m() {
 			Instruction::with3(Code::EVEX_Vcvtusi2ss_xmm_xmm_rm32_er, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vcvtusi2ss_xmm_xmm_rm32_er
+		test_invalid_instr(32, |a| assert!(a.vcvtusi2ss(xmm2, xmm3, zmmword_ptr(edx)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -50967,6 +51318,8 @@ fn vfpclasspd_kr_m_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8, Register::K2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
+		test_invalid_instr(32, |a| assert!(a.vfpclasspd(k2.k1(), byte_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1.is_broadcast() */ {
 		// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
@@ -50989,6 +51342,8 @@ fn vfpclasspd_kr_m_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8, Register::K2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
+		test_invalid_instr(32, |a| assert!(a.vfpclasspd(k2.k1(), byte_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -51043,6 +51398,8 @@ fn vfpclasspd_kr_m_u() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8, Register::K2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
+		test_invalid_instr(32, |a| assert!(a.vfpclasspd(k2.k1(), byte_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -51175,6 +51532,8 @@ fn vfpclassph_kr_m_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, Register::K2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
+		test_invalid_instr(32, |a| assert!(a.vfpclassph(k2.k1(), byte_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1.is_broadcast() */ {
 		// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
@@ -51197,6 +51556,8 @@ fn vfpclassph_kr_m_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, Register::K2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
+		test_invalid_instr(32, |a| assert!(a.vfpclassph(k2.k1(), byte_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -51251,6 +51612,8 @@ fn vfpclassph_kr_m_u() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, Register::K2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
+		test_invalid_instr(32, |a| assert!(a.vfpclassph(k2.k1(), byte_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -51383,6 +51746,8 @@ fn vfpclassps_kr_m_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8, Register::K2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
+		test_invalid_instr(32, |a| assert!(a.vfpclassps(k2.k1(), byte_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op1.is_broadcast() */ {
 		// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
@@ -51405,6 +51770,8 @@ fn vfpclassps_kr_m_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8, Register::K2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
+		test_invalid_instr(32, |a| assert!(a.vfpclassps(k2.k1(), byte_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -51459,6 +51826,8 @@ fn vfpclassps_kr_m_u() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8, Register::K2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
+		test_invalid_instr(32, |a| assert!(a.vfpclassps(k2.k1(), byte_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -51989,6 +52358,8 @@ fn vgatherqps_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vgatherqps_xmm_k1_vm64y, Register::XMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vgatherqps_xmm_k1_vm64y
+		test_invalid_instr(32, |a| assert!(a.vgatherqps(xmm2.k1(), mem(edx+zmm1)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -52015,6 +52386,8 @@ fn vgatherqps_xmm_m_xmm() {
 			Instruction::with3(Code::VEX_Vgatherqps_xmm_vm64y_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// VEX_Vgatherqps_xmm_vm64y_xmm
+		test_invalid_instr(32, |a| assert!(a.vgatherqps_3(xmm2, mem(edx+zmm1), xmm4).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -71392,6 +71765,8 @@ fn vpgatherqd_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vpgatherqd_xmm_k1_vm64y, Register::XMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vpgatherqd_xmm_k1_vm64y
+		test_invalid_instr(32, |a| assert!(a.vpgatherqd(xmm2.k1(), mem(edx+zmm1)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -71418,6 +71793,8 @@ fn vpgatherqd_xmm_m_xmm() {
 			Instruction::with3(Code::VEX_Vpgatherqd_xmm_vm64y_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// VEX_Vpgatherqd_xmm_vm64y_xmm
+		test_invalid_instr(32, |a| assert!(a.vpgatherqd_3(xmm2, mem(edx+zmm1), xmm4).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -78603,6 +78980,8 @@ fn vpscatterqd_m_xmm() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vpscatterqd_vm64y_k1_xmm, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vpscatterqd_vm64y_k1_xmm
+		test_invalid_instr(32, |a| assert!(a.vpscatterqd(mem(edx+zmm0).k1(), xmm3).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -89141,6 +89520,8 @@ fn vscatterqps_m_xmm() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vscatterqps_vm64y_k1_xmm, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// EVEX_Vscatterqps_vm64y_k1_xmm
+		test_invalid_instr(32, |a| assert!(a.vscatterqps(mem(edx+zmm0).k1(), xmm3).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -91979,6 +92360,8 @@ fn xor_m_i() {
 			Instruction::with2(Code::Xor_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Xor_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.xor(zmmword_ptr(edx), -5i32).is_err()), TestInstrFlags::NONE);
 	}
 	/* if op0.size() == MemoryOperandSize::Qword */ {
 		/* if op1 >= i8::MIN as i32 && op1 <= i8::MAX as i32 */ {
@@ -92025,6 +92408,8 @@ fn xor_m_i() {
 			Instruction::with2(Code::Xor_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Xor_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.xor(zmmword_ptr(edx), -5).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -92135,6 +92520,8 @@ fn xor_m_u() {
 			Instruction::with2(Code::Xor_rm8_imm8, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
+		// Xor_rm8_imm8
+		test_invalid_instr(32, |a| assert!(a.xor(zmmword_ptr(edx), 0x7Fu32).is_err()), TestInstrFlags::NONE);
 	}
 }
 

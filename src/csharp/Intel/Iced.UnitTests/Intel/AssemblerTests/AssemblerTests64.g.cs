@@ -180,7 +180,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.adc(__byte_ptr[rdx], 0x7FU), Instruction.Create(Code.Adc_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.adc(__zmmword_ptr[rdx], 0x7FU), Instruction.Create(Code.Adc_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -371,7 +373,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.add(__byte_ptr[rdx], 0x7FU), Instruction.Create(Code.Add_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.add(__zmmword_ptr[rdx], 0x7FU), Instruction.Create(Code.Add_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -732,7 +736,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.and(__byte_ptr[rdx], 0x7FU), Instruction.Create(Code.And_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.and(__zmmword_ptr[rdx], 0x7FU), Instruction.Create(Code.And_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -1379,7 +1385,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.bt(__word_ptr[rdx], (byte)0x7F), Instruction.Create(Code.Bt_rm16_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.bt(__zmmword_ptr[rdx], (byte)0x7F), Instruction.Create(Code.Bt_rm16_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -1469,7 +1477,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.btc(__word_ptr[rdx], (byte)0x7F), Instruction.Create(Code.Btc_rm16_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.btc(__zmmword_ptr[rdx], (byte)0x7F), Instruction.Create(Code.Btc_rm16_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -1559,7 +1569,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.btr(__word_ptr[rdx], (byte)0x7F), Instruction.Create(Code.Btr_rm16_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.btr(__zmmword_ptr[rdx], (byte)0x7F), Instruction.Create(Code.Btr_rm16_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -1649,7 +1661,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.bts(__word_ptr[rdx], (byte)0x7F), Instruction.Create(Code.Bts_rm16_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.bts(__zmmword_ptr[rdx], (byte)0x7F), Instruction.Create(Code.Bts_rm16_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -2467,7 +2481,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.cmp(__byte_ptr[rdx], 0x7FU), Instruction.Create(Code.Cmp_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.cmp(__zmmword_ptr[rdx], 0x7FU), Instruction.Create(Code.Cmp_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -6525,7 +6541,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.mov(__byte_ptr[rdx], 0x7FU), Instruction.Create(Code.Mov_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.mov(__zmmword_ptr[rdx], 0x7FU), Instruction.Create(Code.Mov_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -7547,7 +7565,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.or(__byte_ptr[rdx], 0x7FU), Instruction.Create(Code.Or_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.or(__zmmword_ptr[rdx], 0x7FU), Instruction.Create(Code.Or_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -9549,9 +9569,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					// Skipping Popd_DS - Not supported by current bitness
 				} /* else skip !(Bitness >= 32) not supported by this Assembler bitness */
 			}
-			{
-				// See manual test for this case pop
-			}
 		}
 
 		[Fact]
@@ -10571,9 +10588,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					// Skipping Pushd_DS - Not supported by current bitness
 				} /* else skip !(Bitness >= 32) not supported by this Assembler bitness */
 			}
-			{
-				// See manual test for this case push
-			}
 		}
 
 		[Fact]
@@ -10789,7 +10803,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.rcl(__byte_ptr[rdx], (byte)1), Instruction.Create(Code.Rcl_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
 				}
 				{
-					// Already tested by signed version
+					AssertInvalid(() => {
+						TestAssembler(c => c.rcl(__zmmword_ptr[rdx], (byte)1), Instruction.Create(Code.Rcl_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
+					});
 				}
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.rcl(__qword_ptr[rdx], (byte)2), Instruction.Create(Code.Rcl_rm64_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
@@ -10801,7 +10817,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.rcl(__byte_ptr[rdx], (byte)2), Instruction.Create(Code.Rcl_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.rcl(__zmmword_ptr[rdx], (byte)2), Instruction.Create(Code.Rcl_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
+				});
 			}
 		}
 
@@ -10965,7 +10983,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.rcr(__byte_ptr[rdx], (byte)1), Instruction.Create(Code.Rcr_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
 				}
 				{
-					// Already tested by signed version
+					AssertInvalid(() => {
+						TestAssembler(c => c.rcr(__zmmword_ptr[rdx], (byte)1), Instruction.Create(Code.Rcr_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
+					});
 				}
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.rcr(__qword_ptr[rdx], (byte)2), Instruction.Create(Code.Rcr_rm64_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
@@ -10977,7 +10997,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.rcr(__byte_ptr[rdx], (byte)2), Instruction.Create(Code.Rcr_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.rcr(__zmmword_ptr[rdx], (byte)2), Instruction.Create(Code.Rcr_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
+				});
 			}
 		}
 
@@ -11543,7 +11565,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.rol(__byte_ptr[rdx], (byte)1), Instruction.Create(Code.Rol_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
 				}
 				{
-					// Already tested by signed version
+					AssertInvalid(() => {
+						TestAssembler(c => c.rol(__zmmword_ptr[rdx], (byte)1), Instruction.Create(Code.Rol_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
+					});
 				}
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.rol(__qword_ptr[rdx], (byte)2), Instruction.Create(Code.Rol_rm64_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
@@ -11555,7 +11579,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.rol(__byte_ptr[rdx], (byte)2), Instruction.Create(Code.Rol_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.rol(__zmmword_ptr[rdx], (byte)2), Instruction.Create(Code.Rol_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
+				});
 			}
 		}
 
@@ -11699,7 +11725,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.ror(__byte_ptr[rdx], (byte)1), Instruction.Create(Code.Ror_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
 				}
 				{
-					// Already tested by signed version
+					AssertInvalid(() => {
+						TestAssembler(c => c.ror(__zmmword_ptr[rdx], (byte)1), Instruction.Create(Code.Ror_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
+					});
 				}
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.ror(__qword_ptr[rdx], (byte)2), Instruction.Create(Code.Ror_rm64_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
@@ -11711,7 +11739,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.ror(__byte_ptr[rdx], (byte)2), Instruction.Create(Code.Ror_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.ror(__zmmword_ptr[rdx], (byte)2), Instruction.Create(Code.Ror_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
+				});
 			}
 		}
 
@@ -12010,7 +12040,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.sal(__byte_ptr[rdx], (byte)1), Instruction.Create(Code.Sal_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
 				}
 				{
-					// Already tested by signed version
+					AssertInvalid(() => {
+						TestAssembler(c => c.sal(__zmmword_ptr[rdx], (byte)1), Instruction.Create(Code.Sal_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
+					});
 				}
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.sal(__qword_ptr[rdx], (byte)2), Instruction.Create(Code.Sal_rm64_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
@@ -12022,7 +12054,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.sal(__byte_ptr[rdx], (byte)2), Instruction.Create(Code.Sal_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.sal(__zmmword_ptr[rdx], (byte)2), Instruction.Create(Code.Sal_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
+				});
 			}
 		}
 
@@ -12166,7 +12200,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.sar(__byte_ptr[rdx], (byte)1), Instruction.Create(Code.Sar_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
 				}
 				{
-					// Already tested by signed version
+					AssertInvalid(() => {
+						TestAssembler(c => c.sar(__zmmword_ptr[rdx], (byte)1), Instruction.Create(Code.Sar_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
+					});
 				}
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.sar(__qword_ptr[rdx], (byte)2), Instruction.Create(Code.Sar_rm64_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
@@ -12178,7 +12214,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.sar(__byte_ptr[rdx], (byte)2), Instruction.Create(Code.Sar_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.sar(__zmmword_ptr[rdx], (byte)2), Instruction.Create(Code.Sar_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
+				});
 			}
 		}
 
@@ -12374,7 +12412,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.sbb(__byte_ptr[rdx], 0x7FU), Instruction.Create(Code.Sbb_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.sbb(__zmmword_ptr[rdx], 0x7FU), Instruction.Create(Code.Sbb_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -12820,7 +12860,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.shl(__byte_ptr[rdx], (byte)1), Instruction.Create(Code.Shl_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
 				}
 				{
-					// Already tested by signed version
+					AssertInvalid(() => {
+						TestAssembler(c => c.shl(__zmmword_ptr[rdx], (byte)1), Instruction.Create(Code.Shl_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
+					});
 				}
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.shl(__qword_ptr[rdx], (byte)2), Instruction.Create(Code.Shl_rm64_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
@@ -12832,7 +12874,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.shl(__byte_ptr[rdx], (byte)2), Instruction.Create(Code.Shl_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.shl(__zmmword_ptr[rdx], (byte)2), Instruction.Create(Code.Shl_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
+				});
 			}
 		}
 
@@ -13086,7 +13130,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.shr(__byte_ptr[rdx], (byte)1), Instruction.Create(Code.Shr_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
 				}
 				{
-					// Already tested by signed version
+					AssertInvalid(() => {
+						TestAssembler(c => c.shr(__zmmword_ptr[rdx], (byte)1), Instruction.Create(Code.Shr_rm8_1, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 1U));
+					});
 				}
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.shr(__qword_ptr[rdx], (byte)2), Instruction.Create(Code.Shr_rm64_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
@@ -13098,7 +13144,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.shr(__byte_ptr[rdx], (byte)2), Instruction.Create(Code.Shr_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.shr(__zmmword_ptr[rdx], (byte)2), Instruction.Create(Code.Shr_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 2U));
+				});
 			}
 		}
 
@@ -13607,7 +13655,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.sub(__byte_ptr[rdx], 0x7FU), Instruction.Create(Code.Sub_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.sub(__zmmword_ptr[rdx], 0x7FU), Instruction.Create(Code.Sub_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -13853,7 +13903,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.test(__byte_ptr[rdx], 0x7FU), Instruction.Create(Code.Test_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.test(__zmmword_ptr[rdx], 0x7FU), Instruction.Create(Code.Test_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 
@@ -27923,7 +27975,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.vfpclasspd(k2.k1, __xmmword_ptr[rdx], (byte)0x7F), ApplyK(Instruction.Create(Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8, Register.K2, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU), Register.K1));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.vfpclasspd(k2.k1, __byte_ptr[rdx], (byte)0x7F), ApplyK(Instruction.Create(Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8, Register.K2, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU), Register.K1));
+				});
 			}
 		}
 
@@ -28017,7 +28071,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.vfpclassph(k2.k1, __xmmword_ptr[rdx], (byte)0x7F), ApplyK(Instruction.Create(Code.EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, Register.K2, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU), Register.K1));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.vfpclassph(k2.k1, __byte_ptr[rdx], (byte)0x7F), ApplyK(Instruction.Create(Code.EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, Register.K2, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU), Register.K1));
+				});
 			}
 		}
 
@@ -28111,7 +28167,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.vfpclassps(k2.k1, __xmmword_ptr[rdx], (byte)0x7F), ApplyK(Instruction.Create(Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8, Register.K2, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU), Register.K1));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.vfpclassps(k2.k1, __byte_ptr[rdx], (byte)0x7F), ApplyK(Instruction.Create(Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8, Register.K2, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU), Register.K1));
+				});
 			}
 		}
 
@@ -48043,7 +48101,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.xor(__byte_ptr[rdx], 0x7FU), Instruction.Create(Code.Xor_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
 			}
 			{
-				// Already tested by signed version
+				AssertInvalid(() => {
+					TestAssembler(c => c.xor(__zmmword_ptr[rdx], 0x7FU), Instruction.Create(Code.Xor_rm8_imm8, new MemoryOperand(Register.RDX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+				});
 			}
 		}
 

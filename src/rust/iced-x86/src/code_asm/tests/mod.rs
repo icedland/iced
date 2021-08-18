@@ -5,8 +5,8 @@ mod instr16;
 mod instr32;
 mod instr64;
 
-use crate::{code_asm::*, BlockEncoderOptions};
-use crate::{Code, Decoder, DecoderOptions, MemoryOperand, Register};
+use crate::code_asm::*;
+use crate::{BlockEncoderOptions, Code, Decoder, DecoderOptions, MemoryOperand, Register};
 use core::convert::TryInto;
 
 #[test]
@@ -1022,6 +1022,12 @@ fn test_instr(bitness: u32, create: fn(&mut CodeAssembler), mut expected: Instru
 	} else {
 		assert_eq!(decoded_instr, asm_instr);
 	}
+}
+
+fn test_invalid_instr(bitness: u32, create: fn(&mut CodeAssembler), flags: u32) {
+	let mut a = create_asm(bitness, flags);
+	create(&mut a);
+	assert_eq!(a.instructions.len(), 0);
 }
 
 const FIRST_LABEL_ID: u64 = 1;
