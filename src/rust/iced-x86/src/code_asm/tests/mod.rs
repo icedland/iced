@@ -680,6 +680,7 @@ fn test_mem_ops_16() {
 }
 
 #[test]
+#[allow(clippy::identity_op)]
 fn test_mem_ops_32() {
 	let mut a = CodeAssembler::new(32).unwrap();
 	a.mov(mem(0x1234_5678), eax).unwrap();
@@ -731,6 +732,7 @@ fn test_mem_ops_32() {
 }
 
 #[test]
+#[allow(clippy::identity_op)]
 fn test_mem_ops_64() {
 	let mut a = CodeAssembler::new(64).unwrap();
 	a.mov(mem(0x1234_5678_9ABC_DEF0i64), rax).unwrap();

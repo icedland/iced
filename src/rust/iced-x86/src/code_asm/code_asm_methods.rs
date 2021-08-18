@@ -373,7 +373,6 @@ impl CodeAssembler {
 	/// # Errors
 	///
 	/// Fails if an error was detected
-	#[must_use]
 	#[inline]
 	pub fn fwd(&mut self) -> Result<CodeLabel, IcedError> {
 		// This method returns a `Result<T, E>` for consistency with other methods, including `bwd()`,

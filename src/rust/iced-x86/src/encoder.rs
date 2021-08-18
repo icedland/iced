@@ -863,6 +863,7 @@ impl Encoder {
 		}
 	}
 
+	#[allow(clippy::needless_return)]
 	fn add_mem_op16(&mut self, instruction: &Instruction, operand: u32) {
 		if self.bitness == 64 {
 			self.set_error_message(format!("Operand {}: 16-bit addressing can't be used by 64-bit code", operand));

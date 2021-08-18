@@ -96,6 +96,8 @@ namespace Generator.Assembler.Rust {
 							_ => throw new InvalidOperationException(),
 						};
 						writer.WriteLine($"/// Gets {aOrAn} `{asmInfo.ModName.ToUpperInvariant()}` register or `None` if input is invalid.");
+						writer.WriteLine(RustConstants.AttributeMustUse);
+						writer.WriteLine(RustConstants.AttributeInline);
 						writer.WriteLine($"pub fn get_{asmInfo.ModName}(register: Register) -> Option<{asmInfo.StructName}> {{");
 						using (writer.Indent()) {
 							writer.WriteLine($"if register.{asmInfo.FnIsRegName}() {{");
