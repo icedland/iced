@@ -225,7 +225,7 @@ fn test_label_at_eof() {
 	}
 	{
 		let mut a = CodeAssembler::new(64).unwrap();
-		let _ = a.fwd();
+		let _ = a.fwd().unwrap();
 		assert!(a.assemble(0x1234_5678_9ABC_DEF0).is_err());
 	}
 }
@@ -238,7 +238,7 @@ fn test_anon_labels() {
 	a.xor(rcx, rdx).unwrap();
 	let anon = a.bwd().unwrap();
 	a.je(anon).unwrap();
-	let anon = a.fwd();
+	let anon = a.fwd().unwrap();
 	a.js(anon).unwrap();
 	a.nop().unwrap();
 	a.anonymous_label().unwrap();
@@ -265,7 +265,7 @@ fn test_normal_and_anon_label_error() {
 	let mut a = CodeAssembler::new(64).unwrap();
 	let mut label = a.create_label();
 	a.nop().unwrap();
-	let anon = a.fwd();
+	let anon = a.fwd().unwrap();
 	a.je(anon).unwrap();
 	a.set_current_label(&mut label).unwrap();
 	a.anonymous_label().unwrap();

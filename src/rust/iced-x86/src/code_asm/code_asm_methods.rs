@@ -328,7 +328,7 @@ impl CodeAssembler {
 	/// let anon = a.bwd()?; // Unfortunately, Rust forces us to create a local
 	/// a.je(anon)?;
 	/// // Target is the `sub eax, eax` instruction
-	/// let anon = a.fwd(); // Unfortunately, Rust forces us to create a local
+	/// let anon = a.fwd()?; // Unfortunately, Rust forces us to create a local
 	/// a.js(anon)?;
 	/// a.nop()?;
 	/// // Create the label referenced by `fwd()` above
@@ -369,13 +369,20 @@ impl CodeAssembler {
 	/// Gets the next anonymous label created by a future call to [`anonymous_label()`]
 	///
 	/// [`anonymous_label()`]: #method.anonymous_label
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected
 	#[must_use]
 	#[inline]
-	pub fn fwd(&mut self) -> CodeLabel {
+	pub fn fwd(&mut self) -> Result<CodeLabel, IcedError> {
+		// This method returns a `Result<T, E>` for consistency with other methods, including `bwd()`,
+		// so you don't have to memorize which methods return a Result and which don't.
+
 		if self.next_anon_label.is_empty() {
 			self.next_anon_label = self.create_label();
 		}
-		self.next_anon_label
+		Ok(self.next_anon_label)
 	}
 
 	#[inline]
