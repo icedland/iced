@@ -491,6 +491,7 @@ macro_rules! reg_plus_mem {
 				type Output = AsmMemoryOperand;
 				#[inline]
 				fn add(self, mut rhs: AsmMemoryOperand) -> Self::Output {
+					debug_assert_eq!(rhs.base, Register::None);
 					rhs.base = self.into();
 					rhs
 				}
@@ -500,6 +501,7 @@ macro_rules! reg_plus_mem {
 				type Output = AsmMemoryOperand;
 				#[inline]
 				fn add(mut self, rhs: $reg_ty) -> Self::Output {
+					debug_assert_eq!(self.base, Register::None);
 					self.base = rhs.into();
 					self
 				}
@@ -550,10 +552,14 @@ impl Add<AsmMemoryOperand> for AsmMemoryOperand {
 	fn add(mut self, rhs: AsmMemoryOperand) -> Self::Output {
 		if self.base == Register::None {
 			self.base = rhs.base;
+		} else {
+			debug_assert_eq!(rhs.base, Register::None);
 		}
 		if self.index == Register::None {
 			self.index = rhs.index;
 			self.scale = rhs.scale;
+		} else {
+			debug_assert_eq!(rhs.index, Register::None);
 		}
 		self.displ = self.displ.wrapping_add(rhs.displ);
 		// The remaining fields aren't copied/updated from rhs, eg. segment register, rc, etc.
