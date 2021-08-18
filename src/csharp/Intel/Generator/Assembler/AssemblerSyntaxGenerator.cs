@@ -1520,6 +1520,14 @@ namespace Generator.Assembler {
 				argCount++;
 			}
 
+			public bool HasKind(ArgKind kind) {
+				for (int i = 0; i < argCount; i++) {
+					if (GetArgKind(i) == kind)
+						return true;
+				}
+				return false;
+			}
+
 			public override string ToString() {
 				var builder = new StringBuilder();
 				builder.Append('(');

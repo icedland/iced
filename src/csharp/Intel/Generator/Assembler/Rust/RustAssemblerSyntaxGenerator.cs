@@ -27,12 +27,14 @@ namespace Generator.Assembler.Rust {
 		readonly IdentifierConverter idConverter;
 		readonly EnumType registerType;
 		readonly EnumType memoryOperandSizeType;
+		bool useInt32Suffix;
 
 		public RustAssemblerSyntaxGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
 			idConverter = RustIdentifierConverter.Create();
 			registerType = genTypes[TypeIds.Register];
 			memoryOperandSizeType = genTypes[TypeIds.CodeAsmMemoryOperandSize];
+			useInt32Suffix = true;
 		}
 
 		protected override void GenerateRegisters((RegisterKind kind, RegisterDef[] regs)[] regGroups) {
@@ -966,16 +968,29 @@ namespace Generator.Assembler.Rust {
 							writer.WriteLine($"fn {testFnName}() {{");
 							var args = new TestArgValues(traitGroup.ArgCount);
 							using (writer.Indent()) {
-								if (group.ParentPseudoOpsKind is OpCodeInfoGroup parent)
-									GenerateTestsForInstr(writer, bitness, group, parent.Defs[0], OpCodeArgFlags.None, args);
-								else
-									GenerateTests(writer, bitness, group, group.RootOpCodeNode, OpCodeArgFlags.None, args, false);
+								// If it has i32 args, test without the i32 suffix since that's what user code will look like.
+								// Need to make sure that also compiles. But first, always test with i32 suffixes.
+								if (!useInt32Suffix)
+									throw new InvalidOperationException();
+								GenerateTests(writer, bitness, group, OpCodeArgFlags.None, args, useInt32Suffix: true);
+								if (group.Signature.HasKind(ArgKind.Immediate))
+									GenerateTests(writer, bitness, group, OpCodeArgFlags.None, args, useInt32Suffix: false);
+								useInt32Suffix = true;
 							}
 							writer.WriteLine("}");
 						}
 					}
 				}
 			}
+		}
+
+		void GenerateTests(FileWriter writer, int bitness, OpCodeInfoGroup group, OpCodeArgFlags contextFlags, TestArgValues args,
+			bool useInt32Suffix) {
+			this.useInt32Suffix = useInt32Suffix;
+			if (group.ParentPseudoOpsKind is OpCodeInfoGroup parent)
+				GenerateTestsForInstr(writer, bitness, group, parent.Defs[0], contextFlags, args);
+			else
+				GenerateTests(writer, bitness, group, group.RootOpCodeNode, contextFlags, args, false);
 		}
 
 		static string GetTestMethodName(StringBuilder sb, OpCodeInfoGroup group) {
@@ -1088,7 +1103,7 @@ namespace Generator.Assembler.Rust {
 			int extraArgsCount = 0;
 			if (group.ParentPseudoOpsKind is not null) {
 				extraArgsCount++;
-				withArgs.Add(SignedImmToTestArgValue(group.PseudoOpsKindImmediateValue, 8, 8, 32).WithStr);
+				withArgs.Add(SignedImmToTestArgValue(group.PseudoOpsKindImmediateValue, 8, 8, 8).WithStr);
 			}
 			if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
 				if (SpecialInstructionHasSegmentArg(group.MnemonicName))
@@ -1223,11 +1238,9 @@ namespace Generator.Assembler.Rust {
 		protected override TestArgValueBitness SignedImmToTestArgValue(long immediate, int encImmSizeBits, int immSizeBits, int argSizeBits) {
 			if (encImmSizeBits > immSizeBits)
 				throw new InvalidOperationException();
-			var castType = argSizeBits switch {
-				4 or 8 => "i32",
-				16 => "i32",
-				32 => "i32",
-				64 => "i64",
+			var (castType, castTypeNoSuffix) = argSizeBits switch {
+				4 or 8 or 16 or 32 => ("i32", string.Empty),
+				64 => ("i64", "i64"),
 				_ => throw new InvalidOperationException(),
 			};
 			bool isNeg = immediate < 0;
@@ -1241,8 +1254,8 @@ namespace Generator.Assembler.Rust {
 			if (isNeg)
 				numStr = "-" + numStr;
 
-			var asmStr = numStr + castType;
-			var withStr = asmStr;
+			var asmStr = useInt32Suffix ? numStr + castType : numStr + castTypeNoSuffix;
+			var withStr = numStr + castType;
 
 			return new(asmStr, withStr);
 		}
