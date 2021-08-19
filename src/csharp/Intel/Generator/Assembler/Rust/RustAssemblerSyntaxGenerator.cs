@@ -306,13 +306,7 @@ namespace Generator.Assembler.Rust {
 			}
 		}
 
-		static string GetName(MemorySizeFuncInfo fnInfo) {
-			var name = fnInfo.Kind switch {
-				MemorySizeFnKind.Ptr => "mem",
-				_ => fnInfo.Name.Replace(' ', '_'),
-			};
-			return name;
-		}
+		static string GetName(MemorySizeFuncInfo fnInfo) => fnInfo.Name.Replace(' ', '_');
 
 		protected override void GenerateMemorySizeFunctions(MemorySizeFuncInfo[] infos) {
 			var filename = genTypes.Dirs.GetRustFilename("code_asm", "mem.rs");
@@ -321,7 +315,7 @@ namespace Generator.Assembler.Rust {
 				for (int i = 0; i < infos.Length; i++) {
 					var info = infos[i];
 					var fnName = GetName(info);
-					var calledFnName = info.IsBroadcast ? "bcst" : "mem";
+					var calledFnName = info.IsBroadcast ? "bcst" : "ptr";
 
 					if (i != 0)
 						writer.WriteLine();

@@ -544,14 +544,14 @@ fn add_instruction() {
 #[test]
 fn test_mem_seg_overrides() {
 	let mut a = CodeAssembler::new(64).unwrap();
-	a.mov(mem(rax), cl).unwrap();
-	a.mov(mem(rax).es(), cl).unwrap();
-	a.mov(mem(rax).cs(), cl).unwrap();
-	a.mov(mem(rax).ss(), cl).unwrap();
-	a.mov(mem(rax).ds(), cl).unwrap();
-	a.mov(mem(rax).fs(), cl).unwrap();
-	a.mov(mem(rax).gs(), cl).unwrap();
-	a.mov(mem(rax), cl).unwrap();
+	a.mov(ptr(rax), cl).unwrap();
+	a.mov(ptr(rax).es(), cl).unwrap();
+	a.mov(ptr(rax).cs(), cl).unwrap();
+	a.mov(ptr(rax).ss(), cl).unwrap();
+	a.mov(ptr(rax).ds(), cl).unwrap();
+	a.mov(ptr(rax).fs(), cl).unwrap();
+	a.mov(ptr(rax).gs(), cl).unwrap();
+	a.mov(ptr(rax), cl).unwrap();
 	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
 	assert_eq!(bytes, b"\x88\x08\x26\x88\x08\x2E\x88\x08\x36\x88\x08\x3E\x88\x08\x64\x88\x08\x65\x88\x08\x88\x08");
 }
@@ -560,15 +560,15 @@ fn test_mem_seg_overrides() {
 fn test_mem_op_masks() {
 	let mut a = CodeAssembler::new(64).unwrap();
 	a.set_prefer_vex(false);
-	a.vmovups(mem(rax + 0x10), xmm2).unwrap();
-	a.vmovups(mem(rax + 0x10).k1(), xmm2).unwrap();
-	a.vmovups(mem(rax + 0x10).k2(), xmm2).unwrap();
-	a.vmovups(mem(rax + 0x10).k3(), xmm2).unwrap();
-	a.vmovups(mem(rax + 0x10).k4(), xmm2).unwrap();
-	a.vmovups(mem(rax + 0x10).k5(), xmm2).unwrap();
-	a.vmovups(mem(rax + 0x10).k6(), xmm2).unwrap();
-	a.vmovups(mem(rax + 0x10).k7(), xmm2).unwrap();
-	a.vmovups(mem(rax + 0x10), xmm2).unwrap();
+	a.vmovups(ptr(rax + 0x10), xmm2).unwrap();
+	a.vmovups(ptr(rax + 0x10).k1(), xmm2).unwrap();
+	a.vmovups(ptr(rax + 0x10).k2(), xmm2).unwrap();
+	a.vmovups(ptr(rax + 0x10).k3(), xmm2).unwrap();
+	a.vmovups(ptr(rax + 0x10).k4(), xmm2).unwrap();
+	a.vmovups(ptr(rax + 0x10).k5(), xmm2).unwrap();
+	a.vmovups(ptr(rax + 0x10).k6(), xmm2).unwrap();
+	a.vmovups(ptr(rax + 0x10).k7(), xmm2).unwrap();
+	a.vmovups(ptr(rax + 0x10), xmm2).unwrap();
 	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
 	assert_eq!(
 		bytes,
@@ -643,21 +643,21 @@ fn test_reg_sae_er() {
 #[test]
 fn test_mem_ops_16() {
 	let mut a = CodeAssembler::new(16).unwrap();
-	a.mov(mem(0x1234), eax).unwrap();
-	a.mov(ax, mem(0xFEDC)).unwrap();
-	a.mov(mem(bx), cl).unwrap();
-	a.mov(mem(bp), cl).unwrap();
-	a.mov(mem(bx + 1), cl).unwrap();
-	a.mov(mem(bp - 1), cl).unwrap();
-	a.mov(mem(bx + 0x1234), cl).unwrap();
-	a.mov(mem(bp - 0x1234), cl).unwrap();
-	a.mov(mem(bx + si), cl).unwrap();
-	a.mov(mem(bx + si + 1), cl).unwrap();
-	a.mov(mem(bx + si - 1), cl).unwrap();
-	a.mov(mem(bp + di + 0x1234), cl).unwrap();
-	a.mov(mem(bp + di - 0x1234), cl).unwrap();
-	a.mov(mem((bp + di - 0x1234) - 10), cl).unwrap();
-	a.mov(mem((bp + di - 0x1234) + 10), cl).unwrap();
+	a.mov(ptr(0x1234), eax).unwrap();
+	a.mov(ax, ptr(0xFEDC)).unwrap();
+	a.mov(ptr(bx), cl).unwrap();
+	a.mov(ptr(bp), cl).unwrap();
+	a.mov(ptr(bx + 1), cl).unwrap();
+	a.mov(ptr(bp - 1), cl).unwrap();
+	a.mov(ptr(bx + 0x1234), cl).unwrap();
+	a.mov(ptr(bp - 0x1234), cl).unwrap();
+	a.mov(ptr(bx + si), cl).unwrap();
+	a.mov(ptr(bx + si + 1), cl).unwrap();
+	a.mov(ptr(bx + si - 1), cl).unwrap();
+	a.mov(ptr(bp + di + 0x1234), cl).unwrap();
+	a.mov(ptr(bp + di - 0x1234), cl).unwrap();
+	a.mov(ptr((bp + di - 0x1234) - 10), cl).unwrap();
+	a.mov(ptr((bp + di - 0x1234) + 10), cl).unwrap();
 	let bytes = a.assemble(0x1234).unwrap();
 	assert_eq!(
 		bytes,
@@ -683,27 +683,27 @@ fn test_mem_ops_16() {
 #[allow(clippy::identity_op)]
 fn test_mem_ops_32() {
 	let mut a = CodeAssembler::new(32).unwrap();
-	a.mov(mem(0x1234_5678), eax).unwrap();
-	a.mov(ax, mem(0xFEDC_BA98u32)).unwrap();
-	a.mov(mem(ecx), cl).unwrap();
-	a.mov(mem(ecx + 123), cl).unwrap();
-	a.mov(mem(ecx - 123), cl).unwrap();
-	a.mov(mem(ecx * 1), cl).unwrap();
-	a.mov(mem(ecx * 2), cl).unwrap();
-	a.mov(mem(ecx * 2 + 123), cl).unwrap();
-	a.mov(mem(ecx * 2 - 123), cl).unwrap();
-	a.mov(mem(ecx + edx), cl).unwrap();
-	a.mov(mem(ecx + edx * 1), cl).unwrap();
-	a.mov(mem(ecx + edx * 2), cl).unwrap();
-	a.mov(mem(ecx + edx * 4 + 123), cl).unwrap();
-	a.mov(mem(ecx + edx * 8 - 123), cl).unwrap();
-	a.mov(mem((ecx + edx * 8 - 123) - 10), cl).unwrap();
-	a.mov(mem((ecx + edx * 8 - 123) + 10), cl).unwrap();
-	a.mov(mem(2 * ecx), cl).unwrap();
-	a.vpgatherdd(xmm2.k1(), mem(ecx + xmm4 * 4 + 1)).unwrap();
-	a.vpgatherdd(xmm2.k2(), mem(xmm4 * 4 + ecx - 1)).unwrap();
-	a.vpgatherdd(xmm2.k3(), mem(xmm4 + ecx + 1)).unwrap();
-	a.vpgatherdd(xmm2.k4(), mem(ecx + xmm4 - 1)).unwrap();
+	a.mov(ptr(0x1234_5678), eax).unwrap();
+	a.mov(ax, ptr(0xFEDC_BA98u32)).unwrap();
+	a.mov(ptr(ecx), cl).unwrap();
+	a.mov(ptr(ecx + 123), cl).unwrap();
+	a.mov(ptr(ecx - 123), cl).unwrap();
+	a.mov(ptr(ecx * 1), cl).unwrap();
+	a.mov(ptr(ecx * 2), cl).unwrap();
+	a.mov(ptr(ecx * 2 + 123), cl).unwrap();
+	a.mov(ptr(ecx * 2 - 123), cl).unwrap();
+	a.mov(ptr(ecx + edx), cl).unwrap();
+	a.mov(ptr(ecx + edx * 1), cl).unwrap();
+	a.mov(ptr(ecx + edx * 2), cl).unwrap();
+	a.mov(ptr(ecx + edx * 4 + 123), cl).unwrap();
+	a.mov(ptr(ecx + edx * 8 - 123), cl).unwrap();
+	a.mov(ptr((ecx + edx * 8 - 123) - 10), cl).unwrap();
+	a.mov(ptr((ecx + edx * 8 - 123) + 10), cl).unwrap();
+	a.mov(ptr(2 * ecx), cl).unwrap();
+	a.vpgatherdd(xmm2.k1(), ptr(ecx + xmm4 * 4 + 1)).unwrap();
+	a.vpgatherdd(xmm2.k2(), ptr(xmm4 * 4 + ecx - 1)).unwrap();
+	a.vpgatherdd(xmm2.k3(), ptr(xmm4 + ecx + 1)).unwrap();
+	a.vpgatherdd(xmm2.k4(), ptr(ecx + xmm4 - 1)).unwrap();
 	let bytes = a.assemble(0x1234_5678).unwrap();
 	assert_eq!(
 		bytes,
@@ -735,27 +735,27 @@ fn test_mem_ops_32() {
 #[allow(clippy::identity_op)]
 fn test_mem_ops_64() {
 	let mut a = CodeAssembler::new(64).unwrap();
-	a.mov(mem(0x1234_5678_9ABC_DEF0i64), rax).unwrap();
-	a.mov(eax, mem(0xF234_5678_9ABC_DEF1u64)).unwrap();
-	a.mov(mem(rcx), cl).unwrap();
-	a.mov(mem(rcx + 123), cl).unwrap();
-	a.mov(mem(rcx - 123), cl).unwrap();
-	a.mov(mem(rcx * 1), cl).unwrap();
-	a.mov(mem(rcx * 2), cl).unwrap();
-	a.mov(mem(rcx * 2 + 123), cl).unwrap();
-	a.mov(mem(rcx * 2 - 123), cl).unwrap();
-	a.mov(mem(rcx + rdx), cl).unwrap();
-	a.mov(mem(rcx + rdx * 1), cl).unwrap();
-	a.mov(mem(rcx + rdx * 2), cl).unwrap();
-	a.mov(mem(rcx + rdx * 4 + 123), cl).unwrap();
-	a.mov(mem(rcx + rdx * 8 - 123), cl).unwrap();
-	a.mov(mem((rcx + rdx * 8 - 123) - 10), cl).unwrap();
-	a.mov(mem((rcx + rdx * 8 - 123) + 10), cl).unwrap();
-	a.mov(mem(2 * rcx), cl).unwrap();
-	a.vpgatherdd(xmm2.k1(), mem(rcx + xmm4 * 4 + 1)).unwrap();
-	a.vpgatherdd(xmm2.k2(), mem(xmm4 * 4 + rcx - 1)).unwrap();
-	a.vpgatherdd(xmm2.k3(), mem(xmm4 + rcx + 1)).unwrap();
-	a.vpgatherdd(xmm2.k4(), mem(rcx + xmm4 - 1)).unwrap();
+	a.mov(ptr(0x1234_5678_9ABC_DEF0i64), rax).unwrap();
+	a.mov(eax, ptr(0xF234_5678_9ABC_DEF1u64)).unwrap();
+	a.mov(ptr(rcx), cl).unwrap();
+	a.mov(ptr(rcx + 123), cl).unwrap();
+	a.mov(ptr(rcx - 123), cl).unwrap();
+	a.mov(ptr(rcx * 1), cl).unwrap();
+	a.mov(ptr(rcx * 2), cl).unwrap();
+	a.mov(ptr(rcx * 2 + 123), cl).unwrap();
+	a.mov(ptr(rcx * 2 - 123), cl).unwrap();
+	a.mov(ptr(rcx + rdx), cl).unwrap();
+	a.mov(ptr(rcx + rdx * 1), cl).unwrap();
+	a.mov(ptr(rcx + rdx * 2), cl).unwrap();
+	a.mov(ptr(rcx + rdx * 4 + 123), cl).unwrap();
+	a.mov(ptr(rcx + rdx * 8 - 123), cl).unwrap();
+	a.mov(ptr((rcx + rdx * 8 - 123) - 10), cl).unwrap();
+	a.mov(ptr((rcx + rdx * 8 - 123) + 10), cl).unwrap();
+	a.mov(ptr(2 * rcx), cl).unwrap();
+	a.vpgatherdd(xmm2.k1(), ptr(rcx + xmm4 * 4 + 1)).unwrap();
+	a.vpgatherdd(xmm2.k2(), ptr(xmm4 * 4 + rcx - 1)).unwrap();
+	a.vpgatherdd(xmm2.k3(), ptr(xmm4 + rcx + 1)).unwrap();
+	a.vpgatherdd(xmm2.k4(), ptr(rcx + xmm4 - 1)).unwrap();
 	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
 	assert_eq!(
 		bytes,
@@ -791,8 +791,8 @@ fn test_label_mem_ops() {
 	a.nop().unwrap();
 	a.set_label(&mut lbl1).unwrap();
 	a.int1().unwrap();
-	a.lea(rax, mem(lbl1)).unwrap();
-	a.lea(rax, mem(lbl2)).unwrap();
+	a.lea(rax, ptr(lbl1)).unwrap();
+	a.lea(rax, ptr(lbl2)).unwrap();
 	a.int3().unwrap();
 	a.set_label(&mut lbl2).unwrap();
 	a.db(b"\x12\x34\x56\x78").unwrap();

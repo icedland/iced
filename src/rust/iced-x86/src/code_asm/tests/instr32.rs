@@ -1059,7 +1059,7 @@ fn aesdec_xmm_m() {
 #[rustfmt::skip]
 fn aesdec128kl_xmm_m() {
 	// Aesdec128kl_xmm_m384
-	test_instr(32, |a| a.aesdec128kl(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.aesdec128kl(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Aesdec128kl_xmm_m384, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -1068,7 +1068,7 @@ fn aesdec128kl_xmm_m() {
 #[rustfmt::skip]
 fn aesdec256kl_xmm_m() {
 	// Aesdec256kl_xmm_m512
-	test_instr(32, |a| a.aesdec256kl(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.aesdec256kl(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Aesdec256kl_xmm_m512, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -1095,7 +1095,7 @@ fn aesdeclast_xmm_m() {
 #[rustfmt::skip]
 fn aesdecwide128kl_m() {
 	// Aesdecwide128kl_m384
-	test_instr(32, |a| a.aesdecwide128kl(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.aesdecwide128kl(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Aesdecwide128kl_m384, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -1104,7 +1104,7 @@ fn aesdecwide128kl_m() {
 #[rustfmt::skip]
 fn aesdecwide256kl_m() {
 	// Aesdecwide256kl_m512
-	test_instr(32, |a| a.aesdecwide256kl(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.aesdecwide256kl(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Aesdecwide256kl_m512, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -1131,7 +1131,7 @@ fn aesenc_xmm_m() {
 #[rustfmt::skip]
 fn aesenc128kl_xmm_m() {
 	// Aesenc128kl_xmm_m384
-	test_instr(32, |a| a.aesenc128kl(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.aesenc128kl(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Aesenc128kl_xmm_m384, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -1140,7 +1140,7 @@ fn aesenc128kl_xmm_m() {
 #[rustfmt::skip]
 fn aesenc256kl_xmm_m() {
 	// Aesenc256kl_xmm_m512
-	test_instr(32, |a| a.aesenc256kl(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.aesenc256kl(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Aesenc256kl_xmm_m512, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -1167,7 +1167,7 @@ fn aesenclast_xmm_m() {
 #[rustfmt::skip]
 fn aesencwide128kl_m() {
 	// Aesencwide128kl_m384
-	test_instr(32, |a| a.aesencwide128kl(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.aesencwide128kl(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Aesencwide128kl_m384, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -1176,7 +1176,7 @@ fn aesencwide128kl_m() {
 #[rustfmt::skip]
 fn aesencwide256kl_m() {
 	// Aesencwide256kl_m512
-	test_instr(32, |a| a.aesencwide256kl(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.aesencwide256kl(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Aesencwide256kl_m512, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -2252,7 +2252,7 @@ fn bndcu_bnd_m() {
 #[rustfmt::skip]
 fn bndldx_bnd_m() {
 	// Bndldx_bnd_mib
-	test_instr(32, |a| a.bndldx(bnd2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.bndldx(bnd2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Bndldx_bnd_mib, Register::BND2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::MPX);
 }
@@ -2293,7 +2293,7 @@ fn bndmov_m_bnd() {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
 	} /* else */ {
 		// Bndmov_bndm64_bnd
-		test_instr(32, |a| a.bndmov(mem(ecx), bnd3).unwrap(),
+		test_instr(32, |a| a.bndmov(ptr(ecx), bnd3).unwrap(),
 			Instruction::with2(Code::Bndmov_bndm64_bnd, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::BND3).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::MPX);
 	}
@@ -2306,7 +2306,7 @@ fn bndmov_bnd_m() {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
 	} /* else */ {
 		// Bndmov_bnd_bndm64
-		test_instr(32, |a| a.bndmov(bnd2, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.bndmov(bnd2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::Bndmov_bnd_bndm64, Register::BND2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::MPX);
 	}
@@ -2316,7 +2316,7 @@ fn bndmov_bnd_m() {
 #[rustfmt::skip]
 fn bndstx_m_bnd() {
 	// Bndstx_mib_bnd
-	test_instr(32, |a| a.bndstx(mem(ecx), bnd3).unwrap(),
+	test_instr(32, |a| a.bndstx(ptr(ecx), bnd3).unwrap(),
 		Instruction::with2(Code::Bndstx_mib_bnd, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::BND3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::MPX);
 }
@@ -2325,7 +2325,7 @@ fn bndstx_m_bnd() {
 #[rustfmt::skip]
 fn bound_r16_m() {
 	// Bound_r16_m1616
-	test_instr(32, |a| a.bound(dx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.bound(dx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Bound_r16_m1616, Register::DX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -2334,7 +2334,7 @@ fn bound_r16_m() {
 #[rustfmt::skip]
 fn bound_r32_m() {
 	// Bound_r32_m3232
-	test_instr(32, |a| a.bound(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.bound(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Bound_r32_m3232, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -3167,7 +3167,7 @@ fn cld() {
 #[rustfmt::skip]
 fn cldemote_m() {
 	// Cldemote_m8
-	test_instr(32, |a| a.cldemote(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.cldemote(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Cldemote_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -3176,7 +3176,7 @@ fn cldemote_m() {
 #[rustfmt::skip]
 fn clflush_m() {
 	// Clflush_m8
-	test_instr(32, |a| a.clflush(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.clflush(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Clflush_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -3185,7 +3185,7 @@ fn clflush_m() {
 #[rustfmt::skip]
 fn clflushopt_m() {
 	// Clflushopt_m8
-	test_instr(32, |a| a.clflushopt(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.clflushopt(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Clflushopt_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -3212,7 +3212,7 @@ fn cli() {
 #[rustfmt::skip]
 fn clrssbsy_m() {
 	// Clrssbsy_m64
-	test_instr(32, |a| a.clrssbsy(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.clrssbsy(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Clrssbsy_m64, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -3230,7 +3230,7 @@ fn clts() {
 #[rustfmt::skip]
 fn clwb_m() {
 	// Clwb_m8
-	test_instr(32, |a| a.clwb(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.clwb(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Clwb_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -5083,7 +5083,7 @@ fn cmpxchg_m_r32() {
 #[rustfmt::skip]
 fn cmpxchg8b_m() {
 	// Cmpxchg8b_m64
-	test_instr(32, |a| a.cmpxchg8b(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.cmpxchg8b(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Cmpxchg8b_m64, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -6007,7 +6007,7 @@ fn endbr64() {
 #[rustfmt::skip]
 fn enqcmd_r16_m() {
 	// Enqcmd_r16_m512
-	test_instr(32, |a| a.enqcmd(dx, mem(si)).unwrap(),
+	test_instr(32, |a| a.enqcmd(dx, ptr(si)).unwrap(),
 		Instruction::with2(Code::Enqcmd_r16_m512, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -6016,7 +6016,7 @@ fn enqcmd_r16_m() {
 #[rustfmt::skip]
 fn enqcmd_r32_m() {
 	// Enqcmd_r32_m512
-	test_instr(32, |a| a.enqcmd(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.enqcmd(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Enqcmd_r32_m512, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -6025,7 +6025,7 @@ fn enqcmd_r32_m() {
 #[rustfmt::skip]
 fn enqcmds_r16_m() {
 	// Enqcmds_r16_m512
-	test_instr(32, |a| a.enqcmds(dx, mem(si)).unwrap(),
+	test_instr(32, |a| a.enqcmds(dx, ptr(si)).unwrap(),
 		Instruction::with2(Code::Enqcmds_r16_m512, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -6034,7 +6034,7 @@ fn enqcmds_r16_m() {
 #[rustfmt::skip]
 fn enqcmds_r32_m() {
 	// Enqcmds_r32_m512
-	test_instr(32, |a| a.enqcmds(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.enqcmds(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Enqcmds_r32_m512, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -6220,7 +6220,7 @@ fn faddp_st_st() {
 #[rustfmt::skip]
 fn fbld_m() {
 	// Fbld_m80bcd
-	test_instr(32, |a| a.fbld(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.fbld(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Fbld_m80bcd, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -6229,7 +6229,7 @@ fn fbld_m() {
 #[rustfmt::skip]
 fn fbstp_m() {
 	// Fbstp_m80bcd
-	test_instr(32, |a| a.fbstp(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.fbstp(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Fbstp_m80bcd, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -6865,7 +6865,7 @@ fn fld1() {
 #[rustfmt::skip]
 fn fldcw_m() {
 	// Fldcw_m2byte
-	test_instr(32, |a| a.fldcw(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.fldcw(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Fldcw_m2byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -6875,7 +6875,7 @@ fn fldcw_m() {
 fn fldenv_m() {
 	/* if self.bitness() >= 32 */ {
 		// Fldenv_m28byte
-		test_instr(32, |a| a.fldenv(mem(ecx)).unwrap(),
+		test_instr(32, |a| a.fldenv(ptr(ecx)).unwrap(),
 			Instruction::with1(Code::Fldenv_m28byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
@@ -7031,7 +7031,7 @@ fn fnop() {
 fn fnsave_m() {
 	/* if self.bitness() >= 32 */ {
 		// Fnsave_m108byte
-		test_instr(32, |a| a.fnsave(mem(ecx)).unwrap(),
+		test_instr(32, |a| a.fnsave(ptr(ecx)).unwrap(),
 			Instruction::with1(Code::Fnsave_m108byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
@@ -7052,7 +7052,7 @@ fn fnsetpm() {
 #[rustfmt::skip]
 fn fnstcw_m() {
 	// Fnstcw_m2byte
-	test_instr(32, |a| a.fnstcw(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.fnstcw(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Fnstcw_m2byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -7071,7 +7071,7 @@ fn fnstdw_r16() {
 fn fnstenv_m() {
 	/* if self.bitness() >= 32 */ {
 		// Fnstenv_m28byte
-		test_instr(32, |a| a.fnstenv(mem(ecx)).unwrap(),
+		test_instr(32, |a| a.fnstenv(ptr(ecx)).unwrap(),
 			Instruction::with1(Code::Fnstenv_m28byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
@@ -7101,7 +7101,7 @@ fn fnstsw_r16() {
 #[rustfmt::skip]
 fn fnstsw_m() {
 	// Fnstsw_m2byte
-	test_instr(32, |a| a.fnstsw(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.fnstsw(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Fnstsw_m2byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -7156,7 +7156,7 @@ fn frndint() {
 fn frstor_m() {
 	/* if self.bitness() >= 32 */ {
 		// Frstor_m108byte
-		test_instr(32, |a| a.frstor(mem(ecx)).unwrap(),
+		test_instr(32, |a| a.frstor(ptr(ecx)).unwrap(),
 			Instruction::with1(Code::Frstor_m108byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
@@ -7178,7 +7178,7 @@ fn frstpm() {
 fn fsave_m() {
 	/* if self.bitness() >= 32 */ {
 		// Fsave_m108byte
-		test_instr(32, |a| a.fsave(mem(ecx)).unwrap(),
+		test_instr(32, |a| a.fsave(ptr(ecx)).unwrap(),
 			Instruction::with1(Code::Fsave_m108byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::FWAIT, DecoderOptions::NONE);
 	} /* else */ {
@@ -7263,7 +7263,7 @@ fn fst_m() {
 #[rustfmt::skip]
 fn fstcw_m() {
 	// Fstcw_m2byte
-	test_instr(32, |a| a.fstcw(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.fstcw(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Fstcw_m2byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::FWAIT, DecoderOptions::NONE);
 }
@@ -7282,7 +7282,7 @@ fn fstdw_r16() {
 fn fstenv_m() {
 	/* if self.bitness() >= 32 */ {
 		// Fstenv_m28byte
-		test_instr(32, |a| a.fstenv(mem(ecx)).unwrap(),
+		test_instr(32, |a| a.fstenv(ptr(ecx)).unwrap(),
 			Instruction::with1(Code::Fstenv_m28byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::FWAIT, DecoderOptions::NONE);
 	} /* else */ {
@@ -7354,7 +7354,7 @@ fn fstsw_r16() {
 #[rustfmt::skip]
 fn fstsw_m() {
 	// Fstsw_m2byte
-	test_instr(32, |a| a.fstsw(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.fstsw(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Fstsw_m2byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::FWAIT, DecoderOptions::NONE);
 }
@@ -7523,7 +7523,7 @@ fn fxch_st_st() {
 #[rustfmt::skip]
 fn fxrstor_m() {
 	// Fxrstor_m512byte
-	test_instr(32, |a| a.fxrstor(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.fxrstor(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Fxrstor_m512byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -7532,7 +7532,7 @@ fn fxrstor_m() {
 #[rustfmt::skip]
 fn fxsave_m() {
 	// Fxsave_m512byte
-	test_instr(32, |a| a.fxsave(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.fxsave(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Fxsave_m512byte, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -8507,7 +8507,7 @@ fn invd() {
 #[rustfmt::skip]
 fn invept_r32_m() {
 	// Invept_r32_m128
-	test_instr(32, |a| a.invept(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.invept(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Invept_r32_m128, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -8516,7 +8516,7 @@ fn invept_r32_m() {
 #[rustfmt::skip]
 fn invlpg_m() {
 	// Invlpg_m
-	test_instr(32, |a| a.invlpg(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.invlpg(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Invlpg_m, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -8555,7 +8555,7 @@ fn invlpgb() {
 #[rustfmt::skip]
 fn invpcid_r32_m() {
 	// Invpcid_r32_m128
-	test_instr(32, |a| a.invpcid(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.invpcid(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Invpcid_r32_m128, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -8564,7 +8564,7 @@ fn invpcid_r32_m() {
 #[rustfmt::skip]
 fn invvpid_r32_m() {
 	// Invvpid_r32_m128
-	test_instr(32, |a| a.invvpid(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.invvpid(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Invvpid_r32_m128, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -9744,7 +9744,7 @@ fn kmovb_kr_kr() {
 #[rustfmt::skip]
 fn kmovb_m_kr() {
 	// VEX_Kmovb_m8_kr
-	test_instr(32, |a| a.kmovb(mem(ecx), k3).unwrap(),
+	test_instr(32, |a| a.kmovb(ptr(ecx), k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovb_m8_kr, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::K3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -9753,7 +9753,7 @@ fn kmovb_m_kr() {
 #[rustfmt::skip]
 fn kmovb_kr_m() {
 	// VEX_Kmovb_kr_km8
-	test_instr(32, |a| a.kmovb(k2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.kmovb(k2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Kmovb_kr_km8, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -9789,7 +9789,7 @@ fn kmovd_kr_kr() {
 #[rustfmt::skip]
 fn kmovd_m_kr() {
 	// VEX_Kmovd_m32_kr
-	test_instr(32, |a| a.kmovd(mem(ecx), k3).unwrap(),
+	test_instr(32, |a| a.kmovd(ptr(ecx), k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovd_m32_kr, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::K3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -9798,7 +9798,7 @@ fn kmovd_m_kr() {
 #[rustfmt::skip]
 fn kmovd_kr_m() {
 	// VEX_Kmovd_kr_km32
-	test_instr(32, |a| a.kmovd(k2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.kmovd(k2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Kmovd_kr_km32, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -9816,7 +9816,7 @@ fn kmovq_kr_kr() {
 #[rustfmt::skip]
 fn kmovq_m_kr() {
 	// VEX_Kmovq_m64_kr
-	test_instr(32, |a| a.kmovq(mem(ecx), k3).unwrap(),
+	test_instr(32, |a| a.kmovq(ptr(ecx), k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovq_m64_kr, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::K3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -9825,7 +9825,7 @@ fn kmovq_m_kr() {
 #[rustfmt::skip]
 fn kmovq_kr_m() {
 	// VEX_Kmovq_kr_km64
-	test_instr(32, |a| a.kmovq(k2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.kmovq(k2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Kmovq_kr_km64, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -9861,7 +9861,7 @@ fn kmovw_kr_kr() {
 #[rustfmt::skip]
 fn kmovw_m_kr() {
 	// VEX_Kmovw_m16_kr
-	test_instr(32, |a| a.kmovw(mem(ecx), k3).unwrap(),
+	test_instr(32, |a| a.kmovw(ptr(ecx), k3).unwrap(),
 		Instruction::with2(Code::VEX_Kmovw_m16_kr, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::K3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -9870,7 +9870,7 @@ fn kmovw_m_kr() {
 #[rustfmt::skip]
 fn kmovw_kr_m() {
 	// VEX_Kmovw_kr_km16
-	test_instr(32, |a| a.kmovw(k2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.kmovw(k2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Kmovw_kr_km16, Register::K2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10343,7 +10343,7 @@ fn lar_r32_m() {
 #[rustfmt::skip]
 fn lddqu_xmm_m() {
 	// Lddqu_xmm_m128
-	test_instr(32, |a| a.lddqu(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lddqu(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lddqu_xmm_m128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10352,7 +10352,7 @@ fn lddqu_xmm_m() {
 #[rustfmt::skip]
 fn ldmxcsr_m() {
 	// Ldmxcsr_m32
-	test_instr(32, |a| a.ldmxcsr(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.ldmxcsr(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Ldmxcsr_m32, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10361,7 +10361,7 @@ fn ldmxcsr_m() {
 #[rustfmt::skip]
 fn lds_r16_m() {
 	// Lds_r16_m1616
-	test_instr(32, |a| a.lds(dx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lds(dx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lds_r16_m1616, Register::DX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10370,7 +10370,7 @@ fn lds_r16_m() {
 #[rustfmt::skip]
 fn lds_r32_m() {
 	// Lds_r32_m1632
-	test_instr(32, |a| a.lds(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lds(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lds_r32_m1632, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10379,7 +10379,7 @@ fn lds_r32_m() {
 #[rustfmt::skip]
 fn lea_r16_m() {
 	// Lea_r16_m
-	test_instr(32, |a| a.lea(dx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lea(dx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lea_r16_m, Register::DX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10388,7 +10388,7 @@ fn lea_r16_m() {
 #[rustfmt::skip]
 fn lea_r32_m() {
 	// Lea_r32_m
-	test_instr(32, |a| a.lea(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lea(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lea_r32_m, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10412,7 +10412,7 @@ fn leave() {
 #[rustfmt::skip]
 fn les_r16_m() {
 	// Les_r16_m1616
-	test_instr(32, |a| a.les(dx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.les(dx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Les_r16_m1616, Register::DX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10421,7 +10421,7 @@ fn les_r16_m() {
 #[rustfmt::skip]
 fn les_r32_m() {
 	// Les_r32_m1632
-	test_instr(32, |a| a.les(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.les(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Les_r32_m1632, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10439,7 +10439,7 @@ fn lfence() {
 #[rustfmt::skip]
 fn lfs_r16_m() {
 	// Lfs_r16_m1616
-	test_instr(32, |a| a.lfs(dx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lfs(dx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lfs_r16_m1616, Register::DX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10448,7 +10448,7 @@ fn lfs_r16_m() {
 #[rustfmt::skip]
 fn lfs_r32_m() {
 	// Lfs_r32_m1632
-	test_instr(32, |a| a.lfs(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lfs(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lfs_r32_m1632, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10460,7 +10460,7 @@ fn lgdt_m() {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
 	} /* else if self.bitness() >= 32 */ {
 		// Lgdt_m1632
-		test_instr(32, |a| a.lgdt(mem(ecx)).unwrap(),
+		test_instr(32, |a| a.lgdt(ptr(ecx)).unwrap(),
 			Instruction::with1(Code::Lgdt_m1632, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
@@ -10472,7 +10472,7 @@ fn lgdt_m() {
 #[rustfmt::skip]
 fn lgs_r16_m() {
 	// Lgs_r16_m1616
-	test_instr(32, |a| a.lgs(dx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lgs(dx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lgs_r16_m1616, Register::DX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10481,7 +10481,7 @@ fn lgs_r16_m() {
 #[rustfmt::skip]
 fn lgs_r32_m() {
 	// Lgs_r32_m1632
-	test_instr(32, |a| a.lgs(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lgs(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lgs_r32_m1632, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10493,7 +10493,7 @@ fn lidt_m() {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
 	} /* else if self.bitness() >= 32 */ {
 		// Lidt_m1632
-		test_instr(32, |a| a.lidt(mem(ecx)).unwrap(),
+		test_instr(32, |a| a.lidt(ptr(ecx)).unwrap(),
 			Instruction::with1(Code::Lidt_m1632, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
@@ -10747,7 +10747,7 @@ fn lsl_r32_m() {
 #[rustfmt::skip]
 fn lss_r16_m() {
 	// Lss_r16_m1616
-	test_instr(32, |a| a.lss(dx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lss(dx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lss_r16_m1616, Register::DX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -10756,7 +10756,7 @@ fn lss_r16_m() {
 #[rustfmt::skip]
 fn lss_r32_m() {
 	// Lss_r32_m1632
-	test_instr(32, |a| a.lss(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.lss(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Lss_r32_m1632, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11157,12 +11157,12 @@ fn mov_m_r8() {
 		// skip `if op1.register() == Register::AL && self.bitness() == 64 && op0.is_displacement_only()` since it's not supported by the current test bitness
 	} /* else if op1.register() == Register::AL && self.bitness() < 64 && op0.is_displacement_only() */ {
 		// Mov_moffs8_AL
-		test_instr(32, |a| a.mov(mem(0x12345678u64), al).unwrap(),
+		test_instr(32, |a| a.mov(ptr(0x12345678u64), al).unwrap(),
 			Instruction::with2(Code::Mov_moffs8_AL, MemoryOperand::with_displ(0x12345678u64, 4), Register::AL).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// Mov_rm8_r8
-		test_instr(32, |a| a.mov(mem(edi), bl).unwrap(),
+		test_instr(32, |a| a.mov(ptr(edi), bl).unwrap(),
 			Instruction::with2(Code::Mov_rm8_r8, MemoryOperand::new(Register::EDI, Register::None, 1, 0x0i64, 0, false, Register::None), Register::BL).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	}
@@ -11193,12 +11193,12 @@ fn mov_m_r16() {
 		// skip `if op1.register() == Register::AX && self.bitness() == 64 && op0.is_displacement_only()` since it's not supported by the current test bitness
 	} /* else if op1.register() == Register::AX && self.bitness() < 64 && op0.is_displacement_only() */ {
 		// Mov_moffs16_AX
-		test_instr(32, |a| a.mov(mem(0x12345678u64), ax).unwrap(),
+		test_instr(32, |a| a.mov(ptr(0x12345678u64), ax).unwrap(),
 			Instruction::with2(Code::Mov_moffs16_AX, MemoryOperand::with_displ(0x12345678u64, 4), Register::AX).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// Mov_rm16_r16
-		test_instr(32, |a| a.mov(mem(edi), bx).unwrap(),
+		test_instr(32, |a| a.mov(ptr(edi), bx).unwrap(),
 			Instruction::with2(Code::Mov_rm16_r16, MemoryOperand::new(Register::EDI, Register::None, 1, 0x0i64, 0, false, Register::None), Register::BX).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	}
@@ -11256,12 +11256,12 @@ fn mov_m_r32() {
 		// skip `if op1.register() == Register::EAX && self.bitness() == 64 && op0.is_displacement_only()` since it's not supported by the current test bitness
 	} /* else if op1.register() == Register::EAX && self.bitness() < 64 && op0.is_displacement_only() */ {
 		// Mov_moffs32_EAX
-		test_instr(32, |a| a.mov(mem(0x12345678u64), eax).unwrap(),
+		test_instr(32, |a| a.mov(ptr(0x12345678u64), eax).unwrap(),
 			Instruction::with2(Code::Mov_moffs32_EAX, MemoryOperand::with_displ(0x12345678u64, 4), Register::EAX).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// Mov_rm32_r32
-		test_instr(32, |a| a.mov(mem(edi), ebx).unwrap(),
+		test_instr(32, |a| a.mov(ptr(edi), ebx).unwrap(),
 			Instruction::with2(Code::Mov_rm32_r32, MemoryOperand::new(Register::EDI, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	}
@@ -11332,12 +11332,12 @@ fn mov_r8_m() {
 		// skip `if op0.register() == Register::AL && self.bitness() == 64 && op1.is_displacement_only()` since it's not supported by the current test bitness
 	} /* else if op0.register() == Register::AL && self.bitness() < 64 && op1.is_displacement_only() */ {
 		// Mov_AL_moffs8
-		test_instr(32, |a| a.mov(al, mem(0x12345678u64)).unwrap(),
+		test_instr(32, |a| a.mov(al, ptr(0x12345678u64)).unwrap(),
 			Instruction::with2(Code::Mov_AL_moffs8, Register::AL, MemoryOperand::with_displ(0x12345678u64, 4)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// Mov_r8_rm8
-		test_instr(32, |a| a.mov(dl, mem(esi)).unwrap(),
+		test_instr(32, |a| a.mov(dl, ptr(esi)).unwrap(),
 			Instruction::with2(Code::Mov_r8_rm8, Register::DL, MemoryOperand::new(Register::ESI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	}
@@ -11350,12 +11350,12 @@ fn mov_r16_m() {
 		// skip `if op0.register() == Register::AX && self.bitness() == 64 && op1.is_displacement_only()` since it's not supported by the current test bitness
 	} /* else if op0.register() == Register::AX && self.bitness() < 64 && op1.is_displacement_only() */ {
 		// Mov_AX_moffs16
-		test_instr(32, |a| a.mov(ax, mem(0x12345678u64)).unwrap(),
+		test_instr(32, |a| a.mov(ax, ptr(0x12345678u64)).unwrap(),
 			Instruction::with2(Code::Mov_AX_moffs16, Register::AX, MemoryOperand::with_displ(0x12345678u64, 4)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// Mov_r16_rm16
-		test_instr(32, |a| a.mov(dx, mem(esi)).unwrap(),
+		test_instr(32, |a| a.mov(dx, ptr(esi)).unwrap(),
 			Instruction::with2(Code::Mov_r16_rm16, Register::DX, MemoryOperand::new(Register::ESI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	}
@@ -11368,12 +11368,12 @@ fn mov_r32_m() {
 		// skip `if op0.register() == Register::EAX && self.bitness() == 64 && op1.is_displacement_only()` since it's not supported by the current test bitness
 	} /* else if op0.register() == Register::EAX && self.bitness() < 64 && op1.is_displacement_only() */ {
 		// Mov_EAX_moffs32
-		test_instr(32, |a| a.mov(eax, mem(0x12345678u64)).unwrap(),
+		test_instr(32, |a| a.mov(eax, ptr(0x12345678u64)).unwrap(),
 			Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(0x12345678u64, 4)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// Mov_r32_rm32
-		test_instr(32, |a| a.mov(edx, mem(esi)).unwrap(),
+		test_instr(32, |a| a.mov(edx, ptr(esi)).unwrap(),
 			Instruction::with2(Code::Mov_r32_rm32, Register::EDX, MemoryOperand::new(Register::ESI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	}
@@ -11587,7 +11587,7 @@ fn movaps_xmm_m() {
 #[rustfmt::skip]
 fn movbe_m_r16() {
 	// Movbe_m16_r16
-	test_instr(32, |a| a.movbe(mem(ecx), bx).unwrap(),
+	test_instr(32, |a| a.movbe(ptr(ecx), bx).unwrap(),
 		Instruction::with2(Code::Movbe_m16_r16, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::BX).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11596,7 +11596,7 @@ fn movbe_m_r16() {
 #[rustfmt::skip]
 fn movbe_m_r32() {
 	// Movbe_m32_r32
-	test_instr(32, |a| a.movbe(mem(ecx), ebx).unwrap(),
+	test_instr(32, |a| a.movbe(ptr(ecx), ebx).unwrap(),
 		Instruction::with2(Code::Movbe_m32_r32, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11605,7 +11605,7 @@ fn movbe_m_r32() {
 #[rustfmt::skip]
 fn movbe_r16_m() {
 	// Movbe_r16_m16
-	test_instr(32, |a| a.movbe(dx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.movbe(dx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Movbe_r16_m16, Register::DX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11614,7 +11614,7 @@ fn movbe_r16_m() {
 #[rustfmt::skip]
 fn movbe_r32_m() {
 	// Movbe_r32_m32
-	test_instr(32, |a| a.movbe(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.movbe(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Movbe_r32_m32, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11713,7 +11713,7 @@ fn movddup_xmm_m() {
 #[rustfmt::skip]
 fn movdir64b_r16_m() {
 	// Movdir64b_r16_m512
-	test_instr(32, |a| a.movdir64b(dx, mem(si)).unwrap(),
+	test_instr(32, |a| a.movdir64b(dx, ptr(si)).unwrap(),
 		Instruction::with2(Code::Movdir64b_r16_m512, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11722,7 +11722,7 @@ fn movdir64b_r16_m() {
 #[rustfmt::skip]
 fn movdir64b_r32_m() {
 	// Movdir64b_r32_m512
-	test_instr(32, |a| a.movdir64b(edx, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.movdir64b(edx, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Movdir64b_r32_m512, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11731,7 +11731,7 @@ fn movdir64b_r32_m() {
 #[rustfmt::skip]
 fn movdiri_m_r32() {
 	// Movdiri_m32_r32
-	test_instr(32, |a| a.movdiri(mem(ecx), ebx).unwrap(),
+	test_instr(32, |a| a.movdiri(ptr(ecx), ebx).unwrap(),
 		Instruction::with2(Code::Movdiri_m32_r32, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11812,7 +11812,7 @@ fn movhlps_xmm_xmm() {
 #[rustfmt::skip]
 fn movhpd_m_xmm() {
 	// Movhpd_m64_xmm
-	test_instr(32, |a| a.movhpd(mem(ecx), xmm3).unwrap(),
+	test_instr(32, |a| a.movhpd(ptr(ecx), xmm3).unwrap(),
 		Instruction::with2(Code::Movhpd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11821,7 +11821,7 @@ fn movhpd_m_xmm() {
 #[rustfmt::skip]
 fn movhpd_xmm_m() {
 	// Movhpd_xmm_m64
-	test_instr(32, |a| a.movhpd(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.movhpd(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Movhpd_xmm_m64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11830,7 +11830,7 @@ fn movhpd_xmm_m() {
 #[rustfmt::skip]
 fn movhps_m_xmm() {
 	// Movhps_m64_xmm
-	test_instr(32, |a| a.movhps(mem(ecx), xmm3).unwrap(),
+	test_instr(32, |a| a.movhps(ptr(ecx), xmm3).unwrap(),
 		Instruction::with2(Code::Movhps_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11839,7 +11839,7 @@ fn movhps_m_xmm() {
 #[rustfmt::skip]
 fn movhps_xmm_m() {
 	// Movhps_xmm_m64
-	test_instr(32, |a| a.movhps(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.movhps(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Movhps_xmm_m64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11857,7 +11857,7 @@ fn movlhps_xmm_xmm() {
 #[rustfmt::skip]
 fn movlpd_m_xmm() {
 	// Movlpd_m64_xmm
-	test_instr(32, |a| a.movlpd(mem(ecx), xmm3).unwrap(),
+	test_instr(32, |a| a.movlpd(ptr(ecx), xmm3).unwrap(),
 		Instruction::with2(Code::Movlpd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11866,7 +11866,7 @@ fn movlpd_m_xmm() {
 #[rustfmt::skip]
 fn movlpd_xmm_m() {
 	// Movlpd_xmm_m64
-	test_instr(32, |a| a.movlpd(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.movlpd(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Movlpd_xmm_m64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11875,7 +11875,7 @@ fn movlpd_xmm_m() {
 #[rustfmt::skip]
 fn movlps_m_xmm() {
 	// Movlps_m64_xmm
-	test_instr(32, |a| a.movlps(mem(ecx), xmm3).unwrap(),
+	test_instr(32, |a| a.movlps(ptr(ecx), xmm3).unwrap(),
 		Instruction::with2(Code::Movlps_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11884,7 +11884,7 @@ fn movlps_m_xmm() {
 #[rustfmt::skip]
 fn movlps_xmm_m() {
 	// Movlps_xmm_m64
-	test_instr(32, |a| a.movlps(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.movlps(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Movlps_xmm_m64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11911,7 +11911,7 @@ fn movmskps_r32_xmm() {
 #[rustfmt::skip]
 fn movntdq_m_xmm() {
 	// Movntdq_m128_xmm
-	test_instr(32, |a| a.movntdq(mem(ecx), xmm3).unwrap(),
+	test_instr(32, |a| a.movntdq(ptr(ecx), xmm3).unwrap(),
 		Instruction::with2(Code::Movntdq_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11920,7 +11920,7 @@ fn movntdq_m_xmm() {
 #[rustfmt::skip]
 fn movntdqa_xmm_m() {
 	// Movntdqa_xmm_m128
-	test_instr(32, |a| a.movntdqa(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.movntdqa(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Movntdqa_xmm_m128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11929,7 +11929,7 @@ fn movntdqa_xmm_m() {
 #[rustfmt::skip]
 fn movnti_m_r32() {
 	// Movnti_m32_r32
-	test_instr(32, |a| a.movnti(mem(ecx), ebx).unwrap(),
+	test_instr(32, |a| a.movnti(ptr(ecx), ebx).unwrap(),
 		Instruction::with2(Code::Movnti_m32_r32, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11938,7 +11938,7 @@ fn movnti_m_r32() {
 #[rustfmt::skip]
 fn movntpd_m_xmm() {
 	// Movntpd_m128_xmm
-	test_instr(32, |a| a.movntpd(mem(ecx), xmm3).unwrap(),
+	test_instr(32, |a| a.movntpd(ptr(ecx), xmm3).unwrap(),
 		Instruction::with2(Code::Movntpd_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11947,7 +11947,7 @@ fn movntpd_m_xmm() {
 #[rustfmt::skip]
 fn movntps_m_xmm() {
 	// Movntps_m128_xmm
-	test_instr(32, |a| a.movntps(mem(ecx), xmm3).unwrap(),
+	test_instr(32, |a| a.movntps(ptr(ecx), xmm3).unwrap(),
 		Instruction::with2(Code::Movntps_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11956,7 +11956,7 @@ fn movntps_m_xmm() {
 #[rustfmt::skip]
 fn movntq_m_mm() {
 	// Movntq_m64_mm
-	test_instr(32, |a| a.movntq(mem(ecx), mm3).unwrap(),
+	test_instr(32, |a| a.movntq(ptr(ecx), mm3).unwrap(),
 		Instruction::with2(Code::Movntq_m64_mm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::MM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11965,7 +11965,7 @@ fn movntq_m_mm() {
 #[rustfmt::skip]
 fn movntsd_m_xmm() {
 	// Movntsd_m64_xmm
-	test_instr(32, |a| a.movntsd(mem(ecx), xmm3).unwrap(),
+	test_instr(32, |a| a.movntsd(ptr(ecx), xmm3).unwrap(),
 		Instruction::with2(Code::Movntsd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -11974,7 +11974,7 @@ fn movntsd_m_xmm() {
 #[rustfmt::skip]
 fn movntss_m_xmm() {
 	// Movntss_m32_xmm
-	test_instr(32, |a| a.movntss(mem(ecx), xmm3).unwrap(),
+	test_instr(32, |a| a.movntss(ptr(ecx), xmm3).unwrap(),
 		Instruction::with2(Code::Movntss_m32_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -14754,7 +14754,7 @@ fn pdep_r32_r32_m() {
 #[rustfmt::skip]
 fn pdistib_mm_m() {
 	// Pdistib_mm_m64
-	test_instr(32, |a| a.pdistib(mm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.pdistib(mm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Pdistib_mm_m64, Register::MM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -15759,7 +15759,7 @@ fn pinsrw_xmm_m_u() {
 #[rustfmt::skip]
 fn pmachriw_mm_m() {
 	// Pmachriw_mm_m64
-	test_instr(32, |a| a.pmachriw(mm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.pmachriw(mm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Pmachriw_mm_m64, Register::MM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -16650,7 +16650,7 @@ fn pmuludq_xmm_m() {
 #[rustfmt::skip]
 fn pmvgezb_mm_m() {
 	// Pmvgezb_mm_m64
-	test_instr(32, |a| a.pmvgezb(mm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.pmvgezb(mm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Pmvgezb_mm_m64, Register::MM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -16659,7 +16659,7 @@ fn pmvgezb_mm_m() {
 #[rustfmt::skip]
 fn pmvlzb_mm_m() {
 	// Pmvlzb_mm_m64
-	test_instr(32, |a| a.pmvlzb(mm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.pmvlzb(mm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Pmvlzb_mm_m64, Register::MM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -16668,7 +16668,7 @@ fn pmvlzb_mm_m() {
 #[rustfmt::skip]
 fn pmvnzb_mm_m() {
 	// Pmvnzb_mm_m64
-	test_instr(32, |a| a.pmvnzb(mm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.pmvnzb(mm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Pmvnzb_mm_m64, Register::MM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -16677,7 +16677,7 @@ fn pmvnzb_mm_m() {
 #[rustfmt::skip]
 fn pmvzb_mm_m() {
 	// Pmvzb_mm_m64
-	test_instr(32, |a| a.pmvzb(mm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.pmvzb(mm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Pmvzb_mm_m64, Register::MM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -16889,7 +16889,7 @@ fn por_xmm_m() {
 #[rustfmt::skip]
 fn prefetch_m() {
 	// Prefetch_m8
-	test_instr(32, |a| a.prefetch(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.prefetch(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Prefetch_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -16898,7 +16898,7 @@ fn prefetch_m() {
 #[rustfmt::skip]
 fn prefetchnta_m() {
 	// Prefetchnta_m8
-	test_instr(32, |a| a.prefetchnta(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.prefetchnta(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Prefetchnta_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -16907,7 +16907,7 @@ fn prefetchnta_m() {
 #[rustfmt::skip]
 fn prefetcht0_m() {
 	// Prefetcht0_m8
-	test_instr(32, |a| a.prefetcht0(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.prefetcht0(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Prefetcht0_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -16916,7 +16916,7 @@ fn prefetcht0_m() {
 #[rustfmt::skip]
 fn prefetcht1_m() {
 	// Prefetcht1_m8
-	test_instr(32, |a| a.prefetcht1(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.prefetcht1(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Prefetcht1_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -16925,7 +16925,7 @@ fn prefetcht1_m() {
 #[rustfmt::skip]
 fn prefetcht2_m() {
 	// Prefetcht2_m8
-	test_instr(32, |a| a.prefetcht2(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.prefetcht2(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Prefetcht2_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -16934,7 +16934,7 @@ fn prefetcht2_m() {
 #[rustfmt::skip]
 fn prefetchw_m() {
 	// Prefetchw_m8
-	test_instr(32, |a| a.prefetchw(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.prefetchw(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Prefetchw_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -16943,7 +16943,7 @@ fn prefetchw_m() {
 #[rustfmt::skip]
 fn prefetchwt1_m() {
 	// Prefetchwt1_m8
-	test_instr(32, |a| a.prefetchwt1(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.prefetchwt1(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Prefetchwt1_m8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -20991,7 +20991,7 @@ fn roundss_xmm_m_u() {
 #[rustfmt::skip]
 fn rsdc_seg_m() {
 	// Rsdc_Sreg_m80
-	test_instr(32, |a| a.rsdc(ds, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.rsdc(ds, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::Rsdc_Sreg_m80, Register::DS, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -21000,7 +21000,7 @@ fn rsdc_seg_m() {
 #[rustfmt::skip]
 fn rsldt_m() {
 	// Rsldt_m80
-	test_instr(32, |a| a.rsldt(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.rsldt(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Rsldt_m80, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -21054,7 +21054,7 @@ fn rsqrtss_xmm_m() {
 #[rustfmt::skip]
 fn rstorssp_m() {
 	// Rstorssp_m64
-	test_instr(32, |a| a.rstorssp(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.rstorssp(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Rstorssp_m64, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -21063,7 +21063,7 @@ fn rstorssp_m() {
 #[rustfmt::skip]
 fn rsts_m() {
 	// Rsts_m80
-	test_instr(32, |a| a.rsts(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.rsts(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Rsts_m80, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -22515,7 +22515,7 @@ fn sgdt_m() {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
 	} /* else if self.bitness() >= 32 */ {
 		// Sgdt_m1632
-		test_instr(32, |a| a.sgdt(mem(ecx)).unwrap(),
+		test_instr(32, |a| a.sgdt(ptr(ecx)).unwrap(),
 			Instruction::with1(Code::Sgdt_m1632, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
@@ -23696,7 +23696,7 @@ fn sidt_m() {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
 	} /* else if self.bitness() >= 32 */ {
 		// Sidt_m1632
-		test_instr(32, |a| a.sidt(mem(ecx)).unwrap(),
+		test_instr(32, |a| a.sidt(ptr(ecx)).unwrap(),
 			Instruction::with1(Code::Sidt_m1632, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
@@ -23923,7 +23923,7 @@ fn sti() {
 #[rustfmt::skip]
 fn stmxcsr_m() {
 	// Stmxcsr_m32
-	test_instr(32, |a| a.stmxcsr(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.stmxcsr(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Stmxcsr_m32, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -24473,7 +24473,7 @@ fn subss_xmm_m() {
 #[rustfmt::skip]
 fn svdc_m_seg() {
 	// Svdc_m80_Sreg
-	test_instr(32, |a| a.svdc(mem(ecx), ds).unwrap(),
+	test_instr(32, |a| a.svdc(ptr(ecx), ds).unwrap(),
 		Instruction::with2(Code::Svdc_m80_Sreg, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::DS).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -24482,7 +24482,7 @@ fn svdc_m_seg() {
 #[rustfmt::skip]
 fn svldt_m() {
 	// Svldt_m80
-	test_instr(32, |a| a.svldt(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.svldt(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Svldt_m80, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -24491,7 +24491,7 @@ fn svldt_m() {
 #[rustfmt::skip]
 fn svts_m() {
 	// Svts_m80
-	test_instr(32, |a| a.svts(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.svts(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Svts_m80, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::CYRIX);
 }
@@ -25195,7 +25195,7 @@ fn unpcklps_xmm_m() {
 #[rustfmt::skip]
 fn v4fmaddps_zmm_zmm_m() {
 	// EVEX_V4fmaddps_zmm_k1z_zmmp3_m128
-	test_instr(32, |a| a.v4fmaddps(zmm2.k1(), zmm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.v4fmaddps(zmm2.k1(), zmm3, ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_V4fmaddps_zmm_k1z_zmmp3_m128, Register::ZMM2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -25204,7 +25204,7 @@ fn v4fmaddps_zmm_zmm_m() {
 #[rustfmt::skip]
 fn v4fmaddss_xmm_xmm_m() {
 	// EVEX_V4fmaddss_xmm_k1z_xmmp3_m128
-	test_instr(32, |a| a.v4fmaddss(xmm2.k1(), xmm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.v4fmaddss(xmm2.k1(), xmm3, ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_V4fmaddss_xmm_k1z_xmmp3_m128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -25213,7 +25213,7 @@ fn v4fmaddss_xmm_xmm_m() {
 #[rustfmt::skip]
 fn v4fnmaddps_zmm_zmm_m() {
 	// EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128
-	test_instr(32, |a| a.v4fnmaddps(zmm2.k1(), zmm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.v4fnmaddps(zmm2.k1(), zmm3, ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128, Register::ZMM2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -25222,7 +25222,7 @@ fn v4fnmaddps_zmm_zmm_m() {
 #[rustfmt::skip]
 fn v4fnmaddss_xmm_xmm_m() {
 	// EVEX_V4fnmaddss_xmm_k1z_xmmp3_m128
-	test_instr(32, |a| a.v4fnmaddss(xmm2.k1(), xmm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.v4fnmaddss(xmm2.k1(), xmm3, ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_V4fnmaddss_xmm_k1z_xmmp3_m128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27001,7 +27001,7 @@ fn vblendvps_ymm_ymm_m_ymm() {
 #[rustfmt::skip]
 fn vbroadcastf128_ymm_m() {
 	// VEX_Vbroadcastf128_ymm_m128
-	test_instr(32, |a| a.vbroadcastf128(ymm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcastf128(ymm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Vbroadcastf128_ymm_m128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27046,7 +27046,7 @@ fn vbroadcastf32x2_zmm_m() {
 #[rustfmt::skip]
 fn vbroadcastf32x4_ymm_m() {
 	// EVEX_Vbroadcastf32x4_ymm_k1z_m128
-	test_instr(32, |a| a.vbroadcastf32x4(ymm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcastf32x4(ymm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcastf32x4_ymm_k1z_m128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27055,7 +27055,7 @@ fn vbroadcastf32x4_ymm_m() {
 #[rustfmt::skip]
 fn vbroadcastf32x4_zmm_m() {
 	// EVEX_Vbroadcastf32x4_zmm_k1z_m128
-	test_instr(32, |a| a.vbroadcastf32x4(zmm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcastf32x4(zmm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcastf32x4_zmm_k1z_m128, Register::ZMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27064,7 +27064,7 @@ fn vbroadcastf32x4_zmm_m() {
 #[rustfmt::skip]
 fn vbroadcastf32x8_zmm_m() {
 	// EVEX_Vbroadcastf32x8_zmm_k1z_m256
-	test_instr(32, |a| a.vbroadcastf32x8(zmm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcastf32x8(zmm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcastf32x8_zmm_k1z_m256, Register::ZMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27073,7 +27073,7 @@ fn vbroadcastf32x8_zmm_m() {
 #[rustfmt::skip]
 fn vbroadcastf64x2_ymm_m() {
 	// EVEX_Vbroadcastf64x2_ymm_k1z_m128
-	test_instr(32, |a| a.vbroadcastf64x2(ymm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcastf64x2(ymm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcastf64x2_ymm_k1z_m128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27082,7 +27082,7 @@ fn vbroadcastf64x2_ymm_m() {
 #[rustfmt::skip]
 fn vbroadcastf64x2_zmm_m() {
 	// EVEX_Vbroadcastf64x2_zmm_k1z_m128
-	test_instr(32, |a| a.vbroadcastf64x2(zmm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcastf64x2(zmm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcastf64x2_zmm_k1z_m128, Register::ZMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27091,7 +27091,7 @@ fn vbroadcastf64x2_zmm_m() {
 #[rustfmt::skip]
 fn vbroadcastf64x4_zmm_m() {
 	// EVEX_Vbroadcastf64x4_zmm_k1z_m256
-	test_instr(32, |a| a.vbroadcastf64x4(zmm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcastf64x4(zmm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcastf64x4_zmm_k1z_m256, Register::ZMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27100,7 +27100,7 @@ fn vbroadcastf64x4_zmm_m() {
 #[rustfmt::skip]
 fn vbroadcasti128_ymm_m() {
 	// VEX_Vbroadcasti128_ymm_m128
-	test_instr(32, |a| a.vbroadcasti128(ymm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcasti128(ymm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Vbroadcasti128_ymm_m128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27163,7 +27163,7 @@ fn vbroadcasti32x2_zmm_m() {
 #[rustfmt::skip]
 fn vbroadcasti32x4_ymm_m() {
 	// EVEX_Vbroadcasti32x4_ymm_k1z_m128
-	test_instr(32, |a| a.vbroadcasti32x4(ymm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcasti32x4(ymm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcasti32x4_ymm_k1z_m128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27172,7 +27172,7 @@ fn vbroadcasti32x4_ymm_m() {
 #[rustfmt::skip]
 fn vbroadcasti32x4_zmm_m() {
 	// EVEX_Vbroadcasti32x4_zmm_k1z_m128
-	test_instr(32, |a| a.vbroadcasti32x4(zmm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcasti32x4(zmm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcasti32x4_zmm_k1z_m128, Register::ZMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27181,7 +27181,7 @@ fn vbroadcasti32x4_zmm_m() {
 #[rustfmt::skip]
 fn vbroadcasti32x8_zmm_m() {
 	// EVEX_Vbroadcasti32x8_zmm_k1z_m256
-	test_instr(32, |a| a.vbroadcasti32x8(zmm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcasti32x8(zmm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcasti32x8_zmm_k1z_m256, Register::ZMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27190,7 +27190,7 @@ fn vbroadcasti32x8_zmm_m() {
 #[rustfmt::skip]
 fn vbroadcasti64x2_ymm_m() {
 	// EVEX_Vbroadcasti64x2_ymm_k1z_m128
-	test_instr(32, |a| a.vbroadcasti64x2(ymm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcasti64x2(ymm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcasti64x2_ymm_k1z_m128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27199,7 +27199,7 @@ fn vbroadcasti64x2_ymm_m() {
 #[rustfmt::skip]
 fn vbroadcasti64x2_zmm_m() {
 	// EVEX_Vbroadcasti64x2_zmm_k1z_m128
-	test_instr(32, |a| a.vbroadcasti64x2(zmm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcasti64x2(zmm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcasti64x2_zmm_k1z_m128, Register::ZMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27208,7 +27208,7 @@ fn vbroadcasti64x2_zmm_m() {
 #[rustfmt::skip]
 fn vbroadcasti64x4_zmm_m() {
 	// EVEX_Vbroadcasti64x4_zmm_k1z_m256
-	test_instr(32, |a| a.vbroadcasti64x4(zmm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vbroadcasti64x4(zmm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vbroadcasti64x4_zmm_k1z_m256, Register::ZMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -27243,7 +27243,7 @@ fn vbroadcastsd_zmm_xmm() {
 fn vbroadcastsd_ymm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vbroadcastsd_ymm_m64
-		test_instr(32, |a| a.vbroadcastsd(ymm2, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vbroadcastsd(ymm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vbroadcastsd_ymm_m64, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
@@ -27309,7 +27309,7 @@ fn vbroadcastss_zmm_xmm() {
 fn vbroadcastss_xmm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vbroadcastss_xmm_m32
-		test_instr(32, |a| a.vbroadcastss(xmm2, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vbroadcastss(xmm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vbroadcastss_xmm_m32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
@@ -27325,7 +27325,7 @@ fn vbroadcastss_xmm_m() {
 fn vbroadcastss_ymm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vbroadcastss_ymm_m32
-		test_instr(32, |a| a.vbroadcastss(ymm2, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vbroadcastss(ymm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vbroadcastss_ymm_m32, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
@@ -52141,7 +52141,7 @@ fn vfrczss_xmm_m() {
 #[rustfmt::skip]
 fn vgatherdpd_xmm_m() {
 	// EVEX_Vgatherdpd_xmm_k1_vm32x
-	test_instr(32, |a| a.vgatherdpd(xmm2.k1(), mem(edx+xmm3)).unwrap(),
+	test_instr(32, |a| a.vgatherdpd(xmm2.k1(), ptr(edx+xmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vgatherdpd_xmm_k1_vm32x, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52150,7 +52150,7 @@ fn vgatherdpd_xmm_m() {
 #[rustfmt::skip]
 fn vgatherdpd_ymm_m() {
 	// EVEX_Vgatherdpd_ymm_k1_vm32x
-	test_instr(32, |a| a.vgatherdpd(ymm2.k1(), mem(edx+xmm3)).unwrap(),
+	test_instr(32, |a| a.vgatherdpd(ymm2.k1(), ptr(edx+xmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vgatherdpd_ymm_k1_vm32x, Register::YMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52159,7 +52159,7 @@ fn vgatherdpd_ymm_m() {
 #[rustfmt::skip]
 fn vgatherdpd_zmm_m() {
 	// EVEX_Vgatherdpd_zmm_k1_vm32y
-	test_instr(32, |a| a.vgatherdpd(zmm2.k1(), mem(edx+ymm3)).unwrap(),
+	test_instr(32, |a| a.vgatherdpd(zmm2.k1(), ptr(edx+ymm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vgatherdpd_zmm_k1_vm32y, Register::ZMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52168,7 +52168,7 @@ fn vgatherdpd_zmm_m() {
 #[rustfmt::skip]
 fn vgatherdpd_xmm_m_xmm() {
 	// VEX_Vgatherdpd_xmm_vm32x_xmm
-	test_instr(32, |a| a.vgatherdpd_3(xmm2, mem(edx+xmm3), xmm4).unwrap(),
+	test_instr(32, |a| a.vgatherdpd_3(xmm2, ptr(edx+xmm3), xmm4).unwrap(),
 		Instruction::with3(Code::VEX_Vgatherdpd_xmm_vm32x_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52177,7 +52177,7 @@ fn vgatherdpd_xmm_m_xmm() {
 #[rustfmt::skip]
 fn vgatherdpd_ymm_m_ymm() {
 	// VEX_Vgatherdpd_ymm_vm32x_ymm
-	test_instr(32, |a| a.vgatherdpd_3(ymm2, mem(edx+xmm3), ymm4).unwrap(),
+	test_instr(32, |a| a.vgatherdpd_3(ymm2, ptr(edx+xmm3), ymm4).unwrap(),
 		Instruction::with3(Code::VEX_Vgatherdpd_ymm_vm32x_ymm, Register::YMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None), Register::YMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52186,7 +52186,7 @@ fn vgatherdpd_ymm_m_ymm() {
 #[rustfmt::skip]
 fn vgatherdps_xmm_m() {
 	// EVEX_Vgatherdps_xmm_k1_vm32x
-	test_instr(32, |a| a.vgatherdps(xmm2.k1(), mem(edx+xmm3)).unwrap(),
+	test_instr(32, |a| a.vgatherdps(xmm2.k1(), ptr(edx+xmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vgatherdps_xmm_k1_vm32x, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52195,7 +52195,7 @@ fn vgatherdps_xmm_m() {
 #[rustfmt::skip]
 fn vgatherdps_ymm_m() {
 	// EVEX_Vgatherdps_ymm_k1_vm32y
-	test_instr(32, |a| a.vgatherdps(ymm2.k1(), mem(edx+ymm3)).unwrap(),
+	test_instr(32, |a| a.vgatherdps(ymm2.k1(), ptr(edx+ymm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vgatherdps_ymm_k1_vm32y, Register::YMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52204,7 +52204,7 @@ fn vgatherdps_ymm_m() {
 #[rustfmt::skip]
 fn vgatherdps_zmm_m() {
 	// EVEX_Vgatherdps_zmm_k1_vm32z
-	test_instr(32, |a| a.vgatherdps(zmm2.k1(), mem(edx+zmm3)).unwrap(),
+	test_instr(32, |a| a.vgatherdps(zmm2.k1(), ptr(edx+zmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vgatherdps_zmm_k1_vm32z, Register::ZMM2, MemoryOperand::new(Register::EDX, Register::ZMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52213,7 +52213,7 @@ fn vgatherdps_zmm_m() {
 #[rustfmt::skip]
 fn vgatherdps_xmm_m_xmm() {
 	// VEX_Vgatherdps_xmm_vm32x_xmm
-	test_instr(32, |a| a.vgatherdps_3(xmm2, mem(edx+xmm3), xmm4).unwrap(),
+	test_instr(32, |a| a.vgatherdps_3(xmm2, ptr(edx+xmm3), xmm4).unwrap(),
 		Instruction::with3(Code::VEX_Vgatherdps_xmm_vm32x_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52222,7 +52222,7 @@ fn vgatherdps_xmm_m_xmm() {
 #[rustfmt::skip]
 fn vgatherdps_ymm_m_ymm() {
 	// VEX_Vgatherdps_ymm_vm32y_ymm
-	test_instr(32, |a| a.vgatherdps_3(ymm2, mem(edx+ymm3), ymm4).unwrap(),
+	test_instr(32, |a| a.vgatherdps_3(ymm2, ptr(edx+ymm3), ymm4).unwrap(),
 		Instruction::with3(Code::VEX_Vgatherdps_ymm_vm32y_ymm, Register::YMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None), Register::YMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52231,7 +52231,7 @@ fn vgatherdps_ymm_m_ymm() {
 #[rustfmt::skip]
 fn vgatherpf0dpd_m() {
 	// EVEX_Vgatherpf0dpd_vm32y_k1
-	test_instr(32, |a| a.vgatherpf0dpd(mem(edx+ymm2).k1()).unwrap(),
+	test_instr(32, |a| a.vgatherpf0dpd(ptr(edx+ymm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vgatherpf0dpd_vm32y_k1, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52240,7 +52240,7 @@ fn vgatherpf0dpd_m() {
 #[rustfmt::skip]
 fn vgatherpf0dps_m() {
 	// EVEX_Vgatherpf0dps_vm32z_k1
-	test_instr(32, |a| a.vgatherpf0dps(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vgatherpf0dps(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vgatherpf0dps_vm32z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52249,7 +52249,7 @@ fn vgatherpf0dps_m() {
 #[rustfmt::skip]
 fn vgatherpf0qpd_m() {
 	// EVEX_Vgatherpf0qpd_vm64z_k1
-	test_instr(32, |a| a.vgatherpf0qpd(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vgatherpf0qpd(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vgatherpf0qpd_vm64z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52258,7 +52258,7 @@ fn vgatherpf0qpd_m() {
 #[rustfmt::skip]
 fn vgatherpf0qps_m() {
 	// EVEX_Vgatherpf0qps_vm64z_k1
-	test_instr(32, |a| a.vgatherpf0qps(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vgatherpf0qps(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vgatherpf0qps_vm64z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52267,7 +52267,7 @@ fn vgatherpf0qps_m() {
 #[rustfmt::skip]
 fn vgatherpf1dpd_m() {
 	// EVEX_Vgatherpf1dpd_vm32y_k1
-	test_instr(32, |a| a.vgatherpf1dpd(mem(edx+ymm2).k1()).unwrap(),
+	test_instr(32, |a| a.vgatherpf1dpd(ptr(edx+ymm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vgatherpf1dpd_vm32y_k1, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52276,7 +52276,7 @@ fn vgatherpf1dpd_m() {
 #[rustfmt::skip]
 fn vgatherpf1dps_m() {
 	// EVEX_Vgatherpf1dps_vm32z_k1
-	test_instr(32, |a| a.vgatherpf1dps(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vgatherpf1dps(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vgatherpf1dps_vm32z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52285,7 +52285,7 @@ fn vgatherpf1dps_m() {
 #[rustfmt::skip]
 fn vgatherpf1qpd_m() {
 	// EVEX_Vgatherpf1qpd_vm64z_k1
-	test_instr(32, |a| a.vgatherpf1qpd(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vgatherpf1qpd(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vgatherpf1qpd_vm64z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52294,7 +52294,7 @@ fn vgatherpf1qpd_m() {
 #[rustfmt::skip]
 fn vgatherpf1qps_m() {
 	// EVEX_Vgatherpf1qps_vm64z_k1
-	test_instr(32, |a| a.vgatherpf1qps(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vgatherpf1qps(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vgatherpf1qps_vm64z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52303,7 +52303,7 @@ fn vgatherpf1qps_m() {
 #[rustfmt::skip]
 fn vgatherqpd_xmm_m() {
 	// EVEX_Vgatherqpd_xmm_k1_vm64x
-	test_instr(32, |a| a.vgatherqpd(xmm2.k1(), mem(edx+xmm3)).unwrap(),
+	test_instr(32, |a| a.vgatherqpd(xmm2.k1(), ptr(edx+xmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vgatherqpd_xmm_k1_vm64x, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52312,7 +52312,7 @@ fn vgatherqpd_xmm_m() {
 #[rustfmt::skip]
 fn vgatherqpd_ymm_m() {
 	// EVEX_Vgatherqpd_ymm_k1_vm64y
-	test_instr(32, |a| a.vgatherqpd(ymm2.k1(), mem(edx+ymm3)).unwrap(),
+	test_instr(32, |a| a.vgatherqpd(ymm2.k1(), ptr(edx+ymm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vgatherqpd_ymm_k1_vm64y, Register::YMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52321,7 +52321,7 @@ fn vgatherqpd_ymm_m() {
 #[rustfmt::skip]
 fn vgatherqpd_zmm_m() {
 	// EVEX_Vgatherqpd_zmm_k1_vm64z
-	test_instr(32, |a| a.vgatherqpd(zmm2.k1(), mem(edx+zmm3)).unwrap(),
+	test_instr(32, |a| a.vgatherqpd(zmm2.k1(), ptr(edx+zmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vgatherqpd_zmm_k1_vm64z, Register::ZMM2, MemoryOperand::new(Register::EDX, Register::ZMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52330,7 +52330,7 @@ fn vgatherqpd_zmm_m() {
 #[rustfmt::skip]
 fn vgatherqpd_xmm_m_xmm() {
 	// VEX_Vgatherqpd_xmm_vm64x_xmm
-	test_instr(32, |a| a.vgatherqpd_3(xmm2, mem(edx+xmm3), xmm4).unwrap(),
+	test_instr(32, |a| a.vgatherqpd_3(xmm2, ptr(edx+xmm3), xmm4).unwrap(),
 		Instruction::with3(Code::VEX_Vgatherqpd_xmm_vm64x_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52339,7 +52339,7 @@ fn vgatherqpd_xmm_m_xmm() {
 #[rustfmt::skip]
 fn vgatherqpd_ymm_m_ymm() {
 	// VEX_Vgatherqpd_ymm_vm64y_ymm
-	test_instr(32, |a| a.vgatherqpd_3(ymm2, mem(edx+ymm3), ymm4).unwrap(),
+	test_instr(32, |a| a.vgatherqpd_3(ymm2, ptr(edx+ymm3), ymm4).unwrap(),
 		Instruction::with3(Code::VEX_Vgatherqpd_ymm_vm64y_ymm, Register::YMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None), Register::YMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52349,17 +52349,17 @@ fn vgatherqpd_ymm_m_ymm() {
 fn vgatherqps_xmm_m() {
 	/* if op1.index().is_xmm() */ {
 		// EVEX_Vgatherqps_xmm_k1_vm64x
-		test_instr(32, |a| a.vgatherqps(xmm2.k1(), mem(edx+xmm3)).unwrap(),
+		test_instr(32, |a| a.vgatherqps(xmm2.k1(), ptr(edx+xmm3)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vgatherqps_xmm_k1_vm64x, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else if op1.index().is_ymm() */ {
 		// EVEX_Vgatherqps_xmm_k1_vm64y
-		test_instr(32, |a| a.vgatherqps(xmm2.k1(), mem(edx+ymm3)).unwrap(),
+		test_instr(32, |a| a.vgatherqps(xmm2.k1(), ptr(edx+ymm3)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vgatherqps_xmm_k1_vm64y, Register::XMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vgatherqps_xmm_k1_vm64y
-		test_invalid_instr(32, |a| assert!(a.vgatherqps(xmm2.k1(), mem(edx+zmm1)).is_err()), TestInstrFlags::NONE);
+		test_invalid_instr(32, |a| assert!(a.vgatherqps(xmm2.k1(), ptr(edx+zmm1)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -52367,7 +52367,7 @@ fn vgatherqps_xmm_m() {
 #[rustfmt::skip]
 fn vgatherqps_ymm_m() {
 	// EVEX_Vgatherqps_ymm_k1_vm64z
-	test_instr(32, |a| a.vgatherqps(ymm2.k1(), mem(edx+zmm3)).unwrap(),
+	test_instr(32, |a| a.vgatherqps(ymm2.k1(), ptr(edx+zmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vgatherqps_ymm_k1_vm64z, Register::YMM2, MemoryOperand::new(Register::EDX, Register::ZMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -52377,17 +52377,17 @@ fn vgatherqps_ymm_m() {
 fn vgatherqps_xmm_m_xmm() {
 	/* if op1.index().is_xmm() */ {
 		// VEX_Vgatherqps_xmm_vm64x_xmm
-		test_instr(32, |a| a.vgatherqps_3(xmm2, mem(edx+xmm3), xmm4).unwrap(),
+		test_instr(32, |a| a.vgatherqps_3(xmm2, ptr(edx+xmm3), xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vgatherqps_xmm_vm64x_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else if op1.index().is_ymm() */ {
 		// VEX_Vgatherqps_xmm_vm64y_xmm
-		test_instr(32, |a| a.vgatherqps_3(xmm2, mem(edx+ymm3), xmm4).unwrap(),
+		test_instr(32, |a| a.vgatherqps_3(xmm2, ptr(edx+ymm3), xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vgatherqps_xmm_vm64y_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// VEX_Vgatherqps_xmm_vm64y_xmm
-		test_invalid_instr(32, |a| assert!(a.vgatherqps_3(xmm2, mem(edx+zmm1), xmm4).is_err()), TestInstrFlags::NONE);
+		test_invalid_instr(32, |a| assert!(a.vgatherqps_3(xmm2, ptr(edx+zmm1), xmm4).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -54559,7 +54559,7 @@ fn vinsertps_xmm_xmm_m_u() {
 #[rustfmt::skip]
 fn vlddqu_xmm_m() {
 	// VEX_Vlddqu_xmm_m128
-	test_instr(32, |a| a.vlddqu(xmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vlddqu(xmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Vlddqu_xmm_m128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54568,7 +54568,7 @@ fn vlddqu_xmm_m() {
 #[rustfmt::skip]
 fn vlddqu_ymm_m() {
 	// VEX_Vlddqu_ymm_m256
-	test_instr(32, |a| a.vlddqu(ymm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vlddqu(ymm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::VEX_Vlddqu_ymm_m256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54577,7 +54577,7 @@ fn vlddqu_ymm_m() {
 #[rustfmt::skip]
 fn vldmxcsr_m() {
 	// VEX_Vldmxcsr_m32
-	test_instr(32, |a| a.vldmxcsr(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vldmxcsr(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::VEX_Vldmxcsr_m32, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54595,7 +54595,7 @@ fn vmaskmovdqu_xmm_xmm() {
 #[rustfmt::skip]
 fn vmaskmovpd_m_xmm_xmm() {
 	// VEX_Vmaskmovpd_m128_xmm_xmm
-	test_instr(32, |a| a.vmaskmovpd(mem(ecx), xmm3, xmm4).unwrap(),
+	test_instr(32, |a| a.vmaskmovpd(ptr(ecx), xmm3, xmm4).unwrap(),
 		Instruction::with3(Code::VEX_Vmaskmovpd_m128_xmm_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, Register::XMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54604,7 +54604,7 @@ fn vmaskmovpd_m_xmm_xmm() {
 #[rustfmt::skip]
 fn vmaskmovpd_m_ymm_ymm() {
 	// VEX_Vmaskmovpd_m256_ymm_ymm
-	test_instr(32, |a| a.vmaskmovpd(mem(ecx), ymm3, ymm4).unwrap(),
+	test_instr(32, |a| a.vmaskmovpd(ptr(ecx), ymm3, ymm4).unwrap(),
 		Instruction::with3(Code::VEX_Vmaskmovpd_m256_ymm_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3, Register::YMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54613,7 +54613,7 @@ fn vmaskmovpd_m_ymm_ymm() {
 #[rustfmt::skip]
 fn vmaskmovpd_xmm_xmm_m() {
 	// VEX_Vmaskmovpd_xmm_xmm_m128
-	test_instr(32, |a| a.vmaskmovpd(xmm2, xmm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vmaskmovpd(xmm2, xmm3, ptr(ecx)).unwrap(),
 		Instruction::with3(Code::VEX_Vmaskmovpd_xmm_xmm_m128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54622,7 +54622,7 @@ fn vmaskmovpd_xmm_xmm_m() {
 #[rustfmt::skip]
 fn vmaskmovpd_ymm_ymm_m() {
 	// VEX_Vmaskmovpd_ymm_ymm_m256
-	test_instr(32, |a| a.vmaskmovpd(ymm2, ymm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vmaskmovpd(ymm2, ymm3, ptr(ecx)).unwrap(),
 		Instruction::with3(Code::VEX_Vmaskmovpd_ymm_ymm_m256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54631,7 +54631,7 @@ fn vmaskmovpd_ymm_ymm_m() {
 #[rustfmt::skip]
 fn vmaskmovps_m_xmm_xmm() {
 	// VEX_Vmaskmovps_m128_xmm_xmm
-	test_instr(32, |a| a.vmaskmovps(mem(ecx), xmm3, xmm4).unwrap(),
+	test_instr(32, |a| a.vmaskmovps(ptr(ecx), xmm3, xmm4).unwrap(),
 		Instruction::with3(Code::VEX_Vmaskmovps_m128_xmm_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, Register::XMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54640,7 +54640,7 @@ fn vmaskmovps_m_xmm_xmm() {
 #[rustfmt::skip]
 fn vmaskmovps_m_ymm_ymm() {
 	// VEX_Vmaskmovps_m256_ymm_ymm
-	test_instr(32, |a| a.vmaskmovps(mem(ecx), ymm3, ymm4).unwrap(),
+	test_instr(32, |a| a.vmaskmovps(ptr(ecx), ymm3, ymm4).unwrap(),
 		Instruction::with3(Code::VEX_Vmaskmovps_m256_ymm_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3, Register::YMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54649,7 +54649,7 @@ fn vmaskmovps_m_ymm_ymm() {
 #[rustfmt::skip]
 fn vmaskmovps_xmm_xmm_m() {
 	// VEX_Vmaskmovps_xmm_xmm_m128
-	test_instr(32, |a| a.vmaskmovps(xmm2, xmm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vmaskmovps(xmm2, xmm3, ptr(ecx)).unwrap(),
 		Instruction::with3(Code::VEX_Vmaskmovps_xmm_xmm_m128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54658,7 +54658,7 @@ fn vmaskmovps_xmm_xmm_m() {
 #[rustfmt::skip]
 fn vmaskmovps_ymm_ymm_m() {
 	// VEX_Vmaskmovps_ymm_ymm_m256
-	test_instr(32, |a| a.vmaskmovps(ymm2, ymm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vmaskmovps(ymm2, ymm3, ptr(ecx)).unwrap(),
 		Instruction::with3(Code::VEX_Vmaskmovps_ymm_ymm_m256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -54996,7 +54996,7 @@ fn vmcall() {
 #[rustfmt::skip]
 fn vmclear_m() {
 	// Vmclear_m64
-	test_instr(32, |a| a.vmclear(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vmclear(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Vmclear_m64, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -56379,12 +56379,12 @@ fn vmovhlps_xmm_xmm_xmm() {
 fn vmovhpd_m_xmm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovhpd_m64_xmm
-		test_instr(32, |a| a.vmovhpd(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovhpd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovhpd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovhpd_m64_xmm
-		test_instr(32, |a| a.vmovhpd(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovhpd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovhpd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56395,12 +56395,12 @@ fn vmovhpd_m_xmm() {
 fn vmovhpd_xmm_xmm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovhpd_xmm_xmm_m64
-		test_instr(32, |a| a.vmovhpd_3(xmm2, xmm3, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovhpd_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmovhpd_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovhpd_xmm_xmm_m64
-		test_instr(32, |a| a.vmovhpd_3(xmm2, xmm3, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovhpd_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::EVEX_Vmovhpd_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56411,12 +56411,12 @@ fn vmovhpd_xmm_xmm_m() {
 fn vmovhps_m_xmm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovhps_m64_xmm
-		test_instr(32, |a| a.vmovhps(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovhps(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovhps_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovhps_m64_xmm
-		test_instr(32, |a| a.vmovhps(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovhps(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovhps_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56427,12 +56427,12 @@ fn vmovhps_m_xmm() {
 fn vmovhps_xmm_xmm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovhps_xmm_xmm_m64
-		test_instr(32, |a| a.vmovhps_3(xmm2, xmm3, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovhps_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmovhps_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovhps_xmm_xmm_m64
-		test_instr(32, |a| a.vmovhps_3(xmm2, xmm3, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovhps_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::EVEX_Vmovhps_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56459,12 +56459,12 @@ fn vmovlhps_xmm_xmm_xmm() {
 fn vmovlpd_m_xmm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovlpd_m64_xmm
-		test_instr(32, |a| a.vmovlpd(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovlpd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovlpd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovlpd_m64_xmm
-		test_instr(32, |a| a.vmovlpd(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovlpd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovlpd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56475,12 +56475,12 @@ fn vmovlpd_m_xmm() {
 fn vmovlpd_xmm_xmm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovlpd_xmm_xmm_m64
-		test_instr(32, |a| a.vmovlpd_3(xmm2, xmm3, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovlpd_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmovlpd_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovlpd_xmm_xmm_m64
-		test_instr(32, |a| a.vmovlpd_3(xmm2, xmm3, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovlpd_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::EVEX_Vmovlpd_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56491,12 +56491,12 @@ fn vmovlpd_xmm_xmm_m() {
 fn vmovlps_m_xmm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovlps_m64_xmm
-		test_instr(32, |a| a.vmovlps(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovlps(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovlps_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovlps_m64_xmm
-		test_instr(32, |a| a.vmovlps(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovlps(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovlps_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56507,12 +56507,12 @@ fn vmovlps_m_xmm() {
 fn vmovlps_xmm_xmm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovlps_xmm_xmm_m64
-		test_instr(32, |a| a.vmovlps_3(xmm2, xmm3, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovlps_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmovlps_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovlps_xmm_xmm_m64
-		test_instr(32, |a| a.vmovlps_3(xmm2, xmm3, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovlps_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::EVEX_Vmovlps_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56559,12 +56559,12 @@ fn vmovmskps_r32_ymm() {
 fn vmovntdq_m_xmm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovntdq_m128_xmm
-		test_instr(32, |a| a.vmovntdq(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovntdq(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntdq_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovntdq_m128_xmm
-		test_instr(32, |a| a.vmovntdq(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovntdq(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovntdq_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56575,12 +56575,12 @@ fn vmovntdq_m_xmm() {
 fn vmovntdq_m_ymm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovntdq_m256_ymm
-		test_instr(32, |a| a.vmovntdq(mem(ecx), ymm3).unwrap(),
+		test_instr(32, |a| a.vmovntdq(ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntdq_m256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovntdq_m256_ymm
-		test_instr(32, |a| a.vmovntdq(mem(ecx), ymm3).unwrap(),
+		test_instr(32, |a| a.vmovntdq(ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovntdq_m256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56590,7 +56590,7 @@ fn vmovntdq_m_ymm() {
 #[rustfmt::skip]
 fn vmovntdq_m_zmm() {
 	// EVEX_Vmovntdq_m512_zmm
-	test_instr(32, |a| a.vmovntdq(mem(ecx), zmm3).unwrap(),
+	test_instr(32, |a| a.vmovntdq(ptr(ecx), zmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vmovntdq_m512_zmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::ZMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -56600,12 +56600,12 @@ fn vmovntdq_m_zmm() {
 fn vmovntdqa_xmm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovntdqa_xmm_m128
-		test_instr(32, |a| a.vmovntdqa(xmm2, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovntdqa(xmm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntdqa_xmm_m128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovntdqa_xmm_m128
-		test_instr(32, |a| a.vmovntdqa(xmm2, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovntdqa(xmm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovntdqa_xmm_m128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56616,12 +56616,12 @@ fn vmovntdqa_xmm_m() {
 fn vmovntdqa_ymm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovntdqa_ymm_m256
-		test_instr(32, |a| a.vmovntdqa(ymm2, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovntdqa(ymm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntdqa_ymm_m256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovntdqa_ymm_m256
-		test_instr(32, |a| a.vmovntdqa(ymm2, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovntdqa(ymm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovntdqa_ymm_m256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56631,7 +56631,7 @@ fn vmovntdqa_ymm_m() {
 #[rustfmt::skip]
 fn vmovntdqa_zmm_m() {
 	// EVEX_Vmovntdqa_zmm_m512
-	test_instr(32, |a| a.vmovntdqa(zmm2, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vmovntdqa(zmm2, ptr(ecx)).unwrap(),
 		Instruction::with2(Code::EVEX_Vmovntdqa_zmm_m512, Register::ZMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -56641,12 +56641,12 @@ fn vmovntdqa_zmm_m() {
 fn vmovntpd_m_xmm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovntpd_m128_xmm
-		test_instr(32, |a| a.vmovntpd(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovntpd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntpd_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovntpd_m128_xmm
-		test_instr(32, |a| a.vmovntpd(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovntpd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovntpd_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56657,12 +56657,12 @@ fn vmovntpd_m_xmm() {
 fn vmovntpd_m_ymm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovntpd_m256_ymm
-		test_instr(32, |a| a.vmovntpd(mem(ecx), ymm3).unwrap(),
+		test_instr(32, |a| a.vmovntpd(ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntpd_m256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovntpd_m256_ymm
-		test_instr(32, |a| a.vmovntpd(mem(ecx), ymm3).unwrap(),
+		test_instr(32, |a| a.vmovntpd(ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovntpd_m256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56672,7 +56672,7 @@ fn vmovntpd_m_ymm() {
 #[rustfmt::skip]
 fn vmovntpd_m_zmm() {
 	// EVEX_Vmovntpd_m512_zmm
-	test_instr(32, |a| a.vmovntpd(mem(ecx), zmm3).unwrap(),
+	test_instr(32, |a| a.vmovntpd(ptr(ecx), zmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vmovntpd_m512_zmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::ZMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -56682,12 +56682,12 @@ fn vmovntpd_m_zmm() {
 fn vmovntps_m_xmm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovntps_m128_xmm
-		test_instr(32, |a| a.vmovntps(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovntps(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntps_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovntps_m128_xmm
-		test_instr(32, |a| a.vmovntps(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovntps(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovntps_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56698,12 +56698,12 @@ fn vmovntps_m_xmm() {
 fn vmovntps_m_ymm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovntps_m256_ymm
-		test_instr(32, |a| a.vmovntps(mem(ecx), ymm3).unwrap(),
+		test_instr(32, |a| a.vmovntps(ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntps_m256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovntps_m256_ymm
-		test_instr(32, |a| a.vmovntps(mem(ecx), ymm3).unwrap(),
+		test_instr(32, |a| a.vmovntps(ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::EVEX_Vmovntps_m256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56713,7 +56713,7 @@ fn vmovntps_m_ymm() {
 #[rustfmt::skip]
 fn vmovntps_m_zmm() {
 	// EVEX_Vmovntps_m512_zmm
-	test_instr(32, |a| a.vmovntps(mem(ecx), zmm3).unwrap(),
+	test_instr(32, |a| a.vmovntps(ptr(ecx), zmm3).unwrap(),
 		Instruction::with2(Code::EVEX_Vmovntps_m512_zmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::ZMM3).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -56771,12 +56771,12 @@ fn vmovq_xmm_m() {
 fn vmovsd_m_xmm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovsd_m64_xmm
-		test_instr(32, |a| a.vmovsd(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovsd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovsd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovsd_m64_k1_xmm
-		test_instr(32, |a| a.vmovsd(mem(ecx).k1(), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovsd(ptr(ecx).k1(), xmm3).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vmovsd_m64_k1_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56787,12 +56787,12 @@ fn vmovsd_m_xmm() {
 fn vmovsd_xmm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovsd_xmm_m64
-		test_instr(32, |a| a.vmovsd(xmm2, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovsd(xmm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovsd_xmm_m64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovsd_xmm_k1z_m64
-		test_instr(32, |a| a.vmovsd(xmm2.k1(), mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovsd(xmm2.k1(), ptr(ecx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vmovsd_xmm_k1z_m64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -56818,7 +56818,7 @@ fn vmovsd_xmm_xmm_xmm() {
 #[rustfmt::skip]
 fn vmovsh_m_xmm() {
 	// EVEX_Vmovsh_m16_k1_xmm
-	test_instr(32, |a| a.vmovsh(mem(ecx).k1(), xmm3).unwrap(),
+	test_instr(32, |a| a.vmovsh(ptr(ecx).k1(), xmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vmovsh_m16_k1_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -56827,7 +56827,7 @@ fn vmovsh_m_xmm() {
 #[rustfmt::skip]
 fn vmovsh_xmm_m() {
 	// EVEX_Vmovsh_xmm_k1z_m16
-	test_instr(32, |a| a.vmovsh(xmm2.k1(), mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vmovsh(xmm2.k1(), ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vmovsh_xmm_k1z_m16, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -57010,12 +57010,12 @@ fn vmovsldup_zmm_m() {
 fn vmovss_m_xmm() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovss_m32_xmm
-		test_instr(32, |a| a.vmovss(mem(ecx), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovss(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovss_m32_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovss_m32_k1_xmm
-		test_instr(32, |a| a.vmovss(mem(ecx).k1(), xmm3).unwrap(),
+		test_instr(32, |a| a.vmovss(ptr(ecx).k1(), xmm3).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vmovss_m32_k1_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -57026,12 +57026,12 @@ fn vmovss_m_xmm() {
 fn vmovss_xmm_m() {
 	/* if self.prefer_vex() */ {
 		// VEX_Vmovss_xmm_m32
-		test_instr(32, |a| a.vmovss(xmm2, mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovss(xmm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovss_xmm_m32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vmovss_xmm_k1z_m32
-		test_instr(32, |a| a.vmovss(xmm2.k1(), mem(ecx)).unwrap(),
+		test_instr(32, |a| a.vmovss(xmm2.k1(), ptr(ecx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vmovss_xmm_k1z_m32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
@@ -57427,7 +57427,7 @@ fn vmpsadbw_ymm_ymm_m_u() {
 #[rustfmt::skip]
 fn vmptrld_m() {
 	// Vmptrld_m64
-	test_instr(32, |a| a.vmptrld(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vmptrld(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Vmptrld_m64, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -57436,7 +57436,7 @@ fn vmptrld_m() {
 #[rustfmt::skip]
 fn vmptrst_m() {
 	// Vmptrst_m64
-	test_instr(32, |a| a.vmptrst(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vmptrst(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Vmptrst_m64, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -57849,7 +57849,7 @@ fn vmxoff() {
 #[rustfmt::skip]
 fn vmxon_m() {
 	// Vmxon_m64
-	test_instr(32, |a| a.vmxon(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vmxon(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Vmxon_m64, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -58150,7 +58150,7 @@ fn vp2intersectq_kr_zmm_m() {
 #[rustfmt::skip]
 fn vp4dpwssd_zmm_zmm_m() {
 	// EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128
-	test_instr(32, |a| a.vp4dpwssd(zmm2.k1(), zmm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vp4dpwssd(zmm2.k1(), zmm3, ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128, Register::ZMM2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -58159,7 +58159,7 @@ fn vp4dpwssd_zmm_zmm_m() {
 #[rustfmt::skip]
 fn vp4dpwssds_zmm_zmm_m() {
 	// EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128
-	test_instr(32, |a| a.vp4dpwssds(zmm2.k1(), zmm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vp4dpwssds(zmm2.k1(), zmm3, ptr(ecx)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128, Register::ZMM2, Register::ZMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71665,7 +71665,7 @@ fn vpextrw_m_xmm_u() {
 #[rustfmt::skip]
 fn vpgatherdd_xmm_m() {
 	// EVEX_Vpgatherdd_xmm_k1_vm32x
-	test_instr(32, |a| a.vpgatherdd(xmm2.k1(), mem(edx+xmm3)).unwrap(),
+	test_instr(32, |a| a.vpgatherdd(xmm2.k1(), ptr(edx+xmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpgatherdd_xmm_k1_vm32x, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71674,7 +71674,7 @@ fn vpgatherdd_xmm_m() {
 #[rustfmt::skip]
 fn vpgatherdd_ymm_m() {
 	// EVEX_Vpgatherdd_ymm_k1_vm32y
-	test_instr(32, |a| a.vpgatherdd(ymm2.k1(), mem(edx+ymm3)).unwrap(),
+	test_instr(32, |a| a.vpgatherdd(ymm2.k1(), ptr(edx+ymm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpgatherdd_ymm_k1_vm32y, Register::YMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71683,7 +71683,7 @@ fn vpgatherdd_ymm_m() {
 #[rustfmt::skip]
 fn vpgatherdd_zmm_m() {
 	// EVEX_Vpgatherdd_zmm_k1_vm32z
-	test_instr(32, |a| a.vpgatherdd(zmm2.k1(), mem(edx+zmm3)).unwrap(),
+	test_instr(32, |a| a.vpgatherdd(zmm2.k1(), ptr(edx+zmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpgatherdd_zmm_k1_vm32z, Register::ZMM2, MemoryOperand::new(Register::EDX, Register::ZMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71692,7 +71692,7 @@ fn vpgatherdd_zmm_m() {
 #[rustfmt::skip]
 fn vpgatherdd_xmm_m_xmm() {
 	// VEX_Vpgatherdd_xmm_vm32x_xmm
-	test_instr(32, |a| a.vpgatherdd_3(xmm2, mem(edx+xmm3), xmm4).unwrap(),
+	test_instr(32, |a| a.vpgatherdd_3(xmm2, ptr(edx+xmm3), xmm4).unwrap(),
 		Instruction::with3(Code::VEX_Vpgatherdd_xmm_vm32x_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71701,7 +71701,7 @@ fn vpgatherdd_xmm_m_xmm() {
 #[rustfmt::skip]
 fn vpgatherdd_ymm_m_ymm() {
 	// VEX_Vpgatherdd_ymm_vm32y_ymm
-	test_instr(32, |a| a.vpgatherdd_3(ymm2, mem(edx+ymm3), ymm4).unwrap(),
+	test_instr(32, |a| a.vpgatherdd_3(ymm2, ptr(edx+ymm3), ymm4).unwrap(),
 		Instruction::with3(Code::VEX_Vpgatherdd_ymm_vm32y_ymm, Register::YMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None), Register::YMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71710,7 +71710,7 @@ fn vpgatherdd_ymm_m_ymm() {
 #[rustfmt::skip]
 fn vpgatherdq_xmm_m() {
 	// EVEX_Vpgatherdq_xmm_k1_vm32x
-	test_instr(32, |a| a.vpgatherdq(xmm2.k1(), mem(edx+xmm3)).unwrap(),
+	test_instr(32, |a| a.vpgatherdq(xmm2.k1(), ptr(edx+xmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpgatherdq_xmm_k1_vm32x, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71719,7 +71719,7 @@ fn vpgatherdq_xmm_m() {
 #[rustfmt::skip]
 fn vpgatherdq_ymm_m() {
 	// EVEX_Vpgatherdq_ymm_k1_vm32x
-	test_instr(32, |a| a.vpgatherdq(ymm2.k1(), mem(edx+xmm3)).unwrap(),
+	test_instr(32, |a| a.vpgatherdq(ymm2.k1(), ptr(edx+xmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpgatherdq_ymm_k1_vm32x, Register::YMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71728,7 +71728,7 @@ fn vpgatherdq_ymm_m() {
 #[rustfmt::skip]
 fn vpgatherdq_zmm_m() {
 	// EVEX_Vpgatherdq_zmm_k1_vm32y
-	test_instr(32, |a| a.vpgatherdq(zmm2.k1(), mem(edx+ymm3)).unwrap(),
+	test_instr(32, |a| a.vpgatherdq(zmm2.k1(), ptr(edx+ymm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpgatherdq_zmm_k1_vm32y, Register::ZMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71737,7 +71737,7 @@ fn vpgatherdq_zmm_m() {
 #[rustfmt::skip]
 fn vpgatherdq_xmm_m_xmm() {
 	// VEX_Vpgatherdq_xmm_vm32x_xmm
-	test_instr(32, |a| a.vpgatherdq_3(xmm2, mem(edx+xmm3), xmm4).unwrap(),
+	test_instr(32, |a| a.vpgatherdq_3(xmm2, ptr(edx+xmm3), xmm4).unwrap(),
 		Instruction::with3(Code::VEX_Vpgatherdq_xmm_vm32x_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71746,7 +71746,7 @@ fn vpgatherdq_xmm_m_xmm() {
 #[rustfmt::skip]
 fn vpgatherdq_ymm_m_ymm() {
 	// VEX_Vpgatherdq_ymm_vm32x_ymm
-	test_instr(32, |a| a.vpgatherdq_3(ymm2, mem(edx+xmm3), ymm4).unwrap(),
+	test_instr(32, |a| a.vpgatherdq_3(ymm2, ptr(edx+xmm3), ymm4).unwrap(),
 		Instruction::with3(Code::VEX_Vpgatherdq_ymm_vm32x_ymm, Register::YMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None), Register::YMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71756,17 +71756,17 @@ fn vpgatherdq_ymm_m_ymm() {
 fn vpgatherqd_xmm_m() {
 	/* if op1.index().is_xmm() */ {
 		// EVEX_Vpgatherqd_xmm_k1_vm64x
-		test_instr(32, |a| a.vpgatherqd(xmm2.k1(), mem(edx+xmm3)).unwrap(),
+		test_instr(32, |a| a.vpgatherqd(xmm2.k1(), ptr(edx+xmm3)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vpgatherqd_xmm_k1_vm64x, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else if op1.index().is_ymm() */ {
 		// EVEX_Vpgatherqd_xmm_k1_vm64y
-		test_instr(32, |a| a.vpgatherqd(xmm2.k1(), mem(edx+ymm3)).unwrap(),
+		test_instr(32, |a| a.vpgatherqd(xmm2.k1(), ptr(edx+ymm3)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vpgatherqd_xmm_k1_vm64y, Register::XMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vpgatherqd_xmm_k1_vm64y
-		test_invalid_instr(32, |a| assert!(a.vpgatherqd(xmm2.k1(), mem(edx+zmm1)).is_err()), TestInstrFlags::NONE);
+		test_invalid_instr(32, |a| assert!(a.vpgatherqd(xmm2.k1(), ptr(edx+zmm1)).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -71774,7 +71774,7 @@ fn vpgatherqd_xmm_m() {
 #[rustfmt::skip]
 fn vpgatherqd_ymm_m() {
 	// EVEX_Vpgatherqd_ymm_k1_vm64z
-	test_instr(32, |a| a.vpgatherqd(ymm2.k1(), mem(edx+zmm3)).unwrap(),
+	test_instr(32, |a| a.vpgatherqd(ymm2.k1(), ptr(edx+zmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpgatherqd_ymm_k1_vm64z, Register::YMM2, MemoryOperand::new(Register::EDX, Register::ZMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71784,17 +71784,17 @@ fn vpgatherqd_ymm_m() {
 fn vpgatherqd_xmm_m_xmm() {
 	/* if op1.index().is_xmm() */ {
 		// VEX_Vpgatherqd_xmm_vm64x_xmm
-		test_instr(32, |a| a.vpgatherqd_3(xmm2, mem(edx+xmm3), xmm4).unwrap(),
+		test_instr(32, |a| a.vpgatherqd_3(xmm2, ptr(edx+xmm3), xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpgatherqd_xmm_vm64x_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else if op1.index().is_ymm() */ {
 		// VEX_Vpgatherqd_xmm_vm64y_xmm
-		test_instr(32, |a| a.vpgatherqd_3(xmm2, mem(edx+ymm3), xmm4).unwrap(),
+		test_instr(32, |a| a.vpgatherqd_3(xmm2, ptr(edx+ymm3), xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpgatherqd_xmm_vm64y_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// VEX_Vpgatherqd_xmm_vm64y_xmm
-		test_invalid_instr(32, |a| assert!(a.vpgatherqd_3(xmm2, mem(edx+zmm1), xmm4).is_err()), TestInstrFlags::NONE);
+		test_invalid_instr(32, |a| assert!(a.vpgatherqd_3(xmm2, ptr(edx+zmm1), xmm4).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -71802,7 +71802,7 @@ fn vpgatherqd_xmm_m_xmm() {
 #[rustfmt::skip]
 fn vpgatherqq_xmm_m() {
 	// EVEX_Vpgatherqq_xmm_k1_vm64x
-	test_instr(32, |a| a.vpgatherqq(xmm2.k1(), mem(edx+xmm3)).unwrap(),
+	test_instr(32, |a| a.vpgatherqq(xmm2.k1(), ptr(edx+xmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpgatherqq_xmm_k1_vm64x, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71811,7 +71811,7 @@ fn vpgatherqq_xmm_m() {
 #[rustfmt::skip]
 fn vpgatherqq_ymm_m() {
 	// EVEX_Vpgatherqq_ymm_k1_vm64y
-	test_instr(32, |a| a.vpgatherqq(ymm2.k1(), mem(edx+ymm3)).unwrap(),
+	test_instr(32, |a| a.vpgatherqq(ymm2.k1(), ptr(edx+ymm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpgatherqq_ymm_k1_vm64y, Register::YMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71820,7 +71820,7 @@ fn vpgatherqq_ymm_m() {
 #[rustfmt::skip]
 fn vpgatherqq_zmm_m() {
 	// EVEX_Vpgatherqq_zmm_k1_vm64z
-	test_instr(32, |a| a.vpgatherqq(zmm2.k1(), mem(edx+zmm3)).unwrap(),
+	test_instr(32, |a| a.vpgatherqq(zmm2.k1(), ptr(edx+zmm3)).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpgatherqq_zmm_k1_vm64z, Register::ZMM2, MemoryOperand::new(Register::EDX, Register::ZMM3, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71829,7 +71829,7 @@ fn vpgatherqq_zmm_m() {
 #[rustfmt::skip]
 fn vpgatherqq_xmm_m_xmm() {
 	// VEX_Vpgatherqq_xmm_vm64x_xmm
-	test_instr(32, |a| a.vpgatherqq_3(xmm2, mem(edx+xmm3), xmm4).unwrap(),
+	test_instr(32, |a| a.vpgatherqq_3(xmm2, ptr(edx+xmm3), xmm4).unwrap(),
 		Instruction::with3(Code::VEX_Vpgatherqq_xmm_vm64x_xmm, Register::XMM2, MemoryOperand::new(Register::EDX, Register::XMM3, 1, 0x0i64, 0, false, Register::None), Register::XMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -71838,7 +71838,7 @@ fn vpgatherqq_xmm_m_xmm() {
 #[rustfmt::skip]
 fn vpgatherqq_ymm_m_ymm() {
 	// VEX_Vpgatherqq_ymm_vm64y_ymm
-	test_instr(32, |a| a.vpgatherqq_3(ymm2, mem(edx+ymm3), ymm4).unwrap(),
+	test_instr(32, |a| a.vpgatherqq_3(ymm2, ptr(edx+ymm3), ymm4).unwrap(),
 		Instruction::with3(Code::VEX_Vpgatherqq_ymm_vm64y_ymm, Register::YMM2, MemoryOperand::new(Register::EDX, Register::YMM3, 1, 0x0i64, 0, false, Register::None), Register::YMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -73205,7 +73205,7 @@ fn vpmaddwd_zmm_zmm_m() {
 #[rustfmt::skip]
 fn vpmaskmovd_m_xmm_xmm() {
 	// VEX_Vpmaskmovd_m128_xmm_xmm
-	test_instr(32, |a| a.vpmaskmovd(mem(ecx), xmm3, xmm4).unwrap(),
+	test_instr(32, |a| a.vpmaskmovd(ptr(ecx), xmm3, xmm4).unwrap(),
 		Instruction::with3(Code::VEX_Vpmaskmovd_m128_xmm_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, Register::XMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -73214,7 +73214,7 @@ fn vpmaskmovd_m_xmm_xmm() {
 #[rustfmt::skip]
 fn vpmaskmovd_m_ymm_ymm() {
 	// VEX_Vpmaskmovd_m256_ymm_ymm
-	test_instr(32, |a| a.vpmaskmovd(mem(ecx), ymm3, ymm4).unwrap(),
+	test_instr(32, |a| a.vpmaskmovd(ptr(ecx), ymm3, ymm4).unwrap(),
 		Instruction::with3(Code::VEX_Vpmaskmovd_m256_ymm_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3, Register::YMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -73223,7 +73223,7 @@ fn vpmaskmovd_m_ymm_ymm() {
 #[rustfmt::skip]
 fn vpmaskmovd_xmm_xmm_m() {
 	// VEX_Vpmaskmovd_xmm_xmm_m128
-	test_instr(32, |a| a.vpmaskmovd(xmm2, xmm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vpmaskmovd(xmm2, xmm3, ptr(ecx)).unwrap(),
 		Instruction::with3(Code::VEX_Vpmaskmovd_xmm_xmm_m128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -73232,7 +73232,7 @@ fn vpmaskmovd_xmm_xmm_m() {
 #[rustfmt::skip]
 fn vpmaskmovd_ymm_ymm_m() {
 	// VEX_Vpmaskmovd_ymm_ymm_m256
-	test_instr(32, |a| a.vpmaskmovd(ymm2, ymm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vpmaskmovd(ymm2, ymm3, ptr(ecx)).unwrap(),
 		Instruction::with3(Code::VEX_Vpmaskmovd_ymm_ymm_m256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -73241,7 +73241,7 @@ fn vpmaskmovd_ymm_ymm_m() {
 #[rustfmt::skip]
 fn vpmaskmovq_m_xmm_xmm() {
 	// VEX_Vpmaskmovq_m128_xmm_xmm
-	test_instr(32, |a| a.vpmaskmovq(mem(ecx), xmm3, xmm4).unwrap(),
+	test_instr(32, |a| a.vpmaskmovq(ptr(ecx), xmm3, xmm4).unwrap(),
 		Instruction::with3(Code::VEX_Vpmaskmovq_m128_xmm_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, Register::XMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -73250,7 +73250,7 @@ fn vpmaskmovq_m_xmm_xmm() {
 #[rustfmt::skip]
 fn vpmaskmovq_m_ymm_ymm() {
 	// VEX_Vpmaskmovq_m256_ymm_ymm
-	test_instr(32, |a| a.vpmaskmovq(mem(ecx), ymm3, ymm4).unwrap(),
+	test_instr(32, |a| a.vpmaskmovq(ptr(ecx), ymm3, ymm4).unwrap(),
 		Instruction::with3(Code::VEX_Vpmaskmovq_m256_ymm_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3, Register::YMM4).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -73259,7 +73259,7 @@ fn vpmaskmovq_m_ymm_ymm() {
 #[rustfmt::skip]
 fn vpmaskmovq_xmm_xmm_m() {
 	// VEX_Vpmaskmovq_xmm_xmm_m128
-	test_instr(32, |a| a.vpmaskmovq(xmm2, xmm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vpmaskmovq(xmm2, xmm3, ptr(ecx)).unwrap(),
 		Instruction::with3(Code::VEX_Vpmaskmovq_xmm_xmm_m128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -73268,7 +73268,7 @@ fn vpmaskmovq_xmm_xmm_m() {
 #[rustfmt::skip]
 fn vpmaskmovq_ymm_ymm_m() {
 	// VEX_Vpmaskmovq_ymm_ymm_m256
-	test_instr(32, |a| a.vpmaskmovq(ymm2, ymm3, mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vpmaskmovq(ymm2, ymm3, ptr(ecx)).unwrap(),
 		Instruction::with3(Code::VEX_Vpmaskmovq_ymm_ymm_m256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -78916,7 +78916,7 @@ fn vpsadbw_zmm_zmm_m() {
 #[rustfmt::skip]
 fn vpscatterdd_m_xmm() {
 	// EVEX_Vpscatterdd_vm32x_k1_xmm
-	test_instr(32, |a| a.vpscatterdd(mem(edx+xmm2).k1(), xmm3).unwrap(),
+	test_instr(32, |a| a.vpscatterdd(ptr(edx+xmm2).k1(), xmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpscatterdd_vm32x_k1_xmm, MemoryOperand::new(Register::EDX, Register::XMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -78925,7 +78925,7 @@ fn vpscatterdd_m_xmm() {
 #[rustfmt::skip]
 fn vpscatterdd_m_ymm() {
 	// EVEX_Vpscatterdd_vm32y_k1_ymm
-	test_instr(32, |a| a.vpscatterdd(mem(edx+ymm2).k1(), ymm3).unwrap(),
+	test_instr(32, |a| a.vpscatterdd(ptr(edx+ymm2).k1(), ymm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpscatterdd_vm32y_k1_ymm, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -78934,7 +78934,7 @@ fn vpscatterdd_m_ymm() {
 #[rustfmt::skip]
 fn vpscatterdd_m_zmm() {
 	// EVEX_Vpscatterdd_vm32z_k1_zmm
-	test_instr(32, |a| a.vpscatterdd(mem(edx+zmm2).k1(), zmm3).unwrap(),
+	test_instr(32, |a| a.vpscatterdd(ptr(edx+zmm2).k1(), zmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpscatterdd_vm32z_k1_zmm, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None), Register::ZMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -78943,7 +78943,7 @@ fn vpscatterdd_m_zmm() {
 #[rustfmt::skip]
 fn vpscatterdq_m_xmm() {
 	// EVEX_Vpscatterdq_vm32x_k1_xmm
-	test_instr(32, |a| a.vpscatterdq(mem(edx+xmm2).k1(), xmm3).unwrap(),
+	test_instr(32, |a| a.vpscatterdq(ptr(edx+xmm2).k1(), xmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpscatterdq_vm32x_k1_xmm, MemoryOperand::new(Register::EDX, Register::XMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -78952,7 +78952,7 @@ fn vpscatterdq_m_xmm() {
 #[rustfmt::skip]
 fn vpscatterdq_m_ymm() {
 	// EVEX_Vpscatterdq_vm32x_k1_ymm
-	test_instr(32, |a| a.vpscatterdq(mem(edx+xmm2).k1(), ymm3).unwrap(),
+	test_instr(32, |a| a.vpscatterdq(ptr(edx+xmm2).k1(), ymm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpscatterdq_vm32x_k1_ymm, MemoryOperand::new(Register::EDX, Register::XMM2, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -78961,7 +78961,7 @@ fn vpscatterdq_m_ymm() {
 #[rustfmt::skip]
 fn vpscatterdq_m_zmm() {
 	// EVEX_Vpscatterdq_vm32y_k1_zmm
-	test_instr(32, |a| a.vpscatterdq(mem(edx+ymm2).k1(), zmm3).unwrap(),
+	test_instr(32, |a| a.vpscatterdq(ptr(edx+ymm2).k1(), zmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpscatterdq_vm32y_k1_zmm, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None), Register::ZMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -78971,17 +78971,17 @@ fn vpscatterdq_m_zmm() {
 fn vpscatterqd_m_xmm() {
 	/* if op0.index().is_xmm() */ {
 		// EVEX_Vpscatterqd_vm64x_k1_xmm
-		test_instr(32, |a| a.vpscatterqd(mem(edx+xmm2).k1(), xmm3).unwrap(),
+		test_instr(32, |a| a.vpscatterqd(ptr(edx+xmm2).k1(), xmm3).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vpscatterqd_vm64x_k1_xmm, MemoryOperand::new(Register::EDX, Register::XMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else if op0.index().is_ymm() */ {
 		// EVEX_Vpscatterqd_vm64y_k1_xmm
-		test_instr(32, |a| a.vpscatterqd(mem(edx+ymm2).k1(), xmm3).unwrap(),
+		test_instr(32, |a| a.vpscatterqd(ptr(edx+ymm2).k1(), xmm3).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vpscatterqd_vm64y_k1_xmm, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vpscatterqd_vm64y_k1_xmm
-		test_invalid_instr(32, |a| assert!(a.vpscatterqd(mem(edx+zmm0).k1(), xmm3).is_err()), TestInstrFlags::NONE);
+		test_invalid_instr(32, |a| assert!(a.vpscatterqd(ptr(edx+zmm0).k1(), xmm3).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -78989,7 +78989,7 @@ fn vpscatterqd_m_xmm() {
 #[rustfmt::skip]
 fn vpscatterqd_m_ymm() {
 	// EVEX_Vpscatterqd_vm64z_k1_ymm
-	test_instr(32, |a| a.vpscatterqd(mem(edx+zmm2).k1(), ymm3).unwrap(),
+	test_instr(32, |a| a.vpscatterqd(ptr(edx+zmm2).k1(), ymm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpscatterqd_vm64z_k1_ymm, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -78998,7 +78998,7 @@ fn vpscatterqd_m_ymm() {
 #[rustfmt::skip]
 fn vpscatterqq_m_xmm() {
 	// EVEX_Vpscatterqq_vm64x_k1_xmm
-	test_instr(32, |a| a.vpscatterqq(mem(edx+xmm2).k1(), xmm3).unwrap(),
+	test_instr(32, |a| a.vpscatterqq(ptr(edx+xmm2).k1(), xmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpscatterqq_vm64x_k1_xmm, MemoryOperand::new(Register::EDX, Register::XMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -79007,7 +79007,7 @@ fn vpscatterqq_m_xmm() {
 #[rustfmt::skip]
 fn vpscatterqq_m_ymm() {
 	// EVEX_Vpscatterqq_vm64y_k1_ymm
-	test_instr(32, |a| a.vpscatterqq(mem(edx+ymm2).k1(), ymm3).unwrap(),
+	test_instr(32, |a| a.vpscatterqq(ptr(edx+ymm2).k1(), ymm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpscatterqq_vm64y_k1_ymm, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -79016,7 +79016,7 @@ fn vpscatterqq_m_ymm() {
 #[rustfmt::skip]
 fn vpscatterqq_m_zmm() {
 	// EVEX_Vpscatterqq_vm64z_k1_zmm
-	test_instr(32, |a| a.vpscatterqq(mem(edx+zmm2).k1(), zmm3).unwrap(),
+	test_instr(32, |a| a.vpscatterqq(ptr(edx+zmm2).k1(), zmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vpscatterqq_vm64z_k1_zmm, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None), Register::ZMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89357,7 +89357,7 @@ fn vscalefss_xmm_xmm_m() {
 #[rustfmt::skip]
 fn vscatterdpd_m_xmm() {
 	// EVEX_Vscatterdpd_vm32x_k1_xmm
-	test_instr(32, |a| a.vscatterdpd(mem(edx+xmm2).k1(), xmm3).unwrap(),
+	test_instr(32, |a| a.vscatterdpd(ptr(edx+xmm2).k1(), xmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vscatterdpd_vm32x_k1_xmm, MemoryOperand::new(Register::EDX, Register::XMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89366,7 +89366,7 @@ fn vscatterdpd_m_xmm() {
 #[rustfmt::skip]
 fn vscatterdpd_m_ymm() {
 	// EVEX_Vscatterdpd_vm32x_k1_ymm
-	test_instr(32, |a| a.vscatterdpd(mem(edx+xmm2).k1(), ymm3).unwrap(),
+	test_instr(32, |a| a.vscatterdpd(ptr(edx+xmm2).k1(), ymm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vscatterdpd_vm32x_k1_ymm, MemoryOperand::new(Register::EDX, Register::XMM2, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89375,7 +89375,7 @@ fn vscatterdpd_m_ymm() {
 #[rustfmt::skip]
 fn vscatterdpd_m_zmm() {
 	// EVEX_Vscatterdpd_vm32y_k1_zmm
-	test_instr(32, |a| a.vscatterdpd(mem(edx+ymm2).k1(), zmm3).unwrap(),
+	test_instr(32, |a| a.vscatterdpd(ptr(edx+ymm2).k1(), zmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vscatterdpd_vm32y_k1_zmm, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None), Register::ZMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89384,7 +89384,7 @@ fn vscatterdpd_m_zmm() {
 #[rustfmt::skip]
 fn vscatterdps_m_xmm() {
 	// EVEX_Vscatterdps_vm32x_k1_xmm
-	test_instr(32, |a| a.vscatterdps(mem(edx+xmm2).k1(), xmm3).unwrap(),
+	test_instr(32, |a| a.vscatterdps(ptr(edx+xmm2).k1(), xmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vscatterdps_vm32x_k1_xmm, MemoryOperand::new(Register::EDX, Register::XMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89393,7 +89393,7 @@ fn vscatterdps_m_xmm() {
 #[rustfmt::skip]
 fn vscatterdps_m_ymm() {
 	// EVEX_Vscatterdps_vm32y_k1_ymm
-	test_instr(32, |a| a.vscatterdps(mem(edx+ymm2).k1(), ymm3).unwrap(),
+	test_instr(32, |a| a.vscatterdps(ptr(edx+ymm2).k1(), ymm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vscatterdps_vm32y_k1_ymm, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89402,7 +89402,7 @@ fn vscatterdps_m_ymm() {
 #[rustfmt::skip]
 fn vscatterdps_m_zmm() {
 	// EVEX_Vscatterdps_vm32z_k1_zmm
-	test_instr(32, |a| a.vscatterdps(mem(edx+zmm2).k1(), zmm3).unwrap(),
+	test_instr(32, |a| a.vscatterdps(ptr(edx+zmm2).k1(), zmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vscatterdps_vm32z_k1_zmm, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None), Register::ZMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89411,7 +89411,7 @@ fn vscatterdps_m_zmm() {
 #[rustfmt::skip]
 fn vscatterpf0dpd_m() {
 	// EVEX_Vscatterpf0dpd_vm32y_k1
-	test_instr(32, |a| a.vscatterpf0dpd(mem(edx+ymm2).k1()).unwrap(),
+	test_instr(32, |a| a.vscatterpf0dpd(ptr(edx+ymm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vscatterpf0dpd_vm32y_k1, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89420,7 +89420,7 @@ fn vscatterpf0dpd_m() {
 #[rustfmt::skip]
 fn vscatterpf0dps_m() {
 	// EVEX_Vscatterpf0dps_vm32z_k1
-	test_instr(32, |a| a.vscatterpf0dps(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vscatterpf0dps(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vscatterpf0dps_vm32z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89429,7 +89429,7 @@ fn vscatterpf0dps_m() {
 #[rustfmt::skip]
 fn vscatterpf0qpd_m() {
 	// EVEX_Vscatterpf0qpd_vm64z_k1
-	test_instr(32, |a| a.vscatterpf0qpd(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vscatterpf0qpd(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vscatterpf0qpd_vm64z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89438,7 +89438,7 @@ fn vscatterpf0qpd_m() {
 #[rustfmt::skip]
 fn vscatterpf0qps_m() {
 	// EVEX_Vscatterpf0qps_vm64z_k1
-	test_instr(32, |a| a.vscatterpf0qps(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vscatterpf0qps(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vscatterpf0qps_vm64z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89447,7 +89447,7 @@ fn vscatterpf0qps_m() {
 #[rustfmt::skip]
 fn vscatterpf1dpd_m() {
 	// EVEX_Vscatterpf1dpd_vm32y_k1
-	test_instr(32, |a| a.vscatterpf1dpd(mem(edx+ymm2).k1()).unwrap(),
+	test_instr(32, |a| a.vscatterpf1dpd(ptr(edx+ymm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vscatterpf1dpd_vm32y_k1, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89456,7 +89456,7 @@ fn vscatterpf1dpd_m() {
 #[rustfmt::skip]
 fn vscatterpf1dps_m() {
 	// EVEX_Vscatterpf1dps_vm32z_k1
-	test_instr(32, |a| a.vscatterpf1dps(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vscatterpf1dps(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vscatterpf1dps_vm32z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89465,7 +89465,7 @@ fn vscatterpf1dps_m() {
 #[rustfmt::skip]
 fn vscatterpf1qpd_m() {
 	// EVEX_Vscatterpf1qpd_vm64z_k1
-	test_instr(32, |a| a.vscatterpf1qpd(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vscatterpf1qpd(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vscatterpf1qpd_vm64z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89474,7 +89474,7 @@ fn vscatterpf1qpd_m() {
 #[rustfmt::skip]
 fn vscatterpf1qps_m() {
 	// EVEX_Vscatterpf1qps_vm64z_k1
-	test_instr(32, |a| a.vscatterpf1qps(mem(edx+zmm2).k1()).unwrap(),
+	test_instr(32, |a| a.vscatterpf1qps(ptr(edx+zmm2).k1()).unwrap(),
 		add_op_mask(Instruction::with1(Code::EVEX_Vscatterpf1qps_vm64z_k1, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89483,7 +89483,7 @@ fn vscatterpf1qps_m() {
 #[rustfmt::skip]
 fn vscatterqpd_m_xmm() {
 	// EVEX_Vscatterqpd_vm64x_k1_xmm
-	test_instr(32, |a| a.vscatterqpd(mem(edx+xmm2).k1(), xmm3).unwrap(),
+	test_instr(32, |a| a.vscatterqpd(ptr(edx+xmm2).k1(), xmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vscatterqpd_vm64x_k1_xmm, MemoryOperand::new(Register::EDX, Register::XMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89492,7 +89492,7 @@ fn vscatterqpd_m_xmm() {
 #[rustfmt::skip]
 fn vscatterqpd_m_ymm() {
 	// EVEX_Vscatterqpd_vm64y_k1_ymm
-	test_instr(32, |a| a.vscatterqpd(mem(edx+ymm2).k1(), ymm3).unwrap(),
+	test_instr(32, |a| a.vscatterqpd(ptr(edx+ymm2).k1(), ymm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vscatterqpd_vm64y_k1_ymm, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89501,7 +89501,7 @@ fn vscatterqpd_m_ymm() {
 #[rustfmt::skip]
 fn vscatterqpd_m_zmm() {
 	// EVEX_Vscatterqpd_vm64z_k1_zmm
-	test_instr(32, |a| a.vscatterqpd(mem(edx+zmm2).k1(), zmm3).unwrap(),
+	test_instr(32, |a| a.vscatterqpd(ptr(edx+zmm2).k1(), zmm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vscatterqpd_vm64z_k1_zmm, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None), Register::ZMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -89511,17 +89511,17 @@ fn vscatterqpd_m_zmm() {
 fn vscatterqps_m_xmm() {
 	/* if op0.index().is_xmm() */ {
 		// EVEX_Vscatterqps_vm64x_k1_xmm
-		test_instr(32, |a| a.vscatterqps(mem(edx+xmm2).k1(), xmm3).unwrap(),
+		test_instr(32, |a| a.vscatterqps(ptr(edx+xmm2).k1(), xmm3).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vscatterqps_vm64x_k1_xmm, MemoryOperand::new(Register::EDX, Register::XMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else if op0.index().is_ymm() */ {
 		// EVEX_Vscatterqps_vm64y_k1_xmm
-		test_instr(32, |a| a.vscatterqps(mem(edx+ymm2).k1(), xmm3).unwrap(),
+		test_instr(32, |a| a.vscatterqps(ptr(edx+ymm2).k1(), xmm3).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vscatterqps_vm64y_k1_xmm, MemoryOperand::new(Register::EDX, Register::YMM2, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(), Register::K1),
 			TestInstrFlags::NONE, DecoderOptions::NONE);
 	} /* else */ {
 		// EVEX_Vscatterqps_vm64y_k1_xmm
-		test_invalid_instr(32, |a| assert!(a.vscatterqps(mem(edx+zmm0).k1(), xmm3).is_err()), TestInstrFlags::NONE);
+		test_invalid_instr(32, |a| assert!(a.vscatterqps(ptr(edx+zmm0).k1(), xmm3).is_err()), TestInstrFlags::NONE);
 	}
 }
 
@@ -89529,7 +89529,7 @@ fn vscatterqps_m_xmm() {
 #[rustfmt::skip]
 fn vscatterqps_m_ymm() {
 	// EVEX_Vscatterqps_vm64z_k1_ymm
-	test_instr(32, |a| a.vscatterqps(mem(edx+zmm2).k1(), ymm3).unwrap(),
+	test_instr(32, |a| a.vscatterqps(ptr(edx+zmm2).k1(), ymm3).unwrap(),
 		add_op_mask(Instruction::with2(Code::EVEX_Vscatterqps_vm64z_k1_ymm, MemoryOperand::new(Register::EDX, Register::ZMM2, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(), Register::K1),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -90702,7 +90702,7 @@ fn vsqrtss_xmm_xmm_m() {
 #[rustfmt::skip]
 fn vstmxcsr_m() {
 	// VEX_Vstmxcsr_m32
-	test_instr(32, |a| a.vstmxcsr(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.vstmxcsr(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::VEX_Vstmxcsr_m32, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -91818,7 +91818,7 @@ fn wrshr_m() {
 #[rustfmt::skip]
 fn wrssd_m_r32() {
 	// Wrssd_m32_r32
-	test_instr(32, |a| a.wrssd(mem(ecx), ebx).unwrap(),
+	test_instr(32, |a| a.wrssd(ptr(ecx), ebx).unwrap(),
 		Instruction::with2(Code::Wrssd_m32_r32, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -91836,7 +91836,7 @@ fn wrudbg() {
 #[rustfmt::skip]
 fn wrussd_m_r32() {
 	// Wrussd_m32_r32
-	test_instr(32, |a| a.wrussd(mem(ecx), ebx).unwrap(),
+	test_instr(32, |a| a.wrussd(ptr(ecx), ebx).unwrap(),
 		Instruction::with2(Code::Wrussd_m32_r32, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -92574,7 +92574,7 @@ fn xresldtrk() {
 #[rustfmt::skip]
 fn xrstor_m() {
 	// Xrstor_mem
-	test_instr(32, |a| a.xrstor(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.xrstor(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Xrstor_mem, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -92583,7 +92583,7 @@ fn xrstor_m() {
 #[rustfmt::skip]
 fn xrstors_m() {
 	// Xrstors_mem
-	test_instr(32, |a| a.xrstors(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.xrstors(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Xrstors_mem, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -92592,7 +92592,7 @@ fn xrstors_m() {
 #[rustfmt::skip]
 fn xsave_m() {
 	// Xsave_mem
-	test_instr(32, |a| a.xsave(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.xsave(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Xsave_mem, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -92601,7 +92601,7 @@ fn xsave_m() {
 #[rustfmt::skip]
 fn xsavec_m() {
 	// Xsavec_mem
-	test_instr(32, |a| a.xsavec(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.xsavec(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Xsavec_mem, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -92610,7 +92610,7 @@ fn xsavec_m() {
 #[rustfmt::skip]
 fn xsaveopt_m() {
 	// Xsaveopt_mem
-	test_instr(32, |a| a.xsaveopt(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.xsaveopt(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Xsaveopt_mem, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
@@ -92619,7 +92619,7 @@ fn xsaveopt_m() {
 #[rustfmt::skip]
 fn xsaves_m() {
 	// Xsaves_mem
-	test_instr(32, |a| a.xsaves(mem(ecx)).unwrap(),
+	test_instr(32, |a| a.xsaves(ptr(ecx)).unwrap(),
 		Instruction::with1(Code::Xsaves_mem, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
