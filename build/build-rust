@@ -190,7 +190,11 @@ build_test_current_version() {
 	cargo build --color always --release --features "serde code_asm"
 
 	echo "==== TEST RELEASE ===="
-	cargo test --color always --release --features "serde $test_code_asm_feat"
+	extra_args=""
+	if [ "$test_code_asm" != "y" ]; then
+		extra_args="-- --skip lib.rs"
+	fi
+	cargo test --color always --release --features "serde $test_code_asm_feat" $extra_args
 
 	# Make sure the two read-mem methods behave the same
 	# Also test serde code. It needs encoder to also test 'db x,y,z', see serde tests
