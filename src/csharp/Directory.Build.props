@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Copyright>Copyright (C) 2018-present iced project and contributors</Copyright>
-    <Version>1.13.0</Version>
+    <Version>1.14.0</Version>
     <Authors>iced project and contributors &lt;https://github.com/icedland&gt;</Authors>
     <InformationalVersion>$(Version)</InformationalVersion>
 
