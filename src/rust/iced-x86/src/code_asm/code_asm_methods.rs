@@ -177,10 +177,10 @@ impl CodeAssembler {
 	/// let mut a = CodeAssembler::new(64)?;
 	/// a.push(rcx)?;
 	/// a.xor(rcx, rdx)?;
-	/// assert_eq!(a.instructions(), vec![
+	/// assert_eq!(a.instructions(), &[
 	///     Instruction::with1(Code::Push_r64, Register::RCX)?,
 	///     Instruction::with2(Code::Xor_rm64_r64, Register::RCX, Register::RDX)?,
-	/// ].as_slice());
+	/// ]);
 	/// # Ok(())
 	/// # }
 	/// ```
@@ -278,7 +278,7 @@ impl CodeAssembler {
 	/// let mut label1 = a.create_label();
 	/// a.push(rcx)?;
 	/// // The address of this label is the next added instruction
-	/// a.set_current_label(&mut label1)?;
+	/// a.set_label(&mut label1)?;
 	/// a.xor(rcx, rdx)?;
 	/// // Target is the `xor rcx, rdx` instruction
 	/// a.je(label1)?;
@@ -289,7 +289,7 @@ impl CodeAssembler {
 	/// # }
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
-	pub fn set_current_label(&mut self, label: &mut CodeLabel) -> Result<(), IcedError> {
+	pub fn set_label(&mut self, label: &mut CodeLabel) -> Result<(), IcedError> {
 		if label.is_empty() {
 			return Err(IcedError::new("Invalid label. Must be created by current_label()"));
 		}
@@ -960,7 +960,7 @@ impl CodeAssembler {
 	/// let mut label1 = a.create_label();
 	/// a.push(rcx)?;
 	/// // The address of this label is the next added instruction
-	/// a.set_current_label(&mut label1)?;
+	/// a.set_label(&mut label1)?;
 	/// a.xor(rcx, rdx)?;
 	/// // Target is the `xor rcx, rdx` instruction
 	/// a.je(label1)?;

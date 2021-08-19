@@ -228,19 +228,19 @@ pub(crate) fn how_to_use_code_assembler() -> Result<(), IcedError> {
     let mut loop_lbl1 = a.create_label();
     let mut after_loop1 = a.create_label();
     a.mov(ecx, 10)?;
-    a.set_current_label(&mut loop_lbl1)?;
+    a.set_label(&mut loop_lbl1)?;
     a.dec(ecx)?;
     a.jp(after_loop1)?;
     a.jne(loop_lbl1)?;
-    a.set_current_label(&mut after_loop1)?;
+    a.set_label(&mut after_loop1)?;
 
     // It's possible to reference labels with RIP-relative addressing
     let mut skip_data = a.create_label();
     let mut data = a.create_label();
     a.jmp(skip_data)?;
-    a.set_current_label(&mut data)?;
+    a.set_label(&mut data)?;
     a.db(b"\x90\xCC\xF1\x90")?;
-    a.set_current_label(&mut skip_data)?;
+    a.set_label(&mut skip_data)?;
     a.lea(rax, mem(data))?;
 
     // AVX512 opmasks, {z}, {sae}, {er} and broadcasting are also supported:

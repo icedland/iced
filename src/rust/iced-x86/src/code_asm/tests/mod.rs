@@ -164,16 +164,16 @@ fn test_labels() {
 	let mut label3 = a.create_label();
 	let _unused_label2 = a.create_label();
 
-	a.set_current_label(&mut label1).unwrap();
+	a.set_label(&mut label1).unwrap();
 	a.nop().unwrap();
-	a.set_current_label(&mut label2).unwrap();
+	a.set_label(&mut label2).unwrap();
 	a.int3().unwrap();
 	a.je(label1).unwrap();
 	a.jb(label2).unwrap();
 	a.jo(label2).unwrap();
 	a.jne(label3).unwrap();
 	a.rdtsc().unwrap();
-	a.set_current_label(&mut label3).unwrap();
+	a.set_label(&mut label3).unwrap();
 	a.nop().unwrap();
 
 	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
@@ -181,25 +181,25 @@ fn test_labels() {
 }
 
 #[test]
-fn test_set_current_label_errors() {
+fn test_set_label_errors() {
 	{
 		let mut a = CodeAssembler::new(64).unwrap();
 		let mut default_label = CodeLabel::default();
-		assert!(a.set_current_label(&mut default_label).is_err());
+		assert!(a.set_label(&mut default_label).is_err());
 	}
 	{
 		let mut a = CodeAssembler::new(64).unwrap();
 		let mut label1 = a.create_label();
-		a.set_current_label(&mut label1).unwrap();
+		a.set_label(&mut label1).unwrap();
 		a.int3().unwrap();
-		assert!(a.set_current_label(&mut label1).is_err());
+		assert!(a.set_label(&mut label1).is_err());
 	}
 	{
 		let mut a = CodeAssembler::new(64).unwrap();
 		let mut label1 = a.create_label();
 		let mut label2 = a.create_label();
-		a.set_current_label(&mut label1).unwrap();
-		assert!(a.set_current_label(&mut label2).is_err());
+		a.set_label(&mut label1).unwrap();
+		assert!(a.set_label(&mut label2).is_err());
 	}
 }
 
@@ -208,14 +208,14 @@ fn test_label_at_eof() {
 	{
 		let mut a = CodeAssembler::new(64).unwrap();
 		let mut label1 = a.create_label();
-		a.set_current_label(&mut label1).unwrap();
+		a.set_label(&mut label1).unwrap();
 		assert!(a.assemble(0x1234_5678_9ABC_DEF0).is_err());
 	}
 	{
 		let mut a = CodeAssembler::new(64).unwrap();
 		a.int3().unwrap();
 		let mut label1 = a.create_label();
-		a.set_current_label(&mut label1).unwrap();
+		a.set_label(&mut label1).unwrap();
 		assert!(a.assemble(0x1234_5678_9ABC_DEF0).is_err());
 	}
 	{
@@ -267,7 +267,7 @@ fn test_normal_and_anon_label_error() {
 	a.nop().unwrap();
 	let anon = a.fwd().unwrap();
 	a.je(anon).unwrap();
-	a.set_current_label(&mut label).unwrap();
+	a.set_label(&mut label).unwrap();
 	a.anonymous_label().unwrap();
 	assert!(a.nop().is_err());
 }
@@ -533,7 +533,7 @@ fn add_instruction() {
 	let mut a = CodeAssembler::new(64).unwrap();
 	a.nop().unwrap();
 	let mut lbl = a.create_label();
-	a.set_current_label(&mut lbl).unwrap();
+	a.set_label(&mut lbl).unwrap();
 	a.add_instruction(Instruction::with1(Code::Pop_r64, Register::RDX).unwrap()).unwrap();
 	a.int3().unwrap();
 	a.je(lbl).unwrap();
@@ -789,12 +789,12 @@ fn test_label_mem_ops() {
 	let mut lbl1 = a.create_label();
 	let mut lbl2 = a.create_label();
 	a.nop().unwrap();
-	a.set_current_label(&mut lbl1).unwrap();
+	a.set_label(&mut lbl1).unwrap();
 	a.int1().unwrap();
 	a.lea(rax, mem(lbl1)).unwrap();
 	a.lea(rax, mem(lbl2)).unwrap();
 	a.int3().unwrap();
-	a.set_current_label(&mut lbl2).unwrap();
+	a.set_label(&mut lbl2).unwrap();
 	a.db(b"\x12\x34\x56\x78").unwrap();
 	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
 	assert_eq!(bytes, b"\x90\xF1\x48\x8D\x05\xF8\xFF\xFF\xFF\x48\x8D\x05\x01\x00\x00\x00\xCC\x12\x34\x56\x78");
@@ -1041,7 +1041,7 @@ fn add_op_mask(mut instruction: Instruction, op_mask: Register) -> Instruction {
 
 fn create_and_emit_label(a: &mut CodeAssembler) -> CodeLabel {
 	let mut lbl = a.create_label();
-	a.set_current_label(&mut lbl).unwrap();
+	a.set_label(&mut lbl).unwrap();
 	lbl
 }
 
