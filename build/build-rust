@@ -30,7 +30,7 @@ new_func() {
 }
 
 clean_dotnet_build_output() {
-	dotnet clean -v:m -c $configuration "$root_dir/src/csharp/Iced.sln"
+	dotnet clean -v:m -c $configuration "$root_dir/src/csharp/Intel/Iced.sln"
 }
 
 generator_check() {
