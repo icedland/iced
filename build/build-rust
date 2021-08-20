@@ -29,10 +29,6 @@ new_func() {
 	echo
 }
 
-clean_dotnet_build_output() {
-	dotnet clean -v:m -c $configuration "$root_dir/src/csharp/Intel/Iced.sln"
-}
-
 generator_check() {
 	new_func "Run generator, verify no diff"
 
@@ -45,9 +41,6 @@ test_valid_invalid_instructions() {
 
 	valid_file=$(mktemp)
 	invalid_file=$(mktemp)
-
-	# Needs to be rebuilt if the wrong #defines were used
-	clean_dotnet_build_output
 
 	for bitness in 16 32 64; do
 		echo "==== ${bitness}-bit: Generating valid/invalid files ===="
