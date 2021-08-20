@@ -8,6 +8,7 @@ use crate::formatter::gas::info::*;
 use crate::formatter::pseudo_ops::get_pseudo_ops;
 use crate::formatter::strings_tbl::get_strings_table_ref;
 use crate::iced_constants::IcedConstants;
+use crate::{CodeSizeUnderlyingType, CodeUnderlyingType, RegisterUnderlyingType};
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
@@ -104,7 +105,7 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 				Box::new(SimpleInstrInfo_bnd::new(s, s2, v))
 			}
 
-			CtorKind::DeclareData => Box::new(SimpleInstrInfo_DeclareData::new(unsafe { mem::transmute(i as u16) }, s)),
+			CtorKind::DeclareData => Box::new(SimpleInstrInfo_DeclareData::new(unsafe { mem::transmute(i as CodeUnderlyingType) }, s)),
 
 			CtorKind::er_2 => {
 				v = reader.read_compressed_u32();
@@ -145,7 +146,7 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 			CtorKind::nop => {
 				v = reader.read_compressed_u32();
 				v2 = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_nop::new(v, s, unsafe { mem::transmute(v2 as u8) }))
+				Box::new(SimpleInstrInfo_nop::new(v, s, unsafe { mem::transmute(v2 as RegisterUnderlyingType) }))
 			}
 
 			CtorKind::OpSize => {
@@ -153,7 +154,7 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 				let s2 = add_suffix(&s, 'w');
 				let s3 = add_suffix(&s, 'l');
 				let s4 = add_suffix(&s, 'q');
-				Box::new(SimpleInstrInfo_OpSize::new(unsafe { mem::transmute(v as u8) }, s, s2, s3, s4))
+				Box::new(SimpleInstrInfo_OpSize::new(unsafe { mem::transmute(v as CodeSizeUnderlyingType) }, s, s2, s3, s4))
 			}
 
 			CtorKind::OpSize2_bnd => {

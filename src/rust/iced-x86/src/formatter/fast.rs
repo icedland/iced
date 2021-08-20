@@ -833,7 +833,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 			const DS_REG: u32 = Register::DS as u32 - Register::ES as u32;
 			let has_notrack_prefix = prefix_seg == DS_REG && is_notrack_prefix_branch(code);
 			if !has_notrack_prefix && prefix_seg < 6 && SpecializedFormatter::<TraitOptions>::show_segment_prefix(instruction, op_count) {
-				let prefix_seg = unsafe { mem::transmute((Register::ES as u32 + prefix_seg) as u8) };
+				let prefix_seg = unsafe { mem::transmute((Register::ES as u32 + prefix_seg) as RegisterUnderlyingType) };
 				call_format_register!(self, dst, dst_next_p, prefix_seg);
 				write_fast_ascii_char_lit!(dst, dst_next_p, ' ', true);
 			}

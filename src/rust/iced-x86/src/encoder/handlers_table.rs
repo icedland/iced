@@ -21,7 +21,7 @@ lazy_static! {
 			let enc_flags2 = ENC_FLAGS2[code as usize];
 			let enc_flags3 = ENC_FLAGS3[code as usize];
 			// SAFETY: The table is generated and only contains valid enum variants
-			let encoding: EncodingKind = unsafe { mem::transmute(((enc_flags3 >> EncFlags3::ENCODING_SHIFT) & EncFlags3::ENCODING_MASK) as u8) };
+			let encoding: EncodingKind = unsafe { mem::transmute(((enc_flags3 >> EncFlags3::ENCODING_SHIFT) & EncFlags3::ENCODING_MASK) as EncodingKindUnderlyingType) };
 			let handler = match encoding {
 				EncodingKind::Legacy => {
 					if code == Code::INVALID {

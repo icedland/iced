@@ -115,8 +115,8 @@ impl Op for OpModRM_regF0 {
 		{
 			encoder.encoder_flags |= EncoderFlags::PF0;
 			// SAFETY: reg_lo is eg. CR0 and CR0 + 15 == CR15, a valid value (CR0-CR15 are consecutive enum values)
-			let reg_lo = unsafe { mem::transmute(self.reg_lo as u8 + 8) };
-			let reg_hi = unsafe { mem::transmute(self.reg_lo as u8 + 15) };
+			let reg_lo = unsafe { mem::transmute(self.reg_lo as RegisterUnderlyingType + 8) };
+			let reg_hi = unsafe { mem::transmute(self.reg_lo as RegisterUnderlyingType + 15) };
 			encoder.add_mod_rm_register(instruction, operand, reg_lo, reg_hi);
 		} else {
 			encoder.add_mod_rm_register(instruction, operand, self.reg_lo, self.reg_hi);

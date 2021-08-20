@@ -181,9 +181,13 @@ impl LegacyHandler {
 				rm_group_index,
 				enc_flags3,
 				// SAFETY: generated data is valid
-				op_size: unsafe { mem::transmute(((enc_flags3 >> EncFlags3::OPERAND_SIZE_SHIFT) & EncFlags3::OPERAND_SIZE_MASK) as u8) },
+				op_size: unsafe {
+					mem::transmute(((enc_flags3 >> EncFlags3::OPERAND_SIZE_SHIFT) & EncFlags3::OPERAND_SIZE_MASK) as CodeSizeUnderlyingType)
+				},
 				// SAFETY: generated data is valid
-				addr_size: unsafe { mem::transmute(((enc_flags3 >> EncFlags3::ADDRESS_SIZE_SHIFT) & EncFlags3::ADDRESS_SIZE_MASK) as u8) },
+				addr_size: unsafe {
+					mem::transmute(((enc_flags3 >> EncFlags3::ADDRESS_SIZE_SHIFT) & EncFlags3::ADDRESS_SIZE_MASK) as CodeSizeUnderlyingType)
+				},
 				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
 				is_declare_data: false,
 			},
@@ -546,7 +550,9 @@ impl EvexHandler {
 			mask_w,
 			mask_ll,
 			// SAFETY: generated data is valid
-			tuple_type: unsafe { mem::transmute(((enc_flags3 >> EncFlags3::TUPLE_TYPE_SHIFT) & EncFlags3::TUPLE_TYPE_MASK) as u8) },
+			tuple_type: unsafe {
+				mem::transmute(((enc_flags3 >> EncFlags3::TUPLE_TYPE_SHIFT) & EncFlags3::TUPLE_TYPE_MASK) as TupleTypeUnderlyingType)
+			},
 			wbit,
 		}
 	}

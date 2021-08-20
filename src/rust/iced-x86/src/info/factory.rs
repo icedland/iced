@@ -179,8 +179,9 @@ impl InstructionInfoFactory {
 
 		info.cpuid_feature_internal =
 			unsafe { mem::transmute(((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as u8) };
-		info.flow_control = unsafe { mem::transmute(((flags2 >> InfoFlags2::FLOW_CONTROL_SHIFT) & InfoFlags2::FLOW_CONTROL_MASK) as u8) };
-		info.encoding = unsafe { mem::transmute(((flags2 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK) as u8) };
+		info.flow_control =
+			unsafe { mem::transmute(((flags2 >> InfoFlags2::FLOW_CONTROL_SHIFT) & InfoFlags2::FLOW_CONTROL_MASK) as FlowControlUnderlyingType) };
+		info.encoding = unsafe { mem::transmute(((flags2 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK) as EncodingKindUnderlyingType) };
 		info.rflags_info = unsafe { mem::transmute(((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as u8) };
 
 		const FLAGS_SHIFT: u32 = 12;
@@ -321,7 +322,7 @@ impl InstructionInfoFactory {
 								Self::add_register(
 									flags,
 									info,
-									unsafe { mem::transmute((((reg as u32 - Register::K0 as u32) ^ 1) + Register::K0) as u8) },
+									unsafe { mem::transmute((((reg as u32 - Register::K0 as u32) ^ 1) + Register::K0) as RegisterUnderlyingType) },
 									access,
 								);
 							}
@@ -333,7 +334,7 @@ impl InstructionInfoFactory {
 								let reg_base =
 									(IcedConstants::VMM_FIRST as u32).wrapping_add((reg as u32).wrapping_sub(IcedConstants::VMM_FIRST as u32) & !3);
 								for j in 0..4 {
-									Self::add_register(flags, info, unsafe { mem::transmute((reg_base + j) as u8) }, access);
+									Self::add_register(flags, info, unsafe { mem::transmute((reg_base + j) as RegisterUnderlyingType) }, access);
 								}
 							}
 						} else {
@@ -348,7 +349,8 @@ impl InstructionInfoFactory {
 				OpKind::Memory => {
 					const_assert_eq!(InfoFlags1::IGNORES_SEGMENT, 1 << 31);
 					const_assert_eq!(Register::None as u32, 0);
-					let segment_register = unsafe { mem::transmute((instruction.memory_segment() as u32 & !((flags1 as i32 >> 31) as u32)) as u8) };
+					let segment_register =
+						unsafe { mem::transmute((instruction.memory_segment() as u32 & !((flags1 as i32 >> 31) as u32)) as RegisterUnderlyingType) };
 					let base_register = instruction.memory_base();
 					if base_register == Register::RIP {
 						if (flags & Flags::NO_MEMORY_USAGE) == 0 {
@@ -749,20 +751,20 @@ impl InstructionInfoFactory {
 			ImpliedAccess::t_Wst0TOst7_Wmm0TOmm7 => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					for reg_num in (Register::ST0 as u32)..((Register::ST7 as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 					}
 					for reg_num in (Register::MM0 as u32)..((Register::MM7 as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 					}
 				}
 			}
 			ImpliedAccess::t_Rst0TOst7_Rmm0TOmm7 => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					for reg_num in (Register::ST0 as u32)..((Register::ST7 as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Read);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Read);
 					}
 					for reg_num in (Register::MM0 as u32)..((Register::MM7 as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Read);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Read);
 					}
 				}
 			}
@@ -1008,26 +1010,26 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::DR6, OpAccess::Write);
 					Self::add_register(flags, info, Register::DR7, OpAccess::Write);
 					for reg_num in (Register::ES as u32)..((Register::GS as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 					}
 					for reg_num in (Register::CR2 as u32)..((Register::CR4 as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 					}
 					for reg_num in (Register::DR0 as u32)..((Register::DR3 as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 					}
 				}
 				if (flags & Flags::IS_64BIT) != 0 {
 					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 						for reg_num in (Register::RAX as u32)..((Register::R15 as u32) + 1) {
-							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 						}
 					}
 				}
 				else {
 					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 						for reg_num in (Register::EAX as u32)..((Register::EDI as u32) + 1) {
-							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 						}
 					}
 				}
@@ -1151,14 +1153,14 @@ impl InstructionInfoFactory {
 				if (flags & Flags::IS_64BIT) != 0 {
 					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 						for reg_num in (Register::XMM0 as u32)..((Register::XMM15 as u32) + 1) {
-							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::ReadWrite);
+							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::ReadWrite);
 						}
 					}
 				}
 				else {
 					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 						for reg_num in (Register::XMM0 as u32)..((Register::XMM7 as u32) + 1) {
-							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::ReadWrite);
+							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::ReadWrite);
 						}
 					}
 				}
@@ -1167,14 +1169,14 @@ impl InstructionInfoFactory {
 				if (flags & Flags::IS_64BIT) != 0 {
 					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 						for reg_num in (Register::ZMM0 as u32)..((Register::ZMM15 as u32) + 1) {
-							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 						}
 					}
 				}
 				else {
 					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 						for reg_num in (Register::ZMM0 as u32)..((Register::ZMM7 as u32) + 1) {
-							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 						}
 					}
 				}
@@ -1652,7 +1654,7 @@ impl InstructionInfoFactory {
 			ImpliedAccess::t_Wtmm0TOtmm7 => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					for reg_num in (Register::TMM0 as u32)..((Register::TMM7 as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 					}
 				}
 			}
@@ -1689,7 +1691,7 @@ impl InstructionInfoFactory {
 			ImpliedAccess::t_RWxmm0TOxmm7 => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					for reg_num in (Register::XMM0 as u32)..((Register::XMM7 as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::ReadWrite);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::ReadWrite);
 					}
 				}
 			}
@@ -1705,7 +1707,7 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::XMM2, OpAccess::Write);
 					Self::add_register(flags, info, Register::XMM0, OpAccess::ReadWrite);
 					for reg_num in (Register::XMM4 as u32)..((Register::XMM6 as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 					}
 				}
 			}
@@ -1714,7 +1716,7 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::XMM0, OpAccess::ReadWrite);
 					Self::add_register(flags, info, Register::XMM1, OpAccess::ReadWrite);
 					for reg_num in (Register::XMM2 as u32)..((Register::XMM6 as u32) + 1) {
-						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as RegisterUnderlyingType) }, OpAccess::Write);
 					}
 				}
 			}
@@ -1999,7 +2001,12 @@ impl InstructionInfoFactory {
 		};
 		for i in 0..8 {
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-				Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(i) as u8) }, OpAccess::Read);
+				Self::add_register(
+					flags,
+					info,
+					unsafe { mem::transmute((base_register as u32).wrapping_add(i) as RegisterUnderlyingType) },
+					OpAccess::Read,
+				);
 			}
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
 				Self::add_memory(
@@ -2039,7 +2046,7 @@ impl InstructionInfoFactory {
 					Self::add_register(
 						flags,
 						info,
-						unsafe { mem::transmute((base_register as u32).wrapping_add(7).wrapping_sub(i) as u8) },
+						unsafe { mem::transmute((base_register as u32).wrapping_add(7).wrapping_sub(i) as RegisterUnderlyingType) },
 						OpAccess::Write,
 					);
 				}
@@ -2460,7 +2467,7 @@ impl InstructionInfoFactory {
 		let mut xsp_offset = 0u64;
 		// push rBP
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-			Self::add_register(flags, info, unsafe { mem::transmute((r_sp as u32).wrapping_add(1) as u8) }, OpAccess::ReadWrite);
+			Self::add_register(flags, info, unsafe { mem::transmute((r_sp as u32).wrapping_add(1) as RegisterUnderlyingType) }, OpAccess::ReadWrite);
 		}
 		if (flags & Flags::NO_MEMORY_USAGE) == 0 {
 			xsp_offset = xsp_offset.wrapping_sub(op_size as u64);
@@ -2468,7 +2475,7 @@ impl InstructionInfoFactory {
 		}
 
 		if nesting_level != 0 {
-			let xbp = unsafe { mem::transmute((xsp as u32).wrapping_add(1) as u8) }; // rBP immediately follows rSP
+			let xbp = unsafe { mem::transmute((xsp as u32).wrapping_add(1) as RegisterUnderlyingType) }; // rBP immediately follows rSP
 			let mut xbp_offset = 0u64;
 			for i in 1..(nesting_level as u32) {
 				if i == 1 && r_sp as u32 + 1 != xbp as u32 && (flags & Flags::NO_REGISTER_USAGE) == 0 {
@@ -2504,7 +2511,7 @@ impl InstructionInfoFactory {
 				Self::add_memory(
 					info,
 					Register::SS,
-					unsafe { mem::transmute((xsp as u32).wrapping_add(1) as u8) },
+					unsafe { mem::transmute((xsp as u32).wrapping_add(1) as RegisterUnderlyingType) },
 					Register::None,
 					1,
 					0,
@@ -2518,7 +2525,12 @@ impl InstructionInfoFactory {
 				if xsp as u32 + 1 == Register::RBP as u32 {
 					Self::add_register(flags, info, Register::RBP, OpAccess::ReadWrite);
 				} else {
-					Self::add_register(flags, info, unsafe { mem::transmute((xsp as u32).wrapping_add(1) as u8) }, OpAccess::Read);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((xsp as u32).wrapping_add(1) as RegisterUnderlyingType) },
+						OpAccess::Read,
+					);
 					Self::add_register(flags, info, Register::RBP, OpAccess::Write);
 				}
 			}
@@ -2527,7 +2539,7 @@ impl InstructionInfoFactory {
 				Self::add_memory(
 					info,
 					Register::SS,
-					unsafe { mem::transmute((xsp as u32).wrapping_add(1) as u8) },
+					unsafe { mem::transmute((xsp as u32).wrapping_add(1) as RegisterUnderlyingType) },
 					Register::None,
 					1,
 					0,
@@ -2541,7 +2553,12 @@ impl InstructionInfoFactory {
 				if xsp as u32 + 1 == Register::EBP as u32 {
 					Self::add_register(flags, info, Register::EBP, OpAccess::ReadWrite);
 				} else {
-					Self::add_register(flags, info, unsafe { mem::transmute((xsp as u32).wrapping_add(1) as u8) }, OpAccess::Read);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((xsp as u32).wrapping_add(1) as RegisterUnderlyingType) },
+						OpAccess::Read,
+					);
 					Self::add_register(flags, info, Register::EBP, OpAccess::Write);
 				}
 			}
@@ -2551,7 +2568,7 @@ impl InstructionInfoFactory {
 				Self::add_memory(
 					info,
 					Register::SS,
-					unsafe { mem::transmute((xsp as u32).wrapping_add(1) as u8) },
+					unsafe { mem::transmute((xsp as u32).wrapping_add(1) as RegisterUnderlyingType) },
 					Register::None,
 					1,
 					0,
@@ -2565,7 +2582,12 @@ impl InstructionInfoFactory {
 				if xsp as u32 + 1 == Register::BP as u32 {
 					Self::add_register(flags, info, Register::BP, OpAccess::ReadWrite);
 				} else {
-					Self::add_register(flags, info, unsafe { mem::transmute((xsp as u32).wrapping_add(1) as u8) }, OpAccess::Read);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((xsp as u32).wrapping_add(1) as RegisterUnderlyingType) },
+						OpAccess::Read,
+					);
 					Self::add_register(flags, info, Register::BP, OpAccess::Write);
 				}
 			}
@@ -2654,7 +2676,7 @@ impl InstructionInfoFactory {
 					index += 4; // Skip AH, CH, DH, BH
 				}
 				if index >= 0 {
-					info.register = unsafe { mem::transmute((Register::AL as u32).wrapping_add(index as u32) as u8) };
+					info.register = unsafe { mem::transmute((Register::AL as u32).wrapping_add(index as u32) as RegisterUnderlyingType) };
 				}
 			}
 		}
@@ -2680,7 +2702,7 @@ impl InstructionInfoFactory {
 				if index >= 0 {
 					let regs_index = info.used_registers.len() - N;
 					info.used_registers[regs_index] = UsedRegister {
-						register: unsafe { mem::transmute((base_reg as u32).wrapping_add(index as u32) as u8) },
+						register: unsafe { mem::transmute((base_reg as u32).wrapping_add(index as u32) as RegisterUnderlyingType) },
 						access: OpAccess::Read,
 					};
 				}
@@ -2697,15 +2719,15 @@ impl InstructionInfoFactory {
 				if reg >= Register::EAX && reg <= Register::R15D {
 					if reg_info.register() >= Register::RAX && reg_info.register() <= Register::R15 {
 						reg_info.register = unsafe {
-							mem::transmute((reg_info.register() as u32).wrapping_sub(Register::RAX as u32).wrapping_add(Register::EAX as u32) as u8)
+							mem::transmute((reg_info.register() as u32).wrapping_sub(Register::RAX as u32).wrapping_add(Register::EAX as u32)
+								as RegisterUnderlyingType)
 						};
 					}
 				} else if reg >= Register::AX && reg <= Register::R15W {
 					if reg_info.register() >= Register::EAX && reg_info.register() <= Register::R15 {
 						reg_info.register = unsafe {
-							mem::transmute(
-								((reg_info.register() as u32).wrapping_sub(Register::EAX as u32) & 0xF).wrapping_add(Register::AX as u32) as u8
-							)
+							mem::transmute(((reg_info.register() as u32).wrapping_sub(Register::EAX as u32) & 0xF).wrapping_add(Register::AX as u32)
+								as RegisterUnderlyingType)
 						};
 					}
 				} else {
@@ -2721,7 +2743,7 @@ impl InstructionInfoFactory {
 			if instruction.op0_kind() == OpKind::Register {
 				let mut reg = instruction.op0_register();
 				if reg >= Register::MM0 && reg <= Register::MM7 {
-					reg = unsafe { mem::transmute((((reg as u32 - Register::MM0 as u32) ^ 1) + Register::MM0 as u32) as u8) };
+					reg = unsafe { mem::transmute((((reg as u32 - Register::MM0 as u32) ^ 1) + Register::MM0 as u32) as RegisterUnderlyingType) };
 					Self::add_register(flags, info, reg, op_access);
 				}
 			}
@@ -2800,11 +2822,13 @@ impl InstructionInfoFactory {
 				const_assert_eq!(IcedConstants::VMM_FIRST as u32, Register::ZMM0 as u32);
 				let mut index = (reg as u32).wrapping_sub(Register::EAX as u32);
 				if (flags & Flags::IS_64BIT) != 0 && index <= (Register::R15D as u32 - Register::EAX as u32) {
-					write_reg = unsafe { mem::transmute((Register::RAX as u32).wrapping_add(index) as u8) };
+					write_reg = unsafe { mem::transmute((Register::RAX as u32).wrapping_add(index) as RegisterUnderlyingType) };
 				} else {
 					index = (reg as u32).wrapping_sub(Register::XMM0 as u32);
 					if (flags & Flags::ZERO_EXT_VEC_REGS) != 0 && index <= IcedConstants::VMM_LAST as u32 - Register::XMM0 as u32 {
-						write_reg = unsafe { mem::transmute((Register::ZMM0 as u32).wrapping_add(index % IcedConstants::VMM_COUNT) as u8) };
+						write_reg = unsafe {
+							mem::transmute((Register::ZMM0 as u32).wrapping_add(index % IcedConstants::VMM_COUNT) as RegisterUnderlyingType)
+						};
 					}
 				}
 				if access != OpAccess::ReadWrite && access != OpAccess::ReadCondWrite {

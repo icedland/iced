@@ -2577,7 +2577,7 @@ impl OpCodeHandler_SimpleReg {
 		let size_index = decoder.state.operand_size as u32;
 
 		// SAFETY: this.code + {0,1,2} is a valid Code value, see ctor
-		instruction.set_code(unsafe { mem::transmute((size_index + this.code as u32) as u16) });
+		instruction.set_code(unsafe { mem::transmute((size_index + this.code as u32) as CodeUnderlyingType) });
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		const_assert!(Register::AX as u32 + 16 == Register::EAX as u32);

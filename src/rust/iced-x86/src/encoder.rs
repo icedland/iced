@@ -431,7 +431,7 @@ impl Encoder {
 			// SAFETY: reg_lo+7 is a valid reg (see 2nd comparison above) (eg. EAX+7 = EDI) and
 			// all groups of regs (eg. gpr64) use consecutive enum values so it's safe to add 7
 			// to get the 8th reg in the same reg group,
-			reg_hi = unsafe { mem::transmute((reg_lo as u8).wrapping_add(7)) };
+			reg_hi = unsafe { mem::transmute((reg_lo as RegisterUnderlyingType).wrapping_add(7)) };
 		}
 		if reg_lo <= register && register <= reg_hi {
 			true

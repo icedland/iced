@@ -485,7 +485,7 @@ impl State {
 	#[cfg(debug_assertions)]
 	fn encoding(&self) -> EncodingKind {
 		// SAFETY: It's always a valid enum value
-		unsafe { mem::transmute(((self.flags >> StateFlags::ENCODING_SHIFT) & StateFlags::ENCODING_MASK) as u8) }
+		unsafe { mem::transmute(((self.flags >> StateFlags::ENCODING_SHIFT) & StateFlags::ENCODING_MASK) as EncodingKindUnderlyingType) }
 	}
 	#[must_use]
 	#[inline(always)]
@@ -2027,7 +2027,7 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(InstrScale::Scale4 as u32, 2);
 		const_assert_eq!(InstrScale::Scale8 as u32, 3);
 		// SAFETY: 0-3 are valid variants
-		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((sib >> 6) & 3) as u8) });
+		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((sib >> 6) & 3) as InstrScaleUnderlyingType) });
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		if index != 4 {
@@ -2087,7 +2087,7 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(InstrScale::Scale4 as u32, 2);
 		const_assert_eq!(InstrScale::Scale8 as u32, 3);
 		// SAFETY: 0-3 are valid variants
-		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as u8) });
+		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		if index != 4 {
@@ -2131,7 +2131,7 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(InstrScale::Scale4 as u32, 2);
 		const_assert_eq!(InstrScale::Scale8 as u32, 3);
 		// SAFETY: 0-3 are valid variants
-		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as u8) });
+		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		if index != 4 {
@@ -2370,7 +2370,7 @@ fn decoder_read_op_mem_vsib_1_4(
 	const_assert_eq!(InstrScale::Scale4 as u32, 2);
 	const_assert_eq!(InstrScale::Scale8 as u32, 3);
 	// SAFETY: 0-3 are valid variants
-	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((sib >> 6) & 3) as u8) });
+	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((sib >> 6) & 3) as InstrScaleUnderlyingType) });
 	let base_reg = if this.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 	write_base_reg!(instruction, (sib & 7) + this.state.extra_base_register_base + base_reg as u32);
 
@@ -2441,7 +2441,7 @@ fn decoder_read_op_mem_vsib_2_4(
 	const_assert_eq!(InstrScale::Scale4 as u32, 2);
 	const_assert_eq!(InstrScale::Scale8 as u32, 3);
 	// SAFETY: 0-3 are valid variants
-	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as u8) });
+	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
 
 	let base_reg = if this.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 	write_base_reg!(instruction, (sib & 7) + this.state.extra_base_register_base + base_reg as u32);
@@ -2486,7 +2486,7 @@ fn decoder_read_op_mem_vsib_0_4(
 	const_assert_eq!(InstrScale::Scale4 as u32, 2);
 	const_assert_eq!(InstrScale::Scale8 as u32, 3);
 	// SAFETY: 0-3 are valid variants
-	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as u8) });
+	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
 	let index = ((sib >> 3) & 7) + this.state.extra_index_register_base;
 	if !is_vsib {
 		if index != 4 {

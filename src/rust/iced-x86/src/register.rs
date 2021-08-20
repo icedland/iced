@@ -1672,14 +1672,14 @@ impl Register {
 		let result = (self as u32).wrapping_add(rhs);
 		iced_assert!(result < IcedConstants::REGISTER_ENUM_COUNT as u32);
 		// SAFETY: verified by the assert above. All values 0-max are valid enum values
-		unsafe { mem::transmute(result as u8) }
+		unsafe { mem::transmute(result as RegisterUnderlyingType) }
 	}
 	#[must_use]
 	fn sub(self, rhs: u32) -> Self {
 		let result = (self as u32).wrapping_sub(rhs);
 		iced_assert!(result < IcedConstants::REGISTER_ENUM_COUNT as u32);
 		// SAFETY: verified by the assert above. All values 0-max are valid enum values
-		unsafe { mem::transmute(result as u8) }
+		unsafe { mem::transmute(result as RegisterUnderlyingType) }
 	}
 }
 // i32 + Register

@@ -41294,7 +41294,12 @@ impl Code {
 	#[inline]
 	pub fn encoding(self) -> EncodingKind {
 		// SAFETY: The table is generated and only contains valid enum variants
-		unsafe { mem::transmute(((crate::info::info_table::TABLE[self as usize].1 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK) as u8) }
+		unsafe {
+			mem::transmute(
+				((crate::info::info_table::TABLE[self as usize].1 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK)
+					as EncodingKindUnderlyingType,
+			)
+		}
 	}
 
 	/// Gets the CPU or CPUID feature flags
@@ -41342,7 +41347,8 @@ impl Code {
 		// SAFETY: The table is generated and only contains valid enum variants
 		unsafe {
 			mem::transmute(
-				((crate::info::info_table::TABLE[self as usize].1 >> InfoFlags2::FLOW_CONTROL_SHIFT) & InfoFlags2::FLOW_CONTROL_MASK) as u8,
+				((crate::info::info_table::TABLE[self as usize].1 >> InfoFlags2::FLOW_CONTROL_SHIFT) & InfoFlags2::FLOW_CONTROL_MASK)
+					as FlowControlUnderlyingType,
 			)
 		}
 	}
@@ -41487,22 +41493,22 @@ impl Code {
 
 		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
 		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
-			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
+			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as ConditionCodeUnderlyingType) };
 		}
 
 		t = (self as u32).wrapping_sub(Code::Jo_rel8_16 as u32);
 		if t <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32) {
-			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
+			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as ConditionCodeUnderlyingType) };
 		}
 
 		t = (self as u32).wrapping_sub(Code::Cmovo_r16_rm16 as u32);
 		if t <= (Code::Cmovg_r64_rm64 as u32 - Code::Cmovo_r16_rm16 as u32) {
-			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
+			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as ConditionCodeUnderlyingType) };
 		}
 
 		t = (self as u32).wrapping_sub(Code::Seto_rm8 as u32);
 		if t <= (Code::Setg_rm8 as u32 - Code::Seto_rm8 as u32) {
-			return unsafe { mem::transmute((t + ConditionCode::o as u32) as u8) };
+			return unsafe { mem::transmute((t + ConditionCode::o as u32) as ConditionCodeUnderlyingType) };
 		}
 
 		t = (self as u32).wrapping_sub(Code::Loopne_rel8_16_CX as u32);

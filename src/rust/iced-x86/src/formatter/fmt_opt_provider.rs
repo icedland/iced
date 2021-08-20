@@ -100,7 +100,7 @@ impl FormatterOperandOptions {
 	#[inline]
 	pub fn memory_size_options(&self) -> MemorySizeOptions {
 		// SAFETY: the bits can only be a valid enum value
-		unsafe { mem::transmute((self.flags >> FormatterOperandOptionsFlags::MEMORY_SIZE_SHIFT) as u8) }
+		unsafe { mem::transmute((self.flags >> FormatterOperandOptionsFlags::MEMORY_SIZE_SHIFT) as MemorySizeOptionsUnderlyingType) }
 	}
 
 	/// Memory size options

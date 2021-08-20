@@ -32,7 +32,9 @@ impl<'a> InstrOpInfo<'a> {
 	}
 
 	pub(super) fn memory_size(&self) -> MemorySize {
-		unsafe { mem::transmute(((self.flags >> InstrOpInfoFlags::MEMORY_SIZE_SHIFT) & InstrOpInfoFlags::MEMORY_SIZE_MASK) as u8) }
+		unsafe {
+			mem::transmute(((self.flags >> InstrOpInfoFlags::MEMORY_SIZE_SHIFT) & InstrOpInfoFlags::MEMORY_SIZE_MASK) as MemorySizeUnderlyingType)
+		}
 	}
 
 	fn set_memory_size(&mut self, value: MemorySize) {

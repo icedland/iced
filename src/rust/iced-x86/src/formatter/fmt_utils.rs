@@ -5,7 +5,7 @@ use crate::formatter::enums::{FormatterFlowControl, PrefixKind};
 use crate::formatter::enums_shared::FormatterTextKind;
 use crate::formatter::fmt_utils_all::{show_rep_or_repe_prefix_bool, show_repne_prefix_bool, show_segment_prefix_bool};
 use crate::formatter::{FormatterOptions, FormatterOutput};
-use crate::{Code, Instruction, Register};
+use crate::{Code, Instruction, PrefixKindUnderlyingType, Register};
 use core::{cmp, mem};
 use static_assertions::const_assert_eq;
 
@@ -255,7 +255,7 @@ pub(super) fn get_segment_register_prefix_kind(register: Register) -> PrefixKind
 	const_assert_eq!(PrefixKind::ES as u32 + 4, PrefixKind::FS as u32);
 	const_assert_eq!(PrefixKind::ES as u32 + 5, PrefixKind::GS as u32);
 	// SAFETY: callers only pass in a valid segment register (ES,CS,SS,DS,FS,GS)
-	unsafe { mem::transmute(((register as u32 - Register::ES as u32) + PrefixKind::ES as u32) as u8) }
+	unsafe { mem::transmute(((register as u32 - Register::ES as u32) + PrefixKind::ES as u32) as PrefixKindUnderlyingType) }
 }
 
 pub(super) fn show_index_scale(instruction: &Instruction, options: &FormatterOptions) -> bool {

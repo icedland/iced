@@ -669,7 +669,7 @@ fn get_sae_er_instruction(op_code: &OpCodeInfo) -> Option<Code> {
 			if j > 1 {
 				break;
 			}
-			let next_code: Code = unsafe { mem::transmute(i as u16) };
+			let next_code: Code = unsafe { mem::transmute(i as CodeUnderlyingType) };
 			if next_code.mnemonic() != mnemonic {
 				break;
 			}

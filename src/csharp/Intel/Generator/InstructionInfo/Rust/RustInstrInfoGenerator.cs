@@ -206,7 +206,7 @@ namespace Generator.InstructionInfo.Rust {
 					var rreg = (RegisterRangeImplAccStatement)stmt;
 					writer.WriteLine($"for reg_num in ({GetEnumName(rreg.RegisterFirst)} as u32)..(({GetEnumName(rreg.RegisterLast)} as u32) + 1) {{");
 					using (writer.Indent())
-						writer.WriteLine($"Self::add_register(flags, info, unsafe {{ mem::transmute(reg_num as u8) }}, {GetOpAccessString(rreg.Access)});");
+						writer.WriteLine($"Self::add_register(flags, info, unsafe {{ mem::transmute(reg_num as RegisterUnderlyingType) }}, {GetOpAccessString(rreg.Access)});");
 					writer.WriteLine("}");
 					break;
 				case ImplAccStatementKind.ShiftMask:

@@ -223,7 +223,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn code_size(&self) -> CodeSize {
-		unsafe { mem::transmute(((self.flags1 >> InstrFlags1::CODE_SIZE_SHIFT) & InstrFlags1::CODE_SIZE_MASK) as u8) }
+		unsafe { mem::transmute(((self.flags1 >> InstrFlags1::CODE_SIZE_SHIFT) & InstrFlags1::CODE_SIZE_MASK) as CodeSizeUnderlyingType) }
 	}
 
 	/// Sets the code size when the instruction was decoded. This value is informational and can
@@ -758,7 +758,7 @@ impl Instruction {
 		const_assert_eq!(Register::ES as u32 + 5, Register::GS as u32);
 		if index < 6 {
 			// SAFETY: ES+index is a valid enum variant, see above const_assert_eq!()'s
-			unsafe { mem::transmute((Register::ES as u32 + index) as u8) }
+			unsafe { mem::transmute((Register::ES as u32 + index) as RegisterUnderlyingType) }
 		} else {
 			Register::None
 		}
@@ -1908,7 +1908,7 @@ impl Instruction {
 			const_assert_eq!(Register::K0 as u32 + 6, Register::K6 as u32);
 			const_assert_eq!(Register::K0 as u32 + 7, Register::K7 as u32);
 			// SAFETY: r+K0 is a valid Register variant since 1<=r<=7
-			unsafe { mem::transmute((r + Register::K0 as u32) as u8) }
+			unsafe { mem::transmute((r + Register::K0 as u32) as RegisterUnderlyingType) }
 		}
 	}
 
@@ -1991,7 +1991,11 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rounding_control(&self) -> RoundingControl {
-		unsafe { mem::transmute(((self.flags1 >> InstrFlags1::ROUNDING_CONTROL_SHIFT) & InstrFlags1::ROUNDING_CONTROL_MASK) as u8) }
+		unsafe {
+			mem::transmute(
+				((self.flags1 >> InstrFlags1::ROUNDING_CONTROL_SHIFT) & InstrFlags1::ROUNDING_CONTROL_MASK) as RoundingControlUnderlyingType,
+			)
+		}
 	}
 
 	/// Sets the rounding control (SAE is implied but [`suppress_all_exceptions()`] still returns `false`)

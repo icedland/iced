@@ -8,6 +8,7 @@ use crate::formatter::masm::info::*;
 use crate::formatter::pseudo_ops::get_pseudo_ops;
 use crate::formatter::strings_tbl::get_strings_table_ref;
 use crate::iced_constants::IcedConstants;
+use crate::{CodeSizeUnderlyingType, CodeUnderlyingType, RegisterUnderlyingType};
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
@@ -85,7 +86,7 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 				Box::new(SimpleInstrInfo_bnd::new(s, v))
 			}
 
-			CtorKind::DeclareData => Box::new(SimpleInstrInfo_DeclareData::new(unsafe { mem::transmute(i as u16) }, s)),
+			CtorKind::DeclareData => Box::new(SimpleInstrInfo_DeclareData::new(unsafe { mem::transmute(i as CodeUnderlyingType) }, s)),
 
 			CtorKind::DX => {
 				c = reader.read_u8() as u8 as char;
@@ -98,7 +99,7 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 				let s2 = add_suffix(&s, c);
 				v = reader.read_u8() as u32;
 				v2 = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_fword::new(unsafe { mem::transmute(v as u8) }, v2, s, s2))
+				Box::new(SimpleInstrInfo_fword::new(unsafe { mem::transmute(v as CodeSizeUnderlyingType) }, v2, s, s2))
 			}
 
 			CtorKind::Int3 => Box::new(SimpleInstrInfo_Int3::new(s)),
@@ -179,7 +180,7 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 				let s3 = add_suffix(&s, c);
 				let s4 = add_suffix(&s2, c);
 				v = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_OpSize_cc::new(unsafe { mem::transmute(v as u8) }, v2, vec![s, s2], vec![s3, s4]))
+				Box::new(SimpleInstrInfo_OpSize_cc::new(unsafe { mem::transmute(v as CodeSizeUnderlyingType) }, v2, vec![s, s2], vec![s3, s4]))
 			}
 
 			CtorKind::maskmovq => {
@@ -196,9 +197,12 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 				v = reader.read_u8() as u32;
 				v2 = reader.read_u8() as u32;
 				v3 = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_monitor::new(s, unsafe { mem::transmute(v as u8) }, unsafe { mem::transmute(v2 as u8) }, unsafe {
-					mem::transmute(v3 as u8)
-				}))
+				Box::new(SimpleInstrInfo_monitor::new(
+					s,
+					unsafe { mem::transmute(v as RegisterUnderlyingType) },
+					unsafe { mem::transmute(v2 as RegisterUnderlyingType) },
+					unsafe { mem::transmute(v3 as RegisterUnderlyingType) },
+				))
 			}
 
 			CtorKind::mwait => Box::new(SimpleInstrInfo_mwait::new(s)),
@@ -207,7 +211,7 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 			CtorKind::nop => {
 				v = reader.read_compressed_u32();
 				v2 = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_nop::new(v, s, unsafe { mem::transmute(v2 as u8) }))
+				Box::new(SimpleInstrInfo_nop::new(v, s, unsafe { mem::transmute(v2 as RegisterUnderlyingType) }))
 			}
 
 			CtorKind::OpSize_1 => {
@@ -215,14 +219,14 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 				let s2 = add_suffix(&s, 'w');
 				let s3 = add_suffix(&s, 'd');
 				let s4 = add_suffix(&s, 'q');
-				Box::new(SimpleInstrInfo_OpSize::new(unsafe { mem::transmute(v as u8) }, s, s2, s3, s4))
+				Box::new(SimpleInstrInfo_OpSize::new(unsafe { mem::transmute(v as CodeSizeUnderlyingType) }, s, s2, s3, s4))
 			}
 
 			CtorKind::OpSize_2 => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
 				v = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_OpSize::new(unsafe { mem::transmute(v as u8) }, s, s2.clone(), s2.clone(), s2))
+				Box::new(SimpleInstrInfo_OpSize::new(unsafe { mem::transmute(v as CodeSizeUnderlyingType) }, s, s2.clone(), s2.clone(), s2))
 			}
 
 			CtorKind::OpSize2 => {
@@ -254,7 +258,7 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 
 			CtorKind::reg => {
 				v = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_reg::new(s, unsafe { mem::transmute(v as u8) }))
+				Box::new(SimpleInstrInfo_reg::new(s, unsafe { mem::transmute(v as RegisterUnderlyingType) }))
 			}
 
 			CtorKind::Reg16 => {
