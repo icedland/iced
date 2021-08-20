@@ -27,9 +27,9 @@ pub trait SymbolResolver {
 #[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum SymResString<'a> {
 	/// Contains a `&'a str`
-	Str(&'a str),
+	Str(#[doc = "The str"] &'a str),
 	/// Contains a `String`
-	String(String),
+	String(#[doc = "The string"] String),
 }
 impl Default for SymResString<'_> {
 	#[must_use]
@@ -103,9 +103,9 @@ impl<'a> SymResTextPart<'a> {
 #[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum SymResTextInfo<'a> {
 	/// Text and color
-	Text(SymResTextPart<'a>),
+	Text(#[doc = "Text and color"] SymResTextPart<'a>),
 	/// Text and color (vector)
-	TextVec(&'a [SymResTextPart<'a>]),
+	TextVec(#[doc = "Text and color"] &'a [SymResTextPart<'a>]),
 }
 
 impl<'a> SymResTextInfo<'a> {
