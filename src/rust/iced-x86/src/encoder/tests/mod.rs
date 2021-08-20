@@ -1196,9 +1196,9 @@ fn invalid_displ_64() {
 		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 1, displ_size)));
 		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, -1, displ_size)));
 		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, -0x8000_0000, displ_size)));
-		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 0xFFFF_FFFF, displ_size)));
+		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 0x7FFF_FFFF, displ_size)));
 		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, -0x8000_0001, displ_size)));
-		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 0x1_0000_0000, displ_size)));
+		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::None, 0x8000_0000, displ_size)));
 	}
 
 	encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::EBP, 0, 0)));

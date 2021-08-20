@@ -1023,13 +1023,21 @@ impl Encoder {
 		}
 		let scale = instruction_internal::internal_get_memory_index_scale(instruction);
 		self.displ = instruction.memory_displacement32();
+		if addr_size == 64 {
+			if (instruction.memory_displacement64() as i64) < i32::MIN as i64 || (instruction.memory_displacement64() as i64) > i32::MAX as i64 {
+				self.set_error_message(format!("Operand {}: Displacement must fit in an i32", operand));
+				return;
+			}
+		} else {
+			debug_assert_eq!(addr_size, 32);
+			if (instruction.memory_displacement64() as i64) < i32::MIN as i64 || (instruction.memory_displacement64() as i64) > u32::MAX as i64 {
+				self.set_error_message(format!("Operand {}: Displacement must fit in an i32 or a u32", operand));
+				return;
+			}
+		}
 		if base == Register::None && index == Register::None {
 			if vsib_index_reg_lo != Register::None {
 				self.set_error_message(format!("Operand {}: VSIB addressing can't use an offset-only address", operand));
-				return;
-			}
-			if (instruction.memory_displacement64() as i64) < i32::MIN as i64 || (instruction.memory_displacement64() as i64) > u32::MAX as i64 {
-				self.set_error_message(format!("Operand {}: Displacement must fit in an i32 or a u32", operand));
 				return;
 			}
 			if self.bitness == 64 || scale != 0 || (self.encoder_flags & EncoderFlags::MUST_USE_SIB) != 0 {
@@ -1047,19 +1055,6 @@ impl Encoder {
 
 		let base_num = if base == Register::None { -1 } else { (base as i32).wrapping_sub(base_lo as i32) };
 		let index_num = if index == Register::None { -1 } else { (index as i32).wrapping_sub(index_lo as i32) };
-
-		if addr_size == 64 {
-			if (instruction.memory_displacement64() as i64) < i32::MIN as i64 || (instruction.memory_displacement64() as i64) > i32::MAX as i64 {
-				self.set_error_message(format!("Operand {}: Displacement must fit in an i32", operand));
-				return;
-			}
-		} else {
-			debug_assert_eq!(addr_size, 32);
-			if (instruction.memory_displacement64() as i64) < i32::MIN as i64 || (instruction.memory_displacement64() as i64) > u32::MAX as i64 {
-				self.set_error_message(format!("Operand {}: Displacement must fit in an i32 or a u32", operand));
-				return;
-			}
-		}
 
 		// [ebp]/[ebp+index*scale] => [ebp+00]/[ebp+index*scale+00]
 		if displ_size == 0 && (base_num & 7) == 5 {

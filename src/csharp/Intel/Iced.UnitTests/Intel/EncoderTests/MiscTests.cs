@@ -745,9 +745,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, -1, displSize))));
 				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 1, displSize))));
 				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, -0x8000_0000, displSize))));
-				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 0xFFFF_FFFF, displSize))));
+				Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 0x7FFF_FFFF, displSize))));
 				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, -0x8000_0001, displSize))));
-				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 0x1_0000_0000, displSize))));
+				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, 0x8000_0000, displSize))));
 			}
 
 			Assert.True(EncodeOk(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EBP, 0L, 0))));

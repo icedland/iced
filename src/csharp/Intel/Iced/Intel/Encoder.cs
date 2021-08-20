@@ -875,13 +875,22 @@ namespace Iced.Intel {
 			}
 			var scale = instruction.InternalMemoryIndexScale;
 			Displ = instruction.MemoryDisplacement32;
+			if (addrSize == 64) {
+				if ((long)instruction.MemoryDisplacement64 < int.MinValue || (long)instruction.MemoryDisplacement64 > int.MaxValue) {
+					ErrorMessage = $"Operand {operand}: Displacement must fit in an int";
+					return;
+				}
+			}
+			else {
+				Debug.Assert(addrSize == 32);
+				if ((long)instruction.MemoryDisplacement64 < int.MinValue || (long)instruction.MemoryDisplacement64 > uint.MaxValue) {
+					ErrorMessage = $"Operand {operand}: Displacement must fit in an int or a uint";
+					return;
+				}
+			}
 			if (baseReg == Register.None && indexReg == Register.None) {
 				if (vsibIndexRegLo != Register.None) {
 					ErrorMessage = $"Operand {operand}: VSIB addressing can't use an offset-only address";
-					return;
-				}
-				if ((long)instruction.MemoryDisplacement64 < int.MinValue || (long)instruction.MemoryDisplacement64 > uint.MaxValue) {
-					ErrorMessage = $"Operand {operand}: Displacement must fit in an int or a uint";
 					return;
 				}
 				if (bitness == 64 || scale != 0 || (EncoderFlags & EncoderFlags.MustUseSib) != 0) {
@@ -900,20 +909,6 @@ namespace Iced.Intel {
 
 			int baseNum = baseReg == Register.None ? -1 : baseReg - baseRegLo;
 			int indexNum = indexReg == Register.None ? -1 : indexReg - indexRegLo;
-
-			if (addrSize == 64) {
-				if ((long)instruction.MemoryDisplacement64 < int.MinValue || (long)instruction.MemoryDisplacement64 > int.MaxValue) {
-					ErrorMessage = $"Operand {operand}: Displacement must fit in an int";
-					return;
-				}
-			}
-			else {
-				Debug.Assert(addrSize == 32);
-				if ((long)instruction.MemoryDisplacement64 < int.MinValue || (long)instruction.MemoryDisplacement64 > uint.MaxValue) {
-					ErrorMessage = $"Operand {operand}: Displacement must fit in an int or a uint";
-					return;
-				}
-			}
 
 			// [ebp]/[ebp+index*scale] => [ebp+00]/[ebp+index*scale+00]
 			if (displSize == 0 && (baseNum & 7) == 5) {
