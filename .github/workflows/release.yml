@@ -6,7 +6,7 @@ on:
 
 # Keep this in sync with the other *.yml files
 env:
-  CI_REQ_DOTNET_SDK_VER: 5.0.100
+  CI_REQ_DOTNET_SDK_VER: 5.0.300
   COVERAGE_FILENAME: coverage.info
   CI_NODE_MIN_VER: 12.0.0
   RUSTFLAGS: -D warnings
