@@ -376,6 +376,8 @@ impl Op for OpMRBX {
 		}
 		let base = instruction.memory_base();
 		if instruction.memory_displ_size() != 0
+			|| instruction.memory_displacement64() != 0
+			|| instruction.memory_index_scale() != 1
 			|| instruction.memory_index() != Register::AL
 			|| (base != Register::BX && base != Register::EBX && base != Register::RBX)
 		{

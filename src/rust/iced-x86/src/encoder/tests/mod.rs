@@ -26,6 +26,7 @@ use alloc::rc::Rc;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::fmt::Write;
+use core::{i16, i32, i8};
 use static_assertions::const_assert_eq;
 
 #[test]
@@ -1243,5 +1244,1024 @@ fn invalid_displ_64() {
 		encode_ok!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, 0x7FFF_FFFF, displ_size)));
 		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, -0x8000_0001, displ_size)));
 		encode_err!(BITNESS, Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ_size(Register::RBX, 0x8000_0000, displ_size)));
+	}
+}
+
+#[test]
+fn test_unsupported_bitness() {
+	{
+		let mut encoder = Encoder::new(16);
+		assert!(encoder.encode(&Instruction::with2(Code::Mov_r64_rm64, Register::RAX, Register::RCX).unwrap(), 0).is_err());
+	}
+	{
+		let mut encoder = Encoder::new(32);
+		assert!(encoder.encode(&Instruction::with2(Code::Mov_r64_rm64, Register::RAX, Register::RCX).unwrap(), 0).is_err());
+	}
+	{
+		let mut encoder = Encoder::new(64);
+		assert!(encoder.encode(&Instruction::with(Code::Pushad), 0).is_err());
+	}
+}
+
+#[test]
+fn test_too_long_instruction() {
+	let mut encoder = Encoder::new(16);
+	let mut instr = Instruction::with2(
+		Code::Add_rm32_imm32,
+		MemoryOperand::new(Register::ESP, Register::None, 1, 0x1234_5678, 4, false, Register::SS),
+		0x1234_5678,
+	)
+	.unwrap();
+	instr.set_has_xacquire_prefix(true);
+	instr.set_has_lock_prefix(true);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_wrong_op_kind() {
+	let mut encoder = Encoder::new(64);
+	let mut instr = Instruction::with1(Code::Push_r64, Register::RAX).unwrap();
+	instr.set_op0_kind(OpKind::Immediate16);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_wrong_implied_register() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with2(Code::In_AL_DX, Register::RAX, Register::EDX).unwrap();
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_wrong_register() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with1(Code::Push_r64, Register::EAX).unwrap();
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_invalid_maskmov() {
+	let tests = [
+		(16, Instruction::with_maskmovq(16, Register::MM0, Register::MM1, Register::None).unwrap(), OpKind::MemorySegRDI),
+		(16, Instruction::with_maskmovdqu(16, Register::XMM0, Register::XMM1, Register::None).unwrap(), OpKind::MemorySegRDI),
+		(16, Instruction::with_vmaskmovdqu(16, Register::XMM0, Register::XMM1, Register::None).unwrap(), OpKind::MemorySegRDI),
+		(32, Instruction::with_maskmovq(32, Register::MM0, Register::MM1, Register::None).unwrap(), OpKind::MemorySegRDI),
+		(32, Instruction::with_maskmovdqu(32, Register::XMM0, Register::XMM1, Register::None).unwrap(), OpKind::MemorySegRDI),
+		(32, Instruction::with_vmaskmovdqu(32, Register::XMM0, Register::XMM1, Register::None).unwrap(), OpKind::MemorySegRDI),
+		(64, Instruction::with_maskmovq(64, Register::MM0, Register::MM1, Register::None).unwrap(), OpKind::MemorySegDI),
+		(64, Instruction::with_maskmovdqu(64, Register::XMM0, Register::XMM1, Register::None).unwrap(), OpKind::MemorySegDI),
+		(64, Instruction::with_vmaskmovdqu(64, Register::XMM0, Register::XMM1, Register::None).unwrap(), OpKind::MemorySegDI),
+	];
+	for &(bitness, instr, bad_op_kind) in &tests {
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(OpKind::FarBranch16);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(bad_op_kind);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_invalid_outs() {
+	let tests = [
+		(16, Instruction::with_outsb(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(16, Instruction::with_outsw(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(16, Instruction::with_outsd(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(32, Instruction::with_outsb(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(32, Instruction::with_outsw(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(32, Instruction::with_outsd(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(64, Instruction::with_outsb(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI),
+		(64, Instruction::with_outsw(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI),
+		(64, Instruction::with_outsd(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI),
+	];
+	for &(bitness, instr, bad_op_kind) in &tests {
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op1_kind(OpKind::FarBranch16);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op1_kind(bad_op_kind);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_invalid_movs() {
+	let tests = [
+		(16, Instruction::with_movsb(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(16, Instruction::with_movsw(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(16, Instruction::with_movsd(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(16, Instruction::with_movsq(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(32, Instruction::with_movsb(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(32, Instruction::with_movsw(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(32, Instruction::with_movsd(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(32, Instruction::with_movsq(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(64, Instruction::with_movsb(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI, OpKind::MemoryESDI),
+		(64, Instruction::with_movsw(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI, OpKind::MemoryESDI),
+		(64, Instruction::with_movsd(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI, OpKind::MemoryESDI),
+		(64, Instruction::with_movsq(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI, OpKind::MemoryESDI),
+	];
+	for &(bitness, instr, bad_op_kind1, bad_op_kind0) in &tests {
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(OpKind::FarBranch16);
+			instr.set_op1_kind(OpKind::FarBranch16);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(bad_op_kind1);
+			instr.set_op1_kind(bad_op_kind1);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op1_kind(bad_op_kind1);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(bad_op_kind0);
+			instr.set_op1_kind(bad_op_kind0);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(bad_op_kind0);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_invalid_cmps() {
+	let tests = [
+		(16, Instruction::with_cmpsb(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(16, Instruction::with_cmpsw(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(16, Instruction::with_cmpsd(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(16, Instruction::with_cmpsq(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(32, Instruction::with_cmpsb(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(32, Instruction::with_cmpsw(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(32, Instruction::with_cmpsd(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(32, Instruction::with_cmpsq(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI, OpKind::MemoryESRDI),
+		(64, Instruction::with_cmpsb(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI, OpKind::MemoryESDI),
+		(64, Instruction::with_cmpsw(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI, OpKind::MemoryESDI),
+		(64, Instruction::with_cmpsd(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI, OpKind::MemoryESDI),
+		(64, Instruction::with_cmpsq(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI, OpKind::MemoryESDI),
+	];
+	for &(bitness, instr, bad_op_kind1, bad_op_kind0) in &tests {
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(OpKind::FarBranch16);
+			instr.set_op1_kind(OpKind::FarBranch16);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(bad_op_kind1);
+			instr.set_op1_kind(bad_op_kind1);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op1_kind(bad_op_kind1);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(bad_op_kind0);
+			instr.set_op1_kind(bad_op_kind0);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(bad_op_kind0);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_invalid_lods() {
+	let tests = [
+		(16, Instruction::with_lodsb(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(16, Instruction::with_lodsw(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(16, Instruction::with_lodsd(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(16, Instruction::with_lodsq(16, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(32, Instruction::with_lodsb(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(32, Instruction::with_lodsw(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(32, Instruction::with_lodsd(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(32, Instruction::with_lodsq(32, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegRSI),
+		(64, Instruction::with_lodsb(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI),
+		(64, Instruction::with_lodsw(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI),
+		(64, Instruction::with_lodsd(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI),
+		(64, Instruction::with_lodsq(64, Register::None, RepPrefixKind::None).unwrap(), OpKind::MemorySegSI),
+	];
+	for &(bitness, instr, bad_op_kind) in &tests {
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op1_kind(OpKind::FarBranch16);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op1_kind(bad_op_kind);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_invalid_ins() {
+	let tests = [
+		(16, Instruction::with_insb(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(16, Instruction::with_insw(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(16, Instruction::with_insd(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_insb(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_insw(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_insd(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(64, Instruction::with_insb(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+		(64, Instruction::with_insw(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+		(64, Instruction::with_insd(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+	];
+	for &(bitness, instr, bad_op_kind) in &tests {
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(OpKind::FarBranch16);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(bad_op_kind);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_invalid_stos() {
+	let tests = [
+		(16, Instruction::with_stosb(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(16, Instruction::with_stosw(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(16, Instruction::with_stosd(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(16, Instruction::with_stosq(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_stosb(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_stosw(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_stosd(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_stosq(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(64, Instruction::with_stosb(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+		(64, Instruction::with_stosw(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+		(64, Instruction::with_stosd(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+		(64, Instruction::with_stosq(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+	];
+	for &(bitness, instr, bad_op_kind) in &tests {
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(OpKind::FarBranch16);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(bad_op_kind);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_invalid_scas() {
+	let tests = [
+		(16, Instruction::with_scasb(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(16, Instruction::with_scasw(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(16, Instruction::with_scasd(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(16, Instruction::with_scasq(16, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_scasb(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_scasw(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_scasd(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(32, Instruction::with_scasq(32, RepPrefixKind::None).unwrap(), OpKind::MemoryESRDI),
+		(64, Instruction::with_scasb(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+		(64, Instruction::with_scasw(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+		(64, Instruction::with_scasd(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+		(64, Instruction::with_scasq(64, RepPrefixKind::None).unwrap(), OpKind::MemoryESDI),
+	];
+	for &(bitness, instr, bad_op_kind) in &tests {
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(OpKind::FarBranch16);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_kind(bad_op_kind);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_invalid_xlatb() {
+	#[rustfmt::skip]
+	let tests = [
+		(16, Instruction::with1(Code::Xlat_m8, MemoryOperand::new(Register::BX, Register::AL, 1, 0, 0, false, Register::None)).unwrap(), Register::RBX),
+		(32, Instruction::with1(Code::Xlat_m8, MemoryOperand::new(Register::EBX, Register::AL, 1, 0, 0, false, Register::None)).unwrap(), Register::RBX),
+		(64, Instruction::with1(Code::Xlat_m8, MemoryOperand::new(Register::RBX, Register::AL, 1, 0, 0, false, Register::None)).unwrap(), Register::BX),
+	];
+	for &(bitness, instr, invalid_rbx) in &tests {
+		{
+			let mut encoder = Encoder::new(bitness);
+			assert!(encoder.encode(&instr, 0).is_ok());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_memory_base(invalid_rbx);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_memory_base(Register::ESI);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_memory_index(Register::AX);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_memory_index(Register::None);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		for &scale in &[2, 4, 8] {
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_memory_index_scale(scale);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		let invalid_displ_size = if bitness == 64 { 4 } else { 8 };
+		for &(displ, displ_size) in &[(0, 1), (1, invalid_displ_size), (1, 1)] {
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_memory_displacement64(displ);
+			instr.set_memory_displ_size(displ_size);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_invalid_const_imm_op() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with2(Code::Rol_rm8_1, Register::AL, 0).unwrap();
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+#[cfg(not(feature = "no_vex"))]
+fn test_invalid_is5_imm_op() {
+	for imm in 0..0x100u32 {
+		let mut encoder = Encoder::new(64);
+		let instr =
+			Instruction::with5(Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Register::XMM0, Register::XMM1, Register::XMM2, Register::XMM3, imm)
+				.unwrap();
+		if imm <= 0x0F {
+			assert!(encoder.encode(&instr, 0).is_ok());
+		} else {
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_encode_invalid_instr() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::default();
+	assert_eq!(instr.code(), Code::INVALID);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_high_r8_reg_with_rex_prefix() {
+	for &reg in &[Register::AH, Register::CH, Register::DH, Register::BH] {
+		let mut encoder = Encoder::new(64);
+		let instr = Instruction::with2(Code::Movzx_r64_rm8, Register::RAX, reg).unwrap();
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+}
+
+#[test]
+#[cfg(not(feature = "no_evex"))]
+fn test_evex_invalid_k1() {
+	let mut encoder = Encoder::new(64);
+	let mut instr = Instruction::with2(Code::EVEX_Vucomiss_xmm_xmmm32_sae, Register::XMM0, Register::XMM1).unwrap();
+	instr.set_op_mask(Register::K1);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+#[cfg(not(feature = "no_evex"))]
+fn encode_without_required_op_mask_register() {
+	let mut encoder = Encoder::new(64);
+	let mut instr = Instruction::with2(
+		Code::EVEX_Vpgatherdd_xmm_k1_vm32x,
+		Register::XMM0,
+		MemoryOperand::new(Register::RAX, Register::XMM1, 1, 0x10, 1, false, Register::None),
+	)
+	.unwrap();
+	assert!(encoder.encode(&instr, 0).is_err());
+	instr.set_op_mask(Register::K1);
+	assert!(encoder.encode(&instr, 0).is_ok());
+}
+
+#[test]
+#[cfg(not(feature = "no_evex"))]
+fn encode_invalid_sae() {
+	let mut encoder = Encoder::new(64);
+	let mut instr = Instruction::with2(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM0, Register::XMM1).unwrap();
+	assert!(encoder.encode(&instr, 0).is_ok());
+	instr.set_suppress_all_exceptions(true);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+#[cfg(not(feature = "no_evex"))]
+fn encode_invalid_er() {
+	for rc in RoundingControl::values() {
+		let mut encoder = Encoder::new(64);
+		let mut instr = Instruction::with2(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM0, Register::XMM1).unwrap();
+		instr.set_rounding_control(rc);
+		if rc == RoundingControl::None {
+			assert!(encoder.encode(&instr, 0).is_ok());
+		} else {
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+#[cfg(not(feature = "no_evex"))]
+fn encode_invalid_bcst() {
+	{
+		let mut encoder = Encoder::new(64);
+		let mut instr = Instruction::with2(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM0, MemoryOperand::with_base(Register::RAX)).unwrap();
+		assert!(encoder.encode(&instr, 0).is_ok());
+		instr.set_is_broadcast(true);
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+	{
+		let mut encoder = Encoder::new(64);
+		let mut instr =
+			Instruction::with3(Code::EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, Register::XMM0, Register::XMM1, MemoryOperand::with_base(Register::RAX))
+				.unwrap();
+		assert!(encoder.encode(&instr, 0).is_ok());
+		instr.set_is_broadcast(true);
+		assert!(encoder.encode(&instr, 0).is_ok());
+	}
+	{
+		let mut encoder = Encoder::new(64);
+		let mut instr = Instruction::with3(Code::EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, Register::XMM0, Register::XMM1, Register::XMM2).unwrap();
+		assert!(encoder.encode(&instr, 0).is_ok());
+		instr.set_is_broadcast(true);
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+}
+
+#[test]
+#[cfg(not(feature = "no_evex"))]
+fn encode_invalid_zmsk() {
+	let mut encoder = Encoder::new(64);
+	let mut instr = Instruction::with2(Code::EVEX_Vmovss_m32_k1_xmm, MemoryOperand::with_base(Register::RAX), Register::XMM1).unwrap();
+	assert!(encoder.encode(&instr, 0).is_ok());
+	instr.set_zeroing_masking(true);
+	assert!(encoder.encode(&instr, 0).is_err());
+	instr.set_op_mask(Register::K1);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn encode_invalid_abs_address() {
+	#[rustfmt::skip]
+	let tests = [
+		(16, 0x1234, 2),
+		(16, 0x1234_5678, 4),
+		(32, 0x1234, 2),
+		(32, 0x1234_5678, 4),
+		(64, 0x1234_5678, 4),
+		(64, 0x1234_5678_9ABC_DEF0, 8),
+	];
+	for &(bitness, address, displ_size) in &tests {
+		let mem_reg = match displ_size {
+			2 => Register::BX,
+			4 => Register::EBX,
+			8 => Register::RBX,
+			_ => unreachable!(),
+		};
+
+		let instr = Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(address, displ_size)).unwrap();
+		{
+			let mut encoder = Encoder::new(bitness);
+			assert!(encoder.encode(&instr, 0).is_ok());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_memory_base(mem_reg);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_memory_index(mem_reg);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		for &scale in &[2, 4, 8] {
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_memory_index_scale(scale);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op1_kind(OpKind::Immediate8);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+
+	#[rustfmt::skip]
+	let tests = [
+		(16, 0x1234, 8),
+		(32, 0x1234, 8),
+		(64, 0x1234, 2),
+	];
+	for &(bitness, address, displ_size) in &tests {
+		let mut encoder = Encoder::new(bitness);
+		let instr = Instruction::with2(Code::Mov_EAX_moffs32, Register::EAX, MemoryOperand::with_displ(address, displ_size)).unwrap();
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+}
+
+#[test]
+fn test_reg_op_not_allowed() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with2(Code::Lea_r32_m, Register::EAX, MemoryOperand::with_base(Register::RAX)).unwrap();
+	assert!(encoder.encode(&instr, 0).is_ok());
+	let instr = Instruction::with2(Code::Lea_r32_m, Register::EAX, Register::ECX).unwrap();
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_mem_op_not_allowed() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with2(Code::Movhlps_xmm_xmm, Register::XMM0, Register::XMM1).unwrap();
+	assert!(encoder.encode(&instr, 0).is_ok());
+	let instr = Instruction::with2(Code::Movhlps_xmm_xmm, Register::XMM0, MemoryOperand::with_base(Register::RAX)).unwrap();
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_regmem_op_is_wrong_size() {
+	#[rustfmt::skip]
+	let tests = [
+		(16, Instruction::with2(Code::Enqcmd_r16_m512, Register::AX, MemoryOperand::with_base(Register::BX)).unwrap(), Register::EAX),
+		(16, Instruction::with2(Code::Enqcmd_r32_m512, Register::EAX, MemoryOperand::with_base(Register::EAX)).unwrap(), Register::AX),
+		(16, Instruction::with2(Code::Enqcmd_r32_m512, Register::EAX, MemoryOperand::with_base(Register::EAX)).unwrap(), Register::RAX),
+		(32, Instruction::with2(Code::Enqcmd_r16_m512, Register::AX, MemoryOperand::with_base(Register::BX)).unwrap(), Register::EAX),
+		(32, Instruction::with2(Code::Enqcmd_r32_m512, Register::EAX, MemoryOperand::with_base(Register::EAX)).unwrap(), Register::AX),
+		(32, Instruction::with2(Code::Enqcmd_r32_m512, Register::EAX, MemoryOperand::with_base(Register::EAX)).unwrap(), Register::RAX),
+		(64, Instruction::with2(Code::Enqcmd_r32_m512, Register::EAX, MemoryOperand::with_base(Register::EAX)).unwrap(), Register::RAX),
+		(64, Instruction::with2(Code::Enqcmd_r64_m512, Register::RAX, MemoryOperand::with_base(Register::RAX)).unwrap(), Register::EAX),
+		(64, Instruction::with2(Code::Enqcmd_r64_m512, Register::RAX, MemoryOperand::with_base(Register::RAX)).unwrap(), Register::AX),
+	];
+	for &(bitness, instr, invalid_reg) in &tests {
+		{
+			let mut encoder = Encoder::new(bitness);
+			assert!(encoder.encode(&instr, 0).is_ok());
+		}
+		{
+			let mut encoder = Encoder::new(bitness);
+			let mut instr = instr;
+			instr.set_op0_register(invalid_reg);
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+#[cfg(not(feature = "no_evex"))]
+fn test_vsib_16bit_addr() {
+	for &bitness in &[16, 32, 64] {
+		let mut encoder = Encoder::new(bitness);
+		let mut instr = Instruction::with2(
+			Code::EVEX_Vpgatherdd_xmm_k1_vm32x,
+			Register::XMM0,
+			MemoryOperand::new(Register::EAX, Register::XMM1, 1, 0x10, 1, false, Register::None),
+		)
+		.unwrap();
+		instr.set_op_mask(Register::K1);
+		assert!(encoder.encode(&instr, 0).is_ok());
+		instr.set_memory_base(Register::BX);
+		instr.set_memory_index(Register::SI);
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+}
+
+#[test]
+fn test_expected_reg_or_mem_op_kind() {
+	let mut encoder = Encoder::new(64);
+	let mut instr = Instruction::with2(Code::Add_rm8_imm8, Register::AL, 123).unwrap();
+	assert!(encoder.encode(&instr, 0).is_ok());
+	instr.set_op0_kind(OpKind::Immediate8);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_16bit_addr_in_64bit_mode() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with2(Code::Lea_r32_m, Register::EAX, MemoryOperand::with_base(Register::BX)).unwrap();
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_64bit_addr_in_16_32bit_mode() {
+	for &bitness in &[16, 32] {
+		let mut encoder = Encoder::new(bitness);
+		let instr = Instruction::with2(Code::Lea_r32_m, Register::EAX, MemoryOperand::with_base(Register::RAX)).unwrap();
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+}
+
+#[test]
+fn test_invalid_16bit_mem_regs() {
+	let tests = [
+		(Register::AX, Register::None),
+		(Register::R8W, Register::None),
+		(Register::BL, Register::None),
+		(Register::None, Register::CX),
+		(Register::None, Register::R9W),
+		(Register::None, Register::SIL),
+		(Register::BX, Register::BP),
+		(Register::BP, Register::BX),
+	];
+	for &(base, index) in &tests {
+		let mut encoder = Encoder::new(16);
+		let instr = Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_index(base, index)).unwrap();
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+}
+
+#[test]
+fn test_invalid_16bit_displ_size() {
+	let mut encoder = Encoder::new(16);
+	let mut instr = Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ(Register::BX, 1)).unwrap();
+	assert!(encoder.encode(&instr, 0).is_ok());
+	instr.set_memory_displ_size(4);
+	assert!(encoder.encode(&instr, 0).is_err());
+	instr.set_memory_displ_size(8);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_invalid_32bit_displ_size() {
+	let mut encoder = Encoder::new(32);
+	let mut instr = Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ(Register::EAX, 1)).unwrap();
+	assert!(encoder.encode(&instr, 0).is_ok());
+	instr.set_memory_displ_size(2);
+	assert!(encoder.encode(&instr, 0).is_err());
+	instr.set_memory_displ_size(8);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_invalid_64bit_displ_size() {
+	let mut encoder = Encoder::new(64);
+	let mut instr = Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_displ(Register::RAX, 1)).unwrap();
+	assert!(encoder.encode(&instr, 0).is_ok());
+	instr.set_memory_displ_size(2);
+	assert!(encoder.encode(&instr, 0).is_err());
+	instr.set_memory_displ_size(4);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_invalid_ip_rel_memory() {
+	for &(ip_reg, invalid_index) in &[(Register::EIP, Register::EDI), (Register::RIP, Register::RDI)] {
+		{
+			let mut encoder = Encoder::new(64);
+			let instr = Instruction::with1(Code::Not_rm8, MemoryOperand::new(ip_reg, Register::None, 1, 0, 8, false, Register::None)).unwrap();
+			assert!(encoder.encode(&instr, 0).is_ok());
+		}
+		for &displ_size in &[0, 1, 4, 8] {
+			let mut encoder = Encoder::new(64);
+			let instr =
+				Instruction::with1(Code::Not_rm8, MemoryOperand::new(ip_reg, Register::None, 1, 0, displ_size, false, Register::None)).unwrap();
+			assert!(encoder.encode(&instr, 0).is_ok());
+		}
+		{
+			let mut encoder = Encoder::new(64);
+			let instr = Instruction::with1(Code::Not_rm8, MemoryOperand::new(ip_reg, Register::None, 1, 0, 2, false, Register::None)).unwrap();
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		{
+			let mut encoder = Encoder::new(64);
+			let instr = Instruction::with1(Code::Not_rm8, MemoryOperand::new(ip_reg, invalid_index, 1, 0, 8, false, Register::None)).unwrap();
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+		for &scale in &[2, 4, 8] {
+			let mut encoder = Encoder::new(64);
+			let instr = Instruction::with1(Code::Not_rm8, MemoryOperand::new(ip_reg, Register::None, scale, 0, 8, false, Register::None)).unwrap();
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+fn test_invalid_ip_rel_memory_16_32() {
+	for &bitness in &[16, 32] {
+		for &(ip_reg, displ_size) in &[(Register::EIP, 4), (Register::RIP, 8)] {
+			let mut encoder = Encoder::new(bitness);
+			let instr =
+				Instruction::with1(Code::Not_rm8, MemoryOperand::new(ip_reg, Register::None, 1, 0, displ_size, false, Register::None)).unwrap();
+			assert!(encoder.encode(&instr, 0).is_err());
+		}
+	}
+}
+
+#[test]
+#[cfg(not(feature = "no_vex"))]
+fn test_invalid_ip_rel_memory_sib_required() {
+	{
+		let mut encoder = Encoder::new(64);
+		let instr = Instruction::with2(
+			Code::VEX_Tileloaddt1_tmm_sibmem,
+			Register::TMM1,
+			MemoryOperand::new(Register::RCX, Register::RDX, 1, 0x1234_5678, 8, false, Register::None),
+		)
+		.unwrap();
+		assert!(encoder.encode(&instr, 0).is_ok());
+	}
+	{
+		let mut encoder = Encoder::new(64);
+		let instr = Instruction::with2(
+			Code::VEX_Tileloaddt1_tmm_sibmem,
+			Register::TMM1,
+			MemoryOperand::new(Register::RIP, Register::None, 1, 0x1234_5678, 8, false, Register::None),
+		)
+		.unwrap();
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+	{
+		let mut encoder = Encoder::new(64);
+		let instr = Instruction::with2(
+			Code::VEX_Tileloaddt1_tmm_sibmem,
+			Register::TMM1,
+			MemoryOperand::new(Register::ECX, Register::EDX, 1, 0x1234_5678, 4, false, Register::None),
+		)
+		.unwrap();
+		assert!(encoder.encode(&instr, 0).is_ok());
+	}
+	{
+		let mut encoder = Encoder::new(64);
+		let instr = Instruction::with2(
+			Code::VEX_Tileloaddt1_tmm_sibmem,
+			Register::TMM1,
+			MemoryOperand::new(Register::EIP, Register::None, 1, 0x1234_5678, 4, false, Register::None),
+		)
+		.unwrap();
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+}
+
+#[test]
+fn test_invalid_eip_rel_mem_target_addr() {
+	for &target in &[0u64, 0x7FFF_FFFF, 0xFFFF_FFFF] {
+		let mut encoder = Encoder::new(64);
+		let instr =
+			Instruction::with1(Code::Not_rm8, MemoryOperand::new(Register::EIP, Register::None, 1, target as i64, 4, false, Register::None)).unwrap();
+		assert!(encoder.encode(&instr, 0).is_ok());
+	}
+	for &target in &[0x1_0000_0000u64, 0xFFFF_FFFF_FFFF_FFFF] {
+		let mut encoder = Encoder::new(64);
+		let instr =
+			Instruction::with1(Code::Not_rm8, MemoryOperand::new(Register::EIP, Register::None, 1, target as i64, 4, false, Register::None)).unwrap();
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+}
+
+#[test]
+#[cfg(not(feature = "no_evex"))]
+fn test_vsib_with_offset_only_mem() {
+	let mut encoder = Encoder::new(64);
+	let mut instr = Instruction::with2(
+		Code::EVEX_Vpgatherdd_xmm_k1_vm32x,
+		Register::XMM0,
+		MemoryOperand::new(Register::RAX, Register::XMM1, 1, 0x1234_5678, 8, false, Register::None),
+	)
+	.unwrap();
+	instr.set_op_mask(Register::K1);
+	assert!(encoder.encode(&instr, 0).is_ok());
+	instr.set_memory_base(Register::None);
+	instr.set_memory_index(Register::None);
+	assert!(encoder.encode(&instr, 0).is_err());
+}
+
+#[test]
+fn test_invalid_esp_rsp_index_regs() {
+	for &sp_reg in &[Register::ESP, Register::RSP] {
+		let mut encoder = Encoder::new(64);
+		let instr = Instruction::with1(Code::Not_rm8, MemoryOperand::with_base_index_scale(Register::None, sp_reg, 2)).unwrap();
+		assert!(encoder.encode(&instr, 0).is_err());
+	}
+}
+
+#[test]
+fn test_rip_rel_dist_too_far_away() {
+	const INSTR_LEN: usize = 6;
+	const INSTR_ADDR: u64 = 0x1234_5678_9ABC_DEF0;
+	for &diff in &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234_5678, 0x1234_5678] {
+		let mut encoder = Encoder::new(64);
+		let target = ((INSTR_ADDR + INSTR_LEN as u64) as i64).wrapping_add(diff);
+		let instr =
+			Instruction::with1(Code::Not_rm8, MemoryOperand::new(Register::RIP, Register::None, 1, target, 8, false, Register::None)).unwrap();
+		let instr_len = match encoder.encode(&instr, INSTR_ADDR) {
+			Ok(len) => len,
+			Err(e) => panic!("{:?}", e),
+		};
+		assert_eq!(instr_len, INSTR_LEN);
+
+		let bytes = encoder.take_buffer();
+		let decoded = Decoder::with_ip(64, &bytes, INSTR_ADDR, DecoderOptions::NONE).decode();
+		assert_eq!(decoded.code(), Code::Not_rm8);
+		assert_eq!(decoded.memory_base(), Register::RIP);
+		assert_eq!(decoded.memory_displacement64(), target as u64);
+	}
+	for &diff in &[i32::MIN as i64 - 1, i32::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0] {
+		let mut encoder = Encoder::new(64);
+		let target = ((INSTR_ADDR + INSTR_LEN as u64) as i64).wrapping_add(diff);
+		let instr =
+			Instruction::with1(Code::Not_rm8, MemoryOperand::new(Register::RIP, Register::None, 1, target, 8, false, Register::None)).unwrap();
+		assert!(encoder.encode(&instr, INSTR_ADDR).is_err());
+	}
+}
+
+#[test]
+fn test_invalid_jcc_rel8_16() {
+	let valid_diffs = &[i8::MIN as i64, i8::MAX as i64, -1, 0, 1, -0x12, 0x12];
+	let invalid_diffs = &[i8::MIN as i64 - 1, i8::MAX as i64 + 1, -0x1234, 0x1234];
+	test_invalid_jcc(16, Code::Je_rel8_16, 0x1234, 2, 0xFFFF, valid_diffs, invalid_diffs);
+}
+
+#[test]
+fn test_invalid_jcc_rel8_32() {
+	let valid_diffs = &[i8::MIN as i64, i8::MAX as i64, -1, 0, 1, -0x12, 0x12];
+	let invalid_diffs = &[i8::MIN as i64 - 1, i8::MAX as i64 + 1, -0x1234_5678, 0x1234_5678];
+	test_invalid_jcc(32, Code::Je_rel8_32, 0x1234_5678, 2, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
+}
+
+#[test]
+fn test_invalid_jcc_rel8_64() {
+	let valid_diffs = &[i8::MIN as i64, i8::MAX as i64, -1, 0, 1, -0x12, 0x12];
+	let invalid_diffs = &[i8::MIN as i64 - 1, i8::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0];
+	test_invalid_jcc(64, Code::Je_rel8_64, 0x1234_5678_9ABC_DEF0, 2, 0xFFFF_FFFF_FFFF_FFFF, valid_diffs, invalid_diffs);
+}
+
+#[test]
+fn test_invalid_jcc_rel16_16() {
+	let valid_diffs = &[i16::MIN as i64, i16::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
+	let invalid_diffs = &[];
+	test_invalid_jcc(16, Code::Je_rel16, 0x1234, 4, 0xFFFF, valid_diffs, invalid_diffs);
+}
+
+#[test]
+fn test_invalid_jcc_rel32_32() {
+	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234_5678, 0x1234_5678];
+	let invalid_diffs = &[];
+	test_invalid_jcc(32, Code::Je_rel32_32, 0x1234_5678, 6, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
+}
+
+#[test]
+fn test_invalid_jcc_rel32_64() {
+	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234_5678, 0x1234_5678];
+	let invalid_diffs = &[i32::MIN as i64 - 1, i32::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0];
+	test_invalid_jcc(64, Code::Je_rel32_64, 0x1234_5678_9ABC_DEF0, 6, 0xFFFF_FFFF_FFFF_FFFF, valid_diffs, invalid_diffs);
+}
+
+fn test_invalid_jcc(bitness: u32, code: Code, instr_addr: u64, instr_len: usize, addr_mask: u64, valid_diffs: &[i64], invalid_diffs: &[i64]) {
+	test_invalid_br(bitness, code, instr_addr, instr_len, addr_mask, valid_diffs, invalid_diffs, |code, _, target| {
+		Instruction::with_branch(code, target).unwrap()
+	})
+}
+
+#[test]
+fn test_invalid_xbegin_rel16_16() {
+	let valid_diffs = &[i16::MIN as i64, i16::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
+	let invalid_diffs = &[i16::MIN as i64 - 1, i16::MAX as i64 + 1, -0x1234_5678, 0x1234_5678];
+	test_invalid_xbegin(16, Code::Xbegin_rel16, 0x1234, 4, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
+}
+
+#[test]
+fn test_invalid_xbegin_rel32_16() {
+	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
+	let invalid_diffs = &[];
+	test_invalid_xbegin(16, Code::Xbegin_rel32, 0x1234, 7, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
+}
+
+#[test]
+fn test_invalid_xbegin_rel16_32() {
+	let valid_diffs = &[i16::MIN as i64, i16::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
+	let invalid_diffs = &[i16::MIN as i64 - 1, i16::MAX as i64 + 1, -0x1234_5678, 0x1234_5678];
+	test_invalid_xbegin(32, Code::Xbegin_rel16, 0x1234_5678, 5, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
+}
+
+#[test]
+fn test_invalid_xbegin_rel32_32() {
+	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
+	let invalid_diffs = &[];
+	test_invalid_xbegin(32, Code::Xbegin_rel32, 0x1234_5678, 6, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
+}
+
+#[test]
+fn test_invalid_xbegin_rel16_64() {
+	let valid_diffs = &[i16::MIN as i64, i16::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
+	let invalid_diffs = &[i16::MIN as i64 - 1, i16::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0];
+	test_invalid_xbegin(64, Code::Xbegin_rel16, 0x1234_5678_9ABC_DEF0, 5, 0xFFFF_FFFF_FFFF_FFFF, valid_diffs, invalid_diffs);
+}
+
+#[test]
+fn test_invalid_xbegin_rel32_64() {
+	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
+	let invalid_diffs = &[i32::MIN as i64 - 1, i32::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0];
+	test_invalid_xbegin(64, Code::Xbegin_rel32, 0x1234_5678_9ABC_DEF0, 6, 0xFFFF_FFFF_FFFF_FFFF, valid_diffs, invalid_diffs);
+}
+
+fn test_invalid_xbegin(bitness: u32, code: Code, instr_addr: u64, instr_len: usize, addr_mask: u64, valid_diffs: &[i64], invalid_diffs: &[i64]) {
+	test_invalid_br(bitness, code, instr_addr, instr_len, addr_mask, valid_diffs, invalid_diffs, |code, bitness, target| {
+		let mut instr = Instruction::with_xbegin(bitness, target).unwrap();
+		instr.set_code(code);
+		instr
+	})
+}
+
+fn test_invalid_br(
+	bitness: u32, code: Code, instr_addr: u64, instr_len: usize, addr_mask: u64, valid_diffs: &[i64], invalid_diffs: &[i64],
+	create_instr: fn(Code, u32, u64) -> Instruction,
+) {
+	for &diff in valid_diffs {
+		let mut encoder = Encoder::new(bitness);
+		let target = (instr_addr + instr_len as u64).wrapping_add(diff as u64) & addr_mask;
+		let instr = create_instr(code, bitness, target);
+		let decoded_len = match encoder.encode(&instr, instr_addr) {
+			Ok(len) => len,
+			Err(e) => panic!("{:?}", e),
+		};
+		assert_eq!(decoded_len, instr_len);
+
+		let bytes = encoder.take_buffer();
+		let decoded = Decoder::with_ip(bitness, &bytes, instr_addr, DecoderOptions::NONE).decode();
+		assert_eq!(decoded.code(), code);
+		assert_eq!(decoded.near_branch64(), target);
+	}
+	for &diff in invalid_diffs {
+		let mut encoder = Encoder::new(bitness);
+		let target = (instr_addr + instr_len as u64).wrapping_add(diff as u64) & addr_mask;
+		let instr = create_instr(code, bitness, target);
+		assert!(encoder.encode(&instr, instr_addr).is_err());
 	}
 }

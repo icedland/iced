@@ -329,9 +329,6 @@ impl Encoder {
 
 		if !handler.is_declare_data {
 			let ops = &*handler.operands;
-			if instruction.op_count() as usize != ops.len() {
-				self.set_error_message(format!("Expected {} operand(s) but the instruction has {} operand(s)", ops.len(), instruction.op_count()));
-			}
 			for (i, op) in ops.iter().copied().enumerate() {
 				op.encode(self, instruction, i as u32);
 			}
@@ -618,6 +615,7 @@ impl Encoder {
 					self.encoder_flags |= EncoderFlags::P67;
 				}
 			} else {
+				debug_assert_eq!(self.bitness, 32);
 				if reg_size == 2 {
 					self.encoder_flags |= EncoderFlags::P67;
 				}
@@ -631,6 +629,10 @@ impl Encoder {
 		if op_kind == OpKind::Memory {
 			if instruction.memory_base() != Register::None || instruction.memory_index() != Register::None {
 				self.set_error_message(format!("Operand {}: Absolute addresses can't have base and/or index regs", operand));
+				return;
+			}
+			if instruction.memory_index_scale() != 1 {
+				self.set_error_message(format!("Operand {}: Absolute addresses must have scale == *1", operand));
 				return;
 			}
 			match instruction.memory_displ_size() {
@@ -668,12 +670,7 @@ impl Encoder {
 					self.displ = addr as u32;
 					self.displ_hi = (addr >> 32) as u32;
 				}
-				_ => {
-					self.set_error_message(format!(
-						"Operand {}: Instruction.memory_displ_size() must be initialized to 2 (16-bit) or 4 (32-bit)",
-						operand
-					));
-				}
+				_ => unreachable!(),
 			}
 		} else {
 			if cfg!(debug_assertions) {
@@ -995,6 +992,10 @@ impl Encoder {
 		if base == Register::RIP || base == Register::EIP {
 			if index != Register::None {
 				self.set_error_message(format!("Operand {}: RIP relative addressing can't use an index register", operand));
+				return;
+			}
+			if instruction_internal::internal_get_memory_index_scale(instruction) != 0 {
+				self.set_error_message(format!("Operand {}: RIP relative addressing must use scale *1", operand));
 				return;
 			}
 			if self.bitness != 64 {

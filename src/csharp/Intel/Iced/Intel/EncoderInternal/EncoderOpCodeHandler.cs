@@ -47,6 +47,7 @@ namespace Iced.Intel.EncoderInternal {
 
 	sealed class DeclareDataHandler : OpCodeHandler {
 		readonly int elemLength;
+		readonly int maxLength;
 
 		public DeclareDataHandler(Code code)
 			: base(EncFlags2.None, EncFlags3.Bit16or32 | EncFlags3.Bit64, true, null, Array2.Empty<Op>()) {
@@ -57,10 +58,16 @@ namespace Iced.Intel.EncoderInternal {
 				Code.DeclareQword => 8,
 				_ => throw new InvalidOperationException(),
 			};
+			maxLength = 16 / elemLength;
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instruction) {
-			int length = instruction.DeclareDataCount * elemLength;
+			var declDataCount = instruction.DeclareDataCount;
+			if (declDataCount < 1 || declDataCount > maxLength) {
+				encoder.ErrorMessage = $"Invalid db/dw/dd/dq data count. Count = {declDataCount}, max count = {maxLength}";
+				return;
+			}
+			int length = declDataCount * elemLength;
 			for (int i = 0; i < length; i++)
 				encoder.WriteByteInternal(instruction.GetDeclareByteValue(i));
 		}
@@ -461,11 +468,10 @@ namespace Iced.Intel.EncoderInternal {
 			}
 			else if ((EncFlags3 & EncFlags3.SuppressAllExceptions) == 0 || !instruction.SuppressAllExceptions)
 				b |= llBits;
-			if ((encoderFlags & (uint)EncoderFlags.Broadcast) != 0) {
-				if ((EncFlags3 & EncFlags3.Broadcast) == 0)
-					encoder.ErrorMessage = "The instruction doesn't support broadcasting";
+			if ((encoderFlags & (uint)EncoderFlags.Broadcast) != 0)
 				b |= 0x10;
-			}
+			else if (instruction.IsBroadcast)
+				encoder.ErrorMessage = "The instruction doesn't support broadcasting";
 			if (instruction.ZeroingMasking) {
 				if ((EncFlags3 & EncFlags3.ZeroingMasking) == 0)
 					encoder.ErrorMessage = "The instruction doesn't support zeroing masking";

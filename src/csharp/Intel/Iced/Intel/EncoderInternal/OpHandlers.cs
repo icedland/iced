@@ -50,7 +50,7 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.AddRegOrMem(instruction, operand, regLo, regHi, allowMemOp: true, allowRegOp: true);
 	}
 
-	sealed class OpRegEmbed8: Op {
+	sealed class OpRegEmbed8 : Op {
 		readonly Register regLo;
 		readonly Register regHi;
 
@@ -328,7 +328,9 @@ namespace Iced.Intel.EncoderInternal {
 			if (!encoder.Verify(operand, OpKind.Memory, instruction.GetOpKind(operand)))
 				return;
 			var baseReg = instruction.MemoryBase;
-			if (instruction.MemoryDisplSize != 0 || instruction.MemoryIndex != Register.AL || (baseReg != Register.BX && baseReg != Register.EBX && baseReg != Register.RBX)) {
+			if (instruction.MemoryDisplSize != 0 || instruction.MemoryDisplacement64 != 0 ||
+				instruction.MemoryIndexScale != 1 || instruction.MemoryIndex != Register.AL ||
+				(baseReg != Register.BX && baseReg != Register.EBX && baseReg != Register.RBX)) {
 				encoder.ErrorMessage = $"Operand {operand}: Operand must be [bx+al], [ebx+al], or [rbx+al]";
 				return;
 			}

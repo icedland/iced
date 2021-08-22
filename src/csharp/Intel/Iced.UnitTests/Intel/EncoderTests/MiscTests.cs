@@ -794,6 +794,970 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.True(EncodeErr(bitness, Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RBX, 0x8000_0000, displSize))));
 			}
 		}
+
+		[Fact]
+		void TestUnsupportedBitness() {
+			{
+				var encoder = Encoder.Create(16, new CodeWriterImpl());
+				Assert.False(encoder.TryEncode(Instruction.Create(Code.Mov_r64_rm64, Register.RAX, Register.RCX), 0, out _, out _));
+			}
+			{
+				var encoder = Encoder.Create(32, new CodeWriterImpl());
+				Assert.False(encoder.TryEncode(Instruction.Create(Code.Mov_r64_rm64, Register.RAX, Register.RCX), 0, out _, out _));
+			}
+			{
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				Assert.False(encoder.TryEncode(Instruction.Create(Code.Pushad), 0, out _, out _));
+			}
+		}
+
+		[Fact]
+		void TestTooLongInstruction() {
+			var encoder = Encoder.Create(16, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.Add_rm32_imm32,
+				new MemoryOperand(Register.ESP, Register.None, 1, 0x1234_5678, 4, false, Register.SS), 0x1234_5678);
+			instr.HasXacquirePrefix = true;
+			instr.HasLockPrefix = true;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+		[Fact]
+		void TestWrongOpKind() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.Push_r64, Register.RAX);
+			instr.Op0Kind = OpKind.Immediate16;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+		[Fact]
+		void TestWrongImpliedRegister() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.In_AL_DX, Register.RAX, Register.EDX);
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+		[Fact]
+		void TestWrongRegister() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.Push_r64, Register.EAX);
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+		[Fact]
+		void TestInvalidMaskmov() {
+			var tests = new (int bitness, Instruction instr, OpKind badOpKind)[] {
+				(16, Instruction.CreateMaskmovq(16, Register.MM0, Register.MM1, Register.None), OpKind.MemorySegRDI),
+				(16, Instruction.CreateMaskmovdqu(16, Register.XMM0, Register.XMM1, Register.None), OpKind.MemorySegRDI),
+				(16, Instruction.CreateVmaskmovdqu(16, Register.XMM0, Register.XMM1, Register.None), OpKind.MemorySegRDI),
+				(32, Instruction.CreateMaskmovq(32, Register.MM0, Register.MM1, Register.None), OpKind.MemorySegRDI),
+				(32, Instruction.CreateMaskmovdqu(32, Register.XMM0, Register.XMM1, Register.None), OpKind.MemorySegRDI),
+				(32, Instruction.CreateVmaskmovdqu(32, Register.XMM0, Register.XMM1, Register.None), OpKind.MemorySegRDI),
+				(64, Instruction.CreateMaskmovq(64, Register.MM0, Register.MM1, Register.None), OpKind.MemorySegDI),
+				(64, Instruction.CreateMaskmovdqu(64, Register.XMM0, Register.XMM1, Register.None), OpKind.MemorySegDI),
+				(64, Instruction.CreateVmaskmovdqu(64, Register.XMM0, Register.XMM1, Register.None), OpKind.MemorySegDI),
+			};
+			foreach (var (bitness, instr2, badOpKind) in tests) {
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = OpKind.FarBranch16;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidOuts() {
+			var tests = new (int bitness, Instruction instr, OpKind badOpKind)[] {
+				(16, Instruction.CreateOutsb(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(16, Instruction.CreateOutsw(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(16, Instruction.CreateOutsd(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(32, Instruction.CreateOutsb(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(32, Instruction.CreateOutsw(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(32, Instruction.CreateOutsd(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(64, Instruction.CreateOutsb(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI),
+				(64, Instruction.CreateOutsw(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI),
+				(64, Instruction.CreateOutsd(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI),
+			};
+			foreach (var (bitness, instr2, badOpKind) in tests) {
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op1Kind = OpKind.FarBranch16;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op1Kind = badOpKind;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidMovs() {
+			var tests = new (int bitness, Instruction instr, OpKind badOpKind1, OpKind badOpKind0)[] {
+				(16, Instruction.CreateMovsb(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(16, Instruction.CreateMovsw(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(16, Instruction.CreateMovsd(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(16, Instruction.CreateMovsq(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(32, Instruction.CreateMovsb(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(32, Instruction.CreateMovsw(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(32, Instruction.CreateMovsd(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(32, Instruction.CreateMovsq(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(64, Instruction.CreateMovsb(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI, OpKind.MemoryESDI),
+				(64, Instruction.CreateMovsw(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI, OpKind.MemoryESDI),
+				(64, Instruction.CreateMovsd(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI, OpKind.MemoryESDI),
+				(64, Instruction.CreateMovsq(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI, OpKind.MemoryESDI),
+			};
+			foreach (var (bitness, instr2, badOpKind1, badOpKind0) in tests) {
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = OpKind.FarBranch16;
+					instr.Op1Kind = OpKind.FarBranch16;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind1;
+					instr.Op1Kind = badOpKind1;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op1Kind = badOpKind1;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind0;
+					instr.Op1Kind = badOpKind0;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind0;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidCmps() {
+			var tests = new (int bitness, Instruction instr, OpKind badOpKind1, OpKind badOpKind0)[] {
+				(16, Instruction.CreateCmpsb(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(16, Instruction.CreateCmpsw(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(16, Instruction.CreateCmpsd(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(16, Instruction.CreateCmpsq(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(32, Instruction.CreateCmpsb(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(32, Instruction.CreateCmpsw(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(32, Instruction.CreateCmpsd(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(32, Instruction.CreateCmpsq(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI, OpKind.MemoryESRDI),
+				(64, Instruction.CreateCmpsb(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI, OpKind.MemoryESDI),
+				(64, Instruction.CreateCmpsw(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI, OpKind.MemoryESDI),
+				(64, Instruction.CreateCmpsd(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI, OpKind.MemoryESDI),
+				(64, Instruction.CreateCmpsq(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI, OpKind.MemoryESDI),
+			};
+			foreach (var (bitness, instr2, badOpKind1, badOpKind0) in tests) {
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = OpKind.FarBranch16;
+					instr.Op1Kind = OpKind.FarBranch16;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind1;
+					instr.Op1Kind = badOpKind1;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op1Kind = badOpKind1;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind0;
+					instr.Op1Kind = badOpKind0;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind0;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidLods() {
+			var tests = new (int bitness, Instruction instr, OpKind badOpKind)[] {
+				(16, Instruction.CreateLodsb(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(16, Instruction.CreateLodsw(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(16, Instruction.CreateLodsd(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(16, Instruction.CreateLodsq(16, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(32, Instruction.CreateLodsb(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(32, Instruction.CreateLodsw(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(32, Instruction.CreateLodsd(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(32, Instruction.CreateLodsq(32, Register.None, RepPrefixKind.None), OpKind.MemorySegRSI),
+				(64, Instruction.CreateLodsb(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI),
+				(64, Instruction.CreateLodsw(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI),
+				(64, Instruction.CreateLodsd(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI),
+				(64, Instruction.CreateLodsq(64, Register.None, RepPrefixKind.None), OpKind.MemorySegSI),
+			};
+			foreach (var (bitness, instr2, badOpKind) in tests) {
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = OpKind.FarBranch16;
+					instr.Op1Kind = OpKind.FarBranch16;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind;
+					instr.Op1Kind = badOpKind;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidIns() {
+			var tests = new (int bitness, Instruction instr, OpKind badOpKind)[] {
+				(16, Instruction.CreateInsb(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(16, Instruction.CreateInsw(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(16, Instruction.CreateInsd(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateInsb(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateInsw(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateInsd(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(64, Instruction.CreateInsb(64, RepPrefixKind.None), OpKind.MemoryESDI),
+				(64, Instruction.CreateInsw(64, RepPrefixKind.None), OpKind.MemoryESDI),
+				(64, Instruction.CreateInsd(64, RepPrefixKind.None), OpKind.MemoryESDI),
+			};
+			foreach (var (bitness, instr2, badOpKind) in tests) {
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = OpKind.FarBranch16;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidStos() {
+			var tests = new (int bitness, Instruction instr, OpKind badOpKind)[] {
+				(16, Instruction.CreateStosb(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(16, Instruction.CreateStosw(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(16, Instruction.CreateStosd(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(16, Instruction.CreateStosq(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateStosb(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateStosw(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateStosd(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateStosq(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(64, Instruction.CreateStosb(64, RepPrefixKind.None), OpKind.MemoryESDI),
+				(64, Instruction.CreateStosw(64, RepPrefixKind.None), OpKind.MemoryESDI),
+				(64, Instruction.CreateStosd(64, RepPrefixKind.None), OpKind.MemoryESDI),
+				(64, Instruction.CreateStosq(64, RepPrefixKind.None), OpKind.MemoryESDI),
+			};
+			foreach (var (bitness, instr2, badOpKind) in tests) {
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = OpKind.FarBranch16;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidScas() {
+			var tests = new (int bitness, Instruction instr, OpKind badOpKind)[] {
+				(16, Instruction.CreateScasb(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(16, Instruction.CreateScasw(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(16, Instruction.CreateScasd(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(16, Instruction.CreateScasq(16, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateScasb(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateScasw(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateScasd(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(32, Instruction.CreateScasq(32, RepPrefixKind.None), OpKind.MemoryESRDI),
+				(64, Instruction.CreateScasb(64, RepPrefixKind.None), OpKind.MemoryESDI),
+				(64, Instruction.CreateScasw(64, RepPrefixKind.None), OpKind.MemoryESDI),
+				(64, Instruction.CreateScasd(64, RepPrefixKind.None), OpKind.MemoryESDI),
+				(64, Instruction.CreateScasq(64, RepPrefixKind.None), OpKind.MemoryESDI),
+			};
+			foreach (var (bitness, instr2, badOpKind) in tests) {
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = OpKind.FarBranch16;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Kind = badOpKind;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidXlatb() {
+			var tests = new (int bitness, Instruction instr, Register invalidRbx)[] {
+				(16, Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.BX, Register.AL, 1, 0, 0, false, Register.None)), Register.RBX),
+				(32, Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.EBX, Register.AL, 1, 0, 0, false, Register.None)), Register.RBX),
+				(64, Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.RBX, Register.AL, 1, 0, 0, false, Register.None)), Register.BX),
+			};
+			foreach (var (bitness, instr2, invalidRbx) in tests) {
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					Assert.True(encoder.TryEncode(instr2, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.MemoryBase = invalidRbx;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.MemoryBase = Register.ESI;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.MemoryIndex = Register.AX;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.MemoryIndex = Register.None;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				foreach (var scale in new[] { 2, 4, 8 }) {
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.MemoryIndexScale = scale;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				var invalidDisplSize = bitness == 64 ? 4 : 8;
+				foreach (var (displ, displSize) in new (ulong displ, int displSize)[] { (0, 1), (1, invalidDisplSize), (1, 1) }) {
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.MemoryDisplacement64 = displ;
+					instr.MemoryDisplSize = displSize;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidConstImmOp() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.Rol_rm8_1, Register.AL, 0);
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+#if !NO_VEX
+		[Fact]
+		void TestInvalidIs5ImmOp() {
+			for (int imm = 0; imm < 0x100; imm++) {
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Register.XMM0, Register.XMM1, Register.XMM2, Register.XMM3, imm);
+				if (imm <= 0x0F)
+					Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+				else
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+#endif
+
+		[Fact]
+		void TestEncodeInvalidInstr() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			Instruction instr = default;
+			Assert.Equal(Code.INVALID, instr.Code);
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+		[Fact]
+		void TestHighR8RegWithRexPrefix() {
+			foreach (var reg in new[] { Register.AH, Register.CH, Register.DH, Register.BH }) {
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.Movzx_r64_rm8, Register.RAX, reg);
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+
+#if !NO_EVEX
+		[Fact]
+		void TestEvexInvalidK1() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.EVEX_Vucomiss_xmm_xmmm32_sae, Register.XMM0, Register.XMM1);
+			instr.OpMask = Register.K1;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		void EncodeWithoutRequiredOpMaskRegister() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.EVEX_Vpgatherdd_xmm_k1_vm32x, Register.XMM0, new MemoryOperand(Register.RAX, Register.XMM1, 1, 0x10, 1, false, Register.None));
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			instr.OpMask = Register.K1;
+			Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		void EncodeInvalidSae() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.EVEX_Vmovups_xmm_k1z_xmmm128, Register.XMM0, Register.XMM1);
+			Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			instr.SuppressAllExceptions = true;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		void EncodeInvalidEr() {
+			foreach (var er in Enum.GetValues<RoundingControl>()) {
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.EVEX_Vmovups_xmm_k1z_xmmm128, Register.XMM0, Register.XMM1);
+				instr.RoundingControl = er;
+				if (er == RoundingControl.None)
+					Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+				else
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		void EncodeInvalidBcst() {
+			{
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.EVEX_Vmovups_xmm_k1z_xmmm128, Register.XMM0, new MemoryOperand(Register.RAX));
+				Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+				instr.IsBroadcast = true;
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+			{
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, Register.XMM0, Register.XMM1, new MemoryOperand(Register.RAX));
+				Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+				instr.IsBroadcast = true;
+				Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			}
+			{
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, Register.XMM0, Register.XMM1, Register.XMM2);
+				Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+				instr.IsBroadcast = true;
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		void EncodeInvalidZmsk() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.EVEX_Vmovss_m32_k1_xmm, new MemoryOperand(Register.RAX), Register.XMM1);
+			Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			instr.ZeroingMasking = true;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			instr.OpMask = Register.K1;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+#endif
+
+		[Fact]
+		void EncodeInvalidAbsAddress() {
+			var tests1 = new (int bitness, ulong address, int displSize)[] {
+				(16, 0x1234, 2),
+				(16, 0x1234_5678, 4),
+				(32, 0x1234, 2),
+				(32, 0x1234_5678, 4),
+				(64, 0x1234_5678, 4),
+				(64, 0x1234_5678_9ABC_DEF0, 8),
+			};
+			foreach (var (bitness, address, displSize) in tests1) {
+				var memReg = displSize switch {
+					2 => Register.BX,
+					4 => Register.EBX,
+					8 => Register.RBX,
+					_ => throw new InvalidOperationException(),
+				};
+
+				var instr2 = Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(address, displSize));
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					Assert.True(encoder.TryEncode(instr2, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.MemoryBase = memReg;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.MemoryIndex = memReg;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				foreach (var scale in new[] { 2, 4, 8 }) {
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.MemoryIndexScale = scale;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op1Kind = OpKind.Immediate8;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+
+			var tests2 = new (int bitness, ulong address, int displSize)[] {
+				(16, 0x1234, 8),
+				(32, 0x1234, 8),
+				(64, 0x1234, 2),
+			};
+			foreach (var (bitness, address, displSize) in tests2) {
+				var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.Mov_EAX_moffs32, Register.EAX, new MemoryOperand(address, displSize));
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+
+		[Fact]
+		void TestRegOpNotAllowed() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr1 = Instruction.Create(Code.Lea_r32_m, Register.EAX, new MemoryOperand(Register.RAX));
+			Assert.True(encoder.TryEncode(instr1, 0, out _, out _));
+			var instr2 = Instruction.Create(Code.Lea_r32_m, Register.EAX, Register.ECX);
+			Assert.False(encoder.TryEncode(instr2, 0, out _, out _));
+		}
+
+		[Fact]
+		void TestMemOpNotAllowed() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr1 = Instruction.Create(Code.Movhlps_xmm_xmm, Register.XMM0, Register.XMM1);
+			Assert.True(encoder.TryEncode(instr1, 0, out _, out _));
+			var instr2 = Instruction.Create(Code.Movhlps_xmm_xmm, Register.XMM0, new MemoryOperand(Register.RAX));
+			Assert.False(encoder.TryEncode(instr2, 0, out _, out _));
+		}
+
+		[Fact]
+		void TestRegmemOpIsWrongSize() {
+			var tests = new (int bitness, Instruction instr, Register invalidReg)[] {
+				(16, Instruction.Create(Code.Enqcmd_r16_m512, Register.AX, new MemoryOperand(Register.BX)), Register.EAX),
+				(16, Instruction.Create(Code.Enqcmd_r32_m512, Register.EAX, new MemoryOperand(Register.EAX)), Register.AX),
+				(16, Instruction.Create(Code.Enqcmd_r32_m512, Register.EAX, new MemoryOperand(Register.EAX)), Register.RAX),
+				(32, Instruction.Create(Code.Enqcmd_r16_m512, Register.AX, new MemoryOperand(Register.BX)), Register.EAX),
+				(32, Instruction.Create(Code.Enqcmd_r32_m512, Register.EAX, new MemoryOperand(Register.EAX)), Register.AX),
+				(32, Instruction.Create(Code.Enqcmd_r32_m512, Register.EAX, new MemoryOperand(Register.EAX)), Register.RAX),
+				(64, Instruction.Create(Code.Enqcmd_r32_m512, Register.EAX, new MemoryOperand(Register.EAX)), Register.RAX),
+				(64, Instruction.Create(Code.Enqcmd_r64_m512, Register.RAX, new MemoryOperand(Register.RAX)), Register.EAX),
+				(64, Instruction.Create(Code.Enqcmd_r64_m512, Register.RAX, new MemoryOperand(Register.RAX)), Register.AX),
+			};
+			foreach (var (bitness, instr2, invalidReg) in tests) {
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					Assert.True(encoder.TryEncode(instr2, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = instr2;
+					instr.Op0Register = invalidReg;
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+#if !NO_EVEX
+		[Fact]
+		void TestVsib16bitAddr() {
+			foreach (var bitness in new[] { 16, 32, 64 }) {
+				var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.EVEX_Vpgatherdd_xmm_k1_vm32x, Register.XMM0, new MemoryOperand(Register.EAX, Register.XMM1, 1, 0x10, 1, false, Register.None));
+				instr.OpMask = Register.K1;
+				Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+				instr.MemoryBase = Register.BX;
+				instr.MemoryIndex = Register.SI;
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+#endif
+
+		[Fact]
+		void TestExpectedRegOrMemOpKind() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.Add_rm8_imm8, Register.AL, 123);
+			Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			instr.Op0Kind = OpKind.Immediate8;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+		[Fact]
+		void Test16bitAddrIn64bitMode() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.Lea_r32_m, Register.EAX, new MemoryOperand(Register.BX));
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+		[Fact]
+		void Test64bitAddrIn1632bitMode() {
+			foreach (var bitness in new[] { 16, 32 }) {
+				var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.Lea_r32_m, Register.EAX, new MemoryOperand(Register.RAX));
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+
+		[Fact]
+		void TestInvalid16bitMemRegs() {
+			var tests = new (Register @base, Register index)[] {
+				(Register.AX, Register.None),
+				(Register.R8W, Register.None),
+				(Register.BL, Register.None),
+				(Register.None, Register.CX),
+				(Register.None, Register.R9W),
+				(Register.None, Register.SIL),
+				(Register.BX, Register.BP),
+				(Register.BP, Register.BX),
+			};
+			foreach (var (@base, index) in tests) {
+				var encoder = Encoder.Create(16, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(@base, index));
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+
+		[Fact]
+		void TestInvalid16bitDisplSize() {
+			var encoder = Encoder.Create(16, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.BX, 1));
+			Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			instr.MemoryDisplSize = 4;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			instr.MemoryDisplSize = 8;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+		[Fact]
+		void TestInvalid32bitDisplSize() {
+			var encoder = Encoder.Create(32, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EAX, 1));
+			Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			instr.MemoryDisplSize = 2;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			instr.MemoryDisplSize = 8;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+		[Fact]
+		void TestInvalid64bitDisplSize() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RAX, 1));
+			Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			instr.MemoryDisplSize = 2;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			instr.MemoryDisplSize = 4;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+
+		[Fact]
+		void TestInvalidIpRelMemory() {
+			foreach (var (ipReg, invalidIndex) in new[] { (Register.EIP, Register.EDI), (Register.RIP, Register.RDI) }) {
+				{
+					var encoder = Encoder.Create(64, new CodeWriterImpl());
+					var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(ipReg, Register.None, 1, 0, 8, false, Register.None));
+					Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				foreach (var displSize in new[] { 0, 1, 4, 8 }) {
+					var encoder = Encoder.Create(64, new CodeWriterImpl());
+					var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(ipReg, Register.None, 1, 0, displSize, false, Register.None));
+					Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(64, new CodeWriterImpl());
+					var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(ipReg, Register.None, 1, 0, 2, false, Register.None));
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				{
+					var encoder = Encoder.Create(64, new CodeWriterImpl());
+					var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(ipReg, invalidIndex, 1, 0, 8, false, Register.None));
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+				foreach (var scale in new[] { 2, 4, 8 }) {
+					var encoder = Encoder.Create(64, new CodeWriterImpl());
+					var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(ipReg, Register.None, scale, 0, 8, false, Register.None));
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidIpRelMemory1632() {
+			foreach (var bitness in new[] { 16, 32 }) {
+				foreach (var (ipReg, displSize) in new[] { (Register.EIP, 4), (Register.RIP, 8) }) {
+					var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+					var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(ipReg, Register.None, 1, 0, displSize, false, Register.None));
+					Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+				}
+			}
+		}
+
+		[Fact]
+		void TestInvalidIpRelMemorySibRequired() {
+			{
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.VEX_Tileloaddt1_tmm_sibmem, Register.TMM1, new MemoryOperand(Register.RCX, Register.RDX, 1, 0x1234_5678, 8, false, Register.None));
+				Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			}
+			{
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.VEX_Tileloaddt1_tmm_sibmem, Register.TMM1, new MemoryOperand(Register.RIP, Register.None, 1, 0x1234_5678, 8, false, Register.None));
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+			{
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.VEX_Tileloaddt1_tmm_sibmem, Register.TMM1, new MemoryOperand(Register.ECX, Register.EDX, 1, 0x1234_5678, 4, false, Register.None));
+				Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			}
+			{
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.VEX_Tileloaddt1_tmm_sibmem, Register.TMM1, new MemoryOperand(Register.EIP, Register.None, 1, 0x1234_5678, 4, false, Register.None));
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+
+		[Fact]
+		void TestInvalidEipRelMemTargetAddr() {
+			foreach (var target in new ulong[] { 0, 0x7FFF_FFFF, 0xFFFF_FFFF }) {
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EIP, Register.None, 1, (long)target, 4, false, Register.None));
+				Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			}
+			foreach (var target in new[] { 0x1_0000_0000UL, 0xFFFF_FFFF_FFFF_FFFF }) {
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.EIP, Register.None, 1, (long)target, 4, false, Register.None));
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+
+#if !NO_EVEX
+		[Fact]
+		void TestVsibWithOffsetOnlyMem() {
+			var encoder = Encoder.Create(64, new CodeWriterImpl());
+			var instr = Instruction.Create(Code.EVEX_Vpgatherdd_xmm_k1_vm32x, Register.XMM0, new MemoryOperand(Register.RAX, Register.XMM1, 1, 0x1234_5678, 8, false, Register.None));
+			instr.OpMask = Register.K1;
+			Assert.True(encoder.TryEncode(instr, 0, out _, out _));
+			instr.MemoryBase = Register.None;
+			instr.MemoryIndex = Register.None;
+			Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+		}
+#endif
+
+		[Fact]
+		void TestInvalidEspRspIndexRegs() {
+			foreach (var spReg in new[] { Register.ESP, Register.RSP }) {
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.None, spReg, 2));
+				Assert.False(encoder.TryEncode(instr, 0, out _, out _));
+			}
+		}
+
+		[Fact]
+		void TestRipRelDistTooFarAway() {
+			const uint instrLen = 6;
+			const ulong instrAddr = 0x1234_5678_9ABC_DEF0;
+			foreach (var diff in new long[] { int.MinValue, int.MaxValue, -1, 0, 1, -0x1234_5678, 0x1234_5678 }) {
+				var writer = new CodeWriterImpl();
+				var encoder = Encoder.Create(64, writer);
+				var target = (long)(instrAddr + instrLen) + diff;
+				var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RIP, Register.None, 1, target, 8, false, Register.None));
+				Assert.True(encoder.TryEncode(instr, instrAddr, out var encodedLen, out _));
+				Assert.Equal(instrLen, encodedLen);
+
+				var bytes = writer.ToArray();
+				var decoded = Decoder.Create(64, new ByteArrayCodeReader(bytes), instrAddr, DecoderOptions.None).Decode();
+				Assert.Equal(Code.Not_rm8, decoded.Code);
+				Assert.Equal(Register.RIP, decoded.MemoryBase);
+				Assert.Equal((ulong)target, decoded.MemoryDisplacement64);
+			}
+			foreach (var diff in new long[] { (long)int.MinValue - 1, (long)int.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0 }) {
+				var encoder = Encoder.Create(64, new CodeWriterImpl());
+				var target = (long)(instrAddr + instrLen) + diff;
+				var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RIP, Register.None, 1, target, 8, false, Register.None));
+				Assert.False(encoder.TryEncode(instr, instrAddr, out _, out _));
+			}
+		}
+
+		[Fact]
+		void TestInvalidJccRel8_16() {
+			var validDiffs = new long[] { (long)sbyte.MinValue, (long)sbyte.MaxValue, -1, 0, 1, -0x12, 0x12 };
+			var invalidDiffs = new long[] { (long)sbyte.MinValue - 1, (long)sbyte.MaxValue + 1, -0x1234, 0x1234 };
+			TestInvalidJcc(16, Code.Je_rel8_16, 0x1234, 2, 0xFFFF, validDiffs, invalidDiffs);
+		}
+
+		[Fact]
+		void TestInvalidJccRel8_32() {
+			var validDiffs = new long[] { (long)sbyte.MinValue, (long)sbyte.MaxValue, -1, 0, 1, -0x12, 0x12 };
+			var invalidDiffs = new long[] { (long)sbyte.MinValue - 1, (long)sbyte.MaxValue + 1, -0x1234_5678, 0x1234_5678 };
+			TestInvalidJcc(32, Code.Je_rel8_32, 0x1234_5678, 2, 0xFFFF_FFFF, validDiffs, invalidDiffs);
+		}
+
+		[Fact]
+		void TestInvalidJccRel8_64() {
+			var validDiffs = new long[] { (long)sbyte.MinValue, (long)sbyte.MaxValue, -1, 0, 1, -0x12, 0x12 };
+			var invalidDiffs = new long[] { (long)sbyte.MinValue - 1, (long)sbyte.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0 };
+			TestInvalidJcc(64, Code.Je_rel8_64, 0x1234_5678_9ABC_DEF0, 2, 0xFFFF_FFFF_FFFF_FFFF, validDiffs, invalidDiffs);
+		}
+
+		[Fact]
+		void TestInvalidJccRel16_16() {
+			var validDiffs = new long[] { (long)short.MinValue, (long)short.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
+			var invalidDiffs = new long[] { };
+			TestInvalidJcc(16, Code.Je_rel16, 0x1234, 4, 0xFFFF, validDiffs, invalidDiffs);
+		}
+
+		[Fact]
+		void TestInvalidJccRel32_32() {
+			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234_5678, 0x1234_5678 };
+			var invalidDiffs = new long[] { };
+			TestInvalidJcc(32, Code.Je_rel32_32, 0x1234_5678, 6, 0xFFFF_FFFF, validDiffs, invalidDiffs);
+		}
+
+		[Fact]
+		void TestInvalidJccRel32_64() {
+			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234_5678, 0x1234_5678 };
+			var invalidDiffs = new long[] { (long)int.MinValue - 1, (long)int.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0 };
+			TestInvalidJcc(64, Code.Je_rel32_64, 0x1234_5678_9ABC_DEF0, 6, 0xFFFF_FFFF_FFFF_FFFF, validDiffs, invalidDiffs);
+		}
+
+		static void TestInvalidJcc(int bitness, Code code, ulong instrAddr, uint instrLen, ulong addrMask, long[] validDiffs, long[] invalidDiffs) =>
+			TestInvalidBr(bitness, code, instrAddr, instrLen, addrMask, validDiffs, invalidDiffs, (code, _, target) => Instruction.CreateBranch(code, target));
+
+		[Fact]
+		void TestInvalidXbeginRel16_16() {
+			var validDiffs = new long[] { (long)short.MinValue, (long)short.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
+			var invalidDiffs = new long[] { (long)short.MinValue - 1, (long)short.MaxValue + 1, -0x1234_5678, 0x1234_5678 };
+			TestInvalidXbegin(16, Code.Xbegin_rel16, 0x1234, 4, 0xFFFF_FFFF, validDiffs, invalidDiffs);
+		}
+
+		[Fact]
+		void TestInvalidXbeginRel32_16() {
+			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
+			var invalidDiffs = new long[] { };
+			TestInvalidXbegin(16, Code.Xbegin_rel32, 0x1234, 7, 0xFFFF_FFFF, validDiffs, invalidDiffs);
+		}
+
+		[Fact]
+		void TestInvalidXbeginRel16_32() {
+			var validDiffs = new long[] { (long)short.MinValue, (long)short.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
+			var invalidDiffs = new long[] { (long)short.MinValue - 1, (long)short.MaxValue + 1, -0x1234_5678, 0x1234_5678 };
+			TestInvalidXbegin(32, Code.Xbegin_rel16, 0x1234_5678, 5, 0xFFFF_FFFF, validDiffs, invalidDiffs);
+		}
+
+		[Fact]
+		void TestInvalidXbeginRel32_32() {
+			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
+			var invalidDiffs = new long[] { };
+			TestInvalidXbegin(32, Code.Xbegin_rel32, 0x1234_5678, 6, 0xFFFF_FFFF, validDiffs, invalidDiffs);
+		}
+
+		[Fact]
+		void TestInvalidXbeginRel16_64() {
+			var validDiffs = new long[] { (long)short.MinValue, (long)short.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
+			var invalidDiffs = new long[] { (long)short.MinValue - 1, (long)short.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0 };
+			TestInvalidXbegin(64, Code.Xbegin_rel16, 0x1234_5678_9ABC_DEF0, 5, 0xFFFF_FFFF_FFFF_FFFF, validDiffs, invalidDiffs);
+		}
+
+		[Fact]
+		void TestInvalidXbeginRel32_64() {
+			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
+			var invalidDiffs = new long[] { (long)int.MinValue - 1, (long)int.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0 };
+			TestInvalidXbegin(64, Code.Xbegin_rel32, 0x1234_5678_9ABC_DEF0, 6, 0xFFFF_FFFF_FFFF_FFFF, validDiffs, invalidDiffs);
+		}
+
+		static void TestInvalidXbegin(int bitness, Code code, ulong instrAddr, uint instrLen, ulong addrMask, long[] validDiffs, long[] invalidDiffs) =>
+			TestInvalidBr(bitness, code, instrAddr, instrLen, addrMask, validDiffs, invalidDiffs, (code, _, target) => {
+				var instr = Instruction.CreateXbegin(bitness, target);
+				instr.Code = code;
+				return instr;
+			});
+
+		static void TestInvalidBr(int bitness, Code code, ulong instrAddr, uint instrLen, ulong addrMask, long[] validDiffs, long[] invalidDiffs,
+			Func<Code, int, ulong, Instruction> createInstr) {
+			foreach (var diff in validDiffs) {
+				var writer = new CodeWriterImpl();
+				var encoder = Encoder.Create(bitness, writer);
+				var target = (instrAddr + instrLen + (ulong)diff) & addrMask;
+				var instr = createInstr(code, bitness, target);
+				Assert.True(encoder.TryEncode(instr, instrAddr, out var decodedLen, out _));
+				Assert.Equal(instrLen, decodedLen);
+
+				var bytes = writer.ToArray();
+				var decoded = Decoder.Create(bitness, new ByteArrayCodeReader(bytes), instrAddr, DecoderOptions.None).Decode();
+				Assert.Equal(code, decoded.Code);
+				Assert.Equal(target, decoded.NearBranch64);
+			}
+			foreach (var diff in invalidDiffs) {
+				var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+				var target = (instrAddr + instrLen + (ulong)diff) & addrMask;
+				var instr = createInstr(code, bitness, target);
+				Assert.False(encoder.TryEncode(instr, instrAddr, out _, out _));
+			}
+		}
 	}
 }
 #endif

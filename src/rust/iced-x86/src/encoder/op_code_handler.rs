@@ -627,10 +627,9 @@ impl EvexHandler {
 			b |= this.ll_bits;
 		}
 		if (encoder_flags & EncoderFlags::BROADCAST) != 0 {
-			if (this.base.enc_flags3 & EncFlags3::BROADCAST) == 0 {
-				encoder.set_error_message_str("The instruction doesn't support broadcasting");
-			}
 			b |= 0x10;
+		} else if instruction.is_broadcast() {
+			encoder.set_error_message_str("The instruction doesn't support broadcasting");
 		}
 		if instruction.zeroing_masking() {
 			if (this.base.enc_flags3 & EncFlags3::ZEROING_MASKING) == 0 {

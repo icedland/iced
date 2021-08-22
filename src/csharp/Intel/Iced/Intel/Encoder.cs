@@ -258,8 +258,6 @@ namespace Iced.Intel {
 
 			if (!handler.IsDeclareData) {
 				var ops = handler.Operands;
-				if (instruction.OpCount != ops.Length)
-					ErrorMessage = $"Expected {ops.Length} operand(s) but the instruction has {instruction.OpCount} operand(s)";
 				for (int i = 0; i < ops.Length; i++)
 					ops[i].Encode(this, instruction, i);
 
@@ -514,6 +512,7 @@ namespace Iced.Intel {
 						EncoderFlags |= EncoderFlags.P67;
 				}
 				else {
+					Debug.Assert(bitness == 32);
 					if (regSize == 2)
 						EncoderFlags |= EncoderFlags.P67;
 				}
@@ -526,6 +525,10 @@ namespace Iced.Intel {
 			if (opKind == OpKind.Memory) {
 				if (instruction.MemoryBase != Register.None || instruction.MemoryIndex != Register.None) {
 					ErrorMessage = $"Operand {operand}: Absolute addresses can't have base and/or index regs";
+					return;
+				}
+				if (instruction.MemoryIndexScale != 1) {
+					ErrorMessage = $"Operand {operand}: Absolute addresses must have scale == *1";
 					return;
 				}
 				switch (instruction.MemoryDisplSize) {
@@ -848,6 +851,10 @@ namespace Iced.Intel {
 					ErrorMessage = $"Operand {operand}: RIP relative addressing can't use an index register";
 					return;
 				}
+				if (instruction.InternalMemoryIndexScale != 0) {
+					ErrorMessage = $"Operand {operand}: RIP relative addressing must use scale *1";
+					return;
+				}
 				if (bitness != 64) {
 					ErrorMessage = $"Operand {operand}: RIP/EIP relative addressing is only available in 64-bit mode";
 					return;
@@ -950,8 +957,10 @@ namespace Iced.Intel {
 					return;
 				}
 			}
-			else
-				throw new ArgumentException($"Invalid displSize = {displSize}");
+			else {
+				ErrorMessage = $"Operand {operand}: Invalid {nameof(Instruction.MemoryDisplSize)} value";
+				return;
+			}
 
 			if (indexReg == Register.None && (baseNum & 7) != 4 && scale == 0 && (EncoderFlags & EncoderFlags.MustUseSib) == 0) {
 				// Tested earlier in the method
