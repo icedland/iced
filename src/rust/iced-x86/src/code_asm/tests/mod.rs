@@ -1083,7 +1083,9 @@ fn test_vex_evex_prefixes() {
 	assert_eq!(a.prefer_vex(), false);
 
 	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
-	assert_eq!(bytes, b"\
+	assert_eq!(
+		bytes,
+		b"\
 		\xC5\xE9\x58\xCB\
 		\xC5\xE9\x58\xCB\
 		\xC5\xE9\x58\xCB\
@@ -1093,5 +1095,6 @@ fn test_vex_evex_prefixes() {
 		\xC5\xE9\x58\xCB\
 		\x62\xF1\xED\x08\x58\xCB\
 		\x62\xF1\xED\x08\x58\xCB\
-		\x62\xF1\xED\x08\x58\xCB");
+		\x62\xF1\xED\x08\x58\xCB"
+	);
 }
