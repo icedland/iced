@@ -167,9 +167,6 @@ build_test_current_version() {
 	echo "Rust version"
 	rustc --version
 
-	echo "==== CLIPPY RELEASE ===="
-	cargo clippy --color always --release --features "serde code_asm"
-
 	echo "==== CLIPPY RELEASE --tests ===="
 	cargo clippy --color always --release --features "serde code_asm" --tests
 
@@ -180,7 +177,7 @@ build_test_current_version() {
 	cargo doc --color always --features "serde code_asm"
 
 	echo "==== BUILD RELEASE ===="
-	cargo build --color always --release --features "serde code_asm"
+	cargo check --color always --release --features "serde code_asm"
 
 	echo "==== TEST RELEASE ===="
 	extra_args=""
@@ -219,7 +216,7 @@ build_test_msrv() {
 	echo "*** If this fails, install Rust $msrv"
 
 	echo "==== BUILD DEBUG ===="
-	cargo +$msrv build --color always --features "serde code_asm"
+	cargo +$msrv check --color always --features "serde code_asm"
 
 	# We don't test it since we only guarantee that the crate can be built. Testing is for iced devs.
 	# We test it when using the latest rustc, but not rustc MSRV.
