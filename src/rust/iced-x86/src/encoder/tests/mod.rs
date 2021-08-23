@@ -26,7 +26,7 @@ use alloc::rc::Rc;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::fmt::Write;
-use core::{i16, i32, i8};
+use core::{i16, i32, i64, i8};
 use static_assertions::const_assert_eq;
 
 #[test]
@@ -2132,7 +2132,7 @@ fn test_rip_rel_dist_too_far_away() {
 		assert_eq!(decoded.memory_base(), Register::RIP);
 		assert_eq!(decoded.memory_displacement64(), target as u64);
 	}
-	for &diff in &[i32::MIN as i64 - 1, i32::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0] {
+	for &diff in &[i32::MIN as i64 - 1, i32::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0, i64::MIN, i64::MAX] {
 		let mut encoder = Encoder::new(64);
 		let target = ((INSTR_ADDR + INSTR_LEN as u64) as i64).wrapping_add(diff);
 		let instr =
@@ -2144,21 +2144,21 @@ fn test_rip_rel_dist_too_far_away() {
 #[test]
 fn test_invalid_jcc_rel8_16() {
 	let valid_diffs = &[i8::MIN as i64, i8::MAX as i64, -1, 0, 1, -0x12, 0x12];
-	let invalid_diffs = &[i8::MIN as i64 - 1, i8::MAX as i64 + 1, -0x1234, 0x1234];
+	let invalid_diffs = &[i8::MIN as i64 - 1, i8::MAX as i64 + 1, -0x1234, 0x1234, i16::MIN as i64, i16::MAX as i64];
 	test_invalid_jcc(16, Code::Je_rel8_16, 0x1234, 2, 0xFFFF, valid_diffs, invalid_diffs);
 }
 
 #[test]
 fn test_invalid_jcc_rel8_32() {
 	let valid_diffs = &[i8::MIN as i64, i8::MAX as i64, -1, 0, 1, -0x12, 0x12];
-	let invalid_diffs = &[i8::MIN as i64 - 1, i8::MAX as i64 + 1, -0x1234_5678, 0x1234_5678];
+	let invalid_diffs = &[i8::MIN as i64 - 1, i8::MAX as i64 + 1, -0x1234_5678, 0x1234_5678, i32::MIN as i64, i32::MAX as i64];
 	test_invalid_jcc(32, Code::Je_rel8_32, 0x1234_5678, 2, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
 }
 
 #[test]
 fn test_invalid_jcc_rel8_64() {
 	let valid_diffs = &[i8::MIN as i64, i8::MAX as i64, -1, 0, 1, -0x12, 0x12];
-	let invalid_diffs = &[i8::MIN as i64 - 1, i8::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0];
+	let invalid_diffs = &[i8::MIN as i64 - 1, i8::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0, i64::MIN, i64::MAX];
 	test_invalid_jcc(64, Code::Je_rel8_64, 0x1234_5678_9ABC_DEF0, 2, 0xFFFF_FFFF_FFFF_FFFF, valid_diffs, invalid_diffs);
 }
 
@@ -2179,7 +2179,7 @@ fn test_invalid_jcc_rel32_32() {
 #[test]
 fn test_invalid_jcc_rel32_64() {
 	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234_5678, 0x1234_5678];
-	let invalid_diffs = &[i32::MIN as i64 - 1, i32::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0];
+	let invalid_diffs = &[i32::MIN as i64 - 1, i32::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0, i64::MIN, i64::MAX];
 	test_invalid_jcc(64, Code::Je_rel32_64, 0x1234_5678_9ABC_DEF0, 6, 0xFFFF_FFFF_FFFF_FFFF, valid_diffs, invalid_diffs);
 }
 
@@ -2192,13 +2192,13 @@ fn test_invalid_jcc(bitness: u32, code: Code, instr_addr: u64, instr_len: usize,
 #[test]
 fn test_invalid_xbegin_rel16_16() {
 	let valid_diffs = &[i16::MIN as i64, i16::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
-	let invalid_diffs = &[i16::MIN as i64 - 1, i16::MAX as i64 + 1, -0x1234_5678, 0x1234_5678];
+	let invalid_diffs = &[i16::MIN as i64 - 1, i16::MAX as i64 + 1, -0x1234_5678, 0x1234_5678, i32::MIN as i64, i32::MAX as i64];
 	test_invalid_xbegin(16, Code::Xbegin_rel16, 0x1234, 4, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
 }
 
 #[test]
 fn test_invalid_xbegin_rel32_16() {
-	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
+	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234_5678, 0x1234_5678];
 	let invalid_diffs = &[];
 	test_invalid_xbegin(16, Code::Xbegin_rel32, 0x1234, 7, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
 }
@@ -2206,13 +2206,13 @@ fn test_invalid_xbegin_rel32_16() {
 #[test]
 fn test_invalid_xbegin_rel16_32() {
 	let valid_diffs = &[i16::MIN as i64, i16::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
-	let invalid_diffs = &[i16::MIN as i64 - 1, i16::MAX as i64 + 1, -0x1234_5678, 0x1234_5678];
+	let invalid_diffs = &[i16::MIN as i64 - 1, i16::MAX as i64 + 1, -0x1234_5678, 0x1234_5678, i32::MIN as i64, i32::MAX as i64];
 	test_invalid_xbegin(32, Code::Xbegin_rel16, 0x1234_5678, 5, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
 }
 
 #[test]
 fn test_invalid_xbegin_rel32_32() {
-	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
+	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234_5678, 0x1234_5678];
 	let invalid_diffs = &[];
 	test_invalid_xbegin(32, Code::Xbegin_rel32, 0x1234_5678, 6, 0xFFFF_FFFF, valid_diffs, invalid_diffs);
 }
@@ -2220,14 +2220,14 @@ fn test_invalid_xbegin_rel32_32() {
 #[test]
 fn test_invalid_xbegin_rel16_64() {
 	let valid_diffs = &[i16::MIN as i64, i16::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
-	let invalid_diffs = &[i16::MIN as i64 - 1, i16::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0];
+	let invalid_diffs = &[i16::MIN as i64 - 1, i16::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0, i64::MIN, i64::MAX];
 	test_invalid_xbegin(64, Code::Xbegin_rel16, 0x1234_5678_9ABC_DEF0, 5, 0xFFFF_FFFF_FFFF_FFFF, valid_diffs, invalid_diffs);
 }
 
 #[test]
 fn test_invalid_xbegin_rel32_64() {
-	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234, 0x1234];
-	let invalid_diffs = &[i32::MIN as i64 - 1, i32::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0];
+	let valid_diffs = &[i32::MIN as i64, i32::MAX as i64, -1, 0, 1, -0x1234_5678, 0x1234_5678];
+	let invalid_diffs = &[i32::MIN as i64 - 1, i32::MAX as i64 + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0, i64::MIN, i64::MAX];
 	test_invalid_xbegin(64, Code::Xbegin_rel32, 0x1234_5678_9ABC_DEF0, 6, 0xFFFF_FFFF_FFFF_FFFF, valid_diffs, invalid_diffs);
 }
 

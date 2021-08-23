@@ -1634,7 +1634,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.Equal(Register.RIP, decoded.MemoryBase);
 				Assert.Equal((ulong)target, decoded.MemoryDisplacement64);
 			}
-			foreach (var diff in new long[] { (long)int.MinValue - 1, (long)int.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0 }) {
+			foreach (var diff in new long[] { (long)int.MinValue - 1, (long)int.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0, long.MinValue, long.MaxValue }) {
 				var encoder = Encoder.Create(64, new CodeWriterImpl());
 				var target = (long)(instrAddr + instrLen) + diff;
 				var instr = Instruction.Create(Code.Not_rm8, new MemoryOperand(Register.RIP, Register.None, 1, target, 8, false, Register.None));
@@ -1645,21 +1645,21 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void TestInvalidJccRel8_16() {
 			var validDiffs = new long[] { (long)sbyte.MinValue, (long)sbyte.MaxValue, -1, 0, 1, -0x12, 0x12 };
-			var invalidDiffs = new long[] { (long)sbyte.MinValue - 1, (long)sbyte.MaxValue + 1, -0x1234, 0x1234 };
+			var invalidDiffs = new long[] { (long)sbyte.MinValue - 1, (long)sbyte.MaxValue + 1, -0x1234, 0x1234, short.MinValue, short.MaxValue };
 			TestInvalidJcc(16, Code.Je_rel8_16, 0x1234, 2, 0xFFFF, validDiffs, invalidDiffs);
 		}
 
 		[Fact]
 		void TestInvalidJccRel8_32() {
 			var validDiffs = new long[] { (long)sbyte.MinValue, (long)sbyte.MaxValue, -1, 0, 1, -0x12, 0x12 };
-			var invalidDiffs = new long[] { (long)sbyte.MinValue - 1, (long)sbyte.MaxValue + 1, -0x1234_5678, 0x1234_5678 };
+			var invalidDiffs = new long[] { (long)sbyte.MinValue - 1, (long)sbyte.MaxValue + 1, -0x1234_5678, 0x1234_5678, int.MinValue, int.MaxValue };
 			TestInvalidJcc(32, Code.Je_rel8_32, 0x1234_5678, 2, 0xFFFF_FFFF, validDiffs, invalidDiffs);
 		}
 
 		[Fact]
 		void TestInvalidJccRel8_64() {
 			var validDiffs = new long[] { (long)sbyte.MinValue, (long)sbyte.MaxValue, -1, 0, 1, -0x12, 0x12 };
-			var invalidDiffs = new long[] { (long)sbyte.MinValue - 1, (long)sbyte.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0 };
+			var invalidDiffs = new long[] { (long)sbyte.MinValue - 1, (long)sbyte.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0, long.MinValue, long.MaxValue };
 			TestInvalidJcc(64, Code.Je_rel8_64, 0x1234_5678_9ABC_DEF0, 2, 0xFFFF_FFFF_FFFF_FFFF, validDiffs, invalidDiffs);
 		}
 
@@ -1680,7 +1680,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void TestInvalidJccRel32_64() {
 			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234_5678, 0x1234_5678 };
-			var invalidDiffs = new long[] { (long)int.MinValue - 1, (long)int.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0 };
+			var invalidDiffs = new long[] { (long)int.MinValue - 1, (long)int.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0, long.MinValue, long.MaxValue };
 			TestInvalidJcc(64, Code.Je_rel32_64, 0x1234_5678_9ABC_DEF0, 6, 0xFFFF_FFFF_FFFF_FFFF, validDiffs, invalidDiffs);
 		}
 
@@ -1690,13 +1690,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void TestInvalidXbeginRel16_16() {
 			var validDiffs = new long[] { (long)short.MinValue, (long)short.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
-			var invalidDiffs = new long[] { (long)short.MinValue - 1, (long)short.MaxValue + 1, -0x1234_5678, 0x1234_5678 };
+			var invalidDiffs = new long[] { (long)short.MinValue - 1, (long)short.MaxValue + 1, -0x1234_5678, 0x1234_5678, int.MinValue, int.MaxValue };
 			TestInvalidXbegin(16, Code.Xbegin_rel16, 0x1234, 4, 0xFFFF_FFFF, validDiffs, invalidDiffs);
 		}
 
 		[Fact]
 		void TestInvalidXbeginRel32_16() {
-			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
+			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234_5678, 0x1234_5678 };
 			var invalidDiffs = new long[] { };
 			TestInvalidXbegin(16, Code.Xbegin_rel32, 0x1234, 7, 0xFFFF_FFFF, validDiffs, invalidDiffs);
 		}
@@ -1704,13 +1704,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void TestInvalidXbeginRel16_32() {
 			var validDiffs = new long[] { (long)short.MinValue, (long)short.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
-			var invalidDiffs = new long[] { (long)short.MinValue - 1, (long)short.MaxValue + 1, -0x1234_5678, 0x1234_5678 };
+			var invalidDiffs = new long[] { (long)short.MinValue - 1, (long)short.MaxValue + 1, -0x1234_5678, 0x1234_5678, int.MinValue, int.MaxValue };
 			TestInvalidXbegin(32, Code.Xbegin_rel16, 0x1234_5678, 5, 0xFFFF_FFFF, validDiffs, invalidDiffs);
 		}
 
 		[Fact]
 		void TestInvalidXbeginRel32_32() {
-			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
+			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234_5678, 0x1234_5678 };
 			var invalidDiffs = new long[] { };
 			TestInvalidXbegin(32, Code.Xbegin_rel32, 0x1234_5678, 6, 0xFFFF_FFFF, validDiffs, invalidDiffs);
 		}
@@ -1718,14 +1718,14 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void TestInvalidXbeginRel16_64() {
 			var validDiffs = new long[] { (long)short.MinValue, (long)short.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
-			var invalidDiffs = new long[] { (long)short.MinValue - 1, (long)short.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0 };
+			var invalidDiffs = new long[] { (long)short.MinValue - 1, (long)short.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0, long.MinValue, long.MaxValue };
 			TestInvalidXbegin(64, Code.Xbegin_rel16, 0x1234_5678_9ABC_DEF0, 5, 0xFFFF_FFFF_FFFF_FFFF, validDiffs, invalidDiffs);
 		}
 
 		[Fact]
 		void TestInvalidXbeginRel32_64() {
-			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234, 0x1234 };
-			var invalidDiffs = new long[] { (long)int.MinValue - 1, (long)int.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0 };
+			var validDiffs = new long[] { (long)int.MinValue, (long)int.MaxValue, -1, 0, 1, -0x1234_5678, 0x1234_5678 };
+			var invalidDiffs = new long[] { (long)int.MinValue - 1, (long)int.MaxValue + 1, -0x1234_5678_9ABC_DEF0, 0x1234_5678_9ABC_DEF0, long.MinValue, long.MaxValue };
 			TestInvalidXbegin(64, Code.Xbegin_rel32, 0x1234_5678_9ABC_DEF0, 6, 0xFFFF_FFFF_FFFF_FFFF, validDiffs, invalidDiffs);
 		}
 
