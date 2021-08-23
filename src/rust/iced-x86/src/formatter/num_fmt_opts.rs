@@ -2,7 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::formatter::*;
-use core::{cmp, u32};
+use core::cmp;
 
 /// Gets initialized with the default options and can be overridden by a [`FormatterOptionsProvider`]
 ///

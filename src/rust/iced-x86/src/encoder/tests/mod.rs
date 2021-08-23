@@ -26,7 +26,6 @@ use alloc::rc::Rc;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::fmt::Write;
-use core::{i16, i32, i64, i8};
 use static_assertions::const_assert_eq;
 
 #[test]

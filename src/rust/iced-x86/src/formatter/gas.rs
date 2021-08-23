@@ -28,7 +28,7 @@ use crate::instruction_internal;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
-use core::{mem, u16, u32, u8};
+use core::mem;
 
 /// GNU assembler (AT&T) formatter
 ///

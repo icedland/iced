@@ -603,10 +603,10 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 	}
 
 	fn is_sgdt_or_sidt(&self) -> bool {
-		match self.op_code.code() {
-			Code::Sgdt_m1632_16 | Code::Sgdt_m1632 | Code::Sgdt_m1664 | Code::Sidt_m1632_16 | Code::Sidt_m1632 | Code::Sidt_m1664 => true,
-			_ => false,
-		}
+		matches!(
+			self.op_code.code(),
+			Code::Sgdt_m1632_16 | Code::Sgdt_m1632 | Code::Sgdt_m1664 | Code::Sidt_m1632_16 | Code::Sidt_m1632 | Code::Sidt_m1664
+		)
 	}
 
 	fn write_register(&mut self, register: &str) {

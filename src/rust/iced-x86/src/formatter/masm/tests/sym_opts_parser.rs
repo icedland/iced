@@ -7,7 +7,6 @@ use crate::formatter::test_utils::get_default_ip;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
-use core::u32;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::prelude::*;

@@ -67,9 +67,6 @@ pub use crate::formatter::symres::*;
 use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
-use core::{i16, i32};
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-use core::{i8, u16, u32, u8};
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm"))]
 #[allow(deprecated)]

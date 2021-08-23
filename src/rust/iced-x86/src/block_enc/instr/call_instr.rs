@@ -5,7 +5,7 @@ use crate::block_enc::instr::*;
 use crate::block_enc::*;
 use crate::iced_error::IcedError;
 use core::cell::RefCell;
-use core::{cmp, i32};
+use core::cmp;
 
 pub(super) struct CallInstr {
 	orig_ip: u64,

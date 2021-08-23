@@ -10,7 +10,7 @@ use crate::tuple_type_tbl::get_disp8n;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
-use core::{i8, mem, u32};
+use core::mem;
 
 // SAFETY:
 //	code: let this = unsafe { &*(self_ptr as *const Self) };

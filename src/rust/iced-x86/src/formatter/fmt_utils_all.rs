@@ -6,69 +6,68 @@ use static_assertions::const_assert_eq;
 
 #[must_use]
 pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {
-	match code {
+	matches!(
+		code,
 		Code::Insb_m8_DX
-		| Code::Insw_m16_DX
-		| Code::Insd_m32_DX
-		| Code::Outsb_DX_m8
-		| Code::Outsw_DX_m16
-		| Code::Outsd_DX_m32
-		| Code::Movsb_m8_m8
-		| Code::Movsw_m16_m16
-		| Code::Movsd_m32_m32
-		| Code::Movsq_m64_m64
-		| Code::Cmpsb_m8_m8
-		| Code::Cmpsw_m16_m16
-		| Code::Cmpsd_m32_m32
-		| Code::Cmpsq_m64_m64
-		| Code::Stosb_m8_AL
-		| Code::Stosw_m16_AX
-		| Code::Stosd_m32_EAX
-		| Code::Stosq_m64_RAX
-		| Code::Lodsb_AL_m8
-		| Code::Lodsw_AX_m16
-		| Code::Lodsd_EAX_m32
-		| Code::Lodsq_RAX_m64
-		| Code::Scasb_AL_m8
-		| Code::Scasw_AX_m16
-		| Code::Scasd_EAX_m32
-		| Code::Scasq_RAX_m64
-		| Code::Montmul_16
-		| Code::Montmul_32
-		| Code::Montmul_64
-		| Code::Xsha1_16
-		| Code::Xsha1_32
-		| Code::Xsha1_64
-		| Code::Xsha256_16
-		| Code::Xsha256_32
-		| Code::Xsha256_64
-		| Code::Xstore_16
-		| Code::Xstore_32
-		| Code::Xstore_64
-		| Code::Xcryptecb_16
-		| Code::Xcryptecb_32
-		| Code::Xcryptecb_64
-		| Code::Xcryptcbc_16
-		| Code::Xcryptcbc_32
-		| Code::Xcryptcbc_64
-		| Code::Xcryptctr_16
-		| Code::Xcryptctr_32
-		| Code::Xcryptctr_64
-		| Code::Xcryptcfb_16
-		| Code::Xcryptcfb_32
-		| Code::Xcryptcfb_64
-		| Code::Xcryptofb_16
-		| Code::Xcryptofb_32
-		| Code::Xcryptofb_64
-		| Code::Ccs_hash_16
-		| Code::Ccs_hash_32
-		| Code::Ccs_hash_64
-		| Code::Ccs_encrypt_16
-		| Code::Ccs_encrypt_32
-		| Code::Ccs_encrypt_64 => true,
-
-		_ => false,
-	}
+			| Code::Insw_m16_DX
+			| Code::Insd_m32_DX
+			| Code::Outsb_DX_m8
+			| Code::Outsw_DX_m16
+			| Code::Outsd_DX_m32
+			| Code::Movsb_m8_m8
+			| Code::Movsw_m16_m16
+			| Code::Movsd_m32_m32
+			| Code::Movsq_m64_m64
+			| Code::Cmpsb_m8_m8
+			| Code::Cmpsw_m16_m16
+			| Code::Cmpsd_m32_m32
+			| Code::Cmpsq_m64_m64
+			| Code::Stosb_m8_AL
+			| Code::Stosw_m16_AX
+			| Code::Stosd_m32_EAX
+			| Code::Stosq_m64_RAX
+			| Code::Lodsb_AL_m8
+			| Code::Lodsw_AX_m16
+			| Code::Lodsd_EAX_m32
+			| Code::Lodsq_RAX_m64
+			| Code::Scasb_AL_m8
+			| Code::Scasw_AX_m16
+			| Code::Scasd_EAX_m32
+			| Code::Scasq_RAX_m64
+			| Code::Montmul_16
+			| Code::Montmul_32
+			| Code::Montmul_64
+			| Code::Xsha1_16
+			| Code::Xsha1_32
+			| Code::Xsha1_64
+			| Code::Xsha256_16
+			| Code::Xsha256_32
+			| Code::Xsha256_64
+			| Code::Xstore_16
+			| Code::Xstore_32
+			| Code::Xstore_64
+			| Code::Xcryptecb_16
+			| Code::Xcryptecb_32
+			| Code::Xcryptecb_64
+			| Code::Xcryptcbc_16
+			| Code::Xcryptcbc_32
+			| Code::Xcryptcbc_64
+			| Code::Xcryptctr_16
+			| Code::Xcryptctr_32
+			| Code::Xcryptctr_64
+			| Code::Xcryptcfb_16
+			| Code::Xcryptcfb_32
+			| Code::Xcryptcfb_64
+			| Code::Xcryptofb_16
+			| Code::Xcryptofb_32
+			| Code::Xcryptofb_64
+			| Code::Ccs_hash_16
+			| Code::Ccs_hash_32
+			| Code::Ccs_hash_64
+			| Code::Ccs_encrypt_16
+			| Code::Ccs_encrypt_32
+			| Code::Ccs_encrypt_64
+	)
 }
 
 #[must_use]
@@ -137,17 +136,17 @@ pub(super) fn show_segment_prefix_bool(mut default_seg_reg: Register, instructio
 
 #[must_use]
 pub(super) fn is_repe_or_repne_instruction(code: Code) -> bool {
-	match code {
+	matches!(
+		code,
 		Code::Cmpsb_m8_m8
-		| Code::Cmpsw_m16_m16
-		| Code::Cmpsd_m32_m32
-		| Code::Cmpsq_m64_m64
-		| Code::Scasb_AL_m8
-		| Code::Scasw_AX_m16
-		| Code::Scasd_EAX_m32
-		| Code::Scasq_RAX_m64 => true,
-		_ => false,
-	}
+			| Code::Cmpsw_m16_m16
+			| Code::Cmpsd_m32_m32
+			| Code::Cmpsq_m64_m64
+			| Code::Scasb_AL_m8
+			| Code::Scasw_AX_m16
+			| Code::Scasd_EAX_m32
+			| Code::Scasq_RAX_m64
+	)
 }
 
 #[must_use]

@@ -12,7 +12,8 @@ use crate::{CodeSizeUnderlyingType, CodeUnderlyingType, RegisterUnderlyingType};
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
-use core::{mem, u32};
+use core::convert::TryInto;
+use core::mem;
 use lazy_static::lazy_static;
 
 lazy_static! {
@@ -322,8 +323,6 @@ fn read() -> Box<[Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COU
 	}
 	debug_assert!(!reader.can_read());
 
-	let infos = infos.into_boxed_slice();
-	debug_assert_eq!(infos.len(), IcedConstants::CODE_ENUM_COUNT);
-	// SAFETY: Size is verified above
-	unsafe { Box::from_raw(Box::into_raw(infos) as *mut [_; IcedConstants::CODE_ENUM_COUNT]) }
+	#[allow(clippy::unwrap_used)]
+	infos.into_boxed_slice().try_into().ok().unwrap()
 }

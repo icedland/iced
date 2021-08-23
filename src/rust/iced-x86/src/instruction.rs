@@ -11,7 +11,7 @@ use crate::*;
 use core::fmt;
 use core::hash::{Hash, Hasher};
 use core::iter::{ExactSizeIterator, FusedIterator};
-use core::{mem, slice, u16, u32, u64};
+use core::{mem, slice};
 use static_assertions::{const_assert, const_assert_eq};
 
 // GENERATOR-BEGIN: InstrFlags1

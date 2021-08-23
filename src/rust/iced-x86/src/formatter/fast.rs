@@ -29,7 +29,7 @@ use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::marker::PhantomData;
-use core::{mem, ptr, slice, u16, u32, u8, usize};
+use core::{mem, ptr, slice};
 use static_assertions::{const_assert, const_assert_eq};
 
 // full fmt'd str = "prefixes mnemonic op0<decorators1>, op1, op2, op3, op4<decorators2>"

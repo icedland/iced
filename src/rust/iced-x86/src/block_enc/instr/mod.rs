@@ -23,7 +23,6 @@ use alloc::rc::Rc;
 use alloc::string::String;
 use core::cell::RefCell;
 use core::fmt::Display;
-use core::i32;
 
 pub(super) trait Instr {
 	fn block(&self) -> Rc<RefCell<Block>>;

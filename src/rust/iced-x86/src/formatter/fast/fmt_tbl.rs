@@ -9,6 +9,7 @@ use crate::formatter::strings_data::*;
 use crate::iced_constants::IcedConstants;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
+use core::convert::TryInto;
 use lazy_static::lazy_static;
 use static_assertions::{const_assert, const_assert_eq};
 
@@ -85,15 +86,9 @@ fn read() -> FmtTableData {
 	}
 	debug_assert!(!reader.can_read());
 
-	let mnemonics = mnemonics.into_boxed_slice();
-	debug_assert_eq!(mnemonics.len(), IcedConstants::CODE_ENUM_COUNT);
-	// SAFETY: Size is verified above
-	let mnemonics = unsafe { Box::from_raw(Box::into_raw(mnemonics) as *mut [_; IcedConstants::CODE_ENUM_COUNT]) };
-
-	let flags = flags.into_boxed_slice();
-	debug_assert_eq!(flags.len(), IcedConstants::CODE_ENUM_COUNT);
-	// SAFETY: Size is verified above
-	let flags = unsafe { Box::from_raw(Box::into_raw(flags) as *mut [_; IcedConstants::CODE_ENUM_COUNT]) };
-
+	#[allow(clippy::unwrap_used)]
+	let mnemonics = mnemonics.into_boxed_slice().try_into().ok().unwrap();
+	#[allow(clippy::unwrap_used)]
+	let flags = flags.into_boxed_slice().try_into().ok().unwrap();
 	FmtTableData { mnemonics, flags }
 }

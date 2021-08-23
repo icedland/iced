@@ -8,6 +8,7 @@ use crate::{Code, OpCodeInfo};
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
+use core::convert::TryInto;
 use lazy_static::lazy_static;
 
 lazy_static! {
@@ -23,9 +24,7 @@ lazy_static! {
 			result.push(OpCodeInfo::new(code, enc_flags1, enc_flags2, enc_flags3, opc_flags1, opc_flags2, &mut sb));
 		}
 
-		let result = result.into_boxed_slice();
-		debug_assert_eq!(result.len(), IcedConstants::CODE_ENUM_COUNT);
-		// SAFETY: Size is verified above
-		unsafe { Box::from_raw(Box::into_raw(result) as *mut [_; IcedConstants::CODE_ENUM_COUNT]) }
+		#[allow(clippy::unwrap_used)]
+		result.into_boxed_slice().try_into().ok().unwrap()
 	};
 }

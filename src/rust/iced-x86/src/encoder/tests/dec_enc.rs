@@ -694,21 +694,17 @@ fn verify_tuple_type_bcst() {
 			continue;
 		}
 		let op_code = code.op_code();
-		let expected_bcst = match op_code.tuple_type() {
-			TupleType::N8b4
-			| TupleType::N16b4
-			| TupleType::N32b4
-			| TupleType::N64b4
-			| TupleType::N16b8
-			| TupleType::N32b8
-			| TupleType::N64b8
-			| TupleType::N4b2
-			| TupleType::N8b2
-			| TupleType::N16b2
-			| TupleType::N32b2
-			| TupleType::N64b2 => true,
-			_ => false,
-		};
+		let expected_bcst =
+			matches!(
+				op_code.tuple_type(),
+				TupleType::N8b4
+					| TupleType::N16b4 | TupleType::N32b4
+					| TupleType::N64b4 | TupleType::N16b8
+					| TupleType::N32b8 | TupleType::N64b8
+					| TupleType::N4b2 | TupleType::N8b2
+					| TupleType::N16b2 | TupleType::N32b2
+					| TupleType::N64b2
+			);
 		assert_eq!(op_code.can_broadcast(), expected_bcst);
 	}
 }

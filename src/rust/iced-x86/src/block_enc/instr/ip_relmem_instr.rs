@@ -5,7 +5,6 @@ use crate::block_enc::instr::*;
 use crate::block_enc::*;
 use crate::iced_error::IcedError;
 use core::cell::RefCell;
-use core::{i32, u32};
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
 enum InstrKind {

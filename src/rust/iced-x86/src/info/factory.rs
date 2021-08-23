@@ -5,7 +5,7 @@ use crate::iced_constants::IcedConstants;
 use crate::info::enums::*;
 use crate::info::*;
 use crate::instruction_internal;
-use core::{mem, u16, u32, u64};
+use core::mem;
 use static_assertions::const_assert_eq;
 
 /// Instruction info options used by [`InstructionInfoFactory`]

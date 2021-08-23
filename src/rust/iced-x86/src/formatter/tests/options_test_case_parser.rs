@@ -10,7 +10,6 @@ use crate::test_utils::get_default_ip;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
-use core::u32;
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;

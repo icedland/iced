@@ -63,9 +63,6 @@ use crate::test_utils::from_str_conv::tuple_type_table::*;
 use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-use core::{i16, i8};
-use core::{i32, u16, u32, u8};
 #[cfg(feature = "instr_info")]
 use std::collections::HashMap;
 
@@ -105,7 +102,7 @@ pub(crate) fn to_vec_u8(hex_data: &str) -> Result<Vec<u8>, String> {
 
 pub(crate) fn to_u64(value: &str) -> Result<u64, String> {
 	let value = value.trim();
-	let result = if value.starts_with("0x") { u64::from_str_radix(&value[2..], 16) } else { value.trim().parse() };
+	let result = if let Some(value) = value.strip_prefix("0x") { u64::from_str_radix(value, 16) } else { value.trim().parse() };
 	match result {
 		Ok(value) => Ok(value),
 		Err(_) => Err(format!("Invalid number: {}", value)),
@@ -120,7 +117,7 @@ pub(crate) fn to_i64(value: &str) -> Result<i64, String> {
 	} else {
 		1
 	};
-	let result = if unsigned_value.starts_with("0x") { u64::from_str_radix(&unsigned_value[2..], 16) } else { unsigned_value.trim().parse() };
+	let result = if let Some(value) = unsigned_value.strip_prefix("0x") { u64::from_str_radix(value, 16) } else { unsigned_value.trim().parse() };
 	match result {
 		Ok(value) => Ok((value as i64).wrapping_mul(mult)),
 		Err(_) => Err(format!("Invalid number: {}", value)),

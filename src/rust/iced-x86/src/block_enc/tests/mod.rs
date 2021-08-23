@@ -5,7 +5,6 @@ use crate::test_utils::*;
 use crate::*;
 use alloc::vec::Vec;
 use core::cmp::Ordering;
-use core::u32;
 
 mod br8_16;
 mod br8_32;

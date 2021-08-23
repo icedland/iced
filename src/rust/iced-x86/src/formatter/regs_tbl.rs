@@ -6,6 +6,7 @@ use crate::iced_constants::IcedConstants;
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
+use core::convert::TryInto;
 use lazy_static::lazy_static;
 
 // GENERATOR-BEGIN: Registers
@@ -293,9 +294,7 @@ lazy_static! {
 			s.clear();
 		}
 		debug_assert!(data.len() == PADDING_SIZE);
-		let v = v.into_boxed_slice();
-		debug_assert_eq!(v.len(), IcedConstants::REGISTER_ENUM_COUNT);
-		// SAFETY: Size is verified above
-		unsafe { Box::from_raw(Box::into_raw(v) as *mut [_; IcedConstants::REGISTER_ENUM_COUNT]) }
+		#[allow(clippy::unwrap_used)]
+		v.into_boxed_slice().try_into().ok().unwrap()
 	};
 }

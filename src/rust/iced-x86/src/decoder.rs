@@ -24,7 +24,7 @@ use crate::tuple_type_tbl::get_disp8n;
 use crate::*;
 use core::convert::TryFrom;
 use core::iter::FusedIterator;
-use core::{cmp, fmt, mem, ptr, u32};
+use core::{cmp, fmt, mem, ptr};
 use static_assertions::{const_assert, const_assert_eq};
 
 #[rustfmt::skip]
@@ -912,8 +912,7 @@ impl<'a> Decoder<'a> {
 			handlers: &'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler)],
 		) -> &'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100] {
 			debug_assert_eq!(handlers.len(), 0x100);
-			// SAFETY: handlers size is verified to be 0x100
-			unsafe { (handlers.as_ptr() as *const [_; 0x100]).as_ref() }.unwrap()
+			TryFrom::try_from(handlers).unwrap()
 		}
 		macro_rules! mk_handlers_local {
 			($name:ident, $feature:literal) => {

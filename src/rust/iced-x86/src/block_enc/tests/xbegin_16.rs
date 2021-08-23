@@ -2,7 +2,6 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::block_enc::tests::*;
-use core::u32;
 
 const BITNESS: u32 = 16;
 const ORIG_RIP: u64 = 0x8000;

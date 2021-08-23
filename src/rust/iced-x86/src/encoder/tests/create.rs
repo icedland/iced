@@ -5,7 +5,6 @@ use crate::encoder::test_utils::from_str_conv::to_vec_u8;
 use crate::encoder::test_utils::*;
 use crate::encoder::*;
 use alloc::vec::Vec;
-use core::{i32, i64, u32, u64};
 use std::panic;
 
 #[test]

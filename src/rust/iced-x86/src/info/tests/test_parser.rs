@@ -10,7 +10,6 @@ use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
-use core::{i16, i32, u16, u32};
 use lazy_static::lazy_static;
 use static_assertions::const_assert_eq;
 use std::collections::HashMap;

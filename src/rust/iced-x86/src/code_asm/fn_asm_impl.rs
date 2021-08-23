@@ -11,7 +11,6 @@ use crate::code_asm::op_state::MemoryOperandSize;
 use crate::code_asm::reg::*;
 use crate::code_asm::{CodeAssembler, CodeLabel};
 use crate::{Code, IcedError, Instruction, Register, RepPrefixKind};
-use core::i8;
 
 #[rustfmt::skip]
 impl CodeAsmAaa for CodeAssembler {

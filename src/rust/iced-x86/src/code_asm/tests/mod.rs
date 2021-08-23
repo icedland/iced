@@ -1008,7 +1008,7 @@ fn test_instr(bitness: u32, create: fn(&mut CodeAssembler), mut expected: Instru
 		};
 		decoded_instr.set_code(new_code);
 	}
-	if !(asm_instr.code() == Code::Jmpe_disp16 || asm_instr.code() == Code::Jmpe_disp32) && (flags & TestInstrFlags::BRANCH) != 0 {
+	if !matches!(asm_instr.code(), Code::Jmpe_disp16 | Code::Jmpe_disp32) && (flags & TestInstrFlags::BRANCH) != 0 {
 		asm_instr.set_near_branch64(0);
 	}
 

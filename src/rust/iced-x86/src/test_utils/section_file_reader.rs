@@ -2,7 +2,6 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use alloc::string::String;
-use core::u32;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;

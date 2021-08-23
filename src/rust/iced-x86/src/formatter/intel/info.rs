@@ -11,7 +11,7 @@ use crate::iced_constants::IcedConstants;
 use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
-use core::{mem, u32};
+use core::mem;
 use static_assertions::const_assert_eq;
 
 #[derive(Debug)]

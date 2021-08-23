@@ -705,7 +705,6 @@ namespace Generator.Assembler.Rust {
 				var registerStr = registerType.Name(idConverter);
 				var repPrefixKindStr = genTypes[TypeIds.RepPrefixKind].Name(idConverter);
 				writer.WriteLine($"use crate::{{{codeStr}, {ErrorType}, Instruction, {registerStr}, {repPrefixKindStr}}};");
-				writer.WriteLine("use core::i8;");
 
 				static void WriteArg(FileWriter writer, string argExpr, ArgKind kind) {
 					writer.Write(argExpr);

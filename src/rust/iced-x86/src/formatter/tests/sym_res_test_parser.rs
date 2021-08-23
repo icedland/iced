@@ -12,7 +12,6 @@ use crate::MemorySize;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
-use core::u32;
 use std::collections::{HashMap, HashSet};
 use std::fs::File;
 use std::io::prelude::*;

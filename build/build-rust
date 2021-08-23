@@ -19,7 +19,7 @@ test_msrv=y
 test_code_asm=y
 
 # Minimum supported Rust version
-msrv="1.41.0"
+msrv="1.48.0"
 
 new_func() {
 	echo

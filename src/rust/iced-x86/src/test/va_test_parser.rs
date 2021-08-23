@@ -7,7 +7,6 @@ use crate::DecoderOptions;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
-use core::u32;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{BufReader, Lines};

@@ -27,7 +27,6 @@ use crate::instruction_internal;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
-use core::{u16, u32, u8};
 use static_assertions::const_assert_eq;
 
 /// Masm formatter

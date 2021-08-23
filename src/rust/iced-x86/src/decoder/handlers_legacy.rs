@@ -8,7 +8,6 @@ use crate::decoder::handlers::*;
 use crate::decoder::*;
 use crate::iced_constants::IcedConstants;
 use crate::instruction_internal;
-use core::u32;
 use static_assertions::const_assert_ne;
 
 // SAFETY:

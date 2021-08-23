@@ -37,7 +37,7 @@ use crate::instruction_internal;
 use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
-use core::{i16, i32, i8, mem, u16, u32};
+use core::mem;
 use static_assertions::const_assert_eq;
 
 // GENERATOR-BEGIN: ImmSizes

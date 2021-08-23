@@ -6,6 +6,7 @@ use crate::formatter::regs_tbl::*;
 use crate::iced_constants::IcedConstants;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
+use core::convert::TryInto;
 use lazy_static::lazy_static;
 use static_assertions::const_assert_eq;
 
@@ -31,8 +32,6 @@ fn create() -> Box<[FastStringRegister; IcedConstants::REGISTER_ENUM_COUNT]> {
 	}
 	debug_assert!(data.len() == PADDING_SIZE);
 
-	let result = result.into_boxed_slice();
-	debug_assert_eq!(result.len(), IcedConstants::REGISTER_ENUM_COUNT);
-	// SAFETY: Size is verified above
-	unsafe { Box::from_raw(Box::into_raw(result) as *mut [_; IcedConstants::REGISTER_ENUM_COUNT]) }
+	#[allow(clippy::unwrap_used)]
+	result.into_boxed_slice().try_into().ok().unwrap()
 }

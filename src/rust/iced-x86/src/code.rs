@@ -41528,6 +41528,7 @@ impl Code {
 	/// `STOS`, etc.
 	#[must_use]
 	#[inline]
+	#[allow(clippy::match_like_matches_macro)]
 	pub fn is_string_instruction(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
@@ -41699,6 +41700,7 @@ impl Code {
 
 impl Code {
 	#[must_use]
+	#[allow(clippy::match_like_matches_macro)]
 	pub(crate) fn ignores_segment(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
@@ -41723,6 +41725,7 @@ impl Code {
 
 	#[must_use]
 	#[inline]
+	#[allow(clippy::match_like_matches_macro)]
 	pub(crate) fn ignores_index(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
