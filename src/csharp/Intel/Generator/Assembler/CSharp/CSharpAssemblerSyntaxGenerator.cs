@@ -954,7 +954,7 @@ namespace Generator.Assembler.CSharp {
 				OpCodeSelectorKind.ImmediateByteSigned8To16 => arg.Kind == ArgKind.ImmediateUnsigned ?
 					$"{argName} <= ({arg.Type})sbyte.MaxValue || (0xFF80 <= {argName} && {argName} <= 0xFFFF)" :
 					$"{argName} >= sbyte.MinValue && {argName} <= sbyte.MaxValue",
-				OpCodeSelectorKind.Vex => "PreferVex",
+				OpCodeSelectorKind.Vex => "InstructionPreferVex",
 				OpCodeSelectorKind.EvexBroadcastX or OpCodeSelectorKind.EvexBroadcastY or OpCodeSelectorKind.EvexBroadcastZ =>
 					$"{argName}.IsBroadcast",
 				OpCodeSelectorKind.RegisterCL => $"{argName} == {GetRegisterString(nameof(Register.CL))}",

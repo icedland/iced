@@ -23684,7 +23684,7 @@ impl CodeAsmV4fnmaddss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Cod
 impl CodeAsmVaddpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vaddpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaddpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vaddpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaddpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vaddpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -23693,7 +23693,7 @@ impl CodeAsmVaddpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVaddpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vaddpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaddpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vaddpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaddpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vaddpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -23711,7 +23711,7 @@ impl CodeAsmVaddpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vaddpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vaddpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vaddpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vaddpd_xmm_k1z_xmm_xmmm128b64
@@ -23725,7 +23725,7 @@ impl CodeAsmVaddpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vaddpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vaddpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vaddpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vaddpd_ymm_k1z_ymm_ymmm256b64
@@ -23794,7 +23794,7 @@ impl CodeAsmVaddph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVaddps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vaddps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaddps_xmm_xmm_xmmm128 } else { Code::EVEX_Vaddps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaddps_xmm_xmm_xmmm128 } else { Code::EVEX_Vaddps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -23803,7 +23803,7 @@ impl CodeAsmVaddps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVaddps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vaddps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaddps_ymm_ymm_ymmm256 } else { Code::EVEX_Vaddps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaddps_ymm_ymm_ymmm256 } else { Code::EVEX_Vaddps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -23821,7 +23821,7 @@ impl CodeAsmVaddps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vaddps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vaddps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vaddps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vaddps_xmm_k1z_xmm_xmmm128b32
@@ -23835,7 +23835,7 @@ impl CodeAsmVaddps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vaddps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vaddps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vaddps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vaddps_ymm_k1z_ymm_ymmm256b32
@@ -23856,7 +23856,7 @@ impl CodeAsmVaddps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVaddsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vaddsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaddsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaddsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -23865,7 +23865,7 @@ impl CodeAsmVaddsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVaddsd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vaddsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaddsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaddsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -23890,7 +23890,7 @@ impl CodeAsmVaddsh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVaddss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vaddss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaddss_xmm_xmm_xmmm32 } else { Code::EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaddss_xmm_xmm_xmmm32 } else { Code::EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -23899,7 +23899,7 @@ impl CodeAsmVaddss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVaddss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vaddss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaddss_xmm_xmm_xmmm32 } else { Code::EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaddss_xmm_xmm_xmmm32 } else { Code::EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -23972,7 +23972,7 @@ impl CodeAsmVaddsubps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 impl CodeAsmVaesdec<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vaesdec(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesdec_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesdec_xmm_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesdec_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesdec_xmm_xmm_xmmm128 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -23981,7 +23981,7 @@ impl CodeAsmVaesdec<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVaesdec<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vaesdec(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesdec_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesdec_ymm_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesdec_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesdec_ymm_ymm_ymmm256 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -23998,7 +23998,7 @@ impl CodeAsmVaesdec<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVaesdec<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vaesdec(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesdec_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesdec_xmm_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesdec_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesdec_xmm_xmm_xmmm128 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -24007,7 +24007,7 @@ impl CodeAsmVaesdec<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVaesdec<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vaesdec(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesdec_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesdec_ymm_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesdec_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesdec_ymm_ymm_ymmm256 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -24024,7 +24024,7 @@ impl CodeAsmVaesdec<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVaesdeclast<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vaesdeclast(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesdeclast_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesdeclast_xmm_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesdeclast_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesdeclast_xmm_xmm_xmmm128 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -24033,7 +24033,7 @@ impl CodeAsmVaesdeclast<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVaesdeclast<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vaesdeclast(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesdeclast_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesdeclast_ymm_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesdeclast_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesdeclast_ymm_ymm_ymmm256 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -24050,7 +24050,7 @@ impl CodeAsmVaesdeclast<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for Code
 impl CodeAsmVaesdeclast<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vaesdeclast(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesdeclast_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesdeclast_xmm_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesdeclast_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesdeclast_xmm_xmm_xmmm128 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -24059,7 +24059,7 @@ impl CodeAsmVaesdeclast<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVaesdeclast<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vaesdeclast(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesdeclast_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesdeclast_ymm_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesdeclast_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesdeclast_ymm_ymm_ymmm256 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -24076,7 +24076,7 @@ impl CodeAsmVaesdeclast<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVaesenc<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vaesenc(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesenc_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesenc_xmm_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesenc_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesenc_xmm_xmm_xmmm128 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -24085,7 +24085,7 @@ impl CodeAsmVaesenc<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVaesenc<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vaesenc(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesenc_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesenc_ymm_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesenc_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesenc_ymm_ymm_ymmm256 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -24102,7 +24102,7 @@ impl CodeAsmVaesenc<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVaesenc<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vaesenc(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesenc_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesenc_xmm_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesenc_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesenc_xmm_xmm_xmmm128 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -24111,7 +24111,7 @@ impl CodeAsmVaesenc<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVaesenc<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vaesenc(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesenc_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesenc_ymm_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesenc_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesenc_ymm_ymm_ymmm256 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -24128,7 +24128,7 @@ impl CodeAsmVaesenc<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVaesenclast<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vaesenclast(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesenclast_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesenclast_xmm_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesenclast_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesenclast_xmm_xmm_xmmm128 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -24137,7 +24137,7 @@ impl CodeAsmVaesenclast<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVaesenclast<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vaesenclast(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesenclast_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesenclast_ymm_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesenclast_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesenclast_ymm_ymm_ymmm256 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -24154,7 +24154,7 @@ impl CodeAsmVaesenclast<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for Code
 impl CodeAsmVaesenclast<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vaesenclast(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesenclast_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesenclast_xmm_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesenclast_xmm_xmm_xmmm128 } else { Code::EVEX_Vaesenclast_xmm_xmm_xmmm128 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -24163,7 +24163,7 @@ impl CodeAsmVaesenclast<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVaesenclast<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vaesenclast(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vaesenclast_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesenclast_ymm_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vaesenclast_ymm_ymm_ymmm256 } else { Code::EVEX_Vaesenclast_ymm_ymm_ymmm256 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -24420,7 +24420,7 @@ impl CodeAsmValignq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, u32> for C
 impl CodeAsmVandnpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vandnpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vandnpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vandnpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vandnpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vandnpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -24429,7 +24429,7 @@ impl CodeAsmVandnpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVandnpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vandnpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vandnpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vandnpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vandnpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vandnpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -24447,7 +24447,7 @@ impl CodeAsmVandnpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vandnpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vandnpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vandnpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vandnpd_xmm_k1z_xmm_xmmm128b64
@@ -24461,7 +24461,7 @@ impl CodeAsmVandnpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vandnpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vandnpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vandnpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vandnpd_ymm_k1z_ymm_ymmm256b64
@@ -24482,7 +24482,7 @@ impl CodeAsmVandnpd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVandnps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vandnps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vandnps_xmm_xmm_xmmm128 } else { Code::EVEX_Vandnps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vandnps_xmm_xmm_xmmm128 } else { Code::EVEX_Vandnps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -24491,7 +24491,7 @@ impl CodeAsmVandnps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVandnps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vandnps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vandnps_ymm_ymm_ymmm256 } else { Code::EVEX_Vandnps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vandnps_ymm_ymm_ymmm256 } else { Code::EVEX_Vandnps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -24509,7 +24509,7 @@ impl CodeAsmVandnps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vandnps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vandnps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vandnps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vandnps_xmm_k1z_xmm_xmmm128b32
@@ -24523,7 +24523,7 @@ impl CodeAsmVandnps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vandnps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vandnps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vandnps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vandnps_ymm_k1z_ymm_ymmm256b32
@@ -24544,7 +24544,7 @@ impl CodeAsmVandnps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVandpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vandpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vandpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vandpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vandpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vandpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -24553,7 +24553,7 @@ impl CodeAsmVandpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVandpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vandpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vandpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vandpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vandpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vandpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -24571,7 +24571,7 @@ impl CodeAsmVandpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vandpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vandpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vandpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vandpd_xmm_k1z_xmm_xmmm128b64
@@ -24585,7 +24585,7 @@ impl CodeAsmVandpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vandpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vandpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vandpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vandpd_ymm_k1z_ymm_ymmm256b64
@@ -24606,7 +24606,7 @@ impl CodeAsmVandpd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVandps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vandps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vandps_xmm_xmm_xmmm128 } else { Code::EVEX_Vandps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vandps_xmm_xmm_xmmm128 } else { Code::EVEX_Vandps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -24615,7 +24615,7 @@ impl CodeAsmVandps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVandps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vandps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vandps_ymm_ymm_ymmm256 } else { Code::EVEX_Vandps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vandps_ymm_ymm_ymmm256 } else { Code::EVEX_Vandps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -24633,7 +24633,7 @@ impl CodeAsmVandps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vandps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vandps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vandps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vandps_xmm_k1z_xmm_xmmm128b32
@@ -24647,7 +24647,7 @@ impl CodeAsmVandps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vandps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vandps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vandps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vandps_ymm_k1z_ymm_ymmm256b32
@@ -25148,7 +25148,7 @@ impl CodeAsmVbroadcasti64x4<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler 
 impl CodeAsmVbroadcastsd<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vbroadcastsd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vbroadcastsd_ymm_xmm } else { Code::EVEX_Vbroadcastsd_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vbroadcastsd_ymm_xmm } else { Code::EVEX_Vbroadcastsd_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -25165,7 +25165,7 @@ impl CodeAsmVbroadcastsd<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVbroadcastsd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vbroadcastsd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vbroadcastsd_ymm_m64 } else { Code::EVEX_Vbroadcastsd_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vbroadcastsd_ymm_m64 } else { Code::EVEX_Vbroadcastsd_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -25182,7 +25182,7 @@ impl CodeAsmVbroadcastsd<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVbroadcastss<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vbroadcastss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vbroadcastss_xmm_xmm } else { Code::EVEX_Vbroadcastss_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vbroadcastss_xmm_xmm } else { Code::EVEX_Vbroadcastss_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -25191,7 +25191,7 @@ impl CodeAsmVbroadcastss<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVbroadcastss<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vbroadcastss(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vbroadcastss_ymm_xmm } else { Code::EVEX_Vbroadcastss_ymm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vbroadcastss_ymm_xmm } else { Code::EVEX_Vbroadcastss_ymm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -25208,7 +25208,7 @@ impl CodeAsmVbroadcastss<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVbroadcastss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vbroadcastss(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vbroadcastss_xmm_m32 } else { Code::EVEX_Vbroadcastss_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vbroadcastss_xmm_m32 } else { Code::EVEX_Vbroadcastss_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -25217,7 +25217,7 @@ impl CodeAsmVbroadcastss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVbroadcastss<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vbroadcastss(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vbroadcastss_ymm_m32 } else { Code::EVEX_Vbroadcastss_ymm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vbroadcastss_ymm_m32 } else { Code::EVEX_Vbroadcastss_ymm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -35026,7 +35026,7 @@ impl CodeAsmVcmpunordss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVcomisd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcomisd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcomisd_xmm_xmmm64 } else { Code::EVEX_Vcomisd_xmm_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcomisd_xmm_xmmm64 } else { Code::EVEX_Vcomisd_xmm_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -35035,7 +35035,7 @@ impl CodeAsmVcomisd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcomisd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcomisd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcomisd_xmm_xmmm64 } else { Code::EVEX_Vcomisd_xmm_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcomisd_xmm_xmmm64 } else { Code::EVEX_Vcomisd_xmm_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -35060,7 +35060,7 @@ impl CodeAsmVcomish<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcomiss<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcomiss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcomiss_xmm_xmmm32 } else { Code::EVEX_Vcomiss_xmm_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcomiss_xmm_xmmm32 } else { Code::EVEX_Vcomiss_xmm_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -35069,7 +35069,7 @@ impl CodeAsmVcomiss<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcomiss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcomiss(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcomiss_xmm_xmmm32 } else { Code::EVEX_Vcomiss_xmm_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcomiss_xmm_xmmm32 } else { Code::EVEX_Vcomiss_xmm_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -35174,7 +35174,7 @@ impl CodeAsmVcompressps<AsmMemoryOperand, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVcvtdq2pd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtdq2pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtdq2pd_xmm_xmmm64 } else { Code::EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtdq2pd_xmm_xmmm64 } else { Code::EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -35183,7 +35183,7 @@ impl CodeAsmVcvtdq2pd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtdq2pd<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtdq2pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtdq2pd_ymm_xmmm128 } else { Code::EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtdq2pd_ymm_xmmm128 } else { Code::EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -35201,7 +35201,7 @@ impl CodeAsmVcvtdq2pd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvtdq2pd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vcvtdq2pd_xmm_xmmm64
 		} else {
 			Code::EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
@@ -35215,7 +35215,7 @@ impl CodeAsmVcvtdq2pd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvtdq2pd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vcvtdq2pd_ymm_xmmm128
 		} else {
 			Code::EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
@@ -35300,7 +35300,7 @@ impl CodeAsmVcvtdq2phy<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtdq2ps<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtdq2ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtdq2ps_xmm_xmmm128 } else { Code::EVEX_Vcvtdq2ps_xmm_k1z_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtdq2ps_xmm_xmmm128 } else { Code::EVEX_Vcvtdq2ps_xmm_k1z_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -35309,7 +35309,7 @@ impl CodeAsmVcvtdq2ps<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtdq2ps<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vcvtdq2ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtdq2ps_ymm_ymmm256 } else { Code::EVEX_Vcvtdq2ps_ymm_k1z_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtdq2ps_ymm_ymmm256 } else { Code::EVEX_Vcvtdq2ps_ymm_k1z_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -35327,7 +35327,7 @@ impl CodeAsmVcvtdq2ps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvtdq2ps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtdq2ps_xmm_k1z_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vcvtdq2ps_xmm_xmmm128
 		} else {
 			Code::EVEX_Vcvtdq2ps_xmm_k1z_xmmm128b32
@@ -35341,7 +35341,7 @@ impl CodeAsmVcvtdq2ps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvtdq2ps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtdq2ps_ymm_k1z_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vcvtdq2ps_ymm_ymmm256
 		} else {
 			Code::EVEX_Vcvtdq2ps_ymm_k1z_ymmm256b32
@@ -35474,7 +35474,7 @@ impl CodeAsmVcvtneps2bf16y<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtpd2dq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtpd2dq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtpd2dq_xmm_xmmm128 } else { Code::EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtpd2dq_xmm_xmmm128 } else { Code::EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -35483,7 +35483,7 @@ impl CodeAsmVcvtpd2dq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtpd2dq<AsmRegisterXmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vcvtpd2dq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtpd2dq_xmm_ymmm256 } else { Code::EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtpd2dq_xmm_ymmm256 } else { Code::EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -35502,9 +35502,9 @@ impl CodeAsmVcvtpd2dq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64
 		} else if op1.size() == MemoryOperandSize::Yword {
-			if self.prefer_vex() { Code::VEX_Vcvtpd2dq_xmm_ymmm256 } else { Code::EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64 }
+			if self.instruction_prefer_vex() { Code::VEX_Vcvtpd2dq_xmm_ymmm256 } else { Code::EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64 }
 		} else if op1.size() == MemoryOperandSize::Xword {
-			if self.prefer_vex() { Code::VEX_Vcvtpd2dq_xmm_xmmm128 } else { Code::EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64 }
+			if self.instruction_prefer_vex() { Code::VEX_Vcvtpd2dq_xmm_xmmm128 } else { Code::EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64 }
 		} else {
 			return Err(IcedError::new("vcvtpd2dq: invalid operands"));
 		};
@@ -35606,7 +35606,7 @@ impl CodeAsmVcvtpd2phz<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtpd2ps<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtpd2ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtpd2ps_xmm_xmmm128 } else { Code::EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtpd2ps_xmm_xmmm128 } else { Code::EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -35615,7 +35615,7 @@ impl CodeAsmVcvtpd2ps<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtpd2ps<AsmRegisterXmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vcvtpd2ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtpd2ps_xmm_ymmm256 } else { Code::EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtpd2ps_xmm_ymmm256 } else { Code::EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -35634,9 +35634,9 @@ impl CodeAsmVcvtpd2ps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64
 		} else if op1.size() == MemoryOperandSize::Yword {
-			if self.prefer_vex() { Code::VEX_Vcvtpd2ps_xmm_ymmm256 } else { Code::EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64 }
+			if self.instruction_prefer_vex() { Code::VEX_Vcvtpd2ps_xmm_ymmm256 } else { Code::EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64 }
 		} else if op1.size() == MemoryOperandSize::Xword {
-			if self.prefer_vex() { Code::VEX_Vcvtpd2ps_xmm_xmmm128 } else { Code::EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64 }
+			if self.instruction_prefer_vex() { Code::VEX_Vcvtpd2ps_xmm_xmmm128 } else { Code::EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64 }
 		} else {
 			return Err(IcedError::new("vcvtpd2ps: invalid operands"));
 		};
@@ -35928,7 +35928,7 @@ impl CodeAsmVcvtph2pd<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtph2ps<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtph2ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtph2ps_xmm_xmmm64 } else { Code::EVEX_Vcvtph2ps_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtph2ps_xmm_xmmm64 } else { Code::EVEX_Vcvtph2ps_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -35937,7 +35937,7 @@ impl CodeAsmVcvtph2ps<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtph2ps<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtph2ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtph2ps_ymm_xmmm128 } else { Code::EVEX_Vcvtph2ps_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtph2ps_ymm_xmmm128 } else { Code::EVEX_Vcvtph2ps_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -35954,7 +35954,7 @@ impl CodeAsmVcvtph2ps<AsmRegisterZmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVcvtph2ps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvtph2ps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtph2ps_xmm_xmmm64 } else { Code::EVEX_Vcvtph2ps_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtph2ps_xmm_xmmm64 } else { Code::EVEX_Vcvtph2ps_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -35963,7 +35963,7 @@ impl CodeAsmVcvtph2ps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtph2ps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvtph2ps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtph2ps_ymm_xmmm128 } else { Code::EVEX_Vcvtph2ps_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtph2ps_ymm_xmmm128 } else { Code::EVEX_Vcvtph2ps_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -36268,7 +36268,7 @@ impl CodeAsmVcvtph2w<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtps2dq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtps2dq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2dq_xmm_xmmm128 } else { Code::EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2dq_xmm_xmmm128 } else { Code::EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -36277,7 +36277,7 @@ impl CodeAsmVcvtps2dq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtps2dq<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vcvtps2dq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2dq_ymm_ymmm256 } else { Code::EVEX_Vcvtps2dq_ymm_k1z_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2dq_ymm_ymmm256 } else { Code::EVEX_Vcvtps2dq_ymm_k1z_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -36295,7 +36295,7 @@ impl CodeAsmVcvtps2dq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvtps2dq(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vcvtps2dq_xmm_xmmm128
 		} else {
 			Code::EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32
@@ -36309,7 +36309,7 @@ impl CodeAsmVcvtps2dq<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvtps2dq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtps2dq_ymm_k1z_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vcvtps2dq_ymm_ymmm256
 		} else {
 			Code::EVEX_Vcvtps2dq_ymm_k1z_ymmm256b32
@@ -36330,7 +36330,7 @@ impl CodeAsmVcvtps2dq<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtps2pd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtps2pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2pd_xmm_xmmm64 } else { Code::EVEX_Vcvtps2pd_xmm_k1z_xmmm64b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2pd_xmm_xmmm64 } else { Code::EVEX_Vcvtps2pd_xmm_k1z_xmmm64b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -36339,7 +36339,7 @@ impl CodeAsmVcvtps2pd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtps2pd<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtps2pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2pd_ymm_xmmm128 } else { Code::EVEX_Vcvtps2pd_ymm_k1z_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2pd_ymm_xmmm128 } else { Code::EVEX_Vcvtps2pd_ymm_k1z_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -36357,7 +36357,7 @@ impl CodeAsmVcvtps2pd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvtps2pd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtps2pd_xmm_k1z_xmmm64b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vcvtps2pd_xmm_xmmm64
 		} else {
 			Code::EVEX_Vcvtps2pd_xmm_k1z_xmmm64b32
@@ -36371,7 +36371,7 @@ impl CodeAsmVcvtps2pd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvtps2pd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtps2pd_ymm_k1z_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vcvtps2pd_ymm_xmmm128
 		} else {
 			Code::EVEX_Vcvtps2pd_ymm_k1z_xmmm128b32
@@ -36392,7 +36392,7 @@ impl CodeAsmVcvtps2pd<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtps2ph<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vcvtps2ph(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -36401,7 +36401,7 @@ impl CodeAsmVcvtps2ph<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVcvtps2ph<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vcvtps2ph(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?, op0.state())
 	}
 }
@@ -36410,7 +36410,7 @@ impl CodeAsmVcvtps2ph<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVcvtps2ph<AsmRegisterXmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vcvtps2ph(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -36419,7 +36419,7 @@ impl CodeAsmVcvtps2ph<AsmRegisterXmm, AsmRegisterYmm, i32> for CodeAssembler {
 impl CodeAsmVcvtps2ph<AsmMemoryOperand, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vcvtps2ph(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?, op0.state())
 	}
 }
@@ -36444,7 +36444,7 @@ impl CodeAsmVcvtps2ph<AsmMemoryOperand, AsmRegisterZmm, i32> for CodeAssembler {
 impl CodeAsmVcvtps2ph<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vcvtps2ph(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -36453,7 +36453,7 @@ impl CodeAsmVcvtps2ph<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVcvtps2ph<AsmMemoryOperand, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vcvtps2ph(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?, op0.state())
 	}
 }
@@ -36462,7 +36462,7 @@ impl CodeAsmVcvtps2ph<AsmMemoryOperand, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVcvtps2ph<AsmRegisterXmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vcvtps2ph(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -36471,7 +36471,7 @@ impl CodeAsmVcvtps2ph<AsmRegisterXmm, AsmRegisterYmm, u32> for CodeAssembler {
 impl CodeAsmVcvtps2ph<AsmMemoryOperand, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vcvtps2ph(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8 } else { Code::EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?, op0.state())
 	}
 }
@@ -36898,7 +36898,7 @@ impl CodeAsmVcvtsd2sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 impl CodeAsmVcvtsd2si<AsmRegister32, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtsd2si(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtsd2si_r32_xmmm64 } else { Code::EVEX_Vcvtsd2si_r32_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtsd2si_r32_xmmm64 } else { Code::EVEX_Vcvtsd2si_r32_xmmm64_er };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -36907,7 +36907,7 @@ impl CodeAsmVcvtsd2si<AsmRegister32, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtsd2si<AsmRegister64, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtsd2si(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtsd2si_r64_xmmm64 } else { Code::EVEX_Vcvtsd2si_r64_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtsd2si_r64_xmmm64 } else { Code::EVEX_Vcvtsd2si_r64_xmmm64_er };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -36916,7 +36916,7 @@ impl CodeAsmVcvtsd2si<AsmRegister64, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtsd2si<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvtsd2si(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtsd2si_r32_xmmm64 } else { Code::EVEX_Vcvtsd2si_r32_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtsd2si_r32_xmmm64 } else { Code::EVEX_Vcvtsd2si_r32_xmmm64_er };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -36925,7 +36925,7 @@ impl CodeAsmVcvtsd2si<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtsd2si<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvtsd2si(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtsd2si_r64_xmmm64 } else { Code::EVEX_Vcvtsd2si_r64_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtsd2si_r64_xmmm64 } else { Code::EVEX_Vcvtsd2si_r64_xmmm64_er };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -36934,7 +36934,7 @@ impl CodeAsmVcvtsd2si<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtsd2ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtsd2ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtsd2ss_xmm_xmm_xmmm64 } else { Code::EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtsd2ss_xmm_xmm_xmmm64 } else { Code::EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -36943,7 +36943,7 @@ impl CodeAsmVcvtsd2ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVcvtsd2ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvtsd2ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtsd2ss_xmm_xmm_xmmm64 } else { Code::EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtsd2ss_xmm_xmm_xmmm64 } else { Code::EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -37080,7 +37080,7 @@ impl CodeAsmVcvtsh2usi<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtsi2sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32> for CodeAssembler {
 	#[inline]
 	fn vcvtsi2sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtsi2sd_xmm_xmm_rm32 } else { Code::EVEX_Vcvtsi2sd_xmm_xmm_rm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtsi2sd_xmm_xmm_rm32 } else { Code::EVEX_Vcvtsi2sd_xmm_xmm_rm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op2.state())
 	}
 }
@@ -37089,7 +37089,7 @@ impl CodeAsmVcvtsi2sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32> for CodeAss
 impl CodeAsmVcvtsi2sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64> for CodeAssembler {
 	#[inline]
 	fn vcvtsi2sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister64) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtsi2sd_xmm_xmm_rm64 } else { Code::EVEX_Vcvtsi2sd_xmm_xmm_rm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtsi2sd_xmm_xmm_rm64 } else { Code::EVEX_Vcvtsi2sd_xmm_xmm_rm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op2.state())
 	}
 }
@@ -37098,9 +37098,9 @@ impl CodeAsmVcvtsi2sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64> for CodeAss
 impl CodeAsmVcvtsi2sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvtsi2sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.size() == MemoryOperandSize::Qword {
-			if self.prefer_vex() { Code::VEX_Vcvtsi2sd_xmm_xmm_rm64 } else { Code::EVEX_Vcvtsi2sd_xmm_xmm_rm64_er }
+			if self.instruction_prefer_vex() { Code::VEX_Vcvtsi2sd_xmm_xmm_rm64 } else { Code::EVEX_Vcvtsi2sd_xmm_xmm_rm64_er }
 		} else if op2.size() == MemoryOperandSize::Dword {
-			if self.prefer_vex() { Code::VEX_Vcvtsi2sd_xmm_xmm_rm32 } else { Code::EVEX_Vcvtsi2sd_xmm_xmm_rm32_er }
+			if self.instruction_prefer_vex() { Code::VEX_Vcvtsi2sd_xmm_xmm_rm32 } else { Code::EVEX_Vcvtsi2sd_xmm_xmm_rm32_er }
 		} else {
 			return Err(IcedError::new("vcvtsi2sd: invalid operands"));
 		};
@@ -37142,7 +37142,7 @@ impl CodeAsmVcvtsi2sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 impl CodeAsmVcvtsi2ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32> for CodeAssembler {
 	#[inline]
 	fn vcvtsi2ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtsi2ss_xmm_xmm_rm32 } else { Code::EVEX_Vcvtsi2ss_xmm_xmm_rm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtsi2ss_xmm_xmm_rm32 } else { Code::EVEX_Vcvtsi2ss_xmm_xmm_rm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op2.state())
 	}
 }
@@ -37151,7 +37151,7 @@ impl CodeAsmVcvtsi2ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32> for CodeAss
 impl CodeAsmVcvtsi2ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64> for CodeAssembler {
 	#[inline]
 	fn vcvtsi2ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister64) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtsi2ss_xmm_xmm_rm64 } else { Code::EVEX_Vcvtsi2ss_xmm_xmm_rm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtsi2ss_xmm_xmm_rm64 } else { Code::EVEX_Vcvtsi2ss_xmm_xmm_rm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op2.state())
 	}
 }
@@ -37160,9 +37160,9 @@ impl CodeAsmVcvtsi2ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64> for CodeAss
 impl CodeAsmVcvtsi2ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvtsi2ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.size() == MemoryOperandSize::Qword {
-			if self.prefer_vex() { Code::VEX_Vcvtsi2ss_xmm_xmm_rm64 } else { Code::EVEX_Vcvtsi2ss_xmm_xmm_rm64_er }
+			if self.instruction_prefer_vex() { Code::VEX_Vcvtsi2ss_xmm_xmm_rm64 } else { Code::EVEX_Vcvtsi2ss_xmm_xmm_rm64_er }
 		} else if op2.size() == MemoryOperandSize::Dword {
-			if self.prefer_vex() { Code::VEX_Vcvtsi2ss_xmm_xmm_rm32 } else { Code::EVEX_Vcvtsi2ss_xmm_xmm_rm32_er }
+			if self.instruction_prefer_vex() { Code::VEX_Vcvtsi2ss_xmm_xmm_rm32 } else { Code::EVEX_Vcvtsi2ss_xmm_xmm_rm32_er }
 		} else {
 			return Err(IcedError::new("vcvtsi2ss: invalid operands"));
 		};
@@ -37174,7 +37174,7 @@ impl CodeAsmVcvtsi2ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 impl CodeAsmVcvtss2sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtss2sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtss2sd_xmm_xmm_xmmm32 } else { Code::EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtss2sd_xmm_xmm_xmmm32 } else { Code::EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -37183,7 +37183,7 @@ impl CodeAsmVcvtss2sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVcvtss2sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvtss2sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtss2sd_xmm_xmm_xmmm32 } else { Code::EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtss2sd_xmm_xmm_xmmm32 } else { Code::EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -37208,7 +37208,7 @@ impl CodeAsmVcvtss2sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 impl CodeAsmVcvtss2si<AsmRegister32, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtss2si(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtss2si_r32_xmmm32 } else { Code::EVEX_Vcvtss2si_r32_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtss2si_r32_xmmm32 } else { Code::EVEX_Vcvtss2si_r32_xmmm32_er };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -37217,7 +37217,7 @@ impl CodeAsmVcvtss2si<AsmRegister32, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtss2si<AsmRegister64, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtss2si(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtss2si_r64_xmmm32 } else { Code::EVEX_Vcvtss2si_r64_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtss2si_r64_xmmm32 } else { Code::EVEX_Vcvtss2si_r64_xmmm32_er };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -37226,7 +37226,7 @@ impl CodeAsmVcvtss2si<AsmRegister64, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtss2si<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvtss2si(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtss2si_r32_xmmm32 } else { Code::EVEX_Vcvtss2si_r32_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtss2si_r32_xmmm32 } else { Code::EVEX_Vcvtss2si_r32_xmmm32_er };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -37235,7 +37235,7 @@ impl CodeAsmVcvtss2si<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvtss2si<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvtss2si(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvtss2si_r64_xmmm32 } else { Code::EVEX_Vcvtss2si_r64_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtss2si_r64_xmmm32 } else { Code::EVEX_Vcvtss2si_r64_xmmm32_er };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -37276,7 +37276,7 @@ impl CodeAsmVcvtss2usi<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvttpd2dq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvttpd2dq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttpd2dq_xmm_xmmm128 } else { Code::EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttpd2dq_xmm_xmmm128 } else { Code::EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -37285,7 +37285,7 @@ impl CodeAsmVcvttpd2dq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvttpd2dq<AsmRegisterXmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vcvttpd2dq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttpd2dq_xmm_ymmm256 } else { Code::EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttpd2dq_xmm_ymmm256 } else { Code::EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -37304,9 +37304,9 @@ impl CodeAsmVcvttpd2dq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64
 		} else if op1.size() == MemoryOperandSize::Yword {
-			if self.prefer_vex() { Code::VEX_Vcvttpd2dq_xmm_ymmm256 } else { Code::EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64 }
+			if self.instruction_prefer_vex() { Code::VEX_Vcvttpd2dq_xmm_ymmm256 } else { Code::EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64 }
 		} else if op1.size() == MemoryOperandSize::Xword {
-			if self.prefer_vex() { Code::VEX_Vcvttpd2dq_xmm_xmmm128 } else { Code::EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64 }
+			if self.instruction_prefer_vex() { Code::VEX_Vcvttpd2dq_xmm_xmmm128 } else { Code::EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64 }
 		} else {
 			return Err(IcedError::new("vcvttpd2dq: invalid operands"));
 		};
@@ -37790,7 +37790,7 @@ impl CodeAsmVcvttph2w<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvttps2dq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvttps2dq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttps2dq_xmm_xmmm128 } else { Code::EVEX_Vcvttps2dq_xmm_k1z_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttps2dq_xmm_xmmm128 } else { Code::EVEX_Vcvttps2dq_xmm_k1z_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -37799,7 +37799,7 @@ impl CodeAsmVcvttps2dq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvttps2dq<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vcvttps2dq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttps2dq_ymm_ymmm256 } else { Code::EVEX_Vcvttps2dq_ymm_k1z_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttps2dq_ymm_ymmm256 } else { Code::EVEX_Vcvttps2dq_ymm_k1z_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -37817,7 +37817,7 @@ impl CodeAsmVcvttps2dq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvttps2dq(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvttps2dq_xmm_k1z_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vcvttps2dq_xmm_xmmm128
 		} else {
 			Code::EVEX_Vcvttps2dq_xmm_k1z_xmmm128b32
@@ -37831,7 +37831,7 @@ impl CodeAsmVcvttps2dq<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	fn vcvttps2dq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvttps2dq_ymm_k1z_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vcvttps2dq_ymm_ymmm256
 		} else {
 			Code::EVEX_Vcvttps2dq_ymm_k1z_ymmm256b32
@@ -37996,7 +37996,7 @@ impl CodeAsmVcvttps2uqq<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvttsd2si<AsmRegister32, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvttsd2si(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttsd2si_r32_xmmm64 } else { Code::EVEX_Vcvttsd2si_r32_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttsd2si_r32_xmmm64 } else { Code::EVEX_Vcvttsd2si_r32_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -38005,7 +38005,7 @@ impl CodeAsmVcvttsd2si<AsmRegister32, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvttsd2si<AsmRegister64, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvttsd2si(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttsd2si_r64_xmmm64 } else { Code::EVEX_Vcvttsd2si_r64_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttsd2si_r64_xmmm64 } else { Code::EVEX_Vcvttsd2si_r64_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -38014,7 +38014,7 @@ impl CodeAsmVcvttsd2si<AsmRegister64, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvttsd2si<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvttsd2si(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttsd2si_r32_xmmm64 } else { Code::EVEX_Vcvttsd2si_r32_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttsd2si_r32_xmmm64 } else { Code::EVEX_Vcvttsd2si_r32_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -38023,7 +38023,7 @@ impl CodeAsmVcvttsd2si<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvttsd2si<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvttsd2si(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttsd2si_r64_xmmm64 } else { Code::EVEX_Vcvttsd2si_r64_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttsd2si_r64_xmmm64 } else { Code::EVEX_Vcvttsd2si_r64_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -38128,7 +38128,7 @@ impl CodeAsmVcvttsh2usi<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvttss2si<AsmRegister32, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvttss2si(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttss2si_r32_xmmm32 } else { Code::EVEX_Vcvttss2si_r32_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttss2si_r32_xmmm32 } else { Code::EVEX_Vcvttss2si_r32_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -38137,7 +38137,7 @@ impl CodeAsmVcvttss2si<AsmRegister32, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvttss2si<AsmRegister64, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvttss2si(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttss2si_r64_xmmm32 } else { Code::EVEX_Vcvttss2si_r64_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttss2si_r64_xmmm32 } else { Code::EVEX_Vcvttss2si_r64_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -38146,7 +38146,7 @@ impl CodeAsmVcvttss2si<AsmRegister64, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvttss2si<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvttss2si(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttss2si_r32_xmmm32 } else { Code::EVEX_Vcvttss2si_r32_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttss2si_r32_xmmm32 } else { Code::EVEX_Vcvttss2si_r32_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -38155,7 +38155,7 @@ impl CodeAsmVcvttss2si<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVcvttss2si<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vcvttss2si(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vcvttss2si_r64_xmmm32 } else { Code::EVEX_Vcvttss2si_r64_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvttss2si_r64_xmmm32 } else { Code::EVEX_Vcvttss2si_r64_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -38816,7 +38816,7 @@ impl CodeAsmVdbpsadbw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, u32> for
 impl CodeAsmVdivpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vdivpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vdivpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vdivpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vdivpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vdivpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -38825,7 +38825,7 @@ impl CodeAsmVdivpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVdivpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vdivpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vdivpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vdivpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vdivpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vdivpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -38843,7 +38843,7 @@ impl CodeAsmVdivpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vdivpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vdivpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vdivpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vdivpd_xmm_k1z_xmm_xmmm128b64
@@ -38857,7 +38857,7 @@ impl CodeAsmVdivpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vdivpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vdivpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vdivpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vdivpd_ymm_k1z_ymm_ymmm256b64
@@ -38926,7 +38926,7 @@ impl CodeAsmVdivph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVdivps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vdivps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vdivps_xmm_xmm_xmmm128 } else { Code::EVEX_Vdivps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vdivps_xmm_xmm_xmmm128 } else { Code::EVEX_Vdivps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -38935,7 +38935,7 @@ impl CodeAsmVdivps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVdivps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vdivps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vdivps_ymm_ymm_ymmm256 } else { Code::EVEX_Vdivps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vdivps_ymm_ymm_ymmm256 } else { Code::EVEX_Vdivps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -38953,7 +38953,7 @@ impl CodeAsmVdivps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vdivps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vdivps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vdivps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vdivps_xmm_k1z_xmm_xmmm128b32
@@ -38967,7 +38967,7 @@ impl CodeAsmVdivps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vdivps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vdivps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vdivps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vdivps_ymm_k1z_ymm_ymmm256b32
@@ -38988,7 +38988,7 @@ impl CodeAsmVdivps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVdivsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vdivsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vdivsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vdivsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -38997,7 +38997,7 @@ impl CodeAsmVdivsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVdivsd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vdivsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vdivsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vdivsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -39022,7 +39022,7 @@ impl CodeAsmVdivsh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVdivss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vdivss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vdivss_xmm_xmm_xmmm32 } else { Code::EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vdivss_xmm_xmm_xmmm32 } else { Code::EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -39031,7 +39031,7 @@ impl CodeAsmVdivss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVdivss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vdivss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vdivss_xmm_xmm_xmmm32 } else { Code::EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vdivss_xmm_xmm_xmmm32 } else { Code::EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -39826,7 +39826,7 @@ impl CodeAsmVextracti64x4<AsmMemoryOperand, AsmRegisterZmm, u32> for CodeAssembl
 impl CodeAsmVextractps<AsmRegister32, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vextractps(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vextractps_rm32_xmm_imm8 } else { Code::EVEX_Vextractps_rm32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vextractps_rm32_xmm_imm8 } else { Code::EVEX_Vextractps_rm32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -39835,7 +39835,7 @@ impl CodeAsmVextractps<AsmRegister32, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVextractps<AsmRegister64, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vextractps(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vextractps_r64m32_xmm_imm8 } else { Code::EVEX_Vextractps_r64m32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vextractps_r64m32_xmm_imm8 } else { Code::EVEX_Vextractps_r64m32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -39844,7 +39844,7 @@ impl CodeAsmVextractps<AsmRegister64, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVextractps<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vextractps(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vextractps_rm32_xmm_imm8 } else { Code::EVEX_Vextractps_rm32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vextractps_rm32_xmm_imm8 } else { Code::EVEX_Vextractps_rm32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?)
 	}
 }
@@ -39853,7 +39853,7 @@ impl CodeAsmVextractps<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler 
 impl CodeAsmVextractps<AsmRegister32, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vextractps(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vextractps_rm32_xmm_imm8 } else { Code::EVEX_Vextractps_rm32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vextractps_rm32_xmm_imm8 } else { Code::EVEX_Vextractps_rm32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -39862,7 +39862,7 @@ impl CodeAsmVextractps<AsmRegister32, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVextractps<AsmRegister64, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vextractps(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vextractps_r64m32_xmm_imm8 } else { Code::EVEX_Vextractps_r64m32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vextractps_r64m32_xmm_imm8 } else { Code::EVEX_Vextractps_r64m32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -39871,7 +39871,7 @@ impl CodeAsmVextractps<AsmRegister64, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVextractps<AsmMemoryOperand, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vextractps(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vextractps_rm32_xmm_imm8 } else { Code::EVEX_Vextractps_rm32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vextractps_rm32_xmm_imm8 } else { Code::EVEX_Vextractps_rm32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?)
 	}
 }
@@ -40264,7 +40264,7 @@ impl CodeAsmVfixupimmss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> f
 impl CodeAsmVfmadd132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40273,7 +40273,7 @@ impl CodeAsmVfmadd132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd132pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40291,7 +40291,7 @@ impl CodeAsmVfmadd132pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmadd132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd132pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64
@@ -40305,7 +40305,7 @@ impl CodeAsmVfmadd132pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmadd132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd132pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64
@@ -40374,7 +40374,7 @@ impl CodeAsmVfmadd132ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40383,7 +40383,7 @@ impl CodeAsmVfmadd132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd132ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40401,7 +40401,7 @@ impl CodeAsmVfmadd132ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmadd132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd132ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32
@@ -40415,7 +40415,7 @@ impl CodeAsmVfmadd132ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmadd132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd132ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32
@@ -40436,7 +40436,7 @@ impl CodeAsmVfmadd132ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd132sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd132sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -40445,7 +40445,7 @@ impl CodeAsmVfmadd132sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd132sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmadd132sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -40470,7 +40470,7 @@ impl CodeAsmVfmadd132sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd132ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd132ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -40479,7 +40479,7 @@ impl CodeAsmVfmadd132ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd132ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmadd132ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -40488,7 +40488,7 @@ impl CodeAsmVfmadd132ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40497,7 +40497,7 @@ impl CodeAsmVfmadd213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd213pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40515,7 +40515,7 @@ impl CodeAsmVfmadd213pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmadd213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd213pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64
@@ -40529,7 +40529,7 @@ impl CodeAsmVfmadd213pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmadd213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd213pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64
@@ -40598,7 +40598,7 @@ impl CodeAsmVfmadd213ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40607,7 +40607,7 @@ impl CodeAsmVfmadd213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd213ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40625,7 +40625,7 @@ impl CodeAsmVfmadd213ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmadd213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd213ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32
@@ -40639,7 +40639,7 @@ impl CodeAsmVfmadd213ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmadd213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd213ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32
@@ -40660,7 +40660,7 @@ impl CodeAsmVfmadd213ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd213sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd213sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -40669,7 +40669,7 @@ impl CodeAsmVfmadd213sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd213sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmadd213sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -40694,7 +40694,7 @@ impl CodeAsmVfmadd213sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd213ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd213ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -40703,7 +40703,7 @@ impl CodeAsmVfmadd213ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd213ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmadd213ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -40712,7 +40712,7 @@ impl CodeAsmVfmadd213ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40721,7 +40721,7 @@ impl CodeAsmVfmadd231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd231pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40739,7 +40739,7 @@ impl CodeAsmVfmadd231pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmadd231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd231pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64
@@ -40753,7 +40753,7 @@ impl CodeAsmVfmadd231pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmadd231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd231pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64
@@ -40822,7 +40822,7 @@ impl CodeAsmVfmadd231ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40831,7 +40831,7 @@ impl CodeAsmVfmadd231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd231ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -40849,7 +40849,7 @@ impl CodeAsmVfmadd231ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmadd231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd231ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32
@@ -40863,7 +40863,7 @@ impl CodeAsmVfmadd231ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmadd231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmadd231ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32
@@ -40884,7 +40884,7 @@ impl CodeAsmVfmadd231ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd231sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd231sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -40893,7 +40893,7 @@ impl CodeAsmVfmadd231sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd231sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmadd231sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -40918,7 +40918,7 @@ impl CodeAsmVfmadd231sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmadd231ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmadd231ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -40927,7 +40927,7 @@ impl CodeAsmVfmadd231ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmadd231ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmadd231ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmadd231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmadd231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -41144,7 +41144,7 @@ impl CodeAsmVfmaddss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOp
 impl CodeAsmVfmaddsub132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41153,7 +41153,7 @@ impl CodeAsmVfmaddsub132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmaddsub132pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41171,7 +41171,7 @@ impl CodeAsmVfmaddsub132pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmaddsub132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub132pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64
@@ -41185,7 +41185,7 @@ impl CodeAsmVfmaddsub132pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmaddsub132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub132pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64
@@ -41254,7 +41254,7 @@ impl CodeAsmVfmaddsub132ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVfmaddsub132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41263,7 +41263,7 @@ impl CodeAsmVfmaddsub132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmaddsub132ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41281,7 +41281,7 @@ impl CodeAsmVfmaddsub132ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmaddsub132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub132ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32
@@ -41295,7 +41295,7 @@ impl CodeAsmVfmaddsub132ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmaddsub132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub132ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32
@@ -41316,7 +41316,7 @@ impl CodeAsmVfmaddsub132ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVfmaddsub213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41325,7 +41325,7 @@ impl CodeAsmVfmaddsub213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmaddsub213pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41343,7 +41343,7 @@ impl CodeAsmVfmaddsub213pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmaddsub213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub213pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64
@@ -41357,7 +41357,7 @@ impl CodeAsmVfmaddsub213pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmaddsub213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub213pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64
@@ -41426,7 +41426,7 @@ impl CodeAsmVfmaddsub213ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVfmaddsub213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41435,7 +41435,7 @@ impl CodeAsmVfmaddsub213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmaddsub213ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41453,7 +41453,7 @@ impl CodeAsmVfmaddsub213ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmaddsub213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub213ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32
@@ -41467,7 +41467,7 @@ impl CodeAsmVfmaddsub213ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmaddsub213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub213ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32
@@ -41488,7 +41488,7 @@ impl CodeAsmVfmaddsub213ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVfmaddsub231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41497,7 +41497,7 @@ impl CodeAsmVfmaddsub231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmaddsub231pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41515,7 +41515,7 @@ impl CodeAsmVfmaddsub231pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmaddsub231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub231pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64
@@ -41529,7 +41529,7 @@ impl CodeAsmVfmaddsub231pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmaddsub231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub231pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64
@@ -41598,7 +41598,7 @@ impl CodeAsmVfmaddsub231ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVfmaddsub231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41607,7 +41607,7 @@ impl CodeAsmVfmaddsub231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmaddsub231ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmaddsub231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmaddsub231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmaddsub231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41625,7 +41625,7 @@ impl CodeAsmVfmaddsub231ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmaddsub231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub231ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32
@@ -41639,7 +41639,7 @@ impl CodeAsmVfmaddsub231ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmaddsub231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmaddsub231ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32
@@ -41756,7 +41756,7 @@ impl CodeAsmVfmaddsubps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, AsmMemor
 impl CodeAsmVfmsub132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41765,7 +41765,7 @@ impl CodeAsmVfmsub132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub132pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41783,7 +41783,7 @@ impl CodeAsmVfmsub132pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmsub132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub132pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64
@@ -41797,7 +41797,7 @@ impl CodeAsmVfmsub132pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmsub132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub132pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64
@@ -41866,7 +41866,7 @@ impl CodeAsmVfmsub132ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41875,7 +41875,7 @@ impl CodeAsmVfmsub132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub132ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41893,7 +41893,7 @@ impl CodeAsmVfmsub132ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmsub132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub132ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32
@@ -41907,7 +41907,7 @@ impl CodeAsmVfmsub132ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmsub132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub132ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32
@@ -41928,7 +41928,7 @@ impl CodeAsmVfmsub132ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub132sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub132sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -41937,7 +41937,7 @@ impl CodeAsmVfmsub132sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub132sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmsub132sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -41962,7 +41962,7 @@ impl CodeAsmVfmsub132sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub132ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub132ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -41971,7 +41971,7 @@ impl CodeAsmVfmsub132ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub132ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmsub132ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -41980,7 +41980,7 @@ impl CodeAsmVfmsub132ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -41989,7 +41989,7 @@ impl CodeAsmVfmsub213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub213pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42007,7 +42007,7 @@ impl CodeAsmVfmsub213pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmsub213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub213pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64
@@ -42021,7 +42021,7 @@ impl CodeAsmVfmsub213pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmsub213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub213pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64
@@ -42090,7 +42090,7 @@ impl CodeAsmVfmsub213ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42099,7 +42099,7 @@ impl CodeAsmVfmsub213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub213ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42117,7 +42117,7 @@ impl CodeAsmVfmsub213ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmsub213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub213ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32
@@ -42131,7 +42131,7 @@ impl CodeAsmVfmsub213ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmsub213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub213ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32
@@ -42152,7 +42152,7 @@ impl CodeAsmVfmsub213ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub213sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub213sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -42161,7 +42161,7 @@ impl CodeAsmVfmsub213sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub213sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmsub213sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -42186,7 +42186,7 @@ impl CodeAsmVfmsub213sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub213ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub213ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -42195,7 +42195,7 @@ impl CodeAsmVfmsub213ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub213ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmsub213ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -42204,7 +42204,7 @@ impl CodeAsmVfmsub213ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42213,7 +42213,7 @@ impl CodeAsmVfmsub231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub231pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42231,7 +42231,7 @@ impl CodeAsmVfmsub231pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmsub231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub231pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64
@@ -42245,7 +42245,7 @@ impl CodeAsmVfmsub231pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmsub231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub231pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64
@@ -42314,7 +42314,7 @@ impl CodeAsmVfmsub231ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42323,7 +42323,7 @@ impl CodeAsmVfmsub231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub231ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42341,7 +42341,7 @@ impl CodeAsmVfmsub231ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vfmsub231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub231ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32
@@ -42355,7 +42355,7 @@ impl CodeAsmVfmsub231ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vfmsub231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsub231ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32
@@ -42376,7 +42376,7 @@ impl CodeAsmVfmsub231ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub231sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub231sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -42385,7 +42385,7 @@ impl CodeAsmVfmsub231sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub231sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmsub231sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -42410,7 +42410,7 @@ impl CodeAsmVfmsub231sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsub231ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsub231ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -42419,7 +42419,7 @@ impl CodeAsmVfmsub231ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVfmsub231ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfmsub231ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsub231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsub231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -42428,7 +42428,7 @@ impl CodeAsmVfmsub231ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 impl CodeAsmVfmsubadd132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42437,7 +42437,7 @@ impl CodeAsmVfmsubadd132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmsubadd132pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42455,7 +42455,7 @@ impl CodeAsmVfmsubadd132pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmsubadd132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd132pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64
@@ -42469,7 +42469,7 @@ impl CodeAsmVfmsubadd132pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmsubadd132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd132pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64
@@ -42538,7 +42538,7 @@ impl CodeAsmVfmsubadd132ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVfmsubadd132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42547,7 +42547,7 @@ impl CodeAsmVfmsubadd132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmsubadd132ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42565,7 +42565,7 @@ impl CodeAsmVfmsubadd132ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmsubadd132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd132ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32
@@ -42579,7 +42579,7 @@ impl CodeAsmVfmsubadd132ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmsubadd132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd132ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32
@@ -42600,7 +42600,7 @@ impl CodeAsmVfmsubadd132ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVfmsubadd213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42609,7 +42609,7 @@ impl CodeAsmVfmsubadd213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmsubadd213pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42627,7 +42627,7 @@ impl CodeAsmVfmsubadd213pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmsubadd213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd213pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64
@@ -42641,7 +42641,7 @@ impl CodeAsmVfmsubadd213pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmsubadd213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd213pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64
@@ -42710,7 +42710,7 @@ impl CodeAsmVfmsubadd213ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVfmsubadd213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42719,7 +42719,7 @@ impl CodeAsmVfmsubadd213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmsubadd213ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42737,7 +42737,7 @@ impl CodeAsmVfmsubadd213ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmsubadd213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd213ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32
@@ -42751,7 +42751,7 @@ impl CodeAsmVfmsubadd213ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmsubadd213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd213ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32
@@ -42772,7 +42772,7 @@ impl CodeAsmVfmsubadd213ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVfmsubadd231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42781,7 +42781,7 @@ impl CodeAsmVfmsubadd231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmsubadd231pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42799,7 +42799,7 @@ impl CodeAsmVfmsubadd231pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmsubadd231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd231pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64
@@ -42813,7 +42813,7 @@ impl CodeAsmVfmsubadd231pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmsubadd231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd231pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64
@@ -42882,7 +42882,7 @@ impl CodeAsmVfmsubadd231ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVfmsubadd231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42891,7 +42891,7 @@ impl CodeAsmVfmsubadd231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for C
 impl CodeAsmVfmsubadd231ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfmsubadd231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfmsubadd231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfmsubadd231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -42909,7 +42909,7 @@ impl CodeAsmVfmsubadd231ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for
 	fn vfmsubadd231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd231ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32
@@ -42923,7 +42923,7 @@ impl CodeAsmVfmsubadd231ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for
 	fn vfmsubadd231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfmsubadd231ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32
@@ -43248,7 +43248,7 @@ impl CodeAsmVfmulcsh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVfnmadd132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43257,7 +43257,7 @@ impl CodeAsmVfnmadd132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd132pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43275,7 +43275,7 @@ impl CodeAsmVfnmadd132pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmadd132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd132pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64
@@ -43289,7 +43289,7 @@ impl CodeAsmVfnmadd132pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmadd132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd132pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64
@@ -43358,7 +43358,7 @@ impl CodeAsmVfnmadd132ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43367,7 +43367,7 @@ impl CodeAsmVfnmadd132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd132ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43385,7 +43385,7 @@ impl CodeAsmVfnmadd132ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmadd132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd132ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32
@@ -43399,7 +43399,7 @@ impl CodeAsmVfnmadd132ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmadd132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd132ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32
@@ -43420,7 +43420,7 @@ impl CodeAsmVfnmadd132ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd132sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd132sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -43429,7 +43429,7 @@ impl CodeAsmVfnmadd132sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd132sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmadd132sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -43454,7 +43454,7 @@ impl CodeAsmVfnmadd132sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd132ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd132ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -43463,7 +43463,7 @@ impl CodeAsmVfnmadd132ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd132ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmadd132ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -43472,7 +43472,7 @@ impl CodeAsmVfnmadd132ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43481,7 +43481,7 @@ impl CodeAsmVfnmadd213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd213pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43499,7 +43499,7 @@ impl CodeAsmVfnmadd213pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmadd213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd213pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64
@@ -43513,7 +43513,7 @@ impl CodeAsmVfnmadd213pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmadd213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd213pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64
@@ -43582,7 +43582,7 @@ impl CodeAsmVfnmadd213ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43591,7 +43591,7 @@ impl CodeAsmVfnmadd213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd213ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43609,7 +43609,7 @@ impl CodeAsmVfnmadd213ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmadd213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd213ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32
@@ -43623,7 +43623,7 @@ impl CodeAsmVfnmadd213ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmadd213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd213ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32
@@ -43644,7 +43644,7 @@ impl CodeAsmVfnmadd213ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd213sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd213sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -43653,7 +43653,7 @@ impl CodeAsmVfnmadd213sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd213sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmadd213sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -43678,7 +43678,7 @@ impl CodeAsmVfnmadd213sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd213ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd213ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -43687,7 +43687,7 @@ impl CodeAsmVfnmadd213ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd213ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmadd213ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -43696,7 +43696,7 @@ impl CodeAsmVfnmadd213ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43705,7 +43705,7 @@ impl CodeAsmVfnmadd231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd231pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43723,7 +43723,7 @@ impl CodeAsmVfnmadd231pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmadd231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd231pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64
@@ -43737,7 +43737,7 @@ impl CodeAsmVfnmadd231pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmadd231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd231pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64
@@ -43806,7 +43806,7 @@ impl CodeAsmVfnmadd231ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43815,7 +43815,7 @@ impl CodeAsmVfnmadd231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd231ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -43833,7 +43833,7 @@ impl CodeAsmVfnmadd231ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmadd231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd231ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32
@@ -43847,7 +43847,7 @@ impl CodeAsmVfnmadd231ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmadd231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmadd231ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32
@@ -43868,7 +43868,7 @@ impl CodeAsmVfnmadd231ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd231sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd231sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -43877,7 +43877,7 @@ impl CodeAsmVfnmadd231sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd231sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmadd231sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -43902,7 +43902,7 @@ impl CodeAsmVfnmadd231sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmadd231ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmadd231ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -43911,7 +43911,7 @@ impl CodeAsmVfnmadd231ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmadd231ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmadd231ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmadd231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmadd231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -44064,7 +44064,7 @@ impl CodeAsmVfnmaddss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, AsmMemoryO
 impl CodeAsmVfnmsub132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub132pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44073,7 +44073,7 @@ impl CodeAsmVfnmsub132pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub132pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub132pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44091,7 +44091,7 @@ impl CodeAsmVfnmsub132pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmsub132pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub132pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64
@@ -44105,7 +44105,7 @@ impl CodeAsmVfnmsub132pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmsub132pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub132pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64
@@ -44174,7 +44174,7 @@ impl CodeAsmVfnmsub132ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub132ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44183,7 +44183,7 @@ impl CodeAsmVfnmsub132ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub132ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub132ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44201,7 +44201,7 @@ impl CodeAsmVfnmsub132ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmsub132ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub132ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32
@@ -44215,7 +44215,7 @@ impl CodeAsmVfnmsub132ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmsub132ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub132ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32
@@ -44236,7 +44236,7 @@ impl CodeAsmVfnmsub132ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub132sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub132sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -44245,7 +44245,7 @@ impl CodeAsmVfnmsub132sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub132sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmsub132sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub132sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -44270,7 +44270,7 @@ impl CodeAsmVfnmsub132sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub132ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub132ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -44279,7 +44279,7 @@ impl CodeAsmVfnmsub132ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub132ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmsub132ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub132ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -44288,7 +44288,7 @@ impl CodeAsmVfnmsub132ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub213pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44297,7 +44297,7 @@ impl CodeAsmVfnmsub213pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub213pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub213pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44315,7 +44315,7 @@ impl CodeAsmVfnmsub213pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmsub213pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub213pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64
@@ -44329,7 +44329,7 @@ impl CodeAsmVfnmsub213pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmsub213pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub213pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64
@@ -44398,7 +44398,7 @@ impl CodeAsmVfnmsub213ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub213ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44407,7 +44407,7 @@ impl CodeAsmVfnmsub213ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub213ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub213ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44425,7 +44425,7 @@ impl CodeAsmVfnmsub213ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmsub213ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub213ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32
@@ -44439,7 +44439,7 @@ impl CodeAsmVfnmsub213ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmsub213ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub213ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32
@@ -44460,7 +44460,7 @@ impl CodeAsmVfnmsub213ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub213sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub213sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -44469,7 +44469,7 @@ impl CodeAsmVfnmsub213sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub213sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmsub213sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub213sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -44494,7 +44494,7 @@ impl CodeAsmVfnmsub213sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub213ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub213ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -44503,7 +44503,7 @@ impl CodeAsmVfnmsub213ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub213ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmsub213ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub213ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -44512,7 +44512,7 @@ impl CodeAsmVfnmsub213ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub231pd_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44521,7 +44521,7 @@ impl CodeAsmVfnmsub231pd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub231pd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub231pd_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44539,7 +44539,7 @@ impl CodeAsmVfnmsub231pd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmsub231pd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub231pd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64
@@ -44553,7 +44553,7 @@ impl CodeAsmVfnmsub231pd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmsub231pd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub231pd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64
@@ -44622,7 +44622,7 @@ impl CodeAsmVfnmsub231ph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub231ps_xmm_xmm_xmmm128 } else { Code::EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44631,7 +44631,7 @@ impl CodeAsmVfnmsub231ps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub231ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub231ps_ymm_ymm_ymmm256 } else { Code::EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -44649,7 +44649,7 @@ impl CodeAsmVfnmsub231ps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 	fn vfnmsub231ps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub231ps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32
@@ -44663,7 +44663,7 @@ impl CodeAsmVfnmsub231ps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for C
 	fn vfnmsub231ps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vfnmsub231ps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32
@@ -44684,7 +44684,7 @@ impl CodeAsmVfnmsub231ps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub231sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub231sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -44693,7 +44693,7 @@ impl CodeAsmVfnmsub231sd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub231sd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmsub231sd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub231sd_xmm_xmm_xmmm64 } else { Code::EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -44718,7 +44718,7 @@ impl CodeAsmVfnmsub231sh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for C
 impl CodeAsmVfnmsub231ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vfnmsub231ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -44727,7 +44727,7 @@ impl CodeAsmVfnmsub231ss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Cod
 impl CodeAsmVfnmsub231ss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vfnmsub231ss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vfnmsub231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vfnmsub231ss_xmm_xmm_xmmm32 } else { Code::EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -46264,7 +46264,7 @@ impl CodeAsmVgetmantss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> fo
 impl CodeAsmVgf2p8affineinvqb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vgf2p8affineinvqb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -46273,7 +46273,7 @@ impl CodeAsmVgf2p8affineinvqb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i3
 impl CodeAsmVgf2p8affineinvqb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vgf2p8affineinvqb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -46291,7 +46291,7 @@ impl CodeAsmVgf2p8affineinvqb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, 
 	fn vgf2p8affineinvqb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8
@@ -46305,7 +46305,7 @@ impl CodeAsmVgf2p8affineinvqb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, 
 	fn vgf2p8affineinvqb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8
@@ -46326,7 +46326,7 @@ impl CodeAsmVgf2p8affineinvqb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, 
 impl CodeAsmVgf2p8affineinvqb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vgf2p8affineinvqb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -46335,7 +46335,7 @@ impl CodeAsmVgf2p8affineinvqb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u3
 impl CodeAsmVgf2p8affineinvqb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vgf2p8affineinvqb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -46353,7 +46353,7 @@ impl CodeAsmVgf2p8affineinvqb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, 
 	fn vgf2p8affineinvqb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8
@@ -46367,7 +46367,7 @@ impl CodeAsmVgf2p8affineinvqb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, 
 	fn vgf2p8affineinvqb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8
@@ -46388,7 +46388,7 @@ impl CodeAsmVgf2p8affineinvqb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, 
 impl CodeAsmVgf2p8affineqb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vgf2p8affineqb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -46397,7 +46397,7 @@ impl CodeAsmVgf2p8affineqb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> 
 impl CodeAsmVgf2p8affineqb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vgf2p8affineqb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -46415,7 +46415,7 @@ impl CodeAsmVgf2p8affineqb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32
 	fn vgf2p8affineqb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8
@@ -46429,7 +46429,7 @@ impl CodeAsmVgf2p8affineqb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, i32
 	fn vgf2p8affineqb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8
@@ -46450,7 +46450,7 @@ impl CodeAsmVgf2p8affineqb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, i32
 impl CodeAsmVgf2p8affineqb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vgf2p8affineqb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -46459,7 +46459,7 @@ impl CodeAsmVgf2p8affineqb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> 
 impl CodeAsmVgf2p8affineqb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vgf2p8affineqb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -46477,7 +46477,7 @@ impl CodeAsmVgf2p8affineqb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32
 	fn vgf2p8affineqb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8
@@ -46491,7 +46491,7 @@ impl CodeAsmVgf2p8affineqb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, u32
 	fn vgf2p8affineqb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8
@@ -46512,7 +46512,7 @@ impl CodeAsmVgf2p8affineqb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, u32
 impl CodeAsmVgf2p8mulb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vgf2p8mulb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8mulb_xmm_xmm_xmmm128 } else { Code::EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8mulb_xmm_xmm_xmmm128 } else { Code::EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -46521,7 +46521,7 @@ impl CodeAsmVgf2p8mulb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeA
 impl CodeAsmVgf2p8mulb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vgf2p8mulb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8mulb_ymm_ymm_ymmm256 } else { Code::EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8mulb_ymm_ymm_ymmm256 } else { Code::EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -46538,7 +46538,7 @@ impl CodeAsmVgf2p8mulb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeA
 impl CodeAsmVgf2p8mulb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vgf2p8mulb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8mulb_xmm_xmm_xmmm128 } else { Code::EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8mulb_xmm_xmm_xmmm128 } else { Code::EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -46547,7 +46547,7 @@ impl CodeAsmVgf2p8mulb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Cod
 impl CodeAsmVgf2p8mulb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vgf2p8mulb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vgf2p8mulb_ymm_ymm_ymmm256 } else { Code::EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vgf2p8mulb_ymm_ymm_ymmm256 } else { Code::EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -47140,7 +47140,7 @@ impl CodeAsmVinserti64x4<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, u32> 
 impl CodeAsmVinsertps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vinsertps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8 } else { Code::EVEX_Vinsertps_xmm_xmm_xmmm32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8 } else { Code::EVEX_Vinsertps_xmm_xmm_xmmm32_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -47149,7 +47149,7 @@ impl CodeAsmVinsertps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for C
 impl CodeAsmVinsertps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vinsertps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8 } else { Code::EVEX_Vinsertps_xmm_xmm_xmmm32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8 } else { Code::EVEX_Vinsertps_xmm_xmm_xmmm32_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -47158,7 +47158,7 @@ impl CodeAsmVinsertps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for
 impl CodeAsmVinsertps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vinsertps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8 } else { Code::EVEX_Vinsertps_xmm_xmm_xmmm32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8 } else { Code::EVEX_Vinsertps_xmm_xmm_xmmm32_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -47167,7 +47167,7 @@ impl CodeAsmVinsertps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for C
 impl CodeAsmVinsertps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vinsertps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8 } else { Code::EVEX_Vinsertps_xmm_xmm_xmmm32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8 } else { Code::EVEX_Vinsertps_xmm_xmm_xmmm32_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -47272,7 +47272,7 @@ impl CodeAsmVmaskmovps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Cod
 impl CodeAsmVmaxpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmaxpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmaxpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vmaxpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmaxpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vmaxpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -47281,7 +47281,7 @@ impl CodeAsmVmaxpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVmaxpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmaxpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmaxpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vmaxpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmaxpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vmaxpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -47299,7 +47299,7 @@ impl CodeAsmVmaxpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vmaxpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vmaxpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vmaxpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vmaxpd_xmm_k1z_xmm_xmmm128b64
@@ -47313,7 +47313,7 @@ impl CodeAsmVmaxpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vmaxpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vmaxpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vmaxpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vmaxpd_ymm_k1z_ymm_ymmm256b64
@@ -47382,7 +47382,7 @@ impl CodeAsmVmaxph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVmaxps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmaxps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmaxps_xmm_xmm_xmmm128 } else { Code::EVEX_Vmaxps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmaxps_xmm_xmm_xmmm128 } else { Code::EVEX_Vmaxps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -47391,7 +47391,7 @@ impl CodeAsmVmaxps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVmaxps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmaxps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmaxps_ymm_ymm_ymmm256 } else { Code::EVEX_Vmaxps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmaxps_ymm_ymm_ymmm256 } else { Code::EVEX_Vmaxps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -47409,7 +47409,7 @@ impl CodeAsmVmaxps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vmaxps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vmaxps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vmaxps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vmaxps_xmm_k1z_xmm_xmmm128b32
@@ -47423,7 +47423,7 @@ impl CodeAsmVmaxps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vmaxps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vmaxps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vmaxps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vmaxps_ymm_k1z_ymm_ymmm256b32
@@ -47444,7 +47444,7 @@ impl CodeAsmVmaxps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVmaxsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmaxsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmaxsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmaxsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -47453,7 +47453,7 @@ impl CodeAsmVmaxsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVmaxsd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmaxsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmaxsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmaxsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -47478,7 +47478,7 @@ impl CodeAsmVmaxsh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVmaxss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmaxss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmaxss_xmm_xmm_xmmm32 } else { Code::EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmaxss_xmm_xmm_xmmm32 } else { Code::EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -47487,7 +47487,7 @@ impl CodeAsmVmaxss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVmaxss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmaxss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmaxss_xmm_xmm_xmmm32 } else { Code::EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmaxss_xmm_xmm_xmmm32 } else { Code::EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -47528,7 +47528,7 @@ impl CodeAsmVmgexit for CodeAssembler {
 impl CodeAsmVminpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vminpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vminpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vminpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vminpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vminpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -47537,7 +47537,7 @@ impl CodeAsmVminpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVminpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vminpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vminpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vminpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vminpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vminpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -47555,7 +47555,7 @@ impl CodeAsmVminpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vminpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vminpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vminpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vminpd_xmm_k1z_xmm_xmmm128b64
@@ -47569,7 +47569,7 @@ impl CodeAsmVminpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vminpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vminpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vminpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vminpd_ymm_k1z_ymm_ymmm256b64
@@ -47638,7 +47638,7 @@ impl CodeAsmVminph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVminps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vminps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vminps_xmm_xmm_xmmm128 } else { Code::EVEX_Vminps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vminps_xmm_xmm_xmmm128 } else { Code::EVEX_Vminps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -47647,7 +47647,7 @@ impl CodeAsmVminps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVminps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vminps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vminps_ymm_ymm_ymmm256 } else { Code::EVEX_Vminps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vminps_ymm_ymm_ymmm256 } else { Code::EVEX_Vminps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -47665,7 +47665,7 @@ impl CodeAsmVminps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vminps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vminps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vminps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vminps_xmm_k1z_xmm_xmmm128b32
@@ -47679,7 +47679,7 @@ impl CodeAsmVminps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vminps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vminps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vminps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vminps_ymm_k1z_ymm_ymmm256b32
@@ -47700,7 +47700,7 @@ impl CodeAsmVminps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVminsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vminsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vminsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vminsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -47709,7 +47709,7 @@ impl CodeAsmVminsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVminsd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vminsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vminsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vminsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -47734,7 +47734,7 @@ impl CodeAsmVminsh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVminss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vminss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vminss_xmm_xmm_xmmm32 } else { Code::EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vminss_xmm_xmm_xmmm32 } else { Code::EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -47743,7 +47743,7 @@ impl CodeAsmVminss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVminss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vminss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vminss_xmm_xmm_xmmm32 } else { Code::EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vminss_xmm_xmm_xmmm32 } else { Code::EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -47782,7 +47782,7 @@ impl CodeAsmVmmcall for CodeAssembler {
 impl CodeAsmVmovapd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovapd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovapd_xmm_xmmm128 } else { Code::EVEX_Vmovapd_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovapd_xmm_xmmm128 } else { Code::EVEX_Vmovapd_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -47791,7 +47791,7 @@ impl CodeAsmVmovapd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovapd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovapd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovapd_xmmm128_xmm } else { Code::EVEX_Vmovapd_xmmm128_k1z_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovapd_xmmm128_xmm } else { Code::EVEX_Vmovapd_xmmm128_k1z_xmm };
 		self.add_instr_with_state(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?, op0.state())
 	}
 }
@@ -47800,7 +47800,7 @@ impl CodeAsmVmovapd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovapd<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovapd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovapd_ymm_ymmm256 } else { Code::EVEX_Vmovapd_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovapd_ymm_ymmm256 } else { Code::EVEX_Vmovapd_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -47809,7 +47809,7 @@ impl CodeAsmVmovapd<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVmovapd<AsmMemoryOperand, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovapd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovapd_ymmm256_ymm } else { Code::EVEX_Vmovapd_ymmm256_k1z_ymm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovapd_ymmm256_ymm } else { Code::EVEX_Vmovapd_ymmm256_k1z_ymm };
 		self.add_instr_with_state(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?, op0.state())
 	}
 }
@@ -47834,7 +47834,7 @@ impl CodeAsmVmovapd<AsmMemoryOperand, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVmovapd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovapd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovapd_xmm_xmmm128 } else { Code::EVEX_Vmovapd_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovapd_xmm_xmmm128 } else { Code::EVEX_Vmovapd_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -47843,7 +47843,7 @@ impl CodeAsmVmovapd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovapd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovapd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovapd_ymm_ymmm256 } else { Code::EVEX_Vmovapd_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovapd_ymm_ymmm256 } else { Code::EVEX_Vmovapd_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -47860,7 +47860,7 @@ impl CodeAsmVmovapd<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovaps<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovaps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovaps_xmm_xmmm128 } else { Code::EVEX_Vmovaps_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovaps_xmm_xmmm128 } else { Code::EVEX_Vmovaps_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -47869,7 +47869,7 @@ impl CodeAsmVmovaps<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovaps<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovaps(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovaps_xmmm128_xmm } else { Code::EVEX_Vmovaps_xmmm128_k1z_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovaps_xmmm128_xmm } else { Code::EVEX_Vmovaps_xmmm128_k1z_xmm };
 		self.add_instr_with_state(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?, op0.state())
 	}
 }
@@ -47878,7 +47878,7 @@ impl CodeAsmVmovaps<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovaps<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovaps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovaps_ymm_ymmm256 } else { Code::EVEX_Vmovaps_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovaps_ymm_ymmm256 } else { Code::EVEX_Vmovaps_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -47887,7 +47887,7 @@ impl CodeAsmVmovaps<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVmovaps<AsmMemoryOperand, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovaps(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovaps_ymmm256_ymm } else { Code::EVEX_Vmovaps_ymmm256_k1z_ymm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovaps_ymmm256_ymm } else { Code::EVEX_Vmovaps_ymmm256_k1z_ymm };
 		self.add_instr_with_state(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?, op0.state())
 	}
 }
@@ -47912,7 +47912,7 @@ impl CodeAsmVmovaps<AsmMemoryOperand, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVmovaps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovaps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovaps_xmm_xmmm128 } else { Code::EVEX_Vmovaps_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovaps_xmm_xmmm128 } else { Code::EVEX_Vmovaps_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -47921,7 +47921,7 @@ impl CodeAsmVmovaps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovaps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovaps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovaps_ymm_ymmm256 } else { Code::EVEX_Vmovaps_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovaps_ymm_ymmm256 } else { Code::EVEX_Vmovaps_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -47938,7 +47938,7 @@ impl CodeAsmVmovaps<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovd<AsmRegisterXmm, AsmRegister32> for CodeAssembler {
 	#[inline]
 	fn vmovd(&mut self, op0: AsmRegisterXmm, op1: AsmRegister32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovd_xmm_rm32 } else { Code::EVEX_Vmovd_xmm_rm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovd_xmm_rm32 } else { Code::EVEX_Vmovd_xmm_rm32 };
 		self.add_instr(Instruction::with2(code, op0.register(), op1.register())?)
 	}
 }
@@ -47947,7 +47947,7 @@ impl CodeAsmVmovd<AsmRegisterXmm, AsmRegister32> for CodeAssembler {
 impl CodeAsmVmovd<AsmRegister32, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovd(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovd_rm32_xmm } else { Code::EVEX_Vmovd_rm32_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovd_rm32_xmm } else { Code::EVEX_Vmovd_rm32_xmm };
 		self.add_instr(Instruction::with2(code, op0.register(), op1.register())?)
 	}
 }
@@ -47956,7 +47956,7 @@ impl CodeAsmVmovd<AsmRegister32, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovd_rm32_xmm } else { Code::EVEX_Vmovd_rm32_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovd_rm32_xmm } else { Code::EVEX_Vmovd_rm32_xmm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -47965,7 +47965,7 @@ impl CodeAsmVmovd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovd_xmm_rm32 } else { Code::EVEX_Vmovd_xmm_rm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovd_xmm_rm32 } else { Code::EVEX_Vmovd_xmm_rm32 };
 		self.add_instr(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -47974,7 +47974,7 @@ impl CodeAsmVmovd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovddup<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovddup(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovddup_xmm_xmmm64 } else { Code::EVEX_Vmovddup_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovddup_xmm_xmmm64 } else { Code::EVEX_Vmovddup_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -47983,7 +47983,7 @@ impl CodeAsmVmovddup<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovddup<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovddup(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovddup_ymm_ymmm256 } else { Code::EVEX_Vmovddup_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovddup_ymm_ymmm256 } else { Code::EVEX_Vmovddup_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -48000,7 +48000,7 @@ impl CodeAsmVmovddup<AsmRegisterZmm, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVmovddup<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovddup(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovddup_xmm_xmmm64 } else { Code::EVEX_Vmovddup_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovddup_xmm_xmmm64 } else { Code::EVEX_Vmovddup_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -48009,7 +48009,7 @@ impl CodeAsmVmovddup<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovddup<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovddup(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovddup_ymm_ymmm256 } else { Code::EVEX_Vmovddup_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovddup_ymm_ymmm256 } else { Code::EVEX_Vmovddup_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -48554,7 +48554,7 @@ impl CodeAsmVmovdqu8<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovhlps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovhlps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovhlps_xmm_xmm_xmm } else { Code::EVEX_Vmovhlps_xmm_xmm_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovhlps_xmm_xmm_xmm } else { Code::EVEX_Vmovhlps_xmm_xmm_xmm };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -48563,7 +48563,7 @@ impl CodeAsmVmovhlps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVmovhpd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovhpd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovhpd_m64_xmm } else { Code::EVEX_Vmovhpd_m64_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovhpd_m64_xmm } else { Code::EVEX_Vmovhpd_m64_xmm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48572,7 +48572,7 @@ impl CodeAsmVmovhpd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovhpd3<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovhpd_3(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovhpd_xmm_xmm_m64 } else { Code::EVEX_Vmovhpd_xmm_xmm_m64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovhpd_xmm_xmm_m64 } else { Code::EVEX_Vmovhpd_xmm_xmm_m64 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -48581,7 +48581,7 @@ impl CodeAsmVmovhpd3<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVmovhps<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovhps(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovhps_m64_xmm } else { Code::EVEX_Vmovhps_m64_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovhps_m64_xmm } else { Code::EVEX_Vmovhps_m64_xmm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48590,7 +48590,7 @@ impl CodeAsmVmovhps<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovhps3<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovhps_3(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovhps_xmm_xmm_m64 } else { Code::EVEX_Vmovhps_xmm_xmm_m64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovhps_xmm_xmm_m64 } else { Code::EVEX_Vmovhps_xmm_xmm_m64 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -48599,7 +48599,7 @@ impl CodeAsmVmovhps3<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVmovlhps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovlhps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovlhps_xmm_xmm_xmm } else { Code::EVEX_Vmovlhps_xmm_xmm_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovlhps_xmm_xmm_xmm } else { Code::EVEX_Vmovlhps_xmm_xmm_xmm };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -48608,7 +48608,7 @@ impl CodeAsmVmovlhps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVmovlpd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovlpd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovlpd_m64_xmm } else { Code::EVEX_Vmovlpd_m64_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovlpd_m64_xmm } else { Code::EVEX_Vmovlpd_m64_xmm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48617,7 +48617,7 @@ impl CodeAsmVmovlpd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovlpd3<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovlpd_3(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovlpd_xmm_xmm_m64 } else { Code::EVEX_Vmovlpd_xmm_xmm_m64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovlpd_xmm_xmm_m64 } else { Code::EVEX_Vmovlpd_xmm_xmm_m64 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -48626,7 +48626,7 @@ impl CodeAsmVmovlpd3<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVmovlps<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovlps(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovlps_m64_xmm } else { Code::EVEX_Vmovlps_m64_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovlps_m64_xmm } else { Code::EVEX_Vmovlps_m64_xmm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48635,7 +48635,7 @@ impl CodeAsmVmovlps<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovlps3<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovlps_3(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovlps_xmm_xmm_m64 } else { Code::EVEX_Vmovlps_xmm_xmm_m64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovlps_xmm_xmm_m64 } else { Code::EVEX_Vmovlps_xmm_xmm_m64 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -48708,7 +48708,7 @@ impl CodeAsmVmovmskps<AsmRegister64, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVmovntdq<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovntdq(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovntdq_m128_xmm } else { Code::EVEX_Vmovntdq_m128_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovntdq_m128_xmm } else { Code::EVEX_Vmovntdq_m128_xmm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48717,7 +48717,7 @@ impl CodeAsmVmovntdq<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovntdq<AsmMemoryOperand, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovntdq(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovntdq_m256_ymm } else { Code::EVEX_Vmovntdq_m256_ymm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovntdq_m256_ymm } else { Code::EVEX_Vmovntdq_m256_ymm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48734,7 +48734,7 @@ impl CodeAsmVmovntdq<AsmMemoryOperand, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVmovntdqa<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovntdqa(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovntdqa_xmm_m128 } else { Code::EVEX_Vmovntdqa_xmm_m128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovntdqa_xmm_m128 } else { Code::EVEX_Vmovntdqa_xmm_m128 };
 		self.add_instr(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -48743,7 +48743,7 @@ impl CodeAsmVmovntdqa<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovntdqa<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovntdqa(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovntdqa_ymm_m256 } else { Code::EVEX_Vmovntdqa_ymm_m256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovntdqa_ymm_m256 } else { Code::EVEX_Vmovntdqa_ymm_m256 };
 		self.add_instr(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -48760,7 +48760,7 @@ impl CodeAsmVmovntdqa<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovntpd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovntpd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovntpd_m128_xmm } else { Code::EVEX_Vmovntpd_m128_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovntpd_m128_xmm } else { Code::EVEX_Vmovntpd_m128_xmm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48769,7 +48769,7 @@ impl CodeAsmVmovntpd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovntpd<AsmMemoryOperand, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovntpd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovntpd_m256_ymm } else { Code::EVEX_Vmovntpd_m256_ymm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovntpd_m256_ymm } else { Code::EVEX_Vmovntpd_m256_ymm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48786,7 +48786,7 @@ impl CodeAsmVmovntpd<AsmMemoryOperand, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVmovntps<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovntps(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovntps_m128_xmm } else { Code::EVEX_Vmovntps_m128_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovntps_m128_xmm } else { Code::EVEX_Vmovntps_m128_xmm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48795,7 +48795,7 @@ impl CodeAsmVmovntps<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovntps<AsmMemoryOperand, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovntps(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovntps_m256_ymm } else { Code::EVEX_Vmovntps_m256_ymm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovntps_m256_ymm } else { Code::EVEX_Vmovntps_m256_ymm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48812,7 +48812,7 @@ impl CodeAsmVmovntps<AsmMemoryOperand, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVmovq<AsmRegisterXmm, AsmRegister64> for CodeAssembler {
 	#[inline]
 	fn vmovq(&mut self, op0: AsmRegisterXmm, op1: AsmRegister64) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovq_xmm_rm64 } else { Code::EVEX_Vmovq_xmm_rm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovq_xmm_rm64 } else { Code::EVEX_Vmovq_xmm_rm64 };
 		self.add_instr(Instruction::with2(code, op0.register(), op1.register())?)
 	}
 }
@@ -48821,7 +48821,7 @@ impl CodeAsmVmovq<AsmRegisterXmm, AsmRegister64> for CodeAssembler {
 impl CodeAsmVmovq<AsmRegister64, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovq(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovq_rm64_xmm } else { Code::EVEX_Vmovq_rm64_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovq_rm64_xmm } else { Code::EVEX_Vmovq_rm64_xmm };
 		self.add_instr(Instruction::with2(code, op0.register(), op1.register())?)
 	}
 }
@@ -48830,7 +48830,7 @@ impl CodeAsmVmovq<AsmRegister64, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovq_xmm_xmmm64 } else { Code::EVEX_Vmovq_xmm_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovq_xmm_xmmm64 } else { Code::EVEX_Vmovq_xmm_xmmm64 };
 		self.add_instr(Instruction::with2(code, op0.register(), op1.register())?)
 	}
 }
@@ -48839,7 +48839,7 @@ impl CodeAsmVmovq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovq<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovq(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovq_xmmm64_xmm } else { Code::EVEX_Vmovq_xmmm64_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovq_xmmm64_xmm } else { Code::EVEX_Vmovq_xmmm64_xmm };
 		self.add_instr(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
@@ -48848,7 +48848,7 @@ impl CodeAsmVmovq<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovq(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovq_xmm_xmmm64 } else { Code::EVEX_Vmovq_xmm_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovq_xmm_xmmm64 } else { Code::EVEX_Vmovq_xmm_xmmm64 };
 		self.add_instr(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -48857,7 +48857,7 @@ impl CodeAsmVmovq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovsd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovsd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovsd_m64_xmm } else { Code::EVEX_Vmovsd_m64_k1_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovsd_m64_xmm } else { Code::EVEX_Vmovsd_m64_k1_xmm };
 		self.add_instr_with_state(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?, op0.state())
 	}
 }
@@ -48866,7 +48866,7 @@ impl CodeAsmVmovsd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovsd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovsd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovsd_xmm_m64 } else { Code::EVEX_Vmovsd_xmm_k1z_m64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovsd_xmm_m64 } else { Code::EVEX_Vmovsd_xmm_k1z_m64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -48875,7 +48875,7 @@ impl CodeAsmVmovsd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovsd3<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovsd_3(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovsd_xmm_xmm_xmm } else { Code::EVEX_Vmovsd_xmm_k1z_xmm_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovsd_xmm_xmm_xmm } else { Code::EVEX_Vmovsd_xmm_k1z_xmm_xmm };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -48908,7 +48908,7 @@ impl CodeAsmVmovsh3<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVmovshdup<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovshdup(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovshdup_xmm_xmmm128 } else { Code::EVEX_Vmovshdup_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovshdup_xmm_xmmm128 } else { Code::EVEX_Vmovshdup_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -48917,7 +48917,7 @@ impl CodeAsmVmovshdup<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovshdup<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovshdup(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovshdup_ymm_ymmm256 } else { Code::EVEX_Vmovshdup_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovshdup_ymm_ymmm256 } else { Code::EVEX_Vmovshdup_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -48934,7 +48934,7 @@ impl CodeAsmVmovshdup<AsmRegisterZmm, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVmovshdup<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovshdup(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovshdup_xmm_xmmm128 } else { Code::EVEX_Vmovshdup_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovshdup_xmm_xmmm128 } else { Code::EVEX_Vmovshdup_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -48943,7 +48943,7 @@ impl CodeAsmVmovshdup<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovshdup<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovshdup(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovshdup_ymm_ymmm256 } else { Code::EVEX_Vmovshdup_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovshdup_ymm_ymmm256 } else { Code::EVEX_Vmovshdup_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -48960,7 +48960,7 @@ impl CodeAsmVmovshdup<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovsldup<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovsldup(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovsldup_xmm_xmmm128 } else { Code::EVEX_Vmovsldup_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovsldup_xmm_xmmm128 } else { Code::EVEX_Vmovsldup_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -48969,7 +48969,7 @@ impl CodeAsmVmovsldup<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovsldup<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovsldup(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovsldup_ymm_ymmm256 } else { Code::EVEX_Vmovsldup_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovsldup_ymm_ymmm256 } else { Code::EVEX_Vmovsldup_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -48986,7 +48986,7 @@ impl CodeAsmVmovsldup<AsmRegisterZmm, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVmovsldup<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovsldup(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovsldup_xmm_xmmm128 } else { Code::EVEX_Vmovsldup_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovsldup_xmm_xmmm128 } else { Code::EVEX_Vmovsldup_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -48995,7 +48995,7 @@ impl CodeAsmVmovsldup<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovsldup<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovsldup(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovsldup_ymm_ymmm256 } else { Code::EVEX_Vmovsldup_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovsldup_ymm_ymmm256 } else { Code::EVEX_Vmovsldup_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -49012,7 +49012,7 @@ impl CodeAsmVmovsldup<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovss<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovss(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovss_m32_xmm } else { Code::EVEX_Vmovss_m32_k1_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovss_m32_xmm } else { Code::EVEX_Vmovss_m32_k1_xmm };
 		self.add_instr_with_state(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?, op0.state())
 	}
 }
@@ -49021,7 +49021,7 @@ impl CodeAsmVmovss<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovss(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovss_xmm_m32 } else { Code::EVEX_Vmovss_xmm_k1z_m32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovss_xmm_m32 } else { Code::EVEX_Vmovss_xmm_k1z_m32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -49030,7 +49030,7 @@ impl CodeAsmVmovss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovss3<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovss_3(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovss_xmm_xmm_xmm } else { Code::EVEX_Vmovss_xmm_k1z_xmm_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovss_xmm_xmm_xmm } else { Code::EVEX_Vmovss_xmm_k1z_xmm_xmm };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -49039,7 +49039,7 @@ impl CodeAsmVmovss3<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVmovupd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovupd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovupd_xmm_xmmm128 } else { Code::EVEX_Vmovupd_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovupd_xmm_xmmm128 } else { Code::EVEX_Vmovupd_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -49048,7 +49048,7 @@ impl CodeAsmVmovupd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovupd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovupd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovupd_xmmm128_xmm } else { Code::EVEX_Vmovupd_xmmm128_k1z_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovupd_xmmm128_xmm } else { Code::EVEX_Vmovupd_xmmm128_k1z_xmm };
 		self.add_instr_with_state(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?, op0.state())
 	}
 }
@@ -49057,7 +49057,7 @@ impl CodeAsmVmovupd<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovupd<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovupd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovupd_ymm_ymmm256 } else { Code::EVEX_Vmovupd_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovupd_ymm_ymmm256 } else { Code::EVEX_Vmovupd_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -49066,7 +49066,7 @@ impl CodeAsmVmovupd<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVmovupd<AsmMemoryOperand, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovupd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovupd_ymmm256_ymm } else { Code::EVEX_Vmovupd_ymmm256_k1z_ymm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovupd_ymmm256_ymm } else { Code::EVEX_Vmovupd_ymmm256_k1z_ymm };
 		self.add_instr_with_state(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?, op0.state())
 	}
 }
@@ -49091,7 +49091,7 @@ impl CodeAsmVmovupd<AsmMemoryOperand, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVmovupd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovupd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovupd_xmm_xmmm128 } else { Code::EVEX_Vmovupd_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovupd_xmm_xmmm128 } else { Code::EVEX_Vmovupd_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -49100,7 +49100,7 @@ impl CodeAsmVmovupd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovupd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovupd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovupd_ymm_ymmm256 } else { Code::EVEX_Vmovupd_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovupd_ymm_ymmm256 } else { Code::EVEX_Vmovupd_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -49117,7 +49117,7 @@ impl CodeAsmVmovupd<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovups<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovups(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovups_xmm_xmmm128 } else { Code::EVEX_Vmovups_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovups_xmm_xmmm128 } else { Code::EVEX_Vmovups_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -49126,7 +49126,7 @@ impl CodeAsmVmovups<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovups<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmovups(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovups_xmmm128_xmm } else { Code::EVEX_Vmovups_xmmm128_k1z_xmm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovups_xmmm128_xmm } else { Code::EVEX_Vmovups_xmmm128_k1z_xmm };
 		self.add_instr_with_state(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?, op0.state())
 	}
 }
@@ -49135,7 +49135,7 @@ impl CodeAsmVmovups<AsmMemoryOperand, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVmovups<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovups(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovups_ymm_ymmm256 } else { Code::EVEX_Vmovups_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovups_ymm_ymmm256 } else { Code::EVEX_Vmovups_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -49144,7 +49144,7 @@ impl CodeAsmVmovups<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVmovups<AsmMemoryOperand, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmovups(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovups_ymmm256_ymm } else { Code::EVEX_Vmovups_ymmm256_k1z_ymm };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovups_ymmm256_ymm } else { Code::EVEX_Vmovups_ymmm256_k1z_ymm };
 		self.add_instr_with_state(Instruction::with2(code, op0.to_memory_operand(self.bitness()), op1.register())?, op0.state())
 	}
 }
@@ -49169,7 +49169,7 @@ impl CodeAsmVmovups<AsmMemoryOperand, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVmovups<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovups(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovups_xmm_xmmm128 } else { Code::EVEX_Vmovups_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovups_xmm_xmmm128 } else { Code::EVEX_Vmovups_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -49178,7 +49178,7 @@ impl CodeAsmVmovups<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVmovups<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmovups(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmovups_ymm_ymmm256 } else { Code::EVEX_Vmovups_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmovups_ymm_ymmm256 } else { Code::EVEX_Vmovups_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -49391,7 +49391,7 @@ impl CodeAsmVmsave for CodeAssembler {
 impl CodeAsmVmulpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmulpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmulpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vmulpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmulpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vmulpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -49400,7 +49400,7 @@ impl CodeAsmVmulpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVmulpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmulpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmulpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vmulpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmulpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vmulpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -49418,7 +49418,7 @@ impl CodeAsmVmulpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vmulpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vmulpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vmulpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vmulpd_xmm_k1z_xmm_xmmm128b64
@@ -49432,7 +49432,7 @@ impl CodeAsmVmulpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vmulpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vmulpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vmulpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vmulpd_ymm_k1z_ymm_ymmm256b64
@@ -49501,7 +49501,7 @@ impl CodeAsmVmulph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVmulps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmulps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmulps_xmm_xmm_xmmm128 } else { Code::EVEX_Vmulps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmulps_xmm_xmm_xmmm128 } else { Code::EVEX_Vmulps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -49510,7 +49510,7 @@ impl CodeAsmVmulps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVmulps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vmulps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmulps_ymm_ymm_ymmm256 } else { Code::EVEX_Vmulps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmulps_ymm_ymm_ymmm256 } else { Code::EVEX_Vmulps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -49528,7 +49528,7 @@ impl CodeAsmVmulps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vmulps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vmulps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vmulps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vmulps_xmm_k1z_xmm_xmmm128b32
@@ -49542,7 +49542,7 @@ impl CodeAsmVmulps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vmulps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vmulps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vmulps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vmulps_ymm_k1z_ymm_ymmm256b32
@@ -49563,7 +49563,7 @@ impl CodeAsmVmulps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVmulsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmulsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmulsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmulsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -49572,7 +49572,7 @@ impl CodeAsmVmulsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVmulsd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmulsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmulsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmulsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -49597,7 +49597,7 @@ impl CodeAsmVmulsh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVmulss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vmulss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmulss_xmm_xmm_xmmm32 } else { Code::EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmulss_xmm_xmm_xmmm32 } else { Code::EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -49606,7 +49606,7 @@ impl CodeAsmVmulss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVmulss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vmulss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vmulss_xmm_xmm_xmmm32 } else { Code::EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vmulss_xmm_xmm_xmmm32 } else { Code::EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -49663,7 +49663,7 @@ impl CodeAsmVmxon<AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVorpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vorpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vorpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vorpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vorpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vorpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -49672,7 +49672,7 @@ impl CodeAsmVorpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssemb
 impl CodeAsmVorpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vorpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vorpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vorpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vorpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vorpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -49690,7 +49690,7 @@ impl CodeAsmVorpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAsse
 	fn vorpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vorpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vorpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vorpd_xmm_k1z_xmm_xmmm128b64
@@ -49704,7 +49704,7 @@ impl CodeAsmVorpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAsse
 	fn vorpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vorpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vorpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vorpd_ymm_k1z_ymm_ymmm256b64
@@ -49725,7 +49725,7 @@ impl CodeAsmVorpd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAsse
 impl CodeAsmVorps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vorps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vorps_xmm_xmm_xmmm128 } else { Code::EVEX_Vorps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vorps_xmm_xmm_xmmm128 } else { Code::EVEX_Vorps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -49734,7 +49734,7 @@ impl CodeAsmVorps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssemb
 impl CodeAsmVorps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vorps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vorps_ymm_ymm_ymmm256 } else { Code::EVEX_Vorps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vorps_ymm_ymm_ymmm256 } else { Code::EVEX_Vorps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -49752,7 +49752,7 @@ impl CodeAsmVorps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAsse
 	fn vorps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vorps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vorps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vorps_xmm_k1z_xmm_xmmm128b32
@@ -49766,7 +49766,7 @@ impl CodeAsmVorps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAsse
 	fn vorps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vorps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vorps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vorps_ymm_k1z_ymm_ymmm256b32
@@ -49899,7 +49899,7 @@ impl CodeAsmVp4dpwssds<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpabsb<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpabsb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpabsb_xmm_xmmm128 } else { Code::EVEX_Vpabsb_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpabsb_xmm_xmmm128 } else { Code::EVEX_Vpabsb_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -49908,7 +49908,7 @@ impl CodeAsmVpabsb<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpabsb<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpabsb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpabsb_ymm_ymmm256 } else { Code::EVEX_Vpabsb_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpabsb_ymm_ymmm256 } else { Code::EVEX_Vpabsb_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -49925,7 +49925,7 @@ impl CodeAsmVpabsb<AsmRegisterZmm, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVpabsb<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpabsb(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpabsb_xmm_xmmm128 } else { Code::EVEX_Vpabsb_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpabsb_xmm_xmmm128 } else { Code::EVEX_Vpabsb_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -49934,7 +49934,7 @@ impl CodeAsmVpabsb<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpabsb<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpabsb(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpabsb_ymm_ymmm256 } else { Code::EVEX_Vpabsb_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpabsb_ymm_ymmm256 } else { Code::EVEX_Vpabsb_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -49951,7 +49951,7 @@ impl CodeAsmVpabsb<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpabsd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpabsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpabsd_xmm_xmmm128 } else { Code::EVEX_Vpabsd_xmm_k1z_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpabsd_xmm_xmmm128 } else { Code::EVEX_Vpabsd_xmm_k1z_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -49960,7 +49960,7 @@ impl CodeAsmVpabsd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpabsd<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpabsd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpabsd_ymm_ymmm256 } else { Code::EVEX_Vpabsd_ymm_k1z_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpabsd_ymm_ymmm256 } else { Code::EVEX_Vpabsd_ymm_k1z_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -49978,7 +49978,7 @@ impl CodeAsmVpabsd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	fn vpabsd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpabsd_xmm_k1z_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpabsd_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpabsd_xmm_k1z_xmmm128b32
@@ -49992,7 +49992,7 @@ impl CodeAsmVpabsd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	fn vpabsd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpabsd_ymm_k1z_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpabsd_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpabsd_ymm_k1z_ymmm256b32
@@ -50061,7 +50061,7 @@ impl CodeAsmVpabsq<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpabsw<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpabsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpabsw_xmm_xmmm128 } else { Code::EVEX_Vpabsw_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpabsw_xmm_xmmm128 } else { Code::EVEX_Vpabsw_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -50070,7 +50070,7 @@ impl CodeAsmVpabsw<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpabsw<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpabsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpabsw_ymm_ymmm256 } else { Code::EVEX_Vpabsw_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpabsw_ymm_ymmm256 } else { Code::EVEX_Vpabsw_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -50087,7 +50087,7 @@ impl CodeAsmVpabsw<AsmRegisterZmm, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVpabsw<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpabsw(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpabsw_xmm_xmmm128 } else { Code::EVEX_Vpabsw_xmm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpabsw_xmm_xmmm128 } else { Code::EVEX_Vpabsw_xmm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50096,7 +50096,7 @@ impl CodeAsmVpabsw<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpabsw<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpabsw(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpabsw_ymm_ymmm256 } else { Code::EVEX_Vpabsw_ymm_k1z_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpabsw_ymm_ymmm256 } else { Code::EVEX_Vpabsw_ymm_k1z_ymmm256 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50113,7 +50113,7 @@ impl CodeAsmVpabsw<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpackssdw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpackssdw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpackssdw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpackssdw_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpackssdw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpackssdw_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50122,7 +50122,7 @@ impl CodeAsmVpackssdw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVpackssdw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpackssdw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpackssdw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpackssdw_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpackssdw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpackssdw_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50140,7 +50140,7 @@ impl CodeAsmVpackssdw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 	fn vpackssdw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpackssdw_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpackssdw_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpackssdw_xmm_k1z_xmm_xmmm128b32
@@ -50154,7 +50154,7 @@ impl CodeAsmVpackssdw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 	fn vpackssdw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpackssdw_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpackssdw_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpackssdw_ymm_k1z_ymm_ymmm256b32
@@ -50175,7 +50175,7 @@ impl CodeAsmVpackssdw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVpacksswb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpacksswb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpacksswb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpacksswb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpacksswb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpacksswb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50184,7 +50184,7 @@ impl CodeAsmVpacksswb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVpacksswb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpacksswb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpacksswb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpacksswb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpacksswb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpacksswb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50201,7 +50201,7 @@ impl CodeAsmVpacksswb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAs
 impl CodeAsmVpacksswb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpacksswb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpacksswb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpacksswb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpacksswb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpacksswb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50210,7 +50210,7 @@ impl CodeAsmVpacksswb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 impl CodeAsmVpacksswb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpacksswb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpacksswb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpacksswb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpacksswb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpacksswb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50227,7 +50227,7 @@ impl CodeAsmVpacksswb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVpackusdw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpackusdw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpackusdw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpackusdw_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpackusdw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpackusdw_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50236,7 +50236,7 @@ impl CodeAsmVpackusdw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVpackusdw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpackusdw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpackusdw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpackusdw_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpackusdw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpackusdw_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50254,7 +50254,7 @@ impl CodeAsmVpackusdw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 	fn vpackusdw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpackusdw_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpackusdw_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpackusdw_xmm_k1z_xmm_xmmm128b32
@@ -50268,7 +50268,7 @@ impl CodeAsmVpackusdw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 	fn vpackusdw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpackusdw_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpackusdw_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpackusdw_ymm_k1z_ymm_ymmm256b32
@@ -50289,7 +50289,7 @@ impl CodeAsmVpackusdw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVpackuswb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpackuswb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpackuswb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpackuswb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpackuswb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpackuswb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50298,7 +50298,7 @@ impl CodeAsmVpackuswb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVpackuswb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpackuswb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpackuswb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpackuswb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpackuswb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpackuswb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50315,7 +50315,7 @@ impl CodeAsmVpackuswb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAs
 impl CodeAsmVpackuswb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpackuswb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpackuswb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpackuswb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpackuswb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpackuswb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50324,7 +50324,7 @@ impl CodeAsmVpackuswb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 impl CodeAsmVpackuswb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpackuswb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpackuswb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpackuswb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpackuswb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpackuswb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50341,7 +50341,7 @@ impl CodeAsmVpackuswb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVpaddb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpaddb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50350,7 +50350,7 @@ impl CodeAsmVpaddb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpaddb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpaddb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50367,7 +50367,7 @@ impl CodeAsmVpaddb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAssem
 impl CodeAsmVpaddb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50376,7 +50376,7 @@ impl CodeAsmVpaddb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpaddb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50393,7 +50393,7 @@ impl CodeAsmVpaddb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpaddd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpaddd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddd_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddd_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50402,7 +50402,7 @@ impl CodeAsmVpaddd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpaddd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpaddd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddd_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddd_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50420,7 +50420,7 @@ impl CodeAsmVpaddd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vpaddd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpaddd_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpaddd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpaddd_xmm_k1z_xmm_xmmm128b32
@@ -50434,7 +50434,7 @@ impl CodeAsmVpaddd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vpaddd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpaddd_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpaddd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpaddd_ymm_k1z_ymm_ymmm256b32
@@ -50455,7 +50455,7 @@ impl CodeAsmVpaddd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpaddq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpaddq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddq_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddq_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50464,7 +50464,7 @@ impl CodeAsmVpaddq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpaddq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpaddq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddq_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddq_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50482,7 +50482,7 @@ impl CodeAsmVpaddq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vpaddq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpaddq_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpaddq_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpaddq_xmm_k1z_xmm_xmmm128b64
@@ -50496,7 +50496,7 @@ impl CodeAsmVpaddq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vpaddq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpaddq_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpaddq_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpaddq_ymm_k1z_ymm_ymmm256b64
@@ -50517,7 +50517,7 @@ impl CodeAsmVpaddq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpaddsb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpaddsb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddsb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddsb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50526,7 +50526,7 @@ impl CodeAsmVpaddsb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpaddsb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpaddsb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddsb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddsb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50543,7 +50543,7 @@ impl CodeAsmVpaddsb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpaddsb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddsb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddsb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddsb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50552,7 +50552,7 @@ impl CodeAsmVpaddsb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpaddsb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddsb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddsb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddsb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50569,7 +50569,7 @@ impl CodeAsmVpaddsb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpaddsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpaddsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50578,7 +50578,7 @@ impl CodeAsmVpaddsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpaddsw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpaddsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50595,7 +50595,7 @@ impl CodeAsmVpaddsw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpaddsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50604,7 +50604,7 @@ impl CodeAsmVpaddsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpaddsw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50621,7 +50621,7 @@ impl CodeAsmVpaddsw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpaddusb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpaddusb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddusb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddusb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddusb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddusb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50630,7 +50630,7 @@ impl CodeAsmVpaddusb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVpaddusb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpaddusb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddusb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddusb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddusb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddusb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50647,7 +50647,7 @@ impl CodeAsmVpaddusb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAss
 impl CodeAsmVpaddusb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddusb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddusb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddusb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddusb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddusb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50656,7 +50656,7 @@ impl CodeAsmVpaddusb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpaddusb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddusb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddusb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddusb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddusb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddusb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50673,7 +50673,7 @@ impl CodeAsmVpaddusb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpaddusw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpaddusw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddusw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddusw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddusw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddusw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50682,7 +50682,7 @@ impl CodeAsmVpaddusw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVpaddusw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpaddusw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddusw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddusw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddusw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddusw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50699,7 +50699,7 @@ impl CodeAsmVpaddusw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAss
 impl CodeAsmVpaddusw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddusw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddusw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddusw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddusw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddusw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50708,7 +50708,7 @@ impl CodeAsmVpaddusw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpaddusw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddusw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddusw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddusw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddusw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddusw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50725,7 +50725,7 @@ impl CodeAsmVpaddusw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpaddw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpaddw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50734,7 +50734,7 @@ impl CodeAsmVpaddw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpaddw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpaddw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -50751,7 +50751,7 @@ impl CodeAsmVpaddw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAssem
 impl CodeAsmVpaddw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpaddw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50760,7 +50760,7 @@ impl CodeAsmVpaddw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpaddw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpaddw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpaddw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpaddw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpaddw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -50777,7 +50777,7 @@ impl CodeAsmVpaddw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpalignr<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpalignr(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -50786,7 +50786,7 @@ impl CodeAsmVpalignr<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for Co
 impl CodeAsmVpalignr<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpalignr(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -50803,7 +50803,7 @@ impl CodeAsmVpalignr<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm, i32> for Co
 impl CodeAsmVpalignr<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpalignr(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?, op0.state())
 	}
 }
@@ -50812,7 +50812,7 @@ impl CodeAsmVpalignr<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for 
 impl CodeAsmVpalignr<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpalignr(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?, op0.state())
 	}
 }
@@ -50829,7 +50829,7 @@ impl CodeAsmVpalignr<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, i32> for 
 impl CodeAsmVpalignr<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpalignr(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -50838,7 +50838,7 @@ impl CodeAsmVpalignr<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for Co
 impl CodeAsmVpalignr<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpalignr(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -50855,7 +50855,7 @@ impl CodeAsmVpalignr<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm, u32> for Co
 impl CodeAsmVpalignr<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpalignr(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?, op0.state())
 	}
 }
@@ -50864,7 +50864,7 @@ impl CodeAsmVpalignr<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for 
 impl CodeAsmVpalignr<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpalignr(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?, op0.state())
 	}
 }
@@ -51137,7 +51137,7 @@ impl CodeAsmVpandq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpavgb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpavgb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpavgb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpavgb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpavgb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpavgb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -51146,7 +51146,7 @@ impl CodeAsmVpavgb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpavgb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpavgb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpavgb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpavgb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpavgb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpavgb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -51163,7 +51163,7 @@ impl CodeAsmVpavgb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAssem
 impl CodeAsmVpavgb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpavgb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpavgb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpavgb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpavgb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpavgb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51172,7 +51172,7 @@ impl CodeAsmVpavgb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpavgb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpavgb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpavgb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpavgb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpavgb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpavgb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51189,7 +51189,7 @@ impl CodeAsmVpavgb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpavgw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpavgw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpavgw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpavgw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpavgw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpavgw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -51198,7 +51198,7 @@ impl CodeAsmVpavgw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpavgw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpavgw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpavgw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpavgw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpavgw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpavgw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -51215,7 +51215,7 @@ impl CodeAsmVpavgw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAssem
 impl CodeAsmVpavgw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpavgw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpavgw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpavgw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpavgw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpavgw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51224,7 +51224,7 @@ impl CodeAsmVpavgw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpavgw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpavgw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpavgw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpavgw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpavgw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpavgw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51617,7 +51617,7 @@ impl CodeAsmVpbroadcastb<AsmRegisterZmm, AsmRegister32> for CodeAssembler {
 impl CodeAsmVpbroadcastb<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastb_xmm_xmmm8 } else { Code::EVEX_Vpbroadcastb_xmm_k1z_xmmm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastb_xmm_xmmm8 } else { Code::EVEX_Vpbroadcastb_xmm_k1z_xmmm8 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -51626,7 +51626,7 @@ impl CodeAsmVpbroadcastb<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpbroadcastb<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastb_ymm_xmmm8 } else { Code::EVEX_Vpbroadcastb_ymm_k1z_xmmm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastb_ymm_xmmm8 } else { Code::EVEX_Vpbroadcastb_ymm_k1z_xmmm8 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -51643,7 +51643,7 @@ impl CodeAsmVpbroadcastb<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpbroadcastb<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastb(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastb_xmm_xmmm8 } else { Code::EVEX_Vpbroadcastb_xmm_k1z_xmmm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastb_xmm_xmmm8 } else { Code::EVEX_Vpbroadcastb_xmm_k1z_xmmm8 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51652,7 +51652,7 @@ impl CodeAsmVpbroadcastb<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpbroadcastb<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastb(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastb_ymm_xmmm8 } else { Code::EVEX_Vpbroadcastb_ymm_k1z_xmmm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastb_ymm_xmmm8 } else { Code::EVEX_Vpbroadcastb_ymm_k1z_xmmm8 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51693,7 +51693,7 @@ impl CodeAsmVpbroadcastd<AsmRegisterZmm, AsmRegister32> for CodeAssembler {
 impl CodeAsmVpbroadcastd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastd_xmm_xmmm32 } else { Code::EVEX_Vpbroadcastd_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastd_xmm_xmmm32 } else { Code::EVEX_Vpbroadcastd_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -51702,7 +51702,7 @@ impl CodeAsmVpbroadcastd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpbroadcastd<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastd_ymm_xmmm32 } else { Code::EVEX_Vpbroadcastd_ymm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastd_ymm_xmmm32 } else { Code::EVEX_Vpbroadcastd_ymm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -51719,7 +51719,7 @@ impl CodeAsmVpbroadcastd<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpbroadcastd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastd_xmm_xmmm32 } else { Code::EVEX_Vpbroadcastd_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastd_xmm_xmmm32 } else { Code::EVEX_Vpbroadcastd_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51728,7 +51728,7 @@ impl CodeAsmVpbroadcastd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpbroadcastd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastd_ymm_xmmm32 } else { Code::EVEX_Vpbroadcastd_ymm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastd_ymm_xmmm32 } else { Code::EVEX_Vpbroadcastd_ymm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51817,7 +51817,7 @@ impl CodeAsmVpbroadcastq<AsmRegisterZmm, AsmRegister64> for CodeAssembler {
 impl CodeAsmVpbroadcastq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastq_xmm_xmmm64 } else { Code::EVEX_Vpbroadcastq_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastq_xmm_xmmm64 } else { Code::EVEX_Vpbroadcastq_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -51826,7 +51826,7 @@ impl CodeAsmVpbroadcastq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpbroadcastq<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastq_ymm_xmmm64 } else { Code::EVEX_Vpbroadcastq_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastq_ymm_xmmm64 } else { Code::EVEX_Vpbroadcastq_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -51843,7 +51843,7 @@ impl CodeAsmVpbroadcastq<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpbroadcastq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastq(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastq_xmm_xmmm64 } else { Code::EVEX_Vpbroadcastq_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastq_xmm_xmmm64 } else { Code::EVEX_Vpbroadcastq_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51852,7 +51852,7 @@ impl CodeAsmVpbroadcastq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpbroadcastq<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastq_ymm_xmmm64 } else { Code::EVEX_Vpbroadcastq_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastq_ymm_xmmm64 } else { Code::EVEX_Vpbroadcastq_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51893,7 +51893,7 @@ impl CodeAsmVpbroadcastw<AsmRegisterZmm, AsmRegister32> for CodeAssembler {
 impl CodeAsmVpbroadcastw<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastw_xmm_xmmm16 } else { Code::EVEX_Vpbroadcastw_xmm_k1z_xmmm16 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastw_xmm_xmmm16 } else { Code::EVEX_Vpbroadcastw_xmm_k1z_xmmm16 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -51902,7 +51902,7 @@ impl CodeAsmVpbroadcastw<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpbroadcastw<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastw_ymm_xmmm16 } else { Code::EVEX_Vpbroadcastw_ymm_k1z_xmmm16 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastw_ymm_xmmm16 } else { Code::EVEX_Vpbroadcastw_ymm_k1z_xmmm16 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -51919,7 +51919,7 @@ impl CodeAsmVpbroadcastw<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpbroadcastw<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastw(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastw_xmm_xmmm16 } else { Code::EVEX_Vpbroadcastw_xmm_k1z_xmmm16 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastw_xmm_xmmm16 } else { Code::EVEX_Vpbroadcastw_xmm_k1z_xmmm16 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -51928,7 +51928,7 @@ impl CodeAsmVpbroadcastw<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpbroadcastw<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpbroadcastw(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpbroadcastw_ymm_xmmm16 } else { Code::EVEX_Vpbroadcastw_ymm_k1z_xmmm16 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpbroadcastw_ymm_xmmm16 } else { Code::EVEX_Vpbroadcastw_ymm_k1z_xmmm16 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -52137,7 +52137,7 @@ impl CodeAsmVpclmullqlqdq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for 
 impl CodeAsmVpclmulqdq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpclmulqdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -52146,7 +52146,7 @@ impl CodeAsmVpclmulqdq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for 
 impl CodeAsmVpclmulqdq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpclmulqdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -52163,7 +52163,7 @@ impl CodeAsmVpclmulqdq<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm, i32> for 
 impl CodeAsmVpclmulqdq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpclmulqdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -52172,7 +52172,7 @@ impl CodeAsmVpclmulqdq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> fo
 impl CodeAsmVpclmulqdq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpclmulqdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -52189,7 +52189,7 @@ impl CodeAsmVpclmulqdq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, i32> fo
 impl CodeAsmVpclmulqdq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpclmulqdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -52198,7 +52198,7 @@ impl CodeAsmVpclmulqdq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for 
 impl CodeAsmVpclmulqdq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpclmulqdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -52215,7 +52215,7 @@ impl CodeAsmVpclmulqdq<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm, u32> for 
 impl CodeAsmVpclmulqdq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpclmulqdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -52224,7 +52224,7 @@ impl CodeAsmVpclmulqdq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> fo
 impl CodeAsmVpclmulqdq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpclmulqdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -58337,7 +58337,7 @@ impl CodeAsmVpconflictq<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpdpbusd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpdpbusd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpdpbusd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpdpbusd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -58346,7 +58346,7 @@ impl CodeAsmVpdpbusd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVpdpbusd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpdpbusd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpdpbusd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpdpbusd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -58364,7 +58364,7 @@ impl CodeAsmVpdpbusd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 	fn vpdpbusd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpdpbusd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
@@ -58378,7 +58378,7 @@ impl CodeAsmVpdpbusd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeA
 	fn vpdpbusd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpdpbusd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32
@@ -58399,7 +58399,7 @@ impl CodeAsmVpdpbusd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpdpbusds<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpdpbusds(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpdpbusds_xmm_xmm_xmmm128 } else { Code::EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpdpbusds_xmm_xmm_xmmm128 } else { Code::EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -58408,7 +58408,7 @@ impl CodeAsmVpdpbusds<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVpdpbusds<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpdpbusds(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpdpbusds_ymm_ymm_ymmm256 } else { Code::EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpdpbusds_ymm_ymm_ymmm256 } else { Code::EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -58426,7 +58426,7 @@ impl CodeAsmVpdpbusds<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 	fn vpdpbusds(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpdpbusds_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32
@@ -58440,7 +58440,7 @@ impl CodeAsmVpdpbusds<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 	fn vpdpbusds(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpdpbusds_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32
@@ -58461,7 +58461,7 @@ impl CodeAsmVpdpbusds<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVpdpwssd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpdpwssd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpdpwssd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpdpwssd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -58470,7 +58470,7 @@ impl CodeAsmVpdpwssd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVpdpwssd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpdpwssd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpdpwssd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpdpwssd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -58488,7 +58488,7 @@ impl CodeAsmVpdpwssd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 	fn vpdpwssd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpdpwssd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32
@@ -58502,7 +58502,7 @@ impl CodeAsmVpdpwssd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeA
 	fn vpdpwssd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpdpwssd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32
@@ -58523,7 +58523,7 @@ impl CodeAsmVpdpwssd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpdpwssds<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpdpwssds(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpdpwssds_xmm_xmm_xmmm128 } else { Code::EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpdpwssds_xmm_xmm_xmmm128 } else { Code::EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -58532,7 +58532,7 @@ impl CodeAsmVpdpwssds<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVpdpwssds<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpdpwssds(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpdpwssds_ymm_ymm_ymmm256 } else { Code::EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpdpwssds_ymm_ymm_ymmm256 } else { Code::EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -58550,7 +58550,7 @@ impl CodeAsmVpdpwssds<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 	fn vpdpwssds(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpdpwssds_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
@@ -58564,7 +58564,7 @@ impl CodeAsmVpdpwssds<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 	fn vpdpwssds(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpdpwssds_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32
@@ -58697,7 +58697,7 @@ impl CodeAsmVpermb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpermd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpermd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -58715,7 +58715,7 @@ impl CodeAsmVpermd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vpermd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32
@@ -59216,7 +59216,7 @@ impl CodeAsmVpermil2ps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, AsmMemory
 impl CodeAsmVpermilpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpermilpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -59225,7 +59225,7 @@ impl CodeAsmVpermilpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVpermilpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpermilpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -59243,7 +59243,7 @@ impl CodeAsmVpermilpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 	fn vpermilpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64
@@ -59257,7 +59257,7 @@ impl CodeAsmVpermilpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 	fn vpermilpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64
@@ -59278,7 +59278,7 @@ impl CodeAsmVpermilpd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVpermilpd<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpermilpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilpd_xmm_xmmm128_imm8 } else { Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilpd_xmm_xmmm128_imm8 } else { Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59287,7 +59287,7 @@ impl CodeAsmVpermilpd<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpermilpd<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpermilpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilpd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilpd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59305,7 +59305,7 @@ impl CodeAsmVpermilpd<AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	fn vpermilpd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilpd_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8
@@ -59319,7 +59319,7 @@ impl CodeAsmVpermilpd<AsmRegisterYmm, AsmMemoryOperand, i32> for CodeAssembler {
 	fn vpermilpd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilpd_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8
@@ -59340,7 +59340,7 @@ impl CodeAsmVpermilpd<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpermilpd<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpermilpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilpd_xmm_xmmm128_imm8 } else { Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilpd_xmm_xmmm128_imm8 } else { Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59349,7 +59349,7 @@ impl CodeAsmVpermilpd<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpermilpd<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpermilpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilpd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilpd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59367,7 +59367,7 @@ impl CodeAsmVpermilpd<AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	fn vpermilpd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilpd_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8
@@ -59381,7 +59381,7 @@ impl CodeAsmVpermilpd<AsmRegisterYmm, AsmMemoryOperand, u32> for CodeAssembler {
 	fn vpermilpd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilpd_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8
@@ -59402,7 +59402,7 @@ impl CodeAsmVpermilpd<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpermilps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpermilps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilps_xmm_xmm_xmmm128 } else { Code::EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilps_xmm_xmm_xmmm128 } else { Code::EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -59411,7 +59411,7 @@ impl CodeAsmVpermilps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVpermilps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpermilps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilps_ymm_ymm_ymmm256 } else { Code::EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilps_ymm_ymm_ymmm256 } else { Code::EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -59429,7 +59429,7 @@ impl CodeAsmVpermilps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 	fn vpermilps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32
@@ -59443,7 +59443,7 @@ impl CodeAsmVpermilps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 	fn vpermilps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32
@@ -59464,7 +59464,7 @@ impl CodeAsmVpermilps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVpermilps<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpermilps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilps_xmm_xmmm128_imm8 } else { Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilps_xmm_xmmm128_imm8 } else { Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59473,7 +59473,7 @@ impl CodeAsmVpermilps<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpermilps<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpermilps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilps_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilps_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59491,7 +59491,7 @@ impl CodeAsmVpermilps<AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	fn vpermilps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilps_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8
@@ -59505,7 +59505,7 @@ impl CodeAsmVpermilps<AsmRegisterYmm, AsmMemoryOperand, i32> for CodeAssembler {
 	fn vpermilps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilps_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8
@@ -59526,7 +59526,7 @@ impl CodeAsmVpermilps<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpermilps<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpermilps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilps_xmm_xmmm128_imm8 } else { Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilps_xmm_xmmm128_imm8 } else { Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59535,7 +59535,7 @@ impl CodeAsmVpermilps<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpermilps<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpermilps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermilps_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermilps_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59553,7 +59553,7 @@ impl CodeAsmVpermilps<AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	fn vpermilps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilps_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8
@@ -59567,7 +59567,7 @@ impl CodeAsmVpermilps<AsmRegisterYmm, AsmMemoryOperand, u32> for CodeAssembler {
 	fn vpermilps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermilps_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8
@@ -59620,7 +59620,7 @@ impl CodeAsmVpermpd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpermpd<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpermpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermpd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermpd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59638,7 +59638,7 @@ impl CodeAsmVpermpd<AsmRegisterYmm, AsmMemoryOperand, i32> for CodeAssembler {
 	fn vpermpd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermpd_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8
@@ -59659,7 +59659,7 @@ impl CodeAsmVpermpd<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpermpd<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpermpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermpd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermpd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59677,7 +59677,7 @@ impl CodeAsmVpermpd<AsmRegisterYmm, AsmMemoryOperand, u32> for CodeAssembler {
 	fn vpermpd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermpd_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8
@@ -59698,7 +59698,7 @@ impl CodeAsmVpermpd<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpermps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpermps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermps_ymm_ymm_ymmm256 } else { Code::EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermps_ymm_ymm_ymmm256 } else { Code::EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -59716,7 +59716,7 @@ impl CodeAsmVpermps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpermps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32
@@ -59769,7 +59769,7 @@ impl CodeAsmVpermq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpermq<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpermq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermq_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermq_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59787,7 +59787,7 @@ impl CodeAsmVpermq<AsmRegisterYmm, AsmMemoryOperand, i32> for CodeAssembler {
 	fn vpermq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermq_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8
@@ -59808,7 +59808,7 @@ impl CodeAsmVpermq<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpermq<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpermq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpermq_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpermq_ymm_ymmm256_imm8 } else { Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -59826,7 +59826,7 @@ impl CodeAsmVpermq<AsmRegisterYmm, AsmMemoryOperand, u32> for CodeAssembler {
 	fn vpermq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpermq_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8
@@ -60375,7 +60375,7 @@ impl CodeAsmVpexpandw<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpextrb<AsmRegister32, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpextrb(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrb_r32m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r32m8_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrb_r32m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r32m8_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60384,7 +60384,7 @@ impl CodeAsmVpextrb<AsmRegister32, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpextrb<AsmRegister64, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpextrb(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrb_r64m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r64m8_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrb_r64m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r64m8_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60393,7 +60393,7 @@ impl CodeAsmVpextrb<AsmRegister64, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpextrb<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpextrb(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrb_r32m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r32m8_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrb_r32m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r32m8_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?)
 	}
 }
@@ -60402,7 +60402,7 @@ impl CodeAsmVpextrb<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpextrb<AsmRegister32, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpextrb(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrb_r32m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r32m8_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrb_r32m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r32m8_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60411,7 +60411,7 @@ impl CodeAsmVpextrb<AsmRegister32, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpextrb<AsmRegister64, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpextrb(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrb_r64m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r64m8_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrb_r64m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r64m8_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60420,7 +60420,7 @@ impl CodeAsmVpextrb<AsmRegister64, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpextrb<AsmMemoryOperand, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpextrb(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrb_r32m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r32m8_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrb_r32m8_xmm_imm8 } else { Code::EVEX_Vpextrb_r32m8_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?)
 	}
 }
@@ -60429,7 +60429,7 @@ impl CodeAsmVpextrb<AsmMemoryOperand, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpextrd<AsmRegister32, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpextrd(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrd_rm32_xmm_imm8 } else { Code::EVEX_Vpextrd_rm32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrd_rm32_xmm_imm8 } else { Code::EVEX_Vpextrd_rm32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60438,7 +60438,7 @@ impl CodeAsmVpextrd<AsmRegister32, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpextrd<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpextrd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrd_rm32_xmm_imm8 } else { Code::EVEX_Vpextrd_rm32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrd_rm32_xmm_imm8 } else { Code::EVEX_Vpextrd_rm32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?)
 	}
 }
@@ -60447,7 +60447,7 @@ impl CodeAsmVpextrd<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpextrd<AsmRegister32, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpextrd(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrd_rm32_xmm_imm8 } else { Code::EVEX_Vpextrd_rm32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrd_rm32_xmm_imm8 } else { Code::EVEX_Vpextrd_rm32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60456,7 +60456,7 @@ impl CodeAsmVpextrd<AsmRegister32, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpextrd<AsmMemoryOperand, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpextrd(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrd_rm32_xmm_imm8 } else { Code::EVEX_Vpextrd_rm32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrd_rm32_xmm_imm8 } else { Code::EVEX_Vpextrd_rm32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?)
 	}
 }
@@ -60465,7 +60465,7 @@ impl CodeAsmVpextrd<AsmMemoryOperand, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpextrq<AsmRegister64, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpextrq(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrq_rm64_xmm_imm8 } else { Code::EVEX_Vpextrq_rm64_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrq_rm64_xmm_imm8 } else { Code::EVEX_Vpextrq_rm64_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60474,7 +60474,7 @@ impl CodeAsmVpextrq<AsmRegister64, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpextrq<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpextrq(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrq_rm64_xmm_imm8 } else { Code::EVEX_Vpextrq_rm64_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrq_rm64_xmm_imm8 } else { Code::EVEX_Vpextrq_rm64_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?)
 	}
 }
@@ -60483,7 +60483,7 @@ impl CodeAsmVpextrq<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpextrq<AsmRegister64, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpextrq(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrq_rm64_xmm_imm8 } else { Code::EVEX_Vpextrq_rm64_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrq_rm64_xmm_imm8 } else { Code::EVEX_Vpextrq_rm64_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60492,7 +60492,7 @@ impl CodeAsmVpextrq<AsmRegister64, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpextrq<AsmMemoryOperand, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpextrq(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrq_rm64_xmm_imm8 } else { Code::EVEX_Vpextrq_rm64_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrq_rm64_xmm_imm8 } else { Code::EVEX_Vpextrq_rm64_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?)
 	}
 }
@@ -60501,7 +60501,7 @@ impl CodeAsmVpextrq<AsmMemoryOperand, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpextrw<AsmRegister32, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpextrw(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrw_r32_xmm_imm8 } else { Code::EVEX_Vpextrw_r32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrw_r32_xmm_imm8 } else { Code::EVEX_Vpextrw_r32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60510,7 +60510,7 @@ impl CodeAsmVpextrw<AsmRegister32, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpextrw<AsmRegister64, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpextrw(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrw_r64_xmm_imm8 } else { Code::EVEX_Vpextrw_r64_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrw_r64_xmm_imm8 } else { Code::EVEX_Vpextrw_r64_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60519,7 +60519,7 @@ impl CodeAsmVpextrw<AsmRegister64, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpextrw<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpextrw(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrw_r32m16_xmm_imm8 } else { Code::EVEX_Vpextrw_r32m16_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrw_r32m16_xmm_imm8 } else { Code::EVEX_Vpextrw_r32m16_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?)
 	}
 }
@@ -60528,7 +60528,7 @@ impl CodeAsmVpextrw<AsmMemoryOperand, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpextrw<AsmRegister32, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpextrw(&mut self, op0: AsmRegister32, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrw_r32_xmm_imm8 } else { Code::EVEX_Vpextrw_r32_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrw_r32_xmm_imm8 } else { Code::EVEX_Vpextrw_r32_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60537,7 +60537,7 @@ impl CodeAsmVpextrw<AsmRegister32, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpextrw<AsmRegister64, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpextrw(&mut self, op0: AsmRegister64, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrw_r64_xmm_imm8 } else { Code::EVEX_Vpextrw_r64_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrw_r64_xmm_imm8 } else { Code::EVEX_Vpextrw_r64_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -60546,7 +60546,7 @@ impl CodeAsmVpextrw<AsmRegister64, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpextrw<AsmMemoryOperand, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpextrw(&mut self, op0: AsmMemoryOperand, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpextrw_r32m16_xmm_imm8 } else { Code::EVEX_Vpextrw_r32m16_xmm_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpextrw_r32m16_xmm_imm8 } else { Code::EVEX_Vpextrw_r32m16_xmm_imm8 };
 		self.add_instr(Instruction::with3(code, op0.to_memory_operand(self.bitness()), op1.register(), op2)?)
 	}
 }
@@ -61159,7 +61159,7 @@ impl CodeAsmVphsubwd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, i32> for CodeAssembler {
 	#[inline]
 	fn vpinsrb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister32, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r32m8_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r32m8_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61168,7 +61168,7 @@ impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, i32> for Code
 impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, i32> for CodeAssembler {
 	#[inline]
 	fn vpinsrb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister64, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r64m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r64m8_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r64m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r64m8_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61177,7 +61177,7 @@ impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, i32> for Code
 impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpinsrb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r32m8_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r32m8_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -61186,7 +61186,7 @@ impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for C
 impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, u32> for CodeAssembler {
 	#[inline]
 	fn vpinsrb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister32, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r32m8_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r32m8_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61195,7 +61195,7 @@ impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, u32> for Code
 impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, u32> for CodeAssembler {
 	#[inline]
 	fn vpinsrb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister64, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r64m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r64m8_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r64m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r64m8_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61204,7 +61204,7 @@ impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, u32> for Code
 impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpinsrb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r32m8_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8 } else { Code::EVEX_Vpinsrb_xmm_xmm_r32m8_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -61213,7 +61213,7 @@ impl CodeAsmVpinsrb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for C
 impl CodeAsmVpinsrd<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, i32> for CodeAssembler {
 	#[inline]
 	fn vpinsrd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister32, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8 } else { Code::EVEX_Vpinsrd_xmm_xmm_rm32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8 } else { Code::EVEX_Vpinsrd_xmm_xmm_rm32_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61222,7 +61222,7 @@ impl CodeAsmVpinsrd<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, i32> for Code
 impl CodeAsmVpinsrd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpinsrd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8 } else { Code::EVEX_Vpinsrd_xmm_xmm_rm32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8 } else { Code::EVEX_Vpinsrd_xmm_xmm_rm32_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -61231,7 +61231,7 @@ impl CodeAsmVpinsrd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for C
 impl CodeAsmVpinsrd<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, u32> for CodeAssembler {
 	#[inline]
 	fn vpinsrd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister32, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8 } else { Code::EVEX_Vpinsrd_xmm_xmm_rm32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8 } else { Code::EVEX_Vpinsrd_xmm_xmm_rm32_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61240,7 +61240,7 @@ impl CodeAsmVpinsrd<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, u32> for Code
 impl CodeAsmVpinsrd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpinsrd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8 } else { Code::EVEX_Vpinsrd_xmm_xmm_rm32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8 } else { Code::EVEX_Vpinsrd_xmm_xmm_rm32_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -61249,7 +61249,7 @@ impl CodeAsmVpinsrd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for C
 impl CodeAsmVpinsrq<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, i32> for CodeAssembler {
 	#[inline]
 	fn vpinsrq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister64, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrq_xmm_xmm_rm64_imm8 } else { Code::EVEX_Vpinsrq_xmm_xmm_rm64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrq_xmm_xmm_rm64_imm8 } else { Code::EVEX_Vpinsrq_xmm_xmm_rm64_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61258,7 +61258,7 @@ impl CodeAsmVpinsrq<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, i32> for Code
 impl CodeAsmVpinsrq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpinsrq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrq_xmm_xmm_rm64_imm8 } else { Code::EVEX_Vpinsrq_xmm_xmm_rm64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrq_xmm_xmm_rm64_imm8 } else { Code::EVEX_Vpinsrq_xmm_xmm_rm64_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -61267,7 +61267,7 @@ impl CodeAsmVpinsrq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for C
 impl CodeAsmVpinsrq<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, u32> for CodeAssembler {
 	#[inline]
 	fn vpinsrq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister64, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrq_xmm_xmm_rm64_imm8 } else { Code::EVEX_Vpinsrq_xmm_xmm_rm64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrq_xmm_xmm_rm64_imm8 } else { Code::EVEX_Vpinsrq_xmm_xmm_rm64_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61276,7 +61276,7 @@ impl CodeAsmVpinsrq<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, u32> for Code
 impl CodeAsmVpinsrq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpinsrq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrq_xmm_xmm_rm64_imm8 } else { Code::EVEX_Vpinsrq_xmm_xmm_rm64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrq_xmm_xmm_rm64_imm8 } else { Code::EVEX_Vpinsrq_xmm_xmm_rm64_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -61285,7 +61285,7 @@ impl CodeAsmVpinsrq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for C
 impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, i32> for CodeAssembler {
 	#[inline]
 	fn vpinsrw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister32, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61294,7 +61294,7 @@ impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, i32> for Code
 impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, i32> for CodeAssembler {
 	#[inline]
 	fn vpinsrw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister64, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r64m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r64m16_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r64m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r64m16_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61303,7 +61303,7 @@ impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, i32> for Code
 impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpinsrw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -61312,7 +61312,7 @@ impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for C
 impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, u32> for CodeAssembler {
 	#[inline]
 	fn vpinsrw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister32, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61321,7 +61321,7 @@ impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmRegister32, u32> for Code
 impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, u32> for CodeAssembler {
 	#[inline]
 	fn vpinsrw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegister64, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r64m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r64m16_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r64m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r64m16_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?)
 	}
 }
@@ -61330,7 +61330,7 @@ impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmRegister64, u32> for Code
 impl CodeAsmVpinsrw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpinsrw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8 } else { Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8 };
 		self.add_instr(Instruction::with4(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()), op3)?)
 	}
 }
@@ -61723,7 +61723,7 @@ impl CodeAsmVpmadd52luq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVpmaddubsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmaddubsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaddubsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaddubsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaddubsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaddubsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -61732,7 +61732,7 @@ impl CodeAsmVpmaddubsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeA
 impl CodeAsmVpmaddubsw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmaddubsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaddubsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaddubsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaddubsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaddubsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -61749,7 +61749,7 @@ impl CodeAsmVpmaddubsw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeA
 impl CodeAsmVpmaddubsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaddubsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaddubsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaddubsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaddubsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaddubsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -61758,7 +61758,7 @@ impl CodeAsmVpmaddubsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpmaddubsw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaddubsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaddubsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaddubsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaddubsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaddubsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -61775,7 +61775,7 @@ impl CodeAsmVpmaddubsw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpmaddwd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmaddwd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaddwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaddwd_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaddwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaddwd_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -61784,7 +61784,7 @@ impl CodeAsmVpmaddwd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVpmaddwd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmaddwd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaddwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaddwd_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaddwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaddwd_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -61801,7 +61801,7 @@ impl CodeAsmVpmaddwd<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAss
 impl CodeAsmVpmaddwd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaddwd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaddwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaddwd_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaddwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaddwd_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -61810,7 +61810,7 @@ impl CodeAsmVpmaddwd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpmaddwd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaddwd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaddwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaddwd_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaddwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaddwd_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -61891,7 +61891,7 @@ impl CodeAsmVpmaskmovq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpmaxsb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxsb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxsb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxsb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -61900,7 +61900,7 @@ impl CodeAsmVpmaxsb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpmaxsb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxsb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxsb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxsb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -61917,7 +61917,7 @@ impl CodeAsmVpmaxsb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpmaxsb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaxsb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxsb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxsb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -61926,7 +61926,7 @@ impl CodeAsmVpmaxsb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmaxsb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaxsb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxsb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxsb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -61943,7 +61943,7 @@ impl CodeAsmVpmaxsb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmaxsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxsd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxsd_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxsd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxsd_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -61952,7 +61952,7 @@ impl CodeAsmVpmaxsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpmaxsd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxsd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxsd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxsd_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxsd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxsd_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -61970,7 +61970,7 @@ impl CodeAsmVpmaxsd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpmaxsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpmaxsd_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpmaxsd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpmaxsd_xmm_k1z_xmm_xmmm128b32
@@ -61984,7 +61984,7 @@ impl CodeAsmVpmaxsd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpmaxsd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpmaxsd_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpmaxsd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpmaxsd_ymm_k1z_ymm_ymmm256b32
@@ -62053,7 +62053,7 @@ impl CodeAsmVpmaxsq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmaxsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62062,7 +62062,7 @@ impl CodeAsmVpmaxsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpmaxsw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62079,7 +62079,7 @@ impl CodeAsmVpmaxsw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpmaxsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaxsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62088,7 +62088,7 @@ impl CodeAsmVpmaxsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmaxsw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaxsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62105,7 +62105,7 @@ impl CodeAsmVpmaxsw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmaxub<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxub(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxub_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxub_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxub_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxub_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62114,7 +62114,7 @@ impl CodeAsmVpmaxub<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpmaxub<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxub(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxub_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxub_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxub_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxub_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62131,7 +62131,7 @@ impl CodeAsmVpmaxub<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpmaxub<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaxub(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxub_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxub_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxub_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxub_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62140,7 +62140,7 @@ impl CodeAsmVpmaxub<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmaxub<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaxub(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxub_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxub_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxub_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxub_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62157,7 +62157,7 @@ impl CodeAsmVpmaxub<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmaxud<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxud(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxud_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxud_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxud_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxud_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62166,7 +62166,7 @@ impl CodeAsmVpmaxud<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpmaxud<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxud(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxud_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxud_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxud_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxud_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62184,7 +62184,7 @@ impl CodeAsmVpmaxud<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpmaxud(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpmaxud_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpmaxud_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpmaxud_xmm_k1z_xmm_xmmm128b32
@@ -62198,7 +62198,7 @@ impl CodeAsmVpmaxud<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpmaxud(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpmaxud_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpmaxud_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpmaxud_ymm_k1z_ymm_ymmm256b32
@@ -62267,7 +62267,7 @@ impl CodeAsmVpmaxuq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmaxuw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxuw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxuw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxuw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62276,7 +62276,7 @@ impl CodeAsmVpmaxuw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpmaxuw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmaxuw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxuw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxuw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62293,7 +62293,7 @@ impl CodeAsmVpmaxuw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpmaxuw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaxuw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxuw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmaxuw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62302,7 +62302,7 @@ impl CodeAsmVpmaxuw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmaxuw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmaxuw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmaxuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxuw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmaxuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmaxuw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62319,7 +62319,7 @@ impl CodeAsmVpmaxuw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpminsb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpminsb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminsb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminsb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62328,7 +62328,7 @@ impl CodeAsmVpminsb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpminsb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpminsb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminsb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminsb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62345,7 +62345,7 @@ impl CodeAsmVpminsb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpminsb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpminsb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminsb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminsb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62354,7 +62354,7 @@ impl CodeAsmVpminsb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpminsb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpminsb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminsb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminsb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62371,7 +62371,7 @@ impl CodeAsmVpminsb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpminsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpminsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminsd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminsd_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminsd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminsd_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62380,7 +62380,7 @@ impl CodeAsmVpminsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpminsd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpminsd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminsd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminsd_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminsd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminsd_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62398,7 +62398,7 @@ impl CodeAsmVpminsd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpminsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpminsd_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpminsd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpminsd_xmm_k1z_xmm_xmmm128b32
@@ -62412,7 +62412,7 @@ impl CodeAsmVpminsd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpminsd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpminsd_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpminsd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpminsd_ymm_k1z_ymm_ymmm256b32
@@ -62481,7 +62481,7 @@ impl CodeAsmVpminsq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpminsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpminsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62490,7 +62490,7 @@ impl CodeAsmVpminsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpminsw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpminsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62507,7 +62507,7 @@ impl CodeAsmVpminsw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpminsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpminsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62516,7 +62516,7 @@ impl CodeAsmVpminsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpminsw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpminsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62533,7 +62533,7 @@ impl CodeAsmVpminsw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpminub<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpminub(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminub_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminub_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminub_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminub_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62542,7 +62542,7 @@ impl CodeAsmVpminub<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpminub<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpminub(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminub_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminub_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminub_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminub_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62559,7 +62559,7 @@ impl CodeAsmVpminub<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpminub<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpminub(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminub_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminub_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminub_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminub_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62568,7 +62568,7 @@ impl CodeAsmVpminub<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpminub<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpminub(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminub_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminub_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminub_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminub_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62585,7 +62585,7 @@ impl CodeAsmVpminub<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpminud<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpminud(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminud_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminud_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminud_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminud_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62594,7 +62594,7 @@ impl CodeAsmVpminud<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpminud<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpminud(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminud_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminud_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminud_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminud_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62612,7 +62612,7 @@ impl CodeAsmVpminud<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpminud(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpminud_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpminud_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpminud_xmm_k1z_xmm_xmmm128b32
@@ -62626,7 +62626,7 @@ impl CodeAsmVpminud<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpminud(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpminud_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpminud_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpminud_ymm_k1z_ymm_ymmm256b32
@@ -62695,7 +62695,7 @@ impl CodeAsmVpminuq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpminuw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpminuw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminuw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminuw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62704,7 +62704,7 @@ impl CodeAsmVpminuw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpminuw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpminuw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminuw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminuw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -62721,7 +62721,7 @@ impl CodeAsmVpminuw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpminuw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpminuw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminuw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpminuw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -62730,7 +62730,7 @@ impl CodeAsmVpminuw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpminuw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpminuw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpminuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminuw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpminuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpminuw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63475,7 +63475,7 @@ impl CodeAsmVpmovswb<AsmMemoryOperand, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVpmovsxbd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbd_xmm_xmmm32 } else { Code::EVEX_Vpmovsxbd_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbd_xmm_xmmm32 } else { Code::EVEX_Vpmovsxbd_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63484,7 +63484,7 @@ impl CodeAsmVpmovsxbd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovsxbd<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbd_ymm_xmmm64 } else { Code::EVEX_Vpmovsxbd_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbd_ymm_xmmm64 } else { Code::EVEX_Vpmovsxbd_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63501,7 +63501,7 @@ impl CodeAsmVpmovsxbd<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovsxbd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbd_xmm_xmmm32 } else { Code::EVEX_Vpmovsxbd_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbd_xmm_xmmm32 } else { Code::EVEX_Vpmovsxbd_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63510,7 +63510,7 @@ impl CodeAsmVpmovsxbd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxbd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbd_ymm_xmmm64 } else { Code::EVEX_Vpmovsxbd_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbd_ymm_xmmm64 } else { Code::EVEX_Vpmovsxbd_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63527,7 +63527,7 @@ impl CodeAsmVpmovsxbd<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxbq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbq_xmm_xmmm16 } else { Code::EVEX_Vpmovsxbq_xmm_k1z_xmmm16 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbq_xmm_xmmm16 } else { Code::EVEX_Vpmovsxbq_xmm_k1z_xmmm16 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63536,7 +63536,7 @@ impl CodeAsmVpmovsxbq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovsxbq<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbq_ymm_xmmm32 } else { Code::EVEX_Vpmovsxbq_ymm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbq_ymm_xmmm32 } else { Code::EVEX_Vpmovsxbq_ymm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63553,7 +63553,7 @@ impl CodeAsmVpmovsxbq<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovsxbq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbq(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbq_xmm_xmmm16 } else { Code::EVEX_Vpmovsxbq_xmm_k1z_xmmm16 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbq_xmm_xmmm16 } else { Code::EVEX_Vpmovsxbq_xmm_k1z_xmmm16 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63562,7 +63562,7 @@ impl CodeAsmVpmovsxbq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxbq<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbq_ymm_xmmm32 } else { Code::EVEX_Vpmovsxbq_ymm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbq_ymm_xmmm32 } else { Code::EVEX_Vpmovsxbq_ymm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63579,7 +63579,7 @@ impl CodeAsmVpmovsxbq<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxbw<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbw_xmm_xmmm64 } else { Code::EVEX_Vpmovsxbw_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbw_xmm_xmmm64 } else { Code::EVEX_Vpmovsxbw_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63588,7 +63588,7 @@ impl CodeAsmVpmovsxbw<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovsxbw<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbw_ymm_xmmm128 } else { Code::EVEX_Vpmovsxbw_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbw_ymm_xmmm128 } else { Code::EVEX_Vpmovsxbw_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63605,7 +63605,7 @@ impl CodeAsmVpmovsxbw<AsmRegisterZmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVpmovsxbw<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbw(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbw_xmm_xmmm64 } else { Code::EVEX_Vpmovsxbw_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbw_xmm_xmmm64 } else { Code::EVEX_Vpmovsxbw_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63614,7 +63614,7 @@ impl CodeAsmVpmovsxbw<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxbw<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxbw(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxbw_ymm_xmmm128 } else { Code::EVEX_Vpmovsxbw_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxbw_ymm_xmmm128 } else { Code::EVEX_Vpmovsxbw_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63631,7 +63631,7 @@ impl CodeAsmVpmovsxbw<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxdq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxdq_xmm_xmmm64 } else { Code::EVEX_Vpmovsxdq_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxdq_xmm_xmmm64 } else { Code::EVEX_Vpmovsxdq_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63640,7 +63640,7 @@ impl CodeAsmVpmovsxdq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovsxdq<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxdq_ymm_xmmm128 } else { Code::EVEX_Vpmovsxdq_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxdq_ymm_xmmm128 } else { Code::EVEX_Vpmovsxdq_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63657,7 +63657,7 @@ impl CodeAsmVpmovsxdq<AsmRegisterZmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVpmovsxdq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxdq(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxdq_xmm_xmmm64 } else { Code::EVEX_Vpmovsxdq_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxdq_xmm_xmmm64 } else { Code::EVEX_Vpmovsxdq_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63666,7 +63666,7 @@ impl CodeAsmVpmovsxdq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxdq<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxdq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxdq_ymm_xmmm128 } else { Code::EVEX_Vpmovsxdq_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxdq_ymm_xmmm128 } else { Code::EVEX_Vpmovsxdq_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63683,7 +63683,7 @@ impl CodeAsmVpmovsxdq<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxwd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxwd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxwd_xmm_xmmm64 } else { Code::EVEX_Vpmovsxwd_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxwd_xmm_xmmm64 } else { Code::EVEX_Vpmovsxwd_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63692,7 +63692,7 @@ impl CodeAsmVpmovsxwd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovsxwd<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxwd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxwd_ymm_xmmm128 } else { Code::EVEX_Vpmovsxwd_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxwd_ymm_xmmm128 } else { Code::EVEX_Vpmovsxwd_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63709,7 +63709,7 @@ impl CodeAsmVpmovsxwd<AsmRegisterZmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVpmovsxwd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxwd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxwd_xmm_xmmm64 } else { Code::EVEX_Vpmovsxwd_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxwd_xmm_xmmm64 } else { Code::EVEX_Vpmovsxwd_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63718,7 +63718,7 @@ impl CodeAsmVpmovsxwd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxwd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxwd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxwd_ymm_xmmm128 } else { Code::EVEX_Vpmovsxwd_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxwd_ymm_xmmm128 } else { Code::EVEX_Vpmovsxwd_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63735,7 +63735,7 @@ impl CodeAsmVpmovsxwd<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxwq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxwq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxwq_xmm_xmmm32 } else { Code::EVEX_Vpmovsxwq_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxwq_xmm_xmmm32 } else { Code::EVEX_Vpmovsxwq_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63744,7 +63744,7 @@ impl CodeAsmVpmovsxwq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovsxwq<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovsxwq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxwq_ymm_xmmm64 } else { Code::EVEX_Vpmovsxwq_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxwq_ymm_xmmm64 } else { Code::EVEX_Vpmovsxwq_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -63761,7 +63761,7 @@ impl CodeAsmVpmovsxwq<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovsxwq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxwq(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxwq_xmm_xmmm32 } else { Code::EVEX_Vpmovsxwq_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxwq_xmm_xmmm32 } else { Code::EVEX_Vpmovsxwq_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -63770,7 +63770,7 @@ impl CodeAsmVpmovsxwq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovsxwq<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovsxwq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovsxwq_ymm_xmmm64 } else { Code::EVEX_Vpmovsxwq_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovsxwq_ymm_xmmm64 } else { Code::EVEX_Vpmovsxwq_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64147,7 +64147,7 @@ impl CodeAsmVpmovwb<AsmMemoryOperand, AsmRegisterZmm> for CodeAssembler {
 impl CodeAsmVpmovzxbd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbd_xmm_xmmm32 } else { Code::EVEX_Vpmovzxbd_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbd_xmm_xmmm32 } else { Code::EVEX_Vpmovzxbd_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64156,7 +64156,7 @@ impl CodeAsmVpmovzxbd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovzxbd<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbd_ymm_xmmm64 } else { Code::EVEX_Vpmovzxbd_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbd_ymm_xmmm64 } else { Code::EVEX_Vpmovzxbd_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64173,7 +64173,7 @@ impl CodeAsmVpmovzxbd<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovzxbd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbd_xmm_xmmm32 } else { Code::EVEX_Vpmovzxbd_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbd_xmm_xmmm32 } else { Code::EVEX_Vpmovzxbd_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64182,7 +64182,7 @@ impl CodeAsmVpmovzxbd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxbd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbd_ymm_xmmm64 } else { Code::EVEX_Vpmovzxbd_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbd_ymm_xmmm64 } else { Code::EVEX_Vpmovzxbd_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64199,7 +64199,7 @@ impl CodeAsmVpmovzxbd<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxbq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbq_xmm_xmmm16 } else { Code::EVEX_Vpmovzxbq_xmm_k1z_xmmm16 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbq_xmm_xmmm16 } else { Code::EVEX_Vpmovzxbq_xmm_k1z_xmmm16 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64208,7 +64208,7 @@ impl CodeAsmVpmovzxbq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovzxbq<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbq_ymm_xmmm32 } else { Code::EVEX_Vpmovzxbq_ymm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbq_ymm_xmmm32 } else { Code::EVEX_Vpmovzxbq_ymm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64225,7 +64225,7 @@ impl CodeAsmVpmovzxbq<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovzxbq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbq(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbq_xmm_xmmm16 } else { Code::EVEX_Vpmovzxbq_xmm_k1z_xmmm16 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbq_xmm_xmmm16 } else { Code::EVEX_Vpmovzxbq_xmm_k1z_xmmm16 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64234,7 +64234,7 @@ impl CodeAsmVpmovzxbq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxbq<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbq_ymm_xmmm32 } else { Code::EVEX_Vpmovzxbq_ymm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbq_ymm_xmmm32 } else { Code::EVEX_Vpmovzxbq_ymm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64251,7 +64251,7 @@ impl CodeAsmVpmovzxbq<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxbw<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbw_xmm_xmmm64 } else { Code::EVEX_Vpmovzxbw_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbw_xmm_xmmm64 } else { Code::EVEX_Vpmovzxbw_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64260,7 +64260,7 @@ impl CodeAsmVpmovzxbw<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovzxbw<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbw_ymm_xmmm128 } else { Code::EVEX_Vpmovzxbw_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbw_ymm_xmmm128 } else { Code::EVEX_Vpmovzxbw_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64277,7 +64277,7 @@ impl CodeAsmVpmovzxbw<AsmRegisterZmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVpmovzxbw<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbw(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbw_xmm_xmmm64 } else { Code::EVEX_Vpmovzxbw_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbw_xmm_xmmm64 } else { Code::EVEX_Vpmovzxbw_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64286,7 +64286,7 @@ impl CodeAsmVpmovzxbw<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxbw<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxbw(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxbw_ymm_xmmm128 } else { Code::EVEX_Vpmovzxbw_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxbw_ymm_xmmm128 } else { Code::EVEX_Vpmovzxbw_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64303,7 +64303,7 @@ impl CodeAsmVpmovzxbw<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxdq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxdq_xmm_xmmm64 } else { Code::EVEX_Vpmovzxdq_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxdq_xmm_xmmm64 } else { Code::EVEX_Vpmovzxdq_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64312,7 +64312,7 @@ impl CodeAsmVpmovzxdq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovzxdq<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxdq_ymm_xmmm128 } else { Code::EVEX_Vpmovzxdq_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxdq_ymm_xmmm128 } else { Code::EVEX_Vpmovzxdq_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64329,7 +64329,7 @@ impl CodeAsmVpmovzxdq<AsmRegisterZmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVpmovzxdq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxdq(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxdq_xmm_xmmm64 } else { Code::EVEX_Vpmovzxdq_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxdq_xmm_xmmm64 } else { Code::EVEX_Vpmovzxdq_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64338,7 +64338,7 @@ impl CodeAsmVpmovzxdq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxdq<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxdq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxdq_ymm_xmmm128 } else { Code::EVEX_Vpmovzxdq_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxdq_ymm_xmmm128 } else { Code::EVEX_Vpmovzxdq_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64355,7 +64355,7 @@ impl CodeAsmVpmovzxdq<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxwd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxwd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxwd_xmm_xmmm64 } else { Code::EVEX_Vpmovzxwd_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxwd_xmm_xmmm64 } else { Code::EVEX_Vpmovzxwd_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64364,7 +64364,7 @@ impl CodeAsmVpmovzxwd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovzxwd<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxwd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxwd_ymm_xmmm128 } else { Code::EVEX_Vpmovzxwd_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxwd_ymm_xmmm128 } else { Code::EVEX_Vpmovzxwd_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64381,7 +64381,7 @@ impl CodeAsmVpmovzxwd<AsmRegisterZmm, AsmRegisterYmm> for CodeAssembler {
 impl CodeAsmVpmovzxwd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxwd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxwd_xmm_xmmm64 } else { Code::EVEX_Vpmovzxwd_xmm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxwd_xmm_xmmm64 } else { Code::EVEX_Vpmovzxwd_xmm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64390,7 +64390,7 @@ impl CodeAsmVpmovzxwd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxwd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxwd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxwd_ymm_xmmm128 } else { Code::EVEX_Vpmovzxwd_ymm_k1z_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxwd_ymm_xmmm128 } else { Code::EVEX_Vpmovzxwd_ymm_k1z_xmmm128 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64407,7 +64407,7 @@ impl CodeAsmVpmovzxwd<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxwq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxwq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxwq_xmm_xmmm32 } else { Code::EVEX_Vpmovzxwq_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxwq_xmm_xmmm32 } else { Code::EVEX_Vpmovzxwq_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64416,7 +64416,7 @@ impl CodeAsmVpmovzxwq<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovzxwq<AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmovzxwq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxwq_ymm_xmmm64 } else { Code::EVEX_Vpmovzxwq_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxwq_ymm_xmmm64 } else { Code::EVEX_Vpmovzxwq_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -64433,7 +64433,7 @@ impl CodeAsmVpmovzxwq<AsmRegisterZmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVpmovzxwq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxwq(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxwq_xmm_xmmm32 } else { Code::EVEX_Vpmovzxwq_xmm_k1z_xmmm32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxwq_xmm_xmmm32 } else { Code::EVEX_Vpmovzxwq_xmm_k1z_xmmm32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64442,7 +64442,7 @@ impl CodeAsmVpmovzxwq<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmovzxwq<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmovzxwq(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmovzxwq_ymm_xmmm64 } else { Code::EVEX_Vpmovzxwq_ymm_k1z_xmmm64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmovzxwq_ymm_xmmm64 } else { Code::EVEX_Vpmovzxwq_ymm_k1z_xmmm64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64459,7 +64459,7 @@ impl CodeAsmVpmovzxwq<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVpmuldq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmuldq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmuldq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmuldq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64468,7 +64468,7 @@ impl CodeAsmVpmuldq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpmuldq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmuldq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmuldq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmuldq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64486,7 +64486,7 @@ impl CodeAsmVpmuldq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpmuldq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpmuldq_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64
@@ -64500,7 +64500,7 @@ impl CodeAsmVpmuldq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpmuldq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpmuldq_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64
@@ -64521,7 +64521,7 @@ impl CodeAsmVpmuldq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmulhrsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmulhrsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhrsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhrsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhrsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhrsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64530,7 +64530,7 @@ impl CodeAsmVpmulhrsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVpmulhrsw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmulhrsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhrsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhrsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhrsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhrsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64547,7 +64547,7 @@ impl CodeAsmVpmulhrsw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAs
 impl CodeAsmVpmulhrsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmulhrsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhrsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhrsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhrsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhrsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64556,7 +64556,7 @@ impl CodeAsmVpmulhrsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 impl CodeAsmVpmulhrsw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmulhrsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhrsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhrsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhrsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhrsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64573,7 +64573,7 @@ impl CodeAsmVpmulhrsw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVpmulhuw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmulhuw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhuw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhuw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64582,7 +64582,7 @@ impl CodeAsmVpmulhuw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVpmulhuw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmulhuw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhuw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhuw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64599,7 +64599,7 @@ impl CodeAsmVpmulhuw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAss
 impl CodeAsmVpmulhuw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmulhuw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhuw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhuw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhuw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64608,7 +64608,7 @@ impl CodeAsmVpmulhuw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpmulhuw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmulhuw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhuw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhuw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhuw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64625,7 +64625,7 @@ impl CodeAsmVpmulhuw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpmulhw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmulhw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64634,7 +64634,7 @@ impl CodeAsmVpmulhw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpmulhw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmulhw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64651,7 +64651,7 @@ impl CodeAsmVpmulhw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpmulhw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmulhw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulhw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64660,7 +64660,7 @@ impl CodeAsmVpmulhw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmulhw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmulhw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulhw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulhw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulhw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64677,7 +64677,7 @@ impl CodeAsmVpmulhw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmulld<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmulld(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulld_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulld_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulld_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmulld_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64686,7 +64686,7 @@ impl CodeAsmVpmulld<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpmulld<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmulld(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmulld_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulld_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmulld_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmulld_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64704,7 +64704,7 @@ impl CodeAsmVpmulld<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpmulld(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpmulld_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpmulld_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpmulld_xmm_k1z_xmm_xmmm128b32
@@ -64718,7 +64718,7 @@ impl CodeAsmVpmulld<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpmulld(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpmulld_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpmulld_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpmulld_ymm_k1z_ymm_ymmm256b32
@@ -64787,7 +64787,7 @@ impl CodeAsmVpmullq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmullw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmullw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmullw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmullw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmullw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmullw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64796,7 +64796,7 @@ impl CodeAsmVpmullw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpmullw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmullw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmullw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmullw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmullw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmullw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64813,7 +64813,7 @@ impl CodeAsmVpmullw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpmullw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmullw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmullw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmullw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmullw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmullw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64822,7 +64822,7 @@ impl CodeAsmVpmullw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpmullw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpmullw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmullw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmullw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmullw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmullw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -64887,7 +64887,7 @@ impl CodeAsmVpmultishiftqb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 impl CodeAsmVpmuludq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmuludq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmuludq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmuludq_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmuludq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmuludq_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64896,7 +64896,7 @@ impl CodeAsmVpmuludq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVpmuludq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmuludq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpmuludq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmuludq_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmuludq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmuludq_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -64914,7 +64914,7 @@ impl CodeAsmVpmuludq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 	fn vpmuludq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpmuludq_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpmuludq_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpmuludq_xmm_k1z_xmm_xmmm128b64
@@ -64928,7 +64928,7 @@ impl CodeAsmVpmuludq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeA
 	fn vpmuludq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpmuludq_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpmuludq_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpmuludq_ymm_k1z_ymm_ymmm256b64
@@ -66093,7 +66093,7 @@ impl CodeAsmVprotw<AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpsadbw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsadbw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsadbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsadbw_xmm_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsadbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsadbw_xmm_xmm_xmmm128 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -66102,7 +66102,7 @@ impl CodeAsmVpsadbw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpsadbw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsadbw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsadbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsadbw_ymm_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsadbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsadbw_ymm_ymm_ymmm256 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.register())?)
 	}
 }
@@ -66119,7 +66119,7 @@ impl CodeAsmVpsadbw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpsadbw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsadbw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsadbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsadbw_xmm_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsadbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsadbw_xmm_xmm_xmmm128 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -66128,7 +66128,7 @@ impl CodeAsmVpsadbw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpsadbw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsadbw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsadbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsadbw_ymm_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsadbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsadbw_ymm_ymm_ymmm256 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
@@ -67295,7 +67295,7 @@ impl CodeAsmVpshrdw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, u32> for C
 impl CodeAsmVpshufb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpshufb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpshufb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpshufb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -67304,7 +67304,7 @@ impl CodeAsmVpshufb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpshufb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpshufb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpshufb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpshufb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -67321,7 +67321,7 @@ impl CodeAsmVpshufb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpshufb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpshufb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpshufb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpshufb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -67330,7 +67330,7 @@ impl CodeAsmVpshufb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpshufb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpshufb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpshufb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpshufb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -67395,7 +67395,7 @@ impl CodeAsmVpshufbitqmb<AsmRegisterK, AsmRegisterZmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpshufd<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpshufd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufd_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufd_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67404,7 +67404,7 @@ impl CodeAsmVpshufd<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpshufd<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpshufd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67422,7 +67422,7 @@ impl CodeAsmVpshufd<AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	fn vpshufd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpshufd_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8
@@ -67436,7 +67436,7 @@ impl CodeAsmVpshufd<AsmRegisterYmm, AsmMemoryOperand, i32> for CodeAssembler {
 	fn vpshufd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpshufd_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8
@@ -67457,7 +67457,7 @@ impl CodeAsmVpshufd<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpshufd<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpshufd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufd_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufd_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67466,7 +67466,7 @@ impl CodeAsmVpshufd<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpshufd<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpshufd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufd_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67484,7 +67484,7 @@ impl CodeAsmVpshufd<AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	fn vpshufd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpshufd_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8
@@ -67498,7 +67498,7 @@ impl CodeAsmVpshufd<AsmRegisterYmm, AsmMemoryOperand, u32> for CodeAssembler {
 	fn vpshufd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpshufd_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8
@@ -67519,7 +67519,7 @@ impl CodeAsmVpshufd<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpshufhw<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpshufhw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufhw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufhw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67528,7 +67528,7 @@ impl CodeAsmVpshufhw<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpshufhw<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpshufhw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufhw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufhw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67545,7 +67545,7 @@ impl CodeAsmVpshufhw<AsmRegisterZmm, AsmRegisterZmm, i32> for CodeAssembler {
 impl CodeAsmVpshufhw<AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpshufhw(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufhw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufhw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.to_memory_operand(self.bitness()), op2)?, op0.state())
 	}
 }
@@ -67554,7 +67554,7 @@ impl CodeAsmVpshufhw<AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpshufhw<AsmRegisterYmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpshufhw(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufhw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufhw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.to_memory_operand(self.bitness()), op2)?, op0.state())
 	}
 }
@@ -67571,7 +67571,7 @@ impl CodeAsmVpshufhw<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpshufhw<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpshufhw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufhw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufhw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67580,7 +67580,7 @@ impl CodeAsmVpshufhw<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpshufhw<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpshufhw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufhw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufhw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67597,7 +67597,7 @@ impl CodeAsmVpshufhw<AsmRegisterZmm, AsmRegisterZmm, u32> for CodeAssembler {
 impl CodeAsmVpshufhw<AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpshufhw(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufhw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufhw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.to_memory_operand(self.bitness()), op2)?, op0.state())
 	}
 }
@@ -67606,7 +67606,7 @@ impl CodeAsmVpshufhw<AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpshufhw<AsmRegisterYmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpshufhw(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshufhw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshufhw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.to_memory_operand(self.bitness()), op2)?, op0.state())
 	}
 }
@@ -67623,7 +67623,7 @@ impl CodeAsmVpshufhw<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpshuflw<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpshuflw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshuflw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshuflw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67632,7 +67632,7 @@ impl CodeAsmVpshuflw<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpshuflw<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpshuflw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshuflw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshuflw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67649,7 +67649,7 @@ impl CodeAsmVpshuflw<AsmRegisterZmm, AsmRegisterZmm, i32> for CodeAssembler {
 impl CodeAsmVpshuflw<AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpshuflw(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshuflw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshuflw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.to_memory_operand(self.bitness()), op2)?, op0.state())
 	}
 }
@@ -67658,7 +67658,7 @@ impl CodeAsmVpshuflw<AsmRegisterXmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpshuflw<AsmRegisterYmm, AsmMemoryOperand, i32> for CodeAssembler {
 	#[inline]
 	fn vpshuflw(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshuflw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshuflw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.to_memory_operand(self.bitness()), op2)?, op0.state())
 	}
 }
@@ -67675,7 +67675,7 @@ impl CodeAsmVpshuflw<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpshuflw<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpshuflw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshuflw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshuflw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67684,7 +67684,7 @@ impl CodeAsmVpshuflw<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpshuflw<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpshuflw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshuflw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshuflw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67701,7 +67701,7 @@ impl CodeAsmVpshuflw<AsmRegisterZmm, AsmRegisterZmm, u32> for CodeAssembler {
 impl CodeAsmVpshuflw<AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpshuflw(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshuflw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshuflw_xmm_xmmm128_imm8 } else { Code::EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.to_memory_operand(self.bitness()), op2)?, op0.state())
 	}
 }
@@ -67710,7 +67710,7 @@ impl CodeAsmVpshuflw<AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpshuflw<AsmRegisterYmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn vpshuflw(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpshuflw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpshuflw_ymm_ymmm256_imm8 } else { Code::EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.to_memory_operand(self.bitness()), op2)?, op0.state())
 	}
 }
@@ -67823,7 +67823,7 @@ impl CodeAsmVpsignw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpslld<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpslld(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslld_xmm_xmm_xmmm128 } else { Code::EVEX_Vpslld_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslld_xmm_xmm_xmmm128 } else { Code::EVEX_Vpslld_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -67832,7 +67832,7 @@ impl CodeAsmVpslld<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpslld<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpslld(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslld_ymm_ymm_xmmm128 } else { Code::EVEX_Vpslld_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslld_ymm_ymm_xmmm128 } else { Code::EVEX_Vpslld_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -67849,7 +67849,7 @@ impl CodeAsmVpslld<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpslld<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpslld(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslld_xmm_xmm_xmmm128 } else { Code::EVEX_Vpslld_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslld_xmm_xmm_xmmm128 } else { Code::EVEX_Vpslld_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -67858,7 +67858,7 @@ impl CodeAsmVpslld<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpslld<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpslld(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslld_ymm_ymm_xmmm128 } else { Code::EVEX_Vpslld_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslld_ymm_ymm_xmmm128 } else { Code::EVEX_Vpslld_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -67875,7 +67875,7 @@ impl CodeAsmVpslld<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpslld<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpslld(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslld_xmm_xmm_imm8 } else { Code::EVEX_Vpslld_xmm_k1z_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslld_xmm_xmm_imm8 } else { Code::EVEX_Vpslld_xmm_k1z_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67884,7 +67884,7 @@ impl CodeAsmVpslld<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpslld<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpslld(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslld_ymm_ymm_imm8 } else { Code::EVEX_Vpslld_ymm_k1z_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslld_ymm_ymm_imm8 } else { Code::EVEX_Vpslld_ymm_k1z_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67925,7 +67925,7 @@ impl CodeAsmVpslld<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpslld<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpslld(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslld_xmm_xmm_imm8 } else { Code::EVEX_Vpslld_xmm_k1z_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslld_xmm_xmm_imm8 } else { Code::EVEX_Vpslld_xmm_k1z_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67934,7 +67934,7 @@ impl CodeAsmVpslld<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpslld<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpslld(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslld_ymm_ymm_imm8 } else { Code::EVEX_Vpslld_ymm_k1z_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslld_ymm_ymm_imm8 } else { Code::EVEX_Vpslld_ymm_k1z_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -67975,7 +67975,7 @@ impl CodeAsmVpslld<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpslldq<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpslldq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslldq_xmm_xmm_imm8 } else { Code::EVEX_Vpslldq_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslldq_xmm_xmm_imm8 } else { Code::EVEX_Vpslldq_xmm_xmmm128_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -67984,7 +67984,7 @@ impl CodeAsmVpslldq<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpslldq<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpslldq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslldq_ymm_ymm_imm8 } else { Code::EVEX_Vpslldq_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslldq_ymm_ymm_imm8 } else { Code::EVEX_Vpslldq_ymm_ymmm256_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -68025,7 +68025,7 @@ impl CodeAsmVpslldq<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpslldq<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpslldq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslldq_xmm_xmm_imm8 } else { Code::EVEX_Vpslldq_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslldq_xmm_xmm_imm8 } else { Code::EVEX_Vpslldq_xmm_xmmm128_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -68034,7 +68034,7 @@ impl CodeAsmVpslldq<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpslldq<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpslldq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpslldq_ymm_ymm_imm8 } else { Code::EVEX_Vpslldq_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpslldq_ymm_ymm_imm8 } else { Code::EVEX_Vpslldq_ymm_ymmm256_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -68075,7 +68075,7 @@ impl CodeAsmVpslldq<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpsllq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsllq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllq_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllq_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68084,7 +68084,7 @@ impl CodeAsmVpsllq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsllq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsllq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllq_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsllq_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllq_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsllq_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68101,7 +68101,7 @@ impl CodeAsmVpsllq<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsllq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsllq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllq_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllq_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -68110,7 +68110,7 @@ impl CodeAsmVpsllq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsllq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsllq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllq_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsllq_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllq_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsllq_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -68127,7 +68127,7 @@ impl CodeAsmVpsllq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsllq<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsllq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllq_xmm_xmm_imm8 } else { Code::EVEX_Vpsllq_xmm_k1z_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllq_xmm_xmm_imm8 } else { Code::EVEX_Vpsllq_xmm_k1z_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68136,7 +68136,7 @@ impl CodeAsmVpsllq<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpsllq<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsllq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllq_ymm_ymm_imm8 } else { Code::EVEX_Vpsllq_ymm_k1z_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllq_ymm_ymm_imm8 } else { Code::EVEX_Vpsllq_ymm_k1z_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68177,7 +68177,7 @@ impl CodeAsmVpsllq<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpsllq<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsllq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllq_xmm_xmm_imm8 } else { Code::EVEX_Vpsllq_xmm_k1z_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllq_xmm_xmm_imm8 } else { Code::EVEX_Vpsllq_xmm_k1z_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68186,7 +68186,7 @@ impl CodeAsmVpsllq<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpsllq<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsllq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllq_ymm_ymm_imm8 } else { Code::EVEX_Vpsllq_ymm_k1z_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllq_ymm_ymm_imm8 } else { Code::EVEX_Vpsllq_ymm_k1z_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68227,7 +68227,7 @@ impl CodeAsmVpsllq<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpsllvd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsllvd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllvd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllvd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68236,7 +68236,7 @@ impl CodeAsmVpsllvd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpsllvd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsllvd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllvd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllvd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68254,7 +68254,7 @@ impl CodeAsmVpsllvd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpsllvd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsllvd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32
@@ -68268,7 +68268,7 @@ impl CodeAsmVpsllvd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpsllvd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsllvd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32
@@ -68289,7 +68289,7 @@ impl CodeAsmVpsllvd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpsllvq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsllvq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllvq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllvq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68298,7 +68298,7 @@ impl CodeAsmVpsllvq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpsllvq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsllvq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllvq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllvq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68316,7 +68316,7 @@ impl CodeAsmVpsllvq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpsllvq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsllvq_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64
@@ -68330,7 +68330,7 @@ impl CodeAsmVpsllvq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpsllvq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsllvq_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64
@@ -68399,7 +68399,7 @@ impl CodeAsmVpsllvw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpsllw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsllw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68408,7 +68408,7 @@ impl CodeAsmVpsllw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsllw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsllw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsllw_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsllw_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68425,7 +68425,7 @@ impl CodeAsmVpsllw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsllw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsllw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsllw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -68434,7 +68434,7 @@ impl CodeAsmVpsllw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsllw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsllw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsllw_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsllw_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -68451,7 +68451,7 @@ impl CodeAsmVpsllw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsllw<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsllw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllw_xmm_xmm_imm8 } else { Code::EVEX_Vpsllw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllw_xmm_xmm_imm8 } else { Code::EVEX_Vpsllw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68460,7 +68460,7 @@ impl CodeAsmVpsllw<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpsllw<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsllw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllw_ymm_ymm_imm8 } else { Code::EVEX_Vpsllw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllw_ymm_ymm_imm8 } else { Code::EVEX_Vpsllw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68501,7 +68501,7 @@ impl CodeAsmVpsllw<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpsllw<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsllw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllw_xmm_xmm_imm8 } else { Code::EVEX_Vpsllw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllw_xmm_xmm_imm8 } else { Code::EVEX_Vpsllw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68510,7 +68510,7 @@ impl CodeAsmVpsllw<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpsllw<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsllw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsllw_ymm_ymm_imm8 } else { Code::EVEX_Vpsllw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsllw_ymm_ymm_imm8 } else { Code::EVEX_Vpsllw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68551,7 +68551,7 @@ impl CodeAsmVpsllw<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpsrad<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsrad(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrad_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrad_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrad_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrad_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68560,7 +68560,7 @@ impl CodeAsmVpsrad<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsrad<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsrad(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrad_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrad_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrad_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrad_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68577,7 +68577,7 @@ impl CodeAsmVpsrad<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsrad<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsrad(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrad_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrad_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrad_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrad_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -68586,7 +68586,7 @@ impl CodeAsmVpsrad<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsrad<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsrad(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrad_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrad_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrad_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrad_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -68603,7 +68603,7 @@ impl CodeAsmVpsrad<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsrad<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsrad(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrad_xmm_xmm_imm8 } else { Code::EVEX_Vpsrad_xmm_k1z_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrad_xmm_xmm_imm8 } else { Code::EVEX_Vpsrad_xmm_k1z_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68612,7 +68612,7 @@ impl CodeAsmVpsrad<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpsrad<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsrad(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrad_ymm_ymm_imm8 } else { Code::EVEX_Vpsrad_ymm_k1z_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrad_ymm_ymm_imm8 } else { Code::EVEX_Vpsrad_ymm_k1z_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68653,7 +68653,7 @@ impl CodeAsmVpsrad<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpsrad<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsrad(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrad_xmm_xmm_imm8 } else { Code::EVEX_Vpsrad_xmm_k1z_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrad_xmm_xmm_imm8 } else { Code::EVEX_Vpsrad_xmm_k1z_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68662,7 +68662,7 @@ impl CodeAsmVpsrad<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpsrad<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsrad(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrad_ymm_ymm_imm8 } else { Code::EVEX_Vpsrad_ymm_k1z_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrad_ymm_ymm_imm8 } else { Code::EVEX_Vpsrad_ymm_k1z_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -68847,7 +68847,7 @@ impl CodeAsmVpsraq<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpsravd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsravd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsravd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsravd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68856,7 +68856,7 @@ impl CodeAsmVpsravd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpsravd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsravd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsravd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsravd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -68874,7 +68874,7 @@ impl CodeAsmVpsravd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpsravd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsravd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32
@@ -68888,7 +68888,7 @@ impl CodeAsmVpsravd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpsravd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsravd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32
@@ -69005,7 +69005,7 @@ impl CodeAsmVpsravw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpsraw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsraw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsraw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsraw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsraw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsraw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69014,7 +69014,7 @@ impl CodeAsmVpsraw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsraw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsraw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsraw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsraw_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsraw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsraw_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69031,7 +69031,7 @@ impl CodeAsmVpsraw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsraw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsraw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsraw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsraw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsraw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsraw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -69040,7 +69040,7 @@ impl CodeAsmVpsraw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsraw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsraw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsraw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsraw_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsraw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsraw_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -69057,7 +69057,7 @@ impl CodeAsmVpsraw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsraw<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsraw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsraw_xmm_xmm_imm8 } else { Code::EVEX_Vpsraw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsraw_xmm_xmm_imm8 } else { Code::EVEX_Vpsraw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69066,7 +69066,7 @@ impl CodeAsmVpsraw<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpsraw<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsraw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsraw_ymm_ymm_imm8 } else { Code::EVEX_Vpsraw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsraw_ymm_ymm_imm8 } else { Code::EVEX_Vpsraw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69107,7 +69107,7 @@ impl CodeAsmVpsraw<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpsraw<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsraw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsraw_xmm_xmm_imm8 } else { Code::EVEX_Vpsraw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsraw_xmm_xmm_imm8 } else { Code::EVEX_Vpsraw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69116,7 +69116,7 @@ impl CodeAsmVpsraw<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpsraw<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsraw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsraw_ymm_ymm_imm8 } else { Code::EVEX_Vpsraw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsraw_ymm_ymm_imm8 } else { Code::EVEX_Vpsraw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69157,7 +69157,7 @@ impl CodeAsmVpsraw<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpsrld<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsrld(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrld_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrld_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrld_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrld_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69166,7 +69166,7 @@ impl CodeAsmVpsrld<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsrld<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsrld(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrld_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrld_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrld_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrld_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69183,7 +69183,7 @@ impl CodeAsmVpsrld<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsrld<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsrld(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrld_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrld_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrld_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrld_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -69192,7 +69192,7 @@ impl CodeAsmVpsrld<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsrld<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsrld(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrld_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrld_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrld_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrld_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -69209,7 +69209,7 @@ impl CodeAsmVpsrld<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsrld<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsrld(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrld_xmm_xmm_imm8 } else { Code::EVEX_Vpsrld_xmm_k1z_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrld_xmm_xmm_imm8 } else { Code::EVEX_Vpsrld_xmm_k1z_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69218,7 +69218,7 @@ impl CodeAsmVpsrld<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpsrld<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsrld(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrld_ymm_ymm_imm8 } else { Code::EVEX_Vpsrld_ymm_k1z_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrld_ymm_ymm_imm8 } else { Code::EVEX_Vpsrld_ymm_k1z_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69259,7 +69259,7 @@ impl CodeAsmVpsrld<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpsrld<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsrld(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrld_xmm_xmm_imm8 } else { Code::EVEX_Vpsrld_xmm_k1z_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrld_xmm_xmm_imm8 } else { Code::EVEX_Vpsrld_xmm_k1z_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69268,7 +69268,7 @@ impl CodeAsmVpsrld<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpsrld<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsrld(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrld_ymm_ymm_imm8 } else { Code::EVEX_Vpsrld_ymm_k1z_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrld_ymm_ymm_imm8 } else { Code::EVEX_Vpsrld_ymm_k1z_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69309,7 +69309,7 @@ impl CodeAsmVpsrld<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpsrldq<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsrldq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrldq_xmm_xmm_imm8 } else { Code::EVEX_Vpsrldq_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrldq_xmm_xmm_imm8 } else { Code::EVEX_Vpsrldq_xmm_xmmm128_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -69318,7 +69318,7 @@ impl CodeAsmVpsrldq<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpsrldq<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsrldq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrldq_ymm_ymm_imm8 } else { Code::EVEX_Vpsrldq_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrldq_ymm_ymm_imm8 } else { Code::EVEX_Vpsrldq_ymm_ymmm256_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -69359,7 +69359,7 @@ impl CodeAsmVpsrldq<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpsrldq<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsrldq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrldq_xmm_xmm_imm8 } else { Code::EVEX_Vpsrldq_xmm_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrldq_xmm_xmm_imm8 } else { Code::EVEX_Vpsrldq_xmm_xmmm128_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -69368,7 +69368,7 @@ impl CodeAsmVpsrldq<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpsrldq<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsrldq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrldq_ymm_ymm_imm8 } else { Code::EVEX_Vpsrldq_ymm_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrldq_ymm_ymm_imm8 } else { Code::EVEX_Vpsrldq_ymm_ymmm256_imm8 };
 		self.add_instr(Instruction::with3(code, op0.register(), op1.register(), op2)?)
 	}
 }
@@ -69409,7 +69409,7 @@ impl CodeAsmVpsrldq<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpsrlq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsrlq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlq_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlq_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69418,7 +69418,7 @@ impl CodeAsmVpsrlq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsrlq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsrlq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlq_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrlq_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlq_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrlq_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69435,7 +69435,7 @@ impl CodeAsmVpsrlq<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsrlq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsrlq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlq_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlq_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -69444,7 +69444,7 @@ impl CodeAsmVpsrlq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsrlq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsrlq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlq_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrlq_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlq_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrlq_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -69461,7 +69461,7 @@ impl CodeAsmVpsrlq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsrlq<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsrlq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlq_xmm_xmm_imm8 } else { Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlq_xmm_xmm_imm8 } else { Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69470,7 +69470,7 @@ impl CodeAsmVpsrlq<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpsrlq<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsrlq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlq_ymm_ymm_imm8 } else { Code::EVEX_Vpsrlq_ymm_k1z_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlq_ymm_ymm_imm8 } else { Code::EVEX_Vpsrlq_ymm_k1z_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69511,7 +69511,7 @@ impl CodeAsmVpsrlq<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpsrlq<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsrlq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlq_xmm_xmm_imm8 } else { Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlq_xmm_xmm_imm8 } else { Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69520,7 +69520,7 @@ impl CodeAsmVpsrlq<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpsrlq<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsrlq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlq_ymm_ymm_imm8 } else { Code::EVEX_Vpsrlq_ymm_k1z_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlq_ymm_ymm_imm8 } else { Code::EVEX_Vpsrlq_ymm_k1z_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69561,7 +69561,7 @@ impl CodeAsmVpsrlq<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpsrlvd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsrlvd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlvd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlvd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69570,7 +69570,7 @@ impl CodeAsmVpsrlvd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpsrlvd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsrlvd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlvd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlvd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69588,7 +69588,7 @@ impl CodeAsmVpsrlvd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpsrlvd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsrlvd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32
@@ -69602,7 +69602,7 @@ impl CodeAsmVpsrlvd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpsrlvd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsrlvd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32
@@ -69623,7 +69623,7 @@ impl CodeAsmVpsrlvd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpsrlvq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsrlvq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlvq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlvq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69632,7 +69632,7 @@ impl CodeAsmVpsrlvq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpsrlvq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsrlvq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlvq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlvq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69650,7 +69650,7 @@ impl CodeAsmVpsrlvq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 	fn vpsrlvq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsrlvq_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64
@@ -69664,7 +69664,7 @@ impl CodeAsmVpsrlvq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAs
 	fn vpsrlvq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsrlvq_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64
@@ -69733,7 +69733,7 @@ impl CodeAsmVpsrlvw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpsrlw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsrlw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69742,7 +69742,7 @@ impl CodeAsmVpsrlw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsrlw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsrlw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrlw_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrlw_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69759,7 +69759,7 @@ impl CodeAsmVpsrlw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsrlw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsrlw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsrlw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -69768,7 +69768,7 @@ impl CodeAsmVpsrlw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsrlw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsrlw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrlw_ymm_k1z_ymm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlw_ymm_ymm_xmmm128 } else { Code::EVEX_Vpsrlw_ymm_k1z_ymm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -69785,7 +69785,7 @@ impl CodeAsmVpsrlw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsrlw<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsrlw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlw_xmm_xmm_imm8 } else { Code::EVEX_Vpsrlw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlw_xmm_xmm_imm8 } else { Code::EVEX_Vpsrlw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69794,7 +69794,7 @@ impl CodeAsmVpsrlw<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 impl CodeAsmVpsrlw<AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vpsrlw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlw_ymm_ymm_imm8 } else { Code::EVEX_Vpsrlw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlw_ymm_ymm_imm8 } else { Code::EVEX_Vpsrlw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69835,7 +69835,7 @@ impl CodeAsmVpsrlw<AsmRegisterZmm, AsmMemoryOperand, i32> for CodeAssembler {
 impl CodeAsmVpsrlw<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsrlw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlw_xmm_xmm_imm8 } else { Code::EVEX_Vpsrlw_xmm_k1z_xmmm128_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlw_xmm_xmm_imm8 } else { Code::EVEX_Vpsrlw_xmm_k1z_xmmm128_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69844,7 +69844,7 @@ impl CodeAsmVpsrlw<AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 impl CodeAsmVpsrlw<AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vpsrlw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsrlw_ymm_ymm_imm8 } else { Code::EVEX_Vpsrlw_ymm_k1z_ymmm256_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsrlw_ymm_ymm_imm8 } else { Code::EVEX_Vpsrlw_ymm_k1z_ymmm256_imm8 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2)?, op0.state())
 	}
 }
@@ -69885,7 +69885,7 @@ impl CodeAsmVpsrlw<AsmRegisterZmm, AsmMemoryOperand, u32> for CodeAssembler {
 impl CodeAsmVpsubb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsubb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69894,7 +69894,7 @@ impl CodeAsmVpsubb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsubb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsubb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69911,7 +69911,7 @@ impl CodeAsmVpsubb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAssem
 impl CodeAsmVpsubb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -69920,7 +69920,7 @@ impl CodeAsmVpsubb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsubb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -69937,7 +69937,7 @@ impl CodeAsmVpsubb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsubd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsubd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubd_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubd_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69946,7 +69946,7 @@ impl CodeAsmVpsubd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsubd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsubd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubd_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubd_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -69964,7 +69964,7 @@ impl CodeAsmVpsubd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vpsubd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsubd_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsubd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpsubd_xmm_k1z_xmm_xmmm128b32
@@ -69978,7 +69978,7 @@ impl CodeAsmVpsubd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vpsubd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsubd_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsubd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpsubd_ymm_k1z_ymm_ymmm256b32
@@ -69999,7 +69999,7 @@ impl CodeAsmVpsubd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsubq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsubq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubq_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubq_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70008,7 +70008,7 @@ impl CodeAsmVpsubq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsubq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsubq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubq_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubq_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70026,7 +70026,7 @@ impl CodeAsmVpsubq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vpsubq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsubq_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsubq_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpsubq_xmm_k1z_xmm_xmmm128b64
@@ -70040,7 +70040,7 @@ impl CodeAsmVpsubq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vpsubq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpsubq_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpsubq_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpsubq_ymm_k1z_ymm_ymmm256b64
@@ -70061,7 +70061,7 @@ impl CodeAsmVpsubq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsubsb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsubsb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubsb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubsb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70070,7 +70070,7 @@ impl CodeAsmVpsubsb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpsubsb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsubsb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubsb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubsb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70087,7 +70087,7 @@ impl CodeAsmVpsubsb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpsubsb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubsb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubsb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubsb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubsb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70096,7 +70096,7 @@ impl CodeAsmVpsubsb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpsubsb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubsb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubsb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubsb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubsb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70113,7 +70113,7 @@ impl CodeAsmVpsubsb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpsubsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsubsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70122,7 +70122,7 @@ impl CodeAsmVpsubsw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVpsubsw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsubsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70139,7 +70139,7 @@ impl CodeAsmVpsubsw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAsse
 impl CodeAsmVpsubsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubsw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubsw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubsw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubsw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70148,7 +70148,7 @@ impl CodeAsmVpsubsw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpsubsw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubsw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubsw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubsw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubsw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70165,7 +70165,7 @@ impl CodeAsmVpsubsw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpsubusb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsubusb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubusb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubusb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubusb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubusb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70174,7 +70174,7 @@ impl CodeAsmVpsubusb<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVpsubusb<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsubusb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubusb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubusb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubusb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubusb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70191,7 +70191,7 @@ impl CodeAsmVpsubusb<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAss
 impl CodeAsmVpsubusb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubusb(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubusb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubusb_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubusb_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubusb_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70200,7 +70200,7 @@ impl CodeAsmVpsubusb<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpsubusb<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubusb(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubusb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubusb_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubusb_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubusb_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70217,7 +70217,7 @@ impl CodeAsmVpsubusb<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpsubusw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsubusw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubusw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubusw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubusw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubusw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70226,7 +70226,7 @@ impl CodeAsmVpsubusw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAss
 impl CodeAsmVpsubusw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsubusw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubusw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubusw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubusw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubusw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70243,7 +70243,7 @@ impl CodeAsmVpsubusw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAss
 impl CodeAsmVpsubusw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubusw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubusw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubusw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubusw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubusw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70252,7 +70252,7 @@ impl CodeAsmVpsubusw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpsubusw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubusw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubusw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubusw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubusw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubusw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70269,7 +70269,7 @@ impl CodeAsmVpsubusw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeA
 impl CodeAsmVpsubw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpsubw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70278,7 +70278,7 @@ impl CodeAsmVpsubw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVpsubw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpsubw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70295,7 +70295,7 @@ impl CodeAsmVpsubw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeAssem
 impl CodeAsmVpsubw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpsubw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70304,7 +70304,7 @@ impl CodeAsmVpsubw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVpsubw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpsubw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpsubw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpsubw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpsubw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70929,7 +70929,7 @@ impl CodeAsmVptestnmw<AsmRegisterK, AsmRegisterZmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVpunpckhbw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpunpckhbw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhbw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhbw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70938,7 +70938,7 @@ impl CodeAsmVpunpckhbw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeA
 impl CodeAsmVpunpckhbw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpunpckhbw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhbw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhbw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70955,7 +70955,7 @@ impl CodeAsmVpunpckhbw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeA
 impl CodeAsmVpunpckhbw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpunpckhbw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhbw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhbw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70964,7 +70964,7 @@ impl CodeAsmVpunpckhbw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpunpckhbw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpunpckhbw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhbw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhbw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -70981,7 +70981,7 @@ impl CodeAsmVpunpckhbw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpunpckhdq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpunpckhdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhdq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhdq_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhdq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhdq_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -70990,7 +70990,7 @@ impl CodeAsmVpunpckhdq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeA
 impl CodeAsmVpunpckhdq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpunpckhdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhdq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhdq_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhdq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhdq_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71008,7 +71008,7 @@ impl CodeAsmVpunpckhdq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Cod
 	fn vpunpckhdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpunpckhdq_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpunpckhdq_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpunpckhdq_xmm_k1z_xmm_xmmm128b32
@@ -71022,7 +71022,7 @@ impl CodeAsmVpunpckhdq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Cod
 	fn vpunpckhdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpunpckhdq_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpunpckhdq_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpunpckhdq_ymm_k1z_ymm_ymmm256b32
@@ -71043,7 +71043,7 @@ impl CodeAsmVpunpckhdq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpunpckhqdq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpunpckhqdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhqdq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhqdq_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhqdq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhqdq_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71052,7 +71052,7 @@ impl CodeAsmVpunpckhqdq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVpunpckhqdq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpunpckhqdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhqdq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhqdq_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhqdq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhqdq_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71070,7 +71070,7 @@ impl CodeAsmVpunpckhqdq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vpunpckhqdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpunpckhqdq_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpunpckhqdq_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpunpckhqdq_xmm_k1z_xmm_xmmm128b64
@@ -71084,7 +71084,7 @@ impl CodeAsmVpunpckhqdq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vpunpckhqdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpunpckhqdq_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpunpckhqdq_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpunpckhqdq_ymm_k1z_ymm_ymmm256b64
@@ -71105,7 +71105,7 @@ impl CodeAsmVpunpckhqdq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVpunpckhwd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpunpckhwd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhwd_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhwd_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71114,7 +71114,7 @@ impl CodeAsmVpunpckhwd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeA
 impl CodeAsmVpunpckhwd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpunpckhwd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhwd_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhwd_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71131,7 +71131,7 @@ impl CodeAsmVpunpckhwd<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeA
 impl CodeAsmVpunpckhwd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpunpckhwd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhwd_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckhwd_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -71140,7 +71140,7 @@ impl CodeAsmVpunpckhwd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpunpckhwd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpunpckhwd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckhwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhwd_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckhwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckhwd_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -71157,7 +71157,7 @@ impl CodeAsmVpunpckhwd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpunpcklbw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpunpcklbw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpcklbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpcklbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71166,7 +71166,7 @@ impl CodeAsmVpunpcklbw<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeA
 impl CodeAsmVpunpcklbw<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpunpcklbw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpcklbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpcklbw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpcklbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpcklbw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71183,7 +71183,7 @@ impl CodeAsmVpunpcklbw<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeA
 impl CodeAsmVpunpcklbw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpunpcklbw(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpcklbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpcklbw_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -71192,7 +71192,7 @@ impl CodeAsmVpunpcklbw<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpunpcklbw<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpunpcklbw(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpcklbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpcklbw_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpcklbw_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpcklbw_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -71209,7 +71209,7 @@ impl CodeAsmVpunpcklbw<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpunpckldq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpunpckldq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckldq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckldq_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckldq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpckldq_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71218,7 +71218,7 @@ impl CodeAsmVpunpckldq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeA
 impl CodeAsmVpunpckldq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpunpckldq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpckldq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckldq_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpckldq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpckldq_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71236,7 +71236,7 @@ impl CodeAsmVpunpckldq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Cod
 	fn vpunpckldq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpunpckldq_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpunpckldq_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpunpckldq_xmm_k1z_xmm_xmmm128b32
@@ -71250,7 +71250,7 @@ impl CodeAsmVpunpckldq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Cod
 	fn vpunpckldq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpunpckldq_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpunpckldq_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpunpckldq_ymm_k1z_ymm_ymmm256b32
@@ -71271,7 +71271,7 @@ impl CodeAsmVpunpckldq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpunpcklqdq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpunpcklqdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpcklqdq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpcklqdq_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpcklqdq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpcklqdq_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71280,7 +71280,7 @@ impl CodeAsmVpunpcklqdq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVpunpcklqdq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpunpcklqdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpcklqdq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpcklqdq_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpcklqdq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpcklqdq_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71298,7 +71298,7 @@ impl CodeAsmVpunpcklqdq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Co
 	fn vpunpcklqdq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpunpcklqdq_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpunpcklqdq_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vpunpcklqdq_xmm_k1z_xmm_xmmm128b64
@@ -71312,7 +71312,7 @@ impl CodeAsmVpunpcklqdq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Co
 	fn vpunpcklqdq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vpunpcklqdq_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vpunpcklqdq_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vpunpcklqdq_ymm_k1z_ymm_ymmm256b64
@@ -71333,7 +71333,7 @@ impl CodeAsmVpunpcklqdq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVpunpcklwd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpunpcklwd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpcklwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpcklwd_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpcklwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpcklwd_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71342,7 +71342,7 @@ impl CodeAsmVpunpcklwd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeA
 impl CodeAsmVpunpcklwd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpunpcklwd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpcklwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpcklwd_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpcklwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpcklwd_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -71359,7 +71359,7 @@ impl CodeAsmVpunpcklwd<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for CodeA
 impl CodeAsmVpunpcklwd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpunpcklwd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpcklwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpcklwd_xmm_k1z_xmm_xmmm128 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpcklwd_xmm_xmm_xmmm128 } else { Code::EVEX_Vpunpcklwd_xmm_k1z_xmm_xmmm128 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -71368,7 +71368,7 @@ impl CodeAsmVpunpcklwd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Cod
 impl CodeAsmVpunpcklwd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vpunpcklwd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vpunpcklwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpcklwd_ymm_k1z_ymm_ymmm256 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpunpcklwd_ymm_ymm_ymmm256 } else { Code::EVEX_Vpunpcklwd_ymm_k1z_ymm_ymmm256 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state())
 	}
 }
@@ -73943,7 +73943,7 @@ impl CodeAsmVshufi64x2<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, u32> fo
 impl CodeAsmVshufpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vshufpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -73952,7 +73952,7 @@ impl CodeAsmVshufpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for Cod
 impl CodeAsmVshufpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vshufpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -73970,7 +73970,7 @@ impl CodeAsmVshufpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for C
 	fn vshufpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8
@@ -73984,7 +73984,7 @@ impl CodeAsmVshufpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, i32> for C
 	fn vshufpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8
@@ -74005,7 +74005,7 @@ impl CodeAsmVshufpd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, i32> for C
 impl CodeAsmVshufpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vshufpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -74014,7 +74014,7 @@ impl CodeAsmVshufpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for Cod
 impl CodeAsmVshufpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vshufpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -74032,7 +74032,7 @@ impl CodeAsmVshufpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for C
 	fn vshufpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8
@@ -74046,7 +74046,7 @@ impl CodeAsmVshufpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, u32> for C
 	fn vshufpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8
@@ -74067,7 +74067,7 @@ impl CodeAsmVshufpd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, u32> for C
 impl CodeAsmVshufps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn vshufps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -74076,7 +74076,7 @@ impl CodeAsmVshufps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, i32> for Cod
 impl CodeAsmVshufps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, i32> for CodeAssembler {
 	#[inline]
 	fn vshufps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: i32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -74094,7 +74094,7 @@ impl CodeAsmVshufps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, i32> for C
 	fn vshufps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8
@@ -74108,7 +74108,7 @@ impl CodeAsmVshufps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, i32> for C
 	fn vshufps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: i32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8
@@ -74129,7 +74129,7 @@ impl CodeAsmVshufps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, i32> for C
 impl CodeAsmVshufps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for CodeAssembler {
 	#[inline]
 	fn vshufps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8 } else { Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -74138,7 +74138,7 @@ impl CodeAsmVshufps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm, u32> for Cod
 impl CodeAsmVshufps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm, u32> for CodeAssembler {
 	#[inline]
 	fn vshufps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm, op3: u32) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8 } else { Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8 };
 		self.add_instr_with_state(Instruction::with4(code, op0.register(), op1.register(), op2.register(), op3)?, op0.state())
 	}
 }
@@ -74156,7 +74156,7 @@ impl CodeAsmVshufps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, u32> for C
 	fn vshufps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8
 		} else {
 			Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8
@@ -74170,7 +74170,7 @@ impl CodeAsmVshufps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand, u32> for C
 	fn vshufps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand, op3: u32) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8
 		} else {
 			Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8
@@ -74191,7 +74191,7 @@ impl CodeAsmVshufps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand, u32> for C
 impl CodeAsmVsqrtpd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vsqrtpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsqrtpd_xmm_xmmm128 } else { Code::EVEX_Vsqrtpd_xmm_k1z_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsqrtpd_xmm_xmmm128 } else { Code::EVEX_Vsqrtpd_xmm_k1z_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -74200,7 +74200,7 @@ impl CodeAsmVsqrtpd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVsqrtpd<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vsqrtpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsqrtpd_ymm_ymmm256 } else { Code::EVEX_Vsqrtpd_ymm_k1z_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsqrtpd_ymm_ymmm256 } else { Code::EVEX_Vsqrtpd_ymm_k1z_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -74218,7 +74218,7 @@ impl CodeAsmVsqrtpd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	fn vsqrtpd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vsqrtpd_xmm_k1z_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vsqrtpd_xmm_xmmm128
 		} else {
 			Code::EVEX_Vsqrtpd_xmm_k1z_xmmm128b64
@@ -74232,7 +74232,7 @@ impl CodeAsmVsqrtpd<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	fn vsqrtpd(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vsqrtpd_ymm_k1z_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vsqrtpd_ymm_ymmm256
 		} else {
 			Code::EVEX_Vsqrtpd_ymm_k1z_ymmm256b64
@@ -74301,7 +74301,7 @@ impl CodeAsmVsqrtph<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVsqrtps<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vsqrtps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsqrtps_xmm_xmmm128 } else { Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsqrtps_xmm_xmmm128 } else { Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -74310,7 +74310,7 @@ impl CodeAsmVsqrtps<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVsqrtps<AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vsqrtps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsqrtps_ymm_ymmm256 } else { Code::EVEX_Vsqrtps_ymm_k1z_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsqrtps_ymm_ymmm256 } else { Code::EVEX_Vsqrtps_ymm_k1z_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
@@ -74328,7 +74328,7 @@ impl CodeAsmVsqrtps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	fn vsqrtps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vsqrtps_xmm_xmmm128
 		} else {
 			Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32
@@ -74342,7 +74342,7 @@ impl CodeAsmVsqrtps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 	fn vsqrtps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vsqrtps_ymm_k1z_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vsqrtps_ymm_ymmm256
 		} else {
 			Code::EVEX_Vsqrtps_ymm_k1z_ymmm256b32
@@ -74363,7 +74363,7 @@ impl CodeAsmVsqrtps<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVsqrtsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vsqrtsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsqrtsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsqrtsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -74372,7 +74372,7 @@ impl CodeAsmVsqrtsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVsqrtsd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vsqrtsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsqrtsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsqrtsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -74397,7 +74397,7 @@ impl CodeAsmVsqrtsh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAs
 impl CodeAsmVsqrtss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vsqrtss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsqrtss_xmm_xmm_xmmm32 } else { Code::EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsqrtss_xmm_xmm_xmmm32 } else { Code::EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -74406,7 +74406,7 @@ impl CodeAsmVsqrtss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAsse
 impl CodeAsmVsqrtss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vsqrtss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsqrtss_xmm_xmm_xmmm32 } else { Code::EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsqrtss_xmm_xmm_xmmm32 } else { Code::EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -74423,7 +74423,7 @@ impl CodeAsmVstmxcsr<AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVsubpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vsubpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsubpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsubpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74432,7 +74432,7 @@ impl CodeAsmVsubpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVsubpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vsubpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsubpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsubpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74450,7 +74450,7 @@ impl CodeAsmVsubpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vsubpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vsubpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64
@@ -74464,7 +74464,7 @@ impl CodeAsmVsubpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vsubpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vsubpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64
@@ -74533,7 +74533,7 @@ impl CodeAsmVsubph<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVsubps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vsubps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsubps_xmm_xmm_xmmm128 } else { Code::EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsubps_xmm_xmm_xmmm128 } else { Code::EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74542,7 +74542,7 @@ impl CodeAsmVsubps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVsubps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vsubps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsubps_ymm_ymm_ymmm256 } else { Code::EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsubps_ymm_ymm_ymmm256 } else { Code::EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74560,7 +74560,7 @@ impl CodeAsmVsubps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vsubps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vsubps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32
@@ -74574,7 +74574,7 @@ impl CodeAsmVsubps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vsubps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vsubps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32
@@ -74595,7 +74595,7 @@ impl CodeAsmVsubps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVsubsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vsubsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsubsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsubsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -74604,7 +74604,7 @@ impl CodeAsmVsubsd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVsubsd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vsubsd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsubsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsubsd_xmm_xmm_xmmm64 } else { Code::EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -74629,7 +74629,7 @@ impl CodeAsmVsubsh<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVsubss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vsubss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsubss_xmm_xmm_xmmm32 } else { Code::EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsubss_xmm_xmm_xmmm32 } else { Code::EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state().merge(op2.state()))
 	}
 }
@@ -74638,7 +74638,7 @@ impl CodeAsmVsubss<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVsubss<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vsubss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vsubss_xmm_xmm_xmmm32 } else { Code::EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vsubss_xmm_xmm_xmmm32 } else { Code::EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
@@ -74711,7 +74711,7 @@ impl CodeAsmVtestps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVucomisd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vucomisd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vucomisd_xmm_xmmm64 } else { Code::EVEX_Vucomisd_xmm_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vucomisd_xmm_xmmm64 } else { Code::EVEX_Vucomisd_xmm_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -74720,7 +74720,7 @@ impl CodeAsmVucomisd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVucomisd<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vucomisd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vucomisd_xmm_xmmm64 } else { Code::EVEX_Vucomisd_xmm_xmmm64_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vucomisd_xmm_xmmm64 } else { Code::EVEX_Vucomisd_xmm_xmmm64_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -74745,7 +74745,7 @@ impl CodeAsmVucomish<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVucomiss<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vucomiss(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vucomiss_xmm_xmmm32 } else { Code::EVEX_Vucomiss_xmm_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vucomiss_xmm_xmmm32 } else { Code::EVEX_Vucomiss_xmm_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op1.state())
 	}
 }
@@ -74754,7 +74754,7 @@ impl CodeAsmVucomiss<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVucomiss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn vucomiss(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vucomiss_xmm_xmmm32 } else { Code::EVEX_Vucomiss_xmm_xmmm32_sae };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vucomiss_xmm_xmmm32 } else { Code::EVEX_Vucomiss_xmm_xmmm32_sae };
 		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.to_memory_operand(self.bitness()))?, op1.state())
 	}
 }
@@ -74763,7 +74763,7 @@ impl CodeAsmVucomiss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 impl CodeAsmVunpckhpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vunpckhpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vunpckhpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vunpckhpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vunpckhpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vunpckhpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74772,7 +74772,7 @@ impl CodeAsmVunpckhpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVunpckhpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vunpckhpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vunpckhpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vunpckhpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vunpckhpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vunpckhpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74790,7 +74790,7 @@ impl CodeAsmVunpckhpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 	fn vunpckhpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vunpckhpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vunpckhpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vunpckhpd_xmm_k1z_xmm_xmmm128b64
@@ -74804,7 +74804,7 @@ impl CodeAsmVunpckhpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 	fn vunpckhpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vunpckhpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vunpckhpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vunpckhpd_ymm_k1z_ymm_ymmm256b64
@@ -74825,7 +74825,7 @@ impl CodeAsmVunpckhpd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVunpckhps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vunpckhps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vunpckhps_xmm_xmm_xmmm128 } else { Code::EVEX_Vunpckhps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vunpckhps_xmm_xmm_xmmm128 } else { Code::EVEX_Vunpckhps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74834,7 +74834,7 @@ impl CodeAsmVunpckhps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVunpckhps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vunpckhps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vunpckhps_ymm_ymm_ymmm256 } else { Code::EVEX_Vunpckhps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vunpckhps_ymm_ymm_ymmm256 } else { Code::EVEX_Vunpckhps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74852,7 +74852,7 @@ impl CodeAsmVunpckhps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 	fn vunpckhps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vunpckhps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vunpckhps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vunpckhps_xmm_k1z_xmm_xmmm128b32
@@ -74866,7 +74866,7 @@ impl CodeAsmVunpckhps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 	fn vunpckhps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vunpckhps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vunpckhps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vunpckhps_ymm_k1z_ymm_ymmm256b32
@@ -74887,7 +74887,7 @@ impl CodeAsmVunpckhps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVunpcklpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vunpcklpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vunpcklpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vunpcklpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vunpcklpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vunpcklpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74896,7 +74896,7 @@ impl CodeAsmVunpcklpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVunpcklpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vunpcklpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vunpcklpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vunpcklpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vunpcklpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vunpcklpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74914,7 +74914,7 @@ impl CodeAsmVunpcklpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 	fn vunpcklpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vunpcklpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vunpcklpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vunpcklpd_xmm_k1z_xmm_xmmm128b64
@@ -74928,7 +74928,7 @@ impl CodeAsmVunpcklpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 	fn vunpcklpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vunpcklpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vunpcklpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vunpcklpd_ymm_k1z_ymm_ymmm256b64
@@ -74949,7 +74949,7 @@ impl CodeAsmVunpcklpd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVunpcklps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vunpcklps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vunpcklps_xmm_xmm_xmmm128 } else { Code::EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vunpcklps_xmm_xmm_xmmm128 } else { Code::EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74958,7 +74958,7 @@ impl CodeAsmVunpcklps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAs
 impl CodeAsmVunpcklps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vunpcklps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vunpcklps_ymm_ymm_ymmm256 } else { Code::EVEX_Vunpcklps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vunpcklps_ymm_ymm_ymmm256 } else { Code::EVEX_Vunpcklps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -74976,7 +74976,7 @@ impl CodeAsmVunpcklps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for Code
 	fn vunpcklps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vunpcklps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32
@@ -74990,7 +74990,7 @@ impl CodeAsmVunpcklps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for Code
 	fn vunpcklps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vunpcklps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vunpcklps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vunpcklps_ymm_k1z_ymm_ymmm256b32
@@ -75011,7 +75011,7 @@ impl CodeAsmVunpcklps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 impl CodeAsmVxorpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vxorpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vxorpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vxorpd_xmm_k1z_xmm_xmmm128b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vxorpd_xmm_xmm_xmmm128 } else { Code::EVEX_Vxorpd_xmm_k1z_xmm_xmmm128b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -75020,7 +75020,7 @@ impl CodeAsmVxorpd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVxorpd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vxorpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vxorpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vxorpd_ymm_k1z_ymm_ymmm256b64 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vxorpd_ymm_ymm_ymmm256 } else { Code::EVEX_Vxorpd_ymm_k1z_ymm_ymmm256b64 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -75038,7 +75038,7 @@ impl CodeAsmVxorpd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vxorpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vxorpd_xmm_k1z_xmm_xmmm128b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vxorpd_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vxorpd_xmm_k1z_xmm_xmmm128b64
@@ -75052,7 +75052,7 @@ impl CodeAsmVxorpd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vxorpd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vxorpd_ymm_k1z_ymm_ymmm256b64
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vxorpd_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vxorpd_ymm_k1z_ymm_ymmm256b64
@@ -75073,7 +75073,7 @@ impl CodeAsmVxorpd<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 impl CodeAsmVxorps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vxorps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vxorps_xmm_xmm_xmmm128 } else { Code::EVEX_Vxorps_xmm_k1z_xmm_xmmm128b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vxorps_xmm_xmm_xmmm128 } else { Code::EVEX_Vxorps_xmm_k1z_xmm_xmmm128b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -75082,7 +75082,7 @@ impl CodeAsmVxorps<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssem
 impl CodeAsmVxorps<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vxorps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		let code = if self.prefer_vex() { Code::VEX_Vxorps_ymm_ymm_ymmm256 } else { Code::EVEX_Vxorps_ymm_k1z_ymm_ymmm256b32 };
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vxorps_ymm_ymm_ymmm256 } else { Code::EVEX_Vxorps_ymm_k1z_ymm_ymmm256b32 };
 		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
@@ -75100,7 +75100,7 @@ impl CodeAsmVxorps<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAss
 	fn vxorps(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vxorps_xmm_k1z_xmm_xmmm128b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vxorps_xmm_xmm_xmmm128
 		} else {
 			Code::EVEX_Vxorps_xmm_k1z_xmm_xmmm128b32
@@ -75114,7 +75114,7 @@ impl CodeAsmVxorps<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAss
 	fn vxorps(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		let code = if op2.is_broadcast() {
 			Code::EVEX_Vxorps_ymm_k1z_ymm_ymmm256b32
-		} else if self.prefer_vex() {
+		} else if self.instruction_prefer_vex() {
 			Code::VEX_Vxorps_ymm_ymm_ymmm256
 		} else {
 			Code::EVEX_Vxorps_ymm_k1z_ymm_ymmm256b32

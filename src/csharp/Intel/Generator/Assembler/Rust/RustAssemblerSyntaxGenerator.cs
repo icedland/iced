@@ -901,7 +901,7 @@ namespace Generator.Assembler.Rust {
 				OpCodeSelectorKind.ImmediateByteSigned8To16 => argKind == ArgKind.ImmediateUnsigned ?
 					$"{argName} <= i8::MAX as {argType} || (0xFF80 <= {argName} && {argName} <= 0xFFFF)" :
 					$"{argName} >= i8::MIN as {argType} && {argName} <= i8::MAX as {argType}",
-				OpCodeSelectorKind.Vex => "self.prefer_vex()",
+				OpCodeSelectorKind.Vex => "self.instruction_prefer_vex()",
 				OpCodeSelectorKind.EvexBroadcastX or OpCodeSelectorKind.EvexBroadcastY or OpCodeSelectorKind.EvexBroadcastZ =>
 					$"{argName}.is_broadcast()",
 				OpCodeSelectorKind.RegisterCL => $"{argName}.register() == {GetRegisterString(nameof(Register.CL))}",

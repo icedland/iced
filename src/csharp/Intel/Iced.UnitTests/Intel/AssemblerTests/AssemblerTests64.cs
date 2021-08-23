@@ -382,6 +382,45 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.vaddpd(zmm1.k3.z, zmm2, zmm3.rz_sae), inst);
 			}
 		}
+
+		[Fact]
+		void TestVexEvexPrefixes() {
+			var a = new Assembler(64);
+
+			a.PreferVex = true;
+			Assert.True(a.PreferVex);
+			a.vaddpd(xmm1, xmm2, xmm3);
+			a.vex.vaddpd(xmm1, xmm2, xmm3);
+			a.vaddpd(xmm1, xmm2, xmm3);
+			a.evex.vaddpd(xmm1, xmm2, xmm3);
+			a.vaddpd(xmm1, xmm2, xmm3);
+			Assert.True(a.PreferVex);
+
+			a.PreferVex = false;
+			Assert.False(a.PreferVex);
+			a.vaddpd(xmm1, xmm2, xmm3);
+			a.vex.vaddpd(xmm1, xmm2, xmm3);
+			a.vaddpd(xmm1, xmm2, xmm3);
+			a.evex.vaddpd(xmm1, xmm2, xmm3);
+			a.vaddpd(xmm1, xmm2, xmm3);
+			Assert.False(a.PreferVex);
+			
+			var writer = new CodeWriterImpl();
+			a.Assemble(writer, 0);
+			var bytes = writer.ToArray();
+			Assert.Equal(new byte[] {
+				0xC5, 0xE9, 0x58, 0xCB,
+				0xC5, 0xE9, 0x58, 0xCB,
+				0xC5, 0xE9, 0x58, 0xCB,
+				0x62, 0xF1, 0xED, 0x08, 0x58, 0xCB,
+				0xC5, 0xE9, 0x58, 0xCB,
+				0x62, 0xF1, 0xED, 0x08, 0x58, 0xCB,
+				0xC5, 0xE9, 0x58, 0xCB,
+				0x62, 0xF1, 0xED, 0x08, 0x58, 0xCB,
+				0x62, 0xF1, 0xED, 0x08, 0x58, 0xCB,
+				0x62, 0xF1, 0xED, 0x08, 0x58, 0xCB,
+			}, bytes);
+		}
 	}
 }
 #endif

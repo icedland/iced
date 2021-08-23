@@ -214,6 +214,7 @@ static class HowTo_Assemble {
 
         // The assembler defaults to VEX instructions. If you need EVEX instructions, set PreferVex=false
         c.PreferVex = false;
+        // or call `c.vex` or `c.evex` prefixes to override the default encoding.
         // AVX-512 decorators are properties on the memory and register operands
         c.vaddpd(zmm1.k3.z, zmm2, zmm3.rz_sae);
         // To broadcast memory, use the __dword_bcst/__qword_bcst memory types

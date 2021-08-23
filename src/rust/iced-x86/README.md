@@ -247,20 +247,23 @@ pub(crate) fn how_to_use_code_assembler() -> Result<(), IcedError> {
     a.vsqrtps(zmm16.k2().z(), dword_bcst(rcx))?;
     a.vsqrtps(zmm1.k2().z(), zmm23.rd_sae())?;
     // Sometimes, the encoder doesn't know if you want VEX or EVEX encoding.
-    // You can force EVEX like so:
+    // You can force EVEX globally like so:
     a.set_prefer_vex(false);
     a.vucomiss(xmm31, xmm15.sae())?;
     a.vucomiss(xmm31, ptr(rcx))?;
+    // or call vex()/evex() to override the encoding option:
+    a.evex().vucomiss(xmm31, xmm15.sae())?;
+    a.vex().vucomiss(xmm15, xmm14)?;
 
     // Encode all added instructions
     let bytes = a.assemble(0x1234_5678)?;
-    assert_eq!(bytes.len(), 71);
+    assert_eq!(bytes.len(), 82);
     // If you don't want to encode them, you can get all instructions by calling
     // one of these methods:
     let instrs = a.instructions(); // Get a reference to the internal vec
-    assert_eq!(instrs.len(), 17);
+    assert_eq!(instrs.len(), 19);
     let instrs = a.take_instructions(); // Take ownership of the vec with all instructions
-    assert_eq!(instrs.len(), 17);
+    assert_eq!(instrs.len(), 19);
     assert_eq!(a.instructions().len(), 0);
 
     Ok(())

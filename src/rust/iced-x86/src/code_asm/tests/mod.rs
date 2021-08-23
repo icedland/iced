@@ -1059,3 +1059,39 @@ fn assign_label(mut instruction: Instruction, label: u64) -> Instruction {
 	instruction.set_ip(label);
 	instruction
 }
+
+#[test]
+fn test_vex_evex_prefixes() {
+	let mut a = CodeAssembler::new(64).unwrap();
+
+	a.set_prefer_vex(true);
+	assert_eq!(a.prefer_vex(), true);
+	a.vaddpd(xmm1, xmm2, xmm3).unwrap();
+	a.vex().vaddpd(xmm1, xmm2, xmm3).unwrap();
+	a.vaddpd(xmm1, xmm2, xmm3).unwrap();
+	a.evex().vaddpd(xmm1, xmm2, xmm3).unwrap();
+	a.vaddpd(xmm1, xmm2, xmm3).unwrap();
+	assert_eq!(a.prefer_vex(), true);
+
+	a.set_prefer_vex(false);
+	assert_eq!(a.prefer_vex(), false);
+	a.vaddpd(xmm1, xmm2, xmm3).unwrap();
+	a.vex().vaddpd(xmm1, xmm2, xmm3).unwrap();
+	a.vaddpd(xmm1, xmm2, xmm3).unwrap();
+	a.evex().vaddpd(xmm1, xmm2, xmm3).unwrap();
+	a.vaddpd(xmm1, xmm2, xmm3).unwrap();
+	assert_eq!(a.prefer_vex(), false);
+
+	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
+	assert_eq!(bytes, b"\
+		\xC5\xE9\x58\xCB\
+		\xC5\xE9\x58\xCB\
+		\xC5\xE9\x58\xCB\
+		\x62\xF1\xED\x08\x58\xCB\
+		\xC5\xE9\x58\xCB\
+		\x62\xF1\xED\x08\x58\xCB\
+		\xC5\xE9\x58\xCB\
+		\x62\xF1\xED\x08\x58\xCB\
+		\x62\xF1\xED\x08\x58\xCB\
+		\x62\xF1\xED\x08\x58\xCB");
+}

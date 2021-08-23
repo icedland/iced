@@ -26774,7 +26774,7 @@ fn v4fnmaddss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaddpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaddpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaddpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaddpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -26790,7 +26790,7 @@ fn vaddpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vaddpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaddpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaddpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaddpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -26820,7 +26820,7 @@ fn vaddpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vaddpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vaddpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vaddpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaddpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaddpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -26841,7 +26841,7 @@ fn vaddpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vaddpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vaddpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vaddpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaddpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaddpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -26920,7 +26920,7 @@ fn vaddph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaddps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaddps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaddps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaddps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -26936,7 +26936,7 @@ fn vaddps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vaddps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaddps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaddps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaddps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -26966,7 +26966,7 @@ fn vaddps_xmm_xmm_m() {
 		test_instr(32, |a| a.vaddps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vaddps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vaddps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaddps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaddps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -26987,7 +26987,7 @@ fn vaddps_ymm_ymm_m() {
 		test_instr(32, |a| a.vaddps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vaddps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vaddps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaddps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaddps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27012,7 +27012,7 @@ fn vaddps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaddsd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaddsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vaddsd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaddsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -27028,7 +27028,7 @@ fn vaddsd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vaddsd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaddsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vaddsd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaddsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27062,7 +27062,7 @@ fn vaddsh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaddss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaddss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vaddss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaddss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -27078,7 +27078,7 @@ fn vaddss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vaddss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaddss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vaddss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaddss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27166,7 +27166,7 @@ fn vaddsubps_ymm_ymm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaesdec_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesdec_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaesdec(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaesdec_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -27182,7 +27182,7 @@ fn vaesdec_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vaesdec_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesdec_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaesdec(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaesdec_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -27207,7 +27207,7 @@ fn vaesdec_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vaesdec_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesdec_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaesdec(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaesdec_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27223,7 +27223,7 @@ fn vaesdec_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaesdec_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesdec_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaesdec(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaesdec_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27248,7 +27248,7 @@ fn vaesdec_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaesdeclast_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesdeclast_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaesdeclast(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaesdeclast_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -27264,7 +27264,7 @@ fn vaesdeclast_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vaesdeclast_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesdeclast_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaesdeclast(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaesdeclast_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -27289,7 +27289,7 @@ fn vaesdeclast_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vaesdeclast_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesdeclast_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaesdeclast(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaesdeclast_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27305,7 +27305,7 @@ fn vaesdeclast_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaesdeclast_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesdeclast_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaesdeclast(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaesdeclast_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27330,7 +27330,7 @@ fn vaesdeclast_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaesenc_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesenc_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaesenc(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaesenc_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -27346,7 +27346,7 @@ fn vaesenc_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vaesenc_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesenc_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaesenc(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaesenc_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -27371,7 +27371,7 @@ fn vaesenc_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vaesenc_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesenc_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaesenc(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaesenc_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27387,7 +27387,7 @@ fn vaesenc_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaesenc_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesenc_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaesenc(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaesenc_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27412,7 +27412,7 @@ fn vaesenc_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaesenclast_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesenclast_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaesenclast(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaesenclast_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -27428,7 +27428,7 @@ fn vaesenclast_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vaesenclast_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesenclast_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaesenclast(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vaesenclast_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -27453,7 +27453,7 @@ fn vaesenclast_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vaesenclast_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesenclast_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vaesenclast(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaesenclast_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27469,7 +27469,7 @@ fn vaesenclast_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vaesenclast_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vaesenclast_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vaesenclast(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vaesenclast_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27820,7 +27820,7 @@ fn valignq_zmm_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vandnpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vandnpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vandnpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vandnpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -27836,7 +27836,7 @@ fn vandnpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vandnpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vandnpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vandnpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vandnpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -27866,7 +27866,7 @@ fn vandnpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vandnpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vandnpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vandnpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vandnpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vandnpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27887,7 +27887,7 @@ fn vandnpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vandnpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vandnpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vandnpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vandnpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vandnpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27912,7 +27912,7 @@ fn vandnpd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vandnps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vandnps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vandnps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vandnps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -27928,7 +27928,7 @@ fn vandnps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vandnps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vandnps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vandnps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vandnps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -27958,7 +27958,7 @@ fn vandnps_xmm_xmm_m() {
 		test_instr(32, |a| a.vandnps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vandnps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vandnps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vandnps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vandnps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -27979,7 +27979,7 @@ fn vandnps_ymm_ymm_m() {
 		test_instr(32, |a| a.vandnps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vandnps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vandnps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vandnps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vandnps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -28004,7 +28004,7 @@ fn vandnps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vandpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vandpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vandpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vandpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -28020,7 +28020,7 @@ fn vandpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vandpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vandpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vandpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vandpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -28050,7 +28050,7 @@ fn vandpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vandpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vandpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vandpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vandpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vandpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -28071,7 +28071,7 @@ fn vandpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vandpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vandpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vandpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vandpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vandpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -28096,7 +28096,7 @@ fn vandpd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vandps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vandps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vandps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vandps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -28112,7 +28112,7 @@ fn vandps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vandps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vandps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vandps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vandps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -28142,7 +28142,7 @@ fn vandps_xmm_xmm_m() {
 		test_instr(32, |a| a.vandps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vandps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vandps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vandps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vandps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -28163,7 +28163,7 @@ fn vandps_ymm_ymm_m() {
 		test_instr(32, |a| a.vandps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vandps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vandps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vandps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vandps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -28760,7 +28760,7 @@ fn vbroadcasti64x4_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vbroadcastsd_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vbroadcastsd_ymm_xmm
 		test_instr(32, |a| a.vbroadcastsd(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vbroadcastsd_ymm_xmm, Register::YMM2, Register::XMM3).unwrap(),
@@ -28785,7 +28785,7 @@ fn vbroadcastsd_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vbroadcastsd_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vbroadcastsd_ymm_m64
 		test_instr(32, |a| a.vbroadcastsd(ymm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vbroadcastsd_ymm_m64, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -28810,7 +28810,7 @@ fn vbroadcastsd_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vbroadcastss_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vbroadcastss_xmm_xmm
 		test_instr(32, |a| a.vbroadcastss(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vbroadcastss_xmm_xmm, Register::XMM2, Register::XMM3).unwrap(),
@@ -28826,7 +28826,7 @@ fn vbroadcastss_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vbroadcastss_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vbroadcastss_ymm_xmm
 		test_instr(32, |a| a.vbroadcastss(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vbroadcastss_ymm_xmm, Register::YMM2, Register::XMM3).unwrap(),
@@ -28851,7 +28851,7 @@ fn vbroadcastss_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vbroadcastss_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vbroadcastss_xmm_m32
 		test_instr(32, |a| a.vbroadcastss(xmm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vbroadcastss_xmm_m32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -28867,7 +28867,7 @@ fn vbroadcastss_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vbroadcastss_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vbroadcastss_ymm_m32
 		test_instr(32, |a| a.vbroadcastss(ymm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vbroadcastss_ymm_m32, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40052,7 +40052,7 @@ fn vcmpunordss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcomisd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcomisd_xmm_xmmm64
 		test_instr(32, |a| a.vcomisd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcomisd_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -40068,7 +40068,7 @@ fn vcomisd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcomisd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcomisd_xmm_xmmm64
 		test_instr(32, |a| a.vcomisd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcomisd_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40102,7 +40102,7 @@ fn vcomish_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcomiss_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcomiss_xmm_xmmm32
 		test_instr(32, |a| a.vcomiss(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcomiss_xmm_xmmm32, Register::XMM2, Register::XMM3).unwrap(),
@@ -40118,7 +40118,7 @@ fn vcomiss_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcomiss_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcomiss_xmm_xmmm32
 		test_instr(32, |a| a.vcomiss(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcomiss_xmm_xmmm32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40242,7 +40242,7 @@ fn vcompressps_m_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtdq2pd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtdq2pd_xmm_xmmm64
 		test_instr(32, |a| a.vcvtdq2pd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtdq2pd_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -40258,7 +40258,7 @@ fn vcvtdq2pd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtdq2pd_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtdq2pd_ymm_xmmm128
 		test_instr(32, |a| a.vcvtdq2pd(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtdq2pd_ymm_xmmm128, Register::YMM2, Register::XMM3).unwrap(),
@@ -40288,7 +40288,7 @@ fn vcvtdq2pd_xmm_m() {
 		test_instr(32, |a| a.vcvtdq2pd(xmm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtdq2pd_xmm_xmmm64
 		test_instr(32, |a| a.vcvtdq2pd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtdq2pd_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40309,7 +40309,7 @@ fn vcvtdq2pd_ymm_m() {
 		test_instr(32, |a| a.vcvtdq2pd(ymm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtdq2pd_ymm_xmmm128
 		test_instr(32, |a| a.vcvtdq2pd(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtdq2pd_ymm_xmmm128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40412,7 +40412,7 @@ fn vcvtdq2phy_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtdq2ps_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtdq2ps_xmm_xmmm128
 		test_instr(32, |a| a.vcvtdq2ps(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtdq2ps_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -40428,7 +40428,7 @@ fn vcvtdq2ps_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtdq2ps_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtdq2ps_ymm_ymmm256
 		test_instr(32, |a| a.vcvtdq2ps(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtdq2ps_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -40458,7 +40458,7 @@ fn vcvtdq2ps_xmm_m() {
 		test_instr(32, |a| a.vcvtdq2ps(xmm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtdq2ps_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtdq2ps_xmm_xmmm128
 		test_instr(32, |a| a.vcvtdq2ps(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtdq2ps_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40479,7 +40479,7 @@ fn vcvtdq2ps_ymm_m() {
 		test_instr(32, |a| a.vcvtdq2ps(ymm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtdq2ps_ymm_k1z_ymmm256b32, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtdq2ps_ymm_ymmm256
 		test_instr(32, |a| a.vcvtdq2ps(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtdq2ps_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40636,7 +40636,7 @@ fn vcvtneps2bf16y_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtpd2dq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtpd2dq_xmm_xmmm128
 		test_instr(32, |a| a.vcvtpd2dq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtpd2dq_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -40652,7 +40652,7 @@ fn vcvtpd2dq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtpd2dq_xmm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtpd2dq_xmm_ymmm256
 		test_instr(32, |a| a.vcvtpd2dq(xmm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtpd2dq_xmm_ymmm256, Register::XMM2, Register::YMM3).unwrap(),
@@ -40683,7 +40683,7 @@ fn vcvtpd2dq_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
 	} /* else if op1.size() == MemoryOperandSize::Yword */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvtpd2dq_xmm_ymmm256
 			test_instr(32, |a| a.vcvtpd2dq(xmm2, ymmword_ptr(edx)).unwrap(),
 				Instruction::with2(Code::VEX_Vcvtpd2dq_xmm_ymmm256, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40695,7 +40695,7 @@ fn vcvtpd2dq_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else if op1.size() == MemoryOperandSize::Xword */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvtpd2dq_xmm_xmmm128
 			test_instr(32, |a| a.vcvtpd2dq(xmm2, xmmword_ptr(edx)).unwrap(),
 				Instruction::with2(Code::VEX_Vcvtpd2dq_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40707,7 +40707,7 @@ fn vcvtpd2dq_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvtpd2dq_xmm_xmmm128
 			test_invalid_instr(32, |a| assert!(a.vcvtpd2dq(xmm2, byte_ptr(edx)).is_err()), TestInstrFlags::PREFER_VEX);
 		} /* else */ {
@@ -40830,7 +40830,7 @@ fn vcvtpd2phz_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtpd2ps_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtpd2ps_xmm_xmmm128
 		test_instr(32, |a| a.vcvtpd2ps(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtpd2ps_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -40846,7 +40846,7 @@ fn vcvtpd2ps_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtpd2ps_xmm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtpd2ps_xmm_ymmm256
 		test_instr(32, |a| a.vcvtpd2ps(xmm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtpd2ps_xmm_ymmm256, Register::XMM2, Register::YMM3).unwrap(),
@@ -40877,7 +40877,7 @@ fn vcvtpd2ps_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
 	} /* else if op1.size() == MemoryOperandSize::Yword */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvtpd2ps_xmm_ymmm256
 			test_instr(32, |a| a.vcvtpd2ps(xmm2, ymmword_ptr(edx)).unwrap(),
 				Instruction::with2(Code::VEX_Vcvtpd2ps_xmm_ymmm256, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40889,7 +40889,7 @@ fn vcvtpd2ps_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else if op1.size() == MemoryOperandSize::Xword */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvtpd2ps_xmm_xmmm128
 			test_instr(32, |a| a.vcvtpd2ps(xmm2, xmmword_ptr(edx)).unwrap(),
 				Instruction::with2(Code::VEX_Vcvtpd2ps_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -40901,7 +40901,7 @@ fn vcvtpd2ps_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvtpd2ps_xmm_xmmm128
 			test_invalid_instr(32, |a| assert!(a.vcvtpd2ps(xmm2, byte_ptr(edx)).is_err()), TestInstrFlags::PREFER_VEX);
 		} /* else */ {
@@ -41235,7 +41235,7 @@ fn vcvtph2pd_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtph2ps_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtph2ps_xmm_xmmm64
 		test_instr(32, |a| a.vcvtph2ps(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtph2ps_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -41251,7 +41251,7 @@ fn vcvtph2ps_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtph2ps_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtph2ps_ymm_xmmm128
 		test_instr(32, |a| a.vcvtph2ps(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtph2ps_ymm_xmmm128, Register::YMM2, Register::XMM3).unwrap(),
@@ -41276,7 +41276,7 @@ fn vcvtph2ps_zmm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtph2ps_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtph2ps_xmm_xmmm64
 		test_instr(32, |a| a.vcvtph2ps(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtph2ps_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -41292,7 +41292,7 @@ fn vcvtph2ps_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtph2ps_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtph2ps_ymm_xmmm128
 		test_instr(32, |a| a.vcvtph2ps(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtph2ps_ymm_xmmm128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -41641,7 +41641,7 @@ fn vcvtph2w_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2dq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2dq_xmm_xmmm128
 		test_instr(32, |a| a.vcvtps2dq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtps2dq_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -41657,7 +41657,7 @@ fn vcvtps2dq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2dq_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2dq_ymm_ymmm256
 		test_instr(32, |a| a.vcvtps2dq(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtps2dq_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -41687,7 +41687,7 @@ fn vcvtps2dq_xmm_m() {
 		test_instr(32, |a| a.vcvtps2dq(xmm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2dq_xmm_xmmm128
 		test_instr(32, |a| a.vcvtps2dq(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtps2dq_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -41708,7 +41708,7 @@ fn vcvtps2dq_ymm_m() {
 		test_instr(32, |a| a.vcvtps2dq(ymm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtps2dq_ymm_k1z_ymmm256b32, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2dq_ymm_ymmm256
 		test_instr(32, |a| a.vcvtps2dq(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtps2dq_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -41733,7 +41733,7 @@ fn vcvtps2dq_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2pd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2pd_xmm_xmmm64
 		test_instr(32, |a| a.vcvtps2pd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtps2pd_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -41749,7 +41749,7 @@ fn vcvtps2pd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2pd_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2pd_ymm_xmmm128
 		test_instr(32, |a| a.vcvtps2pd(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtps2pd_ymm_xmmm128, Register::YMM2, Register::XMM3).unwrap(),
@@ -41779,7 +41779,7 @@ fn vcvtps2pd_xmm_m() {
 		test_instr(32, |a| a.vcvtps2pd(xmm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtps2pd_xmm_k1z_xmmm64b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2pd_xmm_xmmm64
 		test_instr(32, |a| a.vcvtps2pd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtps2pd_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -41800,7 +41800,7 @@ fn vcvtps2pd_ymm_m() {
 		test_instr(32, |a| a.vcvtps2pd(ymm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtps2pd_ymm_k1z_xmmm128b32, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2pd_ymm_xmmm128
 		test_instr(32, |a| a.vcvtps2pd(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtps2pd_ymm_xmmm128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -41825,7 +41825,7 @@ fn vcvtps2pd_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2ph_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm64_xmm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -41836,7 +41836,7 @@ fn vcvtps2ph_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm64_xmm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -41852,7 +41852,7 @@ fn vcvtps2ph_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2ph_m_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm64_xmm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmmword_ptr(ecx), xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
@@ -41863,7 +41863,7 @@ fn vcvtps2ph_m_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm64_xmm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmmword_ptr(ecx), xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
@@ -41879,7 +41879,7 @@ fn vcvtps2ph_m_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2ph_xmm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm128_ymm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8, Register::XMM2, Register::YMM3, -5i32).unwrap(),
@@ -41890,7 +41890,7 @@ fn vcvtps2ph_xmm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8, Register::XMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm128_ymm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8, Register::XMM2, Register::YMM3, -5i32).unwrap(),
@@ -41906,7 +41906,7 @@ fn vcvtps2ph_xmm_ymm_i() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2ph_m_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm128_ymm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmmword_ptr(ecx), ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3, -5i32).unwrap(),
@@ -41917,7 +41917,7 @@ fn vcvtps2ph_m_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm128_ymm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmmword_ptr(ecx), ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3, -5i32).unwrap(),
@@ -41959,7 +41959,7 @@ fn vcvtps2ph_m_zmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2ph_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm64_xmm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -41975,7 +41975,7 @@ fn vcvtps2ph_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2ph_m_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm64_xmm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmmword_ptr(ecx), xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm64_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, 0x7Fu32).unwrap(),
@@ -41991,7 +41991,7 @@ fn vcvtps2ph_m_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2ph_xmm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm128_ymm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8, Register::XMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -42007,7 +42007,7 @@ fn vcvtps2ph_xmm_ymm_u() {
 #[test]
 #[rustfmt::skip]
 fn vcvtps2ph_m_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtps2ph_xmmm128_ymm_imm8
 		test_instr(32, |a| a.vcvtps2ph(xmmword_ptr(ecx), ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtps2ph_xmmm128_ymm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3, 0x7Fu32).unwrap(),
@@ -42514,7 +42514,7 @@ fn vcvtsd2sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtsd2si_r32_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtsd2si_r32_xmmm64
 		test_instr(32, |a| a.vcvtsd2si(edx, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtsd2si_r32_xmmm64, Register::EDX, Register::XMM3).unwrap(),
@@ -42530,7 +42530,7 @@ fn vcvtsd2si_r32_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtsd2si_r32_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtsd2si_r32_xmmm64
 		test_instr(32, |a| a.vcvtsd2si(edx, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtsd2si_r32_xmmm64, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -42546,7 +42546,7 @@ fn vcvtsd2si_r32_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtsd2ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtsd2ss_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vcvtsd2ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtsd2ss_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -42562,7 +42562,7 @@ fn vcvtsd2ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtsd2ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtsd2ss_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vcvtsd2ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtsd2ss_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -42668,7 +42668,7 @@ fn vcvtsh2usi_r32_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtsi2sd_xmm_xmm_r32() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtsi2sd_xmm_xmm_rm32
 		test_instr(32, |a| a.vcvtsi2sd(xmm2, xmm3, esp).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtsi2sd_xmm_xmm_rm32, Register::XMM2, Register::XMM3, Register::ESP).unwrap(),
@@ -42685,13 +42685,13 @@ fn vcvtsi2sd_xmm_xmm_r32() {
 #[rustfmt::skip]
 fn vcvtsi2sd_xmm_xmm_m() {
 	/* if op2.size() == MemoryOperandSize::Qword */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// Skipping VEX_Vcvtsi2sd_xmm_xmm_rm64 - Not supported by current bitness
 		} /* else */ {
 			// Skipping EVEX_Vcvtsi2sd_xmm_xmm_rm64_er - Not supported by current bitness
 		}
 	} /* else if op2.size() == MemoryOperandSize::Dword */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvtsi2sd_xmm_xmm_rm32
 			test_instr(32, |a| a.vcvtsi2sd(xmm2, xmm3, dword_ptr(edx)).unwrap(),
 				Instruction::with3(Code::VEX_Vcvtsi2sd_xmm_xmm_rm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -42703,7 +42703,7 @@ fn vcvtsi2sd_xmm_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvtsi2sd_xmm_xmm_rm32
 			test_invalid_instr(32, |a| assert!(a.vcvtsi2sd(xmm2, xmm3, zmmword_ptr(edx)).is_err()), TestInstrFlags::PREFER_VEX);
 		} /* else */ {
@@ -42741,7 +42741,7 @@ fn vcvtsi2sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtsi2ss_xmm_xmm_r32() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtsi2ss_xmm_xmm_rm32
 		test_instr(32, |a| a.vcvtsi2ss(xmm2, xmm3, esp).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtsi2ss_xmm_xmm_rm32, Register::XMM2, Register::XMM3, Register::ESP).unwrap(),
@@ -42758,13 +42758,13 @@ fn vcvtsi2ss_xmm_xmm_r32() {
 #[rustfmt::skip]
 fn vcvtsi2ss_xmm_xmm_m() {
 	/* if op2.size() == MemoryOperandSize::Qword */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// Skipping VEX_Vcvtsi2ss_xmm_xmm_rm64 - Not supported by current bitness
 		} /* else */ {
 			// Skipping EVEX_Vcvtsi2ss_xmm_xmm_rm64_er - Not supported by current bitness
 		}
 	} /* else if op2.size() == MemoryOperandSize::Dword */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvtsi2ss_xmm_xmm_rm32
 			test_instr(32, |a| a.vcvtsi2ss(xmm2, xmm3, dword_ptr(edx)).unwrap(),
 				Instruction::with3(Code::VEX_Vcvtsi2ss_xmm_xmm_rm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -42776,7 +42776,7 @@ fn vcvtsi2ss_xmm_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvtsi2ss_xmm_xmm_rm32
 			test_invalid_instr(32, |a| assert!(a.vcvtsi2ss(xmm2, xmm3, zmmword_ptr(edx)).is_err()), TestInstrFlags::PREFER_VEX);
 		} /* else */ {
@@ -42789,7 +42789,7 @@ fn vcvtsi2ss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtss2sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtss2sd_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vcvtss2sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtss2sd_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -42805,7 +42805,7 @@ fn vcvtss2sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtss2sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtss2sd_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vcvtss2sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vcvtss2sd_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -42839,7 +42839,7 @@ fn vcvtss2sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvtss2si_r32_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtss2si_r32_xmmm32
 		test_instr(32, |a| a.vcvtss2si(edx, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtss2si_r32_xmmm32, Register::EDX, Register::XMM3).unwrap(),
@@ -42855,7 +42855,7 @@ fn vcvtss2si_r32_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvtss2si_r32_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvtss2si_r32_xmmm32
 		test_instr(32, |a| a.vcvtss2si(edx, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvtss2si_r32_xmmm32, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -42889,7 +42889,7 @@ fn vcvtss2usi_r32_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvttpd2dq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvttpd2dq_xmm_xmmm128
 		test_instr(32, |a| a.vcvttpd2dq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvttpd2dq_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -42905,7 +42905,7 @@ fn vcvttpd2dq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvttpd2dq_xmm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvttpd2dq_xmm_ymmm256
 		test_instr(32, |a| a.vcvttpd2dq(xmm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvttpd2dq_xmm_ymmm256, Register::XMM2, Register::YMM3).unwrap(),
@@ -42936,7 +42936,7 @@ fn vcvttpd2dq_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
 	} /* else if op1.size() == MemoryOperandSize::Yword */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvttpd2dq_xmm_ymmm256
 			test_instr(32, |a| a.vcvttpd2dq(xmm2, ymmword_ptr(edx)).unwrap(),
 				Instruction::with2(Code::VEX_Vcvttpd2dq_xmm_ymmm256, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -42948,7 +42948,7 @@ fn vcvttpd2dq_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else if op1.size() == MemoryOperandSize::Xword */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvttpd2dq_xmm_xmmm128
 			test_instr(32, |a| a.vcvttpd2dq(xmm2, xmmword_ptr(edx)).unwrap(),
 				Instruction::with2(Code::VEX_Vcvttpd2dq_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -42960,7 +42960,7 @@ fn vcvttpd2dq_xmm_m() {
 				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 		}
 	} /* else */ {
-		/* if self.prefer_vex() */ {
+		/* if self.instruction_prefer_vex() */ {
 			// VEX_Vcvttpd2dq_xmm_xmmm128
 			test_invalid_instr(32, |a| assert!(a.vcvttpd2dq(xmm2, byte_ptr(edx)).is_err()), TestInstrFlags::PREFER_VEX);
 		} /* else */ {
@@ -43510,7 +43510,7 @@ fn vcvttph2w_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvttps2dq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvttps2dq_xmm_xmmm128
 		test_instr(32, |a| a.vcvttps2dq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvttps2dq_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -43526,7 +43526,7 @@ fn vcvttps2dq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvttps2dq_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvttps2dq_ymm_ymmm256
 		test_instr(32, |a| a.vcvttps2dq(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvttps2dq_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -43556,7 +43556,7 @@ fn vcvttps2dq_xmm_m() {
 		test_instr(32, |a| a.vcvttps2dq(xmm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvttps2dq_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vcvttps2dq_xmm_xmmm128
 		test_instr(32, |a| a.vcvttps2dq(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvttps2dq_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -43577,7 +43577,7 @@ fn vcvttps2dq_ymm_m() {
 		test_instr(32, |a| a.vcvttps2dq(ymm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvttps2dq_ymm_k1z_ymmm256b32, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vcvttps2dq_ymm_ymmm256
 		test_instr(32, |a| a.vcvttps2dq(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvttps2dq_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -43764,7 +43764,7 @@ fn vcvttps2uqq_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvttsd2si_r32_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvttsd2si_r32_xmmm64
 		test_instr(32, |a| a.vcvttsd2si(edx, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvttsd2si_r32_xmmm64, Register::EDX, Register::XMM3).unwrap(),
@@ -43780,7 +43780,7 @@ fn vcvttsd2si_r32_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvttsd2si_r32_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvttsd2si_r32_xmmm64
 		test_instr(32, |a| a.vcvttsd2si(edx, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvttsd2si_r32_xmmm64, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -43850,7 +43850,7 @@ fn vcvttsh2usi_r32_m() {
 #[test]
 #[rustfmt::skip]
 fn vcvttss2si_r32_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvttss2si_r32_xmmm32
 		test_instr(32, |a| a.vcvttss2si(edx, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vcvttss2si_r32_xmmm32, Register::EDX, Register::XMM3).unwrap(),
@@ -43866,7 +43866,7 @@ fn vcvttss2si_r32_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vcvttss2si_r32_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vcvttss2si_r32_xmmm32
 		test_instr(32, |a| a.vcvttss2si(edx, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vcvttss2si_r32_xmmm32, Register::EDX, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -44616,7 +44616,7 @@ fn vdbpsadbw_zmm_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vdivpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vdivpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vdivpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vdivpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -44632,7 +44632,7 @@ fn vdivpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vdivpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vdivpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vdivpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vdivpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -44662,7 +44662,7 @@ fn vdivpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vdivpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vdivpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vdivpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vdivpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vdivpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -44683,7 +44683,7 @@ fn vdivpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vdivpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vdivpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vdivpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vdivpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vdivpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -44762,7 +44762,7 @@ fn vdivph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vdivps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vdivps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vdivps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vdivps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -44778,7 +44778,7 @@ fn vdivps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vdivps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vdivps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vdivps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vdivps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -44808,7 +44808,7 @@ fn vdivps_xmm_xmm_m() {
 		test_instr(32, |a| a.vdivps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vdivps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vdivps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vdivps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vdivps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -44829,7 +44829,7 @@ fn vdivps_ymm_ymm_m() {
 		test_instr(32, |a| a.vdivps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vdivps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vdivps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vdivps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vdivps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -44854,7 +44854,7 @@ fn vdivps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vdivsd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vdivsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vdivsd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vdivsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -44870,7 +44870,7 @@ fn vdivsd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vdivsd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vdivsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vdivsd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vdivsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -44904,7 +44904,7 @@ fn vdivsh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vdivss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vdivss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vdivss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vdivss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -44920,7 +44920,7 @@ fn vdivss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vdivss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vdivss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vdivss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vdivss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -45944,7 +45944,7 @@ fn vextracti64x4_m_zmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vextractps_r32_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vextractps_rm32_xmm_imm8
 		test_instr(32, |a| a.vextractps(edx, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vextractps_rm32_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
@@ -45955,7 +45955,7 @@ fn vextractps_r32_xmm_i() {
 			Instruction::with3(Code::EVEX_Vextractps_rm32_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vextractps_rm32_xmm_imm8
 		test_instr(32, |a| a.vextractps(edx, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vextractps_rm32_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
@@ -45971,7 +45971,7 @@ fn vextractps_r32_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vextractps_m_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vextractps_rm32_xmm_imm8
 		test_instr(32, |a| a.vextractps(dword_ptr(ecx), xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vextractps_rm32_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
@@ -45982,7 +45982,7 @@ fn vextractps_m_xmm_i() {
 			Instruction::with3(Code::EVEX_Vextractps_rm32_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vextractps_rm32_xmm_imm8
 		test_instr(32, |a| a.vextractps(dword_ptr(ecx), xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vextractps_rm32_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
@@ -45998,7 +45998,7 @@ fn vextractps_m_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vextractps_r32_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vextractps_rm32_xmm_imm8
 		test_instr(32, |a| a.vextractps(edx, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vextractps_rm32_xmm_imm8, Register::EDX, Register::XMM3, 0x7Fu32).unwrap(),
@@ -46014,7 +46014,7 @@ fn vextractps_r32_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vextractps_m_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vextractps_rm32_xmm_imm8
 		test_instr(32, |a| a.vextractps(dword_ptr(ecx), xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vextractps_rm32_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, 0x7Fu32).unwrap(),
@@ -46526,7 +46526,7 @@ fn vfixupimmss_xmm_xmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd132pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd132pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -46542,7 +46542,7 @@ fn vfmadd132pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd132pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd132pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -46572,7 +46572,7 @@ fn vfmadd132pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmadd132pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd132pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -46593,7 +46593,7 @@ fn vfmadd132pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmadd132pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd132pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -46672,7 +46672,7 @@ fn vfmadd132ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd132ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd132ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -46688,7 +46688,7 @@ fn vfmadd132ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd132ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd132ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -46718,7 +46718,7 @@ fn vfmadd132ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmadd132ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd132ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -46739,7 +46739,7 @@ fn vfmadd132ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmadd132ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd132ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -46764,7 +46764,7 @@ fn vfmadd132ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd132sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmadd132sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -46780,7 +46780,7 @@ fn vfmadd132sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd132sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmadd132sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -46814,7 +46814,7 @@ fn vfmadd132sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd132ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmadd132ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -46830,7 +46830,7 @@ fn vfmadd132ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd132ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd132ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmadd132ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd132ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -46846,7 +46846,7 @@ fn vfmadd132ss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd213pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd213pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -46862,7 +46862,7 @@ fn vfmadd213pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd213pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd213pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -46892,7 +46892,7 @@ fn vfmadd213pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmadd213pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd213pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -46913,7 +46913,7 @@ fn vfmadd213pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmadd213pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd213pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -46992,7 +46992,7 @@ fn vfmadd213ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd213ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd213ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -47008,7 +47008,7 @@ fn vfmadd213ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd213ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd213ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -47038,7 +47038,7 @@ fn vfmadd213ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmadd213ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd213ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47059,7 +47059,7 @@ fn vfmadd213ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmadd213ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd213ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47084,7 +47084,7 @@ fn vfmadd213ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd213sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmadd213sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -47100,7 +47100,7 @@ fn vfmadd213sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd213sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmadd213sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47134,7 +47134,7 @@ fn vfmadd213sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd213ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmadd213ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -47150,7 +47150,7 @@ fn vfmadd213ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd213ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd213ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmadd213ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd213ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47166,7 +47166,7 @@ fn vfmadd213ss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd231pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd231pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -47182,7 +47182,7 @@ fn vfmadd231pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd231pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd231pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -47212,7 +47212,7 @@ fn vfmadd231pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmadd231pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd231pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47233,7 +47233,7 @@ fn vfmadd231pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmadd231pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd231pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47312,7 +47312,7 @@ fn vfmadd231ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd231ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd231ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -47328,7 +47328,7 @@ fn vfmadd231ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd231ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd231ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -47358,7 +47358,7 @@ fn vfmadd231ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmadd231ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmadd231ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47379,7 +47379,7 @@ fn vfmadd231ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmadd231ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmadd231ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47404,7 +47404,7 @@ fn vfmadd231ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd231sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmadd231sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -47420,7 +47420,7 @@ fn vfmadd231sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd231sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmadd231sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47454,7 +47454,7 @@ fn vfmadd231sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd231ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmadd231ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -47470,7 +47470,7 @@ fn vfmadd231ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmadd231ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmadd231ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmadd231ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmadd231ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47720,7 +47720,7 @@ fn vfmaddss_xmm_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub132pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub132pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -47736,7 +47736,7 @@ fn vfmaddsub132pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub132pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub132pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -47766,7 +47766,7 @@ fn vfmaddsub132pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmaddsub132pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub132pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47787,7 +47787,7 @@ fn vfmaddsub132pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmaddsub132pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub132pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47866,7 +47866,7 @@ fn vfmaddsub132ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub132ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub132ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -47882,7 +47882,7 @@ fn vfmaddsub132ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub132ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub132ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -47912,7 +47912,7 @@ fn vfmaddsub132ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmaddsub132ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub132ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47933,7 +47933,7 @@ fn vfmaddsub132ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmaddsub132ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub132ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -47958,7 +47958,7 @@ fn vfmaddsub132ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub213pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub213pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -47974,7 +47974,7 @@ fn vfmaddsub213pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub213pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub213pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -48004,7 +48004,7 @@ fn vfmaddsub213pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmaddsub213pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub213pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48025,7 +48025,7 @@ fn vfmaddsub213pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmaddsub213pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub213pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48104,7 +48104,7 @@ fn vfmaddsub213ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub213ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub213ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -48120,7 +48120,7 @@ fn vfmaddsub213ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub213ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub213ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -48150,7 +48150,7 @@ fn vfmaddsub213ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmaddsub213ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub213ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48171,7 +48171,7 @@ fn vfmaddsub213ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmaddsub213ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub213ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48196,7 +48196,7 @@ fn vfmaddsub213ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub231pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub231pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -48212,7 +48212,7 @@ fn vfmaddsub231pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub231pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub231pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -48242,7 +48242,7 @@ fn vfmaddsub231pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmaddsub231pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub231pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48263,7 +48263,7 @@ fn vfmaddsub231pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmaddsub231pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub231pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48342,7 +48342,7 @@ fn vfmaddsub231ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub231ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub231ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -48358,7 +48358,7 @@ fn vfmaddsub231ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmaddsub231ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub231ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -48388,7 +48388,7 @@ fn vfmaddsub231ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmaddsub231ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmaddsub231ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48409,7 +48409,7 @@ fn vfmaddsub231ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmaddsub231ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmaddsub231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmaddsub231ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmaddsub231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48542,7 +48542,7 @@ fn vfmaddsubps_ymm_ymm_ymm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub132pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub132pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -48558,7 +48558,7 @@ fn vfmsub132pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub132pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub132pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -48588,7 +48588,7 @@ fn vfmsub132pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsub132pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub132pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48609,7 +48609,7 @@ fn vfmsub132pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsub132pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub132pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48688,7 +48688,7 @@ fn vfmsub132ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub132ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub132ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -48704,7 +48704,7 @@ fn vfmsub132ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub132ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub132ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -48734,7 +48734,7 @@ fn vfmsub132ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsub132ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub132ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48755,7 +48755,7 @@ fn vfmsub132ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsub132ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub132ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48780,7 +48780,7 @@ fn vfmsub132ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub132sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmsub132sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -48796,7 +48796,7 @@ fn vfmsub132sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub132sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmsub132sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48830,7 +48830,7 @@ fn vfmsub132sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub132ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmsub132ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -48846,7 +48846,7 @@ fn vfmsub132ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub132ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub132ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmsub132ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub132ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48862,7 +48862,7 @@ fn vfmsub132ss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub213pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub213pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -48878,7 +48878,7 @@ fn vfmsub213pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub213pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub213pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -48908,7 +48908,7 @@ fn vfmsub213pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsub213pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub213pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -48929,7 +48929,7 @@ fn vfmsub213pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsub213pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub213pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49008,7 +49008,7 @@ fn vfmsub213ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub213ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub213ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49024,7 +49024,7 @@ fn vfmsub213ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub213ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub213ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -49054,7 +49054,7 @@ fn vfmsub213ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsub213ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub213ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49075,7 +49075,7 @@ fn vfmsub213ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsub213ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub213ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49100,7 +49100,7 @@ fn vfmsub213ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub213sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmsub213sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49116,7 +49116,7 @@ fn vfmsub213sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub213sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmsub213sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49150,7 +49150,7 @@ fn vfmsub213sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub213ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmsub213ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49166,7 +49166,7 @@ fn vfmsub213ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub213ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub213ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmsub213ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub213ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49182,7 +49182,7 @@ fn vfmsub213ss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub231pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub231pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49198,7 +49198,7 @@ fn vfmsub231pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub231pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub231pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -49228,7 +49228,7 @@ fn vfmsub231pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsub231pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub231pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49249,7 +49249,7 @@ fn vfmsub231pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsub231pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub231pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49328,7 +49328,7 @@ fn vfmsub231ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub231ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub231ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49344,7 +49344,7 @@ fn vfmsub231ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub231ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub231ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -49374,7 +49374,7 @@ fn vfmsub231ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsub231ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsub231ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49395,7 +49395,7 @@ fn vfmsub231ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsub231ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsub231ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49420,7 +49420,7 @@ fn vfmsub231ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub231sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmsub231sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49436,7 +49436,7 @@ fn vfmsub231sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub231sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfmsub231sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49470,7 +49470,7 @@ fn vfmsub231sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub231ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmsub231ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49486,7 +49486,7 @@ fn vfmsub231ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsub231ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsub231ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfmsub231ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsub231ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49502,7 +49502,7 @@ fn vfmsub231ss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd132pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd132pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49518,7 +49518,7 @@ fn vfmsubadd132pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd132pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd132pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -49548,7 +49548,7 @@ fn vfmsubadd132pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsubadd132pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd132pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49569,7 +49569,7 @@ fn vfmsubadd132pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsubadd132pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd132pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49648,7 +49648,7 @@ fn vfmsubadd132ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd132ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd132ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49664,7 +49664,7 @@ fn vfmsubadd132ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd132ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd132ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -49694,7 +49694,7 @@ fn vfmsubadd132ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsubadd132ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd132ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49715,7 +49715,7 @@ fn vfmsubadd132ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsubadd132ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd132ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49740,7 +49740,7 @@ fn vfmsubadd132ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd213pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd213pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49756,7 +49756,7 @@ fn vfmsubadd213pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd213pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd213pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -49786,7 +49786,7 @@ fn vfmsubadd213pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsubadd213pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd213pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49807,7 +49807,7 @@ fn vfmsubadd213pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsubadd213pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd213pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49886,7 +49886,7 @@ fn vfmsubadd213ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd213ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd213ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49902,7 +49902,7 @@ fn vfmsubadd213ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd213ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd213ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -49932,7 +49932,7 @@ fn vfmsubadd213ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsubadd213ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd213ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49953,7 +49953,7 @@ fn vfmsubadd213ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsubadd213ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd213ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -49978,7 +49978,7 @@ fn vfmsubadd213ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd231pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd231pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -49994,7 +49994,7 @@ fn vfmsubadd231pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd231pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd231pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -50024,7 +50024,7 @@ fn vfmsubadd231pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsubadd231pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd231pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50045,7 +50045,7 @@ fn vfmsubadd231pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsubadd231pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd231pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50124,7 +50124,7 @@ fn vfmsubadd231ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd231ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd231ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -50140,7 +50140,7 @@ fn vfmsubadd231ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfmsubadd231ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd231ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -50170,7 +50170,7 @@ fn vfmsubadd231ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfmsubadd231ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfmsubadd231ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50191,7 +50191,7 @@ fn vfmsubadd231ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfmsubadd231ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfmsubadd231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfmsubadd231ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfmsubadd231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50558,7 +50558,7 @@ fn vfmulcsh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd132pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd132pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -50574,7 +50574,7 @@ fn vfnmadd132pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd132pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd132pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -50604,7 +50604,7 @@ fn vfnmadd132pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmadd132pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd132pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50625,7 +50625,7 @@ fn vfnmadd132pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmadd132pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd132pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50704,7 +50704,7 @@ fn vfnmadd132ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd132ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd132ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -50720,7 +50720,7 @@ fn vfnmadd132ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd132ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd132ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -50750,7 +50750,7 @@ fn vfnmadd132ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmadd132ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd132ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50771,7 +50771,7 @@ fn vfnmadd132ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmadd132ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd132ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50796,7 +50796,7 @@ fn vfnmadd132ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd132sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmadd132sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -50812,7 +50812,7 @@ fn vfnmadd132sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd132sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmadd132sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50846,7 +50846,7 @@ fn vfnmadd132sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd132ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmadd132ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -50862,7 +50862,7 @@ fn vfnmadd132ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd132ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd132ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmadd132ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd132ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50878,7 +50878,7 @@ fn vfnmadd132ss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd213pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd213pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -50894,7 +50894,7 @@ fn vfnmadd213pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd213pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd213pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -50924,7 +50924,7 @@ fn vfnmadd213pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmadd213pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd213pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -50945,7 +50945,7 @@ fn vfnmadd213pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmadd213pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd213pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51024,7 +51024,7 @@ fn vfnmadd213ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd213ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd213ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51040,7 +51040,7 @@ fn vfnmadd213ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd213ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd213ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -51070,7 +51070,7 @@ fn vfnmadd213ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmadd213ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd213ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51091,7 +51091,7 @@ fn vfnmadd213ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmadd213ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd213ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51116,7 +51116,7 @@ fn vfnmadd213ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd213sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmadd213sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51132,7 +51132,7 @@ fn vfnmadd213sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd213sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmadd213sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51166,7 +51166,7 @@ fn vfnmadd213sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd213ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmadd213ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51182,7 +51182,7 @@ fn vfnmadd213ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd213ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd213ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmadd213ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd213ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51198,7 +51198,7 @@ fn vfnmadd213ss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd231pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd231pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51214,7 +51214,7 @@ fn vfnmadd231pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd231pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd231pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -51244,7 +51244,7 @@ fn vfnmadd231pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmadd231pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd231pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51265,7 +51265,7 @@ fn vfnmadd231pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmadd231pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd231pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51344,7 +51344,7 @@ fn vfnmadd231ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd231ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd231ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51360,7 +51360,7 @@ fn vfnmadd231ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd231ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd231ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -51390,7 +51390,7 @@ fn vfnmadd231ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmadd231ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmadd231ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51411,7 +51411,7 @@ fn vfnmadd231ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmadd231ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmadd231ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51436,7 +51436,7 @@ fn vfnmadd231ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd231sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmadd231sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51452,7 +51452,7 @@ fn vfnmadd231sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd231sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmadd231sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51486,7 +51486,7 @@ fn vfnmadd231sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd231ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmadd231ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51502,7 +51502,7 @@ fn vfnmadd231ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmadd231ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmadd231ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmadd231ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmadd231ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51680,7 +51680,7 @@ fn vfnmaddss_xmm_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub132pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub132pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51696,7 +51696,7 @@ fn vfnmsub132pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub132pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub132pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -51726,7 +51726,7 @@ fn vfnmsub132pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmsub132pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub132pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51747,7 +51747,7 @@ fn vfnmsub132pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmsub132pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub132pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51826,7 +51826,7 @@ fn vfnmsub132ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub132ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub132ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51842,7 +51842,7 @@ fn vfnmsub132ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub132ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub132ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -51872,7 +51872,7 @@ fn vfnmsub132ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmsub132ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub132ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51893,7 +51893,7 @@ fn vfnmsub132ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmsub132ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub132ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51918,7 +51918,7 @@ fn vfnmsub132ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub132sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmsub132sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51934,7 +51934,7 @@ fn vfnmsub132sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub132sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmsub132sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -51968,7 +51968,7 @@ fn vfnmsub132sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub132ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmsub132ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -51984,7 +51984,7 @@ fn vfnmsub132ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub132ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub132ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmsub132ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub132ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52000,7 +52000,7 @@ fn vfnmsub132ss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub213pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub213pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -52016,7 +52016,7 @@ fn vfnmsub213pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub213pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub213pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -52046,7 +52046,7 @@ fn vfnmsub213pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmsub213pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub213pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52067,7 +52067,7 @@ fn vfnmsub213pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmsub213pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub213pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52146,7 +52146,7 @@ fn vfnmsub213ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub213ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub213ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -52162,7 +52162,7 @@ fn vfnmsub213ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub213ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub213ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -52192,7 +52192,7 @@ fn vfnmsub213ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmsub213ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub213ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52213,7 +52213,7 @@ fn vfnmsub213ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmsub213ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub213ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52238,7 +52238,7 @@ fn vfnmsub213ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub213sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmsub213sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -52254,7 +52254,7 @@ fn vfnmsub213sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub213sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmsub213sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52288,7 +52288,7 @@ fn vfnmsub213sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub213ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmsub213ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -52304,7 +52304,7 @@ fn vfnmsub213ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub213ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub213ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmsub213ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub213ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52320,7 +52320,7 @@ fn vfnmsub213ss_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub231pd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub231pd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -52336,7 +52336,7 @@ fn vfnmsub231pd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub231pd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub231pd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -52366,7 +52366,7 @@ fn vfnmsub231pd_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmsub231pd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231pd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub231pd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231pd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52387,7 +52387,7 @@ fn vfnmsub231pd_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmsub231pd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231pd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub231pd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231pd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52466,7 +52466,7 @@ fn vfnmsub231ph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub231ps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub231ps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -52482,7 +52482,7 @@ fn vfnmsub231ps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub231ps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub231ps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -52512,7 +52512,7 @@ fn vfnmsub231ps_xmm_xmm_m() {
 		test_instr(32, |a| a.vfnmsub231ps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231ps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vfnmsub231ps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231ps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52533,7 +52533,7 @@ fn vfnmsub231ps_ymm_ymm_m() {
 		test_instr(32, |a| a.vfnmsub231ps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231ps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vfnmsub231ps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231ps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52558,7 +52558,7 @@ fn vfnmsub231ps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub231sd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmsub231sd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -52574,7 +52574,7 @@ fn vfnmsub231sd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub231sd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231sd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vfnmsub231sd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231sd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -52608,7 +52608,7 @@ fn vfnmsub231sh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub231ss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmsub231ss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -52624,7 +52624,7 @@ fn vfnmsub231ss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vfnmsub231ss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vfnmsub231ss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vfnmsub231ss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vfnmsub231ss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -54682,7 +54682,7 @@ fn vgetmantss_xmm_xmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8affineinvqb_xmm_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(xmm2, xmm3, xmm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -54693,7 +54693,7 @@ fn vgf2p8affineinvqb_xmm_xmm_xmm_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(xmm2, xmm3, xmm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -54709,7 +54709,7 @@ fn vgf2p8affineinvqb_xmm_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8affineinvqb_ymm_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(ymm2, ymm3, ymm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -54720,7 +54720,7 @@ fn vgf2p8affineinvqb_ymm_ymm_ymm_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(ymm2, ymm3, ymm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -54754,7 +54754,7 @@ fn vgf2p8affineinvqb_xmm_xmm_m_i() {
 		test_instr(32, |a| a.vgf2p8affineinvqb(xmm2.k1(), xmm3, dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(xmm2, xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -54770,7 +54770,7 @@ fn vgf2p8affineinvqb_xmm_xmm_m_i() {
 		test_instr(32, |a| a.vgf2p8affineinvqb(xmm2.k1(), xmm3, dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(xmm2, xmm3, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -54791,7 +54791,7 @@ fn vgf2p8affineinvqb_ymm_ymm_m_i() {
 		test_instr(32, |a| a.vgf2p8affineinvqb(ymm2.k1(), ymm3, dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(ymm2, ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -54807,7 +54807,7 @@ fn vgf2p8affineinvqb_ymm_ymm_m_i() {
 		test_instr(32, |a| a.vgf2p8affineinvqb(ymm2.k1(), ymm3, dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(ymm2, ymm3, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -54836,7 +54836,7 @@ fn vgf2p8affineinvqb_zmm_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8affineinvqb_xmm_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(xmm2, xmm3, xmm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(),
@@ -54852,7 +54852,7 @@ fn vgf2p8affineinvqb_xmm_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8affineinvqb_ymm_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(ymm2, ymm3, ymm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(),
@@ -54882,7 +54882,7 @@ fn vgf2p8affineinvqb_xmm_xmm_m_u() {
 		test_instr(32, |a| a.vgf2p8affineinvqb(xmm2.k1(), xmm3, dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(xmm2, xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -54903,7 +54903,7 @@ fn vgf2p8affineinvqb_ymm_ymm_m_u() {
 		test_instr(32, |a| a.vgf2p8affineinvqb(ymm2.k1(), ymm3, dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineinvqb(ymm2, ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -54928,7 +54928,7 @@ fn vgf2p8affineinvqb_zmm_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8affineqb_xmm_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(xmm2, xmm3, xmm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -54939,7 +54939,7 @@ fn vgf2p8affineqb_xmm_xmm_xmm_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(xmm2, xmm3, xmm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -54955,7 +54955,7 @@ fn vgf2p8affineqb_xmm_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8affineqb_ymm_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(ymm2, ymm3, ymm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -54966,7 +54966,7 @@ fn vgf2p8affineqb_ymm_ymm_ymm_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(ymm2, ymm3, ymm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -55000,7 +55000,7 @@ fn vgf2p8affineqb_xmm_xmm_m_i() {
 		test_instr(32, |a| a.vgf2p8affineqb(xmm2.k1(), xmm3, dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(xmm2, xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -55016,7 +55016,7 @@ fn vgf2p8affineqb_xmm_xmm_m_i() {
 		test_instr(32, |a| a.vgf2p8affineqb(xmm2.k1(), xmm3, dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(xmm2, xmm3, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -55037,7 +55037,7 @@ fn vgf2p8affineqb_ymm_ymm_m_i() {
 		test_instr(32, |a| a.vgf2p8affineqb(ymm2.k1(), ymm3, dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(ymm2, ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -55053,7 +55053,7 @@ fn vgf2p8affineqb_ymm_ymm_m_i() {
 		test_instr(32, |a| a.vgf2p8affineqb(ymm2.k1(), ymm3, dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(ymm2, ymm3, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -55082,7 +55082,7 @@ fn vgf2p8affineqb_zmm_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8affineqb_xmm_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(xmm2, xmm3, xmm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(),
@@ -55098,7 +55098,7 @@ fn vgf2p8affineqb_xmm_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8affineqb_ymm_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(ymm2, ymm3, ymm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(),
@@ -55128,7 +55128,7 @@ fn vgf2p8affineqb_xmm_xmm_m_u() {
 		test_instr(32, |a| a.vgf2p8affineqb(xmm2.k1(), xmm3, dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(xmm2, xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -55149,7 +55149,7 @@ fn vgf2p8affineqb_ymm_ymm_m_u() {
 		test_instr(32, |a| a.vgf2p8affineqb(ymm2.k1(), ymm3, dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vgf2p8affineqb(ymm2, ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -55174,7 +55174,7 @@ fn vgf2p8affineqb_zmm_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8mulb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8mulb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vgf2p8mulb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -55190,7 +55190,7 @@ fn vgf2p8mulb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8mulb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8mulb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vgf2p8mulb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -55215,7 +55215,7 @@ fn vgf2p8mulb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8mulb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8mulb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vgf2p8mulb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vgf2p8mulb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -55231,7 +55231,7 @@ fn vgf2p8mulb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vgf2p8mulb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vgf2p8mulb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vgf2p8mulb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vgf2p8mulb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56016,7 +56016,7 @@ fn vinserti64x4_zmm_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vinsertps_xmm_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vinsertps_xmm_xmm_xmmm32_imm8
 		test_instr(32, |a| a.vinsertps(xmm2, xmm3, xmm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -56027,7 +56027,7 @@ fn vinsertps_xmm_xmm_xmm_i() {
 			Instruction::with4(Code::EVEX_Vinsertps_xmm_xmm_xmmm32_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vinsertps_xmm_xmm_xmmm32_imm8
 		test_instr(32, |a| a.vinsertps(xmm2, xmm3, xmm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -56043,7 +56043,7 @@ fn vinsertps_xmm_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vinsertps_xmm_xmm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vinsertps_xmm_xmm_xmmm32_imm8
 		test_instr(32, |a| a.vinsertps(xmm2, xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -56054,7 +56054,7 @@ fn vinsertps_xmm_xmm_m_i() {
 			Instruction::with4(Code::EVEX_Vinsertps_xmm_xmm_xmmm32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vinsertps_xmm_xmm_xmmm32_imm8
 		test_instr(32, |a| a.vinsertps(xmm2, xmm3, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -56070,7 +56070,7 @@ fn vinsertps_xmm_xmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vinsertps_xmm_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vinsertps_xmm_xmm_xmmm32_imm8
 		test_instr(32, |a| a.vinsertps(xmm2, xmm3, xmm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8, Register::XMM2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(),
@@ -56086,7 +56086,7 @@ fn vinsertps_xmm_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vinsertps_xmm_xmm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vinsertps_xmm_xmm_xmmm32_imm8
 		test_instr(32, |a| a.vinsertps(xmm2, xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vinsertps_xmm_xmm_xmmm32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -56210,7 +56210,7 @@ fn vmaskmovps_ymm_ymm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmaxpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vmaxpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -56226,7 +56226,7 @@ fn vmaxpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmaxpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vmaxpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -56256,7 +56256,7 @@ fn vmaxpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vmaxpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vmaxpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vmaxpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56277,7 +56277,7 @@ fn vmaxpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vmaxpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vmaxpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vmaxpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56356,7 +56356,7 @@ fn vmaxph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmaxps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vmaxps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -56372,7 +56372,7 @@ fn vmaxps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmaxps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vmaxps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -56402,7 +56402,7 @@ fn vmaxps_xmm_xmm_m() {
 		test_instr(32, |a| a.vmaxps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vmaxps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vmaxps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56423,7 +56423,7 @@ fn vmaxps_ymm_ymm_m() {
 		test_instr(32, |a| a.vmaxps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vmaxps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vmaxps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56448,7 +56448,7 @@ fn vmaxps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmaxsd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vmaxsd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -56464,7 +56464,7 @@ fn vmaxsd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmaxsd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vmaxsd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56498,7 +56498,7 @@ fn vmaxsh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmaxss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vmaxss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -56514,7 +56514,7 @@ fn vmaxss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmaxss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmaxss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vmaxss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmaxss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56566,7 +56566,7 @@ fn vmgexit() {
 #[test]
 #[rustfmt::skip]
 fn vminpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vminpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vminpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vminpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -56582,7 +56582,7 @@ fn vminpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vminpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vminpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vminpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vminpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -56612,7 +56612,7 @@ fn vminpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vminpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vminpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vminpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vminpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vminpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56633,7 +56633,7 @@ fn vminpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vminpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vminpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vminpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vminpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vminpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56712,7 +56712,7 @@ fn vminph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vminps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vminps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vminps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vminps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -56728,7 +56728,7 @@ fn vminps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vminps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vminps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vminps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vminps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -56758,7 +56758,7 @@ fn vminps_xmm_xmm_m() {
 		test_instr(32, |a| a.vminps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vminps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vminps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vminps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vminps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56779,7 +56779,7 @@ fn vminps_ymm_ymm_m() {
 		test_instr(32, |a| a.vminps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vminps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vminps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vminps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vminps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56804,7 +56804,7 @@ fn vminps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vminsd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vminsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vminsd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vminsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -56820,7 +56820,7 @@ fn vminsd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vminsd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vminsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vminsd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vminsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56854,7 +56854,7 @@ fn vminsh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vminss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vminss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vminss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vminss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -56870,7 +56870,7 @@ fn vminss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vminss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vminss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vminss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vminss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -56919,7 +56919,7 @@ fn vmmcall() {
 #[test]
 #[rustfmt::skip]
 fn vmovapd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovapd_xmm_xmmm128
 		test_instr(32, |a| a.vmovapd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovapd_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -56935,7 +56935,7 @@ fn vmovapd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovapd_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovapd_xmmm128_xmm
 		test_instr(32, |a| a.vmovapd(xmmword_ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovapd_xmmm128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -56951,7 +56951,7 @@ fn vmovapd_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovapd_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovapd_ymm_ymmm256
 		test_instr(32, |a| a.vmovapd(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovapd_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -56967,7 +56967,7 @@ fn vmovapd_ymm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vmovapd_m_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovapd_ymmm256_ymm
 		test_instr(32, |a| a.vmovapd(ymmword_ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovapd_ymmm256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
@@ -57001,7 +57001,7 @@ fn vmovapd_m_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovapd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovapd_xmm_xmmm128
 		test_instr(32, |a| a.vmovapd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovapd_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -57017,7 +57017,7 @@ fn vmovapd_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovapd_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovapd_ymm_ymmm256
 		test_instr(32, |a| a.vmovapd(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovapd_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -57042,7 +57042,7 @@ fn vmovapd_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovaps_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovaps_xmm_xmmm128
 		test_instr(32, |a| a.vmovaps(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovaps_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -57058,7 +57058,7 @@ fn vmovaps_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovaps_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovaps_xmmm128_xmm
 		test_instr(32, |a| a.vmovaps(xmmword_ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovaps_xmmm128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -57074,7 +57074,7 @@ fn vmovaps_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovaps_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovaps_ymm_ymmm256
 		test_instr(32, |a| a.vmovaps(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovaps_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -57090,7 +57090,7 @@ fn vmovaps_ymm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vmovaps_m_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovaps_ymmm256_ymm
 		test_instr(32, |a| a.vmovaps(ymmword_ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovaps_ymmm256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
@@ -57124,7 +57124,7 @@ fn vmovaps_m_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovaps_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovaps_xmm_xmmm128
 		test_instr(32, |a| a.vmovaps(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovaps_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -57140,7 +57140,7 @@ fn vmovaps_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovaps_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovaps_ymm_ymmm256
 		test_instr(32, |a| a.vmovaps(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovaps_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -57165,7 +57165,7 @@ fn vmovaps_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovd_xmm_r32() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovd_xmm_rm32
 		test_instr(32, |a| a.vmovd(xmm2, ebx).unwrap(),
 			Instruction::with2(Code::VEX_Vmovd_xmm_rm32, Register::XMM2, Register::EBX).unwrap(),
@@ -57181,7 +57181,7 @@ fn vmovd_xmm_r32() {
 #[test]
 #[rustfmt::skip]
 fn vmovd_r32_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovd_rm32_xmm
 		test_instr(32, |a| a.vmovd(edx, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovd_rm32_xmm, Register::EDX, Register::XMM3).unwrap(),
@@ -57197,7 +57197,7 @@ fn vmovd_r32_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovd_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovd_rm32_xmm
 		test_instr(32, |a| a.vmovd(dword_ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovd_rm32_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -57213,7 +57213,7 @@ fn vmovd_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovd_xmm_rm32
 		test_instr(32, |a| a.vmovd(xmm2, dword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovd_xmm_rm32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -57229,7 +57229,7 @@ fn vmovd_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovddup_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovddup_xmm_xmmm64
 		test_instr(32, |a| a.vmovddup(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovddup_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -57245,7 +57245,7 @@ fn vmovddup_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovddup_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovddup_ymm_ymmm256
 		test_instr(32, |a| a.vmovddup(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovddup_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -57270,7 +57270,7 @@ fn vmovddup_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovddup_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovddup_xmm_xmmm64
 		test_instr(32, |a| a.vmovddup(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovddup_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -57286,7 +57286,7 @@ fn vmovddup_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovddup_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovddup_ymm_ymmm256
 		test_instr(32, |a| a.vmovddup(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovddup_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -57905,7 +57905,7 @@ fn vmovdqu8_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovhlps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovhlps_xmm_xmm_xmm
 		test_instr(32, |a| a.vmovhlps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmovhlps_xmm_xmm_xmm, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -57921,7 +57921,7 @@ fn vmovhlps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovhpd_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovhpd_m64_xmm
 		test_instr(32, |a| a.vmovhpd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovhpd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -57937,7 +57937,7 @@ fn vmovhpd_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovhpd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovhpd_xmm_xmm_m64
 		test_instr(32, |a| a.vmovhpd_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmovhpd_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -57953,7 +57953,7 @@ fn vmovhpd_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovhps_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovhps_m64_xmm
 		test_instr(32, |a| a.vmovhps(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovhps_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -57969,7 +57969,7 @@ fn vmovhps_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovhps_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovhps_xmm_xmm_m64
 		test_instr(32, |a| a.vmovhps_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmovhps_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -57985,7 +57985,7 @@ fn vmovhps_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovlhps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovlhps_xmm_xmm_xmm
 		test_instr(32, |a| a.vmovlhps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmovlhps_xmm_xmm_xmm, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -58001,7 +58001,7 @@ fn vmovlhps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovlpd_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovlpd_m64_xmm
 		test_instr(32, |a| a.vmovlpd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovlpd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -58017,7 +58017,7 @@ fn vmovlpd_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovlpd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovlpd_xmm_xmm_m64
 		test_instr(32, |a| a.vmovlpd_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmovlpd_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58033,7 +58033,7 @@ fn vmovlpd_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovlps_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovlps_m64_xmm
 		test_instr(32, |a| a.vmovlps(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovlps_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -58049,7 +58049,7 @@ fn vmovlps_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovlps_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovlps_xmm_xmm_m64
 		test_instr(32, |a| a.vmovlps_3(xmm2, xmm3, ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmovlps_xmm_xmm_m64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58101,7 +58101,7 @@ fn vmovmskps_r32_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vmovntdq_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovntdq_m128_xmm
 		test_instr(32, |a| a.vmovntdq(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntdq_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -58117,7 +58117,7 @@ fn vmovntdq_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovntdq_m_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovntdq_m256_ymm
 		test_instr(32, |a| a.vmovntdq(ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntdq_m256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
@@ -58142,7 +58142,7 @@ fn vmovntdq_m_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovntdqa_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovntdqa_xmm_m128
 		test_instr(32, |a| a.vmovntdqa(xmm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntdqa_xmm_m128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58158,7 +58158,7 @@ fn vmovntdqa_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovntdqa_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovntdqa_ymm_m256
 		test_instr(32, |a| a.vmovntdqa(ymm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntdqa_ymm_m256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58183,7 +58183,7 @@ fn vmovntdqa_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovntpd_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovntpd_m128_xmm
 		test_instr(32, |a| a.vmovntpd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntpd_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -58199,7 +58199,7 @@ fn vmovntpd_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovntpd_m_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovntpd_m256_ymm
 		test_instr(32, |a| a.vmovntpd(ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntpd_m256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
@@ -58224,7 +58224,7 @@ fn vmovntpd_m_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovntps_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovntps_m128_xmm
 		test_instr(32, |a| a.vmovntps(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntps_m128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -58240,7 +58240,7 @@ fn vmovntps_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovntps_m_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovntps_m256_ymm
 		test_instr(32, |a| a.vmovntps(ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovntps_m256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
@@ -58265,7 +58265,7 @@ fn vmovntps_m_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovq_xmm_xmmm64
 		test_instr(32, |a| a.vmovq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovq_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -58281,7 +58281,7 @@ fn vmovq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovq_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovq_xmmm64_xmm
 		test_instr(32, |a| a.vmovq(xmmword_ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovq_xmmm64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -58297,7 +58297,7 @@ fn vmovq_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovq_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovq_xmm_xmmm64
 		test_instr(32, |a| a.vmovq(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovq_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58313,7 +58313,7 @@ fn vmovq_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovsd_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovsd_m64_xmm
 		test_instr(32, |a| a.vmovsd(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovsd_m64_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -58329,7 +58329,7 @@ fn vmovsd_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovsd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovsd_xmm_m64
 		test_instr(32, |a| a.vmovsd(xmm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovsd_xmm_m64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58345,7 +58345,7 @@ fn vmovsd_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovsd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovsd_xmm_xmm_xmm
 		test_instr(32, |a| a.vmovsd_3(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmovsd_xmm_xmm_xmm, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -58388,7 +58388,7 @@ fn vmovsh_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovshdup_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovshdup_xmm_xmmm128
 		test_instr(32, |a| a.vmovshdup(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovshdup_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -58404,7 +58404,7 @@ fn vmovshdup_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovshdup_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovshdup_ymm_ymmm256
 		test_instr(32, |a| a.vmovshdup(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovshdup_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -58429,7 +58429,7 @@ fn vmovshdup_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovshdup_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovshdup_xmm_xmmm128
 		test_instr(32, |a| a.vmovshdup(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovshdup_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58445,7 +58445,7 @@ fn vmovshdup_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovshdup_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovshdup_ymm_ymmm256
 		test_instr(32, |a| a.vmovshdup(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovshdup_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58470,7 +58470,7 @@ fn vmovshdup_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovsldup_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovsldup_xmm_xmmm128
 		test_instr(32, |a| a.vmovsldup(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovsldup_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -58486,7 +58486,7 @@ fn vmovsldup_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovsldup_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovsldup_ymm_ymmm256
 		test_instr(32, |a| a.vmovsldup(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovsldup_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -58511,7 +58511,7 @@ fn vmovsldup_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovsldup_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovsldup_xmm_xmmm128
 		test_instr(32, |a| a.vmovsldup(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovsldup_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58527,7 +58527,7 @@ fn vmovsldup_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovsldup_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovsldup_ymm_ymmm256
 		test_instr(32, |a| a.vmovsldup(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovsldup_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58552,7 +58552,7 @@ fn vmovsldup_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovss_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovss_m32_xmm
 		test_instr(32, |a| a.vmovss(ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovss_m32_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -58568,7 +58568,7 @@ fn vmovss_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovss_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovss_xmm_m32
 		test_instr(32, |a| a.vmovss(xmm2, ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovss_xmm_m32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58584,7 +58584,7 @@ fn vmovss_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovss_xmm_xmm_xmm
 		test_instr(32, |a| a.vmovss_3(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmovss_xmm_xmm_xmm, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -58600,7 +58600,7 @@ fn vmovss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovupd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovupd_xmm_xmmm128
 		test_instr(32, |a| a.vmovupd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovupd_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -58616,7 +58616,7 @@ fn vmovupd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovupd_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovupd_xmmm128_xmm
 		test_instr(32, |a| a.vmovupd(xmmword_ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovupd_xmmm128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -58632,7 +58632,7 @@ fn vmovupd_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovupd_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovupd_ymm_ymmm256
 		test_instr(32, |a| a.vmovupd(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovupd_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -58648,7 +58648,7 @@ fn vmovupd_ymm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vmovupd_m_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovupd_ymmm256_ymm
 		test_instr(32, |a| a.vmovupd(ymmword_ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovupd_ymmm256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
@@ -58682,7 +58682,7 @@ fn vmovupd_m_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovupd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovupd_xmm_xmmm128
 		test_instr(32, |a| a.vmovupd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovupd_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58698,7 +58698,7 @@ fn vmovupd_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovupd_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovupd_ymm_ymmm256
 		test_instr(32, |a| a.vmovupd(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovupd_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58723,7 +58723,7 @@ fn vmovupd_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovups_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovups_xmm_xmmm128
 		test_instr(32, |a| a.vmovups(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -58739,7 +58739,7 @@ fn vmovups_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovups_m_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovups_xmmm128_xmm
 		test_instr(32, |a| a.vmovups(xmmword_ptr(ecx), xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovups_xmmm128_xmm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3).unwrap(),
@@ -58755,7 +58755,7 @@ fn vmovups_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovups_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovups_ymm_ymmm256
 		test_instr(32, |a| a.vmovups(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovups_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -58771,7 +58771,7 @@ fn vmovups_ymm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vmovups_m_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovups_ymmm256_ymm
 		test_instr(32, |a| a.vmovups(ymmword_ptr(ecx), ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vmovups_ymmm256_ymm, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::YMM3).unwrap(),
@@ -58805,7 +58805,7 @@ fn vmovups_m_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vmovups_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovups_xmm_xmmm128
 		test_instr(32, |a| a.vmovups(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -58821,7 +58821,7 @@ fn vmovups_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmovups_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmovups_ymm_ymmm256
 		test_instr(32, |a| a.vmovups(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vmovups_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59045,7 +59045,7 @@ fn vmsave() {
 #[test]
 #[rustfmt::skip]
 fn vmulpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmulpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vmulpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmulpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -59061,7 +59061,7 @@ fn vmulpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmulpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmulpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vmulpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmulpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -59091,7 +59091,7 @@ fn vmulpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vmulpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vmulpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vmulpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vmulpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmulpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59112,7 +59112,7 @@ fn vmulpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vmulpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vmulpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vmulpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vmulpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmulpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59191,7 +59191,7 @@ fn vmulph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmulps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmulps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vmulps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmulps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -59207,7 +59207,7 @@ fn vmulps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmulps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmulps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vmulps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmulps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -59237,7 +59237,7 @@ fn vmulps_xmm_xmm_m() {
 		test_instr(32, |a| a.vmulps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vmulps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vmulps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vmulps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmulps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59258,7 +59258,7 @@ fn vmulps_ymm_ymm_m() {
 		test_instr(32, |a| a.vmulps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vmulps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vmulps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vmulps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmulps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59283,7 +59283,7 @@ fn vmulps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmulsd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmulsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vmulsd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmulsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -59299,7 +59299,7 @@ fn vmulsd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmulsd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmulsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vmulsd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmulsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59333,7 +59333,7 @@ fn vmulsh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vmulss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmulss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vmulss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vmulss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -59349,7 +59349,7 @@ fn vmulss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vmulss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vmulss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vmulss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vmulss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59401,7 +59401,7 @@ fn vmxon_m() {
 #[test]
 #[rustfmt::skip]
 fn vorpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vorpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vorpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vorpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -59417,7 +59417,7 @@ fn vorpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vorpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vorpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vorpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vorpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -59447,7 +59447,7 @@ fn vorpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vorpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vorpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vorpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vorpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vorpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59468,7 +59468,7 @@ fn vorpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vorpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vorpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vorpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vorpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vorpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59493,7 +59493,7 @@ fn vorpd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vorps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vorps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vorps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vorps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -59509,7 +59509,7 @@ fn vorps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vorps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vorps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vorps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vorps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -59539,7 +59539,7 @@ fn vorps_xmm_xmm_m() {
 		test_instr(32, |a| a.vorps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vorps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vorps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vorps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vorps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59560,7 +59560,7 @@ fn vorps_ymm_ymm_m() {
 		test_instr(32, |a| a.vorps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vorps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vorps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vorps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vorps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59711,7 +59711,7 @@ fn vp4dpwssds_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpabsb_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsb_xmm_xmmm128
 		test_instr(32, |a| a.vpabsb(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsb_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -59727,7 +59727,7 @@ fn vpabsb_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpabsb_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsb_ymm_ymmm256
 		test_instr(32, |a| a.vpabsb(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsb_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -59752,7 +59752,7 @@ fn vpabsb_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpabsb_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsb_xmm_xmmm128
 		test_instr(32, |a| a.vpabsb(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsb_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59768,7 +59768,7 @@ fn vpabsb_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpabsb_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsb_ymm_ymmm256
 		test_instr(32, |a| a.vpabsb(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsb_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59793,7 +59793,7 @@ fn vpabsb_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpabsd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsd_xmm_xmmm128
 		test_instr(32, |a| a.vpabsd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsd_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -59809,7 +59809,7 @@ fn vpabsd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpabsd_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsd_ymm_ymmm256
 		test_instr(32, |a| a.vpabsd(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsd_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -59839,7 +59839,7 @@ fn vpabsd_xmm_m() {
 		test_instr(32, |a| a.vpabsd(xmm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vpabsd_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsd_xmm_xmmm128
 		test_instr(32, |a| a.vpabsd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsd_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59860,7 +59860,7 @@ fn vpabsd_ymm_m() {
 		test_instr(32, |a| a.vpabsd(ymm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vpabsd_ymm_k1z_ymmm256b32, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsd_ymm_ymmm256
 		test_instr(32, |a| a.vpabsd(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsd_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59939,7 +59939,7 @@ fn vpabsq_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpabsw_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsw_xmm_xmmm128
 		test_instr(32, |a| a.vpabsw(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsw_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -59955,7 +59955,7 @@ fn vpabsw_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpabsw_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsw_ymm_ymmm256
 		test_instr(32, |a| a.vpabsw(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsw_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -59980,7 +59980,7 @@ fn vpabsw_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpabsw_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsw_xmm_xmmm128
 		test_instr(32, |a| a.vpabsw(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsw_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -59996,7 +59996,7 @@ fn vpabsw_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpabsw_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpabsw_ymm_ymmm256
 		test_instr(32, |a| a.vpabsw(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpabsw_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60021,7 +60021,7 @@ fn vpabsw_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpackssdw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpackssdw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpackssdw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpackssdw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60037,7 +60037,7 @@ fn vpackssdw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpackssdw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpackssdw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpackssdw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpackssdw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60067,7 +60067,7 @@ fn vpackssdw_xmm_xmm_m() {
 		test_instr(32, |a| a.vpackssdw(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpackssdw_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpackssdw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpackssdw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpackssdw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60088,7 +60088,7 @@ fn vpackssdw_ymm_ymm_m() {
 		test_instr(32, |a| a.vpackssdw(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpackssdw_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpackssdw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpackssdw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpackssdw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60113,7 +60113,7 @@ fn vpackssdw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpacksswb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpacksswb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpacksswb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpacksswb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60129,7 +60129,7 @@ fn vpacksswb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpacksswb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpacksswb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpacksswb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpacksswb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60154,7 +60154,7 @@ fn vpacksswb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpacksswb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpacksswb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpacksswb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpacksswb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60170,7 +60170,7 @@ fn vpacksswb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpacksswb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpacksswb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpacksswb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpacksswb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60195,7 +60195,7 @@ fn vpacksswb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpackusdw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpackusdw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpackusdw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpackusdw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60211,7 +60211,7 @@ fn vpackusdw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpackusdw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpackusdw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpackusdw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpackusdw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60241,7 +60241,7 @@ fn vpackusdw_xmm_xmm_m() {
 		test_instr(32, |a| a.vpackusdw(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpackusdw_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpackusdw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpackusdw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpackusdw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60262,7 +60262,7 @@ fn vpackusdw_ymm_ymm_m() {
 		test_instr(32, |a| a.vpackusdw(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpackusdw_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpackusdw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpackusdw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpackusdw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60287,7 +60287,7 @@ fn vpackusdw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpackuswb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpackuswb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpackuswb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpackuswb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60303,7 +60303,7 @@ fn vpackuswb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpackuswb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpackuswb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpackuswb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpackuswb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60328,7 +60328,7 @@ fn vpackuswb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpackuswb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpackuswb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpackuswb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpackuswb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60344,7 +60344,7 @@ fn vpackuswb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpackuswb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpackuswb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpackuswb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpackuswb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60369,7 +60369,7 @@ fn vpackuswb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60385,7 +60385,7 @@ fn vpaddb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60410,7 +60410,7 @@ fn vpaddb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60426,7 +60426,7 @@ fn vpaddb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60451,7 +60451,7 @@ fn vpaddb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60467,7 +60467,7 @@ fn vpaddd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60497,7 +60497,7 @@ fn vpaddd_xmm_xmm_m() {
 		test_instr(32, |a| a.vpaddd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpaddd_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60518,7 +60518,7 @@ fn vpaddd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpaddd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpaddd_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60543,7 +60543,7 @@ fn vpaddd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60559,7 +60559,7 @@ fn vpaddq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddq_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddq(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60589,7 +60589,7 @@ fn vpaddq_xmm_xmm_m() {
 		test_instr(32, |a| a.vpaddq(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpaddq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60610,7 +60610,7 @@ fn vpaddq_ymm_ymm_m() {
 		test_instr(32, |a| a.vpaddq(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpaddq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddq(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60635,7 +60635,7 @@ fn vpaddq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddsb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddsb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddsb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddsb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60651,7 +60651,7 @@ fn vpaddsb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddsb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddsb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddsb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddsb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60676,7 +60676,7 @@ fn vpaddsb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddsb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddsb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddsb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddsb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60692,7 +60692,7 @@ fn vpaddsb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddsb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddsb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddsb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddsb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60717,7 +60717,7 @@ fn vpaddsb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddsw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddsw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60733,7 +60733,7 @@ fn vpaddsw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddsw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddsw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60758,7 +60758,7 @@ fn vpaddsw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddsw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddsw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60774,7 +60774,7 @@ fn vpaddsw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddsw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddsw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60799,7 +60799,7 @@ fn vpaddsw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddusb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddusb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddusb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddusb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60815,7 +60815,7 @@ fn vpaddusb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddusb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddusb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddusb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddusb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60840,7 +60840,7 @@ fn vpaddusb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddusb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddusb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddusb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddusb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60856,7 +60856,7 @@ fn vpaddusb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddusb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddusb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddusb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddusb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60881,7 +60881,7 @@ fn vpaddusb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddusw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddusw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddusw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddusw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60897,7 +60897,7 @@ fn vpaddusw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddusw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddusw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddusw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddusw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -60922,7 +60922,7 @@ fn vpaddusw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddusw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddusw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddusw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddusw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60938,7 +60938,7 @@ fn vpaddusw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddusw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddusw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddusw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddusw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -60963,7 +60963,7 @@ fn vpaddusw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -60979,7 +60979,7 @@ fn vpaddw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -61004,7 +61004,7 @@ fn vpaddw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpaddw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpaddw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -61020,7 +61020,7 @@ fn vpaddw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpaddw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpaddw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpaddw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpaddw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -61045,7 +61045,7 @@ fn vpaddw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpalignr_xmm_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpalignr(xmm2, xmm3, xmm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -61056,7 +61056,7 @@ fn vpalignr_xmm_xmm_xmm_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpalignr(xmm2, xmm3, xmm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -61072,7 +61072,7 @@ fn vpalignr_xmm_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpalignr_ymm_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpalignr(ymm2, ymm3, ymm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -61083,7 +61083,7 @@ fn vpalignr_ymm_ymm_ymm_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpalignr(ymm2, ymm3, ymm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -61112,7 +61112,7 @@ fn vpalignr_zmm_zmm_zmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpalignr_xmm_xmm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpalignr(xmm2, xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -61123,7 +61123,7 @@ fn vpalignr_xmm_xmm_m_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpalignr(xmm2, xmm3, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -61139,7 +61139,7 @@ fn vpalignr_xmm_xmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpalignr_ymm_ymm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpalignr(ymm2, ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -61150,7 +61150,7 @@ fn vpalignr_ymm_ymm_m_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpalignr(ymm2, ymm3, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -61179,7 +61179,7 @@ fn vpalignr_zmm_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpalignr_xmm_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpalignr(xmm2, xmm3, xmm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(),
@@ -61195,7 +61195,7 @@ fn vpalignr_xmm_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpalignr_ymm_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpalignr(ymm2, ymm3, ymm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(),
@@ -61220,7 +61220,7 @@ fn vpalignr_zmm_zmm_zmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpalignr_xmm_xmm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpalignr(xmm2, xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -61236,7 +61236,7 @@ fn vpalignr_xmm_xmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpalignr_ymm_ymm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpalignr_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpalignr(ymm2, ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpalignr_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -61549,7 +61549,7 @@ fn vpandq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpavgb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpavgb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpavgb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpavgb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -61565,7 +61565,7 @@ fn vpavgb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpavgb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpavgb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpavgb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpavgb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -61590,7 +61590,7 @@ fn vpavgb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpavgb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpavgb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpavgb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpavgb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -61606,7 +61606,7 @@ fn vpavgb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpavgb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpavgb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpavgb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpavgb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -61631,7 +61631,7 @@ fn vpavgb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpavgw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpavgw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpavgw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpavgw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -61647,7 +61647,7 @@ fn vpavgw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpavgw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpavgw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpavgw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpavgw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -61672,7 +61672,7 @@ fn vpavgw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpavgw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpavgw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpavgw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpavgw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -61688,7 +61688,7 @@ fn vpavgw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpavgw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpavgw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpavgw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpavgw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -62168,7 +62168,7 @@ fn vpbroadcastb_zmm_r32() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastb_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastb_xmm_xmmm8
 		test_instr(32, |a| a.vpbroadcastb(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastb_xmm_xmmm8, Register::XMM2, Register::XMM3).unwrap(),
@@ -62184,7 +62184,7 @@ fn vpbroadcastb_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastb_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastb_ymm_xmmm8
 		test_instr(32, |a| a.vpbroadcastb(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastb_ymm_xmmm8, Register::YMM2, Register::XMM3).unwrap(),
@@ -62209,7 +62209,7 @@ fn vpbroadcastb_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastb_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastb_xmm_xmmm8
 		test_instr(32, |a| a.vpbroadcastb(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastb_xmm_xmmm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -62225,7 +62225,7 @@ fn vpbroadcastb_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastb_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastb_ymm_xmmm8
 		test_instr(32, |a| a.vpbroadcastb(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastb_ymm_xmmm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -62277,7 +62277,7 @@ fn vpbroadcastd_zmm_r32() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastd_xmm_xmmm32
 		test_instr(32, |a| a.vpbroadcastd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastd_xmm_xmmm32, Register::XMM2, Register::XMM3).unwrap(),
@@ -62293,7 +62293,7 @@ fn vpbroadcastd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastd_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastd_ymm_xmmm32
 		test_instr(32, |a| a.vpbroadcastd(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastd_ymm_xmmm32, Register::YMM2, Register::XMM3).unwrap(),
@@ -62318,7 +62318,7 @@ fn vpbroadcastd_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastd_xmm_xmmm32
 		test_instr(32, |a| a.vpbroadcastd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastd_xmm_xmmm32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -62334,7 +62334,7 @@ fn vpbroadcastd_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastd_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastd_ymm_xmmm32
 		test_instr(32, |a| a.vpbroadcastd(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastd_ymm_xmmm32, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -62413,7 +62413,7 @@ fn vpbroadcastmw2d_zmm_kr() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastq_xmm_xmmm64
 		test_instr(32, |a| a.vpbroadcastq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastq_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -62429,7 +62429,7 @@ fn vpbroadcastq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastq_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastq_ymm_xmmm64
 		test_instr(32, |a| a.vpbroadcastq(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastq_ymm_xmmm64, Register::YMM2, Register::XMM3).unwrap(),
@@ -62454,7 +62454,7 @@ fn vpbroadcastq_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastq_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastq_xmm_xmmm64
 		test_instr(32, |a| a.vpbroadcastq(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastq_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -62470,7 +62470,7 @@ fn vpbroadcastq_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastq_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastq_ymm_xmmm64
 		test_instr(32, |a| a.vpbroadcastq(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastq_ymm_xmmm64, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -62522,7 +62522,7 @@ fn vpbroadcastw_zmm_r32() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastw_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastw_xmm_xmmm16
 		test_instr(32, |a| a.vpbroadcastw(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastw_xmm_xmmm16, Register::XMM2, Register::XMM3).unwrap(),
@@ -62538,7 +62538,7 @@ fn vpbroadcastw_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastw_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastw_ymm_xmmm16
 		test_instr(32, |a| a.vpbroadcastw(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastw_ymm_xmmm16, Register::YMM2, Register::XMM3).unwrap(),
@@ -62563,7 +62563,7 @@ fn vpbroadcastw_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastw_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastw_xmm_xmmm16
 		test_instr(32, |a| a.vpbroadcastw(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastw_xmm_xmmm16, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -62579,7 +62579,7 @@ fn vpbroadcastw_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpbroadcastw_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpbroadcastw_ymm_xmmm16
 		test_instr(32, |a| a.vpbroadcastw(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpbroadcastw_ymm_xmmm16, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -62820,7 +62820,7 @@ fn vpclmullqlqdq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpclmulqdq_xmm_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpclmulqdq(xmm2, xmm3, xmm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -62831,7 +62831,7 @@ fn vpclmulqdq_xmm_xmm_xmm_i() {
 			Instruction::with4(Code::EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpclmulqdq(xmm2, xmm3, xmm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -62847,7 +62847,7 @@ fn vpclmulqdq_xmm_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpclmulqdq_ymm_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpclmulqdq(ymm2, ymm3, ymm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -62858,7 +62858,7 @@ fn vpclmulqdq_ymm_ymm_ymm_i() {
 			Instruction::with4(Code::EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpclmulqdq(ymm2, ymm3, ymm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -62887,7 +62887,7 @@ fn vpclmulqdq_zmm_zmm_zmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpclmulqdq_xmm_xmm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpclmulqdq(xmm2, xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -62898,7 +62898,7 @@ fn vpclmulqdq_xmm_xmm_m_i() {
 			Instruction::with4(Code::EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpclmulqdq(xmm2, xmm3, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -62914,7 +62914,7 @@ fn vpclmulqdq_xmm_xmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpclmulqdq_ymm_ymm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpclmulqdq(ymm2, ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -62925,7 +62925,7 @@ fn vpclmulqdq_ymm_ymm_m_i() {
 			Instruction::with4(Code::EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpclmulqdq(ymm2, ymm3, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -62954,7 +62954,7 @@ fn vpclmulqdq_zmm_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpclmulqdq_xmm_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpclmulqdq(xmm2, xmm3, xmm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(),
@@ -62970,7 +62970,7 @@ fn vpclmulqdq_xmm_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpclmulqdq_ymm_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpclmulqdq(ymm2, ymm3, ymm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(),
@@ -62995,7 +62995,7 @@ fn vpclmulqdq_zmm_zmm_zmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpclmulqdq_xmm_xmm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpclmulqdq(xmm2, xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -63011,7 +63011,7 @@ fn vpclmulqdq_xmm_xmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpclmulqdq_ymm_ymm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpclmulqdq(ymm2, ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -70110,7 +70110,7 @@ fn vpconflictq_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpdpbusd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpbusd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpdpbusd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpbusd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -70126,7 +70126,7 @@ fn vpdpbusd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpdpbusd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpbusd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpdpbusd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpbusd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -70156,7 +70156,7 @@ fn vpdpbusd_xmm_xmm_m() {
 		test_instr(32, |a| a.vpdpbusd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpbusd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpdpbusd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpbusd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -70177,7 +70177,7 @@ fn vpdpbusd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpdpbusd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpbusd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpdpbusd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpbusd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -70202,7 +70202,7 @@ fn vpdpbusd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpdpbusds_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpbusds_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpdpbusds(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpbusds_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -70218,7 +70218,7 @@ fn vpdpbusds_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpdpbusds_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpbusds_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpdpbusds(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpbusds_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -70248,7 +70248,7 @@ fn vpdpbusds_xmm_xmm_m() {
 		test_instr(32, |a| a.vpdpbusds(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpbusds_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpdpbusds(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpbusds_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -70269,7 +70269,7 @@ fn vpdpbusds_ymm_ymm_m() {
 		test_instr(32, |a| a.vpdpbusds(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpbusds_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpdpbusds(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpbusds_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -70294,7 +70294,7 @@ fn vpdpbusds_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpdpwssd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpwssd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpdpwssd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpwssd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -70310,7 +70310,7 @@ fn vpdpwssd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpdpwssd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpwssd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpdpwssd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpwssd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -70340,7 +70340,7 @@ fn vpdpwssd_xmm_xmm_m() {
 		test_instr(32, |a| a.vpdpwssd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpwssd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpdpwssd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpwssd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -70361,7 +70361,7 @@ fn vpdpwssd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpdpwssd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpwssd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpdpwssd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpwssd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -70386,7 +70386,7 @@ fn vpdpwssd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpdpwssds_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpwssds_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpdpwssds(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpwssds_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -70402,7 +70402,7 @@ fn vpdpwssds_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpdpwssds_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpwssds_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpdpwssds(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpwssds_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -70432,7 +70432,7 @@ fn vpdpwssds_xmm_xmm_m() {
 		test_instr(32, |a| a.vpdpwssds(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpwssds_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpdpwssds(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpwssds_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -70453,7 +70453,7 @@ fn vpdpwssds_ymm_ymm_m() {
 		test_instr(32, |a| a.vpdpwssds(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpwssds_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpdpwssds(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpdpwssds_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -70620,7 +70620,7 @@ fn vpermb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpermd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpermd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpermd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -70650,7 +70650,7 @@ fn vpermd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpermd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpermd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpermd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -71263,7 +71263,7 @@ fn vpermil2ps_ymm_ymm_ymm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpermilpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpermilpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -71279,7 +71279,7 @@ fn vpermilpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpermilpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpermilpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -71309,7 +71309,7 @@ fn vpermilpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vpermilpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpermilpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -71330,7 +71330,7 @@ fn vpermilpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpermilpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpermilpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -71355,7 +71355,7 @@ fn vpermilpd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpermilpd_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilpd(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -71366,7 +71366,7 @@ fn vpermilpd_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilpd(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -71382,7 +71382,7 @@ fn vpermilpd_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpermilpd_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilpd(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -71393,7 +71393,7 @@ fn vpermilpd_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilpd(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -71427,7 +71427,7 @@ fn vpermilpd_xmm_m_i() {
 		test_instr(32, |a| a.vpermilpd(xmm2.k1(), dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilpd(xmm2, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -71443,7 +71443,7 @@ fn vpermilpd_xmm_m_i() {
 		test_instr(32, |a| a.vpermilpd(xmm2.k1(), dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilpd(xmm2, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -71464,7 +71464,7 @@ fn vpermilpd_ymm_m_i() {
 		test_instr(32, |a| a.vpermilpd(ymm2.k1(), dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilpd(ymm2, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -71480,7 +71480,7 @@ fn vpermilpd_ymm_m_i() {
 		test_instr(32, |a| a.vpermilpd(ymm2.k1(), dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilpd(ymm2, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -71509,7 +71509,7 @@ fn vpermilpd_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpermilpd_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilpd(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -71525,7 +71525,7 @@ fn vpermilpd_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpermilpd_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilpd(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -71555,7 +71555,7 @@ fn vpermilpd_xmm_m_u() {
 		test_instr(32, |a| a.vpermilpd(xmm2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilpd(xmm2, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -71576,7 +71576,7 @@ fn vpermilpd_ymm_m_u() {
 		test_instr(32, |a| a.vpermilpd(ymm2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilpd(ymm2, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilpd_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -71601,7 +71601,7 @@ fn vpermilpd_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpermilps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpermilps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -71617,7 +71617,7 @@ fn vpermilps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpermilps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpermilps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -71647,7 +71647,7 @@ fn vpermilps_xmm_xmm_m() {
 		test_instr(32, |a| a.vpermilps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpermilps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -71668,7 +71668,7 @@ fn vpermilps_ymm_ymm_m() {
 		test_instr(32, |a| a.vpermilps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpermilps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -71693,7 +71693,7 @@ fn vpermilps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpermilps_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilps(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -71704,7 +71704,7 @@ fn vpermilps_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilps(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -71720,7 +71720,7 @@ fn vpermilps_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpermilps_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilps(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -71731,7 +71731,7 @@ fn vpermilps_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilps(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -71765,7 +71765,7 @@ fn vpermilps_xmm_m_i() {
 		test_instr(32, |a| a.vpermilps(xmm2.k1(), dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilps(xmm2, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -71781,7 +71781,7 @@ fn vpermilps_xmm_m_i() {
 		test_instr(32, |a| a.vpermilps(xmm2.k1(), dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilps(xmm2, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -71802,7 +71802,7 @@ fn vpermilps_ymm_m_i() {
 		test_instr(32, |a| a.vpermilps(ymm2.k1(), dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilps(ymm2, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -71818,7 +71818,7 @@ fn vpermilps_ymm_m_i() {
 		test_instr(32, |a| a.vpermilps(ymm2.k1(), dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilps(ymm2, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -71847,7 +71847,7 @@ fn vpermilps_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpermilps_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilps(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -71863,7 +71863,7 @@ fn vpermilps_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpermilps_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilps(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -71893,7 +71893,7 @@ fn vpermilps_xmm_m_u() {
 		test_instr(32, |a| a.vpermilps(xmm2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpermilps(xmm2, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -71914,7 +71914,7 @@ fn vpermilps_ymm_m_u() {
 		test_instr(32, |a| a.vpermilps(ymm2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermilps_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermilps(ymm2, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermilps_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -71975,7 +71975,7 @@ fn vpermpd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpermpd_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermpd(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermpd_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -71986,7 +71986,7 @@ fn vpermpd_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermpd(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermpd_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -72020,7 +72020,7 @@ fn vpermpd_ymm_m_i() {
 		test_instr(32, |a| a.vpermpd(ymm2.k1(), dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermpd(ymm2, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermpd_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -72036,7 +72036,7 @@ fn vpermpd_ymm_m_i() {
 		test_instr(32, |a| a.vpermpd(ymm2.k1(), dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermpd(ymm2, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermpd_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -72065,7 +72065,7 @@ fn vpermpd_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpermpd_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermpd(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermpd_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -72095,7 +72095,7 @@ fn vpermpd_ymm_m_u() {
 		test_instr(32, |a| a.vpermpd(ymm2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermpd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermpd(ymm2, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermpd_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -72120,7 +72120,7 @@ fn vpermpd_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpermps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpermps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpermps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -72150,7 +72150,7 @@ fn vpermps_ymm_ymm_m() {
 		test_instr(32, |a| a.vpermps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpermps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpermps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -72211,7 +72211,7 @@ fn vpermq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpermq_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermq_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermq(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermq_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -72222,7 +72222,7 @@ fn vpermq_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermq_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermq(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermq_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -72256,7 +72256,7 @@ fn vpermq_ymm_m_i() {
 		test_instr(32, |a| a.vpermq(ymm2.k1(), dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermq_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermq(ymm2, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermq_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -72272,7 +72272,7 @@ fn vpermq_ymm_m_i() {
 		test_instr(32, |a| a.vpermq(ymm2.k1(), dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermq_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermq(ymm2, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpermq_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -72301,7 +72301,7 @@ fn vpermq_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpermq_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpermq_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermq(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermq_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -72331,7 +72331,7 @@ fn vpermq_ymm_m_u() {
 		test_instr(32, |a| a.vpermq(ymm2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpermq_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpermq(ymm2, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpermq_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -72950,7 +72950,7 @@ fn vpexpandw_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpextrb_r32_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrb_r32m8_xmm_imm8
 		test_instr(32, |a| a.vpextrb(edx, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrb_r32m8_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
@@ -72961,7 +72961,7 @@ fn vpextrb_r32_xmm_i() {
 			Instruction::with3(Code::EVEX_Vpextrb_r32m8_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrb_r32m8_xmm_imm8
 		test_instr(32, |a| a.vpextrb(edx, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrb_r32m8_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
@@ -72977,7 +72977,7 @@ fn vpextrb_r32_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpextrb_m_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrb_r32m8_xmm_imm8
 		test_instr(32, |a| a.vpextrb(dword_ptr(ecx), xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrb_r32m8_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
@@ -72988,7 +72988,7 @@ fn vpextrb_m_xmm_i() {
 			Instruction::with3(Code::EVEX_Vpextrb_r32m8_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrb_r32m8_xmm_imm8
 		test_instr(32, |a| a.vpextrb(dword_ptr(ecx), xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrb_r32m8_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
@@ -73004,7 +73004,7 @@ fn vpextrb_m_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpextrb_r32_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrb_r32m8_xmm_imm8
 		test_instr(32, |a| a.vpextrb(edx, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrb_r32m8_xmm_imm8, Register::EDX, Register::XMM3, 0x7Fu32).unwrap(),
@@ -73020,7 +73020,7 @@ fn vpextrb_r32_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpextrb_m_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrb_r32m8_xmm_imm8
 		test_instr(32, |a| a.vpextrb(dword_ptr(ecx), xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrb_r32m8_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, 0x7Fu32).unwrap(),
@@ -73036,7 +73036,7 @@ fn vpextrb_m_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpextrd_r32_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrd_rm32_xmm_imm8
 		test_instr(32, |a| a.vpextrd(edx, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrd_rm32_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
@@ -73047,7 +73047,7 @@ fn vpextrd_r32_xmm_i() {
 			Instruction::with3(Code::EVEX_Vpextrd_rm32_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrd_rm32_xmm_imm8
 		test_instr(32, |a| a.vpextrd(edx, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrd_rm32_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
@@ -73063,7 +73063,7 @@ fn vpextrd_r32_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpextrd_m_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrd_rm32_xmm_imm8
 		test_instr(32, |a| a.vpextrd(dword_ptr(ecx), xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrd_rm32_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
@@ -73074,7 +73074,7 @@ fn vpextrd_m_xmm_i() {
 			Instruction::with3(Code::EVEX_Vpextrd_rm32_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrd_rm32_xmm_imm8
 		test_instr(32, |a| a.vpextrd(dword_ptr(ecx), xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrd_rm32_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
@@ -73090,7 +73090,7 @@ fn vpextrd_m_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpextrd_r32_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrd_rm32_xmm_imm8
 		test_instr(32, |a| a.vpextrd(edx, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrd_rm32_xmm_imm8, Register::EDX, Register::XMM3, 0x7Fu32).unwrap(),
@@ -73106,7 +73106,7 @@ fn vpextrd_r32_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpextrd_m_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrd_rm32_xmm_imm8
 		test_instr(32, |a| a.vpextrd(dword_ptr(ecx), xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrd_rm32_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, 0x7Fu32).unwrap(),
@@ -73122,7 +73122,7 @@ fn vpextrd_m_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpextrw_r32_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrw_r32_xmm_imm8
 		test_instr(32, |a| a.vpextrw(edx, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrw_r32_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
@@ -73133,7 +73133,7 @@ fn vpextrw_r32_xmm_i() {
 			Instruction::with3(Code::EVEX_Vpextrw_r32_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrw_r32_xmm_imm8
 		test_instr(32, |a| a.vpextrw(edx, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrw_r32_xmm_imm8, Register::EDX, Register::XMM3, -5i32).unwrap(),
@@ -73149,7 +73149,7 @@ fn vpextrw_r32_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpextrw_m_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrw_r32m16_xmm_imm8
 		test_instr(32, |a| a.vpextrw(dword_ptr(ecx), xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrw_r32m16_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
@@ -73160,7 +73160,7 @@ fn vpextrw_m_xmm_i() {
 			Instruction::with3(Code::EVEX_Vpextrw_r32m16_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrw_r32m16_xmm_imm8
 		test_instr(32, |a| a.vpextrw(dword_ptr(ecx), xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrw_r32m16_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, -5i32).unwrap(),
@@ -73176,7 +73176,7 @@ fn vpextrw_m_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpextrw_r32_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrw_r32_xmm_imm8
 		test_instr(32, |a| a.vpextrw(edx, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrw_r32_xmm_imm8, Register::EDX, Register::XMM3, 0x7Fu32).unwrap(),
@@ -73192,7 +73192,7 @@ fn vpextrw_r32_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpextrw_m_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpextrw_r32m16_xmm_imm8
 		test_instr(32, |a| a.vpextrw(dword_ptr(ecx), xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpextrw_r32m16_xmm_imm8, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), Register::XMM3, 0x7Fu32).unwrap(),
@@ -73894,7 +73894,7 @@ fn vphsubwd_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrb_xmm_xmm_r32_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
 		test_instr(32, |a| a.vpinsrb(xmm2, xmm3, esp, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8, Register::XMM2, Register::XMM3, Register::ESP, -5i32).unwrap(),
@@ -73905,7 +73905,7 @@ fn vpinsrb_xmm_xmm_r32_i() {
 			Instruction::with4(Code::EVEX_Vpinsrb_xmm_xmm_r32m8_imm8, Register::XMM2, Register::XMM3, Register::ESP, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
 		test_instr(32, |a| a.vpinsrb(xmm2, xmm3, esp, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8, Register::XMM2, Register::XMM3, Register::ESP, -5i32).unwrap(),
@@ -73921,7 +73921,7 @@ fn vpinsrb_xmm_xmm_r32_i() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrb_xmm_xmm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
 		test_instr(32, |a| a.vpinsrb(xmm2, xmm3, dword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -73932,7 +73932,7 @@ fn vpinsrb_xmm_xmm_m_i() {
 			Instruction::with4(Code::EVEX_Vpinsrb_xmm_xmm_r32m8_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
 		test_instr(32, |a| a.vpinsrb(xmm2, xmm3, dword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -73948,7 +73948,7 @@ fn vpinsrb_xmm_xmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrb_xmm_xmm_r32_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
 		test_instr(32, |a| a.vpinsrb(xmm2, xmm3, esp, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8, Register::XMM2, Register::XMM3, Register::ESP, 0x7Fu32).unwrap(),
@@ -73964,7 +73964,7 @@ fn vpinsrb_xmm_xmm_r32_u() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrb_xmm_xmm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
 		test_instr(32, |a| a.vpinsrb(xmm2, xmm3, dword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrb_xmm_xmm_r32m8_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -73980,7 +73980,7 @@ fn vpinsrb_xmm_xmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrd_xmm_xmm_r32_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrd_xmm_xmm_rm32_imm8
 		test_instr(32, |a| a.vpinsrd(xmm2, xmm3, esp, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8, Register::XMM2, Register::XMM3, Register::ESP, -5i32).unwrap(),
@@ -73991,7 +73991,7 @@ fn vpinsrd_xmm_xmm_r32_i() {
 			Instruction::with4(Code::EVEX_Vpinsrd_xmm_xmm_rm32_imm8, Register::XMM2, Register::XMM3, Register::ESP, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrd_xmm_xmm_rm32_imm8
 		test_instr(32, |a| a.vpinsrd(xmm2, xmm3, esp, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8, Register::XMM2, Register::XMM3, Register::ESP, -5i32).unwrap(),
@@ -74007,7 +74007,7 @@ fn vpinsrd_xmm_xmm_r32_i() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrd_xmm_xmm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrd_xmm_xmm_rm32_imm8
 		test_instr(32, |a| a.vpinsrd(xmm2, xmm3, dword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -74018,7 +74018,7 @@ fn vpinsrd_xmm_xmm_m_i() {
 			Instruction::with4(Code::EVEX_Vpinsrd_xmm_xmm_rm32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrd_xmm_xmm_rm32_imm8
 		test_instr(32, |a| a.vpinsrd(xmm2, xmm3, dword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -74034,7 +74034,7 @@ fn vpinsrd_xmm_xmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrd_xmm_xmm_r32_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrd_xmm_xmm_rm32_imm8
 		test_instr(32, |a| a.vpinsrd(xmm2, xmm3, esp, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8, Register::XMM2, Register::XMM3, Register::ESP, 0x7Fu32).unwrap(),
@@ -74050,7 +74050,7 @@ fn vpinsrd_xmm_xmm_r32_u() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrd_xmm_xmm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrd_xmm_xmm_rm32_imm8
 		test_instr(32, |a| a.vpinsrd(xmm2, xmm3, dword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrd_xmm_xmm_rm32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -74066,7 +74066,7 @@ fn vpinsrd_xmm_xmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrw_xmm_xmm_r32_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrw_xmm_xmm_r32m16_imm8
 		test_instr(32, |a| a.vpinsrw(xmm2, xmm3, esp, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM2, Register::XMM3, Register::ESP, -5i32).unwrap(),
@@ -74077,7 +74077,7 @@ fn vpinsrw_xmm_xmm_r32_i() {
 			Instruction::with4(Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM2, Register::XMM3, Register::ESP, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrw_xmm_xmm_r32m16_imm8
 		test_instr(32, |a| a.vpinsrw(xmm2, xmm3, esp, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM2, Register::XMM3, Register::ESP, -5i32).unwrap(),
@@ -74093,7 +74093,7 @@ fn vpinsrw_xmm_xmm_r32_i() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrw_xmm_xmm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrw_xmm_xmm_r32m16_imm8
 		test_instr(32, |a| a.vpinsrw(xmm2, xmm3, dword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -74104,7 +74104,7 @@ fn vpinsrw_xmm_xmm_m_i() {
 			Instruction::with4(Code::EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrw_xmm_xmm_r32m16_imm8
 		test_instr(32, |a| a.vpinsrw(xmm2, xmm3, dword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -74120,7 +74120,7 @@ fn vpinsrw_xmm_xmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrw_xmm_xmm_r32_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrw_xmm_xmm_r32m16_imm8
 		test_instr(32, |a| a.vpinsrw(xmm2, xmm3, esp, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM2, Register::XMM3, Register::ESP, 0x7Fu32).unwrap(),
@@ -74136,7 +74136,7 @@ fn vpinsrw_xmm_xmm_r32_u() {
 #[test]
 #[rustfmt::skip]
 fn vpinsrw_xmm_xmm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpinsrw_xmm_xmm_r32m16_imm8
 		test_instr(32, |a| a.vpinsrw(xmm2, xmm3, dword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -74584,7 +74584,7 @@ fn vpmadd52luq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaddubsw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaddubsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaddubsw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaddubsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -74600,7 +74600,7 @@ fn vpmaddubsw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaddubsw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaddubsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaddubsw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaddubsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -74625,7 +74625,7 @@ fn vpmaddubsw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaddubsw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaddubsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaddubsw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaddubsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -74641,7 +74641,7 @@ fn vpmaddubsw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaddubsw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaddubsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaddubsw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaddubsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -74666,7 +74666,7 @@ fn vpmaddubsw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaddwd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaddwd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaddwd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaddwd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -74682,7 +74682,7 @@ fn vpmaddwd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaddwd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaddwd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaddwd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaddwd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -74707,7 +74707,7 @@ fn vpmaddwd_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaddwd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaddwd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaddwd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaddwd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -74723,7 +74723,7 @@ fn vpmaddwd_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaddwd_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaddwd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaddwd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaddwd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -74820,7 +74820,7 @@ fn vpmaskmovq_ymm_ymm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxsb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxsb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -74836,7 +74836,7 @@ fn vpmaxsb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxsb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxsb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -74861,7 +74861,7 @@ fn vpmaxsb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxsb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxsb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -74877,7 +74877,7 @@ fn vpmaxsb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxsb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxsb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -74902,7 +74902,7 @@ fn vpmaxsb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxsd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxsd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -74918,7 +74918,7 @@ fn vpmaxsd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxsd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxsd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -74948,7 +74948,7 @@ fn vpmaxsd_xmm_xmm_m() {
 		test_instr(32, |a| a.vpmaxsd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpmaxsd_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxsd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -74969,7 +74969,7 @@ fn vpmaxsd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpmaxsd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpmaxsd_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxsd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75048,7 +75048,7 @@ fn vpmaxsq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxsw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxsw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -75064,7 +75064,7 @@ fn vpmaxsw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxsw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxsw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -75089,7 +75089,7 @@ fn vpmaxsw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxsw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxsw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75105,7 +75105,7 @@ fn vpmaxsw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxsw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxsw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75130,7 +75130,7 @@ fn vpmaxsw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxub_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxub_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxub(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxub_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -75146,7 +75146,7 @@ fn vpmaxub_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxub_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxub_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxub(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxub_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -75171,7 +75171,7 @@ fn vpmaxub_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxub_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxub_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxub(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxub_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75187,7 +75187,7 @@ fn vpmaxub_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxub_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxub_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxub(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxub_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75212,7 +75212,7 @@ fn vpmaxub_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxud_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxud_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxud(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxud_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -75228,7 +75228,7 @@ fn vpmaxud_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxud_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxud_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxud(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxud_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -75258,7 +75258,7 @@ fn vpmaxud_xmm_xmm_m() {
 		test_instr(32, |a| a.vpmaxud(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpmaxud_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxud_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxud(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxud_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75279,7 +75279,7 @@ fn vpmaxud_ymm_ymm_m() {
 		test_instr(32, |a| a.vpmaxud(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpmaxud_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxud_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxud(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxud_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75358,7 +75358,7 @@ fn vpmaxuq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxuw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxuw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxuw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxuw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -75374,7 +75374,7 @@ fn vpmaxuw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxuw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxuw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxuw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxuw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -75399,7 +75399,7 @@ fn vpmaxuw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxuw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxuw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmaxuw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxuw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75415,7 +75415,7 @@ fn vpmaxuw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmaxuw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmaxuw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmaxuw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmaxuw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75440,7 +75440,7 @@ fn vpmaxuw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpminsb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminsb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -75456,7 +75456,7 @@ fn vpminsb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpminsb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminsb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -75481,7 +75481,7 @@ fn vpminsb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpminsb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminsb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75497,7 +75497,7 @@ fn vpminsb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpminsb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminsb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75522,7 +75522,7 @@ fn vpminsb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpminsd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminsd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -75538,7 +75538,7 @@ fn vpminsd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpminsd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminsd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -75568,7 +75568,7 @@ fn vpminsd_xmm_xmm_m() {
 		test_instr(32, |a| a.vpminsd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpminsd_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminsd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75589,7 +75589,7 @@ fn vpminsd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpminsd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpminsd_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminsd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75668,7 +75668,7 @@ fn vpminsq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpminsw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminsw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -75684,7 +75684,7 @@ fn vpminsw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpminsw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminsw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -75709,7 +75709,7 @@ fn vpminsw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpminsw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminsw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75725,7 +75725,7 @@ fn vpminsw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpminsw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminsw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75750,7 +75750,7 @@ fn vpminsw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpminub_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminub_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminub(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminub_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -75766,7 +75766,7 @@ fn vpminub_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpminub_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminub_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminub(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminub_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -75791,7 +75791,7 @@ fn vpminub_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpminub_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminub_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminub(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminub_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75807,7 +75807,7 @@ fn vpminub_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpminub_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminub_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminub(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminub_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75832,7 +75832,7 @@ fn vpminub_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpminud_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminud_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminud(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminud_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -75848,7 +75848,7 @@ fn vpminud_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpminud_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminud_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminud(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminud_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -75878,7 +75878,7 @@ fn vpminud_xmm_xmm_m() {
 		test_instr(32, |a| a.vpminud(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpminud_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpminud_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminud(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminud_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75899,7 +75899,7 @@ fn vpminud_ymm_ymm_m() {
 		test_instr(32, |a| a.vpminud(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpminud_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpminud_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminud(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminud_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -75978,7 +75978,7 @@ fn vpminuq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpminuw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminuw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminuw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminuw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -75994,7 +75994,7 @@ fn vpminuw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpminuw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminuw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminuw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpminuw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -76019,7 +76019,7 @@ fn vpminuw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpminuw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminuw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpminuw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminuw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -76035,7 +76035,7 @@ fn vpminuw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpminuw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpminuw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpminuw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpminuw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -76861,7 +76861,7 @@ fn vpmovswb_m_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbd_xmm_xmmm32
 		test_instr(32, |a| a.vpmovsxbd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbd_xmm_xmmm32, Register::XMM2, Register::XMM3).unwrap(),
@@ -76877,7 +76877,7 @@ fn vpmovsxbd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbd_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbd_ymm_xmmm64
 		test_instr(32, |a| a.vpmovsxbd(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbd_ymm_xmmm64, Register::YMM2, Register::XMM3).unwrap(),
@@ -76902,7 +76902,7 @@ fn vpmovsxbd_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbd_xmm_xmmm32
 		test_instr(32, |a| a.vpmovsxbd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbd_xmm_xmmm32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -76918,7 +76918,7 @@ fn vpmovsxbd_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbd_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbd_ymm_xmmm64
 		test_instr(32, |a| a.vpmovsxbd(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbd_ymm_xmmm64, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -76943,7 +76943,7 @@ fn vpmovsxbd_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbq_xmm_xmmm16
 		test_instr(32, |a| a.vpmovsxbq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbq_xmm_xmmm16, Register::XMM2, Register::XMM3).unwrap(),
@@ -76959,7 +76959,7 @@ fn vpmovsxbq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbq_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbq_ymm_xmmm32
 		test_instr(32, |a| a.vpmovsxbq(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbq_ymm_xmmm32, Register::YMM2, Register::XMM3).unwrap(),
@@ -76984,7 +76984,7 @@ fn vpmovsxbq_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbq_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbq_xmm_xmmm16
 		test_instr(32, |a| a.vpmovsxbq(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbq_xmm_xmmm16, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77000,7 +77000,7 @@ fn vpmovsxbq_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbq_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbq_ymm_xmmm32
 		test_instr(32, |a| a.vpmovsxbq(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbq_ymm_xmmm32, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77025,7 +77025,7 @@ fn vpmovsxbq_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbw_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbw_xmm_xmmm64
 		test_instr(32, |a| a.vpmovsxbw(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbw_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -77041,7 +77041,7 @@ fn vpmovsxbw_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbw_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbw_ymm_xmmm128
 		test_instr(32, |a| a.vpmovsxbw(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbw_ymm_xmmm128, Register::YMM2, Register::XMM3).unwrap(),
@@ -77066,7 +77066,7 @@ fn vpmovsxbw_zmm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbw_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbw_xmm_xmmm64
 		test_instr(32, |a| a.vpmovsxbw(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbw_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77082,7 +77082,7 @@ fn vpmovsxbw_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxbw_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxbw_ymm_xmmm128
 		test_instr(32, |a| a.vpmovsxbw(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxbw_ymm_xmmm128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77107,7 +77107,7 @@ fn vpmovsxbw_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxdq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxdq_xmm_xmmm64
 		test_instr(32, |a| a.vpmovsxdq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxdq_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -77123,7 +77123,7 @@ fn vpmovsxdq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxdq_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxdq_ymm_xmmm128
 		test_instr(32, |a| a.vpmovsxdq(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxdq_ymm_xmmm128, Register::YMM2, Register::XMM3).unwrap(),
@@ -77148,7 +77148,7 @@ fn vpmovsxdq_zmm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxdq_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxdq_xmm_xmmm64
 		test_instr(32, |a| a.vpmovsxdq(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxdq_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77164,7 +77164,7 @@ fn vpmovsxdq_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxdq_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxdq_ymm_xmmm128
 		test_instr(32, |a| a.vpmovsxdq(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxdq_ymm_xmmm128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77189,7 +77189,7 @@ fn vpmovsxdq_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxwd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxwd_xmm_xmmm64
 		test_instr(32, |a| a.vpmovsxwd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxwd_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -77205,7 +77205,7 @@ fn vpmovsxwd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxwd_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxwd_ymm_xmmm128
 		test_instr(32, |a| a.vpmovsxwd(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxwd_ymm_xmmm128, Register::YMM2, Register::XMM3).unwrap(),
@@ -77230,7 +77230,7 @@ fn vpmovsxwd_zmm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxwd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxwd_xmm_xmmm64
 		test_instr(32, |a| a.vpmovsxwd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxwd_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77246,7 +77246,7 @@ fn vpmovsxwd_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxwd_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxwd_ymm_xmmm128
 		test_instr(32, |a| a.vpmovsxwd(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxwd_ymm_xmmm128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77271,7 +77271,7 @@ fn vpmovsxwd_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxwq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxwq_xmm_xmmm32
 		test_instr(32, |a| a.vpmovsxwq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxwq_xmm_xmmm32, Register::XMM2, Register::XMM3).unwrap(),
@@ -77287,7 +77287,7 @@ fn vpmovsxwq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxwq_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxwq_ymm_xmmm64
 		test_instr(32, |a| a.vpmovsxwq(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxwq_ymm_xmmm64, Register::YMM2, Register::XMM3).unwrap(),
@@ -77312,7 +77312,7 @@ fn vpmovsxwq_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxwq_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxwq_xmm_xmmm32
 		test_instr(32, |a| a.vpmovsxwq(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxwq_xmm_xmmm32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77328,7 +77328,7 @@ fn vpmovsxwq_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovsxwq_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovsxwq_ymm_xmmm64
 		test_instr(32, |a| a.vpmovsxwq(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovsxwq_ymm_xmmm64, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77758,7 +77758,7 @@ fn vpmovwb_m_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbd_xmm_xmmm32
 		test_instr(32, |a| a.vpmovzxbd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbd_xmm_xmmm32, Register::XMM2, Register::XMM3).unwrap(),
@@ -77774,7 +77774,7 @@ fn vpmovzxbd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbd_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbd_ymm_xmmm64
 		test_instr(32, |a| a.vpmovzxbd(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbd_ymm_xmmm64, Register::YMM2, Register::XMM3).unwrap(),
@@ -77799,7 +77799,7 @@ fn vpmovzxbd_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbd_xmm_xmmm32
 		test_instr(32, |a| a.vpmovzxbd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbd_xmm_xmmm32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77815,7 +77815,7 @@ fn vpmovzxbd_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbd_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbd_ymm_xmmm64
 		test_instr(32, |a| a.vpmovzxbd(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbd_ymm_xmmm64, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77840,7 +77840,7 @@ fn vpmovzxbd_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbq_xmm_xmmm16
 		test_instr(32, |a| a.vpmovzxbq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbq_xmm_xmmm16, Register::XMM2, Register::XMM3).unwrap(),
@@ -77856,7 +77856,7 @@ fn vpmovzxbq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbq_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbq_ymm_xmmm32
 		test_instr(32, |a| a.vpmovzxbq(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbq_ymm_xmmm32, Register::YMM2, Register::XMM3).unwrap(),
@@ -77881,7 +77881,7 @@ fn vpmovzxbq_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbq_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbq_xmm_xmmm16
 		test_instr(32, |a| a.vpmovzxbq(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbq_xmm_xmmm16, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77897,7 +77897,7 @@ fn vpmovzxbq_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbq_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbq_ymm_xmmm32
 		test_instr(32, |a| a.vpmovzxbq(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbq_ymm_xmmm32, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77922,7 +77922,7 @@ fn vpmovzxbq_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbw_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbw_xmm_xmmm64
 		test_instr(32, |a| a.vpmovzxbw(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbw_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -77938,7 +77938,7 @@ fn vpmovzxbw_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbw_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbw_ymm_xmmm128
 		test_instr(32, |a| a.vpmovzxbw(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbw_ymm_xmmm128, Register::YMM2, Register::XMM3).unwrap(),
@@ -77963,7 +77963,7 @@ fn vpmovzxbw_zmm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbw_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbw_xmm_xmmm64
 		test_instr(32, |a| a.vpmovzxbw(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbw_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -77979,7 +77979,7 @@ fn vpmovzxbw_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxbw_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxbw_ymm_xmmm128
 		test_instr(32, |a| a.vpmovzxbw(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxbw_ymm_xmmm128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78004,7 +78004,7 @@ fn vpmovzxbw_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxdq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxdq_xmm_xmmm64
 		test_instr(32, |a| a.vpmovzxdq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxdq_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -78020,7 +78020,7 @@ fn vpmovzxdq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxdq_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxdq_ymm_xmmm128
 		test_instr(32, |a| a.vpmovzxdq(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxdq_ymm_xmmm128, Register::YMM2, Register::XMM3).unwrap(),
@@ -78045,7 +78045,7 @@ fn vpmovzxdq_zmm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxdq_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxdq_xmm_xmmm64
 		test_instr(32, |a| a.vpmovzxdq(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxdq_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78061,7 +78061,7 @@ fn vpmovzxdq_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxdq_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxdq_ymm_xmmm128
 		test_instr(32, |a| a.vpmovzxdq(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxdq_ymm_xmmm128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78086,7 +78086,7 @@ fn vpmovzxdq_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxwd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxwd_xmm_xmmm64
 		test_instr(32, |a| a.vpmovzxwd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxwd_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -78102,7 +78102,7 @@ fn vpmovzxwd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxwd_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxwd_ymm_xmmm128
 		test_instr(32, |a| a.vpmovzxwd(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxwd_ymm_xmmm128, Register::YMM2, Register::XMM3).unwrap(),
@@ -78127,7 +78127,7 @@ fn vpmovzxwd_zmm_ymm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxwd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxwd_xmm_xmmm64
 		test_instr(32, |a| a.vpmovzxwd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxwd_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78143,7 +78143,7 @@ fn vpmovzxwd_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxwd_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxwd_ymm_xmmm128
 		test_instr(32, |a| a.vpmovzxwd(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxwd_ymm_xmmm128, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78168,7 +78168,7 @@ fn vpmovzxwd_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxwq_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxwq_xmm_xmmm32
 		test_instr(32, |a| a.vpmovzxwq(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxwq_xmm_xmmm32, Register::XMM2, Register::XMM3).unwrap(),
@@ -78184,7 +78184,7 @@ fn vpmovzxwq_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxwq_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxwq_ymm_xmmm64
 		test_instr(32, |a| a.vpmovzxwq(ymm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxwq_ymm_xmmm64, Register::YMM2, Register::XMM3).unwrap(),
@@ -78209,7 +78209,7 @@ fn vpmovzxwq_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxwq_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxwq_xmm_xmmm32
 		test_instr(32, |a| a.vpmovzxwq(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxwq_xmm_xmmm32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78225,7 +78225,7 @@ fn vpmovzxwq_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmovzxwq_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmovzxwq_ymm_xmmm64
 		test_instr(32, |a| a.vpmovzxwq(ymm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vpmovzxwq_ymm_xmmm64, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78250,7 +78250,7 @@ fn vpmovzxwq_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmuldq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmuldq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmuldq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmuldq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -78266,7 +78266,7 @@ fn vpmuldq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmuldq_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmuldq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmuldq(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmuldq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -78296,7 +78296,7 @@ fn vpmuldq_xmm_xmm_m() {
 		test_instr(32, |a| a.vpmuldq(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpmuldq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmuldq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmuldq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78317,7 +78317,7 @@ fn vpmuldq_ymm_ymm_m() {
 		test_instr(32, |a| a.vpmuldq(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpmuldq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmuldq(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmuldq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78342,7 +78342,7 @@ fn vpmuldq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhrsw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhrsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmulhrsw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhrsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -78358,7 +78358,7 @@ fn vpmulhrsw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhrsw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhrsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmulhrsw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhrsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -78383,7 +78383,7 @@ fn vpmulhrsw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhrsw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhrsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmulhrsw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhrsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78399,7 +78399,7 @@ fn vpmulhrsw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhrsw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhrsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmulhrsw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhrsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78424,7 +78424,7 @@ fn vpmulhrsw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhuw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhuw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmulhuw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhuw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -78440,7 +78440,7 @@ fn vpmulhuw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhuw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhuw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmulhuw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhuw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -78465,7 +78465,7 @@ fn vpmulhuw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhuw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhuw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmulhuw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhuw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78481,7 +78481,7 @@ fn vpmulhuw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhuw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhuw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmulhuw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhuw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78506,7 +78506,7 @@ fn vpmulhuw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmulhw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -78522,7 +78522,7 @@ fn vpmulhw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmulhw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -78547,7 +78547,7 @@ fn vpmulhw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmulhw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78563,7 +78563,7 @@ fn vpmulhw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmulhw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulhw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmulhw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulhw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78588,7 +78588,7 @@ fn vpmulhw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmulld_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulld_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmulld(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulld_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -78604,7 +78604,7 @@ fn vpmulld_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmulld_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulld_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmulld(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulld_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -78634,7 +78634,7 @@ fn vpmulld_xmm_xmm_m() {
 		test_instr(32, |a| a.vpmulld(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpmulld_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulld_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmulld(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulld_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78655,7 +78655,7 @@ fn vpmulld_ymm_ymm_m() {
 		test_instr(32, |a| a.vpmulld(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpmulld_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpmulld_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmulld(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmulld_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78734,7 +78734,7 @@ fn vpmullq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmullw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmullw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmullw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmullw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -78750,7 +78750,7 @@ fn vpmullw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmullw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmullw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmullw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmullw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -78775,7 +78775,7 @@ fn vpmullw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmullw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmullw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmullw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmullw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78791,7 +78791,7 @@ fn vpmullw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmullw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmullw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmullw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmullw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78870,7 +78870,7 @@ fn vpmultishiftqb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmuludq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmuludq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmuludq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmuludq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -78886,7 +78886,7 @@ fn vpmuludq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmuludq_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpmuludq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmuludq(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpmuludq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -78916,7 +78916,7 @@ fn vpmuludq_xmm_xmm_m() {
 		test_instr(32, |a| a.vpmuludq(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpmuludq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpmuludq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpmuludq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmuludq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -78937,7 +78937,7 @@ fn vpmuludq_ymm_ymm_m() {
 		test_instr(32, |a| a.vpmuludq(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpmuludq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpmuludq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpmuludq(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpmuludq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -80377,7 +80377,7 @@ fn vprotw_xmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsadbw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsadbw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsadbw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsadbw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -80393,7 +80393,7 @@ fn vpsadbw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsadbw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsadbw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsadbw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsadbw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -80418,7 +80418,7 @@ fn vpsadbw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsadbw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsadbw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsadbw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsadbw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -80434,7 +80434,7 @@ fn vpsadbw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsadbw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsadbw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsadbw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsadbw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -81900,7 +81900,7 @@ fn vpshrdw_zmm_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpshufb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpshufb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -81916,7 +81916,7 @@ fn vpshufb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpshufb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpshufb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -81941,7 +81941,7 @@ fn vpshufb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpshufb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpshufb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -81957,7 +81957,7 @@ fn vpshufb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpshufb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpshufb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -82036,7 +82036,7 @@ fn vpshufbitqmb_kr_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpshufd_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufd(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -82047,7 +82047,7 @@ fn vpshufd_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufd(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -82063,7 +82063,7 @@ fn vpshufd_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpshufd_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufd(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -82074,7 +82074,7 @@ fn vpshufd_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufd(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -82108,7 +82108,7 @@ fn vpshufd_xmm_m_i() {
 		test_instr(32, |a| a.vpshufd(xmm2.k1(), dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufd(xmm2, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82124,7 +82124,7 @@ fn vpshufd_xmm_m_i() {
 		test_instr(32, |a| a.vpshufd(xmm2.k1(), dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufd(xmm2, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82145,7 +82145,7 @@ fn vpshufd_ymm_m_i() {
 		test_instr(32, |a| a.vpshufd(ymm2.k1(), dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufd(ymm2, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82161,7 +82161,7 @@ fn vpshufd_ymm_m_i() {
 		test_instr(32, |a| a.vpshufd(ymm2.k1(), dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufd(ymm2, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82190,7 +82190,7 @@ fn vpshufd_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpshufd_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufd(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -82206,7 +82206,7 @@ fn vpshufd_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpshufd_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufd(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -82236,7 +82236,7 @@ fn vpshufd_xmm_m_u() {
 		test_instr(32, |a| a.vpshufd(xmm2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufd(xmm2, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -82257,7 +82257,7 @@ fn vpshufd_ymm_m_u() {
 		test_instr(32, |a| a.vpshufd(ymm2.k1(), dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufd_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufd(ymm2, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufd_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -82282,7 +82282,7 @@ fn vpshufd_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpshufhw_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufhw(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -82293,7 +82293,7 @@ fn vpshufhw_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufhw(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -82309,7 +82309,7 @@ fn vpshufhw_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpshufhw_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufhw(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -82320,7 +82320,7 @@ fn vpshufhw_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufhw(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -82349,7 +82349,7 @@ fn vpshufhw_zmm_zmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpshufhw_xmm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufhw(xmm2, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82360,7 +82360,7 @@ fn vpshufhw_xmm_m_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufhw(xmm2, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82376,7 +82376,7 @@ fn vpshufhw_xmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpshufhw_ymm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufhw(ymm2, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82387,7 +82387,7 @@ fn vpshufhw_ymm_m_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufhw(ymm2, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82416,7 +82416,7 @@ fn vpshufhw_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpshufhw_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufhw(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -82432,7 +82432,7 @@ fn vpshufhw_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpshufhw_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufhw(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -82457,7 +82457,7 @@ fn vpshufhw_zmm_zmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpshufhw_xmm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshufhw(xmm2, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -82473,7 +82473,7 @@ fn vpshufhw_xmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpshufhw_ymm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshufhw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshufhw(ymm2, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshufhw_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -82498,7 +82498,7 @@ fn vpshufhw_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpshuflw_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshuflw(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -82509,7 +82509,7 @@ fn vpshuflw_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshuflw(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -82525,7 +82525,7 @@ fn vpshuflw_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpshuflw_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshuflw(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -82536,7 +82536,7 @@ fn vpshuflw_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshuflw(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -82565,7 +82565,7 @@ fn vpshuflw_zmm_zmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpshuflw_xmm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshuflw(xmm2, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82576,7 +82576,7 @@ fn vpshuflw_xmm_m_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshuflw(xmm2, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82592,7 +82592,7 @@ fn vpshuflw_xmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpshuflw_ymm_m_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshuflw(ymm2, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82603,7 +82603,7 @@ fn vpshuflw_ymm_m_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshuflw(ymm2, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -82632,7 +82632,7 @@ fn vpshuflw_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpshuflw_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshuflw(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -82648,7 +82648,7 @@ fn vpshuflw_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpshuflw_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshuflw(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -82673,7 +82673,7 @@ fn vpshuflw_zmm_zmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpshuflw_xmm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vpshuflw(xmm2, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_xmm_xmmm128_imm8, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -82689,7 +82689,7 @@ fn vpshuflw_xmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpshuflw_ymm_m_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpshuflw_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vpshuflw(ymm2, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpshuflw_ymm_ymmm256_imm8, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -82822,7 +82822,7 @@ fn vpsignw_ymm_ymm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpslld_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslld_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpslld(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpslld_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -82838,7 +82838,7 @@ fn vpslld_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpslld_ymm_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslld_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpslld(ymm2, ymm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpslld_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, Register::XMM4).unwrap(),
@@ -82863,7 +82863,7 @@ fn vpslld_zmm_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpslld_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslld_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpslld(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpslld_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -82879,7 +82879,7 @@ fn vpslld_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpslld_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslld_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpslld(ymm2, ymm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpslld_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -82904,7 +82904,7 @@ fn vpslld_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpslld_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslld_xmm_xmm_imm8
 		test_instr(32, |a| a.vpslld(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpslld_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -82915,7 +82915,7 @@ fn vpslld_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpslld_xmm_k1z_xmmm128b32_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslld_xmm_xmm_imm8
 		test_instr(32, |a| a.vpslld(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpslld_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -82931,7 +82931,7 @@ fn vpslld_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpslld_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslld_ymm_ymm_imm8
 		test_instr(32, |a| a.vpslld(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpslld_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -82942,7 +82942,7 @@ fn vpslld_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpslld_ymm_k1z_ymmm256b32_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslld_ymm_ymm_imm8
 		test_instr(32, |a| a.vpslld(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpslld_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -83010,7 +83010,7 @@ fn vpslld_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpslld_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslld_xmm_xmm_imm8
 		test_instr(32, |a| a.vpslld(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpslld_xmm_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -83026,7 +83026,7 @@ fn vpslld_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpslld_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslld_ymm_ymm_imm8
 		test_instr(32, |a| a.vpslld(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpslld_ymm_ymm_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -83078,7 +83078,7 @@ fn vpslld_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpslldq_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslldq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpslldq(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpslldq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -83089,7 +83089,7 @@ fn vpslldq_xmm_xmm_i() {
 			Instruction::with3(Code::EVEX_Vpslldq_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslldq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpslldq(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpslldq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -83105,7 +83105,7 @@ fn vpslldq_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpslldq_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslldq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpslldq(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpslldq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -83116,7 +83116,7 @@ fn vpslldq_ymm_ymm_i() {
 			Instruction::with3(Code::EVEX_Vpslldq_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslldq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpslldq(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpslldq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -83184,7 +83184,7 @@ fn vpslldq_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpslldq_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslldq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpslldq(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpslldq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -83200,7 +83200,7 @@ fn vpslldq_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpslldq_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpslldq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpslldq(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpslldq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -83252,7 +83252,7 @@ fn vpslldq_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsllq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsllq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -83268,7 +83268,7 @@ fn vpsllq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsllq_ymm_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllq_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsllq(ymm2, ymm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllq_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, Register::XMM4).unwrap(),
@@ -83293,7 +83293,7 @@ fn vpsllq_zmm_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsllq_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsllq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -83309,7 +83309,7 @@ fn vpsllq_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsllq_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllq_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsllq(ymm2, ymm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllq_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -83334,7 +83334,7 @@ fn vpsllq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsllq_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsllq(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -83345,7 +83345,7 @@ fn vpsllq_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsllq_xmm_k1z_xmmm128b64_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsllq(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -83361,7 +83361,7 @@ fn vpsllq_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsllq_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsllq(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -83372,7 +83372,7 @@ fn vpsllq_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsllq_ymm_k1z_ymmm256b64_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsllq(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -83440,7 +83440,7 @@ fn vpsllq_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsllq_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsllq(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -83456,7 +83456,7 @@ fn vpsllq_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsllq_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsllq(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -83508,7 +83508,7 @@ fn vpsllq_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsllvd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllvd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsllvd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllvd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -83524,7 +83524,7 @@ fn vpsllvd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsllvd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllvd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsllvd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllvd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -83554,7 +83554,7 @@ fn vpsllvd_xmm_xmm_m() {
 		test_instr(32, |a| a.vpsllvd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllvd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsllvd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllvd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -83575,7 +83575,7 @@ fn vpsllvd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpsllvd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllvd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsllvd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllvd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -83600,7 +83600,7 @@ fn vpsllvd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsllvq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllvq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsllvq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllvq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -83616,7 +83616,7 @@ fn vpsllvq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsllvq_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllvq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsllvq(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllvq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -83646,7 +83646,7 @@ fn vpsllvq_xmm_xmm_m() {
 		test_instr(32, |a| a.vpsllvq(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllvq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsllvq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllvq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -83667,7 +83667,7 @@ fn vpsllvq_ymm_ymm_m() {
 		test_instr(32, |a| a.vpsllvq(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllvq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsllvq(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllvq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -83746,7 +83746,7 @@ fn vpsllvw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsllw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsllw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -83762,7 +83762,7 @@ fn vpsllw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsllw_ymm_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllw_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsllw(ymm2, ymm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllw_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, Register::XMM4).unwrap(),
@@ -83787,7 +83787,7 @@ fn vpsllw_zmm_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsllw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsllw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -83803,7 +83803,7 @@ fn vpsllw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsllw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllw_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsllw(ymm2, ymm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllw_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -83828,7 +83828,7 @@ fn vpsllw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsllw_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllw_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsllw(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllw_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -83839,7 +83839,7 @@ fn vpsllw_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsllw_xmm_k1z_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllw_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsllw(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllw_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -83855,7 +83855,7 @@ fn vpsllw_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsllw_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllw_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsllw(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllw_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -83866,7 +83866,7 @@ fn vpsllw_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsllw_ymm_k1z_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllw_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsllw(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllw_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -83934,7 +83934,7 @@ fn vpsllw_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsllw_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllw_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsllw(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllw_xmm_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -83950,7 +83950,7 @@ fn vpsllw_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsllw_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsllw_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsllw(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsllw_ymm_ymm_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -84002,7 +84002,7 @@ fn vpsllw_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsrad_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrad_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrad(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrad_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -84018,7 +84018,7 @@ fn vpsrad_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsrad_ymm_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrad_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsrad(ymm2, ymm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrad_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, Register::XMM4).unwrap(),
@@ -84043,7 +84043,7 @@ fn vpsrad_zmm_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsrad_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrad_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrad(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrad_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -84059,7 +84059,7 @@ fn vpsrad_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsrad_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrad_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsrad(ymm2, ymm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrad_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -84084,7 +84084,7 @@ fn vpsrad_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsrad_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrad_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrad(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrad_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -84095,7 +84095,7 @@ fn vpsrad_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrad_xmm_k1z_xmmm128b32_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrad_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrad(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrad_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -84111,7 +84111,7 @@ fn vpsrad_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsrad_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrad_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrad(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrad_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -84122,7 +84122,7 @@ fn vpsrad_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrad_ymm_k1z_ymmm256b32_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrad_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrad(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrad_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -84190,7 +84190,7 @@ fn vpsrad_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsrad_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrad_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrad(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrad_xmm_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -84206,7 +84206,7 @@ fn vpsrad_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsrad_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrad_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrad(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrad_ymm_ymm_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -84444,7 +84444,7 @@ fn vpsraq_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsravd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsravd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsravd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsravd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -84460,7 +84460,7 @@ fn vpsravd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsravd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsravd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsravd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsravd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -84490,7 +84490,7 @@ fn vpsravd_xmm_xmm_m() {
 		test_instr(32, |a| a.vpsravd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsravd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsravd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsravd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -84511,7 +84511,7 @@ fn vpsravd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpsravd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsravd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsravd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsravd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -84644,7 +84644,7 @@ fn vpsravw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsraw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsraw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsraw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsraw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -84660,7 +84660,7 @@ fn vpsraw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsraw_ymm_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsraw_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsraw(ymm2, ymm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsraw_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, Register::XMM4).unwrap(),
@@ -84685,7 +84685,7 @@ fn vpsraw_zmm_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsraw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsraw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsraw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsraw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -84701,7 +84701,7 @@ fn vpsraw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsraw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsraw_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsraw(ymm2, ymm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsraw_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -84726,7 +84726,7 @@ fn vpsraw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsraw_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsraw_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsraw(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsraw_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -84737,7 +84737,7 @@ fn vpsraw_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsraw_xmm_k1z_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsraw_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsraw(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsraw_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -84753,7 +84753,7 @@ fn vpsraw_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsraw_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsraw_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsraw(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsraw_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -84764,7 +84764,7 @@ fn vpsraw_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsraw_ymm_k1z_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsraw_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsraw(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsraw_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -84832,7 +84832,7 @@ fn vpsraw_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsraw_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsraw_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsraw(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsraw_xmm_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -84848,7 +84848,7 @@ fn vpsraw_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsraw_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsraw_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsraw(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsraw_ymm_ymm_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -84900,7 +84900,7 @@ fn vpsraw_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsrld_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrld_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrld(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrld_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -84916,7 +84916,7 @@ fn vpsrld_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsrld_ymm_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrld_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsrld(ymm2, ymm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrld_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, Register::XMM4).unwrap(),
@@ -84941,7 +84941,7 @@ fn vpsrld_zmm_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsrld_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrld_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrld(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrld_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -84957,7 +84957,7 @@ fn vpsrld_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsrld_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrld_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsrld(ymm2, ymm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrld_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -84982,7 +84982,7 @@ fn vpsrld_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsrld_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrld_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrld(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrld_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -84993,7 +84993,7 @@ fn vpsrld_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrld_xmm_k1z_xmmm128b32_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrld_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrld(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrld_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -85009,7 +85009,7 @@ fn vpsrld_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsrld_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrld_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrld(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrld_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -85020,7 +85020,7 @@ fn vpsrld_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrld_ymm_k1z_ymmm256b32_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrld_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrld(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrld_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -85088,7 +85088,7 @@ fn vpsrld_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsrld_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrld_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrld(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrld_xmm_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -85104,7 +85104,7 @@ fn vpsrld_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsrld_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrld_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrld(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrld_ymm_ymm_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -85156,7 +85156,7 @@ fn vpsrld_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsrldq_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrldq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrldq(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrldq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -85167,7 +85167,7 @@ fn vpsrldq_xmm_xmm_i() {
 			Instruction::with3(Code::EVEX_Vpsrldq_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrldq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrldq(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrldq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -85183,7 +85183,7 @@ fn vpsrldq_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsrldq_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrldq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrldq(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrldq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -85194,7 +85194,7 @@ fn vpsrldq_ymm_ymm_i() {
 			Instruction::with3(Code::EVEX_Vpsrldq_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrldq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrldq(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrldq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -85262,7 +85262,7 @@ fn vpsrldq_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsrldq_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrldq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrldq(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrldq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -85278,7 +85278,7 @@ fn vpsrldq_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsrldq_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrldq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrldq(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrldq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -85330,7 +85330,7 @@ fn vpsrldq_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrlq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -85346,7 +85346,7 @@ fn vpsrlq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlq_ymm_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlq_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsrlq(ymm2, ymm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlq_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, Register::XMM4).unwrap(),
@@ -85371,7 +85371,7 @@ fn vpsrlq_zmm_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlq_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrlq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -85387,7 +85387,7 @@ fn vpsrlq_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlq_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlq_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsrlq(ymm2, ymm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlq_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -85412,7 +85412,7 @@ fn vpsrlq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlq_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrlq(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -85423,7 +85423,7 @@ fn vpsrlq_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrlq(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -85439,7 +85439,7 @@ fn vpsrlq_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlq_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrlq(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -85450,7 +85450,7 @@ fn vpsrlq_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrlq_ymm_k1z_ymmm256b64_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrlq(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -85518,7 +85518,7 @@ fn vpsrlq_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlq_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlq_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrlq(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlq_xmm_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -85534,7 +85534,7 @@ fn vpsrlq_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlq_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlq_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrlq(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlq_ymm_ymm_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -85586,7 +85586,7 @@ fn vpsrlq_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlvd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlvd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrlvd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlvd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -85602,7 +85602,7 @@ fn vpsrlvd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlvd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlvd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsrlvd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlvd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -85632,7 +85632,7 @@ fn vpsrlvd_xmm_xmm_m() {
 		test_instr(32, |a| a.vpsrlvd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlvd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrlvd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlvd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -85653,7 +85653,7 @@ fn vpsrlvd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpsrlvd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlvd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsrlvd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlvd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -85678,7 +85678,7 @@ fn vpsrlvd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlvq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlvq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrlvq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlvq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -85694,7 +85694,7 @@ fn vpsrlvq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlvq_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlvq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsrlvq(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlvq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -85724,7 +85724,7 @@ fn vpsrlvq_xmm_xmm_m() {
 		test_instr(32, |a| a.vpsrlvq(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlvq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrlvq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlvq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -85745,7 +85745,7 @@ fn vpsrlvq_ymm_ymm_m() {
 		test_instr(32, |a| a.vpsrlvq(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlvq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsrlvq(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlvq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -85824,7 +85824,7 @@ fn vpsrlvw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrlw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -85840,7 +85840,7 @@ fn vpsrlw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlw_ymm_ymm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlw_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsrlw(ymm2, ymm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlw_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, Register::XMM4).unwrap(),
@@ -85865,7 +85865,7 @@ fn vpsrlw_zmm_zmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsrlw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -85881,7 +85881,7 @@ fn vpsrlw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlw_ymm_ymm_xmmm128
 		test_instr(32, |a| a.vpsrlw(ymm2, ymm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlw_ymm_ymm_xmmm128, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -85906,7 +85906,7 @@ fn vpsrlw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlw_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlw_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrlw(xmm2, xmm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlw_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -85917,7 +85917,7 @@ fn vpsrlw_xmm_xmm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrlw_xmm_k1z_xmmm128_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlw_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrlw(xmm2, xmm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlw_xmm_xmm_imm8, Register::XMM2, Register::XMM3, -5i32).unwrap(),
@@ -85933,7 +85933,7 @@ fn vpsrlw_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlw_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlw_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrlw(ymm2, ymm3, -5i32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlw_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -85944,7 +85944,7 @@ fn vpsrlw_ymm_ymm_i() {
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsrlw_ymm_k1z_ymmm256_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlw_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrlw(ymm2, ymm3, -5).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlw_ymm_ymm_imm8, Register::YMM2, Register::YMM3, -5i32).unwrap(),
@@ -86012,7 +86012,7 @@ fn vpsrlw_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlw_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlw_xmm_xmm_imm8
 		test_instr(32, |a| a.vpsrlw(xmm2, xmm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlw_xmm_xmm_imm8, Register::XMM2, Register::XMM3, 0x7Fu32).unwrap(),
@@ -86028,7 +86028,7 @@ fn vpsrlw_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsrlw_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsrlw_ymm_ymm_imm8
 		test_instr(32, |a| a.vpsrlw(ymm2, ymm3, 0x7Fu32).unwrap(),
 			Instruction::with3(Code::VEX_Vpsrlw_ymm_ymm_imm8, Register::YMM2, Register::YMM3, 0x7Fu32).unwrap(),
@@ -86080,7 +86080,7 @@ fn vpsrlw_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vpsubb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -86096,7 +86096,7 @@ fn vpsubb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -86121,7 +86121,7 @@ fn vpsubb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86137,7 +86137,7 @@ fn vpsubb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86162,7 +86162,7 @@ fn vpsubb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -86178,7 +86178,7 @@ fn vpsubd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -86208,7 +86208,7 @@ fn vpsubd_xmm_xmm_m() {
 		test_instr(32, |a| a.vpsubd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsubd_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86229,7 +86229,7 @@ fn vpsubd_ymm_ymm_m() {
 		test_instr(32, |a| a.vpsubd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsubd_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86254,7 +86254,7 @@ fn vpsubd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -86270,7 +86270,7 @@ fn vpsubq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubq_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubq(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -86300,7 +86300,7 @@ fn vpsubq_xmm_xmm_m() {
 		test_instr(32, |a| a.vpsubq(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsubq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86321,7 +86321,7 @@ fn vpsubq_ymm_ymm_m() {
 		test_instr(32, |a| a.vpsubq(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpsubq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubq(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86346,7 +86346,7 @@ fn vpsubq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubsb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubsb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubsb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubsb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -86362,7 +86362,7 @@ fn vpsubsb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubsb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubsb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubsb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubsb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -86387,7 +86387,7 @@ fn vpsubsb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubsb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubsb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubsb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubsb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86403,7 +86403,7 @@ fn vpsubsb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubsb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubsb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubsb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubsb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86428,7 +86428,7 @@ fn vpsubsb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubsw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubsw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -86444,7 +86444,7 @@ fn vpsubsw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubsw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubsw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -86469,7 +86469,7 @@ fn vpsubsw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubsw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubsw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubsw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubsw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86485,7 +86485,7 @@ fn vpsubsw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubsw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubsw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubsw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubsw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86510,7 +86510,7 @@ fn vpsubsw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubusb_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubusb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubusb(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubusb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -86526,7 +86526,7 @@ fn vpsubusb_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubusb_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubusb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubusb(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubusb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -86551,7 +86551,7 @@ fn vpsubusb_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubusb_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubusb_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubusb(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubusb_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86567,7 +86567,7 @@ fn vpsubusb_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubusb_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubusb_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubusb(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubusb_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86592,7 +86592,7 @@ fn vpsubusb_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubusw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubusw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubusw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubusw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -86608,7 +86608,7 @@ fn vpsubusw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubusw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubusw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubusw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubusw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -86633,7 +86633,7 @@ fn vpsubusw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubusw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubusw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubusw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubusw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86649,7 +86649,7 @@ fn vpsubusw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubusw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubusw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubusw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubusw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86674,7 +86674,7 @@ fn vpsubusw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -86690,7 +86690,7 @@ fn vpsubw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -86715,7 +86715,7 @@ fn vpsubw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpsubw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpsubw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -86731,7 +86731,7 @@ fn vpsubw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpsubw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpsubw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpsubw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpsubw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87488,7 +87488,7 @@ fn vptestnmw_kr_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhbw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhbw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpckhbw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhbw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -87504,7 +87504,7 @@ fn vpunpckhbw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhbw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhbw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpckhbw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhbw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -87529,7 +87529,7 @@ fn vpunpckhbw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhbw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhbw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpckhbw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhbw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87545,7 +87545,7 @@ fn vpunpckhbw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhbw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhbw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpckhbw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhbw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87570,7 +87570,7 @@ fn vpunpckhbw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhdq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhdq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpckhdq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhdq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -87586,7 +87586,7 @@ fn vpunpckhdq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhdq_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhdq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpckhdq(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhdq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -87616,7 +87616,7 @@ fn vpunpckhdq_xmm_xmm_m() {
 		test_instr(32, |a| a.vpunpckhdq(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpunpckhdq_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhdq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpckhdq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhdq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87637,7 +87637,7 @@ fn vpunpckhdq_ymm_ymm_m() {
 		test_instr(32, |a| a.vpunpckhdq(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpunpckhdq_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhdq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpckhdq(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhdq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87662,7 +87662,7 @@ fn vpunpckhdq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhqdq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhqdq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpckhqdq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhqdq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -87678,7 +87678,7 @@ fn vpunpckhqdq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhqdq_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhqdq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpckhqdq(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhqdq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -87708,7 +87708,7 @@ fn vpunpckhqdq_xmm_xmm_m() {
 		test_instr(32, |a| a.vpunpckhqdq(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpunpckhqdq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhqdq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpckhqdq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhqdq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87729,7 +87729,7 @@ fn vpunpckhqdq_ymm_ymm_m() {
 		test_instr(32, |a| a.vpunpckhqdq(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpunpckhqdq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhqdq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpckhqdq(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhqdq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87754,7 +87754,7 @@ fn vpunpckhqdq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhwd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhwd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpckhwd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhwd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -87770,7 +87770,7 @@ fn vpunpckhwd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhwd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhwd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpckhwd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhwd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -87795,7 +87795,7 @@ fn vpunpckhwd_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhwd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhwd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpckhwd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhwd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87811,7 +87811,7 @@ fn vpunpckhwd_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckhwd_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckhwd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpckhwd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckhwd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87836,7 +87836,7 @@ fn vpunpckhwd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpcklbw_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklbw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpcklbw(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklbw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -87852,7 +87852,7 @@ fn vpunpcklbw_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpcklbw_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklbw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpcklbw(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklbw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -87877,7 +87877,7 @@ fn vpunpcklbw_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpcklbw_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklbw_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpcklbw(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklbw_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87893,7 +87893,7 @@ fn vpunpcklbw_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpcklbw_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklbw_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpcklbw(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklbw_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87918,7 +87918,7 @@ fn vpunpcklbw_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckldq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckldq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpckldq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckldq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -87934,7 +87934,7 @@ fn vpunpckldq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpckldq_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckldq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpckldq(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckldq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -87964,7 +87964,7 @@ fn vpunpckldq_xmm_xmm_m() {
 		test_instr(32, |a| a.vpunpckldq(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpunpckldq_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckldq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpckldq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckldq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -87985,7 +87985,7 @@ fn vpunpckldq_ymm_ymm_m() {
 		test_instr(32, |a| a.vpunpckldq(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpunpckldq_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpckldq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpckldq(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpckldq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -88010,7 +88010,7 @@ fn vpunpckldq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpcklqdq_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklqdq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpcklqdq(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklqdq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -88026,7 +88026,7 @@ fn vpunpcklqdq_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpcklqdq_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklqdq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpcklqdq(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklqdq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -88056,7 +88056,7 @@ fn vpunpcklqdq_xmm_xmm_m() {
 		test_instr(32, |a| a.vpunpcklqdq(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpunpcklqdq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklqdq_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpcklqdq(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklqdq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -88077,7 +88077,7 @@ fn vpunpcklqdq_ymm_ymm_m() {
 		test_instr(32, |a| a.vpunpcklqdq(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vpunpcklqdq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklqdq_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpcklqdq(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklqdq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -88102,7 +88102,7 @@ fn vpunpcklqdq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpcklwd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklwd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpcklwd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklwd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -88118,7 +88118,7 @@ fn vpunpcklwd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpcklwd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklwd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpcklwd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklwd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -88143,7 +88143,7 @@ fn vpunpcklwd_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpunpcklwd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklwd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vpunpcklwd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklwd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -88159,7 +88159,7 @@ fn vpunpcklwd_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpunpcklwd_ymm_ymm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpunpcklwd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vpunpcklwd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vpunpcklwd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -91433,7 +91433,7 @@ fn vshufi64x2_zmm_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vshufpd_xmm_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufpd(xmm2, xmm3, xmm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -91444,7 +91444,7 @@ fn vshufpd_xmm_xmm_xmm_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufpd(xmm2, xmm3, xmm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -91460,7 +91460,7 @@ fn vshufpd_xmm_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vshufpd_ymm_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufpd(ymm2, ymm3, ymm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -91471,7 +91471,7 @@ fn vshufpd_ymm_ymm_ymm_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufpd(ymm2, ymm3, ymm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -91505,7 +91505,7 @@ fn vshufpd_xmm_xmm_m_i() {
 		test_instr(32, |a| a.vshufpd(xmm2.k1(), xmm3, dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufpd(xmm2, xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -91521,7 +91521,7 @@ fn vshufpd_xmm_xmm_m_i() {
 		test_instr(32, |a| a.vshufpd(xmm2.k1(), xmm3, dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufpd(xmm2, xmm3, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -91542,7 +91542,7 @@ fn vshufpd_ymm_ymm_m_i() {
 		test_instr(32, |a| a.vshufpd(ymm2.k1(), ymm3, dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufpd(ymm2, ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -91558,7 +91558,7 @@ fn vshufpd_ymm_ymm_m_i() {
 		test_instr(32, |a| a.vshufpd(ymm2.k1(), ymm3, dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufpd(ymm2, ymm3, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -91587,7 +91587,7 @@ fn vshufpd_zmm_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vshufpd_xmm_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufpd(xmm2, xmm3, xmm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(),
@@ -91603,7 +91603,7 @@ fn vshufpd_xmm_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vshufpd_ymm_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufpd(ymm2, ymm3, ymm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(),
@@ -91633,7 +91633,7 @@ fn vshufpd_xmm_xmm_m_u() {
 		test_instr(32, |a| a.vshufpd(xmm2.k1(), xmm3, dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufpd(xmm2, xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -91654,7 +91654,7 @@ fn vshufpd_ymm_ymm_m_u() {
 		test_instr(32, |a| a.vshufpd(ymm2.k1(), ymm3, dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufpd_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufpd(ymm2, ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufpd_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -91679,7 +91679,7 @@ fn vshufpd_zmm_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vshufps_xmm_xmm_xmm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufps(xmm2, xmm3, xmm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -91690,7 +91690,7 @@ fn vshufps_xmm_xmm_xmm_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufps(xmm2, xmm3, xmm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, -5i32).unwrap(),
@@ -91706,7 +91706,7 @@ fn vshufps_xmm_xmm_xmm_i() {
 #[test]
 #[rustfmt::skip]
 fn vshufps_ymm_ymm_ymm_i() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufps(ymm2, ymm3, ymm4, -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -91717,7 +91717,7 @@ fn vshufps_ymm_ymm_ymm_i() {
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
 	}
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufps(ymm2, ymm3, ymm4, -5).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, -5i32).unwrap(),
@@ -91751,7 +91751,7 @@ fn vshufps_xmm_xmm_m_i() {
 		test_instr(32, |a| a.vshufps(xmm2.k1(), xmm3, dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufps(xmm2, xmm3, xmmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -91767,7 +91767,7 @@ fn vshufps_xmm_xmm_m_i() {
 		test_instr(32, |a| a.vshufps(xmm2.k1(), xmm3, dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufps(xmm2, xmm3, xmmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -91788,7 +91788,7 @@ fn vshufps_ymm_ymm_m_i() {
 		test_instr(32, |a| a.vshufps(ymm2.k1(), ymm3, dword_bcst(edx), -5i32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufps(ymm2, ymm3, ymmword_ptr(ecx), -5i32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -91804,7 +91804,7 @@ fn vshufps_ymm_ymm_m_i() {
 		test_instr(32, |a| a.vshufps(ymm2.k1(), ymm3, dword_bcst(edx), -5).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), -5i32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufps(ymm2, ymm3, ymmword_ptr(ecx), -5).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), -5i32).unwrap(),
@@ -91833,7 +91833,7 @@ fn vshufps_zmm_zmm_m_i() {
 #[test]
 #[rustfmt::skip]
 fn vshufps_xmm_xmm_xmm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufps(xmm2, xmm3, xmm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, Register::XMM4, 0x7Fu32).unwrap(),
@@ -91849,7 +91849,7 @@ fn vshufps_xmm_xmm_xmm_u() {
 #[test]
 #[rustfmt::skip]
 fn vshufps_ymm_ymm_ymm_u() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufps(ymm2, ymm3, ymm4, 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, Register::YMM4, 0x7Fu32).unwrap(),
@@ -91879,7 +91879,7 @@ fn vshufps_xmm_xmm_m_u() {
 		test_instr(32, |a| a.vshufps(xmm2.k1(), xmm3, dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_xmm_xmm_xmmm128_imm8
 		test_instr(32, |a| a.vshufps(xmm2, xmm3, xmmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_xmm_xmm_xmmm128_imm8, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -91900,7 +91900,7 @@ fn vshufps_ymm_ymm_m_u() {
 		test_instr(32, |a| a.vshufps(ymm2.k1(), ymm3, dword_bcst(edx), 0x7Fu32).unwrap(),
 			add_op_mask(Instruction::with4(Code::EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None), 0x7Fu32).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vshufps_ymm_ymm_ymmm256_imm8
 		test_instr(32, |a| a.vshufps(ymm2, ymm3, ymmword_ptr(ecx), 0x7Fu32).unwrap(),
 			Instruction::with4(Code::VEX_Vshufps_ymm_ymm_ymmm256_imm8, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None), 0x7Fu32).unwrap(),
@@ -91925,7 +91925,7 @@ fn vshufps_zmm_zmm_m_u() {
 #[test]
 #[rustfmt::skip]
 fn vsqrtpd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtpd_xmm_xmmm128
 		test_instr(32, |a| a.vsqrtpd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vsqrtpd_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -91941,7 +91941,7 @@ fn vsqrtpd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vsqrtpd_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtpd_ymm_ymmm256
 		test_instr(32, |a| a.vsqrtpd(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vsqrtpd_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -91971,7 +91971,7 @@ fn vsqrtpd_xmm_m() {
 		test_instr(32, |a| a.vsqrtpd(xmm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vsqrtpd_xmm_k1z_xmmm128b64, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtpd_xmm_xmmm128
 		test_instr(32, |a| a.vsqrtpd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vsqrtpd_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -91992,7 +91992,7 @@ fn vsqrtpd_ymm_m() {
 		test_instr(32, |a| a.vsqrtpd(ymm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vsqrtpd_ymm_k1z_ymmm256b64, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtpd_ymm_ymmm256
 		test_instr(32, |a| a.vsqrtpd(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vsqrtpd_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92071,7 +92071,7 @@ fn vsqrtph_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vsqrtps_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtps_xmm_xmmm128
 		test_instr(32, |a| a.vsqrtps(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vsqrtps_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
@@ -92087,7 +92087,7 @@ fn vsqrtps_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vsqrtps_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtps_ymm_ymmm256
 		test_instr(32, |a| a.vsqrtps(ymm2, ymm3).unwrap(),
 			Instruction::with2(Code::VEX_Vsqrtps_ymm_ymmm256, Register::YMM2, Register::YMM3).unwrap(),
@@ -92117,7 +92117,7 @@ fn vsqrtps_xmm_m() {
 		test_instr(32, |a| a.vsqrtps(xmm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtps_xmm_xmmm128
 		test_instr(32, |a| a.vsqrtps(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vsqrtps_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92138,7 +92138,7 @@ fn vsqrtps_ymm_m() {
 		test_instr(32, |a| a.vsqrtps(ymm2.k1(), dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with2(Code::EVEX_Vsqrtps_ymm_k1z_ymmm256b32, Register::YMM2, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtps_ymm_ymmm256
 		test_instr(32, |a| a.vsqrtps(ymm2, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vsqrtps_ymm_ymmm256, Register::YMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92163,7 +92163,7 @@ fn vsqrtps_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vsqrtsd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vsqrtsd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vsqrtsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -92179,7 +92179,7 @@ fn vsqrtsd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vsqrtsd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vsqrtsd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vsqrtsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92213,7 +92213,7 @@ fn vsqrtsh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vsqrtss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vsqrtss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vsqrtss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -92229,7 +92229,7 @@ fn vsqrtss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vsqrtss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsqrtss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vsqrtss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vsqrtss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92254,7 +92254,7 @@ fn vstmxcsr_m() {
 #[test]
 #[rustfmt::skip]
 fn vsubpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsubpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vsubpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vsubpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -92270,7 +92270,7 @@ fn vsubpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vsubpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsubpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vsubpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vsubpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -92300,7 +92300,7 @@ fn vsubpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vsubpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vsubpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vsubpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vsubpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92321,7 +92321,7 @@ fn vsubpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vsubpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vsubpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vsubpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vsubpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92400,7 +92400,7 @@ fn vsubph_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vsubps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsubps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vsubps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vsubps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -92416,7 +92416,7 @@ fn vsubps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vsubps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsubps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vsubps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vsubps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -92446,7 +92446,7 @@ fn vsubps_xmm_xmm_m() {
 		test_instr(32, |a| a.vsubps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vsubps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vsubps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vsubps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92467,7 +92467,7 @@ fn vsubps_ymm_ymm_m() {
 		test_instr(32, |a| a.vsubps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vsubps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vsubps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vsubps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92492,7 +92492,7 @@ fn vsubps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vsubsd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsubsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vsubsd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vsubsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -92508,7 +92508,7 @@ fn vsubsd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vsubsd_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsubsd_xmm_xmm_xmmm64
 		test_instr(32, |a| a.vsubsd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vsubsd_xmm_xmm_xmmm64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92542,7 +92542,7 @@ fn vsubsh_xmm_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vsubss_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsubss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vsubss(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vsubss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -92558,7 +92558,7 @@ fn vsubss_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vsubss_xmm_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vsubss_xmm_xmm_xmmm32
 		test_instr(32, |a| a.vsubss(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vsubss_xmm_xmm_xmmm32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92646,7 +92646,7 @@ fn vtestps_ymm_m() {
 #[test]
 #[rustfmt::skip]
 fn vucomisd_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vucomisd_xmm_xmmm64
 		test_instr(32, |a| a.vucomisd(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vucomisd_xmm_xmmm64, Register::XMM2, Register::XMM3).unwrap(),
@@ -92662,7 +92662,7 @@ fn vucomisd_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vucomisd_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vucomisd_xmm_xmmm64
 		test_instr(32, |a| a.vucomisd(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vucomisd_xmm_xmmm64, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92696,7 +92696,7 @@ fn vucomish_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vucomiss_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vucomiss_xmm_xmmm32
 		test_instr(32, |a| a.vucomiss(xmm2, xmm3).unwrap(),
 			Instruction::with2(Code::VEX_Vucomiss_xmm_xmmm32, Register::XMM2, Register::XMM3).unwrap(),
@@ -92712,7 +92712,7 @@ fn vucomiss_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vucomiss_xmm_m() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vucomiss_xmm_xmmm32
 		test_instr(32, |a| a.vucomiss(xmm2, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with2(Code::VEX_Vucomiss_xmm_xmmm32, Register::XMM2, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92728,7 +92728,7 @@ fn vucomiss_xmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vunpckhpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vunpckhpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vunpckhpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vunpckhpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -92744,7 +92744,7 @@ fn vunpckhpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vunpckhpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vunpckhpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vunpckhpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vunpckhpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -92774,7 +92774,7 @@ fn vunpckhpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vunpckhpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vunpckhpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vunpckhpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vunpckhpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vunpckhpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92795,7 +92795,7 @@ fn vunpckhpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vunpckhpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vunpckhpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vunpckhpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vunpckhpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vunpckhpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92820,7 +92820,7 @@ fn vunpckhpd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vunpckhps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vunpckhps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vunpckhps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vunpckhps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -92836,7 +92836,7 @@ fn vunpckhps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vunpckhps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vunpckhps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vunpckhps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vunpckhps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -92866,7 +92866,7 @@ fn vunpckhps_xmm_xmm_m() {
 		test_instr(32, |a| a.vunpckhps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vunpckhps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vunpckhps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vunpckhps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vunpckhps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92887,7 +92887,7 @@ fn vunpckhps_ymm_ymm_m() {
 		test_instr(32, |a| a.vunpckhps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vunpckhps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vunpckhps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vunpckhps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vunpckhps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92912,7 +92912,7 @@ fn vunpckhps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vunpcklpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vunpcklpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vunpcklpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vunpcklpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -92928,7 +92928,7 @@ fn vunpcklpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vunpcklpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vunpcklpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vunpcklpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vunpcklpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -92958,7 +92958,7 @@ fn vunpcklpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vunpcklpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vunpcklpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vunpcklpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vunpcklpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vunpcklpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -92979,7 +92979,7 @@ fn vunpcklpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vunpcklpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vunpcklpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vunpcklpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vunpcklpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vunpcklpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -93004,7 +93004,7 @@ fn vunpcklpd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vunpcklps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vunpcklps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vunpcklps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vunpcklps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -93020,7 +93020,7 @@ fn vunpcklps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vunpcklps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vunpcklps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vunpcklps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vunpcklps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -93050,7 +93050,7 @@ fn vunpcklps_xmm_xmm_m() {
 		test_instr(32, |a| a.vunpcklps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vunpcklps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vunpcklps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vunpcklps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -93071,7 +93071,7 @@ fn vunpcklps_ymm_ymm_m() {
 		test_instr(32, |a| a.vunpcklps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vunpcklps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vunpcklps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vunpcklps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vunpcklps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -93096,7 +93096,7 @@ fn vunpcklps_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vxorpd_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vxorpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vxorpd(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vxorpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -93112,7 +93112,7 @@ fn vxorpd_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vxorpd_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vxorpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vxorpd(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vxorpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -93142,7 +93142,7 @@ fn vxorpd_xmm_xmm_m() {
 		test_instr(32, |a| a.vxorpd(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vxorpd_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vxorpd_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vxorpd(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vxorpd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -93163,7 +93163,7 @@ fn vxorpd_ymm_ymm_m() {
 		test_instr(32, |a| a.vxorpd(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vxorpd_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vxorpd_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vxorpd(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vxorpd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -93188,7 +93188,7 @@ fn vxorpd_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vxorps_xmm_xmm_xmm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vxorps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vxorps(xmm2, xmm3, xmm4).unwrap(),
 			Instruction::with3(Code::VEX_Vxorps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
@@ -93204,7 +93204,7 @@ fn vxorps_xmm_xmm_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vxorps_ymm_ymm_ymm() {
-	/* if self.prefer_vex() */ {
+	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vxorps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vxorps(ymm2, ymm3, ymm4).unwrap(),
 			Instruction::with3(Code::VEX_Vxorps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
@@ -93234,7 +93234,7 @@ fn vxorps_xmm_xmm_m() {
 		test_instr(32, |a| a.vxorps(xmm2.k1(), xmm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vxorps_xmm_k1z_xmm_xmmm128b32, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vxorps_xmm_xmm_xmmm128
 		test_instr(32, |a| a.vxorps(xmm2, xmm3, xmmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vxorps_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
@@ -93255,7 +93255,7 @@ fn vxorps_ymm_ymm_m() {
 		test_instr(32, |a| a.vxorps(ymm2.k1(), ymm3, dword_bcst(edx)).unwrap(),
 			add_op_mask(Instruction::with3(Code::EVEX_Vxorps_ymm_k1z_ymm_ymmm256b32, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::EDX, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
-	} /* else if self.prefer_vex() */ {
+	} /* else if self.instruction_prefer_vex() */ {
 		// VEX_Vxorps_ymm_ymm_ymmm256
 		test_instr(32, |a| a.vxorps(ymm2, ymm3, ymmword_ptr(ecx)).unwrap(),
 			Instruction::with3(Code::VEX_Vxorps_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::ECX, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),

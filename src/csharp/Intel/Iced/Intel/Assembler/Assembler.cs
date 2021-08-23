@@ -22,7 +22,7 @@ namespace Iced.Intel {
 		PrefixFlags prefixFlags;
 
 		/// <summary>
-		/// Creates a new instance of this assembler 
+		/// Creates a new instance of this assembler
 		/// </summary>
 		/// <param name="bitness">The assembler instruction set bitness, either 16, 32 or 64 bit.</param>
 		public Assembler(int bitness) {
@@ -52,17 +52,25 @@ namespace Iced.Intel {
 		public int Bitness { get; }
 
 		/// <summary>
-		/// <c>true</c> to prefer VEX encoding over EVEX. This is the default. 
+		/// <c>true</c> to prefer VEX encoding over EVEX. This is the default. See also <see cref="vex"/> and <see cref="evex"/>.
 		/// </summary>
 		public bool PreferVex { get; set; }
 
 		/// <summary>
-		/// <c>true</c> to prefer short branch encoding. This is the default. 
+		/// <c>true</c> to prefer short branch encoding. This is the default.
 		/// </summary>
 		public bool PreferShortBranch { get; set; }
 
+		internal bool InstructionPreferVex {
+			get {
+				if ((prefixFlags & (PrefixFlags.PreferVex | PrefixFlags.PreferEvex)) != 0)
+					return (prefixFlags & PrefixFlags.PreferVex) != 0;
+				return PreferVex;
+			}
+		}
+
 		/// <summary>
-		/// <c>true</c> to prefer short branch encoding. This is the default. 
+		/// <c>true</c> to prefer short branch encoding. This is the default.
 		/// </summary>
 		[System.Obsolete("Use " + nameof(PreferShortBranch) + " instead of this property", true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -77,7 +85,7 @@ namespace Iced.Intel {
 		public IReadOnlyList<Instruction> Instructions => instructions;
 
 		/// <summary>
-		/// Reset the current set of instructions and labels added to this instance. 
+		/// Reset the current set of instructions and labels added to this instance.
 		/// </summary>
 		public void Reset() {
 			instructions.Clear();
@@ -335,6 +343,30 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Prefer VEX encoding if the next instruction can be VEX or EVEX encoded
+		/// </summary>
+		/// <returns></returns>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler vex {
+			get {
+				prefixFlags |= PrefixFlags.PreferVex;
+				return this;
+			}
+		}
+
+		/// <summary>
+		/// Prefer EVEX encoding if the next instruction can be VEX or EVEX encoded
+		/// </summary>
+		/// <returns></returns>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler evex {
+			get {
+				prefixFlags |= PrefixFlags.PreferEvex;
+				return this;
+			}
+		}
+
+		/// <summary>
 		/// Adds data
 		/// </summary>
 		/// <param name="array">Data</param>
@@ -465,9 +497,9 @@ namespace Iced.Intel {
 					break;
 				case 9:
 					if (Bitness != 16)
-						db(0x66, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // 66 NOP dword ptr [eax + eax*1 + 00000000] 	
+						db(0x66, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // 66 NOP dword ptr [eax + eax*1 + 00000000]
 					else
-						db(0x67, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // NOP word ptr [eax+eax]	
+						db(0x67, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // NOP word ptr [eax+eax]
 					break;
 				}
 			}
@@ -562,6 +594,8 @@ namespace Iced.Intel {
 			Repe = 1 << 3,
 			Repne = 1 << 4,
 			Notrack = 1 << 5,
+			PreferVex = 1 << 6,
+			PreferEvex = 1 << 7,
 		}
 	}
 }

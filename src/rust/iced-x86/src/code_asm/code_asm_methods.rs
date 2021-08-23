@@ -210,6 +210,58 @@ impl CodeAssembler {
 		self
 	}
 
+	/// Prefer `VEX` encoding if the next instruction can be `VEX` or `EVEX` encoded
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	///
+	/// // This instruction can be VEX or EVEX encoded
+	/// a.vex().vaddpd(xmm1, xmm2, xmm3)?;
+	/// a.evex().vaddpd(xmm1, xmm2, xmm3)?;
+	///
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xC5\xE9\x58\xCB\x62\xF1\xED\x08\x58\xCB");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[must_use]
+	#[inline]
+	pub fn vex(&mut self) -> &mut Self {
+		self.prefix_flags |= PrefixFlags::PREFER_VEX;
+		self
+	}
+
+	/// Prefer `EVEX` encoding if the next instruction can be `VEX` or `EVEX` encoded
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	///
+	/// // This instruction can be VEX or EVEX encoded
+	/// a.vex().vaddpd(xmm1, xmm2, xmm3)?;
+	/// a.evex().vaddpd(xmm1, xmm2, xmm3)?;
+	///
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, b"\xC5\xE9\x58\xCB\x62\xF1\xED\x08\x58\xCB");
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[must_use]
+	#[inline]
+	pub fn evex(&mut self) -> &mut Self {
+		self.prefix_flags |= PrefixFlags::PREFER_EVEX;
+		self
+	}
+
 	/// Gets all added instructions, see also [`take_instructions()`] and [`assemble()`]
 	///
 	/// [`take_instructions()`]: #method.take_instructions
@@ -1051,14 +1103,20 @@ impl CodeAssembler {
 		self.bitness
 	}
 
-	/// `true` (default value) to use `VEX` encoding intead of `EVEX` encoding if we must pick one of the encodings
+	/// `true` (default value) to use `VEX` encoding intead of `EVEX` encoding if we must pick one of the encodings. See also [`vex()`] and [`evex()`]
+	///
+	/// [`vex()`]: #method.vex
+	/// [`evex()`]: #method.evex
 	#[must_use]
 	#[inline]
 	pub fn prefer_vex(&self) -> bool {
 		(self.options & CodeAssemblerOptions::PREFER_VEX) != 0
 	}
 
-	/// `true` (default value) to use `VEX` encoding intead of `EVEX` encoding if we must pick one of the encodings
+	/// `true` (default value) to use `VEX` encoding intead of `EVEX` encoding if we must pick one of the encodings. See also [`vex()`] and [`evex()`]
+	///
+	/// [`vex()`]: #method.vex
+	/// [`evex()`]: #method.evex
 	///
 	/// # Arguments
 	///
@@ -1090,6 +1148,15 @@ impl CodeAssembler {
 			self.options |= CodeAssemblerOptions::PREFER_SHORT_BRANCH;
 		} else {
 			self.options &= !CodeAssemblerOptions::PREFER_SHORT_BRANCH;
+		}
+	}
+
+	#[inline]
+	pub(crate) fn instruction_prefer_vex(&self) -> bool {
+		if (self.prefix_flags & (PrefixFlags::PREFER_VEX | PrefixFlags::PREFER_EVEX)) != 0 {
+			(self.prefix_flags & PrefixFlags::PREFER_VEX) != 0
+		} else {
+			(self.options & CodeAssemblerOptions::PREFER_VEX) != 0
 		}
 	}
 
