@@ -478,6 +478,11 @@ pub trait CodeAsmCmovbe<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmCmovc<T, U> {
+	fn cmovc(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmCmove<T, U> {
 	fn cmove(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
@@ -503,8 +508,53 @@ pub trait CodeAsmCmovle<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmCmovna<T, U> {
+	fn cmovna(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmovnae<T, U> {
+	fn cmovnae(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmovnb<T, U> {
+	fn cmovnb(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmovnbe<T, U> {
+	fn cmovnbe(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmovnc<T, U> {
+	fn cmovnc(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmCmovne<T, U> {
 	fn cmovne(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmovng<T, U> {
+	fn cmovng(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmovnge<T, U> {
+	fn cmovnge(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmovnl<T, U> {
+	fn cmovnl(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmovnle<T, U> {
+	fn cmovnle(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -523,6 +573,11 @@ pub trait CodeAsmCmovns<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmCmovnz<T, U> {
+	fn cmovnz(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmCmovo<T, U> {
 	fn cmovo(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
@@ -533,8 +588,23 @@ pub trait CodeAsmCmovp<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmCmovpe<T, U> {
+	fn cmovpe(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmovpo<T, U> {
+	fn cmovpo(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmCmovs<T, U> {
 	fn cmovs(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmovz<T, U> {
+	fn cmovz(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -1858,6 +1928,11 @@ pub trait CodeAsmJbe<T> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmJc<T> {
+	fn jc(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmJcxz<T> {
 	fn jcxz(&mut self, op0: T) -> Result<(), IcedError>;
 }
@@ -1903,8 +1978,53 @@ pub trait CodeAsmJmpe<T> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmJna<T> {
+	fn jna(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmJnae<T> {
+	fn jnae(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmJnb<T> {
+	fn jnb(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmJnbe<T> {
+	fn jnbe(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmJnc<T> {
+	fn jnc(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmJne<T> {
 	fn jne(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmJng<T> {
+	fn jng(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmJnge<T> {
+	fn jnge(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmJnl<T> {
+	fn jnl(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmJnle<T> {
+	fn jnle(&mut self, op0: T) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -1923,6 +2043,11 @@ pub trait CodeAsmJns<T> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmJnz<T> {
+	fn jnz(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmJo<T> {
 	fn jo(&mut self, op0: T) -> Result<(), IcedError>;
 }
@@ -1933,6 +2058,16 @@ pub trait CodeAsmJp<T> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmJpe<T> {
+	fn jpe(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmJpo<T> {
+	fn jpo(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmJrcxz<T> {
 	fn jrcxz(&mut self, op0: T) -> Result<(), IcedError>;
 }
@@ -1940,6 +2075,11 @@ pub trait CodeAsmJrcxz<T> {
 #[rustfmt::skip]
 pub trait CodeAsmJs<T> {
 	fn js(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmJz<T> {
+	fn jz(&mut self, op0: T) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -2330,6 +2470,16 @@ pub trait CodeAsmLoope<T> {
 #[rustfmt::skip]
 pub trait CodeAsmLoopne<T> {
 	fn loopne(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmLoopnz<T> {
+	fn loopnz(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmLoopz<T> {
+	fn loopz(&mut self, op0: T) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -4063,6 +4213,11 @@ pub trait CodeAsmSetbe<T> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmSetc<T> {
+	fn setc(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmSete<T> {
 	fn sete(&mut self, op0: T) -> Result<(), IcedError>;
 }
@@ -4088,8 +4243,53 @@ pub trait CodeAsmSetle<T> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmSetna<T> {
+	fn setna(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmSetnae<T> {
+	fn setnae(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmSetnb<T> {
+	fn setnb(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmSetnbe<T> {
+	fn setnbe(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmSetnc<T> {
+	fn setnc(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmSetne<T> {
 	fn setne(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmSetng<T> {
+	fn setng(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmSetnge<T> {
+	fn setnge(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmSetnl<T> {
+	fn setnl(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmSetnle<T> {
+	fn setnle(&mut self, op0: T) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -4108,6 +4308,11 @@ pub trait CodeAsmSetns<T> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmSetnz<T> {
+	fn setnz(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmSeto<T> {
 	fn seto(&mut self, op0: T) -> Result<(), IcedError>;
 }
@@ -4118,6 +4323,16 @@ pub trait CodeAsmSetp<T> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmSetpe<T> {
+	fn setpe(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmSetpo<T> {
+	fn setpo(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmSets<T> {
 	fn sets(&mut self, op0: T) -> Result<(), IcedError>;
 }
@@ -4125,6 +4340,11 @@ pub trait CodeAsmSets<T> {
 #[rustfmt::skip]
 pub trait CodeAsmSetssbsy {
 	fn setssbsy(&mut self) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmSetz<T> {
+	fn setz(&mut self, op0: T) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]

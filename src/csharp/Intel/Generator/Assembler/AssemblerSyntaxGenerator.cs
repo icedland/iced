@@ -9,6 +9,7 @@ using System.Text;
 using Generator.Enums;
 using Generator.Enums.Decoder;
 using Generator.Enums.Formatter;
+using Generator.Enums.InstructionInfo;
 using Generator.Formatters;
 using Generator.Tables;
 
@@ -1119,6 +1120,7 @@ namespace Generator.Assembler {
 			UnsignedUIntNotSupported = 1 << 18,
 			HasImmediateUnsigned = 1 << 19,
 			GenerateInvalidTest = 1 << 20,
+			GeneratedCondCode = 1 << 21,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup group, List<InstructionDef> inputDefs, List<InstructionDef> opcodes,
@@ -1439,8 +1441,43 @@ namespace Generator.Assembler {
 					pseudoOpsKind, numberLeadingArgsToDiscard, argSizes, isOtherImmediate);
 			}
 
+			if (def.ConditionCode != ConditionCode.None && (opCodeArgFlags & OpCodeArgFlags.GeneratedCondCode) == 0) {
+				var (oldSuffix, newSuffixes) = GetConditionCodeSuffixes(group.Defs[0].ConditionCode);
+				if (!group.MnemonicName.EndsWith(oldSuffix, StringComparison.Ordinal))
+					throw new InvalidOperationException();
+				if (!group.Name.EndsWith(oldSuffix, StringComparison.Ordinal))
+					throw new InvalidOperationException();
+				foreach (var newSuffix in newSuffixes) {
+					var newMnemonicName = group.MnemonicName[..^oldSuffix.Length] + newSuffix;
+					var newName = group.Name[..^oldSuffix.Length] + newSuffix;
+					AddOpCodeToGroup(newName, newMnemonicName, signature, def, opCodeArgFlags | OpCodeArgFlags.GeneratedCondCode,
+						pseudoOpsKind, numberLeadingArgsToDiscard, argSizes, isOtherImmediate);
+				}
+			}
+
 			return group;
 		}
+
+		static (string oldSuffix, string[] newSuffixes) GetConditionCodeSuffixes(ConditionCode cc) =>
+			cc switch {
+				ConditionCode.o => ("o", Array.Empty<string>()),
+				ConditionCode.no => ("no", Array.Empty<string>()),
+				ConditionCode.b => ("b", new[] { "c", "nae" }),
+				ConditionCode.ae => ("ae", new[] { "nb", "nc" }),
+				ConditionCode.e => ("e", new[] { "z" }),
+				ConditionCode.ne => ("ne", new[] { "nz" }),
+				ConditionCode.be => ("be", new[] { "na" }),
+				ConditionCode.a => ("a", new[] { "nbe" }),
+				ConditionCode.s => ("s", Array.Empty<string>()),
+				ConditionCode.ns => ("ns", Array.Empty<string>()),
+				ConditionCode.p => ("p", new[] { "pe" }),
+				ConditionCode.np => ("np", new[] { "po" }),
+				ConditionCode.l => ("l", new[] { "nge" }),
+				ConditionCode.ge => ("ge", new[] { "nl" }),
+				ConditionCode.le => ("le", new[] { "ng" }),
+				ConditionCode.g => ("g", new[] { "nle" }),
+				_ => throw new InvalidOperationException(),
+			};
 
 		protected static bool IsArgKindImmediate(ArgKind argKind) =>
 			argKind switch {

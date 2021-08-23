@@ -96,7 +96,7 @@ impl CodeAssembler {
 		self
 	}
 
-	/// Adds a `REPE` prefix to the next added instruction
+	/// Adds a `REPE`/`REPZ` prefix to the next added instruction
 	///
 	/// # Examples
 	///
@@ -121,7 +121,31 @@ impl CodeAssembler {
 		self
 	}
 
-	/// Adds a `REPNE` prefix to the next added instruction
+	/// Adds a `REPE`/`REPZ` prefix to the next added instruction
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	///
+	/// a.repz().cmpsb()?;
+	/// a.nop()?;
+	///
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, vec![0xF3, 0xA6, 0x90]);
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[must_use]
+	#[inline]
+	pub fn repz(&mut self) -> &mut Self {
+		self.repe()
+	}
+
+	/// Adds a `REPNE`/`REPNZ` prefix to the next added instruction
 	///
 	/// # Examples
 	///
@@ -144,6 +168,30 @@ impl CodeAssembler {
 	pub fn repne(&mut self) -> &mut Self {
 		self.prefix_flags |= PrefixFlags::REPNE;
 		self
+	}
+
+	/// Adds a `REPNE`/`REPNZ` prefix to the next added instruction
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	///
+	/// a.repnz().scasb()?;
+	/// a.nop()?;
+	///
+	/// let bytes = a.assemble(0x1234_5678)?;
+	/// assert_eq!(bytes, vec![0xF2, 0xAE, 0x90]);
+	/// # Ok(())
+	/// # }
+	/// ```
+	#[must_use]
+	#[inline]
+	pub fn repnz(&mut self) -> &mut Self {
+		self.repne()
 	}
 
 	/// Adds a `BND` prefix to the next added instruction

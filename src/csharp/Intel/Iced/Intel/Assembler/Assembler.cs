@@ -273,7 +273,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Add repe prefix before the next instruction.
+		/// Add repe/repz prefix before the next instruction.
 		/// </summary>
 		/// <returns></returns>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -285,7 +285,14 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Add repne prefix before the next instruction.
+		/// Add repe/repz prefix before the next instruction.
+		/// </summary>
+		/// <returns></returns>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler repz => repe;
+
+		/// <summary>
+		/// Add repne/repnz prefix before the next instruction.
 		/// </summary>
 		/// <returns></returns>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -295,6 +302,13 @@ namespace Iced.Intel {
 				return this;
 			}
 		}
+
+		/// <summary>
+		/// Add repne/repnz prefix before the next instruction.
+		/// </summary>
+		/// <returns></returns>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler repnz => repne;
 
 		/// <summary>
 		/// Add bnd prefix before the next instruction.

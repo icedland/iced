@@ -2985,6 +2985,54 @@ impl CodeAsmCmovbe<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmCmovc<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovc(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovc<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovc(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovc<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovc(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovc<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovc(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovc<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovc(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovc<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovc(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmCmove<AsmRegister16, AsmRegister16> for CodeAssembler {
 	#[inline]
 	fn cmove(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
@@ -3225,6 +3273,246 @@ impl CodeAsmCmovle<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmCmovna<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovna(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovbe_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovna<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovna(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovbe_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovna<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovna(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovbe_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovna<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovna(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovbe_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovna<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovna(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovbe_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovna<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovna(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovbe_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnae<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovnae(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnae<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovnae(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnae<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovnae(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnae<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnae(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnae<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnae(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnae<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnae(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovb_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnb<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovnb(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnb<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovnb(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnb<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovnb(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnb<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnb(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnb<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnb(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnb<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnb(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnbe<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovnbe(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmova_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnbe<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovnbe(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmova_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnbe<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovnbe(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmova_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnbe<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnbe(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmova_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnbe<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnbe(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmova_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnbe<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnbe(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmova_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnc<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovnc(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnc<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovnc(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnc<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovnc(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnc<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnc(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnc<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnc(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnc<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnc(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovae_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmCmovne<AsmRegister16, AsmRegister16> for CodeAssembler {
 	#[inline]
 	fn cmovne(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
@@ -3269,6 +3557,198 @@ impl CodeAsmCmovne<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn cmovne(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with2(Code::Cmovne_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovng<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovng(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovle_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovng<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovng(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovle_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovng<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovng(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovle_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovng<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovng(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovle_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovng<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovng(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovle_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovng<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovng(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovle_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnge<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovnge(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovl_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnge<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovnge(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovl_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnge<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovnge(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovl_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnge<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnge(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovl_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnge<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnge(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovl_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnge<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnge(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovl_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnl<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovnl(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovge_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnl<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovnl(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovge_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnl<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovnl(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovge_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnl<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnl(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovge_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnl<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnl(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovge_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnl<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnl(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovge_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnle<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovnle(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovg_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnle<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovnle(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovg_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnle<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovnle(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovg_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnle<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnle(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovg_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnle<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnle(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovg_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnle<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnle(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovg_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
 	}
 }
 
@@ -3417,6 +3897,54 @@ impl CodeAsmCmovns<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmCmovnz<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovnz(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovne_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnz<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovnz(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovne_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnz<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovnz(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovne_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnz<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnz(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovne_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnz<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnz(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovne_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovnz<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovnz(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovne_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmCmovo<AsmRegister16, AsmRegister16> for CodeAssembler {
 	#[inline]
 	fn cmovo(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
@@ -3513,6 +4041,102 @@ impl CodeAsmCmovp<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmCmovpe<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovpe(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovp_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpe<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovpe(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovp_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpe<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovpe(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovp_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpe<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovpe(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovp_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpe<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovpe(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovp_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpe<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovpe(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovp_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpo<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovpo(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovnp_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpo<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovpo(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovnp_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpo<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovpo(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovnp_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpo<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovpo(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovnp_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpo<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovpo(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovnp_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovpo<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovpo(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmovnp_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmCmovs<AsmRegister16, AsmRegister16> for CodeAssembler {
 	#[inline]
 	fn cmovs(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
@@ -3557,6 +4181,54 @@ impl CodeAsmCmovs<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn cmovs(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with2(Code::Cmovs_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovz<AsmRegister16, AsmRegister16> for CodeAssembler {
+	#[inline]
+	fn cmovz(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmove_r16_rm16, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovz<AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmovz(&mut self, op0: AsmRegister32, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmove_r32_rm32, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovz<AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmovz(&mut self, op0: AsmRegister64, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmove_r64_rm64, op0.register(), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovz<AsmRegister16, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovz(&mut self, op0: AsmRegister16, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmove_r16_rm16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovz<AsmRegister32, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovz(&mut self, op0: AsmRegister32, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmove_r32_rm32, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmovz<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn cmovz(&mut self, op0: AsmRegister64, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Cmove_r64_rm64, op0.register(), op1.to_memory_operand(self.bitness()))?)
 	}
 }
 
@@ -7757,6 +8429,50 @@ impl CodeAsmJbe<u64> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmJc<CodeLabel> for CodeAssembler {
+	fn jc(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jb_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jb_rel8_32
+			} else {
+				Code::Jb_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jb_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jb_rel32_32
+		} else {
+			Code::Jb_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJc<u64> for CodeAssembler {
+	fn jc(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jb_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jb_rel8_32
+			} else {
+				Code::Jb_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jb_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jb_rel32_32
+		} else {
+			Code::Jb_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmJcxz<CodeLabel> for CodeAssembler {
 	#[inline]
 	fn jcxz(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
@@ -8140,6 +8856,226 @@ impl CodeAsmJmpe<u64> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmJna<CodeLabel> for CodeAssembler {
+	fn jna(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jbe_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jbe_rel8_32
+			} else {
+				Code::Jbe_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jbe_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jbe_rel32_32
+		} else {
+			Code::Jbe_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJna<u64> for CodeAssembler {
+	fn jna(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jbe_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jbe_rel8_32
+			} else {
+				Code::Jbe_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jbe_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jbe_rel32_32
+		} else {
+			Code::Jbe_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnae<CodeLabel> for CodeAssembler {
+	fn jnae(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jb_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jb_rel8_32
+			} else {
+				Code::Jb_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jb_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jb_rel32_32
+		} else {
+			Code::Jb_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnae<u64> for CodeAssembler {
+	fn jnae(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jb_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jb_rel8_32
+			} else {
+				Code::Jb_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jb_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jb_rel32_32
+		} else {
+			Code::Jb_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnb<CodeLabel> for CodeAssembler {
+	fn jnb(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jae_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jae_rel8_32
+			} else {
+				Code::Jae_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jae_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jae_rel32_32
+		} else {
+			Code::Jae_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnb<u64> for CodeAssembler {
+	fn jnb(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jae_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jae_rel8_32
+			} else {
+				Code::Jae_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jae_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jae_rel32_32
+		} else {
+			Code::Jae_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnbe<CodeLabel> for CodeAssembler {
+	fn jnbe(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Ja_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Ja_rel8_32
+			} else {
+				Code::Ja_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Ja_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Ja_rel32_32
+		} else {
+			Code::Ja_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnbe<u64> for CodeAssembler {
+	fn jnbe(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Ja_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Ja_rel8_32
+			} else {
+				Code::Ja_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Ja_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Ja_rel32_32
+		} else {
+			Code::Ja_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnc<CodeLabel> for CodeAssembler {
+	fn jnc(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jae_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jae_rel8_32
+			} else {
+				Code::Jae_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jae_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jae_rel32_32
+		} else {
+			Code::Jae_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnc<u64> for CodeAssembler {
+	fn jnc(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jae_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jae_rel8_32
+			} else {
+				Code::Jae_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jae_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jae_rel32_32
+		} else {
+			Code::Jae_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmJne<CodeLabel> for CodeAssembler {
 	fn jne(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
 		let code = if self.prefer_short_branch() {
@@ -8178,6 +9114,182 @@ impl CodeAsmJne<u64> for CodeAssembler {
 			Code::Jne_rel32_32
 		} else {
 			Code::Jne_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJng<CodeLabel> for CodeAssembler {
+	fn jng(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jle_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jle_rel8_32
+			} else {
+				Code::Jle_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jle_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jle_rel32_32
+		} else {
+			Code::Jle_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJng<u64> for CodeAssembler {
+	fn jng(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jle_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jle_rel8_32
+			} else {
+				Code::Jle_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jle_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jle_rel32_32
+		} else {
+			Code::Jle_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnge<CodeLabel> for CodeAssembler {
+	fn jnge(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jl_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jl_rel8_32
+			} else {
+				Code::Jl_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jl_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jl_rel32_32
+		} else {
+			Code::Jl_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnge<u64> for CodeAssembler {
+	fn jnge(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jl_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jl_rel8_32
+			} else {
+				Code::Jl_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jl_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jl_rel32_32
+		} else {
+			Code::Jl_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnl<CodeLabel> for CodeAssembler {
+	fn jnl(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jge_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jge_rel8_32
+			} else {
+				Code::Jge_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jge_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jge_rel32_32
+		} else {
+			Code::Jge_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnl<u64> for CodeAssembler {
+	fn jnl(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jge_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jge_rel8_32
+			} else {
+				Code::Jge_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jge_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jge_rel32_32
+		} else {
+			Code::Jge_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnle<CodeLabel> for CodeAssembler {
+	fn jnle(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jg_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jg_rel8_32
+			} else {
+				Code::Jg_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jg_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jg_rel32_32
+		} else {
+			Code::Jg_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnle<u64> for CodeAssembler {
+	fn jnle(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jg_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jg_rel8_32
+			} else {
+				Code::Jg_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jg_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jg_rel32_32
+		} else {
+			Code::Jg_rel16
 		};
 		self.add_instr(Instruction::with_branch(code, op0)?)
 	}
@@ -8316,6 +9428,50 @@ impl CodeAsmJns<u64> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmJnz<CodeLabel> for CodeAssembler {
+	fn jnz(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jne_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jne_rel8_32
+			} else {
+				Code::Jne_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jne_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jne_rel32_32
+		} else {
+			Code::Jne_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJnz<u64> for CodeAssembler {
+	fn jnz(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jne_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jne_rel8_32
+			} else {
+				Code::Jne_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jne_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jne_rel32_32
+		} else {
+			Code::Jne_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmJo<CodeLabel> for CodeAssembler {
 	fn jo(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
 		let code = if self.prefer_short_branch() {
@@ -8404,6 +9560,94 @@ impl CodeAsmJp<u64> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmJpe<CodeLabel> for CodeAssembler {
+	fn jpe(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jp_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jp_rel8_32
+			} else {
+				Code::Jp_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jp_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jp_rel32_32
+		} else {
+			Code::Jp_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJpe<u64> for CodeAssembler {
+	fn jpe(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jp_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jp_rel8_32
+			} else {
+				Code::Jp_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jp_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jp_rel32_32
+		} else {
+			Code::Jp_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJpo<CodeLabel> for CodeAssembler {
+	fn jpo(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jnp_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jnp_rel8_32
+			} else {
+				Code::Jnp_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jnp_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jnp_rel32_32
+		} else {
+			Code::Jnp_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJpo<u64> for CodeAssembler {
+	fn jpo(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Jnp_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Jnp_rel8_32
+			} else {
+				Code::Jnp_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Jnp_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Jnp_rel32_32
+		} else {
+			Code::Jnp_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmJrcxz<CodeLabel> for CodeAssembler {
 	#[inline]
 	fn jrcxz(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
@@ -8458,6 +9702,50 @@ impl CodeAsmJs<u64> for CodeAssembler {
 			Code::Js_rel32_32
 		} else {
 			Code::Js_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJz<CodeLabel> for CodeAssembler {
+	fn jz(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Je_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Je_rel8_32
+			} else {
+				Code::Je_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Je_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Je_rel32_32
+		} else {
+			Code::Je_rel16
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmJz<u64> for CodeAssembler {
+	fn jz(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.prefer_short_branch() {
+			if self.bitness() == 64 {
+				Code::Je_rel8_64
+			} else if self.bitness() >= 32 {
+				Code::Je_rel8_32
+			} else {
+				Code::Je_rel8_16
+			}
+		} else if self.bitness() == 64 {
+			Code::Je_rel32_64
+		} else if self.bitness() >= 32 {
+			Code::Je_rel32_32
+		} else {
+			Code::Je_rel16
 		};
 		self.add_instr(Instruction::with_branch(code, op0)?)
 	}
@@ -9531,6 +10819,62 @@ impl CodeAsmLoopne<u64> for CodeAssembler {
 			Code::Loopne_rel8_32_ECX
 		} else {
 			Code::Loopne_rel8_16_CX
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmLoopnz<CodeLabel> for CodeAssembler {
+	fn loopnz(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.bitness() == 64 {
+			Code::Loopne_rel8_64_RCX
+		} else if self.bitness() >= 32 {
+			Code::Loopne_rel8_32_ECX
+		} else {
+			Code::Loopne_rel8_16_CX
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmLoopnz<u64> for CodeAssembler {
+	fn loopnz(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.bitness() == 64 {
+			Code::Loopne_rel8_64_RCX
+		} else if self.bitness() >= 32 {
+			Code::Loopne_rel8_32_ECX
+		} else {
+			Code::Loopne_rel8_16_CX
+		};
+		self.add_instr(Instruction::with_branch(code, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmLoopz<CodeLabel> for CodeAssembler {
+	fn loopz(&mut self, op0: CodeLabel) -> Result<(), IcedError> {
+		let code = if self.bitness() == 64 {
+			Code::Loope_rel8_64_RCX
+		} else if self.bitness() >= 32 {
+			Code::Loope_rel8_32_ECX
+		} else {
+			Code::Loope_rel8_16_CX
+		};
+		self.add_instr(Instruction::with_branch(code, op0.id())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmLoopz<u64> for CodeAssembler {
+	fn loopz(&mut self, op0: u64) -> Result<(), IcedError> {
+		let code = if self.bitness() == 64 {
+			Code::Loope_rel8_64_RCX
+		} else if self.bitness() >= 32 {
+			Code::Loope_rel8_32_ECX
+		} else {
+			Code::Loope_rel8_16_CX
 		};
 		self.add_instr(Instruction::with_branch(code, op0)?)
 	}
@@ -19555,6 +20899,22 @@ impl CodeAsmSetbe<AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmSetc<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setc(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setb_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetc<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setc(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setb_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmSete<AsmRegister8> for CodeAssembler {
 	#[inline]
 	fn sete(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
@@ -19635,6 +20995,86 @@ impl CodeAsmSetle<AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmSetna<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setna(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setbe_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetna<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setna(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setbe_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnae<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setnae(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setb_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnae<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setnae(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setb_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnb<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setnb(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setae_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnb<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setnb(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setae_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnbe<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setnbe(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Seta_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnbe<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setnbe(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Seta_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnc<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setnc(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setae_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnc<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setnc(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setae_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmSetne<AsmRegister8> for CodeAssembler {
 	#[inline]
 	fn setne(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
@@ -19647,6 +21087,70 @@ impl CodeAsmSetne<AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn setne(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with1(Code::Setne_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetng<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setng(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setle_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetng<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setng(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setle_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnge<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setnge(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setl_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnge<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setnge(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setl_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnl<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setnl(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setge_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnl<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setnl(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setge_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnle<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setnle(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setg_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnle<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setnle(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setg_rm8, op0.to_memory_operand(self.bitness()))?)
 	}
 }
 
@@ -19699,6 +21203,22 @@ impl CodeAsmSetns<AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmSetnz<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setnz(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setne_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetnz<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setnz(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setne_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmSeto<AsmRegister8> for CodeAssembler {
 	#[inline]
 	fn seto(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
@@ -19731,6 +21251,38 @@ impl CodeAsmSetp<AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmSetpe<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setpe(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setp_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetpe<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setpe(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setp_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetpo<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setpo(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setnp_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetpo<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setpo(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Setnp_rm8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmSets<AsmRegister8> for CodeAssembler {
 	#[inline]
 	fn sets(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
@@ -19751,6 +21303,22 @@ impl CodeAsmSetssbsy for CodeAssembler {
 	#[inline]
 	fn setssbsy(&mut self) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with(Code::Setssbsy))
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetz<AsmRegister8> for CodeAssembler {
+	#[inline]
+	fn setz(&mut self, op0: AsmRegister8) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Sete_rm8, op0.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmSetz<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn setz(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Sete_rm8, op0.to_memory_operand(self.bitness()))?)
 	}
 }
 

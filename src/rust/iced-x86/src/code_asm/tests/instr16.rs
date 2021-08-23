@@ -3405,6 +3405,42 @@ fn cmovbe_r32_m() {
 
 #[test]
 #[rustfmt::skip]
+fn cmovc_r16_r16() {
+	// Cmovb_r16_rm16
+	test_instr(16, |a| a.cmovc(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovb_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovc_r32_r32() {
+	// Cmovb_r32_rm32
+	test_instr(16, |a| a.cmovc(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovb_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovc_r16_m() {
+	// Cmovb_r16_rm16
+	test_instr(16, |a| a.cmovc(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovb_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovc_r32_m() {
+	// Cmovb_r32_rm32
+	test_instr(16, |a| a.cmovc(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovb_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn cmove_r16_r16() {
 	// Cmove_r16_rm16
 	test_instr(16, |a| a.cmove(dx, bx).unwrap(),
@@ -3585,6 +3621,186 @@ fn cmovle_r32_m() {
 
 #[test]
 #[rustfmt::skip]
+fn cmovna_r16_r16() {
+	// Cmovbe_r16_rm16
+	test_instr(16, |a| a.cmovna(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovbe_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovna_r32_r32() {
+	// Cmovbe_r32_rm32
+	test_instr(16, |a| a.cmovna(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovbe_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovna_r16_m() {
+	// Cmovbe_r16_rm16
+	test_instr(16, |a| a.cmovna(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovbe_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovna_r32_m() {
+	// Cmovbe_r32_rm32
+	test_instr(16, |a| a.cmovna(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovbe_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnae_r16_r16() {
+	// Cmovb_r16_rm16
+	test_instr(16, |a| a.cmovnae(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovb_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnae_r32_r32() {
+	// Cmovb_r32_rm32
+	test_instr(16, |a| a.cmovnae(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovb_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnae_r16_m() {
+	// Cmovb_r16_rm16
+	test_instr(16, |a| a.cmovnae(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovb_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnae_r32_m() {
+	// Cmovb_r32_rm32
+	test_instr(16, |a| a.cmovnae(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovb_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnb_r16_r16() {
+	// Cmovae_r16_rm16
+	test_instr(16, |a| a.cmovnb(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovae_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnb_r32_r32() {
+	// Cmovae_r32_rm32
+	test_instr(16, |a| a.cmovnb(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovae_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnb_r16_m() {
+	// Cmovae_r16_rm16
+	test_instr(16, |a| a.cmovnb(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovae_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnb_r32_m() {
+	// Cmovae_r32_rm32
+	test_instr(16, |a| a.cmovnb(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovae_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnbe_r16_r16() {
+	// Cmova_r16_rm16
+	test_instr(16, |a| a.cmovnbe(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmova_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnbe_r32_r32() {
+	// Cmova_r32_rm32
+	test_instr(16, |a| a.cmovnbe(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmova_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnbe_r16_m() {
+	// Cmova_r16_rm16
+	test_instr(16, |a| a.cmovnbe(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmova_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnbe_r32_m() {
+	// Cmova_r32_rm32
+	test_instr(16, |a| a.cmovnbe(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmova_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnc_r16_r16() {
+	// Cmovae_r16_rm16
+	test_instr(16, |a| a.cmovnc(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovae_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnc_r32_r32() {
+	// Cmovae_r32_rm32
+	test_instr(16, |a| a.cmovnc(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovae_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnc_r16_m() {
+	// Cmovae_r16_rm16
+	test_instr(16, |a| a.cmovnc(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovae_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnc_r32_m() {
+	// Cmovae_r32_rm32
+	test_instr(16, |a| a.cmovnc(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovae_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn cmovne_r16_r16() {
 	// Cmovne_r16_rm16
 	test_instr(16, |a| a.cmovne(dx, bx).unwrap(),
@@ -3616,6 +3832,150 @@ fn cmovne_r32_m() {
 	// Cmovne_r32_rm32
 	test_instr(16, |a| a.cmovne(edx, dword_ptr(si)).unwrap(),
 		Instruction::with2(Code::Cmovne_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovng_r16_r16() {
+	// Cmovle_r16_rm16
+	test_instr(16, |a| a.cmovng(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovle_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovng_r32_r32() {
+	// Cmovle_r32_rm32
+	test_instr(16, |a| a.cmovng(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovle_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovng_r16_m() {
+	// Cmovle_r16_rm16
+	test_instr(16, |a| a.cmovng(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovle_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovng_r32_m() {
+	// Cmovle_r32_rm32
+	test_instr(16, |a| a.cmovng(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovle_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnge_r16_r16() {
+	// Cmovl_r16_rm16
+	test_instr(16, |a| a.cmovnge(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovl_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnge_r32_r32() {
+	// Cmovl_r32_rm32
+	test_instr(16, |a| a.cmovnge(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovl_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnge_r16_m() {
+	// Cmovl_r16_rm16
+	test_instr(16, |a| a.cmovnge(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovl_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnge_r32_m() {
+	// Cmovl_r32_rm32
+	test_instr(16, |a| a.cmovnge(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovl_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnl_r16_r16() {
+	// Cmovge_r16_rm16
+	test_instr(16, |a| a.cmovnl(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovge_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnl_r32_r32() {
+	// Cmovge_r32_rm32
+	test_instr(16, |a| a.cmovnl(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovge_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnl_r16_m() {
+	// Cmovge_r16_rm16
+	test_instr(16, |a| a.cmovnl(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovge_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnl_r32_m() {
+	// Cmovge_r32_rm32
+	test_instr(16, |a| a.cmovnl(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovge_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnle_r16_r16() {
+	// Cmovg_r16_rm16
+	test_instr(16, |a| a.cmovnle(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovg_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnle_r32_r32() {
+	// Cmovg_r32_rm32
+	test_instr(16, |a| a.cmovnle(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovg_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnle_r16_m() {
+	// Cmovg_r16_rm16
+	test_instr(16, |a| a.cmovnle(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovg_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnle_r32_m() {
+	// Cmovg_r32_rm32
+	test_instr(16, |a| a.cmovnle(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovg_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
 
@@ -3729,6 +4089,42 @@ fn cmovns_r32_m() {
 
 #[test]
 #[rustfmt::skip]
+fn cmovnz_r16_r16() {
+	// Cmovne_r16_rm16
+	test_instr(16, |a| a.cmovnz(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovne_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnz_r32_r32() {
+	// Cmovne_r32_rm32
+	test_instr(16, |a| a.cmovnz(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovne_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnz_r16_m() {
+	// Cmovne_r16_rm16
+	test_instr(16, |a| a.cmovnz(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovne_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovnz_r32_m() {
+	// Cmovne_r32_rm32
+	test_instr(16, |a| a.cmovnz(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovne_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn cmovo_r16_r16() {
 	// Cmovo_r16_rm16
 	test_instr(16, |a| a.cmovo(dx, bx).unwrap(),
@@ -3801,6 +4197,78 @@ fn cmovp_r32_m() {
 
 #[test]
 #[rustfmt::skip]
+fn cmovpe_r16_r16() {
+	// Cmovp_r16_rm16
+	test_instr(16, |a| a.cmovpe(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovp_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovpe_r32_r32() {
+	// Cmovp_r32_rm32
+	test_instr(16, |a| a.cmovpe(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovp_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovpe_r16_m() {
+	// Cmovp_r16_rm16
+	test_instr(16, |a| a.cmovpe(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovp_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovpe_r32_m() {
+	// Cmovp_r32_rm32
+	test_instr(16, |a| a.cmovpe(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovp_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovpo_r16_r16() {
+	// Cmovnp_r16_rm16
+	test_instr(16, |a| a.cmovpo(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmovnp_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovpo_r32_r32() {
+	// Cmovnp_r32_rm32
+	test_instr(16, |a| a.cmovpo(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmovnp_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovpo_r16_m() {
+	// Cmovnp_r16_rm16
+	test_instr(16, |a| a.cmovpo(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovnp_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovpo_r32_m() {
+	// Cmovnp_r32_rm32
+	test_instr(16, |a| a.cmovpo(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmovnp_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn cmovs_r16_r16() {
 	// Cmovs_r16_rm16
 	test_instr(16, |a| a.cmovs(dx, bx).unwrap(),
@@ -3832,6 +4300,42 @@ fn cmovs_r32_m() {
 	// Cmovs_r32_rm32
 	test_instr(16, |a| a.cmovs(edx, dword_ptr(si)).unwrap(),
 		Instruction::with2(Code::Cmovs_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovz_r16_r16() {
+	// Cmove_r16_rm16
+	test_instr(16, |a| a.cmovz(dx, bx).unwrap(),
+		Instruction::with2(Code::Cmove_r16_rm16, Register::DX, Register::BX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovz_r32_r32() {
+	// Cmove_r32_rm32
+	test_instr(16, |a| a.cmovz(edx, ebx).unwrap(),
+		Instruction::with2(Code::Cmove_r32_rm32, Register::EDX, Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovz_r16_m() {
+	// Cmove_r16_rm16
+	test_instr(16, |a| a.cmovz(dx, word_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmove_r16_rm16, Register::DX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn cmovz_r32_m() {
+	// Cmove_r32_rm32
+	test_instr(16, |a| a.cmovz(edx, dword_ptr(si)).unwrap(),
+		Instruction::with2(Code::Cmove_r32_rm32, Register::EDX, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
 
@@ -8797,6 +9301,58 @@ fn jbe_lu64() {
 
 #[test]
 #[rustfmt::skip]
+fn jc_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jb_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jc(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jb_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jb_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jc(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jb_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jc_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jb_rel8_16
+			test_instr(16, |a| a.jc(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jb_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jb_rel16
+		test_instr(16, |a| a.jc(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jb_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
 fn jcxz_l() {
 	// Jcxz_rel8_16
 	test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jcxz(lbl).unwrap() },
@@ -9243,6 +9799,266 @@ fn jmpe_lu64() {
 
 #[test]
 #[rustfmt::skip]
+fn jna_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jbe_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jna(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jbe_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jbe_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jna(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jbe_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jna_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jbe_rel8_16
+			test_instr(16, |a| a.jna(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jbe_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jbe_rel16
+		test_instr(16, |a| a.jna(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jbe_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnae_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jb_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnae(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jb_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jb_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnae(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jb_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnae_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jb_rel8_16
+			test_instr(16, |a| a.jnae(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jb_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jb_rel16
+		test_instr(16, |a| a.jnae(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jb_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnb_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jae_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnb(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jae_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jae_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnb(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jae_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnb_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jae_rel8_16
+			test_instr(16, |a| a.jnb(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jae_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jae_rel16
+		test_instr(16, |a| a.jnb(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jae_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnbe_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Ja_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnbe(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Ja_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Ja_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnbe(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Ja_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnbe_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Ja_rel8_16
+			test_instr(16, |a| a.jnbe(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Ja_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Ja_rel16
+		test_instr(16, |a| a.jnbe(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Ja_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnc_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jae_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnc(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jae_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jae_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnc(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jae_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnc_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jae_rel8_16
+			test_instr(16, |a| a.jnc(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jae_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jae_rel16
+		test_instr(16, |a| a.jnc(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jae_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
 fn jne_l() {
 	/* if self.prefer_short_branch() */ {
 		/* if self.bitness() == 64 */ {
@@ -9289,6 +10105,214 @@ fn jne_lu64() {
 		// Jne_rel16
 		test_instr(16, |a| a.jne(0x31D0u64).unwrap(),
 			Instruction::with_branch(Code::Jne_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jng_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jle_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jng(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jle_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jle_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jng(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jle_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jng_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jle_rel8_16
+			test_instr(16, |a| a.jng(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jle_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jle_rel16
+		test_instr(16, |a| a.jng(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jle_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnge_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jl_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnge(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jl_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jl_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnge(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jl_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnge_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jl_rel8_16
+			test_instr(16, |a| a.jnge(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jl_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jl_rel16
+		test_instr(16, |a| a.jnge(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jl_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnl_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jge_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnl(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jge_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jge_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnl(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jge_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnl_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jge_rel8_16
+			test_instr(16, |a| a.jnl(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jge_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jge_rel16
+		test_instr(16, |a| a.jnl(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jge_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnle_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jg_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnle(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jg_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jg_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnle(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jg_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnle_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jg_rel8_16
+			test_instr(16, |a| a.jnle(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jg_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jg_rel16
+		test_instr(16, |a| a.jnle(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jg_rel16, 0x31D0u64).unwrap(),
 			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
 	}
 }
@@ -9451,6 +10475,58 @@ fn jns_lu64() {
 
 #[test]
 #[rustfmt::skip]
+fn jnz_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jne_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnz(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jne_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jne_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jnz(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jne_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jnz_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jne_rel8_16
+			test_instr(16, |a| a.jnz(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jne_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jne_rel16
+		test_instr(16, |a| a.jnz(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jne_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
 fn jo_l() {
 	/* if self.prefer_short_branch() */ {
 		/* if self.bitness() == 64 */ {
@@ -9555,6 +10631,110 @@ fn jp_lu64() {
 
 #[test]
 #[rustfmt::skip]
+fn jpe_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jp_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jpe(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jp_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jp_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jpe(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jp_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jpe_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jp_rel8_16
+			test_instr(16, |a| a.jpe(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jp_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jp_rel16
+		test_instr(16, |a| a.jpe(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jp_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jpo_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jnp_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jpo(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Jnp_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jnp_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jpo(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Jnp_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jpo_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Jnp_rel8_16
+			test_instr(16, |a| a.jpo(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Jnp_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Jnp_rel16
+		test_instr(16, |a| a.jpo(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Jnp_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
 fn js_l() {
 	/* if self.prefer_short_branch() */ {
 		/* if self.bitness() == 64 */ {
@@ -9601,6 +10781,58 @@ fn js_lu64() {
 		// Js_rel16
 		test_instr(16, |a| a.js(0x31D0u64).unwrap(),
 			Instruction::with_branch(Code::Js_rel16, 0x31D0u64).unwrap(),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jz_l() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Je_rel8_16
+			test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jz(lbl).unwrap() },
+				assign_label(Instruction::with_branch(Code::Je_rel8_16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Je_rel16
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.jz(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Je_rel16, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn jz_lu64() {
+	/* if self.prefer_short_branch() */ {
+		/* if self.bitness() == 64 */ {
+			// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+		} /* else if self.bitness() >= 32 */ {
+			// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+		} /* else */ {
+			// Je_rel8_16
+			test_instr(16, |a| a.jz(0x31D0u64).unwrap(),
+				Instruction::with_branch(Code::Je_rel8_16, 0x31D0u64).unwrap(),
+				TestInstrFlags::PREFER_SHORT_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+		}
+	} /* else if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Je_rel16
+		test_instr(16, |a| a.jz(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Je_rel16, 0x31D0u64).unwrap(),
 			TestInstrFlags::PREFER_NEAR_BRANCH | TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
 	}
 }
@@ -10703,6 +11935,66 @@ fn loopne_lu64() {
 		// Loopne_rel8_16_CX
 		test_instr(16, |a| a.loopne(0x31D0u64).unwrap(),
 			Instruction::with_branch(Code::Loopne_rel8_16_CX, 0x31D0u64).unwrap(),
+			TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn loopnz_l() {
+	/* if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Loopne_rel8_16_CX
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.loopnz(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Loopne_rel8_16_CX, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn loopnz_lu64() {
+	/* if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Loopne_rel8_16_CX
+		test_instr(16, |a| a.loopnz(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Loopne_rel8_16_CX, 0x31D0u64).unwrap(),
+			TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn loopz_l() {
+	/* if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Loope_rel8_16_CX
+		test_instr(16, |a| { let lbl = create_and_emit_label(a); a.loopz(lbl).unwrap() },
+			assign_label(Instruction::with_branch(Code::Loope_rel8_16_CX, FIRST_LABEL_ID).unwrap(), FIRST_LABEL_ID),
+			TestInstrFlags::BRANCH, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn loopz_lu64() {
+	/* if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Loope_rel8_16_CX
+		test_instr(16, |a| a.loopz(0x31D0u64).unwrap(),
+			Instruction::with_branch(Code::Loope_rel8_16_CX, 0x31D0u64).unwrap(),
 			TestInstrFlags::BRANCH_U64, DecoderOptions::NONE);
 	}
 }
@@ -22270,6 +23562,24 @@ fn setbe_m() {
 
 #[test]
 #[rustfmt::skip]
+fn setc_r8() {
+	// Setb_rm8
+	test_instr(16, |a| a.setc(dl).unwrap(),
+		Instruction::with1(Code::Setb_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setc_m() {
+	// Setb_rm8
+	test_instr(16, |a| a.setc(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setb_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn sete_r8() {
 	// Sete_rm8
 	test_instr(16, |a| a.sete(dl).unwrap(),
@@ -22360,6 +23670,96 @@ fn setle_m() {
 
 #[test]
 #[rustfmt::skip]
+fn setna_r8() {
+	// Setbe_rm8
+	test_instr(16, |a| a.setna(dl).unwrap(),
+		Instruction::with1(Code::Setbe_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setna_m() {
+	// Setbe_rm8
+	test_instr(16, |a| a.setna(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setbe_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnae_r8() {
+	// Setb_rm8
+	test_instr(16, |a| a.setnae(dl).unwrap(),
+		Instruction::with1(Code::Setb_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnae_m() {
+	// Setb_rm8
+	test_instr(16, |a| a.setnae(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setb_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnb_r8() {
+	// Setae_rm8
+	test_instr(16, |a| a.setnb(dl).unwrap(),
+		Instruction::with1(Code::Setae_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnb_m() {
+	// Setae_rm8
+	test_instr(16, |a| a.setnb(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setae_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnbe_r8() {
+	// Seta_rm8
+	test_instr(16, |a| a.setnbe(dl).unwrap(),
+		Instruction::with1(Code::Seta_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnbe_m() {
+	// Seta_rm8
+	test_instr(16, |a| a.setnbe(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Seta_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnc_r8() {
+	// Setae_rm8
+	test_instr(16, |a| a.setnc(dl).unwrap(),
+		Instruction::with1(Code::Setae_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnc_m() {
+	// Setae_rm8
+	test_instr(16, |a| a.setnc(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setae_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn setne_r8() {
 	// Setne_rm8
 	test_instr(16, |a| a.setne(dl).unwrap(),
@@ -22373,6 +23773,78 @@ fn setne_m() {
 	// Setne_rm8
 	test_instr(16, |a| a.setne(byte_ptr(si)).unwrap(),
 		Instruction::with1(Code::Setne_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setng_r8() {
+	// Setle_rm8
+	test_instr(16, |a| a.setng(dl).unwrap(),
+		Instruction::with1(Code::Setle_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setng_m() {
+	// Setle_rm8
+	test_instr(16, |a| a.setng(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setle_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnge_r8() {
+	// Setl_rm8
+	test_instr(16, |a| a.setnge(dl).unwrap(),
+		Instruction::with1(Code::Setl_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnge_m() {
+	// Setl_rm8
+	test_instr(16, |a| a.setnge(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setl_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnl_r8() {
+	// Setge_rm8
+	test_instr(16, |a| a.setnl(dl).unwrap(),
+		Instruction::with1(Code::Setge_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnl_m() {
+	// Setge_rm8
+	test_instr(16, |a| a.setnl(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setge_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnle_r8() {
+	// Setg_rm8
+	test_instr(16, |a| a.setnle(dl).unwrap(),
+		Instruction::with1(Code::Setg_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnle_m() {
+	// Setg_rm8
+	test_instr(16, |a| a.setnle(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setg_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
 
@@ -22432,6 +23904,24 @@ fn setns_m() {
 
 #[test]
 #[rustfmt::skip]
+fn setnz_r8() {
+	// Setne_rm8
+	test_instr(16, |a| a.setnz(dl).unwrap(),
+		Instruction::with1(Code::Setne_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setnz_m() {
+	// Setne_rm8
+	test_instr(16, |a| a.setnz(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setne_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn seto_r8() {
 	// Seto_rm8
 	test_instr(16, |a| a.seto(dl).unwrap(),
@@ -22468,6 +23958,42 @@ fn setp_m() {
 
 #[test]
 #[rustfmt::skip]
+fn setpe_r8() {
+	// Setp_rm8
+	test_instr(16, |a| a.setpe(dl).unwrap(),
+		Instruction::with1(Code::Setp_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setpe_m() {
+	// Setp_rm8
+	test_instr(16, |a| a.setpe(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setp_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setpo_r8() {
+	// Setnp_rm8
+	test_instr(16, |a| a.setpo(dl).unwrap(),
+		Instruction::with1(Code::Setnp_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setpo_m() {
+	// Setnp_rm8
+	test_instr(16, |a| a.setpo(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Setnp_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn sets_r8() {
 	// Sets_rm8
 	test_instr(16, |a| a.sets(dl).unwrap(),
@@ -22490,6 +24016,24 @@ fn setssbsy() {
 	// Setssbsy
 	test_instr(16, |a| a.setssbsy().unwrap(),
 		Instruction::with(Code::Setssbsy),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setz_r8() {
+	// Sete_rm8
+	test_instr(16, |a| a.setz(dl).unwrap(),
+		Instruction::with1(Code::Sete_rm8, Register::DL).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn setz_m() {
+	// Sete_rm8
+	test_instr(16, |a| a.setz(byte_ptr(si)).unwrap(),
+		Instruction::with1(Code::Sete_rm8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
 

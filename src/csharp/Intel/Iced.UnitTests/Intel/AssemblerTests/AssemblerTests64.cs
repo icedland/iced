@@ -249,11 +249,21 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				inst.HasRepePrefix = true;
 				TestAssembler(c => c.repe.stosd(), inst);
 			}
+			{
+				var inst = Instruction.CreateStosd(Bitness);
+				inst.HasRepePrefix = true;
+				TestAssembler(c => c.repz.stosd(), inst);
+			}
 
 			{
 				var inst = Instruction.CreateStosd(Bitness);
 				inst.HasRepnePrefix = true;
 				TestAssembler(c => c.repne.stosd(), inst);
+			}
+			{
+				var inst = Instruction.CreateStosd(Bitness);
+				inst.HasRepnePrefix = true;
+				TestAssembler(c => c.repnz.stosd(), inst);
 			}
 
 			{

@@ -2098,6 +2098,30 @@ impl CodeAssembler {
 		<Self as CodeAsmCmovbe<T, U>>::cmovbe(self, op0, op1)
 	}
 
+	/// `CMOVC` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVB r16, r/m16` | `o16 0F 42 /r` | `CMOV`
+	/// `CMOVB r32, r/m32` | `o32 0F 42 /r` | `CMOV`
+	/// `CMOVB r64, r/m64` | `o64 0F 42 /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovc<T, U>,
+	{
+		<Self as CodeAsmCmovc<T, U>>::cmovc(self, op0, op1)
+	}
+
 	/// `CMOVE` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -2218,6 +2242,126 @@ impl CodeAssembler {
 		<Self as CodeAsmCmovle<T, U>>::cmovle(self, op0, op1)
 	}
 
+	/// `CMOVNA` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVBE r16, r/m16` | `o16 0F 46 /r` | `CMOV`
+	/// `CMOVBE r32, r/m32` | `o32 0F 46 /r` | `CMOV`
+	/// `CMOVBE r64, r/m64` | `o64 0F 46 /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovna<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovna<T, U>,
+	{
+		<Self as CodeAsmCmovna<T, U>>::cmovna(self, op0, op1)
+	}
+
+	/// `CMOVNAE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVB r16, r/m16` | `o16 0F 42 /r` | `CMOV`
+	/// `CMOVB r32, r/m32` | `o32 0F 42 /r` | `CMOV`
+	/// `CMOVB r64, r/m64` | `o64 0F 42 /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovnae<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovnae<T, U>,
+	{
+		<Self as CodeAsmCmovnae<T, U>>::cmovnae(self, op0, op1)
+	}
+
+	/// `CMOVNB` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVAE r16, r/m16` | `o16 0F 43 /r` | `CMOV`
+	/// `CMOVAE r32, r/m32` | `o32 0F 43 /r` | `CMOV`
+	/// `CMOVAE r64, r/m64` | `o64 0F 43 /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovnb<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovnb<T, U>,
+	{
+		<Self as CodeAsmCmovnb<T, U>>::cmovnb(self, op0, op1)
+	}
+
+	/// `CMOVNBE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVA r16, r/m16` | `o16 0F 47 /r` | `CMOV`
+	/// `CMOVA r32, r/m32` | `o32 0F 47 /r` | `CMOV`
+	/// `CMOVA r64, r/m64` | `o64 0F 47 /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovnbe<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovnbe<T, U>,
+	{
+		<Self as CodeAsmCmovnbe<T, U>>::cmovnbe(self, op0, op1)
+	}
+
+	/// `CMOVNC` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVAE r16, r/m16` | `o16 0F 43 /r` | `CMOV`
+	/// `CMOVAE r32, r/m32` | `o32 0F 43 /r` | `CMOV`
+	/// `CMOVAE r64, r/m64` | `o64 0F 43 /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovnc<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovnc<T, U>,
+	{
+		<Self as CodeAsmCmovnc<T, U>>::cmovnc(self, op0, op1)
+	}
+
 	/// `CMOVNE` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -2240,6 +2384,102 @@ impl CodeAssembler {
 		Self: CodeAsmCmovne<T, U>,
 	{
 		<Self as CodeAsmCmovne<T, U>>::cmovne(self, op0, op1)
+	}
+
+	/// `CMOVNG` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVLE r16, r/m16` | `o16 0F 4E /r` | `CMOV`
+	/// `CMOVLE r32, r/m32` | `o32 0F 4E /r` | `CMOV`
+	/// `CMOVLE r64, r/m64` | `o64 0F 4E /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovng<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovng<T, U>,
+	{
+		<Self as CodeAsmCmovng<T, U>>::cmovng(self, op0, op1)
+	}
+
+	/// `CMOVNGE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVL r16, r/m16` | `o16 0F 4C /r` | `CMOV`
+	/// `CMOVL r32, r/m32` | `o32 0F 4C /r` | `CMOV`
+	/// `CMOVL r64, r/m64` | `o64 0F 4C /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovnge<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovnge<T, U>,
+	{
+		<Self as CodeAsmCmovnge<T, U>>::cmovnge(self, op0, op1)
+	}
+
+	/// `CMOVNL` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVGE r16, r/m16` | `o16 0F 4D /r` | `CMOV`
+	/// `CMOVGE r32, r/m32` | `o32 0F 4D /r` | `CMOV`
+	/// `CMOVGE r64, r/m64` | `o64 0F 4D /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovnl<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovnl<T, U>,
+	{
+		<Self as CodeAsmCmovnl<T, U>>::cmovnl(self, op0, op1)
+	}
+
+	/// `CMOVNLE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVG r16, r/m16` | `o16 0F 4F /r` | `CMOV`
+	/// `CMOVG r32, r/m32` | `o32 0F 4F /r` | `CMOV`
+	/// `CMOVG r64, r/m64` | `o64 0F 4F /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovnle<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovnle<T, U>,
+	{
+		<Self as CodeAsmCmovnle<T, U>>::cmovnle(self, op0, op1)
 	}
 
 	/// `CMOVNO` instruction
@@ -2314,6 +2554,30 @@ impl CodeAssembler {
 		<Self as CodeAsmCmovns<T, U>>::cmovns(self, op0, op1)
 	}
 
+	/// `CMOVNZ` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVNE r16, r/m16` | `o16 0F 45 /r` | `CMOV`
+	/// `CMOVNE r32, r/m32` | `o32 0F 45 /r` | `CMOV`
+	/// `CMOVNE r64, r/m64` | `o64 0F 45 /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovnz<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovnz<T, U>,
+	{
+		<Self as CodeAsmCmovnz<T, U>>::cmovnz(self, op0, op1)
+	}
+
 	/// `CMOVO` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -2362,6 +2626,54 @@ impl CodeAssembler {
 		<Self as CodeAsmCmovp<T, U>>::cmovp(self, op0, op1)
 	}
 
+	/// `CMOVPE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVP r16, r/m16` | `o16 0F 4A /r` | `CMOV`
+	/// `CMOVP r32, r/m32` | `o32 0F 4A /r` | `CMOV`
+	/// `CMOVP r64, r/m64` | `o64 0F 4A /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovpe<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovpe<T, U>,
+	{
+		<Self as CodeAsmCmovpe<T, U>>::cmovpe(self, op0, op1)
+	}
+
+	/// `CMOVPO` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVNP r16, r/m16` | `o16 0F 4B /r` | `CMOV`
+	/// `CMOVNP r32, r/m32` | `o32 0F 4B /r` | `CMOV`
+	/// `CMOVNP r64, r/m64` | `o64 0F 4B /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovpo<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovpo<T, U>,
+	{
+		<Self as CodeAsmCmovpo<T, U>>::cmovpo(self, op0, op1)
+	}
+
 	/// `CMOVS` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -2384,6 +2696,30 @@ impl CodeAssembler {
 		Self: CodeAsmCmovs<T, U>,
 	{
 		<Self as CodeAsmCmovs<T, U>>::cmovs(self, op0, op1)
+	}
+
+	/// `CMOVZ` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMOVE r16, r/m16` | `o16 0F 44 /r` | `CMOV`
+	/// `CMOVE r32, r/m32` | `o32 0F 44 /r` | `CMOV`
+	/// `CMOVE r64, r/m64` | `o64 0F 44 /r` | `CMOV`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn cmovz<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmovz<T, U>,
+	{
+		<Self as CodeAsmCmovz<T, U>>::cmovz(self, op0, op1)
 	}
 
 	/// `CMP` instruction
@@ -7897,6 +8233,32 @@ impl CodeAssembler {
 		<Self as CodeAsmJbe<T>>::jbe(self, op0)
 	}
 
+	/// `JC` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JB rel8` | `o16 72 cb` | `8086+`
+	/// `JB rel8` | `o32 72 cb` | `386+`
+	/// `JB rel8` | `o64 72 cb` | `X64`
+	/// `JB rel16` | `o16 0F 82 cw` | `386+`
+	/// `JB rel32` | `o32 0F 82 cd` | `386+`
+	/// `JB rel32` | `o64 0F 82 cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jc<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJc<T>,
+	{
+		<Self as CodeAsmJc<T>>::jc(self, op0)
+	}
+
 	/// `JCXZ` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -8125,6 +8487,136 @@ impl CodeAssembler {
 		<Self as CodeAsmJmpe<T>>::jmpe(self, op0)
 	}
 
+	/// `JNA` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JBE rel8` | `o16 76 cb` | `8086+`
+	/// `JBE rel8` | `o32 76 cb` | `386+`
+	/// `JBE rel8` | `o64 76 cb` | `X64`
+	/// `JBE rel16` | `o16 0F 86 cw` | `386+`
+	/// `JBE rel32` | `o32 0F 86 cd` | `386+`
+	/// `JBE rel32` | `o64 0F 86 cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jna<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJna<T>,
+	{
+		<Self as CodeAsmJna<T>>::jna(self, op0)
+	}
+
+	/// `JNAE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JB rel8` | `o16 72 cb` | `8086+`
+	/// `JB rel8` | `o32 72 cb` | `386+`
+	/// `JB rel8` | `o64 72 cb` | `X64`
+	/// `JB rel16` | `o16 0F 82 cw` | `386+`
+	/// `JB rel32` | `o32 0F 82 cd` | `386+`
+	/// `JB rel32` | `o64 0F 82 cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jnae<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJnae<T>,
+	{
+		<Self as CodeAsmJnae<T>>::jnae(self, op0)
+	}
+
+	/// `JNB` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JAE rel8` | `o16 73 cb` | `8086+`
+	/// `JAE rel8` | `o32 73 cb` | `386+`
+	/// `JAE rel8` | `o64 73 cb` | `X64`
+	/// `JAE rel16` | `o16 0F 83 cw` | `386+`
+	/// `JAE rel32` | `o32 0F 83 cd` | `386+`
+	/// `JAE rel32` | `o64 0F 83 cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jnb<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJnb<T>,
+	{
+		<Self as CodeAsmJnb<T>>::jnb(self, op0)
+	}
+
+	/// `JNBE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JA rel8` | `o16 77 cb` | `8086+`
+	/// `JA rel8` | `o32 77 cb` | `386+`
+	/// `JA rel8` | `o64 77 cb` | `X64`
+	/// `JA rel16` | `o16 0F 87 cw` | `386+`
+	/// `JA rel32` | `o32 0F 87 cd` | `386+`
+	/// `JA rel32` | `o64 0F 87 cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jnbe<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJnbe<T>,
+	{
+		<Self as CodeAsmJnbe<T>>::jnbe(self, op0)
+	}
+
+	/// `JNC` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JAE rel8` | `o16 73 cb` | `8086+`
+	/// `JAE rel8` | `o32 73 cb` | `386+`
+	/// `JAE rel8` | `o64 73 cb` | `X64`
+	/// `JAE rel16` | `o16 0F 83 cw` | `386+`
+	/// `JAE rel32` | `o32 0F 83 cd` | `386+`
+	/// `JAE rel32` | `o64 0F 83 cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jnc<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJnc<T>,
+	{
+		<Self as CodeAsmJnc<T>>::jnc(self, op0)
+	}
+
 	/// `JNE` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -8149,6 +8641,110 @@ impl CodeAssembler {
 		Self: CodeAsmJne<T>,
 	{
 		<Self as CodeAsmJne<T>>::jne(self, op0)
+	}
+
+	/// `JNG` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JLE rel8` | `o16 7E cb` | `8086+`
+	/// `JLE rel8` | `o32 7E cb` | `386+`
+	/// `JLE rel8` | `o64 7E cb` | `X64`
+	/// `JLE rel16` | `o16 0F 8E cw` | `386+`
+	/// `JLE rel32` | `o32 0F 8E cd` | `386+`
+	/// `JLE rel32` | `o64 0F 8E cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jng<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJng<T>,
+	{
+		<Self as CodeAsmJng<T>>::jng(self, op0)
+	}
+
+	/// `JNGE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JL rel8` | `o16 7C cb` | `8086+`
+	/// `JL rel8` | `o32 7C cb` | `386+`
+	/// `JL rel8` | `o64 7C cb` | `X64`
+	/// `JL rel16` | `o16 0F 8C cw` | `386+`
+	/// `JL rel32` | `o32 0F 8C cd` | `386+`
+	/// `JL rel32` | `o64 0F 8C cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jnge<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJnge<T>,
+	{
+		<Self as CodeAsmJnge<T>>::jnge(self, op0)
+	}
+
+	/// `JNL` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JGE rel8` | `o16 7D cb` | `8086+`
+	/// `JGE rel8` | `o32 7D cb` | `386+`
+	/// `JGE rel8` | `o64 7D cb` | `X64`
+	/// `JGE rel16` | `o16 0F 8D cw` | `386+`
+	/// `JGE rel32` | `o32 0F 8D cd` | `386+`
+	/// `JGE rel32` | `o64 0F 8D cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jnl<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJnl<T>,
+	{
+		<Self as CodeAsmJnl<T>>::jnl(self, op0)
+	}
+
+	/// `JNLE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JG rel8` | `o16 7F cb` | `8086+`
+	/// `JG rel8` | `o32 7F cb` | `386+`
+	/// `JG rel8` | `o64 7F cb` | `X64`
+	/// `JG rel16` | `o16 0F 8F cw` | `386+`
+	/// `JG rel32` | `o32 0F 8F cd` | `386+`
+	/// `JG rel32` | `o64 0F 8F cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jnle<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJnle<T>,
+	{
+		<Self as CodeAsmJnle<T>>::jnle(self, op0)
 	}
 
 	/// `JNO` instruction
@@ -8229,6 +8825,32 @@ impl CodeAssembler {
 		<Self as CodeAsmJns<T>>::jns(self, op0)
 	}
 
+	/// `JNZ` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JNE rel8` | `o16 75 cb` | `8086+`
+	/// `JNE rel8` | `o32 75 cb` | `386+`
+	/// `JNE rel8` | `o64 75 cb` | `X64`
+	/// `JNE rel16` | `o16 0F 85 cw` | `386+`
+	/// `JNE rel32` | `o32 0F 85 cd` | `386+`
+	/// `JNE rel32` | `o64 0F 85 cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jnz<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJnz<T>,
+	{
+		<Self as CodeAsmJnz<T>>::jnz(self, op0)
+	}
+
 	/// `JO` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -8281,6 +8903,58 @@ impl CodeAssembler {
 		<Self as CodeAsmJp<T>>::jp(self, op0)
 	}
 
+	/// `JPE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JP rel8` | `o16 7A cb` | `8086+`
+	/// `JP rel8` | `o32 7A cb` | `386+`
+	/// `JP rel8` | `o64 7A cb` | `X64`
+	/// `JP rel16` | `o16 0F 8A cw` | `386+`
+	/// `JP rel32` | `o32 0F 8A cd` | `386+`
+	/// `JP rel32` | `o64 0F 8A cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jpe<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJpe<T>,
+	{
+		<Self as CodeAsmJpe<T>>::jpe(self, op0)
+	}
+
+	/// `JPO` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JNP rel8` | `o16 7B cb` | `8086+`
+	/// `JNP rel8` | `o32 7B cb` | `386+`
+	/// `JNP rel8` | `o64 7B cb` | `X64`
+	/// `JNP rel16` | `o16 0F 8B cw` | `386+`
+	/// `JNP rel32` | `o32 0F 8B cd` | `386+`
+	/// `JNP rel32` | `o64 0F 8B cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jpo<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJpo<T>,
+	{
+		<Self as CodeAsmJpo<T>>::jpo(self, op0)
+	}
+
 	/// `JRCXZ` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -8326,6 +9000,32 @@ impl CodeAssembler {
 		Self: CodeAsmJs<T>,
 	{
 		<Self as CodeAsmJs<T>>::js(self, op0)
+	}
+
+	/// `JZ` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `JE rel8` | `o16 74 cb` | `8086+`
+	/// `JE rel8` | `o32 74 cb` | `386+`
+	/// `JE rel8` | `o64 74 cb` | `X64`
+	/// `JE rel16` | `o16 0F 84 cw` | `386+`
+	/// `JE rel32` | `o32 0F 84 cd` | `386+`
+	/// `JE rel32` | `o64 0F 84 cd` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn jz<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmJz<T>,
+	{
+		<Self as CodeAsmJz<T>>::jz(self, op0)
 	}
 
 	/// `KADDB` instruction
@@ -10067,6 +10767,52 @@ impl CodeAssembler {
 		Self: CodeAsmLoopne<T>,
 	{
 		<Self as CodeAsmLoopne<T>>::loopne(self, op0)
+	}
+
+	/// `LOOPNZ` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `LOOPNE rel8` | `a16 o16 E0 cb` | `8086+`
+	/// `LOOPNE rel8` | `a32 o32 E0 cb` | `386+`
+	/// `LOOPNE rel8` | `a64 o64 E0 cb` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn loopnz<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmLoopnz<T>,
+	{
+		<Self as CodeAsmLoopnz<T>>::loopnz(self, op0)
+	}
+
+	/// `LOOPZ` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `LOOPE rel8` | `a16 o16 E1 cb` | `8086+`
+	/// `LOOPE rel8` | `a32 o32 E1 cb` | `386+`
+	/// `LOOPE rel8` | `a64 o64 E1 cb` | `X64`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn loopz<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmLoopz<T>,
+	{
+		<Self as CodeAsmLoopz<T>>::loopz(self, op0)
 	}
 
 	/// `LSL` instruction
@@ -17814,6 +18560,27 @@ impl CodeAssembler {
 		<Self as CodeAsmSetbe<T>>::setbe(self, op0)
 	}
 
+	/// `SETC` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETB r/m8` | `0F 92 /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setc<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetc<T>,
+	{
+		<Self as CodeAsmSetc<T>>::setc(self, op0)
+	}
+
 	/// `SETE` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -17919,6 +18686,111 @@ impl CodeAssembler {
 		<Self as CodeAsmSetle<T>>::setle(self, op0)
 	}
 
+	/// `SETNA` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETBE r/m8` | `0F 96 /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setna<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetna<T>,
+	{
+		<Self as CodeAsmSetna<T>>::setna(self, op0)
+	}
+
+	/// `SETNAE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETB r/m8` | `0F 92 /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setnae<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetnae<T>,
+	{
+		<Self as CodeAsmSetnae<T>>::setnae(self, op0)
+	}
+
+	/// `SETNB` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETAE r/m8` | `0F 93 /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setnb<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetnb<T>,
+	{
+		<Self as CodeAsmSetnb<T>>::setnb(self, op0)
+	}
+
+	/// `SETNBE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETA r/m8` | `0F 97 /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setnbe<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetnbe<T>,
+	{
+		<Self as CodeAsmSetnbe<T>>::setnbe(self, op0)
+	}
+
+	/// `SETNC` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETAE r/m8` | `0F 93 /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setnc<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetnc<T>,
+	{
+		<Self as CodeAsmSetnc<T>>::setnc(self, op0)
+	}
+
 	/// `SETNE` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -17938,6 +18810,90 @@ impl CodeAssembler {
 		Self: CodeAsmSetne<T>,
 	{
 		<Self as CodeAsmSetne<T>>::setne(self, op0)
+	}
+
+	/// `SETNG` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETLE r/m8` | `0F 9E /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setng<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetng<T>,
+	{
+		<Self as CodeAsmSetng<T>>::setng(self, op0)
+	}
+
+	/// `SETNGE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETL r/m8` | `0F 9C /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setnge<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetnge<T>,
+	{
+		<Self as CodeAsmSetnge<T>>::setnge(self, op0)
+	}
+
+	/// `SETNL` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETGE r/m8` | `0F 9D /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setnl<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetnl<T>,
+	{
+		<Self as CodeAsmSetnl<T>>::setnl(self, op0)
+	}
+
+	/// `SETNLE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETG r/m8` | `0F 9F /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setnle<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetnle<T>,
+	{
+		<Self as CodeAsmSetnle<T>>::setnle(self, op0)
 	}
 
 	/// `SETNO` instruction
@@ -18003,6 +18959,27 @@ impl CodeAssembler {
 		<Self as CodeAsmSetns<T>>::setns(self, op0)
 	}
 
+	/// `SETNZ` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETNE r/m8` | `0F 95 /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setnz<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetnz<T>,
+	{
+		<Self as CodeAsmSetnz<T>>::setnz(self, op0)
+	}
+
 	/// `SETO` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -18045,6 +19022,48 @@ impl CodeAssembler {
 		<Self as CodeAsmSetp<T>>::setp(self, op0)
 	}
 
+	/// `SETPE` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETP r/m8` | `0F 9A /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setpe<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetpe<T>,
+	{
+		<Self as CodeAsmSetpe<T>>::setpe(self, op0)
+	}
+
+	/// `SETPO` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETNP r/m8` | `0F 9B /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setpo<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetpo<T>,
+	{
+		<Self as CodeAsmSetpo<T>>::setpo(self, op0)
+	}
+
 	/// `SETS` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -18081,6 +19100,27 @@ impl CodeAssembler {
 		Self: CodeAsmSetssbsy,
 	{
 		<Self as CodeAsmSetssbsy>::setssbsy(self)
+	}
+
+	/// `SETZ` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `SETE r/m8` | `0F 94 /r` | `386+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	#[inline]
+	pub fn setz<T>(&mut self, op0: T) -> Result<(), IcedError>
+	where
+		Self: CodeAsmSetz<T>,
+	{
+		<Self as CodeAsmSetz<T>>::setz(self, op0)
 	}
 
 	/// `SFENCE` instruction

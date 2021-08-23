@@ -59,11 +59,13 @@ fn test_prefixes() {
 	a.lock().add(byte_ptr(rcx), dl).unwrap();
 	a.rep().stosb().unwrap();
 	a.repe().cmpsb().unwrap();
+	a.repz().cmpsb().unwrap();
 	a.repne().cmpsb().unwrap();
+	a.repnz().cmpsb().unwrap();
 	a.bnd().call(rcx).unwrap();
 	a.notrack().call(rcx).unwrap();
 	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
-	assert_eq!(bytes, b"\xF0\xF2\x00\x11\xF0\xF3\x00\x11\xF0\x00\x11\xF3\xAA\xF3\xA6\xF2\xA6\xF2\xFF\xD1\x3E\xFF\xD1");
+	assert_eq!(bytes, b"\xF0\xF2\x00\x11\xF0\xF3\x00\x11\xF0\x00\x11\xF3\xAA\xF3\xA6\xF3\xA6\xF2\xA6\xF2\xA6\xF2\xFF\xD1\x3E\xFF\xD1");
 }
 
 #[test]
@@ -74,11 +76,13 @@ fn test_prefixes_dup() {
 	a.lock().lock().add(byte_ptr(rcx), dl).unwrap();
 	a.rep().rep().stosb().unwrap();
 	a.repe().repe().cmpsb().unwrap();
+	a.repz().repz().cmpsb().unwrap();
 	a.repne().repne().cmpsb().unwrap();
+	a.repnz().repnz().cmpsb().unwrap();
 	a.bnd().bnd().call(rcx).unwrap();
 	a.notrack().notrack().call(rcx).unwrap();
 	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
-	assert_eq!(bytes, b"\xF0\xF2\x00\x11\xF0\xF3\x00\x11\xF0\x00\x11\xF3\xAA\xF3\xA6\xF2\xA6\xF2\xFF\xD1\x3E\xFF\xD1");
+	assert_eq!(bytes, b"\xF0\xF2\x00\x11\xF0\xF3\x00\x11\xF0\x00\x11\xF3\xAA\xF3\xA6\xF3\xA6\xF2\xA6\xF2\xA6\xF2\xFF\xD1\x3E\xFF\xD1");
 }
 
 #[test]
@@ -90,7 +94,9 @@ fn prefixes_without_instr_fails_assemble() {
 		|a| a.lock(),
 		|a| a.rep(),
 		|a| a.repe(),
+		|a| a.repz(),
 		|a| a.repne(),
+		|a| a.repnz(),
 		|a| a.bnd(),
 		|a| a.notrack(),
 	];
@@ -463,10 +469,10 @@ fn test_db_dw_dd_dq_errors() {
 	let mut a = CodeAssembler::new(64).unwrap();
 	assert!(a.notrack().dq(&[]).is_err());
 	let mut a = CodeAssembler::new(64).unwrap();
-	assert!(a.xrelease().dq(&[0]).is_err());
+	assert!(a.repz().dq(&[0]).is_err());
 
 	let mut a = CodeAssembler::new(64).unwrap();
-	assert!(a.lock().dq_i(&[]).is_err());
+	assert!(a.repnz().dq_i(&[]).is_err());
 	let mut a = CodeAssembler::new(64).unwrap();
 	assert!(a.rep().dq_i(&[0]).is_err());
 
@@ -508,6 +514,10 @@ fn nops_errors() {
 	assert!(a.repe().nops_with_size(20).is_err());
 	let mut a = CodeAssembler::new(64).unwrap();
 	assert!(a.repne().nops_with_size(30).is_err());
+	let mut a = CodeAssembler::new(64).unwrap();
+	assert!(a.repz().nops_with_size(20).is_err());
+	let mut a = CodeAssembler::new(64).unwrap();
+	assert!(a.repnz().nops_with_size(30).is_err());
 	let mut a = CodeAssembler::new(64).unwrap();
 	assert!(a.bnd().nops_with_size(100).is_err());
 	let mut a = CodeAssembler::new(64).unwrap();
