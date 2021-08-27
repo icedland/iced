@@ -1416,6 +1416,7 @@ impl<'a> Decoder<'a> {
 		let mut handler = self.handlers_map0[b];
 		if (((b as u32) & 0xF0) & self.mask_64b) == 0x40 {
 			debug_assert!(self.is64b_mode);
+			handler = self.handlers_map0[self.read_u8()];
 			let mut flags = self.state.flags | StateFlags::HAS_REX;
 			if (b & 8) != 0 {
 				flags |= StateFlags::W;
@@ -1425,7 +1426,6 @@ impl<'a> Decoder<'a> {
 			self.state.extra_register_base = (b as u32 & 4) << 1;
 			self.state.extra_index_register_base = (b as u32 & 2) << 2;
 			self.state.extra_base_register_base = (b as u32 & 1) << 3;
-			handler = self.handlers_map0[self.read_u8()];
 		}
 		self.decode_table2(handler, instruction);
 
