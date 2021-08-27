@@ -119,7 +119,7 @@ pub(crate) fn internal_set_immediate8(this: &mut Instruction, new_value: u32) {
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_immediate8_2nd(this: &mut Instruction, new_value: u32) {
-	this.mem_displ = new_value;
+	this.mem_displ = new_value as u64;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
@@ -137,19 +137,7 @@ pub(crate) fn internal_set_immediate64_lo(this: &mut Instruction, new_value: u32
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_immediate64_hi(this: &mut Instruction, new_value: u32) {
-	this.mem_displ = new_value;
-}
-
-#[cfg(feature = "decoder")]
-#[inline]
-pub(crate) fn internal_set_memory_displacement64_lo(this: &mut Instruction, new_value: u32) {
-	this.mem_displ = new_value;
-}
-
-#[cfg(feature = "decoder")]
-#[inline]
-pub(crate) fn internal_set_memory_displacement64_hi(this: &mut Instruction, new_value: u32) {
-	this.mem_displ_hi = new_value;
+	this.mem_displ = new_value as u64;
 }
 
 #[cfg(feature = "decoder")]
@@ -167,7 +155,7 @@ pub(crate) fn internal_set_far_branch16(this: &mut Instruction, new_value: u32) 
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_far_branch_selector(this: &mut Instruction, new_value: u32) {
-	this.mem_displ = new_value;
+	this.mem_displ = new_value as u64;
 }
 
 #[cfg(feature = "fast_fmt")]

@@ -3813,15 +3813,13 @@ impl OpCodeHandler_Reg_Ob {
 		if decoder.state.address_size == OpSize::Size64 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
-			let q = decoder.read_u64();
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, q as u32);
-			instruction_internal::internal_set_memory_displacement64_hi(instruction, (q >> 32) as u32);
+			instruction.set_memory_displacement64(decoder.read_u64());
 		} else if decoder.state.address_size == OpSize::Size32 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 3);
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u32() as u32);
+			instruction.set_memory_displacement64(decoder.read_u32() as u64);
 		} else {
 			instruction_internal::internal_set_memory_displ_size(instruction, 2);
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u16() as u32);
+			instruction.set_memory_displacement64(decoder.read_u16() as u64);
 		}
 	}
 }
@@ -3855,15 +3853,13 @@ impl OpCodeHandler_Ob_Reg {
 		if decoder.state.address_size == OpSize::Size64 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
-			let q = decoder.read_u64();
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, q as u32);
-			instruction_internal::internal_set_memory_displacement64_hi(instruction, (q >> 32) as u32);
+			instruction.set_memory_displacement64(decoder.read_u64());
 		} else if decoder.state.address_size == OpSize::Size32 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 3);
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u32() as u32);
+			instruction.set_memory_displacement64(decoder.read_u32() as u64);
 		} else {
 			instruction_internal::internal_set_memory_displ_size(instruction, 2);
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u16() as u32);
+			instruction.set_memory_displacement64(decoder.read_u16() as u64);
 		}
 	}
 }
@@ -3906,15 +3902,13 @@ impl OpCodeHandler_Reg_Ov {
 		if decoder.state.address_size == OpSize::Size64 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
-			let q = decoder.read_u64();
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, q as u32);
-			instruction_internal::internal_set_memory_displacement64_hi(instruction, (q >> 32) as u32);
+			instruction.set_memory_displacement64(decoder.read_u64());
 		} else if decoder.state.address_size == OpSize::Size32 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 3);
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u32() as u32);
+			instruction.set_memory_displacement64(decoder.read_u32() as u64);
 		} else {
 			instruction_internal::internal_set_memory_displ_size(instruction, 2);
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u16() as u32);
+			instruction.set_memory_displacement64(decoder.read_u16() as u64);
 		}
 	}
 }
@@ -3957,15 +3951,13 @@ impl OpCodeHandler_Ov_Reg {
 		if decoder.state.address_size == OpSize::Size64 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
-			let q = decoder.read_u64();
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, q as u32);
-			instruction_internal::internal_set_memory_displacement64_hi(instruction, (q >> 32) as u32);
+			instruction.set_memory_displacement64(decoder.read_u64());
 		} else if decoder.state.address_size == OpSize::Size32 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 3);
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u32() as u32);
+			instruction.set_memory_displacement64(decoder.read_u32() as u64);
 		} else {
 			instruction_internal::internal_set_memory_displ_size(instruction, 2);
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u16() as u32);
+			instruction.set_memory_displacement64(decoder.read_u16() as u64);
 		}
 	}
 }

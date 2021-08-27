@@ -40,12 +40,10 @@ namespace Iced.Intel {
 		// Next RIP is only needed by RIP relative memory operands. Without this field the user would have
 		// to pass this value to the formatter and encoder methods.
 		ulong nextRip;
+		ulong memDispl;
 		uint flags1;// InstrFlags1
 		// If it's a 64-bit immediate/offset/target, the high 32 bits is in memDispl
 		uint immediate;
-		// This is the high 32 bits if it's a 64-bit immediate/offset/target
-		uint memDispl;
-		uint memDisplHi;
 		ushort code;
 		byte memBaseReg;// Register
 		byte memIndexReg;// Register
@@ -73,10 +71,9 @@ namespace Iced.Intel {
 		readonly bool IEquatable<Instruction>.Equals(Instruction other) => EqualsInternal(this, other);
 
 		static bool EqualsInternal(in Instruction a, in Instruction b) =>
+			a.memDispl == b.memDispl &&
 			((a.flags1 ^ b.flags1) & ~(uint)InstrFlags1.EqualsIgnoreMask) == 0 &&
 			a.immediate == b.immediate &&
-			a.memDispl == b.memDispl &&
-			a.memDisplHi == b.memDisplHi &&
 			a.code == b.code &&
 			a.memBaseReg == b.memBaseReg &&
 			a.memIndexReg == b.memIndexReg &&
@@ -97,10 +94,10 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public override readonly int GetHashCode() {
-			uint c = flags1 & ~(uint)InstrFlags1.EqualsIgnoreMask;
+			uint c = (uint)memDispl;
+			c ^= (uint)(memDispl >> 32);
+			c ^= flags1 & ~(uint)InstrFlags1.EqualsIgnoreMask;
 			c ^= immediate;
-			c ^= memDispl;
-			c ^= memDisplHi;
 			c ^= (uint)code << 8;
 			c ^= (uint)memBaseReg << 16;
 			c ^= (uint)memIndexReg << 24;
@@ -133,10 +130,9 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static bool EqualsAllBits(in Instruction a, in Instruction b) =>
 			a.nextRip == b.nextRip &&
+			a.memDispl == b.memDispl &&
 			a.flags1 == b.flags1 &&
 			a.immediate == b.immediate &&
-			a.memDispl == b.memDispl &&
-			a.memDisplHi == b.memDisplHi &&
 			a.code == b.code &&
 			a.memBaseReg == b.memBaseReg &&
 			a.memIndexReg == b.memIndexReg &&
@@ -655,12 +651,9 @@ namespace Iced.Intel {
 		/// </summary>
 		public uint MemoryDisplacement32 {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			readonly get => memDispl;
+			readonly get => (uint)memDispl;
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set {
-				memDispl = value;
-				memDisplHi = 0;
-			}
+			set => memDispl = value;
 		}
 
 		/// <summary>
@@ -670,20 +663,9 @@ namespace Iced.Intel {
 		/// </summary>
 		public ulong MemoryDisplacement64 {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			readonly get => (ulong)memDispl | ((ulong)memDisplHi << 32);
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set {
-				memDispl = (uint)value;
-				memDisplHi = (uint)(value >> 32);
-			}
-		}
-		internal uint InternalMemoryDisplacement64_lo {
+			readonly get => memDispl;
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => memDispl = value;
-		}
-		internal uint InternalMemoryDisplacement64_hi {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => memDisplHi = value;
 		}
 
 		/// <summary>
@@ -807,7 +789,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public ulong Immediate64 {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			readonly get => ((ulong)memDispl << 32) | immediate;
+			readonly get => (memDispl << 32) | immediate;
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set {
 				immediate = (uint)value;
@@ -889,7 +871,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public ulong NearBranch64 {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			readonly get => ((ulong)memDispl << 32) | immediate;
+			readonly get => (memDispl << 32) | immediate;
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set {
 				immediate = (uint)value;
@@ -1242,9 +1224,9 @@ namespace Iced.Intel {
 			case 6:		return (byte)(immediate >> 16);
 			case 7:		return (byte)(immediate >> 24);
 			case 8:		return (byte)memDispl;
-			case 9:		return (byte)(memDispl >> 8);
-			case 10:	return (byte)(memDispl >> 16);
-			case 11:	return (byte)(memDispl >> 24);
+			case 9:		return (byte)((uint)memDispl >> 8);
+			case 10:	return (byte)((uint)memDispl >> 16);
+			case 11:	return (byte)((uint)memDispl >> 24);
 			case 12:	return memBaseReg;
 			case 13:	return memIndexReg;
 			case 14:	return displSize;
@@ -1286,10 +1268,10 @@ namespace Iced.Intel {
 				immediate = (uint)(ushort)immediate | ((uint)value << 16);
 				break;
 			case 4:
-				memDispl = (memDispl & 0xFFFF0000) | value;
+				memDispl = (memDispl & 0xFFFF_FFFF_FFFF_0000) | value;
 				break;
 			case 5:
-				memDispl = (uint)(ushort)memDispl | ((uint)value << 16);
+				memDispl = (memDispl & 0xFFFF_FFFF_0000_FFFF) | ((ulong)value << 16);
 				break;
 			case 6:
 				memBaseReg = (byte)value;
@@ -1318,7 +1300,7 @@ namespace Iced.Intel {
 			case 2:	return (ushort)immediate;
 			case 3:	return (ushort)(immediate >> 16);
 			case 4:	return (ushort)memDispl;
-			case 5:	return (ushort)(memDispl >> 16);
+			case 5:	return (ushort)((uint)memDispl >> 16);
 			case 6:	return (ushort)((uint)memBaseReg | (uint)(memIndexReg << 8));
 			case 7:	return (ushort)((uint)displSize | ((uint)db << 8));
 			default:
@@ -1377,7 +1359,7 @@ namespace Iced.Intel {
 			switch (index) {
 			case 0:	return (uint)reg0 | (uint)(reg1 << 8) | (uint)(reg2 << 16) | (uint)(reg3 << 24);
 			case 1:	return immediate;
-			case 2:	return memDispl;
+			case 2:	return (uint)memDispl;
 			case 3:	return (uint)memBaseReg | (uint)(memIndexReg << 8) | ((uint)displSize << 16) | ((uint)db << 24);
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();

@@ -48,11 +48,10 @@ impl InstrFlags1 {
 #[derive(Debug, Default, Copy, Clone)]
 pub struct Instruction {
 	pub(crate) next_rip: u64,
+	pub(crate) mem_displ: u64,
 	pub(crate) flags1: u32, // InstrFlags1
 	// If it's a 64-bit immediate/offset/target, the high 32 bits is in mem_displ
 	pub(crate) immediate: u32,
-	pub(crate) mem_displ: u32,
-	pub(crate) mem_displ_hi: u32,
 	pub(crate) code: Code,
 	pub(crate) mem_base_reg: Register,
 	pub(crate) mem_index_reg: Register,
@@ -960,7 +959,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn memory_displacement32(&self) -> u32 {
-		self.mem_displ
+		self.mem_displ as u32
 	}
 
 	/// Gets the memory operand's displacement or the 32-bit absolute address if it's
@@ -974,8 +973,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_memory_displacement32(&mut self, new_value: u32) {
-		self.mem_displ = new_value;
-		self.mem_displ_hi = 0;
+		self.mem_displ = new_value as u64;
 	}
 
 	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
@@ -986,7 +984,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn memory_displacement64(&self) -> u64 {
-		(self.mem_displ as u64) | ((self.mem_displ_hi as u64) << 32)
+		self.mem_displ
 	}
 
 	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
@@ -1000,8 +998,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_memory_displacement64(&mut self, new_value: u64) {
-		self.mem_displ = new_value as u32;
-		self.mem_displ_hi = (new_value >> 32) as u32;
+		self.mem_displ = new_value;
 	}
 
 	/// Gets an operand's immediate value, or `None` if the operand is not immediate
@@ -1173,7 +1170,7 @@ impl Instruction {
 	pub fn try_set_immediate_u64(&mut self, operand: u32, new_value: u64) -> Result<(), IcedError> {
 		match self.try_op_kind(operand)? {
 			OpKind::Immediate8 | OpKind::Immediate8to16 | OpKind::Immediate8to32 | OpKind::Immediate8to64 => self.immediate = new_value as u8 as u32,
-			OpKind::Immediate8_2nd => self.mem_displ = new_value as u8 as u32,
+			OpKind::Immediate8_2nd => self.mem_displ = new_value as u8 as u64,
 			OpKind::Immediate16 => self.immediate = new_value as u16 as u32,
 			OpKind::Immediate32to64 | OpKind::Immediate32 => self.immediate = new_value as u32,
 			OpKind::Immediate64 => self.set_immediate64(new_value),
@@ -1221,7 +1218,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_immediate8_2nd(&mut self, new_value: u8) {
-		self.mem_displ = new_value as u32;
+		self.mem_displ = new_value as u64;
 	}
 
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate16`]
@@ -1272,7 +1269,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn immediate64(&self) -> u64 {
-		((self.mem_displ as u64) << 32) | (self.immediate as u64)
+		(self.mem_displ << 32) | (self.immediate as u64)
 	}
 
 	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate64`]
@@ -1285,7 +1282,7 @@ impl Instruction {
 	#[inline]
 	pub fn set_immediate64(&mut self, new_value: u64) {
 		self.immediate = new_value as u32;
-		self.mem_displ = (new_value >> 32) as u32;
+		self.mem_displ = new_value >> 32;
 	}
 
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to16`]
@@ -1443,7 +1440,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn near_branch64(&self) -> u64 {
-		((self.mem_displ as u64) << 32) | self.immediate as u64
+		(self.mem_displ << 32) | self.immediate as u64
 	}
 
 	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch64`]
@@ -1456,7 +1453,7 @@ impl Instruction {
 	#[inline]
 	pub fn set_near_branch64(&mut self, new_value: u64) {
 		self.immediate = new_value as u32;
-		self.mem_displ = (new_value >> 32) as u32;
+		self.mem_displ = new_value >> 32;
 	}
 
 	/// Gets the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
@@ -1539,7 +1536,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_far_branch_selector(&mut self, new_value: u16) {
-		self.mem_displ = new_value as u32;
+		self.mem_displ = new_value as u64;
 	}
 
 	/// Gets the memory operand's base register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
@@ -2136,10 +2133,10 @@ impl Instruction {
 			5 => self.immediate = (self.immediate & 0xFFFF_00FF) | ((new_value as u32) << 8),
 			6 => self.immediate = (self.immediate & 0xFF00_FFFF) | ((new_value as u32) << 16),
 			7 => self.immediate = (self.immediate & 0x00FF_FFFF) | ((new_value as u32) << 24),
-			8 => self.mem_displ = (self.mem_displ & 0xFFFF_FF00) | new_value as u32,
-			9 => self.mem_displ = (self.mem_displ & 0xFFFF_00FF) | ((new_value as u32) << 8),
-			10 => self.mem_displ = (self.mem_displ & 0xFF00_FFFF) | ((new_value as u32) << 16),
-			11 => self.mem_displ = (self.mem_displ & 0x00FF_FFFF) | ((new_value as u32) << 24),
+			8 => self.mem_displ = (self.mem_displ & 0xFFFF_FF00) | new_value as u64,
+			9 => self.mem_displ = (self.mem_displ & 0xFFFF_00FF) | ((new_value as u64) << 8),
+			10 => self.mem_displ = (self.mem_displ & 0xFF00_FFFF) | ((new_value as u64) << 16),
+			11 => self.mem_displ = (self.mem_displ & 0x00FF_FFFF) | ((new_value as u64) << 24),
 			12 => self.mem_base_reg = Register::from_u8(new_value),
 			13 => self.mem_index_reg = Register::from_u8(new_value),
 			14 => self.displ_size = new_value,
@@ -2197,9 +2194,9 @@ impl Instruction {
 			6 => (self.immediate >> 16) as u8,
 			7 => (self.immediate >> 24) as u8,
 			8 => self.mem_displ as u8,
-			9 => (self.mem_displ >> 8) as u8,
-			10 => (self.mem_displ >> 16) as u8,
-			11 => (self.mem_displ >> 24) as u8,
+			9 => ((self.mem_displ as u32) >> 8) as u8,
+			10 => ((self.mem_displ as u32) >> 16) as u8,
+			11 => ((self.mem_displ as u32) >> 24) as u8,
 			12 => self.mem_base_reg as u8,
 			13 => self.mem_index_reg as u8,
 			14 => self.displ_size,
@@ -2300,8 +2297,8 @@ impl Instruction {
 			}
 			2 => self.immediate = (self.immediate & 0xFFFF_0000) | new_value as u32,
 			3 => self.immediate = self.immediate as u16 as u32 | (new_value as u32) << 16,
-			4 => self.mem_displ = (self.mem_displ & 0xFFFF_0000) | new_value as u32,
-			5 => self.mem_displ = self.mem_displ as u16 as u32 | (new_value as u32) << 16,
+			4 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_FFFF_0000) | new_value as u64,
+			5 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_0000_FFFF) | ((new_value as u64) << 16),
 			6 => {
 				self.mem_base_reg = Register::from_u8(new_value as u8);
 				self.mem_index_reg = Register::from_u8((new_value >> 8) as u8);
@@ -2359,7 +2356,7 @@ impl Instruction {
 			2 => self.immediate as u16,
 			3 => (self.immediate >> 16) as u16,
 			4 => self.mem_displ as u16,
-			5 => (self.mem_displ >> 16) as u16,
+			5 => ((self.mem_displ as u32) >> 16) as u16,
 			6 => self.mem_base_reg as u16 | ((self.mem_index_reg as u16) << 8),
 			7 => ((self.db as u16) << 8) | (self.displ_size as u16),
 			_ => return Err(IcedError::new("Invalid index")),
@@ -2455,7 +2452,7 @@ impl Instruction {
 				self.regs[3] = Register::from_u8((new_value >> 24) as u8);
 			}
 			1 => self.immediate = new_value,
-			2 => self.mem_displ = new_value,
+			2 => self.mem_displ = new_value as u64,
 			3 => {
 				self.mem_base_reg = Register::from_u8(new_value as u8);
 				self.mem_index_reg = Register::from_u8((new_value >> 8) as u8);
@@ -2508,7 +2505,7 @@ impl Instruction {
 		Ok(match index {
 			0 => self.regs[0] as u32 | ((self.regs[1] as u32) << 8) | ((self.regs[2] as u32) << 16) | ((self.regs[3] as u32) << 24),
 			1 => self.immediate,
-			2 => self.mem_displ,
+			2 => self.mem_displ as u32,
 			3 => self.mem_base_reg as u32 | ((self.mem_index_reg as u32) << 8) | ((self.displ_size as u32) << 16) | ((self.db as u32) << 24),
 			_ => return Err(IcedError::new("Invalid index")),
 		})
@@ -2604,7 +2601,7 @@ impl Instruction {
 				self.immediate = (new_value >> 32) as u32;
 			}
 			1 => {
-				self.mem_displ = new_value as u32;
+				self.mem_displ = new_value as u32 as u64;
 				self.mem_base_reg = Register::from_u8((new_value >> 32) as u8);
 				self.mem_index_reg = Register::from_u8((new_value >> 40) as u8);
 				self.displ_size = (new_value >> 48) as u8;
@@ -2662,7 +2659,7 @@ impl Instruction {
 					| ((self.immediate as u64) << 32)
 			}
 			1 => {
-				self.mem_displ as u64
+				self.mem_displ as u32 as u64
 					| ((self.mem_base_reg as u64) << 32)
 					| ((self.mem_index_reg as u64) << 40)
 					| ((self.displ_size as u64) << 48)
@@ -3960,10 +3957,9 @@ impl PartialEq<Instruction> for Instruction {
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
 	fn eq(&self, other: &Self) -> bool {
-		((self.flags1 ^ other.flags1) & !InstrFlags1::EQUALS_IGNORE_MASK) == 0
+		self.mem_displ == other.mem_displ
+			&& ((self.flags1 ^ other.flags1) & !InstrFlags1::EQUALS_IGNORE_MASK) == 0
 			&& self.immediate == other.immediate
-			&& self.mem_displ == other.mem_displ
-			&& self.mem_displ_hi == other.mem_displ_hi
 			&& self.code == other.code
 			&& self.mem_base_reg == other.mem_base_reg
 			&& self.mem_index_reg == other.mem_index_reg
@@ -3978,10 +3974,9 @@ impl PartialEq<Instruction> for Instruction {
 impl Hash for Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	fn hash<H: Hasher>(&self, state: &mut H) {
+		state.write_u64(self.mem_displ);
 		state.write_u32(self.flags1 & !InstrFlags1::EQUALS_IGNORE_MASK);
 		state.write_u32(self.immediate);
-		state.write_u32(self.mem_displ);
-		state.write_u32(self.mem_displ_hi);
 		state.write_u16(self.code as CodeUnderlyingType);
 		state.write_u8(self.mem_base_reg as RegisterUnderlyingType);
 		state.write_u8(self.mem_index_reg as RegisterUnderlyingType);
@@ -4117,9 +4112,9 @@ const _: () = {
 	use std::collections::HashMap;
 
 	// eg. json
-	const NUM_FIELDS_READABLE: usize = 14;
+	const NUM_FIELDS_READABLE: usize = 13;
 	// eg. bincode
-	const NUM_FIELDS_BINARY: usize = 20;
+	const NUM_FIELDS_BINARY: usize = 19;
 
 	#[inline]
 	fn is_human_readable(value: bool) -> bool {
@@ -4147,10 +4142,9 @@ const _: () = {
 					};
 				}
 				serialize!(next_rip);
+				serialize!(mem_displ);
 				serialize!(flags1);
 				serialize!(immediate);
-				serialize!(mem_displ);
-				serialize!(mem_displ_hi);
 				serialize!(code);
 				serialize!(mem_base_reg);
 				serialize!(mem_index_reg);
@@ -4180,10 +4174,9 @@ const _: () = {
 					};
 				}
 				serialize!(next_rip);
+				serialize!(mem_displ);
 				serialize!(flags1);
 				serialize!(immediate);
-				serialize!(mem_displ);
-				serialize!(mem_displ_hi);
 				serialize!(code, CodeUnderlyingType);
 				serialize!(mem_base_reg, RegisterUnderlyingType);
 				serialize!(mem_index_reg, RegisterUnderlyingType);
@@ -4279,10 +4272,9 @@ const _: () = {
 				#[derive(Copy, Clone)]
 				enum StructField {
 					next_rip,
+					mem_displ,
 					flags1,
 					immediate,
-					mem_displ,
-					mem_displ_hi,
 					code,
 					mem_base_reg,
 					mem_index_reg,
@@ -4296,10 +4288,9 @@ const _: () = {
 				const_assert_eq!(StructField::db as usize + 1, NUM_FIELDS_READABLE);
 				const FIELDS: [&str; NUM_FIELDS_READABLE] = [
 					"next_rip",
+					"mem_displ",
 					"flags1",
 					"immediate",
-					"mem_displ",
-					"mem_displ_hi",
 					"code",
 					"mem_base_reg",
 					"mem_index_reg",
@@ -4364,10 +4355,9 @@ const _: () = {
 						}
 						let instruction = Instruction {
 							next_rip: next_element!(next_rip: u64),
+							mem_displ: next_element!(mem_displ: u64),
 							flags1: next_element!(flags1: u32),
 							immediate: next_element!(immediate: u32),
-							mem_displ: next_element!(mem_displ: u32),
-							mem_displ_hi: next_element!(mem_displ_hi: u32),
 							code: next_element!(code: Code),
 							mem_base_reg: next_element!(mem_base_reg: Register),
 							mem_index_reg: next_element!(mem_index_reg: Register),
@@ -4388,10 +4378,9 @@ const _: () = {
 						A: de::MapAccess<'de>,
 					{
 						let mut next_rip: Option<u64> = None;
+						let mut mem_displ: Option<u64> = None;
 						let mut flags1: Option<u32> = None;
 						let mut immediate: Option<u32> = None;
-						let mut mem_displ: Option<u32> = None;
-						let mut mem_displ_hi: Option<u32> = None;
 						let mut code: Option<Code> = None;
 						let mut mem_base_reg: Option<Register> = None;
 						let mut mem_index_reg: Option<Register> = None;
@@ -4412,10 +4401,9 @@ const _: () = {
 							}
 							match field {
 								StructField::next_rip => unpack!(next_rip: u64),
+								StructField::mem_displ => unpack!(mem_displ: u64),
 								StructField::flags1 => unpack!(flags1: u32),
 								StructField::immediate => unpack!(immediate: u32),
-								StructField::mem_displ => unpack!(mem_displ: u32),
-								StructField::mem_displ_hi => unpack!(mem_displ_hi: u32),
 								StructField::code => unpack!(code: Code),
 								StructField::mem_base_reg => unpack!(mem_base_reg: Register),
 								StructField::mem_index_reg => unpack!(mem_index_reg: Register),
@@ -4439,10 +4427,9 @@ const _: () = {
 						}
 						let instruction = Instruction {
 							next_rip: unpack_field!(next_rip),
+							mem_displ: unpack_field!(mem_displ),
 							flags1: unpack_field!(flags1),
 							immediate: unpack_field!(immediate),
-							mem_displ: unpack_field!(mem_displ),
-							mem_displ_hi: unpack_field!(mem_displ_hi),
 							code: unpack_field!(code),
 							mem_base_reg: unpack_field!(mem_base_reg),
 							mem_index_reg: unpack_field!(mem_index_reg),
@@ -4463,10 +4450,9 @@ const _: () = {
 				#[derive(Copy, Clone)]
 				enum StructField {
 					next_rip,
+					mem_displ,
 					flags1,
 					immediate,
-					mem_displ,
-					mem_displ_hi,
 					code,
 					mem_base_reg,
 					mem_index_reg,
@@ -4486,10 +4472,9 @@ const _: () = {
 				const_assert_eq!(StructField::db as usize + 1, NUM_FIELDS_BINARY);
 				const FIELDS: [&str; NUM_FIELDS_BINARY] = [
 					"next_rip",
+					"mem_displ",
 					"flags1",
 					"immediate",
-					"mem_displ",
-					"mem_displ_hi",
 					"code",
 					"mem_base_reg",
 					"mem_index_reg",
@@ -4575,10 +4560,9 @@ const _: () = {
 						}
 						let instruction = Instruction {
 							next_rip: next_element!(next_rip: u64),
+							mem_displ: next_element!(mem_displ: u64),
 							flags1: next_element!(flags1: u32),
 							immediate: next_element!(immediate: u32),
-							mem_displ: next_element!(mem_displ: u32),
-							mem_displ_hi: next_element!(mem_displ_hi: u32),
 							code: next_element!(code: Code: CodeUnderlyingType),
 							mem_base_reg: next_element!(mem_base_reg: Register: RegisterUnderlyingType),
 							mem_index_reg: next_element!(mem_index_reg: Register: RegisterUnderlyingType),
@@ -4609,10 +4593,9 @@ const _: () = {
 						A: de::MapAccess<'de>,
 					{
 						let mut next_rip: Option<u64> = None;
+						let mut mem_displ: Option<u64> = None;
 						let mut flags1: Option<u32> = None;
 						let mut immediate: Option<u32> = None;
-						let mut mem_displ: Option<u32> = None;
-						let mut mem_displ_hi: Option<u32> = None;
 						let mut code: Option<Code> = None;
 						let mut mem_base_reg: Option<Register> = None;
 						let mut mem_index_reg: Option<Register> = None;
@@ -4653,10 +4636,9 @@ const _: () = {
 							}
 							match field {
 								StructField::next_rip => unpack!(next_rip: u64),
+								StructField::mem_displ => unpack!(mem_displ: u64),
 								StructField::flags1 => unpack!(flags1: u32),
 								StructField::immediate => unpack!(immediate: u32),
-								StructField::mem_displ => unpack!(mem_displ: u32),
-								StructField::mem_displ_hi => unpack!(mem_displ_hi: u32),
 								StructField::code => unpack!(code: Code: CodeUnderlyingType),
 								StructField::mem_base_reg => unpack!(mem_base_reg: Register: RegisterUnderlyingType),
 								StructField::mem_index_reg => unpack!(mem_index_reg: Register: RegisterUnderlyingType),
@@ -4686,10 +4668,9 @@ const _: () = {
 						}
 						let instruction = Instruction {
 							next_rip: unpack_field!(next_rip),
+							mem_displ: unpack_field!(mem_displ),
 							flags1: unpack_field!(flags1),
 							immediate: unpack_field!(immediate),
-							mem_displ: unpack_field!(mem_displ),
-							mem_displ_hi: unpack_field!(mem_displ_hi),
 							code: unpack_field!(code),
 							mem_base_reg: unpack_field!(mem_base_reg),
 							mem_index_reg: unpack_field!(mem_index_reg),

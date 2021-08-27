@@ -264,6 +264,8 @@ namespace Iced.Intel {
 		internal uint ReadUInt16() => ReadByte() | (ReadByte() << 8);
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal uint ReadUInt32() => ReadByte() | (ReadByte() << 8) | (ReadByte() << 16) | (ReadByte() << 24);
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal ulong ReadUInt64() => (ulong)ReadUInt32() | ((ulong)ReadUInt32() << 32);
 
 		/// <summary>
 		/// Gets the last decoder error. Unless you need to know the reason it failed,
@@ -346,7 +348,7 @@ namespace Iced.Intel {
 				if (state.addressSize == OpSize.Size64)
 					instruction.MemoryDisplacement64 += ip;
 				else
-					instruction.InternalMemoryDisplacement64_lo = (uint)ip + instruction.MemoryDisplacement32;
+					instruction.MemoryDisplacement64 = (uint)ip + instruction.MemoryDisplacement32;
 			}
 		}
 
@@ -806,7 +808,7 @@ namespace Iced.Intel {
 				if (state.rm == 6) {
 					instruction.InternalSetMemoryDisplSize(2);
 					displIndex = state.instructionLength;
-					instruction.InternalMemoryDisplacement64_lo = ReadUInt16();
+					instruction.MemoryDisplacement64 = ReadUInt16();
 					baseReg = Register.None;
 					Debug.Assert(indexReg == Register.None);
 				}
@@ -816,16 +818,16 @@ namespace Iced.Intel {
 				instruction.InternalSetMemoryDisplSize(1);
 				displIndex = state.instructionLength;
 				if (tupleType == TupleType.N1)
-					instruction.InternalMemoryDisplacement64_lo = (ushort)(sbyte)ReadByte();
+					instruction.MemoryDisplacement64 = (ushort)(sbyte)ReadByte();
 				else
-					instruction.InternalMemoryDisplacement64_lo = (ushort)(GetDisp8N(tupleType) * (uint)(sbyte)ReadByte());
+					instruction.MemoryDisplacement64 = (ushort)(GetDisp8N(tupleType) * (uint)(sbyte)ReadByte());
 				break;
 
 			default:
 				Debug.Assert(state.mod == 2);
 				instruction.InternalSetMemoryDisplSize(2);
 				displIndex = state.instructionLength;
-				instruction.InternalMemoryDisplacement64_lo = ReadUInt16();
+				instruction.MemoryDisplacement64 = ReadUInt16();
 				break;
 			}
 
@@ -853,7 +855,7 @@ namespace Iced.Intel {
 						instruction.InternalSetMemoryDisplSize(4);
 					}
 					else {
-						instruction.InternalMemoryDisplacement64_lo = ReadUInt32();
+						instruction.MemoryDisplacement64 = ReadUInt32();
 						instruction.InternalSetMemoryDisplSize(3);
 					}
 					if (is64bMode) {
@@ -894,9 +896,9 @@ namespace Iced.Intel {
 					}
 					else {
 						if (tupleType == TupleType.N1)
-							instruction.InternalMemoryDisplacement64_lo = (uint)(sbyte)ReadByte();
+							instruction.MemoryDisplacement64 = (uint)(sbyte)ReadByte();
 						else
-							instruction.InternalMemoryDisplacement64_lo = GetDisp8N(tupleType) * (uint)(sbyte)ReadByte();
+							instruction.MemoryDisplacement64 = GetDisp8N(tupleType) * (uint)(sbyte)ReadByte();
 					}
 					instruction.InternalMemoryBase = (int)(state.extraBaseRegisterBase + state.rm) + baseReg;
 					return false;
@@ -919,7 +921,7 @@ namespace Iced.Intel {
 						instruction.InternalSetMemoryDisplSize(4);
 					}
 					else {
-						instruction.InternalMemoryDisplacement64_lo = ReadUInt32();
+						instruction.MemoryDisplacement64 = ReadUInt32();
 						instruction.InternalSetMemoryDisplSize(3);
 					}
 					instruction.InternalMemoryBase = (int)(state.extraBaseRegisterBase + state.rm) + baseReg;
@@ -945,7 +947,7 @@ namespace Iced.Intel {
 					instruction.InternalSetMemoryDisplSize(4);
 				}
 				else {
-					instruction.InternalMemoryDisplacement64_lo = ReadUInt32();
+					instruction.MemoryDisplacement64 = ReadUInt32();
 					instruction.InternalSetMemoryDisplSize(3);
 				}
 			}
@@ -955,7 +957,7 @@ namespace Iced.Intel {
 				if (state.addressSize == OpSize.Size64)
 					instruction.MemoryDisplacement64 = (ulong)(int)displ;
 				else
-					instruction.InternalMemoryDisplacement64_lo = displ;
+					instruction.MemoryDisplacement64 = displ;
 			}
 			return true;
 		}
