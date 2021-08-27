@@ -343,7 +343,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Prefer VEX encoding if the next instruction can be VEX or EVEX encoded
+		/// Prefer VEX encoding if the next instruction can be VEX and EVEX encoded
 		/// </summary>
 		/// <returns></returns>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -355,7 +355,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Prefer EVEX encoding if the next instruction can be VEX or EVEX encoded
+		/// Prefer EVEX encoding if the next instruction can be VEX and EVEX encoded
 		/// </summary>
 		/// <returns></returns>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]

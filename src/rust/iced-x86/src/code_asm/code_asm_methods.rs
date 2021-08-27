@@ -210,7 +210,7 @@ impl CodeAssembler {
 		self
 	}
 
-	/// Prefer `VEX` encoding if the next instruction can be `VEX` or `EVEX` encoded
+	/// Prefer `VEX` encoding if the next instruction can be `VEX` and `EVEX` encoded
 	///
 	/// # Examples
 	///
@@ -220,7 +220,7 @@ impl CodeAssembler {
 	/// # fn main() -> Result<(), IcedError> {
 	/// let mut a = CodeAssembler::new(64)?;
 	///
-	/// // This instruction can be VEX or EVEX encoded
+	/// // This instruction can be VEX and EVEX encoded
 	/// a.vex().vaddpd(xmm1, xmm2, xmm3)?;
 	/// a.evex().vaddpd(xmm1, xmm2, xmm3)?;
 	///
@@ -236,7 +236,7 @@ impl CodeAssembler {
 		self
 	}
 
-	/// Prefer `EVEX` encoding if the next instruction can be `VEX` or `EVEX` encoded
+	/// Prefer `EVEX` encoding if the next instruction can be `VEX` and `EVEX` encoded
 	///
 	/// # Examples
 	///
@@ -246,7 +246,7 @@ impl CodeAssembler {
 	/// # fn main() -> Result<(), IcedError> {
 	/// let mut a = CodeAssembler::new(64)?;
 	///
-	/// // This instruction can be VEX or EVEX encoded
+	/// // This instruction can be VEX and EVEX encoded
 	/// a.vex().vaddpd(xmm1, xmm2, xmm3)?;
 	/// a.evex().vaddpd(xmm1, xmm2, xmm3)?;
 	///
@@ -867,7 +867,7 @@ impl CodeAssembler {
 		Ok(())
 	}
 
-	/// Adds nops, preferring long nops over short nops
+	/// Adds nops, preferring long nops
 	///
 	/// # Errors
 	///
