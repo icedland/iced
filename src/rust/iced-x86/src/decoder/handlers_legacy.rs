@@ -769,9 +769,6 @@ impl OpCodeHandler_Ev_Iz {
 				(decoder.state.operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32
 			);
 		} else {
-			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
-				decoder.set_xacquire_xrelease(instruction, this.flags);
-			}
 			decoder.state.flags |= this.state_flags_or_value;
 			instruction.set_op0_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -826,9 +823,6 @@ impl OpCodeHandler_Ev_Ib {
 				(decoder.state.operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32
 			);
 		} else {
-			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
-				decoder.set_xacquire_xrelease(instruction, this.flags);
-			}
 			decoder.state.flags |= this.state_flags_or_value;
 			instruction.set_op0_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -881,9 +875,6 @@ impl OpCodeHandler_Ev_Ib2 {
 				(decoder.state.operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32
 			);
 		} else {
-			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
-				decoder.set_xacquire_xrelease(instruction, this.flags);
-			}
 			decoder.state.flags |= this.state_flags_or_value;
 			instruction.set_op0_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -995,9 +986,6 @@ impl OpCodeHandler_Ev {
 				(decoder.state.operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32
 			);
 		} else {
-			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
-				decoder.set_xacquire_xrelease(instruction, this.flags);
-			}
 			decoder.state.flags |= this.state_flags_or_value;
 			instruction.set_op0_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -2068,7 +2056,6 @@ impl OpCodeHandler_Ev_Gv_flags {
 			write_op0_reg!(instruction, (operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32);
 		} else {
 			decoder.state.flags |= this.state_flags_or_value;
-			decoder.set_xacquire_xrelease(instruction, this.flags);
 			instruction.set_op0_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
@@ -4232,9 +4219,6 @@ impl OpCodeHandler_Eb_Ib {
 			//instruction.set_op0_kind(OpKind::Register);
 			write_op0_reg!(instruction, index + Register::AL as u32);
 		} else {
-			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
-				decoder.set_xacquire_xrelease(instruction, this.flags);
-			}
 			decoder.state.flags |= this.state_flags_or_value;
 			instruction.set_op0_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -4346,9 +4330,6 @@ impl OpCodeHandler_Eb {
 			//instruction.set_op0_kind(OpKind::Register);
 			write_op0_reg!(instruction, index + Register::AL as u32);
 		} else {
-			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
-				decoder.set_xacquire_xrelease(instruction, this.flags);
-			}
 			decoder.state.flags |= this.state_flags_or_value;
 			instruction.set_op0_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -4395,9 +4376,6 @@ impl OpCodeHandler_Eb_Gb {
 			//instruction.set_op0_kind(OpKind::Register);
 			write_op0_reg!(instruction, index + Register::AL as u32);
 		} else {
-			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
-				decoder.set_xacquire_xrelease(instruction, this.flags);
-			}
 			decoder.state.flags |= this.state_flags_or_value;
 			instruction.set_op0_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -4514,12 +4492,7 @@ impl OpCodeHandler_M_REXW {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			let flags;
-			if (decoder.state.flags & StateFlags::W) != 0 {
-				flags = this.flags64;
-			} else {
-				flags = this.flags32;
-			}
+			let flags = if (decoder.state.flags & StateFlags::W) != 0 { this.flags64 } else { this.flags32 };
 			if (flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, flags);
 			}

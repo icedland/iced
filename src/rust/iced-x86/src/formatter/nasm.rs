@@ -151,9 +151,7 @@ impl NasmFormatter {
 			const PREFIX_FLAGS: u32 = (InstrOpInfoFlags::SIZE_OVERRIDE_MASK << InstrOpInfoFlags::OP_SIZE_SHIFT)
 				| (InstrOpInfoFlags::SIZE_OVERRIDE_MASK << InstrOpInfoFlags::ADDR_SIZE_SHIFT)
 				| InstrOpInfoFlags::BND_PREFIX;
-			if ((prefix_seg as u32)
-				| instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)
-				| (op_info.flags & PREFIX_FLAGS))
+			if ((prefix_seg as u32) | instruction_internal::internal_has_any_of_lock_rep_repne_prefix(instruction) | (op_info.flags & PREFIX_FLAGS))
 				!= 0
 			{
 				let mut prefix;

@@ -829,7 +829,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 		let prefix_seg = instruction_internal::internal_segment_prefix_raw(instruction);
 		const_assert_eq!(Register::None as u32, 0);
-		if prefix_seg < 6 || instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction) != 0 {
+		if prefix_seg < 6 || instruction_internal::internal_has_any_of_lock_rep_repne_prefix(instruction) != 0 {
 			const DS_REG: u32 = Register::DS as u32 - Register::ES as u32;
 			let has_notrack_prefix = prefix_seg == DS_REG && is_notrack_prefix_branch(code);
 			if !has_notrack_prefix && prefix_seg < 6 && SpecializedFormatter::<TraitOptions>::show_segment_prefix(instruction, op_count) {
@@ -838,13 +838,16 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				write_fast_ascii_char_lit!(dst, dst_next_p, ' ', true);
 			}
 
+			let mut has_xacquire_xrelease = false;
 			if instruction.has_xacquire_prefix() {
 				const FAST_STR: FastString12 = mk_const_fast_str!(FastString12, "\x09xacquire    ");
 				write_fast_str!(dst, dst_next_p, FastString12, FAST_STR);
+				has_xacquire_xrelease = true;
 			}
 			if instruction.has_xrelease_prefix() {
 				const FAST_STR: FastString12 = mk_const_fast_str!(FastString12, "\x09xrelease    ");
 				write_fast_str!(dst, dst_next_p, FastString12, FAST_STR);
+				has_xacquire_xrelease = true;
 			}
 			if instruction.has_lock_prefix() {
 				const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05lock    ");
@@ -854,32 +857,34 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x08notrack ");
 				write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 			}
-			if instruction.has_repe_prefix()
-				&& (SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
-					|| show_rep_or_repe_prefix_bool(code, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES))
-			{
-				if is_repe_or_repne_instruction(code) {
-					const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05repe    ");
-					write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
-				} else {
-					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04rep ");
-					write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
+			if !has_xacquire_xrelease {
+				if instruction.has_repe_prefix()
+					&& (SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
+						|| show_rep_or_repe_prefix_bool(code, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES))
+				{
+					if is_repe_or_repne_instruction(code) {
+						const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05repe    ");
+						write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
+					} else {
+						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04rep ");
+						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
+					}
 				}
-			}
-			if instruction.has_repne_prefix() {
-				if (Code::Retnw_imm16 <= code && code <= Code::Retnq)
-					|| (Code::Call_rel16 <= code && code <= Code::Jmp_rel32_64)
-					|| (Code::Call_rm16 <= code && code <= Code::Call_rm64)
-					|| (Code::Jmp_rm16 <= code && code <= Code::Jmp_rm64)
-					|| code.is_jcc_short_or_near()
-				{
-					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04bnd ");
-					write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
-				} else if SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
-					|| show_repne_prefix_bool(code, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES)
-				{
-					const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x06repne   ");
-					write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
+				if instruction.has_repne_prefix() {
+					if (Code::Retnw_imm16 <= code && code <= Code::Retnq)
+						|| (Code::Call_rel16 <= code && code <= Code::Jmp_rel32_64)
+						|| (Code::Call_rm16 <= code && code <= Code::Call_rm64)
+						|| (Code::Jmp_rm16 <= code && code <= Code::Jmp_rm64)
+						|| code.is_jcc_short_or_near()
+					{
+						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04bnd ");
+						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
+					} else if SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
+						|| show_repne_prefix_bool(code, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES)
+					{
+						const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x06repne   ");
+						write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
+					}
 				}
 			}
 		}

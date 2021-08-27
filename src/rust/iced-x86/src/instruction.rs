@@ -29,11 +29,9 @@ impl InstrFlags1 {
 	pub(crate) const OP_MASK_SHIFT: u32 = 0x0000_000F;
 	pub(crate) const CODE_SIZE_MASK: u32 = 0x0000_0003;
 	pub(crate) const CODE_SIZE_SHIFT: u32 = 0x0000_0012;
-	pub(crate) const BROADCAST: u32 = 0x0100_0000;
-	pub(crate) const SUPPRESS_ALL_EXCEPTIONS: u32 = 0x0200_0000;
-	pub(crate) const ZEROING_MASKING: u32 = 0x0400_0000;
-	pub(crate) const XACQUIRE_PREFIX: u32 = 0x0800_0000;
-	pub(crate) const XRELEASE_PREFIX: u32 = 0x1000_0000;
+	pub(crate) const BROADCAST: u32 = 0x0400_0000;
+	pub(crate) const SUPPRESS_ALL_EXCEPTIONS: u32 = 0x0800_0000;
+	pub(crate) const ZEROING_MASKING: u32 = 0x1000_0000;
 	pub(crate) const REPE_PREFIX: u32 = 0x2000_0000;
 	pub(crate) const REPNE_PREFIX: u32 = 0x4000_0000;
 	pub(crate) const LOCK_PREFIX: u32 = 0x8000_0000;
@@ -314,11 +312,48 @@ impl Instruction {
 		self.len = new_value as u8
 	}
 
+	#[inline]
+	fn is_xacquire_instr(&self) -> bool {
+		// This method can return true even if it's not an xacquire/xrelease instruction. This only happens if
+		// it has an invalid LOCK prefix though.
+		if self.op0_kind() != OpKind::Memory {
+			false
+		} else if self.has_lock_prefix() {
+			self.code() != Code::Cmpxchg16b_m128
+		} else {
+			self.mnemonic() == Mnemonic::Xchg
+		}
+	}
+
+	#[inline]
+	fn is_xrelease_instr(&self) -> bool {
+		// This method can return true even if it's not an xacquire/xrelease instruction. This only happens if
+		// it has an invalid LOCK prefix though.
+		if self.op0_kind() != OpKind::Memory {
+			false
+		} else if self.has_lock_prefix() {
+			self.code() != Code::Cmpxchg16b_m128
+		} else {
+			matches!(
+				self.code(),
+				Code::Xchg_rm8_r8
+					| Code::Xchg_rm16_r16
+					| Code::Xchg_rm32_r32
+					| Code::Xchg_rm64_r64
+					| Code::Mov_rm8_r8 | Code::Mov_rm16_r16
+					| Code::Mov_rm32_r32 | Code::Mov_rm64_r64
+					| Code::Mov_rm8_imm8 | Code::Mov_rm16_imm16
+					| Code::Mov_rm32_imm32
+					| Code::Mov_rm64_imm32
+			)
+		}
+	}
+
 	/// `true` if the instruction has the `XACQUIRE` prefix (`F2`)
 	#[must_use]
 	#[inline]
 	pub fn has_xacquire_prefix(&self) -> bool {
-		(self.flags1 & InstrFlags1::XACQUIRE_PREFIX) != 0
+		(self.flags1 & InstrFlags1::REPNE_PREFIX) != 0 && self.is_xacquire_instr()
 	}
 
 	/// `true` if the instruction has the `XACQUIRE` prefix (`F2`)
@@ -329,9 +364,9 @@ impl Instruction {
 	#[inline]
 	pub fn set_has_xacquire_prefix(&mut self, new_value: bool) {
 		if new_value {
-			self.flags1 |= InstrFlags1::XACQUIRE_PREFIX;
+			self.flags1 |= InstrFlags1::REPNE_PREFIX;
 		} else {
-			self.flags1 &= !InstrFlags1::XACQUIRE_PREFIX;
+			self.flags1 &= !InstrFlags1::REPNE_PREFIX;
 		}
 	}
 
@@ -339,7 +374,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn has_xrelease_prefix(&self) -> bool {
-		(self.flags1 & InstrFlags1::XRELEASE_PREFIX) != 0
+		(self.flags1 & InstrFlags1::REPE_PREFIX) != 0 && self.is_xrelease_instr()
 	}
 
 	/// `true` if the instruction has the `XRELEASE` prefix (`F3`)
@@ -350,9 +385,9 @@ impl Instruction {
 	#[inline]
 	pub fn set_has_xrelease_prefix(&mut self, new_value: bool) {
 		if new_value {
-			self.flags1 |= InstrFlags1::XRELEASE_PREFIX;
+			self.flags1 |= InstrFlags1::REPE_PREFIX;
 		} else {
-			self.flags1 &= !InstrFlags1::XRELEASE_PREFIX;
+			self.flags1 &= !InstrFlags1::REPE_PREFIX;
 		}
 	}
 

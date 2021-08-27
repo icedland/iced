@@ -270,7 +270,7 @@ namespace Iced.Intel {
 					(uint)InstrOpInfoFlags.BndPrefix |
 					(uint)InstrOpInfoFlags.JccNotTaken |
 					(uint)InstrOpInfoFlags.JccTaken;
-				if (((uint)prefixSeg | instruction.HasAnyOf_Xacquire_Xrelease_Lock_Rep_Repne_Prefix | ((uint)opInfo.Flags & PrefixFlags)) != 0) {
+				if (((uint)prefixSeg | instruction.HasAnyOf_Lock_Rep_Repne_Prefix | ((uint)opInfo.Flags & PrefixFlags)) != 0) {
 					FormatterString prefix;
 
 					prefix = opSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];

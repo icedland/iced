@@ -100,37 +100,44 @@ namespace Iced.Intel {
 
 			var prefixSeg = instruction.SegmentPrefix;
 			Static.Assert(Register.None == 0 ? 0 : -1);
-			if (((uint)prefixSeg | instruction.HasAnyOf_Xacquire_Xrelease_Lock_Rep_Repne_Prefix) != 0) {
+			if (((uint)prefixSeg | instruction.HasAnyOf_Lock_Rep_Repne_Prefix) != 0) {
 				bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNotrackPrefixBranch(code);
 				if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(instruction, opCount)) {
 					FormatRegister(output, prefixSeg);
 					output.Append(' ');
 				}
 
-				if (instruction.HasXacquirePrefix)
+				bool hasXacquirePrefix = false;
+				if (instruction.HasXacquirePrefix) {
 					output.AppendNotNull("xacquire ");
-				if (instruction.HasXreleasePrefix)
+					hasXacquirePrefix = true;
+				}
+				if (instruction.HasXreleasePrefix) {
 					output.AppendNotNull("xrelease ");
+					hasXacquirePrefix = true;
+				}
 				if (instruction.HasLockPrefix)
 					output.AppendNotNull("lock ");
 				if (hasNoTrackPrefix)
 					output.AppendNotNull("notrack ");
-				if (instruction.HasRepePrefix && (ShowUselessPrefixes || FormatterUtils.ShowRepOrRepePrefix(code, ShowUselessPrefixes))) {
-					if (FormatterUtils.IsRepeOrRepneInstruction(code))
-						output.AppendNotNull("repe ");
-					else
-						output.AppendNotNull("rep ");
-				}
-				if (instruction.HasRepnePrefix) {
-					if ((Code.Retnw_imm16 <= code && code <= Code.Retnq) ||
-						(Code.Call_rel16 <= code && code <= Code.Jmp_rel32_64) ||
-						(Code.Call_rm16 <= code && code <= Code.Call_rm64) ||
-						(Code.Jmp_rm16 <= code && code <= Code.Jmp_rm64) ||
-						code.IsJccShortOrNear()) {
-						output.AppendNotNull("bnd ");
+				if (!hasXacquirePrefix) {
+					if (instruction.HasRepePrefix && (ShowUselessPrefixes || FormatterUtils.ShowRepOrRepePrefix(code, ShowUselessPrefixes))) {
+						if (FormatterUtils.IsRepeOrRepneInstruction(code))
+							output.AppendNotNull("repe ");
+						else
+							output.AppendNotNull("rep ");
 					}
-					else if (ShowUselessPrefixes || FormatterUtils.ShowRepnePrefix(code, ShowUselessPrefixes))
-						output.AppendNotNull("repne ");
+					if (instruction.HasRepnePrefix) {
+						if ((Code.Retnw_imm16 <= code && code <= Code.Retnq) ||
+							(Code.Call_rel16 <= code && code <= Code.Jmp_rel32_64) ||
+							(Code.Call_rm16 <= code && code <= Code.Call_rm64) ||
+							(Code.Jmp_rm16 <= code && code <= Code.Jmp_rm64) ||
+							code.IsJccShortOrNear()) {
+							output.AppendNotNull("bnd ");
+						}
+						else if (ShowUselessPrefixes || FormatterUtils.ShowRepnePrefix(code, ShowUselessPrefixes))
+							output.AppendNotNull("repne ");
+					}
 				}
 			}
 

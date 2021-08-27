@@ -58,8 +58,8 @@ F0 00 CE, INVALID, INVALID, 0, code=Add_rm8_r8
 66 67 4E 00 EC, Add_rm8_r8, Add, 2, op0=r;spl op1=r;r13l enc=4400EC
 00 38, Add_rm8_r8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 00 38, Add_rm8_r8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
-F0 F3 00 38, Add_rm8_r8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease
-F0 F2 00 38, Add_rm8_r8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire
+F0 F3 00 38, Add_rm8_r8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
+F0 F2 00 38, Add_rm8_r8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire repne
 
 66 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx
 F0 66 01 CE, INVALID, INVALID, 0, code=Add_rm16_r16
@@ -70,9 +70,9 @@ F0 66 01 CE, INVALID, INVALID, 0, code=Add_rm16_r16
 66 44 01 EC, Add_rm16_r16, Add, 2, op0=r;sp op1=r;r13w
 66 01 18, Add_rm16_r16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 01 18, Add_rm16_r16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 01 18, Add_rm16_r16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
-F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock xacquire enc=F06667F20118
+F0 66 F3 01 18, Add_rm16_r16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
+F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock xacquire repne enc=F06667F20118
 66 42 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx enc=6601CE
 
 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx
@@ -84,8 +84,8 @@ F0 01 CE, INVALID, INVALID, 0, code=Add_rm32_r32
 44 01 EC, Add_rm32_r32, Add, 2, op0=r;esp op1=r;r13d
 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx enc=01CE
 
 48 01 CE, Add_rm64_r64, Add, 2, op0=r;rsi op1=r;rcx
@@ -97,8 +97,8 @@ F0 48 01 CE, INVALID, INVALID, 0, code=Add_rm64_r64
 4C 01 EC, Add_rm64_r64, Add, 2, op0=r;rsp op1=r;r13
 48 01 18, Add_rm64_r64, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 01 18, Add_rm64_r64, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 01 18, Add_rm64_r64, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 01 18, Add_rm64_r64, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 01 18, Add_rm64_r64, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 01 18, Add_rm64_r64, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 01 CE, Add_rm64_r64, Add, 2, op0=r;rsi op1=r;rcx enc=4801CE
 
 02 CE, Add_r8_rm8, Add, 2, op0=r;cl op1=r;dh
@@ -163,8 +163,8 @@ F0 08 CE, INVALID, INVALID, 0, code=Or_rm8_r8
 66 67 4E 08 EC, Or_rm8_r8, Or, 2, op0=r;spl op1=r;r13l enc=4408EC
 08 38, Or_rm8_r8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 08 38, Or_rm8_r8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
-F0 F3 08 38, Or_rm8_r8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease
-F0 F2 08 38, Or_rm8_r8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire
+F0 F3 08 38, Or_rm8_r8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
+F0 F2 08 38, Or_rm8_r8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire repne
 
 66 09 CE, Or_rm16_r16, Or, 2, op0=r;si op1=r;cx
 F0 66 09 CE, INVALID, INVALID, 0, code=Or_rm16_r16
@@ -175,8 +175,8 @@ F0 66 09 CE, INVALID, INVALID, 0, code=Or_rm16_r16
 66 44 09 EC, Or_rm16_r16, Or, 2, op0=r;sp op1=r;r13w
 66 09 18, Or_rm16_r16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 09 18, Or_rm16_r16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 09 18, Or_rm16_r16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 09 18, Or_rm16_r16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 09 18, Or_rm16_r16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 09 18, Or_rm16_r16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 09 CE, Or_rm16_r16, Or, 2, op0=r;si op1=r;cx enc=6609CE
 
 09 CE, Or_rm32_r32, Or, 2, op0=r;esi op1=r;ecx
@@ -188,8 +188,8 @@ F0 09 CE, INVALID, INVALID, 0, code=Or_rm32_r32
 44 09 EC, Or_rm32_r32, Or, 2, op0=r;esp op1=r;r13d
 09 18, Or_rm32_r32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 09 18, Or_rm32_r32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 09 18, Or_rm32_r32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 09 18, Or_rm32_r32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 09 18, Or_rm32_r32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 09 18, Or_rm32_r32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 09 CE, Or_rm32_r32, Or, 2, op0=r;esi op1=r;ecx enc=09CE
 
 48 09 CE, Or_rm64_r64, Or, 2, op0=r;rsi op1=r;rcx
@@ -201,8 +201,8 @@ F0 48 09 CE, INVALID, INVALID, 0, code=Or_rm64_r64
 4C 09 EC, Or_rm64_r64, Or, 2, op0=r;rsp op1=r;r13
 48 09 18, Or_rm64_r64, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 09 18, Or_rm64_r64, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 09 18, Or_rm64_r64, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 09 18, Or_rm64_r64, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 09 18, Or_rm64_r64, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 09 18, Or_rm64_r64, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 09 CE, Or_rm64_r64, Or, 2, op0=r;rsi op1=r;rcx enc=4809CE
 
 0A CE, Or_r8_rm8, Or, 2, op0=r;cl op1=r;dh
@@ -263,8 +263,8 @@ F0 10 CE, INVALID, INVALID, 0, code=Adc_rm8_r8
 66 67 4E 10 EC, Adc_rm8_r8, Adc, 2, op0=r;spl op1=r;r13l enc=4410EC
 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
-F0 F3 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease
-F0 F2 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire
+F0 F3 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
+F0 F2 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire repne
 
 66 11 CE, Adc_rm16_r16, Adc, 2, op0=r;si op1=r;cx
 F0 66 11 CE, INVALID, INVALID, 0, code=Adc_rm16_r16
@@ -275,8 +275,8 @@ F0 66 11 CE, INVALID, INVALID, 0, code=Adc_rm16_r16
 66 44 11 EC, Adc_rm16_r16, Adc, 2, op0=r;sp op1=r;r13w
 66 11 18, Adc_rm16_r16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 11 18, Adc_rm16_r16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 11 18, Adc_rm16_r16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 11 18, Adc_rm16_r16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 11 18, Adc_rm16_r16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 11 18, Adc_rm16_r16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 11 CE, Adc_rm16_r16, Adc, 2, op0=r;si op1=r;cx enc=6611CE
 
 11 CE, Adc_rm32_r32, Adc, 2, op0=r;esi op1=r;ecx
@@ -288,8 +288,8 @@ F0 11 CE, INVALID, INVALID, 0, code=Adc_rm32_r32
 44 11 EC, Adc_rm32_r32, Adc, 2, op0=r;esp op1=r;r13d
 11 18, Adc_rm32_r32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 11 18, Adc_rm32_r32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 11 18, Adc_rm32_r32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 11 18, Adc_rm32_r32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 11 18, Adc_rm32_r32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 11 18, Adc_rm32_r32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 11 CE, Adc_rm32_r32, Adc, 2, op0=r;esi op1=r;ecx enc=11CE
 
 48 11 CE, Adc_rm64_r64, Adc, 2, op0=r;rsi op1=r;rcx
@@ -301,8 +301,8 @@ F0 48 11 CE, INVALID, INVALID, 0, code=Adc_rm64_r64
 4C 11 EC, Adc_rm64_r64, Adc, 2, op0=r;rsp op1=r;r13
 48 11 18, Adc_rm64_r64, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 11 18, Adc_rm64_r64, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 11 18, Adc_rm64_r64, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 11 18, Adc_rm64_r64, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 11 18, Adc_rm64_r64, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 11 18, Adc_rm64_r64, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 11 CE, Adc_rm64_r64, Adc, 2, op0=r;rsi op1=r;rcx enc=4811CE
 
 12 CE, Adc_r8_rm8, Adc, 2, op0=r;cl op1=r;dh
@@ -363,8 +363,8 @@ F0 18 CE, INVALID, INVALID, 0, code=Sbb_rm8_r8
 66 67 4E 18 EC, Sbb_rm8_r8, Sbb, 2, op0=r;spl op1=r;r13l enc=4418EC
 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
-F0 F3 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease
-F0 F2 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire
+F0 F3 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
+F0 F2 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire repne
 
 66 19 CE, Sbb_rm16_r16, Sbb, 2, op0=r;si op1=r;cx
 F0 66 19 CE, INVALID, INVALID, 0, code=Sbb_rm16_r16
@@ -375,8 +375,8 @@ F0 66 19 CE, INVALID, INVALID, 0, code=Sbb_rm16_r16
 66 44 19 EC, Sbb_rm16_r16, Sbb, 2, op0=r;sp op1=r;r13w
 66 19 18, Sbb_rm16_r16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 19 18, Sbb_rm16_r16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 19 18, Sbb_rm16_r16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 19 18, Sbb_rm16_r16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 19 18, Sbb_rm16_r16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 19 18, Sbb_rm16_r16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 19 CE, Sbb_rm16_r16, Sbb, 2, op0=r;si op1=r;cx enc=6619CE
 
 19 CE, Sbb_rm32_r32, Sbb, 2, op0=r;esi op1=r;ecx
@@ -388,8 +388,8 @@ F0 19 CE, INVALID, INVALID, 0, code=Sbb_rm32_r32
 44 19 EC, Sbb_rm32_r32, Sbb, 2, op0=r;esp op1=r;r13d
 19 18, Sbb_rm32_r32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 19 18, Sbb_rm32_r32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 19 18, Sbb_rm32_r32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 19 18, Sbb_rm32_r32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 19 18, Sbb_rm32_r32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 19 18, Sbb_rm32_r32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 19 CE, Sbb_rm32_r32, Sbb, 2, op0=r;esi op1=r;ecx enc=19CE
 
 48 19 CE, Sbb_rm64_r64, Sbb, 2, op0=r;rsi op1=r;rcx
@@ -401,8 +401,8 @@ F0 48 19 CE, INVALID, INVALID, 0, code=Sbb_rm64_r64
 4C 19 EC, Sbb_rm64_r64, Sbb, 2, op0=r;rsp op1=r;r13
 48 19 18, Sbb_rm64_r64, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 19 18, Sbb_rm64_r64, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 19 18, Sbb_rm64_r64, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 19 18, Sbb_rm64_r64, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 19 18, Sbb_rm64_r64, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 19 18, Sbb_rm64_r64, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 19 CE, Sbb_rm64_r64, Sbb, 2, op0=r;rsi op1=r;rcx enc=4819CE
 
 1A CE, Sbb_r8_rm8, Sbb, 2, op0=r;cl op1=r;dh
@@ -463,8 +463,8 @@ F0 20 CE, INVALID, INVALID, 0, code=And_rm8_r8
 66 67 4E 20 EC, And_rm8_r8, And, 2, op0=r;spl op1=r;r13l enc=4420EC
 20 38, And_rm8_r8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 20 38, And_rm8_r8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
-F0 F3 20 38, And_rm8_r8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease
-F0 F2 20 38, And_rm8_r8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire
+F0 F3 20 38, And_rm8_r8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
+F0 F2 20 38, And_rm8_r8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire repne
 
 66 21 CE, And_rm16_r16, And, 2, op0=r;si op1=r;cx
 F0 66 21 CE, INVALID, INVALID, 0, code=And_rm16_r16
@@ -475,8 +475,8 @@ F0 66 21 CE, INVALID, INVALID, 0, code=And_rm16_r16
 66 44 21 EC, And_rm16_r16, And, 2, op0=r;sp op1=r;r13w
 66 21 18, And_rm16_r16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 21 18, And_rm16_r16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 21 18, And_rm16_r16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 21 18, And_rm16_r16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 21 18, And_rm16_r16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 21 18, And_rm16_r16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 21 CE, And_rm16_r16, And, 2, op0=r;si op1=r;cx enc=6621CE
 
 21 CE, And_rm32_r32, And, 2, op0=r;esi op1=r;ecx
@@ -488,8 +488,8 @@ F0 21 CE, INVALID, INVALID, 0, code=And_rm32_r32
 44 21 EC, And_rm32_r32, And, 2, op0=r;esp op1=r;r13d
 21 18, And_rm32_r32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 21 18, And_rm32_r32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 21 18, And_rm32_r32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 21 18, And_rm32_r32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 21 18, And_rm32_r32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 21 18, And_rm32_r32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 21 CE, And_rm32_r32, And, 2, op0=r;esi op1=r;ecx enc=21CE
 
 48 21 CE, And_rm64_r64, And, 2, op0=r;rsi op1=r;rcx
@@ -501,8 +501,8 @@ F0 48 21 CE, INVALID, INVALID, 0, code=And_rm64_r64
 4C 21 EC, And_rm64_r64, And, 2, op0=r;rsp op1=r;r13
 48 21 18, And_rm64_r64, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 21 18, And_rm64_r64, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 21 18, And_rm64_r64, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 21 18, And_rm64_r64, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 21 18, And_rm64_r64, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 21 18, And_rm64_r64, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 21 CE, And_rm64_r64, And, 2, op0=r;rsi op1=r;rcx enc=4821CE
 
 22 CE, And_r8_rm8, And, 2, op0=r;cl op1=r;dh
@@ -563,8 +563,8 @@ F0 28 CE, INVALID, INVALID, 0, code=Sub_rm8_r8
 66 67 4E 28 EC, Sub_rm8_r8, Sub, 2, op0=r;spl op1=r;r13l enc=4428EC
 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
-F0 F3 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease
-F0 F2 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire
+F0 F3 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
+F0 F2 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire repne
 
 66 29 CE, Sub_rm16_r16, Sub, 2, op0=r;si op1=r;cx
 F0 66 29 CE, INVALID, INVALID, 0, code=Sub_rm16_r16
@@ -575,8 +575,8 @@ F0 66 29 CE, INVALID, INVALID, 0, code=Sub_rm16_r16
 66 44 29 EC, Sub_rm16_r16, Sub, 2, op0=r;sp op1=r;r13w
 66 29 18, Sub_rm16_r16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 29 18, Sub_rm16_r16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 29 18, Sub_rm16_r16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 29 18, Sub_rm16_r16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 29 18, Sub_rm16_r16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 29 18, Sub_rm16_r16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 29 CE, Sub_rm16_r16, Sub, 2, op0=r;si op1=r;cx enc=6629CE
 
 29 CE, Sub_rm32_r32, Sub, 2, op0=r;esi op1=r;ecx
@@ -588,8 +588,8 @@ F0 29 CE, INVALID, INVALID, 0, code=Sub_rm32_r32
 44 29 EC, Sub_rm32_r32, Sub, 2, op0=r;esp op1=r;r13d
 29 18, Sub_rm32_r32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 29 18, Sub_rm32_r32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 29 18, Sub_rm32_r32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 29 18, Sub_rm32_r32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 29 18, Sub_rm32_r32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 29 18, Sub_rm32_r32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 29 CE, Sub_rm32_r32, Sub, 2, op0=r;esi op1=r;ecx enc=29CE
 
 48 29 CE, Sub_rm64_r64, Sub, 2, op0=r;rsi op1=r;rcx
@@ -601,8 +601,8 @@ F0 48 29 CE, INVALID, INVALID, 0, code=Sub_rm64_r64
 4C 29 EC, Sub_rm64_r64, Sub, 2, op0=r;rsp op1=r;r13
 48 29 18, Sub_rm64_r64, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 29 18, Sub_rm64_r64, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 29 18, Sub_rm64_r64, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 29 18, Sub_rm64_r64, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 29 18, Sub_rm64_r64, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 29 18, Sub_rm64_r64, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 29 CE, Sub_rm64_r64, Sub, 2, op0=r;rsi op1=r;rcx enc=4829CE
 
 2A CE, Sub_r8_rm8, Sub, 2, op0=r;cl op1=r;dh
@@ -663,8 +663,8 @@ F0 30 CE, INVALID, INVALID, 0, code=Xor_rm8_r8
 66 67 4E 30 EC, Xor_rm8_r8, Xor, 2, op0=r;spl op1=r;r13l enc=4430EC
 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
-F0 F3 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease
-F0 F2 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire
+F0 F3 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
+F0 F2 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire repne
 
 66 31 CE, Xor_rm16_r16, Xor, 2, op0=r;si op1=r;cx
 F0 66 31 CE, INVALID, INVALID, 0, code=Xor_rm16_r16
@@ -675,8 +675,8 @@ F0 66 31 CE, INVALID, INVALID, 0, code=Xor_rm16_r16
 66 44 31 EC, Xor_rm16_r16, Xor, 2, op0=r;sp op1=r;r13w
 66 31 18, Xor_rm16_r16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 31 18, Xor_rm16_r16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 31 18, Xor_rm16_r16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 31 18, Xor_rm16_r16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 31 18, Xor_rm16_r16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 31 18, Xor_rm16_r16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 31 CE, Xor_rm16_r16, Xor, 2, op0=r;si op1=r;cx enc=6631CE
 
 31 CE, Xor_rm32_r32, Xor, 2, op0=r;esi op1=r;ecx
@@ -688,8 +688,8 @@ F0 31 CE, INVALID, INVALID, 0, code=Xor_rm32_r32
 44 31 EC, Xor_rm32_r32, Xor, 2, op0=r;esp op1=r;r13d
 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 31 CE, Xor_rm32_r32, Xor, 2, op0=r;esi op1=r;ecx enc=31CE
 
 48 31 CE, Xor_rm64_r64, Xor, 2, op0=r;rsi op1=r;rcx
@@ -701,8 +701,8 @@ F0 48 31 CE, INVALID, INVALID, 0, code=Xor_rm64_r64
 4C 31 EC, Xor_rm64_r64, Xor, 2, op0=r;rsp op1=r;r13
 48 31 18, Xor_rm64_r64, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 31 18, Xor_rm64_r64, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 31 18, Xor_rm64_r64, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 31 18, Xor_rm64_r64, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 31 18, Xor_rm64_r64, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 31 18, Xor_rm64_r64, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 31 CE, Xor_rm64_r64, Xor, 2, op0=r;rsi op1=r;rcx enc=4831CE
 
 32 CE, Xor_r8_rm8, Xor, 2, op0=r;cl op1=r;dh
@@ -1479,8 +1479,8 @@ F2 7F A5, Jg_rel8_64, Jg, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 
 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
 F0 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
-F0 F3 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xrelease
-F0 F2 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xacquire
+F0 F3 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xacquire repne
 44 80 00 5A, Add_rm8_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 enc=80005A
 80 C1 5A, Add_rm8_imm8, Add, 2, op0=r;cl op1=i8;0x5A co=2;1;0;0;0;0
 F0 80 C1 5A, INVALID, INVALID, 0, code=Add_rm8_imm8
@@ -1490,8 +1490,8 @@ F0 80 C1 5A, INVALID, INVALID, 0, code=Add_rm8_imm8
 
 80 08 A5, Or_rm8_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
 F0 80 08 A5, Or_rm8_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 lock
-F0 F3 80 08 A5, Or_rm8_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xrelease
-F0 F2 80 08 A5, Or_rm8_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xacquire
+F0 F3 80 08 A5, Or_rm8_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 80 08 A5, Or_rm8_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xacquire repne
 44 80 08 A5, Or_rm8_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 enc=8008A5
 80 CA A5, Or_rm8_imm8, Or, 2, op0=r;dl op1=i8;0xA5 co=2;1;0;0;0;0
 F0 80 CA A5, INVALID, INVALID, 0, code=Or_rm8_imm8
@@ -1501,8 +1501,8 @@ F0 80 CA A5, INVALID, INVALID, 0, code=Or_rm8_imm8
 
 80 10 5A, Adc_rm8_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
 F0 80 10 5A, Adc_rm8_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
-F0 F3 80 10 5A, Adc_rm8_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xrelease
-F0 F2 80 10 5A, Adc_rm8_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xacquire
+F0 F3 80 10 5A, Adc_rm8_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 80 10 5A, Adc_rm8_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xacquire repne
 44 80 10 5A, Adc_rm8_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 enc=80105A
 80 D3 5A, Adc_rm8_imm8, Adc, 2, op0=r;bl op1=i8;0x5A co=2;1;0;0;0;0
 F0 80 D3 5A, INVALID, INVALID, 0, code=Adc_rm8_imm8
@@ -1512,8 +1512,8 @@ F0 80 D3 5A, INVALID, INVALID, 0, code=Adc_rm8_imm8
 
 80 18 A5, Sbb_rm8_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
 F0 80 18 A5, Sbb_rm8_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 lock
-F0 F3 80 18 A5, Sbb_rm8_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xrelease
-F0 F2 80 18 A5, Sbb_rm8_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xacquire
+F0 F3 80 18 A5, Sbb_rm8_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 80 18 A5, Sbb_rm8_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xacquire repne
 44 80 18 A5, Sbb_rm8_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 enc=8018A5
 80 DC A5, Sbb_rm8_imm8, Sbb, 2, op0=r;ah op1=i8;0xA5 co=2;1;0;0;0;0
 F0 80 DC A5, INVALID, INVALID, 0, code=Sbb_rm8_imm8
@@ -1523,8 +1523,8 @@ F0 80 DC A5, INVALID, INVALID, 0, code=Sbb_rm8_imm8
 
 80 20 5A, And_rm8_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
 F0 80 20 5A, And_rm8_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
-F0 F3 80 20 5A, And_rm8_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xrelease
-F0 F2 80 20 5A, And_rm8_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xacquire
+F0 F3 80 20 5A, And_rm8_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 80 20 5A, And_rm8_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xacquire repne
 44 80 20 5A, And_rm8_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 enc=80205A
 80 E5 5A, And_rm8_imm8, And, 2, op0=r;ch op1=i8;0x5A co=2;1;0;0;0;0
 F0 80 E5 5A, INVALID, INVALID, 0, code=And_rm8_imm8
@@ -1534,8 +1534,8 @@ F0 80 E5 5A, INVALID, INVALID, 0, code=And_rm8_imm8
 
 80 28 A5, Sub_rm8_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
 F0 80 28 A5, Sub_rm8_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 lock
-F0 F3 80 28 A5, Sub_rm8_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xrelease
-F0 F2 80 28 A5, Sub_rm8_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xacquire
+F0 F3 80 28 A5, Sub_rm8_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 80 28 A5, Sub_rm8_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=4;1;0;0;0;0 lock xacquire repne
 44 80 28 A5, Sub_rm8_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 enc=8028A5
 80 EE A5, Sub_rm8_imm8, Sub, 2, op0=r;dh op1=i8;0xA5 co=2;1;0;0;0;0
 F0 80 EE A5, INVALID, INVALID, 0, code=Sub_rm8_imm8
@@ -1545,8 +1545,8 @@ F0 80 EE A5, INVALID, INVALID, 0, code=Sub_rm8_imm8
 
 80 30 5A, Xor_rm8_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
 F0 80 30 5A, Xor_rm8_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 lock
-F0 F3 80 30 5A, Xor_rm8_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xrelease
-F0 F2 80 30 5A, Xor_rm8_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xacquire
+F0 F3 80 30 5A, Xor_rm8_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 80 30 5A, Xor_rm8_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=4;1;0;0;0;0 lock xacquire repne
 44 80 30 5A, Xor_rm8_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 enc=80305A
 80 F7 5A, Xor_rm8_imm8, Xor, 2, op0=r;bh op1=i8;0x5A co=2;1;0;0;0;0
 F0 80 F7 5A, INVALID, INVALID, 0, code=Xor_rm8_imm8
@@ -1563,8 +1563,8 @@ F0 80 F7 5A, INVALID, INVALID, 0, code=Xor_rm8_imm8
 
 66 81 00 5AA5, Add_rm16_imm16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=3;2;0;0;0;0
 F0 66 81 00 5AA5, Add_rm16_imm16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=4;2;0;0;0;0 lock
-F0 66 F3 81 00 5AA5, Add_rm16_imm16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xrelease
-F0 66 F2 81 00 5AA5, Add_rm16_imm16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xacquire
+F0 66 F3 81 00 5AA5, Add_rm16_imm16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xrelease repe
+F0 66 F2 81 00 5AA5, Add_rm16_imm16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xacquire repne
 66 81 C1 5AA5, Add_rm16_imm16, Add, 2, op0=r;cx op1=i16;0xA55A co=3;2;0;0;0;0
 F0 66 81 C1 5AA5, INVALID, INVALID, 0, code=Add_rm16_imm16
 66 41 81 C1 5AA5, Add_rm16_imm16, Add, 2, op0=r;r9w op1=i16;0xA55A co=4;2;0;0;0;0
@@ -1572,8 +1572,8 @@ F0 66 81 C1 5AA5, INVALID, INVALID, 0, code=Add_rm16_imm16
 
 81 00 5AA51234, Add_rm32_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=2;4;0;0;0;0
 F0 81 00 5AA51234, Add_rm32_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=3;4;0;0;0;0 lock
-F0 F3 81 00 5AA51234, Add_rm32_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xrelease
-F0 F2 81 00 5AA51234, Add_rm32_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xacquire
+F0 F3 81 00 5AA51234, Add_rm32_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xrelease repe
+F0 F2 81 00 5AA51234, Add_rm32_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xacquire repne
 81 C1 5AA51234, Add_rm32_imm32, Add, 2, op0=r;ecx op1=i32;0x3412A55A co=2;4;0;0;0;0
 F0 81 C1 5AA51234, INVALID, INVALID, 0, code=Add_rm32_imm32
 41 81 C1 5AA51234, Add_rm32_imm32, Add, 2, op0=r;r9d op1=i32;0x3412A55A co=3;4;0;0;0;0
@@ -1581,8 +1581,8 @@ F0 81 C1 5AA51234, INVALID, INVALID, 0, code=Add_rm32_imm32
 
 48 81 00 5AA51234, Add_rm64_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 F0 48 81 00 5AA51234, Add_rm64_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=4;4;0;0;0;0 lock
-F0 F3 48 81 00 5AA51234, Add_rm64_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xrelease
-F0 F2 48 81 00 5AA51234, Add_rm64_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xacquire
+F0 F3 48 81 00 5AA51234, Add_rm64_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xrelease repe
+F0 F2 48 81 00 5AA51234, Add_rm64_imm32, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xacquire repne
 48 81 C1 5AA51234, Add_rm64_imm32, Add, 2, op0=r;rcx op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 F0 48 81 C1 5AA51234, INVALID, INVALID, 0, code=Add_rm64_imm32
 49 81 C1 5AA51234, Add_rm64_imm32, Add, 2, op0=r;r9 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
@@ -1590,8 +1590,8 @@ F0 48 81 C1 5AA51234, INVALID, INVALID, 0, code=Add_rm64_imm32
 
 66 81 08 A55A, Or_rm16_imm16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=3;2;0;0;0;0
 F0 66 81 08 A55A, Or_rm16_imm16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 lock
-F0 66 F3 81 08 A55A, Or_rm16_imm16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xrelease
-F0 66 F2 81 08 A55A, Or_rm16_imm16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xacquire
+F0 66 F3 81 08 A55A, Or_rm16_imm16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xrelease repe
+F0 66 F2 81 08 A55A, Or_rm16_imm16, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xacquire repne
 66 81 CA A55A, Or_rm16_imm16, Or, 2, op0=r;dx op1=i16;0x5AA5 co=3;2;0;0;0;0
 F0 66 81 CA A55A, INVALID, INVALID, 0, code=Or_rm16_imm16
 66 41 81 CA A55A, Or_rm16_imm16, Or, 2, op0=r;r10w op1=i16;0x5AA5 co=4;2;0;0;0;0
@@ -1599,8 +1599,8 @@ F0 66 81 CA A55A, INVALID, INVALID, 0, code=Or_rm16_imm16
 
 81 08 A55A89AB, Or_rm32_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=2;4;0;0;0;0
 F0 81 08 A55A89AB, Or_rm32_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 lock
-F0 F3 81 08 A55A89AB, Or_rm32_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xrelease
-F0 F2 81 08 A55A89AB, Or_rm32_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xacquire
+F0 F3 81 08 A55A89AB, Or_rm32_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xrelease repe
+F0 F2 81 08 A55A89AB, Or_rm32_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xacquire repne
 81 CA A55A89AB, Or_rm32_imm32, Or, 2, op0=r;edx op1=i32;0xAB895AA5 co=2;4;0;0;0;0
 F0 81 CA A55A89AB, INVALID, INVALID, 0, code=Or_rm32_imm32
 41 81 CA A55A89AB, Or_rm32_imm32, Or, 2, op0=r;r10d op1=i32;0xAB895AA5 co=3;4;0;0;0;0
@@ -1608,8 +1608,8 @@ F0 81 CA A55A89AB, INVALID, INVALID, 0, code=Or_rm32_imm32
 
 48 81 08 A55A89AB, Or_rm64_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
 F0 48 81 08 A55A89AB, Or_rm64_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=4;4;0;0;0;0 lock
-F0 F3 48 81 08 A55A89AB, Or_rm64_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xrelease
-F0 F2 48 81 08 A55A89AB, Or_rm64_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xacquire
+F0 F3 48 81 08 A55A89AB, Or_rm64_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xrelease repe
+F0 F2 48 81 08 A55A89AB, Or_rm64_imm32, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xacquire repne
 48 81 CA A55A89AB, Or_rm64_imm32, Or, 2, op0=r;rdx op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
 F0 48 81 CA A55A89AB, INVALID, INVALID, 0, code=Or_rm64_imm32
 49 81 CA A55A89AB, Or_rm64_imm32, Or, 2, op0=r;r10 op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
@@ -1617,8 +1617,8 @@ F0 48 81 CA A55A89AB, INVALID, INVALID, 0, code=Or_rm64_imm32
 
 66 81 10 5AA5, Adc_rm16_imm16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=3;2;0;0;0;0
 F0 66 81 10 5AA5, Adc_rm16_imm16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=4;2;0;0;0;0 lock
-F0 66 F3 81 10 5AA5, Adc_rm16_imm16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xrelease
-F0 66 F2 81 10 5AA5, Adc_rm16_imm16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xacquire
+F0 66 F3 81 10 5AA5, Adc_rm16_imm16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xrelease repe
+F0 66 F2 81 10 5AA5, Adc_rm16_imm16, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xacquire repne
 66 81 D3 5AA5, Adc_rm16_imm16, Adc, 2, op0=r;bx op1=i16;0xA55A co=3;2;0;0;0;0
 F0 66 81 D3 5AA5, INVALID, INVALID, 0, code=Adc_rm16_imm16
 66 41 81 D3 5AA5, Adc_rm16_imm16, Adc, 2, op0=r;r11w op1=i16;0xA55A co=4;2;0;0;0;0
@@ -1626,8 +1626,8 @@ F0 66 81 D3 5AA5, INVALID, INVALID, 0, code=Adc_rm16_imm16
 
 81 10 5AA51234, Adc_rm32_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=2;4;0;0;0;0
 F0 81 10 5AA51234, Adc_rm32_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=3;4;0;0;0;0 lock
-F0 F3 81 10 5AA51234, Adc_rm32_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xrelease
-F0 F2 81 10 5AA51234, Adc_rm32_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xacquire
+F0 F3 81 10 5AA51234, Adc_rm32_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xrelease repe
+F0 F2 81 10 5AA51234, Adc_rm32_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xacquire repne
 81 D3 5AA51234, Adc_rm32_imm32, Adc, 2, op0=r;ebx op1=i32;0x3412A55A co=2;4;0;0;0;0
 F0 81 D3 5AA51234, INVALID, INVALID, 0, code=Adc_rm32_imm32
 41 81 D3 5AA51234, Adc_rm32_imm32, Adc, 2, op0=r;r11d op1=i32;0x3412A55A co=3;4;0;0;0;0
@@ -1635,8 +1635,8 @@ F0 81 D3 5AA51234, INVALID, INVALID, 0, code=Adc_rm32_imm32
 
 48 81 10 5AA51234, Adc_rm64_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 F0 48 81 10 5AA51234, Adc_rm64_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=4;4;0;0;0;0 lock
-F0 F3 48 81 10 5AA51234, Adc_rm64_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xrelease
-F0 F2 48 81 10 5AA51234, Adc_rm64_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xacquire
+F0 F3 48 81 10 5AA51234, Adc_rm64_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xrelease repe
+F0 F2 48 81 10 5AA51234, Adc_rm64_imm32, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xacquire repne
 48 81 D3 5AA51234, Adc_rm64_imm32, Adc, 2, op0=r;rbx op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 F0 48 81 D3 5AA51234, INVALID, INVALID, 0, code=Adc_rm64_imm32
 49 81 D3 5AA51234, Adc_rm64_imm32, Adc, 2, op0=r;r11 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
@@ -1644,8 +1644,8 @@ F0 48 81 D3 5AA51234, INVALID, INVALID, 0, code=Adc_rm64_imm32
 
 66 81 18 A55A, Sbb_rm16_imm16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=3;2;0;0;0;0
 F0 66 81 18 A55A, Sbb_rm16_imm16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 lock
-F0 66 F3 81 18 A55A, Sbb_rm16_imm16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xrelease
-F0 66 F2 81 18 A55A, Sbb_rm16_imm16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xacquire
+F0 66 F3 81 18 A55A, Sbb_rm16_imm16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xrelease repe
+F0 66 F2 81 18 A55A, Sbb_rm16_imm16, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xacquire repne
 66 81 DC A55A, Sbb_rm16_imm16, Sbb, 2, op0=r;sp op1=i16;0x5AA5 co=3;2;0;0;0;0
 F0 66 81 DC A55A, INVALID, INVALID, 0, code=Sbb_rm16_imm16
 66 41 81 DC A55A, Sbb_rm16_imm16, Sbb, 2, op0=r;r12w op1=i16;0x5AA5 co=4;2;0;0;0;0
@@ -1653,8 +1653,8 @@ F0 66 81 DC A55A, INVALID, INVALID, 0, code=Sbb_rm16_imm16
 
 81 18 A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=2;4;0;0;0;0
 F0 81 18 A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 lock
-F0 F3 81 18 A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xrelease
-F0 F2 81 18 A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xacquire
+F0 F3 81 18 A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xrelease repe
+F0 F2 81 18 A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xacquire repne
 81 DC A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=r;esp op1=i32;0xAB895AA5 co=2;4;0;0;0;0
 F0 81 DC A55A89AB, INVALID, INVALID, 0, code=Sbb_rm32_imm32
 41 81 DC A55A89AB, Sbb_rm32_imm32, Sbb, 2, op0=r;r12d op1=i32;0xAB895AA5 co=3;4;0;0;0;0
@@ -1662,8 +1662,8 @@ F0 81 DC A55A89AB, INVALID, INVALID, 0, code=Sbb_rm32_imm32
 
 48 81 18 A55A89AB, Sbb_rm64_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
 F0 48 81 18 A55A89AB, Sbb_rm64_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=4;4;0;0;0;0 lock
-F0 F3 48 81 18 A55A89AB, Sbb_rm64_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xrelease
-F0 F2 48 81 18 A55A89AB, Sbb_rm64_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xacquire
+F0 F3 48 81 18 A55A89AB, Sbb_rm64_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xrelease repe
+F0 F2 48 81 18 A55A89AB, Sbb_rm64_imm32, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xacquire repne
 48 81 DC A55A89AB, Sbb_rm64_imm32, Sbb, 2, op0=r;rsp op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
 F0 48 81 DC A55A89AB, INVALID, INVALID, 0, code=Sbb_rm64_imm32
 49 81 DC A55A89AB, Sbb_rm64_imm32, Sbb, 2, op0=r;r12 op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
@@ -1671,8 +1671,8 @@ F0 48 81 DC A55A89AB, INVALID, INVALID, 0, code=Sbb_rm64_imm32
 
 66 81 20 5AA5, And_rm16_imm16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=3;2;0;0;0;0
 F0 66 81 20 5AA5, And_rm16_imm16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=4;2;0;0;0;0 lock
-F0 66 F3 81 20 5AA5, And_rm16_imm16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xrelease
-F0 66 F2 81 20 5AA5, And_rm16_imm16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xacquire
+F0 66 F3 81 20 5AA5, And_rm16_imm16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xrelease repe
+F0 66 F2 81 20 5AA5, And_rm16_imm16, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xacquire repne
 66 81 E5 5AA5, And_rm16_imm16, And, 2, op0=r;bp op1=i16;0xA55A co=3;2;0;0;0;0
 F0 66 81 E5 5AA5, INVALID, INVALID, 0, code=And_rm16_imm16
 66 41 81 E5 5AA5, And_rm16_imm16, And, 2, op0=r;r13w op1=i16;0xA55A co=4;2;0;0;0;0
@@ -1680,8 +1680,8 @@ F0 66 81 E5 5AA5, INVALID, INVALID, 0, code=And_rm16_imm16
 
 81 20 5AA51234, And_rm32_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=2;4;0;0;0;0
 F0 81 20 5AA51234, And_rm32_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=3;4;0;0;0;0 lock
-F0 F3 81 20 5AA51234, And_rm32_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xrelease
-F0 F2 81 20 5AA51234, And_rm32_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xacquire
+F0 F3 81 20 5AA51234, And_rm32_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xrelease repe
+F0 F2 81 20 5AA51234, And_rm32_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xacquire repne
 81 E5 5AA51234, And_rm32_imm32, And, 2, op0=r;ebp op1=i32;0x3412A55A co=2;4;0;0;0;0
 F0 81 E5 5AA51234, INVALID, INVALID, 0, code=And_rm32_imm32
 41 81 E5 5AA51234, And_rm32_imm32, And, 2, op0=r;r13d op1=i32;0x3412A55A co=3;4;0;0;0;0
@@ -1689,8 +1689,8 @@ F0 81 E5 5AA51234, INVALID, INVALID, 0, code=And_rm32_imm32
 
 48 81 20 5AA51234, And_rm64_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 F0 48 81 20 5AA51234, And_rm64_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=4;4;0;0;0;0 lock
-F0 F3 48 81 20 5AA51234, And_rm64_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xrelease
-F0 F2 48 81 20 5AA51234, And_rm64_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xacquire
+F0 F3 48 81 20 5AA51234, And_rm64_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xrelease repe
+F0 F2 48 81 20 5AA51234, And_rm64_imm32, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xacquire repne
 48 81 E5 5AA51234, And_rm64_imm32, And, 2, op0=r;rbp op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 F0 48 81 E5 5AA51234, INVALID, INVALID, 0, code=And_rm64_imm32
 49 81 E5 5AA51234, And_rm64_imm32, And, 2, op0=r;r13 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
@@ -1698,8 +1698,8 @@ F0 48 81 E5 5AA51234, INVALID, INVALID, 0, code=And_rm64_imm32
 
 66 81 28 A55A, Sub_rm16_imm16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=3;2;0;0;0;0
 F0 66 81 28 A55A, Sub_rm16_imm16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 lock
-F0 66 F3 81 28 A55A, Sub_rm16_imm16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xrelease
-F0 66 F2 81 28 A55A, Sub_rm16_imm16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xacquire
+F0 66 F3 81 28 A55A, Sub_rm16_imm16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xrelease repe
+F0 66 F2 81 28 A55A, Sub_rm16_imm16, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=5;2;0;0;0;0 lock xacquire repne
 66 81 EE A55A, Sub_rm16_imm16, Sub, 2, op0=r;si op1=i16;0x5AA5 co=3;2;0;0;0;0
 F0 66 81 EE A55A, INVALID, INVALID, 0, code=Sub_rm16_imm16
 66 41 81 EE A55A, Sub_rm16_imm16, Sub, 2, op0=r;r14w op1=i16;0x5AA5 co=4;2;0;0;0;0
@@ -1707,8 +1707,8 @@ F0 66 81 EE A55A, INVALID, INVALID, 0, code=Sub_rm16_imm16
 
 81 28 A55A89AB, Sub_rm32_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=2;4;0;0;0;0
 F0 81 28 A55A89AB, Sub_rm32_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 lock
-F0 F3 81 28 A55A89AB, Sub_rm32_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xrelease
-F0 F2 81 28 A55A89AB, Sub_rm32_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xacquire
+F0 F3 81 28 A55A89AB, Sub_rm32_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xrelease repe
+F0 F2 81 28 A55A89AB, Sub_rm32_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=4;4;0;0;0;0 lock xacquire repne
 81 EE A55A89AB, Sub_rm32_imm32, Sub, 2, op0=r;esi op1=i32;0xAB895AA5 co=2;4;0;0;0;0
 F0 81 EE A55A89AB, INVALID, INVALID, 0, code=Sub_rm32_imm32
 41 81 EE A55A89AB, Sub_rm32_imm32, Sub, 2, op0=r;r14d op1=i32;0xAB895AA5 co=3;4;0;0;0;0
@@ -1716,8 +1716,8 @@ F0 81 EE A55A89AB, INVALID, INVALID, 0, code=Sub_rm32_imm32
 
 48 81 28 A55A89AB, Sub_rm64_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
 F0 48 81 28 A55A89AB, Sub_rm64_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=4;4;0;0;0;0 lock
-F0 F3 48 81 28 A55A89AB, Sub_rm64_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xrelease
-F0 F2 48 81 28 A55A89AB, Sub_rm64_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xacquire
+F0 F3 48 81 28 A55A89AB, Sub_rm64_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xrelease repe
+F0 F2 48 81 28 A55A89AB, Sub_rm64_imm32, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=5;4;0;0;0;0 lock xacquire repne
 48 81 EE A55A89AB, Sub_rm64_imm32, Sub, 2, op0=r;rsi op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
 F0 48 81 EE A55A89AB, INVALID, INVALID, 0, code=Sub_rm64_imm32
 49 81 EE A55A89AB, Sub_rm64_imm32, Sub, 2, op0=r;r14 op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
@@ -1725,8 +1725,8 @@ F0 48 81 EE A55A89AB, INVALID, INVALID, 0, code=Sub_rm64_imm32
 
 66 81 30 5AA5, Xor_rm16_imm16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=3;2;0;0;0;0
 F0 66 81 30 5AA5, Xor_rm16_imm16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=4;2;0;0;0;0 lock
-F0 66 F3 81 30 5AA5, Xor_rm16_imm16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xrelease
-F0 66 F2 81 30 5AA5, Xor_rm16_imm16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xacquire
+F0 66 F3 81 30 5AA5, Xor_rm16_imm16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xrelease repe
+F0 66 F2 81 30 5AA5, Xor_rm16_imm16, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=5;2;0;0;0;0 lock xacquire repne
 66 81 F7 5AA5, Xor_rm16_imm16, Xor, 2, op0=r;di op1=i16;0xA55A co=3;2;0;0;0;0
 F0 66 81 F7 5AA5, INVALID, INVALID, 0, code=Xor_rm16_imm16
 66 41 81 F7 5AA5, Xor_rm16_imm16, Xor, 2, op0=r;r15w op1=i16;0xA55A co=4;2;0;0;0;0
@@ -1734,8 +1734,8 @@ F0 66 81 F7 5AA5, INVALID, INVALID, 0, code=Xor_rm16_imm16
 
 81 30 5AA51234, Xor_rm32_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=2;4;0;0;0;0
 F0 81 30 5AA51234, Xor_rm32_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=3;4;0;0;0;0 lock
-F0 F3 81 30 5AA51234, Xor_rm32_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xrelease
-F0 F2 81 30 5AA51234, Xor_rm32_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xacquire
+F0 F3 81 30 5AA51234, Xor_rm32_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xrelease repe
+F0 F2 81 30 5AA51234, Xor_rm32_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=4;4;0;0;0;0 lock xacquire repne
 81 F7 5AA51234, Xor_rm32_imm32, Xor, 2, op0=r;edi op1=i32;0x3412A55A co=2;4;0;0;0;0
 F0 81 F7 5AA51234, INVALID, INVALID, 0, code=Xor_rm32_imm32
 41 81 F7 5AA51234, Xor_rm32_imm32, Xor, 2, op0=r;r15d op1=i32;0x3412A55A co=3;4;0;0;0;0
@@ -1743,8 +1743,8 @@ F0 81 F7 5AA51234, INVALID, INVALID, 0, code=Xor_rm32_imm32
 
 48 81 30 5AA51234, Xor_rm64_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 F0 48 81 30 5AA51234, Xor_rm64_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=4;4;0;0;0;0 lock
-F0 F3 48 81 30 5AA51234, Xor_rm64_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xrelease
-F0 F2 48 81 30 5AA51234, Xor_rm64_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xacquire
+F0 F3 48 81 30 5AA51234, Xor_rm64_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xrelease repe
+F0 F2 48 81 30 5AA51234, Xor_rm64_imm32, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=5;4;0;0;0;0 lock xacquire repne
 48 81 F7 5AA51234, Xor_rm64_imm32, Xor, 2, op0=r;rdi op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 F0 48 81 F7 5AA51234, INVALID, INVALID, 0, code=Xor_rm64_imm32
 49 81 F7 5AA51234, Xor_rm64_imm32, Xor, 2, op0=r;r15 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
@@ -1767,8 +1767,8 @@ F0 48 81 F7 5AA51234, INVALID, INVALID, 0, code=Xor_rm64_imm32
 
 66 83 00 5A, Add_rm16_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=3;1;0;0;0;0
 F0 66 83 00 5A, Add_rm16_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=4;1;0;0;0;0 lock
-F0 66 F3 83 00 5A, Add_rm16_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xrelease
-F0 66 F2 83 00 5A, Add_rm16_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xacquire
+F0 66 F3 83 00 5A, Add_rm16_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xrelease repe
+F0 66 F2 83 00 5A, Add_rm16_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xacquire repne
 66 83 C1 5A, Add_rm16_imm8, Add, 2, op0=r;cx op1=i8to16;0x005A co=3;1;0;0;0;0
 F0 66 83 C1 5A, INVALID, INVALID, 0, code=Add_rm16_imm8
 66 41 83 C1 5A, Add_rm16_imm8, Add, 2, op0=r;r9w op1=i8to16;0x005A co=4;1;0;0;0;0
@@ -1776,8 +1776,8 @@ F0 66 83 C1 5A, INVALID, INVALID, 0, code=Add_rm16_imm8
 
 83 00 5A, Add_rm32_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=2;1;0;0;0;0
 F0 83 00 5A, Add_rm32_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=3;1;0;0;0;0 lock
-F0 F3 83 00 5A, Add_rm32_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xrelease
-F0 F2 83 00 5A, Add_rm32_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xacquire
+F0 F3 83 00 5A, Add_rm32_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 83 00 5A, Add_rm32_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xacquire repne
 83 C1 5A, Add_rm32_imm8, Add, 2, op0=r;ecx op1=i8to32;0x0000005A co=2;1;0;0;0;0
 F0 83 C1 5A, INVALID, INVALID, 0, code=Add_rm32_imm8
 41 83 C1 5A, Add_rm32_imm8, Add, 2, op0=r;r9d op1=i8to32;0x0000005A co=3;1;0;0;0;0
@@ -1785,8 +1785,8 @@ F0 83 C1 5A, INVALID, INVALID, 0, code=Add_rm32_imm8
 
 48 83 00 5A, Add_rm64_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=3;1;0;0;0;0
 F0 48 83 00 5A, Add_rm64_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=4;1;0;0;0;0 lock
-F0 F3 48 83 00 5A, Add_rm64_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xrelease
-F0 F2 48 83 00 5A, Add_rm64_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xacquire
+F0 F3 48 83 00 5A, Add_rm64_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xrelease repe
+F0 F2 48 83 00 5A, Add_rm64_imm8, Add, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xacquire repne
 48 83 C1 5A, Add_rm64_imm8, Add, 2, op0=r;rcx op1=i8to64;0x0000005A co=3;1;0;0;0;0
 F0 48 83 C1 5A, INVALID, INVALID, 0, code=Add_rm64_imm8
 49 83 C1 5A, Add_rm64_imm8, Add, 2, op0=r;r9 op1=i8to64;0x0000005A co=3;1;0;0;0;0
@@ -1794,8 +1794,8 @@ F0 48 83 C1 5A, INVALID, INVALID, 0, code=Add_rm64_imm8
 
 66 83 08 A5, Or_rm16_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=3;1;0;0;0;0
 F0 66 83 08 A5, Or_rm16_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=4;1;0;0;0;0 lock
-F0 66 F3 83 08 A5, Or_rm16_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xrelease
-F0 66 F2 83 08 A5, Or_rm16_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xacquire
+F0 66 F3 83 08 A5, Or_rm16_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xrelease repe
+F0 66 F2 83 08 A5, Or_rm16_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xacquire repne
 66 83 CA A5, Or_rm16_imm8, Or, 2, op0=r;dx op1=i8to16;0xFFA5 co=3;1;0;0;0;0
 F0 66 83 CA A5, INVALID, INVALID, 0, code=Or_rm16_imm8
 66 41 83 CA A5, Or_rm16_imm8, Or, 2, op0=r;r10w op1=i8to16;0xFFA5 co=4;1;0;0;0;0
@@ -1803,8 +1803,8 @@ F0 66 83 CA A5, INVALID, INVALID, 0, code=Or_rm16_imm8
 
 83 08 A5, Or_rm32_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
 F0 83 08 A5, Or_rm32_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=3;1;0;0;0;0 lock
-F0 F3 83 08 A5, Or_rm32_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xrelease
-F0 F2 83 08 A5, Or_rm32_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xacquire
+F0 F3 83 08 A5, Or_rm32_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 83 08 A5, Or_rm32_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xacquire repne
 83 CA A5, Or_rm32_imm8, Or, 2, op0=r;edx op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
 F0 83 CA A5, INVALID, INVALID, 0, code=Or_rm32_imm8
 41 83 CA A5, Or_rm32_imm8, Or, 2, op0=r;r10d op1=i8to32;0xFFFFFFA5 co=3;1;0;0;0;0
@@ -1812,8 +1812,8 @@ F0 83 CA A5, INVALID, INVALID, 0, code=Or_rm32_imm8
 
 48 83 08 A5, Or_rm64_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=3;1;0;0;0;0
 F0 48 83 08 A5, Or_rm64_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=4;1;0;0;0;0 lock
-F0 F3 48 83 08 A5, Or_rm64_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xrelease
-F0 F2 48 83 08 A5, Or_rm64_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xacquire
+F0 F3 48 83 08 A5, Or_rm64_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xrelease repe
+F0 F2 48 83 08 A5, Or_rm64_imm8, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xacquire repne
 48 83 CA A5, Or_rm64_imm8, Or, 2, op0=r;rdx op1=i8to64;0xFFFFFFFFFFFFFFA5 co=3;1;0;0;0;0
 F0 48 83 CA A5, INVALID, INVALID, 0, code=Or_rm64_imm8
 49 83 CA A5, Or_rm64_imm8, Or, 2, op0=r;r10 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=3;1;0;0;0;0
@@ -1821,8 +1821,8 @@ F0 48 83 CA A5, INVALID, INVALID, 0, code=Or_rm64_imm8
 
 66 83 10 5A, Adc_rm16_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=3;1;0;0;0;0
 F0 66 83 10 5A, Adc_rm16_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=4;1;0;0;0;0 lock
-F0 66 F3 83 10 5A, Adc_rm16_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xrelease
-F0 66 F2 83 10 5A, Adc_rm16_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xacquire
+F0 66 F3 83 10 5A, Adc_rm16_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xrelease repe
+F0 66 F2 83 10 5A, Adc_rm16_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xacquire repne
 66 83 D3 5A, Adc_rm16_imm8, Adc, 2, op0=r;bx op1=i8to16;0x005A co=3;1;0;0;0;0
 F0 66 83 D3 5A, INVALID, INVALID, 0, code=Adc_rm16_imm8
 66 41 83 D3 5A, Adc_rm16_imm8, Adc, 2, op0=r;r11w op1=i8to16;0x005A co=4;1;0;0;0;0
@@ -1830,8 +1830,8 @@ F0 66 83 D3 5A, INVALID, INVALID, 0, code=Adc_rm16_imm8
 
 83 10 5A, Adc_rm32_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=2;1;0;0;0;0
 F0 83 10 5A, Adc_rm32_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=3;1;0;0;0;0 lock
-F0 F3 83 10 5A, Adc_rm32_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xrelease
-F0 F2 83 10 5A, Adc_rm32_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xacquire
+F0 F3 83 10 5A, Adc_rm32_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 83 10 5A, Adc_rm32_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xacquire repne
 83 D3 5A, Adc_rm32_imm8, Adc, 2, op0=r;ebx op1=i8to32;0x0000005A co=2;1;0;0;0;0
 F0 83 D3 5A, INVALID, INVALID, 0, code=Adc_rm32_imm8
 41 83 D3 5A, Adc_rm32_imm8, Adc, 2, op0=r;r11d op1=i8to32;0x0000005A co=3;1;0;0;0;0
@@ -1839,8 +1839,8 @@ F0 83 D3 5A, INVALID, INVALID, 0, code=Adc_rm32_imm8
 
 48 83 10 5A, Adc_rm64_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=3;1;0;0;0;0
 F0 48 83 10 5A, Adc_rm64_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=4;1;0;0;0;0 lock
-F0 F3 48 83 10 5A, Adc_rm64_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xrelease
-F0 F2 48 83 10 5A, Adc_rm64_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xacquire
+F0 F3 48 83 10 5A, Adc_rm64_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xrelease repe
+F0 F2 48 83 10 5A, Adc_rm64_imm8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xacquire repne
 48 83 D3 5A, Adc_rm64_imm8, Adc, 2, op0=r;rbx op1=i8to64;0x0000005A co=3;1;0;0;0;0
 F0 48 83 D3 5A, INVALID, INVALID, 0, code=Adc_rm64_imm8
 49 83 D3 5A, Adc_rm64_imm8, Adc, 2, op0=r;r11 op1=i8to64;0x0000005A co=3;1;0;0;0;0
@@ -1848,8 +1848,8 @@ F0 48 83 D3 5A, INVALID, INVALID, 0, code=Adc_rm64_imm8
 
 66 83 18 A5, Sbb_rm16_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=3;1;0;0;0;0
 F0 66 83 18 A5, Sbb_rm16_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=4;1;0;0;0;0 lock
-F0 66 F3 83 18 A5, Sbb_rm16_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xrelease
-F0 66 F2 83 18 A5, Sbb_rm16_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xacquire
+F0 66 F3 83 18 A5, Sbb_rm16_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xrelease repe
+F0 66 F2 83 18 A5, Sbb_rm16_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xacquire repne
 66 83 DC A5, Sbb_rm16_imm8, Sbb, 2, op0=r;sp op1=i8to16;0xFFA5 co=3;1;0;0;0;0
 F0 66 83 DC A5, INVALID, INVALID, 0, code=Sbb_rm16_imm8
 66 41 83 DC A5, Sbb_rm16_imm8, Sbb, 2, op0=r;r12w op1=i8to16;0xFFA5 co=4;1;0;0;0;0
@@ -1857,8 +1857,8 @@ F0 66 83 DC A5, INVALID, INVALID, 0, code=Sbb_rm16_imm8
 
 83 18 A5, Sbb_rm32_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
 F0 83 18 A5, Sbb_rm32_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=3;1;0;0;0;0 lock
-F0 F3 83 18 A5, Sbb_rm32_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xrelease
-F0 F2 83 18 A5, Sbb_rm32_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xacquire
+F0 F3 83 18 A5, Sbb_rm32_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 83 18 A5, Sbb_rm32_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xacquire repne
 83 DC A5, Sbb_rm32_imm8, Sbb, 2, op0=r;esp op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
 F0 83 DC A5, INVALID, INVALID, 0, code=Sbb_rm32_imm8
 41 83 DC A5, Sbb_rm32_imm8, Sbb, 2, op0=r;r12d op1=i8to32;0xFFFFFFA5 co=3;1;0;0;0;0
@@ -1866,8 +1866,8 @@ F0 83 DC A5, INVALID, INVALID, 0, code=Sbb_rm32_imm8
 
 48 83 18 A5, Sbb_rm64_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=3;1;0;0;0;0
 F0 48 83 18 A5, Sbb_rm64_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=4;1;0;0;0;0 lock
-F0 F3 48 83 18 A5, Sbb_rm64_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xrelease
-F0 F2 48 83 18 A5, Sbb_rm64_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xacquire
+F0 F3 48 83 18 A5, Sbb_rm64_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xrelease repe
+F0 F2 48 83 18 A5, Sbb_rm64_imm8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xacquire repne
 48 83 DC A5, Sbb_rm64_imm8, Sbb, 2, op0=r;rsp op1=i8to64;0xFFFFFFFFFFFFFFA5 co=3;1;0;0;0;0
 F0 48 83 DC A5, INVALID, INVALID, 0, code=Sbb_rm64_imm8
 49 83 DC A5, Sbb_rm64_imm8, Sbb, 2, op0=r;r12 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=3;1;0;0;0;0
@@ -1875,8 +1875,8 @@ F0 48 83 DC A5, INVALID, INVALID, 0, code=Sbb_rm64_imm8
 
 66 83 20 5A, And_rm16_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=3;1;0;0;0;0
 F0 66 83 20 5A, And_rm16_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=4;1;0;0;0;0 lock
-F0 66 F3 83 20 5A, And_rm16_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xrelease
-F0 66 F2 83 20 5A, And_rm16_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xacquire
+F0 66 F3 83 20 5A, And_rm16_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xrelease repe
+F0 66 F2 83 20 5A, And_rm16_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xacquire repne
 66 83 E5 5A, And_rm16_imm8, And, 2, op0=r;bp op1=i8to16;0x005A co=3;1;0;0;0;0
 F0 66 83 E5 5A, INVALID, INVALID, 0, code=And_rm16_imm8
 66 41 83 E5 5A, And_rm16_imm8, And, 2, op0=r;r13w op1=i8to16;0x005A co=4;1;0;0;0;0
@@ -1884,8 +1884,8 @@ F0 66 83 E5 5A, INVALID, INVALID, 0, code=And_rm16_imm8
 
 83 20 5A, And_rm32_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=2;1;0;0;0;0
 F0 83 20 5A, And_rm32_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=3;1;0;0;0;0 lock
-F0 F3 83 20 5A, And_rm32_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xrelease
-F0 F2 83 20 5A, And_rm32_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xacquire
+F0 F3 83 20 5A, And_rm32_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 83 20 5A, And_rm32_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xacquire repne
 83 E5 5A, And_rm32_imm8, And, 2, op0=r;ebp op1=i8to32;0x0000005A co=2;1;0;0;0;0
 F0 83 E5 5A, INVALID, INVALID, 0, code=And_rm32_imm8
 41 83 E5 5A, And_rm32_imm8, And, 2, op0=r;r13d op1=i8to32;0x0000005A co=3;1;0;0;0;0
@@ -1893,8 +1893,8 @@ F0 83 E5 5A, INVALID, INVALID, 0, code=And_rm32_imm8
 
 48 83 20 5A, And_rm64_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=3;1;0;0;0;0
 F0 48 83 20 5A, And_rm64_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=4;1;0;0;0;0 lock
-F0 F3 48 83 20 5A, And_rm64_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xrelease
-F0 F2 48 83 20 5A, And_rm64_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xacquire
+F0 F3 48 83 20 5A, And_rm64_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xrelease repe
+F0 F2 48 83 20 5A, And_rm64_imm8, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xacquire repne
 48 83 E5 5A, And_rm64_imm8, And, 2, op0=r;rbp op1=i8to64;0x0000005A co=3;1;0;0;0;0
 F0 48 83 E5 5A, INVALID, INVALID, 0, code=And_rm64_imm8
 49 83 E5 5A, And_rm64_imm8, And, 2, op0=r;r13 op1=i8to64;0x0000005A co=3;1;0;0;0;0
@@ -1902,8 +1902,8 @@ F0 48 83 E5 5A, INVALID, INVALID, 0, code=And_rm64_imm8
 
 66 83 28 A5, Sub_rm16_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=3;1;0;0;0;0
 F0 66 83 28 A5, Sub_rm16_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=4;1;0;0;0;0 lock
-F0 66 F3 83 28 A5, Sub_rm16_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xrelease
-F0 66 F2 83 28 A5, Sub_rm16_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xacquire
+F0 66 F3 83 28 A5, Sub_rm16_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xrelease repe
+F0 66 F2 83 28 A5, Sub_rm16_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0xFFA5 co=5;1;0;0;0;0 lock xacquire repne
 66 83 EE A5, Sub_rm16_imm8, Sub, 2, op0=r;si op1=i8to16;0xFFA5 co=3;1;0;0;0;0
 F0 66 83 EE A5, INVALID, INVALID, 0, code=Sub_rm16_imm8
 66 41 83 EE A5, Sub_rm16_imm8, Sub, 2, op0=r;r14w op1=i8to16;0xFFA5 co=4;1;0;0;0;0
@@ -1911,8 +1911,8 @@ F0 66 83 EE A5, INVALID, INVALID, 0, code=Sub_rm16_imm8
 
 83 28 A5, Sub_rm32_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
 F0 83 28 A5, Sub_rm32_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=3;1;0;0;0;0 lock
-F0 F3 83 28 A5, Sub_rm32_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xrelease
-F0 F2 83 28 A5, Sub_rm32_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xacquire
+F0 F3 83 28 A5, Sub_rm32_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 83 28 A5, Sub_rm32_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0xFFFFFFA5 co=4;1;0;0;0;0 lock xacquire repne
 83 EE A5, Sub_rm32_imm8, Sub, 2, op0=r;esi op1=i8to32;0xFFFFFFA5 co=2;1;0;0;0;0
 F0 83 EE A5, INVALID, INVALID, 0, code=Sub_rm32_imm8
 41 83 EE A5, Sub_rm32_imm8, Sub, 2, op0=r;r14d op1=i8to32;0xFFFFFFA5 co=3;1;0;0;0;0
@@ -1920,8 +1920,8 @@ F0 83 EE A5, INVALID, INVALID, 0, code=Sub_rm32_imm8
 
 48 83 28 A5, Sub_rm64_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=3;1;0;0;0;0
 F0 48 83 28 A5, Sub_rm64_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=4;1;0;0;0;0 lock
-F0 F3 48 83 28 A5, Sub_rm64_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xrelease
-F0 F2 48 83 28 A5, Sub_rm64_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xacquire
+F0 F3 48 83 28 A5, Sub_rm64_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xrelease repe
+F0 F2 48 83 28 A5, Sub_rm64_imm8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=5;1;0;0;0;0 lock xacquire repne
 48 83 EE A5, Sub_rm64_imm8, Sub, 2, op0=r;rsi op1=i8to64;0xFFFFFFFFFFFFFFA5 co=3;1;0;0;0;0
 F0 48 83 EE A5, INVALID, INVALID, 0, code=Sub_rm64_imm8
 49 83 EE A5, Sub_rm64_imm8, Sub, 2, op0=r;r14 op1=i8to64;0xFFFFFFFFFFFFFFA5 co=3;1;0;0;0;0
@@ -1929,8 +1929,8 @@ F0 48 83 EE A5, INVALID, INVALID, 0, code=Sub_rm64_imm8
 
 66 83 30 5A, Xor_rm16_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=3;1;0;0;0;0
 F0 66 83 30 5A, Xor_rm16_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=4;1;0;0;0;0 lock
-F0 66 F3 83 30 5A, Xor_rm16_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xrelease
-F0 66 F2 83 30 5A, Xor_rm16_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xacquire
+F0 66 F3 83 30 5A, Xor_rm16_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xrelease repe
+F0 66 F2 83 30 5A, Xor_rm16_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8to16;0x005A co=5;1;0;0;0;0 lock xacquire repne
 66 83 F7 5A, Xor_rm16_imm8, Xor, 2, op0=r;di op1=i8to16;0x005A co=3;1;0;0;0;0
 F0 66 83 F7 5A, INVALID, INVALID, 0, code=Xor_rm16_imm8
 66 41 83 F7 5A, Xor_rm16_imm8, Xor, 2, op0=r;r15w op1=i8to16;0x005A co=4;1;0;0;0;0
@@ -1938,8 +1938,8 @@ F0 66 83 F7 5A, INVALID, INVALID, 0, code=Xor_rm16_imm8
 
 83 30 5A, Xor_rm32_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=2;1;0;0;0;0
 F0 83 30 5A, Xor_rm32_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=3;1;0;0;0;0 lock
-F0 F3 83 30 5A, Xor_rm32_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xrelease
-F0 F2 83 30 5A, Xor_rm32_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xacquire
+F0 F3 83 30 5A, Xor_rm32_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xrelease repe
+F0 F2 83 30 5A, Xor_rm32_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8to32;0x0000005A co=4;1;0;0;0;0 lock xacquire repne
 83 F7 5A, Xor_rm32_imm8, Xor, 2, op0=r;edi op1=i8to32;0x0000005A co=2;1;0;0;0;0
 F0 83 F7 5A, INVALID, INVALID, 0, code=Xor_rm32_imm8
 41 83 F7 5A, Xor_rm32_imm8, Xor, 2, op0=r;r15d op1=i8to32;0x0000005A co=3;1;0;0;0;0
@@ -1947,8 +1947,8 @@ F0 83 F7 5A, INVALID, INVALID, 0, code=Xor_rm32_imm8
 
 48 83 30 5A, Xor_rm64_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=3;1;0;0;0;0
 F0 48 83 30 5A, Xor_rm64_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=4;1;0;0;0;0 lock
-F0 F3 48 83 30 5A, Xor_rm64_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xrelease
-F0 F2 48 83 30 5A, Xor_rm64_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xacquire
+F0 F3 48 83 30 5A, Xor_rm64_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xrelease repe
+F0 F2 48 83 30 5A, Xor_rm64_imm8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8to64;0x0000005A co=5;1;0;0;0;0 lock xacquire repne
 48 83 F7 5A, Xor_rm64_imm8, Xor, 2, op0=r;rdi op1=i8to64;0x0000005A co=3;1;0;0;0;0
 F0 48 83 F7 5A, INVALID, INVALID, 0, code=Xor_rm64_imm8
 49 83 F7 5A, Xor_rm64_imm8, Xor, 2, op0=r;r15 op1=i8to64;0x0000005A co=3;1;0;0;0;0
@@ -2015,10 +2015,10 @@ F0 86 CE, INVALID, INVALID, 0, code=Xchg_rm8_r8
 66 67 4E 86 EC, Xchg_rm8_r8, Xchg, 2, op0=r;spl op1=r;r13l enc=4486EC
 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
-F0 F3 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease
-F0 F2 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire
-F3 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh xrelease
-F2 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh xacquire
+F0 F3 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
+F0 F2 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire repne
+F3 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh xrelease repe
+F2 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh xacquire repne
 
 66 87 CE, Xchg_rm16_r16, Xchg, 2, op0=r;si op1=r;cx
 F0 66 87 CE, INVALID, INVALID, 0, code=Xchg_rm16_r16
@@ -2029,10 +2029,10 @@ F0 66 87 CE, INVALID, INVALID, 0, code=Xchg_rm16_r16
 66 44 87 EC, Xchg_rm16_r16, Xchg, 2, op0=r;sp op1=r;r13w
 66 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
-66 F3 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx xrelease
-66 F2 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx xacquire
+F0 66 F3 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
+66 F3 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx xrelease repe
+66 F2 87 18, Xchg_rm16_r16, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx xacquire repne
 66 42 87 CE, Xchg_rm16_r16, Xchg, 2, op0=r;si op1=r;cx enc=6687CE
 
 87 CE, Xchg_rm32_r32, Xchg, 2, op0=r;esi op1=r;ecx
@@ -2044,10 +2044,10 @@ F0 87 CE, INVALID, INVALID, 0, code=Xchg_rm32_r32
 44 87 EC, Xchg_rm32_r32, Xchg, 2, op0=r;esp op1=r;r13d
 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
-F3 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx xrelease
-F2 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx xacquire
+F0 F3 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
+F3 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx xrelease repe
+F2 87 18, Xchg_rm32_r32, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx xacquire repne
 42 87 CE, Xchg_rm32_r32, Xchg, 2, op0=r;esi op1=r;ecx enc=87CE
 
 48 87 CE, Xchg_rm64_r64, Xchg, 2, op0=r;rsi op1=r;rcx
@@ -2059,10 +2059,10 @@ F0 48 87 CE, INVALID, INVALID, 0, code=Xchg_rm64_r64
 4C 87 EC, Xchg_rm64_r64, Xchg, 2, op0=r;rsp op1=r;r13
 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
-F3 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
-F2 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xacquire
+F0 F3 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
+F3 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease repe
+F2 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xacquire repne
 4A 87 CE, Xchg_rm64_r64, Xchg, 2, op0=r;rsi op1=r;rcx enc=4887CE
 
 88 CE, Mov_rm8_r8, Mov, 2, op0=r;dh op1=r;cl
@@ -2073,7 +2073,7 @@ F2 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xacqui
 44 88 EC, Mov_rm8_r8, Mov, 2, op0=r;spl op1=r;r13l
 66 67 4E 88 EC, Mov_rm8_r8, Mov, 2, op0=r;spl op1=r;r13l enc=4488EC
 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
-F3 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh xrelease
+F3 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh xrelease repe
 F2 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh repne
 
 66 89 CE, Mov_rm16_r16, Mov, 2, op0=r;si op1=r;cx
@@ -2083,7 +2083,7 @@ F2 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh repne
 66 41 89 D9, Mov_rm16_r16, Mov, 2, op0=r;r9w op1=r;bx
 66 44 89 EC, Mov_rm16_r16, Mov, 2, op0=r;sp op1=r;r13w
 66 89 18, Mov_rm16_r16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
-66 F3 89 18, Mov_rm16_r16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx xrelease
+66 F3 89 18, Mov_rm16_r16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx xrelease repe
 66 F2 89 18, Mov_rm16_r16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx repne
 66 42 89 CE, Mov_rm16_r16, Mov, 2, op0=r;si op1=r;cx enc=6689CE
 
@@ -2094,7 +2094,7 @@ F2 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh repne
 41 89 D9, Mov_rm32_r32, Mov, 2, op0=r;r9d op1=r;ebx
 44 89 EC, Mov_rm32_r32, Mov, 2, op0=r;esp op1=r;r13d
 89 18, Mov_rm32_r32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
-F3 89 18, Mov_rm32_r32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx xrelease
+F3 89 18, Mov_rm32_r32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx xrelease repe
 F2 89 18, Mov_rm32_r32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx repne
 42 89 CE, Mov_rm32_r32, Mov, 2, op0=r;esi op1=r;ecx enc=89CE
 
@@ -2105,7 +2105,7 @@ F2 89 18, Mov_rm32_r32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx repne
 49 89 D9, Mov_rm64_r64, Mov, 2, op0=r;r9 op1=r;rbx
 4C 89 EC, Mov_rm64_r64, Mov, 2, op0=r;rsp op1=r;r13
 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
-F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
+F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease repe
 F2 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx repne
 4A 89 CE, Mov_rm64_r64, Mov, 2, op0=r;rsi op1=r;rcx enc=4889CE
 
@@ -3271,7 +3271,7 @@ C3, Retnq, Ret, 0, decopt=AMD no_opt_disable_test
 
 C6 00 5A, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
 C6 00 A5, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
-F3 C6 00 A5, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 xrelease
+F3 C6 00 A5, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 xrelease repe
 F2 C6 00 A5, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 repne
 44 C6 00 5A, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 enc=C6005A
 44 C6 00 A5, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 enc=C600A5
@@ -3289,7 +3289,7 @@ C6 F8 A5, Xabort_imm8, Xabort, 1, op0=i8;0xA5 co=2;1;0;0;0;0
 
 66 C7 00 5AA5, Mov_rm16_imm16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=3;2;0;0;0;0
 66 C7 00 A55A, Mov_rm16_imm16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=3;2;0;0;0;0
-66 F3 C7 00 A55A, Mov_rm16_imm16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 xrelease
+66 F3 C7 00 A55A, Mov_rm16_imm16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 xrelease repe
 66 F2 C7 00 A55A, Mov_rm16_imm16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 repne
 66 C7 C1 5AA5, Mov_rm16_imm16, Mov, 2, op0=r;cx op1=i16;0xA55A co=3;2;0;0;0;0
 66 C7 C6 A55A, Mov_rm16_imm16, Mov, 2, op0=r;si op1=i16;0x5AA5 co=3;2;0;0;0;0
@@ -3299,7 +3299,7 @@ C6 F8 A5, Xabort_imm8, Xabort, 1, op0=i8;0xA5 co=2;1;0;0;0;0
 
 C7 00 5AA51234, Mov_rm32_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=2;4;0;0;0;0
 C7 00 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=2;4;0;0;0;0
-F3 C7 00 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 xrelease
+F3 C7 00 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 xrelease repe
 F2 C7 00 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 repne
 C7 C1 5AA51234, Mov_rm32_imm32, Mov, 2, op0=r;ecx op1=i32;0x3412A55A co=2;4;0;0;0;0
 C7 C6 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=r;esi op1=i32;0xAB895AA5 co=2;4;0;0;0;0
@@ -3309,7 +3309,7 @@ C7 C6 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=r;esi op1=i32;0xAB895AA5 co=2;4;0;0;
 
 48 C7 00 5AA51234, Mov_rm64_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 48 C7 00 A55A89AB, Mov_rm64_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
-F3 48 C7 00 A55A89AB, Mov_rm64_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=4;4;0;0;0;0 xrelease
+F3 48 C7 00 A55A89AB, Mov_rm64_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=4;4;0;0;0;0 xrelease repe
 F2 48 C7 00 A55A89AB, Mov_rm64_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=4;4;0;0;0;0 repne
 48 C7 C1 5AA51234, Mov_rm64_imm32, Mov, 2, op0=r;rcx op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 48 C7 C6 A55A89AB, Mov_rm64_imm32, Mov, 2, op0=r;rsi op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
@@ -4633,8 +4633,8 @@ F6 CE A5, Test_rm8_imm8_F6r1, Test, 2, op0=r;dh op1=i8;0xA5 co=2;1;0;0;0;0
 
 F6 10, Not_rm8, Not, 1, op0=m;ds;rax;;1;0;0;UInt8
 F0 F6 10, Not_rm8, Not, 1, op0=m;ds;rax;;1;0;0;UInt8 lock
-F0 F3 F6 10, Not_rm8, Not, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xrelease
-F0 F2 F6 10, Not_rm8, Not, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xacquire
+F0 F3 F6 10, Not_rm8, Not, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xrelease repe
+F0 F2 F6 10, Not_rm8, Not, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xacquire repne
 44 F6 10, Not_rm8, Not, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=F610
 F6 D1, Not_rm8, Not, 1, op0=r;cl
 F0 F6 D1, INVALID, INVALID, 0, code=Not_rm8
@@ -4644,8 +4644,8 @@ F0 F6 D1, INVALID, INVALID, 0, code=Not_rm8
 
 F6 18, Neg_rm8, Neg, 1, op0=m;ds;rax;;1;0;0;Int8
 F0 F6 18, Neg_rm8, Neg, 1, op0=m;ds;rax;;1;0;0;Int8 lock
-F0 F3 F6 18, Neg_rm8, Neg, 1, op0=m;ds;rax;;1;0;0;Int8 lock xrelease
-F0 F2 F6 18, Neg_rm8, Neg, 1, op0=m;ds;rax;;1;0;0;Int8 lock xacquire
+F0 F3 F6 18, Neg_rm8, Neg, 1, op0=m;ds;rax;;1;0;0;Int8 lock xrelease repe
+F0 F2 F6 18, Neg_rm8, Neg, 1, op0=m;ds;rax;;1;0;0;Int8 lock xacquire repne
 44 F6 18, Neg_rm8, Neg, 1, op0=m;ds;rax;;1;0;0;Int8 enc=F618
 F6 DE, Neg_rm8, Neg, 1, op0=r;dh
 F0 F6 DE, INVALID, INVALID, 0, code=Neg_rm8
@@ -4713,8 +4713,8 @@ F7 CE A55A89AB, Test_rm32_imm32_F7r1, Test, 2, op0=r;esi op1=i32;0xAB895AA5 co=2
 
 66 F7 10, Not_rm16, Not, 1, op0=m;ds;rax;;1;0;0;UInt16
 F0 66 F7 10, Not_rm16, Not, 1, op0=m;ds;rax;;1;0;0;UInt16 lock
-F0 66 F3 F7 10, Not_rm16, Not, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xrelease
-F0 66 F2 F7 10, Not_rm16, Not, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xacquire
+F0 66 F3 F7 10, Not_rm16, Not, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xrelease repe
+F0 66 F2 F7 10, Not_rm16, Not, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xacquire repne
 66 F7 D1, Not_rm16, Not, 1, op0=r;cx
 F0 66 F7 D1, INVALID, INVALID, 0, code=Not_rm16
 66 41 F7 D1, Not_rm16, Not, 1, op0=r;r9w
@@ -4722,8 +4722,8 @@ F0 66 F7 D1, INVALID, INVALID, 0, code=Not_rm16
 
 F7 10, Not_rm32, Not, 1, op0=m;ds;rax;;1;0;0;UInt32
 F0 F7 10, Not_rm32, Not, 1, op0=m;ds;rax;;1;0;0;UInt32 lock
-F0 F3 F7 10, Not_rm32, Not, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xrelease
-F0 F2 F7 10, Not_rm32, Not, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xacquire
+F0 F3 F7 10, Not_rm32, Not, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xrelease repe
+F0 F2 F7 10, Not_rm32, Not, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xacquire repne
 F7 D1, Not_rm32, Not, 1, op0=r;ecx
 F0 F7 D1, INVALID, INVALID, 0, code=Not_rm32
 41 F7 D1, Not_rm32, Not, 1, op0=r;r9d
@@ -4731,8 +4731,8 @@ F0 F7 D1, INVALID, INVALID, 0, code=Not_rm32
 
 48 F7 10, Not_rm64, Not, 1, op0=m;ds;rax;;1;0;0;UInt64
 F0 48 F7 10, Not_rm64, Not, 1, op0=m;ds;rax;;1;0;0;UInt64 lock
-F0 F3 48 F7 10, Not_rm64, Not, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xrelease
-F0 F2 48 F7 10, Not_rm64, Not, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xacquire
+F0 F3 48 F7 10, Not_rm64, Not, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xrelease repe
+F0 F2 48 F7 10, Not_rm64, Not, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xacquire repne
 48 F7 D1, Not_rm64, Not, 1, op0=r;rcx
 F0 48 F7 D1, INVALID, INVALID, 0, code=Not_rm64
 49 F7 D1, Not_rm64, Not, 1, op0=r;r9
@@ -4740,8 +4740,8 @@ F0 48 F7 D1, INVALID, INVALID, 0, code=Not_rm64
 
 66 F7 18, Neg_rm16, Neg, 1, op0=m;ds;rax;;1;0;0;Int16
 F0 66 F7 18, Neg_rm16, Neg, 1, op0=m;ds;rax;;1;0;0;Int16 lock
-F0 66 F3 F7 18, Neg_rm16, Neg, 1, op0=m;ds;rax;;1;0;0;Int16 lock xrelease
-F0 66 F2 F7 18, Neg_rm16, Neg, 1, op0=m;ds;rax;;1;0;0;Int16 lock xacquire
+F0 66 F3 F7 18, Neg_rm16, Neg, 1, op0=m;ds;rax;;1;0;0;Int16 lock xrelease repe
+F0 66 F2 F7 18, Neg_rm16, Neg, 1, op0=m;ds;rax;;1;0;0;Int16 lock xacquire repne
 66 F7 DE, Neg_rm16, Neg, 1, op0=r;si
 F0 66 F7 DE, INVALID, INVALID, 0, code=Neg_rm16
 66 41 F7 DE, Neg_rm16, Neg, 1, op0=r;r14w
@@ -4749,8 +4749,8 @@ F0 66 F7 DE, INVALID, INVALID, 0, code=Neg_rm16
 
 F7 18, Neg_rm32, Neg, 1, op0=m;ds;rax;;1;0;0;Int32
 F0 F7 18, Neg_rm32, Neg, 1, op0=m;ds;rax;;1;0;0;Int32 lock
-F0 F3 F7 18, Neg_rm32, Neg, 1, op0=m;ds;rax;;1;0;0;Int32 lock xrelease
-F0 F2 F7 18, Neg_rm32, Neg, 1, op0=m;ds;rax;;1;0;0;Int32 lock xacquire
+F0 F3 F7 18, Neg_rm32, Neg, 1, op0=m;ds;rax;;1;0;0;Int32 lock xrelease repe
+F0 F2 F7 18, Neg_rm32, Neg, 1, op0=m;ds;rax;;1;0;0;Int32 lock xacquire repne
 F7 DE, Neg_rm32, Neg, 1, op0=r;esi
 F0 F7 DE, INVALID, INVALID, 0, code=Neg_rm32
 41 F7 DE, Neg_rm32, Neg, 1, op0=r;r14d
@@ -4758,8 +4758,8 @@ F0 F7 DE, INVALID, INVALID, 0, code=Neg_rm32
 
 48 F7 18, Neg_rm64, Neg, 1, op0=m;ds;rax;;1;0;0;Int64
 F0 48 F7 18, Neg_rm64, Neg, 1, op0=m;ds;rax;;1;0;0;Int64 lock
-F0 F3 48 F7 18, Neg_rm64, Neg, 1, op0=m;ds;rax;;1;0;0;Int64 lock xrelease
-F0 F2 48 F7 18, Neg_rm64, Neg, 1, op0=m;ds;rax;;1;0;0;Int64 lock xacquire
+F0 F3 48 F7 18, Neg_rm64, Neg, 1, op0=m;ds;rax;;1;0;0;Int64 lock xrelease repe
+F0 F2 48 F7 18, Neg_rm64, Neg, 1, op0=m;ds;rax;;1;0;0;Int64 lock xacquire repne
 48 F7 DE, Neg_rm64, Neg, 1, op0=r;rsi
 F0 48 F7 DE, INVALID, INVALID, 0, code=Neg_rm64
 49 F7 DE, Neg_rm64, Neg, 1, op0=r;r14
@@ -4845,8 +4845,8 @@ FD, Std, Std, 0,
 
 FE 00, Inc_rm8, Inc, 1, op0=m;ds;rax;;1;0;0;UInt8
 F0 FE 00, Inc_rm8, Inc, 1, op0=m;ds;rax;;1;0;0;UInt8 lock
-F0 F3 FE 00, Inc_rm8, Inc, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xrelease
-F0 F2 FE 00, Inc_rm8, Inc, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xacquire
+F0 F3 FE 00, Inc_rm8, Inc, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xrelease repe
+F0 F2 FE 00, Inc_rm8, Inc, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xacquire repne
 44 FE 00, Inc_rm8, Inc, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=FE00
 FE C1, Inc_rm8, Inc, 1, op0=r;cl
 F0 FE C1, INVALID, INVALID, 0, code=Inc_rm8
@@ -4856,8 +4856,8 @@ F0 FE C1, INVALID, INVALID, 0, code=Inc_rm8
 
 FE 08, Dec_rm8, Dec, 1, op0=m;ds;rax;;1;0;0;UInt8
 F0 FE 08, Dec_rm8, Dec, 1, op0=m;ds;rax;;1;0;0;UInt8 lock
-F0 F3 FE 08, Dec_rm8, Dec, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xrelease
-F0 F2 FE 08, Dec_rm8, Dec, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xacquire
+F0 F3 FE 08, Dec_rm8, Dec, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xrelease repe
+F0 F2 FE 08, Dec_rm8, Dec, 1, op0=m;ds;rax;;1;0;0;UInt8 lock xacquire repne
 44 FE 08, Dec_rm8, Dec, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=FE08
 FE CE, Dec_rm8, Dec, 1, op0=r;dh
 F0 FE CE, INVALID, INVALID, 0, code=Dec_rm8
@@ -4867,8 +4867,8 @@ F0 FE CE, INVALID, INVALID, 0, code=Dec_rm8
 
 66 FF 00, Inc_rm16, Inc, 1, op0=m;ds;rax;;1;0;0;UInt16
 F0 66 FF 00, Inc_rm16, Inc, 1, op0=m;ds;rax;;1;0;0;UInt16 lock
-F0 66 F3 FF 00, Inc_rm16, Inc, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xrelease
-F0 66 F2 FF 00, Inc_rm16, Inc, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xacquire
+F0 66 F3 FF 00, Inc_rm16, Inc, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xrelease repe
+F0 66 F2 FF 00, Inc_rm16, Inc, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xacquire repne
 66 FF C1, Inc_rm16, Inc, 1, op0=r;cx
 F0 66 FF C1, INVALID, INVALID, 0, code=Inc_rm16
 66 41 FF C1, Inc_rm16, Inc, 1, op0=r;r9w
@@ -4876,8 +4876,8 @@ F0 66 FF C1, INVALID, INVALID, 0, code=Inc_rm16
 
 FF 00, Inc_rm32, Inc, 1, op0=m;ds;rax;;1;0;0;UInt32
 F0 FF 00, Inc_rm32, Inc, 1, op0=m;ds;rax;;1;0;0;UInt32 lock
-F0 F3 FF 00, Inc_rm32, Inc, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xrelease
-F0 F2 FF 00, Inc_rm32, Inc, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xacquire
+F0 F3 FF 00, Inc_rm32, Inc, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xrelease repe
+F0 F2 FF 00, Inc_rm32, Inc, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xacquire repne
 FF C1, Inc_rm32, Inc, 1, op0=r;ecx
 F0 FF C1, INVALID, INVALID, 0, code=Inc_rm32
 41 FF C1, Inc_rm32, Inc, 1, op0=r;r9d
@@ -4885,8 +4885,8 @@ F0 FF C1, INVALID, INVALID, 0, code=Inc_rm32
 
 48 FF 00, Inc_rm64, Inc, 1, op0=m;ds;rax;;1;0;0;UInt64
 F0 48 FF 00, Inc_rm64, Inc, 1, op0=m;ds;rax;;1;0;0;UInt64 lock
-F0 F3 48 FF 00, Inc_rm64, Inc, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xrelease
-F0 F2 48 FF 00, Inc_rm64, Inc, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xacquire
+F0 F3 48 FF 00, Inc_rm64, Inc, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xrelease repe
+F0 F2 48 FF 00, Inc_rm64, Inc, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xacquire repne
 48 FF C1, Inc_rm64, Inc, 1, op0=r;rcx
 F0 48 FF C1, INVALID, INVALID, 0, code=Inc_rm64
 49 FF C1, Inc_rm64, Inc, 1, op0=r;r9
@@ -4894,8 +4894,8 @@ F0 48 FF C1, INVALID, INVALID, 0, code=Inc_rm64
 
 66 FF 08, Dec_rm16, Dec, 1, op0=m;ds;rax;;1;0;0;UInt16
 F0 66 FF 08, Dec_rm16, Dec, 1, op0=m;ds;rax;;1;0;0;UInt16 lock
-F0 66 F3 FF 08, Dec_rm16, Dec, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xrelease
-F0 66 F2 FF 08, Dec_rm16, Dec, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xacquire
+F0 66 F3 FF 08, Dec_rm16, Dec, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xrelease repe
+F0 66 F2 FF 08, Dec_rm16, Dec, 1, op0=m;ds;rax;;1;0;0;UInt16 lock xacquire repne
 66 FF CE, Dec_rm16, Dec, 1, op0=r;si
 F0 66 FF CE, INVALID, INVALID, 0, code=Dec_rm16
 66 41 FF CE, Dec_rm16, Dec, 1, op0=r;r14w
@@ -4903,8 +4903,8 @@ F0 66 FF CE, INVALID, INVALID, 0, code=Dec_rm16
 
 FF 08, Dec_rm32, Dec, 1, op0=m;ds;rax;;1;0;0;UInt32
 F0 FF 08, Dec_rm32, Dec, 1, op0=m;ds;rax;;1;0;0;UInt32 lock
-F0 F3 FF 08, Dec_rm32, Dec, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xrelease
-F0 F2 FF 08, Dec_rm32, Dec, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xacquire
+F0 F3 FF 08, Dec_rm32, Dec, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xrelease repe
+F0 F2 FF 08, Dec_rm32, Dec, 1, op0=m;ds;rax;;1;0;0;UInt32 lock xacquire repne
 FF CE, Dec_rm32, Dec, 1, op0=r;esi
 F0 FF CE, INVALID, INVALID, 0, code=Dec_rm32
 41 FF CE, Dec_rm32, Dec, 1, op0=r;r14d
@@ -4912,8 +4912,8 @@ F0 FF CE, INVALID, INVALID, 0, code=Dec_rm32
 
 48 FF 08, Dec_rm64, Dec, 1, op0=m;ds;rax;;1;0;0;UInt64
 F0 48 FF 08, Dec_rm64, Dec, 1, op0=m;ds;rax;;1;0;0;UInt64 lock
-F0 F3 48 FF 08, Dec_rm64, Dec, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xrelease
-F0 F2 48 FF 08, Dec_rm64, Dec, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xacquire
+F0 F3 48 FF 08, Dec_rm64, Dec, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xrelease repe
+F0 F2 48 FF 08, Dec_rm64, Dec, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xacquire repne
 48 FF CE, Dec_rm64, Dec, 1, op0=r;rsi
 F0 48 FF CE, INVALID, INVALID, 0, code=Dec_rm64
 49 FF CE, Dec_rm64, Dec, 1, op0=r;r14
@@ -14551,8 +14551,8 @@ F0 66 0FAB CE, INVALID, INVALID, 0, code=Bts_rm16_r16
 66 44 0FAB EC, Bts_rm16_r16, Bts, 2, op0=r;sp op1=r;r13w
 66 0FAB 18, Bts_rm16_r16, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 0FAB 18, Bts_rm16_r16, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 0FAB 18, Bts_rm16_r16, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 0FAB 18, Bts_rm16_r16, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 0FAB 18, Bts_rm16_r16, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 0FAB 18, Bts_rm16_r16, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 0FAB CE, Bts_rm16_r16, Bts, 2, op0=r;si op1=r;cx enc=660FABCE
 
 0FAB CE, Bts_rm32_r32, Bts, 2, op0=r;esi op1=r;ecx
@@ -14564,8 +14564,8 @@ F0 0FAB CE, INVALID, INVALID, 0, code=Bts_rm32_r32
 44 0FAB EC, Bts_rm32_r32, Bts, 2, op0=r;esp op1=r;r13d
 0FAB 18, Bts_rm32_r32, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 0FAB 18, Bts_rm32_r32, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 0FAB 18, Bts_rm32_r32, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 0FAB 18, Bts_rm32_r32, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 0FAB 18, Bts_rm32_r32, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 0FAB 18, Bts_rm32_r32, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 0FAB CE, Bts_rm32_r32, Bts, 2, op0=r;esi op1=r;ecx enc=0FABCE
 
 48 0FAB CE, Bts_rm64_r64, Bts, 2, op0=r;rsi op1=r;rcx
@@ -14577,8 +14577,8 @@ F0 48 0FAB CE, INVALID, INVALID, 0, code=Bts_rm64_r64
 4C 0FAB EC, Bts_rm64_r64, Bts, 2, op0=r;rsp op1=r;r13
 48 0FAB 18, Bts_rm64_r64, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 0FAB 18, Bts_rm64_r64, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 0FAB 18, Bts_rm64_r64, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 0FAB 18, Bts_rm64_r64, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 0FAB 18, Bts_rm64_r64, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 0FAB 18, Bts_rm64_r64, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 0FAB CE, Bts_rm64_r64, Bts, 2, op0=r;rsi op1=r;rcx enc=480FABCE
 
 66 0FAC CE 5A, Shrd_rm16_r16_imm8, Shrd, 3, op0=r;si op1=r;cx op2=i8;0x5A co=4;1;0;0;0;0
@@ -14892,8 +14892,8 @@ F0 0FB0 CE, INVALID, INVALID, 0, code=Cmpxchg_rm8_r8
 66 67 4E 0FB0 EC, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=r;spl op1=r;r13l enc=440FB0EC
 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
-F0 F3 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease
-F0 F2 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire
+F0 F3 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
+F0 F2 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire repne
 
 66 0FB1 CE, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=r;si op1=r;cx
 F0 66 0FB1 CE, INVALID, INVALID, 0, code=Cmpxchg_rm16_r16
@@ -14904,8 +14904,8 @@ F0 66 0FB1 CE, INVALID, INVALID, 0, code=Cmpxchg_rm16_r16
 66 44 0FB1 EC, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=r;sp op1=r;r13w
 66 0FB1 18, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 0FB1 18, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 0FB1 18, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 0FB1 18, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 0FB1 18, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 0FB1 18, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 0FB1 CE, Cmpxchg_rm16_r16, Cmpxchg, 2, op0=r;si op1=r;cx enc=660FB1CE
 
 0FB1 CE, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=r;esi op1=r;ecx
@@ -14917,8 +14917,8 @@ F0 0FB1 CE, INVALID, INVALID, 0, code=Cmpxchg_rm32_r32
 44 0FB1 EC, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=r;esp op1=r;r13d
 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 0FB1 18, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 0FB1 CE, Cmpxchg_rm32_r32, Cmpxchg, 2, op0=r;esi op1=r;ecx enc=0FB1CE
 
 48 0FB1 CE, Cmpxchg_rm64_r64, Cmpxchg, 2, op0=r;rsi op1=r;rcx
@@ -14930,8 +14930,8 @@ F0 48 0FB1 CE, INVALID, INVALID, 0, code=Cmpxchg_rm64_r64
 4C 0FB1 EC, Cmpxchg_rm64_r64, Cmpxchg, 2, op0=r;rsp op1=r;r13
 48 0FB1 18, Cmpxchg_rm64_r64, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 0FB1 18, Cmpxchg_rm64_r64, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 0FB1 18, Cmpxchg_rm64_r64, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 0FB1 18, Cmpxchg_rm64_r64, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 0FB1 18, Cmpxchg_rm64_r64, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 0FB1 18, Cmpxchg_rm64_r64, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 0FB1 CE, Cmpxchg_rm64_r64, Cmpxchg, 2, op0=r;rsi op1=r;rcx enc=480FB1CE
 
 66 0FB2 18, Lss_r16_m1616, Lss, 2, op0=r;bx op1=m;ds;rax;;1;0;0;SegPtr16
@@ -14953,8 +14953,8 @@ F0 66 0FB3 CE, INVALID, INVALID, 0, code=Btr_rm16_r16
 66 44 0FB3 EC, Btr_rm16_r16, Btr, 2, op0=r;sp op1=r;r13w
 66 0FB3 18, Btr_rm16_r16, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 0FB3 18, Btr_rm16_r16, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 0FB3 18, Btr_rm16_r16, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 0FB3 18, Btr_rm16_r16, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 0FB3 18, Btr_rm16_r16, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 0FB3 18, Btr_rm16_r16, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 0FB3 CE, Btr_rm16_r16, Btr, 2, op0=r;si op1=r;cx enc=660FB3CE
 
 0FB3 CE, Btr_rm32_r32, Btr, 2, op0=r;esi op1=r;ecx
@@ -14966,8 +14966,8 @@ F0 0FB3 CE, INVALID, INVALID, 0, code=Btr_rm32_r32
 44 0FB3 EC, Btr_rm32_r32, Btr, 2, op0=r;esp op1=r;r13d
 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 0FB3 18, Btr_rm32_r32, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 0FB3 CE, Btr_rm32_r32, Btr, 2, op0=r;esi op1=r;ecx enc=0FB3CE
 
 48 0FB3 CE, Btr_rm64_r64, Btr, 2, op0=r;rsi op1=r;rcx
@@ -14979,8 +14979,8 @@ F0 48 0FB3 CE, INVALID, INVALID, 0, code=Btr_rm64_r64
 4C 0FB3 EC, Btr_rm64_r64, Btr, 2, op0=r;rsp op1=r;r13
 48 0FB3 18, Btr_rm64_r64, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 0FB3 18, Btr_rm64_r64, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 0FB3 18, Btr_rm64_r64, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 0FB3 18, Btr_rm64_r64, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 0FB3 18, Btr_rm64_r64, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 0FB3 18, Btr_rm64_r64, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 0FB3 CE, Btr_rm64_r64, Btr, 2, op0=r;rsi op1=r;rcx enc=480FB3CE
 
 66 0FB4 18, Lfs_r16_m1616, Lfs, 2, op0=r;bx op1=m;ds;rax;;1;0;0;SegPtr16
@@ -15135,8 +15135,8 @@ F3 4A 0FB8 CE, Popcnt_r64_rm64, Popcnt, 2, op0=r;rcx op1=r;rsi enc=F3480FB8CE
 
 66 0FBA 28 A5, Bts_rm16_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=4;1;0;0;0;0
 F0 66 0FBA 28 A5, Bts_rm16_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=5;1;0;0;0;0 lock
-F0 66 F3 0FBA 28 A5, Bts_rm16_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=6;1;0;0;0;0 lock xrelease
-F0 66 F2 0FBA 28 A5, Bts_rm16_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=6;1;0;0;0;0 lock xacquire
+F0 66 F3 0FBA 28 A5, Bts_rm16_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=6;1;0;0;0;0 lock xrelease repe
+F0 66 F2 0FBA 28 A5, Bts_rm16_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=6;1;0;0;0;0 lock xacquire repne
 66 0FBA EE A5, Bts_rm16_imm8, Bts, 2, op0=r;si op1=i8;0xA5 co=4;1;0;0;0;0
 F0 66 0FBA EE A5, INVALID, INVALID, 0, code=Bts_rm16_imm8
 66 41 0FBA EE A5, Bts_rm16_imm8, Bts, 2, op0=r;r14w op1=i8;0xA5 co=5;1;0;0;0;0
@@ -15144,8 +15144,8 @@ F0 66 0FBA EE A5, INVALID, INVALID, 0, code=Bts_rm16_imm8
 
 0FBA 28 A5, Bts_rm32_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=3;1;0;0;0;0
 F0 0FBA 28 A5, Bts_rm32_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=4;1;0;0;0;0 lock
-F0 F3 0FBA 28 A5, Bts_rm32_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=5;1;0;0;0;0 lock xrelease
-F0 F2 0FBA 28 A5, Bts_rm32_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=5;1;0;0;0;0 lock xacquire
+F0 F3 0FBA 28 A5, Bts_rm32_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=5;1;0;0;0;0 lock xrelease repe
+F0 F2 0FBA 28 A5, Bts_rm32_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=5;1;0;0;0;0 lock xacquire repne
 0FBA EE A5, Bts_rm32_imm8, Bts, 2, op0=r;esi op1=i8;0xA5 co=3;1;0;0;0;0
 F0 0FBA EE A5, INVALID, INVALID, 0, code=Bts_rm32_imm8
 41 0FBA EE A5, Bts_rm32_imm8, Bts, 2, op0=r;r14d op1=i8;0xA5 co=4;1;0;0;0;0
@@ -15153,8 +15153,8 @@ F0 0FBA EE A5, INVALID, INVALID, 0, code=Bts_rm32_imm8
 
 48 0FBA 28 A5, Bts_rm64_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=4;1;0;0;0;0
 F0 48 0FBA 28 A5, Bts_rm64_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=5;1;0;0;0;0 lock
-F0 F3 48 0FBA 28 A5, Bts_rm64_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=6;1;0;0;0;0 lock xrelease
-F0 F2 48 0FBA 28 A5, Bts_rm64_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=6;1;0;0;0;0 lock xacquire
+F0 F3 48 0FBA 28 A5, Bts_rm64_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=6;1;0;0;0;0 lock xrelease repe
+F0 F2 48 0FBA 28 A5, Bts_rm64_imm8, Bts, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=6;1;0;0;0;0 lock xacquire repne
 48 0FBA EE A5, Bts_rm64_imm8, Bts, 2, op0=r;rsi op1=i8;0xA5 co=4;1;0;0;0;0
 F0 48 0FBA EE A5, INVALID, INVALID, 0, code=Bts_rm64_imm8
 49 0FBA EE A5, Bts_rm64_imm8, Bts, 2, op0=r;r14 op1=i8;0xA5 co=4;1;0;0;0;0
@@ -15162,8 +15162,8 @@ F0 48 0FBA EE A5, INVALID, INVALID, 0, code=Bts_rm64_imm8
 
 66 0FBA 30 5A, Btr_rm16_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0x5A co=4;1;0;0;0;0
 F0 66 0FBA 30 5A, Btr_rm16_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0x5A co=5;1;0;0;0;0 lock
-F0 66 F3 0FBA 30 5A, Btr_rm16_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0x5A co=6;1;0;0;0;0 lock xrelease
-F0 66 F2 0FBA 30 5A, Btr_rm16_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0x5A co=6;1;0;0;0;0 lock xacquire
+F0 66 F3 0FBA 30 5A, Btr_rm16_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0x5A co=6;1;0;0;0;0 lock xrelease repe
+F0 66 F2 0FBA 30 5A, Btr_rm16_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0x5A co=6;1;0;0;0;0 lock xacquire repne
 66 0FBA F7 5A, Btr_rm16_imm8, Btr, 2, op0=r;di op1=i8;0x5A co=4;1;0;0;0;0
 F0 66 0FBA F7 5A, INVALID, INVALID, 0, code=Btr_rm16_imm8
 66 41 0FBA F7 5A, Btr_rm16_imm8, Btr, 2, op0=r;r15w op1=i8;0x5A co=5;1;0;0;0;0
@@ -15171,8 +15171,8 @@ F0 66 0FBA F7 5A, INVALID, INVALID, 0, code=Btr_rm16_imm8
 
 0FBA 30 5A, Btr_rm32_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0x5A co=3;1;0;0;0;0
 F0 0FBA 30 5A, Btr_rm32_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0x5A co=4;1;0;0;0;0 lock
-F0 F3 0FBA 30 5A, Btr_rm32_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0x5A co=5;1;0;0;0;0 lock xrelease
-F0 F2 0FBA 30 5A, Btr_rm32_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0x5A co=5;1;0;0;0;0 lock xacquire
+F0 F3 0FBA 30 5A, Btr_rm32_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0x5A co=5;1;0;0;0;0 lock xrelease repe
+F0 F2 0FBA 30 5A, Btr_rm32_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0x5A co=5;1;0;0;0;0 lock xacquire repne
 0FBA F7 5A, Btr_rm32_imm8, Btr, 2, op0=r;edi op1=i8;0x5A co=3;1;0;0;0;0
 F0 0FBA F7 5A, INVALID, INVALID, 0, code=Btr_rm32_imm8
 41 0FBA F7 5A, Btr_rm32_imm8, Btr, 2, op0=r;r15d op1=i8;0x5A co=4;1;0;0;0;0
@@ -15180,8 +15180,8 @@ F0 0FBA F7 5A, INVALID, INVALID, 0, code=Btr_rm32_imm8
 
 48 0FBA 30 5A, Btr_rm64_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0x5A co=4;1;0;0;0;0
 F0 48 0FBA 30 5A, Btr_rm64_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0x5A co=5;1;0;0;0;0 lock
-F0 F3 48 0FBA 30 5A, Btr_rm64_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0x5A co=6;1;0;0;0;0 lock xrelease
-F0 F2 48 0FBA 30 5A, Btr_rm64_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0x5A co=6;1;0;0;0;0 lock xacquire
+F0 F3 48 0FBA 30 5A, Btr_rm64_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0x5A co=6;1;0;0;0;0 lock xrelease repe
+F0 F2 48 0FBA 30 5A, Btr_rm64_imm8, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0x5A co=6;1;0;0;0;0 lock xacquire repne
 48 0FBA F7 5A, Btr_rm64_imm8, Btr, 2, op0=r;rdi op1=i8;0x5A co=4;1;0;0;0;0
 F0 48 0FBA F7 5A, INVALID, INVALID, 0, code=Btr_rm64_imm8
 49 0FBA F7 5A, Btr_rm64_imm8, Btr, 2, op0=r;r15 op1=i8;0x5A co=4;1;0;0;0;0
@@ -15189,8 +15189,8 @@ F0 48 0FBA F7 5A, INVALID, INVALID, 0, code=Btr_rm64_imm8
 
 66 0FBA 38 A5, Btc_rm16_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=4;1;0;0;0;0
 F0 66 0FBA 38 A5, Btc_rm16_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=5;1;0;0;0;0 lock
-F0 66 F3 0FBA 38 A5, Btc_rm16_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=6;1;0;0;0;0 lock xrelease
-F0 66 F2 0FBA 38 A5, Btc_rm16_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=6;1;0;0;0;0 lock xacquire
+F0 66 F3 0FBA 38 A5, Btc_rm16_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=6;1;0;0;0;0 lock xrelease repe
+F0 66 F2 0FBA 38 A5, Btc_rm16_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i8;0xA5 co=6;1;0;0;0;0 lock xacquire repne
 66 41 0FBA F8 A5, Btc_rm16_imm8, Btc, 2, op0=r;r8w op1=i8;0xA5 co=5;1;0;0;0;0
 F0 66 41 0FBA F8 A5, INVALID, INVALID, 0, code=Btc_rm16_imm8
 66 0FBA F8 A5, Btc_rm16_imm8, Btc, 2, op0=r;ax op1=i8;0xA5 co=4;1;0;0;0;0
@@ -15198,8 +15198,8 @@ F0 66 41 0FBA F8 A5, INVALID, INVALID, 0, code=Btc_rm16_imm8
 
 0FBA 38 A5, Btc_rm32_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=3;1;0;0;0;0
 F0 0FBA 38 A5, Btc_rm32_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=4;1;0;0;0;0 lock
-F0 F3 0FBA 38 A5, Btc_rm32_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=5;1;0;0;0;0 lock xrelease
-F0 F2 0FBA 38 A5, Btc_rm32_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=5;1;0;0;0;0 lock xacquire
+F0 F3 0FBA 38 A5, Btc_rm32_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=5;1;0;0;0;0 lock xrelease repe
+F0 F2 0FBA 38 A5, Btc_rm32_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i8;0xA5 co=5;1;0;0;0;0 lock xacquire repne
 41 0FBA F8 A5, Btc_rm32_imm8, Btc, 2, op0=r;r8d op1=i8;0xA5 co=4;1;0;0;0;0
 F0 41 0FBA F8 A5, INVALID, INVALID, 0, code=Btc_rm32_imm8
 0FBA F8 A5, Btc_rm32_imm8, Btc, 2, op0=r;eax op1=i8;0xA5 co=3;1;0;0;0;0
@@ -15207,8 +15207,8 @@ F0 41 0FBA F8 A5, INVALID, INVALID, 0, code=Btc_rm32_imm8
 
 48 0FBA 38 A5, Btc_rm64_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=4;1;0;0;0;0
 F0 48 0FBA 38 A5, Btc_rm64_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=5;1;0;0;0;0 lock
-F0 F3 48 0FBA 38 A5, Btc_rm64_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=6;1;0;0;0;0 lock xrelease
-F0 F2 48 0FBA 38 A5, Btc_rm64_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=6;1;0;0;0;0 lock xacquire
+F0 F3 48 0FBA 38 A5, Btc_rm64_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=6;1;0;0;0;0 lock xrelease repe
+F0 F2 48 0FBA 38 A5, Btc_rm64_imm8, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i8;0xA5 co=6;1;0;0;0;0 lock xacquire repne
 49 0FBA F8 A5, Btc_rm64_imm8, Btc, 2, op0=r;r8 op1=i8;0xA5 co=4;1;0;0;0;0
 F0 49 0FBA F8 A5, INVALID, INVALID, 0, code=Btc_rm64_imm8
 48 0FBA F8 A5, Btc_rm64_imm8, Btc, 2, op0=r;rax op1=i8;0xA5 co=4;1;0;0;0;0
@@ -15223,8 +15223,8 @@ F0 66 0FBB CE, INVALID, INVALID, 0, code=Btc_rm16_r16
 66 44 0FBB EC, Btc_rm16_r16, Btc, 2, op0=r;sp op1=r;r13w
 66 0FBB 18, Btc_rm16_r16, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 0FBB 18, Btc_rm16_r16, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 0FBB 18, Btc_rm16_r16, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 0FBB 18, Btc_rm16_r16, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 0FBB 18, Btc_rm16_r16, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 0FBB 18, Btc_rm16_r16, Btc, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 0FBB CE, Btc_rm16_r16, Btc, 2, op0=r;si op1=r;cx enc=660FBBCE
 
 0FBB CE, Btc_rm32_r32, Btc, 2, op0=r;esi op1=r;ecx
@@ -15236,8 +15236,8 @@ F0 0FBB CE, INVALID, INVALID, 0, code=Btc_rm32_r32
 44 0FBB EC, Btc_rm32_r32, Btc, 2, op0=r;esp op1=r;r13d
 0FBB 18, Btc_rm32_r32, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 0FBB 18, Btc_rm32_r32, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 0FBB 18, Btc_rm32_r32, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 0FBB 18, Btc_rm32_r32, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 0FBB 18, Btc_rm32_r32, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 0FBB 18, Btc_rm32_r32, Btc, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 0FBB CE, Btc_rm32_r32, Btc, 2, op0=r;esi op1=r;ecx enc=0FBBCE
 
 48 0FBB CE, Btc_rm64_r64, Btc, 2, op0=r;rsi op1=r;rcx
@@ -15249,8 +15249,8 @@ F0 48 0FBB CE, INVALID, INVALID, 0, code=Btc_rm64_r64
 4C 0FBB EC, Btc_rm64_r64, Btc, 2, op0=r;rsp op1=r;r13
 48 0FBB 18, Btc_rm64_r64, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 0FBB 18, Btc_rm64_r64, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 0FBB 18, Btc_rm64_r64, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 0FBB 18, Btc_rm64_r64, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 0FBB 18, Btc_rm64_r64, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 0FBB 18, Btc_rm64_r64, Btc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 0FBB CE, Btc_rm64_r64, Btc, 2, op0=r;rsi op1=r;rcx enc=480FBBCE
 
 66 0FBC CE, Bsf_r16_rm16, Bsf, 2, op0=r;cx op1=r;si
@@ -15469,8 +15469,8 @@ F0 0FC0 CE, INVALID, INVALID, 0, code=Xadd_rm8_r8
 66 67 4E 0FC0 EC, Xadd_rm8_r8, Xadd, 2, op0=r;spl op1=r;r13l enc=440FC0EC
 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
-F0 F3 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease
-F0 F2 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire
+F0 F3 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
+F0 F2 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xacquire repne
 
 66 0FC1 CE, Xadd_rm16_r16, Xadd, 2, op0=r;si op1=r;cx
 F0 66 0FC1 CE, INVALID, INVALID, 0, code=Xadd_rm16_r16
@@ -15481,8 +15481,8 @@ F0 66 0FC1 CE, INVALID, INVALID, 0, code=Xadd_rm16_r16
 66 44 0FC1 EC, Xadd_rm16_r16, Xadd, 2, op0=r;sp op1=r;r13w
 66 0FC1 18, Xadd_rm16_r16, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 F0 66 0FC1 18, Xadd_rm16_r16, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
-F0 66 F3 0FC1 18, Xadd_rm16_r16, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
-F0 66 F2 0FC1 18, Xadd_rm16_r16, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
+F0 66 F3 0FC1 18, Xadd_rm16_r16, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease repe
+F0 66 F2 0FC1 18, Xadd_rm16_r16, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire repne
 66 42 0FC1 CE, Xadd_rm16_r16, Xadd, 2, op0=r;si op1=r;cx enc=660FC1CE
 
 0FC1 CE, Xadd_rm32_r32, Xadd, 2, op0=r;esi op1=r;ecx
@@ -15494,8 +15494,8 @@ F0 0FC1 CE, INVALID, INVALID, 0, code=Xadd_rm32_r32
 44 0FC1 EC, Xadd_rm32_r32, Xadd, 2, op0=r;esp op1=r;r13d
 0FC1 18, Xadd_rm32_r32, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F0 0FC1 18, Xadd_rm32_r32, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock
-F0 F3 0FC1 18, Xadd_rm32_r32, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease
-F0 F2 0FC1 18, Xadd_rm32_r32, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire
+F0 F3 0FC1 18, Xadd_rm32_r32, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xrelease repe
+F0 F2 0FC1 18, Xadd_rm32_r32, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx lock xacquire repne
 42 0FC1 CE, Xadd_rm32_r32, Xadd, 2, op0=r;esi op1=r;ecx enc=0FC1CE
 
 48 0FC1 CE, Xadd_rm64_r64, Xadd, 2, op0=r;rsi op1=r;rcx
@@ -15507,8 +15507,8 @@ F0 48 0FC1 CE, INVALID, INVALID, 0, code=Xadd_rm64_r64
 4C 0FC1 EC, Xadd_rm64_r64, Xadd, 2, op0=r;rsp op1=r;r13
 48 0FC1 18, Xadd_rm64_r64, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F0 48 0FC1 18, Xadd_rm64_r64, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock
-F0 F3 48 0FC1 18, Xadd_rm64_r64, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease
-F0 F2 48 0FC1 18, Xadd_rm64_r64, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire
+F0 F3 48 0FC1 18, Xadd_rm64_r64, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xrelease repe
+F0 F2 48 0FC1 18, Xadd_rm64_r64, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xacquire repne
 4A 0FC1 CE, Xadd_rm64_r64, Xadd, 2, op0=r;rsi op1=r;rcx enc=480FC1CE
 
 0FC2 08 A5, Cmpps_xmm_xmmm128_imm8, Cmpps, 3, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Packed128_Float32 op2=i8;0xA5 co=3;1;0;0;0;0
@@ -15888,13 +15888,15 @@ C4814D C6 D3 A5, VEX_Vshufpd_ymm_ymm_ymmm256_imm8, Vshufpd, 4, op0=r;ymm2 op1=r;
 
 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;rax;;1;0;0;UInt64
 F0 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;rax;;1;0;0;UInt64 lock
-F0 F3 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xrelease
-F0 F2 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xacquire
+F0 F3 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xrelease repe
+F0 F2 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;rax;;1;0;0;UInt64 lock xacquire repne
 66 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;rax;;1;0;0;UInt64 enc=0FC708
 44 0FC7 08, Cmpxchg8b_m64, Cmpxchg8b, 1, op0=m;ds;rax;;1;0;0;UInt64 enc=0FC708
 
 48 0FC7 08, Cmpxchg16b_m128, Cmpxchg16b, 1, op0=m;ds;rax;;1;0;0;UInt128
 F0 48 0FC7 08, Cmpxchg16b_m128, Cmpxchg16b, 1, op0=m;ds;rax;;1;0;0;UInt128 lock
+F0 F3 48 0FC7 08, Cmpxchg16b_m128, Cmpxchg16b, 1, op0=m;ds;rax;;1;0;0;UInt128 lock repe
+F0 F2 48 0FC7 08, Cmpxchg16b_m128, Cmpxchg16b, 1, op0=m;ds;rax;;1;0;0;UInt128 lock repne
 66 48 0FC7 08, Cmpxchg16b_m128, Cmpxchg16b, 1, op0=m;ds;rax;;1;0;0;UInt128 enc=480FC708
 4C 0FC7 08, Cmpxchg16b_m128, Cmpxchg16b, 1, op0=m;ds;rax;;1;0;0;UInt128 enc=480FC708
 

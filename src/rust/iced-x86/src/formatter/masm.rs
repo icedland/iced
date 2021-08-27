@@ -147,7 +147,7 @@ impl MasmFormatter {
 		if (mnemonic_options & FormatMnemonicOptions::NO_PREFIXES) == 0 && (op_info.flags & InstrOpInfoFlags::MNEMONIC_IS_DIRECTIVE as u16) == 0 {
 			let prefix_seg = instruction.segment_prefix();
 			if ((prefix_seg as u32)
-				| instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)
+				| instruction_internal::internal_has_any_of_lock_rep_repne_prefix(instruction)
 				| ((op_info.flags as u32) & (InstrOpInfoFlags::JCC_NOT_TAKEN | InstrOpInfoFlags::JCC_TAKEN | InstrOpInfoFlags::BND_PREFIX)))
 				!= 0
 			{

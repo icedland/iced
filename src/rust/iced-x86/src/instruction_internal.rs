@@ -27,20 +27,6 @@ pub(crate) fn internal_set_code_size(this: &mut Instruction, new_value: CodeSize
 	this.flags1 |= (new_value as u32) << InstrFlags1::CODE_SIZE_SHIFT;
 }
 
-#[cfg(feature = "encoder")]
-#[must_use]
-#[inline]
-pub(crate) fn internal_has_repe_prefix_has_xrelease_prefix(this: &Instruction) -> bool {
-	(this.flags1 & (InstrFlags1::REPE_PREFIX | InstrFlags1::XRELEASE_PREFIX)) != 0
-}
-
-#[cfg(feature = "encoder")]
-#[must_use]
-#[inline]
-pub(crate) fn internal_has_repne_prefix_has_xacquire_prefix(this: &Instruction) -> bool {
-	(this.flags1 & (InstrFlags1::REPNE_PREFIX | InstrFlags1::XACQUIRE_PREFIX)) != 0
-}
-
 #[cfg(feature = "instr_info")]
 #[must_use]
 #[inline]
@@ -56,13 +42,8 @@ pub(crate) fn internal_set_has_repe_prefix(this: &mut Instruction) {
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 #[inline]
-pub(crate) fn internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(this: &Instruction) -> u32 {
-	this.flags1
-		& (InstrFlags1::XACQUIRE_PREFIX
-			| InstrFlags1::XRELEASE_PREFIX
-			| InstrFlags1::LOCK_PREFIX
-			| InstrFlags1::REPE_PREFIX
-			| InstrFlags1::REPNE_PREFIX)
+pub(crate) fn internal_has_any_of_lock_rep_repne_prefix(this: &Instruction) -> u32 {
+	this.flags1 & (InstrFlags1::LOCK_PREFIX | InstrFlags1::REPE_PREFIX | InstrFlags1::REPNE_PREFIX)
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]

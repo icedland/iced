@@ -1018,9 +1018,9 @@ namespace Iced.Intel {
 				WriteByteInternal(0x66);
 			if ((EncoderFlags & EncoderFlags.P67) != 0)
 				WriteByteInternal(0x67);
-			if (canWriteF3 && instruction.Internal_HasRepePrefix_HasXreleasePrefix)
+			if (canWriteF3 && instruction.HasRepePrefix)
 				WriteByteInternal(0xF3);
-			if (instruction.Internal_HasRepnePrefix_HasXacquirePrefix)
+			if (instruction.HasRepnePrefix)
 				WriteByteInternal(0xF2);
 		}
 

@@ -214,15 +214,22 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			instruction.FarBranchSelector = ushort.MaxValue;
 			Assert.Equal(ushort.MaxValue, instruction.FarBranchSelector);
 
-			instruction.HasXacquirePrefix = false;
-			Assert.False(instruction.HasXacquirePrefix);
-			instruction.HasXacquirePrefix = true;
-			Assert.True(instruction.HasXacquirePrefix);
+			{
+				var instr = instruction;
+				instr.Code = Code.Cmpxchg8b_m64;
+				instr.Op0Kind = OpKind.Memory;
+				instr.HasLockPrefix = true;
 
-			instruction.HasXreleasePrefix = false;
-			Assert.False(instruction.HasXreleasePrefix);
-			instruction.HasXreleasePrefix = true;
-			Assert.True(instruction.HasXreleasePrefix);
+				instr.HasXacquirePrefix = false;
+				Assert.False(instr.HasXacquirePrefix);
+				instr.HasXacquirePrefix = true;
+				Assert.True(instr.HasXacquirePrefix);
+
+				instr.HasXreleasePrefix = false;
+				Assert.False(instr.HasXreleasePrefix);
+				instr.HasXreleasePrefix = true;
+				Assert.True(instr.HasXreleasePrefix);
+			}
 
 			instruction.HasRepPrefix = false;
 			Assert.False(instruction.HasRepPrefix);

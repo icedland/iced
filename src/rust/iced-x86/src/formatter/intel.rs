@@ -153,7 +153,7 @@ impl IntelFormatter {
 				| InstrOpInfoFlags::JCC_NOT_TAKEN
 				| InstrOpInfoFlags::JCC_TAKEN;
 			if ((prefix_seg as u32)
-				| instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)
+				| instruction_internal::internal_has_any_of_lock_rep_repne_prefix(instruction)
 				| ((op_info.flags as u32) & PREFIX_FLAGS))
 				!= 0
 			{

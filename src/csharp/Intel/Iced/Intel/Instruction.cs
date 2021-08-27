@@ -24,11 +24,9 @@ namespace Iced.Intel {
 			OpMaskShift = 0x0000000F,
 			CodeSizeMask = 0x00000003,
 			CodeSizeShift = 0x00000012,
-			Broadcast = 0x01000000,
-			SuppressAllExceptions = 0x02000000,
-			ZeroingMasking = 0x04000000,
-			XacquirePrefix = 0x08000000,
-			XreleasePrefix = 0x10000000,
+			Broadcast = 0x04000000,
+			SuppressAllExceptions = 0x08000000,
+			ZeroingMasking = 0x10000000,
 			RepePrefix = 0x20000000,
 			RepnePrefix = 0x40000000,
 			LockPrefix = 0x80000000,
@@ -275,22 +273,46 @@ namespace Iced.Intel {
 			set => len = (byte)value;
 		}
 
-		internal readonly bool Internal_HasRepePrefix_HasXreleasePrefix {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => (flags1 & (uint)(InstrFlags1.RepePrefix | InstrFlags1.XreleasePrefix)) != 0;
-		}
-		internal readonly bool Internal_HasRepnePrefix_HasXacquirePrefix {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => (flags1 & (uint)(InstrFlags1.RepnePrefix | InstrFlags1.XacquirePrefix)) != 0;
-		}
 		internal readonly bool Internal_HasRepeOrRepnePrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => (flags1 & (uint)(InstrFlags1.RepePrefix | InstrFlags1.RepnePrefix)) != 0;
 		}
 
-		internal readonly uint HasAnyOf_Xacquire_Xrelease_Lock_Rep_Repne_Prefix {
+		internal readonly uint HasAnyOf_Lock_Rep_Repne_Prefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => flags1 & (uint)(InstrFlags1.XacquirePrefix | InstrFlags1.XreleasePrefix | InstrFlags1.LockPrefix | InstrFlags1.RepePrefix | InstrFlags1.RepnePrefix);
+			get => flags1 & (uint)(InstrFlags1.LockPrefix | InstrFlags1.RepePrefix | InstrFlags1.RepnePrefix);
+		}
+
+		readonly bool IsXacquireInstr() {
+			if (Op0Kind != OpKind.Memory)
+				return false;
+			if (HasLockPrefix)
+				return Code != Code.Cmpxchg16b_m128;
+			return Mnemonic == Mnemonic.Xchg;
+		}
+
+		readonly bool IsXreleaseInstr() {
+			if (Op0Kind != OpKind.Memory)
+				return false;
+			if (HasLockPrefix)
+				return Code != Code.Cmpxchg16b_m128;
+			switch (Code) {
+			case Code.Xchg_rm8_r8:
+			case Code.Xchg_rm16_r16:
+			case Code.Xchg_rm32_r32:
+			case Code.Xchg_rm64_r64:
+			case Code.Mov_rm8_r8:
+			case Code.Mov_rm16_r16:
+			case Code.Mov_rm32_r32:
+			case Code.Mov_rm64_r64:
+			case Code.Mov_rm8_imm8:
+			case Code.Mov_rm16_imm16:
+			case Code.Mov_rm32_imm32:
+			case Code.Mov_rm64_imm32:
+				return true;
+			default:
+				return false;
+			}
 		}
 
 		/// <summary>
@@ -298,32 +320,32 @@ namespace Iced.Intel {
 		/// </summary>
 		public bool HasXacquirePrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			readonly get => (flags1 & (uint)InstrFlags1.XacquirePrefix) != 0;
+			readonly get => (flags1 & (uint)InstrFlags1.RepnePrefix) != 0 && IsXacquireInstr();
 			set {
 				if (value)
-					flags1 |= (uint)InstrFlags1.XacquirePrefix;
+					flags1 |= (uint)InstrFlags1.RepnePrefix;
 				else
-					flags1 &= ~(uint)InstrFlags1.XacquirePrefix;
+					flags1 &= ~(uint)InstrFlags1.RepnePrefix;
 			}
 		}
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal void InternalSetHasXacquirePrefix() => flags1 |= (uint)InstrFlags1.XacquirePrefix;
+		internal void InternalSetHasXacquirePrefix() => flags1 |= (uint)InstrFlags1.RepnePrefix;
 
 		/// <summary>
 		/// <see langword="true"/> if the instruction has the <c>XRELEASE</c> prefix (<c>F3</c>)
 		/// </summary>
 		public bool HasXreleasePrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			readonly get => (flags1 & (uint)InstrFlags1.XreleasePrefix) != 0;
+			readonly get => (flags1 & (uint)InstrFlags1.RepePrefix) != 0 && IsXreleaseInstr();
 			set {
 				if (value)
-					flags1 |= (uint)InstrFlags1.XreleasePrefix;
+					flags1 |= (uint)InstrFlags1.RepePrefix;
 				else
-					flags1 &= ~(uint)InstrFlags1.XreleasePrefix;
+					flags1 &= ~(uint)InstrFlags1.RepePrefix;
 			}
 		}
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal void InternalSetHasXreleasePrefix() => flags1 |= (uint)InstrFlags1.XreleasePrefix;
+		internal void InternalSetHasXreleasePrefix() => flags1 |= (uint)InstrFlags1.RepePrefix;
 
 		/// <summary>
 		/// <see langword="true"/> if the instruction has the <c>REPE</c> or <c>REP</c> prefix (<c>F3</c>)

@@ -264,7 +264,7 @@ namespace Iced.Intel {
 					((uint)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.OpSizeShift) |
 					((uint)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.AddrSizeShift) |
 					(uint)InstrOpInfoFlags.BndPrefix;
-				if (((uint)prefixSeg | instruction.HasAnyOf_Xacquire_Xrelease_Lock_Rep_Repne_Prefix | ((uint)opInfo.Flags & PrefixFlags)) != 0) {
+				if (((uint)prefixSeg | instruction.HasAnyOf_Lock_Rep_Repne_Prefix | ((uint)opInfo.Flags & PrefixFlags)) != 0) {
 					FormatterString prefix;
 
 					if ((opInfo.Flags & InstrOpInfoFlags.OpSizeIsByteDirective) != 0) {

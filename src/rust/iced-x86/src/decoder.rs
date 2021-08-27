@@ -1528,7 +1528,7 @@ impl<'a> Decoder<'a> {
 
 	#[inline(always)]
 	fn set_xacquire_xrelease(&mut self, instruction: &mut Instruction, flags: u32) {
-		if (flags & HandlerFlags::XACQUIRE_XRELEASE_NO_LOCK) != 0 || instruction.has_lock_prefix() {
+		if instruction.has_lock_prefix() {
 			self.set_xacquire_xrelease_core(instruction, flags);
 		}
 	}
@@ -1537,10 +1537,8 @@ impl<'a> Decoder<'a> {
 		debug_assert!(!((flags & HandlerFlags::XACQUIRE_XRELEASE_NO_LOCK) == 0 && !instruction.has_lock_prefix()));
 		match self.state.mandatory_prefix {
 			DecoderMandatoryPrefix::PF2 => {
-				if (flags & HandlerFlags::XACQUIRE) != 0 {
-					self.clear_mandatory_prefix_f2(instruction);
-					instruction.set_has_xacquire_prefix(true);
-				}
+				self.clear_mandatory_prefix_f2(instruction);
+				instruction.set_has_xacquire_prefix(true);
 			}
 			DecoderMandatoryPrefix::PF3 => {
 				self.clear_mandatory_prefix_f3(instruction);

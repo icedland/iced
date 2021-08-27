@@ -1159,10 +1159,10 @@ impl Encoder {
 		if (self.encoder_flags & EncoderFlags::P67) != 0 {
 			self.write_byte_internal(0x67);
 		}
-		if can_write_f3 && instruction_internal::internal_has_repe_prefix_has_xrelease_prefix(instruction) {
+		if can_write_f3 && instruction.has_repe_prefix() {
 			self.write_byte_internal(0xF3);
 		}
-		if instruction_internal::internal_has_repne_prefix_has_xacquire_prefix(instruction) {
+		if instruction.has_repne_prefix() {
 			self.write_byte_internal(0xF2);
 		}
 	}

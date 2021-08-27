@@ -219,15 +219,22 @@ fn write_all_properties() {
 	instr.set_far_branch_selector(u16::MAX);
 	assert_eq!(instr.far_branch_selector(), u16::MAX);
 
-	instr.set_has_xacquire_prefix(false);
-	assert!(!instr.has_xacquire_prefix());
-	instr.set_has_xacquire_prefix(true);
-	assert!(instr.has_xacquire_prefix());
+	{
+		let mut instr = instr;
+		instr.set_code(Code::Cmpxchg8b_m64);
+		instr.set_op0_kind(OpKind::Memory);
+		instr.set_has_lock_prefix(true);
 
-	instr.set_has_xrelease_prefix(false);
-	assert!(!instr.has_xrelease_prefix());
-	instr.set_has_xrelease_prefix(true);
-	assert!(instr.has_xrelease_prefix());
+		instr.set_has_xacquire_prefix(false);
+		assert!(!instr.has_xacquire_prefix());
+		instr.set_has_xacquire_prefix(true);
+		assert!(instr.has_xacquire_prefix());
+
+		instr.set_has_xrelease_prefix(false);
+		assert!(!instr.has_xrelease_prefix());
+		instr.set_has_xrelease_prefix(true);
+		assert!(instr.has_xrelease_prefix());
+	}
 
 	instr.set_has_rep_prefix(false);
 	assert!(!instr.has_rep_prefix());

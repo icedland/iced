@@ -383,26 +383,15 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void SetXacquireXrelease(ref Instruction instruction, HandlerFlags flags) {
-			if ((flags & HandlerFlags.XacquireXreleaseNoLock) != 0 || instruction.HasLockPrefix)
-				SetXacquireXreleaseCore(ref instruction, flags);
-		}
-
-		void SetXacquireXreleaseCore(ref Instruction instruction, HandlerFlags flags) {
-			Debug.Assert(!((flags & HandlerFlags.XacquireXreleaseNoLock) == 0 && !instruction.HasLockPrefix));
-			switch (state.mandatoryPrefix) {
-			case MandatoryPrefixByte.PF2:
-				if ((flags & HandlerFlags.Xacquire) != 0) {
+			if (instruction.HasLockPrefix) {
+				if (state.mandatoryPrefix == MandatoryPrefixByte.PF2) {
 					ClearMandatoryPrefixF2(ref instruction);
 					instruction.InternalSetHasXacquirePrefix();
 				}
-				break;
-
-			case MandatoryPrefixByte.PF3:
-				if ((flags & HandlerFlags.Xrelease) != 0) {
+				else if (state.mandatoryPrefix == MandatoryPrefixByte.PF3) {
 					ClearMandatoryPrefixF3(ref instruction);
 					instruction.InternalSetHasXreleasePrefix();
 				}
-				break;
 			}
 		}
 
