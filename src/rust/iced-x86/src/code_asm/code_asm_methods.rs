@@ -10,7 +10,6 @@ use crate::code_asm::{CodeAssembler, CodeAssemblerOptions, CodeLabel, PrefixFlag
 use crate::IcedError;
 use crate::{BlockEncoder, BlockEncoderOptions, Code, Instruction, InstructionBlock, MemoryOperand, Register};
 use alloc::vec::Vec;
-use core::usize;
 
 impl CodeAssembler {
 	const MAX_DB_COUNT: usize = 16;

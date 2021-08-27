@@ -33,7 +33,6 @@ pub use crate::IcedError;
 use crate::Instruction;
 use alloc::vec::Vec;
 use core::hash::{Hash, Hasher};
-use core::usize;
 
 struct PrefixFlags;
 impl PrefixFlags {
