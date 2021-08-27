@@ -156,7 +156,7 @@ def test_some_props1():
 	assert len(instr) == 1
 
 def test_some_props2():
-	decoder = Decoder(64, b"\x00\xCE", ip=0x1234_5678_9ABC_DEF1)
+	decoder = Decoder(64, b"\xF0\x00\x00", ip=0x1234_5678_9ABC_DEF1)
 	instr = decoder.decode()
 
 	assert not instr.has_xacquire_prefix
@@ -166,6 +166,10 @@ def test_some_props2():
 	assert not instr.has_xrelease_prefix
 	instr.has_xrelease_prefix = True
 	assert instr.has_xrelease_prefix
+
+	instr.has_rep_prefix = False
+	instr.has_repe_prefix = False
+	instr.has_repne_prefix = False
 
 	assert not instr.has_rep_prefix
 	assert not instr.has_repe_prefix
@@ -180,9 +184,9 @@ def test_some_props2():
 	instr.has_repne_prefix = True
 	assert instr.has_repne_prefix
 
-	assert not instr.has_lock_prefix
-	instr.has_lock_prefix = True
 	assert instr.has_lock_prefix
+	instr.has_lock_prefix = False
+	assert not instr.has_lock_prefix
 
 	assert instr.op_mask == Register.NONE
 	assert not instr.has_op_mask

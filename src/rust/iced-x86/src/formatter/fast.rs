@@ -788,6 +788,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 	/// - `output`: Output
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[allow(clippy::let_unit_value)]
+	#[allow(clippy::useless_let_if_seq)]
 	pub fn format(&mut self, instruction: &Instruction, output: &mut String) {
 		// SAFETY: We only append data that come from a `&str`, a `String` or ASCII chars so the data is always valid utf8
 		let dst = unsafe { output.as_mut_vec() };
