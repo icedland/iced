@@ -39,7 +39,7 @@ impl OpCodeHandler_ST_STi {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -65,7 +65,7 @@ impl OpCodeHandler_STi_ST {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -91,7 +91,7 @@ impl OpCodeHandler_STi {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -119,7 +119,7 @@ impl OpCodeHandler_Mf {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		if decoder.state.operand_size != OpSize::Size16 {
 			instruction.set_code(this.code32);
 		} else {

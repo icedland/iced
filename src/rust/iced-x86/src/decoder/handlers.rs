@@ -253,9 +253,9 @@ impl OpCodeHandler_MandatoryPrefix2 {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(
-			decoder.state.encoding() == EncodingKind::VEX
-				|| decoder.state.encoding() == EncodingKind::EVEX
-				|| decoder.state.encoding() == EncodingKind::XOP
+			decoder.state.encoding() == EncodingKind::VEX as u32
+				|| decoder.state.encoding() == EncodingKind::EVEX as u32
+				|| decoder.state.encoding() == EncodingKind::XOP as u32
 		);
 		let (decode, handler) = unsafe { *this.handlers.get_unchecked(decoder.state.mandatory_prefix as usize) };
 		(decode)(handler, decoder, instruction);
@@ -284,9 +284,9 @@ impl OpCodeHandler_W {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(
-			decoder.state.encoding() == EncodingKind::VEX
-				|| decoder.state.encoding() == EncodingKind::EVEX
-				|| decoder.state.encoding() == EncodingKind::XOP
+			decoder.state.encoding() == EncodingKind::VEX as u32
+				|| decoder.state.encoding() == EncodingKind::EVEX as u32
+				|| decoder.state.encoding() == EncodingKind::XOP as u32
 		);
 		const_assert_eq!(StateFlags::W, 0x80);
 		let index = (decoder.state.flags >> 7) & 1;

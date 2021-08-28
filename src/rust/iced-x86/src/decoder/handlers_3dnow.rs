@@ -283,7 +283,7 @@ impl OpCodeHandler_D3NOW {
 	}
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
-		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(unsafe { mem::transmute((decoder.state.reg + Register::MM0 as u32) as RegisterUnderlyingType) });
@@ -319,7 +319,7 @@ impl OpCodeHandler_D3NOW {
 	}
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, _instruction: &mut Instruction) {
-		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		decoder.set_invalid_instruction();
 	}
 }

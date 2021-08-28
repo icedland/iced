@@ -483,16 +483,15 @@ impl State {
 	#[must_use]
 	#[inline(always)]
 	#[cfg(debug_assertions)]
-	fn encoding(&self) -> EncodingKind {
-		// SAFETY: It's always a valid enum value
-		unsafe { mem::transmute(((self.flags >> StateFlags::ENCODING_SHIFT) & StateFlags::ENCODING_MASK) as EncodingKindUnderlyingType) }
+	fn encoding(&self) -> u32 {
+		(self.flags >> StateFlags::ENCODING_SHIFT) & StateFlags::ENCODING_MASK
 	}
 	#[must_use]
 	#[inline(always)]
 	#[cfg(not(debug_assertions))]
 	#[allow(clippy::unused_self)]
-	fn encoding(&self) -> EncodingKind {
-		EncodingKind::Legacy
+	fn encoding(&self) -> u32 {
+		EncodingKind::Legacy as u32
 	}
 }
 
@@ -1522,7 +1521,7 @@ impl<'a> Decoder<'a> {
 
 	#[inline]
 	fn clear_mandatory_prefix(&mut self, instruction: &mut Instruction) {
-		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
+		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy as u32);
 		instruction_internal::internal_clear_has_repe_repne_prefix(instruction);
 	}
 
@@ -1550,14 +1549,14 @@ impl<'a> Decoder<'a> {
 
 	#[inline]
 	fn clear_mandatory_prefix_f3(&self, instruction: &mut Instruction) {
-		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
+		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy as u32);
 		debug_assert_eq!(self.state.mandatory_prefix, DecoderMandatoryPrefix::PF3);
 		instruction.set_has_repe_prefix(false);
 	}
 
 	#[inline]
 	fn clear_mandatory_prefix_f2(&self, instruction: &mut Instruction) {
-		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
+		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy as u32);
 		debug_assert_eq!(self.state.mandatory_prefix, DecoderMandatoryPrefix::PF2);
 		instruction.set_has_repne_prefix(false);
 	}
@@ -1868,7 +1867,7 @@ impl<'a> Decoder<'a> {
 
 	#[inline(always)]
 	fn read_op_mem(&mut self, instruction: &mut Instruction) {
-		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX);
+		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX as u32);
 		if self.state.address_size != OpSize::Size16 {
 			let _ = self.read_op_mem_32_or_64(instruction);
 		} else {
@@ -1879,7 +1878,7 @@ impl<'a> Decoder<'a> {
 	#[inline(always)]
 	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 	fn read_op_mem_sib(&mut self, instruction: &mut Instruction) {
-		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX);
+		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX as u32);
 		let is_valid = if self.state.address_size != OpSize::Size16 {
 			self.read_op_mem_32_or_64(instruction)
 		} else {
@@ -1896,7 +1895,7 @@ impl<'a> Decoder<'a> {
 	// (see SDM Vol 1, 17.5.1 Intel MPX and Operating Modes)
 	#[inline(always)]
 	fn read_op_mem_mpx(&mut self, instruction: &mut Instruction) {
-		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX);
+		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX as u32);
 		if self.is64b_mode {
 			self.state.address_size = OpSize::Size64;
 			let _ = self.read_op_mem_32_or_64(instruction);
@@ -1913,7 +1912,7 @@ impl<'a> Decoder<'a> {
 	#[inline(always)]
 	#[cfg(not(feature = "no_evex"))]
 	fn read_op_mem_tuple_type(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
-		debug_assert_eq!(self.state.encoding(), EncodingKind::EVEX);
+		debug_assert_eq!(self.state.encoding(), EncodingKind::EVEX as u32);
 		if self.state.address_size != OpSize::Size16 {
 			let index_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 			let _ = decoder_read_op_mem_32_or_64_vsib(self, instruction, index_reg, tuple_type, false);
