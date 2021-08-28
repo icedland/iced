@@ -50,7 +50,7 @@ impl CodeAssembler {
 	#[must_use]
 	#[inline]
 	pub fn xacquire(&mut self) -> &mut Self {
-		self.prefix_flags |= PrefixFlags::XACQUIRE;
+		self.prefix_flags |= PrefixFlags::REPNE;
 		self
 	}
 
@@ -58,7 +58,7 @@ impl CodeAssembler {
 	#[must_use]
 	#[inline]
 	pub fn xrelease(&mut self) -> &mut Self {
-		self.prefix_flags |= PrefixFlags::XRELEASE;
+		self.prefix_flags |= PrefixFlags::REPE;
 		self
 	}
 
@@ -1013,12 +1013,6 @@ impl CodeAssembler {
 		}
 
 		if self.prefix_flags != 0 {
-			if (self.prefix_flags & PrefixFlags::XACQUIRE) != 0 {
-				instruction.set_has_xacquire_prefix(true);
-			}
-			if (self.prefix_flags & PrefixFlags::XRELEASE) != 0 {
-				instruction.set_has_xrelease_prefix(true);
-			}
 			if (self.prefix_flags & PrefixFlags::LOCK) != 0 {
 				instruction.set_has_lock_prefix(true);
 			}

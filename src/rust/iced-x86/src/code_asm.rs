@@ -37,14 +37,12 @@ use core::hash::{Hash, Hasher};
 struct PrefixFlags;
 impl PrefixFlags {
 	const NONE: u8 = 0x00;
-	const XACQUIRE: u8 = 0x01;
-	const XRELEASE: u8 = 0x02;
-	const LOCK: u8 = 0x04;
-	const REPE: u8 = 0x08;
-	const REPNE: u8 = 0x10;
-	const NOTRACK: u8 = 0x20;
-	const PREFER_VEX: u8 = 0x40;
-	const PREFER_EVEX: u8 = 0x80;
+	const LOCK: u8 = 0x01;
+	const REPE: u8 = 0x02;
+	const REPNE: u8 = 0x04;
+	const NOTRACK: u8 = 0x08;
+	const PREFER_VEX: u8 = 0x10;
+	const PREFER_EVEX: u8 = 0x20;
 }
 
 struct CodeAssemblerOptions;

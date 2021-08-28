@@ -191,10 +191,6 @@ namespace Iced.Intel {
 			if (prefixFlags != PrefixFlags.None) {
 				if ((prefixFlags & PrefixFlags.Lock) != 0)
 					instruction.HasLockPrefix = true;
-				if ((prefixFlags & PrefixFlags.Xacquire) != 0)
-					instruction.HasXacquirePrefix = true;
-				if ((prefixFlags & PrefixFlags.Xrelease) != 0)
-					instruction.HasXreleasePrefix = true;
 				if ((prefixFlags & PrefixFlags.Repe) != 0)
 					instruction.HasRepePrefix = true;
 				else if ((prefixFlags & PrefixFlags.Repne) != 0)
@@ -251,7 +247,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler xacquire {
 			get {
-				prefixFlags |= PrefixFlags.Xacquire;
+				prefixFlags |= PrefixFlags.Repne;
 				return this;
 			}
 		}
@@ -263,7 +259,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler xrelease {
 			get {
-				prefixFlags |= PrefixFlags.Xrelease;
+				prefixFlags |= PrefixFlags.Repe;
 				return this;
 			}
 		}
@@ -588,14 +584,12 @@ namespace Iced.Intel {
 		[Flags]
 		enum PrefixFlags {
 			None = 0,
-			Xacquire = 1 << 0,
-			Xrelease = 1 << 1,
-			Lock = 1 << 2,
-			Repe = 1 << 3,
-			Repne = 1 << 4,
-			Notrack = 1 << 5,
-			PreferVex = 1 << 6,
-			PreferEvex = 1 << 7,
+			Lock = 0x01,
+			Repe = 0x02,
+			Repne = 0x04,
+			Notrack = 0x08,
+			PreferVex = 0x10,
+			PreferEvex = 0x20,
 		}
 	}
 }
