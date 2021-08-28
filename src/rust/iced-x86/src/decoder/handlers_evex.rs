@@ -45,6 +45,7 @@ pub(super) struct OpCodeHandler_VectorLength_EVEX {
 
 impl OpCodeHandler_VectorLength_EVEX {
 	#[allow(trivial_casts)]
+	#[cold]
 	pub(super) fn new(
 		handler128: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler512: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
@@ -81,6 +82,7 @@ pub(super) struct OpCodeHandler_VectorLength_EVEX_er {
 
 impl OpCodeHandler_VectorLength_EVEX_er {
 	#[allow(trivial_casts)]
+	#[cold]
 	pub(super) fn new(
 		handler128: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler512: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
@@ -126,6 +128,7 @@ pub(super) struct OpCodeHandler_EVEX_V_H_Ev_er {
 }
 
 impl OpCodeHandler_EVEX_V_H_Ev_er {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_V_H_Ev_er::decode, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
 	}
@@ -191,6 +194,7 @@ pub(super) struct OpCodeHandler_EVEX_V_H_Ev_Ib {
 }
 
 impl OpCodeHandler_EVEX_V_H_Ev_Ib {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_V_H_Ev_Ib::decode, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
 	}
@@ -248,6 +252,7 @@ pub(super) struct OpCodeHandler_EVEX_Ed_V_Ib {
 }
 
 impl OpCodeHandler_EVEX_Ed_V_Ib {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_Ed_V_Ib::decode, base_reg, code32, code64, tuple_type32, tuple_type64 }
 	}
@@ -305,6 +310,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHW_er {
 }
 
 impl OpCodeHandler_EVEX_VkHW_er {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkHW_er::decode, base_reg, code, tuple_type, only_sae, can_broadcast }
 	}
@@ -365,6 +371,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHW_er_ur {
 }
 
 impl OpCodeHandler_EVEX_VkHW_er_ur {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkHW_er_ur::decode, base_reg, code, tuple_type, can_broadcast }
 	}
@@ -428,6 +435,7 @@ pub(super) struct OpCodeHandler_EVEX_VkW_er {
 }
 
 impl OpCodeHandler_EVEX_VkW_er {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, only_sae: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkW_er::decode,
@@ -441,10 +449,12 @@ impl OpCodeHandler_EVEX_VkW_er {
 		}
 	}
 
+	#[cold]
 	pub(super) fn new1(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType, only_sae: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkW_er::decode, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast: true }
 	}
 
+	#[cold]
 	pub(super) fn new2(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkW_er::decode, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast }
 	}
@@ -505,6 +515,7 @@ pub(super) struct OpCodeHandler_EVEX_VkWIb_er {
 }
 
 impl OpCodeHandler_EVEX_VkWIb_er {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkWIb_er::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
@@ -554,10 +565,12 @@ pub(super) struct OpCodeHandler_EVEX_VkW {
 }
 
 impl OpCodeHandler_EVEX_VkW {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkW::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
 
+	#[cold]
 	pub(super) fn new1(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkW::decode, base_reg1, base_reg2, code, tuple_type, can_broadcast }
 	}
@@ -610,6 +623,7 @@ pub(super) struct OpCodeHandler_EVEX_WkV {
 }
 
 impl OpCodeHandler_EVEX_WkV {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_WkV::decode,
@@ -622,6 +636,7 @@ impl OpCodeHandler_EVEX_WkV {
 		}
 	}
 
+	#[cold]
 	pub(super) fn new1(base_reg: Register, code: Code, tuple_type: TupleType, allow_zeroing_masking: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_WkV::decode,
@@ -634,6 +649,7 @@ impl OpCodeHandler_EVEX_WkV {
 		}
 	}
 
+	#[cold]
 	pub(super) fn new2(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_WkV::decode, base_reg1, base_reg2, code, tuple_type, disallow_zeroing_masking: 0 }
 	}
@@ -680,6 +696,7 @@ pub(super) struct OpCodeHandler_EVEX_VkM {
 }
 
 impl OpCodeHandler_EVEX_VkM {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkM::decode, base_reg, code, tuple_type }
 	}
@@ -720,6 +737,7 @@ pub(super) struct OpCodeHandler_EVEX_VkWIb {
 }
 
 impl OpCodeHandler_EVEX_VkWIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkWIb::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
@@ -773,6 +791,7 @@ pub(super) struct OpCodeHandler_EVEX_WkVIb {
 }
 
 impl OpCodeHandler_EVEX_WkVIb {
+	#[cold]
 	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_WkVIb::decode, base_reg1, base_reg2, code, tuple_type }
 	}
@@ -819,6 +838,7 @@ pub(super) struct OpCodeHandler_EVEX_HkWIb {
 }
 
 impl OpCodeHandler_EVEX_HkWIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_HkWIb::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
@@ -866,6 +886,7 @@ pub(super) struct OpCodeHandler_EVEX_HWIb {
 }
 
 impl OpCodeHandler_EVEX_HWIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_HWIb::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
@@ -909,6 +930,7 @@ pub(super) struct OpCodeHandler_EVEX_WkVIb_er {
 }
 
 impl OpCodeHandler_EVEX_WkVIb_er {
+	#[cold]
 	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_WkVIb_er::decode, base_reg1, base_reg2, code, tuple_type }
 	}
@@ -958,6 +980,7 @@ pub(super) struct OpCodeHandler_EVEX_VW_er {
 }
 
 impl OpCodeHandler_EVEX_VW_er {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VW_er::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
@@ -1005,6 +1028,7 @@ pub(super) struct OpCodeHandler_EVEX_VW {
 }
 
 impl OpCodeHandler_EVEX_VW {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VW::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
@@ -1052,6 +1076,7 @@ pub(super) struct OpCodeHandler_EVEX_WV {
 }
 
 impl OpCodeHandler_EVEX_WV {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_WV::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
@@ -1098,6 +1123,7 @@ pub(super) struct OpCodeHandler_EVEX_VM {
 }
 
 impl OpCodeHandler_EVEX_VM {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VM::decode, base_reg, code, tuple_type }
 	}
@@ -1138,6 +1164,7 @@ pub(super) struct OpCodeHandler_EVEX_VK {
 }
 
 impl OpCodeHandler_EVEX_VK {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VK::decode, base_reg, code }
 	}
@@ -1179,6 +1206,7 @@ pub(super) struct OpCodeHandler_EVEX_KR {
 }
 
 impl OpCodeHandler_EVEX_KR {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KR::decode, base_reg, code }
 	}
@@ -1223,6 +1251,7 @@ pub(super) struct OpCodeHandler_EVEX_KkHWIb_sae {
 }
 
 impl OpCodeHandler_EVEX_KkHWIb_sae {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KkHWIb_sae::decode, base_reg, code, tuple_type, can_broadcast }
 	}
@@ -1281,6 +1310,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHW {
 }
 
 impl OpCodeHandler_EVEX_VkHW {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkHW::decode,
@@ -1294,6 +1324,7 @@ impl OpCodeHandler_EVEX_VkHW {
 		}
 	}
 
+	#[cold]
 	pub(super) fn new1(
 		base_reg1: Register, base_reg2: Register, base_reg3: Register, code: Code, tuple_type: TupleType, can_broadcast: bool,
 	) -> Self {
@@ -1347,6 +1378,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHM {
 }
 
 impl OpCodeHandler_EVEX_VkHM {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkHM::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
@@ -1391,6 +1423,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHWIb {
 }
 
 impl OpCodeHandler_EVEX_VkHWIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkHWIb::decode,
@@ -1404,6 +1437,7 @@ impl OpCodeHandler_EVEX_VkHWIb {
 		}
 	}
 
+	#[cold]
 	pub(super) fn new1(
 		base_reg1: Register, base_reg2: Register, base_reg3: Register, code: Code, tuple_type: TupleType, can_broadcast: bool,
 	) -> Self {
@@ -1461,6 +1495,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHWIb_er {
 }
 
 impl OpCodeHandler_EVEX_VkHWIb_er {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkHWIb_er::decode,
@@ -1523,6 +1558,7 @@ pub(super) struct OpCodeHandler_EVEX_KkHW {
 }
 
 impl OpCodeHandler_EVEX_KkHW {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KkHW::decode, base_reg, code, tuple_type, can_broadcast }
 	}
@@ -1576,6 +1612,7 @@ pub(super) struct OpCodeHandler_EVEX_KP1HW {
 }
 
 impl OpCodeHandler_EVEX_KP1HW {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KP1HW::decode, base_reg, code, tuple_type }
 	}
@@ -1626,6 +1663,7 @@ pub(super) struct OpCodeHandler_EVEX_KkHWIb {
 }
 
 impl OpCodeHandler_EVEX_KkHWIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KkHWIb::decode, base_reg, code, tuple_type, can_broadcast }
 	}
@@ -1680,6 +1718,7 @@ pub(super) struct OpCodeHandler_EVEX_WkHV {
 }
 
 impl OpCodeHandler_EVEX_WkHV {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_WkHV::decode, base_reg, code }
 	}
@@ -1719,6 +1758,7 @@ pub(super) struct OpCodeHandler_EVEX_VHWIb {
 }
 
 impl OpCodeHandler_EVEX_VHWIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VHWIb::decode, base_reg, code, tuple_type }
 	}
@@ -1767,6 +1807,7 @@ pub(super) struct OpCodeHandler_EVEX_VHW {
 }
 
 impl OpCodeHandler_EVEX_VHW {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code_r: Code, code_m: Code, tuple_type: TupleType) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VHW::decode,
@@ -1780,6 +1821,7 @@ impl OpCodeHandler_EVEX_VHW {
 		}
 	}
 
+	#[cold]
 	pub(super) fn new2(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VHW::decode,
@@ -1833,6 +1875,7 @@ pub(super) struct OpCodeHandler_EVEX_VHM {
 }
 
 impl OpCodeHandler_EVEX_VHM {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VHM::decode, base_reg, code, tuple_type }
 	}
@@ -1876,6 +1919,7 @@ pub(super) struct OpCodeHandler_EVEX_Gv_W_er {
 }
 
 impl OpCodeHandler_EVEX_Gv_W_er {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code, tuple_type: TupleType, only_sae: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_Gv_W_er::decode, base_reg, code_w0, code_w1, tuple_type, only_sae }
 	}
@@ -1938,6 +1982,7 @@ pub(super) struct OpCodeHandler_EVEX_VX_Ev {
 }
 
 impl OpCodeHandler_EVEX_VX_Ev {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VX_Ev::decode, code32, code64, tuple_type_w0, tuple_type_w1 }
 	}
@@ -1991,6 +2036,7 @@ pub(super) struct OpCodeHandler_EVEX_Ev_VX {
 }
 
 impl OpCodeHandler_EVEX_Ev_VX {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_Ev_VX::decode, code32, code64, tuple_type_w0, tuple_type_w1 }
 	}
@@ -2043,6 +2089,7 @@ pub(super) struct OpCodeHandler_EVEX_Ev_VX_Ib {
 }
 
 impl OpCodeHandler_EVEX_Ev_VX_Ib {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_Ev_VX_Ib::decode, base_reg, code32, code64 }
 	}
@@ -2090,6 +2137,7 @@ pub(super) struct OpCodeHandler_EVEX_MV {
 }
 
 impl OpCodeHandler_EVEX_MV {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_MV::decode, base_reg, code, tuple_type }
 	}
@@ -2130,6 +2178,7 @@ pub(super) struct OpCodeHandler_EVEX_VkEv_REXW {
 }
 
 impl OpCodeHandler_EVEX_VkEv_REXW {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkEv_REXW::decode, base_reg, code32, code64 }
 	}
@@ -2178,6 +2227,7 @@ pub(super) struct OpCodeHandler_EVEX_Vk_VSIB {
 }
 
 impl OpCodeHandler_EVEX_Vk_VSIB {
+	#[cold]
 	pub(super) fn new(base_reg: Register, vsib_base: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_Vk_VSIB::decode, base_reg, vsib_base, code, tuple_type }
 	}
@@ -2222,6 +2272,7 @@ pub(super) struct OpCodeHandler_EVEX_VSIB_k1_VX {
 }
 
 impl OpCodeHandler_EVEX_VSIB_k1_VX {
+	#[cold]
 	pub(super) fn new(vsib_index: Register, base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VSIB_k1_VX::decode, vsib_index, base_reg, code, tuple_type }
 	}
@@ -2262,6 +2313,7 @@ pub(super) struct OpCodeHandler_EVEX_VSIB_k1 {
 }
 
 impl OpCodeHandler_EVEX_VSIB_k1 {
+	#[cold]
 	pub(super) fn new(vsib_index: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VSIB_k1::decode, vsib_index, code, tuple_type }
 	}
@@ -2298,6 +2350,7 @@ pub(super) struct OpCodeHandler_EVEX_GvM_VX_Ib {
 }
 
 impl OpCodeHandler_EVEX_GvM_VX_Ib {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_GvM_VX_Ib::decode, base_reg, code32, code64, tuple_type32, tuple_type64 }
 	}
@@ -2354,6 +2407,7 @@ pub(super) struct OpCodeHandler_EVEX_KkWIb {
 }
 
 impl OpCodeHandler_EVEX_KkWIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KkWIb::decode, base_reg, code, tuple_type, can_broadcast }
 	}

@@ -277,6 +277,7 @@ pub(super) struct OpCodeHandler_D3NOW {
 
 #[cfg(not(feature = "no_d3now"))]
 impl OpCodeHandler_D3NOW {
+	#[cold]
 	pub(super) fn new() -> Self {
 		debug_assert_eq!(CODE_VALUES.len(), 0x100);
 		Self { has_modrm: true, decode: OpCodeHandler_D3NOW::decode }
@@ -314,6 +315,7 @@ impl OpCodeHandler_D3NOW {
 
 #[cfg(feature = "no_d3now")]
 impl OpCodeHandler_D3NOW {
+	#[cold]
 	pub(super) fn new() -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_D3NOW::decode }
 	}

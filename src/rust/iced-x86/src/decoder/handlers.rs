@@ -89,10 +89,12 @@ pub(super) struct OpCodeHandler_Simple {
 }
 
 impl OpCodeHandler_Simple {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Simple::decode, code }
 	}
 
+	#[cold]
 	pub(super) fn new_modrm(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Simple::decode, code }
 	}
@@ -113,6 +115,7 @@ pub(super) struct OpCodeHandler_Group8x8 {
 }
 
 impl OpCodeHandler_Group8x8 {
+	#[cold]
 	pub(super) fn new(
 		table_low: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>, table_high: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	) -> Self {
@@ -145,6 +148,7 @@ pub(super) struct OpCodeHandler_Group8x64 {
 }
 
 impl OpCodeHandler_Group8x64 {
+	#[cold]
 	pub(super) fn new(
 		table_low: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>, table_high: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	) -> Self {
@@ -184,6 +188,7 @@ pub(super) struct OpCodeHandler_Group {
 }
 
 impl OpCodeHandler_Group {
+	#[cold]
 	pub(super) fn new(group_handlers: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>) -> Self {
 		debug_assert_eq!(group_handlers.len(), 8);
 		Self { has_modrm: true, decode: OpCodeHandler_Group::decode, group_handlers }
@@ -208,6 +213,7 @@ pub(super) struct OpCodeHandler_AnotherTable {
 
 impl OpCodeHandler_AnotherTable {
 	#[allow(clippy::unwrap_used)]
+	#[cold]
 	pub(super) fn new(handlers: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>) -> Self {
 		let handlers = handlers.into_boxed_slice().try_into().ok().unwrap();
 		Self { has_modrm: false, decode: OpCodeHandler_AnotherTable::decode, handlers }
@@ -230,6 +236,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix2 {
 
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
 impl OpCodeHandler_MandatoryPrefix2 {
+	#[cold]
 	pub(super) fn new(
 		has_modrm: bool, handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
@@ -273,6 +280,7 @@ pub(super) struct OpCodeHandler_W {
 
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
 impl OpCodeHandler_W {
+	#[cold]
 	pub(super) fn new(
 		handler_w0: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_w1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> Self {
@@ -305,6 +313,7 @@ pub(super) struct OpCodeHandler_Bitness {
 }
 
 impl OpCodeHandler_Bitness {
+	#[cold]
 	pub(super) fn new(
 		handler1632: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler64: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> Self {
@@ -333,6 +342,7 @@ pub(super) struct OpCodeHandler_Bitness_DontReadModRM {
 }
 
 impl OpCodeHandler_Bitness_DontReadModRM {
+	#[cold]
 	pub(super) fn new(
 		handler1632: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler64: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> Self {
@@ -358,6 +368,7 @@ pub(super) struct OpCodeHandler_RM {
 }
 
 impl OpCodeHandler_RM {
+	#[cold]
 	pub(super) fn new(reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> Self {
 		debug_assert!(!is_null_instance_handler(reg.1));
 		debug_assert!(!is_null_instance_handler(mem.1));
@@ -383,6 +394,7 @@ pub(super) struct OpCodeHandler_Options1632 {
 
 impl OpCodeHandler_Options1632 {
 	#[allow(trivial_casts)]
+	#[cold]
 	pub(super) fn new(
 		default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options1: u32,
 	) -> Self {
@@ -397,6 +409,7 @@ impl OpCodeHandler_Options1632 {
 		}
 	}
 
+	#[cold]
 	pub(super) fn new2(
 		default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options1: u32,
 		handler2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options2: u32,
@@ -445,6 +458,7 @@ pub(super) struct OpCodeHandler_Options {
 
 impl OpCodeHandler_Options {
 	#[allow(trivial_casts)]
+	#[cold]
 	pub(super) fn new(
 		default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options1: u32,
 	) -> Self {
@@ -459,6 +473,7 @@ impl OpCodeHandler_Options {
 		}
 	}
 
+	#[cold]
 	pub(super) fn new2(
 		default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options1: u32,
 		handler2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options2: u32,
@@ -506,6 +521,7 @@ pub(super) struct OpCodeHandler_Options_DontReadModRM {
 }
 
 impl OpCodeHandler_Options_DontReadModRM {
+	#[cold]
 	pub(super) fn new(
 		default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), opt_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), flags: u32,
 	) -> Self {

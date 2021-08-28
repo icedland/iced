@@ -33,6 +33,7 @@ pub(super) struct OpCodeHandler_ST_STi {
 }
 
 impl OpCodeHandler_ST_STi {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_ST_STi::decode, code }
 	}
@@ -59,6 +60,7 @@ pub(super) struct OpCodeHandler_STi_ST {
 }
 
 impl OpCodeHandler_STi_ST {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_STi_ST::decode, code }
 	}
@@ -85,6 +87,7 @@ pub(super) struct OpCodeHandler_STi {
 }
 
 impl OpCodeHandler_STi {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_STi::decode, code }
 	}
@@ -109,10 +112,12 @@ pub(super) struct OpCodeHandler_Mf {
 }
 
 impl OpCodeHandler_Mf {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Mf::decode, code16: code, code32: code }
 	}
 
+	#[cold]
 	pub(super) fn new1(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Mf::decode, code16, code32 }
 	}

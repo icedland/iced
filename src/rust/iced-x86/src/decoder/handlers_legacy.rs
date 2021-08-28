@@ -45,6 +45,7 @@ pub(super) struct OpCodeHandler_VEX2 {
 }
 
 impl OpCodeHandler_VEX2 {
+	#[cold]
 	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> Self {
 		debug_assert!(!is_null_instance_handler(handler_mem.1));
 		Self { has_modrm: true, decode: OpCodeHandler_VEX2::decode, handler_mem }
@@ -70,6 +71,7 @@ pub(super) struct OpCodeHandler_VEX3 {
 }
 
 impl OpCodeHandler_VEX3 {
+	#[cold]
 	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> Self {
 		debug_assert!(!is_null_instance_handler(handler_mem.1));
 		Self { has_modrm: true, decode: OpCodeHandler_VEX3::decode, handler_mem }
@@ -95,6 +97,7 @@ pub(super) struct OpCodeHandler_XOP {
 }
 
 impl OpCodeHandler_XOP {
+	#[cold]
 	pub(super) fn new(handler_reg0: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> Self {
 		debug_assert!(!is_null_instance_handler(handler_reg0.1));
 		Self { has_modrm: true, decode: OpCodeHandler_XOP::decode, handler_reg0 }
@@ -120,6 +123,7 @@ pub(super) struct OpCodeHandler_EVEX {
 }
 
 impl OpCodeHandler_EVEX {
+	#[cold]
 	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> Self {
 		debug_assert!(!is_null_instance_handler(handler_mem.1));
 		Self { has_modrm: true, decode: OpCodeHandler_EVEX::decode, handler_mem }
@@ -145,6 +149,7 @@ pub(super) struct OpCodeHandler_PrefixEsCsSsDs {
 }
 
 impl OpCodeHandler_PrefixEsCsSsDs {
+	#[cold]
 	pub(super) fn new(seg: Register) -> Self {
 		debug_assert!(seg == Register::ES || seg == Register::CS || seg == Register::SS || seg == Register::DS);
 		Self { has_modrm: false, decode: OpCodeHandler_PrefixEsCsSsDs::decode, seg }
@@ -172,6 +177,7 @@ pub(super) struct OpCodeHandler_PrefixFsGs {
 }
 
 impl OpCodeHandler_PrefixFsGs {
+	#[cold]
 	pub(super) fn new(seg: Register) -> Self {
 		debug_assert!(seg == Register::FS || seg == Register::GS);
 		Self { has_modrm: false, decode: OpCodeHandler_PrefixFsGs::decode, seg }
@@ -197,6 +203,7 @@ pub(super) struct OpCodeHandler_Prefix66 {
 }
 
 impl OpCodeHandler_Prefix66 {
+	#[cold]
 	pub(super) fn new() -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Prefix66::decode }
 	}
@@ -223,6 +230,7 @@ pub(super) struct OpCodeHandler_Prefix67 {
 }
 
 impl OpCodeHandler_Prefix67 {
+	#[cold]
 	pub(super) fn new() -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Prefix67::decode }
 	}
@@ -245,6 +253,7 @@ pub(super) struct OpCodeHandler_PrefixF0 {
 }
 
 impl OpCodeHandler_PrefixF0 {
+	#[cold]
 	pub(super) fn new() -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_PrefixF0::decode }
 	}
@@ -268,6 +277,7 @@ pub(super) struct OpCodeHandler_PrefixF2 {
 }
 
 impl OpCodeHandler_PrefixF2 {
+	#[cold]
 	pub(super) fn new() -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_PrefixF2::decode }
 	}
@@ -291,6 +301,7 @@ pub(super) struct OpCodeHandler_PrefixF3 {
 }
 
 impl OpCodeHandler_PrefixF3 {
+	#[cold]
 	pub(super) fn new() -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_PrefixF3::decode }
 	}
@@ -316,6 +327,7 @@ pub(super) struct OpCodeHandler_PrefixREX {
 }
 
 impl OpCodeHandler_PrefixREX {
+	#[cold]
 	pub(super) fn new(handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), rex: u32) -> Self {
 		debug_assert!(rex <= 0x0F);
 		Self { has_modrm: false, decode: OpCodeHandler_PrefixREX::decode, handler, rex }
@@ -361,6 +373,7 @@ pub(super) struct OpCodeHandler_Reg {
 }
 
 impl OpCodeHandler_Reg {
+	#[cold]
 	pub(super) fn new(code: Code, reg: Register) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Reg::decode, code, reg }
 	}
@@ -385,6 +398,7 @@ pub(super) struct OpCodeHandler_RegIb {
 }
 
 impl OpCodeHandler_RegIb {
+	#[cold]
 	pub(super) fn new(code: Code, reg: Register) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_RegIb::decode, code, reg }
 	}
@@ -411,6 +425,7 @@ pub(super) struct OpCodeHandler_IbReg {
 }
 
 impl OpCodeHandler_IbReg {
+	#[cold]
 	pub(super) fn new(code: Code, reg: Register) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_IbReg::decode, code, reg }
 	}
@@ -436,6 +451,7 @@ pub(super) struct OpCodeHandler_AL_DX {
 }
 
 impl OpCodeHandler_AL_DX {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_AL_DX::decode, code }
 	}
@@ -462,6 +478,7 @@ pub(super) struct OpCodeHandler_DX_AL {
 }
 
 impl OpCodeHandler_DX_AL {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_DX_AL::decode, code }
 	}
@@ -488,6 +505,7 @@ pub(super) struct OpCodeHandler_Ib {
 }
 
 impl OpCodeHandler_Ib {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Ib::decode, code }
 	}
@@ -510,6 +528,7 @@ pub(super) struct OpCodeHandler_Ib3 {
 }
 
 impl OpCodeHandler_Ib3 {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ib3::decode, code }
 	}
@@ -532,6 +551,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix {
 }
 
 impl OpCodeHandler_MandatoryPrefix {
+	#[cold]
 	pub(super) fn new(
 		has_modrm: bool, handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
@@ -572,6 +592,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix3 {
 
 impl OpCodeHandler_MandatoryPrefix3 {
 	#[allow(clippy::too_many_arguments)]
+	#[cold]
 	pub(super) fn new(
 		handler_reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler66_reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler66_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
@@ -637,6 +658,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix4 {
 }
 
 impl OpCodeHandler_MandatoryPrefix4 {
+	#[cold]
 	pub(super) fn new(
 		handler_np: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), flags: u32,
@@ -689,6 +711,7 @@ pub(super) struct OpCodeHandler_NIb {
 }
 
 impl OpCodeHandler_NIb {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_NIb::decode, code }
 	}
@@ -719,6 +742,7 @@ pub(super) struct OpCodeHandler_Reservednop {
 }
 
 impl OpCodeHandler_Reservednop {
+	#[cold]
 	pub(super) fn new(
 		reserved_nop_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), other_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> Self {
@@ -749,6 +773,7 @@ pub(super) struct OpCodeHandler_Ev_Iz {
 }
 
 impl OpCodeHandler_Ev_Iz {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> Self {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
@@ -802,6 +827,7 @@ pub(super) struct OpCodeHandler_Ev_Ib {
 }
 
 impl OpCodeHandler_Ev_Ib {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> Self {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
@@ -852,6 +878,7 @@ pub(super) struct OpCodeHandler_Ev_Ib2 {
 }
 
 impl OpCodeHandler_Ev_Ib2 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> Self {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
@@ -892,6 +919,7 @@ pub(super) struct OpCodeHandler_Ev_1 {
 }
 
 impl OpCodeHandler_Ev_1 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ev_1::decode, code: [code16, code32, code64] }
 	}
@@ -928,6 +956,7 @@ pub(super) struct OpCodeHandler_Ev_CL {
 }
 
 impl OpCodeHandler_Ev_CL {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ev_CL::decode, code: [code16, code32, code64] }
 	}
@@ -966,6 +995,7 @@ pub(super) struct OpCodeHandler_Ev {
 }
 
 impl OpCodeHandler_Ev {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> Self {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
@@ -1002,6 +1032,7 @@ pub(super) struct OpCodeHandler_Rv {
 }
 
 impl OpCodeHandler_Rv {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Rv::decode, code: [code16, code32, code64] }
 	}
@@ -1032,6 +1063,7 @@ pub(super) struct OpCodeHandler_Rv_32_64 {
 }
 
 impl OpCodeHandler_Rv_32_64 {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Rv_32_64::decode, code32, code64 }
 	}
@@ -1064,6 +1096,7 @@ pub(super) struct OpCodeHandler_Rq {
 }
 
 impl OpCodeHandler_Rq {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Rq::decode, code }
 	}
@@ -1092,6 +1125,7 @@ pub(super) struct OpCodeHandler_Ev_REXW {
 }
 
 impl OpCodeHandler_Ev_REXW {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code, flags: u32) -> Self {
 		Self {
 			decode: OpCodeHandler_Ev_REXW::decode,
@@ -1148,6 +1182,7 @@ pub(super) struct OpCodeHandler_Evj {
 }
 
 impl OpCodeHandler_Evj {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Evj::decode, code16, code32, code64 }
 	}
@@ -1207,6 +1242,7 @@ pub(super) struct OpCodeHandler_Ep {
 }
 
 impl OpCodeHandler_Ep {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ep::decode, code16, code32, code64 }
 	}
@@ -1239,6 +1275,7 @@ pub(super) struct OpCodeHandler_Evw {
 }
 
 impl OpCodeHandler_Evw {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Evw::decode, code: [code16, code32, code64] }
 	}
@@ -1272,6 +1309,7 @@ pub(super) struct OpCodeHandler_Ew {
 }
 
 impl OpCodeHandler_Ew {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ew::decode, code: [code16, code32, code64] }
 	}
@@ -1307,6 +1345,7 @@ pub(super) struct OpCodeHandler_Ms {
 }
 
 impl OpCodeHandler_Ms {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ms::decode, code16, code32, code64 }
 	}
@@ -1336,6 +1375,7 @@ pub(super) struct OpCodeHandler_Gv_Ev {
 }
 
 impl OpCodeHandler_Gv_Ev {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Ev::decode, code: [code16, code32, code64] }
 	}
@@ -1368,6 +1408,7 @@ pub(super) struct OpCodeHandler_Gd_Rd {
 }
 
 impl OpCodeHandler_Gd_Rd {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gd_Rd::decode, code }
 	}
@@ -1398,6 +1439,7 @@ pub(super) struct OpCodeHandler_Gv_M_as {
 }
 
 impl OpCodeHandler_Gv_M_as {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_M_as::decode, code: [code16, code32, code64] }
 	}
@@ -1432,6 +1474,7 @@ pub(super) struct OpCodeHandler_Gdq_Ev {
 }
 
 impl OpCodeHandler_Gdq_Ev {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gdq_Ev::decode, code: [code16, code32, code64] }
 	}
@@ -1474,6 +1517,7 @@ pub(super) struct OpCodeHandler_Gv_Ev3 {
 }
 
 impl OpCodeHandler_Gv_Ev3 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Ev3::decode, code: [code16, code32, code64] }
 	}
@@ -1515,6 +1559,7 @@ pub(super) struct OpCodeHandler_Gv_Ev2 {
 }
 
 impl OpCodeHandler_Gv_Ev2 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Ev2::decode, code: [code16, code32, code64] }
 	}
@@ -1558,6 +1603,7 @@ pub(super) struct OpCodeHandler_R_C {
 }
 
 impl OpCodeHandler_R_C {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code, base_reg: Register) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_R_C::decode, code32, code64, base_reg }
 	}
@@ -1615,6 +1661,7 @@ pub(super) struct OpCodeHandler_C_R {
 }
 
 impl OpCodeHandler_C_R {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code, base_reg: Register) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_C_R::decode, code32, code64, base_reg }
 	}
@@ -1672,6 +1719,7 @@ pub(super) struct OpCodeHandler_Jb {
 }
 
 impl OpCodeHandler_Jb {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Jb::decode, code16, code32, code64 }
 	}
@@ -1716,6 +1764,7 @@ pub(super) struct OpCodeHandler_Jx {
 }
 
 impl OpCodeHandler_Jx {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Jx::decode, code16, code32, code64 }
 	}
@@ -1765,6 +1814,7 @@ pub(super) struct OpCodeHandler_Jz {
 }
 
 impl OpCodeHandler_Jz {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Jz::decode, code16, code32, code64 }
 	}
@@ -1817,6 +1867,7 @@ pub(super) struct OpCodeHandler_Jb2 {
 }
 
 impl OpCodeHandler_Jb2 {
+	#[cold]
 	pub(super) fn new(code16_16: Code, code16_32: Code, code16_64: Code, code32_16: Code, code32_32: Code, code64_32: Code, code64_64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Jb2::decode, code16_16, code16_32, code16_64, code32_16, code32_32, code64_32, code64_64 }
 	}
@@ -1876,6 +1927,7 @@ pub(super) struct OpCodeHandler_Jdisp {
 }
 
 impl OpCodeHandler_Jdisp {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Jdisp::decode, code16, code32 }
 	}
@@ -1908,6 +1960,7 @@ pub(super) struct OpCodeHandler_PushOpSizeReg {
 }
 
 impl OpCodeHandler_PushOpSizeReg {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code, reg: Register) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_PushOpSizeReg::decode, code16, code32, code64, reg }
 	}
@@ -1945,6 +1998,7 @@ pub(super) struct OpCodeHandler_PushEv {
 }
 
 impl OpCodeHandler_PushEv {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_PushEv::decode, code16, code32, code64 }
 	}
@@ -1998,6 +2052,7 @@ pub(super) struct OpCodeHandler_Ev_Gv {
 }
 
 impl OpCodeHandler_Ev_Gv {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ev_Gv::decode, code: [code16, code32, code64] }
 	}
@@ -2032,6 +2087,7 @@ pub(super) struct OpCodeHandler_Ev_Gv_flags {
 }
 
 impl OpCodeHandler_Ev_Gv_flags {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> Self {
 		debug_assert!((flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0);
 
@@ -2072,6 +2128,7 @@ pub(super) struct OpCodeHandler_Ev_Gv_32_64 {
 }
 
 impl OpCodeHandler_Ev_Gv_32_64 {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ev_Gv_32_64::decode, code32, code64 }
 	}
@@ -2110,6 +2167,7 @@ pub(super) struct OpCodeHandler_Ev_Gv_Ib {
 }
 
 impl OpCodeHandler_Ev_Gv_Ib {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ev_Gv_Ib::decode, code: [code16, code32, code64] }
 	}
@@ -2153,6 +2211,7 @@ pub(super) struct OpCodeHandler_Ev_Gv_CL {
 }
 
 impl OpCodeHandler_Ev_Gv_CL {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ev_Gv_CL::decode, code: [code16, code32, code64] }
 	}
@@ -2199,6 +2258,7 @@ pub(super) struct OpCodeHandler_Gv_Mp {
 }
 
 impl OpCodeHandler_Gv_Mp {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Mp::decode, code16, code32, code64 }
 	}
@@ -2240,6 +2300,7 @@ pub(super) struct OpCodeHandler_Gv_Eb {
 }
 
 impl OpCodeHandler_Gv_Eb {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Eb::decode, code: [code16, code32, code64] }
 	}
@@ -2280,6 +2341,7 @@ pub(super) struct OpCodeHandler_Gv_Ew {
 }
 
 impl OpCodeHandler_Gv_Ew {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Ew::decode, code: [code16, code32, code64] }
 	}
@@ -2318,6 +2380,7 @@ pub(super) struct OpCodeHandler_PushSimple2 {
 }
 
 impl OpCodeHandler_PushSimple2 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_PushSimple2::decode, code16, code32, code64 }
 	}
@@ -2350,6 +2413,7 @@ pub(super) struct OpCodeHandler_Simple2 {
 }
 
 impl OpCodeHandler_Simple2 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Simple2::decode, code: [code16, code32, code64] }
 	}
@@ -2370,6 +2434,7 @@ pub(super) struct OpCodeHandler_Simple2Iw {
 }
 
 impl OpCodeHandler_Simple2Iw {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Simple2Iw::decode, code: [code16, code32, code64] }
 	}
@@ -2394,6 +2459,7 @@ pub(super) struct OpCodeHandler_Simple3 {
 }
 
 impl OpCodeHandler_Simple3 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Simple3::decode, code16, code32, code64 }
 	}
@@ -2426,6 +2492,7 @@ pub(super) struct OpCodeHandler_Simple5 {
 }
 
 impl OpCodeHandler_Simple5 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Simple5::decode, code: [code16, code32, code64] }
 	}
@@ -2446,6 +2513,7 @@ pub(super) struct OpCodeHandler_Simple5_ModRM_as {
 }
 
 impl OpCodeHandler_Simple5_ModRM_as {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Simple5_ModRM_as::decode, code: [code16, code32, code64] }
 	}
@@ -2473,6 +2541,7 @@ pub(super) struct OpCodeHandler_Simple4 {
 }
 
 impl OpCodeHandler_Simple4 {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Simple4::decode, code32, code64 }
 	}
@@ -2500,6 +2569,7 @@ pub(super) struct OpCodeHandler_PushSimpleReg {
 }
 
 impl OpCodeHandler_PushSimpleReg {
+	#[cold]
 	pub(super) fn new(index: u32, code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_PushSimpleReg::decode, index, code16, code32, code64 }
 	}
@@ -2545,6 +2615,7 @@ pub(super) struct OpCodeHandler_SimpleReg {
 }
 
 impl OpCodeHandler_SimpleReg {
+	#[cold]
 	pub(super) fn new(code: Code, index: u32) -> Self {
 		const_assert_eq!(OpSize::Size16 as u32, 0);
 		const_assert_eq!(OpSize::Size32 as u32, 1);
@@ -2632,6 +2703,7 @@ pub(super) struct OpCodeHandler_Xchg_Reg_rAX {
 }
 
 impl OpCodeHandler_Xchg_Reg_rAX {
+	#[cold]
 	pub(super) fn new(index: u32) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Xchg_Reg_rAX::decode, index }
 	}
@@ -2677,6 +2749,7 @@ pub(super) struct OpCodeHandler_Reg_Iz {
 }
 
 impl OpCodeHandler_Reg_Iz {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Reg_Iz::decode, code16, code32, code64 }
 	}
@@ -2737,6 +2810,7 @@ pub(super) struct OpCodeHandler_RegIb3 {
 }
 
 impl OpCodeHandler_RegIb3 {
+	#[cold]
 	pub(super) fn new(index: u32) -> Self {
 		debug_assert!(index <= 7);
 		Self { has_modrm: false, decode: OpCodeHandler_RegIb3::decode, index }
@@ -2772,6 +2846,7 @@ pub(super) struct OpCodeHandler_RegIz2 {
 }
 
 impl OpCodeHandler_RegIz2 {
+	#[cold]
 	pub(super) fn new(index: u32) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_RegIz2::decode, index }
 	}
@@ -2817,6 +2892,7 @@ pub(super) struct OpCodeHandler_PushIb2 {
 }
 
 impl OpCodeHandler_PushIb2 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_PushIb2::decode, code16, code32, code64 }
 	}
@@ -2856,6 +2932,7 @@ pub(super) struct OpCodeHandler_PushIz {
 }
 
 impl OpCodeHandler_PushIz {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_PushIz::decode, code16, code32, code64 }
 	}
@@ -2897,6 +2974,7 @@ pub(super) struct OpCodeHandler_Gv_Ma {
 }
 
 impl OpCodeHandler_Gv_Ma {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Ma::decode, code16, code32 }
 	}
@@ -2931,6 +3009,7 @@ pub(super) struct OpCodeHandler_RvMw_Gw {
 }
 
 impl OpCodeHandler_RvMw_Gw {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_RvMw_Gw::decode, code16, code32 }
 	}
@@ -2974,6 +3053,7 @@ pub(super) struct OpCodeHandler_Gv_Ev_Ib {
 }
 
 impl OpCodeHandler_Gv_Ev_Ib {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Ev_Ib::decode, code16, code32, code64 }
 	}
@@ -3028,6 +3108,7 @@ pub(super) struct OpCodeHandler_Gv_Ev_Ib_REX {
 }
 
 impl OpCodeHandler_Gv_Ev_Ib_REX {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Ev_Ib_REX::decode, base_reg, code32, code64 }
 	}
@@ -3067,6 +3148,7 @@ pub(super) struct OpCodeHandler_Gv_Ev_32_64 {
 }
 
 impl OpCodeHandler_Gv_Ev_32_64 {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code, allow_reg: bool, allow_mem: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_Gv_Ev_32_64::decode,
@@ -3120,6 +3202,7 @@ pub(super) struct OpCodeHandler_Gv_Ev_Iz {
 }
 
 impl OpCodeHandler_Gv_Ev_Iz {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Ev_Iz::decode, code16, code32, code64 }
 	}
@@ -3175,6 +3258,7 @@ pub(super) struct OpCodeHandler_Yb_Reg {
 }
 
 impl OpCodeHandler_Yb_Reg {
+	#[cold]
 	pub(super) fn new(code: Code, reg: Register) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Yb_Reg::decode, code, reg }
 	}
@@ -3205,6 +3289,7 @@ pub(super) struct OpCodeHandler_Yv_Reg {
 }
 
 impl OpCodeHandler_Yv_Reg {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Yv_Reg::decode, code: [code16, code32, code64] }
 	}
@@ -3246,6 +3331,7 @@ pub(super) struct OpCodeHandler_Yv_Reg2 {
 }
 
 impl OpCodeHandler_Yv_Reg2 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Yv_Reg2::decode, code16, code32 }
 	}
@@ -3281,6 +3367,7 @@ pub(super) struct OpCodeHandler_Reg_Xb {
 }
 
 impl OpCodeHandler_Reg_Xb {
+	#[cold]
 	pub(super) fn new(code: Code, reg: Register) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Reg_Xb::decode, code, reg }
 	}
@@ -3311,6 +3398,7 @@ pub(super) struct OpCodeHandler_Reg_Xv {
 }
 
 impl OpCodeHandler_Reg_Xv {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Reg_Xv::decode, code: [code16, code32, code64] }
 	}
@@ -3352,6 +3440,7 @@ pub(super) struct OpCodeHandler_Reg_Xv2 {
 }
 
 impl OpCodeHandler_Reg_Xv2 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Reg_Xv2::decode, code16, code32 }
 	}
@@ -3387,6 +3476,7 @@ pub(super) struct OpCodeHandler_Reg_Yb {
 }
 
 impl OpCodeHandler_Reg_Yb {
+	#[cold]
 	pub(super) fn new(code: Code, reg: Register) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Reg_Yb::decode, code, reg }
 	}
@@ -3417,6 +3507,7 @@ pub(super) struct OpCodeHandler_Reg_Yv {
 }
 
 impl OpCodeHandler_Reg_Yv {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Reg_Yv::decode, code: [code16, code32, code64] }
 	}
@@ -3457,6 +3548,7 @@ pub(super) struct OpCodeHandler_Yb_Xb {
 }
 
 impl OpCodeHandler_Yb_Xb {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Yb_Xb::decode, code }
 	}
@@ -3487,6 +3579,7 @@ pub(super) struct OpCodeHandler_Yv_Xv {
 }
 
 impl OpCodeHandler_Yv_Xv {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Yv_Xv::decode, code: [code16, code32, code64] }
 	}
@@ -3517,6 +3610,7 @@ pub(super) struct OpCodeHandler_Xb_Yb {
 }
 
 impl OpCodeHandler_Xb_Yb {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Xb_Yb::decode, code }
 	}
@@ -3547,6 +3641,7 @@ pub(super) struct OpCodeHandler_Xv_Yv {
 }
 
 impl OpCodeHandler_Xv_Yv {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Xv_Yv::decode, code: [code16, code32, code64] }
 	}
@@ -3577,6 +3672,7 @@ pub(super) struct OpCodeHandler_Ev_Sw {
 }
 
 impl OpCodeHandler_Ev_Sw {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ev_Sw::decode, code: [code16, code32, code64] }
 	}
@@ -3614,6 +3710,7 @@ pub(super) struct OpCodeHandler_M_Sw {
 }
 
 impl OpCodeHandler_M_Sw {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_M_Sw::decode, code }
 	}
@@ -3644,6 +3741,7 @@ pub(super) struct OpCodeHandler_Gv_M {
 }
 
 impl OpCodeHandler_Gv_M {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_M::decode, code: [code16, code32, code64] }
 	}
@@ -3678,6 +3776,7 @@ pub(super) struct OpCodeHandler_Sw_Ev {
 }
 
 impl OpCodeHandler_Sw_Ev {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Sw_Ev::decode, code: [code16, code32, code64] }
 	}
@@ -3718,6 +3817,7 @@ pub(super) struct OpCodeHandler_Sw_M {
 }
 
 impl OpCodeHandler_Sw_M {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Sw_M::decode, code }
 	}
@@ -3749,6 +3849,7 @@ pub(super) struct OpCodeHandler_Ap {
 }
 
 impl OpCodeHandler_Ap {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Ap::decode, code16, code32 }
 	}
@@ -3781,6 +3882,7 @@ pub(super) struct OpCodeHandler_Reg_Ob {
 }
 
 impl OpCodeHandler_Reg_Ob {
+	#[cold]
 	pub(super) fn new(code: Code, reg: Register) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Reg_Ob::decode, code, reg }
 	}
@@ -3821,6 +3923,7 @@ pub(super) struct OpCodeHandler_Ob_Reg {
 }
 
 impl OpCodeHandler_Ob_Reg {
+	#[cold]
 	pub(super) fn new(code: Code, reg: Register) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Ob_Reg::decode, code, reg }
 	}
@@ -3860,6 +3963,7 @@ pub(super) struct OpCodeHandler_Reg_Ov {
 }
 
 impl OpCodeHandler_Reg_Ov {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Reg_Ov::decode, code: [code16, code32, code64] }
 	}
@@ -3909,6 +4013,7 @@ pub(super) struct OpCodeHandler_Ov_Reg {
 }
 
 impl OpCodeHandler_Ov_Reg {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Ov_Reg::decode, code: [code16, code32, code64] }
 	}
@@ -3960,6 +4065,7 @@ pub(super) struct OpCodeHandler_BranchIw {
 }
 
 impl OpCodeHandler_BranchIw {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_BranchIw::decode, code16, code32, code64 }
 	}
@@ -3996,6 +4102,7 @@ pub(super) struct OpCodeHandler_BranchSimple {
 }
 
 impl OpCodeHandler_BranchSimple {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_BranchSimple::decode, code16, code32, code64 }
 	}
@@ -4030,6 +4137,7 @@ pub(super) struct OpCodeHandler_Iw_Ib {
 }
 
 impl OpCodeHandler_Iw_Ib {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Iw_Ib::decode, code16, code32, code64 }
 	}
@@ -4067,6 +4175,7 @@ pub(super) struct OpCodeHandler_Reg_Ib2 {
 }
 
 impl OpCodeHandler_Reg_Ib2 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Reg_Ib2::decode, code16, code32 }
 	}
@@ -4098,6 +4207,7 @@ pub(super) struct OpCodeHandler_IbReg2 {
 }
 
 impl OpCodeHandler_IbReg2 {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_IbReg2::decode, code16, code32 }
 	}
@@ -4129,6 +4239,7 @@ pub(super) struct OpCodeHandler_eAX_DX {
 }
 
 impl OpCodeHandler_eAX_DX {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_eAX_DX::decode, code16, code32 }
 	}
@@ -4163,6 +4274,7 @@ pub(super) struct OpCodeHandler_DX_eAX {
 }
 
 impl OpCodeHandler_DX_eAX {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_DX_eAX::decode, code16, code32 }
 	}
@@ -4198,6 +4310,7 @@ pub(super) struct OpCodeHandler_Eb_Ib {
 }
 
 impl OpCodeHandler_Eb_Ib {
+	#[cold]
 	pub(super) fn new(code: Code, flags: u32) -> Self {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
@@ -4237,6 +4350,7 @@ pub(super) struct OpCodeHandler_Eb_1 {
 }
 
 impl OpCodeHandler_Eb_1 {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Eb_1::decode, code }
 	}
@@ -4272,6 +4386,7 @@ pub(super) struct OpCodeHandler_Eb_CL {
 }
 
 impl OpCodeHandler_Eb_CL {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Eb_CL::decode, code }
 	}
@@ -4309,6 +4424,7 @@ pub(super) struct OpCodeHandler_Eb {
 }
 
 impl OpCodeHandler_Eb {
+	#[cold]
 	pub(super) fn new(code: Code, flags: u32) -> Self {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
@@ -4348,6 +4464,7 @@ pub(super) struct OpCodeHandler_Eb_Gb {
 }
 
 impl OpCodeHandler_Eb_Gb {
+	#[cold]
 	pub(super) fn new(code: Code, flags: u32) -> Self {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
@@ -4392,6 +4509,7 @@ pub(super) struct OpCodeHandler_Gb_Eb {
 }
 
 impl OpCodeHandler_Gb_Eb {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gb_Eb::decode, code }
 	}
@@ -4433,10 +4551,12 @@ pub(super) struct OpCodeHandler_M {
 }
 
 impl OpCodeHandler_M {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_M::decode, code_w0: code, code_w1: code }
 	}
 
+	#[cold]
 	pub(super) fn new1(code_w0: Code, code_w1: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_M::decode, code_w0, code_w1 }
 	}
@@ -4471,6 +4591,7 @@ pub(super) struct OpCodeHandler_M_REXW {
 }
 
 impl OpCodeHandler_M_REXW {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code, flags32: u32, flags64: u32) -> Self {
 		debug_assert_eq!(flags32 & HandlerFlags::LOCK, flags64 & HandlerFlags::LOCK);
 
@@ -4512,6 +4633,7 @@ pub(super) struct OpCodeHandler_MemBx {
 }
 
 impl OpCodeHandler_MemBx {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_MemBx::decode, code }
 	}
@@ -4542,10 +4664,12 @@ pub(super) struct OpCodeHandler_VW {
 }
 
 impl OpCodeHandler_VW {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VW::decode, base_reg, code_r: code, code_m: code }
 	}
 
+	#[cold]
 	pub(super) fn new1(base_reg: Register, code_r: Code, code_m: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VW::decode, base_reg, code_r, code_m }
 	}
@@ -4582,6 +4706,7 @@ pub(super) struct OpCodeHandler_WV {
 }
 
 impl OpCodeHandler_WV {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_WV::decode, base_reg, code }
 	}
@@ -4614,6 +4739,7 @@ pub(super) struct OpCodeHandler_rDI_VX_RX {
 }
 
 impl OpCodeHandler_rDI_VX_RX {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_rDI_VX_RX::decode, base_reg, code }
 	}
@@ -4651,6 +4777,7 @@ pub(super) struct OpCodeHandler_rDI_P_N {
 }
 
 impl OpCodeHandler_rDI_P_N {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_rDI_P_N::decode, code }
 	}
@@ -4689,6 +4816,7 @@ pub(super) struct OpCodeHandler_VM {
 }
 
 impl OpCodeHandler_VM {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VM::decode, base_reg, code }
 	}
@@ -4719,6 +4847,7 @@ pub(super) struct OpCodeHandler_MV {
 }
 
 impl OpCodeHandler_MV {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_MV::decode, base_reg, code }
 	}
@@ -4749,6 +4878,7 @@ pub(super) struct OpCodeHandler_VQ {
 }
 
 impl OpCodeHandler_VQ {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VQ::decode, base_reg, code }
 	}
@@ -4780,6 +4910,7 @@ pub(super) struct OpCodeHandler_P_Q {
 }
 
 impl OpCodeHandler_P_Q {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_P_Q::decode, code }
 	}
@@ -4811,6 +4942,7 @@ pub(super) struct OpCodeHandler_Q_P {
 }
 
 impl OpCodeHandler_Q_P {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Q_P::decode, code }
 	}
@@ -4842,6 +4974,7 @@ pub(super) struct OpCodeHandler_MP {
 }
 
 impl OpCodeHandler_MP {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_MP::decode, code }
 	}
@@ -4871,6 +5004,7 @@ pub(super) struct OpCodeHandler_P_Q_Ib {
 }
 
 impl OpCodeHandler_P_Q_Ib {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_P_Q_Ib::decode, code }
 	}
@@ -4905,6 +5039,7 @@ pub(super) struct OpCodeHandler_P_W {
 }
 
 impl OpCodeHandler_P_W {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_P_W::decode, base_reg, code }
 	}
@@ -4937,6 +5072,7 @@ pub(super) struct OpCodeHandler_P_R {
 }
 
 impl OpCodeHandler_P_R {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_P_R::decode, base_reg, code }
 	}
@@ -4968,6 +5104,7 @@ pub(super) struct OpCodeHandler_P_Ev {
 }
 
 impl OpCodeHandler_P_Ev {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_P_Ev::decode, code32, code64 }
 	}
@@ -5007,6 +5144,7 @@ pub(super) struct OpCodeHandler_P_Ev_Ib {
 }
 
 impl OpCodeHandler_P_Ev_Ib {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_P_Ev_Ib::decode, code32, code64 }
 	}
@@ -5048,6 +5186,7 @@ pub(super) struct OpCodeHandler_Ev_P {
 }
 
 impl OpCodeHandler_Ev_P {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ev_P::decode, code32, code64 }
 	}
@@ -5088,6 +5227,7 @@ pub(super) struct OpCodeHandler_Gv_W {
 }
 
 impl OpCodeHandler_Gv_W {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_W::decode, base_reg, code_w0, code_w1 }
 	}
@@ -5128,6 +5268,7 @@ pub(super) struct OpCodeHandler_V_Ev {
 }
 
 impl OpCodeHandler_V_Ev {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_V_Ev::decode, base_reg, code_w0, code_w1 }
 	}
@@ -5168,10 +5309,12 @@ pub(super) struct OpCodeHandler_VWIb {
 }
 
 impl OpCodeHandler_VWIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VWIb::decode, base_reg, code_w0: code, code_w1: code }
 	}
 
+	#[cold]
 	pub(super) fn new1(base_reg: Register, code_w0: Code, code_w1: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VWIb::decode, base_reg, code_w0, code_w1 }
 	}
@@ -5210,6 +5353,7 @@ pub(super) struct OpCodeHandler_VRIbIb {
 }
 
 impl OpCodeHandler_VRIbIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VRIbIb::decode, base_reg, code }
 	}
@@ -5246,6 +5390,7 @@ pub(super) struct OpCodeHandler_RIbIb {
 }
 
 impl OpCodeHandler_RIbIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_RIbIb::decode, base_reg, code }
 	}
@@ -5279,6 +5424,7 @@ pub(super) struct OpCodeHandler_RIb {
 }
 
 impl OpCodeHandler_RIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_RIb::decode, base_reg, code }
 	}
@@ -5310,6 +5456,7 @@ pub(super) struct OpCodeHandler_Ed_V_Ib {
 }
 
 impl OpCodeHandler_Ed_V_Ib {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ed_V_Ib::decode, base_reg, code32, code64 }
 	}
@@ -5351,6 +5498,7 @@ pub(super) struct OpCodeHandler_VX_Ev {
 }
 
 impl OpCodeHandler_VX_Ev {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VX_Ev::decode, code32, code64 }
 	}
@@ -5390,6 +5538,7 @@ pub(super) struct OpCodeHandler_Ev_VX {
 }
 
 impl OpCodeHandler_Ev_VX {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ev_VX::decode, code32, code64 }
 	}
@@ -5430,6 +5579,7 @@ pub(super) struct OpCodeHandler_VX_E_Ib {
 }
 
 impl OpCodeHandler_VX_E_Ib {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VX_E_Ib::decode, base_reg, code32, code64 }
 	}
@@ -5472,6 +5622,7 @@ pub(super) struct OpCodeHandler_Gv_RX {
 }
 
 impl OpCodeHandler_Gv_RX {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_RX::decode, base_reg, code32, code64 }
 	}
@@ -5510,6 +5661,7 @@ pub(super) struct OpCodeHandler_B_MIB {
 }
 
 impl OpCodeHandler_B_MIB {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_B_MIB::decode, code }
 	}
@@ -5543,6 +5695,7 @@ pub(super) struct OpCodeHandler_MIB_B {
 }
 
 impl OpCodeHandler_MIB_B {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_MIB_B::decode, code }
 	}
@@ -5577,6 +5730,7 @@ pub(super) struct OpCodeHandler_B_BM {
 }
 
 impl OpCodeHandler_B_BM {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_B_BM::decode, code32, code64 }
 	}
@@ -5619,6 +5773,7 @@ pub(super) struct OpCodeHandler_BM_B {
 }
 
 impl OpCodeHandler_BM_B {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_BM_B::decode, code32, code64 }
 	}
@@ -5662,6 +5817,7 @@ pub(super) struct OpCodeHandler_B_Ev {
 }
 
 impl OpCodeHandler_B_Ev {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code, supports_rip_rel: bool) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_B_Ev::decode, code32, code64, rip_rel_mask: if supports_rip_rel { 0 } else { u32::MAX } }
 	}
@@ -5708,6 +5864,7 @@ pub(super) struct OpCodeHandler_Mv_Gv_REXW {
 }
 
 impl OpCodeHandler_Mv_Gv_REXW {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Mv_Gv_REXW::decode, code32, code64 }
 	}
@@ -5745,6 +5902,7 @@ pub(super) struct OpCodeHandler_Gv_N_Ib_REX {
 }
 
 impl OpCodeHandler_Gv_N_Ib_REX {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_N_Ib_REX::decode, code32, code64 }
 	}
@@ -5786,6 +5944,7 @@ pub(super) struct OpCodeHandler_Gv_N {
 }
 
 impl OpCodeHandler_Gv_N {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_N::decode, code32, code64 }
 	}
@@ -5825,6 +5984,7 @@ pub(super) struct OpCodeHandler_VN {
 }
 
 impl OpCodeHandler_VN {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VN::decode, base_reg, code }
 	}
@@ -5855,6 +6015,7 @@ pub(super) struct OpCodeHandler_Gv_Mv {
 }
 
 impl OpCodeHandler_Gv_Mv {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Mv::decode, code: [code16, code32, code64] }
 	}
@@ -5889,6 +6050,7 @@ pub(super) struct OpCodeHandler_Mv_Gv {
 }
 
 impl OpCodeHandler_Mv_Gv {
+	#[cold]
 	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Mv_Gv::decode, code: [code16, code32, code64] }
 	}
@@ -5924,6 +6086,7 @@ pub(super) struct OpCodeHandler_Gv_Eb_REX {
 }
 
 impl OpCodeHandler_Gv_Eb_REX {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Eb_REX::decode, code32, code64 }
 	}
@@ -5967,6 +6130,7 @@ pub(super) struct OpCodeHandler_Gv_Ev_REX {
 }
 
 impl OpCodeHandler_Gv_Ev_REX {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Gv_Ev_REX::decode, code32, code64 }
 	}
@@ -6010,6 +6174,7 @@ pub(super) struct OpCodeHandler_Ev_Gv_REX {
 }
 
 impl OpCodeHandler_Ev_Gv_REX {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_Ev_Gv_REX::decode, code32, code64 }
 	}
@@ -6045,6 +6210,7 @@ pub(super) struct OpCodeHandler_GvM_VX_Ib {
 }
 
 impl OpCodeHandler_GvM_VX_Ib {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_GvM_VX_Ib::decode, base_reg, code32, code64 }
 	}
@@ -6084,6 +6250,7 @@ pub(super) struct OpCodeHandler_Wbinvd {
 }
 
 impl OpCodeHandler_Wbinvd {
+	#[cold]
 	pub(super) fn new() -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_Wbinvd::decode }
 	}

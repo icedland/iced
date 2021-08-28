@@ -52,6 +52,7 @@ pub(super) struct OpCodeHandler_VectorLength_VEX {
 
 impl OpCodeHandler_VectorLength_VEX {
 	#[allow(trivial_casts)]
+	#[cold]
 	pub(super) fn new(
 		has_modrm: bool, handler128: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> Self {
@@ -84,6 +85,7 @@ pub(super) struct OpCodeHandler_VEX_Simple {
 }
 
 impl OpCodeHandler_VEX_Simple {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: false, decode: OpCodeHandler_VEX_Simple::decode, code }
 	}
@@ -109,6 +111,7 @@ pub(super) struct OpCodeHandler_VEX_VHEv {
 }
 
 impl OpCodeHandler_VEX_VHEv {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VHEv::decode, base_reg, code_w0, code_w1 }
 	}
@@ -152,6 +155,7 @@ pub(super) struct OpCodeHandler_VEX_VHEvIb {
 }
 
 impl OpCodeHandler_VEX_VHEvIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VHEvIb::decode, base_reg, code_w0, code_w1 }
 	}
@@ -197,6 +201,7 @@ pub(super) struct OpCodeHandler_VEX_VW {
 }
 
 impl OpCodeHandler_VEX_VW {
+	#[cold]
 	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VW::decode, base_reg1, base_reg2, code }
 	}
@@ -232,6 +237,7 @@ pub(super) struct OpCodeHandler_VEX_VX_Ev {
 }
 
 impl OpCodeHandler_VEX_VX_Ev {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VX_Ev::decode, code32, code64 }
 	}
@@ -274,6 +280,7 @@ pub(super) struct OpCodeHandler_VEX_Ev_VX {
 }
 
 impl OpCodeHandler_VEX_Ev_VX {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Ev_VX::decode, code32, code64 }
 	}
@@ -317,6 +324,7 @@ pub(super) struct OpCodeHandler_VEX_WV {
 }
 
 impl OpCodeHandler_VEX_WV {
+	#[cold]
 	pub(super) fn new(reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_WV::decode, base_reg1: reg, base_reg2: reg, code }
 	}
@@ -352,6 +360,7 @@ pub(super) struct OpCodeHandler_VEX_VM {
 }
 
 impl OpCodeHandler_VEX_VM {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VM::decode, base_reg, code }
 	}
@@ -385,6 +394,7 @@ pub(super) struct OpCodeHandler_VEX_MV {
 }
 
 impl OpCodeHandler_VEX_MV {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_MV::decode, base_reg, code }
 	}
@@ -417,6 +427,7 @@ pub(super) struct OpCodeHandler_VEX_M {
 }
 
 impl OpCodeHandler_VEX_M {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_M::decode, code }
 	}
@@ -447,6 +458,7 @@ pub(super) struct OpCodeHandler_VEX_RdRq {
 }
 
 impl OpCodeHandler_VEX_RdRq {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_RdRq::decode, code32, code64 }
 	}
@@ -484,6 +496,7 @@ pub(super) struct OpCodeHandler_VEX_rDI_VX_RX {
 }
 
 impl OpCodeHandler_VEX_rDI_VX_RX {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_rDI_VX_RX::decode, base_reg, code }
 	}
@@ -527,6 +540,7 @@ pub(super) struct OpCodeHandler_VEX_VWIb {
 }
 
 impl OpCodeHandler_VEX_VWIb {
+	#[cold]
 	pub(super) fn new(base_reg1: Register, base_reg2: Register, code_w0: Code, code_w1: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VWIb::decode, base_reg1, base_reg2, code_w0, code_w1 }
 	}
@@ -569,6 +583,7 @@ pub(super) struct OpCodeHandler_VEX_WVIb {
 }
 
 impl OpCodeHandler_VEX_WVIb {
+	#[cold]
 	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_WVIb::decode, base_reg1, base_reg2, code }
 	}
@@ -607,6 +622,7 @@ pub(super) struct OpCodeHandler_VEX_Ed_V_Ib {
 }
 
 impl OpCodeHandler_VEX_Ed_V_Ib {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Ed_V_Ib::decode, base_reg, code32, code64 }
 	}
@@ -654,10 +670,12 @@ pub(super) struct OpCodeHandler_VEX_VHW {
 }
 
 impl OpCodeHandler_VEX_VHW {
+	#[cold]
 	pub(super) fn new(base_reg1: Register, base_reg2: Register, base_reg3: Register, code_r: Code, code_m: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VHW::decode, base_reg1, base_reg2, base_reg3, code_r, code_m }
 	}
 
+	#[cold]
 	pub(super) fn new1(base_reg1: Register, base_reg2: Register, base_reg3: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VHW::decode, base_reg1, base_reg2, base_reg3, code_r: code, code_m: code }
 	}
@@ -694,6 +712,7 @@ pub(super) struct OpCodeHandler_VEX_VWH {
 }
 
 impl OpCodeHandler_VEX_VWH {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VWH::decode, base_reg, code }
 	}
@@ -729,6 +748,7 @@ pub(super) struct OpCodeHandler_VEX_WHV {
 }
 
 impl OpCodeHandler_VEX_WHV {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_WHV::decode, base_reg, code_r: code }
 	}
@@ -760,6 +780,7 @@ pub(super) struct OpCodeHandler_VEX_VHM {
 }
 
 impl OpCodeHandler_VEX_VHM {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VHM::decode, base_reg, code }
 	}
@@ -793,6 +814,7 @@ pub(super) struct OpCodeHandler_VEX_MHV {
 }
 
 impl OpCodeHandler_VEX_MHV {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_MHV::decode, base_reg, code }
 	}
@@ -828,6 +850,7 @@ pub(super) struct OpCodeHandler_VEX_VHWIb {
 }
 
 impl OpCodeHandler_VEX_VHWIb {
+	#[cold]
 	pub(super) fn new(base_reg1: Register, base_reg2: Register, base_reg3: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VHWIb::decode, base_reg1, base_reg2, base_reg3, code }
 	}
@@ -865,6 +888,7 @@ pub(super) struct OpCodeHandler_VEX_HRIb {
 }
 
 impl OpCodeHandler_VEX_HRIb {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_HRIb::decode, base_reg, code }
 	}
@@ -898,6 +922,7 @@ pub(super) struct OpCodeHandler_VEX_VHWIs4 {
 }
 
 impl OpCodeHandler_VEX_VHWIs4 {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VHWIs4::decode, base_reg, code }
 	}
@@ -937,6 +962,7 @@ pub(super) struct OpCodeHandler_VEX_VHIs4W {
 }
 
 impl OpCodeHandler_VEX_VHIs4W {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VHIs4W::decode, base_reg, code }
 	}
@@ -976,6 +1002,7 @@ pub(super) struct OpCodeHandler_VEX_VHWIs5 {
 }
 
 impl OpCodeHandler_VEX_VHWIs5 {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VHWIs5::decode, base_reg, code }
 	}
@@ -1017,6 +1044,7 @@ pub(super) struct OpCodeHandler_VEX_VHIs5W {
 }
 
 impl OpCodeHandler_VEX_VHIs5W {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VHIs5W::decode, base_reg, code }
 	}
@@ -1057,6 +1085,7 @@ pub(super) struct OpCodeHandler_VEX_VK_HK_RK {
 }
 
 impl OpCodeHandler_VEX_VK_HK_RK {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VK_HK_RK::decode, code }
 	}
@@ -1093,6 +1122,7 @@ pub(super) struct OpCodeHandler_VEX_VK_RK {
 }
 
 impl OpCodeHandler_VEX_VK_RK {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VK_RK::decode, code }
 	}
@@ -1126,6 +1156,7 @@ pub(super) struct OpCodeHandler_VEX_VK_RK_Ib {
 }
 
 impl OpCodeHandler_VEX_VK_RK_Ib {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VK_RK_Ib::decode, code }
 	}
@@ -1161,6 +1192,7 @@ pub(super) struct OpCodeHandler_VEX_VK_WK {
 }
 
 impl OpCodeHandler_VEX_VK_WK {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VK_WK::decode, code }
 	}
@@ -1195,6 +1227,7 @@ pub(super) struct OpCodeHandler_VEX_M_VK {
 }
 
 impl OpCodeHandler_VEX_M_VK {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_M_VK::decode, code }
 	}
@@ -1228,6 +1261,7 @@ pub(super) struct OpCodeHandler_VEX_VK_R {
 }
 
 impl OpCodeHandler_VEX_VK_R {
+	#[cold]
 	pub(super) fn new(code: Code, gpr: Register) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VK_R::decode, code, gpr }
 	}
@@ -1262,6 +1296,7 @@ pub(super) struct OpCodeHandler_VEX_G_VK {
 }
 
 impl OpCodeHandler_VEX_G_VK {
+	#[cold]
 	pub(super) fn new(code: Code, gpr: Register) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_G_VK::decode, code, gpr }
 	}
@@ -1297,6 +1332,7 @@ pub(super) struct OpCodeHandler_VEX_Gv_W {
 }
 
 impl OpCodeHandler_VEX_Gv_W {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Gv_W::decode, base_reg, code_w0, code_w1 }
 	}
@@ -1340,6 +1376,7 @@ pub(super) struct OpCodeHandler_VEX_Gv_RX {
 }
 
 impl OpCodeHandler_VEX_Gv_RX {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Gv_RX::decode, base_reg, code32, code64 }
 	}
@@ -1382,6 +1419,7 @@ pub(super) struct OpCodeHandler_VEX_Gv_GPR_Ib {
 }
 
 impl OpCodeHandler_VEX_Gv_GPR_Ib {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Gv_GPR_Ib::decode, base_reg, code32, code64 }
 	}
@@ -1427,6 +1465,7 @@ pub(super) struct OpCodeHandler_VEX_VX_VSIB_HX {
 }
 
 impl OpCodeHandler_VEX_VX_VSIB_HX {
+	#[cold]
 	pub(super) fn new(base_reg1: Register, vsib_index: Register, base_reg3: Register, code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VX_VSIB_HX::decode, base_reg1, vsib_index, base_reg3, code }
 	}
@@ -1467,6 +1506,7 @@ pub(super) struct OpCodeHandler_VEX_Gv_Gv_Ev {
 }
 
 impl OpCodeHandler_VEX_Gv_Gv_Ev {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Gv_Gv_Ev::decode, code32, code64 }
 	}
@@ -1509,6 +1549,7 @@ pub(super) struct OpCodeHandler_VEX_Gv_Ev_Gv {
 }
 
 impl OpCodeHandler_VEX_Gv_Ev_Gv {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Gv_Ev_Gv::decode, code32, code64 }
 	}
@@ -1551,6 +1592,7 @@ pub(super) struct OpCodeHandler_VEX_Hv_Ev {
 }
 
 impl OpCodeHandler_VEX_Hv_Ev {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Hv_Ev::decode, code32, code64 }
 	}
@@ -1590,6 +1632,7 @@ pub(super) struct OpCodeHandler_VEX_Hv_Ed_Id {
 }
 
 impl OpCodeHandler_VEX_Hv_Ed_Id {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Hv_Ed_Id::decode, code32, code64 }
 	}
@@ -1632,6 +1675,7 @@ pub(super) struct OpCodeHandler_VEX_GvM_VX_Ib {
 }
 
 impl OpCodeHandler_VEX_GvM_VX_Ib {
+	#[cold]
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_GvM_VX_Ib::decode, base_reg, code32, code64 }
 	}
@@ -1676,6 +1720,7 @@ pub(super) struct OpCodeHandler_VEX_Gv_Ev_Ib {
 }
 
 impl OpCodeHandler_VEX_Gv_Ev_Ib {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Gv_Ev_Ib::decode, code32, code64 }
 	}
@@ -1720,6 +1765,7 @@ pub(super) struct OpCodeHandler_VEX_Gv_Ev_Id {
 }
 
 impl OpCodeHandler_VEX_Gv_Ev_Id {
+	#[cold]
 	pub(super) fn new(code32: Code, code64: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_Gv_Ev_Id::decode, code32, code64 }
 	}
@@ -1763,6 +1809,7 @@ pub(super) struct OpCodeHandler_VEX_VT_SIBMEM {
 }
 
 impl OpCodeHandler_VEX_VT_SIBMEM {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VT_SIBMEM::decode, code }
 	}
@@ -1795,6 +1842,7 @@ pub(super) struct OpCodeHandler_VEX_SIBMEM_VT {
 }
 
 impl OpCodeHandler_VEX_SIBMEM_VT {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_SIBMEM_VT::decode, code }
 	}
@@ -1827,6 +1875,7 @@ pub(super) struct OpCodeHandler_VEX_VT {
 }
 
 impl OpCodeHandler_VEX_VT {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VT::decode, code }
 	}
@@ -1853,6 +1902,7 @@ pub(super) struct OpCodeHandler_VEX_VT_RT_HT {
 }
 
 impl OpCodeHandler_VEX_VT_RT_HT {
+	#[cold]
 	pub(super) fn new(code: Code) -> Self {
 		Self { has_modrm: true, decode: OpCodeHandler_VEX_VT_RT_HT::decode, code }
 	}
