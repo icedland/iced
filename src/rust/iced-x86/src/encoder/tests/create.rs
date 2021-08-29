@@ -143,6 +143,44 @@ fn declare_byte_can_get_set() {
 }
 
 #[test]
+#[allow(deprecated)]
+fn declare_byte_can_get_set_rev() {
+	let mut db = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
+	db.set_declare_byte_value(15, 0xC3);
+	db.set_declare_byte_value(14, 0x06);
+	db.set_declare_byte_value(13, 0x8D);
+	db.set_declare_byte_value(12, 0x82);
+	db.set_declare_byte_value(11, 0x56);
+	db.set_declare_byte_value(10, 0xFD);
+	db.set_declare_byte_value(9, 0x98);
+	db.set_declare_byte_value(8, 0x96);
+	db.set_declare_byte_value(7, 0xE4);
+	db.set_declare_byte_value(6, 0x4D);
+	db.set_declare_byte_value(5, 0xE3);
+	db.set_declare_byte_value(4, 0xCB);
+	db.set_declare_byte_value(3, 0xB4);
+	db.set_declare_byte_value(2, 0xFA);
+	db.set_declare_byte_value(1, 0xC5);
+	db.set_declare_byte_value(0, 0xE2);
+	assert_eq!(db.get_declare_byte_value(0), 0xE2);
+	assert_eq!(db.get_declare_byte_value(1), 0xC5);
+	assert_eq!(db.get_declare_byte_value(2), 0xFA);
+	assert_eq!(db.get_declare_byte_value(3), 0xB4);
+	assert_eq!(db.get_declare_byte_value(4), 0xCB);
+	assert_eq!(db.get_declare_byte_value(5), 0xE3);
+	assert_eq!(db.get_declare_byte_value(6), 0x4D);
+	assert_eq!(db.get_declare_byte_value(7), 0xE4);
+	assert_eq!(db.get_declare_byte_value(8), 0x96);
+	assert_eq!(db.get_declare_byte_value(9), 0x98);
+	assert_eq!(db.get_declare_byte_value(10), 0xFD);
+	assert_eq!(db.get_declare_byte_value(11), 0x56);
+	assert_eq!(db.get_declare_byte_value(12), 0x82);
+	assert_eq!(db.get_declare_byte_value(13), 0x8D);
+	assert_eq!(db.get_declare_byte_value(14), 0x06);
+	assert_eq!(db.get_declare_byte_value(15), 0xC3);
+}
+
+#[test]
 fn try_declare_byte_can_get_set() {
 	let mut db =
 		Instruction::try_with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08)
@@ -163,6 +201,45 @@ fn try_declare_byte_can_get_set() {
 	db.try_set_declare_byte_value(13, 0x8D).unwrap();
 	db.try_set_declare_byte_value(14, 0x06).unwrap();
 	db.try_set_declare_byte_value(15, 0xC3).unwrap();
+	assert_eq!(db.try_get_declare_byte_value(0).unwrap(), 0xE2);
+	assert_eq!(db.try_get_declare_byte_value(1).unwrap(), 0xC5);
+	assert_eq!(db.try_get_declare_byte_value(2).unwrap(), 0xFA);
+	assert_eq!(db.try_get_declare_byte_value(3).unwrap(), 0xB4);
+	assert_eq!(db.try_get_declare_byte_value(4).unwrap(), 0xCB);
+	assert_eq!(db.try_get_declare_byte_value(5).unwrap(), 0xE3);
+	assert_eq!(db.try_get_declare_byte_value(6).unwrap(), 0x4D);
+	assert_eq!(db.try_get_declare_byte_value(7).unwrap(), 0xE4);
+	assert_eq!(db.try_get_declare_byte_value(8).unwrap(), 0x96);
+	assert_eq!(db.try_get_declare_byte_value(9).unwrap(), 0x98);
+	assert_eq!(db.try_get_declare_byte_value(10).unwrap(), 0xFD);
+	assert_eq!(db.try_get_declare_byte_value(11).unwrap(), 0x56);
+	assert_eq!(db.try_get_declare_byte_value(12).unwrap(), 0x82);
+	assert_eq!(db.try_get_declare_byte_value(13).unwrap(), 0x8D);
+	assert_eq!(db.try_get_declare_byte_value(14).unwrap(), 0x06);
+	assert_eq!(db.try_get_declare_byte_value(15).unwrap(), 0xC3);
+}
+
+#[test]
+fn try_declare_byte_can_get_set_rev() {
+	let mut db =
+		Instruction::try_with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08)
+			.unwrap();
+	db.try_set_declare_byte_value(15, 0xC3).unwrap();
+	db.try_set_declare_byte_value(14, 0x06).unwrap();
+	db.try_set_declare_byte_value(13, 0x8D).unwrap();
+	db.try_set_declare_byte_value(12, 0x82).unwrap();
+	db.try_set_declare_byte_value(11, 0x56).unwrap();
+	db.try_set_declare_byte_value(10, 0xFD).unwrap();
+	db.try_set_declare_byte_value(9, 0x98).unwrap();
+	db.try_set_declare_byte_value(8, 0x96).unwrap();
+	db.try_set_declare_byte_value(7, 0xE4).unwrap();
+	db.try_set_declare_byte_value(6, 0x4D).unwrap();
+	db.try_set_declare_byte_value(5, 0xE3).unwrap();
+	db.try_set_declare_byte_value(4, 0xCB).unwrap();
+	db.try_set_declare_byte_value(3, 0xB4).unwrap();
+	db.try_set_declare_byte_value(2, 0xFA).unwrap();
+	db.try_set_declare_byte_value(1, 0xC5).unwrap();
+	db.try_set_declare_byte_value(0, 0xE2).unwrap();
 	assert_eq!(db.try_get_declare_byte_value(0).unwrap(), 0xE2);
 	assert_eq!(db.try_get_declare_byte_value(1).unwrap(), 0xC5);
 	assert_eq!(db.try_get_declare_byte_value(2).unwrap(), 0xFA);
@@ -204,6 +281,28 @@ fn declare_word_can_get_set() {
 }
 
 #[test]
+#[allow(deprecated)]
+fn declare_word_can_get_set_rev() {
+	let mut dw = Instruction::with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
+	dw.set_declare_word_value(7, 0x06C3);
+	dw.set_declare_word_value(6, 0x828D);
+	dw.set_declare_word_value(5, 0xFD56);
+	dw.set_declare_word_value(4, 0x9698);
+	dw.set_declare_word_value(3, 0x4DE4);
+	dw.set_declare_word_value(2, 0xCBE3);
+	dw.set_declare_word_value(1, 0xFAB4);
+	dw.set_declare_word_value(0, 0xE2C5);
+	assert_eq!(dw.get_declare_word_value(0), 0xE2C5);
+	assert_eq!(dw.get_declare_word_value(1), 0xFAB4);
+	assert_eq!(dw.get_declare_word_value(2), 0xCBE3);
+	assert_eq!(dw.get_declare_word_value(3), 0x4DE4);
+	assert_eq!(dw.get_declare_word_value(4), 0x9698);
+	assert_eq!(dw.get_declare_word_value(5), 0xFD56);
+	assert_eq!(dw.get_declare_word_value(6), 0x828D);
+	assert_eq!(dw.get_declare_word_value(7), 0x06C3);
+}
+
+#[test]
 fn try_declare_word_can_get_set() {
 	let mut dw = Instruction::try_with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08).unwrap();
 	dw.try_set_declare_word_value(0, 0xE2C5).unwrap();
@@ -214,6 +313,27 @@ fn try_declare_word_can_get_set() {
 	dw.try_set_declare_word_value(5, 0xFD56).unwrap();
 	dw.try_set_declare_word_value(6, 0x828D).unwrap();
 	dw.try_set_declare_word_value(7, 0x06C3).unwrap();
+	assert_eq!(dw.try_get_declare_word_value(0).unwrap(), 0xE2C5);
+	assert_eq!(dw.try_get_declare_word_value(1).unwrap(), 0xFAB4);
+	assert_eq!(dw.try_get_declare_word_value(2).unwrap(), 0xCBE3);
+	assert_eq!(dw.try_get_declare_word_value(3).unwrap(), 0x4DE4);
+	assert_eq!(dw.try_get_declare_word_value(4).unwrap(), 0x9698);
+	assert_eq!(dw.try_get_declare_word_value(5).unwrap(), 0xFD56);
+	assert_eq!(dw.try_get_declare_word_value(6).unwrap(), 0x828D);
+	assert_eq!(dw.try_get_declare_word_value(7).unwrap(), 0x06C3);
+}
+
+#[test]
+fn try_declare_word_can_get_set_rev() {
+	let mut dw = Instruction::try_with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08).unwrap();
+	dw.try_set_declare_word_value(7, 0x06C3).unwrap();
+	dw.try_set_declare_word_value(6, 0x828D).unwrap();
+	dw.try_set_declare_word_value(5, 0xFD56).unwrap();
+	dw.try_set_declare_word_value(4, 0x9698).unwrap();
+	dw.try_set_declare_word_value(3, 0x4DE4).unwrap();
+	dw.try_set_declare_word_value(2, 0xCBE3).unwrap();
+	dw.try_set_declare_word_value(1, 0xFAB4).unwrap();
+	dw.try_set_declare_word_value(0, 0xE2C5).unwrap();
 	assert_eq!(dw.try_get_declare_word_value(0).unwrap(), 0xE2C5);
 	assert_eq!(dw.try_get_declare_word_value(1).unwrap(), 0xFAB4);
 	assert_eq!(dw.try_get_declare_word_value(2).unwrap(), 0xCBE3);
@@ -239,12 +359,39 @@ fn declare_dword_can_get_set() {
 }
 
 #[test]
+#[allow(deprecated)]
+fn declare_dword_can_get_set_rev() {
+	let mut dd = Instruction::with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08);
+	dd.set_declare_dword_value(3, 0x828D_06C3);
+	dd.set_declare_dword_value(2, 0x9698_FD56);
+	dd.set_declare_dword_value(1, 0xCBE3_4DE4);
+	dd.set_declare_dword_value(0, 0xE2C5_FAB4);
+	assert_eq!(dd.get_declare_dword_value(0), 0xE2C5_FAB4);
+	assert_eq!(dd.get_declare_dword_value(1), 0xCBE3_4DE4);
+	assert_eq!(dd.get_declare_dword_value(2), 0x9698_FD56);
+	assert_eq!(dd.get_declare_dword_value(3), 0x828D_06C3);
+}
+
+#[test]
 fn try_declare_dword_can_get_set() {
 	let mut dd = Instruction::try_with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08).unwrap();
 	dd.try_set_declare_dword_value(0, 0xE2C5_FAB4).unwrap();
 	dd.try_set_declare_dword_value(1, 0xCBE3_4DE4).unwrap();
 	dd.try_set_declare_dword_value(2, 0x9698_FD56).unwrap();
 	dd.try_set_declare_dword_value(3, 0x828D_06C3).unwrap();
+	assert_eq!(dd.try_get_declare_dword_value(0).unwrap(), 0xE2C5_FAB4);
+	assert_eq!(dd.try_get_declare_dword_value(1).unwrap(), 0xCBE3_4DE4);
+	assert_eq!(dd.try_get_declare_dword_value(2).unwrap(), 0x9698_FD56);
+	assert_eq!(dd.try_get_declare_dword_value(3).unwrap(), 0x828D_06C3);
+}
+
+#[test]
+fn try_declare_dword_can_get_set_rev() {
+	let mut dd = Instruction::try_with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08).unwrap();
+	dd.try_set_declare_dword_value(3, 0x828D_06C3).unwrap();
+	dd.try_set_declare_dword_value(2, 0x9698_FD56).unwrap();
+	dd.try_set_declare_dword_value(1, 0xCBE3_4DE4).unwrap();
+	dd.try_set_declare_dword_value(0, 0xE2C5_FAB4).unwrap();
 	assert_eq!(dd.try_get_declare_dword_value(0).unwrap(), 0xE2C5_FAB4);
 	assert_eq!(dd.try_get_declare_dword_value(1).unwrap(), 0xCBE3_4DE4);
 	assert_eq!(dd.try_get_declare_dword_value(2).unwrap(), 0x9698_FD56);
@@ -262,10 +409,29 @@ fn declare_qword_can_get_set() {
 }
 
 #[test]
+#[allow(deprecated)]
+fn declare_qword_can_get_set_rev() {
+	let mut dq = Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08);
+	dq.set_declare_qword_value(1, 0x9698_FD56_828D_06C3);
+	dq.set_declare_qword_value(0, 0xE2C5_FAB4_CBE3_4DE4);
+	assert_eq!(dq.get_declare_qword_value(0), 0xE2C5_FAB4_CBE3_4DE4);
+	assert_eq!(dq.get_declare_qword_value(1), 0x9698_FD56_828D_06C3);
+}
+
+#[test]
 fn try_declare_qword_can_get_set() {
 	let mut dq = Instruction::try_with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08).unwrap();
 	dq.try_set_declare_qword_value(0, 0xE2C5_FAB4_CBE3_4DE4).unwrap();
 	dq.try_set_declare_qword_value(1, 0x9698_FD56_828D_06C3).unwrap();
+	assert_eq!(dq.try_get_declare_qword_value(0).unwrap(), 0xE2C5_FAB4_CBE3_4DE4);
+	assert_eq!(dq.try_get_declare_qword_value(1).unwrap(), 0x9698_FD56_828D_06C3);
+}
+
+#[test]
+fn try_declare_qword_can_get_set_rev() {
+	let mut dq = Instruction::try_with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08).unwrap();
+	dq.try_set_declare_qword_value(1, 0x9698_FD56_828D_06C3).unwrap();
+	dq.try_set_declare_qword_value(0, 0xE2C5_FAB4_CBE3_4DE4).unwrap();
 	assert_eq!(dq.try_get_declare_qword_value(0).unwrap(), 0xE2C5_FAB4_CBE3_4DE4);
 	assert_eq!(dq.try_get_declare_qword_value(1).unwrap(), 0x9698_FD56_828D_06C3);
 }

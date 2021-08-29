@@ -130,6 +130,43 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 
 		[Fact]
+		void DeclareByteCanGetSetRev() {
+			var db = Instruction.CreateDeclareByte(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
+			db.SetDeclareByteValue(15, 0xC3);
+			db.SetDeclareByteValue(14, 0x06);
+			db.SetDeclareByteValue(13, 0x8D);
+			db.SetDeclareByteValue(12, 0x82);
+			db.SetDeclareByteValue(11, 0x56);
+			db.SetDeclareByteValue(10, 0xFD);
+			db.SetDeclareByteValue(9, 0x98);
+			db.SetDeclareByteValue(8, 0x96);
+			db.SetDeclareByteValue(7, 0xE4);
+			db.SetDeclareByteValue(6, 0x4D);
+			db.SetDeclareByteValue(5, 0xE3);
+			db.SetDeclareByteValue(4, 0xCB);
+			db.SetDeclareByteValue(3, 0xB4);
+			db.SetDeclareByteValue(2, 0xFA);
+			db.SetDeclareByteValue(1, 0xC5);
+			db.SetDeclareByteValue(0, 0xE2);
+			Assert.Equal((byte)0xE2, db.GetDeclareByteValue(0));
+			Assert.Equal((byte)0xC5, db.GetDeclareByteValue(1));
+			Assert.Equal((byte)0xFA, db.GetDeclareByteValue(2));
+			Assert.Equal((byte)0xB4, db.GetDeclareByteValue(3));
+			Assert.Equal((byte)0xCB, db.GetDeclareByteValue(4));
+			Assert.Equal((byte)0xE3, db.GetDeclareByteValue(5));
+			Assert.Equal((byte)0x4D, db.GetDeclareByteValue(6));
+			Assert.Equal((byte)0xE4, db.GetDeclareByteValue(7));
+			Assert.Equal((byte)0x96, db.GetDeclareByteValue(8));
+			Assert.Equal((byte)0x98, db.GetDeclareByteValue(9));
+			Assert.Equal((byte)0xFD, db.GetDeclareByteValue(10));
+			Assert.Equal((byte)0x56, db.GetDeclareByteValue(11));
+			Assert.Equal((byte)0x82, db.GetDeclareByteValue(12));
+			Assert.Equal((byte)0x8D, db.GetDeclareByteValue(13));
+			Assert.Equal((byte)0x06, db.GetDeclareByteValue(14));
+			Assert.Equal((byte)0xC3, db.GetDeclareByteValue(15));
+		}
+
+		[Fact]
 		void DeclareWordCanGetSet() {
 			var dw = Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
 			dw.SetDeclareWordValue(0, 0xE2C5);
@@ -140,6 +177,27 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			dw.SetDeclareWordValue(5, 0xFD56);
 			dw.SetDeclareWordValue(6, 0x828D);
 			dw.SetDeclareWordValue(7, 0x06C3);
+			Assert.Equal((ushort)0xE2C5, dw.GetDeclareWordValue(0));
+			Assert.Equal((ushort)0xFAB4, dw.GetDeclareWordValue(1));
+			Assert.Equal((ushort)0xCBE3, dw.GetDeclareWordValue(2));
+			Assert.Equal((ushort)0x4DE4, dw.GetDeclareWordValue(3));
+			Assert.Equal((ushort)0x9698, dw.GetDeclareWordValue(4));
+			Assert.Equal((ushort)0xFD56, dw.GetDeclareWordValue(5));
+			Assert.Equal((ushort)0x828D, dw.GetDeclareWordValue(6));
+			Assert.Equal((ushort)0x06C3, dw.GetDeclareWordValue(7));
+		}
+
+		[Fact]
+		void DeclareWordCanGetSetRev() {
+			var dw = Instruction.CreateDeclareWord(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
+			dw.SetDeclareWordValue(7, 0x06C3);
+			dw.SetDeclareWordValue(6, 0x828D);
+			dw.SetDeclareWordValue(5, 0xFD56);
+			dw.SetDeclareWordValue(4, 0x9698);
+			dw.SetDeclareWordValue(3, 0x4DE4);
+			dw.SetDeclareWordValue(2, 0xCBE3);
+			dw.SetDeclareWordValue(1, 0xFAB4);
+			dw.SetDeclareWordValue(0, 0xE2C5);
 			Assert.Equal((ushort)0xE2C5, dw.GetDeclareWordValue(0));
 			Assert.Equal((ushort)0xFAB4, dw.GetDeclareWordValue(1));
 			Assert.Equal((ushort)0xCBE3, dw.GetDeclareWordValue(2));
@@ -164,10 +222,32 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 
 		[Fact]
+		void DeclareDwordCanGetSetRev() {
+			var dd = Instruction.CreateDeclareDword(0x77A9CE9D, 0x5505426C, 0x8632FE4F, 0x3427AA08);
+			dd.SetDeclareDwordValue(3, 0x828D06C3);
+			dd.SetDeclareDwordValue(2, 0x9698FD56);
+			dd.SetDeclareDwordValue(1, 0xCBE34DE4);
+			dd.SetDeclareDwordValue(0, 0xE2C5FAB4);
+			Assert.Equal((uint)0xE2C5FAB4, dd.GetDeclareDwordValue(0));
+			Assert.Equal((uint)0xCBE34DE4, dd.GetDeclareDwordValue(1));
+			Assert.Equal((uint)0x9698FD56, dd.GetDeclareDwordValue(2));
+			Assert.Equal((uint)0x828D06C3, dd.GetDeclareDwordValue(3));
+		}
+
+		[Fact]
 		void DeclareQwordCanGetSet() {
 			var dq = Instruction.CreateDeclareQword(0x77A9CE9D5505426C, 0x8632FE4F3427AA08);
 			dq.SetDeclareQwordValue(0, 0xE2C5FAB4CBE34DE4);
 			dq.SetDeclareQwordValue(1, 0x9698FD56828D06C3);
+			Assert.Equal(0xE2C5FAB4CBE34DE4, dq.GetDeclareQwordValue(0));
+			Assert.Equal(0x9698FD56828D06C3, dq.GetDeclareQwordValue(1));
+		}
+
+		[Fact]
+		void DeclareQwordCanGetSetRev() {
+			var dq = Instruction.CreateDeclareQword(0x77A9CE9D5505426C, 0x8632FE4F3427AA08);
+			dq.SetDeclareQwordValue(1, 0x9698FD56828D06C3);
+			dq.SetDeclareQwordValue(0, 0xE2C5FAB4CBE34DE4);
 			Assert.Equal(0xE2C5FAB4CBE34DE4, dq.GetDeclareQwordValue(0));
 			Assert.Equal(0x9698FD56828D06C3, dq.GetDeclareQwordValue(1));
 		}
