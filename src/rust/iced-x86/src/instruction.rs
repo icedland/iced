@@ -58,7 +58,7 @@ pub struct Instruction {
 	pub(crate) scale: InstrScale,
 	pub(crate) displ_size: u8,
 	pub(crate) len: u8,
-	db: u8,
+	pad: u8,
 }
 #[cfg(test)]
 #[allow(dead_code)]
@@ -2168,14 +2168,14 @@ impl Instruction {
 			5 => self.immediate = (self.immediate & 0xFFFF_00FF) | ((new_value as u32) << 8),
 			6 => self.immediate = (self.immediate & 0xFF00_FFFF) | ((new_value as u32) << 16),
 			7 => self.immediate = (self.immediate & 0x00FF_FFFF) | ((new_value as u32) << 24),
-			8 => self.mem_displ = (self.mem_displ & 0xFFFF_FF00) | new_value as u64,
-			9 => self.mem_displ = (self.mem_displ & 0xFFFF_00FF) | ((new_value as u64) << 8),
-			10 => self.mem_displ = (self.mem_displ & 0xFF00_FFFF) | ((new_value as u64) << 16),
-			11 => self.mem_displ = (self.mem_displ & 0x00FF_FFFF) | ((new_value as u64) << 24),
-			12 => self.mem_base_reg = Register::from_u8(new_value),
-			13 => self.mem_index_reg = Register::from_u8(new_value),
-			14 => self.displ_size = new_value,
-			15 => self.db = new_value,
+			8 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_FFFF_FF00) | new_value as u64,
+			9 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_FFFF_00FF) | ((new_value as u64) << 8),
+			10 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_FF00_FFFF) | ((new_value as u64) << 16),
+			11 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_00FF_FFFF) | ((new_value as u64) << 24),
+			12 => self.mem_displ = (self.mem_displ & 0xFFFF_FF00_FFFF_FFFF) | ((new_value as u64) << 32),
+			13 => self.mem_displ = (self.mem_displ & 0xFFFF_00FF_FFFF_FFFF) | ((new_value as u64) << 40),
+			14 => self.mem_displ = (self.mem_displ & 0xFF00_FFFF_FFFF_FFFF) | ((new_value as u64) << 48),
+			15 => self.mem_displ = (self.mem_displ & 0x00FF_FFFF_FFFF_FFFF) | ((new_value as u64) << 56),
 			_ => return Err(IcedError::new("Invalid index")),
 		}
 		Ok(())
@@ -2232,10 +2232,10 @@ impl Instruction {
 			9 => ((self.mem_displ as u32) >> 8) as u8,
 			10 => ((self.mem_displ as u32) >> 16) as u8,
 			11 => ((self.mem_displ as u32) >> 24) as u8,
-			12 => self.mem_base_reg as u8,
-			13 => self.mem_index_reg as u8,
-			14 => self.displ_size,
-			15 => self.db,
+			12 => (self.mem_displ >> 32) as u8,
+			13 => (self.mem_displ >> 40) as u8,
+			14 => (self.mem_displ >> 48) as u8,
+			15 => (self.mem_displ >> 56) as u8,
 			_ => return Err(IcedError::new("Invalid index")),
 		})
 	}
@@ -2334,14 +2334,8 @@ impl Instruction {
 			3 => self.immediate = self.immediate as u16 as u32 | (new_value as u32) << 16,
 			4 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_FFFF_0000) | new_value as u64,
 			5 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_0000_FFFF) | ((new_value as u64) << 16),
-			6 => {
-				self.mem_base_reg = Register::from_u8(new_value as u8);
-				self.mem_index_reg = Register::from_u8((new_value >> 8) as u8);
-			}
-			7 => {
-				self.displ_size = new_value as u8;
-				self.db = (new_value >> 8) as u8;
-			}
+			6 => self.mem_displ = (self.mem_displ & 0xFFFF_0000_FFFF_FFFF) | ((new_value as u64) << 32),
+			7 => self.mem_displ = (self.mem_displ & 0x0000_FFFF_FFFF_FFFF) | ((new_value as u64) << 48),
 			_ => return Err(IcedError::new("Invalid index")),
 		}
 		Ok(())
@@ -2392,8 +2386,8 @@ impl Instruction {
 			3 => (self.immediate >> 16) as u16,
 			4 => self.mem_displ as u16,
 			5 => ((self.mem_displ as u32) >> 16) as u16,
-			6 => self.mem_base_reg as u16 | ((self.mem_index_reg as u16) << 8),
-			7 => ((self.db as u16) << 8) | (self.displ_size as u16),
+			6 => (self.mem_displ >> 32) as u16,
+			7 => (self.mem_displ >> 48) as u16,
 			_ => return Err(IcedError::new("Invalid index")),
 		})
 	}
@@ -2487,13 +2481,8 @@ impl Instruction {
 				self.regs[3] = Register::from_u8((new_value >> 24) as u8);
 			}
 			1 => self.immediate = new_value,
-			2 => self.mem_displ = new_value as u64,
-			3 => {
-				self.mem_base_reg = Register::from_u8(new_value as u8);
-				self.mem_index_reg = Register::from_u8((new_value >> 8) as u8);
-				self.displ_size = (new_value >> 16) as u8;
-				self.db = (new_value >> 24) as u8;
-			}
+			2 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_0000_0000) | new_value as u64,
+			3 => self.mem_displ = (self.mem_displ & 0x0000_0000_FFFF_FFFF) | (new_value as u64) << 32,
 			_ => return Err(IcedError::new("Invalid index")),
 		}
 		Ok(())
@@ -2541,7 +2530,7 @@ impl Instruction {
 			0 => self.regs[0] as u32 | ((self.regs[1] as u32) << 8) | ((self.regs[2] as u32) << 16) | ((self.regs[3] as u32) << 24),
 			1 => self.immediate,
 			2 => self.mem_displ as u32,
-			3 => self.mem_base_reg as u32 | ((self.mem_index_reg as u32) << 8) | ((self.displ_size as u32) << 16) | ((self.db as u32) << 24),
+			3 => (self.mem_displ >> 32) as u32,
 			_ => return Err(IcedError::new("Invalid index")),
 		})
 	}
@@ -2635,13 +2624,7 @@ impl Instruction {
 				self.regs[3] = Register::from_u8((new_value >> 24) as u8);
 				self.immediate = (new_value >> 32) as u32;
 			}
-			1 => {
-				self.mem_displ = new_value as u32 as u64;
-				self.mem_base_reg = Register::from_u8((new_value >> 32) as u8);
-				self.mem_index_reg = Register::from_u8((new_value >> 40) as u8);
-				self.displ_size = (new_value >> 48) as u8;
-				self.db = (new_value >> 56) as u8;
-			}
+			1 => self.mem_displ = new_value,
 			_ => return Err(IcedError::new("Invalid index")),
 		}
 		Ok(())
@@ -2693,13 +2676,7 @@ impl Instruction {
 					| ((self.regs[3] as u64) << 24)
 					| ((self.immediate as u64) << 32)
 			}
-			1 => {
-				self.mem_displ as u32 as u64
-					| ((self.mem_base_reg as u64) << 32)
-					| ((self.mem_index_reg as u64) << 40)
-					| ((self.displ_size as u64) << 48)
-					| ((self.db as u64) << 56)
-			}
+			1 => self.mem_displ,
 			_ => return Err(IcedError::new("Invalid index")),
 		})
 	}
@@ -4002,7 +3979,7 @@ impl PartialEq<Instruction> for Instruction {
 			&& self.op_kinds == other.op_kinds
 			&& self.scale == other.scale
 			&& self.displ_size == other.displ_size
-			&& self.db == other.db
+			&& self.pad == other.pad
 	}
 }
 
@@ -4023,7 +4000,7 @@ impl Hash for Instruction {
 		}
 		state.write_u8(self.scale as u8);
 		state.write_u8(self.displ_size);
-		state.write_u8(self.db);
+		state.write_u8(self.pad);
 	}
 }
 
@@ -4125,9 +4102,6 @@ impl Iterator for OpKindIterator {
 impl ExactSizeIterator for OpKindIterator {}
 impl FusedIterator for OpKindIterator {}
 
-// All the enums have generated ser/de implementations without using the proc-macro. This is the only one left
-// that is needed to completely remove serde proc-macro.
-//
 // We've documented that we only support serializing and deserializing data created by the same version of iced.
 // That means we can optimize bincode serialized instructions. It's wasting 35 bytes per serialized instruction
 // because it stores each enum variant in a u32. That's almost a full instruction instance wasted with padding.
@@ -4188,7 +4162,7 @@ const _: () = {
 				serialize!(scale);
 				serialize!(displ_size);
 				serialize!(len);
-				serialize!(db);
+				serialize!(pad);
 				debug_assert_eq!(fields, NUM_FIELDS_READABLE);
 				serde_state.end()
 			} else {
@@ -4228,7 +4202,7 @@ const _: () = {
 				serialize!(scale, InstrScaleUnderlyingType);
 				serialize!(displ_size);
 				serialize!(len);
-				serialize!(db);
+				serialize!(pad);
 				debug_assert_eq!(fields, NUM_FIELDS_BINARY);
 				serde_state.end()
 			}
@@ -4318,9 +4292,9 @@ const _: () = {
 					scale,
 					displ_size,
 					len,
-					db,
+					pad,
 				}
-				const_assert_eq!(StructField::db as usize + 1, NUM_FIELDS_READABLE);
+				const_assert_eq!(StructField::pad as usize + 1, NUM_FIELDS_READABLE);
 				const FIELDS: [&str; NUM_FIELDS_READABLE] = [
 					"next_rip",
 					"mem_displ",
@@ -4334,7 +4308,7 @@ const _: () = {
 					"scale",
 					"displ_size",
 					"len",
-					"db",
+					"pad",
 				];
 				impl StructField {
 					#[inline]
@@ -4401,7 +4375,7 @@ const _: () = {
 							scale: next_element!(scale: InstrScale),
 							displ_size: next_element!(displ_size: u8),
 							len: next_element!(len: u8),
-							db: next_element!(db: u8),
+							pad: next_element!(pad: u8),
 						};
 						debug_assert_eq!(fields, NUM_FIELDS_READABLE);
 						Ok(instruction)
@@ -4424,7 +4398,7 @@ const _: () = {
 						let mut scale: Option<InstrScale> = None;
 						let mut displ_size: Option<u8> = None;
 						let mut len: Option<u8> = None;
-						let mut db: Option<u8> = None;
+						let mut pad: Option<u8> = None;
 						while let Some(field) = map.next_key::<StructField>()? {
 							macro_rules! unpack {
 								($field:ident : $field_ty:ty) => {{
@@ -4447,7 +4421,7 @@ const _: () = {
 								StructField::scale => unpack!(scale: InstrScale),
 								StructField::displ_size => unpack!(displ_size: u8),
 								StructField::len => unpack!(len: u8),
-								StructField::db => unpack!(db: u8),
+								StructField::pad => unpack!(pad: u8),
 							}
 						}
 						let mut fields = 0;
@@ -4473,7 +4447,7 @@ const _: () = {
 							scale: unpack_field!(scale),
 							displ_size: unpack_field!(displ_size),
 							len: unpack_field!(len),
-							db: unpack_field!(db),
+							pad: unpack_field!(pad),
 						};
 						debug_assert_eq!(fields, NUM_FIELDS_READABLE);
 						Ok(instruction)
@@ -4502,9 +4476,9 @@ const _: () = {
 					scale,
 					displ_size,
 					len,
-					db,
+					pad,
 				}
-				const_assert_eq!(StructField::db as usize + 1, NUM_FIELDS_BINARY);
+				const_assert_eq!(StructField::pad as usize + 1, NUM_FIELDS_BINARY);
 				const FIELDS: [&str; NUM_FIELDS_BINARY] = [
 					"next_rip",
 					"mem_displ",
@@ -4524,7 +4498,7 @@ const _: () = {
 					"scale",
 					"displ_size",
 					"len",
-					"db",
+					"pad",
 				];
 				impl StructField {
 					#[inline]
@@ -4616,7 +4590,7 @@ const _: () = {
 							scale: next_element!(scale: InstrScale: InstrScaleUnderlyingType),
 							displ_size: next_element!(displ_size: u8),
 							len: next_element!(len: u8),
-							db: next_element!(db: u8),
+							pad: next_element!(pad: u8),
 						};
 						debug_assert_eq!(fields, NUM_FIELDS_BINARY);
 						Ok(instruction)
@@ -4645,7 +4619,7 @@ const _: () = {
 						let mut scale: Option<InstrScale> = None;
 						let mut displ_size: Option<u8> = None;
 						let mut len: Option<u8> = None;
-						let mut db: Option<u8> = None;
+						let mut pad: Option<u8> = None;
 						while let Some(field) = map.next_key::<StructField>()? {
 							macro_rules! unpack {
 								($field:ident : $field_ty:ty) => {{
@@ -4688,7 +4662,7 @@ const _: () = {
 								StructField::scale => unpack!(scale: InstrScale: InstrScaleUnderlyingType),
 								StructField::displ_size => unpack!(displ_size: u8),
 								StructField::len => unpack!(len: u8),
-								StructField::db => unpack!(db: u8),
+								StructField::pad => unpack!(pad: u8),
 							}
 						}
 						let mut fields = 0;
@@ -4714,7 +4688,7 @@ const _: () = {
 							scale: unpack_field!(scale),
 							displ_size: unpack_field!(displ_size),
 							len: unpack_field!(len),
-							db: unpack_field!(db),
+							pad: unpack_field!(pad),
 						};
 						debug_assert_eq!(fields, NUM_FIELDS_BINARY);
 						Ok(instruction)

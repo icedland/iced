@@ -50,7 +50,7 @@ namespace Iced.Intel {
 		byte scale;
 		byte displSize;
 		byte len;
-		byte db;
+		byte pad;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -85,7 +85,7 @@ namespace Iced.Intel {
 			a.opKind3 == b.opKind3 &&
 			a.scale == b.scale &&
 			a.displSize == b.displSize &&
-			a.db == b.db;
+			a.pad == b.pad;
 
 		/// <summary>
 		/// Gets the hash code
@@ -109,7 +109,7 @@ namespace Iced.Intel {
 			c ^= (uint)opKind0 << 24;
 			c ^= scale;
 			c ^= (uint)displSize << 8;
-			c ^= (uint)db << 16;
+			c ^= (uint)pad << 16;
 			return (int)c;
 		}
 
@@ -145,7 +145,7 @@ namespace Iced.Intel {
 			a.scale == b.scale &&
 			a.displSize == b.displSize &&
 			a.len == b.len &&
-			a.db == b.db;
+			a.pad == b.pad;
 
 		/// <summary>
 		/// 16-bit IP of the instruction
@@ -1200,28 +1200,28 @@ namespace Iced.Intel {
 				immediate = (immediate & 0x00FFFFFF) | ((uint)value << 24);
 				break;
 			case 8:
-				memDispl = (memDispl & 0xFFFFFF00) | value;
+				memDispl = (memDispl & 0xFFFF_FFFF_FFFF_FF00) | (ulong)value;
 				break;
 			case 9:
-				memDispl = (memDispl & 0xFFFF00FF) | ((uint)value << 8);
+				memDispl = (memDispl & 0xFFFF_FFFF_FFFF_00FF) | ((ulong)value << 8);
 				break;
 			case 10:
-				memDispl = (memDispl & 0xFF00FFFF) | ((uint)value << 16);
+				memDispl = (memDispl & 0xFFFF_FFFF_FF00_FFFF) | ((ulong)value << 16);
 				break;
 			case 11:
-				memDispl = (memDispl & 0x00FFFFFF) | ((uint)value << 24);
+				memDispl = (memDispl & 0xFFFF_FFFF_00FF_FFFF) | ((ulong)value << 24);
 				break;
 			case 12:
-				memBaseReg = value;
+				memDispl = (memDispl & 0xFFFF_FF00_FFFF_FFFF) | ((ulong)value << 32);
 				break;
 			case 13:
-				memIndexReg = value;
+				memDispl = (memDispl & 0xFFFF_00FF_FFFF_FFFF) | ((ulong)value << 40);
 				break;
 			case 14:
-				displSize = (byte)value;
+				memDispl = (memDispl & 0xFF00_FFFF_FFFF_FFFF) | ((ulong)value << 48);
 				break;
 			case 15:
-				db = (byte)value;
+				memDispl = (memDispl & 0x00FF_FFFF_FFFF_FFFF) | ((ulong)value << 56);
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1249,10 +1249,10 @@ namespace Iced.Intel {
 			case 9:		return (byte)((uint)memDispl >> 8);
 			case 10:	return (byte)((uint)memDispl >> 16);
 			case 11:	return (byte)((uint)memDispl >> 24);
-			case 12:	return memBaseReg;
-			case 13:	return memIndexReg;
-			case 14:	return displSize;
-			case 15:	return db;
+			case 12:	return (byte)(memDispl >> 32);
+			case 13:	return (byte)(memDispl >> 40);
+			case 14:	return (byte)(memDispl >> 48);
+			case 15:	return (byte)(memDispl >> 56);
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
@@ -1290,18 +1290,16 @@ namespace Iced.Intel {
 				immediate = (uint)(ushort)immediate | ((uint)value << 16);
 				break;
 			case 4:
-				memDispl = (memDispl & 0xFFFF_FFFF_FFFF_0000) | value;
+				memDispl = (memDispl & 0xFFFF_FFFF_FFFF_0000) | (ulong)value;
 				break;
 			case 5:
 				memDispl = (memDispl & 0xFFFF_FFFF_0000_FFFF) | ((ulong)value << 16);
 				break;
 			case 6:
-				memBaseReg = (byte)value;
-				memIndexReg = (byte)(value >> 8);
+				memDispl = (memDispl & 0xFFFF_0000_FFFF_FFFF) | ((ulong)value << 32);
 				break;
 			case 7:
-				displSize = (byte)value;
-				db = (byte)(value >> 8);
+				memDispl = (memDispl & 0x0000_FFFF_FFFF_FFFF) | ((ulong)value << 48);
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1323,8 +1321,8 @@ namespace Iced.Intel {
 			case 3:	return (ushort)(immediate >> 16);
 			case 4:	return (ushort)memDispl;
 			case 5:	return (ushort)((uint)memDispl >> 16);
-			case 6:	return (ushort)((uint)memBaseReg | (uint)(memIndexReg << 8));
-			case 7:	return (ushort)((uint)displSize | ((uint)db << 8));
+			case 6:	return (ushort)(memDispl >> 32);
+			case 7:	return (ushort)(memDispl >> 48);
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
@@ -1357,13 +1355,10 @@ namespace Iced.Intel {
 				immediate = value;
 				break;
 			case 2:
-				memDispl = value;
+				memDispl = (memDispl & 0xFFFF_FFFF_0000_0000) | (ulong)value;
 				break;
 			case 3:
-				memBaseReg = (byte)value;
-				memIndexReg = (byte)(value >> 8);
-				displSize = (byte)(value >> 16);
-				db = (byte)(value >> 24);
+				memDispl = (memDispl & 0x0000_0000_FFFF_FFFF) | ((ulong)value << 32);
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1382,7 +1377,7 @@ namespace Iced.Intel {
 			case 0:	return (uint)reg0 | (uint)(reg1 << 8) | (uint)(reg2 << 16) | (uint)(reg3 << 24);
 			case 1:	return immediate;
 			case 2:	return (uint)memDispl;
-			case 3:	return (uint)memBaseReg | (uint)(memIndexReg << 8) | ((uint)displSize << 16) | ((uint)db << 24);
+			case 3:	return (uint)(memDispl >> 32);
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
@@ -1415,12 +1410,7 @@ namespace Iced.Intel {
 				immediate = (uint)(value >> 32);
 				break;
 			case 1:
-				memDispl = (uint)value;
-				v = (uint)(value >> 32);
-				memBaseReg = (byte)v;
-				memIndexReg = (byte)(v >> 8);
-				displSize = (byte)(v >> 16);
-				db = (byte)(v >> 24);
+				memDispl = value;
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1437,7 +1427,7 @@ namespace Iced.Intel {
 		public readonly ulong GetDeclareQwordValue(int index) {
 			switch (index) {
 			case 0:	return (ulong)reg0 | (ulong)((uint)reg1 << 8) | (ulong)((uint)reg2 << 16) | (ulong)((uint)reg3 << 24) | ((ulong)immediate << 32);
-			case 1:	return (ulong)memDispl | ((ulong)memBaseReg << 32) | ((ulong)memIndexReg << 40) | ((ulong)displSize << 48) | ((ulong)db << 56);
+			case 1:	return memDispl;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
