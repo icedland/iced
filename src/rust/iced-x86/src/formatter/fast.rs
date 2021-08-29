@@ -522,7 +522,7 @@ const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
 static RC_STRINGS: [FastString8; 5] = [
-	mk_const_fast_str!(FastString8, "\x08        "),
+	mk_const_fast_str!(FastString8, "\x00        "),
 	mk_const_fast_str!(FastString8, "\x08{rn-sae}"),
 	mk_const_fast_str!(FastString8, "\x08{rd-sae}"),
 	mk_const_fast_str!(FastString8, "\x08{ru-sae}"),
