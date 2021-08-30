@@ -12,6 +12,8 @@ use crate::iced_constants::IcedConstants;
 
 macro_rules! write_op0_reg {
 	($instruction:ident, $expr:expr) => {
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op0_kind(OpKind::Register);
 		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
 		$instruction.set_op0_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
 	};
@@ -19,6 +21,8 @@ macro_rules! write_op0_reg {
 
 macro_rules! write_op1_reg {
 	($instruction:ident, $expr:expr) => {
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op1_kind(OpKind::Register);
 		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
 		$instruction.set_op1_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
 	};
@@ -42,11 +46,7 @@ impl OpCodeHandler_ST_STi {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(Register::ST0);
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op1_kind(OpKind::Register);
 		write_op1_reg!(instruction, Register::ST0 as u32 + decoder.state.rm);
 	}
 }
@@ -69,11 +69,7 @@ impl OpCodeHandler_STi_ST {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op0_kind(OpKind::Register);
 		write_op0_reg!(instruction, Register::ST0 as u32 + decoder.state.rm);
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(Register::ST0);
 	}
 }
@@ -96,8 +92,6 @@ impl OpCodeHandler_STi {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op0_kind(OpKind::Register);
 		write_op0_reg!(instruction, Register::ST0 as u32 + decoder.state.rm);
 	}
 }
