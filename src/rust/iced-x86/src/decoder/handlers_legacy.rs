@@ -765,7 +765,6 @@ impl OpCodeHandler_Reservednop {
 pub(super) struct OpCodeHandler_Ev_Iz {
 	has_modrm: bool,
 	decode: OpCodeHandlerDecodeFn,
-	flags: u32,
 	reg_base: [u32; 3],
 	code: [Code; 3],
 	state_flags_or_value: u32,
@@ -781,7 +780,6 @@ impl OpCodeHandler_Ev_Iz {
 		Self {
 			has_modrm: true,
 			decode: OpCodeHandler_Ev_Iz::decode,
-			flags,
 			reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32],
 			code: [code16, code32, code64],
 			state_flags_or_value,
@@ -820,7 +818,6 @@ impl OpCodeHandler_Ev_Iz {
 pub(super) struct OpCodeHandler_Ev_Ib {
 	has_modrm: bool,
 	decode: OpCodeHandlerDecodeFn,
-	flags: u32,
 	reg_base: [u32; 3],
 	code: [Code; 3],
 	state_flags_or_value: u32,
@@ -836,7 +833,6 @@ impl OpCodeHandler_Ev_Ib {
 		Self {
 			has_modrm: true,
 			decode: OpCodeHandler_Ev_Ib::decode,
-			flags,
 			reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32],
 			code: [code16, code32, code64],
 			state_flags_or_value,
@@ -874,7 +870,6 @@ impl OpCodeHandler_Ev_Ib {
 pub(super) struct OpCodeHandler_Ev_Ib2 {
 	has_modrm: bool,
 	decode: OpCodeHandlerDecodeFn,
-	flags: u32,
 	reg_base: [u32; 3],
 	code: [Code; 3],
 	state_flags_or_value: u32,
@@ -890,7 +885,6 @@ impl OpCodeHandler_Ev_Ib2 {
 		Self {
 			has_modrm: true,
 			decode: OpCodeHandler_Ev_Ib2::decode,
-			flags,
 			reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32],
 			code: [code16, code32, code64],
 			state_flags_or_value,
@@ -1002,7 +996,6 @@ impl OpCodeHandler_Ev_CL {
 pub(super) struct OpCodeHandler_Ev {
 	has_modrm: bool,
 	decode: OpCodeHandlerDecodeFn,
-	flags: u32,
 	reg_base: [u32; 3],
 	code: [Code; 3],
 	state_flags_or_value: u32,
@@ -1018,7 +1011,6 @@ impl OpCodeHandler_Ev {
 		Self {
 			has_modrm: true,
 			decode: OpCodeHandler_Ev::decode,
-			flags,
 			reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32],
 			code: [code16, code32, code64],
 			state_flags_or_value,
@@ -2136,7 +2128,6 @@ impl OpCodeHandler_Ev_Gv {
 pub(super) struct OpCodeHandler_Ev_Gv_flags {
 	has_modrm: bool,
 	decode: OpCodeHandlerDecodeFn,
-	flags: u32,
 	reg_base: [u32; 3],
 	code: [Code; 3],
 	state_flags_or_value: u32,
@@ -2154,7 +2145,6 @@ impl OpCodeHandler_Ev_Gv_flags {
 		Self {
 			has_modrm: true,
 			decode: OpCodeHandler_Ev_Gv_flags::decode,
-			flags,
 			reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32],
 			code: [code16, code32, code64],
 			state_flags_or_value,
@@ -4365,7 +4355,6 @@ impl OpCodeHandler_DX_eAX {
 pub(super) struct OpCodeHandler_Eb_Ib {
 	has_modrm: bool,
 	decode: OpCodeHandlerDecodeFn,
-	flags: u32,
 	code: Code,
 	state_flags_or_value: u32,
 }
@@ -4377,7 +4366,7 @@ impl OpCodeHandler_Eb_Ib {
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
-		Self { has_modrm: true, decode: OpCodeHandler_Eb_Ib::decode, flags, code, state_flags_or_value }
+		Self { has_modrm: true, decode: OpCodeHandler_Eb_Ib::decode, code, state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4479,7 +4468,6 @@ impl OpCodeHandler_Eb_CL {
 pub(super) struct OpCodeHandler_Eb {
 	has_modrm: bool,
 	decode: OpCodeHandlerDecodeFn,
-	flags: u32,
 	code: Code,
 	state_flags_or_value: u32,
 }
@@ -4491,7 +4479,7 @@ impl OpCodeHandler_Eb {
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
-		Self { has_modrm: true, decode: OpCodeHandler_Eb::decode, flags, code, state_flags_or_value }
+		Self { has_modrm: true, decode: OpCodeHandler_Eb::decode, code, state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4519,7 +4507,6 @@ impl OpCodeHandler_Eb {
 pub(super) struct OpCodeHandler_Eb_Gb {
 	has_modrm: bool,
 	decode: OpCodeHandlerDecodeFn,
-	flags: u32,
 	code: Code,
 	state_flags_or_value: u32,
 }
@@ -4531,7 +4518,7 @@ impl OpCodeHandler_Eb_Gb {
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
-		Self { has_modrm: true, decode: OpCodeHandler_Eb_Gb::decode, flags, code, state_flags_or_value }
+		Self { has_modrm: true, decode: OpCodeHandler_Eb_Gb::decode, code, state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
