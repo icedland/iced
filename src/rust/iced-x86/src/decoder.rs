@@ -406,8 +406,8 @@ impl StateFlags {
 }
 // GENERATOR-END: StateFlags
 
-macro_rules! mk_read_value {
-	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty) => {
+macro_rules! mk_read_xx {
+	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty, $err_expr:expr) => {
 		const SIZE: usize = mem::size_of::<$mem_ty>();
 		const_assert!(SIZE >= 1);
 		const_assert!(SIZE <= Decoder::MAX_READ_SIZE);
@@ -425,11 +425,36 @@ macro_rules! mk_read_value {
 				$slf.data_ptr = data_ptr + SIZE;
 				result
 			} else {
-				$slf.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
-				0
+				$err_expr
 			}
 		}
 	};
+}
+macro_rules! mk_read_xx_fn_body {
+	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty) => {
+		mk_read_xx!($slf, $mem_ty, $from_le, $ret_ty, {
+			$slf.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+			0
+		})
+	};
+}
+#[cfg(not(feature = "__internal_flip"))]
+macro_rules! read_u8_break {
+	($slf:ident) => {{
+		mk_read_xx! {$slf, u8, u8::from_le, usize, break}
+	}};
+}
+#[cfg(not(feature = "__internal_flip"))]
+macro_rules! read_u16_break {
+	($slf:ident) => {{
+		mk_read_xx! {$slf, u16, u16::from_le, usize, break}
+	}};
+}
+#[cfg(not(feature = "__internal_flip"))]
+macro_rules! read_u32_break {
+	($slf:ident) => {{
+		mk_read_xx! {$slf, u32, u32::from_le, usize, break}
+	}};
 }
 
 // This is `repr(u32)` since we need the decoder field near other fields that also get cleared in `decode()`.
@@ -474,9 +499,12 @@ struct State {
 	aaa: u32,
 	extra_register_base_evex: u32,      // EVEX.R' << 4
 	extra_base_register_base_evex: u32, // EVEX.XB << 3
+	// The order of these 4 fields are important. They're accessed as a u32 (decode_out_ptr()) by the compiler so should be 4 byte aligned.
 	address_size: OpSize,
 	operand_size: OpSize,
 	segment_prio: u8, // 0=ES/CS/SS/DS, 1=FS/GS
+	dummy: u8,
+	// =================
 }
 
 impl State {
@@ -558,8 +586,12 @@ where
 	mask_e0: u32,
 	mask_64b: u32,
 	bitness: u32,
+	// The order of these 4 fields are important. They're accessed as a u32 (decode_out_ptr()) by the compiler so should be 4 byte aligned.
 	default_address_size: OpSize,
 	default_operand_size: OpSize,
+	segment_prio: u8, // Always 0
+	dummy: u8,        // Padding so the compiler can read 4 bytes, see decode_out_ptr()
+	// =================
 	default_inverted_address_size: OpSize,
 	default_inverted_operand_size: OpSize,
 	// true if 64-bit mode, false if 16/32-bit mode
@@ -991,6 +1023,8 @@ impl<'a> Decoder<'a> {
 			bitness,
 			default_address_size,
 			default_operand_size,
+			segment_prio: 0,
+			dummy: 0,
 			default_inverted_address_size,
 			default_inverted_operand_size,
 			is64b_mode,
@@ -1236,25 +1270,25 @@ impl<'a> Decoder<'a> {
 	#[must_use]
 	#[inline(always)]
 	fn read_u8(&mut self) -> usize {
-		mk_read_value! {self, u8, u8::from_le, usize}
+		mk_read_xx_fn_body! {self, u8, u8::from_le, usize}
 	}
 
 	#[must_use]
 	#[inline(always)]
 	fn read_u16(&mut self) -> usize {
-		mk_read_value! {self, u16, u16::from_le, usize}
+		mk_read_xx_fn_body! {self, u16, u16::from_le, usize}
 	}
 
 	#[must_use]
 	#[inline(always)]
 	fn read_u32(&mut self) -> usize {
-		mk_read_value! {self, u32, u32::from_le, usize}
+		mk_read_xx_fn_body! {self, u32, u32::from_le, usize}
 	}
 
 	#[must_use]
 	#[inline(always)]
 	fn read_u64(&mut self) -> u64 {
-		mk_read_value! {self, u64, u64::from_le, u64}
+		mk_read_xx_fn_body! {self, u64, u64::from_le, u64}
 	}
 
 	/// Gets the last decoder error. Unless you need to know the reason it failed,
@@ -1392,10 +1426,13 @@ impl<'a> Decoder<'a> {
 		self.state.vvvv = 0;
 		self.state.vvvv_invalid_check = 0;
 
+		// We only need to write addr/op size fields and init segment_prio to 0.
+		// The fields are consecutive so the compiler can read all 4 fields (including dummy)
+		// and write all 4 fields at the same time.
 		self.state.address_size = self.default_address_size;
 		self.state.operand_size = self.default_operand_size;
-
-		self.state.segment_prio = 0;
+		self.state.segment_prio = self.segment_prio;
+		self.state.dummy = self.dummy;
 
 		let data_ptr = self.data_ptr;
 		self.instr_start_data_ptr = data_ptr;
@@ -1404,14 +1441,6 @@ impl<'a> Decoder<'a> {
 		self.max_data_ptr = cmp::min(data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end);
 
 		let b = self.read_u8();
-		// Test binary: xul.dll 64-bit
-		// 52.01% of all instructions have at least one prefix
-		// REX = 92.50%
-		//  66 =  4.41%
-		//  F3 =  1.80%
-		//  F2 =  0.65%
-		//  F0 =  0.51%
-		//  65 =  0.10%
 		let mut handler = self.handlers_map0[b];
 		if (((b as u32) & 0xF0) & self.mask_64b) == 0x40 {
 			debug_assert!(self.is64b_mode);
@@ -1993,161 +2022,207 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
+	#[allow(clippy::never_loop)]
 	fn read_op_mem_1(&mut self, instruction: &mut Instruction) -> bool {
-		instruction_internal::internal_set_memory_displ_size(instruction, 1);
-		self.displ_index = self.data_ptr as u8;
-		let b = self.read_u8();
-		if self.state.address_size == OpSize::Size64 {
-			instruction.set_memory_displacement64(b as i8 as u64);
-			write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::RAX as u32);
-		} else {
-			instruction.set_memory_displacement64(b as i8 as u32 as u64);
-			write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::EAX as u32);
-		}
+		loop {
+			instruction_internal::internal_set_memory_displ_size(instruction, 1);
+			self.displ_index = self.data_ptr as u8;
+			let displ = read_u8_break!(self) as i8 as u64;
+			if self.state.address_size == OpSize::Size64 {
+				instruction.set_memory_displacement64(displ);
+				write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::RAX as u32);
+			} else {
+				instruction.set_memory_displacement64(displ as u32 as u64);
+				write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::EAX as u32);
+			}
 
+			return false;
+		}
+		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		false
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
+	#[allow(clippy::never_loop)]
 	fn read_op_mem_1_4(&mut self, instruction: &mut Instruction) -> bool {
-		instruction_internal::internal_set_memory_displ_size(instruction, 1);
+		loop {
+			instruction_internal::internal_set_memory_displ_size(instruction, 1);
 
-		self.displ_index = self.data_ptr.wrapping_add(1) as u8;
-		let sib = self.read_u16() as u32;
+			self.displ_index = self.data_ptr.wrapping_add(1) as u8;
+			let w = read_u16_break!(self) as u32;
 
-		const_assert_eq!(InstrScale::Scale1 as u32, 0);
-		const_assert_eq!(InstrScale::Scale2 as u32, 1);
-		const_assert_eq!(InstrScale::Scale4 as u32, 2);
-		const_assert_eq!(InstrScale::Scale8 as u32, 3);
-		// SAFETY: 0-3 are valid variants
-		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((sib >> 6) & 3) as InstrScaleUnderlyingType) });
-		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
-		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
-		if index != 4 {
-			write_index_reg!(instruction, index + base_reg as u32);
+			const_assert_eq!(InstrScale::Scale1 as u32, 0);
+			const_assert_eq!(InstrScale::Scale2 as u32, 1);
+			const_assert_eq!(InstrScale::Scale4 as u32, 2);
+			const_assert_eq!(InstrScale::Scale8 as u32, 3);
+			// SAFETY: 0-3 are valid variants
+			instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((w >> 6) & 3) as InstrScaleUnderlyingType) });
+			let index = ((w >> 3) & 7) + self.state.extra_index_register_base;
+			if self.state.address_size == OpSize::Size64 {
+				const BASE_REG: Register = Register::RAX;
+				if index != 4 {
+					write_index_reg!(instruction, index + BASE_REG as u32);
+				}
+
+				write_base_reg!(instruction, (w & 7) + self.state.extra_base_register_base + BASE_REG as u32);
+				let displ = (w >> 8) as i8 as u64;
+				instruction.set_memory_displacement64(displ);
+			} else {
+				const BASE_REG: Register = Register::EAX;
+				if index != 4 {
+					write_index_reg!(instruction, index + BASE_REG as u32);
+				}
+
+				write_base_reg!(instruction, (w & 7) + self.state.extra_base_register_base + BASE_REG as u32);
+				let displ = (w >> 8) as i8 as u32 as u64;
+				instruction.set_memory_displacement64(displ);
+			}
+
+			return true;
 		}
-
-		write_base_reg!(instruction, (sib & 7) + self.state.extra_base_register_base + base_reg as u32);
-		let displ = (sib >> 8) as i8 as u32;
-		if self.state.address_size == OpSize::Size64 {
-			instruction.set_memory_displacement64(displ as i32 as u64);
-		} else {
-			instruction.set_memory_displacement64(displ as u64);
-		}
-
+		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		true
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
 	fn read_op_mem_0(&mut self, instruction: &mut Instruction) -> bool {
-		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
-		write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + base_reg as u32);
-
-		false
-	}
-
-	#[cfg(not(feature = "__internal_flip"))]
-	fn read_op_mem_0_5(&mut self, instruction: &mut Instruction) -> bool {
-		self.displ_index = self.data_ptr as u8;
-		let d = self.read_u32();
-		if self.is64b_mode {
-			self.state.flags |= StateFlags::IP_REL;
-			if self.state.address_size == OpSize::Size64 {
-				instruction.set_memory_displacement64(d as i32 as u64);
-				instruction_internal::internal_set_memory_displ_size(instruction, 4);
-				instruction.set_memory_base(Register::RIP);
-			} else {
-				instruction.set_memory_displacement64(d as u64);
-				instruction_internal::internal_set_memory_displ_size(instruction, 3);
-				instruction.set_memory_base(Register::EIP);
-			}
-		} else {
-			instruction.set_memory_displacement64(d as u64);
-			instruction_internal::internal_set_memory_displ_size(instruction, 3);
-		}
-
-		false
-	}
-
-	#[cfg(not(feature = "__internal_flip"))]
-	fn read_op_mem_2_4(&mut self, instruction: &mut Instruction) -> bool {
-		let sib = self.read_u8() as u32;
-		self.displ_index = self.data_ptr as u8;
-		let displ = self.read_u32() as u32;
-
-		const_assert_eq!(InstrScale::Scale1 as u32, 0);
-		const_assert_eq!(InstrScale::Scale2 as u32, 1);
-		const_assert_eq!(InstrScale::Scale4 as u32, 2);
-		const_assert_eq!(InstrScale::Scale8 as u32, 3);
-		// SAFETY: 0-3 are valid variants
-		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
-		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
-		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
-		if index != 4 {
-			write_index_reg!(instruction, index + base_reg as u32);
-		}
-
-		write_base_reg!(instruction, (sib & 7) + self.state.extra_base_register_base + base_reg as u32);
 		if self.state.address_size == OpSize::Size64 {
-			instruction_internal::internal_set_memory_displ_size(instruction, 4);
-			instruction.set_memory_displacement64(displ as i32 as u64);
+			write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::RAX as u32);
 		} else {
-			instruction_internal::internal_set_memory_displ_size(instruction, 3);
-			instruction.set_memory_displacement64(displ as u64);
-		}
+			write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::EAX as u32);
+		};
 
+		false
+	}
+
+	#[cfg(not(feature = "__internal_flip"))]
+	#[allow(clippy::never_loop)]
+	fn read_op_mem_0_5(&mut self, instruction: &mut Instruction) -> bool {
+		loop {
+			self.displ_index = self.data_ptr as u8;
+			let displ = read_u32_break!(self) as i32 as u64;
+			if self.is64b_mode {
+				self.state.flags |= StateFlags::IP_REL;
+				if self.state.address_size == OpSize::Size64 {
+					instruction.set_memory_displacement64(displ);
+					instruction_internal::internal_set_memory_displ_size(instruction, 4);
+					instruction.set_memory_base(Register::RIP);
+				} else {
+					instruction.set_memory_displacement64(displ as u32 as u64);
+					instruction_internal::internal_set_memory_displ_size(instruction, 3);
+					instruction.set_memory_base(Register::EIP);
+				}
+			} else {
+				instruction.set_memory_displacement64(displ as u32 as u64);
+				instruction_internal::internal_set_memory_displ_size(instruction, 3);
+			}
+
+			return false;
+		}
+		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+		false
+	}
+
+	#[cfg(not(feature = "__internal_flip"))]
+	#[allow(clippy::never_loop)]
+	fn read_op_mem_2_4(&mut self, instruction: &mut Instruction) -> bool {
+		loop {
+			let sib = read_u8_break!(self) as u32;
+			self.displ_index = self.data_ptr as u8;
+			let displ = read_u32_break!(self) as i32 as u64;
+
+			const_assert_eq!(InstrScale::Scale1 as u32, 0);
+			const_assert_eq!(InstrScale::Scale2 as u32, 1);
+			const_assert_eq!(InstrScale::Scale4 as u32, 2);
+			const_assert_eq!(InstrScale::Scale8 as u32, 3);
+			// SAFETY: 0-3 are valid variants
+			instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
+			let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
+			if self.state.address_size == OpSize::Size64 {
+				const BASE_REG: Register = Register::RAX;
+				if index != 4 {
+					write_index_reg!(instruction, index + BASE_REG as u32);
+				}
+
+				write_base_reg!(instruction, (sib & 7) + self.state.extra_base_register_base + BASE_REG as u32);
+				instruction_internal::internal_set_memory_displ_size(instruction, 4);
+				instruction.set_memory_displacement64(displ);
+			} else {
+				const BASE_REG: Register = Register::EAX;
+				if index != 4 {
+					write_index_reg!(instruction, index + BASE_REG as u32);
+				}
+
+				write_base_reg!(instruction, (sib & 7) + self.state.extra_base_register_base + BASE_REG as u32);
+				instruction_internal::internal_set_memory_displ_size(instruction, 3);
+				instruction.set_memory_displacement64(displ as u32 as u64);
+			}
+
+			return true;
+		}
+		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		true
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
+	#[allow(clippy::never_loop)]
 	fn read_op_mem_2(&mut self, instruction: &mut Instruction) -> bool {
-		self.displ_index = self.data_ptr as u8;
-		let d = self.read_u32();
-		if self.state.address_size == OpSize::Size64 {
-			instruction.set_memory_displacement64(d as i32 as u64);
-			instruction_internal::internal_set_memory_displ_size(instruction, 4);
-			write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::RAX as u32);
-		} else {
-			instruction.set_memory_displacement64(d as u64);
-			instruction_internal::internal_set_memory_displ_size(instruction, 3);
-			write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::EAX as u32);
-		}
+		loop {
+			self.displ_index = self.data_ptr as u8;
+			let displ = read_u32_break!(self) as i32 as u64;
+			if self.state.address_size == OpSize::Size64 {
+				instruction.set_memory_displacement64(displ);
+				instruction_internal::internal_set_memory_displ_size(instruction, 4);
+				write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::RAX as u32);
+			} else {
+				instruction.set_memory_displacement64(displ as u32 as u64);
+				instruction_internal::internal_set_memory_displ_size(instruction, 3);
+				write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::EAX as u32);
+			}
 
+			return false;
+		}
+		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		false
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
+	#[allow(clippy::never_loop)]
 	fn read_op_mem_0_4(&mut self, instruction: &mut Instruction) -> bool {
-		let sib = self.read_u8() as u32;
-		const_assert_eq!(InstrScale::Scale1 as u32, 0);
-		const_assert_eq!(InstrScale::Scale2 as u32, 1);
-		const_assert_eq!(InstrScale::Scale4 as u32, 2);
-		const_assert_eq!(InstrScale::Scale8 as u32, 3);
-		// SAFETY: 0-3 are valid variants
-		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
-		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
-		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
-		if index != 4 {
-			write_index_reg!(instruction, index + base_reg as u32);
-		}
-
-		let base = sib & 7;
-		if base == 5 {
-			self.displ_index = self.data_ptr as u8;
-			let d = self.read_u32();
-			if self.state.address_size == OpSize::Size64 {
-				instruction.set_memory_displacement64(d as i32 as u64);
-				instruction_internal::internal_set_memory_displ_size(instruction, 4);
-			} else {
-				instruction.set_memory_displacement64(d as u64);
-				instruction_internal::internal_set_memory_displ_size(instruction, 3);
+		loop {
+			let sib = read_u8_break!(self) as u32;
+			const_assert_eq!(InstrScale::Scale1 as u32, 0);
+			const_assert_eq!(InstrScale::Scale2 as u32, 1);
+			const_assert_eq!(InstrScale::Scale4 as u32, 2);
+			const_assert_eq!(InstrScale::Scale8 as u32, 3);
+			// SAFETY: 0-3 are valid variants
+			instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
+			let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
+			let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
+			if index != 4 {
+				write_index_reg!(instruction, index + base_reg as u32);
 			}
-		} else {
-			write_base_reg!(instruction, base + self.state.extra_base_register_base + base_reg as u32);
-			instruction_internal::internal_set_memory_displ_size(instruction, 0);
-			instruction.set_memory_displacement64(0);
-		}
 
+			let base = sib & 7;
+			if base == 5 {
+				self.displ_index = self.data_ptr as u8;
+				let displ = read_u32_break!(self) as i32 as u64;
+				if self.state.address_size == OpSize::Size64 {
+					instruction.set_memory_displacement64(displ);
+					instruction_internal::internal_set_memory_displ_size(instruction, 4);
+				} else {
+					instruction.set_memory_displacement64(displ as u32 as u64);
+					instruction_internal::internal_set_memory_displ_size(instruction, 3);
+				}
+			} else {
+				write_base_reg!(instruction, base + self.state.extra_base_register_base + base_reg as u32);
+				instruction_internal::internal_set_memory_displ_size(instruction, 0);
+				instruction.set_memory_displacement64(0);
+			}
+
+			return true;
+		}
+		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		true
 	}
 
