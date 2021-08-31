@@ -387,7 +387,8 @@ impl HandlerFlags {
 pub(crate) struct StateFlags;
 #[allow(dead_code)]
 impl StateFlags {
-	pub(crate) const IP_REL: u32 = 0x0000_0001;
+	pub(crate) const IP_REL64: u32 = 0x0000_0001;
+	pub(crate) const IP_REL32: u32 = 0x0000_0002;
 	pub(crate) const HAS_REX: u32 = 0x0000_0008;
 	pub(crate) const B: u32 = 0x0000_0010;
 	pub(crate) const Z: u32 = 0x0000_0020;
@@ -1468,19 +1469,22 @@ impl<'a> Decoder<'a> {
 		instruction_internal::internal_set_code_size(instruction, self.default_code_size);
 
 		let mut flags = self.state.flags;
-		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK | StateFlags::IP_REL)) != 0 {
-			if (flags & StateFlags::IP_REL) != 0 {
+		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK | StateFlags::IP_REL64 | StateFlags::IP_REL32)) != 0 {
+			if (flags & StateFlags::IP_REL64) != 0 {
 				let addr = ip.wrapping_add(instruction.memory_displacement64());
-				if self.state.address_size == OpSize::Size64 {
-					instruction.set_memory_displacement64(addr);
-				} else {
-					instruction.set_memory_displacement64(addr as u32 as u64);
-				}
+				instruction.set_memory_displacement64(addr);
 
 				// RIP rel ops are common, but invalid/lock bits are usually never set, so exit early if possible
 				if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK)) == 0 {
 					return;
 				}
+			}
+			// We don't use 'else if' here because the compiler generates worse code. It assumes the first if condition above
+			// (i.e, IP_REL64 check) is unlikely even though it's more likely to be set than IP_REL32 (close to 0% probability
+			// of being set). IOW, it generates code as if the cond and blocks were swapped.
+			if (flags & StateFlags::IP_REL32) != 0 {
+				let addr = ip.wrapping_add(instruction.memory_displacement64());
+				instruction.set_memory_displacement64(addr as u32 as u64);
 			}
 
 			if (flags & StateFlags::IS_INVALID) != 0
@@ -2102,12 +2106,13 @@ impl<'a> Decoder<'a> {
 			self.displ_index = self.data_ptr as u8;
 			let displ = read_u32_break!(self) as i32 as u64;
 			if self.is64b_mode {
-				self.state.flags |= StateFlags::IP_REL;
 				if self.state.address_size == OpSize::Size64 {
+					self.state.flags |= StateFlags::IP_REL64;
 					instruction.set_memory_displacement64(displ);
 					instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					instruction.set_memory_base(Register::RIP);
 				} else {
+					self.state.flags |= StateFlags::IP_REL32;
 					instruction.set_memory_displacement64(displ as u32 as u64);
 					instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					instruction.set_memory_base(Register::EIP);
@@ -2466,12 +2471,13 @@ fn decoder_read_op_mem_vsib_0_5(
 	this.displ_index = this.data_ptr as u8;
 	let d = this.read_u32();
 	if this.is64b_mode {
-		this.state.flags |= StateFlags::IP_REL;
 		if this.state.address_size == OpSize::Size64 {
+			this.state.flags |= StateFlags::IP_REL64;
 			instruction.set_memory_displacement64(d as i32 as u64);
 			instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			instruction.set_memory_base(Register::RIP);
 		} else {
+			this.state.flags |= StateFlags::IP_REL32;
 			instruction.set_memory_displacement64(d as u64);
 			instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			instruction.set_memory_base(Register::EIP);

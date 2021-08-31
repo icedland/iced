@@ -7,7 +7,8 @@ namespace Generator.Enums.Decoder {
 	[Enum("StateFlags", Flags = true, NoInitialize = true)]
 	[Flags]
 	enum StateFlags : uint {
-		IpRel					= 0x00000001,
+		IpRel64					= 0x00000001,
+		IpRel32					= 0x00000002,
 		// Free bits
 		HasRex					= 0x00000008,
 		b						= 0x00000010,
