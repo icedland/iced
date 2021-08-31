@@ -2,13 +2,13 @@ iced-x86 disassembler Python bindings [![pypi](https://img.shields.io/pypi/v/ice
 
 iced-x86 is a blazing fast and correct x86 (16/32/64-bit) disassembler for Python.
 
-- ✔️Supports all Intel and AMD instructions
-- ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
-- ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- ✔️The encoder can be used to re-encode decoded instructions at any address
-- ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
-- ✔️Rust + Python
-- ✔️License: MIT
+- 👍 Supports all Intel and AMD instructions
+- 👍 Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
+- 👍 The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
+- 👍 The encoder can be used to re-encode decoded instructions at any address
+- 👍 API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
+- 👍 Rust + Python
+- 👍 License: MIT
 
 Rust crate: https://github.com/icedland/iced/blob/master/src/rust/iced-x86/README.md
 
@@ -36,7 +36,7 @@ Prerequisites:
 # Create the wheel
 python3 setup.py bdist_wheel
 # Install the built wheel
-python3 -m pip install iced-x86 --no-index -f dist --only-binary :all:
+python3 -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
 # Uninstall your built copy
 python3 -m pip uninstall iced-x86
 ```
@@ -49,7 +49,7 @@ Tests:
 
 ```sh
 python3 setup.py bdist_wheel
-python3 -m pip install iced-x86 --no-index -f dist --only-binary :all:
+python3 -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
 python3 -m pytest
 python3 -m pip uninstall -y iced-x86
 ```

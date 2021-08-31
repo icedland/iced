@@ -2,13 +2,13 @@ iced-x86 JavaScript bindings (Rust -> WebAssembly) [![npm](https://img.shields.i
 
 iced-x86 is a blazing fast and correct x86 (16/32/64-bit) disassembler for JavaScript (WebAssembly).
 
-- ✔️Supports all Intel and AMD instructions
-- ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
-- ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- ✔️The encoder can be used to re-encode decoded instructions at any address
-- ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
-- ✔️Rust + WebAssembly + JavaScript
-- ✔️License: MIT
+- 👍 Supports all Intel and AMD instructions
+- 👍 Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
+- 👍 The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
+- 👍 The encoder can be used to re-encode decoded instructions at any address
+- 👍 API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
+- 👍 Rust + WebAssembly + JavaScript
+- 👍 License: MIT
 
 Rust crate: https://github.com/icedland/iced/blob/master/src/rust/iced-x86/README.md
 
@@ -68,18 +68,18 @@ npm test
 
 Here's a list of all features you can enable when building the wasm file
 
-- `instr_api`: (✔️Enabled by default) Enables `Instruction` methods and properties to get eg. mnemonic, operands, etc.
-- `decoder`: (✔️Enabled by default) Enables the decoder. Required to disassemble code.
-- `encoder`: (✔️Enabled by default) Enables the encoder
-- `block_encoder`: (✔️Enabled by default) Enables the `BlockEncoder`. Requires `encoder`
-- `instr_create`: (✔️Enabled by default) Enables `Instruction.create*()` methods
-- `op_code_info`: (✔️Enabled by default) Get instruction metadata, see the `Instruction.opCode` property. Requires `encoder`
-- `instr_info`: (✔️Enabled by default) Enables instruction info code (read/written regs/mem, flags, control flow info etc)
-- `gas`: (✔️Enabled by default) Enables the GNU Assembler (AT&T) formatter
-- `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
-- `masm`: (✔️Enabled by default) Enables the masm formatter
-- `nasm`: (✔️Enabled by default) Enables the nasm formatter
-- `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` (masm syntax) which uses less code (smaller wasm files)
+- `instr_api`: (👍 Enabled by default) Enables `Instruction` methods and properties to get eg. mnemonic, operands, etc.
+- `decoder`: (👍 Enabled by default) Enables the decoder. Required to disassemble code.
+- `encoder`: (👍 Enabled by default) Enables the encoder
+- `block_encoder`: (👍 Enabled by default) Enables the `BlockEncoder`. Requires `encoder`
+- `instr_create`: (👍 Enabled by default) Enables `Instruction.create*()` methods
+- `op_code_info`: (👍 Enabled by default) Get instruction metadata, see the `Instruction.opCode` property. Requires `encoder`
+- `instr_info`: (👍 Enabled by default) Enables instruction info code (read/written regs/mem, flags, control flow info etc)
+- `gas`: (👍 Enabled by default) Enables the GNU Assembler (AT&T) formatter
+- `intel`: (👍 Enabled by default) Enables the Intel (XED) formatter
+- `masm`: (👍 Enabled by default) Enables the masm formatter
+- `nasm`: (👍 Enabled by default) Enables the nasm formatter
+- `fast_fmt`: (👍 Enabled by default) Enables `FastFormatter` (masm syntax) which uses less code (smaller wasm files)
 - `bigint`: Enables public APIs with `i64`/`u64` arguments and return values (requires JavaScript `BigInt` type, eg. Node.js >= 10.4.0)
 - `no_vex`: Disables all `VEX` instructions. See below for more info.
 - `no_evex`: Disables all `EVEX` instructions. See below for more info.

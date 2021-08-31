@@ -777,7 +777,7 @@ class FastFormatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov rax, rcx`
-		✔️       `False`  `mov rax,rcx`
+		👍       `False`  `mov rax,rcx`
 		```
 		"""
 		...
@@ -792,7 +792,7 @@ class FastFormatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,[rip+12345678h]`
-		✔️       `False`  `mov eax,[1029384756AFBECDh]`
+		👍       `False`  `mov eax,[1029384756AFBECDh]`
 		```
 		"""
 		...
@@ -806,7 +806,7 @@ class FastFormatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `vcmpnltsd xmm2,xmm6,xmm3`
+		👍       `True`   `vcmpnltsd xmm2,xmm6,xmm3`
 		         `False`  `vcmpsd xmm2,xmm6,xmm3,5`
 		```
 		"""
@@ -822,7 +822,7 @@ class FastFormatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,[myfield (12345678)]`
-		✔️       `False`  `mov eax,[myfield]`
+		👍       `False`  `mov eax,[myfield]`
 		```
 		"""
 		...
@@ -839,7 +839,7 @@ class FastFormatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,ds:[ecx]`
-		✔️       `False`  `mov eax,[ecx]`
+		👍       `False`  `mov eax,[ecx]`
 		```
 		"""
 		...
@@ -854,7 +854,7 @@ class FastFormatter:
 		Default  Value    Example                    Example
 		----------------------------------------------------
 		         `True`   `mov eax,dword ptr [ebx]`  `add byte ptr [eax],0x12`
-		✔️       `False`  `mov eax,[ebx]`            `add byte ptr [eax],0x12`
+		👍       `False`  `mov eax,[ebx]`            `add byte ptr [eax],0x12`
 		```
 		"""
 		...
@@ -868,7 +868,7 @@ class FastFormatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `0xFF`
+		👍       `True`   `0xFF`
 		         `False`  `0xff`
 		```
 		"""
@@ -884,7 +884,7 @@ class FastFormatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `0x5A`
-		✔️       `False`  `5Ah`
+		👍       `False`  `5Ah`
 		```
 		"""
 		...
@@ -1185,7 +1185,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `REP stosd`
-		✔️       `False`  `rep stosd`
+		👍       `False`  `rep stosd`
 		```
 		"""
 		...
@@ -1200,7 +1200,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `MOV rcx,rax`
-		✔️       `False`  `mov rcx,rax`
+		👍       `False`  `mov rcx,rax`
 		```
 		"""
 		...
@@ -1215,7 +1215,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov RCX,[RAX+RDX*8]`
-		✔️       `False`  `mov rcx,[rax+rdx*8]`
+		👍       `False`  `mov rcx,[rax+rdx*8]`
 		```
 		"""
 		...
@@ -1230,7 +1230,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov BYTE PTR [rcx],12h`
-		✔️       `False`  `mov byte ptr [rcx],12h`
+		👍       `False`  `mov byte ptr [rcx],12h`
 		```
 		"""
 		...
@@ -1245,7 +1245,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
-		✔️       `False`  `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
+		👍       `False`  `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
 		```
 		"""
 		...
@@ -1260,7 +1260,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `MOV EAX,GS:[RCX*4+0ffh]`
-		✔️       `False`  `mov eax,gs:[rcx*4+0ffh]`
+		👍       `False`  `mov eax,gs:[rcx*4+0ffh]`
 		```
 		"""
 		...
@@ -1275,7 +1275,7 @@ class Formatter:
 		```text
 		Default  Value  Example
 		-----------------------
-		✔️       `0`    `mov•rcx,rbp`
+		👍       `0`    `mov•rcx,rbp`
 		         `8`    `mov•••••rcx,rbp`
 		```
 		"""
@@ -1301,7 +1301,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov rax, rcx`
-		✔️       `False`  `mov rax,rcx`
+		👍       `False`  `mov rax,rcx`
 		```
 		"""
 		...
@@ -1316,7 +1316,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,[ rcx+rdx ]`
-		✔️       `False`  `mov eax,[rcx+rdx]`
+		👍       `False`  `mov eax,[rcx+rdx]`
 		```
 		"""
 		...
@@ -1331,7 +1331,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,[rcx + rdx*8 - 80h]`
-		✔️       `False`  `mov eax,[rcx+rdx*8-80h]`
+		👍       `False`  `mov eax,[rcx+rdx*8-80h]`
 		```
 		"""
 		...
@@ -1346,7 +1346,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,[rcx+rdx * 8-80h]`
-		✔️       `False`  `mov eax,[rcx+rdx*8-80h]`
+		👍       `False`  `mov eax,[rcx+rdx*8-80h]`
 		```
 		"""
 		...
@@ -1361,7 +1361,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,[8*rdx]`
-		✔️       `False`  `mov eax,[rdx*8]`
+		👍       `False`  `mov eax,[rdx*8]`
 		```
 		"""
 		...
@@ -1376,7 +1376,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,[rbx+rcx*1]`
-		✔️       `False`  `mov eax,[rbx+rcx]`
+		👍       `False`  `mov eax,[rbx+rcx]`
 		```
 		"""
 		...
@@ -1393,7 +1393,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,ds:[ecx]`
-		✔️       `False`  `mov eax,[ecx]`
+		👍       `False`  `mov eax,[ecx]`
 		```
 		"""
 		...
@@ -1408,7 +1408,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,[rcx*2+0]`
-		✔️       `False`  `mov eax,[rcx*2]`
+		👍       `False`  `mov eax,[rcx*2]`
 		```
 		"""
 		...
@@ -1443,7 +1443,7 @@ class Formatter:
 		Default  Value  Example
 		-----------------------
 		         `0`    `0x12345678`
-		✔️       `4`    `0x1234_5678`
+		👍       `4`    `0x1234_5678`
 		```
 		"""
 		...
@@ -1478,7 +1478,7 @@ class Formatter:
 		Default  Value  Example
 		-----------------------
 		         `0`    `12345678`
-		✔️       `3`    `12_345_678`
+		👍       `3`    `12_345_678`
 		```
 		"""
 		...
@@ -1513,7 +1513,7 @@ class Formatter:
 		Default  Value  Example
 		-----------------------
 		         `0`    `12345670`
-		✔️       `4`    `1234_5670`
+		👍       `4`    `1234_5670`
 		```
 		"""
 		...
@@ -1548,7 +1548,7 @@ class Formatter:
 		Default  Value  Example
 		-----------------------
 		         `0`    `11010111`
-		✔️       `4`    `1101_0111`
+		👍       `4`    `1101_0111`
 		```
 		"""
 		...
@@ -1562,7 +1562,7 @@ class Formatter:
 		```text
 		Default  Value  Example
 		-----------------------
-		✔️       `""`   `0x12345678`
+		👍       `""`   `0x12345678`
 		         `"_"`  `0x1234_5678`
 		```
 		"""
@@ -1581,7 +1581,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `0x0000000A`/`0000000Ah`
-		✔️       `False`  `0xA`/`0Ah`
+		👍       `False`  `0xA`/`0Ah`
 		```
 		"""
 		...
@@ -1595,7 +1595,7 @@ class Formatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `0xFF`
+		👍       `True`   `0xFF`
 		         `False`  `0xff`
 		```
 		"""
@@ -1610,7 +1610,7 @@ class Formatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `9`
+		👍       `True`   `9`
 		         `False`  `0x9`
 		```
 		"""
@@ -1625,7 +1625,7 @@ class Formatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `0FFh`
+		👍       `True`   `0FFh`
 		         `False`  `FFh`
 		```
 		"""
@@ -1654,7 +1654,7 @@ class Formatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `je 00000123h`
+		👍       `True`   `je 00000123h`
 		         `False`  `je 123h`
 		```
 		"""
@@ -1670,7 +1670,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,-1`
-		✔️       `False`  `mov eax,FFFFFFFF`
+		👍       `False`  `mov eax,FFFFFFFF`
 		```
 		"""
 		...
@@ -1684,7 +1684,7 @@ class Formatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `mov al,[eax-2000h]`
+		👍       `True`   `mov al,[eax-2000h]`
 		         `False`  `mov al,[eax+0FFFFE000h]`
 		```
 		"""
@@ -1700,7 +1700,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov al,[eax+00000012h]`
-		✔️       `False`  `mov al,[eax+12h]`
+		👍       `False`  `mov al,[eax+12h]`
 		```
 		"""
 		...
@@ -1727,7 +1727,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,[rip+12345678h]`
-		✔️       `False`  `mov eax,[1029384756AFBECDh]`
+		👍       `False`  `mov eax,[1029384756AFBECDh]`
 		```
 		"""
 		...
@@ -1741,7 +1741,7 @@ class Formatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `je short 1234h`
+		👍       `True`   `je short 1234h`
 		         `False`  `je 1234h`
 		```
 		"""
@@ -1756,7 +1756,7 @@ class Formatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `vcmpnltsd xmm2,xmm6,xmm3`
+		👍       `True`   `vcmpnltsd xmm2,xmm6,xmm3`
 		         `False`  `vcmpsd xmm2,xmm6,xmm3,5`
 		```
 		"""
@@ -1772,7 +1772,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,[myfield (12345678)]`
-		✔️       `False`  `mov eax,[myfield]`
+		👍       `False`  `mov eax,[myfield]`
 		```
 		"""
 		...
@@ -1787,7 +1787,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `mov eax,ecx`
-		✔️       `False`  `mov %eax,%ecx`
+		👍       `False`  `mov %eax,%ecx`
 		```
 		"""
 		...
@@ -1802,7 +1802,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `movl %eax,%ecx`
-		✔️       `False`  `mov %eax,%ecx`
+		👍       `False`  `mov %eax,%ecx`
 		```
 		"""
 		...
@@ -1817,7 +1817,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `(%eax, %ecx, 2)`
-		✔️       `False`  `(%eax,%ecx,2)`
+		👍       `False`  `(%eax,%ecx,2)`
 		```
 		"""
 		...
@@ -1831,7 +1831,7 @@ class Formatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `mov eax,ds:[12345678]`
+		👍       `True`   `mov eax,ds:[12345678]`
 		         `False`  `mov eax,[12345678]`
 		```
 		"""
@@ -1846,7 +1846,7 @@ class Formatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `[ecx+symbol]` / `[symbol]`
+		👍       `True`   `[ecx+symbol]` / `[symbol]`
 		         `False`  `symbol[ecx]` / `symbol`
 		```
 		"""
@@ -1861,7 +1861,7 @@ class Formatter:
 		```text
 		Default  Value    Example
 		-------------------------
-		✔️       `True`   `[ecx+1234h]`
+		👍       `True`   `[ecx+1234h]`
 		         `False`  `1234h[ecx]`
 		```
 		"""
@@ -1877,7 +1877,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `or rcx,byte -1`
-		✔️       `False`  `or rcx,-1`
+		👍       `False`  `or rcx,-1`
 		```
 		"""
 		...
@@ -1892,7 +1892,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `fadd st(0),st(3)`
-		✔️       `False`  `fadd st,st(3)`
+		👍       `False`  `fadd st,st(3)`
 		```
 		"""
 		...
@@ -1907,7 +1907,7 @@ class Formatter:
 		Default  Value    Example
 		-------------------------
 		         `True`   `es rep add eax,ecx`
-		✔️       `False`  `add eax,ecx`
+		👍       `False`  `add eax,ecx`
 		```
 		"""
 		...

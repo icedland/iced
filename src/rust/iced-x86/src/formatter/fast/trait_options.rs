@@ -111,7 +111,7 @@ pub trait SpecializedFormatterTraitOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `mov rax, rcx`
-	/// ✔️ | `false` | `mov rax,rcx`
+	/// 👍 | `false` | `mov rax,rcx`
 	///
 	/// # Arguments
 	///
@@ -126,7 +126,7 @@ pub trait SpecializedFormatterTraitOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// ✔️ | `true` | `mov eax,[rip+12345678h]`
+	/// 👍 | `true` | `mov eax,[rip+12345678h]`
 	/// &nbsp; | `false` | `mov eax,[1029384756AFBECDh]`
 	///
 	/// # Arguments
@@ -143,7 +143,7 @@ pub trait SpecializedFormatterTraitOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// ✔️ | `false` | `vcmpsd xmm2,xmm6,xmm3,5h`
+	/// 👍 | `false` | `vcmpsd xmm2,xmm6,xmm3,5h`
 	///
 	/// # Arguments
 	///
@@ -159,7 +159,7 @@ pub trait SpecializedFormatterTraitOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
-	/// ✔️ | `false` | `mov eax,[myfield]`
+	/// 👍 | `false` | `mov eax,[myfield]`
 	///
 	/// # Arguments
 	///
@@ -176,7 +176,7 @@ pub trait SpecializedFormatterTraitOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
-	/// ✔️ | `false` | `mov eax,[ecx]`
+	/// 👍 | `false` | `mov eax,[ecx]`
 	///
 	/// # Arguments
 	///
@@ -192,7 +192,7 @@ pub trait SpecializedFormatterTraitOptions {
 	/// Default | Value | Example | Example
 	/// --------|-------|---------|--------
 	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
-	/// ✔️ | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
+	/// 👍 | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
 	///
 	/// # Arguments
 	///
@@ -207,7 +207,7 @@ pub trait SpecializedFormatterTraitOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// ✔️ | `true` | `0xFF`
+	/// 👍 | `true` | `0xFF`
 	/// &nbsp; | `false` | `0xff`
 	///
 	/// # Arguments
@@ -223,7 +223,7 @@ pub trait SpecializedFormatterTraitOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// ✔️ | `true` | `0x5A`
+	/// 👍 | `true` | `0x5A`
 	/// &nbsp; | `false` | `5Ah`
 	///
 	/// # Arguments

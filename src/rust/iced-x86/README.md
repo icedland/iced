@@ -6,19 +6,19 @@ iced-x86
 
 iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in Rust.
 
-- ✔️Supports all Intel and AMD instructions
-- ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
-- ✔️100% Rust code
-- ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- ✔️Blazing fast: Decodes >250 MB/s and decode+format >130 MB/s ([see here](https://github.com/icedland/disas-bench/tree/a865849deacfb6c33ee0e78f3a3ad7f4c82099f5#results))
-- ✔️Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
-- ✔️Create instructions with code assembler, eg. `asm.mov(eax, edx)`
-- ✔️The encoder can be used to re-encode decoded instructions at any address
-- ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
-- ✔️Supports `#![no_std]` and `WebAssembly`
-- ✔️Supports `rustc` `1.48.0` or later
-- ✔️Few dependencies (`static_assertions` and `lazy_static`)
-- ✔️License: MIT
+- 👍 Supports all Intel and AMD instructions
+- 👍 Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
+- 👍 100% Rust code
+- 👍 The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
+- 👍 Blazing fast: Decodes >250 MB/s and decode+format >130 MB/s ([see here](https://github.com/icedland/disas-bench/tree/a865849deacfb6c33ee0e78f3a3ad7f4c82099f5#results))
+- 👍 Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
+- 👍 Create instructions with code assembler, eg. `asm.mov(eax, edx)`
+- 👍 The encoder can be used to re-encode decoded instructions at any address
+- 👍 API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
+- 👍 Supports `#![no_std]` and `WebAssembly`
+- 👍 Supports `rustc` `1.48.0` or later
+- 👍 Few dependencies (`static_assertions` and `lazy_static`)
+- 👍 License: MIT
 
 ## Usage
 
@@ -43,19 +43,19 @@ features = ["std", "decoder", "masm"]
 
 You can enable/disable these in your `Cargo.toml` file.
 
-- `decoder`: (✔️Enabled by default) Enables the decoder
-- `encoder`: (✔️Enabled by default) Enables the encoder
-- `block_encoder`: (✔️Enabled by default) Enables the [`BlockEncoder`]. This feature enables `encoder`
-- `op_code_info`: (✔️Enabled by default) Enables getting instruction metadata ([`OpCodeInfo`]). This feature enables `encoder`
-- `instr_info`: (✔️Enabled by default) Enables the instruction info code
-- `gas`: (✔️Enabled by default) Enables the GNU Assembler (AT&T) formatter
-- `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
-- `masm`: (✔️Enabled by default) Enables the masm formatter
-- `nasm`: (✔️Enabled by default) Enables the nasm formatter
-- `fast_fmt`: (✔️Enabled by default) Enables [`SpecializedFormatter<TraitOptions>`] (and [`FastFormatter`]) (masm syntax) which is ~3.3x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
+- `decoder`: (👍 Enabled by default) Enables the decoder
+- `encoder`: (👍 Enabled by default) Enables the encoder
+- `block_encoder`: (👍 Enabled by default) Enables the [`BlockEncoder`]. This feature enables `encoder`
+- `op_code_info`: (👍 Enabled by default) Enables getting instruction metadata ([`OpCodeInfo`]). This feature enables `encoder`
+- `instr_info`: (👍 Enabled by default) Enables the instruction info code
+- `gas`: (👍 Enabled by default) Enables the GNU Assembler (AT&T) formatter
+- `intel`: (👍 Enabled by default) Enables the Intel (XED) formatter
+- `masm`: (👍 Enabled by default) Enables the masm formatter
+- `nasm`: (👍 Enabled by default) Enables the nasm formatter
+- `fast_fmt`: (👍 Enabled by default) Enables [`SpecializedFormatter<TraitOptions>`] (and [`FastFormatter`]) (masm syntax) which is ~3.3x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
 - `code_asm`: Enables [`CodeAssembler`] to allow easy creation of instructions, eg. `a.xor(ecx, dword_ptr(edx))` instead of using the more verbose `Instruction::with*()` methods.
 - `serde`: Enables serialization support ([`Instruction`]). Not guaranteed to work if different versions of iced was used to serialize and deserialize it.
-- `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
+- `std`: (👍 Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
 - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
 - `no_vex`: Disables all `VEX` instructions

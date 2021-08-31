@@ -4,17 +4,17 @@
 
 iced is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in C#.
 
-- ✔️Supports all Intel and AMD instructions
-- ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
-- ✔️100% C# code
-- ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- ✔️The decoder decodes >90 MB/s
-- ✔️Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
-- ✔️Create instructions with [code assembler](#assemble-instructions), eg. `asm.mov(eax, edx)`
-- ✔️The encoder can be used to re-encode decoded instructions at any address
-- ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
-- ✔️Supports `.NET Standard 2.0/2.1+` and `.NET Framework 4.5+`
-- ✔️License: MIT
+- 👍 Supports all Intel and AMD instructions
+- 👍 Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
+- 👍 100% C# code
+- 👍 The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
+- 👍 The decoder decodes >90 MB/s
+- 👍 Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
+- 👍 Create instructions with [code assembler](#assemble-instructions), eg. `asm.mov(eax, edx)`
+- 👍 The encoder can be used to re-encode decoded instructions at any address
+- 👍 API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
+- 👍 Supports `.NET Standard 2.0/2.1+` and `.NET Framework 4.5+`
+- 👍 License: MIT
 
 # Classes
 

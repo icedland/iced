@@ -60,7 +60,7 @@ impl FastFormatter {
 	/// Default     Value      Example
 	/// =========== ========== ================================================
 	/// \           ``True``   ``mov rax, rcx``
-	/// ✔️          ``False``   ``mov rax,rcx``
+	/// 👍          ``False``   ``mov rax,rcx``
 	/// =========== ========== ================================================
 	#[getter]
 	fn space_after_operand_separator(&self) -> bool {
@@ -78,7 +78,7 @@ impl FastFormatter {
 	/// Default     Value      Example
 	/// =========== ========== ================================================
 	/// \           ``True``   ``mov eax,[rip+12345678h]``
-	/// ✔️          ``False``   ``mov eax,[1029384756AFBECDh]``
+	/// 👍          ``False``   ``mov eax,[1029384756AFBECDh]``
 	/// =========== ========== ================================================
 	#[getter]
 	fn rip_relative_addresses(&self) -> bool {
@@ -95,7 +95,7 @@ impl FastFormatter {
 	/// =========== ========== ================================================
 	/// Default     Value      Example
 	/// =========== ========== ================================================
-	/// ✔️          ``True``   ``vcmpnltsd xmm2,xmm6,xmm3``
+	/// 👍          ``True``   ``vcmpnltsd xmm2,xmm6,xmm3``
 	/// \           ``False``   ``vcmpsd xmm2,xmm6,xmm3,5``
 	/// =========== ========== ================================================
 	#[getter]
@@ -114,7 +114,7 @@ impl FastFormatter {
 	/// Default     Value      Example
 	/// =========== ========== ================================================
 	/// \           ``True``   ``mov eax,[myfield (12345678)]``
-	/// ✔️          ``False``   ``mov eax,[myfield]``
+	/// 👍          ``False``   ``mov eax,[myfield]``
 	/// =========== ========== ================================================
 	#[getter]
 	fn show_symbol_address(&self) -> bool {
@@ -134,7 +134,7 @@ impl FastFormatter {
 	/// Default     Value      Example
 	/// =========== ========== ================================================
 	/// \           ``True``   ``mov eax,ds:[ecx]``
-	/// ✔️          ``False``   ``mov eax,[ecx]``
+	/// 👍          ``False``   ``mov eax,[ecx]``
 	/// =========== ========== ================================================
 	#[getter]
 	fn always_show_segment_register(&self) -> bool {
@@ -152,7 +152,7 @@ impl FastFormatter {
 	/// Default     Value      Example                       Example
 	/// =========== ========== ============================= ===================
 	/// \           ``True``   ``mov eax,dword ptr [ebx]``   ``add byte ptr [eax],0x12``
-	/// ✔️          ``False``   ``mov eax,[ebx]``            ``add byte ptr [eax],0x12``
+	/// 👍          ``False``   ``mov eax,[ebx]``            ``add byte ptr [eax],0x12``
 	/// =========== ========== ============================= ===================
 	#[getter]
 	fn always_show_memory_size(&self) -> bool {
@@ -169,7 +169,7 @@ impl FastFormatter {
 	/// =========== ========== ================================================
 	/// Default     Value      Example
 	/// =========== ========== ================================================
-	/// ✔️          ``True``   ``0xFF``
+	/// 👍          ``True``   ``0xFF``
 	/// \           ``False``   ``0xff``
 	/// =========== ========== ================================================
 	#[getter]
@@ -188,7 +188,7 @@ impl FastFormatter {
 	/// Default     Value      Example
 	/// =========== ========== ================================================
 	/// \           ``True``   ``0x5A``
-	/// ✔️          ``False``   ``5Ah``
+	/// 👍          ``False``   ``5Ah``
 	/// =========== ========== ================================================
 	#[getter]
 	fn use_hex_prefix(&self) -> bool {
