@@ -26,7 +26,7 @@ pub(super) fn is_null_instance_handler(handler: &OpCodeHandler) -> bool {
 #[inline]
 pub(super) fn get_null_handler() -> (OpCodeHandlerDecodeFn, &'static OpCodeHandler) {
 	// SAFETY: it's #[repr(C)] and the first part is an `OpCodeHandler`
-	(NULL_HANDLER.decode, unsafe { &*(&NULL_HANDLER as *const _ as *const OpCodeHandler) })
+	(OpCodeHandler_Invalid::decode, unsafe { &*(&NULL_HANDLER as *const _ as *const OpCodeHandler) })
 }
 
 #[allow(trivial_casts)]
@@ -34,7 +34,7 @@ pub(super) fn get_null_handler() -> (OpCodeHandlerDecodeFn, &'static OpCodeHandl
 #[inline]
 pub(super) fn get_invalid_handler() -> (OpCodeHandlerDecodeFn, &'static OpCodeHandler) {
 	// SAFETY: it's #[repr(C)] and the first part is an `OpCodeHandler`
-	(INVALID_HANDLER.decode, unsafe { &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler) })
+	(OpCodeHandler_Invalid::decode, unsafe { &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler) })
 }
 
 #[allow(trivial_casts)]
@@ -42,36 +42,31 @@ pub(super) fn get_invalid_handler() -> (OpCodeHandlerDecodeFn, &'static OpCodeHa
 #[inline]
 pub(super) fn get_invalid_no_modrm_handler() -> (OpCodeHandlerDecodeFn, &'static OpCodeHandler) {
 	// SAFETY: it's #[repr(C)] and the first part is an `OpCodeHandler`
-	(INVALID_NO_MODRM_HANDLER.decode, unsafe { &*(&INVALID_NO_MODRM_HANDLER as *const _ as *const OpCodeHandler) })
+	(OpCodeHandler_Invalid::decode, unsafe { &*(&INVALID_NO_MODRM_HANDLER as *const _ as *const OpCodeHandler) })
 }
 
 #[rustfmt::skip]
 pub(super) static NULL_HANDLER: OpCodeHandler_Invalid = OpCodeHandler_Invalid {
-	decode: OpCodeHandler_Invalid::decode,
 	has_modrm: true,
 };
 #[rustfmt::skip]
 pub(super) static INVALID_HANDLER: OpCodeHandler_Invalid = OpCodeHandler_Invalid {
-	decode: OpCodeHandler_Invalid::decode,
 	has_modrm: true,
 };
 #[rustfmt::skip]
 pub(super) static INVALID_NO_MODRM_HANDLER: OpCodeHandler_Invalid = OpCodeHandler_Invalid {
-	decode: OpCodeHandler_Invalid::decode,
 	has_modrm: false,
 };
 
 #[repr(C)]
 pub(super) struct OpCodeHandler {
 	pub(super) has_modrm: bool,
-	pub(super) decode: OpCodeHandlerDecodeFn,
 }
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Invalid {
 	has_modrm: bool,
-	pub(super) decode: OpCodeHandlerDecodeFn,
 }
 
 impl OpCodeHandler_Invalid {
@@ -84,19 +79,18 @@ impl OpCodeHandler_Invalid {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Simple {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 }
 
 impl OpCodeHandler_Simple {
-	#[cold]
-	pub(super) fn new(code: Code) -> Self {
-		Self { has_modrm: false, decode: OpCodeHandler_Simple::decode, code }
+	#[inline]
+	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_Simple::decode, Self { has_modrm: false, code })
 	}
 
-	#[cold]
-	pub(super) fn new_modrm(code: Code) -> Self {
-		Self { has_modrm: true, decode: OpCodeHandler_Simple::decode, code }
+	#[inline]
+	pub(super) fn new_modrm(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_Simple::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, _decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -109,19 +103,18 @@ impl OpCodeHandler_Simple {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Group8x8 {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	table_low: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	table_high: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 }
 
 impl OpCodeHandler_Group8x8 {
-	#[cold]
+	#[inline]
 	pub(super) fn new(
 		table_low: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>, table_high: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert_eq!(table_low.len(), 8);
 		debug_assert_eq!(table_high.len(), 8);
-		Self { has_modrm: true, decode: OpCodeHandler_Group8x8::decode, table_low, table_high }
+		(OpCodeHandler_Group8x8::decode, Self { has_modrm: true, table_low, table_high })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -142,19 +135,18 @@ impl OpCodeHandler_Group8x8 {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Group8x64 {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	table_low: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	table_high: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 }
 
 impl OpCodeHandler_Group8x64 {
-	#[cold]
+	#[inline]
 	pub(super) fn new(
 		table_low: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>, table_high: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert_eq!(table_low.len(), 8);
 		debug_assert_eq!(table_high.len(), 0x40);
-		Self { has_modrm: true, decode: OpCodeHandler_Group8x64::decode, table_low, table_high }
+		(OpCodeHandler_Group8x64::decode, Self { has_modrm: true, table_low, table_high })
 	}
 
 	#[allow(trivial_casts)]
@@ -183,15 +175,14 @@ impl OpCodeHandler_Group8x64 {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Group {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	group_handlers: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 }
 
 impl OpCodeHandler_Group {
-	#[cold]
-	pub(super) fn new(group_handlers: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>) -> Self {
+	#[inline]
+	pub(super) fn new(group_handlers: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert_eq!(group_handlers.len(), 8);
-		Self { has_modrm: true, decode: OpCodeHandler_Group::decode, group_handlers }
+		(OpCodeHandler_Group::decode, Self { has_modrm: true, group_handlers })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -207,16 +198,15 @@ impl OpCodeHandler_Group {
 #[repr(C)]
 pub(super) struct OpCodeHandler_AnotherTable {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	handlers: Box<[(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100]>,
 }
 
 impl OpCodeHandler_AnotherTable {
 	#[allow(clippy::unwrap_used)]
-	#[cold]
-	pub(super) fn new(handlers: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>) -> Self {
+	#[inline]
+	pub(super) fn new(handlers: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>) -> (OpCodeHandlerDecodeFn, Self) {
 		let handlers = handlers.into_boxed_slice().try_into().ok().unwrap();
-		Self { has_modrm: false, decode: OpCodeHandler_AnotherTable::decode, handlers }
+		(OpCodeHandler_AnotherTable::decode, Self { has_modrm: false, handlers })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -230,17 +220,16 @@ impl OpCodeHandler_AnotherTable {
 #[repr(C)]
 pub(super) struct OpCodeHandler_MandatoryPrefix2 {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	handlers: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 4],
 }
 
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
 impl OpCodeHandler_MandatoryPrefix2 {
-	#[cold]
+	#[inline]
 	pub(super) fn new(
 		has_modrm: bool, handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
 		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
 		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
@@ -254,7 +243,7 @@ impl OpCodeHandler_MandatoryPrefix2 {
 		debug_assert_eq!(handlers[1].1.has_modrm, has_modrm);
 		debug_assert_eq!(handlers[2].1.has_modrm, has_modrm);
 		debug_assert_eq!(handlers[3].1.has_modrm, has_modrm);
-		Self { decode: OpCodeHandler_MandatoryPrefix2::decode, has_modrm, handlers }
+		(OpCodeHandler_MandatoryPrefix2::decode, Self { has_modrm, handlers })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -274,19 +263,18 @@ impl OpCodeHandler_MandatoryPrefix2 {
 #[repr(C)]
 pub(super) struct OpCodeHandler_W {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	handlers: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 2],
 }
 
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
 impl OpCodeHandler_W {
-	#[cold]
+	#[inline]
 	pub(super) fn new(
 		handler_w0: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_w1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(handler_w0.1));
 		debug_assert!(!is_null_instance_handler(handler_w1.1));
-		Self { decode: OpCodeHandler_W::decode, has_modrm: true, handlers: [handler_w0, handler_w1] }
+		(OpCodeHandler_W::decode, Self { has_modrm: true, handlers: [handler_w0, handler_w1] })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -307,19 +295,18 @@ impl OpCodeHandler_W {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Bitness {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	handler1632: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	handler64: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 }
 
 impl OpCodeHandler_Bitness {
-	#[cold]
+	#[inline]
 	pub(super) fn new(
 		handler1632: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler64: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(handler1632.1));
 		debug_assert!(!is_null_instance_handler(handler64.1));
-		Self { decode: OpCodeHandler_Bitness::decode, has_modrm: false, handler1632, handler64 }
+		(OpCodeHandler_Bitness::decode, Self { has_modrm: false, handler1632, handler64 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -336,19 +323,18 @@ impl OpCodeHandler_Bitness {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Bitness_DontReadModRM {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	handler1632: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	handler64: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 }
 
 impl OpCodeHandler_Bitness_DontReadModRM {
-	#[cold]
+	#[inline]
 	pub(super) fn new(
 		handler1632: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler64: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(handler1632.1));
 		debug_assert!(!is_null_instance_handler(handler64.1));
-		Self { decode: OpCodeHandler_Bitness_DontReadModRM::decode, has_modrm: true, handler1632, handler64 }
+		(OpCodeHandler_Bitness_DontReadModRM::decode, Self { has_modrm: true, handler1632, handler64 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -362,17 +348,18 @@ impl OpCodeHandler_Bitness_DontReadModRM {
 #[repr(C)]
 pub(super) struct OpCodeHandler_RM {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 }
 
 impl OpCodeHandler_RM {
-	#[cold]
-	pub(super) fn new(reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> Self {
+	#[inline]
+	pub(super) fn new(
+		reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(reg.1));
 		debug_assert!(!is_null_instance_handler(mem.1));
-		Self { has_modrm: true, decode: OpCodeHandler_RM::decode, reg, mem }
+		(OpCodeHandler_RM::decode, Self { has_modrm: true, reg, mem })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -386,7 +373,6 @@ impl OpCodeHandler_RM {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Options1632 {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	infos: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler, u32); 2],
 	info_options: u32,
@@ -394,36 +380,40 @@ pub(super) struct OpCodeHandler_Options1632 {
 
 impl OpCodeHandler_Options1632 {
 	#[allow(trivial_casts)]
-	#[cold]
+	#[inline]
 	pub(super) fn new(
 		default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options1: u32,
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(default_handler.1));
 		debug_assert!(!is_null_instance_handler(handler1.1));
-		Self {
-			decode: OpCodeHandler_Options1632::decode,
-			has_modrm: false,
-			default_handler,
-			infos: [(handler1.0, handler1.1, options1), (get_invalid_no_modrm_handler().0, get_invalid_no_modrm_handler().1, 0)],
-			info_options: options1,
-		}
+		(
+			OpCodeHandler_Options1632::decode,
+			Self {
+				has_modrm: false,
+				default_handler,
+				infos: [(handler1.0, handler1.1, options1), (get_invalid_no_modrm_handler().0, get_invalid_no_modrm_handler().1, 0)],
+				info_options: options1,
+			},
+		)
 	}
 
-	#[cold]
+	#[inline]
 	pub(super) fn new2(
 		default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options1: u32,
 		handler2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options2: u32,
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(default_handler.1));
 		debug_assert!(!is_null_instance_handler(handler1.1));
 		debug_assert!(!is_null_instance_handler(handler2.1));
-		Self {
-			decode: OpCodeHandler_Options1632::decode,
-			has_modrm: false,
-			default_handler,
-			infos: [(handler1.0, handler1.1, options1), (handler2.0, handler2.1, options2)],
-			info_options: options1 | options2,
-		}
+		(
+			OpCodeHandler_Options1632::decode,
+			Self {
+				has_modrm: false,
+				default_handler,
+				infos: [(handler1.0, handler1.1, options1), (handler2.0, handler2.1, options2)],
+				info_options: options1 | options2,
+			},
+		)
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -450,7 +440,6 @@ impl OpCodeHandler_Options1632 {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Options {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	infos: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler, u32); 2],
 	info_options: u32,
@@ -458,36 +447,40 @@ pub(super) struct OpCodeHandler_Options {
 
 impl OpCodeHandler_Options {
 	#[allow(trivial_casts)]
-	#[cold]
+	#[inline]
 	pub(super) fn new(
 		default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options1: u32,
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(default_handler.1));
 		debug_assert!(!is_null_instance_handler(handler1.1));
-		Self {
-			decode: OpCodeHandler_Options::decode,
-			has_modrm: false,
-			default_handler,
-			infos: [(handler1.0, handler1.1, options1), (get_invalid_no_modrm_handler().0, get_invalid_no_modrm_handler().1, 0)],
-			info_options: options1,
-		}
+		(
+			OpCodeHandler_Options::decode,
+			Self {
+				has_modrm: false,
+				default_handler,
+				infos: [(handler1.0, handler1.1, options1), (get_invalid_no_modrm_handler().0, get_invalid_no_modrm_handler().1, 0)],
+				info_options: options1,
+			},
+		)
 	}
 
-	#[cold]
+	#[inline]
 	pub(super) fn new2(
 		default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options1: u32,
 		handler2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), options2: u32,
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(default_handler.1));
 		debug_assert!(!is_null_instance_handler(handler1.1));
 		debug_assert!(!is_null_instance_handler(handler2.1));
-		Self {
-			decode: OpCodeHandler_Options::decode,
-			has_modrm: false,
-			default_handler,
-			infos: [(handler1.0, handler1.1, options1), (handler2.0, handler2.1, options2)],
-			info_options: options1 | options2,
-		}
+		(
+			OpCodeHandler_Options::decode,
+			Self {
+				has_modrm: false,
+				default_handler,
+				infos: [(handler1.0, handler1.1, options1), (handler2.0, handler2.1, options2)],
+				info_options: options1 | options2,
+			},
+		)
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -514,20 +507,19 @@ impl OpCodeHandler_Options {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Options_DontReadModRM {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	opt_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	flags: u32,
 }
 
 impl OpCodeHandler_Options_DontReadModRM {
-	#[cold]
+	#[inline]
 	pub(super) fn new(
 		default_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), opt_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), flags: u32,
-	) -> Self {
+	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(default_handler.1));
 		debug_assert!(!is_null_instance_handler(opt_handler.1));
-		Self { decode: OpCodeHandler_Options_DontReadModRM::decode, has_modrm: true, default_handler, opt_handler, flags }
+		(OpCodeHandler_Options_DontReadModRM::decode, Self { has_modrm: true, default_handler, opt_handler, flags })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {

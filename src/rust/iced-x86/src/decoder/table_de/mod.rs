@@ -26,6 +26,12 @@ use crate::{TupleType, TupleTypeUnderlyingType};
 use alloc::vec::Vec;
 use core::mem;
 
+#[inline]
+fn box_opcode_handler<T>((decode, handler): (OpCodeHandlerDecodeFn, T)) -> (OpCodeHandlerDecodeFn, *const OpCodeHandler) {
+	// All handlers are #[repr(C)] and the first fields are the same as OpCodeHandler
+	(decode, Box::into_raw(Box::new(handler)) as *const OpCodeHandler)
+}
+
 enum HandlerInfo {
 	Handler((OpCodeHandlerDecodeFn, &'static OpCodeHandler)),
 	Handlers(Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>),

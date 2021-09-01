@@ -32,14 +32,13 @@ macro_rules! write_op1_reg {
 #[repr(C)]
 pub(super) struct OpCodeHandler_ST_STi {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 }
 
 impl OpCodeHandler_ST_STi {
-	#[cold]
-	pub(super) fn new(code: Code) -> Self {
-		Self { has_modrm: true, decode: OpCodeHandler_ST_STi::decode, code }
+	#[inline]
+	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_ST_STi::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -55,14 +54,13 @@ impl OpCodeHandler_ST_STi {
 #[repr(C)]
 pub(super) struct OpCodeHandler_STi_ST {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 }
 
 impl OpCodeHandler_STi_ST {
-	#[cold]
-	pub(super) fn new(code: Code) -> Self {
-		Self { has_modrm: true, decode: OpCodeHandler_STi_ST::decode, code }
+	#[inline]
+	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_STi_ST::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -78,14 +76,13 @@ impl OpCodeHandler_STi_ST {
 #[repr(C)]
 pub(super) struct OpCodeHandler_STi {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 }
 
 impl OpCodeHandler_STi {
-	#[cold]
-	pub(super) fn new(code: Code) -> Self {
-		Self { has_modrm: true, decode: OpCodeHandler_STi::decode, code }
+	#[inline]
+	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_STi::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -100,20 +97,19 @@ impl OpCodeHandler_STi {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Mf {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 	code16: Code,
 	code32: Code,
 }
 
 impl OpCodeHandler_Mf {
-	#[cold]
-	pub(super) fn new(code: Code) -> Self {
-		Self { has_modrm: true, decode: OpCodeHandler_Mf::decode, code16: code, code32: code }
+	#[inline]
+	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_Mf::decode, Self { has_modrm: true, code16: code, code32: code })
 	}
 
-	#[cold]
-	pub(super) fn new1(code16: Code, code32: Code) -> Self {
-		Self { has_modrm: true, decode: OpCodeHandler_Mf::decode, code16, code32 }
+	#[inline]
+	pub(super) fn new1(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_Mf::decode, Self { has_modrm: true, code16, code32 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {

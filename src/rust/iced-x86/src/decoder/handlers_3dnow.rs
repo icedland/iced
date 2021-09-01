@@ -272,15 +272,14 @@ static CODE_VALUES: [Code; 0x100] = [
 #[repr(C)]
 pub(super) struct OpCodeHandler_D3NOW {
 	has_modrm: bool,
-	decode: OpCodeHandlerDecodeFn,
 }
 
 #[cfg(not(feature = "no_d3now"))]
 impl OpCodeHandler_D3NOW {
-	#[cold]
-	pub(super) fn new() -> Self {
+	#[inline]
+	pub(super) fn new() -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert_eq!(CODE_VALUES.len(), 0x100);
-		Self { has_modrm: true, decode: OpCodeHandler_D3NOW::decode }
+		(OpCodeHandler_D3NOW::decode, Self { has_modrm: true })
 	}
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -315,9 +314,9 @@ impl OpCodeHandler_D3NOW {
 
 #[cfg(feature = "no_d3now")]
 impl OpCodeHandler_D3NOW {
-	#[cold]
-	pub(super) fn new() -> Self {
-		Self { has_modrm: true, decode: OpCodeHandler_D3NOW::decode }
+	#[inline]
+	pub(super) fn new() -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_D3NOW::decode, Self { has_modrm: true })
 	}
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, _instruction: &mut Instruction) {
