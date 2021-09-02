@@ -23,6 +23,7 @@ use crate::iced_constants::IcedConstants;
 use crate::{Code, CodeUnderlyingType, Register, RegisterUnderlyingType};
 #[cfg(not(feature = "no_evex"))]
 use crate::{TupleType, TupleTypeUnderlyingType};
+use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::mem;
 
