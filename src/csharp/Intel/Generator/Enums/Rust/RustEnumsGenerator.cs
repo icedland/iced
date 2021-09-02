@@ -381,23 +381,28 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine("#[cfg(feature = \"serde\")]");
 				if (feature is not null)
 					writer.WriteLine(feature);
+				bool useHashLookup = enumType.Values.Length > 50;
 				writer.WriteLine("#[rustfmt::skip]");
 				writer.WriteLine("#[allow(clippy::zero_sized_map_values)]");
 				writer.WriteLine("const _: () = {");
 				using (writer.Indent()) {
 					writer.WriteLine("use alloc::string::String;");
 					writer.WriteLine("use core::marker::PhantomData;");
-					writer.WriteLine("#[cfg(not(feature = \"std\"))]");
-					writer.WriteLine("use hashbrown::HashMap;");
-					writer.WriteLine("use lazy_static::lazy_static;");
+					if (useHashLookup) {
+						writer.WriteLine("#[cfg(not(feature = \"std\"))]");
+						writer.WriteLine("use hashbrown::HashMap;");
+						writer.WriteLine("use lazy_static::lazy_static;");
+					}
 					writer.WriteLine("use serde::de::{self, VariantAccess};");
 					writer.WriteLine("use serde::{Deserialize, Deserializer, Serialize, Serializer};");
-					writer.WriteLine("#[cfg(feature = \"std\")]");
-					writer.WriteLine("use std::collections::HashMap;");
-					writer.WriteLine("lazy_static! {");
-					using (writer.Indent())
-						writer.WriteLine($"static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = {arrayName}.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();");
-					writer.WriteLine("}");
+					if (useHashLookup) {
+						writer.WriteLine("#[cfg(feature = \"std\")]");
+						writer.WriteLine("use std::collections::HashMap;");
+						writer.WriteLine("lazy_static! {");
+						using (writer.Indent())
+							writer.WriteLine($"static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = {arrayName}.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();");
+						writer.WriteLine("}");
+					}
 					writer.WriteLine($"type EnumType = {enumTypeName};");
 					writer.WriteLine("impl Serialize for EnumType {");
 					using (writer.Indent()) {
@@ -480,13 +485,26 @@ namespace Generator.Enums.Rust {
 									writer.WriteLine("E: de::Error,");
 								writer.WriteLine("{");
 								using (writer.Indent()) {
-									writer.WriteLine("if let Some(&value) = NAME_TO_ENUM.get(v) {");
-									using (writer.Indent())
-										writer.WriteLine("Ok(EnumValue(value))");
-									writer.WriteLine("} else {");
-									using (writer.Indent())
+									if (useHashLookup) {
+										writer.WriteLine("if let Some(&value) = NAME_TO_ENUM.get(v) {");
+										using (writer.Indent())
+											writer.WriteLine("Ok(EnumValue(value))");
+										writer.WriteLine("} else {");
+										using (writer.Indent())
+											writer.WriteLine($"Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &[\"{enumTypeName} enum variants\"][..]))");
+										writer.WriteLine("}");
+									}
+									else {
+										writer.WriteLine($"for (&name, value) in {arrayName}[..].iter().zip(EnumType::values()) {{");
+										using (writer.Indent()) {
+											writer.WriteLine("if name.as_bytes() == v {");
+											using (writer.Indent())
+												writer.WriteLine("return Ok(EnumValue(value));");
+											writer.WriteLine("}");
+										}
+										writer.WriteLine("}");
 										writer.WriteLine($"Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &[\"{enumTypeName} enum variants\"][..]))");
-									writer.WriteLine("}");
+									}
 								}
 								writer.WriteLine("}");
 							}

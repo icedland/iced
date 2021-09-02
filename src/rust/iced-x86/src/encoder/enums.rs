@@ -731,16 +731,8 @@ fn test_repprefixkind_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_REP_PREFIX_KIND.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = RepPrefixKind;
 	impl Serialize for EnumType {
 		#[inline]
@@ -799,11 +791,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["RepPrefixKind enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_REP_PREFIX_KIND[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["RepPrefixKind enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {

@@ -4111,14 +4111,9 @@ const _: () = {
 	use alloc::string::String;
 	use core::convert::TryFrom;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de;
 	use serde::ser::SerializeStruct;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
 
 	// eg. json
 	const NUM_FIELDS_READABLE: usize = 13;
@@ -4251,11 +4246,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_FIELD.get(v) {
-						Ok(value)
-					} else {
-						Err(de::Error::unknown_field(&String::from_utf8_lossy(v), &["Instruction fields"][..]))
+					for (&name, value) in FIELDS[..].iter().zip(StructField::values()) {
+						if name.as_bytes() == v {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::unknown_field(&String::from_utf8_lossy(v), &["Instruction fields"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for StructField {
@@ -4316,10 +4312,6 @@ const _: () = {
 						// SAFETY: all values 0-max are valid enum values
 						(0..NUM_FIELDS_READABLE).map(|x| unsafe { mem::transmute::<u8, StructField>(x as u8) })
 					}
-				}
-				lazy_static! {
-					static ref NAME_TO_FIELD: HashMap<&'static [u8], StructField> =
-						FIELDS.iter().map(|&s| s.as_bytes()).zip(StructField::values()).collect();
 				}
 				impl TryFrom<usize> for StructField {
 					type Error = &'static str;
@@ -4506,10 +4498,6 @@ const _: () = {
 						// SAFETY: all values 0-max are valid enum values
 						(0..NUM_FIELDS_BINARY).map(|x| unsafe { mem::transmute::<u8, StructField>(x as u8) })
 					}
-				}
-				lazy_static! {
-					static ref NAME_TO_FIELD: HashMap<&'static [u8], StructField> =
-						FIELDS.iter().map(|&s| s.as_bytes()).zip(StructField::values()).collect();
 				}
 				impl TryFrom<usize> for StructField {
 					type Error = &'static str;

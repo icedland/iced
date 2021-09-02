@@ -103,16 +103,8 @@ fn test_codesize_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_CODE_SIZE.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = CodeSize;
 	impl Serialize for EnumType {
 		#[inline]
@@ -171,11 +163,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CodeSize enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_CODE_SIZE[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CodeSize enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
@@ -314,16 +307,8 @@ fn test_roundingcontrol_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_ROUNDING_CONTROL.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = RoundingControl;
 	impl Serialize for EnumType {
 		#[inline]
@@ -382,11 +367,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["RoundingControl enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_ROUNDING_CONTROL[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["RoundingControl enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
@@ -673,16 +659,8 @@ fn test_opkind_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_OP_KIND.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = OpKind;
 	impl Serialize for EnumType {
 		#[inline]
@@ -741,11 +719,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["OpKind enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_OP_KIND[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["OpKind enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
@@ -968,16 +947,8 @@ fn test_encodingkind_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_ENCODING_KIND.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = EncodingKind;
 	impl Serialize for EnumType {
 		#[inline]
@@ -1036,11 +1007,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["EncodingKind enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_ENCODING_KIND[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["EncodingKind enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
@@ -1233,16 +1205,8 @@ fn test_tupletype_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_TUPLE_TYPE.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = TupleType;
 	impl Serialize for EnumType {
 		#[inline]
@@ -1301,11 +1265,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["TupleType enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_TUPLE_TYPE[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["TupleType enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
@@ -1471,16 +1436,8 @@ fn test_flowcontrol_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_FLOW_CONTROL.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = FlowControl;
 	impl Serialize for EnumType {
 		#[inline]
@@ -1539,11 +1496,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["FlowControl enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_FLOW_CONTROL[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["FlowControl enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
@@ -2980,16 +2938,8 @@ fn test_opaccess_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_OP_ACCESS.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = OpAccess;
 	impl Serialize for EnumType {
 		#[inline]
@@ -3048,11 +2998,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["OpAccess enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_OP_ACCESS[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["OpAccess enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
@@ -3238,16 +3189,8 @@ fn test_conditioncode_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_CONDITION_CODE.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = ConditionCode;
 	impl Serialize for EnumType {
 		#[inline]
@@ -3306,11 +3249,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["ConditionCode enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_CONDITION_CODE[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["ConditionCode enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
@@ -3459,16 +3403,8 @@ fn test_mandatoryprefix_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_MANDATORY_PREFIX.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = MandatoryPrefix;
 	impl Serialize for EnumType {
 		#[inline]
@@ -3527,11 +3463,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["MandatoryPrefix enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_MANDATORY_PREFIX[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["MandatoryPrefix enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
@@ -3693,16 +3630,8 @@ fn test_opcodetablekind_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_OP_CODE_TABLE_KIND.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = OpCodeTableKind;
 	impl Serialize for EnumType {
 		#[inline]
@@ -3761,11 +3690,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["OpCodeTableKind enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_OP_CODE_TABLE_KIND[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["OpCodeTableKind enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
@@ -3899,16 +3829,8 @@ fn test_instrscale_try_from_usize() {
 const _: () = {
 	use alloc::string::String;
 	use core::marker::PhantomData;
-	#[cfg(not(feature = "std"))]
-	use hashbrown::HashMap;
-	use lazy_static::lazy_static;
 	use serde::de::{self, VariantAccess};
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
-	#[cfg(feature = "std")]
-	use std::collections::HashMap;
-	lazy_static! {
-		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_INSTR_SCALE.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
-	}
 	type EnumType = InstrScale;
 	impl Serialize for EnumType {
 		#[inline]
@@ -3967,11 +3889,12 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					if let Some(&value) = NAME_TO_ENUM.get(v) {
-						Ok(EnumValue(value))
-					} else {
-						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["InstrScale enum variants"][..]))
+					for (&name, value) in GEN_DEBUG_INSTR_SCALE[..].iter().zip(EnumType::values()) {
+						if name.as_bytes() == v {
+							return Ok(EnumValue(value));
+						}
 					}
+					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["InstrScale enum variants"][..]))
 				}
 			}
 			impl<'de> Deserialize<'de> for EnumValue {
