@@ -300,24 +300,24 @@ macro_rules! use_dst_next_p_now {
 
 // Macros to safely call the methods (make sure the return value is stored back in dst_next_p)
 macro_rules! call_format_register {
-	($slf:ident, $dst:ident, $dst_next_p:ident, $reg:expr) => {
+	($slf:ident, $dst:ident, $dst_next_p:ident, $reg:expr) => {{
 		$dst_next_p = $slf.format_register($dst, $dst_next_p, $reg);
-	};
+	}};
 }
 macro_rules! call_format_number {
-	($slf:ident, $dst:ident, $dst_next_p:ident, $imm:expr) => {
+	($slf:ident, $dst:ident, $dst_next_p:ident, $imm:expr) => {{
 		$dst_next_p = $slf.format_number($dst, $dst_next_p, $imm);
-	};
+	}};
 }
 macro_rules! call_write_symbol {
-	($slf:ident, $dst:ident, $dst_next_p:ident, $imm:expr, $sym:expr) => {
+	($slf:ident, $dst:ident, $dst_next_p:ident, $imm:expr, $sym:expr) => {{
 		$dst_next_p = $slf.write_symbol($dst, $dst_next_p, $imm, $sym);
-	};
+	}};
 }
 macro_rules! call_write_symbol2 {
-	($slf:ident, $dst:ident, $dst_next_p:ident, $imm:expr, $sym:expr, $write_minus_if_signed:literal) => {
+	($slf:ident, $dst:ident, $dst_next_p:ident, $imm:expr, $sym:expr, $write_minus_if_signed:literal) => {{
 		$dst_next_p = $slf.write_symbol2($dst, $dst_next_p, $imm, $sym, $write_minus_if_signed);
-	};
+	}};
 }
 macro_rules! format_memory_else_block {
 	($slf:ident, $dst:ident, $dst_next_p:ident, $need_plus:ident, $displ_size:ident, $displ:ident, $addr_size:ident) => {
