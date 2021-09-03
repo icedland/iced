@@ -11,43 +11,49 @@
 Control flow
 """
 
-NEXT: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import FlowControl
+else:
+	FlowControl = int
+
+NEXT: FlowControl = 0 # type: ignore
 """
 The next instruction that will be executed is the next instruction in the instruction stream
 """
-UNCONDITIONAL_BRANCH: int = 1
+UNCONDITIONAL_BRANCH: FlowControl = 1 # type: ignore
 """
 : It's an unconditional branch instruction: ``JMP NEAR``, ``JMP FAR``
 """
-INDIRECT_BRANCH: int = 2
+INDIRECT_BRANCH: FlowControl = 2 # type: ignore
 """
 : It's an unconditional indirect branch: ``JMP NEAR reg``, ``JMP NEAR [mem]``, ``JMP FAR [mem]``
 """
-CONDITIONAL_BRANCH: int = 3
+CONDITIONAL_BRANCH: FlowControl = 3 # type: ignore
 """
 : It's a conditional branch instruction: ``Jcc SHORT``, ``Jcc NEAR``, ``LOOP``, ``LOOPcc``, ``JRCXZ``
 """
-RETURN: int = 4
+RETURN: FlowControl = 4 # type: ignore
 """
 : It's a return instruction: ``RET NEAR``, ``RET FAR``, ``IRET``, ``SYSRET``, ``SYSEXIT``, ``RSM``, ``SKINIT``, ``RDM``, ``UIRET``
 """
-CALL: int = 5
+CALL: FlowControl = 5 # type: ignore
 """
 : It's a call instruction: ``CALL NEAR``, ``CALL FAR``, ``SYSCALL``, ``SYSENTER``, ``VMLAUNCH``, ``VMRESUME``, ``VMCALL``, ``VMMCALL``, ``VMGEXIT``, ``VMRUN``, ``TDCALL``, ``SEAMCALL``, ``SEAMRET``
 """
-INDIRECT_CALL: int = 6
+INDIRECT_CALL: FlowControl = 6 # type: ignore
 """
 : It's an indirect call instruction: ``CALL NEAR reg``, ``CALL NEAR [mem]``, ``CALL FAR [mem]``
 """
-INTERRUPT: int = 7
+INTERRUPT: FlowControl = 7 # type: ignore
 """
 : It's an interrupt instruction: ``INT n``, ``INT3``, ``INT1``, ``INTO``, ``SMINT``, ``DMINT``
 """
-XBEGIN_XABORT_XEND: int = 8
+XBEGIN_XABORT_XEND: FlowControl = 8 # type: ignore
 """
 It's ``XBEGIN``
 """
-EXCEPTION: int = 9
+EXCEPTION: FlowControl = 9 # type: ignore
 """
 It's an invalid instruction, eg. :class:`iced_x86.Code.INVALID`, ``UD0``, ``UD1``, ``UD2``
 """

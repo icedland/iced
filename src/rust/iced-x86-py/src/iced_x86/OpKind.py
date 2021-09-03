@@ -11,105 +11,111 @@
 Instruction operand kind
 """
 
-REGISTER: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import OpKind
+else:
+	OpKind = int
+
+REGISTER: OpKind = 0 # type: ignore
 """
 A register (:class:`iced_x86.Register`).
 
 This operand kind uses :class:`iced_x86.Instruction.op0_register`, :class:`iced_x86.Instruction.op1_register`, :class:`iced_x86.Instruction.op2_register`, :class:`iced_x86.Instruction.op3_register` or :class:`iced_x86.Instruction.op4_register` depending on operand number. See also :class:`iced_x86.Instruction.op_register`.
 """
-NEAR_BRANCH16: int = 1
+NEAR_BRANCH16: OpKind = 1 # type: ignore
 """
 Near 16-bit branch. This operand kind uses :class:`iced_x86.Instruction.near_branch16`
 """
-NEAR_BRANCH32: int = 2
+NEAR_BRANCH32: OpKind = 2 # type: ignore
 """
 Near 32-bit branch. This operand kind uses :class:`iced_x86.Instruction.near_branch32`
 """
-NEAR_BRANCH64: int = 3
+NEAR_BRANCH64: OpKind = 3 # type: ignore
 """
 Near 64-bit branch. This operand kind uses :class:`iced_x86.Instruction.near_branch64`
 """
-FAR_BRANCH16: int = 4
+FAR_BRANCH16: OpKind = 4 # type: ignore
 """
 Far 16-bit branch. This operand kind uses :class:`iced_x86.Instruction.far_branch16` and :class:`iced_x86.Instruction.far_branch_selector`
 """
-FAR_BRANCH32: int = 5
+FAR_BRANCH32: OpKind = 5 # type: ignore
 """
 Far 32-bit branch. This operand kind uses :class:`iced_x86.Instruction.far_branch32` and :class:`iced_x86.Instruction.far_branch_selector`
 """
-IMMEDIATE8: int = 6
+IMMEDIATE8: OpKind = 6 # type: ignore
 """
 8-bit constant. This operand kind uses :class:`iced_x86.Instruction.immediate8`
 """
-IMMEDIATE8_2ND: int = 7
+IMMEDIATE8_2ND: OpKind = 7 # type: ignore
 """
 8-bit constant used by the ``ENTER``, ``EXTRQ``, ``INSERTQ`` instructions. This operand kind uses :class:`iced_x86.Instruction.immediate8_2nd`
 """
-IMMEDIATE16: int = 8
+IMMEDIATE16: OpKind = 8 # type: ignore
 """
 16-bit constant. This operand kind uses :class:`iced_x86.Instruction.immediate16`
 """
-IMMEDIATE32: int = 9
+IMMEDIATE32: OpKind = 9 # type: ignore
 """
 32-bit constant. This operand kind uses :class:`iced_x86.Instruction.immediate32`
 """
-IMMEDIATE64: int = 10
+IMMEDIATE64: OpKind = 10 # type: ignore
 """
 64-bit constant. This operand kind uses :class:`iced_x86.Instruction.immediate64`
 """
-IMMEDIATE8TO16: int = 11
+IMMEDIATE8TO16: OpKind = 11 # type: ignore
 """
 An 8-bit value sign extended to 16 bits. This operand kind uses :class:`iced_x86.Instruction.immediate8to16`
 """
-IMMEDIATE8TO32: int = 12
+IMMEDIATE8TO32: OpKind = 12 # type: ignore
 """
 An 8-bit value sign extended to 32 bits. This operand kind uses :class:`iced_x86.Instruction.immediate8to32`
 """
-IMMEDIATE8TO64: int = 13
+IMMEDIATE8TO64: OpKind = 13 # type: ignore
 """
 An 8-bit value sign extended to 64 bits. This operand kind uses :class:`iced_x86.Instruction.immediate8to64`
 """
-IMMEDIATE32TO64: int = 14
+IMMEDIATE32TO64: OpKind = 14 # type: ignore
 """
 A 32-bit value sign extended to 64 bits. This operand kind uses :class:`iced_x86.Instruction.immediate32to64`
 """
-MEMORY_SEG_SI: int = 15
+MEMORY_SEG_SI: OpKind = 15 # type: ignore
 """
 ``seg:[SI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`, :class:`iced_x86.Instruction.memory_segment`, :class:`iced_x86.Instruction.segment_prefix`
 """
-MEMORY_SEG_ESI: int = 16
+MEMORY_SEG_ESI: OpKind = 16 # type: ignore
 """
 ``seg:[ESI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`, :class:`iced_x86.Instruction.memory_segment`, :class:`iced_x86.Instruction.segment_prefix`
 """
-MEMORY_SEG_RSI: int = 17
+MEMORY_SEG_RSI: OpKind = 17 # type: ignore
 """
 ``seg:[RSI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`, :class:`iced_x86.Instruction.memory_segment`, :class:`iced_x86.Instruction.segment_prefix`
 """
-MEMORY_SEG_DI: int = 18
+MEMORY_SEG_DI: OpKind = 18 # type: ignore
 """
 ``seg:[DI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`, :class:`iced_x86.Instruction.memory_segment`, :class:`iced_x86.Instruction.segment_prefix`
 """
-MEMORY_SEG_EDI: int = 19
+MEMORY_SEG_EDI: OpKind = 19 # type: ignore
 """
 ``seg:[EDI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`, :class:`iced_x86.Instruction.memory_segment`, :class:`iced_x86.Instruction.segment_prefix`
 """
-MEMORY_SEG_RDI: int = 20
+MEMORY_SEG_RDI: OpKind = 20 # type: ignore
 """
 ``seg:[RDI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`, :class:`iced_x86.Instruction.memory_segment`, :class:`iced_x86.Instruction.segment_prefix`
 """
-MEMORY_ESDI: int = 21
+MEMORY_ESDI: OpKind = 21 # type: ignore
 """
 ``ES:[DI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`
 """
-MEMORY_ESEDI: int = 22
+MEMORY_ESEDI: OpKind = 22 # type: ignore
 """
 ``ES:[EDI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`
 """
-MEMORY_ESRDI: int = 23
+MEMORY_ESRDI: OpKind = 23 # type: ignore
 """
 ``ES:[RDI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`
 """
-MEMORY: int = 25
+MEMORY: OpKind = 25 # type: ignore
 """
 Memory operand.
 

@@ -11,19 +11,25 @@
 Formatter syntax (GNU Assembler, Intel XED, masm, nasm)
 """
 
-GAS: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import FormatterSyntax
+else:
+	FormatterSyntax = int
+
+GAS: FormatterSyntax = 0 # type: ignore
 """
 GNU Assembler (AT&T)
 """
-INTEL: int = 1
+INTEL: FormatterSyntax = 1 # type: ignore
 """
 Intel XED
 """
-MASM: int = 2
+MASM: FormatterSyntax = 2 # type: ignore
 """
 masm
 """
-NASM: int = 3
+NASM: FormatterSyntax = 3 # type: ignore
 """
 nasm
 """

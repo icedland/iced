@@ -11,11 +11,17 @@
 Mnemonic condition code selector (eg. ``JL`` / ``JNGE``)
 """
 
-L: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import CC_l
+else:
+	CC_l = int
+
+L: CC_l = 0 # type: ignore
 """
 ``JL``, ``CMOVL``, ``SETL``
 """
-NGE: int = 1
+NGE: CC_l = 1 # type: ignore
 """
 ``JNGE``, ``CMOVNGE``, ``SETNGE``
 """

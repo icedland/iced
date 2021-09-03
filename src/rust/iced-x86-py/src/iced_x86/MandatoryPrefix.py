@@ -11,23 +11,29 @@
 Mandatory prefix
 """
 
-NONE: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import MandatoryPrefix
+else:
+	MandatoryPrefix = int
+
+NONE: MandatoryPrefix = 0 # type: ignore
 """
 No mandatory prefix (legacy and 3DNow! tables only)
 """
-PNP: int = 1
+PNP: MandatoryPrefix = 1 # type: ignore
 """
 Empty mandatory prefix (no ``66``, ``F3`` or ``F2`` prefix)
 """
-P66: int = 2
+P66: MandatoryPrefix = 2 # type: ignore
 """
 ``66`` prefix
 """
-PF3: int = 3
+PF3: MandatoryPrefix = 3 # type: ignore
 """
 ``F3`` prefix
 """
-PF2: int = 4
+PF2: MandatoryPrefix = 4 # type: ignore
 """
 ``F2`` prefix
 """

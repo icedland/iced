@@ -11,15 +11,21 @@
 Format mnemonic options
 """
 
-NONE: int = 0x0000_0000
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import FormatMnemonicOptions
+else:
+	FormatMnemonicOptions = int
+
+NONE: FormatMnemonicOptions = 0x0000_0000 # type: ignore
 """
 No option is set
 """
-NO_PREFIXES: int = 0x0000_0001
+NO_PREFIXES: FormatMnemonicOptions = 0x0000_0001 # type: ignore
 """
 Don't add any prefixes
 """
-NO_MNEMONIC: int = 0x0000_0002
+NO_MNEMONIC: FormatMnemonicOptions = 0x0000_0002 # type: ignore
 """
 Don't add the mnemonic
 """

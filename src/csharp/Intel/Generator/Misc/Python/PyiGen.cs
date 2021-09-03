@@ -23,6 +23,11 @@ namespace Generator.Misc.Python {
 		public void Generate() {
 			var classes = new List<PyClass>();
 			foreach (var filename in Directory.GetFiles(genTypes.Dirs.GetPythonRustDir(), "*.rs")) {
+				// mypy fix: we can't use Python enums (too slow). mypy complains because our enums are
+				// ints, so we create dummy classes in lib.rs that the enum *.py files reference.
+				// Ignore all of them.
+				if (Path.GetFileName(filename) == "lib.rs")
+					continue;
 				var parser = new PyClassParser(filename);
 				classes.AddRange(parser.ParseFile());
 			}

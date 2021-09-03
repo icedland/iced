@@ -11,6967 +11,6973 @@
 Mnemonic
 """
 
-INVALID: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import Mnemonic
+else:
+	Mnemonic = int
+
+INVALID: Mnemonic = 0 # type: ignore
 """
 <no docs>
 """
-AAA: int = 1
+AAA: Mnemonic = 1 # type: ignore
 """
 <no docs>
 """
-AAD: int = 2
+AAD: Mnemonic = 2 # type: ignore
 """
 <no docs>
 """
-AAM: int = 3
+AAM: Mnemonic = 3 # type: ignore
 """
 <no docs>
 """
-AAS: int = 4
+AAS: Mnemonic = 4 # type: ignore
 """
 <no docs>
 """
-ADC: int = 5
+ADC: Mnemonic = 5 # type: ignore
 """
 <no docs>
 """
-ADCX: int = 6
+ADCX: Mnemonic = 6 # type: ignore
 """
 <no docs>
 """
-ADD: int = 7
+ADD: Mnemonic = 7 # type: ignore
 """
 <no docs>
 """
-ADDPD: int = 8
+ADDPD: Mnemonic = 8 # type: ignore
 """
 <no docs>
 """
-ADDPS: int = 9
+ADDPS: Mnemonic = 9 # type: ignore
 """
 <no docs>
 """
-ADDSD: int = 10
+ADDSD: Mnemonic = 10 # type: ignore
 """
 <no docs>
 """
-ADDSS: int = 11
+ADDSS: Mnemonic = 11 # type: ignore
 """
 <no docs>
 """
-ADDSUBPD: int = 12
+ADDSUBPD: Mnemonic = 12 # type: ignore
 """
 <no docs>
 """
-ADDSUBPS: int = 13
+ADDSUBPS: Mnemonic = 13 # type: ignore
 """
 <no docs>
 """
-ADOX: int = 14
+ADOX: Mnemonic = 14 # type: ignore
 """
 <no docs>
 """
-AESDEC: int = 15
+AESDEC: Mnemonic = 15 # type: ignore
 """
 <no docs>
 """
-AESDECLAST: int = 16
+AESDECLAST: Mnemonic = 16 # type: ignore
 """
 <no docs>
 """
-AESENC: int = 17
+AESENC: Mnemonic = 17 # type: ignore
 """
 <no docs>
 """
-AESENCLAST: int = 18
+AESENCLAST: Mnemonic = 18 # type: ignore
 """
 <no docs>
 """
-AESIMC: int = 19
+AESIMC: Mnemonic = 19 # type: ignore
 """
 <no docs>
 """
-AESKEYGENASSIST: int = 20
+AESKEYGENASSIST: Mnemonic = 20 # type: ignore
 """
 <no docs>
 """
-AND: int = 21
+AND: Mnemonic = 21 # type: ignore
 """
 <no docs>
 """
-ANDN: int = 22
+ANDN: Mnemonic = 22 # type: ignore
 """
 <no docs>
 """
-ANDNPD: int = 23
+ANDNPD: Mnemonic = 23 # type: ignore
 """
 <no docs>
 """
-ANDNPS: int = 24
+ANDNPS: Mnemonic = 24 # type: ignore
 """
 <no docs>
 """
-ANDPD: int = 25
+ANDPD: Mnemonic = 25 # type: ignore
 """
 <no docs>
 """
-ANDPS: int = 26
+ANDPS: Mnemonic = 26 # type: ignore
 """
 <no docs>
 """
-ARPL: int = 27
+ARPL: Mnemonic = 27 # type: ignore
 """
 <no docs>
 """
-BEXTR: int = 28
+BEXTR: Mnemonic = 28 # type: ignore
 """
 <no docs>
 """
-BLCFILL: int = 29
+BLCFILL: Mnemonic = 29 # type: ignore
 """
 <no docs>
 """
-BLCI: int = 30
+BLCI: Mnemonic = 30 # type: ignore
 """
 <no docs>
 """
-BLCIC: int = 31
+BLCIC: Mnemonic = 31 # type: ignore
 """
 <no docs>
 """
-BLCMSK: int = 32
+BLCMSK: Mnemonic = 32 # type: ignore
 """
 <no docs>
 """
-BLCS: int = 33
+BLCS: Mnemonic = 33 # type: ignore
 """
 <no docs>
 """
-BLENDPD: int = 34
+BLENDPD: Mnemonic = 34 # type: ignore
 """
 <no docs>
 """
-BLENDPS: int = 35
+BLENDPS: Mnemonic = 35 # type: ignore
 """
 <no docs>
 """
-BLENDVPD: int = 36
+BLENDVPD: Mnemonic = 36 # type: ignore
 """
 <no docs>
 """
-BLENDVPS: int = 37
+BLENDVPS: Mnemonic = 37 # type: ignore
 """
 <no docs>
 """
-BLSFILL: int = 38
+BLSFILL: Mnemonic = 38 # type: ignore
 """
 <no docs>
 """
-BLSI: int = 39
+BLSI: Mnemonic = 39 # type: ignore
 """
 <no docs>
 """
-BLSIC: int = 40
+BLSIC: Mnemonic = 40 # type: ignore
 """
 <no docs>
 """
-BLSMSK: int = 41
+BLSMSK: Mnemonic = 41 # type: ignore
 """
 <no docs>
 """
-BLSR: int = 42
+BLSR: Mnemonic = 42 # type: ignore
 """
 <no docs>
 """
-BNDCL: int = 43
+BNDCL: Mnemonic = 43 # type: ignore
 """
 <no docs>
 """
-BNDCN: int = 44
+BNDCN: Mnemonic = 44 # type: ignore
 """
 <no docs>
 """
-BNDCU: int = 45
+BNDCU: Mnemonic = 45 # type: ignore
 """
 <no docs>
 """
-BNDLDX: int = 46
+BNDLDX: Mnemonic = 46 # type: ignore
 """
 <no docs>
 """
-BNDMK: int = 47
+BNDMK: Mnemonic = 47 # type: ignore
 """
 <no docs>
 """
-BNDMOV: int = 48
+BNDMOV: Mnemonic = 48 # type: ignore
 """
 <no docs>
 """
-BNDSTX: int = 49
+BNDSTX: Mnemonic = 49 # type: ignore
 """
 <no docs>
 """
-BOUND: int = 50
+BOUND: Mnemonic = 50 # type: ignore
 """
 <no docs>
 """
-BSF: int = 51
+BSF: Mnemonic = 51 # type: ignore
 """
 <no docs>
 """
-BSR: int = 52
+BSR: Mnemonic = 52 # type: ignore
 """
 <no docs>
 """
-BSWAP: int = 53
+BSWAP: Mnemonic = 53 # type: ignore
 """
 <no docs>
 """
-BT: int = 54
+BT: Mnemonic = 54 # type: ignore
 """
 <no docs>
 """
-BTC: int = 55
+BTC: Mnemonic = 55 # type: ignore
 """
 <no docs>
 """
-BTR: int = 56
+BTR: Mnemonic = 56 # type: ignore
 """
 <no docs>
 """
-BTS: int = 57
+BTS: Mnemonic = 57 # type: ignore
 """
 <no docs>
 """
-BZHI: int = 58
+BZHI: Mnemonic = 58 # type: ignore
 """
 <no docs>
 """
-CALL: int = 59
+CALL: Mnemonic = 59 # type: ignore
 """
 <no docs>
 """
-CBW: int = 60
+CBW: Mnemonic = 60 # type: ignore
 """
 <no docs>
 """
-CDQ: int = 61
+CDQ: Mnemonic = 61 # type: ignore
 """
 <no docs>
 """
-CDQE: int = 62
+CDQE: Mnemonic = 62 # type: ignore
 """
 <no docs>
 """
-CL1INVMB: int = 63
+CL1INVMB: Mnemonic = 63 # type: ignore
 """
 <no docs>
 """
-CLAC: int = 64
+CLAC: Mnemonic = 64 # type: ignore
 """
 <no docs>
 """
-CLC: int = 65
+CLC: Mnemonic = 65 # type: ignore
 """
 <no docs>
 """
-CLD: int = 66
+CLD: Mnemonic = 66 # type: ignore
 """
 <no docs>
 """
-CLDEMOTE: int = 67
+CLDEMOTE: Mnemonic = 67 # type: ignore
 """
 <no docs>
 """
-CLFLUSH: int = 68
+CLFLUSH: Mnemonic = 68 # type: ignore
 """
 <no docs>
 """
-CLFLUSHOPT: int = 69
+CLFLUSHOPT: Mnemonic = 69 # type: ignore
 """
 <no docs>
 """
-CLGI: int = 70
+CLGI: Mnemonic = 70 # type: ignore
 """
 <no docs>
 """
-CLI: int = 71
+CLI: Mnemonic = 71 # type: ignore
 """
 <no docs>
 """
-CLRSSBSY: int = 72
+CLRSSBSY: Mnemonic = 72 # type: ignore
 """
 <no docs>
 """
-CLTS: int = 73
+CLTS: Mnemonic = 73 # type: ignore
 """
 <no docs>
 """
-CLWB: int = 74
+CLWB: Mnemonic = 74 # type: ignore
 """
 <no docs>
 """
-CLZERO: int = 75
+CLZERO: Mnemonic = 75 # type: ignore
 """
 <no docs>
 """
-CMC: int = 76
+CMC: Mnemonic = 76 # type: ignore
 """
 <no docs>
 """
-CMOVA: int = 77
+CMOVA: Mnemonic = 77 # type: ignore
 """
 <no docs>
 """
-CMOVAE: int = 78
+CMOVAE: Mnemonic = 78 # type: ignore
 """
 <no docs>
 """
-CMOVB: int = 79
+CMOVB: Mnemonic = 79 # type: ignore
 """
 <no docs>
 """
-CMOVBE: int = 80
+CMOVBE: Mnemonic = 80 # type: ignore
 """
 <no docs>
 """
-CMOVE: int = 81
+CMOVE: Mnemonic = 81 # type: ignore
 """
 <no docs>
 """
-CMOVG: int = 82
+CMOVG: Mnemonic = 82 # type: ignore
 """
 <no docs>
 """
-CMOVGE: int = 83
+CMOVGE: Mnemonic = 83 # type: ignore
 """
 <no docs>
 """
-CMOVL: int = 84
+CMOVL: Mnemonic = 84 # type: ignore
 """
 <no docs>
 """
-CMOVLE: int = 85
+CMOVLE: Mnemonic = 85 # type: ignore
 """
 <no docs>
 """
-CMOVNE: int = 86
+CMOVNE: Mnemonic = 86 # type: ignore
 """
 <no docs>
 """
-CMOVNO: int = 87
+CMOVNO: Mnemonic = 87 # type: ignore
 """
 <no docs>
 """
-CMOVNP: int = 88
+CMOVNP: Mnemonic = 88 # type: ignore
 """
 <no docs>
 """
-CMOVNS: int = 89
+CMOVNS: Mnemonic = 89 # type: ignore
 """
 <no docs>
 """
-CMOVO: int = 90
+CMOVO: Mnemonic = 90 # type: ignore
 """
 <no docs>
 """
-CMOVP: int = 91
+CMOVP: Mnemonic = 91 # type: ignore
 """
 <no docs>
 """
-CMOVS: int = 92
+CMOVS: Mnemonic = 92 # type: ignore
 """
 <no docs>
 """
-CMP: int = 93
+CMP: Mnemonic = 93 # type: ignore
 """
 <no docs>
 """
-CMPPD: int = 94
+CMPPD: Mnemonic = 94 # type: ignore
 """
 <no docs>
 """
-CMPPS: int = 95
+CMPPS: Mnemonic = 95 # type: ignore
 """
 <no docs>
 """
-CMPSB: int = 96
+CMPSB: Mnemonic = 96 # type: ignore
 """
 <no docs>
 """
-CMPSD: int = 97
+CMPSD: Mnemonic = 97 # type: ignore
 """
 <no docs>
 """
-CMPSQ: int = 98
+CMPSQ: Mnemonic = 98 # type: ignore
 """
 <no docs>
 """
-CMPSS: int = 99
+CMPSS: Mnemonic = 99 # type: ignore
 """
 <no docs>
 """
-CMPSW: int = 100
+CMPSW: Mnemonic = 100 # type: ignore
 """
 <no docs>
 """
-CMPXCHG: int = 101
+CMPXCHG: Mnemonic = 101 # type: ignore
 """
 <no docs>
 """
-CMPXCHG16B: int = 102
+CMPXCHG16B: Mnemonic = 102 # type: ignore
 """
 <no docs>
 """
-CMPXCHG8B: int = 103
+CMPXCHG8B: Mnemonic = 103 # type: ignore
 """
 <no docs>
 """
-COMISD: int = 104
+COMISD: Mnemonic = 104 # type: ignore
 """
 <no docs>
 """
-COMISS: int = 105
+COMISS: Mnemonic = 105 # type: ignore
 """
 <no docs>
 """
-CPUID: int = 106
+CPUID: Mnemonic = 106 # type: ignore
 """
 <no docs>
 """
-CQO: int = 107
+CQO: Mnemonic = 107 # type: ignore
 """
 <no docs>
 """
-CRC32: int = 108
+CRC32: Mnemonic = 108 # type: ignore
 """
 <no docs>
 """
-CVTDQ2PD: int = 109
+CVTDQ2PD: Mnemonic = 109 # type: ignore
 """
 <no docs>
 """
-CVTDQ2PS: int = 110
+CVTDQ2PS: Mnemonic = 110 # type: ignore
 """
 <no docs>
 """
-CVTPD2DQ: int = 111
+CVTPD2DQ: Mnemonic = 111 # type: ignore
 """
 <no docs>
 """
-CVTPD2PI: int = 112
+CVTPD2PI: Mnemonic = 112 # type: ignore
 """
 <no docs>
 """
-CVTPD2PS: int = 113
+CVTPD2PS: Mnemonic = 113 # type: ignore
 """
 <no docs>
 """
-CVTPI2PD: int = 114
+CVTPI2PD: Mnemonic = 114 # type: ignore
 """
 <no docs>
 """
-CVTPI2PS: int = 115
+CVTPI2PS: Mnemonic = 115 # type: ignore
 """
 <no docs>
 """
-CVTPS2DQ: int = 116
+CVTPS2DQ: Mnemonic = 116 # type: ignore
 """
 <no docs>
 """
-CVTPS2PD: int = 117
+CVTPS2PD: Mnemonic = 117 # type: ignore
 """
 <no docs>
 """
-CVTPS2PI: int = 118
+CVTPS2PI: Mnemonic = 118 # type: ignore
 """
 <no docs>
 """
-CVTSD2SI: int = 119
+CVTSD2SI: Mnemonic = 119 # type: ignore
 """
 <no docs>
 """
-CVTSD2SS: int = 120
+CVTSD2SS: Mnemonic = 120 # type: ignore
 """
 <no docs>
 """
-CVTSI2SD: int = 121
+CVTSI2SD: Mnemonic = 121 # type: ignore
 """
 <no docs>
 """
-CVTSI2SS: int = 122
+CVTSI2SS: Mnemonic = 122 # type: ignore
 """
 <no docs>
 """
-CVTSS2SD: int = 123
+CVTSS2SD: Mnemonic = 123 # type: ignore
 """
 <no docs>
 """
-CVTSS2SI: int = 124
+CVTSS2SI: Mnemonic = 124 # type: ignore
 """
 <no docs>
 """
-CVTTPD2DQ: int = 125
+CVTTPD2DQ: Mnemonic = 125 # type: ignore
 """
 <no docs>
 """
-CVTTPD2PI: int = 126
+CVTTPD2PI: Mnemonic = 126 # type: ignore
 """
 <no docs>
 """
-CVTTPS2DQ: int = 127
+CVTTPS2DQ: Mnemonic = 127 # type: ignore
 """
 <no docs>
 """
-CVTTPS2PI: int = 128
+CVTTPS2PI: Mnemonic = 128 # type: ignore
 """
 <no docs>
 """
-CVTTSD2SI: int = 129
+CVTTSD2SI: Mnemonic = 129 # type: ignore
 """
 <no docs>
 """
-CVTTSS2SI: int = 130
+CVTTSS2SI: Mnemonic = 130 # type: ignore
 """
 <no docs>
 """
-CWD: int = 131
+CWD: Mnemonic = 131 # type: ignore
 """
 <no docs>
 """
-CWDE: int = 132
+CWDE: Mnemonic = 132 # type: ignore
 """
 <no docs>
 """
-DAA: int = 133
+DAA: Mnemonic = 133 # type: ignore
 """
 <no docs>
 """
-DAS: int = 134
+DAS: Mnemonic = 134 # type: ignore
 """
 <no docs>
 """
-DB: int = 135
+DB: Mnemonic = 135 # type: ignore
 """
 <no docs>
 """
-DD: int = 136
+DD: Mnemonic = 136 # type: ignore
 """
 <no docs>
 """
-DEC: int = 137
+DEC: Mnemonic = 137 # type: ignore
 """
 <no docs>
 """
-DIV: int = 138
+DIV: Mnemonic = 138 # type: ignore
 """
 <no docs>
 """
-DIVPD: int = 139
+DIVPD: Mnemonic = 139 # type: ignore
 """
 <no docs>
 """
-DIVPS: int = 140
+DIVPS: Mnemonic = 140 # type: ignore
 """
 <no docs>
 """
-DIVSD: int = 141
+DIVSD: Mnemonic = 141 # type: ignore
 """
 <no docs>
 """
-DIVSS: int = 142
+DIVSS: Mnemonic = 142 # type: ignore
 """
 <no docs>
 """
-DPPD: int = 143
+DPPD: Mnemonic = 143 # type: ignore
 """
 <no docs>
 """
-DPPS: int = 144
+DPPS: Mnemonic = 144 # type: ignore
 """
 <no docs>
 """
-DQ: int = 145
+DQ: Mnemonic = 145 # type: ignore
 """
 <no docs>
 """
-DW: int = 146
+DW: Mnemonic = 146 # type: ignore
 """
 <no docs>
 """
-EMMS: int = 147
+EMMS: Mnemonic = 147 # type: ignore
 """
 <no docs>
 """
-ENCLS: int = 148
+ENCLS: Mnemonic = 148 # type: ignore
 """
 <no docs>
 """
-ENCLU: int = 149
+ENCLU: Mnemonic = 149 # type: ignore
 """
 <no docs>
 """
-ENCLV: int = 150
+ENCLV: Mnemonic = 150 # type: ignore
 """
 <no docs>
 """
-ENDBR32: int = 151
+ENDBR32: Mnemonic = 151 # type: ignore
 """
 <no docs>
 """
-ENDBR64: int = 152
+ENDBR64: Mnemonic = 152 # type: ignore
 """
 <no docs>
 """
-ENQCMD: int = 153
+ENQCMD: Mnemonic = 153 # type: ignore
 """
 <no docs>
 """
-ENQCMDS: int = 154
+ENQCMDS: Mnemonic = 154 # type: ignore
 """
 <no docs>
 """
-ENTER: int = 155
+ENTER: Mnemonic = 155 # type: ignore
 """
 <no docs>
 """
-EXTRACTPS: int = 156
+EXTRACTPS: Mnemonic = 156 # type: ignore
 """
 <no docs>
 """
-EXTRQ: int = 157
+EXTRQ: Mnemonic = 157 # type: ignore
 """
 <no docs>
 """
-F2XM1: int = 158
+F2XM1: Mnemonic = 158 # type: ignore
 """
 <no docs>
 """
-FABS: int = 159
+FABS: Mnemonic = 159 # type: ignore
 """
 <no docs>
 """
-FADD: int = 160
+FADD: Mnemonic = 160 # type: ignore
 """
 <no docs>
 """
-FADDP: int = 161
+FADDP: Mnemonic = 161 # type: ignore
 """
 <no docs>
 """
-FBLD: int = 162
+FBLD: Mnemonic = 162 # type: ignore
 """
 <no docs>
 """
-FBSTP: int = 163
+FBSTP: Mnemonic = 163 # type: ignore
 """
 <no docs>
 """
-FCHS: int = 164
+FCHS: Mnemonic = 164 # type: ignore
 """
 <no docs>
 """
-FCLEX: int = 165
+FCLEX: Mnemonic = 165 # type: ignore
 """
 <no docs>
 """
-FCMOVB: int = 166
+FCMOVB: Mnemonic = 166 # type: ignore
 """
 <no docs>
 """
-FCMOVBE: int = 167
+FCMOVBE: Mnemonic = 167 # type: ignore
 """
 <no docs>
 """
-FCMOVE: int = 168
+FCMOVE: Mnemonic = 168 # type: ignore
 """
 <no docs>
 """
-FCMOVNB: int = 169
+FCMOVNB: Mnemonic = 169 # type: ignore
 """
 <no docs>
 """
-FCMOVNBE: int = 170
+FCMOVNBE: Mnemonic = 170 # type: ignore
 """
 <no docs>
 """
-FCMOVNE: int = 171
+FCMOVNE: Mnemonic = 171 # type: ignore
 """
 <no docs>
 """
-FCMOVNU: int = 172
+FCMOVNU: Mnemonic = 172 # type: ignore
 """
 <no docs>
 """
-FCMOVU: int = 173
+FCMOVU: Mnemonic = 173 # type: ignore
 """
 <no docs>
 """
-FCOM: int = 174
+FCOM: Mnemonic = 174 # type: ignore
 """
 <no docs>
 """
-FCOMI: int = 175
+FCOMI: Mnemonic = 175 # type: ignore
 """
 <no docs>
 """
-FCOMIP: int = 176
+FCOMIP: Mnemonic = 176 # type: ignore
 """
 <no docs>
 """
-FCOMP: int = 177
+FCOMP: Mnemonic = 177 # type: ignore
 """
 <no docs>
 """
-FCOMPP: int = 178
+FCOMPP: Mnemonic = 178 # type: ignore
 """
 <no docs>
 """
-FCOS: int = 179
+FCOS: Mnemonic = 179 # type: ignore
 """
 <no docs>
 """
-FDECSTP: int = 180
+FDECSTP: Mnemonic = 180 # type: ignore
 """
 <no docs>
 """
-FDISI: int = 181
+FDISI: Mnemonic = 181 # type: ignore
 """
 <no docs>
 """
-FDIV: int = 182
+FDIV: Mnemonic = 182 # type: ignore
 """
 <no docs>
 """
-FDIVP: int = 183
+FDIVP: Mnemonic = 183 # type: ignore
 """
 <no docs>
 """
-FDIVR: int = 184
+FDIVR: Mnemonic = 184 # type: ignore
 """
 <no docs>
 """
-FDIVRP: int = 185
+FDIVRP: Mnemonic = 185 # type: ignore
 """
 <no docs>
 """
-FEMMS: int = 186
+FEMMS: Mnemonic = 186 # type: ignore
 """
 <no docs>
 """
-FENI: int = 187
+FENI: Mnemonic = 187 # type: ignore
 """
 <no docs>
 """
-FFREE: int = 188
+FFREE: Mnemonic = 188 # type: ignore
 """
 <no docs>
 """
-FFREEP: int = 189
+FFREEP: Mnemonic = 189 # type: ignore
 """
 <no docs>
 """
-FIADD: int = 190
+FIADD: Mnemonic = 190 # type: ignore
 """
 <no docs>
 """
-FICOM: int = 191
+FICOM: Mnemonic = 191 # type: ignore
 """
 <no docs>
 """
-FICOMP: int = 192
+FICOMP: Mnemonic = 192 # type: ignore
 """
 <no docs>
 """
-FIDIV: int = 193
+FIDIV: Mnemonic = 193 # type: ignore
 """
 <no docs>
 """
-FIDIVR: int = 194
+FIDIVR: Mnemonic = 194 # type: ignore
 """
 <no docs>
 """
-FILD: int = 195
+FILD: Mnemonic = 195 # type: ignore
 """
 <no docs>
 """
-FIMUL: int = 196
+FIMUL: Mnemonic = 196 # type: ignore
 """
 <no docs>
 """
-FINCSTP: int = 197
+FINCSTP: Mnemonic = 197 # type: ignore
 """
 <no docs>
 """
-FINIT: int = 198
+FINIT: Mnemonic = 198 # type: ignore
 """
 <no docs>
 """
-FIST: int = 199
+FIST: Mnemonic = 199 # type: ignore
 """
 <no docs>
 """
-FISTP: int = 200
+FISTP: Mnemonic = 200 # type: ignore
 """
 <no docs>
 """
-FISTTP: int = 201
+FISTTP: Mnemonic = 201 # type: ignore
 """
 <no docs>
 """
-FISUB: int = 202
+FISUB: Mnemonic = 202 # type: ignore
 """
 <no docs>
 """
-FISUBR: int = 203
+FISUBR: Mnemonic = 203 # type: ignore
 """
 <no docs>
 """
-FLD: int = 204
+FLD: Mnemonic = 204 # type: ignore
 """
 <no docs>
 """
-FLD1: int = 205
+FLD1: Mnemonic = 205 # type: ignore
 """
 <no docs>
 """
-FLDCW: int = 206
+FLDCW: Mnemonic = 206 # type: ignore
 """
 <no docs>
 """
-FLDENV: int = 207
+FLDENV: Mnemonic = 207 # type: ignore
 """
 <no docs>
 """
-FLDL2E: int = 208
+FLDL2E: Mnemonic = 208 # type: ignore
 """
 <no docs>
 """
-FLDL2T: int = 209
+FLDL2T: Mnemonic = 209 # type: ignore
 """
 <no docs>
 """
-FLDLG2: int = 210
+FLDLG2: Mnemonic = 210 # type: ignore
 """
 <no docs>
 """
-FLDLN2: int = 211
+FLDLN2: Mnemonic = 211 # type: ignore
 """
 <no docs>
 """
-FLDPI: int = 212
+FLDPI: Mnemonic = 212 # type: ignore
 """
 <no docs>
 """
-FLDZ: int = 213
+FLDZ: Mnemonic = 213 # type: ignore
 """
 <no docs>
 """
-FMUL: int = 214
+FMUL: Mnemonic = 214 # type: ignore
 """
 <no docs>
 """
-FMULP: int = 215
+FMULP: Mnemonic = 215 # type: ignore
 """
 <no docs>
 """
-FNCLEX: int = 216
+FNCLEX: Mnemonic = 216 # type: ignore
 """
 <no docs>
 """
-FNDISI: int = 217
+FNDISI: Mnemonic = 217 # type: ignore
 """
 <no docs>
 """
-FNENI: int = 218
+FNENI: Mnemonic = 218 # type: ignore
 """
 <no docs>
 """
-FNINIT: int = 219
+FNINIT: Mnemonic = 219 # type: ignore
 """
 <no docs>
 """
-FNOP: int = 220
+FNOP: Mnemonic = 220 # type: ignore
 """
 <no docs>
 """
-FNSAVE: int = 221
+FNSAVE: Mnemonic = 221 # type: ignore
 """
 <no docs>
 """
-FNSETPM: int = 222
+FNSETPM: Mnemonic = 222 # type: ignore
 """
 <no docs>
 """
-FNSTCW: int = 223
+FNSTCW: Mnemonic = 223 # type: ignore
 """
 <no docs>
 """
-FNSTENV: int = 224
+FNSTENV: Mnemonic = 224 # type: ignore
 """
 <no docs>
 """
-FNSTSW: int = 225
+FNSTSW: Mnemonic = 225 # type: ignore
 """
 <no docs>
 """
-FPATAN: int = 226
+FPATAN: Mnemonic = 226 # type: ignore
 """
 <no docs>
 """
-FPREM: int = 227
+FPREM: Mnemonic = 227 # type: ignore
 """
 <no docs>
 """
-FPREM1: int = 228
+FPREM1: Mnemonic = 228 # type: ignore
 """
 <no docs>
 """
-FPTAN: int = 229
+FPTAN: Mnemonic = 229 # type: ignore
 """
 <no docs>
 """
-FRNDINT: int = 230
+FRNDINT: Mnemonic = 230 # type: ignore
 """
 <no docs>
 """
-FRSTOR: int = 231
+FRSTOR: Mnemonic = 231 # type: ignore
 """
 <no docs>
 """
-FRSTPM: int = 232
+FRSTPM: Mnemonic = 232 # type: ignore
 """
 <no docs>
 """
-FSAVE: int = 233
+FSAVE: Mnemonic = 233 # type: ignore
 """
 <no docs>
 """
-FSCALE: int = 234
+FSCALE: Mnemonic = 234 # type: ignore
 """
 <no docs>
 """
-FSETPM: int = 235
+FSETPM: Mnemonic = 235 # type: ignore
 """
 <no docs>
 """
-FSIN: int = 236
+FSIN: Mnemonic = 236 # type: ignore
 """
 <no docs>
 """
-FSINCOS: int = 237
+FSINCOS: Mnemonic = 237 # type: ignore
 """
 <no docs>
 """
-FSQRT: int = 238
+FSQRT: Mnemonic = 238 # type: ignore
 """
 <no docs>
 """
-FST: int = 239
+FST: Mnemonic = 239 # type: ignore
 """
 <no docs>
 """
-FSTCW: int = 240
+FSTCW: Mnemonic = 240 # type: ignore
 """
 <no docs>
 """
-FSTDW: int = 241
+FSTDW: Mnemonic = 241 # type: ignore
 """
 <no docs>
 """
-FSTENV: int = 242
+FSTENV: Mnemonic = 242 # type: ignore
 """
 <no docs>
 """
-FSTP: int = 243
+FSTP: Mnemonic = 243 # type: ignore
 """
 <no docs>
 """
-FSTPNCE: int = 244
+FSTPNCE: Mnemonic = 244 # type: ignore
 """
 <no docs>
 """
-FSTSG: int = 245
+FSTSG: Mnemonic = 245 # type: ignore
 """
 <no docs>
 """
-FSTSW: int = 246
+FSTSW: Mnemonic = 246 # type: ignore
 """
 <no docs>
 """
-FSUB: int = 247
+FSUB: Mnemonic = 247 # type: ignore
 """
 <no docs>
 """
-FSUBP: int = 248
+FSUBP: Mnemonic = 248 # type: ignore
 """
 <no docs>
 """
-FSUBR: int = 249
+FSUBR: Mnemonic = 249 # type: ignore
 """
 <no docs>
 """
-FSUBRP: int = 250
+FSUBRP: Mnemonic = 250 # type: ignore
 """
 <no docs>
 """
-FTST: int = 251
+FTST: Mnemonic = 251 # type: ignore
 """
 <no docs>
 """
-FUCOM: int = 252
+FUCOM: Mnemonic = 252 # type: ignore
 """
 <no docs>
 """
-FUCOMI: int = 253
+FUCOMI: Mnemonic = 253 # type: ignore
 """
 <no docs>
 """
-FUCOMIP: int = 254
+FUCOMIP: Mnemonic = 254 # type: ignore
 """
 <no docs>
 """
-FUCOMP: int = 255
+FUCOMP: Mnemonic = 255 # type: ignore
 """
 <no docs>
 """
-FUCOMPP: int = 256
+FUCOMPP: Mnemonic = 256 # type: ignore
 """
 <no docs>
 """
-FXAM: int = 257
+FXAM: Mnemonic = 257 # type: ignore
 """
 <no docs>
 """
-FXCH: int = 258
+FXCH: Mnemonic = 258 # type: ignore
 """
 <no docs>
 """
-FXRSTOR: int = 259
+FXRSTOR: Mnemonic = 259 # type: ignore
 """
 <no docs>
 """
-FXRSTOR64: int = 260
+FXRSTOR64: Mnemonic = 260 # type: ignore
 """
 <no docs>
 """
-FXSAVE: int = 261
+FXSAVE: Mnemonic = 261 # type: ignore
 """
 <no docs>
 """
-FXSAVE64: int = 262
+FXSAVE64: Mnemonic = 262 # type: ignore
 """
 <no docs>
 """
-FXTRACT: int = 263
+FXTRACT: Mnemonic = 263 # type: ignore
 """
 <no docs>
 """
-FYL2X: int = 264
+FYL2X: Mnemonic = 264 # type: ignore
 """
 <no docs>
 """
-FYL2XP1: int = 265
+FYL2XP1: Mnemonic = 265 # type: ignore
 """
 <no docs>
 """
-GETSEC: int = 266
+GETSEC: Mnemonic = 266 # type: ignore
 """
 <no docs>
 """
-GF2P8AFFINEINVQB: int = 267
+GF2P8AFFINEINVQB: Mnemonic = 267 # type: ignore
 """
 <no docs>
 """
-GF2P8AFFINEQB: int = 268
+GF2P8AFFINEQB: Mnemonic = 268 # type: ignore
 """
 <no docs>
 """
-GF2P8MULB: int = 269
+GF2P8MULB: Mnemonic = 269 # type: ignore
 """
 <no docs>
 """
-HADDPD: int = 270
+HADDPD: Mnemonic = 270 # type: ignore
 """
 <no docs>
 """
-HADDPS: int = 271
+HADDPS: Mnemonic = 271 # type: ignore
 """
 <no docs>
 """
-HLT: int = 272
+HLT: Mnemonic = 272 # type: ignore
 """
 <no docs>
 """
-HSUBPD: int = 273
+HSUBPD: Mnemonic = 273 # type: ignore
 """
 <no docs>
 """
-HSUBPS: int = 274
+HSUBPS: Mnemonic = 274 # type: ignore
 """
 <no docs>
 """
-IBTS: int = 275
+IBTS: Mnemonic = 275 # type: ignore
 """
 <no docs>
 """
-IDIV: int = 276
+IDIV: Mnemonic = 276 # type: ignore
 """
 <no docs>
 """
-IMUL: int = 277
+IMUL: Mnemonic = 277 # type: ignore
 """
 <no docs>
 """
-IN: int = 278
+IN: Mnemonic = 278 # type: ignore
 """
 <no docs>
 """
-INC: int = 279
+INC: Mnemonic = 279 # type: ignore
 """
 <no docs>
 """
-INCSSPD: int = 280
+INCSSPD: Mnemonic = 280 # type: ignore
 """
 <no docs>
 """
-INCSSPQ: int = 281
+INCSSPQ: Mnemonic = 281 # type: ignore
 """
 <no docs>
 """
-INSB: int = 282
+INSB: Mnemonic = 282 # type: ignore
 """
 <no docs>
 """
-INSD: int = 283
+INSD: Mnemonic = 283 # type: ignore
 """
 <no docs>
 """
-INSERTPS: int = 284
+INSERTPS: Mnemonic = 284 # type: ignore
 """
 <no docs>
 """
-INSERTQ: int = 285
+INSERTQ: Mnemonic = 285 # type: ignore
 """
 <no docs>
 """
-INSW: int = 286
+INSW: Mnemonic = 286 # type: ignore
 """
 <no docs>
 """
-INT: int = 287
+INT: Mnemonic = 287 # type: ignore
 """
 <no docs>
 """
-INT1: int = 288
+INT1: Mnemonic = 288 # type: ignore
 """
 <no docs>
 """
-INTO: int = 289
+INTO: Mnemonic = 289 # type: ignore
 """
 <no docs>
 """
-INVD: int = 290
+INVD: Mnemonic = 290 # type: ignore
 """
 <no docs>
 """
-INVEPT: int = 291
+INVEPT: Mnemonic = 291 # type: ignore
 """
 <no docs>
 """
-INVLPG: int = 292
+INVLPG: Mnemonic = 292 # type: ignore
 """
 <no docs>
 """
-INVLPGA: int = 293
+INVLPGA: Mnemonic = 293 # type: ignore
 """
 <no docs>
 """
-INVPCID: int = 294
+INVPCID: Mnemonic = 294 # type: ignore
 """
 <no docs>
 """
-INVVPID: int = 295
+INVVPID: Mnemonic = 295 # type: ignore
 """
 <no docs>
 """
-IRET: int = 296
+IRET: Mnemonic = 296 # type: ignore
 """
 <no docs>
 """
-JA: int = 297
+JA: Mnemonic = 297 # type: ignore
 """
 <no docs>
 """
-JAE: int = 298
+JAE: Mnemonic = 298 # type: ignore
 """
 <no docs>
 """
-JB: int = 299
+JB: Mnemonic = 299 # type: ignore
 """
 <no docs>
 """
-JBE: int = 300
+JBE: Mnemonic = 300 # type: ignore
 """
 <no docs>
 """
-JCXZ: int = 301
+JCXZ: Mnemonic = 301 # type: ignore
 """
 <no docs>
 """
-JE: int = 302
+JE: Mnemonic = 302 # type: ignore
 """
 <no docs>
 """
-JECXZ: int = 303
+JECXZ: Mnemonic = 303 # type: ignore
 """
 <no docs>
 """
-JG: int = 304
+JG: Mnemonic = 304 # type: ignore
 """
 <no docs>
 """
-JGE: int = 305
+JGE: Mnemonic = 305 # type: ignore
 """
 <no docs>
 """
-JL: int = 306
+JL: Mnemonic = 306 # type: ignore
 """
 <no docs>
 """
-JLE: int = 307
+JLE: Mnemonic = 307 # type: ignore
 """
 <no docs>
 """
-JMP: int = 308
+JMP: Mnemonic = 308 # type: ignore
 """
 <no docs>
 """
-JMPE: int = 309
+JMPE: Mnemonic = 309 # type: ignore
 """
 <no docs>
 """
-JNE: int = 310
+JNE: Mnemonic = 310 # type: ignore
 """
 <no docs>
 """
-JNO: int = 311
+JNO: Mnemonic = 311 # type: ignore
 """
 <no docs>
 """
-JNP: int = 312
+JNP: Mnemonic = 312 # type: ignore
 """
 <no docs>
 """
-JNS: int = 313
+JNS: Mnemonic = 313 # type: ignore
 """
 <no docs>
 """
-JO: int = 314
+JO: Mnemonic = 314 # type: ignore
 """
 <no docs>
 """
-JP: int = 315
+JP: Mnemonic = 315 # type: ignore
 """
 <no docs>
 """
-JRCXZ: int = 316
+JRCXZ: Mnemonic = 316 # type: ignore
 """
 <no docs>
 """
-JS: int = 317
+JS: Mnemonic = 317 # type: ignore
 """
 <no docs>
 """
-KADDB: int = 318
+KADDB: Mnemonic = 318 # type: ignore
 """
 <no docs>
 """
-KADDD: int = 319
+KADDD: Mnemonic = 319 # type: ignore
 """
 <no docs>
 """
-KADDQ: int = 320
+KADDQ: Mnemonic = 320 # type: ignore
 """
 <no docs>
 """
-KADDW: int = 321
+KADDW: Mnemonic = 321 # type: ignore
 """
 <no docs>
 """
-KANDB: int = 322
+KANDB: Mnemonic = 322 # type: ignore
 """
 <no docs>
 """
-KANDD: int = 323
+KANDD: Mnemonic = 323 # type: ignore
 """
 <no docs>
 """
-KANDNB: int = 324
+KANDNB: Mnemonic = 324 # type: ignore
 """
 <no docs>
 """
-KANDND: int = 325
+KANDND: Mnemonic = 325 # type: ignore
 """
 <no docs>
 """
-KANDNQ: int = 326
+KANDNQ: Mnemonic = 326 # type: ignore
 """
 <no docs>
 """
-KANDNW: int = 327
+KANDNW: Mnemonic = 327 # type: ignore
 """
 <no docs>
 """
-KANDQ: int = 328
+KANDQ: Mnemonic = 328 # type: ignore
 """
 <no docs>
 """
-KANDW: int = 329
+KANDW: Mnemonic = 329 # type: ignore
 """
 <no docs>
 """
-KMOVB: int = 330
+KMOVB: Mnemonic = 330 # type: ignore
 """
 <no docs>
 """
-KMOVD: int = 331
+KMOVD: Mnemonic = 331 # type: ignore
 """
 <no docs>
 """
-KMOVQ: int = 332
+KMOVQ: Mnemonic = 332 # type: ignore
 """
 <no docs>
 """
-KMOVW: int = 333
+KMOVW: Mnemonic = 333 # type: ignore
 """
 <no docs>
 """
-KNOTB: int = 334
+KNOTB: Mnemonic = 334 # type: ignore
 """
 <no docs>
 """
-KNOTD: int = 335
+KNOTD: Mnemonic = 335 # type: ignore
 """
 <no docs>
 """
-KNOTQ: int = 336
+KNOTQ: Mnemonic = 336 # type: ignore
 """
 <no docs>
 """
-KNOTW: int = 337
+KNOTW: Mnemonic = 337 # type: ignore
 """
 <no docs>
 """
-KORB: int = 338
+KORB: Mnemonic = 338 # type: ignore
 """
 <no docs>
 """
-KORD: int = 339
+KORD: Mnemonic = 339 # type: ignore
 """
 <no docs>
 """
-KORQ: int = 340
+KORQ: Mnemonic = 340 # type: ignore
 """
 <no docs>
 """
-KORTESTB: int = 341
+KORTESTB: Mnemonic = 341 # type: ignore
 """
 <no docs>
 """
-KORTESTD: int = 342
+KORTESTD: Mnemonic = 342 # type: ignore
 """
 <no docs>
 """
-KORTESTQ: int = 343
+KORTESTQ: Mnemonic = 343 # type: ignore
 """
 <no docs>
 """
-KORTESTW: int = 344
+KORTESTW: Mnemonic = 344 # type: ignore
 """
 <no docs>
 """
-KORW: int = 345
+KORW: Mnemonic = 345 # type: ignore
 """
 <no docs>
 """
-KSHIFTLB: int = 346
+KSHIFTLB: Mnemonic = 346 # type: ignore
 """
 <no docs>
 """
-KSHIFTLD: int = 347
+KSHIFTLD: Mnemonic = 347 # type: ignore
 """
 <no docs>
 """
-KSHIFTLQ: int = 348
+KSHIFTLQ: Mnemonic = 348 # type: ignore
 """
 <no docs>
 """
-KSHIFTLW: int = 349
+KSHIFTLW: Mnemonic = 349 # type: ignore
 """
 <no docs>
 """
-KSHIFTRB: int = 350
+KSHIFTRB: Mnemonic = 350 # type: ignore
 """
 <no docs>
 """
-KSHIFTRD: int = 351
+KSHIFTRD: Mnemonic = 351 # type: ignore
 """
 <no docs>
 """
-KSHIFTRQ: int = 352
+KSHIFTRQ: Mnemonic = 352 # type: ignore
 """
 <no docs>
 """
-KSHIFTRW: int = 353
+KSHIFTRW: Mnemonic = 353 # type: ignore
 """
 <no docs>
 """
-KTESTB: int = 354
+KTESTB: Mnemonic = 354 # type: ignore
 """
 <no docs>
 """
-KTESTD: int = 355
+KTESTD: Mnemonic = 355 # type: ignore
 """
 <no docs>
 """
-KTESTQ: int = 356
+KTESTQ: Mnemonic = 356 # type: ignore
 """
 <no docs>
 """
-KTESTW: int = 357
+KTESTW: Mnemonic = 357 # type: ignore
 """
 <no docs>
 """
-KUNPCKBW: int = 358
+KUNPCKBW: Mnemonic = 358 # type: ignore
 """
 <no docs>
 """
-KUNPCKDQ: int = 359
+KUNPCKDQ: Mnemonic = 359 # type: ignore
 """
 <no docs>
 """
-KUNPCKWD: int = 360
+KUNPCKWD: Mnemonic = 360 # type: ignore
 """
 <no docs>
 """
-KXNORB: int = 361
+KXNORB: Mnemonic = 361 # type: ignore
 """
 <no docs>
 """
-KXNORD: int = 362
+KXNORD: Mnemonic = 362 # type: ignore
 """
 <no docs>
 """
-KXNORQ: int = 363
+KXNORQ: Mnemonic = 363 # type: ignore
 """
 <no docs>
 """
-KXNORW: int = 364
+KXNORW: Mnemonic = 364 # type: ignore
 """
 <no docs>
 """
-KXORB: int = 365
+KXORB: Mnemonic = 365 # type: ignore
 """
 <no docs>
 """
-KXORD: int = 366
+KXORD: Mnemonic = 366 # type: ignore
 """
 <no docs>
 """
-KXORQ: int = 367
+KXORQ: Mnemonic = 367 # type: ignore
 """
 <no docs>
 """
-KXORW: int = 368
+KXORW: Mnemonic = 368 # type: ignore
 """
 <no docs>
 """
-LAHF: int = 369
+LAHF: Mnemonic = 369 # type: ignore
 """
 <no docs>
 """
-LAR: int = 370
+LAR: Mnemonic = 370 # type: ignore
 """
 <no docs>
 """
-LDDQU: int = 371
+LDDQU: Mnemonic = 371 # type: ignore
 """
 <no docs>
 """
-LDMXCSR: int = 372
+LDMXCSR: Mnemonic = 372 # type: ignore
 """
 <no docs>
 """
-LDS: int = 373
+LDS: Mnemonic = 373 # type: ignore
 """
 <no docs>
 """
-LEA: int = 374
+LEA: Mnemonic = 374 # type: ignore
 """
 <no docs>
 """
-LEAVE: int = 375
+LEAVE: Mnemonic = 375 # type: ignore
 """
 <no docs>
 """
-LES: int = 376
+LES: Mnemonic = 376 # type: ignore
 """
 <no docs>
 """
-LFENCE: int = 377
+LFENCE: Mnemonic = 377 # type: ignore
 """
 <no docs>
 """
-LFS: int = 378
+LFS: Mnemonic = 378 # type: ignore
 """
 <no docs>
 """
-LGDT: int = 379
+LGDT: Mnemonic = 379 # type: ignore
 """
 <no docs>
 """
-LGS: int = 380
+LGS: Mnemonic = 380 # type: ignore
 """
 <no docs>
 """
-LIDT: int = 381
+LIDT: Mnemonic = 381 # type: ignore
 """
 <no docs>
 """
-LLDT: int = 382
+LLDT: Mnemonic = 382 # type: ignore
 """
 <no docs>
 """
-LLWPCB: int = 383
+LLWPCB: Mnemonic = 383 # type: ignore
 """
 <no docs>
 """
-LMSW: int = 384
+LMSW: Mnemonic = 384 # type: ignore
 """
 <no docs>
 """
-LOADALL: int = 385
+LOADALL: Mnemonic = 385 # type: ignore
 """
 <no docs>
 """
-LODSB: int = 386
+LODSB: Mnemonic = 386 # type: ignore
 """
 <no docs>
 """
-LODSD: int = 387
+LODSD: Mnemonic = 387 # type: ignore
 """
 <no docs>
 """
-LODSQ: int = 388
+LODSQ: Mnemonic = 388 # type: ignore
 """
 <no docs>
 """
-LODSW: int = 389
+LODSW: Mnemonic = 389 # type: ignore
 """
 <no docs>
 """
-LOOP: int = 390
+LOOP: Mnemonic = 390 # type: ignore
 """
 <no docs>
 """
-LOOPE: int = 391
+LOOPE: Mnemonic = 391 # type: ignore
 """
 <no docs>
 """
-LOOPNE: int = 392
+LOOPNE: Mnemonic = 392 # type: ignore
 """
 <no docs>
 """
-LSL: int = 393
+LSL: Mnemonic = 393 # type: ignore
 """
 <no docs>
 """
-LSS: int = 394
+LSS: Mnemonic = 394 # type: ignore
 """
 <no docs>
 """
-LTR: int = 395
+LTR: Mnemonic = 395 # type: ignore
 """
 <no docs>
 """
-LWPINS: int = 396
+LWPINS: Mnemonic = 396 # type: ignore
 """
 <no docs>
 """
-LWPVAL: int = 397
+LWPVAL: Mnemonic = 397 # type: ignore
 """
 <no docs>
 """
-LZCNT: int = 398
+LZCNT: Mnemonic = 398 # type: ignore
 """
 <no docs>
 """
-MASKMOVDQU: int = 399
+MASKMOVDQU: Mnemonic = 399 # type: ignore
 """
 <no docs>
 """
-MASKMOVQ: int = 400
+MASKMOVQ: Mnemonic = 400 # type: ignore
 """
 <no docs>
 """
-MAXPD: int = 401
+MAXPD: Mnemonic = 401 # type: ignore
 """
 <no docs>
 """
-MAXPS: int = 402
+MAXPS: Mnemonic = 402 # type: ignore
 """
 <no docs>
 """
-MAXSD: int = 403
+MAXSD: Mnemonic = 403 # type: ignore
 """
 <no docs>
 """
-MAXSS: int = 404
+MAXSS: Mnemonic = 404 # type: ignore
 """
 <no docs>
 """
-MCOMMIT: int = 405
+MCOMMIT: Mnemonic = 405 # type: ignore
 """
 <no docs>
 """
-MFENCE: int = 406
+MFENCE: Mnemonic = 406 # type: ignore
 """
 <no docs>
 """
-MINPD: int = 407
+MINPD: Mnemonic = 407 # type: ignore
 """
 <no docs>
 """
-MINPS: int = 408
+MINPS: Mnemonic = 408 # type: ignore
 """
 <no docs>
 """
-MINSD: int = 409
+MINSD: Mnemonic = 409 # type: ignore
 """
 <no docs>
 """
-MINSS: int = 410
+MINSS: Mnemonic = 410 # type: ignore
 """
 <no docs>
 """
-MONITOR: int = 411
+MONITOR: Mnemonic = 411 # type: ignore
 """
 <no docs>
 """
-MONITORX: int = 412
+MONITORX: Mnemonic = 412 # type: ignore
 """
 <no docs>
 """
-MONTMUL: int = 413
+MONTMUL: Mnemonic = 413 # type: ignore
 """
 <no docs>
 """
-MOV: int = 414
+MOV: Mnemonic = 414 # type: ignore
 """
 <no docs>
 """
-MOVAPD: int = 415
+MOVAPD: Mnemonic = 415 # type: ignore
 """
 <no docs>
 """
-MOVAPS: int = 416
+MOVAPS: Mnemonic = 416 # type: ignore
 """
 <no docs>
 """
-MOVBE: int = 417
+MOVBE: Mnemonic = 417 # type: ignore
 """
 <no docs>
 """
-MOVD: int = 418
+MOVD: Mnemonic = 418 # type: ignore
 """
 <no docs>
 """
-MOVDDUP: int = 419
+MOVDDUP: Mnemonic = 419 # type: ignore
 """
 <no docs>
 """
-MOVDIR64B: int = 420
+MOVDIR64B: Mnemonic = 420 # type: ignore
 """
 <no docs>
 """
-MOVDIRI: int = 421
+MOVDIRI: Mnemonic = 421 # type: ignore
 """
 <no docs>
 """
-MOVDQ2Q: int = 422
+MOVDQ2Q: Mnemonic = 422 # type: ignore
 """
 <no docs>
 """
-MOVDQA: int = 423
+MOVDQA: Mnemonic = 423 # type: ignore
 """
 <no docs>
 """
-MOVDQU: int = 424
+MOVDQU: Mnemonic = 424 # type: ignore
 """
 <no docs>
 """
-MOVHLPS: int = 425
+MOVHLPS: Mnemonic = 425 # type: ignore
 """
 <no docs>
 """
-MOVHPD: int = 426
+MOVHPD: Mnemonic = 426 # type: ignore
 """
 <no docs>
 """
-MOVHPS: int = 427
+MOVHPS: Mnemonic = 427 # type: ignore
 """
 <no docs>
 """
-MOVLHPS: int = 428
+MOVLHPS: Mnemonic = 428 # type: ignore
 """
 <no docs>
 """
-MOVLPD: int = 429
+MOVLPD: Mnemonic = 429 # type: ignore
 """
 <no docs>
 """
-MOVLPS: int = 430
+MOVLPS: Mnemonic = 430 # type: ignore
 """
 <no docs>
 """
-MOVMSKPD: int = 431
+MOVMSKPD: Mnemonic = 431 # type: ignore
 """
 <no docs>
 """
-MOVMSKPS: int = 432
+MOVMSKPS: Mnemonic = 432 # type: ignore
 """
 <no docs>
 """
-MOVNTDQ: int = 433
+MOVNTDQ: Mnemonic = 433 # type: ignore
 """
 <no docs>
 """
-MOVNTDQA: int = 434
+MOVNTDQA: Mnemonic = 434 # type: ignore
 """
 <no docs>
 """
-MOVNTI: int = 435
+MOVNTI: Mnemonic = 435 # type: ignore
 """
 <no docs>
 """
-MOVNTPD: int = 436
+MOVNTPD: Mnemonic = 436 # type: ignore
 """
 <no docs>
 """
-MOVNTPS: int = 437
+MOVNTPS: Mnemonic = 437 # type: ignore
 """
 <no docs>
 """
-MOVNTQ: int = 438
+MOVNTQ: Mnemonic = 438 # type: ignore
 """
 <no docs>
 """
-MOVNTSD: int = 439
+MOVNTSD: Mnemonic = 439 # type: ignore
 """
 <no docs>
 """
-MOVNTSS: int = 440
+MOVNTSS: Mnemonic = 440 # type: ignore
 """
 <no docs>
 """
-MOVQ: int = 441
+MOVQ: Mnemonic = 441 # type: ignore
 """
 <no docs>
 """
-MOVQ2DQ: int = 442
+MOVQ2DQ: Mnemonic = 442 # type: ignore
 """
 <no docs>
 """
-MOVSB: int = 443
+MOVSB: Mnemonic = 443 # type: ignore
 """
 <no docs>
 """
-MOVSD: int = 444
+MOVSD: Mnemonic = 444 # type: ignore
 """
 <no docs>
 """
-MOVSHDUP: int = 445
+MOVSHDUP: Mnemonic = 445 # type: ignore
 """
 <no docs>
 """
-MOVSLDUP: int = 446
+MOVSLDUP: Mnemonic = 446 # type: ignore
 """
 <no docs>
 """
-MOVSQ: int = 447
+MOVSQ: Mnemonic = 447 # type: ignore
 """
 <no docs>
 """
-MOVSS: int = 448
+MOVSS: Mnemonic = 448 # type: ignore
 """
 <no docs>
 """
-MOVSW: int = 449
+MOVSW: Mnemonic = 449 # type: ignore
 """
 <no docs>
 """
-MOVSX: int = 450
+MOVSX: Mnemonic = 450 # type: ignore
 """
 <no docs>
 """
-MOVSXD: int = 451
+MOVSXD: Mnemonic = 451 # type: ignore
 """
 <no docs>
 """
-MOVUPD: int = 452
+MOVUPD: Mnemonic = 452 # type: ignore
 """
 <no docs>
 """
-MOVUPS: int = 453
+MOVUPS: Mnemonic = 453 # type: ignore
 """
 <no docs>
 """
-MOVZX: int = 454
+MOVZX: Mnemonic = 454 # type: ignore
 """
 <no docs>
 """
-MPSADBW: int = 455
+MPSADBW: Mnemonic = 455 # type: ignore
 """
 <no docs>
 """
-MUL: int = 456
+MUL: Mnemonic = 456 # type: ignore
 """
 <no docs>
 """
-MULPD: int = 457
+MULPD: Mnemonic = 457 # type: ignore
 """
 <no docs>
 """
-MULPS: int = 458
+MULPS: Mnemonic = 458 # type: ignore
 """
 <no docs>
 """
-MULSD: int = 459
+MULSD: Mnemonic = 459 # type: ignore
 """
 <no docs>
 """
-MULSS: int = 460
+MULSS: Mnemonic = 460 # type: ignore
 """
 <no docs>
 """
-MULX: int = 461
+MULX: Mnemonic = 461 # type: ignore
 """
 <no docs>
 """
-MWAIT: int = 462
+MWAIT: Mnemonic = 462 # type: ignore
 """
 <no docs>
 """
-MWAITX: int = 463
+MWAITX: Mnemonic = 463 # type: ignore
 """
 <no docs>
 """
-NEG: int = 464
+NEG: Mnemonic = 464 # type: ignore
 """
 <no docs>
 """
-NOP: int = 465
+NOP: Mnemonic = 465 # type: ignore
 """
 <no docs>
 """
-NOT: int = 466
+NOT: Mnemonic = 466 # type: ignore
 """
 <no docs>
 """
-OR: int = 467
+OR: Mnemonic = 467 # type: ignore
 """
 <no docs>
 """
-ORPD: int = 468
+ORPD: Mnemonic = 468 # type: ignore
 """
 <no docs>
 """
-ORPS: int = 469
+ORPS: Mnemonic = 469 # type: ignore
 """
 <no docs>
 """
-OUT: int = 470
+OUT: Mnemonic = 470 # type: ignore
 """
 <no docs>
 """
-OUTSB: int = 471
+OUTSB: Mnemonic = 471 # type: ignore
 """
 <no docs>
 """
-OUTSD: int = 472
+OUTSD: Mnemonic = 472 # type: ignore
 """
 <no docs>
 """
-OUTSW: int = 473
+OUTSW: Mnemonic = 473 # type: ignore
 """
 <no docs>
 """
-PABSB: int = 474
+PABSB: Mnemonic = 474 # type: ignore
 """
 <no docs>
 """
-PABSD: int = 475
+PABSD: Mnemonic = 475 # type: ignore
 """
 <no docs>
 """
-PABSW: int = 476
+PABSW: Mnemonic = 476 # type: ignore
 """
 <no docs>
 """
-PACKSSDW: int = 477
+PACKSSDW: Mnemonic = 477 # type: ignore
 """
 <no docs>
 """
-PACKSSWB: int = 478
+PACKSSWB: Mnemonic = 478 # type: ignore
 """
 <no docs>
 """
-PACKUSDW: int = 479
+PACKUSDW: Mnemonic = 479 # type: ignore
 """
 <no docs>
 """
-PACKUSWB: int = 480
+PACKUSWB: Mnemonic = 480 # type: ignore
 """
 <no docs>
 """
-PADDB: int = 481
+PADDB: Mnemonic = 481 # type: ignore
 """
 <no docs>
 """
-PADDD: int = 482
+PADDD: Mnemonic = 482 # type: ignore
 """
 <no docs>
 """
-PADDQ: int = 483
+PADDQ: Mnemonic = 483 # type: ignore
 """
 <no docs>
 """
-PADDSB: int = 484
+PADDSB: Mnemonic = 484 # type: ignore
 """
 <no docs>
 """
-PADDSW: int = 485
+PADDSW: Mnemonic = 485 # type: ignore
 """
 <no docs>
 """
-PADDUSB: int = 486
+PADDUSB: Mnemonic = 486 # type: ignore
 """
 <no docs>
 """
-PADDUSW: int = 487
+PADDUSW: Mnemonic = 487 # type: ignore
 """
 <no docs>
 """
-PADDW: int = 488
+PADDW: Mnemonic = 488 # type: ignore
 """
 <no docs>
 """
-PALIGNR: int = 489
+PALIGNR: Mnemonic = 489 # type: ignore
 """
 <no docs>
 """
-PAND: int = 490
+PAND: Mnemonic = 490 # type: ignore
 """
 <no docs>
 """
-PANDN: int = 491
+PANDN: Mnemonic = 491 # type: ignore
 """
 <no docs>
 """
-PAUSE: int = 492
+PAUSE: Mnemonic = 492 # type: ignore
 """
 <no docs>
 """
-PAVGB: int = 493
+PAVGB: Mnemonic = 493 # type: ignore
 """
 <no docs>
 """
-PAVGUSB: int = 494
+PAVGUSB: Mnemonic = 494 # type: ignore
 """
 <no docs>
 """
-PAVGW: int = 495
+PAVGW: Mnemonic = 495 # type: ignore
 """
 <no docs>
 """
-PBLENDVB: int = 496
+PBLENDVB: Mnemonic = 496 # type: ignore
 """
 <no docs>
 """
-PBLENDW: int = 497
+PBLENDW: Mnemonic = 497 # type: ignore
 """
 <no docs>
 """
-PCLMULQDQ: int = 498
+PCLMULQDQ: Mnemonic = 498 # type: ignore
 """
 <no docs>
 """
-PCMPEQB: int = 499
+PCMPEQB: Mnemonic = 499 # type: ignore
 """
 <no docs>
 """
-PCMPEQD: int = 500
+PCMPEQD: Mnemonic = 500 # type: ignore
 """
 <no docs>
 """
-PCMPEQQ: int = 501
+PCMPEQQ: Mnemonic = 501 # type: ignore
 """
 <no docs>
 """
-PCMPEQW: int = 502
+PCMPEQW: Mnemonic = 502 # type: ignore
 """
 <no docs>
 """
-PCMPESTRI: int = 503
+PCMPESTRI: Mnemonic = 503 # type: ignore
 """
 <no docs>
 """
-PCMPESTRI64: int = 504
+PCMPESTRI64: Mnemonic = 504 # type: ignore
 """
 <no docs>
 """
-PCMPESTRM: int = 505
+PCMPESTRM: Mnemonic = 505 # type: ignore
 """
 <no docs>
 """
-PCMPESTRM64: int = 506
+PCMPESTRM64: Mnemonic = 506 # type: ignore
 """
 <no docs>
 """
-PCMPGTB: int = 507
+PCMPGTB: Mnemonic = 507 # type: ignore
 """
 <no docs>
 """
-PCMPGTD: int = 508
+PCMPGTD: Mnemonic = 508 # type: ignore
 """
 <no docs>
 """
-PCMPGTQ: int = 509
+PCMPGTQ: Mnemonic = 509 # type: ignore
 """
 <no docs>
 """
-PCMPGTW: int = 510
+PCMPGTW: Mnemonic = 510 # type: ignore
 """
 <no docs>
 """
-PCMPISTRI: int = 511
+PCMPISTRI: Mnemonic = 511 # type: ignore
 """
 <no docs>
 """
-PCMPISTRM: int = 512
+PCMPISTRM: Mnemonic = 512 # type: ignore
 """
 <no docs>
 """
-PCOMMIT: int = 513
+PCOMMIT: Mnemonic = 513 # type: ignore
 """
 <no docs>
 """
-PCONFIG: int = 514
+PCONFIG: Mnemonic = 514 # type: ignore
 """
 <no docs>
 """
-PDEP: int = 515
+PDEP: Mnemonic = 515 # type: ignore
 """
 <no docs>
 """
-PEXT: int = 516
+PEXT: Mnemonic = 516 # type: ignore
 """
 <no docs>
 """
-PEXTRB: int = 517
+PEXTRB: Mnemonic = 517 # type: ignore
 """
 <no docs>
 """
-PEXTRD: int = 518
+PEXTRD: Mnemonic = 518 # type: ignore
 """
 <no docs>
 """
-PEXTRQ: int = 519
+PEXTRQ: Mnemonic = 519 # type: ignore
 """
 <no docs>
 """
-PEXTRW: int = 520
+PEXTRW: Mnemonic = 520 # type: ignore
 """
 <no docs>
 """
-PF2ID: int = 521
+PF2ID: Mnemonic = 521 # type: ignore
 """
 <no docs>
 """
-PF2IW: int = 522
+PF2IW: Mnemonic = 522 # type: ignore
 """
 <no docs>
 """
-PFACC: int = 523
+PFACC: Mnemonic = 523 # type: ignore
 """
 <no docs>
 """
-PFADD: int = 524
+PFADD: Mnemonic = 524 # type: ignore
 """
 <no docs>
 """
-PFCMPEQ: int = 525
+PFCMPEQ: Mnemonic = 525 # type: ignore
 """
 <no docs>
 """
-PFCMPGE: int = 526
+PFCMPGE: Mnemonic = 526 # type: ignore
 """
 <no docs>
 """
-PFCMPGT: int = 527
+PFCMPGT: Mnemonic = 527 # type: ignore
 """
 <no docs>
 """
-PFMAX: int = 528
+PFMAX: Mnemonic = 528 # type: ignore
 """
 <no docs>
 """
-PFMIN: int = 529
+PFMIN: Mnemonic = 529 # type: ignore
 """
 <no docs>
 """
-PFMUL: int = 530
+PFMUL: Mnemonic = 530 # type: ignore
 """
 <no docs>
 """
-PFNACC: int = 531
+PFNACC: Mnemonic = 531 # type: ignore
 """
 <no docs>
 """
-PFPNACC: int = 532
+PFPNACC: Mnemonic = 532 # type: ignore
 """
 <no docs>
 """
-PFRCP: int = 533
+PFRCP: Mnemonic = 533 # type: ignore
 """
 <no docs>
 """
-PFRCPIT1: int = 534
+PFRCPIT1: Mnemonic = 534 # type: ignore
 """
 <no docs>
 """
-PFRCPIT2: int = 535
+PFRCPIT2: Mnemonic = 535 # type: ignore
 """
 <no docs>
 """
-PFRCPV: int = 536
+PFRCPV: Mnemonic = 536 # type: ignore
 """
 <no docs>
 """
-PFRSQIT1: int = 537
+PFRSQIT1: Mnemonic = 537 # type: ignore
 """
 <no docs>
 """
-PFRSQRT: int = 538
+PFRSQRT: Mnemonic = 538 # type: ignore
 """
 <no docs>
 """
-PFRSQRTV: int = 539
+PFRSQRTV: Mnemonic = 539 # type: ignore
 """
 <no docs>
 """
-PFSUB: int = 540
+PFSUB: Mnemonic = 540 # type: ignore
 """
 <no docs>
 """
-PFSUBR: int = 541
+PFSUBR: Mnemonic = 541 # type: ignore
 """
 <no docs>
 """
-PHADDD: int = 542
+PHADDD: Mnemonic = 542 # type: ignore
 """
 <no docs>
 """
-PHADDSW: int = 543
+PHADDSW: Mnemonic = 543 # type: ignore
 """
 <no docs>
 """
-PHADDW: int = 544
+PHADDW: Mnemonic = 544 # type: ignore
 """
 <no docs>
 """
-PHMINPOSUW: int = 545
+PHMINPOSUW: Mnemonic = 545 # type: ignore
 """
 <no docs>
 """
-PHSUBD: int = 546
+PHSUBD: Mnemonic = 546 # type: ignore
 """
 <no docs>
 """
-PHSUBSW: int = 547
+PHSUBSW: Mnemonic = 547 # type: ignore
 """
 <no docs>
 """
-PHSUBW: int = 548
+PHSUBW: Mnemonic = 548 # type: ignore
 """
 <no docs>
 """
-PI2FD: int = 549
+PI2FD: Mnemonic = 549 # type: ignore
 """
 <no docs>
 """
-PI2FW: int = 550
+PI2FW: Mnemonic = 550 # type: ignore
 """
 <no docs>
 """
-PINSRB: int = 551
+PINSRB: Mnemonic = 551 # type: ignore
 """
 <no docs>
 """
-PINSRD: int = 552
+PINSRD: Mnemonic = 552 # type: ignore
 """
 <no docs>
 """
-PINSRQ: int = 553
+PINSRQ: Mnemonic = 553 # type: ignore
 """
 <no docs>
 """
-PINSRW: int = 554
+PINSRW: Mnemonic = 554 # type: ignore
 """
 <no docs>
 """
-PMADDUBSW: int = 555
+PMADDUBSW: Mnemonic = 555 # type: ignore
 """
 <no docs>
 """
-PMADDWD: int = 556
+PMADDWD: Mnemonic = 556 # type: ignore
 """
 <no docs>
 """
-PMAXSB: int = 557
+PMAXSB: Mnemonic = 557 # type: ignore
 """
 <no docs>
 """
-PMAXSD: int = 558
+PMAXSD: Mnemonic = 558 # type: ignore
 """
 <no docs>
 """
-PMAXSW: int = 559
+PMAXSW: Mnemonic = 559 # type: ignore
 """
 <no docs>
 """
-PMAXUB: int = 560
+PMAXUB: Mnemonic = 560 # type: ignore
 """
 <no docs>
 """
-PMAXUD: int = 561
+PMAXUD: Mnemonic = 561 # type: ignore
 """
 <no docs>
 """
-PMAXUW: int = 562
+PMAXUW: Mnemonic = 562 # type: ignore
 """
 <no docs>
 """
-PMINSB: int = 563
+PMINSB: Mnemonic = 563 # type: ignore
 """
 <no docs>
 """
-PMINSD: int = 564
+PMINSD: Mnemonic = 564 # type: ignore
 """
 <no docs>
 """
-PMINSW: int = 565
+PMINSW: Mnemonic = 565 # type: ignore
 """
 <no docs>
 """
-PMINUB: int = 566
+PMINUB: Mnemonic = 566 # type: ignore
 """
 <no docs>
 """
-PMINUD: int = 567
+PMINUD: Mnemonic = 567 # type: ignore
 """
 <no docs>
 """
-PMINUW: int = 568
+PMINUW: Mnemonic = 568 # type: ignore
 """
 <no docs>
 """
-PMOVMSKB: int = 569
+PMOVMSKB: Mnemonic = 569 # type: ignore
 """
 <no docs>
 """
-PMOVSXBD: int = 570
+PMOVSXBD: Mnemonic = 570 # type: ignore
 """
 <no docs>
 """
-PMOVSXBQ: int = 571
+PMOVSXBQ: Mnemonic = 571 # type: ignore
 """
 <no docs>
 """
-PMOVSXBW: int = 572
+PMOVSXBW: Mnemonic = 572 # type: ignore
 """
 <no docs>
 """
-PMOVSXDQ: int = 573
+PMOVSXDQ: Mnemonic = 573 # type: ignore
 """
 <no docs>
 """
-PMOVSXWD: int = 574
+PMOVSXWD: Mnemonic = 574 # type: ignore
 """
 <no docs>
 """
-PMOVSXWQ: int = 575
+PMOVSXWQ: Mnemonic = 575 # type: ignore
 """
 <no docs>
 """
-PMOVZXBD: int = 576
+PMOVZXBD: Mnemonic = 576 # type: ignore
 """
 <no docs>
 """
-PMOVZXBQ: int = 577
+PMOVZXBQ: Mnemonic = 577 # type: ignore
 """
 <no docs>
 """
-PMOVZXBW: int = 578
+PMOVZXBW: Mnemonic = 578 # type: ignore
 """
 <no docs>
 """
-PMOVZXDQ: int = 579
+PMOVZXDQ: Mnemonic = 579 # type: ignore
 """
 <no docs>
 """
-PMOVZXWD: int = 580
+PMOVZXWD: Mnemonic = 580 # type: ignore
 """
 <no docs>
 """
-PMOVZXWQ: int = 581
+PMOVZXWQ: Mnemonic = 581 # type: ignore
 """
 <no docs>
 """
-PMULDQ: int = 582
+PMULDQ: Mnemonic = 582 # type: ignore
 """
 <no docs>
 """
-PMULHRSW: int = 583
+PMULHRSW: Mnemonic = 583 # type: ignore
 """
 <no docs>
 """
-PMULHRW: int = 584
+PMULHRW: Mnemonic = 584 # type: ignore
 """
 <no docs>
 """
-PMULHUW: int = 585
+PMULHUW: Mnemonic = 585 # type: ignore
 """
 <no docs>
 """
-PMULHW: int = 586
+PMULHW: Mnemonic = 586 # type: ignore
 """
 <no docs>
 """
-PMULLD: int = 587
+PMULLD: Mnemonic = 587 # type: ignore
 """
 <no docs>
 """
-PMULLW: int = 588
+PMULLW: Mnemonic = 588 # type: ignore
 """
 <no docs>
 """
-PMULUDQ: int = 589
+PMULUDQ: Mnemonic = 589 # type: ignore
 """
 <no docs>
 """
-POP: int = 590
+POP: Mnemonic = 590 # type: ignore
 """
 <no docs>
 """
-POPA: int = 591
+POPA: Mnemonic = 591 # type: ignore
 """
 <no docs>
 """
-POPCNT: int = 592
+POPCNT: Mnemonic = 592 # type: ignore
 """
 <no docs>
 """
-POPF: int = 593
+POPF: Mnemonic = 593 # type: ignore
 """
 <no docs>
 """
-POR: int = 594
+POR: Mnemonic = 594 # type: ignore
 """
 <no docs>
 """
-PREFETCH: int = 595
+PREFETCH: Mnemonic = 595 # type: ignore
 """
 <no docs>
 """
-PREFETCHNTA: int = 596
+PREFETCHNTA: Mnemonic = 596 # type: ignore
 """
 <no docs>
 """
-PREFETCHT0: int = 597
+PREFETCHT0: Mnemonic = 597 # type: ignore
 """
 <no docs>
 """
-PREFETCHT1: int = 598
+PREFETCHT1: Mnemonic = 598 # type: ignore
 """
 <no docs>
 """
-PREFETCHT2: int = 599
+PREFETCHT2: Mnemonic = 599 # type: ignore
 """
 <no docs>
 """
-PREFETCHW: int = 600
+PREFETCHW: Mnemonic = 600 # type: ignore
 """
 <no docs>
 """
-PREFETCHWT1: int = 601
+PREFETCHWT1: Mnemonic = 601 # type: ignore
 """
 <no docs>
 """
-PSADBW: int = 602
+PSADBW: Mnemonic = 602 # type: ignore
 """
 <no docs>
 """
-PSHUFB: int = 603
+PSHUFB: Mnemonic = 603 # type: ignore
 """
 <no docs>
 """
-PSHUFD: int = 604
+PSHUFD: Mnemonic = 604 # type: ignore
 """
 <no docs>
 """
-PSHUFHW: int = 605
+PSHUFHW: Mnemonic = 605 # type: ignore
 """
 <no docs>
 """
-PSHUFLW: int = 606
+PSHUFLW: Mnemonic = 606 # type: ignore
 """
 <no docs>
 """
-PSHUFW: int = 607
+PSHUFW: Mnemonic = 607 # type: ignore
 """
 <no docs>
 """
-PSIGNB: int = 608
+PSIGNB: Mnemonic = 608 # type: ignore
 """
 <no docs>
 """
-PSIGND: int = 609
+PSIGND: Mnemonic = 609 # type: ignore
 """
 <no docs>
 """
-PSIGNW: int = 610
+PSIGNW: Mnemonic = 610 # type: ignore
 """
 <no docs>
 """
-PSLLD: int = 611
+PSLLD: Mnemonic = 611 # type: ignore
 """
 <no docs>
 """
-PSLLDQ: int = 612
+PSLLDQ: Mnemonic = 612 # type: ignore
 """
 <no docs>
 """
-PSLLQ: int = 613
+PSLLQ: Mnemonic = 613 # type: ignore
 """
 <no docs>
 """
-PSLLW: int = 614
+PSLLW: Mnemonic = 614 # type: ignore
 """
 <no docs>
 """
-PSRAD: int = 615
+PSRAD: Mnemonic = 615 # type: ignore
 """
 <no docs>
 """
-PSRAW: int = 616
+PSRAW: Mnemonic = 616 # type: ignore
 """
 <no docs>
 """
-PSRLD: int = 617
+PSRLD: Mnemonic = 617 # type: ignore
 """
 <no docs>
 """
-PSRLDQ: int = 618
+PSRLDQ: Mnemonic = 618 # type: ignore
 """
 <no docs>
 """
-PSRLQ: int = 619
+PSRLQ: Mnemonic = 619 # type: ignore
 """
 <no docs>
 """
-PSRLW: int = 620
+PSRLW: Mnemonic = 620 # type: ignore
 """
 <no docs>
 """
-PSUBB: int = 621
+PSUBB: Mnemonic = 621 # type: ignore
 """
 <no docs>
 """
-PSUBD: int = 622
+PSUBD: Mnemonic = 622 # type: ignore
 """
 <no docs>
 """
-PSUBQ: int = 623
+PSUBQ: Mnemonic = 623 # type: ignore
 """
 <no docs>
 """
-PSUBSB: int = 624
+PSUBSB: Mnemonic = 624 # type: ignore
 """
 <no docs>
 """
-PSUBSW: int = 625
+PSUBSW: Mnemonic = 625 # type: ignore
 """
 <no docs>
 """
-PSUBUSB: int = 626
+PSUBUSB: Mnemonic = 626 # type: ignore
 """
 <no docs>
 """
-PSUBUSW: int = 627
+PSUBUSW: Mnemonic = 627 # type: ignore
 """
 <no docs>
 """
-PSUBW: int = 628
+PSUBW: Mnemonic = 628 # type: ignore
 """
 <no docs>
 """
-PSWAPD: int = 629
+PSWAPD: Mnemonic = 629 # type: ignore
 """
 <no docs>
 """
-PTEST: int = 630
+PTEST: Mnemonic = 630 # type: ignore
 """
 <no docs>
 """
-PTWRITE: int = 631
+PTWRITE: Mnemonic = 631 # type: ignore
 """
 <no docs>
 """
-PUNPCKHBW: int = 632
+PUNPCKHBW: Mnemonic = 632 # type: ignore
 """
 <no docs>
 """
-PUNPCKHDQ: int = 633
+PUNPCKHDQ: Mnemonic = 633 # type: ignore
 """
 <no docs>
 """
-PUNPCKHQDQ: int = 634
+PUNPCKHQDQ: Mnemonic = 634 # type: ignore
 """
 <no docs>
 """
-PUNPCKHWD: int = 635
+PUNPCKHWD: Mnemonic = 635 # type: ignore
 """
 <no docs>
 """
-PUNPCKLBW: int = 636
+PUNPCKLBW: Mnemonic = 636 # type: ignore
 """
 <no docs>
 """
-PUNPCKLDQ: int = 637
+PUNPCKLDQ: Mnemonic = 637 # type: ignore
 """
 <no docs>
 """
-PUNPCKLQDQ: int = 638
+PUNPCKLQDQ: Mnemonic = 638 # type: ignore
 """
 <no docs>
 """
-PUNPCKLWD: int = 639
+PUNPCKLWD: Mnemonic = 639 # type: ignore
 """
 <no docs>
 """
-PUSH: int = 640
+PUSH: Mnemonic = 640 # type: ignore
 """
 <no docs>
 """
-PUSHA: int = 641
+PUSHA: Mnemonic = 641 # type: ignore
 """
 <no docs>
 """
-PUSHF: int = 642
+PUSHF: Mnemonic = 642 # type: ignore
 """
 <no docs>
 """
-PXOR: int = 643
+PXOR: Mnemonic = 643 # type: ignore
 """
 <no docs>
 """
-RCL: int = 644
+RCL: Mnemonic = 644 # type: ignore
 """
 <no docs>
 """
-RCPPS: int = 645
+RCPPS: Mnemonic = 645 # type: ignore
 """
 <no docs>
 """
-RCPSS: int = 646
+RCPSS: Mnemonic = 646 # type: ignore
 """
 <no docs>
 """
-RCR: int = 647
+RCR: Mnemonic = 647 # type: ignore
 """
 <no docs>
 """
-RDFSBASE: int = 648
+RDFSBASE: Mnemonic = 648 # type: ignore
 """
 <no docs>
 """
-RDGSBASE: int = 649
+RDGSBASE: Mnemonic = 649 # type: ignore
 """
 <no docs>
 """
-RDMSR: int = 650
+RDMSR: Mnemonic = 650 # type: ignore
 """
 <no docs>
 """
-RDPID: int = 651
+RDPID: Mnemonic = 651 # type: ignore
 """
 <no docs>
 """
-RDPKRU: int = 652
+RDPKRU: Mnemonic = 652 # type: ignore
 """
 <no docs>
 """
-RDPMC: int = 653
+RDPMC: Mnemonic = 653 # type: ignore
 """
 <no docs>
 """
-RDPRU: int = 654
+RDPRU: Mnemonic = 654 # type: ignore
 """
 <no docs>
 """
-RDRAND: int = 655
+RDRAND: Mnemonic = 655 # type: ignore
 """
 <no docs>
 """
-RDSEED: int = 656
+RDSEED: Mnemonic = 656 # type: ignore
 """
 <no docs>
 """
-RDSSPD: int = 657
+RDSSPD: Mnemonic = 657 # type: ignore
 """
 <no docs>
 """
-RDSSPQ: int = 658
+RDSSPQ: Mnemonic = 658 # type: ignore
 """
 <no docs>
 """
-RDTSC: int = 659
+RDTSC: Mnemonic = 659 # type: ignore
 """
 <no docs>
 """
-RDTSCP: int = 660
+RDTSCP: Mnemonic = 660 # type: ignore
 """
 <no docs>
 """
-RESERVEDNOP: int = 661
+RESERVEDNOP: Mnemonic = 661 # type: ignore
 """
 <no docs>
 """
-RET: int = 662
+RET: Mnemonic = 662 # type: ignore
 """
 <no docs>
 """
-RETF: int = 663
+RETF: Mnemonic = 663 # type: ignore
 """
 <no docs>
 """
-ROL: int = 664
+ROL: Mnemonic = 664 # type: ignore
 """
 <no docs>
 """
-ROR: int = 665
+ROR: Mnemonic = 665 # type: ignore
 """
 <no docs>
 """
-RORX: int = 666
+RORX: Mnemonic = 666 # type: ignore
 """
 <no docs>
 """
-ROUNDPD: int = 667
+ROUNDPD: Mnemonic = 667 # type: ignore
 """
 <no docs>
 """
-ROUNDPS: int = 668
+ROUNDPS: Mnemonic = 668 # type: ignore
 """
 <no docs>
 """
-ROUNDSD: int = 669
+ROUNDSD: Mnemonic = 669 # type: ignore
 """
 <no docs>
 """
-ROUNDSS: int = 670
+ROUNDSS: Mnemonic = 670 # type: ignore
 """
 <no docs>
 """
-RSM: int = 671
+RSM: Mnemonic = 671 # type: ignore
 """
 <no docs>
 """
-RSQRTPS: int = 672
+RSQRTPS: Mnemonic = 672 # type: ignore
 """
 <no docs>
 """
-RSQRTSS: int = 673
+RSQRTSS: Mnemonic = 673 # type: ignore
 """
 <no docs>
 """
-RSTORSSP: int = 674
+RSTORSSP: Mnemonic = 674 # type: ignore
 """
 <no docs>
 """
-SAHF: int = 675
+SAHF: Mnemonic = 675 # type: ignore
 """
 <no docs>
 """
-SAL: int = 676
+SAL: Mnemonic = 676 # type: ignore
 """
 <no docs>
 """
-SALC: int = 677
+SALC: Mnemonic = 677 # type: ignore
 """
 <no docs>
 """
-SAR: int = 678
+SAR: Mnemonic = 678 # type: ignore
 """
 <no docs>
 """
-SARX: int = 679
+SARX: Mnemonic = 679 # type: ignore
 """
 <no docs>
 """
-SAVEPREVSSP: int = 680
+SAVEPREVSSP: Mnemonic = 680 # type: ignore
 """
 <no docs>
 """
-SBB: int = 681
+SBB: Mnemonic = 681 # type: ignore
 """
 <no docs>
 """
-SCASB: int = 682
+SCASB: Mnemonic = 682 # type: ignore
 """
 <no docs>
 """
-SCASD: int = 683
+SCASD: Mnemonic = 683 # type: ignore
 """
 <no docs>
 """
-SCASQ: int = 684
+SCASQ: Mnemonic = 684 # type: ignore
 """
 <no docs>
 """
-SCASW: int = 685
+SCASW: Mnemonic = 685 # type: ignore
 """
 <no docs>
 """
-SETA: int = 686
+SETA: Mnemonic = 686 # type: ignore
 """
 <no docs>
 """
-SETAE: int = 687
+SETAE: Mnemonic = 687 # type: ignore
 """
 <no docs>
 """
-SETB: int = 688
+SETB: Mnemonic = 688 # type: ignore
 """
 <no docs>
 """
-SETBE: int = 689
+SETBE: Mnemonic = 689 # type: ignore
 """
 <no docs>
 """
-SETE: int = 690
+SETE: Mnemonic = 690 # type: ignore
 """
 <no docs>
 """
-SETG: int = 691
+SETG: Mnemonic = 691 # type: ignore
 """
 <no docs>
 """
-SETGE: int = 692
+SETGE: Mnemonic = 692 # type: ignore
 """
 <no docs>
 """
-SETL: int = 693
+SETL: Mnemonic = 693 # type: ignore
 """
 <no docs>
 """
-SETLE: int = 694
+SETLE: Mnemonic = 694 # type: ignore
 """
 <no docs>
 """
-SETNE: int = 695
+SETNE: Mnemonic = 695 # type: ignore
 """
 <no docs>
 """
-SETNO: int = 696
+SETNO: Mnemonic = 696 # type: ignore
 """
 <no docs>
 """
-SETNP: int = 697
+SETNP: Mnemonic = 697 # type: ignore
 """
 <no docs>
 """
-SETNS: int = 698
+SETNS: Mnemonic = 698 # type: ignore
 """
 <no docs>
 """
-SETO: int = 699
+SETO: Mnemonic = 699 # type: ignore
 """
 <no docs>
 """
-SETP: int = 700
+SETP: Mnemonic = 700 # type: ignore
 """
 <no docs>
 """
-SETS: int = 701
+SETS: Mnemonic = 701 # type: ignore
 """
 <no docs>
 """
-SETSSBSY: int = 702
+SETSSBSY: Mnemonic = 702 # type: ignore
 """
 <no docs>
 """
-SFENCE: int = 703
+SFENCE: Mnemonic = 703 # type: ignore
 """
 <no docs>
 """
-SGDT: int = 704
+SGDT: Mnemonic = 704 # type: ignore
 """
 <no docs>
 """
-SHA1MSG1: int = 705
+SHA1MSG1: Mnemonic = 705 # type: ignore
 """
 <no docs>
 """
-SHA1MSG2: int = 706
+SHA1MSG2: Mnemonic = 706 # type: ignore
 """
 <no docs>
 """
-SHA1NEXTE: int = 707
+SHA1NEXTE: Mnemonic = 707 # type: ignore
 """
 <no docs>
 """
-SHA1RNDS4: int = 708
+SHA1RNDS4: Mnemonic = 708 # type: ignore
 """
 <no docs>
 """
-SHA256MSG1: int = 709
+SHA256MSG1: Mnemonic = 709 # type: ignore
 """
 <no docs>
 """
-SHA256MSG2: int = 710
+SHA256MSG2: Mnemonic = 710 # type: ignore
 """
 <no docs>
 """
-SHA256RNDS2: int = 711
+SHA256RNDS2: Mnemonic = 711 # type: ignore
 """
 <no docs>
 """
-SHL: int = 712
+SHL: Mnemonic = 712 # type: ignore
 """
 <no docs>
 """
-SHLD: int = 713
+SHLD: Mnemonic = 713 # type: ignore
 """
 <no docs>
 """
-SHLX: int = 714
+SHLX: Mnemonic = 714 # type: ignore
 """
 <no docs>
 """
-SHR: int = 715
+SHR: Mnemonic = 715 # type: ignore
 """
 <no docs>
 """
-SHRD: int = 716
+SHRD: Mnemonic = 716 # type: ignore
 """
 <no docs>
 """
-SHRX: int = 717
+SHRX: Mnemonic = 717 # type: ignore
 """
 <no docs>
 """
-SHUFPD: int = 718
+SHUFPD: Mnemonic = 718 # type: ignore
 """
 <no docs>
 """
-SHUFPS: int = 719
+SHUFPS: Mnemonic = 719 # type: ignore
 """
 <no docs>
 """
-SIDT: int = 720
+SIDT: Mnemonic = 720 # type: ignore
 """
 <no docs>
 """
-SKINIT: int = 721
+SKINIT: Mnemonic = 721 # type: ignore
 """
 <no docs>
 """
-SLDT: int = 722
+SLDT: Mnemonic = 722 # type: ignore
 """
 <no docs>
 """
-SLWPCB: int = 723
+SLWPCB: Mnemonic = 723 # type: ignore
 """
 <no docs>
 """
-SMSW: int = 724
+SMSW: Mnemonic = 724 # type: ignore
 """
 <no docs>
 """
-SQRTPD: int = 725
+SQRTPD: Mnemonic = 725 # type: ignore
 """
 <no docs>
 """
-SQRTPS: int = 726
+SQRTPS: Mnemonic = 726 # type: ignore
 """
 <no docs>
 """
-SQRTSD: int = 727
+SQRTSD: Mnemonic = 727 # type: ignore
 """
 <no docs>
 """
-SQRTSS: int = 728
+SQRTSS: Mnemonic = 728 # type: ignore
 """
 <no docs>
 """
-STAC: int = 729
+STAC: Mnemonic = 729 # type: ignore
 """
 <no docs>
 """
-STC: int = 730
+STC: Mnemonic = 730 # type: ignore
 """
 <no docs>
 """
-STD: int = 731
+STD: Mnemonic = 731 # type: ignore
 """
 <no docs>
 """
-STGI: int = 732
+STGI: Mnemonic = 732 # type: ignore
 """
 <no docs>
 """
-STI: int = 733
+STI: Mnemonic = 733 # type: ignore
 """
 <no docs>
 """
-STMXCSR: int = 734
+STMXCSR: Mnemonic = 734 # type: ignore
 """
 <no docs>
 """
-STOSB: int = 735
+STOSB: Mnemonic = 735 # type: ignore
 """
 <no docs>
 """
-STOSD: int = 736
+STOSD: Mnemonic = 736 # type: ignore
 """
 <no docs>
 """
-STOSQ: int = 737
+STOSQ: Mnemonic = 737 # type: ignore
 """
 <no docs>
 """
-STOSW: int = 738
+STOSW: Mnemonic = 738 # type: ignore
 """
 <no docs>
 """
-STR: int = 739
+STR: Mnemonic = 739 # type: ignore
 """
 <no docs>
 """
-SUB: int = 740
+SUB: Mnemonic = 740 # type: ignore
 """
 <no docs>
 """
-SUBPD: int = 741
+SUBPD: Mnemonic = 741 # type: ignore
 """
 <no docs>
 """
-SUBPS: int = 742
+SUBPS: Mnemonic = 742 # type: ignore
 """
 <no docs>
 """
-SUBSD: int = 743
+SUBSD: Mnemonic = 743 # type: ignore
 """
 <no docs>
 """
-SUBSS: int = 744
+SUBSS: Mnemonic = 744 # type: ignore
 """
 <no docs>
 """
-SWAPGS: int = 745
+SWAPGS: Mnemonic = 745 # type: ignore
 """
 <no docs>
 """
-SYSCALL: int = 746
+SYSCALL: Mnemonic = 746 # type: ignore
 """
 <no docs>
 """
-SYSENTER: int = 747
+SYSENTER: Mnemonic = 747 # type: ignore
 """
 <no docs>
 """
-SYSEXIT: int = 748
+SYSEXIT: Mnemonic = 748 # type: ignore
 """
 <no docs>
 """
-SYSRET: int = 749
+SYSRET: Mnemonic = 749 # type: ignore
 """
 <no docs>
 """
-T1MSKC: int = 750
+T1MSKC: Mnemonic = 750 # type: ignore
 """
 <no docs>
 """
-TEST: int = 751
+TEST: Mnemonic = 751 # type: ignore
 """
 <no docs>
 """
-TPAUSE: int = 752
+TPAUSE: Mnemonic = 752 # type: ignore
 """
 <no docs>
 """
-TZCNT: int = 753
+TZCNT: Mnemonic = 753 # type: ignore
 """
 <no docs>
 """
-TZMSK: int = 754
+TZMSK: Mnemonic = 754 # type: ignore
 """
 <no docs>
 """
-UCOMISD: int = 755
+UCOMISD: Mnemonic = 755 # type: ignore
 """
 <no docs>
 """
-UCOMISS: int = 756
+UCOMISS: Mnemonic = 756 # type: ignore
 """
 <no docs>
 """
-UD0: int = 757
+UD0: Mnemonic = 757 # type: ignore
 """
 <no docs>
 """
-UD1: int = 758
+UD1: Mnemonic = 758 # type: ignore
 """
 <no docs>
 """
-UD2: int = 759
+UD2: Mnemonic = 759 # type: ignore
 """
 <no docs>
 """
-UMONITOR: int = 760
+UMONITOR: Mnemonic = 760 # type: ignore
 """
 <no docs>
 """
-UMOV: int = 761
+UMOV: Mnemonic = 761 # type: ignore
 """
 <no docs>
 """
-UMWAIT: int = 762
+UMWAIT: Mnemonic = 762 # type: ignore
 """
 <no docs>
 """
-UNPCKHPD: int = 763
+UNPCKHPD: Mnemonic = 763 # type: ignore
 """
 <no docs>
 """
-UNPCKHPS: int = 764
+UNPCKHPS: Mnemonic = 764 # type: ignore
 """
 <no docs>
 """
-UNPCKLPD: int = 765
+UNPCKLPD: Mnemonic = 765 # type: ignore
 """
 <no docs>
 """
-UNPCKLPS: int = 766
+UNPCKLPS: Mnemonic = 766 # type: ignore
 """
 <no docs>
 """
-V4FMADDPS: int = 767
+V4FMADDPS: Mnemonic = 767 # type: ignore
 """
 <no docs>
 """
-V4FMADDSS: int = 768
+V4FMADDSS: Mnemonic = 768 # type: ignore
 """
 <no docs>
 """
-V4FNMADDPS: int = 769
+V4FNMADDPS: Mnemonic = 769 # type: ignore
 """
 <no docs>
 """
-V4FNMADDSS: int = 770
+V4FNMADDSS: Mnemonic = 770 # type: ignore
 """
 <no docs>
 """
-VADDPD: int = 771
+VADDPD: Mnemonic = 771 # type: ignore
 """
 <no docs>
 """
-VADDPS: int = 772
+VADDPS: Mnemonic = 772 # type: ignore
 """
 <no docs>
 """
-VADDSD: int = 773
+VADDSD: Mnemonic = 773 # type: ignore
 """
 <no docs>
 """
-VADDSS: int = 774
+VADDSS: Mnemonic = 774 # type: ignore
 """
 <no docs>
 """
-VADDSUBPD: int = 775
+VADDSUBPD: Mnemonic = 775 # type: ignore
 """
 <no docs>
 """
-VADDSUBPS: int = 776
+VADDSUBPS: Mnemonic = 776 # type: ignore
 """
 <no docs>
 """
-VAESDEC: int = 777
+VAESDEC: Mnemonic = 777 # type: ignore
 """
 <no docs>
 """
-VAESDECLAST: int = 778
+VAESDECLAST: Mnemonic = 778 # type: ignore
 """
 <no docs>
 """
-VAESENC: int = 779
+VAESENC: Mnemonic = 779 # type: ignore
 """
 <no docs>
 """
-VAESENCLAST: int = 780
+VAESENCLAST: Mnemonic = 780 # type: ignore
 """
 <no docs>
 """
-VAESIMC: int = 781
+VAESIMC: Mnemonic = 781 # type: ignore
 """
 <no docs>
 """
-VAESKEYGENASSIST: int = 782
+VAESKEYGENASSIST: Mnemonic = 782 # type: ignore
 """
 <no docs>
 """
-VALIGND: int = 783
+VALIGND: Mnemonic = 783 # type: ignore
 """
 <no docs>
 """
-VALIGNQ: int = 784
+VALIGNQ: Mnemonic = 784 # type: ignore
 """
 <no docs>
 """
-VANDNPD: int = 785
+VANDNPD: Mnemonic = 785 # type: ignore
 """
 <no docs>
 """
-VANDNPS: int = 786
+VANDNPS: Mnemonic = 786 # type: ignore
 """
 <no docs>
 """
-VANDPD: int = 787
+VANDPD: Mnemonic = 787 # type: ignore
 """
 <no docs>
 """
-VANDPS: int = 788
+VANDPS: Mnemonic = 788 # type: ignore
 """
 <no docs>
 """
-VBLENDMPD: int = 789
+VBLENDMPD: Mnemonic = 789 # type: ignore
 """
 <no docs>
 """
-VBLENDMPS: int = 790
+VBLENDMPS: Mnemonic = 790 # type: ignore
 """
 <no docs>
 """
-VBLENDPD: int = 791
+VBLENDPD: Mnemonic = 791 # type: ignore
 """
 <no docs>
 """
-VBLENDPS: int = 792
+VBLENDPS: Mnemonic = 792 # type: ignore
 """
 <no docs>
 """
-VBLENDVPD: int = 793
+VBLENDVPD: Mnemonic = 793 # type: ignore
 """
 <no docs>
 """
-VBLENDVPS: int = 794
+VBLENDVPS: Mnemonic = 794 # type: ignore
 """
 <no docs>
 """
-VBROADCASTF128: int = 795
+VBROADCASTF128: Mnemonic = 795 # type: ignore
 """
 <no docs>
 """
-VBROADCASTF32X2: int = 796
+VBROADCASTF32X2: Mnemonic = 796 # type: ignore
 """
 <no docs>
 """
-VBROADCASTF32X4: int = 797
+VBROADCASTF32X4: Mnemonic = 797 # type: ignore
 """
 <no docs>
 """
-VBROADCASTF32X8: int = 798
+VBROADCASTF32X8: Mnemonic = 798 # type: ignore
 """
 <no docs>
 """
-VBROADCASTF64X2: int = 799
+VBROADCASTF64X2: Mnemonic = 799 # type: ignore
 """
 <no docs>
 """
-VBROADCASTF64X4: int = 800
+VBROADCASTF64X4: Mnemonic = 800 # type: ignore
 """
 <no docs>
 """
-VBROADCASTI128: int = 801
+VBROADCASTI128: Mnemonic = 801 # type: ignore
 """
 <no docs>
 """
-VBROADCASTI32X2: int = 802
+VBROADCASTI32X2: Mnemonic = 802 # type: ignore
 """
 <no docs>
 """
-VBROADCASTI32X4: int = 803
+VBROADCASTI32X4: Mnemonic = 803 # type: ignore
 """
 <no docs>
 """
-VBROADCASTI32X8: int = 804
+VBROADCASTI32X8: Mnemonic = 804 # type: ignore
 """
 <no docs>
 """
-VBROADCASTI64X2: int = 805
+VBROADCASTI64X2: Mnemonic = 805 # type: ignore
 """
 <no docs>
 """
-VBROADCASTI64X4: int = 806
+VBROADCASTI64X4: Mnemonic = 806 # type: ignore
 """
 <no docs>
 """
-VBROADCASTSD: int = 807
+VBROADCASTSD: Mnemonic = 807 # type: ignore
 """
 <no docs>
 """
-VBROADCASTSS: int = 808
+VBROADCASTSS: Mnemonic = 808 # type: ignore
 """
 <no docs>
 """
-VCMPPD: int = 809
+VCMPPD: Mnemonic = 809 # type: ignore
 """
 <no docs>
 """
-VCMPPS: int = 810
+VCMPPS: Mnemonic = 810 # type: ignore
 """
 <no docs>
 """
-VCMPSD: int = 811
+VCMPSD: Mnemonic = 811 # type: ignore
 """
 <no docs>
 """
-VCMPSS: int = 812
+VCMPSS: Mnemonic = 812 # type: ignore
 """
 <no docs>
 """
-VCOMISD: int = 813
+VCOMISD: Mnemonic = 813 # type: ignore
 """
 <no docs>
 """
-VCOMISS: int = 814
+VCOMISS: Mnemonic = 814 # type: ignore
 """
 <no docs>
 """
-VCOMPRESSPD: int = 815
+VCOMPRESSPD: Mnemonic = 815 # type: ignore
 """
 <no docs>
 """
-VCOMPRESSPS: int = 816
+VCOMPRESSPS: Mnemonic = 816 # type: ignore
 """
 <no docs>
 """
-VCVTDQ2PD: int = 817
+VCVTDQ2PD: Mnemonic = 817 # type: ignore
 """
 <no docs>
 """
-VCVTDQ2PS: int = 818
+VCVTDQ2PS: Mnemonic = 818 # type: ignore
 """
 <no docs>
 """
-VCVTNE2PS2BF16: int = 819
+VCVTNE2PS2BF16: Mnemonic = 819 # type: ignore
 """
 <no docs>
 """
-VCVTNEPS2BF16: int = 820
+VCVTNEPS2BF16: Mnemonic = 820 # type: ignore
 """
 <no docs>
 """
-VCVTPD2DQ: int = 821
+VCVTPD2DQ: Mnemonic = 821 # type: ignore
 """
 <no docs>
 """
-VCVTPD2PS: int = 822
+VCVTPD2PS: Mnemonic = 822 # type: ignore
 """
 <no docs>
 """
-VCVTPD2QQ: int = 823
+VCVTPD2QQ: Mnemonic = 823 # type: ignore
 """
 <no docs>
 """
-VCVTPD2UDQ: int = 824
+VCVTPD2UDQ: Mnemonic = 824 # type: ignore
 """
 <no docs>
 """
-VCVTPD2UQQ: int = 825
+VCVTPD2UQQ: Mnemonic = 825 # type: ignore
 """
 <no docs>
 """
-VCVTPH2PS: int = 826
+VCVTPH2PS: Mnemonic = 826 # type: ignore
 """
 <no docs>
 """
-VCVTPS2DQ: int = 827
+VCVTPS2DQ: Mnemonic = 827 # type: ignore
 """
 <no docs>
 """
-VCVTPS2PD: int = 828
+VCVTPS2PD: Mnemonic = 828 # type: ignore
 """
 <no docs>
 """
-VCVTPS2PH: int = 829
+VCVTPS2PH: Mnemonic = 829 # type: ignore
 """
 <no docs>
 """
-VCVTPS2QQ: int = 830
+VCVTPS2QQ: Mnemonic = 830 # type: ignore
 """
 <no docs>
 """
-VCVTPS2UDQ: int = 831
+VCVTPS2UDQ: Mnemonic = 831 # type: ignore
 """
 <no docs>
 """
-VCVTPS2UQQ: int = 832
+VCVTPS2UQQ: Mnemonic = 832 # type: ignore
 """
 <no docs>
 """
-VCVTQQ2PD: int = 833
+VCVTQQ2PD: Mnemonic = 833 # type: ignore
 """
 <no docs>
 """
-VCVTQQ2PS: int = 834
+VCVTQQ2PS: Mnemonic = 834 # type: ignore
 """
 <no docs>
 """
-VCVTSD2SI: int = 835
+VCVTSD2SI: Mnemonic = 835 # type: ignore
 """
 <no docs>
 """
-VCVTSD2SS: int = 836
+VCVTSD2SS: Mnemonic = 836 # type: ignore
 """
 <no docs>
 """
-VCVTSD2USI: int = 837
+VCVTSD2USI: Mnemonic = 837 # type: ignore
 """
 <no docs>
 """
-VCVTSI2SD: int = 838
+VCVTSI2SD: Mnemonic = 838 # type: ignore
 """
 <no docs>
 """
-VCVTSI2SS: int = 839
+VCVTSI2SS: Mnemonic = 839 # type: ignore
 """
 <no docs>
 """
-VCVTSS2SD: int = 840
+VCVTSS2SD: Mnemonic = 840 # type: ignore
 """
 <no docs>
 """
-VCVTSS2SI: int = 841
+VCVTSS2SI: Mnemonic = 841 # type: ignore
 """
 <no docs>
 """
-VCVTSS2USI: int = 842
+VCVTSS2USI: Mnemonic = 842 # type: ignore
 """
 <no docs>
 """
-VCVTTPD2DQ: int = 843
+VCVTTPD2DQ: Mnemonic = 843 # type: ignore
 """
 <no docs>
 """
-VCVTTPD2QQ: int = 844
+VCVTTPD2QQ: Mnemonic = 844 # type: ignore
 """
 <no docs>
 """
-VCVTTPD2UDQ: int = 845
+VCVTTPD2UDQ: Mnemonic = 845 # type: ignore
 """
 <no docs>
 """
-VCVTTPD2UQQ: int = 846
+VCVTTPD2UQQ: Mnemonic = 846 # type: ignore
 """
 <no docs>
 """
-VCVTTPS2DQ: int = 847
+VCVTTPS2DQ: Mnemonic = 847 # type: ignore
 """
 <no docs>
 """
-VCVTTPS2QQ: int = 848
+VCVTTPS2QQ: Mnemonic = 848 # type: ignore
 """
 <no docs>
 """
-VCVTTPS2UDQ: int = 849
+VCVTTPS2UDQ: Mnemonic = 849 # type: ignore
 """
 <no docs>
 """
-VCVTTPS2UQQ: int = 850
+VCVTTPS2UQQ: Mnemonic = 850 # type: ignore
 """
 <no docs>
 """
-VCVTTSD2SI: int = 851
+VCVTTSD2SI: Mnemonic = 851 # type: ignore
 """
 <no docs>
 """
-VCVTTSD2USI: int = 852
+VCVTTSD2USI: Mnemonic = 852 # type: ignore
 """
 <no docs>
 """
-VCVTTSS2SI: int = 853
+VCVTTSS2SI: Mnemonic = 853 # type: ignore
 """
 <no docs>
 """
-VCVTTSS2USI: int = 854
+VCVTTSS2USI: Mnemonic = 854 # type: ignore
 """
 <no docs>
 """
-VCVTUDQ2PD: int = 855
+VCVTUDQ2PD: Mnemonic = 855 # type: ignore
 """
 <no docs>
 """
-VCVTUDQ2PS: int = 856
+VCVTUDQ2PS: Mnemonic = 856 # type: ignore
 """
 <no docs>
 """
-VCVTUQQ2PD: int = 857
+VCVTUQQ2PD: Mnemonic = 857 # type: ignore
 """
 <no docs>
 """
-VCVTUQQ2PS: int = 858
+VCVTUQQ2PS: Mnemonic = 858 # type: ignore
 """
 <no docs>
 """
-VCVTUSI2SD: int = 859
+VCVTUSI2SD: Mnemonic = 859 # type: ignore
 """
 <no docs>
 """
-VCVTUSI2SS: int = 860
+VCVTUSI2SS: Mnemonic = 860 # type: ignore
 """
 <no docs>
 """
-VDBPSADBW: int = 861
+VDBPSADBW: Mnemonic = 861 # type: ignore
 """
 <no docs>
 """
-VDIVPD: int = 862
+VDIVPD: Mnemonic = 862 # type: ignore
 """
 <no docs>
 """
-VDIVPS: int = 863
+VDIVPS: Mnemonic = 863 # type: ignore
 """
 <no docs>
 """
-VDIVSD: int = 864
+VDIVSD: Mnemonic = 864 # type: ignore
 """
 <no docs>
 """
-VDIVSS: int = 865
+VDIVSS: Mnemonic = 865 # type: ignore
 """
 <no docs>
 """
-VDPBF16PS: int = 866
+VDPBF16PS: Mnemonic = 866 # type: ignore
 """
 <no docs>
 """
-VDPPD: int = 867
+VDPPD: Mnemonic = 867 # type: ignore
 """
 <no docs>
 """
-VDPPS: int = 868
+VDPPS: Mnemonic = 868 # type: ignore
 """
 <no docs>
 """
-VERR: int = 869
+VERR: Mnemonic = 869 # type: ignore
 """
 <no docs>
 """
-VERW: int = 870
+VERW: Mnemonic = 870 # type: ignore
 """
 <no docs>
 """
-VEXP2PD: int = 871
+VEXP2PD: Mnemonic = 871 # type: ignore
 """
 <no docs>
 """
-VEXP2PS: int = 872
+VEXP2PS: Mnemonic = 872 # type: ignore
 """
 <no docs>
 """
-VEXPANDPD: int = 873
+VEXPANDPD: Mnemonic = 873 # type: ignore
 """
 <no docs>
 """
-VEXPANDPS: int = 874
+VEXPANDPS: Mnemonic = 874 # type: ignore
 """
 <no docs>
 """
-VEXTRACTF128: int = 875
+VEXTRACTF128: Mnemonic = 875 # type: ignore
 """
 <no docs>
 """
-VEXTRACTF32X4: int = 876
+VEXTRACTF32X4: Mnemonic = 876 # type: ignore
 """
 <no docs>
 """
-VEXTRACTF32X8: int = 877
+VEXTRACTF32X8: Mnemonic = 877 # type: ignore
 """
 <no docs>
 """
-VEXTRACTF64X2: int = 878
+VEXTRACTF64X2: Mnemonic = 878 # type: ignore
 """
 <no docs>
 """
-VEXTRACTF64X4: int = 879
+VEXTRACTF64X4: Mnemonic = 879 # type: ignore
 """
 <no docs>
 """
-VEXTRACTI128: int = 880
+VEXTRACTI128: Mnemonic = 880 # type: ignore
 """
 <no docs>
 """
-VEXTRACTI32X4: int = 881
+VEXTRACTI32X4: Mnemonic = 881 # type: ignore
 """
 <no docs>
 """
-VEXTRACTI32X8: int = 882
+VEXTRACTI32X8: Mnemonic = 882 # type: ignore
 """
 <no docs>
 """
-VEXTRACTI64X2: int = 883
+VEXTRACTI64X2: Mnemonic = 883 # type: ignore
 """
 <no docs>
 """
-VEXTRACTI64X4: int = 884
+VEXTRACTI64X4: Mnemonic = 884 # type: ignore
 """
 <no docs>
 """
-VEXTRACTPS: int = 885
+VEXTRACTPS: Mnemonic = 885 # type: ignore
 """
 <no docs>
 """
-VFIXUPIMMPD: int = 886
+VFIXUPIMMPD: Mnemonic = 886 # type: ignore
 """
 <no docs>
 """
-VFIXUPIMMPS: int = 887
+VFIXUPIMMPS: Mnemonic = 887 # type: ignore
 """
 <no docs>
 """
-VFIXUPIMMSD: int = 888
+VFIXUPIMMSD: Mnemonic = 888 # type: ignore
 """
 <no docs>
 """
-VFIXUPIMMSS: int = 889
+VFIXUPIMMSS: Mnemonic = 889 # type: ignore
 """
 <no docs>
 """
-VFMADD132PD: int = 890
+VFMADD132PD: Mnemonic = 890 # type: ignore
 """
 <no docs>
 """
-VFMADD132PS: int = 891
+VFMADD132PS: Mnemonic = 891 # type: ignore
 """
 <no docs>
 """
-VFMADD132SD: int = 892
+VFMADD132SD: Mnemonic = 892 # type: ignore
 """
 <no docs>
 """
-VFMADD132SS: int = 893
+VFMADD132SS: Mnemonic = 893 # type: ignore
 """
 <no docs>
 """
-VFMADD213PD: int = 894
+VFMADD213PD: Mnemonic = 894 # type: ignore
 """
 <no docs>
 """
-VFMADD213PS: int = 895
+VFMADD213PS: Mnemonic = 895 # type: ignore
 """
 <no docs>
 """
-VFMADD213SD: int = 896
+VFMADD213SD: Mnemonic = 896 # type: ignore
 """
 <no docs>
 """
-VFMADD213SS: int = 897
+VFMADD213SS: Mnemonic = 897 # type: ignore
 """
 <no docs>
 """
-VFMADD231PD: int = 898
+VFMADD231PD: Mnemonic = 898 # type: ignore
 """
 <no docs>
 """
-VFMADD231PS: int = 899
+VFMADD231PS: Mnemonic = 899 # type: ignore
 """
 <no docs>
 """
-VFMADD231SD: int = 900
+VFMADD231SD: Mnemonic = 900 # type: ignore
 """
 <no docs>
 """
-VFMADD231SS: int = 901
+VFMADD231SS: Mnemonic = 901 # type: ignore
 """
 <no docs>
 """
-VFMADDPD: int = 902
+VFMADDPD: Mnemonic = 902 # type: ignore
 """
 <no docs>
 """
-VFMADDPS: int = 903
+VFMADDPS: Mnemonic = 903 # type: ignore
 """
 <no docs>
 """
-VFMADDSD: int = 904
+VFMADDSD: Mnemonic = 904 # type: ignore
 """
 <no docs>
 """
-VFMADDSS: int = 905
+VFMADDSS: Mnemonic = 905 # type: ignore
 """
 <no docs>
 """
-VFMADDSUB132PD: int = 906
+VFMADDSUB132PD: Mnemonic = 906 # type: ignore
 """
 <no docs>
 """
-VFMADDSUB132PS: int = 907
+VFMADDSUB132PS: Mnemonic = 907 # type: ignore
 """
 <no docs>
 """
-VFMADDSUB213PD: int = 908
+VFMADDSUB213PD: Mnemonic = 908 # type: ignore
 """
 <no docs>
 """
-VFMADDSUB213PS: int = 909
+VFMADDSUB213PS: Mnemonic = 909 # type: ignore
 """
 <no docs>
 """
-VFMADDSUB231PD: int = 910
+VFMADDSUB231PD: Mnemonic = 910 # type: ignore
 """
 <no docs>
 """
-VFMADDSUB231PS: int = 911
+VFMADDSUB231PS: Mnemonic = 911 # type: ignore
 """
 <no docs>
 """
-VFMADDSUBPD: int = 912
+VFMADDSUBPD: Mnemonic = 912 # type: ignore
 """
 <no docs>
 """
-VFMADDSUBPS: int = 913
+VFMADDSUBPS: Mnemonic = 913 # type: ignore
 """
 <no docs>
 """
-VFMSUB132PD: int = 914
+VFMSUB132PD: Mnemonic = 914 # type: ignore
 """
 <no docs>
 """
-VFMSUB132PS: int = 915
+VFMSUB132PS: Mnemonic = 915 # type: ignore
 """
 <no docs>
 """
-VFMSUB132SD: int = 916
+VFMSUB132SD: Mnemonic = 916 # type: ignore
 """
 <no docs>
 """
-VFMSUB132SS: int = 917
+VFMSUB132SS: Mnemonic = 917 # type: ignore
 """
 <no docs>
 """
-VFMSUB213PD: int = 918
+VFMSUB213PD: Mnemonic = 918 # type: ignore
 """
 <no docs>
 """
-VFMSUB213PS: int = 919
+VFMSUB213PS: Mnemonic = 919 # type: ignore
 """
 <no docs>
 """
-VFMSUB213SD: int = 920
+VFMSUB213SD: Mnemonic = 920 # type: ignore
 """
 <no docs>
 """
-VFMSUB213SS: int = 921
+VFMSUB213SS: Mnemonic = 921 # type: ignore
 """
 <no docs>
 """
-VFMSUB231PD: int = 922
+VFMSUB231PD: Mnemonic = 922 # type: ignore
 """
 <no docs>
 """
-VFMSUB231PS: int = 923
+VFMSUB231PS: Mnemonic = 923 # type: ignore
 """
 <no docs>
 """
-VFMSUB231SD: int = 924
+VFMSUB231SD: Mnemonic = 924 # type: ignore
 """
 <no docs>
 """
-VFMSUB231SS: int = 925
+VFMSUB231SS: Mnemonic = 925 # type: ignore
 """
 <no docs>
 """
-VFMSUBADD132PD: int = 926
+VFMSUBADD132PD: Mnemonic = 926 # type: ignore
 """
 <no docs>
 """
-VFMSUBADD132PS: int = 927
+VFMSUBADD132PS: Mnemonic = 927 # type: ignore
 """
 <no docs>
 """
-VFMSUBADD213PD: int = 928
+VFMSUBADD213PD: Mnemonic = 928 # type: ignore
 """
 <no docs>
 """
-VFMSUBADD213PS: int = 929
+VFMSUBADD213PS: Mnemonic = 929 # type: ignore
 """
 <no docs>
 """
-VFMSUBADD231PD: int = 930
+VFMSUBADD231PD: Mnemonic = 930 # type: ignore
 """
 <no docs>
 """
-VFMSUBADD231PS: int = 931
+VFMSUBADD231PS: Mnemonic = 931 # type: ignore
 """
 <no docs>
 """
-VFMSUBADDPD: int = 932
+VFMSUBADDPD: Mnemonic = 932 # type: ignore
 """
 <no docs>
 """
-VFMSUBADDPS: int = 933
+VFMSUBADDPS: Mnemonic = 933 # type: ignore
 """
 <no docs>
 """
-VFMSUBPD: int = 934
+VFMSUBPD: Mnemonic = 934 # type: ignore
 """
 <no docs>
 """
-VFMSUBPS: int = 935
+VFMSUBPS: Mnemonic = 935 # type: ignore
 """
 <no docs>
 """
-VFMSUBSD: int = 936
+VFMSUBSD: Mnemonic = 936 # type: ignore
 """
 <no docs>
 """
-VFMSUBSS: int = 937
+VFMSUBSS: Mnemonic = 937 # type: ignore
 """
 <no docs>
 """
-VFNMADD132PD: int = 938
+VFNMADD132PD: Mnemonic = 938 # type: ignore
 """
 <no docs>
 """
-VFNMADD132PS: int = 939
+VFNMADD132PS: Mnemonic = 939 # type: ignore
 """
 <no docs>
 """
-VFNMADD132SD: int = 940
+VFNMADD132SD: Mnemonic = 940 # type: ignore
 """
 <no docs>
 """
-VFNMADD132SS: int = 941
+VFNMADD132SS: Mnemonic = 941 # type: ignore
 """
 <no docs>
 """
-VFNMADD213PD: int = 942
+VFNMADD213PD: Mnemonic = 942 # type: ignore
 """
 <no docs>
 """
-VFNMADD213PS: int = 943
+VFNMADD213PS: Mnemonic = 943 # type: ignore
 """
 <no docs>
 """
-VFNMADD213SD: int = 944
+VFNMADD213SD: Mnemonic = 944 # type: ignore
 """
 <no docs>
 """
-VFNMADD213SS: int = 945
+VFNMADD213SS: Mnemonic = 945 # type: ignore
 """
 <no docs>
 """
-VFNMADD231PD: int = 946
+VFNMADD231PD: Mnemonic = 946 # type: ignore
 """
 <no docs>
 """
-VFNMADD231PS: int = 947
+VFNMADD231PS: Mnemonic = 947 # type: ignore
 """
 <no docs>
 """
-VFNMADD231SD: int = 948
+VFNMADD231SD: Mnemonic = 948 # type: ignore
 """
 <no docs>
 """
-VFNMADD231SS: int = 949
+VFNMADD231SS: Mnemonic = 949 # type: ignore
 """
 <no docs>
 """
-VFNMADDPD: int = 950
+VFNMADDPD: Mnemonic = 950 # type: ignore
 """
 <no docs>
 """
-VFNMADDPS: int = 951
+VFNMADDPS: Mnemonic = 951 # type: ignore
 """
 <no docs>
 """
-VFNMADDSD: int = 952
+VFNMADDSD: Mnemonic = 952 # type: ignore
 """
 <no docs>
 """
-VFNMADDSS: int = 953
+VFNMADDSS: Mnemonic = 953 # type: ignore
 """
 <no docs>
 """
-VFNMSUB132PD: int = 954
+VFNMSUB132PD: Mnemonic = 954 # type: ignore
 """
 <no docs>
 """
-VFNMSUB132PS: int = 955
+VFNMSUB132PS: Mnemonic = 955 # type: ignore
 """
 <no docs>
 """
-VFNMSUB132SD: int = 956
+VFNMSUB132SD: Mnemonic = 956 # type: ignore
 """
 <no docs>
 """
-VFNMSUB132SS: int = 957
+VFNMSUB132SS: Mnemonic = 957 # type: ignore
 """
 <no docs>
 """
-VFNMSUB213PD: int = 958
+VFNMSUB213PD: Mnemonic = 958 # type: ignore
 """
 <no docs>
 """
-VFNMSUB213PS: int = 959
+VFNMSUB213PS: Mnemonic = 959 # type: ignore
 """
 <no docs>
 """
-VFNMSUB213SD: int = 960
+VFNMSUB213SD: Mnemonic = 960 # type: ignore
 """
 <no docs>
 """
-VFNMSUB213SS: int = 961
+VFNMSUB213SS: Mnemonic = 961 # type: ignore
 """
 <no docs>
 """
-VFNMSUB231PD: int = 962
+VFNMSUB231PD: Mnemonic = 962 # type: ignore
 """
 <no docs>
 """
-VFNMSUB231PS: int = 963
+VFNMSUB231PS: Mnemonic = 963 # type: ignore
 """
 <no docs>
 """
-VFNMSUB231SD: int = 964
+VFNMSUB231SD: Mnemonic = 964 # type: ignore
 """
 <no docs>
 """
-VFNMSUB231SS: int = 965
+VFNMSUB231SS: Mnemonic = 965 # type: ignore
 """
 <no docs>
 """
-VFNMSUBPD: int = 966
+VFNMSUBPD: Mnemonic = 966 # type: ignore
 """
 <no docs>
 """
-VFNMSUBPS: int = 967
+VFNMSUBPS: Mnemonic = 967 # type: ignore
 """
 <no docs>
 """
-VFNMSUBSD: int = 968
+VFNMSUBSD: Mnemonic = 968 # type: ignore
 """
 <no docs>
 """
-VFNMSUBSS: int = 969
+VFNMSUBSS: Mnemonic = 969 # type: ignore
 """
 <no docs>
 """
-VFPCLASSPD: int = 970
+VFPCLASSPD: Mnemonic = 970 # type: ignore
 """
 <no docs>
 """
-VFPCLASSPS: int = 971
+VFPCLASSPS: Mnemonic = 971 # type: ignore
 """
 <no docs>
 """
-VFPCLASSSD: int = 972
+VFPCLASSSD: Mnemonic = 972 # type: ignore
 """
 <no docs>
 """
-VFPCLASSSS: int = 973
+VFPCLASSSS: Mnemonic = 973 # type: ignore
 """
 <no docs>
 """
-VFRCZPD: int = 974
+VFRCZPD: Mnemonic = 974 # type: ignore
 """
 <no docs>
 """
-VFRCZPS: int = 975
+VFRCZPS: Mnemonic = 975 # type: ignore
 """
 <no docs>
 """
-VFRCZSD: int = 976
+VFRCZSD: Mnemonic = 976 # type: ignore
 """
 <no docs>
 """
-VFRCZSS: int = 977
+VFRCZSS: Mnemonic = 977 # type: ignore
 """
 <no docs>
 """
-VGATHERDPD: int = 978
+VGATHERDPD: Mnemonic = 978 # type: ignore
 """
 <no docs>
 """
-VGATHERDPS: int = 979
+VGATHERDPS: Mnemonic = 979 # type: ignore
 """
 <no docs>
 """
-VGATHERPF0DPD: int = 980
+VGATHERPF0DPD: Mnemonic = 980 # type: ignore
 """
 <no docs>
 """
-VGATHERPF0DPS: int = 981
+VGATHERPF0DPS: Mnemonic = 981 # type: ignore
 """
 <no docs>
 """
-VGATHERPF0QPD: int = 982
+VGATHERPF0QPD: Mnemonic = 982 # type: ignore
 """
 <no docs>
 """
-VGATHERPF0QPS: int = 983
+VGATHERPF0QPS: Mnemonic = 983 # type: ignore
 """
 <no docs>
 """
-VGATHERPF1DPD: int = 984
+VGATHERPF1DPD: Mnemonic = 984 # type: ignore
 """
 <no docs>
 """
-VGATHERPF1DPS: int = 985
+VGATHERPF1DPS: Mnemonic = 985 # type: ignore
 """
 <no docs>
 """
-VGATHERPF1QPD: int = 986
+VGATHERPF1QPD: Mnemonic = 986 # type: ignore
 """
 <no docs>
 """
-VGATHERPF1QPS: int = 987
+VGATHERPF1QPS: Mnemonic = 987 # type: ignore
 """
 <no docs>
 """
-VGATHERQPD: int = 988
+VGATHERQPD: Mnemonic = 988 # type: ignore
 """
 <no docs>
 """
-VGATHERQPS: int = 989
+VGATHERQPS: Mnemonic = 989 # type: ignore
 """
 <no docs>
 """
-VGETEXPPD: int = 990
+VGETEXPPD: Mnemonic = 990 # type: ignore
 """
 <no docs>
 """
-VGETEXPPS: int = 991
+VGETEXPPS: Mnemonic = 991 # type: ignore
 """
 <no docs>
 """
-VGETEXPSD: int = 992
+VGETEXPSD: Mnemonic = 992 # type: ignore
 """
 <no docs>
 """
-VGETEXPSS: int = 993
+VGETEXPSS: Mnemonic = 993 # type: ignore
 """
 <no docs>
 """
-VGETMANTPD: int = 994
+VGETMANTPD: Mnemonic = 994 # type: ignore
 """
 <no docs>
 """
-VGETMANTPS: int = 995
+VGETMANTPS: Mnemonic = 995 # type: ignore
 """
 <no docs>
 """
-VGETMANTSD: int = 996
+VGETMANTSD: Mnemonic = 996 # type: ignore
 """
 <no docs>
 """
-VGETMANTSS: int = 997
+VGETMANTSS: Mnemonic = 997 # type: ignore
 """
 <no docs>
 """
-VGF2P8AFFINEINVQB: int = 998
+VGF2P8AFFINEINVQB: Mnemonic = 998 # type: ignore
 """
 <no docs>
 """
-VGF2P8AFFINEQB: int = 999
+VGF2P8AFFINEQB: Mnemonic = 999 # type: ignore
 """
 <no docs>
 """
-VGF2P8MULB: int = 1000
+VGF2P8MULB: Mnemonic = 1000 # type: ignore
 """
 <no docs>
 """
-VHADDPD: int = 1001
+VHADDPD: Mnemonic = 1001 # type: ignore
 """
 <no docs>
 """
-VHADDPS: int = 1002
+VHADDPS: Mnemonic = 1002 # type: ignore
 """
 <no docs>
 """
-VHSUBPD: int = 1003
+VHSUBPD: Mnemonic = 1003 # type: ignore
 """
 <no docs>
 """
-VHSUBPS: int = 1004
+VHSUBPS: Mnemonic = 1004 # type: ignore
 """
 <no docs>
 """
-VINSERTF128: int = 1005
+VINSERTF128: Mnemonic = 1005 # type: ignore
 """
 <no docs>
 """
-VINSERTF32X4: int = 1006
+VINSERTF32X4: Mnemonic = 1006 # type: ignore
 """
 <no docs>
 """
-VINSERTF32X8: int = 1007
+VINSERTF32X8: Mnemonic = 1007 # type: ignore
 """
 <no docs>
 """
-VINSERTF64X2: int = 1008
+VINSERTF64X2: Mnemonic = 1008 # type: ignore
 """
 <no docs>
 """
-VINSERTF64X4: int = 1009
+VINSERTF64X4: Mnemonic = 1009 # type: ignore
 """
 <no docs>
 """
-VINSERTI128: int = 1010
+VINSERTI128: Mnemonic = 1010 # type: ignore
 """
 <no docs>
 """
-VINSERTI32X4: int = 1011
+VINSERTI32X4: Mnemonic = 1011 # type: ignore
 """
 <no docs>
 """
-VINSERTI32X8: int = 1012
+VINSERTI32X8: Mnemonic = 1012 # type: ignore
 """
 <no docs>
 """
-VINSERTI64X2: int = 1013
+VINSERTI64X2: Mnemonic = 1013 # type: ignore
 """
 <no docs>
 """
-VINSERTI64X4: int = 1014
+VINSERTI64X4: Mnemonic = 1014 # type: ignore
 """
 <no docs>
 """
-VINSERTPS: int = 1015
+VINSERTPS: Mnemonic = 1015 # type: ignore
 """
 <no docs>
 """
-VLDDQU: int = 1016
+VLDDQU: Mnemonic = 1016 # type: ignore
 """
 <no docs>
 """
-VLDMXCSR: int = 1017
+VLDMXCSR: Mnemonic = 1017 # type: ignore
 """
 <no docs>
 """
-VMASKMOVDQU: int = 1018
+VMASKMOVDQU: Mnemonic = 1018 # type: ignore
 """
 <no docs>
 """
-VMASKMOVPD: int = 1019
+VMASKMOVPD: Mnemonic = 1019 # type: ignore
 """
 <no docs>
 """
-VMASKMOVPS: int = 1020
+VMASKMOVPS: Mnemonic = 1020 # type: ignore
 """
 <no docs>
 """
-VMAXPD: int = 1021
+VMAXPD: Mnemonic = 1021 # type: ignore
 """
 <no docs>
 """
-VMAXPS: int = 1022
+VMAXPS: Mnemonic = 1022 # type: ignore
 """
 <no docs>
 """
-VMAXSD: int = 1023
+VMAXSD: Mnemonic = 1023 # type: ignore
 """
 <no docs>
 """
-VMAXSS: int = 1024
+VMAXSS: Mnemonic = 1024 # type: ignore
 """
 <no docs>
 """
-VMCALL: int = 1025
+VMCALL: Mnemonic = 1025 # type: ignore
 """
 <no docs>
 """
-VMCLEAR: int = 1026
+VMCLEAR: Mnemonic = 1026 # type: ignore
 """
 <no docs>
 """
-VMFUNC: int = 1027
+VMFUNC: Mnemonic = 1027 # type: ignore
 """
 <no docs>
 """
-VMINPD: int = 1028
+VMINPD: Mnemonic = 1028 # type: ignore
 """
 <no docs>
 """
-VMINPS: int = 1029
+VMINPS: Mnemonic = 1029 # type: ignore
 """
 <no docs>
 """
-VMINSD: int = 1030
+VMINSD: Mnemonic = 1030 # type: ignore
 """
 <no docs>
 """
-VMINSS: int = 1031
+VMINSS: Mnemonic = 1031 # type: ignore
 """
 <no docs>
 """
-VMLAUNCH: int = 1032
+VMLAUNCH: Mnemonic = 1032 # type: ignore
 """
 <no docs>
 """
-VMLOAD: int = 1033
+VMLOAD: Mnemonic = 1033 # type: ignore
 """
 <no docs>
 """
-VMMCALL: int = 1034
+VMMCALL: Mnemonic = 1034 # type: ignore
 """
 <no docs>
 """
-VMOVAPD: int = 1035
+VMOVAPD: Mnemonic = 1035 # type: ignore
 """
 <no docs>
 """
-VMOVAPS: int = 1036
+VMOVAPS: Mnemonic = 1036 # type: ignore
 """
 <no docs>
 """
-VMOVD: int = 1037
+VMOVD: Mnemonic = 1037 # type: ignore
 """
 <no docs>
 """
-VMOVDDUP: int = 1038
+VMOVDDUP: Mnemonic = 1038 # type: ignore
 """
 <no docs>
 """
-VMOVDQA: int = 1039
+VMOVDQA: Mnemonic = 1039 # type: ignore
 """
 <no docs>
 """
-VMOVDQA32: int = 1040
+VMOVDQA32: Mnemonic = 1040 # type: ignore
 """
 <no docs>
 """
-VMOVDQA64: int = 1041
+VMOVDQA64: Mnemonic = 1041 # type: ignore
 """
 <no docs>
 """
-VMOVDQU: int = 1042
+VMOVDQU: Mnemonic = 1042 # type: ignore
 """
 <no docs>
 """
-VMOVDQU16: int = 1043
+VMOVDQU16: Mnemonic = 1043 # type: ignore
 """
 <no docs>
 """
-VMOVDQU32: int = 1044
+VMOVDQU32: Mnemonic = 1044 # type: ignore
 """
 <no docs>
 """
-VMOVDQU64: int = 1045
+VMOVDQU64: Mnemonic = 1045 # type: ignore
 """
 <no docs>
 """
-VMOVDQU8: int = 1046
+VMOVDQU8: Mnemonic = 1046 # type: ignore
 """
 <no docs>
 """
-VMOVHLPS: int = 1047
+VMOVHLPS: Mnemonic = 1047 # type: ignore
 """
 <no docs>
 """
-VMOVHPD: int = 1048
+VMOVHPD: Mnemonic = 1048 # type: ignore
 """
 <no docs>
 """
-VMOVHPS: int = 1049
+VMOVHPS: Mnemonic = 1049 # type: ignore
 """
 <no docs>
 """
-VMOVLHPS: int = 1050
+VMOVLHPS: Mnemonic = 1050 # type: ignore
 """
 <no docs>
 """
-VMOVLPD: int = 1051
+VMOVLPD: Mnemonic = 1051 # type: ignore
 """
 <no docs>
 """
-VMOVLPS: int = 1052
+VMOVLPS: Mnemonic = 1052 # type: ignore
 """
 <no docs>
 """
-VMOVMSKPD: int = 1053
+VMOVMSKPD: Mnemonic = 1053 # type: ignore
 """
 <no docs>
 """
-VMOVMSKPS: int = 1054
+VMOVMSKPS: Mnemonic = 1054 # type: ignore
 """
 <no docs>
 """
-VMOVNTDQ: int = 1055
+VMOVNTDQ: Mnemonic = 1055 # type: ignore
 """
 <no docs>
 """
-VMOVNTDQA: int = 1056
+VMOVNTDQA: Mnemonic = 1056 # type: ignore
 """
 <no docs>
 """
-VMOVNTPD: int = 1057
+VMOVNTPD: Mnemonic = 1057 # type: ignore
 """
 <no docs>
 """
-VMOVNTPS: int = 1058
+VMOVNTPS: Mnemonic = 1058 # type: ignore
 """
 <no docs>
 """
-VMOVQ: int = 1059
+VMOVQ: Mnemonic = 1059 # type: ignore
 """
 <no docs>
 """
-VMOVSD: int = 1060
+VMOVSD: Mnemonic = 1060 # type: ignore
 """
 <no docs>
 """
-VMOVSHDUP: int = 1061
+VMOVSHDUP: Mnemonic = 1061 # type: ignore
 """
 <no docs>
 """
-VMOVSLDUP: int = 1062
+VMOVSLDUP: Mnemonic = 1062 # type: ignore
 """
 <no docs>
 """
-VMOVSS: int = 1063
+VMOVSS: Mnemonic = 1063 # type: ignore
 """
 <no docs>
 """
-VMOVUPD: int = 1064
+VMOVUPD: Mnemonic = 1064 # type: ignore
 """
 <no docs>
 """
-VMOVUPS: int = 1065
+VMOVUPS: Mnemonic = 1065 # type: ignore
 """
 <no docs>
 """
-VMPSADBW: int = 1066
+VMPSADBW: Mnemonic = 1066 # type: ignore
 """
 <no docs>
 """
-VMPTRLD: int = 1067
+VMPTRLD: Mnemonic = 1067 # type: ignore
 """
 <no docs>
 """
-VMPTRST: int = 1068
+VMPTRST: Mnemonic = 1068 # type: ignore
 """
 <no docs>
 """
-VMREAD: int = 1069
+VMREAD: Mnemonic = 1069 # type: ignore
 """
 <no docs>
 """
-VMRESUME: int = 1070
+VMRESUME: Mnemonic = 1070 # type: ignore
 """
 <no docs>
 """
-VMRUN: int = 1071
+VMRUN: Mnemonic = 1071 # type: ignore
 """
 <no docs>
 """
-VMSAVE: int = 1072
+VMSAVE: Mnemonic = 1072 # type: ignore
 """
 <no docs>
 """
-VMULPD: int = 1073
+VMULPD: Mnemonic = 1073 # type: ignore
 """
 <no docs>
 """
-VMULPS: int = 1074
+VMULPS: Mnemonic = 1074 # type: ignore
 """
 <no docs>
 """
-VMULSD: int = 1075
+VMULSD: Mnemonic = 1075 # type: ignore
 """
 <no docs>
 """
-VMULSS: int = 1076
+VMULSS: Mnemonic = 1076 # type: ignore
 """
 <no docs>
 """
-VMWRITE: int = 1077
+VMWRITE: Mnemonic = 1077 # type: ignore
 """
 <no docs>
 """
-VMXOFF: int = 1078
+VMXOFF: Mnemonic = 1078 # type: ignore
 """
 <no docs>
 """
-VMXON: int = 1079
+VMXON: Mnemonic = 1079 # type: ignore
 """
 <no docs>
 """
-VORPD: int = 1080
+VORPD: Mnemonic = 1080 # type: ignore
 """
 <no docs>
 """
-VORPS: int = 1081
+VORPS: Mnemonic = 1081 # type: ignore
 """
 <no docs>
 """
-VP2INTERSECTD: int = 1082
+VP2INTERSECTD: Mnemonic = 1082 # type: ignore
 """
 <no docs>
 """
-VP2INTERSECTQ: int = 1083
+VP2INTERSECTQ: Mnemonic = 1083 # type: ignore
 """
 <no docs>
 """
-VP4DPWSSD: int = 1084
+VP4DPWSSD: Mnemonic = 1084 # type: ignore
 """
 <no docs>
 """
-VP4DPWSSDS: int = 1085
+VP4DPWSSDS: Mnemonic = 1085 # type: ignore
 """
 <no docs>
 """
-VPABSB: int = 1086
+VPABSB: Mnemonic = 1086 # type: ignore
 """
 <no docs>
 """
-VPABSD: int = 1087
+VPABSD: Mnemonic = 1087 # type: ignore
 """
 <no docs>
 """
-VPABSQ: int = 1088
+VPABSQ: Mnemonic = 1088 # type: ignore
 """
 <no docs>
 """
-VPABSW: int = 1089
+VPABSW: Mnemonic = 1089 # type: ignore
 """
 <no docs>
 """
-VPACKSSDW: int = 1090
+VPACKSSDW: Mnemonic = 1090 # type: ignore
 """
 <no docs>
 """
-VPACKSSWB: int = 1091
+VPACKSSWB: Mnemonic = 1091 # type: ignore
 """
 <no docs>
 """
-VPACKUSDW: int = 1092
+VPACKUSDW: Mnemonic = 1092 # type: ignore
 """
 <no docs>
 """
-VPACKUSWB: int = 1093
+VPACKUSWB: Mnemonic = 1093 # type: ignore
 """
 <no docs>
 """
-VPADDB: int = 1094
+VPADDB: Mnemonic = 1094 # type: ignore
 """
 <no docs>
 """
-VPADDD: int = 1095
+VPADDD: Mnemonic = 1095 # type: ignore
 """
 <no docs>
 """
-VPADDQ: int = 1096
+VPADDQ: Mnemonic = 1096 # type: ignore
 """
 <no docs>
 """
-VPADDSB: int = 1097
+VPADDSB: Mnemonic = 1097 # type: ignore
 """
 <no docs>
 """
-VPADDSW: int = 1098
+VPADDSW: Mnemonic = 1098 # type: ignore
 """
 <no docs>
 """
-VPADDUSB: int = 1099
+VPADDUSB: Mnemonic = 1099 # type: ignore
 """
 <no docs>
 """
-VPADDUSW: int = 1100
+VPADDUSW: Mnemonic = 1100 # type: ignore
 """
 <no docs>
 """
-VPADDW: int = 1101
+VPADDW: Mnemonic = 1101 # type: ignore
 """
 <no docs>
 """
-VPALIGNR: int = 1102
+VPALIGNR: Mnemonic = 1102 # type: ignore
 """
 <no docs>
 """
-VPAND: int = 1103
+VPAND: Mnemonic = 1103 # type: ignore
 """
 <no docs>
 """
-VPANDD: int = 1104
+VPANDD: Mnemonic = 1104 # type: ignore
 """
 <no docs>
 """
-VPANDN: int = 1105
+VPANDN: Mnemonic = 1105 # type: ignore
 """
 <no docs>
 """
-VPANDND: int = 1106
+VPANDND: Mnemonic = 1106 # type: ignore
 """
 <no docs>
 """
-VPANDNQ: int = 1107
+VPANDNQ: Mnemonic = 1107 # type: ignore
 """
 <no docs>
 """
-VPANDQ: int = 1108
+VPANDQ: Mnemonic = 1108 # type: ignore
 """
 <no docs>
 """
-VPAVGB: int = 1109
+VPAVGB: Mnemonic = 1109 # type: ignore
 """
 <no docs>
 """
-VPAVGW: int = 1110
+VPAVGW: Mnemonic = 1110 # type: ignore
 """
 <no docs>
 """
-VPBLENDD: int = 1111
+VPBLENDD: Mnemonic = 1111 # type: ignore
 """
 <no docs>
 """
-VPBLENDMB: int = 1112
+VPBLENDMB: Mnemonic = 1112 # type: ignore
 """
 <no docs>
 """
-VPBLENDMD: int = 1113
+VPBLENDMD: Mnemonic = 1113 # type: ignore
 """
 <no docs>
 """
-VPBLENDMQ: int = 1114
+VPBLENDMQ: Mnemonic = 1114 # type: ignore
 """
 <no docs>
 """
-VPBLENDMW: int = 1115
+VPBLENDMW: Mnemonic = 1115 # type: ignore
 """
 <no docs>
 """
-VPBLENDVB: int = 1116
+VPBLENDVB: Mnemonic = 1116 # type: ignore
 """
 <no docs>
 """
-VPBLENDW: int = 1117
+VPBLENDW: Mnemonic = 1117 # type: ignore
 """
 <no docs>
 """
-VPBROADCASTB: int = 1118
+VPBROADCASTB: Mnemonic = 1118 # type: ignore
 """
 <no docs>
 """
-VPBROADCASTD: int = 1119
+VPBROADCASTD: Mnemonic = 1119 # type: ignore
 """
 <no docs>
 """
-VPBROADCASTMB2Q: int = 1120
+VPBROADCASTMB2Q: Mnemonic = 1120 # type: ignore
 """
 <no docs>
 """
-VPBROADCASTMW2D: int = 1121
+VPBROADCASTMW2D: Mnemonic = 1121 # type: ignore
 """
 <no docs>
 """
-VPBROADCASTQ: int = 1122
+VPBROADCASTQ: Mnemonic = 1122 # type: ignore
 """
 <no docs>
 """
-VPBROADCASTW: int = 1123
+VPBROADCASTW: Mnemonic = 1123 # type: ignore
 """
 <no docs>
 """
-VPCLMULQDQ: int = 1124
+VPCLMULQDQ: Mnemonic = 1124 # type: ignore
 """
 <no docs>
 """
-VPCMOV: int = 1125
+VPCMOV: Mnemonic = 1125 # type: ignore
 """
 <no docs>
 """
-VPCMPB: int = 1126
+VPCMPB: Mnemonic = 1126 # type: ignore
 """
 <no docs>
 """
-VPCMPD: int = 1127
+VPCMPD: Mnemonic = 1127 # type: ignore
 """
 <no docs>
 """
-VPCMPEQB: int = 1128
+VPCMPEQB: Mnemonic = 1128 # type: ignore
 """
 <no docs>
 """
-VPCMPEQD: int = 1129
+VPCMPEQD: Mnemonic = 1129 # type: ignore
 """
 <no docs>
 """
-VPCMPEQQ: int = 1130
+VPCMPEQQ: Mnemonic = 1130 # type: ignore
 """
 <no docs>
 """
-VPCMPEQW: int = 1131
+VPCMPEQW: Mnemonic = 1131 # type: ignore
 """
 <no docs>
 """
-VPCMPESTRI: int = 1132
+VPCMPESTRI: Mnemonic = 1132 # type: ignore
 """
 <no docs>
 """
-VPCMPESTRI64: int = 1133
+VPCMPESTRI64: Mnemonic = 1133 # type: ignore
 """
 <no docs>
 """
-VPCMPESTRM: int = 1134
+VPCMPESTRM: Mnemonic = 1134 # type: ignore
 """
 <no docs>
 """
-VPCMPESTRM64: int = 1135
+VPCMPESTRM64: Mnemonic = 1135 # type: ignore
 """
 <no docs>
 """
-VPCMPGTB: int = 1136
+VPCMPGTB: Mnemonic = 1136 # type: ignore
 """
 <no docs>
 """
-VPCMPGTD: int = 1137
+VPCMPGTD: Mnemonic = 1137 # type: ignore
 """
 <no docs>
 """
-VPCMPGTQ: int = 1138
+VPCMPGTQ: Mnemonic = 1138 # type: ignore
 """
 <no docs>
 """
-VPCMPGTW: int = 1139
+VPCMPGTW: Mnemonic = 1139 # type: ignore
 """
 <no docs>
 """
-VPCMPISTRI: int = 1140
+VPCMPISTRI: Mnemonic = 1140 # type: ignore
 """
 <no docs>
 """
-VPCMPISTRM: int = 1141
+VPCMPISTRM: Mnemonic = 1141 # type: ignore
 """
 <no docs>
 """
-VPCMPQ: int = 1142
+VPCMPQ: Mnemonic = 1142 # type: ignore
 """
 <no docs>
 """
-VPCMPUB: int = 1143
+VPCMPUB: Mnemonic = 1143 # type: ignore
 """
 <no docs>
 """
-VPCMPUD: int = 1144
+VPCMPUD: Mnemonic = 1144 # type: ignore
 """
 <no docs>
 """
-VPCMPUQ: int = 1145
+VPCMPUQ: Mnemonic = 1145 # type: ignore
 """
 <no docs>
 """
-VPCMPUW: int = 1146
+VPCMPUW: Mnemonic = 1146 # type: ignore
 """
 <no docs>
 """
-VPCMPW: int = 1147
+VPCMPW: Mnemonic = 1147 # type: ignore
 """
 <no docs>
 """
-VPCOMB: int = 1148
+VPCOMB: Mnemonic = 1148 # type: ignore
 """
 <no docs>
 """
-VPCOMD: int = 1149
+VPCOMD: Mnemonic = 1149 # type: ignore
 """
 <no docs>
 """
-VPCOMPRESSB: int = 1150
+VPCOMPRESSB: Mnemonic = 1150 # type: ignore
 """
 <no docs>
 """
-VPCOMPRESSD: int = 1151
+VPCOMPRESSD: Mnemonic = 1151 # type: ignore
 """
 <no docs>
 """
-VPCOMPRESSQ: int = 1152
+VPCOMPRESSQ: Mnemonic = 1152 # type: ignore
 """
 <no docs>
 """
-VPCOMPRESSW: int = 1153
+VPCOMPRESSW: Mnemonic = 1153 # type: ignore
 """
 <no docs>
 """
-VPCOMQ: int = 1154
+VPCOMQ: Mnemonic = 1154 # type: ignore
 """
 <no docs>
 """
-VPCOMUB: int = 1155
+VPCOMUB: Mnemonic = 1155 # type: ignore
 """
 <no docs>
 """
-VPCOMUD: int = 1156
+VPCOMUD: Mnemonic = 1156 # type: ignore
 """
 <no docs>
 """
-VPCOMUQ: int = 1157
+VPCOMUQ: Mnemonic = 1157 # type: ignore
 """
 <no docs>
 """
-VPCOMUW: int = 1158
+VPCOMUW: Mnemonic = 1158 # type: ignore
 """
 <no docs>
 """
-VPCOMW: int = 1159
+VPCOMW: Mnemonic = 1159 # type: ignore
 """
 <no docs>
 """
-VPCONFLICTD: int = 1160
+VPCONFLICTD: Mnemonic = 1160 # type: ignore
 """
 <no docs>
 """
-VPCONFLICTQ: int = 1161
+VPCONFLICTQ: Mnemonic = 1161 # type: ignore
 """
 <no docs>
 """
-VPDPBUSD: int = 1162
+VPDPBUSD: Mnemonic = 1162 # type: ignore
 """
 <no docs>
 """
-VPDPBUSDS: int = 1163
+VPDPBUSDS: Mnemonic = 1163 # type: ignore
 """
 <no docs>
 """
-VPDPWSSD: int = 1164
+VPDPWSSD: Mnemonic = 1164 # type: ignore
 """
 <no docs>
 """
-VPDPWSSDS: int = 1165
+VPDPWSSDS: Mnemonic = 1165 # type: ignore
 """
 <no docs>
 """
-VPERM2F128: int = 1166
+VPERM2F128: Mnemonic = 1166 # type: ignore
 """
 <no docs>
 """
-VPERM2I128: int = 1167
+VPERM2I128: Mnemonic = 1167 # type: ignore
 """
 <no docs>
 """
-VPERMB: int = 1168
+VPERMB: Mnemonic = 1168 # type: ignore
 """
 <no docs>
 """
-VPERMD: int = 1169
+VPERMD: Mnemonic = 1169 # type: ignore
 """
 <no docs>
 """
-VPERMI2B: int = 1170
+VPERMI2B: Mnemonic = 1170 # type: ignore
 """
 <no docs>
 """
-VPERMI2D: int = 1171
+VPERMI2D: Mnemonic = 1171 # type: ignore
 """
 <no docs>
 """
-VPERMI2PD: int = 1172
+VPERMI2PD: Mnemonic = 1172 # type: ignore
 """
 <no docs>
 """
-VPERMI2PS: int = 1173
+VPERMI2PS: Mnemonic = 1173 # type: ignore
 """
 <no docs>
 """
-VPERMI2Q: int = 1174
+VPERMI2Q: Mnemonic = 1174 # type: ignore
 """
 <no docs>
 """
-VPERMI2W: int = 1175
+VPERMI2W: Mnemonic = 1175 # type: ignore
 """
 <no docs>
 """
-VPERMIL2PD: int = 1176
+VPERMIL2PD: Mnemonic = 1176 # type: ignore
 """
 <no docs>
 """
-VPERMIL2PS: int = 1177
+VPERMIL2PS: Mnemonic = 1177 # type: ignore
 """
 <no docs>
 """
-VPERMILPD: int = 1178
+VPERMILPD: Mnemonic = 1178 # type: ignore
 """
 <no docs>
 """
-VPERMILPS: int = 1179
+VPERMILPS: Mnemonic = 1179 # type: ignore
 """
 <no docs>
 """
-VPERMPD: int = 1180
+VPERMPD: Mnemonic = 1180 # type: ignore
 """
 <no docs>
 """
-VPERMPS: int = 1181
+VPERMPS: Mnemonic = 1181 # type: ignore
 """
 <no docs>
 """
-VPERMQ: int = 1182
+VPERMQ: Mnemonic = 1182 # type: ignore
 """
 <no docs>
 """
-VPERMT2B: int = 1183
+VPERMT2B: Mnemonic = 1183 # type: ignore
 """
 <no docs>
 """
-VPERMT2D: int = 1184
+VPERMT2D: Mnemonic = 1184 # type: ignore
 """
 <no docs>
 """
-VPERMT2PD: int = 1185
+VPERMT2PD: Mnemonic = 1185 # type: ignore
 """
 <no docs>
 """
-VPERMT2PS: int = 1186
+VPERMT2PS: Mnemonic = 1186 # type: ignore
 """
 <no docs>
 """
-VPERMT2Q: int = 1187
+VPERMT2Q: Mnemonic = 1187 # type: ignore
 """
 <no docs>
 """
-VPERMT2W: int = 1188
+VPERMT2W: Mnemonic = 1188 # type: ignore
 """
 <no docs>
 """
-VPERMW: int = 1189
+VPERMW: Mnemonic = 1189 # type: ignore
 """
 <no docs>
 """
-VPEXPANDB: int = 1190
+VPEXPANDB: Mnemonic = 1190 # type: ignore
 """
 <no docs>
 """
-VPEXPANDD: int = 1191
+VPEXPANDD: Mnemonic = 1191 # type: ignore
 """
 <no docs>
 """
-VPEXPANDQ: int = 1192
+VPEXPANDQ: Mnemonic = 1192 # type: ignore
 """
 <no docs>
 """
-VPEXPANDW: int = 1193
+VPEXPANDW: Mnemonic = 1193 # type: ignore
 """
 <no docs>
 """
-VPEXTRB: int = 1194
+VPEXTRB: Mnemonic = 1194 # type: ignore
 """
 <no docs>
 """
-VPEXTRD: int = 1195
+VPEXTRD: Mnemonic = 1195 # type: ignore
 """
 <no docs>
 """
-VPEXTRQ: int = 1196
+VPEXTRQ: Mnemonic = 1196 # type: ignore
 """
 <no docs>
 """
-VPEXTRW: int = 1197
+VPEXTRW: Mnemonic = 1197 # type: ignore
 """
 <no docs>
 """
-VPGATHERDD: int = 1198
+VPGATHERDD: Mnemonic = 1198 # type: ignore
 """
 <no docs>
 """
-VPGATHERDQ: int = 1199
+VPGATHERDQ: Mnemonic = 1199 # type: ignore
 """
 <no docs>
 """
-VPGATHERQD: int = 1200
+VPGATHERQD: Mnemonic = 1200 # type: ignore
 """
 <no docs>
 """
-VPGATHERQQ: int = 1201
+VPGATHERQQ: Mnemonic = 1201 # type: ignore
 """
 <no docs>
 """
-VPHADDBD: int = 1202
+VPHADDBD: Mnemonic = 1202 # type: ignore
 """
 <no docs>
 """
-VPHADDBQ: int = 1203
+VPHADDBQ: Mnemonic = 1203 # type: ignore
 """
 <no docs>
 """
-VPHADDBW: int = 1204
+VPHADDBW: Mnemonic = 1204 # type: ignore
 """
 <no docs>
 """
-VPHADDD: int = 1205
+VPHADDD: Mnemonic = 1205 # type: ignore
 """
 <no docs>
 """
-VPHADDDQ: int = 1206
+VPHADDDQ: Mnemonic = 1206 # type: ignore
 """
 <no docs>
 """
-VPHADDSW: int = 1207
+VPHADDSW: Mnemonic = 1207 # type: ignore
 """
 <no docs>
 """
-VPHADDUBD: int = 1208
+VPHADDUBD: Mnemonic = 1208 # type: ignore
 """
 <no docs>
 """
-VPHADDUBQ: int = 1209
+VPHADDUBQ: Mnemonic = 1209 # type: ignore
 """
 <no docs>
 """
-VPHADDUBW: int = 1210
+VPHADDUBW: Mnemonic = 1210 # type: ignore
 """
 <no docs>
 """
-VPHADDUDQ: int = 1211
+VPHADDUDQ: Mnemonic = 1211 # type: ignore
 """
 <no docs>
 """
-VPHADDUWD: int = 1212
+VPHADDUWD: Mnemonic = 1212 # type: ignore
 """
 <no docs>
 """
-VPHADDUWQ: int = 1213
+VPHADDUWQ: Mnemonic = 1213 # type: ignore
 """
 <no docs>
 """
-VPHADDW: int = 1214
+VPHADDW: Mnemonic = 1214 # type: ignore
 """
 <no docs>
 """
-VPHADDWD: int = 1215
+VPHADDWD: Mnemonic = 1215 # type: ignore
 """
 <no docs>
 """
-VPHADDWQ: int = 1216
+VPHADDWQ: Mnemonic = 1216 # type: ignore
 """
 <no docs>
 """
-VPHMINPOSUW: int = 1217
+VPHMINPOSUW: Mnemonic = 1217 # type: ignore
 """
 <no docs>
 """
-VPHSUBBW: int = 1218
+VPHSUBBW: Mnemonic = 1218 # type: ignore
 """
 <no docs>
 """
-VPHSUBD: int = 1219
+VPHSUBD: Mnemonic = 1219 # type: ignore
 """
 <no docs>
 """
-VPHSUBDQ: int = 1220
+VPHSUBDQ: Mnemonic = 1220 # type: ignore
 """
 <no docs>
 """
-VPHSUBSW: int = 1221
+VPHSUBSW: Mnemonic = 1221 # type: ignore
 """
 <no docs>
 """
-VPHSUBW: int = 1222
+VPHSUBW: Mnemonic = 1222 # type: ignore
 """
 <no docs>
 """
-VPHSUBWD: int = 1223
+VPHSUBWD: Mnemonic = 1223 # type: ignore
 """
 <no docs>
 """
-VPINSRB: int = 1224
+VPINSRB: Mnemonic = 1224 # type: ignore
 """
 <no docs>
 """
-VPINSRD: int = 1225
+VPINSRD: Mnemonic = 1225 # type: ignore
 """
 <no docs>
 """
-VPINSRQ: int = 1226
+VPINSRQ: Mnemonic = 1226 # type: ignore
 """
 <no docs>
 """
-VPINSRW: int = 1227
+VPINSRW: Mnemonic = 1227 # type: ignore
 """
 <no docs>
 """
-VPLZCNTD: int = 1228
+VPLZCNTD: Mnemonic = 1228 # type: ignore
 """
 <no docs>
 """
-VPLZCNTQ: int = 1229
+VPLZCNTQ: Mnemonic = 1229 # type: ignore
 """
 <no docs>
 """
-VPMACSDD: int = 1230
+VPMACSDD: Mnemonic = 1230 # type: ignore
 """
 <no docs>
 """
-VPMACSDQH: int = 1231
+VPMACSDQH: Mnemonic = 1231 # type: ignore
 """
 <no docs>
 """
-VPMACSDQL: int = 1232
+VPMACSDQL: Mnemonic = 1232 # type: ignore
 """
 <no docs>
 """
-VPMACSSDD: int = 1233
+VPMACSSDD: Mnemonic = 1233 # type: ignore
 """
 <no docs>
 """
-VPMACSSDQH: int = 1234
+VPMACSSDQH: Mnemonic = 1234 # type: ignore
 """
 <no docs>
 """
-VPMACSSDQL: int = 1235
+VPMACSSDQL: Mnemonic = 1235 # type: ignore
 """
 <no docs>
 """
-VPMACSSWD: int = 1236
+VPMACSSWD: Mnemonic = 1236 # type: ignore
 """
 <no docs>
 """
-VPMACSSWW: int = 1237
+VPMACSSWW: Mnemonic = 1237 # type: ignore
 """
 <no docs>
 """
-VPMACSWD: int = 1238
+VPMACSWD: Mnemonic = 1238 # type: ignore
 """
 <no docs>
 """
-VPMACSWW: int = 1239
+VPMACSWW: Mnemonic = 1239 # type: ignore
 """
 <no docs>
 """
-VPMADCSSWD: int = 1240
+VPMADCSSWD: Mnemonic = 1240 # type: ignore
 """
 <no docs>
 """
-VPMADCSWD: int = 1241
+VPMADCSWD: Mnemonic = 1241 # type: ignore
 """
 <no docs>
 """
-VPMADD52HUQ: int = 1242
+VPMADD52HUQ: Mnemonic = 1242 # type: ignore
 """
 <no docs>
 """
-VPMADD52LUQ: int = 1243
+VPMADD52LUQ: Mnemonic = 1243 # type: ignore
 """
 <no docs>
 """
-VPMADDUBSW: int = 1244
+VPMADDUBSW: Mnemonic = 1244 # type: ignore
 """
 <no docs>
 """
-VPMADDWD: int = 1245
+VPMADDWD: Mnemonic = 1245 # type: ignore
 """
 <no docs>
 """
-VPMASKMOVD: int = 1246
+VPMASKMOVD: Mnemonic = 1246 # type: ignore
 """
 <no docs>
 """
-VPMASKMOVQ: int = 1247
+VPMASKMOVQ: Mnemonic = 1247 # type: ignore
 """
 <no docs>
 """
-VPMAXSB: int = 1248
+VPMAXSB: Mnemonic = 1248 # type: ignore
 """
 <no docs>
 """
-VPMAXSD: int = 1249
+VPMAXSD: Mnemonic = 1249 # type: ignore
 """
 <no docs>
 """
-VPMAXSQ: int = 1250
+VPMAXSQ: Mnemonic = 1250 # type: ignore
 """
 <no docs>
 """
-VPMAXSW: int = 1251
+VPMAXSW: Mnemonic = 1251 # type: ignore
 """
 <no docs>
 """
-VPMAXUB: int = 1252
+VPMAXUB: Mnemonic = 1252 # type: ignore
 """
 <no docs>
 """
-VPMAXUD: int = 1253
+VPMAXUD: Mnemonic = 1253 # type: ignore
 """
 <no docs>
 """
-VPMAXUQ: int = 1254
+VPMAXUQ: Mnemonic = 1254 # type: ignore
 """
 <no docs>
 """
-VPMAXUW: int = 1255
+VPMAXUW: Mnemonic = 1255 # type: ignore
 """
 <no docs>
 """
-VPMINSB: int = 1256
+VPMINSB: Mnemonic = 1256 # type: ignore
 """
 <no docs>
 """
-VPMINSD: int = 1257
+VPMINSD: Mnemonic = 1257 # type: ignore
 """
 <no docs>
 """
-VPMINSQ: int = 1258
+VPMINSQ: Mnemonic = 1258 # type: ignore
 """
 <no docs>
 """
-VPMINSW: int = 1259
+VPMINSW: Mnemonic = 1259 # type: ignore
 """
 <no docs>
 """
-VPMINUB: int = 1260
+VPMINUB: Mnemonic = 1260 # type: ignore
 """
 <no docs>
 """
-VPMINUD: int = 1261
+VPMINUD: Mnemonic = 1261 # type: ignore
 """
 <no docs>
 """
-VPMINUQ: int = 1262
+VPMINUQ: Mnemonic = 1262 # type: ignore
 """
 <no docs>
 """
-VPMINUW: int = 1263
+VPMINUW: Mnemonic = 1263 # type: ignore
 """
 <no docs>
 """
-VPMOVB2M: int = 1264
+VPMOVB2M: Mnemonic = 1264 # type: ignore
 """
 <no docs>
 """
-VPMOVD2M: int = 1265
+VPMOVD2M: Mnemonic = 1265 # type: ignore
 """
 <no docs>
 """
-VPMOVDB: int = 1266
+VPMOVDB: Mnemonic = 1266 # type: ignore
 """
 <no docs>
 """
-VPMOVDW: int = 1267
+VPMOVDW: Mnemonic = 1267 # type: ignore
 """
 <no docs>
 """
-VPMOVM2B: int = 1268
+VPMOVM2B: Mnemonic = 1268 # type: ignore
 """
 <no docs>
 """
-VPMOVM2D: int = 1269
+VPMOVM2D: Mnemonic = 1269 # type: ignore
 """
 <no docs>
 """
-VPMOVM2Q: int = 1270
+VPMOVM2Q: Mnemonic = 1270 # type: ignore
 """
 <no docs>
 """
-VPMOVM2W: int = 1271
+VPMOVM2W: Mnemonic = 1271 # type: ignore
 """
 <no docs>
 """
-VPMOVMSKB: int = 1272
+VPMOVMSKB: Mnemonic = 1272 # type: ignore
 """
 <no docs>
 """
-VPMOVQ2M: int = 1273
+VPMOVQ2M: Mnemonic = 1273 # type: ignore
 """
 <no docs>
 """
-VPMOVQB: int = 1274
+VPMOVQB: Mnemonic = 1274 # type: ignore
 """
 <no docs>
 """
-VPMOVQD: int = 1275
+VPMOVQD: Mnemonic = 1275 # type: ignore
 """
 <no docs>
 """
-VPMOVQW: int = 1276
+VPMOVQW: Mnemonic = 1276 # type: ignore
 """
 <no docs>
 """
-VPMOVSDB: int = 1277
+VPMOVSDB: Mnemonic = 1277 # type: ignore
 """
 <no docs>
 """
-VPMOVSDW: int = 1278
+VPMOVSDW: Mnemonic = 1278 # type: ignore
 """
 <no docs>
 """
-VPMOVSQB: int = 1279
+VPMOVSQB: Mnemonic = 1279 # type: ignore
 """
 <no docs>
 """
-VPMOVSQD: int = 1280
+VPMOVSQD: Mnemonic = 1280 # type: ignore
 """
 <no docs>
 """
-VPMOVSQW: int = 1281
+VPMOVSQW: Mnemonic = 1281 # type: ignore
 """
 <no docs>
 """
-VPMOVSWB: int = 1282
+VPMOVSWB: Mnemonic = 1282 # type: ignore
 """
 <no docs>
 """
-VPMOVSXBD: int = 1283
+VPMOVSXBD: Mnemonic = 1283 # type: ignore
 """
 <no docs>
 """
-VPMOVSXBQ: int = 1284
+VPMOVSXBQ: Mnemonic = 1284 # type: ignore
 """
 <no docs>
 """
-VPMOVSXBW: int = 1285
+VPMOVSXBW: Mnemonic = 1285 # type: ignore
 """
 <no docs>
 """
-VPMOVSXDQ: int = 1286
+VPMOVSXDQ: Mnemonic = 1286 # type: ignore
 """
 <no docs>
 """
-VPMOVSXWD: int = 1287
+VPMOVSXWD: Mnemonic = 1287 # type: ignore
 """
 <no docs>
 """
-VPMOVSXWQ: int = 1288
+VPMOVSXWQ: Mnemonic = 1288 # type: ignore
 """
 <no docs>
 """
-VPMOVUSDB: int = 1289
+VPMOVUSDB: Mnemonic = 1289 # type: ignore
 """
 <no docs>
 """
-VPMOVUSDW: int = 1290
+VPMOVUSDW: Mnemonic = 1290 # type: ignore
 """
 <no docs>
 """
-VPMOVUSQB: int = 1291
+VPMOVUSQB: Mnemonic = 1291 # type: ignore
 """
 <no docs>
 """
-VPMOVUSQD: int = 1292
+VPMOVUSQD: Mnemonic = 1292 # type: ignore
 """
 <no docs>
 """
-VPMOVUSQW: int = 1293
+VPMOVUSQW: Mnemonic = 1293 # type: ignore
 """
 <no docs>
 """
-VPMOVUSWB: int = 1294
+VPMOVUSWB: Mnemonic = 1294 # type: ignore
 """
 <no docs>
 """
-VPMOVW2M: int = 1295
+VPMOVW2M: Mnemonic = 1295 # type: ignore
 """
 <no docs>
 """
-VPMOVWB: int = 1296
+VPMOVWB: Mnemonic = 1296 # type: ignore
 """
 <no docs>
 """
-VPMOVZXBD: int = 1297
+VPMOVZXBD: Mnemonic = 1297 # type: ignore
 """
 <no docs>
 """
-VPMOVZXBQ: int = 1298
+VPMOVZXBQ: Mnemonic = 1298 # type: ignore
 """
 <no docs>
 """
-VPMOVZXBW: int = 1299
+VPMOVZXBW: Mnemonic = 1299 # type: ignore
 """
 <no docs>
 """
-VPMOVZXDQ: int = 1300
+VPMOVZXDQ: Mnemonic = 1300 # type: ignore
 """
 <no docs>
 """
-VPMOVZXWD: int = 1301
+VPMOVZXWD: Mnemonic = 1301 # type: ignore
 """
 <no docs>
 """
-VPMOVZXWQ: int = 1302
+VPMOVZXWQ: Mnemonic = 1302 # type: ignore
 """
 <no docs>
 """
-VPMULDQ: int = 1303
+VPMULDQ: Mnemonic = 1303 # type: ignore
 """
 <no docs>
 """
-VPMULHRSW: int = 1304
+VPMULHRSW: Mnemonic = 1304 # type: ignore
 """
 <no docs>
 """
-VPMULHUW: int = 1305
+VPMULHUW: Mnemonic = 1305 # type: ignore
 """
 <no docs>
 """
-VPMULHW: int = 1306
+VPMULHW: Mnemonic = 1306 # type: ignore
 """
 <no docs>
 """
-VPMULLD: int = 1307
+VPMULLD: Mnemonic = 1307 # type: ignore
 """
 <no docs>
 """
-VPMULLQ: int = 1308
+VPMULLQ: Mnemonic = 1308 # type: ignore
 """
 <no docs>
 """
-VPMULLW: int = 1309
+VPMULLW: Mnemonic = 1309 # type: ignore
 """
 <no docs>
 """
-VPMULTISHIFTQB: int = 1310
+VPMULTISHIFTQB: Mnemonic = 1310 # type: ignore
 """
 <no docs>
 """
-VPMULUDQ: int = 1311
+VPMULUDQ: Mnemonic = 1311 # type: ignore
 """
 <no docs>
 """
-VPOPCNTB: int = 1312
+VPOPCNTB: Mnemonic = 1312 # type: ignore
 """
 <no docs>
 """
-VPOPCNTD: int = 1313
+VPOPCNTD: Mnemonic = 1313 # type: ignore
 """
 <no docs>
 """
-VPOPCNTQ: int = 1314
+VPOPCNTQ: Mnemonic = 1314 # type: ignore
 """
 <no docs>
 """
-VPOPCNTW: int = 1315
+VPOPCNTW: Mnemonic = 1315 # type: ignore
 """
 <no docs>
 """
-VPOR: int = 1316
+VPOR: Mnemonic = 1316 # type: ignore
 """
 <no docs>
 """
-VPORD: int = 1317
+VPORD: Mnemonic = 1317 # type: ignore
 """
 <no docs>
 """
-VPORQ: int = 1318
+VPORQ: Mnemonic = 1318 # type: ignore
 """
 <no docs>
 """
-VPPERM: int = 1319
+VPPERM: Mnemonic = 1319 # type: ignore
 """
 <no docs>
 """
-VPROLD: int = 1320
+VPROLD: Mnemonic = 1320 # type: ignore
 """
 <no docs>
 """
-VPROLQ: int = 1321
+VPROLQ: Mnemonic = 1321 # type: ignore
 """
 <no docs>
 """
-VPROLVD: int = 1322
+VPROLVD: Mnemonic = 1322 # type: ignore
 """
 <no docs>
 """
-VPROLVQ: int = 1323
+VPROLVQ: Mnemonic = 1323 # type: ignore
 """
 <no docs>
 """
-VPRORD: int = 1324
+VPRORD: Mnemonic = 1324 # type: ignore
 """
 <no docs>
 """
-VPRORQ: int = 1325
+VPRORQ: Mnemonic = 1325 # type: ignore
 """
 <no docs>
 """
-VPRORVD: int = 1326
+VPRORVD: Mnemonic = 1326 # type: ignore
 """
 <no docs>
 """
-VPRORVQ: int = 1327
+VPRORVQ: Mnemonic = 1327 # type: ignore
 """
 <no docs>
 """
-VPROTB: int = 1328
+VPROTB: Mnemonic = 1328 # type: ignore
 """
 <no docs>
 """
-VPROTD: int = 1329
+VPROTD: Mnemonic = 1329 # type: ignore
 """
 <no docs>
 """
-VPROTQ: int = 1330
+VPROTQ: Mnemonic = 1330 # type: ignore
 """
 <no docs>
 """
-VPROTW: int = 1331
+VPROTW: Mnemonic = 1331 # type: ignore
 """
 <no docs>
 """
-VPSADBW: int = 1332
+VPSADBW: Mnemonic = 1332 # type: ignore
 """
 <no docs>
 """
-VPSCATTERDD: int = 1333
+VPSCATTERDD: Mnemonic = 1333 # type: ignore
 """
 <no docs>
 """
-VPSCATTERDQ: int = 1334
+VPSCATTERDQ: Mnemonic = 1334 # type: ignore
 """
 <no docs>
 """
-VPSCATTERQD: int = 1335
+VPSCATTERQD: Mnemonic = 1335 # type: ignore
 """
 <no docs>
 """
-VPSCATTERQQ: int = 1336
+VPSCATTERQQ: Mnemonic = 1336 # type: ignore
 """
 <no docs>
 """
-VPSHAB: int = 1337
+VPSHAB: Mnemonic = 1337 # type: ignore
 """
 <no docs>
 """
-VPSHAD: int = 1338
+VPSHAD: Mnemonic = 1338 # type: ignore
 """
 <no docs>
 """
-VPSHAQ: int = 1339
+VPSHAQ: Mnemonic = 1339 # type: ignore
 """
 <no docs>
 """
-VPSHAW: int = 1340
+VPSHAW: Mnemonic = 1340 # type: ignore
 """
 <no docs>
 """
-VPSHLB: int = 1341
+VPSHLB: Mnemonic = 1341 # type: ignore
 """
 <no docs>
 """
-VPSHLD: int = 1342
+VPSHLD: Mnemonic = 1342 # type: ignore
 """
 <no docs>
 """
-VPSHLDD: int = 1343
+VPSHLDD: Mnemonic = 1343 # type: ignore
 """
 <no docs>
 """
-VPSHLDQ: int = 1344
+VPSHLDQ: Mnemonic = 1344 # type: ignore
 """
 <no docs>
 """
-VPSHLDVD: int = 1345
+VPSHLDVD: Mnemonic = 1345 # type: ignore
 """
 <no docs>
 """
-VPSHLDVQ: int = 1346
+VPSHLDVQ: Mnemonic = 1346 # type: ignore
 """
 <no docs>
 """
-VPSHLDVW: int = 1347
+VPSHLDVW: Mnemonic = 1347 # type: ignore
 """
 <no docs>
 """
-VPSHLDW: int = 1348
+VPSHLDW: Mnemonic = 1348 # type: ignore
 """
 <no docs>
 """
-VPSHLQ: int = 1349
+VPSHLQ: Mnemonic = 1349 # type: ignore
 """
 <no docs>
 """
-VPSHLW: int = 1350
+VPSHLW: Mnemonic = 1350 # type: ignore
 """
 <no docs>
 """
-VPSHRDD: int = 1351
+VPSHRDD: Mnemonic = 1351 # type: ignore
 """
 <no docs>
 """
-VPSHRDQ: int = 1352
+VPSHRDQ: Mnemonic = 1352 # type: ignore
 """
 <no docs>
 """
-VPSHRDVD: int = 1353
+VPSHRDVD: Mnemonic = 1353 # type: ignore
 """
 <no docs>
 """
-VPSHRDVQ: int = 1354
+VPSHRDVQ: Mnemonic = 1354 # type: ignore
 """
 <no docs>
 """
-VPSHRDVW: int = 1355
+VPSHRDVW: Mnemonic = 1355 # type: ignore
 """
 <no docs>
 """
-VPSHRDW: int = 1356
+VPSHRDW: Mnemonic = 1356 # type: ignore
 """
 <no docs>
 """
-VPSHUFB: int = 1357
+VPSHUFB: Mnemonic = 1357 # type: ignore
 """
 <no docs>
 """
-VPSHUFBITQMB: int = 1358
+VPSHUFBITQMB: Mnemonic = 1358 # type: ignore
 """
 <no docs>
 """
-VPSHUFD: int = 1359
+VPSHUFD: Mnemonic = 1359 # type: ignore
 """
 <no docs>
 """
-VPSHUFHW: int = 1360
+VPSHUFHW: Mnemonic = 1360 # type: ignore
 """
 <no docs>
 """
-VPSHUFLW: int = 1361
+VPSHUFLW: Mnemonic = 1361 # type: ignore
 """
 <no docs>
 """
-VPSIGNB: int = 1362
+VPSIGNB: Mnemonic = 1362 # type: ignore
 """
 <no docs>
 """
-VPSIGND: int = 1363
+VPSIGND: Mnemonic = 1363 # type: ignore
 """
 <no docs>
 """
-VPSIGNW: int = 1364
+VPSIGNW: Mnemonic = 1364 # type: ignore
 """
 <no docs>
 """
-VPSLLD: int = 1365
+VPSLLD: Mnemonic = 1365 # type: ignore
 """
 <no docs>
 """
-VPSLLDQ: int = 1366
+VPSLLDQ: Mnemonic = 1366 # type: ignore
 """
 <no docs>
 """
-VPSLLQ: int = 1367
+VPSLLQ: Mnemonic = 1367 # type: ignore
 """
 <no docs>
 """
-VPSLLVD: int = 1368
+VPSLLVD: Mnemonic = 1368 # type: ignore
 """
 <no docs>
 """
-VPSLLVQ: int = 1369
+VPSLLVQ: Mnemonic = 1369 # type: ignore
 """
 <no docs>
 """
-VPSLLVW: int = 1370
+VPSLLVW: Mnemonic = 1370 # type: ignore
 """
 <no docs>
 """
-VPSLLW: int = 1371
+VPSLLW: Mnemonic = 1371 # type: ignore
 """
 <no docs>
 """
-VPSRAD: int = 1372
+VPSRAD: Mnemonic = 1372 # type: ignore
 """
 <no docs>
 """
-VPSRAQ: int = 1373
+VPSRAQ: Mnemonic = 1373 # type: ignore
 """
 <no docs>
 """
-VPSRAVD: int = 1374
+VPSRAVD: Mnemonic = 1374 # type: ignore
 """
 <no docs>
 """
-VPSRAVQ: int = 1375
+VPSRAVQ: Mnemonic = 1375 # type: ignore
 """
 <no docs>
 """
-VPSRAVW: int = 1376
+VPSRAVW: Mnemonic = 1376 # type: ignore
 """
 <no docs>
 """
-VPSRAW: int = 1377
+VPSRAW: Mnemonic = 1377 # type: ignore
 """
 <no docs>
 """
-VPSRLD: int = 1378
+VPSRLD: Mnemonic = 1378 # type: ignore
 """
 <no docs>
 """
-VPSRLDQ: int = 1379
+VPSRLDQ: Mnemonic = 1379 # type: ignore
 """
 <no docs>
 """
-VPSRLQ: int = 1380
+VPSRLQ: Mnemonic = 1380 # type: ignore
 """
 <no docs>
 """
-VPSRLVD: int = 1381
+VPSRLVD: Mnemonic = 1381 # type: ignore
 """
 <no docs>
 """
-VPSRLVQ: int = 1382
+VPSRLVQ: Mnemonic = 1382 # type: ignore
 """
 <no docs>
 """
-VPSRLVW: int = 1383
+VPSRLVW: Mnemonic = 1383 # type: ignore
 """
 <no docs>
 """
-VPSRLW: int = 1384
+VPSRLW: Mnemonic = 1384 # type: ignore
 """
 <no docs>
 """
-VPSUBB: int = 1385
+VPSUBB: Mnemonic = 1385 # type: ignore
 """
 <no docs>
 """
-VPSUBD: int = 1386
+VPSUBD: Mnemonic = 1386 # type: ignore
 """
 <no docs>
 """
-VPSUBQ: int = 1387
+VPSUBQ: Mnemonic = 1387 # type: ignore
 """
 <no docs>
 """
-VPSUBSB: int = 1388
+VPSUBSB: Mnemonic = 1388 # type: ignore
 """
 <no docs>
 """
-VPSUBSW: int = 1389
+VPSUBSW: Mnemonic = 1389 # type: ignore
 """
 <no docs>
 """
-VPSUBUSB: int = 1390
+VPSUBUSB: Mnemonic = 1390 # type: ignore
 """
 <no docs>
 """
-VPSUBUSW: int = 1391
+VPSUBUSW: Mnemonic = 1391 # type: ignore
 """
 <no docs>
 """
-VPSUBW: int = 1392
+VPSUBW: Mnemonic = 1392 # type: ignore
 """
 <no docs>
 """
-VPTERNLOGD: int = 1393
+VPTERNLOGD: Mnemonic = 1393 # type: ignore
 """
 <no docs>
 """
-VPTERNLOGQ: int = 1394
+VPTERNLOGQ: Mnemonic = 1394 # type: ignore
 """
 <no docs>
 """
-VPTEST: int = 1395
+VPTEST: Mnemonic = 1395 # type: ignore
 """
 <no docs>
 """
-VPTESTMB: int = 1396
+VPTESTMB: Mnemonic = 1396 # type: ignore
 """
 <no docs>
 """
-VPTESTMD: int = 1397
+VPTESTMD: Mnemonic = 1397 # type: ignore
 """
 <no docs>
 """
-VPTESTMQ: int = 1398
+VPTESTMQ: Mnemonic = 1398 # type: ignore
 """
 <no docs>
 """
-VPTESTMW: int = 1399
+VPTESTMW: Mnemonic = 1399 # type: ignore
 """
 <no docs>
 """
-VPTESTNMB: int = 1400
+VPTESTNMB: Mnemonic = 1400 # type: ignore
 """
 <no docs>
 """
-VPTESTNMD: int = 1401
+VPTESTNMD: Mnemonic = 1401 # type: ignore
 """
 <no docs>
 """
-VPTESTNMQ: int = 1402
+VPTESTNMQ: Mnemonic = 1402 # type: ignore
 """
 <no docs>
 """
-VPTESTNMW: int = 1403
+VPTESTNMW: Mnemonic = 1403 # type: ignore
 """
 <no docs>
 """
-VPUNPCKHBW: int = 1404
+VPUNPCKHBW: Mnemonic = 1404 # type: ignore
 """
 <no docs>
 """
-VPUNPCKHDQ: int = 1405
+VPUNPCKHDQ: Mnemonic = 1405 # type: ignore
 """
 <no docs>
 """
-VPUNPCKHQDQ: int = 1406
+VPUNPCKHQDQ: Mnemonic = 1406 # type: ignore
 """
 <no docs>
 """
-VPUNPCKHWD: int = 1407
+VPUNPCKHWD: Mnemonic = 1407 # type: ignore
 """
 <no docs>
 """
-VPUNPCKLBW: int = 1408
+VPUNPCKLBW: Mnemonic = 1408 # type: ignore
 """
 <no docs>
 """
-VPUNPCKLDQ: int = 1409
+VPUNPCKLDQ: Mnemonic = 1409 # type: ignore
 """
 <no docs>
 """
-VPUNPCKLQDQ: int = 1410
+VPUNPCKLQDQ: Mnemonic = 1410 # type: ignore
 """
 <no docs>
 """
-VPUNPCKLWD: int = 1411
+VPUNPCKLWD: Mnemonic = 1411 # type: ignore
 """
 <no docs>
 """
-VPXOR: int = 1412
+VPXOR: Mnemonic = 1412 # type: ignore
 """
 <no docs>
 """
-VPXORD: int = 1413
+VPXORD: Mnemonic = 1413 # type: ignore
 """
 <no docs>
 """
-VPXORQ: int = 1414
+VPXORQ: Mnemonic = 1414 # type: ignore
 """
 <no docs>
 """
-VRANGEPD: int = 1415
+VRANGEPD: Mnemonic = 1415 # type: ignore
 """
 <no docs>
 """
-VRANGEPS: int = 1416
+VRANGEPS: Mnemonic = 1416 # type: ignore
 """
 <no docs>
 """
-VRANGESD: int = 1417
+VRANGESD: Mnemonic = 1417 # type: ignore
 """
 <no docs>
 """
-VRANGESS: int = 1418
+VRANGESS: Mnemonic = 1418 # type: ignore
 """
 <no docs>
 """
-VRCP14PD: int = 1419
+VRCP14PD: Mnemonic = 1419 # type: ignore
 """
 <no docs>
 """
-VRCP14PS: int = 1420
+VRCP14PS: Mnemonic = 1420 # type: ignore
 """
 <no docs>
 """
-VRCP14SD: int = 1421
+VRCP14SD: Mnemonic = 1421 # type: ignore
 """
 <no docs>
 """
-VRCP14SS: int = 1422
+VRCP14SS: Mnemonic = 1422 # type: ignore
 """
 <no docs>
 """
-VRCP28PD: int = 1423
+VRCP28PD: Mnemonic = 1423 # type: ignore
 """
 <no docs>
 """
-VRCP28PS: int = 1424
+VRCP28PS: Mnemonic = 1424 # type: ignore
 """
 <no docs>
 """
-VRCP28SD: int = 1425
+VRCP28SD: Mnemonic = 1425 # type: ignore
 """
 <no docs>
 """
-VRCP28SS: int = 1426
+VRCP28SS: Mnemonic = 1426 # type: ignore
 """
 <no docs>
 """
-VRCPPS: int = 1427
+VRCPPS: Mnemonic = 1427 # type: ignore
 """
 <no docs>
 """
-VRCPSS: int = 1428
+VRCPSS: Mnemonic = 1428 # type: ignore
 """
 <no docs>
 """
-VREDUCEPD: int = 1429
+VREDUCEPD: Mnemonic = 1429 # type: ignore
 """
 <no docs>
 """
-VREDUCEPS: int = 1430
+VREDUCEPS: Mnemonic = 1430 # type: ignore
 """
 <no docs>
 """
-VREDUCESD: int = 1431
+VREDUCESD: Mnemonic = 1431 # type: ignore
 """
 <no docs>
 """
-VREDUCESS: int = 1432
+VREDUCESS: Mnemonic = 1432 # type: ignore
 """
 <no docs>
 """
-VRNDSCALEPD: int = 1433
+VRNDSCALEPD: Mnemonic = 1433 # type: ignore
 """
 <no docs>
 """
-VRNDSCALEPS: int = 1434
+VRNDSCALEPS: Mnemonic = 1434 # type: ignore
 """
 <no docs>
 """
-VRNDSCALESD: int = 1435
+VRNDSCALESD: Mnemonic = 1435 # type: ignore
 """
 <no docs>
 """
-VRNDSCALESS: int = 1436
+VRNDSCALESS: Mnemonic = 1436 # type: ignore
 """
 <no docs>
 """
-VROUNDPD: int = 1437
+VROUNDPD: Mnemonic = 1437 # type: ignore
 """
 <no docs>
 """
-VROUNDPS: int = 1438
+VROUNDPS: Mnemonic = 1438 # type: ignore
 """
 <no docs>
 """
-VROUNDSD: int = 1439
+VROUNDSD: Mnemonic = 1439 # type: ignore
 """
 <no docs>
 """
-VROUNDSS: int = 1440
+VROUNDSS: Mnemonic = 1440 # type: ignore
 """
 <no docs>
 """
-VRSQRT14PD: int = 1441
+VRSQRT14PD: Mnemonic = 1441 # type: ignore
 """
 <no docs>
 """
-VRSQRT14PS: int = 1442
+VRSQRT14PS: Mnemonic = 1442 # type: ignore
 """
 <no docs>
 """
-VRSQRT14SD: int = 1443
+VRSQRT14SD: Mnemonic = 1443 # type: ignore
 """
 <no docs>
 """
-VRSQRT14SS: int = 1444
+VRSQRT14SS: Mnemonic = 1444 # type: ignore
 """
 <no docs>
 """
-VRSQRT28PD: int = 1445
+VRSQRT28PD: Mnemonic = 1445 # type: ignore
 """
 <no docs>
 """
-VRSQRT28PS: int = 1446
+VRSQRT28PS: Mnemonic = 1446 # type: ignore
 """
 <no docs>
 """
-VRSQRT28SD: int = 1447
+VRSQRT28SD: Mnemonic = 1447 # type: ignore
 """
 <no docs>
 """
-VRSQRT28SS: int = 1448
+VRSQRT28SS: Mnemonic = 1448 # type: ignore
 """
 <no docs>
 """
-VRSQRTPS: int = 1449
+VRSQRTPS: Mnemonic = 1449 # type: ignore
 """
 <no docs>
 """
-VRSQRTSS: int = 1450
+VRSQRTSS: Mnemonic = 1450 # type: ignore
 """
 <no docs>
 """
-VSCALEFPD: int = 1451
+VSCALEFPD: Mnemonic = 1451 # type: ignore
 """
 <no docs>
 """
-VSCALEFPS: int = 1452
+VSCALEFPS: Mnemonic = 1452 # type: ignore
 """
 <no docs>
 """
-VSCALEFSD: int = 1453
+VSCALEFSD: Mnemonic = 1453 # type: ignore
 """
 <no docs>
 """
-VSCALEFSS: int = 1454
+VSCALEFSS: Mnemonic = 1454 # type: ignore
 """
 <no docs>
 """
-VSCATTERDPD: int = 1455
+VSCATTERDPD: Mnemonic = 1455 # type: ignore
 """
 <no docs>
 """
-VSCATTERDPS: int = 1456
+VSCATTERDPS: Mnemonic = 1456 # type: ignore
 """
 <no docs>
 """
-VSCATTERPF0DPD: int = 1457
+VSCATTERPF0DPD: Mnemonic = 1457 # type: ignore
 """
 <no docs>
 """
-VSCATTERPF0DPS: int = 1458
+VSCATTERPF0DPS: Mnemonic = 1458 # type: ignore
 """
 <no docs>
 """
-VSCATTERPF0QPD: int = 1459
+VSCATTERPF0QPD: Mnemonic = 1459 # type: ignore
 """
 <no docs>
 """
-VSCATTERPF0QPS: int = 1460
+VSCATTERPF0QPS: Mnemonic = 1460 # type: ignore
 """
 <no docs>
 """
-VSCATTERPF1DPD: int = 1461
+VSCATTERPF1DPD: Mnemonic = 1461 # type: ignore
 """
 <no docs>
 """
-VSCATTERPF1DPS: int = 1462
+VSCATTERPF1DPS: Mnemonic = 1462 # type: ignore
 """
 <no docs>
 """
-VSCATTERPF1QPD: int = 1463
+VSCATTERPF1QPD: Mnemonic = 1463 # type: ignore
 """
 <no docs>
 """
-VSCATTERPF1QPS: int = 1464
+VSCATTERPF1QPS: Mnemonic = 1464 # type: ignore
 """
 <no docs>
 """
-VSCATTERQPD: int = 1465
+VSCATTERQPD: Mnemonic = 1465 # type: ignore
 """
 <no docs>
 """
-VSCATTERQPS: int = 1466
+VSCATTERQPS: Mnemonic = 1466 # type: ignore
 """
 <no docs>
 """
-VSHUFF32X4: int = 1467
+VSHUFF32X4: Mnemonic = 1467 # type: ignore
 """
 <no docs>
 """
-VSHUFF64X2: int = 1468
+VSHUFF64X2: Mnemonic = 1468 # type: ignore
 """
 <no docs>
 """
-VSHUFI32X4: int = 1469
+VSHUFI32X4: Mnemonic = 1469 # type: ignore
 """
 <no docs>
 """
-VSHUFI64X2: int = 1470
+VSHUFI64X2: Mnemonic = 1470 # type: ignore
 """
 <no docs>
 """
-VSHUFPD: int = 1471
+VSHUFPD: Mnemonic = 1471 # type: ignore
 """
 <no docs>
 """
-VSHUFPS: int = 1472
+VSHUFPS: Mnemonic = 1472 # type: ignore
 """
 <no docs>
 """
-VSQRTPD: int = 1473
+VSQRTPD: Mnemonic = 1473 # type: ignore
 """
 <no docs>
 """
-VSQRTPS: int = 1474
+VSQRTPS: Mnemonic = 1474 # type: ignore
 """
 <no docs>
 """
-VSQRTSD: int = 1475
+VSQRTSD: Mnemonic = 1475 # type: ignore
 """
 <no docs>
 """
-VSQRTSS: int = 1476
+VSQRTSS: Mnemonic = 1476 # type: ignore
 """
 <no docs>
 """
-VSTMXCSR: int = 1477
+VSTMXCSR: Mnemonic = 1477 # type: ignore
 """
 <no docs>
 """
-VSUBPD: int = 1478
+VSUBPD: Mnemonic = 1478 # type: ignore
 """
 <no docs>
 """
-VSUBPS: int = 1479
+VSUBPS: Mnemonic = 1479 # type: ignore
 """
 <no docs>
 """
-VSUBSD: int = 1480
+VSUBSD: Mnemonic = 1480 # type: ignore
 """
 <no docs>
 """
-VSUBSS: int = 1481
+VSUBSS: Mnemonic = 1481 # type: ignore
 """
 <no docs>
 """
-VTESTPD: int = 1482
+VTESTPD: Mnemonic = 1482 # type: ignore
 """
 <no docs>
 """
-VTESTPS: int = 1483
+VTESTPS: Mnemonic = 1483 # type: ignore
 """
 <no docs>
 """
-VUCOMISD: int = 1484
+VUCOMISD: Mnemonic = 1484 # type: ignore
 """
 <no docs>
 """
-VUCOMISS: int = 1485
+VUCOMISS: Mnemonic = 1485 # type: ignore
 """
 <no docs>
 """
-VUNPCKHPD: int = 1486
+VUNPCKHPD: Mnemonic = 1486 # type: ignore
 """
 <no docs>
 """
-VUNPCKHPS: int = 1487
+VUNPCKHPS: Mnemonic = 1487 # type: ignore
 """
 <no docs>
 """
-VUNPCKLPD: int = 1488
+VUNPCKLPD: Mnemonic = 1488 # type: ignore
 """
 <no docs>
 """
-VUNPCKLPS: int = 1489
+VUNPCKLPS: Mnemonic = 1489 # type: ignore
 """
 <no docs>
 """
-VXORPD: int = 1490
+VXORPD: Mnemonic = 1490 # type: ignore
 """
 <no docs>
 """
-VXORPS: int = 1491
+VXORPS: Mnemonic = 1491 # type: ignore
 """
 <no docs>
 """
-VZEROALL: int = 1492
+VZEROALL: Mnemonic = 1492 # type: ignore
 """
 <no docs>
 """
-VZEROUPPER: int = 1493
+VZEROUPPER: Mnemonic = 1493 # type: ignore
 """
 <no docs>
 """
-WAIT: int = 1494
+WAIT: Mnemonic = 1494 # type: ignore
 """
 <no docs>
 """
-WBINVD: int = 1495
+WBINVD: Mnemonic = 1495 # type: ignore
 """
 <no docs>
 """
-WBNOINVD: int = 1496
+WBNOINVD: Mnemonic = 1496 # type: ignore
 """
 <no docs>
 """
-WRFSBASE: int = 1497
+WRFSBASE: Mnemonic = 1497 # type: ignore
 """
 <no docs>
 """
-WRGSBASE: int = 1498
+WRGSBASE: Mnemonic = 1498 # type: ignore
 """
 <no docs>
 """
-WRMSR: int = 1499
+WRMSR: Mnemonic = 1499 # type: ignore
 """
 <no docs>
 """
-WRPKRU: int = 1500
+WRPKRU: Mnemonic = 1500 # type: ignore
 """
 <no docs>
 """
-WRSSD: int = 1501
+WRSSD: Mnemonic = 1501 # type: ignore
 """
 <no docs>
 """
-WRSSQ: int = 1502
+WRSSQ: Mnemonic = 1502 # type: ignore
 """
 <no docs>
 """
-WRUSSD: int = 1503
+WRUSSD: Mnemonic = 1503 # type: ignore
 """
 <no docs>
 """
-WRUSSQ: int = 1504
+WRUSSQ: Mnemonic = 1504 # type: ignore
 """
 <no docs>
 """
-XABORT: int = 1505
+XABORT: Mnemonic = 1505 # type: ignore
 """
 <no docs>
 """
-XADD: int = 1506
+XADD: Mnemonic = 1506 # type: ignore
 """
 <no docs>
 """
-XBEGIN: int = 1507
+XBEGIN: Mnemonic = 1507 # type: ignore
 """
 <no docs>
 """
-XBTS: int = 1508
+XBTS: Mnemonic = 1508 # type: ignore
 """
 <no docs>
 """
-XCHG: int = 1509
+XCHG: Mnemonic = 1509 # type: ignore
 """
 <no docs>
 """
-XCRYPTCBC: int = 1510
+XCRYPTCBC: Mnemonic = 1510 # type: ignore
 """
 <no docs>
 """
-XCRYPTCFB: int = 1511
+XCRYPTCFB: Mnemonic = 1511 # type: ignore
 """
 <no docs>
 """
-XCRYPTCTR: int = 1512
+XCRYPTCTR: Mnemonic = 1512 # type: ignore
 """
 <no docs>
 """
-XCRYPTECB: int = 1513
+XCRYPTECB: Mnemonic = 1513 # type: ignore
 """
 <no docs>
 """
-XCRYPTOFB: int = 1514
+XCRYPTOFB: Mnemonic = 1514 # type: ignore
 """
 <no docs>
 """
-XEND: int = 1515
+XEND: Mnemonic = 1515 # type: ignore
 """
 <no docs>
 """
-XGETBV: int = 1516
+XGETBV: Mnemonic = 1516 # type: ignore
 """
 <no docs>
 """
-XLATB: int = 1517
+XLATB: Mnemonic = 1517 # type: ignore
 """
 <no docs>
 """
-XOR: int = 1518
+XOR: Mnemonic = 1518 # type: ignore
 """
 <no docs>
 """
-XORPD: int = 1519
+XORPD: Mnemonic = 1519 # type: ignore
 """
 <no docs>
 """
-XORPS: int = 1520
+XORPS: Mnemonic = 1520 # type: ignore
 """
 <no docs>
 """
-XRSTOR: int = 1521
+XRSTOR: Mnemonic = 1521 # type: ignore
 """
 <no docs>
 """
-XRSTOR64: int = 1522
+XRSTOR64: Mnemonic = 1522 # type: ignore
 """
 <no docs>
 """
-XRSTORS: int = 1523
+XRSTORS: Mnemonic = 1523 # type: ignore
 """
 <no docs>
 """
-XRSTORS64: int = 1524
+XRSTORS64: Mnemonic = 1524 # type: ignore
 """
 <no docs>
 """
-XSAVE: int = 1525
+XSAVE: Mnemonic = 1525 # type: ignore
 """
 <no docs>
 """
-XSAVE64: int = 1526
+XSAVE64: Mnemonic = 1526 # type: ignore
 """
 <no docs>
 """
-XSAVEC: int = 1527
+XSAVEC: Mnemonic = 1527 # type: ignore
 """
 <no docs>
 """
-XSAVEC64: int = 1528
+XSAVEC64: Mnemonic = 1528 # type: ignore
 """
 <no docs>
 """
-XSAVEOPT: int = 1529
+XSAVEOPT: Mnemonic = 1529 # type: ignore
 """
 <no docs>
 """
-XSAVEOPT64: int = 1530
+XSAVEOPT64: Mnemonic = 1530 # type: ignore
 """
 <no docs>
 """
-XSAVES: int = 1531
+XSAVES: Mnemonic = 1531 # type: ignore
 """
 <no docs>
 """
-XSAVES64: int = 1532
+XSAVES64: Mnemonic = 1532 # type: ignore
 """
 <no docs>
 """
-XSETBV: int = 1533
+XSETBV: Mnemonic = 1533 # type: ignore
 """
 <no docs>
 """
-XSHA1: int = 1534
+XSHA1: Mnemonic = 1534 # type: ignore
 """
 <no docs>
 """
-XSHA256: int = 1535
+XSHA256: Mnemonic = 1535 # type: ignore
 """
 <no docs>
 """
-XSTORE: int = 1536
+XSTORE: Mnemonic = 1536 # type: ignore
 """
 <no docs>
 """
-XTEST: int = 1537
+XTEST: Mnemonic = 1537 # type: ignore
 """
 <no docs>
 """
-RMPADJUST: int = 1538
+RMPADJUST: Mnemonic = 1538 # type: ignore
 """
 <no docs>
 """
-RMPUPDATE: int = 1539
+RMPUPDATE: Mnemonic = 1539 # type: ignore
 """
 <no docs>
 """
-PSMASH: int = 1540
+PSMASH: Mnemonic = 1540 # type: ignore
 """
 <no docs>
 """
-PVALIDATE: int = 1541
+PVALIDATE: Mnemonic = 1541 # type: ignore
 """
 <no docs>
 """
-SERIALIZE: int = 1542
+SERIALIZE: Mnemonic = 1542 # type: ignore
 """
 <no docs>
 """
-XSUSLDTRK: int = 1543
+XSUSLDTRK: Mnemonic = 1543 # type: ignore
 """
 <no docs>
 """
-XRESLDTRK: int = 1544
+XRESLDTRK: Mnemonic = 1544 # type: ignore
 """
 <no docs>
 """
-INVLPGB: int = 1545
+INVLPGB: Mnemonic = 1545 # type: ignore
 """
 <no docs>
 """
-TLBSYNC: int = 1546
+TLBSYNC: Mnemonic = 1546 # type: ignore
 """
 <no docs>
 """
-VMGEXIT: int = 1547
+VMGEXIT: Mnemonic = 1547 # type: ignore
 """
 <no docs>
 """
-GETSECQ: int = 1548
+GETSECQ: Mnemonic = 1548 # type: ignore
 """
 <no docs>
 """
-SYSEXITQ: int = 1549
+SYSEXITQ: Mnemonic = 1549 # type: ignore
 """
 <no docs>
 """
-LDTILECFG: int = 1550
+LDTILECFG: Mnemonic = 1550 # type: ignore
 """
 <no docs>
 """
-TILERELEASE: int = 1551
+TILERELEASE: Mnemonic = 1551 # type: ignore
 """
 <no docs>
 """
-STTILECFG: int = 1552
+STTILECFG: Mnemonic = 1552 # type: ignore
 """
 <no docs>
 """
-TILEZERO: int = 1553
+TILEZERO: Mnemonic = 1553 # type: ignore
 """
 <no docs>
 """
-TILELOADDT1: int = 1554
+TILELOADDT1: Mnemonic = 1554 # type: ignore
 """
 <no docs>
 """
-TILESTORED: int = 1555
+TILESTORED: Mnemonic = 1555 # type: ignore
 """
 <no docs>
 """
-TILELOADD: int = 1556
+TILELOADD: Mnemonic = 1556 # type: ignore
 """
 <no docs>
 """
-TDPBF16PS: int = 1557
+TDPBF16PS: Mnemonic = 1557 # type: ignore
 """
 <no docs>
 """
-TDPBUUD: int = 1558
+TDPBUUD: Mnemonic = 1558 # type: ignore
 """
 <no docs>
 """
-TDPBUSD: int = 1559
+TDPBUSD: Mnemonic = 1559 # type: ignore
 """
 <no docs>
 """
-TDPBSUD: int = 1560
+TDPBSUD: Mnemonic = 1560 # type: ignore
 """
 <no docs>
 """
-TDPBSSD: int = 1561
+TDPBSSD: Mnemonic = 1561 # type: ignore
 """
 <no docs>
 """
-SYSRETQ: int = 1562
+SYSRETQ: Mnemonic = 1562 # type: ignore
 """
 <no docs>
 """
-FNSTDW: int = 1563
+FNSTDW: Mnemonic = 1563 # type: ignore
 """
 <no docs>
 """
-FNSTSG: int = 1564
+FNSTSG: Mnemonic = 1564 # type: ignore
 """
 <no docs>
 """
-RDSHR: int = 1565
+RDSHR: Mnemonic = 1565 # type: ignore
 """
 <no docs>
 """
-WRSHR: int = 1566
+WRSHR: Mnemonic = 1566 # type: ignore
 """
 <no docs>
 """
-SMINT: int = 1567
+SMINT: Mnemonic = 1567 # type: ignore
 """
 <no docs>
 """
-DMINT: int = 1568
+DMINT: Mnemonic = 1568 # type: ignore
 """
 <no docs>
 """
-RDM: int = 1569
+RDM: Mnemonic = 1569 # type: ignore
 """
 <no docs>
 """
-SVDC: int = 1570
+SVDC: Mnemonic = 1570 # type: ignore
 """
 <no docs>
 """
-RSDC: int = 1571
+RSDC: Mnemonic = 1571 # type: ignore
 """
 <no docs>
 """
-SVLDT: int = 1572
+SVLDT: Mnemonic = 1572 # type: ignore
 """
 <no docs>
 """
-RSLDT: int = 1573
+RSLDT: Mnemonic = 1573 # type: ignore
 """
 <no docs>
 """
-SVTS: int = 1574
+SVTS: Mnemonic = 1574 # type: ignore
 """
 <no docs>
 """
-RSTS: int = 1575
+RSTS: Mnemonic = 1575 # type: ignore
 """
 <no docs>
 """
-BB0_RESET: int = 1576
+BB0_RESET: Mnemonic = 1576 # type: ignore
 """
 <no docs>
 """
-BB1_RESET: int = 1577
+BB1_RESET: Mnemonic = 1577 # type: ignore
 """
 <no docs>
 """
-CPU_WRITE: int = 1578
+CPU_WRITE: Mnemonic = 1578 # type: ignore
 """
 <no docs>
 """
-CPU_READ: int = 1579
+CPU_READ: Mnemonic = 1579 # type: ignore
 """
 <no docs>
 """
-ALTINST: int = 1580
+ALTINST: Mnemonic = 1580 # type: ignore
 """
 <no docs>
 """
-PAVEB: int = 1581
+PAVEB: Mnemonic = 1581 # type: ignore
 """
 <no docs>
 """
-PADDSIW: int = 1582
+PADDSIW: Mnemonic = 1582 # type: ignore
 """
 <no docs>
 """
-PMAGW: int = 1583
+PMAGW: Mnemonic = 1583 # type: ignore
 """
 <no docs>
 """
-PDISTIB: int = 1584
+PDISTIB: Mnemonic = 1584 # type: ignore
 """
 <no docs>
 """
-PSUBSIW: int = 1585
+PSUBSIW: Mnemonic = 1585 # type: ignore
 """
 <no docs>
 """
-PMVZB: int = 1586
+PMVZB: Mnemonic = 1586 # type: ignore
 """
 <no docs>
 """
-PMVNZB: int = 1587
+PMVNZB: Mnemonic = 1587 # type: ignore
 """
 <no docs>
 """
-PMVLZB: int = 1588
+PMVLZB: Mnemonic = 1588 # type: ignore
 """
 <no docs>
 """
-PMVGEZB: int = 1589
+PMVGEZB: Mnemonic = 1589 # type: ignore
 """
 <no docs>
 """
-PMULHRIW: int = 1590
+PMULHRIW: Mnemonic = 1590 # type: ignore
 """
 <no docs>
 """
-PMACHRIW: int = 1591
+PMACHRIW: Mnemonic = 1591 # type: ignore
 """
 <no docs>
 """
-FTSTP: int = 1592
+FTSTP: Mnemonic = 1592 # type: ignore
 """
 <no docs>
 """
-FRINT2: int = 1593
+FRINT2: Mnemonic = 1593 # type: ignore
 """
 <no docs>
 """
-FRICHOP: int = 1594
+FRICHOP: Mnemonic = 1594 # type: ignore
 """
 <no docs>
 """
-FRINEAR: int = 1595
+FRINEAR: Mnemonic = 1595 # type: ignore
 """
 <no docs>
 """
-UNDOC: int = 1596
+UNDOC: Mnemonic = 1596 # type: ignore
 """
 <no docs>
 """
-TDCALL: int = 1597
+TDCALL: Mnemonic = 1597 # type: ignore
 """
 <no docs>
 """
-SEAMRET: int = 1598
+SEAMRET: Mnemonic = 1598 # type: ignore
 """
 <no docs>
 """
-SEAMOPS: int = 1599
+SEAMOPS: Mnemonic = 1599 # type: ignore
 """
 <no docs>
 """
-SEAMCALL: int = 1600
+SEAMCALL: Mnemonic = 1600 # type: ignore
 """
 <no docs>
 """
-AESENCWIDE128KL: int = 1601
+AESENCWIDE128KL: Mnemonic = 1601 # type: ignore
 """
 <no docs>
 """
-AESDECWIDE128KL: int = 1602
+AESDECWIDE128KL: Mnemonic = 1602 # type: ignore
 """
 <no docs>
 """
-AESENCWIDE256KL: int = 1603
+AESENCWIDE256KL: Mnemonic = 1603 # type: ignore
 """
 <no docs>
 """
-AESDECWIDE256KL: int = 1604
+AESDECWIDE256KL: Mnemonic = 1604 # type: ignore
 """
 <no docs>
 """
-LOADIWKEY: int = 1605
+LOADIWKEY: Mnemonic = 1605 # type: ignore
 """
 <no docs>
 """
-AESENC128KL: int = 1606
+AESENC128KL: Mnemonic = 1606 # type: ignore
 """
 <no docs>
 """
-AESDEC128KL: int = 1607
+AESDEC128KL: Mnemonic = 1607 # type: ignore
 """
 <no docs>
 """
-AESENC256KL: int = 1608
+AESENC256KL: Mnemonic = 1608 # type: ignore
 """
 <no docs>
 """
-AESDEC256KL: int = 1609
+AESDEC256KL: Mnemonic = 1609 # type: ignore
 """
 <no docs>
 """
-ENCODEKEY128: int = 1610
+ENCODEKEY128: Mnemonic = 1610 # type: ignore
 """
 <no docs>
 """
-ENCODEKEY256: int = 1611
+ENCODEKEY256: Mnemonic = 1611 # type: ignore
 """
 <no docs>
 """
-PUSHAD: int = 1612
+PUSHAD: Mnemonic = 1612 # type: ignore
 """
 <no docs>
 """
-POPAD: int = 1613
+POPAD: Mnemonic = 1613 # type: ignore
 """
 <no docs>
 """
-PUSHFD: int = 1614
+PUSHFD: Mnemonic = 1614 # type: ignore
 """
 <no docs>
 """
-PUSHFQ: int = 1615
+PUSHFQ: Mnemonic = 1615 # type: ignore
 """
 <no docs>
 """
-POPFD: int = 1616
+POPFD: Mnemonic = 1616 # type: ignore
 """
 <no docs>
 """
-POPFQ: int = 1617
+POPFQ: Mnemonic = 1617 # type: ignore
 """
 <no docs>
 """
-IRETD: int = 1618
+IRETD: Mnemonic = 1618 # type: ignore
 """
 <no docs>
 """
-IRETQ: int = 1619
+IRETQ: Mnemonic = 1619 # type: ignore
 """
 <no docs>
 """
-INT3: int = 1620
+INT3: Mnemonic = 1620 # type: ignore
 """
 <no docs>
 """
-UIRET: int = 1621
+UIRET: Mnemonic = 1621 # type: ignore
 """
 <no docs>
 """
-TESTUI: int = 1622
+TESTUI: Mnemonic = 1622 # type: ignore
 """
 <no docs>
 """
-CLUI: int = 1623
+CLUI: Mnemonic = 1623 # type: ignore
 """
 <no docs>
 """
-STUI: int = 1624
+STUI: Mnemonic = 1624 # type: ignore
 """
 <no docs>
 """
-SENDUIPI: int = 1625
+SENDUIPI: Mnemonic = 1625 # type: ignore
 """
 <no docs>
 """
-HRESET: int = 1626
+HRESET: Mnemonic = 1626 # type: ignore
 """
 <no docs>
 """
-CCS_HASH: int = 1627
+CCS_HASH: Mnemonic = 1627 # type: ignore
 """
 <no docs>
 """
-CCS_ENCRYPT: int = 1628
+CCS_ENCRYPT: Mnemonic = 1628 # type: ignore
 """
 <no docs>
 """
-LKGS: int = 1629
+LKGS: Mnemonic = 1629 # type: ignore
 """
 <no docs>
 """
-ERETU: int = 1630
+ERETU: Mnemonic = 1630 # type: ignore
 """
 <no docs>
 """
-ERETS: int = 1631
+ERETS: Mnemonic = 1631 # type: ignore
 """
 <no docs>
 """
-STOREALL: int = 1632
+STOREALL: Mnemonic = 1632 # type: ignore
 """
 <no docs>
 """
-VADDPH: int = 1633
+VADDPH: Mnemonic = 1633 # type: ignore
 """
 <no docs>
 """
-VADDSH: int = 1634
+VADDSH: Mnemonic = 1634 # type: ignore
 """
 <no docs>
 """
-VCMPPH: int = 1635
+VCMPPH: Mnemonic = 1635 # type: ignore
 """
 <no docs>
 """
-VCMPSH: int = 1636
+VCMPSH: Mnemonic = 1636 # type: ignore
 """
 <no docs>
 """
-VCOMISH: int = 1637
+VCOMISH: Mnemonic = 1637 # type: ignore
 """
 <no docs>
 """
-VCVTDQ2PH: int = 1638
+VCVTDQ2PH: Mnemonic = 1638 # type: ignore
 """
 <no docs>
 """
-VCVTPD2PH: int = 1639
+VCVTPD2PH: Mnemonic = 1639 # type: ignore
 """
 <no docs>
 """
-VCVTPH2DQ: int = 1640
+VCVTPH2DQ: Mnemonic = 1640 # type: ignore
 """
 <no docs>
 """
-VCVTPH2PD: int = 1641
+VCVTPH2PD: Mnemonic = 1641 # type: ignore
 """
 <no docs>
 """
-VCVTPH2PSX: int = 1642
+VCVTPH2PSX: Mnemonic = 1642 # type: ignore
 """
 <no docs>
 """
-VCVTPH2QQ: int = 1643
+VCVTPH2QQ: Mnemonic = 1643 # type: ignore
 """
 <no docs>
 """
-VCVTPH2UDQ: int = 1644
+VCVTPH2UDQ: Mnemonic = 1644 # type: ignore
 """
 <no docs>
 """
-VCVTPH2UQQ: int = 1645
+VCVTPH2UQQ: Mnemonic = 1645 # type: ignore
 """
 <no docs>
 """
-VCVTPH2UW: int = 1646
+VCVTPH2UW: Mnemonic = 1646 # type: ignore
 """
 <no docs>
 """
-VCVTPH2W: int = 1647
+VCVTPH2W: Mnemonic = 1647 # type: ignore
 """
 <no docs>
 """
-VCVTPS2PHX: int = 1648
+VCVTPS2PHX: Mnemonic = 1648 # type: ignore
 """
 <no docs>
 """
-VCVTQQ2PH: int = 1649
+VCVTQQ2PH: Mnemonic = 1649 # type: ignore
 """
 <no docs>
 """
-VCVTSD2SH: int = 1650
+VCVTSD2SH: Mnemonic = 1650 # type: ignore
 """
 <no docs>
 """
-VCVTSH2SD: int = 1651
+VCVTSH2SD: Mnemonic = 1651 # type: ignore
 """
 <no docs>
 """
-VCVTSH2SI: int = 1652
+VCVTSH2SI: Mnemonic = 1652 # type: ignore
 """
 <no docs>
 """
-VCVTSH2SS: int = 1653
+VCVTSH2SS: Mnemonic = 1653 # type: ignore
 """
 <no docs>
 """
-VCVTSH2USI: int = 1654
+VCVTSH2USI: Mnemonic = 1654 # type: ignore
 """
 <no docs>
 """
-VCVTSI2SH: int = 1655
+VCVTSI2SH: Mnemonic = 1655 # type: ignore
 """
 <no docs>
 """
-VCVTSS2SH: int = 1656
+VCVTSS2SH: Mnemonic = 1656 # type: ignore
 """
 <no docs>
 """
-VCVTTPH2DQ: int = 1657
+VCVTTPH2DQ: Mnemonic = 1657 # type: ignore
 """
 <no docs>
 """
-VCVTTPH2QQ: int = 1658
+VCVTTPH2QQ: Mnemonic = 1658 # type: ignore
 """
 <no docs>
 """
-VCVTTPH2UDQ: int = 1659
+VCVTTPH2UDQ: Mnemonic = 1659 # type: ignore
 """
 <no docs>
 """
-VCVTTPH2UQQ: int = 1660
+VCVTTPH2UQQ: Mnemonic = 1660 # type: ignore
 """
 <no docs>
 """
-VCVTTPH2UW: int = 1661
+VCVTTPH2UW: Mnemonic = 1661 # type: ignore
 """
 <no docs>
 """
-VCVTTPH2W: int = 1662
+VCVTTPH2W: Mnemonic = 1662 # type: ignore
 """
 <no docs>
 """
-VCVTTSH2SI: int = 1663
+VCVTTSH2SI: Mnemonic = 1663 # type: ignore
 """
 <no docs>
 """
-VCVTTSH2USI: int = 1664
+VCVTTSH2USI: Mnemonic = 1664 # type: ignore
 """
 <no docs>
 """
-VCVTUDQ2PH: int = 1665
+VCVTUDQ2PH: Mnemonic = 1665 # type: ignore
 """
 <no docs>
 """
-VCVTUQQ2PH: int = 1666
+VCVTUQQ2PH: Mnemonic = 1666 # type: ignore
 """
 <no docs>
 """
-VCVTUSI2SH: int = 1667
+VCVTUSI2SH: Mnemonic = 1667 # type: ignore
 """
 <no docs>
 """
-VCVTUW2PH: int = 1668
+VCVTUW2PH: Mnemonic = 1668 # type: ignore
 """
 <no docs>
 """
-VCVTW2PH: int = 1669
+VCVTW2PH: Mnemonic = 1669 # type: ignore
 """
 <no docs>
 """
-VDIVPH: int = 1670
+VDIVPH: Mnemonic = 1670 # type: ignore
 """
 <no docs>
 """
-VDIVSH: int = 1671
+VDIVSH: Mnemonic = 1671 # type: ignore
 """
 <no docs>
 """
-VFCMADDCPH: int = 1672
+VFCMADDCPH: Mnemonic = 1672 # type: ignore
 """
 <no docs>
 """
-VFMADDCPH: int = 1673
+VFMADDCPH: Mnemonic = 1673 # type: ignore
 """
 <no docs>
 """
-VFCMADDCSH: int = 1674
+VFCMADDCSH: Mnemonic = 1674 # type: ignore
 """
 <no docs>
 """
-VFMADDCSH: int = 1675
+VFMADDCSH: Mnemonic = 1675 # type: ignore
 """
 <no docs>
 """
-VFCMULCPH: int = 1676
+VFCMULCPH: Mnemonic = 1676 # type: ignore
 """
 <no docs>
 """
-VFMULCPH: int = 1677
+VFMULCPH: Mnemonic = 1677 # type: ignore
 """
 <no docs>
 """
-VFCMULCSH: int = 1678
+VFCMULCSH: Mnemonic = 1678 # type: ignore
 """
 <no docs>
 """
-VFMULCSH: int = 1679
+VFMULCSH: Mnemonic = 1679 # type: ignore
 """
 <no docs>
 """
-VFMADDSUB132PH: int = 1680
+VFMADDSUB132PH: Mnemonic = 1680 # type: ignore
 """
 <no docs>
 """
-VFMADDSUB213PH: int = 1681
+VFMADDSUB213PH: Mnemonic = 1681 # type: ignore
 """
 <no docs>
 """
-VFMADDSUB231PH: int = 1682
+VFMADDSUB231PH: Mnemonic = 1682 # type: ignore
 """
 <no docs>
 """
-VFMSUBADD132PH: int = 1683
+VFMSUBADD132PH: Mnemonic = 1683 # type: ignore
 """
 <no docs>
 """
-VFMSUBADD213PH: int = 1684
+VFMSUBADD213PH: Mnemonic = 1684 # type: ignore
 """
 <no docs>
 """
-VFMSUBADD231PH: int = 1685
+VFMSUBADD231PH: Mnemonic = 1685 # type: ignore
 """
 <no docs>
 """
-VFMADD132PH: int = 1686
+VFMADD132PH: Mnemonic = 1686 # type: ignore
 """
 <no docs>
 """
-VFMADD213PH: int = 1687
+VFMADD213PH: Mnemonic = 1687 # type: ignore
 """
 <no docs>
 """
-VFMADD231PH: int = 1688
+VFMADD231PH: Mnemonic = 1688 # type: ignore
 """
 <no docs>
 """
-VFNMADD132PH: int = 1689
+VFNMADD132PH: Mnemonic = 1689 # type: ignore
 """
 <no docs>
 """
-VFNMADD213PH: int = 1690
+VFNMADD213PH: Mnemonic = 1690 # type: ignore
 """
 <no docs>
 """
-VFNMADD231PH: int = 1691
+VFNMADD231PH: Mnemonic = 1691 # type: ignore
 """
 <no docs>
 """
-VFMADD132SH: int = 1692
+VFMADD132SH: Mnemonic = 1692 # type: ignore
 """
 <no docs>
 """
-VFMADD213SH: int = 1693
+VFMADD213SH: Mnemonic = 1693 # type: ignore
 """
 <no docs>
 """
-VFMADD231SH: int = 1694
+VFMADD231SH: Mnemonic = 1694 # type: ignore
 """
 <no docs>
 """
-VFNMADD132SH: int = 1695
+VFNMADD132SH: Mnemonic = 1695 # type: ignore
 """
 <no docs>
 """
-VFNMADD213SH: int = 1696
+VFNMADD213SH: Mnemonic = 1696 # type: ignore
 """
 <no docs>
 """
-VFNMADD231SH: int = 1697
+VFNMADD231SH: Mnemonic = 1697 # type: ignore
 """
 <no docs>
 """
-VFMSUB132PH: int = 1698
+VFMSUB132PH: Mnemonic = 1698 # type: ignore
 """
 <no docs>
 """
-VFMSUB213PH: int = 1699
+VFMSUB213PH: Mnemonic = 1699 # type: ignore
 """
 <no docs>
 """
-VFMSUB231PH: int = 1700
+VFMSUB231PH: Mnemonic = 1700 # type: ignore
 """
 <no docs>
 """
-VFNMSUB132PH: int = 1701
+VFNMSUB132PH: Mnemonic = 1701 # type: ignore
 """
 <no docs>
 """
-VFNMSUB213PH: int = 1702
+VFNMSUB213PH: Mnemonic = 1702 # type: ignore
 """
 <no docs>
 """
-VFNMSUB231PH: int = 1703
+VFNMSUB231PH: Mnemonic = 1703 # type: ignore
 """
 <no docs>
 """
-VFMSUB132SH: int = 1704
+VFMSUB132SH: Mnemonic = 1704 # type: ignore
 """
 <no docs>
 """
-VFMSUB213SH: int = 1705
+VFMSUB213SH: Mnemonic = 1705 # type: ignore
 """
 <no docs>
 """
-VFMSUB231SH: int = 1706
+VFMSUB231SH: Mnemonic = 1706 # type: ignore
 """
 <no docs>
 """
-VFNMSUB132SH: int = 1707
+VFNMSUB132SH: Mnemonic = 1707 # type: ignore
 """
 <no docs>
 """
-VFNMSUB213SH: int = 1708
+VFNMSUB213SH: Mnemonic = 1708 # type: ignore
 """
 <no docs>
 """
-VFNMSUB231SH: int = 1709
+VFNMSUB231SH: Mnemonic = 1709 # type: ignore
 """
 <no docs>
 """
-VFPCLASSPH: int = 1710
+VFPCLASSPH: Mnemonic = 1710 # type: ignore
 """
 <no docs>
 """
-VFPCLASSSH: int = 1711
+VFPCLASSSH: Mnemonic = 1711 # type: ignore
 """
 <no docs>
 """
-VGETEXPPH: int = 1712
+VGETEXPPH: Mnemonic = 1712 # type: ignore
 """
 <no docs>
 """
-VGETEXPSH: int = 1713
+VGETEXPSH: Mnemonic = 1713 # type: ignore
 """
 <no docs>
 """
-VGETMANTPH: int = 1714
+VGETMANTPH: Mnemonic = 1714 # type: ignore
 """
 <no docs>
 """
-VGETMANTSH: int = 1715
+VGETMANTSH: Mnemonic = 1715 # type: ignore
 """
 <no docs>
 """
-VMAXPH: int = 1716
+VMAXPH: Mnemonic = 1716 # type: ignore
 """
 <no docs>
 """
-VMAXSH: int = 1717
+VMAXSH: Mnemonic = 1717 # type: ignore
 """
 <no docs>
 """
-VMINPH: int = 1718
+VMINPH: Mnemonic = 1718 # type: ignore
 """
 <no docs>
 """
-VMINSH: int = 1719
+VMINSH: Mnemonic = 1719 # type: ignore
 """
 <no docs>
 """
-VMOVSH: int = 1720
+VMOVSH: Mnemonic = 1720 # type: ignore
 """
 <no docs>
 """
-VMOVW: int = 1721
+VMOVW: Mnemonic = 1721 # type: ignore
 """
 <no docs>
 """
-VMULPH: int = 1722
+VMULPH: Mnemonic = 1722 # type: ignore
 """
 <no docs>
 """
-VMULSH: int = 1723
+VMULSH: Mnemonic = 1723 # type: ignore
 """
 <no docs>
 """
-VRCPPH: int = 1724
+VRCPPH: Mnemonic = 1724 # type: ignore
 """
 <no docs>
 """
-VRCPSH: int = 1725
+VRCPSH: Mnemonic = 1725 # type: ignore
 """
 <no docs>
 """
-VREDUCEPH: int = 1726
+VREDUCEPH: Mnemonic = 1726 # type: ignore
 """
 <no docs>
 """
-VREDUCESH: int = 1727
+VREDUCESH: Mnemonic = 1727 # type: ignore
 """
 <no docs>
 """
-VRNDSCALEPH: int = 1728
+VRNDSCALEPH: Mnemonic = 1728 # type: ignore
 """
 <no docs>
 """
-VRNDSCALESH: int = 1729
+VRNDSCALESH: Mnemonic = 1729 # type: ignore
 """
 <no docs>
 """
-VRSQRTPH: int = 1730
+VRSQRTPH: Mnemonic = 1730 # type: ignore
 """
 <no docs>
 """
-VRSQRTSH: int = 1731
+VRSQRTSH: Mnemonic = 1731 # type: ignore
 """
 <no docs>
 """
-VSCALEFPH: int = 1732
+VSCALEFPH: Mnemonic = 1732 # type: ignore
 """
 <no docs>
 """
-VSCALEFSH: int = 1733
+VSCALEFSH: Mnemonic = 1733 # type: ignore
 """
 <no docs>
 """
-VSQRTPH: int = 1734
+VSQRTPH: Mnemonic = 1734 # type: ignore
 """
 <no docs>
 """
-VSQRTSH: int = 1735
+VSQRTSH: Mnemonic = 1735 # type: ignore
 """
 <no docs>
 """
-VSUBPH: int = 1736
+VSUBPH: Mnemonic = 1736 # type: ignore
 """
 <no docs>
 """
-VSUBSH: int = 1737
+VSUBSH: Mnemonic = 1737 # type: ignore
 """
 <no docs>
 """
-VUCOMISH: int = 1738
+VUCOMISH: Mnemonic = 1738 # type: ignore
 """
 <no docs>
 """
-RDUDBG: int = 1739
+RDUDBG: Mnemonic = 1739 # type: ignore
 """
 <no docs>
 """
-WRUDBG: int = 1740
+WRUDBG: Mnemonic = 1740 # type: ignore
 """
 <no docs>
 """

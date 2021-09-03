@@ -11,11 +11,17 @@
 Mnemonic condition code selector (eg. ``JP`` / ``JPE``)
 """
 
-P: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import CC_p
+else:
+	CC_p = int
+
+P: CC_p = 0 # type: ignore
 """
 ``JP``, ``CMOVP``, ``SETP``
 """
-PE: int = 1
+PE: CC_p = 1 # type: ignore
 """
 ``JPE``, ``CMOVPE``, ``SETPE``
 """

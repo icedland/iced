@@ -11,27 +11,33 @@
 x86 instruction code
 """
 
-INVALID: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import Code
+else:
+	Code = int
+
+INVALID: Code = 0 # type: ignore
 """
 It's an invalid instruction, eg. it's a new unknown instruction, garbage or there's not enough bytes to decode the instruction etc.
 """
-DECLAREBYTE: int = 1
+DECLAREBYTE: Code = 1 # type: ignore
 """
 A ``db``/``.byte`` asm directive that can store 1-16 bytes
 """
-DECLAREWORD: int = 2
+DECLAREWORD: Code = 2 # type: ignore
 """
 A ``dw``/``.word`` asm directive that can store 1-8 words
 """
-DECLAREDWORD: int = 3
+DECLAREDWORD: Code = 3 # type: ignore
 """
 A ``dd``/``.int`` asm directive that can store 1-4 dwords
 """
-DECLAREQWORD: int = 4
+DECLAREQWORD: Code = 4 # type: ignore
 """
 A ``dq``/``.quad`` asm directive that can store 1-2 qwords
 """
-ADD_RM8_R8: int = 5
+ADD_RM8_R8: Code = 5 # type: ignore
 """
 ``ADD r/m8, r8``
 
@@ -41,7 +47,7 @@ ADD_RM8_R8: int = 5
 
 ``16/32/64-bit``
 """
-ADD_RM16_R16: int = 6
+ADD_RM16_R16: Code = 6 # type: ignore
 """
 ``ADD r/m16, r16``
 
@@ -51,7 +57,7 @@ ADD_RM16_R16: int = 6
 
 ``16/32/64-bit``
 """
-ADD_RM32_R32: int = 7
+ADD_RM32_R32: Code = 7 # type: ignore
 """
 ``ADD r/m32, r32``
 
@@ -61,7 +67,7 @@ ADD_RM32_R32: int = 7
 
 ``16/32/64-bit``
 """
-ADD_RM64_R64: int = 8
+ADD_RM64_R64: Code = 8 # type: ignore
 """
 ``ADD r/m64, r64``
 
@@ -71,7 +77,7 @@ ADD_RM64_R64: int = 8
 
 ``64-bit``
 """
-ADD_R8_RM8: int = 9
+ADD_R8_RM8: Code = 9 # type: ignore
 """
 ``ADD r8, r/m8``
 
@@ -81,7 +87,7 @@ ADD_R8_RM8: int = 9
 
 ``16/32/64-bit``
 """
-ADD_R16_RM16: int = 10
+ADD_R16_RM16: Code = 10 # type: ignore
 """
 ``ADD r16, r/m16``
 
@@ -91,7 +97,7 @@ ADD_R16_RM16: int = 10
 
 ``16/32/64-bit``
 """
-ADD_R32_RM32: int = 11
+ADD_R32_RM32: Code = 11 # type: ignore
 """
 ``ADD r32, r/m32``
 
@@ -101,7 +107,7 @@ ADD_R32_RM32: int = 11
 
 ``16/32/64-bit``
 """
-ADD_R64_RM64: int = 12
+ADD_R64_RM64: Code = 12 # type: ignore
 """
 ``ADD r64, r/m64``
 
@@ -111,7 +117,7 @@ ADD_R64_RM64: int = 12
 
 ``64-bit``
 """
-ADD_AL_IMM8: int = 13
+ADD_AL_IMM8: Code = 13 # type: ignore
 """
 ``ADD AL, imm8``
 
@@ -121,7 +127,7 @@ ADD_AL_IMM8: int = 13
 
 ``16/32/64-bit``
 """
-ADD_AX_IMM16: int = 14
+ADD_AX_IMM16: Code = 14 # type: ignore
 """
 ``ADD AX, imm16``
 
@@ -131,7 +137,7 @@ ADD_AX_IMM16: int = 14
 
 ``16/32/64-bit``
 """
-ADD_EAX_IMM32: int = 15
+ADD_EAX_IMM32: Code = 15 # type: ignore
 """
 ``ADD EAX, imm32``
 
@@ -141,7 +147,7 @@ ADD_EAX_IMM32: int = 15
 
 ``16/32/64-bit``
 """
-ADD_RAX_IMM32: int = 16
+ADD_RAX_IMM32: Code = 16 # type: ignore
 """
 ``ADD RAX, imm32``
 
@@ -151,7 +157,7 @@ ADD_RAX_IMM32: int = 16
 
 ``64-bit``
 """
-PUSHW_ES: int = 17
+PUSHW_ES: Code = 17 # type: ignore
 """
 ``PUSH ES``
 
@@ -161,7 +167,7 @@ PUSHW_ES: int = 17
 
 ``16/32-bit``
 """
-PUSHD_ES: int = 18
+PUSHD_ES: Code = 18 # type: ignore
 """
 ``PUSH ES``
 
@@ -171,7 +177,7 @@ PUSHD_ES: int = 18
 
 ``16/32-bit``
 """
-POPW_ES: int = 19
+POPW_ES: Code = 19 # type: ignore
 """
 ``POP ES``
 
@@ -181,7 +187,7 @@ POPW_ES: int = 19
 
 ``16/32-bit``
 """
-POPD_ES: int = 20
+POPD_ES: Code = 20 # type: ignore
 """
 ``POP ES``
 
@@ -191,7 +197,7 @@ POPD_ES: int = 20
 
 ``16/32-bit``
 """
-OR_RM8_R8: int = 21
+OR_RM8_R8: Code = 21 # type: ignore
 """
 ``OR r/m8, r8``
 
@@ -201,7 +207,7 @@ OR_RM8_R8: int = 21
 
 ``16/32/64-bit``
 """
-OR_RM16_R16: int = 22
+OR_RM16_R16: Code = 22 # type: ignore
 """
 ``OR r/m16, r16``
 
@@ -211,7 +217,7 @@ OR_RM16_R16: int = 22
 
 ``16/32/64-bit``
 """
-OR_RM32_R32: int = 23
+OR_RM32_R32: Code = 23 # type: ignore
 """
 ``OR r/m32, r32``
 
@@ -221,7 +227,7 @@ OR_RM32_R32: int = 23
 
 ``16/32/64-bit``
 """
-OR_RM64_R64: int = 24
+OR_RM64_R64: Code = 24 # type: ignore
 """
 ``OR r/m64, r64``
 
@@ -231,7 +237,7 @@ OR_RM64_R64: int = 24
 
 ``64-bit``
 """
-OR_R8_RM8: int = 25
+OR_R8_RM8: Code = 25 # type: ignore
 """
 ``OR r8, r/m8``
 
@@ -241,7 +247,7 @@ OR_R8_RM8: int = 25
 
 ``16/32/64-bit``
 """
-OR_R16_RM16: int = 26
+OR_R16_RM16: Code = 26 # type: ignore
 """
 ``OR r16, r/m16``
 
@@ -251,7 +257,7 @@ OR_R16_RM16: int = 26
 
 ``16/32/64-bit``
 """
-OR_R32_RM32: int = 27
+OR_R32_RM32: Code = 27 # type: ignore
 """
 ``OR r32, r/m32``
 
@@ -261,7 +267,7 @@ OR_R32_RM32: int = 27
 
 ``16/32/64-bit``
 """
-OR_R64_RM64: int = 28
+OR_R64_RM64: Code = 28 # type: ignore
 """
 ``OR r64, r/m64``
 
@@ -271,7 +277,7 @@ OR_R64_RM64: int = 28
 
 ``64-bit``
 """
-OR_AL_IMM8: int = 29
+OR_AL_IMM8: Code = 29 # type: ignore
 """
 ``OR AL, imm8``
 
@@ -281,7 +287,7 @@ OR_AL_IMM8: int = 29
 
 ``16/32/64-bit``
 """
-OR_AX_IMM16: int = 30
+OR_AX_IMM16: Code = 30 # type: ignore
 """
 ``OR AX, imm16``
 
@@ -291,7 +297,7 @@ OR_AX_IMM16: int = 30
 
 ``16/32/64-bit``
 """
-OR_EAX_IMM32: int = 31
+OR_EAX_IMM32: Code = 31 # type: ignore
 """
 ``OR EAX, imm32``
 
@@ -301,7 +307,7 @@ OR_EAX_IMM32: int = 31
 
 ``16/32/64-bit``
 """
-OR_RAX_IMM32: int = 32
+OR_RAX_IMM32: Code = 32 # type: ignore
 """
 ``OR RAX, imm32``
 
@@ -311,7 +317,7 @@ OR_RAX_IMM32: int = 32
 
 ``64-bit``
 """
-PUSHW_CS: int = 33
+PUSHW_CS: Code = 33 # type: ignore
 """
 ``PUSH CS``
 
@@ -321,7 +327,7 @@ PUSHW_CS: int = 33
 
 ``16/32-bit``
 """
-PUSHD_CS: int = 34
+PUSHD_CS: Code = 34 # type: ignore
 """
 ``PUSH CS``
 
@@ -331,7 +337,7 @@ PUSHD_CS: int = 34
 
 ``16/32-bit``
 """
-POPW_CS: int = 35
+POPW_CS: Code = 35 # type: ignore
 """
 ``POP CS``
 
@@ -341,7 +347,7 @@ POPW_CS: int = 35
 
 ``16-bit``
 """
-ADC_RM8_R8: int = 36
+ADC_RM8_R8: Code = 36 # type: ignore
 """
 ``ADC r/m8, r8``
 
@@ -351,7 +357,7 @@ ADC_RM8_R8: int = 36
 
 ``16/32/64-bit``
 """
-ADC_RM16_R16: int = 37
+ADC_RM16_R16: Code = 37 # type: ignore
 """
 ``ADC r/m16, r16``
 
@@ -361,7 +367,7 @@ ADC_RM16_R16: int = 37
 
 ``16/32/64-bit``
 """
-ADC_RM32_R32: int = 38
+ADC_RM32_R32: Code = 38 # type: ignore
 """
 ``ADC r/m32, r32``
 
@@ -371,7 +377,7 @@ ADC_RM32_R32: int = 38
 
 ``16/32/64-bit``
 """
-ADC_RM64_R64: int = 39
+ADC_RM64_R64: Code = 39 # type: ignore
 """
 ``ADC r/m64, r64``
 
@@ -381,7 +387,7 @@ ADC_RM64_R64: int = 39
 
 ``64-bit``
 """
-ADC_R8_RM8: int = 40
+ADC_R8_RM8: Code = 40 # type: ignore
 """
 ``ADC r8, r/m8``
 
@@ -391,7 +397,7 @@ ADC_R8_RM8: int = 40
 
 ``16/32/64-bit``
 """
-ADC_R16_RM16: int = 41
+ADC_R16_RM16: Code = 41 # type: ignore
 """
 ``ADC r16, r/m16``
 
@@ -401,7 +407,7 @@ ADC_R16_RM16: int = 41
 
 ``16/32/64-bit``
 """
-ADC_R32_RM32: int = 42
+ADC_R32_RM32: Code = 42 # type: ignore
 """
 ``ADC r32, r/m32``
 
@@ -411,7 +417,7 @@ ADC_R32_RM32: int = 42
 
 ``16/32/64-bit``
 """
-ADC_R64_RM64: int = 43
+ADC_R64_RM64: Code = 43 # type: ignore
 """
 ``ADC r64, r/m64``
 
@@ -421,7 +427,7 @@ ADC_R64_RM64: int = 43
 
 ``64-bit``
 """
-ADC_AL_IMM8: int = 44
+ADC_AL_IMM8: Code = 44 # type: ignore
 """
 ``ADC AL, imm8``
 
@@ -431,7 +437,7 @@ ADC_AL_IMM8: int = 44
 
 ``16/32/64-bit``
 """
-ADC_AX_IMM16: int = 45
+ADC_AX_IMM16: Code = 45 # type: ignore
 """
 ``ADC AX, imm16``
 
@@ -441,7 +447,7 @@ ADC_AX_IMM16: int = 45
 
 ``16/32/64-bit``
 """
-ADC_EAX_IMM32: int = 46
+ADC_EAX_IMM32: Code = 46 # type: ignore
 """
 ``ADC EAX, imm32``
 
@@ -451,7 +457,7 @@ ADC_EAX_IMM32: int = 46
 
 ``16/32/64-bit``
 """
-ADC_RAX_IMM32: int = 47
+ADC_RAX_IMM32: Code = 47 # type: ignore
 """
 ``ADC RAX, imm32``
 
@@ -461,7 +467,7 @@ ADC_RAX_IMM32: int = 47
 
 ``64-bit``
 """
-PUSHW_SS: int = 48
+PUSHW_SS: Code = 48 # type: ignore
 """
 ``PUSH SS``
 
@@ -471,7 +477,7 @@ PUSHW_SS: int = 48
 
 ``16/32-bit``
 """
-PUSHD_SS: int = 49
+PUSHD_SS: Code = 49 # type: ignore
 """
 ``PUSH SS``
 
@@ -481,7 +487,7 @@ PUSHD_SS: int = 49
 
 ``16/32-bit``
 """
-POPW_SS: int = 50
+POPW_SS: Code = 50 # type: ignore
 """
 ``POP SS``
 
@@ -491,7 +497,7 @@ POPW_SS: int = 50
 
 ``16/32-bit``
 """
-POPD_SS: int = 51
+POPD_SS: Code = 51 # type: ignore
 """
 ``POP SS``
 
@@ -501,7 +507,7 @@ POPD_SS: int = 51
 
 ``16/32-bit``
 """
-SBB_RM8_R8: int = 52
+SBB_RM8_R8: Code = 52 # type: ignore
 """
 ``SBB r/m8, r8``
 
@@ -511,7 +517,7 @@ SBB_RM8_R8: int = 52
 
 ``16/32/64-bit``
 """
-SBB_RM16_R16: int = 53
+SBB_RM16_R16: Code = 53 # type: ignore
 """
 ``SBB r/m16, r16``
 
@@ -521,7 +527,7 @@ SBB_RM16_R16: int = 53
 
 ``16/32/64-bit``
 """
-SBB_RM32_R32: int = 54
+SBB_RM32_R32: Code = 54 # type: ignore
 """
 ``SBB r/m32, r32``
 
@@ -531,7 +537,7 @@ SBB_RM32_R32: int = 54
 
 ``16/32/64-bit``
 """
-SBB_RM64_R64: int = 55
+SBB_RM64_R64: Code = 55 # type: ignore
 """
 ``SBB r/m64, r64``
 
@@ -541,7 +547,7 @@ SBB_RM64_R64: int = 55
 
 ``64-bit``
 """
-SBB_R8_RM8: int = 56
+SBB_R8_RM8: Code = 56 # type: ignore
 """
 ``SBB r8, r/m8``
 
@@ -551,7 +557,7 @@ SBB_R8_RM8: int = 56
 
 ``16/32/64-bit``
 """
-SBB_R16_RM16: int = 57
+SBB_R16_RM16: Code = 57 # type: ignore
 """
 ``SBB r16, r/m16``
 
@@ -561,7 +567,7 @@ SBB_R16_RM16: int = 57
 
 ``16/32/64-bit``
 """
-SBB_R32_RM32: int = 58
+SBB_R32_RM32: Code = 58 # type: ignore
 """
 ``SBB r32, r/m32``
 
@@ -571,7 +577,7 @@ SBB_R32_RM32: int = 58
 
 ``16/32/64-bit``
 """
-SBB_R64_RM64: int = 59
+SBB_R64_RM64: Code = 59 # type: ignore
 """
 ``SBB r64, r/m64``
 
@@ -581,7 +587,7 @@ SBB_R64_RM64: int = 59
 
 ``64-bit``
 """
-SBB_AL_IMM8: int = 60
+SBB_AL_IMM8: Code = 60 # type: ignore
 """
 ``SBB AL, imm8``
 
@@ -591,7 +597,7 @@ SBB_AL_IMM8: int = 60
 
 ``16/32/64-bit``
 """
-SBB_AX_IMM16: int = 61
+SBB_AX_IMM16: Code = 61 # type: ignore
 """
 ``SBB AX, imm16``
 
@@ -601,7 +607,7 @@ SBB_AX_IMM16: int = 61
 
 ``16/32/64-bit``
 """
-SBB_EAX_IMM32: int = 62
+SBB_EAX_IMM32: Code = 62 # type: ignore
 """
 ``SBB EAX, imm32``
 
@@ -611,7 +617,7 @@ SBB_EAX_IMM32: int = 62
 
 ``16/32/64-bit``
 """
-SBB_RAX_IMM32: int = 63
+SBB_RAX_IMM32: Code = 63 # type: ignore
 """
 ``SBB RAX, imm32``
 
@@ -621,7 +627,7 @@ SBB_RAX_IMM32: int = 63
 
 ``64-bit``
 """
-PUSHW_DS: int = 64
+PUSHW_DS: Code = 64 # type: ignore
 """
 ``PUSH DS``
 
@@ -631,7 +637,7 @@ PUSHW_DS: int = 64
 
 ``16/32-bit``
 """
-PUSHD_DS: int = 65
+PUSHD_DS: Code = 65 # type: ignore
 """
 ``PUSH DS``
 
@@ -641,7 +647,7 @@ PUSHD_DS: int = 65
 
 ``16/32-bit``
 """
-POPW_DS: int = 66
+POPW_DS: Code = 66 # type: ignore
 """
 ``POP DS``
 
@@ -651,7 +657,7 @@ POPW_DS: int = 66
 
 ``16/32-bit``
 """
-POPD_DS: int = 67
+POPD_DS: Code = 67 # type: ignore
 """
 ``POP DS``
 
@@ -661,7 +667,7 @@ POPD_DS: int = 67
 
 ``16/32-bit``
 """
-AND_RM8_R8: int = 68
+AND_RM8_R8: Code = 68 # type: ignore
 """
 ``AND r/m8, r8``
 
@@ -671,7 +677,7 @@ AND_RM8_R8: int = 68
 
 ``16/32/64-bit``
 """
-AND_RM16_R16: int = 69
+AND_RM16_R16: Code = 69 # type: ignore
 """
 ``AND r/m16, r16``
 
@@ -681,7 +687,7 @@ AND_RM16_R16: int = 69
 
 ``16/32/64-bit``
 """
-AND_RM32_R32: int = 70
+AND_RM32_R32: Code = 70 # type: ignore
 """
 ``AND r/m32, r32``
 
@@ -691,7 +697,7 @@ AND_RM32_R32: int = 70
 
 ``16/32/64-bit``
 """
-AND_RM64_R64: int = 71
+AND_RM64_R64: Code = 71 # type: ignore
 """
 ``AND r/m64, r64``
 
@@ -701,7 +707,7 @@ AND_RM64_R64: int = 71
 
 ``64-bit``
 """
-AND_R8_RM8: int = 72
+AND_R8_RM8: Code = 72 # type: ignore
 """
 ``AND r8, r/m8``
 
@@ -711,7 +717,7 @@ AND_R8_RM8: int = 72
 
 ``16/32/64-bit``
 """
-AND_R16_RM16: int = 73
+AND_R16_RM16: Code = 73 # type: ignore
 """
 ``AND r16, r/m16``
 
@@ -721,7 +727,7 @@ AND_R16_RM16: int = 73
 
 ``16/32/64-bit``
 """
-AND_R32_RM32: int = 74
+AND_R32_RM32: Code = 74 # type: ignore
 """
 ``AND r32, r/m32``
 
@@ -731,7 +737,7 @@ AND_R32_RM32: int = 74
 
 ``16/32/64-bit``
 """
-AND_R64_RM64: int = 75
+AND_R64_RM64: Code = 75 # type: ignore
 """
 ``AND r64, r/m64``
 
@@ -741,7 +747,7 @@ AND_R64_RM64: int = 75
 
 ``64-bit``
 """
-AND_AL_IMM8: int = 76
+AND_AL_IMM8: Code = 76 # type: ignore
 """
 ``AND AL, imm8``
 
@@ -751,7 +757,7 @@ AND_AL_IMM8: int = 76
 
 ``16/32/64-bit``
 """
-AND_AX_IMM16: int = 77
+AND_AX_IMM16: Code = 77 # type: ignore
 """
 ``AND AX, imm16``
 
@@ -761,7 +767,7 @@ AND_AX_IMM16: int = 77
 
 ``16/32/64-bit``
 """
-AND_EAX_IMM32: int = 78
+AND_EAX_IMM32: Code = 78 # type: ignore
 """
 ``AND EAX, imm32``
 
@@ -771,7 +777,7 @@ AND_EAX_IMM32: int = 78
 
 ``16/32/64-bit``
 """
-AND_RAX_IMM32: int = 79
+AND_RAX_IMM32: Code = 79 # type: ignore
 """
 ``AND RAX, imm32``
 
@@ -781,7 +787,7 @@ AND_RAX_IMM32: int = 79
 
 ``64-bit``
 """
-DAA: int = 80
+DAA: Code = 80 # type: ignore
 """
 ``DAA``
 
@@ -791,7 +797,7 @@ DAA: int = 80
 
 ``16/32-bit``
 """
-SUB_RM8_R8: int = 81
+SUB_RM8_R8: Code = 81 # type: ignore
 """
 ``SUB r/m8, r8``
 
@@ -801,7 +807,7 @@ SUB_RM8_R8: int = 81
 
 ``16/32/64-bit``
 """
-SUB_RM16_R16: int = 82
+SUB_RM16_R16: Code = 82 # type: ignore
 """
 ``SUB r/m16, r16``
 
@@ -811,7 +817,7 @@ SUB_RM16_R16: int = 82
 
 ``16/32/64-bit``
 """
-SUB_RM32_R32: int = 83
+SUB_RM32_R32: Code = 83 # type: ignore
 """
 ``SUB r/m32, r32``
 
@@ -821,7 +827,7 @@ SUB_RM32_R32: int = 83
 
 ``16/32/64-bit``
 """
-SUB_RM64_R64: int = 84
+SUB_RM64_R64: Code = 84 # type: ignore
 """
 ``SUB r/m64, r64``
 
@@ -831,7 +837,7 @@ SUB_RM64_R64: int = 84
 
 ``64-bit``
 """
-SUB_R8_RM8: int = 85
+SUB_R8_RM8: Code = 85 # type: ignore
 """
 ``SUB r8, r/m8``
 
@@ -841,7 +847,7 @@ SUB_R8_RM8: int = 85
 
 ``16/32/64-bit``
 """
-SUB_R16_RM16: int = 86
+SUB_R16_RM16: Code = 86 # type: ignore
 """
 ``SUB r16, r/m16``
 
@@ -851,7 +857,7 @@ SUB_R16_RM16: int = 86
 
 ``16/32/64-bit``
 """
-SUB_R32_RM32: int = 87
+SUB_R32_RM32: Code = 87 # type: ignore
 """
 ``SUB r32, r/m32``
 
@@ -861,7 +867,7 @@ SUB_R32_RM32: int = 87
 
 ``16/32/64-bit``
 """
-SUB_R64_RM64: int = 88
+SUB_R64_RM64: Code = 88 # type: ignore
 """
 ``SUB r64, r/m64``
 
@@ -871,7 +877,7 @@ SUB_R64_RM64: int = 88
 
 ``64-bit``
 """
-SUB_AL_IMM8: int = 89
+SUB_AL_IMM8: Code = 89 # type: ignore
 """
 ``SUB AL, imm8``
 
@@ -881,7 +887,7 @@ SUB_AL_IMM8: int = 89
 
 ``16/32/64-bit``
 """
-SUB_AX_IMM16: int = 90
+SUB_AX_IMM16: Code = 90 # type: ignore
 """
 ``SUB AX, imm16``
 
@@ -891,7 +897,7 @@ SUB_AX_IMM16: int = 90
 
 ``16/32/64-bit``
 """
-SUB_EAX_IMM32: int = 91
+SUB_EAX_IMM32: Code = 91 # type: ignore
 """
 ``SUB EAX, imm32``
 
@@ -901,7 +907,7 @@ SUB_EAX_IMM32: int = 91
 
 ``16/32/64-bit``
 """
-SUB_RAX_IMM32: int = 92
+SUB_RAX_IMM32: Code = 92 # type: ignore
 """
 ``SUB RAX, imm32``
 
@@ -911,7 +917,7 @@ SUB_RAX_IMM32: int = 92
 
 ``64-bit``
 """
-DAS: int = 93
+DAS: Code = 93 # type: ignore
 """
 ``DAS``
 
@@ -921,7 +927,7 @@ DAS: int = 93
 
 ``16/32-bit``
 """
-XOR_RM8_R8: int = 94
+XOR_RM8_R8: Code = 94 # type: ignore
 """
 ``XOR r/m8, r8``
 
@@ -931,7 +937,7 @@ XOR_RM8_R8: int = 94
 
 ``16/32/64-bit``
 """
-XOR_RM16_R16: int = 95
+XOR_RM16_R16: Code = 95 # type: ignore
 """
 ``XOR r/m16, r16``
 
@@ -941,7 +947,7 @@ XOR_RM16_R16: int = 95
 
 ``16/32/64-bit``
 """
-XOR_RM32_R32: int = 96
+XOR_RM32_R32: Code = 96 # type: ignore
 """
 ``XOR r/m32, r32``
 
@@ -951,7 +957,7 @@ XOR_RM32_R32: int = 96
 
 ``16/32/64-bit``
 """
-XOR_RM64_R64: int = 97
+XOR_RM64_R64: Code = 97 # type: ignore
 """
 ``XOR r/m64, r64``
 
@@ -961,7 +967,7 @@ XOR_RM64_R64: int = 97
 
 ``64-bit``
 """
-XOR_R8_RM8: int = 98
+XOR_R8_RM8: Code = 98 # type: ignore
 """
 ``XOR r8, r/m8``
 
@@ -971,7 +977,7 @@ XOR_R8_RM8: int = 98
 
 ``16/32/64-bit``
 """
-XOR_R16_RM16: int = 99
+XOR_R16_RM16: Code = 99 # type: ignore
 """
 ``XOR r16, r/m16``
 
@@ -981,7 +987,7 @@ XOR_R16_RM16: int = 99
 
 ``16/32/64-bit``
 """
-XOR_R32_RM32: int = 100
+XOR_R32_RM32: Code = 100 # type: ignore
 """
 ``XOR r32, r/m32``
 
@@ -991,7 +997,7 @@ XOR_R32_RM32: int = 100
 
 ``16/32/64-bit``
 """
-XOR_R64_RM64: int = 101
+XOR_R64_RM64: Code = 101 # type: ignore
 """
 ``XOR r64, r/m64``
 
@@ -1001,7 +1007,7 @@ XOR_R64_RM64: int = 101
 
 ``64-bit``
 """
-XOR_AL_IMM8: int = 102
+XOR_AL_IMM8: Code = 102 # type: ignore
 """
 ``XOR AL, imm8``
 
@@ -1011,7 +1017,7 @@ XOR_AL_IMM8: int = 102
 
 ``16/32/64-bit``
 """
-XOR_AX_IMM16: int = 103
+XOR_AX_IMM16: Code = 103 # type: ignore
 """
 ``XOR AX, imm16``
 
@@ -1021,7 +1027,7 @@ XOR_AX_IMM16: int = 103
 
 ``16/32/64-bit``
 """
-XOR_EAX_IMM32: int = 104
+XOR_EAX_IMM32: Code = 104 # type: ignore
 """
 ``XOR EAX, imm32``
 
@@ -1031,7 +1037,7 @@ XOR_EAX_IMM32: int = 104
 
 ``16/32/64-bit``
 """
-XOR_RAX_IMM32: int = 105
+XOR_RAX_IMM32: Code = 105 # type: ignore
 """
 ``XOR RAX, imm32``
 
@@ -1041,7 +1047,7 @@ XOR_RAX_IMM32: int = 105
 
 ``64-bit``
 """
-AAA: int = 106
+AAA: Code = 106 # type: ignore
 """
 ``AAA``
 
@@ -1051,7 +1057,7 @@ AAA: int = 106
 
 ``16/32-bit``
 """
-CMP_RM8_R8: int = 107
+CMP_RM8_R8: Code = 107 # type: ignore
 """
 ``CMP r/m8, r8``
 
@@ -1061,7 +1067,7 @@ CMP_RM8_R8: int = 107
 
 ``16/32/64-bit``
 """
-CMP_RM16_R16: int = 108
+CMP_RM16_R16: Code = 108 # type: ignore
 """
 ``CMP r/m16, r16``
 
@@ -1071,7 +1077,7 @@ CMP_RM16_R16: int = 108
 
 ``16/32/64-bit``
 """
-CMP_RM32_R32: int = 109
+CMP_RM32_R32: Code = 109 # type: ignore
 """
 ``CMP r/m32, r32``
 
@@ -1081,7 +1087,7 @@ CMP_RM32_R32: int = 109
 
 ``16/32/64-bit``
 """
-CMP_RM64_R64: int = 110
+CMP_RM64_R64: Code = 110 # type: ignore
 """
 ``CMP r/m64, r64``
 
@@ -1091,7 +1097,7 @@ CMP_RM64_R64: int = 110
 
 ``64-bit``
 """
-CMP_R8_RM8: int = 111
+CMP_R8_RM8: Code = 111 # type: ignore
 """
 ``CMP r8, r/m8``
 
@@ -1101,7 +1107,7 @@ CMP_R8_RM8: int = 111
 
 ``16/32/64-bit``
 """
-CMP_R16_RM16: int = 112
+CMP_R16_RM16: Code = 112 # type: ignore
 """
 ``CMP r16, r/m16``
 
@@ -1111,7 +1117,7 @@ CMP_R16_RM16: int = 112
 
 ``16/32/64-bit``
 """
-CMP_R32_RM32: int = 113
+CMP_R32_RM32: Code = 113 # type: ignore
 """
 ``CMP r32, r/m32``
 
@@ -1121,7 +1127,7 @@ CMP_R32_RM32: int = 113
 
 ``16/32/64-bit``
 """
-CMP_R64_RM64: int = 114
+CMP_R64_RM64: Code = 114 # type: ignore
 """
 ``CMP r64, r/m64``
 
@@ -1131,7 +1137,7 @@ CMP_R64_RM64: int = 114
 
 ``64-bit``
 """
-CMP_AL_IMM8: int = 115
+CMP_AL_IMM8: Code = 115 # type: ignore
 """
 ``CMP AL, imm8``
 
@@ -1141,7 +1147,7 @@ CMP_AL_IMM8: int = 115
 
 ``16/32/64-bit``
 """
-CMP_AX_IMM16: int = 116
+CMP_AX_IMM16: Code = 116 # type: ignore
 """
 ``CMP AX, imm16``
 
@@ -1151,7 +1157,7 @@ CMP_AX_IMM16: int = 116
 
 ``16/32/64-bit``
 """
-CMP_EAX_IMM32: int = 117
+CMP_EAX_IMM32: Code = 117 # type: ignore
 """
 ``CMP EAX, imm32``
 
@@ -1161,7 +1167,7 @@ CMP_EAX_IMM32: int = 117
 
 ``16/32/64-bit``
 """
-CMP_RAX_IMM32: int = 118
+CMP_RAX_IMM32: Code = 118 # type: ignore
 """
 ``CMP RAX, imm32``
 
@@ -1171,7 +1177,7 @@ CMP_RAX_IMM32: int = 118
 
 ``64-bit``
 """
-AAS: int = 119
+AAS: Code = 119 # type: ignore
 """
 ``AAS``
 
@@ -1181,7 +1187,7 @@ AAS: int = 119
 
 ``16/32-bit``
 """
-INC_R16: int = 120
+INC_R16: Code = 120 # type: ignore
 """
 ``INC r16``
 
@@ -1191,7 +1197,7 @@ INC_R16: int = 120
 
 ``16/32-bit``
 """
-INC_R32: int = 121
+INC_R32: Code = 121 # type: ignore
 """
 ``INC r32``
 
@@ -1201,7 +1207,7 @@ INC_R32: int = 121
 
 ``16/32-bit``
 """
-DEC_R16: int = 122
+DEC_R16: Code = 122 # type: ignore
 """
 ``DEC r16``
 
@@ -1211,7 +1217,7 @@ DEC_R16: int = 122
 
 ``16/32-bit``
 """
-DEC_R32: int = 123
+DEC_R32: Code = 123 # type: ignore
 """
 ``DEC r32``
 
@@ -1221,7 +1227,7 @@ DEC_R32: int = 123
 
 ``16/32-bit``
 """
-PUSH_R16: int = 124
+PUSH_R16: Code = 124 # type: ignore
 """
 ``PUSH r16``
 
@@ -1231,7 +1237,7 @@ PUSH_R16: int = 124
 
 ``16/32/64-bit``
 """
-PUSH_R32: int = 125
+PUSH_R32: Code = 125 # type: ignore
 """
 ``PUSH r32``
 
@@ -1241,7 +1247,7 @@ PUSH_R32: int = 125
 
 ``16/32-bit``
 """
-PUSH_R64: int = 126
+PUSH_R64: Code = 126 # type: ignore
 """
 ``PUSH r64``
 
@@ -1251,7 +1257,7 @@ PUSH_R64: int = 126
 
 ``64-bit``
 """
-POP_R16: int = 127
+POP_R16: Code = 127 # type: ignore
 """
 ``POP r16``
 
@@ -1261,7 +1267,7 @@ POP_R16: int = 127
 
 ``16/32/64-bit``
 """
-POP_R32: int = 128
+POP_R32: Code = 128 # type: ignore
 """
 ``POP r32``
 
@@ -1271,7 +1277,7 @@ POP_R32: int = 128
 
 ``16/32-bit``
 """
-POP_R64: int = 129
+POP_R64: Code = 129 # type: ignore
 """
 ``POP r64``
 
@@ -1281,7 +1287,7 @@ POP_R64: int = 129
 
 ``64-bit``
 """
-PUSHAW: int = 130
+PUSHAW: Code = 130 # type: ignore
 """
 ``PUSHA``
 
@@ -1291,7 +1297,7 @@ PUSHAW: int = 130
 
 ``16/32-bit``
 """
-PUSHAD: int = 131
+PUSHAD: Code = 131 # type: ignore
 """
 ``PUSHAD``
 
@@ -1301,7 +1307,7 @@ PUSHAD: int = 131
 
 ``16/32-bit``
 """
-POPAW: int = 132
+POPAW: Code = 132 # type: ignore
 """
 ``POPA``
 
@@ -1311,7 +1317,7 @@ POPAW: int = 132
 
 ``16/32-bit``
 """
-POPAD: int = 133
+POPAD: Code = 133 # type: ignore
 """
 ``POPAD``
 
@@ -1321,7 +1327,7 @@ POPAD: int = 133
 
 ``16/32-bit``
 """
-BOUND_R16_M1616: int = 134
+BOUND_R16_M1616: Code = 134 # type: ignore
 """
 ``BOUND r16, m16&16``
 
@@ -1331,7 +1337,7 @@ BOUND_R16_M1616: int = 134
 
 ``16/32-bit``
 """
-BOUND_R32_M3232: int = 135
+BOUND_R32_M3232: Code = 135 # type: ignore
 """
 ``BOUND r32, m32&32``
 
@@ -1341,7 +1347,7 @@ BOUND_R32_M3232: int = 135
 
 ``16/32-bit``
 """
-ARPL_RM16_R16: int = 136
+ARPL_RM16_R16: Code = 136 # type: ignore
 """
 ``ARPL r/m16, r16``
 
@@ -1351,7 +1357,7 @@ ARPL_RM16_R16: int = 136
 
 ``16/32-bit``
 """
-ARPL_R32M16_R32: int = 137
+ARPL_R32M16_R32: Code = 137 # type: ignore
 """
 ``ARPL r32/m16, r32``
 
@@ -1361,7 +1367,7 @@ ARPL_R32M16_R32: int = 137
 
 ``16/32-bit``
 """
-MOVSXD_R16_RM16: int = 138
+MOVSXD_R16_RM16: Code = 138 # type: ignore
 """
 ``MOVSXD r16, r/m16``
 
@@ -1371,7 +1377,7 @@ MOVSXD_R16_RM16: int = 138
 
 ``64-bit``
 """
-MOVSXD_R32_RM32: int = 139
+MOVSXD_R32_RM32: Code = 139 # type: ignore
 """
 ``MOVSXD r32, r/m32``
 
@@ -1381,7 +1387,7 @@ MOVSXD_R32_RM32: int = 139
 
 ``64-bit``
 """
-MOVSXD_R64_RM32: int = 140
+MOVSXD_R64_RM32: Code = 140 # type: ignore
 """
 ``MOVSXD r64, r/m32``
 
@@ -1391,7 +1397,7 @@ MOVSXD_R64_RM32: int = 140
 
 ``64-bit``
 """
-PUSH_IMM16: int = 141
+PUSH_IMM16: Code = 141 # type: ignore
 """
 ``PUSH imm16``
 
@@ -1401,7 +1407,7 @@ PUSH_IMM16: int = 141
 
 ``16/32/64-bit``
 """
-PUSHD_IMM32: int = 142
+PUSHD_IMM32: Code = 142 # type: ignore
 """
 ``PUSH imm32``
 
@@ -1411,7 +1417,7 @@ PUSHD_IMM32: int = 142
 
 ``16/32-bit``
 """
-PUSHQ_IMM32: int = 143
+PUSHQ_IMM32: Code = 143 # type: ignore
 """
 ``PUSH imm32``
 
@@ -1421,7 +1427,7 @@ PUSHQ_IMM32: int = 143
 
 ``64-bit``
 """
-IMUL_R16_RM16_IMM16: int = 144
+IMUL_R16_RM16_IMM16: Code = 144 # type: ignore
 """
 ``IMUL r16, r/m16, imm16``
 
@@ -1431,7 +1437,7 @@ IMUL_R16_RM16_IMM16: int = 144
 
 ``16/32/64-bit``
 """
-IMUL_R32_RM32_IMM32: int = 145
+IMUL_R32_RM32_IMM32: Code = 145 # type: ignore
 """
 ``IMUL r32, r/m32, imm32``
 
@@ -1441,7 +1447,7 @@ IMUL_R32_RM32_IMM32: int = 145
 
 ``16/32/64-bit``
 """
-IMUL_R64_RM64_IMM32: int = 146
+IMUL_R64_RM64_IMM32: Code = 146 # type: ignore
 """
 ``IMUL r64, r/m64, imm32``
 
@@ -1451,7 +1457,7 @@ IMUL_R64_RM64_IMM32: int = 146
 
 ``64-bit``
 """
-PUSHW_IMM8: int = 147
+PUSHW_IMM8: Code = 147 # type: ignore
 """
 ``PUSH imm8``
 
@@ -1461,7 +1467,7 @@ PUSHW_IMM8: int = 147
 
 ``16/32/64-bit``
 """
-PUSHD_IMM8: int = 148
+PUSHD_IMM8: Code = 148 # type: ignore
 """
 ``PUSH imm8``
 
@@ -1471,7 +1477,7 @@ PUSHD_IMM8: int = 148
 
 ``16/32-bit``
 """
-PUSHQ_IMM8: int = 149
+PUSHQ_IMM8: Code = 149 # type: ignore
 """
 ``PUSH imm8``
 
@@ -1481,7 +1487,7 @@ PUSHQ_IMM8: int = 149
 
 ``64-bit``
 """
-IMUL_R16_RM16_IMM8: int = 150
+IMUL_R16_RM16_IMM8: Code = 150 # type: ignore
 """
 ``IMUL r16, r/m16, imm8``
 
@@ -1491,7 +1497,7 @@ IMUL_R16_RM16_IMM8: int = 150
 
 ``16/32/64-bit``
 """
-IMUL_R32_RM32_IMM8: int = 151
+IMUL_R32_RM32_IMM8: Code = 151 # type: ignore
 """
 ``IMUL r32, r/m32, imm8``
 
@@ -1501,7 +1507,7 @@ IMUL_R32_RM32_IMM8: int = 151
 
 ``16/32/64-bit``
 """
-IMUL_R64_RM64_IMM8: int = 152
+IMUL_R64_RM64_IMM8: Code = 152 # type: ignore
 """
 ``IMUL r64, r/m64, imm8``
 
@@ -1511,7 +1517,7 @@ IMUL_R64_RM64_IMM8: int = 152
 
 ``64-bit``
 """
-INSB_M8_DX: int = 153
+INSB_M8_DX: Code = 153 # type: ignore
 """
 ``INSB``
 
@@ -1521,7 +1527,7 @@ INSB_M8_DX: int = 153
 
 ``16/32/64-bit``
 """
-INSW_M16_DX: int = 154
+INSW_M16_DX: Code = 154 # type: ignore
 """
 ``INSW``
 
@@ -1531,7 +1537,7 @@ INSW_M16_DX: int = 154
 
 ``16/32/64-bit``
 """
-INSD_M32_DX: int = 155
+INSD_M32_DX: Code = 155 # type: ignore
 """
 ``INSD``
 
@@ -1541,7 +1547,7 @@ INSD_M32_DX: int = 155
 
 ``16/32/64-bit``
 """
-OUTSB_DX_M8: int = 156
+OUTSB_DX_M8: Code = 156 # type: ignore
 """
 ``OUTSB``
 
@@ -1551,7 +1557,7 @@ OUTSB_DX_M8: int = 156
 
 ``16/32/64-bit``
 """
-OUTSW_DX_M16: int = 157
+OUTSW_DX_M16: Code = 157 # type: ignore
 """
 ``OUTSW``
 
@@ -1561,7 +1567,7 @@ OUTSW_DX_M16: int = 157
 
 ``16/32/64-bit``
 """
-OUTSD_DX_M32: int = 158
+OUTSD_DX_M32: Code = 158 # type: ignore
 """
 ``OUTSD``
 
@@ -1571,7 +1577,7 @@ OUTSD_DX_M32: int = 158
 
 ``16/32/64-bit``
 """
-JO_REL8_16: int = 159
+JO_REL8_16: Code = 159 # type: ignore
 """
 ``JO rel8``
 
@@ -1581,7 +1587,7 @@ JO_REL8_16: int = 159
 
 ``16/32/64-bit``
 """
-JO_REL8_32: int = 160
+JO_REL8_32: Code = 160 # type: ignore
 """
 ``JO rel8``
 
@@ -1591,7 +1597,7 @@ JO_REL8_32: int = 160
 
 ``16/32-bit``
 """
-JO_REL8_64: int = 161
+JO_REL8_64: Code = 161 # type: ignore
 """
 ``JO rel8``
 
@@ -1601,7 +1607,7 @@ JO_REL8_64: int = 161
 
 ``64-bit``
 """
-JNO_REL8_16: int = 162
+JNO_REL8_16: Code = 162 # type: ignore
 """
 ``JNO rel8``
 
@@ -1611,7 +1617,7 @@ JNO_REL8_16: int = 162
 
 ``16/32/64-bit``
 """
-JNO_REL8_32: int = 163
+JNO_REL8_32: Code = 163 # type: ignore
 """
 ``JNO rel8``
 
@@ -1621,7 +1627,7 @@ JNO_REL8_32: int = 163
 
 ``16/32-bit``
 """
-JNO_REL8_64: int = 164
+JNO_REL8_64: Code = 164 # type: ignore
 """
 ``JNO rel8``
 
@@ -1631,7 +1637,7 @@ JNO_REL8_64: int = 164
 
 ``64-bit``
 """
-JB_REL8_16: int = 165
+JB_REL8_16: Code = 165 # type: ignore
 """
 ``JB rel8``
 
@@ -1641,7 +1647,7 @@ JB_REL8_16: int = 165
 
 ``16/32/64-bit``
 """
-JB_REL8_32: int = 166
+JB_REL8_32: Code = 166 # type: ignore
 """
 ``JB rel8``
 
@@ -1651,7 +1657,7 @@ JB_REL8_32: int = 166
 
 ``16/32-bit``
 """
-JB_REL8_64: int = 167
+JB_REL8_64: Code = 167 # type: ignore
 """
 ``JB rel8``
 
@@ -1661,7 +1667,7 @@ JB_REL8_64: int = 167
 
 ``64-bit``
 """
-JAE_REL8_16: int = 168
+JAE_REL8_16: Code = 168 # type: ignore
 """
 ``JAE rel8``
 
@@ -1671,7 +1677,7 @@ JAE_REL8_16: int = 168
 
 ``16/32/64-bit``
 """
-JAE_REL8_32: int = 169
+JAE_REL8_32: Code = 169 # type: ignore
 """
 ``JAE rel8``
 
@@ -1681,7 +1687,7 @@ JAE_REL8_32: int = 169
 
 ``16/32-bit``
 """
-JAE_REL8_64: int = 170
+JAE_REL8_64: Code = 170 # type: ignore
 """
 ``JAE rel8``
 
@@ -1691,7 +1697,7 @@ JAE_REL8_64: int = 170
 
 ``64-bit``
 """
-JE_REL8_16: int = 171
+JE_REL8_16: Code = 171 # type: ignore
 """
 ``JE rel8``
 
@@ -1701,7 +1707,7 @@ JE_REL8_16: int = 171
 
 ``16/32/64-bit``
 """
-JE_REL8_32: int = 172
+JE_REL8_32: Code = 172 # type: ignore
 """
 ``JE rel8``
 
@@ -1711,7 +1717,7 @@ JE_REL8_32: int = 172
 
 ``16/32-bit``
 """
-JE_REL8_64: int = 173
+JE_REL8_64: Code = 173 # type: ignore
 """
 ``JE rel8``
 
@@ -1721,7 +1727,7 @@ JE_REL8_64: int = 173
 
 ``64-bit``
 """
-JNE_REL8_16: int = 174
+JNE_REL8_16: Code = 174 # type: ignore
 """
 ``JNE rel8``
 
@@ -1731,7 +1737,7 @@ JNE_REL8_16: int = 174
 
 ``16/32/64-bit``
 """
-JNE_REL8_32: int = 175
+JNE_REL8_32: Code = 175 # type: ignore
 """
 ``JNE rel8``
 
@@ -1741,7 +1747,7 @@ JNE_REL8_32: int = 175
 
 ``16/32-bit``
 """
-JNE_REL8_64: int = 176
+JNE_REL8_64: Code = 176 # type: ignore
 """
 ``JNE rel8``
 
@@ -1751,7 +1757,7 @@ JNE_REL8_64: int = 176
 
 ``64-bit``
 """
-JBE_REL8_16: int = 177
+JBE_REL8_16: Code = 177 # type: ignore
 """
 ``JBE rel8``
 
@@ -1761,7 +1767,7 @@ JBE_REL8_16: int = 177
 
 ``16/32/64-bit``
 """
-JBE_REL8_32: int = 178
+JBE_REL8_32: Code = 178 # type: ignore
 """
 ``JBE rel8``
 
@@ -1771,7 +1777,7 @@ JBE_REL8_32: int = 178
 
 ``16/32-bit``
 """
-JBE_REL8_64: int = 179
+JBE_REL8_64: Code = 179 # type: ignore
 """
 ``JBE rel8``
 
@@ -1781,7 +1787,7 @@ JBE_REL8_64: int = 179
 
 ``64-bit``
 """
-JA_REL8_16: int = 180
+JA_REL8_16: Code = 180 # type: ignore
 """
 ``JA rel8``
 
@@ -1791,7 +1797,7 @@ JA_REL8_16: int = 180
 
 ``16/32/64-bit``
 """
-JA_REL8_32: int = 181
+JA_REL8_32: Code = 181 # type: ignore
 """
 ``JA rel8``
 
@@ -1801,7 +1807,7 @@ JA_REL8_32: int = 181
 
 ``16/32-bit``
 """
-JA_REL8_64: int = 182
+JA_REL8_64: Code = 182 # type: ignore
 """
 ``JA rel8``
 
@@ -1811,7 +1817,7 @@ JA_REL8_64: int = 182
 
 ``64-bit``
 """
-JS_REL8_16: int = 183
+JS_REL8_16: Code = 183 # type: ignore
 """
 ``JS rel8``
 
@@ -1821,7 +1827,7 @@ JS_REL8_16: int = 183
 
 ``16/32/64-bit``
 """
-JS_REL8_32: int = 184
+JS_REL8_32: Code = 184 # type: ignore
 """
 ``JS rel8``
 
@@ -1831,7 +1837,7 @@ JS_REL8_32: int = 184
 
 ``16/32-bit``
 """
-JS_REL8_64: int = 185
+JS_REL8_64: Code = 185 # type: ignore
 """
 ``JS rel8``
 
@@ -1841,7 +1847,7 @@ JS_REL8_64: int = 185
 
 ``64-bit``
 """
-JNS_REL8_16: int = 186
+JNS_REL8_16: Code = 186 # type: ignore
 """
 ``JNS rel8``
 
@@ -1851,7 +1857,7 @@ JNS_REL8_16: int = 186
 
 ``16/32/64-bit``
 """
-JNS_REL8_32: int = 187
+JNS_REL8_32: Code = 187 # type: ignore
 """
 ``JNS rel8``
 
@@ -1861,7 +1867,7 @@ JNS_REL8_32: int = 187
 
 ``16/32-bit``
 """
-JNS_REL8_64: int = 188
+JNS_REL8_64: Code = 188 # type: ignore
 """
 ``JNS rel8``
 
@@ -1871,7 +1877,7 @@ JNS_REL8_64: int = 188
 
 ``64-bit``
 """
-JP_REL8_16: int = 189
+JP_REL8_16: Code = 189 # type: ignore
 """
 ``JP rel8``
 
@@ -1881,7 +1887,7 @@ JP_REL8_16: int = 189
 
 ``16/32/64-bit``
 """
-JP_REL8_32: int = 190
+JP_REL8_32: Code = 190 # type: ignore
 """
 ``JP rel8``
 
@@ -1891,7 +1897,7 @@ JP_REL8_32: int = 190
 
 ``16/32-bit``
 """
-JP_REL8_64: int = 191
+JP_REL8_64: Code = 191 # type: ignore
 """
 ``JP rel8``
 
@@ -1901,7 +1907,7 @@ JP_REL8_64: int = 191
 
 ``64-bit``
 """
-JNP_REL8_16: int = 192
+JNP_REL8_16: Code = 192 # type: ignore
 """
 ``JNP rel8``
 
@@ -1911,7 +1917,7 @@ JNP_REL8_16: int = 192
 
 ``16/32/64-bit``
 """
-JNP_REL8_32: int = 193
+JNP_REL8_32: Code = 193 # type: ignore
 """
 ``JNP rel8``
 
@@ -1921,7 +1927,7 @@ JNP_REL8_32: int = 193
 
 ``16/32-bit``
 """
-JNP_REL8_64: int = 194
+JNP_REL8_64: Code = 194 # type: ignore
 """
 ``JNP rel8``
 
@@ -1931,7 +1937,7 @@ JNP_REL8_64: int = 194
 
 ``64-bit``
 """
-JL_REL8_16: int = 195
+JL_REL8_16: Code = 195 # type: ignore
 """
 ``JL rel8``
 
@@ -1941,7 +1947,7 @@ JL_REL8_16: int = 195
 
 ``16/32/64-bit``
 """
-JL_REL8_32: int = 196
+JL_REL8_32: Code = 196 # type: ignore
 """
 ``JL rel8``
 
@@ -1951,7 +1957,7 @@ JL_REL8_32: int = 196
 
 ``16/32-bit``
 """
-JL_REL8_64: int = 197
+JL_REL8_64: Code = 197 # type: ignore
 """
 ``JL rel8``
 
@@ -1961,7 +1967,7 @@ JL_REL8_64: int = 197
 
 ``64-bit``
 """
-JGE_REL8_16: int = 198
+JGE_REL8_16: Code = 198 # type: ignore
 """
 ``JGE rel8``
 
@@ -1971,7 +1977,7 @@ JGE_REL8_16: int = 198
 
 ``16/32/64-bit``
 """
-JGE_REL8_32: int = 199
+JGE_REL8_32: Code = 199 # type: ignore
 """
 ``JGE rel8``
 
@@ -1981,7 +1987,7 @@ JGE_REL8_32: int = 199
 
 ``16/32-bit``
 """
-JGE_REL8_64: int = 200
+JGE_REL8_64: Code = 200 # type: ignore
 """
 ``JGE rel8``
 
@@ -1991,7 +1997,7 @@ JGE_REL8_64: int = 200
 
 ``64-bit``
 """
-JLE_REL8_16: int = 201
+JLE_REL8_16: Code = 201 # type: ignore
 """
 ``JLE rel8``
 
@@ -2001,7 +2007,7 @@ JLE_REL8_16: int = 201
 
 ``16/32/64-bit``
 """
-JLE_REL8_32: int = 202
+JLE_REL8_32: Code = 202 # type: ignore
 """
 ``JLE rel8``
 
@@ -2011,7 +2017,7 @@ JLE_REL8_32: int = 202
 
 ``16/32-bit``
 """
-JLE_REL8_64: int = 203
+JLE_REL8_64: Code = 203 # type: ignore
 """
 ``JLE rel8``
 
@@ -2021,7 +2027,7 @@ JLE_REL8_64: int = 203
 
 ``64-bit``
 """
-JG_REL8_16: int = 204
+JG_REL8_16: Code = 204 # type: ignore
 """
 ``JG rel8``
 
@@ -2031,7 +2037,7 @@ JG_REL8_16: int = 204
 
 ``16/32/64-bit``
 """
-JG_REL8_32: int = 205
+JG_REL8_32: Code = 205 # type: ignore
 """
 ``JG rel8``
 
@@ -2041,7 +2047,7 @@ JG_REL8_32: int = 205
 
 ``16/32-bit``
 """
-JG_REL8_64: int = 206
+JG_REL8_64: Code = 206 # type: ignore
 """
 ``JG rel8``
 
@@ -2051,7 +2057,7 @@ JG_REL8_64: int = 206
 
 ``64-bit``
 """
-ADD_RM8_IMM8: int = 207
+ADD_RM8_IMM8: Code = 207 # type: ignore
 """
 ``ADD r/m8, imm8``
 
@@ -2061,7 +2067,7 @@ ADD_RM8_IMM8: int = 207
 
 ``16/32/64-bit``
 """
-OR_RM8_IMM8: int = 208
+OR_RM8_IMM8: Code = 208 # type: ignore
 """
 ``OR r/m8, imm8``
 
@@ -2071,7 +2077,7 @@ OR_RM8_IMM8: int = 208
 
 ``16/32/64-bit``
 """
-ADC_RM8_IMM8: int = 209
+ADC_RM8_IMM8: Code = 209 # type: ignore
 """
 ``ADC r/m8, imm8``
 
@@ -2081,7 +2087,7 @@ ADC_RM8_IMM8: int = 209
 
 ``16/32/64-bit``
 """
-SBB_RM8_IMM8: int = 210
+SBB_RM8_IMM8: Code = 210 # type: ignore
 """
 ``SBB r/m8, imm8``
 
@@ -2091,7 +2097,7 @@ SBB_RM8_IMM8: int = 210
 
 ``16/32/64-bit``
 """
-AND_RM8_IMM8: int = 211
+AND_RM8_IMM8: Code = 211 # type: ignore
 """
 ``AND r/m8, imm8``
 
@@ -2101,7 +2107,7 @@ AND_RM8_IMM8: int = 211
 
 ``16/32/64-bit``
 """
-SUB_RM8_IMM8: int = 212
+SUB_RM8_IMM8: Code = 212 # type: ignore
 """
 ``SUB r/m8, imm8``
 
@@ -2111,7 +2117,7 @@ SUB_RM8_IMM8: int = 212
 
 ``16/32/64-bit``
 """
-XOR_RM8_IMM8: int = 213
+XOR_RM8_IMM8: Code = 213 # type: ignore
 """
 ``XOR r/m8, imm8``
 
@@ -2121,7 +2127,7 @@ XOR_RM8_IMM8: int = 213
 
 ``16/32/64-bit``
 """
-CMP_RM8_IMM8: int = 214
+CMP_RM8_IMM8: Code = 214 # type: ignore
 """
 ``CMP r/m8, imm8``
 
@@ -2131,7 +2137,7 @@ CMP_RM8_IMM8: int = 214
 
 ``16/32/64-bit``
 """
-ADD_RM16_IMM16: int = 215
+ADD_RM16_IMM16: Code = 215 # type: ignore
 """
 ``ADD r/m16, imm16``
 
@@ -2141,7 +2147,7 @@ ADD_RM16_IMM16: int = 215
 
 ``16/32/64-bit``
 """
-ADD_RM32_IMM32: int = 216
+ADD_RM32_IMM32: Code = 216 # type: ignore
 """
 ``ADD r/m32, imm32``
 
@@ -2151,7 +2157,7 @@ ADD_RM32_IMM32: int = 216
 
 ``16/32/64-bit``
 """
-ADD_RM64_IMM32: int = 217
+ADD_RM64_IMM32: Code = 217 # type: ignore
 """
 ``ADD r/m64, imm32``
 
@@ -2161,7 +2167,7 @@ ADD_RM64_IMM32: int = 217
 
 ``64-bit``
 """
-OR_RM16_IMM16: int = 218
+OR_RM16_IMM16: Code = 218 # type: ignore
 """
 ``OR r/m16, imm16``
 
@@ -2171,7 +2177,7 @@ OR_RM16_IMM16: int = 218
 
 ``16/32/64-bit``
 """
-OR_RM32_IMM32: int = 219
+OR_RM32_IMM32: Code = 219 # type: ignore
 """
 ``OR r/m32, imm32``
 
@@ -2181,7 +2187,7 @@ OR_RM32_IMM32: int = 219
 
 ``16/32/64-bit``
 """
-OR_RM64_IMM32: int = 220
+OR_RM64_IMM32: Code = 220 # type: ignore
 """
 ``OR r/m64, imm32``
 
@@ -2191,7 +2197,7 @@ OR_RM64_IMM32: int = 220
 
 ``64-bit``
 """
-ADC_RM16_IMM16: int = 221
+ADC_RM16_IMM16: Code = 221 # type: ignore
 """
 ``ADC r/m16, imm16``
 
@@ -2201,7 +2207,7 @@ ADC_RM16_IMM16: int = 221
 
 ``16/32/64-bit``
 """
-ADC_RM32_IMM32: int = 222
+ADC_RM32_IMM32: Code = 222 # type: ignore
 """
 ``ADC r/m32, imm32``
 
@@ -2211,7 +2217,7 @@ ADC_RM32_IMM32: int = 222
 
 ``16/32/64-bit``
 """
-ADC_RM64_IMM32: int = 223
+ADC_RM64_IMM32: Code = 223 # type: ignore
 """
 ``ADC r/m64, imm32``
 
@@ -2221,7 +2227,7 @@ ADC_RM64_IMM32: int = 223
 
 ``64-bit``
 """
-SBB_RM16_IMM16: int = 224
+SBB_RM16_IMM16: Code = 224 # type: ignore
 """
 ``SBB r/m16, imm16``
 
@@ -2231,7 +2237,7 @@ SBB_RM16_IMM16: int = 224
 
 ``16/32/64-bit``
 """
-SBB_RM32_IMM32: int = 225
+SBB_RM32_IMM32: Code = 225 # type: ignore
 """
 ``SBB r/m32, imm32``
 
@@ -2241,7 +2247,7 @@ SBB_RM32_IMM32: int = 225
 
 ``16/32/64-bit``
 """
-SBB_RM64_IMM32: int = 226
+SBB_RM64_IMM32: Code = 226 # type: ignore
 """
 ``SBB r/m64, imm32``
 
@@ -2251,7 +2257,7 @@ SBB_RM64_IMM32: int = 226
 
 ``64-bit``
 """
-AND_RM16_IMM16: int = 227
+AND_RM16_IMM16: Code = 227 # type: ignore
 """
 ``AND r/m16, imm16``
 
@@ -2261,7 +2267,7 @@ AND_RM16_IMM16: int = 227
 
 ``16/32/64-bit``
 """
-AND_RM32_IMM32: int = 228
+AND_RM32_IMM32: Code = 228 # type: ignore
 """
 ``AND r/m32, imm32``
 
@@ -2271,7 +2277,7 @@ AND_RM32_IMM32: int = 228
 
 ``16/32/64-bit``
 """
-AND_RM64_IMM32: int = 229
+AND_RM64_IMM32: Code = 229 # type: ignore
 """
 ``AND r/m64, imm32``
 
@@ -2281,7 +2287,7 @@ AND_RM64_IMM32: int = 229
 
 ``64-bit``
 """
-SUB_RM16_IMM16: int = 230
+SUB_RM16_IMM16: Code = 230 # type: ignore
 """
 ``SUB r/m16, imm16``
 
@@ -2291,7 +2297,7 @@ SUB_RM16_IMM16: int = 230
 
 ``16/32/64-bit``
 """
-SUB_RM32_IMM32: int = 231
+SUB_RM32_IMM32: Code = 231 # type: ignore
 """
 ``SUB r/m32, imm32``
 
@@ -2301,7 +2307,7 @@ SUB_RM32_IMM32: int = 231
 
 ``16/32/64-bit``
 """
-SUB_RM64_IMM32: int = 232
+SUB_RM64_IMM32: Code = 232 # type: ignore
 """
 ``SUB r/m64, imm32``
 
@@ -2311,7 +2317,7 @@ SUB_RM64_IMM32: int = 232
 
 ``64-bit``
 """
-XOR_RM16_IMM16: int = 233
+XOR_RM16_IMM16: Code = 233 # type: ignore
 """
 ``XOR r/m16, imm16``
 
@@ -2321,7 +2327,7 @@ XOR_RM16_IMM16: int = 233
 
 ``16/32/64-bit``
 """
-XOR_RM32_IMM32: int = 234
+XOR_RM32_IMM32: Code = 234 # type: ignore
 """
 ``XOR r/m32, imm32``
 
@@ -2331,7 +2337,7 @@ XOR_RM32_IMM32: int = 234
 
 ``16/32/64-bit``
 """
-XOR_RM64_IMM32: int = 235
+XOR_RM64_IMM32: Code = 235 # type: ignore
 """
 ``XOR r/m64, imm32``
 
@@ -2341,7 +2347,7 @@ XOR_RM64_IMM32: int = 235
 
 ``64-bit``
 """
-CMP_RM16_IMM16: int = 236
+CMP_RM16_IMM16: Code = 236 # type: ignore
 """
 ``CMP r/m16, imm16``
 
@@ -2351,7 +2357,7 @@ CMP_RM16_IMM16: int = 236
 
 ``16/32/64-bit``
 """
-CMP_RM32_IMM32: int = 237
+CMP_RM32_IMM32: Code = 237 # type: ignore
 """
 ``CMP r/m32, imm32``
 
@@ -2361,7 +2367,7 @@ CMP_RM32_IMM32: int = 237
 
 ``16/32/64-bit``
 """
-CMP_RM64_IMM32: int = 238
+CMP_RM64_IMM32: Code = 238 # type: ignore
 """
 ``CMP r/m64, imm32``
 
@@ -2371,7 +2377,7 @@ CMP_RM64_IMM32: int = 238
 
 ``64-bit``
 """
-ADD_RM8_IMM8_82: int = 239
+ADD_RM8_IMM8_82: Code = 239 # type: ignore
 """
 ``ADD r/m8, imm8``
 
@@ -2381,7 +2387,7 @@ ADD_RM8_IMM8_82: int = 239
 
 ``16/32-bit``
 """
-OR_RM8_IMM8_82: int = 240
+OR_RM8_IMM8_82: Code = 240 # type: ignore
 """
 ``OR r/m8, imm8``
 
@@ -2391,7 +2397,7 @@ OR_RM8_IMM8_82: int = 240
 
 ``16/32-bit``
 """
-ADC_RM8_IMM8_82: int = 241
+ADC_RM8_IMM8_82: Code = 241 # type: ignore
 """
 ``ADC r/m8, imm8``
 
@@ -2401,7 +2407,7 @@ ADC_RM8_IMM8_82: int = 241
 
 ``16/32-bit``
 """
-SBB_RM8_IMM8_82: int = 242
+SBB_RM8_IMM8_82: Code = 242 # type: ignore
 """
 ``SBB r/m8, imm8``
 
@@ -2411,7 +2417,7 @@ SBB_RM8_IMM8_82: int = 242
 
 ``16/32-bit``
 """
-AND_RM8_IMM8_82: int = 243
+AND_RM8_IMM8_82: Code = 243 # type: ignore
 """
 ``AND r/m8, imm8``
 
@@ -2421,7 +2427,7 @@ AND_RM8_IMM8_82: int = 243
 
 ``16/32-bit``
 """
-SUB_RM8_IMM8_82: int = 244
+SUB_RM8_IMM8_82: Code = 244 # type: ignore
 """
 ``SUB r/m8, imm8``
 
@@ -2431,7 +2437,7 @@ SUB_RM8_IMM8_82: int = 244
 
 ``16/32-bit``
 """
-XOR_RM8_IMM8_82: int = 245
+XOR_RM8_IMM8_82: Code = 245 # type: ignore
 """
 ``XOR r/m8, imm8``
 
@@ -2441,7 +2447,7 @@ XOR_RM8_IMM8_82: int = 245
 
 ``16/32-bit``
 """
-CMP_RM8_IMM8_82: int = 246
+CMP_RM8_IMM8_82: Code = 246 # type: ignore
 """
 ``CMP r/m8, imm8``
 
@@ -2451,7 +2457,7 @@ CMP_RM8_IMM8_82: int = 246
 
 ``16/32-bit``
 """
-ADD_RM16_IMM8: int = 247
+ADD_RM16_IMM8: Code = 247 # type: ignore
 """
 ``ADD r/m16, imm8``
 
@@ -2461,7 +2467,7 @@ ADD_RM16_IMM8: int = 247
 
 ``16/32/64-bit``
 """
-ADD_RM32_IMM8: int = 248
+ADD_RM32_IMM8: Code = 248 # type: ignore
 """
 ``ADD r/m32, imm8``
 
@@ -2471,7 +2477,7 @@ ADD_RM32_IMM8: int = 248
 
 ``16/32/64-bit``
 """
-ADD_RM64_IMM8: int = 249
+ADD_RM64_IMM8: Code = 249 # type: ignore
 """
 ``ADD r/m64, imm8``
 
@@ -2481,7 +2487,7 @@ ADD_RM64_IMM8: int = 249
 
 ``64-bit``
 """
-OR_RM16_IMM8: int = 250
+OR_RM16_IMM8: Code = 250 # type: ignore
 """
 ``OR r/m16, imm8``
 
@@ -2491,7 +2497,7 @@ OR_RM16_IMM8: int = 250
 
 ``16/32/64-bit``
 """
-OR_RM32_IMM8: int = 251
+OR_RM32_IMM8: Code = 251 # type: ignore
 """
 ``OR r/m32, imm8``
 
@@ -2501,7 +2507,7 @@ OR_RM32_IMM8: int = 251
 
 ``16/32/64-bit``
 """
-OR_RM64_IMM8: int = 252
+OR_RM64_IMM8: Code = 252 # type: ignore
 """
 ``OR r/m64, imm8``
 
@@ -2511,7 +2517,7 @@ OR_RM64_IMM8: int = 252
 
 ``64-bit``
 """
-ADC_RM16_IMM8: int = 253
+ADC_RM16_IMM8: Code = 253 # type: ignore
 """
 ``ADC r/m16, imm8``
 
@@ -2521,7 +2527,7 @@ ADC_RM16_IMM8: int = 253
 
 ``16/32/64-bit``
 """
-ADC_RM32_IMM8: int = 254
+ADC_RM32_IMM8: Code = 254 # type: ignore
 """
 ``ADC r/m32, imm8``
 
@@ -2531,7 +2537,7 @@ ADC_RM32_IMM8: int = 254
 
 ``16/32/64-bit``
 """
-ADC_RM64_IMM8: int = 255
+ADC_RM64_IMM8: Code = 255 # type: ignore
 """
 ``ADC r/m64, imm8``
 
@@ -2541,7 +2547,7 @@ ADC_RM64_IMM8: int = 255
 
 ``64-bit``
 """
-SBB_RM16_IMM8: int = 256
+SBB_RM16_IMM8: Code = 256 # type: ignore
 """
 ``SBB r/m16, imm8``
 
@@ -2551,7 +2557,7 @@ SBB_RM16_IMM8: int = 256
 
 ``16/32/64-bit``
 """
-SBB_RM32_IMM8: int = 257
+SBB_RM32_IMM8: Code = 257 # type: ignore
 """
 ``SBB r/m32, imm8``
 
@@ -2561,7 +2567,7 @@ SBB_RM32_IMM8: int = 257
 
 ``16/32/64-bit``
 """
-SBB_RM64_IMM8: int = 258
+SBB_RM64_IMM8: Code = 258 # type: ignore
 """
 ``SBB r/m64, imm8``
 
@@ -2571,7 +2577,7 @@ SBB_RM64_IMM8: int = 258
 
 ``64-bit``
 """
-AND_RM16_IMM8: int = 259
+AND_RM16_IMM8: Code = 259 # type: ignore
 """
 ``AND r/m16, imm8``
 
@@ -2581,7 +2587,7 @@ AND_RM16_IMM8: int = 259
 
 ``16/32/64-bit``
 """
-AND_RM32_IMM8: int = 260
+AND_RM32_IMM8: Code = 260 # type: ignore
 """
 ``AND r/m32, imm8``
 
@@ -2591,7 +2597,7 @@ AND_RM32_IMM8: int = 260
 
 ``16/32/64-bit``
 """
-AND_RM64_IMM8: int = 261
+AND_RM64_IMM8: Code = 261 # type: ignore
 """
 ``AND r/m64, imm8``
 
@@ -2601,7 +2607,7 @@ AND_RM64_IMM8: int = 261
 
 ``64-bit``
 """
-SUB_RM16_IMM8: int = 262
+SUB_RM16_IMM8: Code = 262 # type: ignore
 """
 ``SUB r/m16, imm8``
 
@@ -2611,7 +2617,7 @@ SUB_RM16_IMM8: int = 262
 
 ``16/32/64-bit``
 """
-SUB_RM32_IMM8: int = 263
+SUB_RM32_IMM8: Code = 263 # type: ignore
 """
 ``SUB r/m32, imm8``
 
@@ -2621,7 +2627,7 @@ SUB_RM32_IMM8: int = 263
 
 ``16/32/64-bit``
 """
-SUB_RM64_IMM8: int = 264
+SUB_RM64_IMM8: Code = 264 # type: ignore
 """
 ``SUB r/m64, imm8``
 
@@ -2631,7 +2637,7 @@ SUB_RM64_IMM8: int = 264
 
 ``64-bit``
 """
-XOR_RM16_IMM8: int = 265
+XOR_RM16_IMM8: Code = 265 # type: ignore
 """
 ``XOR r/m16, imm8``
 
@@ -2641,7 +2647,7 @@ XOR_RM16_IMM8: int = 265
 
 ``16/32/64-bit``
 """
-XOR_RM32_IMM8: int = 266
+XOR_RM32_IMM8: Code = 266 # type: ignore
 """
 ``XOR r/m32, imm8``
 
@@ -2651,7 +2657,7 @@ XOR_RM32_IMM8: int = 266
 
 ``16/32/64-bit``
 """
-XOR_RM64_IMM8: int = 267
+XOR_RM64_IMM8: Code = 267 # type: ignore
 """
 ``XOR r/m64, imm8``
 
@@ -2661,7 +2667,7 @@ XOR_RM64_IMM8: int = 267
 
 ``64-bit``
 """
-CMP_RM16_IMM8: int = 268
+CMP_RM16_IMM8: Code = 268 # type: ignore
 """
 ``CMP r/m16, imm8``
 
@@ -2671,7 +2677,7 @@ CMP_RM16_IMM8: int = 268
 
 ``16/32/64-bit``
 """
-CMP_RM32_IMM8: int = 269
+CMP_RM32_IMM8: Code = 269 # type: ignore
 """
 ``CMP r/m32, imm8``
 
@@ -2681,7 +2687,7 @@ CMP_RM32_IMM8: int = 269
 
 ``16/32/64-bit``
 """
-CMP_RM64_IMM8: int = 270
+CMP_RM64_IMM8: Code = 270 # type: ignore
 """
 ``CMP r/m64, imm8``
 
@@ -2691,7 +2697,7 @@ CMP_RM64_IMM8: int = 270
 
 ``64-bit``
 """
-TEST_RM8_R8: int = 271
+TEST_RM8_R8: Code = 271 # type: ignore
 """
 ``TEST r/m8, r8``
 
@@ -2701,7 +2707,7 @@ TEST_RM8_R8: int = 271
 
 ``16/32/64-bit``
 """
-TEST_RM16_R16: int = 272
+TEST_RM16_R16: Code = 272 # type: ignore
 """
 ``TEST r/m16, r16``
 
@@ -2711,7 +2717,7 @@ TEST_RM16_R16: int = 272
 
 ``16/32/64-bit``
 """
-TEST_RM32_R32: int = 273
+TEST_RM32_R32: Code = 273 # type: ignore
 """
 ``TEST r/m32, r32``
 
@@ -2721,7 +2727,7 @@ TEST_RM32_R32: int = 273
 
 ``16/32/64-bit``
 """
-TEST_RM64_R64: int = 274
+TEST_RM64_R64: Code = 274 # type: ignore
 """
 ``TEST r/m64, r64``
 
@@ -2731,7 +2737,7 @@ TEST_RM64_R64: int = 274
 
 ``64-bit``
 """
-XCHG_RM8_R8: int = 275
+XCHG_RM8_R8: Code = 275 # type: ignore
 """
 ``XCHG r/m8, r8``
 
@@ -2741,7 +2747,7 @@ XCHG_RM8_R8: int = 275
 
 ``16/32/64-bit``
 """
-XCHG_RM16_R16: int = 276
+XCHG_RM16_R16: Code = 276 # type: ignore
 """
 ``XCHG r/m16, r16``
 
@@ -2751,7 +2757,7 @@ XCHG_RM16_R16: int = 276
 
 ``16/32/64-bit``
 """
-XCHG_RM32_R32: int = 277
+XCHG_RM32_R32: Code = 277 # type: ignore
 """
 ``XCHG r/m32, r32``
 
@@ -2761,7 +2767,7 @@ XCHG_RM32_R32: int = 277
 
 ``16/32/64-bit``
 """
-XCHG_RM64_R64: int = 278
+XCHG_RM64_R64: Code = 278 # type: ignore
 """
 ``XCHG r/m64, r64``
 
@@ -2771,7 +2777,7 @@ XCHG_RM64_R64: int = 278
 
 ``64-bit``
 """
-MOV_RM8_R8: int = 279
+MOV_RM8_R8: Code = 279 # type: ignore
 """
 ``MOV r/m8, r8``
 
@@ -2781,7 +2787,7 @@ MOV_RM8_R8: int = 279
 
 ``16/32/64-bit``
 """
-MOV_RM16_R16: int = 280
+MOV_RM16_R16: Code = 280 # type: ignore
 """
 ``MOV r/m16, r16``
 
@@ -2791,7 +2797,7 @@ MOV_RM16_R16: int = 280
 
 ``16/32/64-bit``
 """
-MOV_RM32_R32: int = 281
+MOV_RM32_R32: Code = 281 # type: ignore
 """
 ``MOV r/m32, r32``
 
@@ -2801,7 +2807,7 @@ MOV_RM32_R32: int = 281
 
 ``16/32/64-bit``
 """
-MOV_RM64_R64: int = 282
+MOV_RM64_R64: Code = 282 # type: ignore
 """
 ``MOV r/m64, r64``
 
@@ -2811,7 +2817,7 @@ MOV_RM64_R64: int = 282
 
 ``64-bit``
 """
-MOV_R8_RM8: int = 283
+MOV_R8_RM8: Code = 283 # type: ignore
 """
 ``MOV r8, r/m8``
 
@@ -2821,7 +2827,7 @@ MOV_R8_RM8: int = 283
 
 ``16/32/64-bit``
 """
-MOV_R16_RM16: int = 284
+MOV_R16_RM16: Code = 284 # type: ignore
 """
 ``MOV r16, r/m16``
 
@@ -2831,7 +2837,7 @@ MOV_R16_RM16: int = 284
 
 ``16/32/64-bit``
 """
-MOV_R32_RM32: int = 285
+MOV_R32_RM32: Code = 285 # type: ignore
 """
 ``MOV r32, r/m32``
 
@@ -2841,7 +2847,7 @@ MOV_R32_RM32: int = 285
 
 ``16/32/64-bit``
 """
-MOV_R64_RM64: int = 286
+MOV_R64_RM64: Code = 286 # type: ignore
 """
 ``MOV r64, r/m64``
 
@@ -2851,7 +2857,7 @@ MOV_R64_RM64: int = 286
 
 ``64-bit``
 """
-MOV_RM16_SREG: int = 287
+MOV_RM16_SREG: Code = 287 # type: ignore
 """
 ``MOV r/m16, Sreg``
 
@@ -2861,7 +2867,7 @@ MOV_RM16_SREG: int = 287
 
 ``16/32/64-bit``
 """
-MOV_R32M16_SREG: int = 288
+MOV_R32M16_SREG: Code = 288 # type: ignore
 """
 ``MOV r32/m16, Sreg``
 
@@ -2871,7 +2877,7 @@ MOV_R32M16_SREG: int = 288
 
 ``16/32/64-bit``
 """
-MOV_R64M16_SREG: int = 289
+MOV_R64M16_SREG: Code = 289 # type: ignore
 """
 ``MOV r64/m16, Sreg``
 
@@ -2881,7 +2887,7 @@ MOV_R64M16_SREG: int = 289
 
 ``64-bit``
 """
-LEA_R16_M: int = 290
+LEA_R16_M: Code = 290 # type: ignore
 """
 ``LEA r16, m``
 
@@ -2891,7 +2897,7 @@ LEA_R16_M: int = 290
 
 ``16/32/64-bit``
 """
-LEA_R32_M: int = 291
+LEA_R32_M: Code = 291 # type: ignore
 """
 ``LEA r32, m``
 
@@ -2901,7 +2907,7 @@ LEA_R32_M: int = 291
 
 ``16/32/64-bit``
 """
-LEA_R64_M: int = 292
+LEA_R64_M: Code = 292 # type: ignore
 """
 ``LEA r64, m``
 
@@ -2911,7 +2917,7 @@ LEA_R64_M: int = 292
 
 ``64-bit``
 """
-MOV_SREG_RM16: int = 293
+MOV_SREG_RM16: Code = 293 # type: ignore
 """
 ``MOV Sreg, r/m16``
 
@@ -2921,7 +2927,7 @@ MOV_SREG_RM16: int = 293
 
 ``16/32/64-bit``
 """
-MOV_SREG_R32M16: int = 294
+MOV_SREG_R32M16: Code = 294 # type: ignore
 """
 ``MOV Sreg, r32/m16``
 
@@ -2931,7 +2937,7 @@ MOV_SREG_R32M16: int = 294
 
 ``16/32/64-bit``
 """
-MOV_SREG_R64M16: int = 295
+MOV_SREG_R64M16: Code = 295 # type: ignore
 """
 ``MOV Sreg, r64/m16``
 
@@ -2941,7 +2947,7 @@ MOV_SREG_R64M16: int = 295
 
 ``64-bit``
 """
-POP_RM16: int = 296
+POP_RM16: Code = 296 # type: ignore
 """
 ``POP r/m16``
 
@@ -2951,7 +2957,7 @@ POP_RM16: int = 296
 
 ``16/32/64-bit``
 """
-POP_RM32: int = 297
+POP_RM32: Code = 297 # type: ignore
 """
 ``POP r/m32``
 
@@ -2961,7 +2967,7 @@ POP_RM32: int = 297
 
 ``16/32-bit``
 """
-POP_RM64: int = 298
+POP_RM64: Code = 298 # type: ignore
 """
 ``POP r/m64``
 
@@ -2971,7 +2977,7 @@ POP_RM64: int = 298
 
 ``64-bit``
 """
-NOPW: int = 299
+NOPW: Code = 299 # type: ignore
 """
 ``NOP``
 
@@ -2981,7 +2987,7 @@ NOPW: int = 299
 
 ``16/32/64-bit``
 """
-NOPD: int = 300
+NOPD: Code = 300 # type: ignore
 """
 ``NOP``
 
@@ -2991,7 +2997,7 @@ NOPD: int = 300
 
 ``16/32/64-bit``
 """
-NOPQ: int = 301
+NOPQ: Code = 301 # type: ignore
 """
 ``NOP``
 
@@ -3001,7 +3007,7 @@ NOPQ: int = 301
 
 ``64-bit``
 """
-XCHG_R16_AX: int = 302
+XCHG_R16_AX: Code = 302 # type: ignore
 """
 ``XCHG r16, AX``
 
@@ -3011,7 +3017,7 @@ XCHG_R16_AX: int = 302
 
 ``16/32/64-bit``
 """
-XCHG_R32_EAX: int = 303
+XCHG_R32_EAX: Code = 303 # type: ignore
 """
 ``XCHG r32, EAX``
 
@@ -3021,7 +3027,7 @@ XCHG_R32_EAX: int = 303
 
 ``16/32/64-bit``
 """
-XCHG_R64_RAX: int = 304
+XCHG_R64_RAX: Code = 304 # type: ignore
 """
 ``XCHG r64, RAX``
 
@@ -3031,7 +3037,7 @@ XCHG_R64_RAX: int = 304
 
 ``64-bit``
 """
-PAUSE: int = 305
+PAUSE: Code = 305 # type: ignore
 """
 ``PAUSE``
 
@@ -3041,7 +3047,7 @@ PAUSE: int = 305
 
 ``16/32/64-bit``
 """
-CBW: int = 306
+CBW: Code = 306 # type: ignore
 """
 ``CBW``
 
@@ -3051,7 +3057,7 @@ CBW: int = 306
 
 ``16/32/64-bit``
 """
-CWDE: int = 307
+CWDE: Code = 307 # type: ignore
 """
 ``CWDE``
 
@@ -3061,7 +3067,7 @@ CWDE: int = 307
 
 ``16/32/64-bit``
 """
-CDQE: int = 308
+CDQE: Code = 308 # type: ignore
 """
 ``CDQE``
 
@@ -3071,7 +3077,7 @@ CDQE: int = 308
 
 ``64-bit``
 """
-CWD: int = 309
+CWD: Code = 309 # type: ignore
 """
 ``CWD``
 
@@ -3081,7 +3087,7 @@ CWD: int = 309
 
 ``16/32/64-bit``
 """
-CDQ: int = 310
+CDQ: Code = 310 # type: ignore
 """
 ``CDQ``
 
@@ -3091,7 +3097,7 @@ CDQ: int = 310
 
 ``16/32/64-bit``
 """
-CQO: int = 311
+CQO: Code = 311 # type: ignore
 """
 ``CQO``
 
@@ -3101,7 +3107,7 @@ CQO: int = 311
 
 ``64-bit``
 """
-CALL_PTR1616: int = 312
+CALL_PTR1616: Code = 312 # type: ignore
 """
 ``CALL ptr16:16``
 
@@ -3111,7 +3117,7 @@ CALL_PTR1616: int = 312
 
 ``16/32-bit``
 """
-CALL_PTR1632: int = 313
+CALL_PTR1632: Code = 313 # type: ignore
 """
 ``CALL ptr16:32``
 
@@ -3121,7 +3127,7 @@ CALL_PTR1632: int = 313
 
 ``16/32-bit``
 """
-WAIT: int = 314
+WAIT: Code = 314 # type: ignore
 """
 ``WAIT``
 
@@ -3131,7 +3137,7 @@ WAIT: int = 314
 
 ``16/32/64-bit``
 """
-PUSHFW: int = 315
+PUSHFW: Code = 315 # type: ignore
 """
 ``PUSHF``
 
@@ -3141,7 +3147,7 @@ PUSHFW: int = 315
 
 ``16/32/64-bit``
 """
-PUSHFD: int = 316
+PUSHFD: Code = 316 # type: ignore
 """
 ``PUSHFD``
 
@@ -3151,7 +3157,7 @@ PUSHFD: int = 316
 
 ``16/32-bit``
 """
-PUSHFQ: int = 317
+PUSHFQ: Code = 317 # type: ignore
 """
 ``PUSHFQ``
 
@@ -3161,7 +3167,7 @@ PUSHFQ: int = 317
 
 ``64-bit``
 """
-POPFW: int = 318
+POPFW: Code = 318 # type: ignore
 """
 ``POPF``
 
@@ -3171,7 +3177,7 @@ POPFW: int = 318
 
 ``16/32/64-bit``
 """
-POPFD: int = 319
+POPFD: Code = 319 # type: ignore
 """
 ``POPFD``
 
@@ -3181,7 +3187,7 @@ POPFD: int = 319
 
 ``16/32-bit``
 """
-POPFQ: int = 320
+POPFQ: Code = 320 # type: ignore
 """
 ``POPFQ``
 
@@ -3191,7 +3197,7 @@ POPFQ: int = 320
 
 ``64-bit``
 """
-SAHF: int = 321
+SAHF: Code = 321 # type: ignore
 """
 ``SAHF``
 
@@ -3201,7 +3207,7 @@ SAHF: int = 321
 
 ``16/32/64-bit``
 """
-LAHF: int = 322
+LAHF: Code = 322 # type: ignore
 """
 ``LAHF``
 
@@ -3211,7 +3217,7 @@ LAHF: int = 322
 
 ``16/32/64-bit``
 """
-MOV_AL_MOFFS8: int = 323
+MOV_AL_MOFFS8: Code = 323 # type: ignore
 """
 ``MOV AL, moffs8``
 
@@ -3221,7 +3227,7 @@ MOV_AL_MOFFS8: int = 323
 
 ``16/32/64-bit``
 """
-MOV_AX_MOFFS16: int = 324
+MOV_AX_MOFFS16: Code = 324 # type: ignore
 """
 ``MOV AX, moffs16``
 
@@ -3231,7 +3237,7 @@ MOV_AX_MOFFS16: int = 324
 
 ``16/32/64-bit``
 """
-MOV_EAX_MOFFS32: int = 325
+MOV_EAX_MOFFS32: Code = 325 # type: ignore
 """
 ``MOV EAX, moffs32``
 
@@ -3241,7 +3247,7 @@ MOV_EAX_MOFFS32: int = 325
 
 ``16/32/64-bit``
 """
-MOV_RAX_MOFFS64: int = 326
+MOV_RAX_MOFFS64: Code = 326 # type: ignore
 """
 ``MOV RAX, moffs64``
 
@@ -3251,7 +3257,7 @@ MOV_RAX_MOFFS64: int = 326
 
 ``64-bit``
 """
-MOV_MOFFS8_AL: int = 327
+MOV_MOFFS8_AL: Code = 327 # type: ignore
 """
 ``MOV moffs8, AL``
 
@@ -3261,7 +3267,7 @@ MOV_MOFFS8_AL: int = 327
 
 ``16/32/64-bit``
 """
-MOV_MOFFS16_AX: int = 328
+MOV_MOFFS16_AX: Code = 328 # type: ignore
 """
 ``MOV moffs16, AX``
 
@@ -3271,7 +3277,7 @@ MOV_MOFFS16_AX: int = 328
 
 ``16/32/64-bit``
 """
-MOV_MOFFS32_EAX: int = 329
+MOV_MOFFS32_EAX: Code = 329 # type: ignore
 """
 ``MOV moffs32, EAX``
 
@@ -3281,7 +3287,7 @@ MOV_MOFFS32_EAX: int = 329
 
 ``16/32/64-bit``
 """
-MOV_MOFFS64_RAX: int = 330
+MOV_MOFFS64_RAX: Code = 330 # type: ignore
 """
 ``MOV moffs64, RAX``
 
@@ -3291,7 +3297,7 @@ MOV_MOFFS64_RAX: int = 330
 
 ``64-bit``
 """
-MOVSB_M8_M8: int = 331
+MOVSB_M8_M8: Code = 331 # type: ignore
 """
 ``MOVSB``
 
@@ -3301,7 +3307,7 @@ MOVSB_M8_M8: int = 331
 
 ``16/32/64-bit``
 """
-MOVSW_M16_M16: int = 332
+MOVSW_M16_M16: Code = 332 # type: ignore
 """
 ``MOVSW``
 
@@ -3311,7 +3317,7 @@ MOVSW_M16_M16: int = 332
 
 ``16/32/64-bit``
 """
-MOVSD_M32_M32: int = 333
+MOVSD_M32_M32: Code = 333 # type: ignore
 """
 ``MOVSD``
 
@@ -3321,7 +3327,7 @@ MOVSD_M32_M32: int = 333
 
 ``16/32/64-bit``
 """
-MOVSQ_M64_M64: int = 334
+MOVSQ_M64_M64: Code = 334 # type: ignore
 """
 ``MOVSQ``
 
@@ -3331,7 +3337,7 @@ MOVSQ_M64_M64: int = 334
 
 ``64-bit``
 """
-CMPSB_M8_M8: int = 335
+CMPSB_M8_M8: Code = 335 # type: ignore
 """
 ``CMPSB``
 
@@ -3341,7 +3347,7 @@ CMPSB_M8_M8: int = 335
 
 ``16/32/64-bit``
 """
-CMPSW_M16_M16: int = 336
+CMPSW_M16_M16: Code = 336 # type: ignore
 """
 ``CMPSW``
 
@@ -3351,7 +3357,7 @@ CMPSW_M16_M16: int = 336
 
 ``16/32/64-bit``
 """
-CMPSD_M32_M32: int = 337
+CMPSD_M32_M32: Code = 337 # type: ignore
 """
 ``CMPSD``
 
@@ -3361,7 +3367,7 @@ CMPSD_M32_M32: int = 337
 
 ``16/32/64-bit``
 """
-CMPSQ_M64_M64: int = 338
+CMPSQ_M64_M64: Code = 338 # type: ignore
 """
 ``CMPSQ``
 
@@ -3371,7 +3377,7 @@ CMPSQ_M64_M64: int = 338
 
 ``64-bit``
 """
-TEST_AL_IMM8: int = 339
+TEST_AL_IMM8: Code = 339 # type: ignore
 """
 ``TEST AL, imm8``
 
@@ -3381,7 +3387,7 @@ TEST_AL_IMM8: int = 339
 
 ``16/32/64-bit``
 """
-TEST_AX_IMM16: int = 340
+TEST_AX_IMM16: Code = 340 # type: ignore
 """
 ``TEST AX, imm16``
 
@@ -3391,7 +3397,7 @@ TEST_AX_IMM16: int = 340
 
 ``16/32/64-bit``
 """
-TEST_EAX_IMM32: int = 341
+TEST_EAX_IMM32: Code = 341 # type: ignore
 """
 ``TEST EAX, imm32``
 
@@ -3401,7 +3407,7 @@ TEST_EAX_IMM32: int = 341
 
 ``16/32/64-bit``
 """
-TEST_RAX_IMM32: int = 342
+TEST_RAX_IMM32: Code = 342 # type: ignore
 """
 ``TEST RAX, imm32``
 
@@ -3411,7 +3417,7 @@ TEST_RAX_IMM32: int = 342
 
 ``64-bit``
 """
-STOSB_M8_AL: int = 343
+STOSB_M8_AL: Code = 343 # type: ignore
 """
 ``STOSB``
 
@@ -3421,7 +3427,7 @@ STOSB_M8_AL: int = 343
 
 ``16/32/64-bit``
 """
-STOSW_M16_AX: int = 344
+STOSW_M16_AX: Code = 344 # type: ignore
 """
 ``STOSW``
 
@@ -3431,7 +3437,7 @@ STOSW_M16_AX: int = 344
 
 ``16/32/64-bit``
 """
-STOSD_M32_EAX: int = 345
+STOSD_M32_EAX: Code = 345 # type: ignore
 """
 ``STOSD``
 
@@ -3441,7 +3447,7 @@ STOSD_M32_EAX: int = 345
 
 ``16/32/64-bit``
 """
-STOSQ_M64_RAX: int = 346
+STOSQ_M64_RAX: Code = 346 # type: ignore
 """
 ``STOSQ``
 
@@ -3451,7 +3457,7 @@ STOSQ_M64_RAX: int = 346
 
 ``64-bit``
 """
-LODSB_AL_M8: int = 347
+LODSB_AL_M8: Code = 347 # type: ignore
 """
 ``LODSB``
 
@@ -3461,7 +3467,7 @@ LODSB_AL_M8: int = 347
 
 ``16/32/64-bit``
 """
-LODSW_AX_M16: int = 348
+LODSW_AX_M16: Code = 348 # type: ignore
 """
 ``LODSW``
 
@@ -3471,7 +3477,7 @@ LODSW_AX_M16: int = 348
 
 ``16/32/64-bit``
 """
-LODSD_EAX_M32: int = 349
+LODSD_EAX_M32: Code = 349 # type: ignore
 """
 ``LODSD``
 
@@ -3481,7 +3487,7 @@ LODSD_EAX_M32: int = 349
 
 ``16/32/64-bit``
 """
-LODSQ_RAX_M64: int = 350
+LODSQ_RAX_M64: Code = 350 # type: ignore
 """
 ``LODSQ``
 
@@ -3491,7 +3497,7 @@ LODSQ_RAX_M64: int = 350
 
 ``64-bit``
 """
-SCASB_AL_M8: int = 351
+SCASB_AL_M8: Code = 351 # type: ignore
 """
 ``SCASB``
 
@@ -3501,7 +3507,7 @@ SCASB_AL_M8: int = 351
 
 ``16/32/64-bit``
 """
-SCASW_AX_M16: int = 352
+SCASW_AX_M16: Code = 352 # type: ignore
 """
 ``SCASW``
 
@@ -3511,7 +3517,7 @@ SCASW_AX_M16: int = 352
 
 ``16/32/64-bit``
 """
-SCASD_EAX_M32: int = 353
+SCASD_EAX_M32: Code = 353 # type: ignore
 """
 ``SCASD``
 
@@ -3521,7 +3527,7 @@ SCASD_EAX_M32: int = 353
 
 ``16/32/64-bit``
 """
-SCASQ_RAX_M64: int = 354
+SCASQ_RAX_M64: Code = 354 # type: ignore
 """
 ``SCASQ``
 
@@ -3531,7 +3537,7 @@ SCASQ_RAX_M64: int = 354
 
 ``64-bit``
 """
-MOV_R8_IMM8: int = 355
+MOV_R8_IMM8: Code = 355 # type: ignore
 """
 ``MOV r8, imm8``
 
@@ -3541,7 +3547,7 @@ MOV_R8_IMM8: int = 355
 
 ``16/32/64-bit``
 """
-MOV_R16_IMM16: int = 356
+MOV_R16_IMM16: Code = 356 # type: ignore
 """
 ``MOV r16, imm16``
 
@@ -3551,7 +3557,7 @@ MOV_R16_IMM16: int = 356
 
 ``16/32/64-bit``
 """
-MOV_R32_IMM32: int = 357
+MOV_R32_IMM32: Code = 357 # type: ignore
 """
 ``MOV r32, imm32``
 
@@ -3561,7 +3567,7 @@ MOV_R32_IMM32: int = 357
 
 ``16/32/64-bit``
 """
-MOV_R64_IMM64: int = 358
+MOV_R64_IMM64: Code = 358 # type: ignore
 """
 ``MOV r64, imm64``
 
@@ -3571,7 +3577,7 @@ MOV_R64_IMM64: int = 358
 
 ``64-bit``
 """
-ROL_RM8_IMM8: int = 359
+ROL_RM8_IMM8: Code = 359 # type: ignore
 """
 ``ROL r/m8, imm8``
 
@@ -3581,7 +3587,7 @@ ROL_RM8_IMM8: int = 359
 
 ``16/32/64-bit``
 """
-ROR_RM8_IMM8: int = 360
+ROR_RM8_IMM8: Code = 360 # type: ignore
 """
 ``ROR r/m8, imm8``
 
@@ -3591,7 +3597,7 @@ ROR_RM8_IMM8: int = 360
 
 ``16/32/64-bit``
 """
-RCL_RM8_IMM8: int = 361
+RCL_RM8_IMM8: Code = 361 # type: ignore
 """
 ``RCL r/m8, imm8``
 
@@ -3601,7 +3607,7 @@ RCL_RM8_IMM8: int = 361
 
 ``16/32/64-bit``
 """
-RCR_RM8_IMM8: int = 362
+RCR_RM8_IMM8: Code = 362 # type: ignore
 """
 ``RCR r/m8, imm8``
 
@@ -3611,7 +3617,7 @@ RCR_RM8_IMM8: int = 362
 
 ``16/32/64-bit``
 """
-SHL_RM8_IMM8: int = 363
+SHL_RM8_IMM8: Code = 363 # type: ignore
 """
 ``SHL r/m8, imm8``
 
@@ -3621,7 +3627,7 @@ SHL_RM8_IMM8: int = 363
 
 ``16/32/64-bit``
 """
-SHR_RM8_IMM8: int = 364
+SHR_RM8_IMM8: Code = 364 # type: ignore
 """
 ``SHR r/m8, imm8``
 
@@ -3631,7 +3637,7 @@ SHR_RM8_IMM8: int = 364
 
 ``16/32/64-bit``
 """
-SAL_RM8_IMM8: int = 365
+SAL_RM8_IMM8: Code = 365 # type: ignore
 """
 ``SAL r/m8, imm8``
 
@@ -3641,7 +3647,7 @@ SAL_RM8_IMM8: int = 365
 
 ``16/32/64-bit``
 """
-SAR_RM8_IMM8: int = 366
+SAR_RM8_IMM8: Code = 366 # type: ignore
 """
 ``SAR r/m8, imm8``
 
@@ -3651,7 +3657,7 @@ SAR_RM8_IMM8: int = 366
 
 ``16/32/64-bit``
 """
-ROL_RM16_IMM8: int = 367
+ROL_RM16_IMM8: Code = 367 # type: ignore
 """
 ``ROL r/m16, imm8``
 
@@ -3661,7 +3667,7 @@ ROL_RM16_IMM8: int = 367
 
 ``16/32/64-bit``
 """
-ROL_RM32_IMM8: int = 368
+ROL_RM32_IMM8: Code = 368 # type: ignore
 """
 ``ROL r/m32, imm8``
 
@@ -3671,7 +3677,7 @@ ROL_RM32_IMM8: int = 368
 
 ``16/32/64-bit``
 """
-ROL_RM64_IMM8: int = 369
+ROL_RM64_IMM8: Code = 369 # type: ignore
 """
 ``ROL r/m64, imm8``
 
@@ -3681,7 +3687,7 @@ ROL_RM64_IMM8: int = 369
 
 ``64-bit``
 """
-ROR_RM16_IMM8: int = 370
+ROR_RM16_IMM8: Code = 370 # type: ignore
 """
 ``ROR r/m16, imm8``
 
@@ -3691,7 +3697,7 @@ ROR_RM16_IMM8: int = 370
 
 ``16/32/64-bit``
 """
-ROR_RM32_IMM8: int = 371
+ROR_RM32_IMM8: Code = 371 # type: ignore
 """
 ``ROR r/m32, imm8``
 
@@ -3701,7 +3707,7 @@ ROR_RM32_IMM8: int = 371
 
 ``16/32/64-bit``
 """
-ROR_RM64_IMM8: int = 372
+ROR_RM64_IMM8: Code = 372 # type: ignore
 """
 ``ROR r/m64, imm8``
 
@@ -3711,7 +3717,7 @@ ROR_RM64_IMM8: int = 372
 
 ``64-bit``
 """
-RCL_RM16_IMM8: int = 373
+RCL_RM16_IMM8: Code = 373 # type: ignore
 """
 ``RCL r/m16, imm8``
 
@@ -3721,7 +3727,7 @@ RCL_RM16_IMM8: int = 373
 
 ``16/32/64-bit``
 """
-RCL_RM32_IMM8: int = 374
+RCL_RM32_IMM8: Code = 374 # type: ignore
 """
 ``RCL r/m32, imm8``
 
@@ -3731,7 +3737,7 @@ RCL_RM32_IMM8: int = 374
 
 ``16/32/64-bit``
 """
-RCL_RM64_IMM8: int = 375
+RCL_RM64_IMM8: Code = 375 # type: ignore
 """
 ``RCL r/m64, imm8``
 
@@ -3741,7 +3747,7 @@ RCL_RM64_IMM8: int = 375
 
 ``64-bit``
 """
-RCR_RM16_IMM8: int = 376
+RCR_RM16_IMM8: Code = 376 # type: ignore
 """
 ``RCR r/m16, imm8``
 
@@ -3751,7 +3757,7 @@ RCR_RM16_IMM8: int = 376
 
 ``16/32/64-bit``
 """
-RCR_RM32_IMM8: int = 377
+RCR_RM32_IMM8: Code = 377 # type: ignore
 """
 ``RCR r/m32, imm8``
 
@@ -3761,7 +3767,7 @@ RCR_RM32_IMM8: int = 377
 
 ``16/32/64-bit``
 """
-RCR_RM64_IMM8: int = 378
+RCR_RM64_IMM8: Code = 378 # type: ignore
 """
 ``RCR r/m64, imm8``
 
@@ -3771,7 +3777,7 @@ RCR_RM64_IMM8: int = 378
 
 ``64-bit``
 """
-SHL_RM16_IMM8: int = 379
+SHL_RM16_IMM8: Code = 379 # type: ignore
 """
 ``SHL r/m16, imm8``
 
@@ -3781,7 +3787,7 @@ SHL_RM16_IMM8: int = 379
 
 ``16/32/64-bit``
 """
-SHL_RM32_IMM8: int = 380
+SHL_RM32_IMM8: Code = 380 # type: ignore
 """
 ``SHL r/m32, imm8``
 
@@ -3791,7 +3797,7 @@ SHL_RM32_IMM8: int = 380
 
 ``16/32/64-bit``
 """
-SHL_RM64_IMM8: int = 381
+SHL_RM64_IMM8: Code = 381 # type: ignore
 """
 ``SHL r/m64, imm8``
 
@@ -3801,7 +3807,7 @@ SHL_RM64_IMM8: int = 381
 
 ``64-bit``
 """
-SHR_RM16_IMM8: int = 382
+SHR_RM16_IMM8: Code = 382 # type: ignore
 """
 ``SHR r/m16, imm8``
 
@@ -3811,7 +3817,7 @@ SHR_RM16_IMM8: int = 382
 
 ``16/32/64-bit``
 """
-SHR_RM32_IMM8: int = 383
+SHR_RM32_IMM8: Code = 383 # type: ignore
 """
 ``SHR r/m32, imm8``
 
@@ -3821,7 +3827,7 @@ SHR_RM32_IMM8: int = 383
 
 ``16/32/64-bit``
 """
-SHR_RM64_IMM8: int = 384
+SHR_RM64_IMM8: Code = 384 # type: ignore
 """
 ``SHR r/m64, imm8``
 
@@ -3831,7 +3837,7 @@ SHR_RM64_IMM8: int = 384
 
 ``64-bit``
 """
-SAL_RM16_IMM8: int = 385
+SAL_RM16_IMM8: Code = 385 # type: ignore
 """
 ``SAL r/m16, imm8``
 
@@ -3841,7 +3847,7 @@ SAL_RM16_IMM8: int = 385
 
 ``16/32/64-bit``
 """
-SAL_RM32_IMM8: int = 386
+SAL_RM32_IMM8: Code = 386 # type: ignore
 """
 ``SAL r/m32, imm8``
 
@@ -3851,7 +3857,7 @@ SAL_RM32_IMM8: int = 386
 
 ``16/32/64-bit``
 """
-SAL_RM64_IMM8: int = 387
+SAL_RM64_IMM8: Code = 387 # type: ignore
 """
 ``SAL r/m64, imm8``
 
@@ -3861,7 +3867,7 @@ SAL_RM64_IMM8: int = 387
 
 ``64-bit``
 """
-SAR_RM16_IMM8: int = 388
+SAR_RM16_IMM8: Code = 388 # type: ignore
 """
 ``SAR r/m16, imm8``
 
@@ -3871,7 +3877,7 @@ SAR_RM16_IMM8: int = 388
 
 ``16/32/64-bit``
 """
-SAR_RM32_IMM8: int = 389
+SAR_RM32_IMM8: Code = 389 # type: ignore
 """
 ``SAR r/m32, imm8``
 
@@ -3881,7 +3887,7 @@ SAR_RM32_IMM8: int = 389
 
 ``16/32/64-bit``
 """
-SAR_RM64_IMM8: int = 390
+SAR_RM64_IMM8: Code = 390 # type: ignore
 """
 ``SAR r/m64, imm8``
 
@@ -3891,7 +3897,7 @@ SAR_RM64_IMM8: int = 390
 
 ``64-bit``
 """
-RETNW_IMM16: int = 391
+RETNW_IMM16: Code = 391 # type: ignore
 """
 ``RET imm16``
 
@@ -3901,7 +3907,7 @@ RETNW_IMM16: int = 391
 
 ``16/32/64-bit``
 """
-RETND_IMM16: int = 392
+RETND_IMM16: Code = 392 # type: ignore
 """
 ``RET imm16``
 
@@ -3911,7 +3917,7 @@ RETND_IMM16: int = 392
 
 ``16/32-bit``
 """
-RETNQ_IMM16: int = 393
+RETNQ_IMM16: Code = 393 # type: ignore
 """
 ``RET imm16``
 
@@ -3921,7 +3927,7 @@ RETNQ_IMM16: int = 393
 
 ``64-bit``
 """
-RETNW: int = 394
+RETNW: Code = 394 # type: ignore
 """
 ``RET``
 
@@ -3931,7 +3937,7 @@ RETNW: int = 394
 
 ``16/32/64-bit``
 """
-RETND: int = 395
+RETND: Code = 395 # type: ignore
 """
 ``RET``
 
@@ -3941,7 +3947,7 @@ RETND: int = 395
 
 ``16/32-bit``
 """
-RETNQ: int = 396
+RETNQ: Code = 396 # type: ignore
 """
 ``RET``
 
@@ -3951,7 +3957,7 @@ RETNQ: int = 396
 
 ``64-bit``
 """
-LES_R16_M1616: int = 397
+LES_R16_M1616: Code = 397 # type: ignore
 """
 ``LES r16, m16:16``
 
@@ -3961,7 +3967,7 @@ LES_R16_M1616: int = 397
 
 ``16/32-bit``
 """
-LES_R32_M1632: int = 398
+LES_R32_M1632: Code = 398 # type: ignore
 """
 ``LES r32, m16:32``
 
@@ -3971,7 +3977,7 @@ LES_R32_M1632: int = 398
 
 ``16/32-bit``
 """
-LDS_R16_M1616: int = 399
+LDS_R16_M1616: Code = 399 # type: ignore
 """
 ``LDS r16, m16:16``
 
@@ -3981,7 +3987,7 @@ LDS_R16_M1616: int = 399
 
 ``16/32-bit``
 """
-LDS_R32_M1632: int = 400
+LDS_R32_M1632: Code = 400 # type: ignore
 """
 ``LDS r32, m16:32``
 
@@ -3991,7 +3997,7 @@ LDS_R32_M1632: int = 400
 
 ``16/32-bit``
 """
-MOV_RM8_IMM8: int = 401
+MOV_RM8_IMM8: Code = 401 # type: ignore
 """
 ``MOV r/m8, imm8``
 
@@ -4001,7 +4007,7 @@ MOV_RM8_IMM8: int = 401
 
 ``16/32/64-bit``
 """
-XABORT_IMM8: int = 402
+XABORT_IMM8: Code = 402 # type: ignore
 """
 ``XABORT imm8``
 
@@ -4011,7 +4017,7 @@ XABORT_IMM8: int = 402
 
 ``16/32/64-bit``
 """
-MOV_RM16_IMM16: int = 403
+MOV_RM16_IMM16: Code = 403 # type: ignore
 """
 ``MOV r/m16, imm16``
 
@@ -4021,7 +4027,7 @@ MOV_RM16_IMM16: int = 403
 
 ``16/32/64-bit``
 """
-MOV_RM32_IMM32: int = 404
+MOV_RM32_IMM32: Code = 404 # type: ignore
 """
 ``MOV r/m32, imm32``
 
@@ -4031,7 +4037,7 @@ MOV_RM32_IMM32: int = 404
 
 ``16/32/64-bit``
 """
-MOV_RM64_IMM32: int = 405
+MOV_RM64_IMM32: Code = 405 # type: ignore
 """
 ``MOV r/m64, imm32``
 
@@ -4041,7 +4047,7 @@ MOV_RM64_IMM32: int = 405
 
 ``64-bit``
 """
-XBEGIN_REL16: int = 406
+XBEGIN_REL16: Code = 406 # type: ignore
 """
 ``XBEGIN rel16``
 
@@ -4051,7 +4057,7 @@ XBEGIN_REL16: int = 406
 
 ``16/32/64-bit``
 """
-XBEGIN_REL32: int = 407
+XBEGIN_REL32: Code = 407 # type: ignore
 """
 ``XBEGIN rel32``
 
@@ -4061,7 +4067,7 @@ XBEGIN_REL32: int = 407
 
 ``16/32/64-bit``
 """
-ENTERW_IMM16_IMM8: int = 408
+ENTERW_IMM16_IMM8: Code = 408 # type: ignore
 """
 ``ENTER imm16, imm8``
 
@@ -4071,7 +4077,7 @@ ENTERW_IMM16_IMM8: int = 408
 
 ``16/32/64-bit``
 """
-ENTERD_IMM16_IMM8: int = 409
+ENTERD_IMM16_IMM8: Code = 409 # type: ignore
 """
 ``ENTER imm16, imm8``
 
@@ -4081,7 +4087,7 @@ ENTERD_IMM16_IMM8: int = 409
 
 ``16/32-bit``
 """
-ENTERQ_IMM16_IMM8: int = 410
+ENTERQ_IMM16_IMM8: Code = 410 # type: ignore
 """
 ``ENTER imm16, imm8``
 
@@ -4091,7 +4097,7 @@ ENTERQ_IMM16_IMM8: int = 410
 
 ``64-bit``
 """
-LEAVEW: int = 411
+LEAVEW: Code = 411 # type: ignore
 """
 ``LEAVE``
 
@@ -4101,7 +4107,7 @@ LEAVEW: int = 411
 
 ``16/32/64-bit``
 """
-LEAVED: int = 412
+LEAVED: Code = 412 # type: ignore
 """
 ``LEAVE``
 
@@ -4111,7 +4117,7 @@ LEAVED: int = 412
 
 ``16/32-bit``
 """
-LEAVEQ: int = 413
+LEAVEQ: Code = 413 # type: ignore
 """
 ``LEAVE``
 
@@ -4121,7 +4127,7 @@ LEAVEQ: int = 413
 
 ``64-bit``
 """
-RETFW_IMM16: int = 414
+RETFW_IMM16: Code = 414 # type: ignore
 """
 ``RETF imm16``
 
@@ -4131,7 +4137,7 @@ RETFW_IMM16: int = 414
 
 ``16/32/64-bit``
 """
-RETFD_IMM16: int = 415
+RETFD_IMM16: Code = 415 # type: ignore
 """
 ``RETF imm16``
 
@@ -4141,7 +4147,7 @@ RETFD_IMM16: int = 415
 
 ``16/32/64-bit``
 """
-RETFQ_IMM16: int = 416
+RETFQ_IMM16: Code = 416 # type: ignore
 """
 ``RETF imm16``
 
@@ -4151,7 +4157,7 @@ RETFQ_IMM16: int = 416
 
 ``64-bit``
 """
-RETFW: int = 417
+RETFW: Code = 417 # type: ignore
 """
 ``RETF``
 
@@ -4161,7 +4167,7 @@ RETFW: int = 417
 
 ``16/32/64-bit``
 """
-RETFD: int = 418
+RETFD: Code = 418 # type: ignore
 """
 ``RETF``
 
@@ -4171,7 +4177,7 @@ RETFD: int = 418
 
 ``16/32/64-bit``
 """
-RETFQ: int = 419
+RETFQ: Code = 419 # type: ignore
 """
 ``RETF``
 
@@ -4181,7 +4187,7 @@ RETFQ: int = 419
 
 ``64-bit``
 """
-INT3: int = 420
+INT3: Code = 420 # type: ignore
 """
 ``INT3``
 
@@ -4191,7 +4197,7 @@ INT3: int = 420
 
 ``16/32/64-bit``
 """
-INT_IMM8: int = 421
+INT_IMM8: Code = 421 # type: ignore
 """
 ``INT imm8``
 
@@ -4201,7 +4207,7 @@ INT_IMM8: int = 421
 
 ``16/32/64-bit``
 """
-INTO: int = 422
+INTO: Code = 422 # type: ignore
 """
 ``INTO``
 
@@ -4211,7 +4217,7 @@ INTO: int = 422
 
 ``16/32-bit``
 """
-IRETW: int = 423
+IRETW: Code = 423 # type: ignore
 """
 ``IRET``
 
@@ -4221,7 +4227,7 @@ IRETW: int = 423
 
 ``16/32/64-bit``
 """
-IRETD: int = 424
+IRETD: Code = 424 # type: ignore
 """
 ``IRETD``
 
@@ -4231,7 +4237,7 @@ IRETD: int = 424
 
 ``16/32/64-bit``
 """
-IRETQ: int = 425
+IRETQ: Code = 425 # type: ignore
 """
 ``IRETQ``
 
@@ -4241,7 +4247,7 @@ IRETQ: int = 425
 
 ``64-bit``
 """
-ROL_RM8_1: int = 426
+ROL_RM8_1: Code = 426 # type: ignore
 """
 ``ROL r/m8, 1``
 
@@ -4251,7 +4257,7 @@ ROL_RM8_1: int = 426
 
 ``16/32/64-bit``
 """
-ROR_RM8_1: int = 427
+ROR_RM8_1: Code = 427 # type: ignore
 """
 ``ROR r/m8, 1``
 
@@ -4261,7 +4267,7 @@ ROR_RM8_1: int = 427
 
 ``16/32/64-bit``
 """
-RCL_RM8_1: int = 428
+RCL_RM8_1: Code = 428 # type: ignore
 """
 ``RCL r/m8, 1``
 
@@ -4271,7 +4277,7 @@ RCL_RM8_1: int = 428
 
 ``16/32/64-bit``
 """
-RCR_RM8_1: int = 429
+RCR_RM8_1: Code = 429 # type: ignore
 """
 ``RCR r/m8, 1``
 
@@ -4281,7 +4287,7 @@ RCR_RM8_1: int = 429
 
 ``16/32/64-bit``
 """
-SHL_RM8_1: int = 430
+SHL_RM8_1: Code = 430 # type: ignore
 """
 ``SHL r/m8, 1``
 
@@ -4291,7 +4297,7 @@ SHL_RM8_1: int = 430
 
 ``16/32/64-bit``
 """
-SHR_RM8_1: int = 431
+SHR_RM8_1: Code = 431 # type: ignore
 """
 ``SHR r/m8, 1``
 
@@ -4301,7 +4307,7 @@ SHR_RM8_1: int = 431
 
 ``16/32/64-bit``
 """
-SAL_RM8_1: int = 432
+SAL_RM8_1: Code = 432 # type: ignore
 """
 ``SAL r/m8, 1``
 
@@ -4311,7 +4317,7 @@ SAL_RM8_1: int = 432
 
 ``16/32/64-bit``
 """
-SAR_RM8_1: int = 433
+SAR_RM8_1: Code = 433 # type: ignore
 """
 ``SAR r/m8, 1``
 
@@ -4321,7 +4327,7 @@ SAR_RM8_1: int = 433
 
 ``16/32/64-bit``
 """
-ROL_RM16_1: int = 434
+ROL_RM16_1: Code = 434 # type: ignore
 """
 ``ROL r/m16, 1``
 
@@ -4331,7 +4337,7 @@ ROL_RM16_1: int = 434
 
 ``16/32/64-bit``
 """
-ROL_RM32_1: int = 435
+ROL_RM32_1: Code = 435 # type: ignore
 """
 ``ROL r/m32, 1``
 
@@ -4341,7 +4347,7 @@ ROL_RM32_1: int = 435
 
 ``16/32/64-bit``
 """
-ROL_RM64_1: int = 436
+ROL_RM64_1: Code = 436 # type: ignore
 """
 ``ROL r/m64, 1``
 
@@ -4351,7 +4357,7 @@ ROL_RM64_1: int = 436
 
 ``64-bit``
 """
-ROR_RM16_1: int = 437
+ROR_RM16_1: Code = 437 # type: ignore
 """
 ``ROR r/m16, 1``
 
@@ -4361,7 +4367,7 @@ ROR_RM16_1: int = 437
 
 ``16/32/64-bit``
 """
-ROR_RM32_1: int = 438
+ROR_RM32_1: Code = 438 # type: ignore
 """
 ``ROR r/m32, 1``
 
@@ -4371,7 +4377,7 @@ ROR_RM32_1: int = 438
 
 ``16/32/64-bit``
 """
-ROR_RM64_1: int = 439
+ROR_RM64_1: Code = 439 # type: ignore
 """
 ``ROR r/m64, 1``
 
@@ -4381,7 +4387,7 @@ ROR_RM64_1: int = 439
 
 ``64-bit``
 """
-RCL_RM16_1: int = 440
+RCL_RM16_1: Code = 440 # type: ignore
 """
 ``RCL r/m16, 1``
 
@@ -4391,7 +4397,7 @@ RCL_RM16_1: int = 440
 
 ``16/32/64-bit``
 """
-RCL_RM32_1: int = 441
+RCL_RM32_1: Code = 441 # type: ignore
 """
 ``RCL r/m32, 1``
 
@@ -4401,7 +4407,7 @@ RCL_RM32_1: int = 441
 
 ``16/32/64-bit``
 """
-RCL_RM64_1: int = 442
+RCL_RM64_1: Code = 442 # type: ignore
 """
 ``RCL r/m64, 1``
 
@@ -4411,7 +4417,7 @@ RCL_RM64_1: int = 442
 
 ``64-bit``
 """
-RCR_RM16_1: int = 443
+RCR_RM16_1: Code = 443 # type: ignore
 """
 ``RCR r/m16, 1``
 
@@ -4421,7 +4427,7 @@ RCR_RM16_1: int = 443
 
 ``16/32/64-bit``
 """
-RCR_RM32_1: int = 444
+RCR_RM32_1: Code = 444 # type: ignore
 """
 ``RCR r/m32, 1``
 
@@ -4431,7 +4437,7 @@ RCR_RM32_1: int = 444
 
 ``16/32/64-bit``
 """
-RCR_RM64_1: int = 445
+RCR_RM64_1: Code = 445 # type: ignore
 """
 ``RCR r/m64, 1``
 
@@ -4441,7 +4447,7 @@ RCR_RM64_1: int = 445
 
 ``64-bit``
 """
-SHL_RM16_1: int = 446
+SHL_RM16_1: Code = 446 # type: ignore
 """
 ``SHL r/m16, 1``
 
@@ -4451,7 +4457,7 @@ SHL_RM16_1: int = 446
 
 ``16/32/64-bit``
 """
-SHL_RM32_1: int = 447
+SHL_RM32_1: Code = 447 # type: ignore
 """
 ``SHL r/m32, 1``
 
@@ -4461,7 +4467,7 @@ SHL_RM32_1: int = 447
 
 ``16/32/64-bit``
 """
-SHL_RM64_1: int = 448
+SHL_RM64_1: Code = 448 # type: ignore
 """
 ``SHL r/m64, 1``
 
@@ -4471,7 +4477,7 @@ SHL_RM64_1: int = 448
 
 ``64-bit``
 """
-SHR_RM16_1: int = 449
+SHR_RM16_1: Code = 449 # type: ignore
 """
 ``SHR r/m16, 1``
 
@@ -4481,7 +4487,7 @@ SHR_RM16_1: int = 449
 
 ``16/32/64-bit``
 """
-SHR_RM32_1: int = 450
+SHR_RM32_1: Code = 450 # type: ignore
 """
 ``SHR r/m32, 1``
 
@@ -4491,7 +4497,7 @@ SHR_RM32_1: int = 450
 
 ``16/32/64-bit``
 """
-SHR_RM64_1: int = 451
+SHR_RM64_1: Code = 451 # type: ignore
 """
 ``SHR r/m64, 1``
 
@@ -4501,7 +4507,7 @@ SHR_RM64_1: int = 451
 
 ``64-bit``
 """
-SAL_RM16_1: int = 452
+SAL_RM16_1: Code = 452 # type: ignore
 """
 ``SAL r/m16, 1``
 
@@ -4511,7 +4517,7 @@ SAL_RM16_1: int = 452
 
 ``16/32/64-bit``
 """
-SAL_RM32_1: int = 453
+SAL_RM32_1: Code = 453 # type: ignore
 """
 ``SAL r/m32, 1``
 
@@ -4521,7 +4527,7 @@ SAL_RM32_1: int = 453
 
 ``16/32/64-bit``
 """
-SAL_RM64_1: int = 454
+SAL_RM64_1: Code = 454 # type: ignore
 """
 ``SAL r/m64, 1``
 
@@ -4531,7 +4537,7 @@ SAL_RM64_1: int = 454
 
 ``64-bit``
 """
-SAR_RM16_1: int = 455
+SAR_RM16_1: Code = 455 # type: ignore
 """
 ``SAR r/m16, 1``
 
@@ -4541,7 +4547,7 @@ SAR_RM16_1: int = 455
 
 ``16/32/64-bit``
 """
-SAR_RM32_1: int = 456
+SAR_RM32_1: Code = 456 # type: ignore
 """
 ``SAR r/m32, 1``
 
@@ -4551,7 +4557,7 @@ SAR_RM32_1: int = 456
 
 ``16/32/64-bit``
 """
-SAR_RM64_1: int = 457
+SAR_RM64_1: Code = 457 # type: ignore
 """
 ``SAR r/m64, 1``
 
@@ -4561,7 +4567,7 @@ SAR_RM64_1: int = 457
 
 ``64-bit``
 """
-ROL_RM8_CL: int = 458
+ROL_RM8_CL: Code = 458 # type: ignore
 """
 ``ROL r/m8, CL``
 
@@ -4571,7 +4577,7 @@ ROL_RM8_CL: int = 458
 
 ``16/32/64-bit``
 """
-ROR_RM8_CL: int = 459
+ROR_RM8_CL: Code = 459 # type: ignore
 """
 ``ROR r/m8, CL``
 
@@ -4581,7 +4587,7 @@ ROR_RM8_CL: int = 459
 
 ``16/32/64-bit``
 """
-RCL_RM8_CL: int = 460
+RCL_RM8_CL: Code = 460 # type: ignore
 """
 ``RCL r/m8, CL``
 
@@ -4591,7 +4597,7 @@ RCL_RM8_CL: int = 460
 
 ``16/32/64-bit``
 """
-RCR_RM8_CL: int = 461
+RCR_RM8_CL: Code = 461 # type: ignore
 """
 ``RCR r/m8, CL``
 
@@ -4601,7 +4607,7 @@ RCR_RM8_CL: int = 461
 
 ``16/32/64-bit``
 """
-SHL_RM8_CL: int = 462
+SHL_RM8_CL: Code = 462 # type: ignore
 """
 ``SHL r/m8, CL``
 
@@ -4611,7 +4617,7 @@ SHL_RM8_CL: int = 462
 
 ``16/32/64-bit``
 """
-SHR_RM8_CL: int = 463
+SHR_RM8_CL: Code = 463 # type: ignore
 """
 ``SHR r/m8, CL``
 
@@ -4621,7 +4627,7 @@ SHR_RM8_CL: int = 463
 
 ``16/32/64-bit``
 """
-SAL_RM8_CL: int = 464
+SAL_RM8_CL: Code = 464 # type: ignore
 """
 ``SAL r/m8, CL``
 
@@ -4631,7 +4637,7 @@ SAL_RM8_CL: int = 464
 
 ``16/32/64-bit``
 """
-SAR_RM8_CL: int = 465
+SAR_RM8_CL: Code = 465 # type: ignore
 """
 ``SAR r/m8, CL``
 
@@ -4641,7 +4647,7 @@ SAR_RM8_CL: int = 465
 
 ``16/32/64-bit``
 """
-ROL_RM16_CL: int = 466
+ROL_RM16_CL: Code = 466 # type: ignore
 """
 ``ROL r/m16, CL``
 
@@ -4651,7 +4657,7 @@ ROL_RM16_CL: int = 466
 
 ``16/32/64-bit``
 """
-ROL_RM32_CL: int = 467
+ROL_RM32_CL: Code = 467 # type: ignore
 """
 ``ROL r/m32, CL``
 
@@ -4661,7 +4667,7 @@ ROL_RM32_CL: int = 467
 
 ``16/32/64-bit``
 """
-ROL_RM64_CL: int = 468
+ROL_RM64_CL: Code = 468 # type: ignore
 """
 ``ROL r/m64, CL``
 
@@ -4671,7 +4677,7 @@ ROL_RM64_CL: int = 468
 
 ``64-bit``
 """
-ROR_RM16_CL: int = 469
+ROR_RM16_CL: Code = 469 # type: ignore
 """
 ``ROR r/m16, CL``
 
@@ -4681,7 +4687,7 @@ ROR_RM16_CL: int = 469
 
 ``16/32/64-bit``
 """
-ROR_RM32_CL: int = 470
+ROR_RM32_CL: Code = 470 # type: ignore
 """
 ``ROR r/m32, CL``
 
@@ -4691,7 +4697,7 @@ ROR_RM32_CL: int = 470
 
 ``16/32/64-bit``
 """
-ROR_RM64_CL: int = 471
+ROR_RM64_CL: Code = 471 # type: ignore
 """
 ``ROR r/m64, CL``
 
@@ -4701,7 +4707,7 @@ ROR_RM64_CL: int = 471
 
 ``64-bit``
 """
-RCL_RM16_CL: int = 472
+RCL_RM16_CL: Code = 472 # type: ignore
 """
 ``RCL r/m16, CL``
 
@@ -4711,7 +4717,7 @@ RCL_RM16_CL: int = 472
 
 ``16/32/64-bit``
 """
-RCL_RM32_CL: int = 473
+RCL_RM32_CL: Code = 473 # type: ignore
 """
 ``RCL r/m32, CL``
 
@@ -4721,7 +4727,7 @@ RCL_RM32_CL: int = 473
 
 ``16/32/64-bit``
 """
-RCL_RM64_CL: int = 474
+RCL_RM64_CL: Code = 474 # type: ignore
 """
 ``RCL r/m64, CL``
 
@@ -4731,7 +4737,7 @@ RCL_RM64_CL: int = 474
 
 ``64-bit``
 """
-RCR_RM16_CL: int = 475
+RCR_RM16_CL: Code = 475 # type: ignore
 """
 ``RCR r/m16, CL``
 
@@ -4741,7 +4747,7 @@ RCR_RM16_CL: int = 475
 
 ``16/32/64-bit``
 """
-RCR_RM32_CL: int = 476
+RCR_RM32_CL: Code = 476 # type: ignore
 """
 ``RCR r/m32, CL``
 
@@ -4751,7 +4757,7 @@ RCR_RM32_CL: int = 476
 
 ``16/32/64-bit``
 """
-RCR_RM64_CL: int = 477
+RCR_RM64_CL: Code = 477 # type: ignore
 """
 ``RCR r/m64, CL``
 
@@ -4761,7 +4767,7 @@ RCR_RM64_CL: int = 477
 
 ``64-bit``
 """
-SHL_RM16_CL: int = 478
+SHL_RM16_CL: Code = 478 # type: ignore
 """
 ``SHL r/m16, CL``
 
@@ -4771,7 +4777,7 @@ SHL_RM16_CL: int = 478
 
 ``16/32/64-bit``
 """
-SHL_RM32_CL: int = 479
+SHL_RM32_CL: Code = 479 # type: ignore
 """
 ``SHL r/m32, CL``
 
@@ -4781,7 +4787,7 @@ SHL_RM32_CL: int = 479
 
 ``16/32/64-bit``
 """
-SHL_RM64_CL: int = 480
+SHL_RM64_CL: Code = 480 # type: ignore
 """
 ``SHL r/m64, CL``
 
@@ -4791,7 +4797,7 @@ SHL_RM64_CL: int = 480
 
 ``64-bit``
 """
-SHR_RM16_CL: int = 481
+SHR_RM16_CL: Code = 481 # type: ignore
 """
 ``SHR r/m16, CL``
 
@@ -4801,7 +4807,7 @@ SHR_RM16_CL: int = 481
 
 ``16/32/64-bit``
 """
-SHR_RM32_CL: int = 482
+SHR_RM32_CL: Code = 482 # type: ignore
 """
 ``SHR r/m32, CL``
 
@@ -4811,7 +4817,7 @@ SHR_RM32_CL: int = 482
 
 ``16/32/64-bit``
 """
-SHR_RM64_CL: int = 483
+SHR_RM64_CL: Code = 483 # type: ignore
 """
 ``SHR r/m64, CL``
 
@@ -4821,7 +4827,7 @@ SHR_RM64_CL: int = 483
 
 ``64-bit``
 """
-SAL_RM16_CL: int = 484
+SAL_RM16_CL: Code = 484 # type: ignore
 """
 ``SAL r/m16, CL``
 
@@ -4831,7 +4837,7 @@ SAL_RM16_CL: int = 484
 
 ``16/32/64-bit``
 """
-SAL_RM32_CL: int = 485
+SAL_RM32_CL: Code = 485 # type: ignore
 """
 ``SAL r/m32, CL``
 
@@ -4841,7 +4847,7 @@ SAL_RM32_CL: int = 485
 
 ``16/32/64-bit``
 """
-SAL_RM64_CL: int = 486
+SAL_RM64_CL: Code = 486 # type: ignore
 """
 ``SAL r/m64, CL``
 
@@ -4851,7 +4857,7 @@ SAL_RM64_CL: int = 486
 
 ``64-bit``
 """
-SAR_RM16_CL: int = 487
+SAR_RM16_CL: Code = 487 # type: ignore
 """
 ``SAR r/m16, CL``
 
@@ -4861,7 +4867,7 @@ SAR_RM16_CL: int = 487
 
 ``16/32/64-bit``
 """
-SAR_RM32_CL: int = 488
+SAR_RM32_CL: Code = 488 # type: ignore
 """
 ``SAR r/m32, CL``
 
@@ -4871,7 +4877,7 @@ SAR_RM32_CL: int = 488
 
 ``16/32/64-bit``
 """
-SAR_RM64_CL: int = 489
+SAR_RM64_CL: Code = 489 # type: ignore
 """
 ``SAR r/m64, CL``
 
@@ -4881,7 +4887,7 @@ SAR_RM64_CL: int = 489
 
 ``64-bit``
 """
-AAM_IMM8: int = 490
+AAM_IMM8: Code = 490 # type: ignore
 """
 ``AAM imm8``
 
@@ -4891,7 +4897,7 @@ AAM_IMM8: int = 490
 
 ``16/32-bit``
 """
-AAD_IMM8: int = 491
+AAD_IMM8: Code = 491 # type: ignore
 """
 ``AAD imm8``
 
@@ -4901,7 +4907,7 @@ AAD_IMM8: int = 491
 
 ``16/32-bit``
 """
-SALC: int = 492
+SALC: Code = 492 # type: ignore
 """
 ``SALC``
 
@@ -4911,7 +4917,7 @@ SALC: int = 492
 
 ``16/32-bit``
 """
-XLAT_M8: int = 493
+XLAT_M8: Code = 493 # type: ignore
 """
 ``XLATB``
 
@@ -4921,7 +4927,7 @@ XLAT_M8: int = 493
 
 ``16/32/64-bit``
 """
-FADD_M32FP: int = 494
+FADD_M32FP: Code = 494 # type: ignore
 """
 ``FADD m32fp``
 
@@ -4931,7 +4937,7 @@ FADD_M32FP: int = 494
 
 ``16/32/64-bit``
 """
-FMUL_M32FP: int = 495
+FMUL_M32FP: Code = 495 # type: ignore
 """
 ``FMUL m32fp``
 
@@ -4941,7 +4947,7 @@ FMUL_M32FP: int = 495
 
 ``16/32/64-bit``
 """
-FCOM_M32FP: int = 496
+FCOM_M32FP: Code = 496 # type: ignore
 """
 ``FCOM m32fp``
 
@@ -4951,7 +4957,7 @@ FCOM_M32FP: int = 496
 
 ``16/32/64-bit``
 """
-FCOMP_M32FP: int = 497
+FCOMP_M32FP: Code = 497 # type: ignore
 """
 ``FCOMP m32fp``
 
@@ -4961,7 +4967,7 @@ FCOMP_M32FP: int = 497
 
 ``16/32/64-bit``
 """
-FSUB_M32FP: int = 498
+FSUB_M32FP: Code = 498 # type: ignore
 """
 ``FSUB m32fp``
 
@@ -4971,7 +4977,7 @@ FSUB_M32FP: int = 498
 
 ``16/32/64-bit``
 """
-FSUBR_M32FP: int = 499
+FSUBR_M32FP: Code = 499 # type: ignore
 """
 ``FSUBR m32fp``
 
@@ -4981,7 +4987,7 @@ FSUBR_M32FP: int = 499
 
 ``16/32/64-bit``
 """
-FDIV_M32FP: int = 500
+FDIV_M32FP: Code = 500 # type: ignore
 """
 ``FDIV m32fp``
 
@@ -4991,7 +4997,7 @@ FDIV_M32FP: int = 500
 
 ``16/32/64-bit``
 """
-FDIVR_M32FP: int = 501
+FDIVR_M32FP: Code = 501 # type: ignore
 """
 ``FDIVR m32fp``
 
@@ -5001,7 +5007,7 @@ FDIVR_M32FP: int = 501
 
 ``16/32/64-bit``
 """
-FADD_ST0_STI: int = 502
+FADD_ST0_STI: Code = 502 # type: ignore
 """
 ``FADD ST(0), ST(i)``
 
@@ -5011,7 +5017,7 @@ FADD_ST0_STI: int = 502
 
 ``16/32/64-bit``
 """
-FMUL_ST0_STI: int = 503
+FMUL_ST0_STI: Code = 503 # type: ignore
 """
 ``FMUL ST(0), ST(i)``
 
@@ -5021,7 +5027,7 @@ FMUL_ST0_STI: int = 503
 
 ``16/32/64-bit``
 """
-FCOM_ST0_STI: int = 504
+FCOM_ST0_STI: Code = 504 # type: ignore
 """
 ``FCOM ST(i)``
 
@@ -5031,7 +5037,7 @@ FCOM_ST0_STI: int = 504
 
 ``16/32/64-bit``
 """
-FCOMP_ST0_STI: int = 505
+FCOMP_ST0_STI: Code = 505 # type: ignore
 """
 ``FCOMP ST(i)``
 
@@ -5041,7 +5047,7 @@ FCOMP_ST0_STI: int = 505
 
 ``16/32/64-bit``
 """
-FSUB_ST0_STI: int = 506
+FSUB_ST0_STI: Code = 506 # type: ignore
 """
 ``FSUB ST(0), ST(i)``
 
@@ -5051,7 +5057,7 @@ FSUB_ST0_STI: int = 506
 
 ``16/32/64-bit``
 """
-FSUBR_ST0_STI: int = 507
+FSUBR_ST0_STI: Code = 507 # type: ignore
 """
 ``FSUBR ST(0), ST(i)``
 
@@ -5061,7 +5067,7 @@ FSUBR_ST0_STI: int = 507
 
 ``16/32/64-bit``
 """
-FDIV_ST0_STI: int = 508
+FDIV_ST0_STI: Code = 508 # type: ignore
 """
 ``FDIV ST(0), ST(i)``
 
@@ -5071,7 +5077,7 @@ FDIV_ST0_STI: int = 508
 
 ``16/32/64-bit``
 """
-FDIVR_ST0_STI: int = 509
+FDIVR_ST0_STI: Code = 509 # type: ignore
 """
 ``FDIVR ST(0), ST(i)``
 
@@ -5081,7 +5087,7 @@ FDIVR_ST0_STI: int = 509
 
 ``16/32/64-bit``
 """
-FLD_M32FP: int = 510
+FLD_M32FP: Code = 510 # type: ignore
 """
 ``FLD m32fp``
 
@@ -5091,7 +5097,7 @@ FLD_M32FP: int = 510
 
 ``16/32/64-bit``
 """
-FST_M32FP: int = 511
+FST_M32FP: Code = 511 # type: ignore
 """
 ``FST m32fp``
 
@@ -5101,7 +5107,7 @@ FST_M32FP: int = 511
 
 ``16/32/64-bit``
 """
-FSTP_M32FP: int = 512
+FSTP_M32FP: Code = 512 # type: ignore
 """
 ``FSTP m32fp``
 
@@ -5111,7 +5117,7 @@ FSTP_M32FP: int = 512
 
 ``16/32/64-bit``
 """
-FLDENV_M14BYTE: int = 513
+FLDENV_M14BYTE: Code = 513 # type: ignore
 """
 ``FLDENV m14byte``
 
@@ -5121,7 +5127,7 @@ FLDENV_M14BYTE: int = 513
 
 ``16/32/64-bit``
 """
-FLDENV_M28BYTE: int = 514
+FLDENV_M28BYTE: Code = 514 # type: ignore
 """
 ``FLDENV m28byte``
 
@@ -5131,7 +5137,7 @@ FLDENV_M28BYTE: int = 514
 
 ``16/32/64-bit``
 """
-FLDCW_M2BYTE: int = 515
+FLDCW_M2BYTE: Code = 515 # type: ignore
 """
 ``FLDCW m2byte``
 
@@ -5141,7 +5147,7 @@ FLDCW_M2BYTE: int = 515
 
 ``16/32/64-bit``
 """
-FNSTENV_M14BYTE: int = 516
+FNSTENV_M14BYTE: Code = 516 # type: ignore
 """
 ``FNSTENV m14byte``
 
@@ -5151,7 +5157,7 @@ FNSTENV_M14BYTE: int = 516
 
 ``16/32/64-bit``
 """
-FSTENV_M14BYTE: int = 517
+FSTENV_M14BYTE: Code = 517 # type: ignore
 """
 ``FSTENV m14byte``
 
@@ -5161,7 +5167,7 @@ FSTENV_M14BYTE: int = 517
 
 ``16/32/64-bit``
 """
-FNSTENV_M28BYTE: int = 518
+FNSTENV_M28BYTE: Code = 518 # type: ignore
 """
 ``FNSTENV m28byte``
 
@@ -5171,7 +5177,7 @@ FNSTENV_M28BYTE: int = 518
 
 ``16/32/64-bit``
 """
-FSTENV_M28BYTE: int = 519
+FSTENV_M28BYTE: Code = 519 # type: ignore
 """
 ``FSTENV m28byte``
 
@@ -5181,7 +5187,7 @@ FSTENV_M28BYTE: int = 519
 
 ``16/32/64-bit``
 """
-FNSTCW_M2BYTE: int = 520
+FNSTCW_M2BYTE: Code = 520 # type: ignore
 """
 ``FNSTCW m2byte``
 
@@ -5191,7 +5197,7 @@ FNSTCW_M2BYTE: int = 520
 
 ``16/32/64-bit``
 """
-FSTCW_M2BYTE: int = 521
+FSTCW_M2BYTE: Code = 521 # type: ignore
 """
 ``FSTCW m2byte``
 
@@ -5201,7 +5207,7 @@ FSTCW_M2BYTE: int = 521
 
 ``16/32/64-bit``
 """
-FLD_STI: int = 522
+FLD_STI: Code = 522 # type: ignore
 """
 ``FLD ST(i)``
 
@@ -5211,7 +5217,7 @@ FLD_STI: int = 522
 
 ``16/32/64-bit``
 """
-FXCH_ST0_STI: int = 523
+FXCH_ST0_STI: Code = 523 # type: ignore
 """
 ``FXCH ST(i)``
 
@@ -5221,7 +5227,7 @@ FXCH_ST0_STI: int = 523
 
 ``16/32/64-bit``
 """
-FNOP: int = 524
+FNOP: Code = 524 # type: ignore
 """
 ``FNOP``
 
@@ -5231,7 +5237,7 @@ FNOP: int = 524
 
 ``16/32/64-bit``
 """
-FSTPNCE_STI: int = 525
+FSTPNCE_STI: Code = 525 # type: ignore
 """
 ``FSTPNCE ST(i)``
 
@@ -5241,7 +5247,7 @@ FSTPNCE_STI: int = 525
 
 ``16/32/64-bit``
 """
-FCHS: int = 526
+FCHS: Code = 526 # type: ignore
 """
 ``FCHS``
 
@@ -5251,7 +5257,7 @@ FCHS: int = 526
 
 ``16/32/64-bit``
 """
-FABS: int = 527
+FABS: Code = 527 # type: ignore
 """
 ``FABS``
 
@@ -5261,7 +5267,7 @@ FABS: int = 527
 
 ``16/32/64-bit``
 """
-FTST: int = 528
+FTST: Code = 528 # type: ignore
 """
 ``FTST``
 
@@ -5271,7 +5277,7 @@ FTST: int = 528
 
 ``16/32/64-bit``
 """
-FXAM: int = 529
+FXAM: Code = 529 # type: ignore
 """
 ``FXAM``
 
@@ -5281,7 +5287,7 @@ FXAM: int = 529
 
 ``16/32/64-bit``
 """
-FLD1: int = 530
+FLD1: Code = 530 # type: ignore
 """
 ``FLD1``
 
@@ -5291,7 +5297,7 @@ FLD1: int = 530
 
 ``16/32/64-bit``
 """
-FLDL2T: int = 531
+FLDL2T: Code = 531 # type: ignore
 """
 ``FLDL2T``
 
@@ -5301,7 +5307,7 @@ FLDL2T: int = 531
 
 ``16/32/64-bit``
 """
-FLDL2E: int = 532
+FLDL2E: Code = 532 # type: ignore
 """
 ``FLDL2E``
 
@@ -5311,7 +5317,7 @@ FLDL2E: int = 532
 
 ``16/32/64-bit``
 """
-FLDPI: int = 533
+FLDPI: Code = 533 # type: ignore
 """
 ``FLDPI``
 
@@ -5321,7 +5327,7 @@ FLDPI: int = 533
 
 ``16/32/64-bit``
 """
-FLDLG2: int = 534
+FLDLG2: Code = 534 # type: ignore
 """
 ``FLDLG2``
 
@@ -5331,7 +5337,7 @@ FLDLG2: int = 534
 
 ``16/32/64-bit``
 """
-FLDLN2: int = 535
+FLDLN2: Code = 535 # type: ignore
 """
 ``FLDLN2``
 
@@ -5341,7 +5347,7 @@ FLDLN2: int = 535
 
 ``16/32/64-bit``
 """
-FLDZ: int = 536
+FLDZ: Code = 536 # type: ignore
 """
 ``FLDZ``
 
@@ -5351,7 +5357,7 @@ FLDZ: int = 536
 
 ``16/32/64-bit``
 """
-F2XM1: int = 537
+F2XM1: Code = 537 # type: ignore
 """
 ``F2XM1``
 
@@ -5361,7 +5367,7 @@ F2XM1: int = 537
 
 ``16/32/64-bit``
 """
-FYL2X: int = 538
+FYL2X: Code = 538 # type: ignore
 """
 ``FYL2X``
 
@@ -5371,7 +5377,7 @@ FYL2X: int = 538
 
 ``16/32/64-bit``
 """
-FPTAN: int = 539
+FPTAN: Code = 539 # type: ignore
 """
 ``FPTAN``
 
@@ -5381,7 +5387,7 @@ FPTAN: int = 539
 
 ``16/32/64-bit``
 """
-FPATAN: int = 540
+FPATAN: Code = 540 # type: ignore
 """
 ``FPATAN``
 
@@ -5391,7 +5397,7 @@ FPATAN: int = 540
 
 ``16/32/64-bit``
 """
-FXTRACT: int = 541
+FXTRACT: Code = 541 # type: ignore
 """
 ``FXTRACT``
 
@@ -5401,7 +5407,7 @@ FXTRACT: int = 541
 
 ``16/32/64-bit``
 """
-FPREM1: int = 542
+FPREM1: Code = 542 # type: ignore
 """
 ``FPREM1``
 
@@ -5411,7 +5417,7 @@ FPREM1: int = 542
 
 ``16/32/64-bit``
 """
-FDECSTP: int = 543
+FDECSTP: Code = 543 # type: ignore
 """
 ``FDECSTP``
 
@@ -5421,7 +5427,7 @@ FDECSTP: int = 543
 
 ``16/32/64-bit``
 """
-FINCSTP: int = 544
+FINCSTP: Code = 544 # type: ignore
 """
 ``FINCSTP``
 
@@ -5431,7 +5437,7 @@ FINCSTP: int = 544
 
 ``16/32/64-bit``
 """
-FPREM: int = 545
+FPREM: Code = 545 # type: ignore
 """
 ``FPREM``
 
@@ -5441,7 +5447,7 @@ FPREM: int = 545
 
 ``16/32/64-bit``
 """
-FYL2XP1: int = 546
+FYL2XP1: Code = 546 # type: ignore
 """
 ``FYL2XP1``
 
@@ -5451,7 +5457,7 @@ FYL2XP1: int = 546
 
 ``16/32/64-bit``
 """
-FSQRT: int = 547
+FSQRT: Code = 547 # type: ignore
 """
 ``FSQRT``
 
@@ -5461,7 +5467,7 @@ FSQRT: int = 547
 
 ``16/32/64-bit``
 """
-FSINCOS: int = 548
+FSINCOS: Code = 548 # type: ignore
 """
 ``FSINCOS``
 
@@ -5471,7 +5477,7 @@ FSINCOS: int = 548
 
 ``16/32/64-bit``
 """
-FRNDINT: int = 549
+FRNDINT: Code = 549 # type: ignore
 """
 ``FRNDINT``
 
@@ -5481,7 +5487,7 @@ FRNDINT: int = 549
 
 ``16/32/64-bit``
 """
-FSCALE: int = 550
+FSCALE: Code = 550 # type: ignore
 """
 ``FSCALE``
 
@@ -5491,7 +5497,7 @@ FSCALE: int = 550
 
 ``16/32/64-bit``
 """
-FSIN: int = 551
+FSIN: Code = 551 # type: ignore
 """
 ``FSIN``
 
@@ -5501,7 +5507,7 @@ FSIN: int = 551
 
 ``16/32/64-bit``
 """
-FCOS: int = 552
+FCOS: Code = 552 # type: ignore
 """
 ``FCOS``
 
@@ -5511,7 +5517,7 @@ FCOS: int = 552
 
 ``16/32/64-bit``
 """
-FIADD_M32INT: int = 553
+FIADD_M32INT: Code = 553 # type: ignore
 """
 ``FIADD m32int``
 
@@ -5521,7 +5527,7 @@ FIADD_M32INT: int = 553
 
 ``16/32/64-bit``
 """
-FIMUL_M32INT: int = 554
+FIMUL_M32INT: Code = 554 # type: ignore
 """
 ``FIMUL m32int``
 
@@ -5531,7 +5537,7 @@ FIMUL_M32INT: int = 554
 
 ``16/32/64-bit``
 """
-FICOM_M32INT: int = 555
+FICOM_M32INT: Code = 555 # type: ignore
 """
 ``FICOM m32int``
 
@@ -5541,7 +5547,7 @@ FICOM_M32INT: int = 555
 
 ``16/32/64-bit``
 """
-FICOMP_M32INT: int = 556
+FICOMP_M32INT: Code = 556 # type: ignore
 """
 ``FICOMP m32int``
 
@@ -5551,7 +5557,7 @@ FICOMP_M32INT: int = 556
 
 ``16/32/64-bit``
 """
-FISUB_M32INT: int = 557
+FISUB_M32INT: Code = 557 # type: ignore
 """
 ``FISUB m32int``
 
@@ -5561,7 +5567,7 @@ FISUB_M32INT: int = 557
 
 ``16/32/64-bit``
 """
-FISUBR_M32INT: int = 558
+FISUBR_M32INT: Code = 558 # type: ignore
 """
 ``FISUBR m32int``
 
@@ -5571,7 +5577,7 @@ FISUBR_M32INT: int = 558
 
 ``16/32/64-bit``
 """
-FIDIV_M32INT: int = 559
+FIDIV_M32INT: Code = 559 # type: ignore
 """
 ``FIDIV m32int``
 
@@ -5581,7 +5587,7 @@ FIDIV_M32INT: int = 559
 
 ``16/32/64-bit``
 """
-FIDIVR_M32INT: int = 560
+FIDIVR_M32INT: Code = 560 # type: ignore
 """
 ``FIDIVR m32int``
 
@@ -5591,7 +5597,7 @@ FIDIVR_M32INT: int = 560
 
 ``16/32/64-bit``
 """
-FCMOVB_ST0_STI: int = 561
+FCMOVB_ST0_STI: Code = 561 # type: ignore
 """
 ``FCMOVB ST(0), ST(i)``
 
@@ -5601,7 +5607,7 @@ FCMOVB_ST0_STI: int = 561
 
 ``16/32/64-bit``
 """
-FCMOVE_ST0_STI: int = 562
+FCMOVE_ST0_STI: Code = 562 # type: ignore
 """
 ``FCMOVE ST(0), ST(i)``
 
@@ -5611,7 +5617,7 @@ FCMOVE_ST0_STI: int = 562
 
 ``16/32/64-bit``
 """
-FCMOVBE_ST0_STI: int = 563
+FCMOVBE_ST0_STI: Code = 563 # type: ignore
 """
 ``FCMOVBE ST(0), ST(i)``
 
@@ -5621,7 +5627,7 @@ FCMOVBE_ST0_STI: int = 563
 
 ``16/32/64-bit``
 """
-FCMOVU_ST0_STI: int = 564
+FCMOVU_ST0_STI: Code = 564 # type: ignore
 """
 ``FCMOVU ST(0), ST(i)``
 
@@ -5631,7 +5637,7 @@ FCMOVU_ST0_STI: int = 564
 
 ``16/32/64-bit``
 """
-FUCOMPP: int = 565
+FUCOMPP: Code = 565 # type: ignore
 """
 ``FUCOMPP``
 
@@ -5641,7 +5647,7 @@ FUCOMPP: int = 565
 
 ``16/32/64-bit``
 """
-FILD_M32INT: int = 566
+FILD_M32INT: Code = 566 # type: ignore
 """
 ``FILD m32int``
 
@@ -5651,7 +5657,7 @@ FILD_M32INT: int = 566
 
 ``16/32/64-bit``
 """
-FISTTP_M32INT: int = 567
+FISTTP_M32INT: Code = 567 # type: ignore
 """
 ``FISTTP m32int``
 
@@ -5661,7 +5667,7 @@ FISTTP_M32INT: int = 567
 
 ``16/32/64-bit``
 """
-FIST_M32INT: int = 568
+FIST_M32INT: Code = 568 # type: ignore
 """
 ``FIST m32int``
 
@@ -5671,7 +5677,7 @@ FIST_M32INT: int = 568
 
 ``16/32/64-bit``
 """
-FISTP_M32INT: int = 569
+FISTP_M32INT: Code = 569 # type: ignore
 """
 ``FISTP m32int``
 
@@ -5681,7 +5687,7 @@ FISTP_M32INT: int = 569
 
 ``16/32/64-bit``
 """
-FLD_M80FP: int = 570
+FLD_M80FP: Code = 570 # type: ignore
 """
 ``FLD m80fp``
 
@@ -5691,7 +5697,7 @@ FLD_M80FP: int = 570
 
 ``16/32/64-bit``
 """
-FSTP_M80FP: int = 571
+FSTP_M80FP: Code = 571 # type: ignore
 """
 ``FSTP m80fp``
 
@@ -5701,7 +5707,7 @@ FSTP_M80FP: int = 571
 
 ``16/32/64-bit``
 """
-FCMOVNB_ST0_STI: int = 572
+FCMOVNB_ST0_STI: Code = 572 # type: ignore
 """
 ``FCMOVNB ST(0), ST(i)``
 
@@ -5711,7 +5717,7 @@ FCMOVNB_ST0_STI: int = 572
 
 ``16/32/64-bit``
 """
-FCMOVNE_ST0_STI: int = 573
+FCMOVNE_ST0_STI: Code = 573 # type: ignore
 """
 ``FCMOVNE ST(0), ST(i)``
 
@@ -5721,7 +5727,7 @@ FCMOVNE_ST0_STI: int = 573
 
 ``16/32/64-bit``
 """
-FCMOVNBE_ST0_STI: int = 574
+FCMOVNBE_ST0_STI: Code = 574 # type: ignore
 """
 ``FCMOVNBE ST(0), ST(i)``
 
@@ -5731,7 +5737,7 @@ FCMOVNBE_ST0_STI: int = 574
 
 ``16/32/64-bit``
 """
-FCMOVNU_ST0_STI: int = 575
+FCMOVNU_ST0_STI: Code = 575 # type: ignore
 """
 ``FCMOVNU ST(0), ST(i)``
 
@@ -5741,7 +5747,7 @@ FCMOVNU_ST0_STI: int = 575
 
 ``16/32/64-bit``
 """
-FNENI: int = 576
+FNENI: Code = 576 # type: ignore
 """
 ``FNENI``
 
@@ -5751,7 +5757,7 @@ FNENI: int = 576
 
 ``16/32/64-bit``
 """
-FENI: int = 577
+FENI: Code = 577 # type: ignore
 """
 ``FENI``
 
@@ -5761,7 +5767,7 @@ FENI: int = 577
 
 ``16/32/64-bit``
 """
-FNDISI: int = 578
+FNDISI: Code = 578 # type: ignore
 """
 ``FNDISI``
 
@@ -5771,7 +5777,7 @@ FNDISI: int = 578
 
 ``16/32/64-bit``
 """
-FDISI: int = 579
+FDISI: Code = 579 # type: ignore
 """
 ``FDISI``
 
@@ -5781,7 +5787,7 @@ FDISI: int = 579
 
 ``16/32/64-bit``
 """
-FNCLEX: int = 580
+FNCLEX: Code = 580 # type: ignore
 """
 ``FNCLEX``
 
@@ -5791,7 +5797,7 @@ FNCLEX: int = 580
 
 ``16/32/64-bit``
 """
-FCLEX: int = 581
+FCLEX: Code = 581 # type: ignore
 """
 ``FCLEX``
 
@@ -5801,7 +5807,7 @@ FCLEX: int = 581
 
 ``16/32/64-bit``
 """
-FNINIT: int = 582
+FNINIT: Code = 582 # type: ignore
 """
 ``FNINIT``
 
@@ -5811,7 +5817,7 @@ FNINIT: int = 582
 
 ``16/32/64-bit``
 """
-FINIT: int = 583
+FINIT: Code = 583 # type: ignore
 """
 ``FINIT``
 
@@ -5821,7 +5827,7 @@ FINIT: int = 583
 
 ``16/32/64-bit``
 """
-FNSETPM: int = 584
+FNSETPM: Code = 584 # type: ignore
 """
 ``FNSETPM``
 
@@ -5831,7 +5837,7 @@ FNSETPM: int = 584
 
 ``16/32/64-bit``
 """
-FSETPM: int = 585
+FSETPM: Code = 585 # type: ignore
 """
 ``FSETPM``
 
@@ -5841,7 +5847,7 @@ FSETPM: int = 585
 
 ``16/32/64-bit``
 """
-FRSTPM: int = 586
+FRSTPM: Code = 586 # type: ignore
 """
 ``FRSTPM``
 
@@ -5851,7 +5857,7 @@ FRSTPM: int = 586
 
 ``16/32-bit``
 """
-FUCOMI_ST0_STI: int = 587
+FUCOMI_ST0_STI: Code = 587 # type: ignore
 """
 ``FUCOMI ST, ST(i)``
 
@@ -5861,7 +5867,7 @@ FUCOMI_ST0_STI: int = 587
 
 ``16/32/64-bit``
 """
-FCOMI_ST0_STI: int = 588
+FCOMI_ST0_STI: Code = 588 # type: ignore
 """
 ``FCOMI ST, ST(i)``
 
@@ -5871,7 +5877,7 @@ FCOMI_ST0_STI: int = 588
 
 ``16/32/64-bit``
 """
-FADD_M64FP: int = 589
+FADD_M64FP: Code = 589 # type: ignore
 """
 ``FADD m64fp``
 
@@ -5881,7 +5887,7 @@ FADD_M64FP: int = 589
 
 ``16/32/64-bit``
 """
-FMUL_M64FP: int = 590
+FMUL_M64FP: Code = 590 # type: ignore
 """
 ``FMUL m64fp``
 
@@ -5891,7 +5897,7 @@ FMUL_M64FP: int = 590
 
 ``16/32/64-bit``
 """
-FCOM_M64FP: int = 591
+FCOM_M64FP: Code = 591 # type: ignore
 """
 ``FCOM m64fp``
 
@@ -5901,7 +5907,7 @@ FCOM_M64FP: int = 591
 
 ``16/32/64-bit``
 """
-FCOMP_M64FP: int = 592
+FCOMP_M64FP: Code = 592 # type: ignore
 """
 ``FCOMP m64fp``
 
@@ -5911,7 +5917,7 @@ FCOMP_M64FP: int = 592
 
 ``16/32/64-bit``
 """
-FSUB_M64FP: int = 593
+FSUB_M64FP: Code = 593 # type: ignore
 """
 ``FSUB m64fp``
 
@@ -5921,7 +5927,7 @@ FSUB_M64FP: int = 593
 
 ``16/32/64-bit``
 """
-FSUBR_M64FP: int = 594
+FSUBR_M64FP: Code = 594 # type: ignore
 """
 ``FSUBR m64fp``
 
@@ -5931,7 +5937,7 @@ FSUBR_M64FP: int = 594
 
 ``16/32/64-bit``
 """
-FDIV_M64FP: int = 595
+FDIV_M64FP: Code = 595 # type: ignore
 """
 ``FDIV m64fp``
 
@@ -5941,7 +5947,7 @@ FDIV_M64FP: int = 595
 
 ``16/32/64-bit``
 """
-FDIVR_M64FP: int = 596
+FDIVR_M64FP: Code = 596 # type: ignore
 """
 ``FDIVR m64fp``
 
@@ -5951,7 +5957,7 @@ FDIVR_M64FP: int = 596
 
 ``16/32/64-bit``
 """
-FADD_STI_ST0: int = 597
+FADD_STI_ST0: Code = 597 # type: ignore
 """
 ``FADD ST(i), ST(0)``
 
@@ -5961,7 +5967,7 @@ FADD_STI_ST0: int = 597
 
 ``16/32/64-bit``
 """
-FMUL_STI_ST0: int = 598
+FMUL_STI_ST0: Code = 598 # type: ignore
 """
 ``FMUL ST(i), ST(0)``
 
@@ -5971,7 +5977,7 @@ FMUL_STI_ST0: int = 598
 
 ``16/32/64-bit``
 """
-FCOM_ST0_STI_DCD0: int = 599
+FCOM_ST0_STI_DCD0: Code = 599 # type: ignore
 """
 ``FCOM ST(i)``
 
@@ -5981,7 +5987,7 @@ FCOM_ST0_STI_DCD0: int = 599
 
 ``16/32/64-bit``
 """
-FCOMP_ST0_STI_DCD8: int = 600
+FCOMP_ST0_STI_DCD8: Code = 600 # type: ignore
 """
 ``FCOMP ST(i)``
 
@@ -5991,7 +5997,7 @@ FCOMP_ST0_STI_DCD8: int = 600
 
 ``16/32/64-bit``
 """
-FSUBR_STI_ST0: int = 601
+FSUBR_STI_ST0: Code = 601 # type: ignore
 """
 ``FSUBR ST(i), ST(0)``
 
@@ -6001,7 +6007,7 @@ FSUBR_STI_ST0: int = 601
 
 ``16/32/64-bit``
 """
-FSUB_STI_ST0: int = 602
+FSUB_STI_ST0: Code = 602 # type: ignore
 """
 ``FSUB ST(i), ST(0)``
 
@@ -6011,7 +6017,7 @@ FSUB_STI_ST0: int = 602
 
 ``16/32/64-bit``
 """
-FDIVR_STI_ST0: int = 603
+FDIVR_STI_ST0: Code = 603 # type: ignore
 """
 ``FDIVR ST(i), ST(0)``
 
@@ -6021,7 +6027,7 @@ FDIVR_STI_ST0: int = 603
 
 ``16/32/64-bit``
 """
-FDIV_STI_ST0: int = 604
+FDIV_STI_ST0: Code = 604 # type: ignore
 """
 ``FDIV ST(i), ST(0)``
 
@@ -6031,7 +6037,7 @@ FDIV_STI_ST0: int = 604
 
 ``16/32/64-bit``
 """
-FLD_M64FP: int = 605
+FLD_M64FP: Code = 605 # type: ignore
 """
 ``FLD m64fp``
 
@@ -6041,7 +6047,7 @@ FLD_M64FP: int = 605
 
 ``16/32/64-bit``
 """
-FISTTP_M64INT: int = 606
+FISTTP_M64INT: Code = 606 # type: ignore
 """
 ``FISTTP m64int``
 
@@ -6051,7 +6057,7 @@ FISTTP_M64INT: int = 606
 
 ``16/32/64-bit``
 """
-FST_M64FP: int = 607
+FST_M64FP: Code = 607 # type: ignore
 """
 ``FST m64fp``
 
@@ -6061,7 +6067,7 @@ FST_M64FP: int = 607
 
 ``16/32/64-bit``
 """
-FSTP_M64FP: int = 608
+FSTP_M64FP: Code = 608 # type: ignore
 """
 ``FSTP m64fp``
 
@@ -6071,7 +6077,7 @@ FSTP_M64FP: int = 608
 
 ``16/32/64-bit``
 """
-FRSTOR_M94BYTE: int = 609
+FRSTOR_M94BYTE: Code = 609 # type: ignore
 """
 ``FRSTOR m94byte``
 
@@ -6081,7 +6087,7 @@ FRSTOR_M94BYTE: int = 609
 
 ``16/32/64-bit``
 """
-FRSTOR_M108BYTE: int = 610
+FRSTOR_M108BYTE: Code = 610 # type: ignore
 """
 ``FRSTOR m108byte``
 
@@ -6091,7 +6097,7 @@ FRSTOR_M108BYTE: int = 610
 
 ``16/32/64-bit``
 """
-FNSAVE_M94BYTE: int = 611
+FNSAVE_M94BYTE: Code = 611 # type: ignore
 """
 ``FNSAVE m94byte``
 
@@ -6101,7 +6107,7 @@ FNSAVE_M94BYTE: int = 611
 
 ``16/32/64-bit``
 """
-FSAVE_M94BYTE: int = 612
+FSAVE_M94BYTE: Code = 612 # type: ignore
 """
 ``FSAVE m94byte``
 
@@ -6111,7 +6117,7 @@ FSAVE_M94BYTE: int = 612
 
 ``16/32/64-bit``
 """
-FNSAVE_M108BYTE: int = 613
+FNSAVE_M108BYTE: Code = 613 # type: ignore
 """
 ``FNSAVE m108byte``
 
@@ -6121,7 +6127,7 @@ FNSAVE_M108BYTE: int = 613
 
 ``16/32/64-bit``
 """
-FSAVE_M108BYTE: int = 614
+FSAVE_M108BYTE: Code = 614 # type: ignore
 """
 ``FSAVE m108byte``
 
@@ -6131,7 +6137,7 @@ FSAVE_M108BYTE: int = 614
 
 ``16/32/64-bit``
 """
-FNSTSW_M2BYTE: int = 615
+FNSTSW_M2BYTE: Code = 615 # type: ignore
 """
 ``FNSTSW m2byte``
 
@@ -6141,7 +6147,7 @@ FNSTSW_M2BYTE: int = 615
 
 ``16/32/64-bit``
 """
-FSTSW_M2BYTE: int = 616
+FSTSW_M2BYTE: Code = 616 # type: ignore
 """
 ``FSTSW m2byte``
 
@@ -6151,7 +6157,7 @@ FSTSW_M2BYTE: int = 616
 
 ``16/32/64-bit``
 """
-FFREE_STI: int = 617
+FFREE_STI: Code = 617 # type: ignore
 """
 ``FFREE ST(i)``
 
@@ -6161,7 +6167,7 @@ FFREE_STI: int = 617
 
 ``16/32/64-bit``
 """
-FXCH_ST0_STI_DDC8: int = 618
+FXCH_ST0_STI_DDC8: Code = 618 # type: ignore
 """
 ``FXCH ST(i)``
 
@@ -6171,7 +6177,7 @@ FXCH_ST0_STI_DDC8: int = 618
 
 ``16/32/64-bit``
 """
-FST_STI: int = 619
+FST_STI: Code = 619 # type: ignore
 """
 ``FST ST(i)``
 
@@ -6181,7 +6187,7 @@ FST_STI: int = 619
 
 ``16/32/64-bit``
 """
-FSTP_STI: int = 620
+FSTP_STI: Code = 620 # type: ignore
 """
 ``FSTP ST(i)``
 
@@ -6191,7 +6197,7 @@ FSTP_STI: int = 620
 
 ``16/32/64-bit``
 """
-FUCOM_ST0_STI: int = 621
+FUCOM_ST0_STI: Code = 621 # type: ignore
 """
 ``FUCOM ST(i)``
 
@@ -6201,7 +6207,7 @@ FUCOM_ST0_STI: int = 621
 
 ``16/32/64-bit``
 """
-FUCOMP_ST0_STI: int = 622
+FUCOMP_ST0_STI: Code = 622 # type: ignore
 """
 ``FUCOMP ST(i)``
 
@@ -6211,7 +6217,7 @@ FUCOMP_ST0_STI: int = 622
 
 ``16/32/64-bit``
 """
-FIADD_M16INT: int = 623
+FIADD_M16INT: Code = 623 # type: ignore
 """
 ``FIADD m16int``
 
@@ -6221,7 +6227,7 @@ FIADD_M16INT: int = 623
 
 ``16/32/64-bit``
 """
-FIMUL_M16INT: int = 624
+FIMUL_M16INT: Code = 624 # type: ignore
 """
 ``FIMUL m16int``
 
@@ -6231,7 +6237,7 @@ FIMUL_M16INT: int = 624
 
 ``16/32/64-bit``
 """
-FICOM_M16INT: int = 625
+FICOM_M16INT: Code = 625 # type: ignore
 """
 ``FICOM m16int``
 
@@ -6241,7 +6247,7 @@ FICOM_M16INT: int = 625
 
 ``16/32/64-bit``
 """
-FICOMP_M16INT: int = 626
+FICOMP_M16INT: Code = 626 # type: ignore
 """
 ``FICOMP m16int``
 
@@ -6251,7 +6257,7 @@ FICOMP_M16INT: int = 626
 
 ``16/32/64-bit``
 """
-FISUB_M16INT: int = 627
+FISUB_M16INT: Code = 627 # type: ignore
 """
 ``FISUB m16int``
 
@@ -6261,7 +6267,7 @@ FISUB_M16INT: int = 627
 
 ``16/32/64-bit``
 """
-FISUBR_M16INT: int = 628
+FISUBR_M16INT: Code = 628 # type: ignore
 """
 ``FISUBR m16int``
 
@@ -6271,7 +6277,7 @@ FISUBR_M16INT: int = 628
 
 ``16/32/64-bit``
 """
-FIDIV_M16INT: int = 629
+FIDIV_M16INT: Code = 629 # type: ignore
 """
 ``FIDIV m16int``
 
@@ -6281,7 +6287,7 @@ FIDIV_M16INT: int = 629
 
 ``16/32/64-bit``
 """
-FIDIVR_M16INT: int = 630
+FIDIVR_M16INT: Code = 630 # type: ignore
 """
 ``FIDIVR m16int``
 
@@ -6291,7 +6297,7 @@ FIDIVR_M16INT: int = 630
 
 ``16/32/64-bit``
 """
-FADDP_STI_ST0: int = 631
+FADDP_STI_ST0: Code = 631 # type: ignore
 """
 ``FADDP ST(i), ST(0)``
 
@@ -6301,7 +6307,7 @@ FADDP_STI_ST0: int = 631
 
 ``16/32/64-bit``
 """
-FMULP_STI_ST0: int = 632
+FMULP_STI_ST0: Code = 632 # type: ignore
 """
 ``FMULP ST(i), ST(0)``
 
@@ -6311,7 +6317,7 @@ FMULP_STI_ST0: int = 632
 
 ``16/32/64-bit``
 """
-FCOMP_ST0_STI_DED0: int = 633
+FCOMP_ST0_STI_DED0: Code = 633 # type: ignore
 """
 ``FCOMP ST(i)``
 
@@ -6321,7 +6327,7 @@ FCOMP_ST0_STI_DED0: int = 633
 
 ``16/32/64-bit``
 """
-FCOMPP: int = 634
+FCOMPP: Code = 634 # type: ignore
 """
 ``FCOMPP``
 
@@ -6331,7 +6337,7 @@ FCOMPP: int = 634
 
 ``16/32/64-bit``
 """
-FSUBRP_STI_ST0: int = 635
+FSUBRP_STI_ST0: Code = 635 # type: ignore
 """
 ``FSUBRP ST(i), ST(0)``
 
@@ -6341,7 +6347,7 @@ FSUBRP_STI_ST0: int = 635
 
 ``16/32/64-bit``
 """
-FSUBP_STI_ST0: int = 636
+FSUBP_STI_ST0: Code = 636 # type: ignore
 """
 ``FSUBP ST(i), ST(0)``
 
@@ -6351,7 +6357,7 @@ FSUBP_STI_ST0: int = 636
 
 ``16/32/64-bit``
 """
-FDIVRP_STI_ST0: int = 637
+FDIVRP_STI_ST0: Code = 637 # type: ignore
 """
 ``FDIVRP ST(i), ST(0)``
 
@@ -6361,7 +6367,7 @@ FDIVRP_STI_ST0: int = 637
 
 ``16/32/64-bit``
 """
-FDIVP_STI_ST0: int = 638
+FDIVP_STI_ST0: Code = 638 # type: ignore
 """
 ``FDIVP ST(i), ST(0)``
 
@@ -6371,7 +6377,7 @@ FDIVP_STI_ST0: int = 638
 
 ``16/32/64-bit``
 """
-FILD_M16INT: int = 639
+FILD_M16INT: Code = 639 # type: ignore
 """
 ``FILD m16int``
 
@@ -6381,7 +6387,7 @@ FILD_M16INT: int = 639
 
 ``16/32/64-bit``
 """
-FISTTP_M16INT: int = 640
+FISTTP_M16INT: Code = 640 # type: ignore
 """
 ``FISTTP m16int``
 
@@ -6391,7 +6397,7 @@ FISTTP_M16INT: int = 640
 
 ``16/32/64-bit``
 """
-FIST_M16INT: int = 641
+FIST_M16INT: Code = 641 # type: ignore
 """
 ``FIST m16int``
 
@@ -6401,7 +6407,7 @@ FIST_M16INT: int = 641
 
 ``16/32/64-bit``
 """
-FISTP_M16INT: int = 642
+FISTP_M16INT: Code = 642 # type: ignore
 """
 ``FISTP m16int``
 
@@ -6411,7 +6417,7 @@ FISTP_M16INT: int = 642
 
 ``16/32/64-bit``
 """
-FBLD_M80BCD: int = 643
+FBLD_M80BCD: Code = 643 # type: ignore
 """
 ``FBLD m80bcd``
 
@@ -6421,7 +6427,7 @@ FBLD_M80BCD: int = 643
 
 ``16/32/64-bit``
 """
-FILD_M64INT: int = 644
+FILD_M64INT: Code = 644 # type: ignore
 """
 ``FILD m64int``
 
@@ -6431,7 +6437,7 @@ FILD_M64INT: int = 644
 
 ``16/32/64-bit``
 """
-FBSTP_M80BCD: int = 645
+FBSTP_M80BCD: Code = 645 # type: ignore
 """
 ``FBSTP m80bcd``
 
@@ -6441,7 +6447,7 @@ FBSTP_M80BCD: int = 645
 
 ``16/32/64-bit``
 """
-FISTP_M64INT: int = 646
+FISTP_M64INT: Code = 646 # type: ignore
 """
 ``FISTP m64int``
 
@@ -6451,7 +6457,7 @@ FISTP_M64INT: int = 646
 
 ``16/32/64-bit``
 """
-FFREEP_STI: int = 647
+FFREEP_STI: Code = 647 # type: ignore
 """
 ``FFREEP ST(i)``
 
@@ -6461,7 +6467,7 @@ FFREEP_STI: int = 647
 
 ``16/32/64-bit``
 """
-FXCH_ST0_STI_DFC8: int = 648
+FXCH_ST0_STI_DFC8: Code = 648 # type: ignore
 """
 ``FXCH ST(i)``
 
@@ -6471,7 +6477,7 @@ FXCH_ST0_STI_DFC8: int = 648
 
 ``16/32/64-bit``
 """
-FSTP_STI_DFD0: int = 649
+FSTP_STI_DFD0: Code = 649 # type: ignore
 """
 ``FSTP ST(i)``
 
@@ -6481,7 +6487,7 @@ FSTP_STI_DFD0: int = 649
 
 ``16/32/64-bit``
 """
-FSTP_STI_DFD8: int = 650
+FSTP_STI_DFD8: Code = 650 # type: ignore
 """
 ``FSTP ST(i)``
 
@@ -6491,7 +6497,7 @@ FSTP_STI_DFD8: int = 650
 
 ``16/32/64-bit``
 """
-FNSTSW_AX: int = 651
+FNSTSW_AX: Code = 651 # type: ignore
 """
 ``FNSTSW AX``
 
@@ -6501,7 +6507,7 @@ FNSTSW_AX: int = 651
 
 ``16/32/64-bit``
 """
-FSTSW_AX: int = 652
+FSTSW_AX: Code = 652 # type: ignore
 """
 ``FSTSW AX``
 
@@ -6511,7 +6517,7 @@ FSTSW_AX: int = 652
 
 ``16/32/64-bit``
 """
-FSTDW_AX: int = 653
+FSTDW_AX: Code = 653 # type: ignore
 """
 ``FSTDW AX``
 
@@ -6521,7 +6527,7 @@ FSTDW_AX: int = 653
 
 ``16/32-bit``
 """
-FSTSG_AX: int = 654
+FSTSG_AX: Code = 654 # type: ignore
 """
 ``FSTSG AX``
 
@@ -6531,7 +6537,7 @@ FSTSG_AX: int = 654
 
 ``16/32-bit``
 """
-FUCOMIP_ST0_STI: int = 655
+FUCOMIP_ST0_STI: Code = 655 # type: ignore
 """
 ``FUCOMIP ST, ST(i)``
 
@@ -6541,7 +6547,7 @@ FUCOMIP_ST0_STI: int = 655
 
 ``16/32/64-bit``
 """
-FCOMIP_ST0_STI: int = 656
+FCOMIP_ST0_STI: Code = 656 # type: ignore
 """
 ``FCOMIP ST, ST(i)``
 
@@ -6551,7 +6557,7 @@ FCOMIP_ST0_STI: int = 656
 
 ``16/32/64-bit``
 """
-LOOPNE_REL8_16_CX: int = 657
+LOOPNE_REL8_16_CX: Code = 657 # type: ignore
 """
 ``LOOPNE rel8``
 
@@ -6561,7 +6567,7 @@ LOOPNE_REL8_16_CX: int = 657
 
 ``16/32-bit``
 """
-LOOPNE_REL8_32_CX: int = 658
+LOOPNE_REL8_32_CX: Code = 658 # type: ignore
 """
 ``LOOPNE rel8``
 
@@ -6571,7 +6577,7 @@ LOOPNE_REL8_32_CX: int = 658
 
 ``16/32-bit``
 """
-LOOPNE_REL8_16_ECX: int = 659
+LOOPNE_REL8_16_ECX: Code = 659 # type: ignore
 """
 ``LOOPNE rel8``
 
@@ -6581,7 +6587,7 @@ LOOPNE_REL8_16_ECX: int = 659
 
 ``16/32/64-bit``
 """
-LOOPNE_REL8_32_ECX: int = 660
+LOOPNE_REL8_32_ECX: Code = 660 # type: ignore
 """
 ``LOOPNE rel8``
 
@@ -6591,7 +6597,7 @@ LOOPNE_REL8_32_ECX: int = 660
 
 ``16/32-bit``
 """
-LOOPNE_REL8_64_ECX: int = 661
+LOOPNE_REL8_64_ECX: Code = 661 # type: ignore
 """
 ``LOOPNE rel8``
 
@@ -6601,7 +6607,7 @@ LOOPNE_REL8_64_ECX: int = 661
 
 ``64-bit``
 """
-LOOPNE_REL8_16_RCX: int = 662
+LOOPNE_REL8_16_RCX: Code = 662 # type: ignore
 """
 ``LOOPNE rel8``
 
@@ -6611,7 +6617,7 @@ LOOPNE_REL8_16_RCX: int = 662
 
 ``64-bit``
 """
-LOOPNE_REL8_64_RCX: int = 663
+LOOPNE_REL8_64_RCX: Code = 663 # type: ignore
 """
 ``LOOPNE rel8``
 
@@ -6621,7 +6627,7 @@ LOOPNE_REL8_64_RCX: int = 663
 
 ``64-bit``
 """
-LOOPE_REL8_16_CX: int = 664
+LOOPE_REL8_16_CX: Code = 664 # type: ignore
 """
 ``LOOPE rel8``
 
@@ -6631,7 +6637,7 @@ LOOPE_REL8_16_CX: int = 664
 
 ``16/32-bit``
 """
-LOOPE_REL8_32_CX: int = 665
+LOOPE_REL8_32_CX: Code = 665 # type: ignore
 """
 ``LOOPE rel8``
 
@@ -6641,7 +6647,7 @@ LOOPE_REL8_32_CX: int = 665
 
 ``16/32-bit``
 """
-LOOPE_REL8_16_ECX: int = 666
+LOOPE_REL8_16_ECX: Code = 666 # type: ignore
 """
 ``LOOPE rel8``
 
@@ -6651,7 +6657,7 @@ LOOPE_REL8_16_ECX: int = 666
 
 ``16/32/64-bit``
 """
-LOOPE_REL8_32_ECX: int = 667
+LOOPE_REL8_32_ECX: Code = 667 # type: ignore
 """
 ``LOOPE rel8``
 
@@ -6661,7 +6667,7 @@ LOOPE_REL8_32_ECX: int = 667
 
 ``16/32-bit``
 """
-LOOPE_REL8_64_ECX: int = 668
+LOOPE_REL8_64_ECX: Code = 668 # type: ignore
 """
 ``LOOPE rel8``
 
@@ -6671,7 +6677,7 @@ LOOPE_REL8_64_ECX: int = 668
 
 ``64-bit``
 """
-LOOPE_REL8_16_RCX: int = 669
+LOOPE_REL8_16_RCX: Code = 669 # type: ignore
 """
 ``LOOPE rel8``
 
@@ -6681,7 +6687,7 @@ LOOPE_REL8_16_RCX: int = 669
 
 ``64-bit``
 """
-LOOPE_REL8_64_RCX: int = 670
+LOOPE_REL8_64_RCX: Code = 670 # type: ignore
 """
 ``LOOPE rel8``
 
@@ -6691,7 +6697,7 @@ LOOPE_REL8_64_RCX: int = 670
 
 ``64-bit``
 """
-LOOP_REL8_16_CX: int = 671
+LOOP_REL8_16_CX: Code = 671 # type: ignore
 """
 ``LOOP rel8``
 
@@ -6701,7 +6707,7 @@ LOOP_REL8_16_CX: int = 671
 
 ``16/32-bit``
 """
-LOOP_REL8_32_CX: int = 672
+LOOP_REL8_32_CX: Code = 672 # type: ignore
 """
 ``LOOP rel8``
 
@@ -6711,7 +6717,7 @@ LOOP_REL8_32_CX: int = 672
 
 ``16/32-bit``
 """
-LOOP_REL8_16_ECX: int = 673
+LOOP_REL8_16_ECX: Code = 673 # type: ignore
 """
 ``LOOP rel8``
 
@@ -6721,7 +6727,7 @@ LOOP_REL8_16_ECX: int = 673
 
 ``16/32/64-bit``
 """
-LOOP_REL8_32_ECX: int = 674
+LOOP_REL8_32_ECX: Code = 674 # type: ignore
 """
 ``LOOP rel8``
 
@@ -6731,7 +6737,7 @@ LOOP_REL8_32_ECX: int = 674
 
 ``16/32-bit``
 """
-LOOP_REL8_64_ECX: int = 675
+LOOP_REL8_64_ECX: Code = 675 # type: ignore
 """
 ``LOOP rel8``
 
@@ -6741,7 +6747,7 @@ LOOP_REL8_64_ECX: int = 675
 
 ``64-bit``
 """
-LOOP_REL8_16_RCX: int = 676
+LOOP_REL8_16_RCX: Code = 676 # type: ignore
 """
 ``LOOP rel8``
 
@@ -6751,7 +6757,7 @@ LOOP_REL8_16_RCX: int = 676
 
 ``64-bit``
 """
-LOOP_REL8_64_RCX: int = 677
+LOOP_REL8_64_RCX: Code = 677 # type: ignore
 """
 ``LOOP rel8``
 
@@ -6761,7 +6767,7 @@ LOOP_REL8_64_RCX: int = 677
 
 ``64-bit``
 """
-JCXZ_REL8_16: int = 678
+JCXZ_REL8_16: Code = 678 # type: ignore
 """
 ``JCXZ rel8``
 
@@ -6771,7 +6777,7 @@ JCXZ_REL8_16: int = 678
 
 ``16/32-bit``
 """
-JCXZ_REL8_32: int = 679
+JCXZ_REL8_32: Code = 679 # type: ignore
 """
 ``JCXZ rel8``
 
@@ -6781,7 +6787,7 @@ JCXZ_REL8_32: int = 679
 
 ``16/32-bit``
 """
-JECXZ_REL8_16: int = 680
+JECXZ_REL8_16: Code = 680 # type: ignore
 """
 ``JECXZ rel8``
 
@@ -6791,7 +6797,7 @@ JECXZ_REL8_16: int = 680
 
 ``16/32/64-bit``
 """
-JECXZ_REL8_32: int = 681
+JECXZ_REL8_32: Code = 681 # type: ignore
 """
 ``JECXZ rel8``
 
@@ -6801,7 +6807,7 @@ JECXZ_REL8_32: int = 681
 
 ``16/32-bit``
 """
-JECXZ_REL8_64: int = 682
+JECXZ_REL8_64: Code = 682 # type: ignore
 """
 ``JECXZ rel8``
 
@@ -6811,7 +6817,7 @@ JECXZ_REL8_64: int = 682
 
 ``64-bit``
 """
-JRCXZ_REL8_16: int = 683
+JRCXZ_REL8_16: Code = 683 # type: ignore
 """
 ``JRCXZ rel8``
 
@@ -6821,7 +6827,7 @@ JRCXZ_REL8_16: int = 683
 
 ``64-bit``
 """
-JRCXZ_REL8_64: int = 684
+JRCXZ_REL8_64: Code = 684 # type: ignore
 """
 ``JRCXZ rel8``
 
@@ -6831,7 +6837,7 @@ JRCXZ_REL8_64: int = 684
 
 ``64-bit``
 """
-IN_AL_IMM8: int = 685
+IN_AL_IMM8: Code = 685 # type: ignore
 """
 ``IN AL, imm8``
 
@@ -6841,7 +6847,7 @@ IN_AL_IMM8: int = 685
 
 ``16/32/64-bit``
 """
-IN_AX_IMM8: int = 686
+IN_AX_IMM8: Code = 686 # type: ignore
 """
 ``IN AX, imm8``
 
@@ -6851,7 +6857,7 @@ IN_AX_IMM8: int = 686
 
 ``16/32/64-bit``
 """
-IN_EAX_IMM8: int = 687
+IN_EAX_IMM8: Code = 687 # type: ignore
 """
 ``IN EAX, imm8``
 
@@ -6861,7 +6867,7 @@ IN_EAX_IMM8: int = 687
 
 ``16/32/64-bit``
 """
-OUT_IMM8_AL: int = 688
+OUT_IMM8_AL: Code = 688 # type: ignore
 """
 ``OUT imm8, AL``
 
@@ -6871,7 +6877,7 @@ OUT_IMM8_AL: int = 688
 
 ``16/32/64-bit``
 """
-OUT_IMM8_AX: int = 689
+OUT_IMM8_AX: Code = 689 # type: ignore
 """
 ``OUT imm8, AX``
 
@@ -6881,7 +6887,7 @@ OUT_IMM8_AX: int = 689
 
 ``16/32/64-bit``
 """
-OUT_IMM8_EAX: int = 690
+OUT_IMM8_EAX: Code = 690 # type: ignore
 """
 ``OUT imm8, EAX``
 
@@ -6891,7 +6897,7 @@ OUT_IMM8_EAX: int = 690
 
 ``16/32/64-bit``
 """
-CALL_REL16: int = 691
+CALL_REL16: Code = 691 # type: ignore
 """
 ``CALL rel16``
 
@@ -6901,7 +6907,7 @@ CALL_REL16: int = 691
 
 ``16/32/64-bit``
 """
-CALL_REL32_32: int = 692
+CALL_REL32_32: Code = 692 # type: ignore
 """
 ``CALL rel32``
 
@@ -6911,7 +6917,7 @@ CALL_REL32_32: int = 692
 
 ``16/32-bit``
 """
-CALL_REL32_64: int = 693
+CALL_REL32_64: Code = 693 # type: ignore
 """
 ``CALL rel32``
 
@@ -6921,7 +6927,7 @@ CALL_REL32_64: int = 693
 
 ``64-bit``
 """
-JMP_REL16: int = 694
+JMP_REL16: Code = 694 # type: ignore
 """
 ``JMP rel16``
 
@@ -6931,7 +6937,7 @@ JMP_REL16: int = 694
 
 ``16/32/64-bit``
 """
-JMP_REL32_32: int = 695
+JMP_REL32_32: Code = 695 # type: ignore
 """
 ``JMP rel32``
 
@@ -6941,7 +6947,7 @@ JMP_REL32_32: int = 695
 
 ``16/32-bit``
 """
-JMP_REL32_64: int = 696
+JMP_REL32_64: Code = 696 # type: ignore
 """
 ``JMP rel32``
 
@@ -6951,7 +6957,7 @@ JMP_REL32_64: int = 696
 
 ``64-bit``
 """
-JMP_PTR1616: int = 697
+JMP_PTR1616: Code = 697 # type: ignore
 """
 ``JMP ptr16:16``
 
@@ -6961,7 +6967,7 @@ JMP_PTR1616: int = 697
 
 ``16/32-bit``
 """
-JMP_PTR1632: int = 698
+JMP_PTR1632: Code = 698 # type: ignore
 """
 ``JMP ptr16:32``
 
@@ -6971,7 +6977,7 @@ JMP_PTR1632: int = 698
 
 ``16/32-bit``
 """
-JMP_REL8_16: int = 699
+JMP_REL8_16: Code = 699 # type: ignore
 """
 ``JMP rel8``
 
@@ -6981,7 +6987,7 @@ JMP_REL8_16: int = 699
 
 ``16/32/64-bit``
 """
-JMP_REL8_32: int = 700
+JMP_REL8_32: Code = 700 # type: ignore
 """
 ``JMP rel8``
 
@@ -6991,7 +6997,7 @@ JMP_REL8_32: int = 700
 
 ``16/32-bit``
 """
-JMP_REL8_64: int = 701
+JMP_REL8_64: Code = 701 # type: ignore
 """
 ``JMP rel8``
 
@@ -7001,7 +7007,7 @@ JMP_REL8_64: int = 701
 
 ``64-bit``
 """
-IN_AL_DX: int = 702
+IN_AL_DX: Code = 702 # type: ignore
 """
 ``IN AL, DX``
 
@@ -7011,7 +7017,7 @@ IN_AL_DX: int = 702
 
 ``16/32/64-bit``
 """
-IN_AX_DX: int = 703
+IN_AX_DX: Code = 703 # type: ignore
 """
 ``IN AX, DX``
 
@@ -7021,7 +7027,7 @@ IN_AX_DX: int = 703
 
 ``16/32/64-bit``
 """
-IN_EAX_DX: int = 704
+IN_EAX_DX: Code = 704 # type: ignore
 """
 ``IN EAX, DX``
 
@@ -7031,7 +7037,7 @@ IN_EAX_DX: int = 704
 
 ``16/32/64-bit``
 """
-OUT_DX_AL: int = 705
+OUT_DX_AL: Code = 705 # type: ignore
 """
 ``OUT DX, AL``
 
@@ -7041,7 +7047,7 @@ OUT_DX_AL: int = 705
 
 ``16/32/64-bit``
 """
-OUT_DX_AX: int = 706
+OUT_DX_AX: Code = 706 # type: ignore
 """
 ``OUT DX, AX``
 
@@ -7051,7 +7057,7 @@ OUT_DX_AX: int = 706
 
 ``16/32/64-bit``
 """
-OUT_DX_EAX: int = 707
+OUT_DX_EAX: Code = 707 # type: ignore
 """
 ``OUT DX, EAX``
 
@@ -7061,7 +7067,7 @@ OUT_DX_EAX: int = 707
 
 ``16/32/64-bit``
 """
-INT1: int = 708
+INT1: Code = 708 # type: ignore
 """
 ``INT1``
 
@@ -7071,7 +7077,7 @@ INT1: int = 708
 
 ``16/32/64-bit``
 """
-HLT: int = 709
+HLT: Code = 709 # type: ignore
 """
 ``HLT``
 
@@ -7081,7 +7087,7 @@ HLT: int = 709
 
 ``16/32/64-bit``
 """
-CMC: int = 710
+CMC: Code = 710 # type: ignore
 """
 ``CMC``
 
@@ -7091,7 +7097,7 @@ CMC: int = 710
 
 ``16/32/64-bit``
 """
-TEST_RM8_IMM8: int = 711
+TEST_RM8_IMM8: Code = 711 # type: ignore
 """
 ``TEST r/m8, imm8``
 
@@ -7101,7 +7107,7 @@ TEST_RM8_IMM8: int = 711
 
 ``16/32/64-bit``
 """
-TEST_RM8_IMM8_F6R1: int = 712
+TEST_RM8_IMM8_F6R1: Code = 712 # type: ignore
 """
 ``TEST r/m8, imm8``
 
@@ -7111,7 +7117,7 @@ TEST_RM8_IMM8_F6R1: int = 712
 
 ``16/32/64-bit``
 """
-NOT_RM8: int = 713
+NOT_RM8: Code = 713 # type: ignore
 """
 ``NOT r/m8``
 
@@ -7121,7 +7127,7 @@ NOT_RM8: int = 713
 
 ``16/32/64-bit``
 """
-NEG_RM8: int = 714
+NEG_RM8: Code = 714 # type: ignore
 """
 ``NEG r/m8``
 
@@ -7131,7 +7137,7 @@ NEG_RM8: int = 714
 
 ``16/32/64-bit``
 """
-MUL_RM8: int = 715
+MUL_RM8: Code = 715 # type: ignore
 """
 ``MUL r/m8``
 
@@ -7141,7 +7147,7 @@ MUL_RM8: int = 715
 
 ``16/32/64-bit``
 """
-IMUL_RM8: int = 716
+IMUL_RM8: Code = 716 # type: ignore
 """
 ``IMUL r/m8``
 
@@ -7151,7 +7157,7 @@ IMUL_RM8: int = 716
 
 ``16/32/64-bit``
 """
-DIV_RM8: int = 717
+DIV_RM8: Code = 717 # type: ignore
 """
 ``DIV r/m8``
 
@@ -7161,7 +7167,7 @@ DIV_RM8: int = 717
 
 ``16/32/64-bit``
 """
-IDIV_RM8: int = 718
+IDIV_RM8: Code = 718 # type: ignore
 """
 ``IDIV r/m8``
 
@@ -7171,7 +7177,7 @@ IDIV_RM8: int = 718
 
 ``16/32/64-bit``
 """
-TEST_RM16_IMM16: int = 719
+TEST_RM16_IMM16: Code = 719 # type: ignore
 """
 ``TEST r/m16, imm16``
 
@@ -7181,7 +7187,7 @@ TEST_RM16_IMM16: int = 719
 
 ``16/32/64-bit``
 """
-TEST_RM32_IMM32: int = 720
+TEST_RM32_IMM32: Code = 720 # type: ignore
 """
 ``TEST r/m32, imm32``
 
@@ -7191,7 +7197,7 @@ TEST_RM32_IMM32: int = 720
 
 ``16/32/64-bit``
 """
-TEST_RM64_IMM32: int = 721
+TEST_RM64_IMM32: Code = 721 # type: ignore
 """
 ``TEST r/m64, imm32``
 
@@ -7201,7 +7207,7 @@ TEST_RM64_IMM32: int = 721
 
 ``64-bit``
 """
-TEST_RM16_IMM16_F7R1: int = 722
+TEST_RM16_IMM16_F7R1: Code = 722 # type: ignore
 """
 ``TEST r/m16, imm16``
 
@@ -7211,7 +7217,7 @@ TEST_RM16_IMM16_F7R1: int = 722
 
 ``16/32/64-bit``
 """
-TEST_RM32_IMM32_F7R1: int = 723
+TEST_RM32_IMM32_F7R1: Code = 723 # type: ignore
 """
 ``TEST r/m32, imm32``
 
@@ -7221,7 +7227,7 @@ TEST_RM32_IMM32_F7R1: int = 723
 
 ``16/32/64-bit``
 """
-TEST_RM64_IMM32_F7R1: int = 724
+TEST_RM64_IMM32_F7R1: Code = 724 # type: ignore
 """
 ``TEST r/m64, imm32``
 
@@ -7231,7 +7237,7 @@ TEST_RM64_IMM32_F7R1: int = 724
 
 ``64-bit``
 """
-NOT_RM16: int = 725
+NOT_RM16: Code = 725 # type: ignore
 """
 ``NOT r/m16``
 
@@ -7241,7 +7247,7 @@ NOT_RM16: int = 725
 
 ``16/32/64-bit``
 """
-NOT_RM32: int = 726
+NOT_RM32: Code = 726 # type: ignore
 """
 ``NOT r/m32``
 
@@ -7251,7 +7257,7 @@ NOT_RM32: int = 726
 
 ``16/32/64-bit``
 """
-NOT_RM64: int = 727
+NOT_RM64: Code = 727 # type: ignore
 """
 ``NOT r/m64``
 
@@ -7261,7 +7267,7 @@ NOT_RM64: int = 727
 
 ``64-bit``
 """
-NEG_RM16: int = 728
+NEG_RM16: Code = 728 # type: ignore
 """
 ``NEG r/m16``
 
@@ -7271,7 +7277,7 @@ NEG_RM16: int = 728
 
 ``16/32/64-bit``
 """
-NEG_RM32: int = 729
+NEG_RM32: Code = 729 # type: ignore
 """
 ``NEG r/m32``
 
@@ -7281,7 +7287,7 @@ NEG_RM32: int = 729
 
 ``16/32/64-bit``
 """
-NEG_RM64: int = 730
+NEG_RM64: Code = 730 # type: ignore
 """
 ``NEG r/m64``
 
@@ -7291,7 +7297,7 @@ NEG_RM64: int = 730
 
 ``64-bit``
 """
-MUL_RM16: int = 731
+MUL_RM16: Code = 731 # type: ignore
 """
 ``MUL r/m16``
 
@@ -7301,7 +7307,7 @@ MUL_RM16: int = 731
 
 ``16/32/64-bit``
 """
-MUL_RM32: int = 732
+MUL_RM32: Code = 732 # type: ignore
 """
 ``MUL r/m32``
 
@@ -7311,7 +7317,7 @@ MUL_RM32: int = 732
 
 ``16/32/64-bit``
 """
-MUL_RM64: int = 733
+MUL_RM64: Code = 733 # type: ignore
 """
 ``MUL r/m64``
 
@@ -7321,7 +7327,7 @@ MUL_RM64: int = 733
 
 ``64-bit``
 """
-IMUL_RM16: int = 734
+IMUL_RM16: Code = 734 # type: ignore
 """
 ``IMUL r/m16``
 
@@ -7331,7 +7337,7 @@ IMUL_RM16: int = 734
 
 ``16/32/64-bit``
 """
-IMUL_RM32: int = 735
+IMUL_RM32: Code = 735 # type: ignore
 """
 ``IMUL r/m32``
 
@@ -7341,7 +7347,7 @@ IMUL_RM32: int = 735
 
 ``16/32/64-bit``
 """
-IMUL_RM64: int = 736
+IMUL_RM64: Code = 736 # type: ignore
 """
 ``IMUL r/m64``
 
@@ -7351,7 +7357,7 @@ IMUL_RM64: int = 736
 
 ``64-bit``
 """
-DIV_RM16: int = 737
+DIV_RM16: Code = 737 # type: ignore
 """
 ``DIV r/m16``
 
@@ -7361,7 +7367,7 @@ DIV_RM16: int = 737
 
 ``16/32/64-bit``
 """
-DIV_RM32: int = 738
+DIV_RM32: Code = 738 # type: ignore
 """
 ``DIV r/m32``
 
@@ -7371,7 +7377,7 @@ DIV_RM32: int = 738
 
 ``16/32/64-bit``
 """
-DIV_RM64: int = 739
+DIV_RM64: Code = 739 # type: ignore
 """
 ``DIV r/m64``
 
@@ -7381,7 +7387,7 @@ DIV_RM64: int = 739
 
 ``64-bit``
 """
-IDIV_RM16: int = 740
+IDIV_RM16: Code = 740 # type: ignore
 """
 ``IDIV r/m16``
 
@@ -7391,7 +7397,7 @@ IDIV_RM16: int = 740
 
 ``16/32/64-bit``
 """
-IDIV_RM32: int = 741
+IDIV_RM32: Code = 741 # type: ignore
 """
 ``IDIV r/m32``
 
@@ -7401,7 +7407,7 @@ IDIV_RM32: int = 741
 
 ``16/32/64-bit``
 """
-IDIV_RM64: int = 742
+IDIV_RM64: Code = 742 # type: ignore
 """
 ``IDIV r/m64``
 
@@ -7411,7 +7417,7 @@ IDIV_RM64: int = 742
 
 ``64-bit``
 """
-CLC: int = 743
+CLC: Code = 743 # type: ignore
 """
 ``CLC``
 
@@ -7421,7 +7427,7 @@ CLC: int = 743
 
 ``16/32/64-bit``
 """
-STC: int = 744
+STC: Code = 744 # type: ignore
 """
 ``STC``
 
@@ -7431,7 +7437,7 @@ STC: int = 744
 
 ``16/32/64-bit``
 """
-CLI: int = 745
+CLI: Code = 745 # type: ignore
 """
 ``CLI``
 
@@ -7441,7 +7447,7 @@ CLI: int = 745
 
 ``16/32/64-bit``
 """
-STI: int = 746
+STI: Code = 746 # type: ignore
 """
 ``STI``
 
@@ -7451,7 +7457,7 @@ STI: int = 746
 
 ``16/32/64-bit``
 """
-CLD: int = 747
+CLD: Code = 747 # type: ignore
 """
 ``CLD``
 
@@ -7461,7 +7467,7 @@ CLD: int = 747
 
 ``16/32/64-bit``
 """
-STD: int = 748
+STD: Code = 748 # type: ignore
 """
 ``STD``
 
@@ -7471,7 +7477,7 @@ STD: int = 748
 
 ``16/32/64-bit``
 """
-INC_RM8: int = 749
+INC_RM8: Code = 749 # type: ignore
 """
 ``INC r/m8``
 
@@ -7481,7 +7487,7 @@ INC_RM8: int = 749
 
 ``16/32/64-bit``
 """
-DEC_RM8: int = 750
+DEC_RM8: Code = 750 # type: ignore
 """
 ``DEC r/m8``
 
@@ -7491,7 +7497,7 @@ DEC_RM8: int = 750
 
 ``16/32/64-bit``
 """
-INC_RM16: int = 751
+INC_RM16: Code = 751 # type: ignore
 """
 ``INC r/m16``
 
@@ -7501,7 +7507,7 @@ INC_RM16: int = 751
 
 ``16/32/64-bit``
 """
-INC_RM32: int = 752
+INC_RM32: Code = 752 # type: ignore
 """
 ``INC r/m32``
 
@@ -7511,7 +7517,7 @@ INC_RM32: int = 752
 
 ``16/32/64-bit``
 """
-INC_RM64: int = 753
+INC_RM64: Code = 753 # type: ignore
 """
 ``INC r/m64``
 
@@ -7521,7 +7527,7 @@ INC_RM64: int = 753
 
 ``64-bit``
 """
-DEC_RM16: int = 754
+DEC_RM16: Code = 754 # type: ignore
 """
 ``DEC r/m16``
 
@@ -7531,7 +7537,7 @@ DEC_RM16: int = 754
 
 ``16/32/64-bit``
 """
-DEC_RM32: int = 755
+DEC_RM32: Code = 755 # type: ignore
 """
 ``DEC r/m32``
 
@@ -7541,7 +7547,7 @@ DEC_RM32: int = 755
 
 ``16/32/64-bit``
 """
-DEC_RM64: int = 756
+DEC_RM64: Code = 756 # type: ignore
 """
 ``DEC r/m64``
 
@@ -7551,7 +7557,7 @@ DEC_RM64: int = 756
 
 ``64-bit``
 """
-CALL_RM16: int = 757
+CALL_RM16: Code = 757 # type: ignore
 """
 ``CALL r/m16``
 
@@ -7561,7 +7567,7 @@ CALL_RM16: int = 757
 
 ``16/32/64-bit``
 """
-CALL_RM32: int = 758
+CALL_RM32: Code = 758 # type: ignore
 """
 ``CALL r/m32``
 
@@ -7571,7 +7577,7 @@ CALL_RM32: int = 758
 
 ``16/32-bit``
 """
-CALL_RM64: int = 759
+CALL_RM64: Code = 759 # type: ignore
 """
 ``CALL r/m64``
 
@@ -7581,7 +7587,7 @@ CALL_RM64: int = 759
 
 ``64-bit``
 """
-CALL_M1616: int = 760
+CALL_M1616: Code = 760 # type: ignore
 """
 ``CALL m16:16``
 
@@ -7591,7 +7597,7 @@ CALL_M1616: int = 760
 
 ``16/32/64-bit``
 """
-CALL_M1632: int = 761
+CALL_M1632: Code = 761 # type: ignore
 """
 ``CALL m16:32``
 
@@ -7601,7 +7607,7 @@ CALL_M1632: int = 761
 
 ``16/32/64-bit``
 """
-CALL_M1664: int = 762
+CALL_M1664: Code = 762 # type: ignore
 """
 ``CALL m16:64``
 
@@ -7611,7 +7617,7 @@ CALL_M1664: int = 762
 
 ``64-bit``
 """
-JMP_RM16: int = 763
+JMP_RM16: Code = 763 # type: ignore
 """
 ``JMP r/m16``
 
@@ -7621,7 +7627,7 @@ JMP_RM16: int = 763
 
 ``16/32/64-bit``
 """
-JMP_RM32: int = 764
+JMP_RM32: Code = 764 # type: ignore
 """
 ``JMP r/m32``
 
@@ -7631,7 +7637,7 @@ JMP_RM32: int = 764
 
 ``16/32-bit``
 """
-JMP_RM64: int = 765
+JMP_RM64: Code = 765 # type: ignore
 """
 ``JMP r/m64``
 
@@ -7641,7 +7647,7 @@ JMP_RM64: int = 765
 
 ``64-bit``
 """
-JMP_M1616: int = 766
+JMP_M1616: Code = 766 # type: ignore
 """
 ``JMP m16:16``
 
@@ -7651,7 +7657,7 @@ JMP_M1616: int = 766
 
 ``16/32/64-bit``
 """
-JMP_M1632: int = 767
+JMP_M1632: Code = 767 # type: ignore
 """
 ``JMP m16:32``
 
@@ -7661,7 +7667,7 @@ JMP_M1632: int = 767
 
 ``16/32/64-bit``
 """
-JMP_M1664: int = 768
+JMP_M1664: Code = 768 # type: ignore
 """
 ``JMP m16:64``
 
@@ -7671,7 +7677,7 @@ JMP_M1664: int = 768
 
 ``64-bit``
 """
-PUSH_RM16: int = 769
+PUSH_RM16: Code = 769 # type: ignore
 """
 ``PUSH r/m16``
 
@@ -7681,7 +7687,7 @@ PUSH_RM16: int = 769
 
 ``16/32/64-bit``
 """
-PUSH_RM32: int = 770
+PUSH_RM32: Code = 770 # type: ignore
 """
 ``PUSH r/m32``
 
@@ -7691,7 +7697,7 @@ PUSH_RM32: int = 770
 
 ``16/32-bit``
 """
-PUSH_RM64: int = 771
+PUSH_RM64: Code = 771 # type: ignore
 """
 ``PUSH r/m64``
 
@@ -7701,7 +7707,7 @@ PUSH_RM64: int = 771
 
 ``64-bit``
 """
-SLDT_RM16: int = 772
+SLDT_RM16: Code = 772 # type: ignore
 """
 ``SLDT r/m16``
 
@@ -7711,7 +7717,7 @@ SLDT_RM16: int = 772
 
 ``16/32/64-bit``
 """
-SLDT_R32M16: int = 773
+SLDT_R32M16: Code = 773 # type: ignore
 """
 ``SLDT r32/m16``
 
@@ -7721,7 +7727,7 @@ SLDT_R32M16: int = 773
 
 ``16/32/64-bit``
 """
-SLDT_R64M16: int = 774
+SLDT_R64M16: Code = 774 # type: ignore
 """
 ``SLDT r64/m16``
 
@@ -7731,7 +7737,7 @@ SLDT_R64M16: int = 774
 
 ``64-bit``
 """
-STR_RM16: int = 775
+STR_RM16: Code = 775 # type: ignore
 """
 ``STR r/m16``
 
@@ -7741,7 +7747,7 @@ STR_RM16: int = 775
 
 ``16/32/64-bit``
 """
-STR_R32M16: int = 776
+STR_R32M16: Code = 776 # type: ignore
 """
 ``STR r32/m16``
 
@@ -7751,7 +7757,7 @@ STR_R32M16: int = 776
 
 ``16/32/64-bit``
 """
-STR_R64M16: int = 777
+STR_R64M16: Code = 777 # type: ignore
 """
 ``STR r64/m16``
 
@@ -7761,7 +7767,7 @@ STR_R64M16: int = 777
 
 ``64-bit``
 """
-LLDT_RM16: int = 778
+LLDT_RM16: Code = 778 # type: ignore
 """
 ``LLDT r/m16``
 
@@ -7771,7 +7777,7 @@ LLDT_RM16: int = 778
 
 ``16/32/64-bit``
 """
-LLDT_R32M16: int = 779
+LLDT_R32M16: Code = 779 # type: ignore
 """
 ``LLDT r32/m16``
 
@@ -7781,7 +7787,7 @@ LLDT_R32M16: int = 779
 
 ``16/32/64-bit``
 """
-LLDT_R64M16: int = 780
+LLDT_R64M16: Code = 780 # type: ignore
 """
 ``LLDT r64/m16``
 
@@ -7791,7 +7797,7 @@ LLDT_R64M16: int = 780
 
 ``64-bit``
 """
-LTR_RM16: int = 781
+LTR_RM16: Code = 781 # type: ignore
 """
 ``LTR r/m16``
 
@@ -7801,7 +7807,7 @@ LTR_RM16: int = 781
 
 ``16/32/64-bit``
 """
-LTR_R32M16: int = 782
+LTR_R32M16: Code = 782 # type: ignore
 """
 ``LTR r32/m16``
 
@@ -7811,7 +7817,7 @@ LTR_R32M16: int = 782
 
 ``16/32/64-bit``
 """
-LTR_R64M16: int = 783
+LTR_R64M16: Code = 783 # type: ignore
 """
 ``LTR r64/m16``
 
@@ -7821,7 +7827,7 @@ LTR_R64M16: int = 783
 
 ``64-bit``
 """
-VERR_RM16: int = 784
+VERR_RM16: Code = 784 # type: ignore
 """
 ``VERR r/m16``
 
@@ -7831,7 +7837,7 @@ VERR_RM16: int = 784
 
 ``16/32/64-bit``
 """
-VERR_R32M16: int = 785
+VERR_R32M16: Code = 785 # type: ignore
 """
 ``VERR r32/m16``
 
@@ -7841,7 +7847,7 @@ VERR_R32M16: int = 785
 
 ``16/32/64-bit``
 """
-VERR_R64M16: int = 786
+VERR_R64M16: Code = 786 # type: ignore
 """
 ``VERR r64/m16``
 
@@ -7851,7 +7857,7 @@ VERR_R64M16: int = 786
 
 ``64-bit``
 """
-VERW_RM16: int = 787
+VERW_RM16: Code = 787 # type: ignore
 """
 ``VERW r/m16``
 
@@ -7861,7 +7867,7 @@ VERW_RM16: int = 787
 
 ``16/32/64-bit``
 """
-VERW_R32M16: int = 788
+VERW_R32M16: Code = 788 # type: ignore
 """
 ``VERW r32/m16``
 
@@ -7871,7 +7877,7 @@ VERW_R32M16: int = 788
 
 ``16/32/64-bit``
 """
-VERW_R64M16: int = 789
+VERW_R64M16: Code = 789 # type: ignore
 """
 ``VERW r64/m16``
 
@@ -7881,7 +7887,7 @@ VERW_R64M16: int = 789
 
 ``64-bit``
 """
-JMPE_RM16: int = 790
+JMPE_RM16: Code = 790 # type: ignore
 """
 ``JMPE r/m16``
 
@@ -7891,7 +7897,7 @@ JMPE_RM16: int = 790
 
 ``16/32-bit``
 """
-JMPE_RM32: int = 791
+JMPE_RM32: Code = 791 # type: ignore
 """
 ``JMPE r/m32``
 
@@ -7901,7 +7907,7 @@ JMPE_RM32: int = 791
 
 ``16/32-bit``
 """
-SGDT_M1632_16: int = 792
+SGDT_M1632_16: Code = 792 # type: ignore
 """
 ``SGDT m``
 
@@ -7911,7 +7917,7 @@ SGDT_M1632_16: int = 792
 
 ``16/32-bit``
 """
-SGDT_M1632: int = 793
+SGDT_M1632: Code = 793 # type: ignore
 """
 ``SGDT m``
 
@@ -7921,7 +7927,7 @@ SGDT_M1632: int = 793
 
 ``16/32-bit``
 """
-SGDT_M1664: int = 794
+SGDT_M1664: Code = 794 # type: ignore
 """
 ``SGDT m``
 
@@ -7931,7 +7937,7 @@ SGDT_M1664: int = 794
 
 ``64-bit``
 """
-SIDT_M1632_16: int = 795
+SIDT_M1632_16: Code = 795 # type: ignore
 """
 ``SIDT m``
 
@@ -7941,7 +7947,7 @@ SIDT_M1632_16: int = 795
 
 ``16/32-bit``
 """
-SIDT_M1632: int = 796
+SIDT_M1632: Code = 796 # type: ignore
 """
 ``SIDT m``
 
@@ -7951,7 +7957,7 @@ SIDT_M1632: int = 796
 
 ``16/32-bit``
 """
-SIDT_M1664: int = 797
+SIDT_M1664: Code = 797 # type: ignore
 """
 ``SIDT m``
 
@@ -7961,7 +7967,7 @@ SIDT_M1664: int = 797
 
 ``64-bit``
 """
-LGDT_M1632_16: int = 798
+LGDT_M1632_16: Code = 798 # type: ignore
 """
 ``LGDT m16&32``
 
@@ -7971,7 +7977,7 @@ LGDT_M1632_16: int = 798
 
 ``16/32-bit``
 """
-LGDT_M1632: int = 799
+LGDT_M1632: Code = 799 # type: ignore
 """
 ``LGDT m16&32``
 
@@ -7981,7 +7987,7 @@ LGDT_M1632: int = 799
 
 ``16/32-bit``
 """
-LGDT_M1664: int = 800
+LGDT_M1664: Code = 800 # type: ignore
 """
 ``LGDT m16&64``
 
@@ -7991,7 +7997,7 @@ LGDT_M1664: int = 800
 
 ``64-bit``
 """
-LIDT_M1632_16: int = 801
+LIDT_M1632_16: Code = 801 # type: ignore
 """
 ``LIDT m16&32``
 
@@ -8001,7 +8007,7 @@ LIDT_M1632_16: int = 801
 
 ``16/32-bit``
 """
-LIDT_M1632: int = 802
+LIDT_M1632: Code = 802 # type: ignore
 """
 ``LIDT m16&32``
 
@@ -8011,7 +8017,7 @@ LIDT_M1632: int = 802
 
 ``16/32-bit``
 """
-LIDT_M1664: int = 803
+LIDT_M1664: Code = 803 # type: ignore
 """
 ``LIDT m16&64``
 
@@ -8021,7 +8027,7 @@ LIDT_M1664: int = 803
 
 ``64-bit``
 """
-SMSW_RM16: int = 804
+SMSW_RM16: Code = 804 # type: ignore
 """
 ``SMSW r/m16``
 
@@ -8031,7 +8037,7 @@ SMSW_RM16: int = 804
 
 ``16/32/64-bit``
 """
-SMSW_R32M16: int = 805
+SMSW_R32M16: Code = 805 # type: ignore
 """
 ``SMSW r32/m16``
 
@@ -8041,7 +8047,7 @@ SMSW_R32M16: int = 805
 
 ``16/32/64-bit``
 """
-SMSW_R64M16: int = 806
+SMSW_R64M16: Code = 806 # type: ignore
 """
 ``SMSW r64/m16``
 
@@ -8051,7 +8057,7 @@ SMSW_R64M16: int = 806
 
 ``64-bit``
 """
-RSTORSSP_M64: int = 807
+RSTORSSP_M64: Code = 807 # type: ignore
 """
 ``RSTORSSP m64``
 
@@ -8061,7 +8067,7 @@ RSTORSSP_M64: int = 807
 
 ``16/32/64-bit``
 """
-LMSW_RM16: int = 808
+LMSW_RM16: Code = 808 # type: ignore
 """
 ``LMSW r/m16``
 
@@ -8071,7 +8077,7 @@ LMSW_RM16: int = 808
 
 ``16/32/64-bit``
 """
-LMSW_R32M16: int = 809
+LMSW_R32M16: Code = 809 # type: ignore
 """
 ``LMSW r32/m16``
 
@@ -8081,7 +8087,7 @@ LMSW_R32M16: int = 809
 
 ``16/32/64-bit``
 """
-LMSW_R64M16: int = 810
+LMSW_R64M16: Code = 810 # type: ignore
 """
 ``LMSW r64/m16``
 
@@ -8091,7 +8097,7 @@ LMSW_R64M16: int = 810
 
 ``64-bit``
 """
-INVLPG_M: int = 811
+INVLPG_M: Code = 811 # type: ignore
 """
 ``INVLPG m``
 
@@ -8101,7 +8107,7 @@ INVLPG_M: int = 811
 
 ``16/32/64-bit``
 """
-ENCLV: int = 812
+ENCLV: Code = 812 # type: ignore
 """
 ``ENCLV``
 
@@ -8111,7 +8117,7 @@ ENCLV: int = 812
 
 ``16/32/64-bit``
 """
-VMCALL: int = 813
+VMCALL: Code = 813 # type: ignore
 """
 ``VMCALL``
 
@@ -8121,7 +8127,7 @@ VMCALL: int = 813
 
 ``16/32/64-bit``
 """
-VMLAUNCH: int = 814
+VMLAUNCH: Code = 814 # type: ignore
 """
 ``VMLAUNCH``
 
@@ -8131,7 +8137,7 @@ VMLAUNCH: int = 814
 
 ``16/32/64-bit``
 """
-VMRESUME: int = 815
+VMRESUME: Code = 815 # type: ignore
 """
 ``VMRESUME``
 
@@ -8141,7 +8147,7 @@ VMRESUME: int = 815
 
 ``16/32/64-bit``
 """
-VMXOFF: int = 816
+VMXOFF: Code = 816 # type: ignore
 """
 ``VMXOFF``
 
@@ -8151,7 +8157,7 @@ VMXOFF: int = 816
 
 ``16/32/64-bit``
 """
-PCONFIG: int = 817
+PCONFIG: Code = 817 # type: ignore
 """
 ``PCONFIG``
 
@@ -8161,7 +8167,7 @@ PCONFIG: int = 817
 
 ``16/32/64-bit``
 """
-MONITORW: int = 818
+MONITORW: Code = 818 # type: ignore
 """
 ``MONITOR``
 
@@ -8171,7 +8177,7 @@ MONITORW: int = 818
 
 ``16/32-bit``
 """
-MONITORD: int = 819
+MONITORD: Code = 819 # type: ignore
 """
 ``MONITOR``
 
@@ -8181,7 +8187,7 @@ MONITORD: int = 819
 
 ``16/32/64-bit``
 """
-MONITORQ: int = 820
+MONITORQ: Code = 820 # type: ignore
 """
 ``MONITOR``
 
@@ -8191,7 +8197,7 @@ MONITORQ: int = 820
 
 ``64-bit``
 """
-MWAIT: int = 821
+MWAIT: Code = 821 # type: ignore
 """
 ``MWAIT``
 
@@ -8201,7 +8207,7 @@ MWAIT: int = 821
 
 ``16/32/64-bit``
 """
-CLAC: int = 822
+CLAC: Code = 822 # type: ignore
 """
 ``CLAC``
 
@@ -8211,7 +8217,7 @@ CLAC: int = 822
 
 ``16/32/64-bit``
 """
-STAC: int = 823
+STAC: Code = 823 # type: ignore
 """
 ``STAC``
 
@@ -8221,7 +8227,7 @@ STAC: int = 823
 
 ``16/32/64-bit``
 """
-ENCLS: int = 824
+ENCLS: Code = 824 # type: ignore
 """
 ``ENCLS``
 
@@ -8231,7 +8237,7 @@ ENCLS: int = 824
 
 ``16/32/64-bit``
 """
-XGETBV: int = 825
+XGETBV: Code = 825 # type: ignore
 """
 ``XGETBV``
 
@@ -8241,7 +8247,7 @@ XGETBV: int = 825
 
 ``16/32/64-bit``
 """
-XSETBV: int = 826
+XSETBV: Code = 826 # type: ignore
 """
 ``XSETBV``
 
@@ -8251,7 +8257,7 @@ XSETBV: int = 826
 
 ``16/32/64-bit``
 """
-VMFUNC: int = 827
+VMFUNC: Code = 827 # type: ignore
 """
 ``VMFUNC``
 
@@ -8261,7 +8267,7 @@ VMFUNC: int = 827
 
 ``16/32/64-bit``
 """
-XEND: int = 828
+XEND: Code = 828 # type: ignore
 """
 ``XEND``
 
@@ -8271,7 +8277,7 @@ XEND: int = 828
 
 ``16/32/64-bit``
 """
-XTEST: int = 829
+XTEST: Code = 829 # type: ignore
 """
 ``XTEST``
 
@@ -8281,7 +8287,7 @@ XTEST: int = 829
 
 ``16/32/64-bit``
 """
-ENCLU: int = 830
+ENCLU: Code = 830 # type: ignore
 """
 ``ENCLU``
 
@@ -8291,7 +8297,7 @@ ENCLU: int = 830
 
 ``16/32/64-bit``
 """
-VMRUNW: int = 831
+VMRUNW: Code = 831 # type: ignore
 """
 ``VMRUN``
 
@@ -8301,7 +8307,7 @@ VMRUNW: int = 831
 
 ``16/32-bit``
 """
-VMRUND: int = 832
+VMRUND: Code = 832 # type: ignore
 """
 ``VMRUN``
 
@@ -8311,7 +8317,7 @@ VMRUND: int = 832
 
 ``16/32/64-bit``
 """
-VMRUNQ: int = 833
+VMRUNQ: Code = 833 # type: ignore
 """
 ``VMRUN``
 
@@ -8321,7 +8327,7 @@ VMRUNQ: int = 833
 
 ``64-bit``
 """
-VMMCALL: int = 834
+VMMCALL: Code = 834 # type: ignore
 """
 ``VMMCALL``
 
@@ -8331,7 +8337,7 @@ VMMCALL: int = 834
 
 ``16/32/64-bit``
 """
-VMLOADW: int = 835
+VMLOADW: Code = 835 # type: ignore
 """
 ``VMLOAD``
 
@@ -8341,7 +8347,7 @@ VMLOADW: int = 835
 
 ``16/32-bit``
 """
-VMLOADD: int = 836
+VMLOADD: Code = 836 # type: ignore
 """
 ``VMLOAD``
 
@@ -8351,7 +8357,7 @@ VMLOADD: int = 836
 
 ``16/32/64-bit``
 """
-VMLOADQ: int = 837
+VMLOADQ: Code = 837 # type: ignore
 """
 ``VMLOAD``
 
@@ -8361,7 +8367,7 @@ VMLOADQ: int = 837
 
 ``64-bit``
 """
-VMSAVEW: int = 838
+VMSAVEW: Code = 838 # type: ignore
 """
 ``VMSAVE``
 
@@ -8371,7 +8377,7 @@ VMSAVEW: int = 838
 
 ``16/32-bit``
 """
-VMSAVED: int = 839
+VMSAVED: Code = 839 # type: ignore
 """
 ``VMSAVE``
 
@@ -8381,7 +8387,7 @@ VMSAVED: int = 839
 
 ``16/32/64-bit``
 """
-VMSAVEQ: int = 840
+VMSAVEQ: Code = 840 # type: ignore
 """
 ``VMSAVE``
 
@@ -8391,7 +8397,7 @@ VMSAVEQ: int = 840
 
 ``64-bit``
 """
-STGI: int = 841
+STGI: Code = 841 # type: ignore
 """
 ``STGI``
 
@@ -8401,7 +8407,7 @@ STGI: int = 841
 
 ``16/32/64-bit``
 """
-CLGI: int = 842
+CLGI: Code = 842 # type: ignore
 """
 ``CLGI``
 
@@ -8411,7 +8417,7 @@ CLGI: int = 842
 
 ``16/32/64-bit``
 """
-SKINIT: int = 843
+SKINIT: Code = 843 # type: ignore
 """
 ``SKINIT``
 
@@ -8421,7 +8427,7 @@ SKINIT: int = 843
 
 ``16/32/64-bit``
 """
-INVLPGAW: int = 844
+INVLPGAW: Code = 844 # type: ignore
 """
 ``INVLPGA``
 
@@ -8431,7 +8437,7 @@ INVLPGAW: int = 844
 
 ``16/32-bit``
 """
-INVLPGAD: int = 845
+INVLPGAD: Code = 845 # type: ignore
 """
 ``INVLPGA``
 
@@ -8441,7 +8447,7 @@ INVLPGAD: int = 845
 
 ``16/32/64-bit``
 """
-INVLPGAQ: int = 846
+INVLPGAQ: Code = 846 # type: ignore
 """
 ``INVLPGA``
 
@@ -8451,7 +8457,7 @@ INVLPGAQ: int = 846
 
 ``64-bit``
 """
-SETSSBSY: int = 847
+SETSSBSY: Code = 847 # type: ignore
 """
 ``SETSSBSY``
 
@@ -8461,7 +8467,7 @@ SETSSBSY: int = 847
 
 ``16/32/64-bit``
 """
-SAVEPREVSSP: int = 848
+SAVEPREVSSP: Code = 848 # type: ignore
 """
 ``SAVEPREVSSP``
 
@@ -8471,7 +8477,7 @@ SAVEPREVSSP: int = 848
 
 ``16/32/64-bit``
 """
-RDPKRU: int = 849
+RDPKRU: Code = 849 # type: ignore
 """
 ``RDPKRU``
 
@@ -8481,7 +8487,7 @@ RDPKRU: int = 849
 
 ``16/32/64-bit``
 """
-WRPKRU: int = 850
+WRPKRU: Code = 850 # type: ignore
 """
 ``WRPKRU``
 
@@ -8491,7 +8497,7 @@ WRPKRU: int = 850
 
 ``16/32/64-bit``
 """
-SWAPGS: int = 851
+SWAPGS: Code = 851 # type: ignore
 """
 ``SWAPGS``
 
@@ -8501,7 +8507,7 @@ SWAPGS: int = 851
 
 ``64-bit``
 """
-RDTSCP: int = 852
+RDTSCP: Code = 852 # type: ignore
 """
 ``RDTSCP``
 
@@ -8511,7 +8517,7 @@ RDTSCP: int = 852
 
 ``16/32/64-bit``
 """
-MONITORXW: int = 853
+MONITORXW: Code = 853 # type: ignore
 """
 ``MONITORX``
 
@@ -8521,7 +8527,7 @@ MONITORXW: int = 853
 
 ``16/32-bit``
 """
-MONITORXD: int = 854
+MONITORXD: Code = 854 # type: ignore
 """
 ``MONITORX``
 
@@ -8531,7 +8537,7 @@ MONITORXD: int = 854
 
 ``16/32/64-bit``
 """
-MONITORXQ: int = 855
+MONITORXQ: Code = 855 # type: ignore
 """
 ``MONITORX``
 
@@ -8541,7 +8547,7 @@ MONITORXQ: int = 855
 
 ``64-bit``
 """
-MCOMMIT: int = 856
+MCOMMIT: Code = 856 # type: ignore
 """
 ``MCOMMIT``
 
@@ -8551,7 +8557,7 @@ MCOMMIT: int = 856
 
 ``16/32/64-bit``
 """
-MWAITX: int = 857
+MWAITX: Code = 857 # type: ignore
 """
 ``MWAITX``
 
@@ -8561,7 +8567,7 @@ MWAITX: int = 857
 
 ``16/32/64-bit``
 """
-CLZEROW: int = 858
+CLZEROW: Code = 858 # type: ignore
 """
 ``CLZERO``
 
@@ -8571,7 +8577,7 @@ CLZEROW: int = 858
 
 ``16/32-bit``
 """
-CLZEROD: int = 859
+CLZEROD: Code = 859 # type: ignore
 """
 ``CLZERO``
 
@@ -8581,7 +8587,7 @@ CLZEROD: int = 859
 
 ``16/32/64-bit``
 """
-CLZEROQ: int = 860
+CLZEROQ: Code = 860 # type: ignore
 """
 ``CLZERO``
 
@@ -8591,7 +8597,7 @@ CLZEROQ: int = 860
 
 ``64-bit``
 """
-RDPRU: int = 861
+RDPRU: Code = 861 # type: ignore
 """
 ``RDPRU``
 
@@ -8601,7 +8607,7 @@ RDPRU: int = 861
 
 ``16/32/64-bit``
 """
-LAR_R16_RM16: int = 862
+LAR_R16_RM16: Code = 862 # type: ignore
 """
 ``LAR r16, r/m16``
 
@@ -8611,7 +8617,7 @@ LAR_R16_RM16: int = 862
 
 ``16/32/64-bit``
 """
-LAR_R32_R32M16: int = 863
+LAR_R32_R32M16: Code = 863 # type: ignore
 """
 ``LAR r32, r32/m16``
 
@@ -8621,7 +8627,7 @@ LAR_R32_R32M16: int = 863
 
 ``16/32/64-bit``
 """
-LAR_R64_R64M16: int = 864
+LAR_R64_R64M16: Code = 864 # type: ignore
 """
 ``LAR r64, r64/m16``
 
@@ -8631,7 +8637,7 @@ LAR_R64_R64M16: int = 864
 
 ``64-bit``
 """
-LSL_R16_RM16: int = 865
+LSL_R16_RM16: Code = 865 # type: ignore
 """
 ``LSL r16, r/m16``
 
@@ -8641,7 +8647,7 @@ LSL_R16_RM16: int = 865
 
 ``16/32/64-bit``
 """
-LSL_R32_R32M16: int = 866
+LSL_R32_R32M16: Code = 866 # type: ignore
 """
 ``LSL r32, r32/m16``
 
@@ -8651,7 +8657,7 @@ LSL_R32_R32M16: int = 866
 
 ``16/32/64-bit``
 """
-LSL_R64_R64M16: int = 867
+LSL_R64_R64M16: Code = 867 # type: ignore
 """
 ``LSL r64, r64/m16``
 
@@ -8661,7 +8667,7 @@ LSL_R64_R64M16: int = 867
 
 ``64-bit``
 """
-STOREALL: int = 868
+STOREALL: Code = 868 # type: ignore
 """
 ``STOREALL``
 
@@ -8671,7 +8677,7 @@ STOREALL: int = 868
 
 ``16/32-bit``
 """
-LOADALL286: int = 869
+LOADALL286: Code = 869 # type: ignore
 """
 ``LOADALL``
 
@@ -8681,7 +8687,7 @@ LOADALL286: int = 869
 
 ``16/32-bit``
 """
-SYSCALL: int = 870
+SYSCALL: Code = 870 # type: ignore
 """
 ``SYSCALL``
 
@@ -8691,7 +8697,7 @@ SYSCALL: int = 870
 
 ``16/32/64-bit``
 """
-CLTS: int = 871
+CLTS: Code = 871 # type: ignore
 """
 ``CLTS``
 
@@ -8701,7 +8707,7 @@ CLTS: int = 871
 
 ``16/32/64-bit``
 """
-LOADALL386: int = 872
+LOADALL386: Code = 872 # type: ignore
 """
 ``LOADALL``
 
@@ -8711,7 +8717,7 @@ LOADALL386: int = 872
 
 ``16/32-bit``
 """
-SYSRETD: int = 873
+SYSRETD: Code = 873 # type: ignore
 """
 ``SYSRET``
 
@@ -8721,7 +8727,7 @@ SYSRETD: int = 873
 
 ``16/32/64-bit``
 """
-SYSRETQ: int = 874
+SYSRETQ: Code = 874 # type: ignore
 """
 ``SYSRETQ``
 
@@ -8731,7 +8737,7 @@ SYSRETQ: int = 874
 
 ``64-bit``
 """
-INVD: int = 875
+INVD: Code = 875 # type: ignore
 """
 ``INVD``
 
@@ -8741,7 +8747,7 @@ INVD: int = 875
 
 ``16/32/64-bit``
 """
-WBINVD: int = 876
+WBINVD: Code = 876 # type: ignore
 """
 ``WBINVD``
 
@@ -8751,7 +8757,7 @@ WBINVD: int = 876
 
 ``16/32/64-bit``
 """
-WBNOINVD: int = 877
+WBNOINVD: Code = 877 # type: ignore
 """
 ``WBNOINVD``
 
@@ -8761,7 +8767,7 @@ WBNOINVD: int = 877
 
 ``16/32/64-bit``
 """
-CL1INVMB: int = 878
+CL1INVMB: Code = 878 # type: ignore
 """
 ``CL1INVMB``
 
@@ -8771,7 +8777,7 @@ CL1INVMB: int = 878
 
 ``16/32-bit``
 """
-UD2: int = 879
+UD2: Code = 879 # type: ignore
 """
 ``UD2``
 
@@ -8781,7 +8787,7 @@ UD2: int = 879
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM16_R16_0F0D: int = 880
+RESERVEDNOP_RM16_R16_0F0D: Code = 880 # type: ignore
 """
 ``RESERVEDNOP r/m16, r16``
 
@@ -8791,7 +8797,7 @@ RESERVEDNOP_RM16_R16_0F0D: int = 880
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM32_R32_0F0D: int = 881
+RESERVEDNOP_RM32_R32_0F0D: Code = 881 # type: ignore
 """
 ``RESERVEDNOP r/m32, r32``
 
@@ -8801,7 +8807,7 @@ RESERVEDNOP_RM32_R32_0F0D: int = 881
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM64_R64_0F0D: int = 882
+RESERVEDNOP_RM64_R64_0F0D: Code = 882 # type: ignore
 """
 ``RESERVEDNOP r/m64, r64``
 
@@ -8811,7 +8817,7 @@ RESERVEDNOP_RM64_R64_0F0D: int = 882
 
 ``64-bit``
 """
-PREFETCH_M8: int = 883
+PREFETCH_M8: Code = 883 # type: ignore
 """
 ``PREFETCH m8``
 
@@ -8821,7 +8827,7 @@ PREFETCH_M8: int = 883
 
 ``16/32/64-bit``
 """
-PREFETCHW_M8: int = 884
+PREFETCHW_M8: Code = 884 # type: ignore
 """
 ``PREFETCHW m8``
 
@@ -8831,7 +8837,7 @@ PREFETCHW_M8: int = 884
 
 ``16/32/64-bit``
 """
-PREFETCHWT1_M8: int = 885
+PREFETCHWT1_M8: Code = 885 # type: ignore
 """
 ``PREFETCHWT1 m8``
 
@@ -8841,7 +8847,7 @@ PREFETCHWT1_M8: int = 885
 
 ``16/32/64-bit``
 """
-FEMMS: int = 886
+FEMMS: Code = 886 # type: ignore
 """
 ``FEMMS``
 
@@ -8851,7 +8857,7 @@ FEMMS: int = 886
 
 ``16/32/64-bit``
 """
-UMOV_RM8_R8: int = 887
+UMOV_RM8_R8: Code = 887 # type: ignore
 """
 ``UMOV r/m8, r8``
 
@@ -8861,7 +8867,7 @@ UMOV_RM8_R8: int = 887
 
 ``16/32-bit``
 """
-UMOV_RM16_R16: int = 888
+UMOV_RM16_R16: Code = 888 # type: ignore
 """
 ``UMOV r/m16, r16``
 
@@ -8871,7 +8877,7 @@ UMOV_RM16_R16: int = 888
 
 ``16/32-bit``
 """
-UMOV_RM32_R32: int = 889
+UMOV_RM32_R32: Code = 889 # type: ignore
 """
 ``UMOV r/m32, r32``
 
@@ -8881,7 +8887,7 @@ UMOV_RM32_R32: int = 889
 
 ``16/32-bit``
 """
-UMOV_R8_RM8: int = 890
+UMOV_R8_RM8: Code = 890 # type: ignore
 """
 ``UMOV r8, r/m8``
 
@@ -8891,7 +8897,7 @@ UMOV_R8_RM8: int = 890
 
 ``16/32-bit``
 """
-UMOV_R16_RM16: int = 891
+UMOV_R16_RM16: Code = 891 # type: ignore
 """
 ``UMOV r16, r/m16``
 
@@ -8901,7 +8907,7 @@ UMOV_R16_RM16: int = 891
 
 ``16/32-bit``
 """
-UMOV_R32_RM32: int = 892
+UMOV_R32_RM32: Code = 892 # type: ignore
 """
 ``UMOV r32, r/m32``
 
@@ -8911,7 +8917,7 @@ UMOV_R32_RM32: int = 892
 
 ``16/32-bit``
 """
-MOVUPS_XMM_XMMM128: int = 893
+MOVUPS_XMM_XMMM128: Code = 893 # type: ignore
 """
 ``MOVUPS xmm1, xmm2/m128``
 
@@ -8921,7 +8927,7 @@ MOVUPS_XMM_XMMM128: int = 893
 
 ``16/32/64-bit``
 """
-VEX_VMOVUPS_XMM_XMMM128: int = 894
+VEX_VMOVUPS_XMM_XMMM128: Code = 894 # type: ignore
 """
 ``VMOVUPS xmm1, xmm2/m128``
 
@@ -8931,7 +8937,7 @@ VEX_VMOVUPS_XMM_XMMM128: int = 894
 
 ``16/32/64-bit``
 """
-VEX_VMOVUPS_YMM_YMMM256: int = 895
+VEX_VMOVUPS_YMM_YMMM256: Code = 895 # type: ignore
 """
 ``VMOVUPS ymm1, ymm2/m256``
 
@@ -8941,7 +8947,7 @@ VEX_VMOVUPS_YMM_YMMM256: int = 895
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPS_XMM_K1Z_XMMM128: int = 896
+EVEX_VMOVUPS_XMM_K1Z_XMMM128: Code = 896 # type: ignore
 """
 ``VMOVUPS xmm1 {k1}{z}, xmm2/m128``
 
@@ -8951,7 +8957,7 @@ EVEX_VMOVUPS_XMM_K1Z_XMMM128: int = 896
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPS_YMM_K1Z_YMMM256: int = 897
+EVEX_VMOVUPS_YMM_K1Z_YMMM256: Code = 897 # type: ignore
 """
 ``VMOVUPS ymm1 {k1}{z}, ymm2/m256``
 
@@ -8961,7 +8967,7 @@ EVEX_VMOVUPS_YMM_K1Z_YMMM256: int = 897
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPS_ZMM_K1Z_ZMMM512: int = 898
+EVEX_VMOVUPS_ZMM_K1Z_ZMMM512: Code = 898 # type: ignore
 """
 ``VMOVUPS zmm1 {k1}{z}, zmm2/m512``
 
@@ -8971,7 +8977,7 @@ EVEX_VMOVUPS_ZMM_K1Z_ZMMM512: int = 898
 
 ``16/32/64-bit``
 """
-MOVUPD_XMM_XMMM128: int = 899
+MOVUPD_XMM_XMMM128: Code = 899 # type: ignore
 """
 ``MOVUPD xmm1, xmm2/m128``
 
@@ -8981,7 +8987,7 @@ MOVUPD_XMM_XMMM128: int = 899
 
 ``16/32/64-bit``
 """
-VEX_VMOVUPD_XMM_XMMM128: int = 900
+VEX_VMOVUPD_XMM_XMMM128: Code = 900 # type: ignore
 """
 ``VMOVUPD xmm1, xmm2/m128``
 
@@ -8991,7 +8997,7 @@ VEX_VMOVUPD_XMM_XMMM128: int = 900
 
 ``16/32/64-bit``
 """
-VEX_VMOVUPD_YMM_YMMM256: int = 901
+VEX_VMOVUPD_YMM_YMMM256: Code = 901 # type: ignore
 """
 ``VMOVUPD ymm1, ymm2/m256``
 
@@ -9001,7 +9007,7 @@ VEX_VMOVUPD_YMM_YMMM256: int = 901
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPD_XMM_K1Z_XMMM128: int = 902
+EVEX_VMOVUPD_XMM_K1Z_XMMM128: Code = 902 # type: ignore
 """
 ``VMOVUPD xmm1 {k1}{z}, xmm2/m128``
 
@@ -9011,7 +9017,7 @@ EVEX_VMOVUPD_XMM_K1Z_XMMM128: int = 902
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPD_YMM_K1Z_YMMM256: int = 903
+EVEX_VMOVUPD_YMM_K1Z_YMMM256: Code = 903 # type: ignore
 """
 ``VMOVUPD ymm1 {k1}{z}, ymm2/m256``
 
@@ -9021,7 +9027,7 @@ EVEX_VMOVUPD_YMM_K1Z_YMMM256: int = 903
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPD_ZMM_K1Z_ZMMM512: int = 904
+EVEX_VMOVUPD_ZMM_K1Z_ZMMM512: Code = 904 # type: ignore
 """
 ``VMOVUPD zmm1 {k1}{z}, zmm2/m512``
 
@@ -9031,7 +9037,7 @@ EVEX_VMOVUPD_ZMM_K1Z_ZMMM512: int = 904
 
 ``16/32/64-bit``
 """
-MOVSS_XMM_XMMM32: int = 905
+MOVSS_XMM_XMMM32: Code = 905 # type: ignore
 """
 ``MOVSS xmm1, xmm2/m32``
 
@@ -9041,7 +9047,7 @@ MOVSS_XMM_XMMM32: int = 905
 
 ``16/32/64-bit``
 """
-VEX_VMOVSS_XMM_XMM_XMM: int = 906
+VEX_VMOVSS_XMM_XMM_XMM: Code = 906 # type: ignore
 """
 ``VMOVSS xmm1, xmm2, xmm3``
 
@@ -9051,7 +9057,7 @@ VEX_VMOVSS_XMM_XMM_XMM: int = 906
 
 ``16/32/64-bit``
 """
-VEX_VMOVSS_XMM_M32: int = 907
+VEX_VMOVSS_XMM_M32: Code = 907 # type: ignore
 """
 ``VMOVSS xmm1, m32``
 
@@ -9061,7 +9067,7 @@ VEX_VMOVSS_XMM_M32: int = 907
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSS_XMM_K1Z_XMM_XMM: int = 908
+EVEX_VMOVSS_XMM_K1Z_XMM_XMM: Code = 908 # type: ignore
 """
 ``VMOVSS xmm1 {k1}{z}, xmm2, xmm3``
 
@@ -9071,7 +9077,7 @@ EVEX_VMOVSS_XMM_K1Z_XMM_XMM: int = 908
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSS_XMM_K1Z_M32: int = 909
+EVEX_VMOVSS_XMM_K1Z_M32: Code = 909 # type: ignore
 """
 ``VMOVSS xmm1 {k1}{z}, m32``
 
@@ -9081,7 +9087,7 @@ EVEX_VMOVSS_XMM_K1Z_M32: int = 909
 
 ``16/32/64-bit``
 """
-MOVSD_XMM_XMMM64: int = 910
+MOVSD_XMM_XMMM64: Code = 910 # type: ignore
 """
 ``MOVSD xmm1, xmm2/m64``
 
@@ -9091,7 +9097,7 @@ MOVSD_XMM_XMMM64: int = 910
 
 ``16/32/64-bit``
 """
-VEX_VMOVSD_XMM_XMM_XMM: int = 911
+VEX_VMOVSD_XMM_XMM_XMM: Code = 911 # type: ignore
 """
 ``VMOVSD xmm1, xmm2, xmm3``
 
@@ -9101,7 +9107,7 @@ VEX_VMOVSD_XMM_XMM_XMM: int = 911
 
 ``16/32/64-bit``
 """
-VEX_VMOVSD_XMM_M64: int = 912
+VEX_VMOVSD_XMM_M64: Code = 912 # type: ignore
 """
 ``VMOVSD xmm1, m64``
 
@@ -9111,7 +9117,7 @@ VEX_VMOVSD_XMM_M64: int = 912
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSD_XMM_K1Z_XMM_XMM: int = 913
+EVEX_VMOVSD_XMM_K1Z_XMM_XMM: Code = 913 # type: ignore
 """
 ``VMOVSD xmm1 {k1}{z}, xmm2, xmm3``
 
@@ -9121,7 +9127,7 @@ EVEX_VMOVSD_XMM_K1Z_XMM_XMM: int = 913
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSD_XMM_K1Z_M64: int = 914
+EVEX_VMOVSD_XMM_K1Z_M64: Code = 914 # type: ignore
 """
 ``VMOVSD xmm1 {k1}{z}, m64``
 
@@ -9131,7 +9137,7 @@ EVEX_VMOVSD_XMM_K1Z_M64: int = 914
 
 ``16/32/64-bit``
 """
-MOVUPS_XMMM128_XMM: int = 915
+MOVUPS_XMMM128_XMM: Code = 915 # type: ignore
 """
 ``MOVUPS xmm2/m128, xmm1``
 
@@ -9141,7 +9147,7 @@ MOVUPS_XMMM128_XMM: int = 915
 
 ``16/32/64-bit``
 """
-VEX_VMOVUPS_XMMM128_XMM: int = 916
+VEX_VMOVUPS_XMMM128_XMM: Code = 916 # type: ignore
 """
 ``VMOVUPS xmm2/m128, xmm1``
 
@@ -9151,7 +9157,7 @@ VEX_VMOVUPS_XMMM128_XMM: int = 916
 
 ``16/32/64-bit``
 """
-VEX_VMOVUPS_YMMM256_YMM: int = 917
+VEX_VMOVUPS_YMMM256_YMM: Code = 917 # type: ignore
 """
 ``VMOVUPS ymm2/m256, ymm1``
 
@@ -9161,7 +9167,7 @@ VEX_VMOVUPS_YMMM256_YMM: int = 917
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPS_XMMM128_K1Z_XMM: int = 918
+EVEX_VMOVUPS_XMMM128_K1Z_XMM: Code = 918 # type: ignore
 """
 ``VMOVUPS xmm2/m128 {k1}{z}, xmm1``
 
@@ -9171,7 +9177,7 @@ EVEX_VMOVUPS_XMMM128_K1Z_XMM: int = 918
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPS_YMMM256_K1Z_YMM: int = 919
+EVEX_VMOVUPS_YMMM256_K1Z_YMM: Code = 919 # type: ignore
 """
 ``VMOVUPS ymm2/m256 {k1}{z}, ymm1``
 
@@ -9181,7 +9187,7 @@ EVEX_VMOVUPS_YMMM256_K1Z_YMM: int = 919
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPS_ZMMM512_K1Z_ZMM: int = 920
+EVEX_VMOVUPS_ZMMM512_K1Z_ZMM: Code = 920 # type: ignore
 """
 ``VMOVUPS zmm2/m512 {k1}{z}, zmm1``
 
@@ -9191,7 +9197,7 @@ EVEX_VMOVUPS_ZMMM512_K1Z_ZMM: int = 920
 
 ``16/32/64-bit``
 """
-MOVUPD_XMMM128_XMM: int = 921
+MOVUPD_XMMM128_XMM: Code = 921 # type: ignore
 """
 ``MOVUPD xmm2/m128, xmm1``
 
@@ -9201,7 +9207,7 @@ MOVUPD_XMMM128_XMM: int = 921
 
 ``16/32/64-bit``
 """
-VEX_VMOVUPD_XMMM128_XMM: int = 922
+VEX_VMOVUPD_XMMM128_XMM: Code = 922 # type: ignore
 """
 ``VMOVUPD xmm2/m128, xmm1``
 
@@ -9211,7 +9217,7 @@ VEX_VMOVUPD_XMMM128_XMM: int = 922
 
 ``16/32/64-bit``
 """
-VEX_VMOVUPD_YMMM256_YMM: int = 923
+VEX_VMOVUPD_YMMM256_YMM: Code = 923 # type: ignore
 """
 ``VMOVUPD ymm2/m256, ymm1``
 
@@ -9221,7 +9227,7 @@ VEX_VMOVUPD_YMMM256_YMM: int = 923
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPD_XMMM128_K1Z_XMM: int = 924
+EVEX_VMOVUPD_XMMM128_K1Z_XMM: Code = 924 # type: ignore
 """
 ``VMOVUPD xmm2/m128 {k1}{z}, xmm1``
 
@@ -9231,7 +9237,7 @@ EVEX_VMOVUPD_XMMM128_K1Z_XMM: int = 924
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPD_YMMM256_K1Z_YMM: int = 925
+EVEX_VMOVUPD_YMMM256_K1Z_YMM: Code = 925 # type: ignore
 """
 ``VMOVUPD ymm2/m256 {k1}{z}, ymm1``
 
@@ -9241,7 +9247,7 @@ EVEX_VMOVUPD_YMMM256_K1Z_YMM: int = 925
 
 ``16/32/64-bit``
 """
-EVEX_VMOVUPD_ZMMM512_K1Z_ZMM: int = 926
+EVEX_VMOVUPD_ZMMM512_K1Z_ZMM: Code = 926 # type: ignore
 """
 ``VMOVUPD zmm2/m512 {k1}{z}, zmm1``
 
@@ -9251,7 +9257,7 @@ EVEX_VMOVUPD_ZMMM512_K1Z_ZMM: int = 926
 
 ``16/32/64-bit``
 """
-MOVSS_XMMM32_XMM: int = 927
+MOVSS_XMMM32_XMM: Code = 927 # type: ignore
 """
 ``MOVSS xmm2/m32, xmm1``
 
@@ -9261,7 +9267,7 @@ MOVSS_XMMM32_XMM: int = 927
 
 ``16/32/64-bit``
 """
-VEX_VMOVSS_XMM_XMM_XMM_0F11: int = 928
+VEX_VMOVSS_XMM_XMM_XMM_0F11: Code = 928 # type: ignore
 """
 ``VMOVSS xmm1, xmm2, xmm3``
 
@@ -9271,7 +9277,7 @@ VEX_VMOVSS_XMM_XMM_XMM_0F11: int = 928
 
 ``16/32/64-bit``
 """
-VEX_VMOVSS_M32_XMM: int = 929
+VEX_VMOVSS_M32_XMM: Code = 929 # type: ignore
 """
 ``VMOVSS m32, xmm1``
 
@@ -9281,7 +9287,7 @@ VEX_VMOVSS_M32_XMM: int = 929
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSS_XMM_K1Z_XMM_XMM_0F11: int = 930
+EVEX_VMOVSS_XMM_K1Z_XMM_XMM_0F11: Code = 930 # type: ignore
 """
 ``VMOVSS xmm1 {k1}{z}, xmm2, xmm3``
 
@@ -9291,7 +9297,7 @@ EVEX_VMOVSS_XMM_K1Z_XMM_XMM_0F11: int = 930
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSS_M32_K1_XMM: int = 931
+EVEX_VMOVSS_M32_K1_XMM: Code = 931 # type: ignore
 """
 ``VMOVSS m32 {k1}, xmm1``
 
@@ -9301,7 +9307,7 @@ EVEX_VMOVSS_M32_K1_XMM: int = 931
 
 ``16/32/64-bit``
 """
-MOVSD_XMMM64_XMM: int = 932
+MOVSD_XMMM64_XMM: Code = 932 # type: ignore
 """
 ``MOVSD xmm1/m64, xmm2``
 
@@ -9311,7 +9317,7 @@ MOVSD_XMMM64_XMM: int = 932
 
 ``16/32/64-bit``
 """
-VEX_VMOVSD_XMM_XMM_XMM_0F11: int = 933
+VEX_VMOVSD_XMM_XMM_XMM_0F11: Code = 933 # type: ignore
 """
 ``VMOVSD xmm1, xmm2, xmm3``
 
@@ -9321,7 +9327,7 @@ VEX_VMOVSD_XMM_XMM_XMM_0F11: int = 933
 
 ``16/32/64-bit``
 """
-VEX_VMOVSD_M64_XMM: int = 934
+VEX_VMOVSD_M64_XMM: Code = 934 # type: ignore
 """
 ``VMOVSD m64, xmm1``
 
@@ -9331,7 +9337,7 @@ VEX_VMOVSD_M64_XMM: int = 934
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSD_XMM_K1Z_XMM_XMM_0F11: int = 935
+EVEX_VMOVSD_XMM_K1Z_XMM_XMM_0F11: Code = 935 # type: ignore
 """
 ``VMOVSD xmm1 {k1}{z}, xmm2, xmm3``
 
@@ -9341,7 +9347,7 @@ EVEX_VMOVSD_XMM_K1Z_XMM_XMM_0F11: int = 935
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSD_M64_K1_XMM: int = 936
+EVEX_VMOVSD_M64_K1_XMM: Code = 936 # type: ignore
 """
 ``VMOVSD m64 {k1}, xmm1``
 
@@ -9351,7 +9357,7 @@ EVEX_VMOVSD_M64_K1_XMM: int = 936
 
 ``16/32/64-bit``
 """
-MOVHLPS_XMM_XMM: int = 937
+MOVHLPS_XMM_XMM: Code = 937 # type: ignore
 """
 ``MOVHLPS xmm1, xmm2``
 
@@ -9361,7 +9367,7 @@ MOVHLPS_XMM_XMM: int = 937
 
 ``16/32/64-bit``
 """
-MOVLPS_XMM_M64: int = 938
+MOVLPS_XMM_M64: Code = 938 # type: ignore
 """
 ``MOVLPS xmm1, m64``
 
@@ -9371,7 +9377,7 @@ MOVLPS_XMM_M64: int = 938
 
 ``16/32/64-bit``
 """
-VEX_VMOVHLPS_XMM_XMM_XMM: int = 939
+VEX_VMOVHLPS_XMM_XMM_XMM: Code = 939 # type: ignore
 """
 ``VMOVHLPS xmm1, xmm2, xmm3``
 
@@ -9381,7 +9387,7 @@ VEX_VMOVHLPS_XMM_XMM_XMM: int = 939
 
 ``16/32/64-bit``
 """
-VEX_VMOVLPS_XMM_XMM_M64: int = 940
+VEX_VMOVLPS_XMM_XMM_M64: Code = 940 # type: ignore
 """
 ``VMOVLPS xmm2, xmm1, m64``
 
@@ -9391,7 +9397,7 @@ VEX_VMOVLPS_XMM_XMM_M64: int = 940
 
 ``16/32/64-bit``
 """
-EVEX_VMOVHLPS_XMM_XMM_XMM: int = 941
+EVEX_VMOVHLPS_XMM_XMM_XMM: Code = 941 # type: ignore
 """
 ``VMOVHLPS xmm1, xmm2, xmm3``
 
@@ -9401,7 +9407,7 @@ EVEX_VMOVHLPS_XMM_XMM_XMM: int = 941
 
 ``16/32/64-bit``
 """
-EVEX_VMOVLPS_XMM_XMM_M64: int = 942
+EVEX_VMOVLPS_XMM_XMM_M64: Code = 942 # type: ignore
 """
 ``VMOVLPS xmm2, xmm1, m64``
 
@@ -9411,7 +9417,7 @@ EVEX_VMOVLPS_XMM_XMM_M64: int = 942
 
 ``16/32/64-bit``
 """
-MOVLPD_XMM_M64: int = 943
+MOVLPD_XMM_M64: Code = 943 # type: ignore
 """
 ``MOVLPD xmm1, m64``
 
@@ -9421,7 +9427,7 @@ MOVLPD_XMM_M64: int = 943
 
 ``16/32/64-bit``
 """
-VEX_VMOVLPD_XMM_XMM_M64: int = 944
+VEX_VMOVLPD_XMM_XMM_M64: Code = 944 # type: ignore
 """
 ``VMOVLPD xmm2, xmm1, m64``
 
@@ -9431,7 +9437,7 @@ VEX_VMOVLPD_XMM_XMM_M64: int = 944
 
 ``16/32/64-bit``
 """
-EVEX_VMOVLPD_XMM_XMM_M64: int = 945
+EVEX_VMOVLPD_XMM_XMM_M64: Code = 945 # type: ignore
 """
 ``VMOVLPD xmm2, xmm1, m64``
 
@@ -9441,7 +9447,7 @@ EVEX_VMOVLPD_XMM_XMM_M64: int = 945
 
 ``16/32/64-bit``
 """
-MOVSLDUP_XMM_XMMM128: int = 946
+MOVSLDUP_XMM_XMMM128: Code = 946 # type: ignore
 """
 ``MOVSLDUP xmm1, xmm2/m128``
 
@@ -9451,7 +9457,7 @@ MOVSLDUP_XMM_XMMM128: int = 946
 
 ``16/32/64-bit``
 """
-VEX_VMOVSLDUP_XMM_XMMM128: int = 947
+VEX_VMOVSLDUP_XMM_XMMM128: Code = 947 # type: ignore
 """
 ``VMOVSLDUP xmm1, xmm2/m128``
 
@@ -9461,7 +9467,7 @@ VEX_VMOVSLDUP_XMM_XMMM128: int = 947
 
 ``16/32/64-bit``
 """
-VEX_VMOVSLDUP_YMM_YMMM256: int = 948
+VEX_VMOVSLDUP_YMM_YMMM256: Code = 948 # type: ignore
 """
 ``VMOVSLDUP ymm1, ymm2/m256``
 
@@ -9471,7 +9477,7 @@ VEX_VMOVSLDUP_YMM_YMMM256: int = 948
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSLDUP_XMM_K1Z_XMMM128: int = 949
+EVEX_VMOVSLDUP_XMM_K1Z_XMMM128: Code = 949 # type: ignore
 """
 ``VMOVSLDUP xmm1 {k1}{z}, xmm2/m128``
 
@@ -9481,7 +9487,7 @@ EVEX_VMOVSLDUP_XMM_K1Z_XMMM128: int = 949
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSLDUP_YMM_K1Z_YMMM256: int = 950
+EVEX_VMOVSLDUP_YMM_K1Z_YMMM256: Code = 950 # type: ignore
 """
 ``VMOVSLDUP ymm1 {k1}{z}, ymm2/m256``
 
@@ -9491,7 +9497,7 @@ EVEX_VMOVSLDUP_YMM_K1Z_YMMM256: int = 950
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSLDUP_ZMM_K1Z_ZMMM512: int = 951
+EVEX_VMOVSLDUP_ZMM_K1Z_ZMMM512: Code = 951 # type: ignore
 """
 ``VMOVSLDUP zmm1 {k1}{z}, zmm2/m512``
 
@@ -9501,7 +9507,7 @@ EVEX_VMOVSLDUP_ZMM_K1Z_ZMMM512: int = 951
 
 ``16/32/64-bit``
 """
-MOVDDUP_XMM_XMMM64: int = 952
+MOVDDUP_XMM_XMMM64: Code = 952 # type: ignore
 """
 ``MOVDDUP xmm1, xmm2/m64``
 
@@ -9511,7 +9517,7 @@ MOVDDUP_XMM_XMMM64: int = 952
 
 ``16/32/64-bit``
 """
-VEX_VMOVDDUP_XMM_XMMM64: int = 953
+VEX_VMOVDDUP_XMM_XMMM64: Code = 953 # type: ignore
 """
 ``VMOVDDUP xmm1, xmm2/m64``
 
@@ -9521,7 +9527,7 @@ VEX_VMOVDDUP_XMM_XMMM64: int = 953
 
 ``16/32/64-bit``
 """
-VEX_VMOVDDUP_YMM_YMMM256: int = 954
+VEX_VMOVDDUP_YMM_YMMM256: Code = 954 # type: ignore
 """
 ``VMOVDDUP ymm1, ymm2/m256``
 
@@ -9531,7 +9537,7 @@ VEX_VMOVDDUP_YMM_YMMM256: int = 954
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDDUP_XMM_K1Z_XMMM64: int = 955
+EVEX_VMOVDDUP_XMM_K1Z_XMMM64: Code = 955 # type: ignore
 """
 ``VMOVDDUP xmm1 {k1}{z}, xmm2/m64``
 
@@ -9541,7 +9547,7 @@ EVEX_VMOVDDUP_XMM_K1Z_XMMM64: int = 955
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDDUP_YMM_K1Z_YMMM256: int = 956
+EVEX_VMOVDDUP_YMM_K1Z_YMMM256: Code = 956 # type: ignore
 """
 ``VMOVDDUP ymm1 {k1}{z}, ymm2/m256``
 
@@ -9551,7 +9557,7 @@ EVEX_VMOVDDUP_YMM_K1Z_YMMM256: int = 956
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDDUP_ZMM_K1Z_ZMMM512: int = 957
+EVEX_VMOVDDUP_ZMM_K1Z_ZMMM512: Code = 957 # type: ignore
 """
 ``VMOVDDUP zmm1 {k1}{z}, zmm2/m512``
 
@@ -9561,7 +9567,7 @@ EVEX_VMOVDDUP_ZMM_K1Z_ZMMM512: int = 957
 
 ``16/32/64-bit``
 """
-MOVLPS_M64_XMM: int = 958
+MOVLPS_M64_XMM: Code = 958 # type: ignore
 """
 ``MOVLPS m64, xmm1``
 
@@ -9571,7 +9577,7 @@ MOVLPS_M64_XMM: int = 958
 
 ``16/32/64-bit``
 """
-VEX_VMOVLPS_M64_XMM: int = 959
+VEX_VMOVLPS_M64_XMM: Code = 959 # type: ignore
 """
 ``VMOVLPS m64, xmm1``
 
@@ -9581,7 +9587,7 @@ VEX_VMOVLPS_M64_XMM: int = 959
 
 ``16/32/64-bit``
 """
-EVEX_VMOVLPS_M64_XMM: int = 960
+EVEX_VMOVLPS_M64_XMM: Code = 960 # type: ignore
 """
 ``VMOVLPS m64, xmm1``
 
@@ -9591,7 +9597,7 @@ EVEX_VMOVLPS_M64_XMM: int = 960
 
 ``16/32/64-bit``
 """
-MOVLPD_M64_XMM: int = 961
+MOVLPD_M64_XMM: Code = 961 # type: ignore
 """
 ``MOVLPD m64, xmm1``
 
@@ -9601,7 +9607,7 @@ MOVLPD_M64_XMM: int = 961
 
 ``16/32/64-bit``
 """
-VEX_VMOVLPD_M64_XMM: int = 962
+VEX_VMOVLPD_M64_XMM: Code = 962 # type: ignore
 """
 ``VMOVLPD m64, xmm1``
 
@@ -9611,7 +9617,7 @@ VEX_VMOVLPD_M64_XMM: int = 962
 
 ``16/32/64-bit``
 """
-EVEX_VMOVLPD_M64_XMM: int = 963
+EVEX_VMOVLPD_M64_XMM: Code = 963 # type: ignore
 """
 ``VMOVLPD m64, xmm1``
 
@@ -9621,7 +9627,7 @@ EVEX_VMOVLPD_M64_XMM: int = 963
 
 ``16/32/64-bit``
 """
-UNPCKLPS_XMM_XMMM128: int = 964
+UNPCKLPS_XMM_XMMM128: Code = 964 # type: ignore
 """
 ``UNPCKLPS xmm1, xmm2/m128``
 
@@ -9631,7 +9637,7 @@ UNPCKLPS_XMM_XMMM128: int = 964
 
 ``16/32/64-bit``
 """
-VEX_VUNPCKLPS_XMM_XMM_XMMM128: int = 965
+VEX_VUNPCKLPS_XMM_XMM_XMMM128: Code = 965 # type: ignore
 """
 ``VUNPCKLPS xmm1, xmm2, xmm3/m128``
 
@@ -9641,7 +9647,7 @@ VEX_VUNPCKLPS_XMM_XMM_XMMM128: int = 965
 
 ``16/32/64-bit``
 """
-VEX_VUNPCKLPS_YMM_YMM_YMMM256: int = 966
+VEX_VUNPCKLPS_YMM_YMM_YMMM256: Code = 966 # type: ignore
 """
 ``VUNPCKLPS ymm1, ymm2, ymm3/m256``
 
@@ -9651,7 +9657,7 @@ VEX_VUNPCKLPS_YMM_YMM_YMMM256: int = 966
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKLPS_XMM_K1Z_XMM_XMMM128B32: int = 967
+EVEX_VUNPCKLPS_XMM_K1Z_XMM_XMMM128B32: Code = 967 # type: ignore
 """
 ``VUNPCKLPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -9661,7 +9667,7 @@ EVEX_VUNPCKLPS_XMM_K1Z_XMM_XMMM128B32: int = 967
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKLPS_YMM_K1Z_YMM_YMMM256B32: int = 968
+EVEX_VUNPCKLPS_YMM_K1Z_YMM_YMMM256B32: Code = 968 # type: ignore
 """
 ``VUNPCKLPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -9671,7 +9677,7 @@ EVEX_VUNPCKLPS_YMM_K1Z_YMM_YMMM256B32: int = 968
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKLPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 969
+EVEX_VUNPCKLPS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 969 # type: ignore
 """
 ``VUNPCKLPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -9681,7 +9687,7 @@ EVEX_VUNPCKLPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 969
 
 ``16/32/64-bit``
 """
-UNPCKLPD_XMM_XMMM128: int = 970
+UNPCKLPD_XMM_XMMM128: Code = 970 # type: ignore
 """
 ``UNPCKLPD xmm1, xmm2/m128``
 
@@ -9691,7 +9697,7 @@ UNPCKLPD_XMM_XMMM128: int = 970
 
 ``16/32/64-bit``
 """
-VEX_VUNPCKLPD_XMM_XMM_XMMM128: int = 971
+VEX_VUNPCKLPD_XMM_XMM_XMMM128: Code = 971 # type: ignore
 """
 ``VUNPCKLPD xmm1, xmm2, xmm3/m128``
 
@@ -9701,7 +9707,7 @@ VEX_VUNPCKLPD_XMM_XMM_XMMM128: int = 971
 
 ``16/32/64-bit``
 """
-VEX_VUNPCKLPD_YMM_YMM_YMMM256: int = 972
+VEX_VUNPCKLPD_YMM_YMM_YMMM256: Code = 972 # type: ignore
 """
 ``VUNPCKLPD ymm1, ymm2, ymm3/m256``
 
@@ -9711,7 +9717,7 @@ VEX_VUNPCKLPD_YMM_YMM_YMMM256: int = 972
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKLPD_XMM_K1Z_XMM_XMMM128B64: int = 973
+EVEX_VUNPCKLPD_XMM_K1Z_XMM_XMMM128B64: Code = 973 # type: ignore
 """
 ``VUNPCKLPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -9721,7 +9727,7 @@ EVEX_VUNPCKLPD_XMM_K1Z_XMM_XMMM128B64: int = 973
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKLPD_YMM_K1Z_YMM_YMMM256B64: int = 974
+EVEX_VUNPCKLPD_YMM_K1Z_YMM_YMMM256B64: Code = 974 # type: ignore
 """
 ``VUNPCKLPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -9731,7 +9737,7 @@ EVEX_VUNPCKLPD_YMM_K1Z_YMM_YMMM256B64: int = 974
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKLPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 975
+EVEX_VUNPCKLPD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 975 # type: ignore
 """
 ``VUNPCKLPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -9741,7 +9747,7 @@ EVEX_VUNPCKLPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 975
 
 ``16/32/64-bit``
 """
-UNPCKHPS_XMM_XMMM128: int = 976
+UNPCKHPS_XMM_XMMM128: Code = 976 # type: ignore
 """
 ``UNPCKHPS xmm1, xmm2/m128``
 
@@ -9751,7 +9757,7 @@ UNPCKHPS_XMM_XMMM128: int = 976
 
 ``16/32/64-bit``
 """
-VEX_VUNPCKHPS_XMM_XMM_XMMM128: int = 977
+VEX_VUNPCKHPS_XMM_XMM_XMMM128: Code = 977 # type: ignore
 """
 ``VUNPCKHPS xmm1, xmm2, xmm3/m128``
 
@@ -9761,7 +9767,7 @@ VEX_VUNPCKHPS_XMM_XMM_XMMM128: int = 977
 
 ``16/32/64-bit``
 """
-VEX_VUNPCKHPS_YMM_YMM_YMMM256: int = 978
+VEX_VUNPCKHPS_YMM_YMM_YMMM256: Code = 978 # type: ignore
 """
 ``VUNPCKHPS ymm1, ymm2, ymm3/m256``
 
@@ -9771,7 +9777,7 @@ VEX_VUNPCKHPS_YMM_YMM_YMMM256: int = 978
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKHPS_XMM_K1Z_XMM_XMMM128B32: int = 979
+EVEX_VUNPCKHPS_XMM_K1Z_XMM_XMMM128B32: Code = 979 # type: ignore
 """
 ``VUNPCKHPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -9781,7 +9787,7 @@ EVEX_VUNPCKHPS_XMM_K1Z_XMM_XMMM128B32: int = 979
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKHPS_YMM_K1Z_YMM_YMMM256B32: int = 980
+EVEX_VUNPCKHPS_YMM_K1Z_YMM_YMMM256B32: Code = 980 # type: ignore
 """
 ``VUNPCKHPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -9791,7 +9797,7 @@ EVEX_VUNPCKHPS_YMM_K1Z_YMM_YMMM256B32: int = 980
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKHPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 981
+EVEX_VUNPCKHPS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 981 # type: ignore
 """
 ``VUNPCKHPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -9801,7 +9807,7 @@ EVEX_VUNPCKHPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 981
 
 ``16/32/64-bit``
 """
-UNPCKHPD_XMM_XMMM128: int = 982
+UNPCKHPD_XMM_XMMM128: Code = 982 # type: ignore
 """
 ``UNPCKHPD xmm1, xmm2/m128``
 
@@ -9811,7 +9817,7 @@ UNPCKHPD_XMM_XMMM128: int = 982
 
 ``16/32/64-bit``
 """
-VEX_VUNPCKHPD_XMM_XMM_XMMM128: int = 983
+VEX_VUNPCKHPD_XMM_XMM_XMMM128: Code = 983 # type: ignore
 """
 ``VUNPCKHPD xmm1, xmm2, xmm3/m128``
 
@@ -9821,7 +9827,7 @@ VEX_VUNPCKHPD_XMM_XMM_XMMM128: int = 983
 
 ``16/32/64-bit``
 """
-VEX_VUNPCKHPD_YMM_YMM_YMMM256: int = 984
+VEX_VUNPCKHPD_YMM_YMM_YMMM256: Code = 984 # type: ignore
 """
 ``VUNPCKHPD ymm1, ymm2, ymm3/m256``
 
@@ -9831,7 +9837,7 @@ VEX_VUNPCKHPD_YMM_YMM_YMMM256: int = 984
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKHPD_XMM_K1Z_XMM_XMMM128B64: int = 985
+EVEX_VUNPCKHPD_XMM_K1Z_XMM_XMMM128B64: Code = 985 # type: ignore
 """
 ``VUNPCKHPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -9841,7 +9847,7 @@ EVEX_VUNPCKHPD_XMM_K1Z_XMM_XMMM128B64: int = 985
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKHPD_YMM_K1Z_YMM_YMMM256B64: int = 986
+EVEX_VUNPCKHPD_YMM_K1Z_YMM_YMMM256B64: Code = 986 # type: ignore
 """
 ``VUNPCKHPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -9851,7 +9857,7 @@ EVEX_VUNPCKHPD_YMM_K1Z_YMM_YMMM256B64: int = 986
 
 ``16/32/64-bit``
 """
-EVEX_VUNPCKHPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 987
+EVEX_VUNPCKHPD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 987 # type: ignore
 """
 ``VUNPCKHPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -9861,7 +9867,7 @@ EVEX_VUNPCKHPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 987
 
 ``16/32/64-bit``
 """
-MOVLHPS_XMM_XMM: int = 988
+MOVLHPS_XMM_XMM: Code = 988 # type: ignore
 """
 ``MOVLHPS xmm1, xmm2``
 
@@ -9871,7 +9877,7 @@ MOVLHPS_XMM_XMM: int = 988
 
 ``16/32/64-bit``
 """
-VEX_VMOVLHPS_XMM_XMM_XMM: int = 989
+VEX_VMOVLHPS_XMM_XMM_XMM: Code = 989 # type: ignore
 """
 ``VMOVLHPS xmm1, xmm2, xmm3``
 
@@ -9881,7 +9887,7 @@ VEX_VMOVLHPS_XMM_XMM_XMM: int = 989
 
 ``16/32/64-bit``
 """
-EVEX_VMOVLHPS_XMM_XMM_XMM: int = 990
+EVEX_VMOVLHPS_XMM_XMM_XMM: Code = 990 # type: ignore
 """
 ``VMOVLHPS xmm1, xmm2, xmm3``
 
@@ -9891,7 +9897,7 @@ EVEX_VMOVLHPS_XMM_XMM_XMM: int = 990
 
 ``16/32/64-bit``
 """
-MOVHPS_XMM_M64: int = 991
+MOVHPS_XMM_M64: Code = 991 # type: ignore
 """
 ``MOVHPS xmm1, m64``
 
@@ -9901,7 +9907,7 @@ MOVHPS_XMM_M64: int = 991
 
 ``16/32/64-bit``
 """
-VEX_VMOVHPS_XMM_XMM_M64: int = 992
+VEX_VMOVHPS_XMM_XMM_M64: Code = 992 # type: ignore
 """
 ``VMOVHPS xmm2, xmm1, m64``
 
@@ -9911,7 +9917,7 @@ VEX_VMOVHPS_XMM_XMM_M64: int = 992
 
 ``16/32/64-bit``
 """
-EVEX_VMOVHPS_XMM_XMM_M64: int = 993
+EVEX_VMOVHPS_XMM_XMM_M64: Code = 993 # type: ignore
 """
 ``VMOVHPS xmm2, xmm1, m64``
 
@@ -9921,7 +9927,7 @@ EVEX_VMOVHPS_XMM_XMM_M64: int = 993
 
 ``16/32/64-bit``
 """
-MOVHPD_XMM_M64: int = 994
+MOVHPD_XMM_M64: Code = 994 # type: ignore
 """
 ``MOVHPD xmm1, m64``
 
@@ -9931,7 +9937,7 @@ MOVHPD_XMM_M64: int = 994
 
 ``16/32/64-bit``
 """
-VEX_VMOVHPD_XMM_XMM_M64: int = 995
+VEX_VMOVHPD_XMM_XMM_M64: Code = 995 # type: ignore
 """
 ``VMOVHPD xmm2, xmm1, m64``
 
@@ -9941,7 +9947,7 @@ VEX_VMOVHPD_XMM_XMM_M64: int = 995
 
 ``16/32/64-bit``
 """
-EVEX_VMOVHPD_XMM_XMM_M64: int = 996
+EVEX_VMOVHPD_XMM_XMM_M64: Code = 996 # type: ignore
 """
 ``VMOVHPD xmm2, xmm1, m64``
 
@@ -9951,7 +9957,7 @@ EVEX_VMOVHPD_XMM_XMM_M64: int = 996
 
 ``16/32/64-bit``
 """
-MOVSHDUP_XMM_XMMM128: int = 997
+MOVSHDUP_XMM_XMMM128: Code = 997 # type: ignore
 """
 ``MOVSHDUP xmm1, xmm2/m128``
 
@@ -9961,7 +9967,7 @@ MOVSHDUP_XMM_XMMM128: int = 997
 
 ``16/32/64-bit``
 """
-VEX_VMOVSHDUP_XMM_XMMM128: int = 998
+VEX_VMOVSHDUP_XMM_XMMM128: Code = 998 # type: ignore
 """
 ``VMOVSHDUP xmm1, xmm2/m128``
 
@@ -9971,7 +9977,7 @@ VEX_VMOVSHDUP_XMM_XMMM128: int = 998
 
 ``16/32/64-bit``
 """
-VEX_VMOVSHDUP_YMM_YMMM256: int = 999
+VEX_VMOVSHDUP_YMM_YMMM256: Code = 999 # type: ignore
 """
 ``VMOVSHDUP ymm1, ymm2/m256``
 
@@ -9981,7 +9987,7 @@ VEX_VMOVSHDUP_YMM_YMMM256: int = 999
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSHDUP_XMM_K1Z_XMMM128: int = 1000
+EVEX_VMOVSHDUP_XMM_K1Z_XMMM128: Code = 1000 # type: ignore
 """
 ``VMOVSHDUP xmm1 {k1}{z}, xmm2/m128``
 
@@ -9991,7 +9997,7 @@ EVEX_VMOVSHDUP_XMM_K1Z_XMMM128: int = 1000
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSHDUP_YMM_K1Z_YMMM256: int = 1001
+EVEX_VMOVSHDUP_YMM_K1Z_YMMM256: Code = 1001 # type: ignore
 """
 ``VMOVSHDUP ymm1 {k1}{z}, ymm2/m256``
 
@@ -10001,7 +10007,7 @@ EVEX_VMOVSHDUP_YMM_K1Z_YMMM256: int = 1001
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSHDUP_ZMM_K1Z_ZMMM512: int = 1002
+EVEX_VMOVSHDUP_ZMM_K1Z_ZMMM512: Code = 1002 # type: ignore
 """
 ``VMOVSHDUP zmm1 {k1}{z}, zmm2/m512``
 
@@ -10011,7 +10017,7 @@ EVEX_VMOVSHDUP_ZMM_K1Z_ZMMM512: int = 1002
 
 ``16/32/64-bit``
 """
-MOVHPS_M64_XMM: int = 1003
+MOVHPS_M64_XMM: Code = 1003 # type: ignore
 """
 ``MOVHPS m64, xmm1``
 
@@ -10021,7 +10027,7 @@ MOVHPS_M64_XMM: int = 1003
 
 ``16/32/64-bit``
 """
-VEX_VMOVHPS_M64_XMM: int = 1004
+VEX_VMOVHPS_M64_XMM: Code = 1004 # type: ignore
 """
 ``VMOVHPS m64, xmm1``
 
@@ -10031,7 +10037,7 @@ VEX_VMOVHPS_M64_XMM: int = 1004
 
 ``16/32/64-bit``
 """
-EVEX_VMOVHPS_M64_XMM: int = 1005
+EVEX_VMOVHPS_M64_XMM: Code = 1005 # type: ignore
 """
 ``VMOVHPS m64, xmm1``
 
@@ -10041,7 +10047,7 @@ EVEX_VMOVHPS_M64_XMM: int = 1005
 
 ``16/32/64-bit``
 """
-MOVHPD_M64_XMM: int = 1006
+MOVHPD_M64_XMM: Code = 1006 # type: ignore
 """
 ``MOVHPD m64, xmm1``
 
@@ -10051,7 +10057,7 @@ MOVHPD_M64_XMM: int = 1006
 
 ``16/32/64-bit``
 """
-VEX_VMOVHPD_M64_XMM: int = 1007
+VEX_VMOVHPD_M64_XMM: Code = 1007 # type: ignore
 """
 ``VMOVHPD m64, xmm1``
 
@@ -10061,7 +10067,7 @@ VEX_VMOVHPD_M64_XMM: int = 1007
 
 ``16/32/64-bit``
 """
-EVEX_VMOVHPD_M64_XMM: int = 1008
+EVEX_VMOVHPD_M64_XMM: Code = 1008 # type: ignore
 """
 ``VMOVHPD m64, xmm1``
 
@@ -10071,7 +10077,7 @@ EVEX_VMOVHPD_M64_XMM: int = 1008
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM16_R16_0F18: int = 1009
+RESERVEDNOP_RM16_R16_0F18: Code = 1009 # type: ignore
 """
 ``RESERVEDNOP r/m16, r16``
 
@@ -10081,7 +10087,7 @@ RESERVEDNOP_RM16_R16_0F18: int = 1009
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM32_R32_0F18: int = 1010
+RESERVEDNOP_RM32_R32_0F18: Code = 1010 # type: ignore
 """
 ``RESERVEDNOP r/m32, r32``
 
@@ -10091,7 +10097,7 @@ RESERVEDNOP_RM32_R32_0F18: int = 1010
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM64_R64_0F18: int = 1011
+RESERVEDNOP_RM64_R64_0F18: Code = 1011 # type: ignore
 """
 ``RESERVEDNOP r/m64, r64``
 
@@ -10101,7 +10107,7 @@ RESERVEDNOP_RM64_R64_0F18: int = 1011
 
 ``64-bit``
 """
-RESERVEDNOP_RM16_R16_0F19: int = 1012
+RESERVEDNOP_RM16_R16_0F19: Code = 1012 # type: ignore
 """
 ``RESERVEDNOP r/m16, r16``
 
@@ -10111,7 +10117,7 @@ RESERVEDNOP_RM16_R16_0F19: int = 1012
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM32_R32_0F19: int = 1013
+RESERVEDNOP_RM32_R32_0F19: Code = 1013 # type: ignore
 """
 ``RESERVEDNOP r/m32, r32``
 
@@ -10121,7 +10127,7 @@ RESERVEDNOP_RM32_R32_0F19: int = 1013
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM64_R64_0F19: int = 1014
+RESERVEDNOP_RM64_R64_0F19: Code = 1014 # type: ignore
 """
 ``RESERVEDNOP r/m64, r64``
 
@@ -10131,7 +10137,7 @@ RESERVEDNOP_RM64_R64_0F19: int = 1014
 
 ``64-bit``
 """
-RESERVEDNOP_RM16_R16_0F1A: int = 1015
+RESERVEDNOP_RM16_R16_0F1A: Code = 1015 # type: ignore
 """
 ``RESERVEDNOP r/m16, r16``
 
@@ -10141,7 +10147,7 @@ RESERVEDNOP_RM16_R16_0F1A: int = 1015
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM32_R32_0F1A: int = 1016
+RESERVEDNOP_RM32_R32_0F1A: Code = 1016 # type: ignore
 """
 ``RESERVEDNOP r/m32, r32``
 
@@ -10151,7 +10157,7 @@ RESERVEDNOP_RM32_R32_0F1A: int = 1016
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM64_R64_0F1A: int = 1017
+RESERVEDNOP_RM64_R64_0F1A: Code = 1017 # type: ignore
 """
 ``RESERVEDNOP r/m64, r64``
 
@@ -10161,7 +10167,7 @@ RESERVEDNOP_RM64_R64_0F1A: int = 1017
 
 ``64-bit``
 """
-RESERVEDNOP_RM16_R16_0F1B: int = 1018
+RESERVEDNOP_RM16_R16_0F1B: Code = 1018 # type: ignore
 """
 ``RESERVEDNOP r/m16, r16``
 
@@ -10171,7 +10177,7 @@ RESERVEDNOP_RM16_R16_0F1B: int = 1018
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM32_R32_0F1B: int = 1019
+RESERVEDNOP_RM32_R32_0F1B: Code = 1019 # type: ignore
 """
 ``RESERVEDNOP r/m32, r32``
 
@@ -10181,7 +10187,7 @@ RESERVEDNOP_RM32_R32_0F1B: int = 1019
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM64_R64_0F1B: int = 1020
+RESERVEDNOP_RM64_R64_0F1B: Code = 1020 # type: ignore
 """
 ``RESERVEDNOP r/m64, r64``
 
@@ -10191,7 +10197,7 @@ RESERVEDNOP_RM64_R64_0F1B: int = 1020
 
 ``64-bit``
 """
-RESERVEDNOP_RM16_R16_0F1C: int = 1021
+RESERVEDNOP_RM16_R16_0F1C: Code = 1021 # type: ignore
 """
 ``RESERVEDNOP r/m16, r16``
 
@@ -10201,7 +10207,7 @@ RESERVEDNOP_RM16_R16_0F1C: int = 1021
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM32_R32_0F1C: int = 1022
+RESERVEDNOP_RM32_R32_0F1C: Code = 1022 # type: ignore
 """
 ``RESERVEDNOP r/m32, r32``
 
@@ -10211,7 +10217,7 @@ RESERVEDNOP_RM32_R32_0F1C: int = 1022
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM64_R64_0F1C: int = 1023
+RESERVEDNOP_RM64_R64_0F1C: Code = 1023 # type: ignore
 """
 ``RESERVEDNOP r/m64, r64``
 
@@ -10221,7 +10227,7 @@ RESERVEDNOP_RM64_R64_0F1C: int = 1023
 
 ``64-bit``
 """
-RESERVEDNOP_RM16_R16_0F1D: int = 1024
+RESERVEDNOP_RM16_R16_0F1D: Code = 1024 # type: ignore
 """
 ``RESERVEDNOP r/m16, r16``
 
@@ -10231,7 +10237,7 @@ RESERVEDNOP_RM16_R16_0F1D: int = 1024
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM32_R32_0F1D: int = 1025
+RESERVEDNOP_RM32_R32_0F1D: Code = 1025 # type: ignore
 """
 ``RESERVEDNOP r/m32, r32``
 
@@ -10241,7 +10247,7 @@ RESERVEDNOP_RM32_R32_0F1D: int = 1025
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM64_R64_0F1D: int = 1026
+RESERVEDNOP_RM64_R64_0F1D: Code = 1026 # type: ignore
 """
 ``RESERVEDNOP r/m64, r64``
 
@@ -10251,7 +10257,7 @@ RESERVEDNOP_RM64_R64_0F1D: int = 1026
 
 ``64-bit``
 """
-RESERVEDNOP_RM16_R16_0F1E: int = 1027
+RESERVEDNOP_RM16_R16_0F1E: Code = 1027 # type: ignore
 """
 ``RESERVEDNOP r/m16, r16``
 
@@ -10261,7 +10267,7 @@ RESERVEDNOP_RM16_R16_0F1E: int = 1027
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM32_R32_0F1E: int = 1028
+RESERVEDNOP_RM32_R32_0F1E: Code = 1028 # type: ignore
 """
 ``RESERVEDNOP r/m32, r32``
 
@@ -10271,7 +10277,7 @@ RESERVEDNOP_RM32_R32_0F1E: int = 1028
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM64_R64_0F1E: int = 1029
+RESERVEDNOP_RM64_R64_0F1E: Code = 1029 # type: ignore
 """
 ``RESERVEDNOP r/m64, r64``
 
@@ -10281,7 +10287,7 @@ RESERVEDNOP_RM64_R64_0F1E: int = 1029
 
 ``64-bit``
 """
-RESERVEDNOP_RM16_R16_0F1F: int = 1030
+RESERVEDNOP_RM16_R16_0F1F: Code = 1030 # type: ignore
 """
 ``RESERVEDNOP r/m16, r16``
 
@@ -10291,7 +10297,7 @@ RESERVEDNOP_RM16_R16_0F1F: int = 1030
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM32_R32_0F1F: int = 1031
+RESERVEDNOP_RM32_R32_0F1F: Code = 1031 # type: ignore
 """
 ``RESERVEDNOP r/m32, r32``
 
@@ -10301,7 +10307,7 @@ RESERVEDNOP_RM32_R32_0F1F: int = 1031
 
 ``16/32/64-bit``
 """
-RESERVEDNOP_RM64_R64_0F1F: int = 1032
+RESERVEDNOP_RM64_R64_0F1F: Code = 1032 # type: ignore
 """
 ``RESERVEDNOP r/m64, r64``
 
@@ -10311,7 +10317,7 @@ RESERVEDNOP_RM64_R64_0F1F: int = 1032
 
 ``64-bit``
 """
-PREFETCHNTA_M8: int = 1033
+PREFETCHNTA_M8: Code = 1033 # type: ignore
 """
 ``PREFETCHNTA m8``
 
@@ -10321,7 +10327,7 @@ PREFETCHNTA_M8: int = 1033
 
 ``16/32/64-bit``
 """
-PREFETCHT0_M8: int = 1034
+PREFETCHT0_M8: Code = 1034 # type: ignore
 """
 ``PREFETCHT0 m8``
 
@@ -10331,7 +10337,7 @@ PREFETCHT0_M8: int = 1034
 
 ``16/32/64-bit``
 """
-PREFETCHT1_M8: int = 1035
+PREFETCHT1_M8: Code = 1035 # type: ignore
 """
 ``PREFETCHT1 m8``
 
@@ -10341,7 +10347,7 @@ PREFETCHT1_M8: int = 1035
 
 ``16/32/64-bit``
 """
-PREFETCHT2_M8: int = 1036
+PREFETCHT2_M8: Code = 1036 # type: ignore
 """
 ``PREFETCHT2 m8``
 
@@ -10351,7 +10357,7 @@ PREFETCHT2_M8: int = 1036
 
 ``16/32/64-bit``
 """
-BNDLDX_BND_MIB: int = 1037
+BNDLDX_BND_MIB: Code = 1037 # type: ignore
 """
 ``BNDLDX bnd, mib``
 
@@ -10361,7 +10367,7 @@ BNDLDX_BND_MIB: int = 1037
 
 ``16/32/64-bit``
 """
-BNDMOV_BND_BNDM64: int = 1038
+BNDMOV_BND_BNDM64: Code = 1038 # type: ignore
 """
 ``BNDMOV bnd1, bnd2/m64``
 
@@ -10371,7 +10377,7 @@ BNDMOV_BND_BNDM64: int = 1038
 
 ``16/32-bit``
 """
-BNDMOV_BND_BNDM128: int = 1039
+BNDMOV_BND_BNDM128: Code = 1039 # type: ignore
 """
 ``BNDMOV bnd1, bnd2/m128``
 
@@ -10381,7 +10387,7 @@ BNDMOV_BND_BNDM128: int = 1039
 
 ``64-bit``
 """
-BNDCL_BND_RM32: int = 1040
+BNDCL_BND_RM32: Code = 1040 # type: ignore
 """
 ``BNDCL bnd, r/m32``
 
@@ -10391,7 +10397,7 @@ BNDCL_BND_RM32: int = 1040
 
 ``16/32-bit``
 """
-BNDCL_BND_RM64: int = 1041
+BNDCL_BND_RM64: Code = 1041 # type: ignore
 """
 ``BNDCL bnd, r/m64``
 
@@ -10401,7 +10407,7 @@ BNDCL_BND_RM64: int = 1041
 
 ``64-bit``
 """
-BNDCU_BND_RM32: int = 1042
+BNDCU_BND_RM32: Code = 1042 # type: ignore
 """
 ``BNDCU bnd, r/m32``
 
@@ -10411,7 +10417,7 @@ BNDCU_BND_RM32: int = 1042
 
 ``16/32-bit``
 """
-BNDCU_BND_RM64: int = 1043
+BNDCU_BND_RM64: Code = 1043 # type: ignore
 """
 ``BNDCU bnd, r/m64``
 
@@ -10421,7 +10427,7 @@ BNDCU_BND_RM64: int = 1043
 
 ``64-bit``
 """
-BNDSTX_MIB_BND: int = 1044
+BNDSTX_MIB_BND: Code = 1044 # type: ignore
 """
 ``BNDSTX mib, bnd``
 
@@ -10431,7 +10437,7 @@ BNDSTX_MIB_BND: int = 1044
 
 ``16/32/64-bit``
 """
-BNDMOV_BNDM64_BND: int = 1045
+BNDMOV_BNDM64_BND: Code = 1045 # type: ignore
 """
 ``BNDMOV bnd1/m64, bnd2``
 
@@ -10441,7 +10447,7 @@ BNDMOV_BNDM64_BND: int = 1045
 
 ``16/32-bit``
 """
-BNDMOV_BNDM128_BND: int = 1046
+BNDMOV_BNDM128_BND: Code = 1046 # type: ignore
 """
 ``BNDMOV bnd1/m128, bnd2``
 
@@ -10451,7 +10457,7 @@ BNDMOV_BNDM128_BND: int = 1046
 
 ``64-bit``
 """
-BNDMK_BND_M32: int = 1047
+BNDMK_BND_M32: Code = 1047 # type: ignore
 """
 ``BNDMK bnd, m32``
 
@@ -10461,7 +10467,7 @@ BNDMK_BND_M32: int = 1047
 
 ``16/32-bit``
 """
-BNDMK_BND_M64: int = 1048
+BNDMK_BND_M64: Code = 1048 # type: ignore
 """
 ``BNDMK bnd, m64``
 
@@ -10471,7 +10477,7 @@ BNDMK_BND_M64: int = 1048
 
 ``64-bit``
 """
-BNDCN_BND_RM32: int = 1049
+BNDCN_BND_RM32: Code = 1049 # type: ignore
 """
 ``BNDCN bnd, r/m32``
 
@@ -10481,7 +10487,7 @@ BNDCN_BND_RM32: int = 1049
 
 ``16/32-bit``
 """
-BNDCN_BND_RM64: int = 1050
+BNDCN_BND_RM64: Code = 1050 # type: ignore
 """
 ``BNDCN bnd, r/m64``
 
@@ -10491,7 +10497,7 @@ BNDCN_BND_RM64: int = 1050
 
 ``64-bit``
 """
-CLDEMOTE_M8: int = 1051
+CLDEMOTE_M8: Code = 1051 # type: ignore
 """
 ``CLDEMOTE m8``
 
@@ -10501,7 +10507,7 @@ CLDEMOTE_M8: int = 1051
 
 ``16/32/64-bit``
 """
-RDSSPD_R32: int = 1052
+RDSSPD_R32: Code = 1052 # type: ignore
 """
 ``RDSSPD r32``
 
@@ -10511,7 +10517,7 @@ RDSSPD_R32: int = 1052
 
 ``16/32/64-bit``
 """
-RDSSPQ_R64: int = 1053
+RDSSPQ_R64: Code = 1053 # type: ignore
 """
 ``RDSSPQ r64``
 
@@ -10521,7 +10527,7 @@ RDSSPQ_R64: int = 1053
 
 ``64-bit``
 """
-ENDBR64: int = 1054
+ENDBR64: Code = 1054 # type: ignore
 """
 ``ENDBR64``
 
@@ -10531,7 +10537,7 @@ ENDBR64: int = 1054
 
 ``16/32/64-bit``
 """
-ENDBR32: int = 1055
+ENDBR32: Code = 1055 # type: ignore
 """
 ``ENDBR32``
 
@@ -10541,7 +10547,7 @@ ENDBR32: int = 1055
 
 ``16/32/64-bit``
 """
-NOP_RM16: int = 1056
+NOP_RM16: Code = 1056 # type: ignore
 """
 ``NOP r/m16``
 
@@ -10551,7 +10557,7 @@ NOP_RM16: int = 1056
 
 ``16/32/64-bit``
 """
-NOP_RM32: int = 1057
+NOP_RM32: Code = 1057 # type: ignore
 """
 ``NOP r/m32``
 
@@ -10561,7 +10567,7 @@ NOP_RM32: int = 1057
 
 ``16/32/64-bit``
 """
-NOP_RM64: int = 1058
+NOP_RM64: Code = 1058 # type: ignore
 """
 ``NOP r/m64``
 
@@ -10571,7 +10577,7 @@ NOP_RM64: int = 1058
 
 ``64-bit``
 """
-MOV_R32_CR: int = 1059
+MOV_R32_CR: Code = 1059 # type: ignore
 """
 ``MOV r32, cr``
 
@@ -10581,7 +10587,7 @@ MOV_R32_CR: int = 1059
 
 ``16/32-bit``
 """
-MOV_R64_CR: int = 1060
+MOV_R64_CR: Code = 1060 # type: ignore
 """
 ``MOV r64, cr``
 
@@ -10591,7 +10597,7 @@ MOV_R64_CR: int = 1060
 
 ``64-bit``
 """
-MOV_R32_DR: int = 1061
+MOV_R32_DR: Code = 1061 # type: ignore
 """
 ``MOV r32, dr``
 
@@ -10601,7 +10607,7 @@ MOV_R32_DR: int = 1061
 
 ``16/32-bit``
 """
-MOV_R64_DR: int = 1062
+MOV_R64_DR: Code = 1062 # type: ignore
 """
 ``MOV r64, dr``
 
@@ -10611,7 +10617,7 @@ MOV_R64_DR: int = 1062
 
 ``64-bit``
 """
-MOV_CR_R32: int = 1063
+MOV_CR_R32: Code = 1063 # type: ignore
 """
 ``MOV cr, r32``
 
@@ -10621,7 +10627,7 @@ MOV_CR_R32: int = 1063
 
 ``16/32-bit``
 """
-MOV_CR_R64: int = 1064
+MOV_CR_R64: Code = 1064 # type: ignore
 """
 ``MOV cr, r64``
 
@@ -10631,7 +10637,7 @@ MOV_CR_R64: int = 1064
 
 ``64-bit``
 """
-MOV_DR_R32: int = 1065
+MOV_DR_R32: Code = 1065 # type: ignore
 """
 ``MOV dr, r32``
 
@@ -10641,7 +10647,7 @@ MOV_DR_R32: int = 1065
 
 ``16/32-bit``
 """
-MOV_DR_R64: int = 1066
+MOV_DR_R64: Code = 1066 # type: ignore
 """
 ``MOV dr, r64``
 
@@ -10651,7 +10657,7 @@ MOV_DR_R64: int = 1066
 
 ``64-bit``
 """
-MOV_R32_TR: int = 1067
+MOV_R32_TR: Code = 1067 # type: ignore
 """
 ``MOV r32, tr``
 
@@ -10661,7 +10667,7 @@ MOV_R32_TR: int = 1067
 
 ``16/32-bit``
 """
-MOV_TR_R32: int = 1068
+MOV_TR_R32: Code = 1068 # type: ignore
 """
 ``MOV tr, r32``
 
@@ -10671,7 +10677,7 @@ MOV_TR_R32: int = 1068
 
 ``16/32-bit``
 """
-MOVAPS_XMM_XMMM128: int = 1069
+MOVAPS_XMM_XMMM128: Code = 1069 # type: ignore
 """
 ``MOVAPS xmm1, xmm2/m128``
 
@@ -10681,7 +10687,7 @@ MOVAPS_XMM_XMMM128: int = 1069
 
 ``16/32/64-bit``
 """
-VEX_VMOVAPS_XMM_XMMM128: int = 1070
+VEX_VMOVAPS_XMM_XMMM128: Code = 1070 # type: ignore
 """
 ``VMOVAPS xmm1, xmm2/m128``
 
@@ -10691,7 +10697,7 @@ VEX_VMOVAPS_XMM_XMMM128: int = 1070
 
 ``16/32/64-bit``
 """
-VEX_VMOVAPS_YMM_YMMM256: int = 1071
+VEX_VMOVAPS_YMM_YMMM256: Code = 1071 # type: ignore
 """
 ``VMOVAPS ymm1, ymm2/m256``
 
@@ -10701,7 +10707,7 @@ VEX_VMOVAPS_YMM_YMMM256: int = 1071
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPS_XMM_K1Z_XMMM128: int = 1072
+EVEX_VMOVAPS_XMM_K1Z_XMMM128: Code = 1072 # type: ignore
 """
 ``VMOVAPS xmm1 {k1}{z}, xmm2/m128``
 
@@ -10711,7 +10717,7 @@ EVEX_VMOVAPS_XMM_K1Z_XMMM128: int = 1072
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPS_YMM_K1Z_YMMM256: int = 1073
+EVEX_VMOVAPS_YMM_K1Z_YMMM256: Code = 1073 # type: ignore
 """
 ``VMOVAPS ymm1 {k1}{z}, ymm2/m256``
 
@@ -10721,7 +10727,7 @@ EVEX_VMOVAPS_YMM_K1Z_YMMM256: int = 1073
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPS_ZMM_K1Z_ZMMM512: int = 1074
+EVEX_VMOVAPS_ZMM_K1Z_ZMMM512: Code = 1074 # type: ignore
 """
 ``VMOVAPS zmm1 {k1}{z}, zmm2/m512``
 
@@ -10731,7 +10737,7 @@ EVEX_VMOVAPS_ZMM_K1Z_ZMMM512: int = 1074
 
 ``16/32/64-bit``
 """
-MOVAPD_XMM_XMMM128: int = 1075
+MOVAPD_XMM_XMMM128: Code = 1075 # type: ignore
 """
 ``MOVAPD xmm1, xmm2/m128``
 
@@ -10741,7 +10747,7 @@ MOVAPD_XMM_XMMM128: int = 1075
 
 ``16/32/64-bit``
 """
-VEX_VMOVAPD_XMM_XMMM128: int = 1076
+VEX_VMOVAPD_XMM_XMMM128: Code = 1076 # type: ignore
 """
 ``VMOVAPD xmm1, xmm2/m128``
 
@@ -10751,7 +10757,7 @@ VEX_VMOVAPD_XMM_XMMM128: int = 1076
 
 ``16/32/64-bit``
 """
-VEX_VMOVAPD_YMM_YMMM256: int = 1077
+VEX_VMOVAPD_YMM_YMMM256: Code = 1077 # type: ignore
 """
 ``VMOVAPD ymm1, ymm2/m256``
 
@@ -10761,7 +10767,7 @@ VEX_VMOVAPD_YMM_YMMM256: int = 1077
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPD_XMM_K1Z_XMMM128: int = 1078
+EVEX_VMOVAPD_XMM_K1Z_XMMM128: Code = 1078 # type: ignore
 """
 ``VMOVAPD xmm1 {k1}{z}, xmm2/m128``
 
@@ -10771,7 +10777,7 @@ EVEX_VMOVAPD_XMM_K1Z_XMMM128: int = 1078
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPD_YMM_K1Z_YMMM256: int = 1079
+EVEX_VMOVAPD_YMM_K1Z_YMMM256: Code = 1079 # type: ignore
 """
 ``VMOVAPD ymm1 {k1}{z}, ymm2/m256``
 
@@ -10781,7 +10787,7 @@ EVEX_VMOVAPD_YMM_K1Z_YMMM256: int = 1079
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPD_ZMM_K1Z_ZMMM512: int = 1080
+EVEX_VMOVAPD_ZMM_K1Z_ZMMM512: Code = 1080 # type: ignore
 """
 ``VMOVAPD zmm1 {k1}{z}, zmm2/m512``
 
@@ -10791,7 +10797,7 @@ EVEX_VMOVAPD_ZMM_K1Z_ZMMM512: int = 1080
 
 ``16/32/64-bit``
 """
-MOVAPS_XMMM128_XMM: int = 1081
+MOVAPS_XMMM128_XMM: Code = 1081 # type: ignore
 """
 ``MOVAPS xmm2/m128, xmm1``
 
@@ -10801,7 +10807,7 @@ MOVAPS_XMMM128_XMM: int = 1081
 
 ``16/32/64-bit``
 """
-VEX_VMOVAPS_XMMM128_XMM: int = 1082
+VEX_VMOVAPS_XMMM128_XMM: Code = 1082 # type: ignore
 """
 ``VMOVAPS xmm2/m128, xmm1``
 
@@ -10811,7 +10817,7 @@ VEX_VMOVAPS_XMMM128_XMM: int = 1082
 
 ``16/32/64-bit``
 """
-VEX_VMOVAPS_YMMM256_YMM: int = 1083
+VEX_VMOVAPS_YMMM256_YMM: Code = 1083 # type: ignore
 """
 ``VMOVAPS ymm2/m256, ymm1``
 
@@ -10821,7 +10827,7 @@ VEX_VMOVAPS_YMMM256_YMM: int = 1083
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPS_XMMM128_K1Z_XMM: int = 1084
+EVEX_VMOVAPS_XMMM128_K1Z_XMM: Code = 1084 # type: ignore
 """
 ``VMOVAPS xmm2/m128 {k1}{z}, xmm1``
 
@@ -10831,7 +10837,7 @@ EVEX_VMOVAPS_XMMM128_K1Z_XMM: int = 1084
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPS_YMMM256_K1Z_YMM: int = 1085
+EVEX_VMOVAPS_YMMM256_K1Z_YMM: Code = 1085 # type: ignore
 """
 ``VMOVAPS ymm2/m256 {k1}{z}, ymm1``
 
@@ -10841,7 +10847,7 @@ EVEX_VMOVAPS_YMMM256_K1Z_YMM: int = 1085
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPS_ZMMM512_K1Z_ZMM: int = 1086
+EVEX_VMOVAPS_ZMMM512_K1Z_ZMM: Code = 1086 # type: ignore
 """
 ``VMOVAPS zmm2/m512 {k1}{z}, zmm1``
 
@@ -10851,7 +10857,7 @@ EVEX_VMOVAPS_ZMMM512_K1Z_ZMM: int = 1086
 
 ``16/32/64-bit``
 """
-MOVAPD_XMMM128_XMM: int = 1087
+MOVAPD_XMMM128_XMM: Code = 1087 # type: ignore
 """
 ``MOVAPD xmm2/m128, xmm1``
 
@@ -10861,7 +10867,7 @@ MOVAPD_XMMM128_XMM: int = 1087
 
 ``16/32/64-bit``
 """
-VEX_VMOVAPD_XMMM128_XMM: int = 1088
+VEX_VMOVAPD_XMMM128_XMM: Code = 1088 # type: ignore
 """
 ``VMOVAPD xmm2/m128, xmm1``
 
@@ -10871,7 +10877,7 @@ VEX_VMOVAPD_XMMM128_XMM: int = 1088
 
 ``16/32/64-bit``
 """
-VEX_VMOVAPD_YMMM256_YMM: int = 1089
+VEX_VMOVAPD_YMMM256_YMM: Code = 1089 # type: ignore
 """
 ``VMOVAPD ymm2/m256, ymm1``
 
@@ -10881,7 +10887,7 @@ VEX_VMOVAPD_YMMM256_YMM: int = 1089
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPD_XMMM128_K1Z_XMM: int = 1090
+EVEX_VMOVAPD_XMMM128_K1Z_XMM: Code = 1090 # type: ignore
 """
 ``VMOVAPD xmm2/m128 {k1}{z}, xmm1``
 
@@ -10891,7 +10897,7 @@ EVEX_VMOVAPD_XMMM128_K1Z_XMM: int = 1090
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPD_YMMM256_K1Z_YMM: int = 1091
+EVEX_VMOVAPD_YMMM256_K1Z_YMM: Code = 1091 # type: ignore
 """
 ``VMOVAPD ymm2/m256 {k1}{z}, ymm1``
 
@@ -10901,7 +10907,7 @@ EVEX_VMOVAPD_YMMM256_K1Z_YMM: int = 1091
 
 ``16/32/64-bit``
 """
-EVEX_VMOVAPD_ZMMM512_K1Z_ZMM: int = 1092
+EVEX_VMOVAPD_ZMMM512_K1Z_ZMM: Code = 1092 # type: ignore
 """
 ``VMOVAPD zmm2/m512 {k1}{z}, zmm1``
 
@@ -10911,7 +10917,7 @@ EVEX_VMOVAPD_ZMMM512_K1Z_ZMM: int = 1092
 
 ``16/32/64-bit``
 """
-CVTPI2PS_XMM_MMM64: int = 1093
+CVTPI2PS_XMM_MMM64: Code = 1093 # type: ignore
 """
 ``CVTPI2PS xmm, mm/m64``
 
@@ -10921,7 +10927,7 @@ CVTPI2PS_XMM_MMM64: int = 1093
 
 ``16/32/64-bit``
 """
-CVTPI2PD_XMM_MMM64: int = 1094
+CVTPI2PD_XMM_MMM64: Code = 1094 # type: ignore
 """
 ``CVTPI2PD xmm, mm/m64``
 
@@ -10931,7 +10937,7 @@ CVTPI2PD_XMM_MMM64: int = 1094
 
 ``16/32/64-bit``
 """
-CVTSI2SS_XMM_RM32: int = 1095
+CVTSI2SS_XMM_RM32: Code = 1095 # type: ignore
 """
 ``CVTSI2SS xmm1, r/m32``
 
@@ -10941,7 +10947,7 @@ CVTSI2SS_XMM_RM32: int = 1095
 
 ``16/32/64-bit``
 """
-CVTSI2SS_XMM_RM64: int = 1096
+CVTSI2SS_XMM_RM64: Code = 1096 # type: ignore
 """
 ``CVTSI2SS xmm1, r/m64``
 
@@ -10951,7 +10957,7 @@ CVTSI2SS_XMM_RM64: int = 1096
 
 ``64-bit``
 """
-VEX_VCVTSI2SS_XMM_XMM_RM32: int = 1097
+VEX_VCVTSI2SS_XMM_XMM_RM32: Code = 1097 # type: ignore
 """
 ``VCVTSI2SS xmm1, xmm2, r/m32``
 
@@ -10961,7 +10967,7 @@ VEX_VCVTSI2SS_XMM_XMM_RM32: int = 1097
 
 ``16/32/64-bit``
 """
-VEX_VCVTSI2SS_XMM_XMM_RM64: int = 1098
+VEX_VCVTSI2SS_XMM_XMM_RM64: Code = 1098 # type: ignore
 """
 ``VCVTSI2SS xmm1, xmm2, r/m64``
 
@@ -10971,7 +10977,7 @@ VEX_VCVTSI2SS_XMM_XMM_RM64: int = 1098
 
 ``64-bit``
 """
-EVEX_VCVTSI2SS_XMM_XMM_RM32_ER: int = 1099
+EVEX_VCVTSI2SS_XMM_XMM_RM32_ER: Code = 1099 # type: ignore
 """
 ``VCVTSI2SS xmm1, xmm2, r/m32{er}``
 
@@ -10981,7 +10987,7 @@ EVEX_VCVTSI2SS_XMM_XMM_RM32_ER: int = 1099
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSI2SS_XMM_XMM_RM64_ER: int = 1100
+EVEX_VCVTSI2SS_XMM_XMM_RM64_ER: Code = 1100 # type: ignore
 """
 ``VCVTSI2SS xmm1, xmm2, r/m64{er}``
 
@@ -10991,7 +10997,7 @@ EVEX_VCVTSI2SS_XMM_XMM_RM64_ER: int = 1100
 
 ``64-bit``
 """
-CVTSI2SD_XMM_RM32: int = 1101
+CVTSI2SD_XMM_RM32: Code = 1101 # type: ignore
 """
 ``CVTSI2SD xmm1, r/m32``
 
@@ -11001,7 +11007,7 @@ CVTSI2SD_XMM_RM32: int = 1101
 
 ``16/32/64-bit``
 """
-CVTSI2SD_XMM_RM64: int = 1102
+CVTSI2SD_XMM_RM64: Code = 1102 # type: ignore
 """
 ``CVTSI2SD xmm1, r/m64``
 
@@ -11011,7 +11017,7 @@ CVTSI2SD_XMM_RM64: int = 1102
 
 ``64-bit``
 """
-VEX_VCVTSI2SD_XMM_XMM_RM32: int = 1103
+VEX_VCVTSI2SD_XMM_XMM_RM32: Code = 1103 # type: ignore
 """
 ``VCVTSI2SD xmm1, xmm2, r/m32``
 
@@ -11021,7 +11027,7 @@ VEX_VCVTSI2SD_XMM_XMM_RM32: int = 1103
 
 ``16/32/64-bit``
 """
-VEX_VCVTSI2SD_XMM_XMM_RM64: int = 1104
+VEX_VCVTSI2SD_XMM_XMM_RM64: Code = 1104 # type: ignore
 """
 ``VCVTSI2SD xmm1, xmm2, r/m64``
 
@@ -11031,7 +11037,7 @@ VEX_VCVTSI2SD_XMM_XMM_RM64: int = 1104
 
 ``64-bit``
 """
-EVEX_VCVTSI2SD_XMM_XMM_RM32_ER: int = 1105
+EVEX_VCVTSI2SD_XMM_XMM_RM32_ER: Code = 1105 # type: ignore
 """
 ``VCVTSI2SD xmm1, xmm2, r/m32{er}``
 
@@ -11041,7 +11047,7 @@ EVEX_VCVTSI2SD_XMM_XMM_RM32_ER: int = 1105
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSI2SD_XMM_XMM_RM64_ER: int = 1106
+EVEX_VCVTSI2SD_XMM_XMM_RM64_ER: Code = 1106 # type: ignore
 """
 ``VCVTSI2SD xmm1, xmm2, r/m64{er}``
 
@@ -11051,7 +11057,7 @@ EVEX_VCVTSI2SD_XMM_XMM_RM64_ER: int = 1106
 
 ``64-bit``
 """
-MOVNTPS_M128_XMM: int = 1107
+MOVNTPS_M128_XMM: Code = 1107 # type: ignore
 """
 ``MOVNTPS m128, xmm1``
 
@@ -11061,7 +11067,7 @@ MOVNTPS_M128_XMM: int = 1107
 
 ``16/32/64-bit``
 """
-VEX_VMOVNTPS_M128_XMM: int = 1108
+VEX_VMOVNTPS_M128_XMM: Code = 1108 # type: ignore
 """
 ``VMOVNTPS m128, xmm1``
 
@@ -11071,7 +11077,7 @@ VEX_VMOVNTPS_M128_XMM: int = 1108
 
 ``16/32/64-bit``
 """
-VEX_VMOVNTPS_M256_YMM: int = 1109
+VEX_VMOVNTPS_M256_YMM: Code = 1109 # type: ignore
 """
 ``VMOVNTPS m256, ymm1``
 
@@ -11081,7 +11087,7 @@ VEX_VMOVNTPS_M256_YMM: int = 1109
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTPS_M128_XMM: int = 1110
+EVEX_VMOVNTPS_M128_XMM: Code = 1110 # type: ignore
 """
 ``VMOVNTPS m128, xmm1``
 
@@ -11091,7 +11097,7 @@ EVEX_VMOVNTPS_M128_XMM: int = 1110
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTPS_M256_YMM: int = 1111
+EVEX_VMOVNTPS_M256_YMM: Code = 1111 # type: ignore
 """
 ``VMOVNTPS m256, ymm1``
 
@@ -11101,7 +11107,7 @@ EVEX_VMOVNTPS_M256_YMM: int = 1111
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTPS_M512_ZMM: int = 1112
+EVEX_VMOVNTPS_M512_ZMM: Code = 1112 # type: ignore
 """
 ``VMOVNTPS m512, zmm1``
 
@@ -11111,7 +11117,7 @@ EVEX_VMOVNTPS_M512_ZMM: int = 1112
 
 ``16/32/64-bit``
 """
-MOVNTPD_M128_XMM: int = 1113
+MOVNTPD_M128_XMM: Code = 1113 # type: ignore
 """
 ``MOVNTPD m128, xmm1``
 
@@ -11121,7 +11127,7 @@ MOVNTPD_M128_XMM: int = 1113
 
 ``16/32/64-bit``
 """
-VEX_VMOVNTPD_M128_XMM: int = 1114
+VEX_VMOVNTPD_M128_XMM: Code = 1114 # type: ignore
 """
 ``VMOVNTPD m128, xmm1``
 
@@ -11131,7 +11137,7 @@ VEX_VMOVNTPD_M128_XMM: int = 1114
 
 ``16/32/64-bit``
 """
-VEX_VMOVNTPD_M256_YMM: int = 1115
+VEX_VMOVNTPD_M256_YMM: Code = 1115 # type: ignore
 """
 ``VMOVNTPD m256, ymm1``
 
@@ -11141,7 +11147,7 @@ VEX_VMOVNTPD_M256_YMM: int = 1115
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTPD_M128_XMM: int = 1116
+EVEX_VMOVNTPD_M128_XMM: Code = 1116 # type: ignore
 """
 ``VMOVNTPD m128, xmm1``
 
@@ -11151,7 +11157,7 @@ EVEX_VMOVNTPD_M128_XMM: int = 1116
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTPD_M256_YMM: int = 1117
+EVEX_VMOVNTPD_M256_YMM: Code = 1117 # type: ignore
 """
 ``VMOVNTPD m256, ymm1``
 
@@ -11161,7 +11167,7 @@ EVEX_VMOVNTPD_M256_YMM: int = 1117
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTPD_M512_ZMM: int = 1118
+EVEX_VMOVNTPD_M512_ZMM: Code = 1118 # type: ignore
 """
 ``VMOVNTPD m512, zmm1``
 
@@ -11171,7 +11177,7 @@ EVEX_VMOVNTPD_M512_ZMM: int = 1118
 
 ``16/32/64-bit``
 """
-MOVNTSS_M32_XMM: int = 1119
+MOVNTSS_M32_XMM: Code = 1119 # type: ignore
 """
 ``MOVNTSS m32, xmm1``
 
@@ -11181,7 +11187,7 @@ MOVNTSS_M32_XMM: int = 1119
 
 ``16/32/64-bit``
 """
-MOVNTSD_M64_XMM: int = 1120
+MOVNTSD_M64_XMM: Code = 1120 # type: ignore
 """
 ``MOVNTSD m64, xmm1``
 
@@ -11191,7 +11197,7 @@ MOVNTSD_M64_XMM: int = 1120
 
 ``16/32/64-bit``
 """
-CVTTPS2PI_MM_XMMM64: int = 1121
+CVTTPS2PI_MM_XMMM64: Code = 1121 # type: ignore
 """
 ``CVTTPS2PI mm, xmm/m64``
 
@@ -11201,7 +11207,7 @@ CVTTPS2PI_MM_XMMM64: int = 1121
 
 ``16/32/64-bit``
 """
-CVTTPD2PI_MM_XMMM128: int = 1122
+CVTTPD2PI_MM_XMMM128: Code = 1122 # type: ignore
 """
 ``CVTTPD2PI mm, xmm/m128``
 
@@ -11211,7 +11217,7 @@ CVTTPD2PI_MM_XMMM128: int = 1122
 
 ``16/32/64-bit``
 """
-CVTTSS2SI_R32_XMMM32: int = 1123
+CVTTSS2SI_R32_XMMM32: Code = 1123 # type: ignore
 """
 ``CVTTSS2SI r32, xmm1/m32``
 
@@ -11221,7 +11227,7 @@ CVTTSS2SI_R32_XMMM32: int = 1123
 
 ``16/32/64-bit``
 """
-CVTTSS2SI_R64_XMMM32: int = 1124
+CVTTSS2SI_R64_XMMM32: Code = 1124 # type: ignore
 """
 ``CVTTSS2SI r64, xmm1/m32``
 
@@ -11231,7 +11237,7 @@ CVTTSS2SI_R64_XMMM32: int = 1124
 
 ``64-bit``
 """
-VEX_VCVTTSS2SI_R32_XMMM32: int = 1125
+VEX_VCVTTSS2SI_R32_XMMM32: Code = 1125 # type: ignore
 """
 ``VCVTTSS2SI r32, xmm1/m32``
 
@@ -11241,7 +11247,7 @@ VEX_VCVTTSS2SI_R32_XMMM32: int = 1125
 
 ``16/32/64-bit``
 """
-VEX_VCVTTSS2SI_R64_XMMM32: int = 1126
+VEX_VCVTTSS2SI_R64_XMMM32: Code = 1126 # type: ignore
 """
 ``VCVTTSS2SI r64, xmm1/m32``
 
@@ -11251,7 +11257,7 @@ VEX_VCVTTSS2SI_R64_XMMM32: int = 1126
 
 ``64-bit``
 """
-EVEX_VCVTTSS2SI_R32_XMMM32_SAE: int = 1127
+EVEX_VCVTTSS2SI_R32_XMMM32_SAE: Code = 1127 # type: ignore
 """
 ``VCVTTSS2SI r32, xmm1/m32{sae}``
 
@@ -11261,7 +11267,7 @@ EVEX_VCVTTSS2SI_R32_XMMM32_SAE: int = 1127
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTSS2SI_R64_XMMM32_SAE: int = 1128
+EVEX_VCVTTSS2SI_R64_XMMM32_SAE: Code = 1128 # type: ignore
 """
 ``VCVTTSS2SI r64, xmm1/m32{sae}``
 
@@ -11271,7 +11277,7 @@ EVEX_VCVTTSS2SI_R64_XMMM32_SAE: int = 1128
 
 ``64-bit``
 """
-CVTTSD2SI_R32_XMMM64: int = 1129
+CVTTSD2SI_R32_XMMM64: Code = 1129 # type: ignore
 """
 ``CVTTSD2SI r32, xmm1/m64``
 
@@ -11281,7 +11287,7 @@ CVTTSD2SI_R32_XMMM64: int = 1129
 
 ``16/32/64-bit``
 """
-CVTTSD2SI_R64_XMMM64: int = 1130
+CVTTSD2SI_R64_XMMM64: Code = 1130 # type: ignore
 """
 ``CVTTSD2SI r64, xmm1/m64``
 
@@ -11291,7 +11297,7 @@ CVTTSD2SI_R64_XMMM64: int = 1130
 
 ``64-bit``
 """
-VEX_VCVTTSD2SI_R32_XMMM64: int = 1131
+VEX_VCVTTSD2SI_R32_XMMM64: Code = 1131 # type: ignore
 """
 ``VCVTTSD2SI r32, xmm1/m64``
 
@@ -11301,7 +11307,7 @@ VEX_VCVTTSD2SI_R32_XMMM64: int = 1131
 
 ``16/32/64-bit``
 """
-VEX_VCVTTSD2SI_R64_XMMM64: int = 1132
+VEX_VCVTTSD2SI_R64_XMMM64: Code = 1132 # type: ignore
 """
 ``VCVTTSD2SI r64, xmm1/m64``
 
@@ -11311,7 +11317,7 @@ VEX_VCVTTSD2SI_R64_XMMM64: int = 1132
 
 ``64-bit``
 """
-EVEX_VCVTTSD2SI_R32_XMMM64_SAE: int = 1133
+EVEX_VCVTTSD2SI_R32_XMMM64_SAE: Code = 1133 # type: ignore
 """
 ``VCVTTSD2SI r32, xmm1/m64{sae}``
 
@@ -11321,7 +11327,7 @@ EVEX_VCVTTSD2SI_R32_XMMM64_SAE: int = 1133
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTSD2SI_R64_XMMM64_SAE: int = 1134
+EVEX_VCVTTSD2SI_R64_XMMM64_SAE: Code = 1134 # type: ignore
 """
 ``VCVTTSD2SI r64, xmm1/m64{sae}``
 
@@ -11331,7 +11337,7 @@ EVEX_VCVTTSD2SI_R64_XMMM64_SAE: int = 1134
 
 ``64-bit``
 """
-CVTPS2PI_MM_XMMM64: int = 1135
+CVTPS2PI_MM_XMMM64: Code = 1135 # type: ignore
 """
 ``CVTPS2PI mm, xmm/m64``
 
@@ -11341,7 +11347,7 @@ CVTPS2PI_MM_XMMM64: int = 1135
 
 ``16/32/64-bit``
 """
-CVTPD2PI_MM_XMMM128: int = 1136
+CVTPD2PI_MM_XMMM128: Code = 1136 # type: ignore
 """
 ``CVTPD2PI mm, xmm/m128``
 
@@ -11351,7 +11357,7 @@ CVTPD2PI_MM_XMMM128: int = 1136
 
 ``16/32/64-bit``
 """
-CVTSS2SI_R32_XMMM32: int = 1137
+CVTSS2SI_R32_XMMM32: Code = 1137 # type: ignore
 """
 ``CVTSS2SI r32, xmm1/m32``
 
@@ -11361,7 +11367,7 @@ CVTSS2SI_R32_XMMM32: int = 1137
 
 ``16/32/64-bit``
 """
-CVTSS2SI_R64_XMMM32: int = 1138
+CVTSS2SI_R64_XMMM32: Code = 1138 # type: ignore
 """
 ``CVTSS2SI r64, xmm1/m32``
 
@@ -11371,7 +11377,7 @@ CVTSS2SI_R64_XMMM32: int = 1138
 
 ``64-bit``
 """
-VEX_VCVTSS2SI_R32_XMMM32: int = 1139
+VEX_VCVTSS2SI_R32_XMMM32: Code = 1139 # type: ignore
 """
 ``VCVTSS2SI r32, xmm1/m32``
 
@@ -11381,7 +11387,7 @@ VEX_VCVTSS2SI_R32_XMMM32: int = 1139
 
 ``16/32/64-bit``
 """
-VEX_VCVTSS2SI_R64_XMMM32: int = 1140
+VEX_VCVTSS2SI_R64_XMMM32: Code = 1140 # type: ignore
 """
 ``VCVTSS2SI r64, xmm1/m32``
 
@@ -11391,7 +11397,7 @@ VEX_VCVTSS2SI_R64_XMMM32: int = 1140
 
 ``64-bit``
 """
-EVEX_VCVTSS2SI_R32_XMMM32_ER: int = 1141
+EVEX_VCVTSS2SI_R32_XMMM32_ER: Code = 1141 # type: ignore
 """
 ``VCVTSS2SI r32, xmm1/m32{er}``
 
@@ -11401,7 +11407,7 @@ EVEX_VCVTSS2SI_R32_XMMM32_ER: int = 1141
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSS2SI_R64_XMMM32_ER: int = 1142
+EVEX_VCVTSS2SI_R64_XMMM32_ER: Code = 1142 # type: ignore
 """
 ``VCVTSS2SI r64, xmm1/m32{er}``
 
@@ -11411,7 +11417,7 @@ EVEX_VCVTSS2SI_R64_XMMM32_ER: int = 1142
 
 ``64-bit``
 """
-CVTSD2SI_R32_XMMM64: int = 1143
+CVTSD2SI_R32_XMMM64: Code = 1143 # type: ignore
 """
 ``CVTSD2SI r32, xmm1/m64``
 
@@ -11421,7 +11427,7 @@ CVTSD2SI_R32_XMMM64: int = 1143
 
 ``16/32/64-bit``
 """
-CVTSD2SI_R64_XMMM64: int = 1144
+CVTSD2SI_R64_XMMM64: Code = 1144 # type: ignore
 """
 ``CVTSD2SI r64, xmm1/m64``
 
@@ -11431,7 +11437,7 @@ CVTSD2SI_R64_XMMM64: int = 1144
 
 ``64-bit``
 """
-VEX_VCVTSD2SI_R32_XMMM64: int = 1145
+VEX_VCVTSD2SI_R32_XMMM64: Code = 1145 # type: ignore
 """
 ``VCVTSD2SI r32, xmm1/m64``
 
@@ -11441,7 +11447,7 @@ VEX_VCVTSD2SI_R32_XMMM64: int = 1145
 
 ``16/32/64-bit``
 """
-VEX_VCVTSD2SI_R64_XMMM64: int = 1146
+VEX_VCVTSD2SI_R64_XMMM64: Code = 1146 # type: ignore
 """
 ``VCVTSD2SI r64, xmm1/m64``
 
@@ -11451,7 +11457,7 @@ VEX_VCVTSD2SI_R64_XMMM64: int = 1146
 
 ``64-bit``
 """
-EVEX_VCVTSD2SI_R32_XMMM64_ER: int = 1147
+EVEX_VCVTSD2SI_R32_XMMM64_ER: Code = 1147 # type: ignore
 """
 ``VCVTSD2SI r32, xmm1/m64{er}``
 
@@ -11461,7 +11467,7 @@ EVEX_VCVTSD2SI_R32_XMMM64_ER: int = 1147
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSD2SI_R64_XMMM64_ER: int = 1148
+EVEX_VCVTSD2SI_R64_XMMM64_ER: Code = 1148 # type: ignore
 """
 ``VCVTSD2SI r64, xmm1/m64{er}``
 
@@ -11471,7 +11477,7 @@ EVEX_VCVTSD2SI_R64_XMMM64_ER: int = 1148
 
 ``64-bit``
 """
-UCOMISS_XMM_XMMM32: int = 1149
+UCOMISS_XMM_XMMM32: Code = 1149 # type: ignore
 """
 ``UCOMISS xmm1, xmm2/m32``
 
@@ -11481,7 +11487,7 @@ UCOMISS_XMM_XMMM32: int = 1149
 
 ``16/32/64-bit``
 """
-VEX_VUCOMISS_XMM_XMMM32: int = 1150
+VEX_VUCOMISS_XMM_XMMM32: Code = 1150 # type: ignore
 """
 ``VUCOMISS xmm1, xmm2/m32``
 
@@ -11491,7 +11497,7 @@ VEX_VUCOMISS_XMM_XMMM32: int = 1150
 
 ``16/32/64-bit``
 """
-EVEX_VUCOMISS_XMM_XMMM32_SAE: int = 1151
+EVEX_VUCOMISS_XMM_XMMM32_SAE: Code = 1151 # type: ignore
 """
 ``VUCOMISS xmm1, xmm2/m32{sae}``
 
@@ -11501,7 +11507,7 @@ EVEX_VUCOMISS_XMM_XMMM32_SAE: int = 1151
 
 ``16/32/64-bit``
 """
-UCOMISD_XMM_XMMM64: int = 1152
+UCOMISD_XMM_XMMM64: Code = 1152 # type: ignore
 """
 ``UCOMISD xmm1, xmm2/m64``
 
@@ -11511,7 +11517,7 @@ UCOMISD_XMM_XMMM64: int = 1152
 
 ``16/32/64-bit``
 """
-VEX_VUCOMISD_XMM_XMMM64: int = 1153
+VEX_VUCOMISD_XMM_XMMM64: Code = 1153 # type: ignore
 """
 ``VUCOMISD xmm1, xmm2/m64``
 
@@ -11521,7 +11527,7 @@ VEX_VUCOMISD_XMM_XMMM64: int = 1153
 
 ``16/32/64-bit``
 """
-EVEX_VUCOMISD_XMM_XMMM64_SAE: int = 1154
+EVEX_VUCOMISD_XMM_XMMM64_SAE: Code = 1154 # type: ignore
 """
 ``VUCOMISD xmm1, xmm2/m64{sae}``
 
@@ -11531,7 +11537,7 @@ EVEX_VUCOMISD_XMM_XMMM64_SAE: int = 1154
 
 ``16/32/64-bit``
 """
-COMISS_XMM_XMMM32: int = 1155
+COMISS_XMM_XMMM32: Code = 1155 # type: ignore
 """
 ``COMISS xmm1, xmm2/m32``
 
@@ -11541,7 +11547,7 @@ COMISS_XMM_XMMM32: int = 1155
 
 ``16/32/64-bit``
 """
-COMISD_XMM_XMMM64: int = 1156
+COMISD_XMM_XMMM64: Code = 1156 # type: ignore
 """
 ``COMISD xmm1, xmm2/m64``
 
@@ -11551,7 +11557,7 @@ COMISD_XMM_XMMM64: int = 1156
 
 ``16/32/64-bit``
 """
-VEX_VCOMISS_XMM_XMMM32: int = 1157
+VEX_VCOMISS_XMM_XMMM32: Code = 1157 # type: ignore
 """
 ``VCOMISS xmm1, xmm2/m32``
 
@@ -11561,7 +11567,7 @@ VEX_VCOMISS_XMM_XMMM32: int = 1157
 
 ``16/32/64-bit``
 """
-VEX_VCOMISD_XMM_XMMM64: int = 1158
+VEX_VCOMISD_XMM_XMMM64: Code = 1158 # type: ignore
 """
 ``VCOMISD xmm1, xmm2/m64``
 
@@ -11571,7 +11577,7 @@ VEX_VCOMISD_XMM_XMMM64: int = 1158
 
 ``16/32/64-bit``
 """
-EVEX_VCOMISS_XMM_XMMM32_SAE: int = 1159
+EVEX_VCOMISS_XMM_XMMM32_SAE: Code = 1159 # type: ignore
 """
 ``VCOMISS xmm1, xmm2/m32{sae}``
 
@@ -11581,7 +11587,7 @@ EVEX_VCOMISS_XMM_XMMM32_SAE: int = 1159
 
 ``16/32/64-bit``
 """
-EVEX_VCOMISD_XMM_XMMM64_SAE: int = 1160
+EVEX_VCOMISD_XMM_XMMM64_SAE: Code = 1160 # type: ignore
 """
 ``VCOMISD xmm1, xmm2/m64{sae}``
 
@@ -11591,7 +11597,7 @@ EVEX_VCOMISD_XMM_XMMM64_SAE: int = 1160
 
 ``16/32/64-bit``
 """
-WRMSR: int = 1161
+WRMSR: Code = 1161 # type: ignore
 """
 ``WRMSR``
 
@@ -11601,7 +11607,7 @@ WRMSR: int = 1161
 
 ``16/32/64-bit``
 """
-RDTSC: int = 1162
+RDTSC: Code = 1162 # type: ignore
 """
 ``RDTSC``
 
@@ -11611,7 +11617,7 @@ RDTSC: int = 1162
 
 ``16/32/64-bit``
 """
-RDMSR: int = 1163
+RDMSR: Code = 1163 # type: ignore
 """
 ``RDMSR``
 
@@ -11621,7 +11627,7 @@ RDMSR: int = 1163
 
 ``16/32/64-bit``
 """
-RDPMC: int = 1164
+RDPMC: Code = 1164 # type: ignore
 """
 ``RDPMC``
 
@@ -11631,7 +11637,7 @@ RDPMC: int = 1164
 
 ``16/32/64-bit``
 """
-SYSENTER: int = 1165
+SYSENTER: Code = 1165 # type: ignore
 """
 ``SYSENTER``
 
@@ -11641,7 +11647,7 @@ SYSENTER: int = 1165
 
 ``16/32/64-bit``
 """
-SYSEXITD: int = 1166
+SYSEXITD: Code = 1166 # type: ignore
 """
 ``SYSEXIT``
 
@@ -11651,7 +11657,7 @@ SYSEXITD: int = 1166
 
 ``16/32/64-bit``
 """
-SYSEXITQ: int = 1167
+SYSEXITQ: Code = 1167 # type: ignore
 """
 ``SYSEXITQ``
 
@@ -11661,7 +11667,7 @@ SYSEXITQ: int = 1167
 
 ``64-bit``
 """
-GETSECD: int = 1168
+GETSECD: Code = 1168 # type: ignore
 """
 ``GETSEC``
 
@@ -11671,7 +11677,7 @@ GETSECD: int = 1168
 
 ``16/32/64-bit``
 """
-CMOVO_R16_RM16: int = 1169
+CMOVO_R16_RM16: Code = 1169 # type: ignore
 """
 ``CMOVO r16, r/m16``
 
@@ -11681,7 +11687,7 @@ CMOVO_R16_RM16: int = 1169
 
 ``16/32/64-bit``
 """
-CMOVO_R32_RM32: int = 1170
+CMOVO_R32_RM32: Code = 1170 # type: ignore
 """
 ``CMOVO r32, r/m32``
 
@@ -11691,7 +11697,7 @@ CMOVO_R32_RM32: int = 1170
 
 ``16/32/64-bit``
 """
-CMOVO_R64_RM64: int = 1171
+CMOVO_R64_RM64: Code = 1171 # type: ignore
 """
 ``CMOVO r64, r/m64``
 
@@ -11701,7 +11707,7 @@ CMOVO_R64_RM64: int = 1171
 
 ``64-bit``
 """
-CMOVNO_R16_RM16: int = 1172
+CMOVNO_R16_RM16: Code = 1172 # type: ignore
 """
 ``CMOVNO r16, r/m16``
 
@@ -11711,7 +11717,7 @@ CMOVNO_R16_RM16: int = 1172
 
 ``16/32/64-bit``
 """
-CMOVNO_R32_RM32: int = 1173
+CMOVNO_R32_RM32: Code = 1173 # type: ignore
 """
 ``CMOVNO r32, r/m32``
 
@@ -11721,7 +11727,7 @@ CMOVNO_R32_RM32: int = 1173
 
 ``16/32/64-bit``
 """
-CMOVNO_R64_RM64: int = 1174
+CMOVNO_R64_RM64: Code = 1174 # type: ignore
 """
 ``CMOVNO r64, r/m64``
 
@@ -11731,7 +11737,7 @@ CMOVNO_R64_RM64: int = 1174
 
 ``64-bit``
 """
-CMOVB_R16_RM16: int = 1175
+CMOVB_R16_RM16: Code = 1175 # type: ignore
 """
 ``CMOVB r16, r/m16``
 
@@ -11741,7 +11747,7 @@ CMOVB_R16_RM16: int = 1175
 
 ``16/32/64-bit``
 """
-CMOVB_R32_RM32: int = 1176
+CMOVB_R32_RM32: Code = 1176 # type: ignore
 """
 ``CMOVB r32, r/m32``
 
@@ -11751,7 +11757,7 @@ CMOVB_R32_RM32: int = 1176
 
 ``16/32/64-bit``
 """
-CMOVB_R64_RM64: int = 1177
+CMOVB_R64_RM64: Code = 1177 # type: ignore
 """
 ``CMOVB r64, r/m64``
 
@@ -11761,7 +11767,7 @@ CMOVB_R64_RM64: int = 1177
 
 ``64-bit``
 """
-CMOVAE_R16_RM16: int = 1178
+CMOVAE_R16_RM16: Code = 1178 # type: ignore
 """
 ``CMOVAE r16, r/m16``
 
@@ -11771,7 +11777,7 @@ CMOVAE_R16_RM16: int = 1178
 
 ``16/32/64-bit``
 """
-CMOVAE_R32_RM32: int = 1179
+CMOVAE_R32_RM32: Code = 1179 # type: ignore
 """
 ``CMOVAE r32, r/m32``
 
@@ -11781,7 +11787,7 @@ CMOVAE_R32_RM32: int = 1179
 
 ``16/32/64-bit``
 """
-CMOVAE_R64_RM64: int = 1180
+CMOVAE_R64_RM64: Code = 1180 # type: ignore
 """
 ``CMOVAE r64, r/m64``
 
@@ -11791,7 +11797,7 @@ CMOVAE_R64_RM64: int = 1180
 
 ``64-bit``
 """
-CMOVE_R16_RM16: int = 1181
+CMOVE_R16_RM16: Code = 1181 # type: ignore
 """
 ``CMOVE r16, r/m16``
 
@@ -11801,7 +11807,7 @@ CMOVE_R16_RM16: int = 1181
 
 ``16/32/64-bit``
 """
-CMOVE_R32_RM32: int = 1182
+CMOVE_R32_RM32: Code = 1182 # type: ignore
 """
 ``CMOVE r32, r/m32``
 
@@ -11811,7 +11817,7 @@ CMOVE_R32_RM32: int = 1182
 
 ``16/32/64-bit``
 """
-CMOVE_R64_RM64: int = 1183
+CMOVE_R64_RM64: Code = 1183 # type: ignore
 """
 ``CMOVE r64, r/m64``
 
@@ -11821,7 +11827,7 @@ CMOVE_R64_RM64: int = 1183
 
 ``64-bit``
 """
-CMOVNE_R16_RM16: int = 1184
+CMOVNE_R16_RM16: Code = 1184 # type: ignore
 """
 ``CMOVNE r16, r/m16``
 
@@ -11831,7 +11837,7 @@ CMOVNE_R16_RM16: int = 1184
 
 ``16/32/64-bit``
 """
-CMOVNE_R32_RM32: int = 1185
+CMOVNE_R32_RM32: Code = 1185 # type: ignore
 """
 ``CMOVNE r32, r/m32``
 
@@ -11841,7 +11847,7 @@ CMOVNE_R32_RM32: int = 1185
 
 ``16/32/64-bit``
 """
-CMOVNE_R64_RM64: int = 1186
+CMOVNE_R64_RM64: Code = 1186 # type: ignore
 """
 ``CMOVNE r64, r/m64``
 
@@ -11851,7 +11857,7 @@ CMOVNE_R64_RM64: int = 1186
 
 ``64-bit``
 """
-CMOVBE_R16_RM16: int = 1187
+CMOVBE_R16_RM16: Code = 1187 # type: ignore
 """
 ``CMOVBE r16, r/m16``
 
@@ -11861,7 +11867,7 @@ CMOVBE_R16_RM16: int = 1187
 
 ``16/32/64-bit``
 """
-CMOVBE_R32_RM32: int = 1188
+CMOVBE_R32_RM32: Code = 1188 # type: ignore
 """
 ``CMOVBE r32, r/m32``
 
@@ -11871,7 +11877,7 @@ CMOVBE_R32_RM32: int = 1188
 
 ``16/32/64-bit``
 """
-CMOVBE_R64_RM64: int = 1189
+CMOVBE_R64_RM64: Code = 1189 # type: ignore
 """
 ``CMOVBE r64, r/m64``
 
@@ -11881,7 +11887,7 @@ CMOVBE_R64_RM64: int = 1189
 
 ``64-bit``
 """
-CMOVA_R16_RM16: int = 1190
+CMOVA_R16_RM16: Code = 1190 # type: ignore
 """
 ``CMOVA r16, r/m16``
 
@@ -11891,7 +11897,7 @@ CMOVA_R16_RM16: int = 1190
 
 ``16/32/64-bit``
 """
-CMOVA_R32_RM32: int = 1191
+CMOVA_R32_RM32: Code = 1191 # type: ignore
 """
 ``CMOVA r32, r/m32``
 
@@ -11901,7 +11907,7 @@ CMOVA_R32_RM32: int = 1191
 
 ``16/32/64-bit``
 """
-CMOVA_R64_RM64: int = 1192
+CMOVA_R64_RM64: Code = 1192 # type: ignore
 """
 ``CMOVA r64, r/m64``
 
@@ -11911,7 +11917,7 @@ CMOVA_R64_RM64: int = 1192
 
 ``64-bit``
 """
-CMOVS_R16_RM16: int = 1193
+CMOVS_R16_RM16: Code = 1193 # type: ignore
 """
 ``CMOVS r16, r/m16``
 
@@ -11921,7 +11927,7 @@ CMOVS_R16_RM16: int = 1193
 
 ``16/32/64-bit``
 """
-CMOVS_R32_RM32: int = 1194
+CMOVS_R32_RM32: Code = 1194 # type: ignore
 """
 ``CMOVS r32, r/m32``
 
@@ -11931,7 +11937,7 @@ CMOVS_R32_RM32: int = 1194
 
 ``16/32/64-bit``
 """
-CMOVS_R64_RM64: int = 1195
+CMOVS_R64_RM64: Code = 1195 # type: ignore
 """
 ``CMOVS r64, r/m64``
 
@@ -11941,7 +11947,7 @@ CMOVS_R64_RM64: int = 1195
 
 ``64-bit``
 """
-CMOVNS_R16_RM16: int = 1196
+CMOVNS_R16_RM16: Code = 1196 # type: ignore
 """
 ``CMOVNS r16, r/m16``
 
@@ -11951,7 +11957,7 @@ CMOVNS_R16_RM16: int = 1196
 
 ``16/32/64-bit``
 """
-CMOVNS_R32_RM32: int = 1197
+CMOVNS_R32_RM32: Code = 1197 # type: ignore
 """
 ``CMOVNS r32, r/m32``
 
@@ -11961,7 +11967,7 @@ CMOVNS_R32_RM32: int = 1197
 
 ``16/32/64-bit``
 """
-CMOVNS_R64_RM64: int = 1198
+CMOVNS_R64_RM64: Code = 1198 # type: ignore
 """
 ``CMOVNS r64, r/m64``
 
@@ -11971,7 +11977,7 @@ CMOVNS_R64_RM64: int = 1198
 
 ``64-bit``
 """
-CMOVP_R16_RM16: int = 1199
+CMOVP_R16_RM16: Code = 1199 # type: ignore
 """
 ``CMOVP r16, r/m16``
 
@@ -11981,7 +11987,7 @@ CMOVP_R16_RM16: int = 1199
 
 ``16/32/64-bit``
 """
-CMOVP_R32_RM32: int = 1200
+CMOVP_R32_RM32: Code = 1200 # type: ignore
 """
 ``CMOVP r32, r/m32``
 
@@ -11991,7 +11997,7 @@ CMOVP_R32_RM32: int = 1200
 
 ``16/32/64-bit``
 """
-CMOVP_R64_RM64: int = 1201
+CMOVP_R64_RM64: Code = 1201 # type: ignore
 """
 ``CMOVP r64, r/m64``
 
@@ -12001,7 +12007,7 @@ CMOVP_R64_RM64: int = 1201
 
 ``64-bit``
 """
-CMOVNP_R16_RM16: int = 1202
+CMOVNP_R16_RM16: Code = 1202 # type: ignore
 """
 ``CMOVNP r16, r/m16``
 
@@ -12011,7 +12017,7 @@ CMOVNP_R16_RM16: int = 1202
 
 ``16/32/64-bit``
 """
-CMOVNP_R32_RM32: int = 1203
+CMOVNP_R32_RM32: Code = 1203 # type: ignore
 """
 ``CMOVNP r32, r/m32``
 
@@ -12021,7 +12027,7 @@ CMOVNP_R32_RM32: int = 1203
 
 ``16/32/64-bit``
 """
-CMOVNP_R64_RM64: int = 1204
+CMOVNP_R64_RM64: Code = 1204 # type: ignore
 """
 ``CMOVNP r64, r/m64``
 
@@ -12031,7 +12037,7 @@ CMOVNP_R64_RM64: int = 1204
 
 ``64-bit``
 """
-CMOVL_R16_RM16: int = 1205
+CMOVL_R16_RM16: Code = 1205 # type: ignore
 """
 ``CMOVL r16, r/m16``
 
@@ -12041,7 +12047,7 @@ CMOVL_R16_RM16: int = 1205
 
 ``16/32/64-bit``
 """
-CMOVL_R32_RM32: int = 1206
+CMOVL_R32_RM32: Code = 1206 # type: ignore
 """
 ``CMOVL r32, r/m32``
 
@@ -12051,7 +12057,7 @@ CMOVL_R32_RM32: int = 1206
 
 ``16/32/64-bit``
 """
-CMOVL_R64_RM64: int = 1207
+CMOVL_R64_RM64: Code = 1207 # type: ignore
 """
 ``CMOVL r64, r/m64``
 
@@ -12061,7 +12067,7 @@ CMOVL_R64_RM64: int = 1207
 
 ``64-bit``
 """
-CMOVGE_R16_RM16: int = 1208
+CMOVGE_R16_RM16: Code = 1208 # type: ignore
 """
 ``CMOVGE r16, r/m16``
 
@@ -12071,7 +12077,7 @@ CMOVGE_R16_RM16: int = 1208
 
 ``16/32/64-bit``
 """
-CMOVGE_R32_RM32: int = 1209
+CMOVGE_R32_RM32: Code = 1209 # type: ignore
 """
 ``CMOVGE r32, r/m32``
 
@@ -12081,7 +12087,7 @@ CMOVGE_R32_RM32: int = 1209
 
 ``16/32/64-bit``
 """
-CMOVGE_R64_RM64: int = 1210
+CMOVGE_R64_RM64: Code = 1210 # type: ignore
 """
 ``CMOVGE r64, r/m64``
 
@@ -12091,7 +12097,7 @@ CMOVGE_R64_RM64: int = 1210
 
 ``64-bit``
 """
-CMOVLE_R16_RM16: int = 1211
+CMOVLE_R16_RM16: Code = 1211 # type: ignore
 """
 ``CMOVLE r16, r/m16``
 
@@ -12101,7 +12107,7 @@ CMOVLE_R16_RM16: int = 1211
 
 ``16/32/64-bit``
 """
-CMOVLE_R32_RM32: int = 1212
+CMOVLE_R32_RM32: Code = 1212 # type: ignore
 """
 ``CMOVLE r32, r/m32``
 
@@ -12111,7 +12117,7 @@ CMOVLE_R32_RM32: int = 1212
 
 ``16/32/64-bit``
 """
-CMOVLE_R64_RM64: int = 1213
+CMOVLE_R64_RM64: Code = 1213 # type: ignore
 """
 ``CMOVLE r64, r/m64``
 
@@ -12121,7 +12127,7 @@ CMOVLE_R64_RM64: int = 1213
 
 ``64-bit``
 """
-CMOVG_R16_RM16: int = 1214
+CMOVG_R16_RM16: Code = 1214 # type: ignore
 """
 ``CMOVG r16, r/m16``
 
@@ -12131,7 +12137,7 @@ CMOVG_R16_RM16: int = 1214
 
 ``16/32/64-bit``
 """
-CMOVG_R32_RM32: int = 1215
+CMOVG_R32_RM32: Code = 1215 # type: ignore
 """
 ``CMOVG r32, r/m32``
 
@@ -12141,7 +12147,7 @@ CMOVG_R32_RM32: int = 1215
 
 ``16/32/64-bit``
 """
-CMOVG_R64_RM64: int = 1216
+CMOVG_R64_RM64: Code = 1216 # type: ignore
 """
 ``CMOVG r64, r/m64``
 
@@ -12151,7 +12157,7 @@ CMOVG_R64_RM64: int = 1216
 
 ``64-bit``
 """
-VEX_KANDW_KR_KR_KR: int = 1217
+VEX_KANDW_KR_KR_KR: Code = 1217 # type: ignore
 """
 ``KANDW k1, k2, k3``
 
@@ -12161,7 +12167,7 @@ VEX_KANDW_KR_KR_KR: int = 1217
 
 ``16/32/64-bit``
 """
-VEX_KANDQ_KR_KR_KR: int = 1218
+VEX_KANDQ_KR_KR_KR: Code = 1218 # type: ignore
 """
 ``KANDQ k1, k2, k3``
 
@@ -12171,7 +12177,7 @@ VEX_KANDQ_KR_KR_KR: int = 1218
 
 ``16/32/64-bit``
 """
-VEX_KANDB_KR_KR_KR: int = 1219
+VEX_KANDB_KR_KR_KR: Code = 1219 # type: ignore
 """
 ``KANDB k1, k2, k3``
 
@@ -12181,7 +12187,7 @@ VEX_KANDB_KR_KR_KR: int = 1219
 
 ``16/32/64-bit``
 """
-VEX_KANDD_KR_KR_KR: int = 1220
+VEX_KANDD_KR_KR_KR: Code = 1220 # type: ignore
 """
 ``KANDD k1, k2, k3``
 
@@ -12191,7 +12197,7 @@ VEX_KANDD_KR_KR_KR: int = 1220
 
 ``16/32/64-bit``
 """
-VEX_KANDNW_KR_KR_KR: int = 1221
+VEX_KANDNW_KR_KR_KR: Code = 1221 # type: ignore
 """
 ``KANDNW k1, k2, k3``
 
@@ -12201,7 +12207,7 @@ VEX_KANDNW_KR_KR_KR: int = 1221
 
 ``16/32/64-bit``
 """
-VEX_KANDNQ_KR_KR_KR: int = 1222
+VEX_KANDNQ_KR_KR_KR: Code = 1222 # type: ignore
 """
 ``KANDNQ k1, k2, k3``
 
@@ -12211,7 +12217,7 @@ VEX_KANDNQ_KR_KR_KR: int = 1222
 
 ``16/32/64-bit``
 """
-VEX_KANDNB_KR_KR_KR: int = 1223
+VEX_KANDNB_KR_KR_KR: Code = 1223 # type: ignore
 """
 ``KANDNB k1, k2, k3``
 
@@ -12221,7 +12227,7 @@ VEX_KANDNB_KR_KR_KR: int = 1223
 
 ``16/32/64-bit``
 """
-VEX_KANDND_KR_KR_KR: int = 1224
+VEX_KANDND_KR_KR_KR: Code = 1224 # type: ignore
 """
 ``KANDND k1, k2, k3``
 
@@ -12231,7 +12237,7 @@ VEX_KANDND_KR_KR_KR: int = 1224
 
 ``16/32/64-bit``
 """
-VEX_KNOTW_KR_KR: int = 1225
+VEX_KNOTW_KR_KR: Code = 1225 # type: ignore
 """
 ``KNOTW k1, k2``
 
@@ -12241,7 +12247,7 @@ VEX_KNOTW_KR_KR: int = 1225
 
 ``16/32/64-bit``
 """
-VEX_KNOTQ_KR_KR: int = 1226
+VEX_KNOTQ_KR_KR: Code = 1226 # type: ignore
 """
 ``KNOTQ k1, k2``
 
@@ -12251,7 +12257,7 @@ VEX_KNOTQ_KR_KR: int = 1226
 
 ``16/32/64-bit``
 """
-VEX_KNOTB_KR_KR: int = 1227
+VEX_KNOTB_KR_KR: Code = 1227 # type: ignore
 """
 ``KNOTB k1, k2``
 
@@ -12261,7 +12267,7 @@ VEX_KNOTB_KR_KR: int = 1227
 
 ``16/32/64-bit``
 """
-VEX_KNOTD_KR_KR: int = 1228
+VEX_KNOTD_KR_KR: Code = 1228 # type: ignore
 """
 ``KNOTD k1, k2``
 
@@ -12271,7 +12277,7 @@ VEX_KNOTD_KR_KR: int = 1228
 
 ``16/32/64-bit``
 """
-VEX_KORW_KR_KR_KR: int = 1229
+VEX_KORW_KR_KR_KR: Code = 1229 # type: ignore
 """
 ``KORW k1, k2, k3``
 
@@ -12281,7 +12287,7 @@ VEX_KORW_KR_KR_KR: int = 1229
 
 ``16/32/64-bit``
 """
-VEX_KORQ_KR_KR_KR: int = 1230
+VEX_KORQ_KR_KR_KR: Code = 1230 # type: ignore
 """
 ``KORQ k1, k2, k3``
 
@@ -12291,7 +12297,7 @@ VEX_KORQ_KR_KR_KR: int = 1230
 
 ``16/32/64-bit``
 """
-VEX_KORB_KR_KR_KR: int = 1231
+VEX_KORB_KR_KR_KR: Code = 1231 # type: ignore
 """
 ``KORB k1, k2, k3``
 
@@ -12301,7 +12307,7 @@ VEX_KORB_KR_KR_KR: int = 1231
 
 ``16/32/64-bit``
 """
-VEX_KORD_KR_KR_KR: int = 1232
+VEX_KORD_KR_KR_KR: Code = 1232 # type: ignore
 """
 ``KORD k1, k2, k3``
 
@@ -12311,7 +12317,7 @@ VEX_KORD_KR_KR_KR: int = 1232
 
 ``16/32/64-bit``
 """
-VEX_KXNORW_KR_KR_KR: int = 1233
+VEX_KXNORW_KR_KR_KR: Code = 1233 # type: ignore
 """
 ``KXNORW k1, k2, k3``
 
@@ -12321,7 +12327,7 @@ VEX_KXNORW_KR_KR_KR: int = 1233
 
 ``16/32/64-bit``
 """
-VEX_KXNORQ_KR_KR_KR: int = 1234
+VEX_KXNORQ_KR_KR_KR: Code = 1234 # type: ignore
 """
 ``KXNORQ k1, k2, k3``
 
@@ -12331,7 +12337,7 @@ VEX_KXNORQ_KR_KR_KR: int = 1234
 
 ``16/32/64-bit``
 """
-VEX_KXNORB_KR_KR_KR: int = 1235
+VEX_KXNORB_KR_KR_KR: Code = 1235 # type: ignore
 """
 ``KXNORB k1, k2, k3``
 
@@ -12341,7 +12347,7 @@ VEX_KXNORB_KR_KR_KR: int = 1235
 
 ``16/32/64-bit``
 """
-VEX_KXNORD_KR_KR_KR: int = 1236
+VEX_KXNORD_KR_KR_KR: Code = 1236 # type: ignore
 """
 ``KXNORD k1, k2, k3``
 
@@ -12351,7 +12357,7 @@ VEX_KXNORD_KR_KR_KR: int = 1236
 
 ``16/32/64-bit``
 """
-VEX_KXORW_KR_KR_KR: int = 1237
+VEX_KXORW_KR_KR_KR: Code = 1237 # type: ignore
 """
 ``KXORW k1, k2, k3``
 
@@ -12361,7 +12367,7 @@ VEX_KXORW_KR_KR_KR: int = 1237
 
 ``16/32/64-bit``
 """
-VEX_KXORQ_KR_KR_KR: int = 1238
+VEX_KXORQ_KR_KR_KR: Code = 1238 # type: ignore
 """
 ``KXORQ k1, k2, k3``
 
@@ -12371,7 +12377,7 @@ VEX_KXORQ_KR_KR_KR: int = 1238
 
 ``16/32/64-bit``
 """
-VEX_KXORB_KR_KR_KR: int = 1239
+VEX_KXORB_KR_KR_KR: Code = 1239 # type: ignore
 """
 ``KXORB k1, k2, k3``
 
@@ -12381,7 +12387,7 @@ VEX_KXORB_KR_KR_KR: int = 1239
 
 ``16/32/64-bit``
 """
-VEX_KXORD_KR_KR_KR: int = 1240
+VEX_KXORD_KR_KR_KR: Code = 1240 # type: ignore
 """
 ``KXORD k1, k2, k3``
 
@@ -12391,7 +12397,7 @@ VEX_KXORD_KR_KR_KR: int = 1240
 
 ``16/32/64-bit``
 """
-VEX_KADDW_KR_KR_KR: int = 1241
+VEX_KADDW_KR_KR_KR: Code = 1241 # type: ignore
 """
 ``KADDW k1, k2, k3``
 
@@ -12401,7 +12407,7 @@ VEX_KADDW_KR_KR_KR: int = 1241
 
 ``16/32/64-bit``
 """
-VEX_KADDQ_KR_KR_KR: int = 1242
+VEX_KADDQ_KR_KR_KR: Code = 1242 # type: ignore
 """
 ``KADDQ k1, k2, k3``
 
@@ -12411,7 +12417,7 @@ VEX_KADDQ_KR_KR_KR: int = 1242
 
 ``16/32/64-bit``
 """
-VEX_KADDB_KR_KR_KR: int = 1243
+VEX_KADDB_KR_KR_KR: Code = 1243 # type: ignore
 """
 ``KADDB k1, k2, k3``
 
@@ -12421,7 +12427,7 @@ VEX_KADDB_KR_KR_KR: int = 1243
 
 ``16/32/64-bit``
 """
-VEX_KADDD_KR_KR_KR: int = 1244
+VEX_KADDD_KR_KR_KR: Code = 1244 # type: ignore
 """
 ``KADDD k1, k2, k3``
 
@@ -12431,7 +12437,7 @@ VEX_KADDD_KR_KR_KR: int = 1244
 
 ``16/32/64-bit``
 """
-VEX_KUNPCKWD_KR_KR_KR: int = 1245
+VEX_KUNPCKWD_KR_KR_KR: Code = 1245 # type: ignore
 """
 ``KUNPCKWD k1, k2, k3``
 
@@ -12441,7 +12447,7 @@ VEX_KUNPCKWD_KR_KR_KR: int = 1245
 
 ``16/32/64-bit``
 """
-VEX_KUNPCKDQ_KR_KR_KR: int = 1246
+VEX_KUNPCKDQ_KR_KR_KR: Code = 1246 # type: ignore
 """
 ``KUNPCKDQ k1, k2, k3``
 
@@ -12451,7 +12457,7 @@ VEX_KUNPCKDQ_KR_KR_KR: int = 1246
 
 ``16/32/64-bit``
 """
-VEX_KUNPCKBW_KR_KR_KR: int = 1247
+VEX_KUNPCKBW_KR_KR_KR: Code = 1247 # type: ignore
 """
 ``KUNPCKBW k1, k2, k3``
 
@@ -12461,7 +12467,7 @@ VEX_KUNPCKBW_KR_KR_KR: int = 1247
 
 ``16/32/64-bit``
 """
-MOVMSKPS_R32_XMM: int = 1248
+MOVMSKPS_R32_XMM: Code = 1248 # type: ignore
 """
 ``MOVMSKPS r32, xmm``
 
@@ -12471,7 +12477,7 @@ MOVMSKPS_R32_XMM: int = 1248
 
 ``16/32/64-bit``
 """
-MOVMSKPS_R64_XMM: int = 1249
+MOVMSKPS_R64_XMM: Code = 1249 # type: ignore
 """
 ``MOVMSKPS r64, xmm``
 
@@ -12481,7 +12487,7 @@ MOVMSKPS_R64_XMM: int = 1249
 
 ``64-bit``
 """
-VEX_VMOVMSKPS_R32_XMM: int = 1250
+VEX_VMOVMSKPS_R32_XMM: Code = 1250 # type: ignore
 """
 ``VMOVMSKPS r32, xmm2``
 
@@ -12491,7 +12497,7 @@ VEX_VMOVMSKPS_R32_XMM: int = 1250
 
 ``16/32/64-bit``
 """
-VEX_VMOVMSKPS_R64_XMM: int = 1251
+VEX_VMOVMSKPS_R64_XMM: Code = 1251 # type: ignore
 """
 ``VMOVMSKPS r64, xmm2``
 
@@ -12501,7 +12507,7 @@ VEX_VMOVMSKPS_R64_XMM: int = 1251
 
 ``64-bit``
 """
-VEX_VMOVMSKPS_R32_YMM: int = 1252
+VEX_VMOVMSKPS_R32_YMM: Code = 1252 # type: ignore
 """
 ``VMOVMSKPS r32, ymm2``
 
@@ -12511,7 +12517,7 @@ VEX_VMOVMSKPS_R32_YMM: int = 1252
 
 ``16/32/64-bit``
 """
-VEX_VMOVMSKPS_R64_YMM: int = 1253
+VEX_VMOVMSKPS_R64_YMM: Code = 1253 # type: ignore
 """
 ``VMOVMSKPS r64, ymm2``
 
@@ -12521,7 +12527,7 @@ VEX_VMOVMSKPS_R64_YMM: int = 1253
 
 ``64-bit``
 """
-MOVMSKPD_R32_XMM: int = 1254
+MOVMSKPD_R32_XMM: Code = 1254 # type: ignore
 """
 ``MOVMSKPD r32, xmm``
 
@@ -12531,7 +12537,7 @@ MOVMSKPD_R32_XMM: int = 1254
 
 ``16/32/64-bit``
 """
-MOVMSKPD_R64_XMM: int = 1255
+MOVMSKPD_R64_XMM: Code = 1255 # type: ignore
 """
 ``MOVMSKPD r64, xmm``
 
@@ -12541,7 +12547,7 @@ MOVMSKPD_R64_XMM: int = 1255
 
 ``64-bit``
 """
-VEX_VMOVMSKPD_R32_XMM: int = 1256
+VEX_VMOVMSKPD_R32_XMM: Code = 1256 # type: ignore
 """
 ``VMOVMSKPD r32, xmm2``
 
@@ -12551,7 +12557,7 @@ VEX_VMOVMSKPD_R32_XMM: int = 1256
 
 ``16/32/64-bit``
 """
-VEX_VMOVMSKPD_R64_XMM: int = 1257
+VEX_VMOVMSKPD_R64_XMM: Code = 1257 # type: ignore
 """
 ``VMOVMSKPD r64, xmm2``
 
@@ -12561,7 +12567,7 @@ VEX_VMOVMSKPD_R64_XMM: int = 1257
 
 ``64-bit``
 """
-VEX_VMOVMSKPD_R32_YMM: int = 1258
+VEX_VMOVMSKPD_R32_YMM: Code = 1258 # type: ignore
 """
 ``VMOVMSKPD r32, ymm2``
 
@@ -12571,7 +12577,7 @@ VEX_VMOVMSKPD_R32_YMM: int = 1258
 
 ``16/32/64-bit``
 """
-VEX_VMOVMSKPD_R64_YMM: int = 1259
+VEX_VMOVMSKPD_R64_YMM: Code = 1259 # type: ignore
 """
 ``VMOVMSKPD r64, ymm2``
 
@@ -12581,7 +12587,7 @@ VEX_VMOVMSKPD_R64_YMM: int = 1259
 
 ``64-bit``
 """
-SQRTPS_XMM_XMMM128: int = 1260
+SQRTPS_XMM_XMMM128: Code = 1260 # type: ignore
 """
 ``SQRTPS xmm1, xmm2/m128``
 
@@ -12591,7 +12597,7 @@ SQRTPS_XMM_XMMM128: int = 1260
 
 ``16/32/64-bit``
 """
-VEX_VSQRTPS_XMM_XMMM128: int = 1261
+VEX_VSQRTPS_XMM_XMMM128: Code = 1261 # type: ignore
 """
 ``VSQRTPS xmm1, xmm2/m128``
 
@@ -12601,7 +12607,7 @@ VEX_VSQRTPS_XMM_XMMM128: int = 1261
 
 ``16/32/64-bit``
 """
-VEX_VSQRTPS_YMM_YMMM256: int = 1262
+VEX_VSQRTPS_YMM_YMMM256: Code = 1262 # type: ignore
 """
 ``VSQRTPS ymm1, ymm2/m256``
 
@@ -12611,7 +12617,7 @@ VEX_VSQRTPS_YMM_YMMM256: int = 1262
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTPS_XMM_K1Z_XMMM128B32: int = 1263
+EVEX_VSQRTPS_XMM_K1Z_XMMM128B32: Code = 1263 # type: ignore
 """
 ``VSQRTPS xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -12621,7 +12627,7 @@ EVEX_VSQRTPS_XMM_K1Z_XMMM128B32: int = 1263
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTPS_YMM_K1Z_YMMM256B32: int = 1264
+EVEX_VSQRTPS_YMM_K1Z_YMMM256B32: Code = 1264 # type: ignore
 """
 ``VSQRTPS ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -12631,7 +12637,7 @@ EVEX_VSQRTPS_YMM_K1Z_YMMM256B32: int = 1264
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTPS_ZMM_K1Z_ZMMM512B32_ER: int = 1265
+EVEX_VSQRTPS_ZMM_K1Z_ZMMM512B32_ER: Code = 1265 # type: ignore
 """
 ``VSQRTPS zmm1 {k1}{z}, zmm2/m512/m32bcst{er}``
 
@@ -12641,7 +12647,7 @@ EVEX_VSQRTPS_ZMM_K1Z_ZMMM512B32_ER: int = 1265
 
 ``16/32/64-bit``
 """
-SQRTPD_XMM_XMMM128: int = 1266
+SQRTPD_XMM_XMMM128: Code = 1266 # type: ignore
 """
 ``SQRTPD xmm1, xmm2/m128``
 
@@ -12651,7 +12657,7 @@ SQRTPD_XMM_XMMM128: int = 1266
 
 ``16/32/64-bit``
 """
-VEX_VSQRTPD_XMM_XMMM128: int = 1267
+VEX_VSQRTPD_XMM_XMMM128: Code = 1267 # type: ignore
 """
 ``VSQRTPD xmm1, xmm2/m128``
 
@@ -12661,7 +12667,7 @@ VEX_VSQRTPD_XMM_XMMM128: int = 1267
 
 ``16/32/64-bit``
 """
-VEX_VSQRTPD_YMM_YMMM256: int = 1268
+VEX_VSQRTPD_YMM_YMMM256: Code = 1268 # type: ignore
 """
 ``VSQRTPD ymm1, ymm2/m256``
 
@@ -12671,7 +12677,7 @@ VEX_VSQRTPD_YMM_YMMM256: int = 1268
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTPD_XMM_K1Z_XMMM128B64: int = 1269
+EVEX_VSQRTPD_XMM_K1Z_XMMM128B64: Code = 1269 # type: ignore
 """
 ``VSQRTPD xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -12681,7 +12687,7 @@ EVEX_VSQRTPD_XMM_K1Z_XMMM128B64: int = 1269
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTPD_YMM_K1Z_YMMM256B64: int = 1270
+EVEX_VSQRTPD_YMM_K1Z_YMMM256B64: Code = 1270 # type: ignore
 """
 ``VSQRTPD ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -12691,7 +12697,7 @@ EVEX_VSQRTPD_YMM_K1Z_YMMM256B64: int = 1270
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTPD_ZMM_K1Z_ZMMM512B64_ER: int = 1271
+EVEX_VSQRTPD_ZMM_K1Z_ZMMM512B64_ER: Code = 1271 # type: ignore
 """
 ``VSQRTPD zmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -12701,7 +12707,7 @@ EVEX_VSQRTPD_ZMM_K1Z_ZMMM512B64_ER: int = 1271
 
 ``16/32/64-bit``
 """
-SQRTSS_XMM_XMMM32: int = 1272
+SQRTSS_XMM_XMMM32: Code = 1272 # type: ignore
 """
 ``SQRTSS xmm1, xmm2/m32``
 
@@ -12711,7 +12717,7 @@ SQRTSS_XMM_XMMM32: int = 1272
 
 ``16/32/64-bit``
 """
-VEX_VSQRTSS_XMM_XMM_XMMM32: int = 1273
+VEX_VSQRTSS_XMM_XMM_XMMM32: Code = 1273 # type: ignore
 """
 ``VSQRTSS xmm1, xmm2, xmm3/m32``
 
@@ -12721,7 +12727,7 @@ VEX_VSQRTSS_XMM_XMM_XMMM32: int = 1273
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTSS_XMM_K1Z_XMM_XMMM32_ER: int = 1274
+EVEX_VSQRTSS_XMM_K1Z_XMM_XMMM32_ER: Code = 1274 # type: ignore
 """
 ``VSQRTSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -12731,7 +12737,7 @@ EVEX_VSQRTSS_XMM_K1Z_XMM_XMMM32_ER: int = 1274
 
 ``16/32/64-bit``
 """
-SQRTSD_XMM_XMMM64: int = 1275
+SQRTSD_XMM_XMMM64: Code = 1275 # type: ignore
 """
 ``SQRTSD xmm1, xmm2/m64``
 
@@ -12741,7 +12747,7 @@ SQRTSD_XMM_XMMM64: int = 1275
 
 ``16/32/64-bit``
 """
-VEX_VSQRTSD_XMM_XMM_XMMM64: int = 1276
+VEX_VSQRTSD_XMM_XMM_XMMM64: Code = 1276 # type: ignore
 """
 ``VSQRTSD xmm1, xmm2, xmm3/m64``
 
@@ -12751,7 +12757,7 @@ VEX_VSQRTSD_XMM_XMM_XMMM64: int = 1276
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTSD_XMM_K1Z_XMM_XMMM64_ER: int = 1277
+EVEX_VSQRTSD_XMM_K1Z_XMM_XMMM64_ER: Code = 1277 # type: ignore
 """
 ``VSQRTSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -12761,7 +12767,7 @@ EVEX_VSQRTSD_XMM_K1Z_XMM_XMMM64_ER: int = 1277
 
 ``16/32/64-bit``
 """
-RSQRTPS_XMM_XMMM128: int = 1278
+RSQRTPS_XMM_XMMM128: Code = 1278 # type: ignore
 """
 ``RSQRTPS xmm1, xmm2/m128``
 
@@ -12771,7 +12777,7 @@ RSQRTPS_XMM_XMMM128: int = 1278
 
 ``16/32/64-bit``
 """
-VEX_VRSQRTPS_XMM_XMMM128: int = 1279
+VEX_VRSQRTPS_XMM_XMMM128: Code = 1279 # type: ignore
 """
 ``VRSQRTPS xmm1, xmm2/m128``
 
@@ -12781,7 +12787,7 @@ VEX_VRSQRTPS_XMM_XMMM128: int = 1279
 
 ``16/32/64-bit``
 """
-VEX_VRSQRTPS_YMM_YMMM256: int = 1280
+VEX_VRSQRTPS_YMM_YMMM256: Code = 1280 # type: ignore
 """
 ``VRSQRTPS ymm1, ymm2/m256``
 
@@ -12791,7 +12797,7 @@ VEX_VRSQRTPS_YMM_YMMM256: int = 1280
 
 ``16/32/64-bit``
 """
-RSQRTSS_XMM_XMMM32: int = 1281
+RSQRTSS_XMM_XMMM32: Code = 1281 # type: ignore
 """
 ``RSQRTSS xmm1, xmm2/m32``
 
@@ -12801,7 +12807,7 @@ RSQRTSS_XMM_XMMM32: int = 1281
 
 ``16/32/64-bit``
 """
-VEX_VRSQRTSS_XMM_XMM_XMMM32: int = 1282
+VEX_VRSQRTSS_XMM_XMM_XMMM32: Code = 1282 # type: ignore
 """
 ``VRSQRTSS xmm1, xmm2, xmm3/m32``
 
@@ -12811,7 +12817,7 @@ VEX_VRSQRTSS_XMM_XMM_XMMM32: int = 1282
 
 ``16/32/64-bit``
 """
-RCPPS_XMM_XMMM128: int = 1283
+RCPPS_XMM_XMMM128: Code = 1283 # type: ignore
 """
 ``RCPPS xmm1, xmm2/m128``
 
@@ -12821,7 +12827,7 @@ RCPPS_XMM_XMMM128: int = 1283
 
 ``16/32/64-bit``
 """
-VEX_VRCPPS_XMM_XMMM128: int = 1284
+VEX_VRCPPS_XMM_XMMM128: Code = 1284 # type: ignore
 """
 ``VRCPPS xmm1, xmm2/m128``
 
@@ -12831,7 +12837,7 @@ VEX_VRCPPS_XMM_XMMM128: int = 1284
 
 ``16/32/64-bit``
 """
-VEX_VRCPPS_YMM_YMMM256: int = 1285
+VEX_VRCPPS_YMM_YMMM256: Code = 1285 # type: ignore
 """
 ``VRCPPS ymm1, ymm2/m256``
 
@@ -12841,7 +12847,7 @@ VEX_VRCPPS_YMM_YMMM256: int = 1285
 
 ``16/32/64-bit``
 """
-RCPSS_XMM_XMMM32: int = 1286
+RCPSS_XMM_XMMM32: Code = 1286 # type: ignore
 """
 ``RCPSS xmm1, xmm2/m32``
 
@@ -12851,7 +12857,7 @@ RCPSS_XMM_XMMM32: int = 1286
 
 ``16/32/64-bit``
 """
-VEX_VRCPSS_XMM_XMM_XMMM32: int = 1287
+VEX_VRCPSS_XMM_XMM_XMMM32: Code = 1287 # type: ignore
 """
 ``VRCPSS xmm1, xmm2, xmm3/m32``
 
@@ -12861,7 +12867,7 @@ VEX_VRCPSS_XMM_XMM_XMMM32: int = 1287
 
 ``16/32/64-bit``
 """
-ANDPS_XMM_XMMM128: int = 1288
+ANDPS_XMM_XMMM128: Code = 1288 # type: ignore
 """
 ``ANDPS xmm1, xmm2/m128``
 
@@ -12871,7 +12877,7 @@ ANDPS_XMM_XMMM128: int = 1288
 
 ``16/32/64-bit``
 """
-VEX_VANDPS_XMM_XMM_XMMM128: int = 1289
+VEX_VANDPS_XMM_XMM_XMMM128: Code = 1289 # type: ignore
 """
 ``VANDPS xmm1, xmm2, xmm3/m128``
 
@@ -12881,7 +12887,7 @@ VEX_VANDPS_XMM_XMM_XMMM128: int = 1289
 
 ``16/32/64-bit``
 """
-VEX_VANDPS_YMM_YMM_YMMM256: int = 1290
+VEX_VANDPS_YMM_YMM_YMMM256: Code = 1290 # type: ignore
 """
 ``VANDPS ymm1, ymm2, ymm3/m256``
 
@@ -12891,7 +12897,7 @@ VEX_VANDPS_YMM_YMM_YMMM256: int = 1290
 
 ``16/32/64-bit``
 """
-EVEX_VANDPS_XMM_K1Z_XMM_XMMM128B32: int = 1291
+EVEX_VANDPS_XMM_K1Z_XMM_XMMM128B32: Code = 1291 # type: ignore
 """
 ``VANDPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -12901,7 +12907,7 @@ EVEX_VANDPS_XMM_K1Z_XMM_XMMM128B32: int = 1291
 
 ``16/32/64-bit``
 """
-EVEX_VANDPS_YMM_K1Z_YMM_YMMM256B32: int = 1292
+EVEX_VANDPS_YMM_K1Z_YMM_YMMM256B32: Code = 1292 # type: ignore
 """
 ``VANDPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -12911,7 +12917,7 @@ EVEX_VANDPS_YMM_K1Z_YMM_YMMM256B32: int = 1292
 
 ``16/32/64-bit``
 """
-EVEX_VANDPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 1293
+EVEX_VANDPS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 1293 # type: ignore
 """
 ``VANDPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -12921,7 +12927,7 @@ EVEX_VANDPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 1293
 
 ``16/32/64-bit``
 """
-ANDPD_XMM_XMMM128: int = 1294
+ANDPD_XMM_XMMM128: Code = 1294 # type: ignore
 """
 ``ANDPD xmm1, xmm2/m128``
 
@@ -12931,7 +12937,7 @@ ANDPD_XMM_XMMM128: int = 1294
 
 ``16/32/64-bit``
 """
-VEX_VANDPD_XMM_XMM_XMMM128: int = 1295
+VEX_VANDPD_XMM_XMM_XMMM128: Code = 1295 # type: ignore
 """
 ``VANDPD xmm1, xmm2, xmm3/m128``
 
@@ -12941,7 +12947,7 @@ VEX_VANDPD_XMM_XMM_XMMM128: int = 1295
 
 ``16/32/64-bit``
 """
-VEX_VANDPD_YMM_YMM_YMMM256: int = 1296
+VEX_VANDPD_YMM_YMM_YMMM256: Code = 1296 # type: ignore
 """
 ``VANDPD ymm1, ymm2, ymm3/m256``
 
@@ -12951,7 +12957,7 @@ VEX_VANDPD_YMM_YMM_YMMM256: int = 1296
 
 ``16/32/64-bit``
 """
-EVEX_VANDPD_XMM_K1Z_XMM_XMMM128B64: int = 1297
+EVEX_VANDPD_XMM_K1Z_XMM_XMMM128B64: Code = 1297 # type: ignore
 """
 ``VANDPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -12961,7 +12967,7 @@ EVEX_VANDPD_XMM_K1Z_XMM_XMMM128B64: int = 1297
 
 ``16/32/64-bit``
 """
-EVEX_VANDPD_YMM_K1Z_YMM_YMMM256B64: int = 1298
+EVEX_VANDPD_YMM_K1Z_YMM_YMMM256B64: Code = 1298 # type: ignore
 """
 ``VANDPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -12971,7 +12977,7 @@ EVEX_VANDPD_YMM_K1Z_YMM_YMMM256B64: int = 1298
 
 ``16/32/64-bit``
 """
-EVEX_VANDPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 1299
+EVEX_VANDPD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 1299 # type: ignore
 """
 ``VANDPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -12981,7 +12987,7 @@ EVEX_VANDPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 1299
 
 ``16/32/64-bit``
 """
-ANDNPS_XMM_XMMM128: int = 1300
+ANDNPS_XMM_XMMM128: Code = 1300 # type: ignore
 """
 ``ANDNPS xmm1, xmm2/m128``
 
@@ -12991,7 +12997,7 @@ ANDNPS_XMM_XMMM128: int = 1300
 
 ``16/32/64-bit``
 """
-VEX_VANDNPS_XMM_XMM_XMMM128: int = 1301
+VEX_VANDNPS_XMM_XMM_XMMM128: Code = 1301 # type: ignore
 """
 ``VANDNPS xmm1, xmm2, xmm3/m128``
 
@@ -13001,7 +13007,7 @@ VEX_VANDNPS_XMM_XMM_XMMM128: int = 1301
 
 ``16/32/64-bit``
 """
-VEX_VANDNPS_YMM_YMM_YMMM256: int = 1302
+VEX_VANDNPS_YMM_YMM_YMMM256: Code = 1302 # type: ignore
 """
 ``VANDNPS ymm1, ymm2, ymm3/m256``
 
@@ -13011,7 +13017,7 @@ VEX_VANDNPS_YMM_YMM_YMMM256: int = 1302
 
 ``16/32/64-bit``
 """
-EVEX_VANDNPS_XMM_K1Z_XMM_XMMM128B32: int = 1303
+EVEX_VANDNPS_XMM_K1Z_XMM_XMMM128B32: Code = 1303 # type: ignore
 """
 ``VANDNPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -13021,7 +13027,7 @@ EVEX_VANDNPS_XMM_K1Z_XMM_XMMM128B32: int = 1303
 
 ``16/32/64-bit``
 """
-EVEX_VANDNPS_YMM_K1Z_YMM_YMMM256B32: int = 1304
+EVEX_VANDNPS_YMM_K1Z_YMM_YMMM256B32: Code = 1304 # type: ignore
 """
 ``VANDNPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -13031,7 +13037,7 @@ EVEX_VANDNPS_YMM_K1Z_YMM_YMMM256B32: int = 1304
 
 ``16/32/64-bit``
 """
-EVEX_VANDNPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 1305
+EVEX_VANDNPS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 1305 # type: ignore
 """
 ``VANDNPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -13041,7 +13047,7 @@ EVEX_VANDNPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 1305
 
 ``16/32/64-bit``
 """
-ANDNPD_XMM_XMMM128: int = 1306
+ANDNPD_XMM_XMMM128: Code = 1306 # type: ignore
 """
 ``ANDNPD xmm1, xmm2/m128``
 
@@ -13051,7 +13057,7 @@ ANDNPD_XMM_XMMM128: int = 1306
 
 ``16/32/64-bit``
 """
-VEX_VANDNPD_XMM_XMM_XMMM128: int = 1307
+VEX_VANDNPD_XMM_XMM_XMMM128: Code = 1307 # type: ignore
 """
 ``VANDNPD xmm1, xmm2, xmm3/m128``
 
@@ -13061,7 +13067,7 @@ VEX_VANDNPD_XMM_XMM_XMMM128: int = 1307
 
 ``16/32/64-bit``
 """
-VEX_VANDNPD_YMM_YMM_YMMM256: int = 1308
+VEX_VANDNPD_YMM_YMM_YMMM256: Code = 1308 # type: ignore
 """
 ``VANDNPD ymm1, ymm2, ymm3/m256``
 
@@ -13071,7 +13077,7 @@ VEX_VANDNPD_YMM_YMM_YMMM256: int = 1308
 
 ``16/32/64-bit``
 """
-EVEX_VANDNPD_XMM_K1Z_XMM_XMMM128B64: int = 1309
+EVEX_VANDNPD_XMM_K1Z_XMM_XMMM128B64: Code = 1309 # type: ignore
 """
 ``VANDNPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -13081,7 +13087,7 @@ EVEX_VANDNPD_XMM_K1Z_XMM_XMMM128B64: int = 1309
 
 ``16/32/64-bit``
 """
-EVEX_VANDNPD_YMM_K1Z_YMM_YMMM256B64: int = 1310
+EVEX_VANDNPD_YMM_K1Z_YMM_YMMM256B64: Code = 1310 # type: ignore
 """
 ``VANDNPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -13091,7 +13097,7 @@ EVEX_VANDNPD_YMM_K1Z_YMM_YMMM256B64: int = 1310
 
 ``16/32/64-bit``
 """
-EVEX_VANDNPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 1311
+EVEX_VANDNPD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 1311 # type: ignore
 """
 ``VANDNPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -13101,7 +13107,7 @@ EVEX_VANDNPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 1311
 
 ``16/32/64-bit``
 """
-ORPS_XMM_XMMM128: int = 1312
+ORPS_XMM_XMMM128: Code = 1312 # type: ignore
 """
 ``ORPS xmm1, xmm2/m128``
 
@@ -13111,7 +13117,7 @@ ORPS_XMM_XMMM128: int = 1312
 
 ``16/32/64-bit``
 """
-VEX_VORPS_XMM_XMM_XMMM128: int = 1313
+VEX_VORPS_XMM_XMM_XMMM128: Code = 1313 # type: ignore
 """
 ``VORPS xmm1, xmm2, xmm3/m128``
 
@@ -13121,7 +13127,7 @@ VEX_VORPS_XMM_XMM_XMMM128: int = 1313
 
 ``16/32/64-bit``
 """
-VEX_VORPS_YMM_YMM_YMMM256: int = 1314
+VEX_VORPS_YMM_YMM_YMMM256: Code = 1314 # type: ignore
 """
 ``VORPS ymm1, ymm2, ymm3/m256``
 
@@ -13131,7 +13137,7 @@ VEX_VORPS_YMM_YMM_YMMM256: int = 1314
 
 ``16/32/64-bit``
 """
-EVEX_VORPS_XMM_K1Z_XMM_XMMM128B32: int = 1315
+EVEX_VORPS_XMM_K1Z_XMM_XMMM128B32: Code = 1315 # type: ignore
 """
 ``VORPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -13141,7 +13147,7 @@ EVEX_VORPS_XMM_K1Z_XMM_XMMM128B32: int = 1315
 
 ``16/32/64-bit``
 """
-EVEX_VORPS_YMM_K1Z_YMM_YMMM256B32: int = 1316
+EVEX_VORPS_YMM_K1Z_YMM_YMMM256B32: Code = 1316 # type: ignore
 """
 ``VORPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -13151,7 +13157,7 @@ EVEX_VORPS_YMM_K1Z_YMM_YMMM256B32: int = 1316
 
 ``16/32/64-bit``
 """
-EVEX_VORPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 1317
+EVEX_VORPS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 1317 # type: ignore
 """
 ``VORPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -13161,7 +13167,7 @@ EVEX_VORPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 1317
 
 ``16/32/64-bit``
 """
-ORPD_XMM_XMMM128: int = 1318
+ORPD_XMM_XMMM128: Code = 1318 # type: ignore
 """
 ``ORPD xmm1, xmm2/m128``
 
@@ -13171,7 +13177,7 @@ ORPD_XMM_XMMM128: int = 1318
 
 ``16/32/64-bit``
 """
-VEX_VORPD_XMM_XMM_XMMM128: int = 1319
+VEX_VORPD_XMM_XMM_XMMM128: Code = 1319 # type: ignore
 """
 ``VORPD xmm1, xmm2, xmm3/m128``
 
@@ -13181,7 +13187,7 @@ VEX_VORPD_XMM_XMM_XMMM128: int = 1319
 
 ``16/32/64-bit``
 """
-VEX_VORPD_YMM_YMM_YMMM256: int = 1320
+VEX_VORPD_YMM_YMM_YMMM256: Code = 1320 # type: ignore
 """
 ``VORPD ymm1, ymm2, ymm3/m256``
 
@@ -13191,7 +13197,7 @@ VEX_VORPD_YMM_YMM_YMMM256: int = 1320
 
 ``16/32/64-bit``
 """
-EVEX_VORPD_XMM_K1Z_XMM_XMMM128B64: int = 1321
+EVEX_VORPD_XMM_K1Z_XMM_XMMM128B64: Code = 1321 # type: ignore
 """
 ``VORPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -13201,7 +13207,7 @@ EVEX_VORPD_XMM_K1Z_XMM_XMMM128B64: int = 1321
 
 ``16/32/64-bit``
 """
-EVEX_VORPD_YMM_K1Z_YMM_YMMM256B64: int = 1322
+EVEX_VORPD_YMM_K1Z_YMM_YMMM256B64: Code = 1322 # type: ignore
 """
 ``VORPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -13211,7 +13217,7 @@ EVEX_VORPD_YMM_K1Z_YMM_YMMM256B64: int = 1322
 
 ``16/32/64-bit``
 """
-EVEX_VORPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 1323
+EVEX_VORPD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 1323 # type: ignore
 """
 ``VORPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -13221,7 +13227,7 @@ EVEX_VORPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 1323
 
 ``16/32/64-bit``
 """
-XORPS_XMM_XMMM128: int = 1324
+XORPS_XMM_XMMM128: Code = 1324 # type: ignore
 """
 ``XORPS xmm1, xmm2/m128``
 
@@ -13231,7 +13237,7 @@ XORPS_XMM_XMMM128: int = 1324
 
 ``16/32/64-bit``
 """
-VEX_VXORPS_XMM_XMM_XMMM128: int = 1325
+VEX_VXORPS_XMM_XMM_XMMM128: Code = 1325 # type: ignore
 """
 ``VXORPS xmm1, xmm2, xmm3/m128``
 
@@ -13241,7 +13247,7 @@ VEX_VXORPS_XMM_XMM_XMMM128: int = 1325
 
 ``16/32/64-bit``
 """
-VEX_VXORPS_YMM_YMM_YMMM256: int = 1326
+VEX_VXORPS_YMM_YMM_YMMM256: Code = 1326 # type: ignore
 """
 ``VXORPS ymm1, ymm2, ymm3/m256``
 
@@ -13251,7 +13257,7 @@ VEX_VXORPS_YMM_YMM_YMMM256: int = 1326
 
 ``16/32/64-bit``
 """
-EVEX_VXORPS_XMM_K1Z_XMM_XMMM128B32: int = 1327
+EVEX_VXORPS_XMM_K1Z_XMM_XMMM128B32: Code = 1327 # type: ignore
 """
 ``VXORPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -13261,7 +13267,7 @@ EVEX_VXORPS_XMM_K1Z_XMM_XMMM128B32: int = 1327
 
 ``16/32/64-bit``
 """
-EVEX_VXORPS_YMM_K1Z_YMM_YMMM256B32: int = 1328
+EVEX_VXORPS_YMM_K1Z_YMM_YMMM256B32: Code = 1328 # type: ignore
 """
 ``VXORPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -13271,7 +13277,7 @@ EVEX_VXORPS_YMM_K1Z_YMM_YMMM256B32: int = 1328
 
 ``16/32/64-bit``
 """
-EVEX_VXORPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 1329
+EVEX_VXORPS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 1329 # type: ignore
 """
 ``VXORPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -13281,7 +13287,7 @@ EVEX_VXORPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 1329
 
 ``16/32/64-bit``
 """
-XORPD_XMM_XMMM128: int = 1330
+XORPD_XMM_XMMM128: Code = 1330 # type: ignore
 """
 ``XORPD xmm1, xmm2/m128``
 
@@ -13291,7 +13297,7 @@ XORPD_XMM_XMMM128: int = 1330
 
 ``16/32/64-bit``
 """
-VEX_VXORPD_XMM_XMM_XMMM128: int = 1331
+VEX_VXORPD_XMM_XMM_XMMM128: Code = 1331 # type: ignore
 """
 ``VXORPD xmm1, xmm2, xmm3/m128``
 
@@ -13301,7 +13307,7 @@ VEX_VXORPD_XMM_XMM_XMMM128: int = 1331
 
 ``16/32/64-bit``
 """
-VEX_VXORPD_YMM_YMM_YMMM256: int = 1332
+VEX_VXORPD_YMM_YMM_YMMM256: Code = 1332 # type: ignore
 """
 ``VXORPD ymm1, ymm2, ymm3/m256``
 
@@ -13311,7 +13317,7 @@ VEX_VXORPD_YMM_YMM_YMMM256: int = 1332
 
 ``16/32/64-bit``
 """
-EVEX_VXORPD_XMM_K1Z_XMM_XMMM128B64: int = 1333
+EVEX_VXORPD_XMM_K1Z_XMM_XMMM128B64: Code = 1333 # type: ignore
 """
 ``VXORPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -13321,7 +13327,7 @@ EVEX_VXORPD_XMM_K1Z_XMM_XMMM128B64: int = 1333
 
 ``16/32/64-bit``
 """
-EVEX_VXORPD_YMM_K1Z_YMM_YMMM256B64: int = 1334
+EVEX_VXORPD_YMM_K1Z_YMM_YMMM256B64: Code = 1334 # type: ignore
 """
 ``VXORPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -13331,7 +13337,7 @@ EVEX_VXORPD_YMM_K1Z_YMM_YMMM256B64: int = 1334
 
 ``16/32/64-bit``
 """
-EVEX_VXORPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 1335
+EVEX_VXORPD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 1335 # type: ignore
 """
 ``VXORPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -13341,7 +13347,7 @@ EVEX_VXORPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 1335
 
 ``16/32/64-bit``
 """
-ADDPS_XMM_XMMM128: int = 1336
+ADDPS_XMM_XMMM128: Code = 1336 # type: ignore
 """
 ``ADDPS xmm1, xmm2/m128``
 
@@ -13351,7 +13357,7 @@ ADDPS_XMM_XMMM128: int = 1336
 
 ``16/32/64-bit``
 """
-VEX_VADDPS_XMM_XMM_XMMM128: int = 1337
+VEX_VADDPS_XMM_XMM_XMMM128: Code = 1337 # type: ignore
 """
 ``VADDPS xmm1, xmm2, xmm3/m128``
 
@@ -13361,7 +13367,7 @@ VEX_VADDPS_XMM_XMM_XMMM128: int = 1337
 
 ``16/32/64-bit``
 """
-VEX_VADDPS_YMM_YMM_YMMM256: int = 1338
+VEX_VADDPS_YMM_YMM_YMMM256: Code = 1338 # type: ignore
 """
 ``VADDPS ymm1, ymm2, ymm3/m256``
 
@@ -13371,7 +13377,7 @@ VEX_VADDPS_YMM_YMM_YMMM256: int = 1338
 
 ``16/32/64-bit``
 """
-EVEX_VADDPS_XMM_K1Z_XMM_XMMM128B32: int = 1339
+EVEX_VADDPS_XMM_K1Z_XMM_XMMM128B32: Code = 1339 # type: ignore
 """
 ``VADDPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -13381,7 +13387,7 @@ EVEX_VADDPS_XMM_K1Z_XMM_XMMM128B32: int = 1339
 
 ``16/32/64-bit``
 """
-EVEX_VADDPS_YMM_K1Z_YMM_YMMM256B32: int = 1340
+EVEX_VADDPS_YMM_K1Z_YMM_YMMM256B32: Code = 1340 # type: ignore
 """
 ``VADDPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -13391,7 +13397,7 @@ EVEX_VADDPS_YMM_K1Z_YMM_YMMM256B32: int = 1340
 
 ``16/32/64-bit``
 """
-EVEX_VADDPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 1341
+EVEX_VADDPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 1341 # type: ignore
 """
 ``VADDPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -13401,7 +13407,7 @@ EVEX_VADDPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 1341
 
 ``16/32/64-bit``
 """
-ADDPD_XMM_XMMM128: int = 1342
+ADDPD_XMM_XMMM128: Code = 1342 # type: ignore
 """
 ``ADDPD xmm1, xmm2/m128``
 
@@ -13411,7 +13417,7 @@ ADDPD_XMM_XMMM128: int = 1342
 
 ``16/32/64-bit``
 """
-VEX_VADDPD_XMM_XMM_XMMM128: int = 1343
+VEX_VADDPD_XMM_XMM_XMMM128: Code = 1343 # type: ignore
 """
 ``VADDPD xmm1, xmm2, xmm3/m128``
 
@@ -13421,7 +13427,7 @@ VEX_VADDPD_XMM_XMM_XMMM128: int = 1343
 
 ``16/32/64-bit``
 """
-VEX_VADDPD_YMM_YMM_YMMM256: int = 1344
+VEX_VADDPD_YMM_YMM_YMMM256: Code = 1344 # type: ignore
 """
 ``VADDPD ymm1, ymm2, ymm3/m256``
 
@@ -13431,7 +13437,7 @@ VEX_VADDPD_YMM_YMM_YMMM256: int = 1344
 
 ``16/32/64-bit``
 """
-EVEX_VADDPD_XMM_K1Z_XMM_XMMM128B64: int = 1345
+EVEX_VADDPD_XMM_K1Z_XMM_XMMM128B64: Code = 1345 # type: ignore
 """
 ``VADDPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -13441,7 +13447,7 @@ EVEX_VADDPD_XMM_K1Z_XMM_XMMM128B64: int = 1345
 
 ``16/32/64-bit``
 """
-EVEX_VADDPD_YMM_K1Z_YMM_YMMM256B64: int = 1346
+EVEX_VADDPD_YMM_K1Z_YMM_YMMM256B64: Code = 1346 # type: ignore
 """
 ``VADDPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -13451,7 +13457,7 @@ EVEX_VADDPD_YMM_K1Z_YMM_YMMM256B64: int = 1346
 
 ``16/32/64-bit``
 """
-EVEX_VADDPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 1347
+EVEX_VADDPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 1347 # type: ignore
 """
 ``VADDPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -13461,7 +13467,7 @@ EVEX_VADDPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 1347
 
 ``16/32/64-bit``
 """
-ADDSS_XMM_XMMM32: int = 1348
+ADDSS_XMM_XMMM32: Code = 1348 # type: ignore
 """
 ``ADDSS xmm1, xmm2/m32``
 
@@ -13471,7 +13477,7 @@ ADDSS_XMM_XMMM32: int = 1348
 
 ``16/32/64-bit``
 """
-VEX_VADDSS_XMM_XMM_XMMM32: int = 1349
+VEX_VADDSS_XMM_XMM_XMMM32: Code = 1349 # type: ignore
 """
 ``VADDSS xmm1, xmm2, xmm3/m32``
 
@@ -13481,7 +13487,7 @@ VEX_VADDSS_XMM_XMM_XMMM32: int = 1349
 
 ``16/32/64-bit``
 """
-EVEX_VADDSS_XMM_K1Z_XMM_XMMM32_ER: int = 1350
+EVEX_VADDSS_XMM_K1Z_XMM_XMMM32_ER: Code = 1350 # type: ignore
 """
 ``VADDSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -13491,7 +13497,7 @@ EVEX_VADDSS_XMM_K1Z_XMM_XMMM32_ER: int = 1350
 
 ``16/32/64-bit``
 """
-ADDSD_XMM_XMMM64: int = 1351
+ADDSD_XMM_XMMM64: Code = 1351 # type: ignore
 """
 ``ADDSD xmm1, xmm2/m64``
 
@@ -13501,7 +13507,7 @@ ADDSD_XMM_XMMM64: int = 1351
 
 ``16/32/64-bit``
 """
-VEX_VADDSD_XMM_XMM_XMMM64: int = 1352
+VEX_VADDSD_XMM_XMM_XMMM64: Code = 1352 # type: ignore
 """
 ``VADDSD xmm1, xmm2, xmm3/m64``
 
@@ -13511,7 +13517,7 @@ VEX_VADDSD_XMM_XMM_XMMM64: int = 1352
 
 ``16/32/64-bit``
 """
-EVEX_VADDSD_XMM_K1Z_XMM_XMMM64_ER: int = 1353
+EVEX_VADDSD_XMM_K1Z_XMM_XMMM64_ER: Code = 1353 # type: ignore
 """
 ``VADDSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -13521,7 +13527,7 @@ EVEX_VADDSD_XMM_K1Z_XMM_XMMM64_ER: int = 1353
 
 ``16/32/64-bit``
 """
-MULPS_XMM_XMMM128: int = 1354
+MULPS_XMM_XMMM128: Code = 1354 # type: ignore
 """
 ``MULPS xmm1, xmm2/m128``
 
@@ -13531,7 +13537,7 @@ MULPS_XMM_XMMM128: int = 1354
 
 ``16/32/64-bit``
 """
-VEX_VMULPS_XMM_XMM_XMMM128: int = 1355
+VEX_VMULPS_XMM_XMM_XMMM128: Code = 1355 # type: ignore
 """
 ``VMULPS xmm1, xmm2, xmm3/m128``
 
@@ -13541,7 +13547,7 @@ VEX_VMULPS_XMM_XMM_XMMM128: int = 1355
 
 ``16/32/64-bit``
 """
-VEX_VMULPS_YMM_YMM_YMMM256: int = 1356
+VEX_VMULPS_YMM_YMM_YMMM256: Code = 1356 # type: ignore
 """
 ``VMULPS ymm1, ymm2, ymm3/m256``
 
@@ -13551,7 +13557,7 @@ VEX_VMULPS_YMM_YMM_YMMM256: int = 1356
 
 ``16/32/64-bit``
 """
-EVEX_VMULPS_XMM_K1Z_XMM_XMMM128B32: int = 1357
+EVEX_VMULPS_XMM_K1Z_XMM_XMMM128B32: Code = 1357 # type: ignore
 """
 ``VMULPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -13561,7 +13567,7 @@ EVEX_VMULPS_XMM_K1Z_XMM_XMMM128B32: int = 1357
 
 ``16/32/64-bit``
 """
-EVEX_VMULPS_YMM_K1Z_YMM_YMMM256B32: int = 1358
+EVEX_VMULPS_YMM_K1Z_YMM_YMMM256B32: Code = 1358 # type: ignore
 """
 ``VMULPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -13571,7 +13577,7 @@ EVEX_VMULPS_YMM_K1Z_YMM_YMMM256B32: int = 1358
 
 ``16/32/64-bit``
 """
-EVEX_VMULPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 1359
+EVEX_VMULPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 1359 # type: ignore
 """
 ``VMULPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -13581,7 +13587,7 @@ EVEX_VMULPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 1359
 
 ``16/32/64-bit``
 """
-MULPD_XMM_XMMM128: int = 1360
+MULPD_XMM_XMMM128: Code = 1360 # type: ignore
 """
 ``MULPD xmm1, xmm2/m128``
 
@@ -13591,7 +13597,7 @@ MULPD_XMM_XMMM128: int = 1360
 
 ``16/32/64-bit``
 """
-VEX_VMULPD_XMM_XMM_XMMM128: int = 1361
+VEX_VMULPD_XMM_XMM_XMMM128: Code = 1361 # type: ignore
 """
 ``VMULPD xmm1, xmm2, xmm3/m128``
 
@@ -13601,7 +13607,7 @@ VEX_VMULPD_XMM_XMM_XMMM128: int = 1361
 
 ``16/32/64-bit``
 """
-VEX_VMULPD_YMM_YMM_YMMM256: int = 1362
+VEX_VMULPD_YMM_YMM_YMMM256: Code = 1362 # type: ignore
 """
 ``VMULPD ymm1, ymm2, ymm3/m256``
 
@@ -13611,7 +13617,7 @@ VEX_VMULPD_YMM_YMM_YMMM256: int = 1362
 
 ``16/32/64-bit``
 """
-EVEX_VMULPD_XMM_K1Z_XMM_XMMM128B64: int = 1363
+EVEX_VMULPD_XMM_K1Z_XMM_XMMM128B64: Code = 1363 # type: ignore
 """
 ``VMULPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -13621,7 +13627,7 @@ EVEX_VMULPD_XMM_K1Z_XMM_XMMM128B64: int = 1363
 
 ``16/32/64-bit``
 """
-EVEX_VMULPD_YMM_K1Z_YMM_YMMM256B64: int = 1364
+EVEX_VMULPD_YMM_K1Z_YMM_YMMM256B64: Code = 1364 # type: ignore
 """
 ``VMULPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -13631,7 +13637,7 @@ EVEX_VMULPD_YMM_K1Z_YMM_YMMM256B64: int = 1364
 
 ``16/32/64-bit``
 """
-EVEX_VMULPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 1365
+EVEX_VMULPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 1365 # type: ignore
 """
 ``VMULPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -13641,7 +13647,7 @@ EVEX_VMULPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 1365
 
 ``16/32/64-bit``
 """
-MULSS_XMM_XMMM32: int = 1366
+MULSS_XMM_XMMM32: Code = 1366 # type: ignore
 """
 ``MULSS xmm1, xmm2/m32``
 
@@ -13651,7 +13657,7 @@ MULSS_XMM_XMMM32: int = 1366
 
 ``16/32/64-bit``
 """
-VEX_VMULSS_XMM_XMM_XMMM32: int = 1367
+VEX_VMULSS_XMM_XMM_XMMM32: Code = 1367 # type: ignore
 """
 ``VMULSS xmm1, xmm2, xmm3/m32``
 
@@ -13661,7 +13667,7 @@ VEX_VMULSS_XMM_XMM_XMMM32: int = 1367
 
 ``16/32/64-bit``
 """
-EVEX_VMULSS_XMM_K1Z_XMM_XMMM32_ER: int = 1368
+EVEX_VMULSS_XMM_K1Z_XMM_XMMM32_ER: Code = 1368 # type: ignore
 """
 ``VMULSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -13671,7 +13677,7 @@ EVEX_VMULSS_XMM_K1Z_XMM_XMMM32_ER: int = 1368
 
 ``16/32/64-bit``
 """
-MULSD_XMM_XMMM64: int = 1369
+MULSD_XMM_XMMM64: Code = 1369 # type: ignore
 """
 ``MULSD xmm1, xmm2/m64``
 
@@ -13681,7 +13687,7 @@ MULSD_XMM_XMMM64: int = 1369
 
 ``16/32/64-bit``
 """
-VEX_VMULSD_XMM_XMM_XMMM64: int = 1370
+VEX_VMULSD_XMM_XMM_XMMM64: Code = 1370 # type: ignore
 """
 ``VMULSD xmm1, xmm2, xmm3/m64``
 
@@ -13691,7 +13697,7 @@ VEX_VMULSD_XMM_XMM_XMMM64: int = 1370
 
 ``16/32/64-bit``
 """
-EVEX_VMULSD_XMM_K1Z_XMM_XMMM64_ER: int = 1371
+EVEX_VMULSD_XMM_K1Z_XMM_XMMM64_ER: Code = 1371 # type: ignore
 """
 ``VMULSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -13701,7 +13707,7 @@ EVEX_VMULSD_XMM_K1Z_XMM_XMMM64_ER: int = 1371
 
 ``16/32/64-bit``
 """
-CVTPS2PD_XMM_XMMM64: int = 1372
+CVTPS2PD_XMM_XMMM64: Code = 1372 # type: ignore
 """
 ``CVTPS2PD xmm1, xmm2/m64``
 
@@ -13711,7 +13717,7 @@ CVTPS2PD_XMM_XMMM64: int = 1372
 
 ``16/32/64-bit``
 """
-VEX_VCVTPS2PD_XMM_XMMM64: int = 1373
+VEX_VCVTPS2PD_XMM_XMMM64: Code = 1373 # type: ignore
 """
 ``VCVTPS2PD xmm1, xmm2/m64``
 
@@ -13721,7 +13727,7 @@ VEX_VCVTPS2PD_XMM_XMMM64: int = 1373
 
 ``16/32/64-bit``
 """
-VEX_VCVTPS2PD_YMM_XMMM128: int = 1374
+VEX_VCVTPS2PD_YMM_XMMM128: Code = 1374 # type: ignore
 """
 ``VCVTPS2PD ymm1, xmm2/m128``
 
@@ -13731,7 +13737,7 @@ VEX_VCVTPS2PD_YMM_XMMM128: int = 1374
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2PD_XMM_K1Z_XMMM64B32: int = 1375
+EVEX_VCVTPS2PD_XMM_K1Z_XMMM64B32: Code = 1375 # type: ignore
 """
 ``VCVTPS2PD xmm1 {k1}{z}, xmm2/m64/m32bcst``
 
@@ -13741,7 +13747,7 @@ EVEX_VCVTPS2PD_XMM_K1Z_XMMM64B32: int = 1375
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2PD_YMM_K1Z_XMMM128B32: int = 1376
+EVEX_VCVTPS2PD_YMM_K1Z_XMMM128B32: Code = 1376 # type: ignore
 """
 ``VCVTPS2PD ymm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -13751,7 +13757,7 @@ EVEX_VCVTPS2PD_YMM_K1Z_XMMM128B32: int = 1376
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2PD_ZMM_K1Z_YMMM256B32_SAE: int = 1377
+EVEX_VCVTPS2PD_ZMM_K1Z_YMMM256B32_SAE: Code = 1377 # type: ignore
 """
 ``VCVTPS2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{sae}``
 
@@ -13761,7 +13767,7 @@ EVEX_VCVTPS2PD_ZMM_K1Z_YMMM256B32_SAE: int = 1377
 
 ``16/32/64-bit``
 """
-CVTPD2PS_XMM_XMMM128: int = 1378
+CVTPD2PS_XMM_XMMM128: Code = 1378 # type: ignore
 """
 ``CVTPD2PS xmm1, xmm2/m128``
 
@@ -13771,7 +13777,7 @@ CVTPD2PS_XMM_XMMM128: int = 1378
 
 ``16/32/64-bit``
 """
-VEX_VCVTPD2PS_XMM_XMMM128: int = 1379
+VEX_VCVTPD2PS_XMM_XMMM128: Code = 1379 # type: ignore
 """
 ``VCVTPD2PS xmm1, xmm2/m128``
 
@@ -13781,7 +13787,7 @@ VEX_VCVTPD2PS_XMM_XMMM128: int = 1379
 
 ``16/32/64-bit``
 """
-VEX_VCVTPD2PS_XMM_YMMM256: int = 1380
+VEX_VCVTPD2PS_XMM_YMMM256: Code = 1380 # type: ignore
 """
 ``VCVTPD2PS xmm1, ymm2/m256``
 
@@ -13791,7 +13797,7 @@ VEX_VCVTPD2PS_XMM_YMMM256: int = 1380
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2PS_XMM_K1Z_XMMM128B64: int = 1381
+EVEX_VCVTPD2PS_XMM_K1Z_XMMM128B64: Code = 1381 # type: ignore
 """
 ``VCVTPD2PS xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -13801,7 +13807,7 @@ EVEX_VCVTPD2PS_XMM_K1Z_XMMM128B64: int = 1381
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2PS_XMM_K1Z_YMMM256B64: int = 1382
+EVEX_VCVTPD2PS_XMM_K1Z_YMMM256B64: Code = 1382 # type: ignore
 """
 ``VCVTPD2PS xmm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -13811,7 +13817,7 @@ EVEX_VCVTPD2PS_XMM_K1Z_YMMM256B64: int = 1382
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2PS_YMM_K1Z_ZMMM512B64_ER: int = 1383
+EVEX_VCVTPD2PS_YMM_K1Z_ZMMM512B64_ER: Code = 1383 # type: ignore
 """
 ``VCVTPD2PS ymm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -13821,7 +13827,7 @@ EVEX_VCVTPD2PS_YMM_K1Z_ZMMM512B64_ER: int = 1383
 
 ``16/32/64-bit``
 """
-CVTSS2SD_XMM_XMMM32: int = 1384
+CVTSS2SD_XMM_XMMM32: Code = 1384 # type: ignore
 """
 ``CVTSS2SD xmm1, xmm2/m32``
 
@@ -13831,7 +13837,7 @@ CVTSS2SD_XMM_XMMM32: int = 1384
 
 ``16/32/64-bit``
 """
-VEX_VCVTSS2SD_XMM_XMM_XMMM32: int = 1385
+VEX_VCVTSS2SD_XMM_XMM_XMMM32: Code = 1385 # type: ignore
 """
 ``VCVTSS2SD xmm1, xmm2, xmm3/m32``
 
@@ -13841,7 +13847,7 @@ VEX_VCVTSS2SD_XMM_XMM_XMMM32: int = 1385
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSS2SD_XMM_K1Z_XMM_XMMM32_SAE: int = 1386
+EVEX_VCVTSS2SD_XMM_K1Z_XMM_XMMM32_SAE: Code = 1386 # type: ignore
 """
 ``VCVTSS2SD xmm1 {k1}{z}, xmm2, xmm3/m32{sae}``
 
@@ -13851,7 +13857,7 @@ EVEX_VCVTSS2SD_XMM_K1Z_XMM_XMMM32_SAE: int = 1386
 
 ``16/32/64-bit``
 """
-CVTSD2SS_XMM_XMMM64: int = 1387
+CVTSD2SS_XMM_XMMM64: Code = 1387 # type: ignore
 """
 ``CVTSD2SS xmm1, xmm2/m64``
 
@@ -13861,7 +13867,7 @@ CVTSD2SS_XMM_XMMM64: int = 1387
 
 ``16/32/64-bit``
 """
-VEX_VCVTSD2SS_XMM_XMM_XMMM64: int = 1388
+VEX_VCVTSD2SS_XMM_XMM_XMMM64: Code = 1388 # type: ignore
 """
 ``VCVTSD2SS xmm1, xmm2, xmm3/m64``
 
@@ -13871,7 +13877,7 @@ VEX_VCVTSD2SS_XMM_XMM_XMMM64: int = 1388
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSD2SS_XMM_K1Z_XMM_XMMM64_ER: int = 1389
+EVEX_VCVTSD2SS_XMM_K1Z_XMM_XMMM64_ER: Code = 1389 # type: ignore
 """
 ``VCVTSD2SS xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -13881,7 +13887,7 @@ EVEX_VCVTSD2SS_XMM_K1Z_XMM_XMMM64_ER: int = 1389
 
 ``16/32/64-bit``
 """
-CVTDQ2PS_XMM_XMMM128: int = 1390
+CVTDQ2PS_XMM_XMMM128: Code = 1390 # type: ignore
 """
 ``CVTDQ2PS xmm1, xmm2/m128``
 
@@ -13891,7 +13897,7 @@ CVTDQ2PS_XMM_XMMM128: int = 1390
 
 ``16/32/64-bit``
 """
-VEX_VCVTDQ2PS_XMM_XMMM128: int = 1391
+VEX_VCVTDQ2PS_XMM_XMMM128: Code = 1391 # type: ignore
 """
 ``VCVTDQ2PS xmm1, xmm2/m128``
 
@@ -13901,7 +13907,7 @@ VEX_VCVTDQ2PS_XMM_XMMM128: int = 1391
 
 ``16/32/64-bit``
 """
-VEX_VCVTDQ2PS_YMM_YMMM256: int = 1392
+VEX_VCVTDQ2PS_YMM_YMMM256: Code = 1392 # type: ignore
 """
 ``VCVTDQ2PS ymm1, ymm2/m256``
 
@@ -13911,7 +13917,7 @@ VEX_VCVTDQ2PS_YMM_YMMM256: int = 1392
 
 ``16/32/64-bit``
 """
-EVEX_VCVTDQ2PS_XMM_K1Z_XMMM128B32: int = 1393
+EVEX_VCVTDQ2PS_XMM_K1Z_XMMM128B32: Code = 1393 # type: ignore
 """
 ``VCVTDQ2PS xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -13921,7 +13927,7 @@ EVEX_VCVTDQ2PS_XMM_K1Z_XMMM128B32: int = 1393
 
 ``16/32/64-bit``
 """
-EVEX_VCVTDQ2PS_YMM_K1Z_YMMM256B32: int = 1394
+EVEX_VCVTDQ2PS_YMM_K1Z_YMMM256B32: Code = 1394 # type: ignore
 """
 ``VCVTDQ2PS ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -13931,7 +13937,7 @@ EVEX_VCVTDQ2PS_YMM_K1Z_YMMM256B32: int = 1394
 
 ``16/32/64-bit``
 """
-EVEX_VCVTDQ2PS_ZMM_K1Z_ZMMM512B32_ER: int = 1395
+EVEX_VCVTDQ2PS_ZMM_K1Z_ZMMM512B32_ER: Code = 1395 # type: ignore
 """
 ``VCVTDQ2PS zmm1 {k1}{z}, zmm2/m512/m32bcst{er}``
 
@@ -13941,7 +13947,7 @@ EVEX_VCVTDQ2PS_ZMM_K1Z_ZMMM512B32_ER: int = 1395
 
 ``16/32/64-bit``
 """
-EVEX_VCVTQQ2PS_XMM_K1Z_XMMM128B64: int = 1396
+EVEX_VCVTQQ2PS_XMM_K1Z_XMMM128B64: Code = 1396 # type: ignore
 """
 ``VCVTQQ2PS xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -13951,7 +13957,7 @@ EVEX_VCVTQQ2PS_XMM_K1Z_XMMM128B64: int = 1396
 
 ``16/32/64-bit``
 """
-EVEX_VCVTQQ2PS_XMM_K1Z_YMMM256B64: int = 1397
+EVEX_VCVTQQ2PS_XMM_K1Z_YMMM256B64: Code = 1397 # type: ignore
 """
 ``VCVTQQ2PS xmm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -13961,7 +13967,7 @@ EVEX_VCVTQQ2PS_XMM_K1Z_YMMM256B64: int = 1397
 
 ``16/32/64-bit``
 """
-EVEX_VCVTQQ2PS_YMM_K1Z_ZMMM512B64_ER: int = 1398
+EVEX_VCVTQQ2PS_YMM_K1Z_ZMMM512B64_ER: Code = 1398 # type: ignore
 """
 ``VCVTQQ2PS ymm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -13971,7 +13977,7 @@ EVEX_VCVTQQ2PS_YMM_K1Z_ZMMM512B64_ER: int = 1398
 
 ``16/32/64-bit``
 """
-CVTPS2DQ_XMM_XMMM128: int = 1399
+CVTPS2DQ_XMM_XMMM128: Code = 1399 # type: ignore
 """
 ``CVTPS2DQ xmm1, xmm2/m128``
 
@@ -13981,7 +13987,7 @@ CVTPS2DQ_XMM_XMMM128: int = 1399
 
 ``16/32/64-bit``
 """
-VEX_VCVTPS2DQ_XMM_XMMM128: int = 1400
+VEX_VCVTPS2DQ_XMM_XMMM128: Code = 1400 # type: ignore
 """
 ``VCVTPS2DQ xmm1, xmm2/m128``
 
@@ -13991,7 +13997,7 @@ VEX_VCVTPS2DQ_XMM_XMMM128: int = 1400
 
 ``16/32/64-bit``
 """
-VEX_VCVTPS2DQ_YMM_YMMM256: int = 1401
+VEX_VCVTPS2DQ_YMM_YMMM256: Code = 1401 # type: ignore
 """
 ``VCVTPS2DQ ymm1, ymm2/m256``
 
@@ -14001,7 +14007,7 @@ VEX_VCVTPS2DQ_YMM_YMMM256: int = 1401
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2DQ_XMM_K1Z_XMMM128B32: int = 1402
+EVEX_VCVTPS2DQ_XMM_K1Z_XMMM128B32: Code = 1402 # type: ignore
 """
 ``VCVTPS2DQ xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -14011,7 +14017,7 @@ EVEX_VCVTPS2DQ_XMM_K1Z_XMMM128B32: int = 1402
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2DQ_YMM_K1Z_YMMM256B32: int = 1403
+EVEX_VCVTPS2DQ_YMM_K1Z_YMMM256B32: Code = 1403 # type: ignore
 """
 ``VCVTPS2DQ ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -14021,7 +14027,7 @@ EVEX_VCVTPS2DQ_YMM_K1Z_YMMM256B32: int = 1403
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2DQ_ZMM_K1Z_ZMMM512B32_ER: int = 1404
+EVEX_VCVTPS2DQ_ZMM_K1Z_ZMMM512B32_ER: Code = 1404 # type: ignore
 """
 ``VCVTPS2DQ zmm1 {k1}{z}, zmm2/m512/m32bcst{er}``
 
@@ -14031,7 +14037,7 @@ EVEX_VCVTPS2DQ_ZMM_K1Z_ZMMM512B32_ER: int = 1404
 
 ``16/32/64-bit``
 """
-CVTTPS2DQ_XMM_XMMM128: int = 1405
+CVTTPS2DQ_XMM_XMMM128: Code = 1405 # type: ignore
 """
 ``CVTTPS2DQ xmm1, xmm2/m128``
 
@@ -14041,7 +14047,7 @@ CVTTPS2DQ_XMM_XMMM128: int = 1405
 
 ``16/32/64-bit``
 """
-VEX_VCVTTPS2DQ_XMM_XMMM128: int = 1406
+VEX_VCVTTPS2DQ_XMM_XMMM128: Code = 1406 # type: ignore
 """
 ``VCVTTPS2DQ xmm1, xmm2/m128``
 
@@ -14051,7 +14057,7 @@ VEX_VCVTTPS2DQ_XMM_XMMM128: int = 1406
 
 ``16/32/64-bit``
 """
-VEX_VCVTTPS2DQ_YMM_YMMM256: int = 1407
+VEX_VCVTTPS2DQ_YMM_YMMM256: Code = 1407 # type: ignore
 """
 ``VCVTTPS2DQ ymm1, ymm2/m256``
 
@@ -14061,7 +14067,7 @@ VEX_VCVTTPS2DQ_YMM_YMMM256: int = 1407
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPS2DQ_XMM_K1Z_XMMM128B32: int = 1408
+EVEX_VCVTTPS2DQ_XMM_K1Z_XMMM128B32: Code = 1408 # type: ignore
 """
 ``VCVTTPS2DQ xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -14071,7 +14077,7 @@ EVEX_VCVTTPS2DQ_XMM_K1Z_XMMM128B32: int = 1408
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPS2DQ_YMM_K1Z_YMMM256B32: int = 1409
+EVEX_VCVTTPS2DQ_YMM_K1Z_YMMM256B32: Code = 1409 # type: ignore
 """
 ``VCVTTPS2DQ ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -14081,7 +14087,7 @@ EVEX_VCVTTPS2DQ_YMM_K1Z_YMMM256B32: int = 1409
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPS2DQ_ZMM_K1Z_ZMMM512B32_SAE: int = 1410
+EVEX_VCVTTPS2DQ_ZMM_K1Z_ZMMM512B32_SAE: Code = 1410 # type: ignore
 """
 ``VCVTTPS2DQ zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}``
 
@@ -14091,7 +14097,7 @@ EVEX_VCVTTPS2DQ_ZMM_K1Z_ZMMM512B32_SAE: int = 1410
 
 ``16/32/64-bit``
 """
-SUBPS_XMM_XMMM128: int = 1411
+SUBPS_XMM_XMMM128: Code = 1411 # type: ignore
 """
 ``SUBPS xmm1, xmm2/m128``
 
@@ -14101,7 +14107,7 @@ SUBPS_XMM_XMMM128: int = 1411
 
 ``16/32/64-bit``
 """
-VEX_VSUBPS_XMM_XMM_XMMM128: int = 1412
+VEX_VSUBPS_XMM_XMM_XMMM128: Code = 1412 # type: ignore
 """
 ``VSUBPS xmm1, xmm2, xmm3/m128``
 
@@ -14111,7 +14117,7 @@ VEX_VSUBPS_XMM_XMM_XMMM128: int = 1412
 
 ``16/32/64-bit``
 """
-VEX_VSUBPS_YMM_YMM_YMMM256: int = 1413
+VEX_VSUBPS_YMM_YMM_YMMM256: Code = 1413 # type: ignore
 """
 ``VSUBPS ymm1, ymm2, ymm3/m256``
 
@@ -14121,7 +14127,7 @@ VEX_VSUBPS_YMM_YMM_YMMM256: int = 1413
 
 ``16/32/64-bit``
 """
-EVEX_VSUBPS_XMM_K1Z_XMM_XMMM128B32: int = 1414
+EVEX_VSUBPS_XMM_K1Z_XMM_XMMM128B32: Code = 1414 # type: ignore
 """
 ``VSUBPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -14131,7 +14137,7 @@ EVEX_VSUBPS_XMM_K1Z_XMM_XMMM128B32: int = 1414
 
 ``16/32/64-bit``
 """
-EVEX_VSUBPS_YMM_K1Z_YMM_YMMM256B32: int = 1415
+EVEX_VSUBPS_YMM_K1Z_YMM_YMMM256B32: Code = 1415 # type: ignore
 """
 ``VSUBPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -14141,7 +14147,7 @@ EVEX_VSUBPS_YMM_K1Z_YMM_YMMM256B32: int = 1415
 
 ``16/32/64-bit``
 """
-EVEX_VSUBPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 1416
+EVEX_VSUBPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 1416 # type: ignore
 """
 ``VSUBPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -14151,7 +14157,7 @@ EVEX_VSUBPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 1416
 
 ``16/32/64-bit``
 """
-SUBPD_XMM_XMMM128: int = 1417
+SUBPD_XMM_XMMM128: Code = 1417 # type: ignore
 """
 ``SUBPD xmm1, xmm2/m128``
 
@@ -14161,7 +14167,7 @@ SUBPD_XMM_XMMM128: int = 1417
 
 ``16/32/64-bit``
 """
-VEX_VSUBPD_XMM_XMM_XMMM128: int = 1418
+VEX_VSUBPD_XMM_XMM_XMMM128: Code = 1418 # type: ignore
 """
 ``VSUBPD xmm1, xmm2, xmm3/m128``
 
@@ -14171,7 +14177,7 @@ VEX_VSUBPD_XMM_XMM_XMMM128: int = 1418
 
 ``16/32/64-bit``
 """
-VEX_VSUBPD_YMM_YMM_YMMM256: int = 1419
+VEX_VSUBPD_YMM_YMM_YMMM256: Code = 1419 # type: ignore
 """
 ``VSUBPD ymm1, ymm2, ymm3/m256``
 
@@ -14181,7 +14187,7 @@ VEX_VSUBPD_YMM_YMM_YMMM256: int = 1419
 
 ``16/32/64-bit``
 """
-EVEX_VSUBPD_XMM_K1Z_XMM_XMMM128B64: int = 1420
+EVEX_VSUBPD_XMM_K1Z_XMM_XMMM128B64: Code = 1420 # type: ignore
 """
 ``VSUBPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -14191,7 +14197,7 @@ EVEX_VSUBPD_XMM_K1Z_XMM_XMMM128B64: int = 1420
 
 ``16/32/64-bit``
 """
-EVEX_VSUBPD_YMM_K1Z_YMM_YMMM256B64: int = 1421
+EVEX_VSUBPD_YMM_K1Z_YMM_YMMM256B64: Code = 1421 # type: ignore
 """
 ``VSUBPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -14201,7 +14207,7 @@ EVEX_VSUBPD_YMM_K1Z_YMM_YMMM256B64: int = 1421
 
 ``16/32/64-bit``
 """
-EVEX_VSUBPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 1422
+EVEX_VSUBPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 1422 # type: ignore
 """
 ``VSUBPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -14211,7 +14217,7 @@ EVEX_VSUBPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 1422
 
 ``16/32/64-bit``
 """
-SUBSS_XMM_XMMM32: int = 1423
+SUBSS_XMM_XMMM32: Code = 1423 # type: ignore
 """
 ``SUBSS xmm1, xmm2/m32``
 
@@ -14221,7 +14227,7 @@ SUBSS_XMM_XMMM32: int = 1423
 
 ``16/32/64-bit``
 """
-VEX_VSUBSS_XMM_XMM_XMMM32: int = 1424
+VEX_VSUBSS_XMM_XMM_XMMM32: Code = 1424 # type: ignore
 """
 ``VSUBSS xmm1, xmm2, xmm3/m32``
 
@@ -14231,7 +14237,7 @@ VEX_VSUBSS_XMM_XMM_XMMM32: int = 1424
 
 ``16/32/64-bit``
 """
-EVEX_VSUBSS_XMM_K1Z_XMM_XMMM32_ER: int = 1425
+EVEX_VSUBSS_XMM_K1Z_XMM_XMMM32_ER: Code = 1425 # type: ignore
 """
 ``VSUBSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -14241,7 +14247,7 @@ EVEX_VSUBSS_XMM_K1Z_XMM_XMMM32_ER: int = 1425
 
 ``16/32/64-bit``
 """
-SUBSD_XMM_XMMM64: int = 1426
+SUBSD_XMM_XMMM64: Code = 1426 # type: ignore
 """
 ``SUBSD xmm1, xmm2/m64``
 
@@ -14251,7 +14257,7 @@ SUBSD_XMM_XMMM64: int = 1426
 
 ``16/32/64-bit``
 """
-VEX_VSUBSD_XMM_XMM_XMMM64: int = 1427
+VEX_VSUBSD_XMM_XMM_XMMM64: Code = 1427 # type: ignore
 """
 ``VSUBSD xmm1, xmm2, xmm3/m64``
 
@@ -14261,7 +14267,7 @@ VEX_VSUBSD_XMM_XMM_XMMM64: int = 1427
 
 ``16/32/64-bit``
 """
-EVEX_VSUBSD_XMM_K1Z_XMM_XMMM64_ER: int = 1428
+EVEX_VSUBSD_XMM_K1Z_XMM_XMMM64_ER: Code = 1428 # type: ignore
 """
 ``VSUBSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -14271,7 +14277,7 @@ EVEX_VSUBSD_XMM_K1Z_XMM_XMMM64_ER: int = 1428
 
 ``16/32/64-bit``
 """
-MINPS_XMM_XMMM128: int = 1429
+MINPS_XMM_XMMM128: Code = 1429 # type: ignore
 """
 ``MINPS xmm1, xmm2/m128``
 
@@ -14281,7 +14287,7 @@ MINPS_XMM_XMMM128: int = 1429
 
 ``16/32/64-bit``
 """
-VEX_VMINPS_XMM_XMM_XMMM128: int = 1430
+VEX_VMINPS_XMM_XMM_XMMM128: Code = 1430 # type: ignore
 """
 ``VMINPS xmm1, xmm2, xmm3/m128``
 
@@ -14291,7 +14297,7 @@ VEX_VMINPS_XMM_XMM_XMMM128: int = 1430
 
 ``16/32/64-bit``
 """
-VEX_VMINPS_YMM_YMM_YMMM256: int = 1431
+VEX_VMINPS_YMM_YMM_YMMM256: Code = 1431 # type: ignore
 """
 ``VMINPS ymm1, ymm2, ymm3/m256``
 
@@ -14301,7 +14307,7 @@ VEX_VMINPS_YMM_YMM_YMMM256: int = 1431
 
 ``16/32/64-bit``
 """
-EVEX_VMINPS_XMM_K1Z_XMM_XMMM128B32: int = 1432
+EVEX_VMINPS_XMM_K1Z_XMM_XMMM128B32: Code = 1432 # type: ignore
 """
 ``VMINPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -14311,7 +14317,7 @@ EVEX_VMINPS_XMM_K1Z_XMM_XMMM128B32: int = 1432
 
 ``16/32/64-bit``
 """
-EVEX_VMINPS_YMM_K1Z_YMM_YMMM256B32: int = 1433
+EVEX_VMINPS_YMM_K1Z_YMM_YMMM256B32: Code = 1433 # type: ignore
 """
 ``VMINPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -14321,7 +14327,7 @@ EVEX_VMINPS_YMM_K1Z_YMM_YMMM256B32: int = 1433
 
 ``16/32/64-bit``
 """
-EVEX_VMINPS_ZMM_K1Z_ZMM_ZMMM512B32_SAE: int = 1434
+EVEX_VMINPS_ZMM_K1Z_ZMM_ZMMM512B32_SAE: Code = 1434 # type: ignore
 """
 ``VMINPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}``
 
@@ -14331,7 +14337,7 @@ EVEX_VMINPS_ZMM_K1Z_ZMM_ZMMM512B32_SAE: int = 1434
 
 ``16/32/64-bit``
 """
-MINPD_XMM_XMMM128: int = 1435
+MINPD_XMM_XMMM128: Code = 1435 # type: ignore
 """
 ``MINPD xmm1, xmm2/m128``
 
@@ -14341,7 +14347,7 @@ MINPD_XMM_XMMM128: int = 1435
 
 ``16/32/64-bit``
 """
-VEX_VMINPD_XMM_XMM_XMMM128: int = 1436
+VEX_VMINPD_XMM_XMM_XMMM128: Code = 1436 # type: ignore
 """
 ``VMINPD xmm1, xmm2, xmm3/m128``
 
@@ -14351,7 +14357,7 @@ VEX_VMINPD_XMM_XMM_XMMM128: int = 1436
 
 ``16/32/64-bit``
 """
-VEX_VMINPD_YMM_YMM_YMMM256: int = 1437
+VEX_VMINPD_YMM_YMM_YMMM256: Code = 1437 # type: ignore
 """
 ``VMINPD ymm1, ymm2, ymm3/m256``
 
@@ -14361,7 +14367,7 @@ VEX_VMINPD_YMM_YMM_YMMM256: int = 1437
 
 ``16/32/64-bit``
 """
-EVEX_VMINPD_XMM_K1Z_XMM_XMMM128B64: int = 1438
+EVEX_VMINPD_XMM_K1Z_XMM_XMMM128B64: Code = 1438 # type: ignore
 """
 ``VMINPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -14371,7 +14377,7 @@ EVEX_VMINPD_XMM_K1Z_XMM_XMMM128B64: int = 1438
 
 ``16/32/64-bit``
 """
-EVEX_VMINPD_YMM_K1Z_YMM_YMMM256B64: int = 1439
+EVEX_VMINPD_YMM_K1Z_YMM_YMMM256B64: Code = 1439 # type: ignore
 """
 ``VMINPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -14381,7 +14387,7 @@ EVEX_VMINPD_YMM_K1Z_YMM_YMMM256B64: int = 1439
 
 ``16/32/64-bit``
 """
-EVEX_VMINPD_ZMM_K1Z_ZMM_ZMMM512B64_SAE: int = 1440
+EVEX_VMINPD_ZMM_K1Z_ZMM_ZMMM512B64_SAE: Code = 1440 # type: ignore
 """
 ``VMINPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}``
 
@@ -14391,7 +14397,7 @@ EVEX_VMINPD_ZMM_K1Z_ZMM_ZMMM512B64_SAE: int = 1440
 
 ``16/32/64-bit``
 """
-MINSS_XMM_XMMM32: int = 1441
+MINSS_XMM_XMMM32: Code = 1441 # type: ignore
 """
 ``MINSS xmm1, xmm2/m32``
 
@@ -14401,7 +14407,7 @@ MINSS_XMM_XMMM32: int = 1441
 
 ``16/32/64-bit``
 """
-VEX_VMINSS_XMM_XMM_XMMM32: int = 1442
+VEX_VMINSS_XMM_XMM_XMMM32: Code = 1442 # type: ignore
 """
 ``VMINSS xmm1, xmm2, xmm3/m32``
 
@@ -14411,7 +14417,7 @@ VEX_VMINSS_XMM_XMM_XMMM32: int = 1442
 
 ``16/32/64-bit``
 """
-EVEX_VMINSS_XMM_K1Z_XMM_XMMM32_SAE: int = 1443
+EVEX_VMINSS_XMM_K1Z_XMM_XMMM32_SAE: Code = 1443 # type: ignore
 """
 ``VMINSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}``
 
@@ -14421,7 +14427,7 @@ EVEX_VMINSS_XMM_K1Z_XMM_XMMM32_SAE: int = 1443
 
 ``16/32/64-bit``
 """
-MINSD_XMM_XMMM64: int = 1444
+MINSD_XMM_XMMM64: Code = 1444 # type: ignore
 """
 ``MINSD xmm1, xmm2/m64``
 
@@ -14431,7 +14437,7 @@ MINSD_XMM_XMMM64: int = 1444
 
 ``16/32/64-bit``
 """
-VEX_VMINSD_XMM_XMM_XMMM64: int = 1445
+VEX_VMINSD_XMM_XMM_XMMM64: Code = 1445 # type: ignore
 """
 ``VMINSD xmm1, xmm2, xmm3/m64``
 
@@ -14441,7 +14447,7 @@ VEX_VMINSD_XMM_XMM_XMMM64: int = 1445
 
 ``16/32/64-bit``
 """
-EVEX_VMINSD_XMM_K1Z_XMM_XMMM64_SAE: int = 1446
+EVEX_VMINSD_XMM_K1Z_XMM_XMMM64_SAE: Code = 1446 # type: ignore
 """
 ``VMINSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}``
 
@@ -14451,7 +14457,7 @@ EVEX_VMINSD_XMM_K1Z_XMM_XMMM64_SAE: int = 1446
 
 ``16/32/64-bit``
 """
-DIVPS_XMM_XMMM128: int = 1447
+DIVPS_XMM_XMMM128: Code = 1447 # type: ignore
 """
 ``DIVPS xmm1, xmm2/m128``
 
@@ -14461,7 +14467,7 @@ DIVPS_XMM_XMMM128: int = 1447
 
 ``16/32/64-bit``
 """
-VEX_VDIVPS_XMM_XMM_XMMM128: int = 1448
+VEX_VDIVPS_XMM_XMM_XMMM128: Code = 1448 # type: ignore
 """
 ``VDIVPS xmm1, xmm2, xmm3/m128``
 
@@ -14471,7 +14477,7 @@ VEX_VDIVPS_XMM_XMM_XMMM128: int = 1448
 
 ``16/32/64-bit``
 """
-VEX_VDIVPS_YMM_YMM_YMMM256: int = 1449
+VEX_VDIVPS_YMM_YMM_YMMM256: Code = 1449 # type: ignore
 """
 ``VDIVPS ymm1, ymm2, ymm3/m256``
 
@@ -14481,7 +14487,7 @@ VEX_VDIVPS_YMM_YMM_YMMM256: int = 1449
 
 ``16/32/64-bit``
 """
-EVEX_VDIVPS_XMM_K1Z_XMM_XMMM128B32: int = 1450
+EVEX_VDIVPS_XMM_K1Z_XMM_XMMM128B32: Code = 1450 # type: ignore
 """
 ``VDIVPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -14491,7 +14497,7 @@ EVEX_VDIVPS_XMM_K1Z_XMM_XMMM128B32: int = 1450
 
 ``16/32/64-bit``
 """
-EVEX_VDIVPS_YMM_K1Z_YMM_YMMM256B32: int = 1451
+EVEX_VDIVPS_YMM_K1Z_YMM_YMMM256B32: Code = 1451 # type: ignore
 """
 ``VDIVPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -14501,7 +14507,7 @@ EVEX_VDIVPS_YMM_K1Z_YMM_YMMM256B32: int = 1451
 
 ``16/32/64-bit``
 """
-EVEX_VDIVPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 1452
+EVEX_VDIVPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 1452 # type: ignore
 """
 ``VDIVPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -14511,7 +14517,7 @@ EVEX_VDIVPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 1452
 
 ``16/32/64-bit``
 """
-DIVPD_XMM_XMMM128: int = 1453
+DIVPD_XMM_XMMM128: Code = 1453 # type: ignore
 """
 ``DIVPD xmm1, xmm2/m128``
 
@@ -14521,7 +14527,7 @@ DIVPD_XMM_XMMM128: int = 1453
 
 ``16/32/64-bit``
 """
-VEX_VDIVPD_XMM_XMM_XMMM128: int = 1454
+VEX_VDIVPD_XMM_XMM_XMMM128: Code = 1454 # type: ignore
 """
 ``VDIVPD xmm1, xmm2, xmm3/m128``
 
@@ -14531,7 +14537,7 @@ VEX_VDIVPD_XMM_XMM_XMMM128: int = 1454
 
 ``16/32/64-bit``
 """
-VEX_VDIVPD_YMM_YMM_YMMM256: int = 1455
+VEX_VDIVPD_YMM_YMM_YMMM256: Code = 1455 # type: ignore
 """
 ``VDIVPD ymm1, ymm2, ymm3/m256``
 
@@ -14541,7 +14547,7 @@ VEX_VDIVPD_YMM_YMM_YMMM256: int = 1455
 
 ``16/32/64-bit``
 """
-EVEX_VDIVPD_XMM_K1Z_XMM_XMMM128B64: int = 1456
+EVEX_VDIVPD_XMM_K1Z_XMM_XMMM128B64: Code = 1456 # type: ignore
 """
 ``VDIVPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -14551,7 +14557,7 @@ EVEX_VDIVPD_XMM_K1Z_XMM_XMMM128B64: int = 1456
 
 ``16/32/64-bit``
 """
-EVEX_VDIVPD_YMM_K1Z_YMM_YMMM256B64: int = 1457
+EVEX_VDIVPD_YMM_K1Z_YMM_YMMM256B64: Code = 1457 # type: ignore
 """
 ``VDIVPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -14561,7 +14567,7 @@ EVEX_VDIVPD_YMM_K1Z_YMM_YMMM256B64: int = 1457
 
 ``16/32/64-bit``
 """
-EVEX_VDIVPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 1458
+EVEX_VDIVPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 1458 # type: ignore
 """
 ``VDIVPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -14571,7 +14577,7 @@ EVEX_VDIVPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 1458
 
 ``16/32/64-bit``
 """
-DIVSS_XMM_XMMM32: int = 1459
+DIVSS_XMM_XMMM32: Code = 1459 # type: ignore
 """
 ``DIVSS xmm1, xmm2/m32``
 
@@ -14581,7 +14587,7 @@ DIVSS_XMM_XMMM32: int = 1459
 
 ``16/32/64-bit``
 """
-VEX_VDIVSS_XMM_XMM_XMMM32: int = 1460
+VEX_VDIVSS_XMM_XMM_XMMM32: Code = 1460 # type: ignore
 """
 ``VDIVSS xmm1, xmm2, xmm3/m32``
 
@@ -14591,7 +14597,7 @@ VEX_VDIVSS_XMM_XMM_XMMM32: int = 1460
 
 ``16/32/64-bit``
 """
-EVEX_VDIVSS_XMM_K1Z_XMM_XMMM32_ER: int = 1461
+EVEX_VDIVSS_XMM_K1Z_XMM_XMMM32_ER: Code = 1461 # type: ignore
 """
 ``VDIVSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -14601,7 +14607,7 @@ EVEX_VDIVSS_XMM_K1Z_XMM_XMMM32_ER: int = 1461
 
 ``16/32/64-bit``
 """
-DIVSD_XMM_XMMM64: int = 1462
+DIVSD_XMM_XMMM64: Code = 1462 # type: ignore
 """
 ``DIVSD xmm1, xmm2/m64``
 
@@ -14611,7 +14617,7 @@ DIVSD_XMM_XMMM64: int = 1462
 
 ``16/32/64-bit``
 """
-VEX_VDIVSD_XMM_XMM_XMMM64: int = 1463
+VEX_VDIVSD_XMM_XMM_XMMM64: Code = 1463 # type: ignore
 """
 ``VDIVSD xmm1, xmm2, xmm3/m64``
 
@@ -14621,7 +14627,7 @@ VEX_VDIVSD_XMM_XMM_XMMM64: int = 1463
 
 ``16/32/64-bit``
 """
-EVEX_VDIVSD_XMM_K1Z_XMM_XMMM64_ER: int = 1464
+EVEX_VDIVSD_XMM_K1Z_XMM_XMMM64_ER: Code = 1464 # type: ignore
 """
 ``VDIVSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -14631,7 +14637,7 @@ EVEX_VDIVSD_XMM_K1Z_XMM_XMMM64_ER: int = 1464
 
 ``16/32/64-bit``
 """
-MAXPS_XMM_XMMM128: int = 1465
+MAXPS_XMM_XMMM128: Code = 1465 # type: ignore
 """
 ``MAXPS xmm1, xmm2/m128``
 
@@ -14641,7 +14647,7 @@ MAXPS_XMM_XMMM128: int = 1465
 
 ``16/32/64-bit``
 """
-VEX_VMAXPS_XMM_XMM_XMMM128: int = 1466
+VEX_VMAXPS_XMM_XMM_XMMM128: Code = 1466 # type: ignore
 """
 ``VMAXPS xmm1, xmm2, xmm3/m128``
 
@@ -14651,7 +14657,7 @@ VEX_VMAXPS_XMM_XMM_XMMM128: int = 1466
 
 ``16/32/64-bit``
 """
-VEX_VMAXPS_YMM_YMM_YMMM256: int = 1467
+VEX_VMAXPS_YMM_YMM_YMMM256: Code = 1467 # type: ignore
 """
 ``VMAXPS ymm1, ymm2, ymm3/m256``
 
@@ -14661,7 +14667,7 @@ VEX_VMAXPS_YMM_YMM_YMMM256: int = 1467
 
 ``16/32/64-bit``
 """
-EVEX_VMAXPS_XMM_K1Z_XMM_XMMM128B32: int = 1468
+EVEX_VMAXPS_XMM_K1Z_XMM_XMMM128B32: Code = 1468 # type: ignore
 """
 ``VMAXPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -14671,7 +14677,7 @@ EVEX_VMAXPS_XMM_K1Z_XMM_XMMM128B32: int = 1468
 
 ``16/32/64-bit``
 """
-EVEX_VMAXPS_YMM_K1Z_YMM_YMMM256B32: int = 1469
+EVEX_VMAXPS_YMM_K1Z_YMM_YMMM256B32: Code = 1469 # type: ignore
 """
 ``VMAXPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -14681,7 +14687,7 @@ EVEX_VMAXPS_YMM_K1Z_YMM_YMMM256B32: int = 1469
 
 ``16/32/64-bit``
 """
-EVEX_VMAXPS_ZMM_K1Z_ZMM_ZMMM512B32_SAE: int = 1470
+EVEX_VMAXPS_ZMM_K1Z_ZMM_ZMMM512B32_SAE: Code = 1470 # type: ignore
 """
 ``VMAXPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}``
 
@@ -14691,7 +14697,7 @@ EVEX_VMAXPS_ZMM_K1Z_ZMM_ZMMM512B32_SAE: int = 1470
 
 ``16/32/64-bit``
 """
-MAXPD_XMM_XMMM128: int = 1471
+MAXPD_XMM_XMMM128: Code = 1471 # type: ignore
 """
 ``MAXPD xmm1, xmm2/m128``
 
@@ -14701,7 +14707,7 @@ MAXPD_XMM_XMMM128: int = 1471
 
 ``16/32/64-bit``
 """
-VEX_VMAXPD_XMM_XMM_XMMM128: int = 1472
+VEX_VMAXPD_XMM_XMM_XMMM128: Code = 1472 # type: ignore
 """
 ``VMAXPD xmm1, xmm2, xmm3/m128``
 
@@ -14711,7 +14717,7 @@ VEX_VMAXPD_XMM_XMM_XMMM128: int = 1472
 
 ``16/32/64-bit``
 """
-VEX_VMAXPD_YMM_YMM_YMMM256: int = 1473
+VEX_VMAXPD_YMM_YMM_YMMM256: Code = 1473 # type: ignore
 """
 ``VMAXPD ymm1, ymm2, ymm3/m256``
 
@@ -14721,7 +14727,7 @@ VEX_VMAXPD_YMM_YMM_YMMM256: int = 1473
 
 ``16/32/64-bit``
 """
-EVEX_VMAXPD_XMM_K1Z_XMM_XMMM128B64: int = 1474
+EVEX_VMAXPD_XMM_K1Z_XMM_XMMM128B64: Code = 1474 # type: ignore
 """
 ``VMAXPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -14731,7 +14737,7 @@ EVEX_VMAXPD_XMM_K1Z_XMM_XMMM128B64: int = 1474
 
 ``16/32/64-bit``
 """
-EVEX_VMAXPD_YMM_K1Z_YMM_YMMM256B64: int = 1475
+EVEX_VMAXPD_YMM_K1Z_YMM_YMMM256B64: Code = 1475 # type: ignore
 """
 ``VMAXPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -14741,7 +14747,7 @@ EVEX_VMAXPD_YMM_K1Z_YMM_YMMM256B64: int = 1475
 
 ``16/32/64-bit``
 """
-EVEX_VMAXPD_ZMM_K1Z_ZMM_ZMMM512B64_SAE: int = 1476
+EVEX_VMAXPD_ZMM_K1Z_ZMM_ZMMM512B64_SAE: Code = 1476 # type: ignore
 """
 ``VMAXPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}``
 
@@ -14751,7 +14757,7 @@ EVEX_VMAXPD_ZMM_K1Z_ZMM_ZMMM512B64_SAE: int = 1476
 
 ``16/32/64-bit``
 """
-MAXSS_XMM_XMMM32: int = 1477
+MAXSS_XMM_XMMM32: Code = 1477 # type: ignore
 """
 ``MAXSS xmm1, xmm2/m32``
 
@@ -14761,7 +14767,7 @@ MAXSS_XMM_XMMM32: int = 1477
 
 ``16/32/64-bit``
 """
-VEX_VMAXSS_XMM_XMM_XMMM32: int = 1478
+VEX_VMAXSS_XMM_XMM_XMMM32: Code = 1478 # type: ignore
 """
 ``VMAXSS xmm1, xmm2, xmm3/m32``
 
@@ -14771,7 +14777,7 @@ VEX_VMAXSS_XMM_XMM_XMMM32: int = 1478
 
 ``16/32/64-bit``
 """
-EVEX_VMAXSS_XMM_K1Z_XMM_XMMM32_SAE: int = 1479
+EVEX_VMAXSS_XMM_K1Z_XMM_XMMM32_SAE: Code = 1479 # type: ignore
 """
 ``VMAXSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}``
 
@@ -14781,7 +14787,7 @@ EVEX_VMAXSS_XMM_K1Z_XMM_XMMM32_SAE: int = 1479
 
 ``16/32/64-bit``
 """
-MAXSD_XMM_XMMM64: int = 1480
+MAXSD_XMM_XMMM64: Code = 1480 # type: ignore
 """
 ``MAXSD xmm1, xmm2/m64``
 
@@ -14791,7 +14797,7 @@ MAXSD_XMM_XMMM64: int = 1480
 
 ``16/32/64-bit``
 """
-VEX_VMAXSD_XMM_XMM_XMMM64: int = 1481
+VEX_VMAXSD_XMM_XMM_XMMM64: Code = 1481 # type: ignore
 """
 ``VMAXSD xmm1, xmm2, xmm3/m64``
 
@@ -14801,7 +14807,7 @@ VEX_VMAXSD_XMM_XMM_XMMM64: int = 1481
 
 ``16/32/64-bit``
 """
-EVEX_VMAXSD_XMM_K1Z_XMM_XMMM64_SAE: int = 1482
+EVEX_VMAXSD_XMM_K1Z_XMM_XMMM64_SAE: Code = 1482 # type: ignore
 """
 ``VMAXSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}``
 
@@ -14811,7 +14817,7 @@ EVEX_VMAXSD_XMM_K1Z_XMM_XMMM64_SAE: int = 1482
 
 ``16/32/64-bit``
 """
-PUNPCKLBW_MM_MMM32: int = 1483
+PUNPCKLBW_MM_MMM32: Code = 1483 # type: ignore
 """
 ``PUNPCKLBW mm, mm/m32``
 
@@ -14821,7 +14827,7 @@ PUNPCKLBW_MM_MMM32: int = 1483
 
 ``16/32/64-bit``
 """
-PUNPCKLBW_XMM_XMMM128: int = 1484
+PUNPCKLBW_XMM_XMMM128: Code = 1484 # type: ignore
 """
 ``PUNPCKLBW xmm1, xmm2/m128``
 
@@ -14831,7 +14837,7 @@ PUNPCKLBW_XMM_XMMM128: int = 1484
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKLBW_XMM_XMM_XMMM128: int = 1485
+VEX_VPUNPCKLBW_XMM_XMM_XMMM128: Code = 1485 # type: ignore
 """
 ``VPUNPCKLBW xmm1, xmm2, xmm3/m128``
 
@@ -14841,7 +14847,7 @@ VEX_VPUNPCKLBW_XMM_XMM_XMMM128: int = 1485
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKLBW_YMM_YMM_YMMM256: int = 1486
+VEX_VPUNPCKLBW_YMM_YMM_YMMM256: Code = 1486 # type: ignore
 """
 ``VPUNPCKLBW ymm1, ymm2, ymm3/m256``
 
@@ -14851,7 +14857,7 @@ VEX_VPUNPCKLBW_YMM_YMM_YMMM256: int = 1486
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLBW_XMM_K1Z_XMM_XMMM128: int = 1487
+EVEX_VPUNPCKLBW_XMM_K1Z_XMM_XMMM128: Code = 1487 # type: ignore
 """
 ``VPUNPCKLBW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -14861,7 +14867,7 @@ EVEX_VPUNPCKLBW_XMM_K1Z_XMM_XMMM128: int = 1487
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLBW_YMM_K1Z_YMM_YMMM256: int = 1488
+EVEX_VPUNPCKLBW_YMM_K1Z_YMM_YMMM256: Code = 1488 # type: ignore
 """
 ``VPUNPCKLBW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -14871,7 +14877,7 @@ EVEX_VPUNPCKLBW_YMM_K1Z_YMM_YMMM256: int = 1488
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLBW_ZMM_K1Z_ZMM_ZMMM512: int = 1489
+EVEX_VPUNPCKLBW_ZMM_K1Z_ZMM_ZMMM512: Code = 1489 # type: ignore
 """
 ``VPUNPCKLBW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -14881,7 +14887,7 @@ EVEX_VPUNPCKLBW_ZMM_K1Z_ZMM_ZMMM512: int = 1489
 
 ``16/32/64-bit``
 """
-PUNPCKLWD_MM_MMM32: int = 1490
+PUNPCKLWD_MM_MMM32: Code = 1490 # type: ignore
 """
 ``PUNPCKLWD mm, mm/m32``
 
@@ -14891,7 +14897,7 @@ PUNPCKLWD_MM_MMM32: int = 1490
 
 ``16/32/64-bit``
 """
-PUNPCKLWD_XMM_XMMM128: int = 1491
+PUNPCKLWD_XMM_XMMM128: Code = 1491 # type: ignore
 """
 ``PUNPCKLWD xmm1, xmm2/m128``
 
@@ -14901,7 +14907,7 @@ PUNPCKLWD_XMM_XMMM128: int = 1491
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKLWD_XMM_XMM_XMMM128: int = 1492
+VEX_VPUNPCKLWD_XMM_XMM_XMMM128: Code = 1492 # type: ignore
 """
 ``VPUNPCKLWD xmm1, xmm2, xmm3/m128``
 
@@ -14911,7 +14917,7 @@ VEX_VPUNPCKLWD_XMM_XMM_XMMM128: int = 1492
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKLWD_YMM_YMM_YMMM256: int = 1493
+VEX_VPUNPCKLWD_YMM_YMM_YMMM256: Code = 1493 # type: ignore
 """
 ``VPUNPCKLWD ymm1, ymm2, ymm3/m256``
 
@@ -14921,7 +14927,7 @@ VEX_VPUNPCKLWD_YMM_YMM_YMMM256: int = 1493
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLWD_XMM_K1Z_XMM_XMMM128: int = 1494
+EVEX_VPUNPCKLWD_XMM_K1Z_XMM_XMMM128: Code = 1494 # type: ignore
 """
 ``VPUNPCKLWD xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -14931,7 +14937,7 @@ EVEX_VPUNPCKLWD_XMM_K1Z_XMM_XMMM128: int = 1494
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLWD_YMM_K1Z_YMM_YMMM256: int = 1495
+EVEX_VPUNPCKLWD_YMM_K1Z_YMM_YMMM256: Code = 1495 # type: ignore
 """
 ``VPUNPCKLWD ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -14941,7 +14947,7 @@ EVEX_VPUNPCKLWD_YMM_K1Z_YMM_YMMM256: int = 1495
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLWD_ZMM_K1Z_ZMM_ZMMM512: int = 1496
+EVEX_VPUNPCKLWD_ZMM_K1Z_ZMM_ZMMM512: Code = 1496 # type: ignore
 """
 ``VPUNPCKLWD zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -14951,7 +14957,7 @@ EVEX_VPUNPCKLWD_ZMM_K1Z_ZMM_ZMMM512: int = 1496
 
 ``16/32/64-bit``
 """
-PUNPCKLDQ_MM_MMM32: int = 1497
+PUNPCKLDQ_MM_MMM32: Code = 1497 # type: ignore
 """
 ``PUNPCKLDQ mm, mm/m32``
 
@@ -14961,7 +14967,7 @@ PUNPCKLDQ_MM_MMM32: int = 1497
 
 ``16/32/64-bit``
 """
-PUNPCKLDQ_XMM_XMMM128: int = 1498
+PUNPCKLDQ_XMM_XMMM128: Code = 1498 # type: ignore
 """
 ``PUNPCKLDQ xmm1, xmm2/m128``
 
@@ -14971,7 +14977,7 @@ PUNPCKLDQ_XMM_XMMM128: int = 1498
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKLDQ_XMM_XMM_XMMM128: int = 1499
+VEX_VPUNPCKLDQ_XMM_XMM_XMMM128: Code = 1499 # type: ignore
 """
 ``VPUNPCKLDQ xmm1, xmm2, xmm3/m128``
 
@@ -14981,7 +14987,7 @@ VEX_VPUNPCKLDQ_XMM_XMM_XMMM128: int = 1499
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKLDQ_YMM_YMM_YMMM256: int = 1500
+VEX_VPUNPCKLDQ_YMM_YMM_YMMM256: Code = 1500 # type: ignore
 """
 ``VPUNPCKLDQ ymm1, ymm2, ymm3/m256``
 
@@ -14991,7 +14997,7 @@ VEX_VPUNPCKLDQ_YMM_YMM_YMMM256: int = 1500
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLDQ_XMM_K1Z_XMM_XMMM128B32: int = 1501
+EVEX_VPUNPCKLDQ_XMM_K1Z_XMM_XMMM128B32: Code = 1501 # type: ignore
 """
 ``VPUNPCKLDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -15001,7 +15007,7 @@ EVEX_VPUNPCKLDQ_XMM_K1Z_XMM_XMMM128B32: int = 1501
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLDQ_YMM_K1Z_YMM_YMMM256B32: int = 1502
+EVEX_VPUNPCKLDQ_YMM_K1Z_YMM_YMMM256B32: Code = 1502 # type: ignore
 """
 ``VPUNPCKLDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -15011,7 +15017,7 @@ EVEX_VPUNPCKLDQ_YMM_K1Z_YMM_YMMM256B32: int = 1502
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLDQ_ZMM_K1Z_ZMM_ZMMM512B32: int = 1503
+EVEX_VPUNPCKLDQ_ZMM_K1Z_ZMM_ZMMM512B32: Code = 1503 # type: ignore
 """
 ``VPUNPCKLDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -15021,7 +15027,7 @@ EVEX_VPUNPCKLDQ_ZMM_K1Z_ZMM_ZMMM512B32: int = 1503
 
 ``16/32/64-bit``
 """
-PACKSSWB_MM_MMM64: int = 1504
+PACKSSWB_MM_MMM64: Code = 1504 # type: ignore
 """
 ``PACKSSWB mm1, mm2/m64``
 
@@ -15031,7 +15037,7 @@ PACKSSWB_MM_MMM64: int = 1504
 
 ``16/32/64-bit``
 """
-PACKSSWB_XMM_XMMM128: int = 1505
+PACKSSWB_XMM_XMMM128: Code = 1505 # type: ignore
 """
 ``PACKSSWB xmm1, xmm2/m128``
 
@@ -15041,7 +15047,7 @@ PACKSSWB_XMM_XMMM128: int = 1505
 
 ``16/32/64-bit``
 """
-VEX_VPACKSSWB_XMM_XMM_XMMM128: int = 1506
+VEX_VPACKSSWB_XMM_XMM_XMMM128: Code = 1506 # type: ignore
 """
 ``VPACKSSWB xmm1, xmm2, xmm3/m128``
 
@@ -15051,7 +15057,7 @@ VEX_VPACKSSWB_XMM_XMM_XMMM128: int = 1506
 
 ``16/32/64-bit``
 """
-VEX_VPACKSSWB_YMM_YMM_YMMM256: int = 1507
+VEX_VPACKSSWB_YMM_YMM_YMMM256: Code = 1507 # type: ignore
 """
 ``VPACKSSWB ymm1, ymm2, ymm3/m256``
 
@@ -15061,7 +15067,7 @@ VEX_VPACKSSWB_YMM_YMM_YMMM256: int = 1507
 
 ``16/32/64-bit``
 """
-EVEX_VPACKSSWB_XMM_K1Z_XMM_XMMM128: int = 1508
+EVEX_VPACKSSWB_XMM_K1Z_XMM_XMMM128: Code = 1508 # type: ignore
 """
 ``VPACKSSWB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -15071,7 +15077,7 @@ EVEX_VPACKSSWB_XMM_K1Z_XMM_XMMM128: int = 1508
 
 ``16/32/64-bit``
 """
-EVEX_VPACKSSWB_YMM_K1Z_YMM_YMMM256: int = 1509
+EVEX_VPACKSSWB_YMM_K1Z_YMM_YMMM256: Code = 1509 # type: ignore
 """
 ``VPACKSSWB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -15081,7 +15087,7 @@ EVEX_VPACKSSWB_YMM_K1Z_YMM_YMMM256: int = 1509
 
 ``16/32/64-bit``
 """
-EVEX_VPACKSSWB_ZMM_K1Z_ZMM_ZMMM512: int = 1510
+EVEX_VPACKSSWB_ZMM_K1Z_ZMM_ZMMM512: Code = 1510 # type: ignore
 """
 ``VPACKSSWB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -15091,7 +15097,7 @@ EVEX_VPACKSSWB_ZMM_K1Z_ZMM_ZMMM512: int = 1510
 
 ``16/32/64-bit``
 """
-PCMPGTB_MM_MMM64: int = 1511
+PCMPGTB_MM_MMM64: Code = 1511 # type: ignore
 """
 ``PCMPGTB mm, mm/m64``
 
@@ -15101,7 +15107,7 @@ PCMPGTB_MM_MMM64: int = 1511
 
 ``16/32/64-bit``
 """
-PCMPGTB_XMM_XMMM128: int = 1512
+PCMPGTB_XMM_XMMM128: Code = 1512 # type: ignore
 """
 ``PCMPGTB xmm1, xmm2/m128``
 
@@ -15111,7 +15117,7 @@ PCMPGTB_XMM_XMMM128: int = 1512
 
 ``16/32/64-bit``
 """
-VEX_VPCMPGTB_XMM_XMM_XMMM128: int = 1513
+VEX_VPCMPGTB_XMM_XMM_XMMM128: Code = 1513 # type: ignore
 """
 ``VPCMPGTB xmm1, xmm2, xmm3/m128``
 
@@ -15121,7 +15127,7 @@ VEX_VPCMPGTB_XMM_XMM_XMMM128: int = 1513
 
 ``16/32/64-bit``
 """
-VEX_VPCMPGTB_YMM_YMM_YMMM256: int = 1514
+VEX_VPCMPGTB_YMM_YMM_YMMM256: Code = 1514 # type: ignore
 """
 ``VPCMPGTB ymm1, ymm2, ymm3/m256``
 
@@ -15131,7 +15137,7 @@ VEX_VPCMPGTB_YMM_YMM_YMMM256: int = 1514
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTB_KR_K1_XMM_XMMM128: int = 1515
+EVEX_VPCMPGTB_KR_K1_XMM_XMMM128: Code = 1515 # type: ignore
 """
 ``VPCMPGTB k1 {k2}, xmm2, xmm3/m128``
 
@@ -15141,7 +15147,7 @@ EVEX_VPCMPGTB_KR_K1_XMM_XMMM128: int = 1515
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTB_KR_K1_YMM_YMMM256: int = 1516
+EVEX_VPCMPGTB_KR_K1_YMM_YMMM256: Code = 1516 # type: ignore
 """
 ``VPCMPGTB k1 {k2}, ymm2, ymm3/m256``
 
@@ -15151,7 +15157,7 @@ EVEX_VPCMPGTB_KR_K1_YMM_YMMM256: int = 1516
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTB_KR_K1_ZMM_ZMMM512: int = 1517
+EVEX_VPCMPGTB_KR_K1_ZMM_ZMMM512: Code = 1517 # type: ignore
 """
 ``VPCMPGTB k1 {k2}, zmm2, zmm3/m512``
 
@@ -15161,7 +15167,7 @@ EVEX_VPCMPGTB_KR_K1_ZMM_ZMMM512: int = 1517
 
 ``16/32/64-bit``
 """
-PCMPGTW_MM_MMM64: int = 1518
+PCMPGTW_MM_MMM64: Code = 1518 # type: ignore
 """
 ``PCMPGTW mm, mm/m64``
 
@@ -15171,7 +15177,7 @@ PCMPGTW_MM_MMM64: int = 1518
 
 ``16/32/64-bit``
 """
-PCMPGTW_XMM_XMMM128: int = 1519
+PCMPGTW_XMM_XMMM128: Code = 1519 # type: ignore
 """
 ``PCMPGTW xmm1, xmm2/m128``
 
@@ -15181,7 +15187,7 @@ PCMPGTW_XMM_XMMM128: int = 1519
 
 ``16/32/64-bit``
 """
-VEX_VPCMPGTW_XMM_XMM_XMMM128: int = 1520
+VEX_VPCMPGTW_XMM_XMM_XMMM128: Code = 1520 # type: ignore
 """
 ``VPCMPGTW xmm1, xmm2, xmm3/m128``
 
@@ -15191,7 +15197,7 @@ VEX_VPCMPGTW_XMM_XMM_XMMM128: int = 1520
 
 ``16/32/64-bit``
 """
-VEX_VPCMPGTW_YMM_YMM_YMMM256: int = 1521
+VEX_VPCMPGTW_YMM_YMM_YMMM256: Code = 1521 # type: ignore
 """
 ``VPCMPGTW ymm1, ymm2, ymm3/m256``
 
@@ -15201,7 +15207,7 @@ VEX_VPCMPGTW_YMM_YMM_YMMM256: int = 1521
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTW_KR_K1_XMM_XMMM128: int = 1522
+EVEX_VPCMPGTW_KR_K1_XMM_XMMM128: Code = 1522 # type: ignore
 """
 ``VPCMPGTW k1 {k2}, xmm2, xmm3/m128``
 
@@ -15211,7 +15217,7 @@ EVEX_VPCMPGTW_KR_K1_XMM_XMMM128: int = 1522
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTW_KR_K1_YMM_YMMM256: int = 1523
+EVEX_VPCMPGTW_KR_K1_YMM_YMMM256: Code = 1523 # type: ignore
 """
 ``VPCMPGTW k1 {k2}, ymm2, ymm3/m256``
 
@@ -15221,7 +15227,7 @@ EVEX_VPCMPGTW_KR_K1_YMM_YMMM256: int = 1523
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTW_KR_K1_ZMM_ZMMM512: int = 1524
+EVEX_VPCMPGTW_KR_K1_ZMM_ZMMM512: Code = 1524 # type: ignore
 """
 ``VPCMPGTW k1 {k2}, zmm2, zmm3/m512``
 
@@ -15231,7 +15237,7 @@ EVEX_VPCMPGTW_KR_K1_ZMM_ZMMM512: int = 1524
 
 ``16/32/64-bit``
 """
-PCMPGTD_MM_MMM64: int = 1525
+PCMPGTD_MM_MMM64: Code = 1525 # type: ignore
 """
 ``PCMPGTD mm, mm/m64``
 
@@ -15241,7 +15247,7 @@ PCMPGTD_MM_MMM64: int = 1525
 
 ``16/32/64-bit``
 """
-PCMPGTD_XMM_XMMM128: int = 1526
+PCMPGTD_XMM_XMMM128: Code = 1526 # type: ignore
 """
 ``PCMPGTD xmm1, xmm2/m128``
 
@@ -15251,7 +15257,7 @@ PCMPGTD_XMM_XMMM128: int = 1526
 
 ``16/32/64-bit``
 """
-VEX_VPCMPGTD_XMM_XMM_XMMM128: int = 1527
+VEX_VPCMPGTD_XMM_XMM_XMMM128: Code = 1527 # type: ignore
 """
 ``VPCMPGTD xmm1, xmm2, xmm3/m128``
 
@@ -15261,7 +15267,7 @@ VEX_VPCMPGTD_XMM_XMM_XMMM128: int = 1527
 
 ``16/32/64-bit``
 """
-VEX_VPCMPGTD_YMM_YMM_YMMM256: int = 1528
+VEX_VPCMPGTD_YMM_YMM_YMMM256: Code = 1528 # type: ignore
 """
 ``VPCMPGTD ymm1, ymm2, ymm3/m256``
 
@@ -15271,7 +15277,7 @@ VEX_VPCMPGTD_YMM_YMM_YMMM256: int = 1528
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTD_KR_K1_XMM_XMMM128B32: int = 1529
+EVEX_VPCMPGTD_KR_K1_XMM_XMMM128B32: Code = 1529 # type: ignore
 """
 ``VPCMPGTD k1 {k2}, xmm2, xmm3/m128/m32bcst``
 
@@ -15281,7 +15287,7 @@ EVEX_VPCMPGTD_KR_K1_XMM_XMMM128B32: int = 1529
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTD_KR_K1_YMM_YMMM256B32: int = 1530
+EVEX_VPCMPGTD_KR_K1_YMM_YMMM256B32: Code = 1530 # type: ignore
 """
 ``VPCMPGTD k1 {k2}, ymm2, ymm3/m256/m32bcst``
 
@@ -15291,7 +15297,7 @@ EVEX_VPCMPGTD_KR_K1_YMM_YMMM256B32: int = 1530
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTD_KR_K1_ZMM_ZMMM512B32: int = 1531
+EVEX_VPCMPGTD_KR_K1_ZMM_ZMMM512B32: Code = 1531 # type: ignore
 """
 ``VPCMPGTD k1 {k2}, zmm2, zmm3/m512/m32bcst``
 
@@ -15301,7 +15307,7 @@ EVEX_VPCMPGTD_KR_K1_ZMM_ZMMM512B32: int = 1531
 
 ``16/32/64-bit``
 """
-PACKUSWB_MM_MMM64: int = 1532
+PACKUSWB_MM_MMM64: Code = 1532 # type: ignore
 """
 ``PACKUSWB mm, mm/m64``
 
@@ -15311,7 +15317,7 @@ PACKUSWB_MM_MMM64: int = 1532
 
 ``16/32/64-bit``
 """
-PACKUSWB_XMM_XMMM128: int = 1533
+PACKUSWB_XMM_XMMM128: Code = 1533 # type: ignore
 """
 ``PACKUSWB xmm1, xmm2/m128``
 
@@ -15321,7 +15327,7 @@ PACKUSWB_XMM_XMMM128: int = 1533
 
 ``16/32/64-bit``
 """
-VEX_VPACKUSWB_XMM_XMM_XMMM128: int = 1534
+VEX_VPACKUSWB_XMM_XMM_XMMM128: Code = 1534 # type: ignore
 """
 ``VPACKUSWB xmm1, xmm2, xmm3/m128``
 
@@ -15331,7 +15337,7 @@ VEX_VPACKUSWB_XMM_XMM_XMMM128: int = 1534
 
 ``16/32/64-bit``
 """
-VEX_VPACKUSWB_YMM_YMM_YMMM256: int = 1535
+VEX_VPACKUSWB_YMM_YMM_YMMM256: Code = 1535 # type: ignore
 """
 ``VPACKUSWB ymm1, ymm2, ymm3/m256``
 
@@ -15341,7 +15347,7 @@ VEX_VPACKUSWB_YMM_YMM_YMMM256: int = 1535
 
 ``16/32/64-bit``
 """
-EVEX_VPACKUSWB_XMM_K1Z_XMM_XMMM128: int = 1536
+EVEX_VPACKUSWB_XMM_K1Z_XMM_XMMM128: Code = 1536 # type: ignore
 """
 ``VPACKUSWB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -15351,7 +15357,7 @@ EVEX_VPACKUSWB_XMM_K1Z_XMM_XMMM128: int = 1536
 
 ``16/32/64-bit``
 """
-EVEX_VPACKUSWB_YMM_K1Z_YMM_YMMM256: int = 1537
+EVEX_VPACKUSWB_YMM_K1Z_YMM_YMMM256: Code = 1537 # type: ignore
 """
 ``VPACKUSWB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -15361,7 +15367,7 @@ EVEX_VPACKUSWB_YMM_K1Z_YMM_YMMM256: int = 1537
 
 ``16/32/64-bit``
 """
-EVEX_VPACKUSWB_ZMM_K1Z_ZMM_ZMMM512: int = 1538
+EVEX_VPACKUSWB_ZMM_K1Z_ZMM_ZMMM512: Code = 1538 # type: ignore
 """
 ``VPACKUSWB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -15371,7 +15377,7 @@ EVEX_VPACKUSWB_ZMM_K1Z_ZMM_ZMMM512: int = 1538
 
 ``16/32/64-bit``
 """
-PUNPCKHBW_MM_MMM64: int = 1539
+PUNPCKHBW_MM_MMM64: Code = 1539 # type: ignore
 """
 ``PUNPCKHBW mm, mm/m64``
 
@@ -15381,7 +15387,7 @@ PUNPCKHBW_MM_MMM64: int = 1539
 
 ``16/32/64-bit``
 """
-PUNPCKHBW_XMM_XMMM128: int = 1540
+PUNPCKHBW_XMM_XMMM128: Code = 1540 # type: ignore
 """
 ``PUNPCKHBW xmm1, xmm2/m128``
 
@@ -15391,7 +15397,7 @@ PUNPCKHBW_XMM_XMMM128: int = 1540
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKHBW_XMM_XMM_XMMM128: int = 1541
+VEX_VPUNPCKHBW_XMM_XMM_XMMM128: Code = 1541 # type: ignore
 """
 ``VPUNPCKHBW xmm1, xmm2, xmm3/m128``
 
@@ -15401,7 +15407,7 @@ VEX_VPUNPCKHBW_XMM_XMM_XMMM128: int = 1541
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKHBW_YMM_YMM_YMMM256: int = 1542
+VEX_VPUNPCKHBW_YMM_YMM_YMMM256: Code = 1542 # type: ignore
 """
 ``VPUNPCKHBW ymm1, ymm2, ymm3/m256``
 
@@ -15411,7 +15417,7 @@ VEX_VPUNPCKHBW_YMM_YMM_YMMM256: int = 1542
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHBW_XMM_K1Z_XMM_XMMM128: int = 1543
+EVEX_VPUNPCKHBW_XMM_K1Z_XMM_XMMM128: Code = 1543 # type: ignore
 """
 ``VPUNPCKHBW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -15421,7 +15427,7 @@ EVEX_VPUNPCKHBW_XMM_K1Z_XMM_XMMM128: int = 1543
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHBW_YMM_K1Z_YMM_YMMM256: int = 1544
+EVEX_VPUNPCKHBW_YMM_K1Z_YMM_YMMM256: Code = 1544 # type: ignore
 """
 ``VPUNPCKHBW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -15431,7 +15437,7 @@ EVEX_VPUNPCKHBW_YMM_K1Z_YMM_YMMM256: int = 1544
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHBW_ZMM_K1Z_ZMM_ZMMM512: int = 1545
+EVEX_VPUNPCKHBW_ZMM_K1Z_ZMM_ZMMM512: Code = 1545 # type: ignore
 """
 ``VPUNPCKHBW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -15441,7 +15447,7 @@ EVEX_VPUNPCKHBW_ZMM_K1Z_ZMM_ZMMM512: int = 1545
 
 ``16/32/64-bit``
 """
-PUNPCKHWD_MM_MMM64: int = 1546
+PUNPCKHWD_MM_MMM64: Code = 1546 # type: ignore
 """
 ``PUNPCKHWD mm, mm/m64``
 
@@ -15451,7 +15457,7 @@ PUNPCKHWD_MM_MMM64: int = 1546
 
 ``16/32/64-bit``
 """
-PUNPCKHWD_XMM_XMMM128: int = 1547
+PUNPCKHWD_XMM_XMMM128: Code = 1547 # type: ignore
 """
 ``PUNPCKHWD xmm1, xmm2/m128``
 
@@ -15461,7 +15467,7 @@ PUNPCKHWD_XMM_XMMM128: int = 1547
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKHWD_XMM_XMM_XMMM128: int = 1548
+VEX_VPUNPCKHWD_XMM_XMM_XMMM128: Code = 1548 # type: ignore
 """
 ``VPUNPCKHWD xmm1, xmm2, xmm3/m128``
 
@@ -15471,7 +15477,7 @@ VEX_VPUNPCKHWD_XMM_XMM_XMMM128: int = 1548
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKHWD_YMM_YMM_YMMM256: int = 1549
+VEX_VPUNPCKHWD_YMM_YMM_YMMM256: Code = 1549 # type: ignore
 """
 ``VPUNPCKHWD ymm1, ymm2, ymm3/m256``
 
@@ -15481,7 +15487,7 @@ VEX_VPUNPCKHWD_YMM_YMM_YMMM256: int = 1549
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHWD_XMM_K1Z_XMM_XMMM128: int = 1550
+EVEX_VPUNPCKHWD_XMM_K1Z_XMM_XMMM128: Code = 1550 # type: ignore
 """
 ``VPUNPCKHWD xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -15491,7 +15497,7 @@ EVEX_VPUNPCKHWD_XMM_K1Z_XMM_XMMM128: int = 1550
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHWD_YMM_K1Z_YMM_YMMM256: int = 1551
+EVEX_VPUNPCKHWD_YMM_K1Z_YMM_YMMM256: Code = 1551 # type: ignore
 """
 ``VPUNPCKHWD ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -15501,7 +15507,7 @@ EVEX_VPUNPCKHWD_YMM_K1Z_YMM_YMMM256: int = 1551
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHWD_ZMM_K1Z_ZMM_ZMMM512: int = 1552
+EVEX_VPUNPCKHWD_ZMM_K1Z_ZMM_ZMMM512: Code = 1552 # type: ignore
 """
 ``VPUNPCKHWD zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -15511,7 +15517,7 @@ EVEX_VPUNPCKHWD_ZMM_K1Z_ZMM_ZMMM512: int = 1552
 
 ``16/32/64-bit``
 """
-PUNPCKHDQ_MM_MMM64: int = 1553
+PUNPCKHDQ_MM_MMM64: Code = 1553 # type: ignore
 """
 ``PUNPCKHDQ mm, mm/m64``
 
@@ -15521,7 +15527,7 @@ PUNPCKHDQ_MM_MMM64: int = 1553
 
 ``16/32/64-bit``
 """
-PUNPCKHDQ_XMM_XMMM128: int = 1554
+PUNPCKHDQ_XMM_XMMM128: Code = 1554 # type: ignore
 """
 ``PUNPCKHDQ xmm1, xmm2/m128``
 
@@ -15531,7 +15537,7 @@ PUNPCKHDQ_XMM_XMMM128: int = 1554
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKHDQ_XMM_XMM_XMMM128: int = 1555
+VEX_VPUNPCKHDQ_XMM_XMM_XMMM128: Code = 1555 # type: ignore
 """
 ``VPUNPCKHDQ xmm1, xmm2, xmm3/m128``
 
@@ -15541,7 +15547,7 @@ VEX_VPUNPCKHDQ_XMM_XMM_XMMM128: int = 1555
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKHDQ_YMM_YMM_YMMM256: int = 1556
+VEX_VPUNPCKHDQ_YMM_YMM_YMMM256: Code = 1556 # type: ignore
 """
 ``VPUNPCKHDQ ymm1, ymm2, ymm3/m256``
 
@@ -15551,7 +15557,7 @@ VEX_VPUNPCKHDQ_YMM_YMM_YMMM256: int = 1556
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHDQ_XMM_K1Z_XMM_XMMM128B32: int = 1557
+EVEX_VPUNPCKHDQ_XMM_K1Z_XMM_XMMM128B32: Code = 1557 # type: ignore
 """
 ``VPUNPCKHDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -15561,7 +15567,7 @@ EVEX_VPUNPCKHDQ_XMM_K1Z_XMM_XMMM128B32: int = 1557
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHDQ_YMM_K1Z_YMM_YMMM256B32: int = 1558
+EVEX_VPUNPCKHDQ_YMM_K1Z_YMM_YMMM256B32: Code = 1558 # type: ignore
 """
 ``VPUNPCKHDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -15571,7 +15577,7 @@ EVEX_VPUNPCKHDQ_YMM_K1Z_YMM_YMMM256B32: int = 1558
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHDQ_ZMM_K1Z_ZMM_ZMMM512B32: int = 1559
+EVEX_VPUNPCKHDQ_ZMM_K1Z_ZMM_ZMMM512B32: Code = 1559 # type: ignore
 """
 ``VPUNPCKHDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -15581,7 +15587,7 @@ EVEX_VPUNPCKHDQ_ZMM_K1Z_ZMM_ZMMM512B32: int = 1559
 
 ``16/32/64-bit``
 """
-PACKSSDW_MM_MMM64: int = 1560
+PACKSSDW_MM_MMM64: Code = 1560 # type: ignore
 """
 ``PACKSSDW mm1, mm2/m64``
 
@@ -15591,7 +15597,7 @@ PACKSSDW_MM_MMM64: int = 1560
 
 ``16/32/64-bit``
 """
-PACKSSDW_XMM_XMMM128: int = 1561
+PACKSSDW_XMM_XMMM128: Code = 1561 # type: ignore
 """
 ``PACKSSDW xmm1, xmm2/m128``
 
@@ -15601,7 +15607,7 @@ PACKSSDW_XMM_XMMM128: int = 1561
 
 ``16/32/64-bit``
 """
-VEX_VPACKSSDW_XMM_XMM_XMMM128: int = 1562
+VEX_VPACKSSDW_XMM_XMM_XMMM128: Code = 1562 # type: ignore
 """
 ``VPACKSSDW xmm1, xmm2, xmm3/m128``
 
@@ -15611,7 +15617,7 @@ VEX_VPACKSSDW_XMM_XMM_XMMM128: int = 1562
 
 ``16/32/64-bit``
 """
-VEX_VPACKSSDW_YMM_YMM_YMMM256: int = 1563
+VEX_VPACKSSDW_YMM_YMM_YMMM256: Code = 1563 # type: ignore
 """
 ``VPACKSSDW ymm1, ymm2, ymm3/m256``
 
@@ -15621,7 +15627,7 @@ VEX_VPACKSSDW_YMM_YMM_YMMM256: int = 1563
 
 ``16/32/64-bit``
 """
-EVEX_VPACKSSDW_XMM_K1Z_XMM_XMMM128B32: int = 1564
+EVEX_VPACKSSDW_XMM_K1Z_XMM_XMMM128B32: Code = 1564 # type: ignore
 """
 ``VPACKSSDW xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -15631,7 +15637,7 @@ EVEX_VPACKSSDW_XMM_K1Z_XMM_XMMM128B32: int = 1564
 
 ``16/32/64-bit``
 """
-EVEX_VPACKSSDW_YMM_K1Z_YMM_YMMM256B32: int = 1565
+EVEX_VPACKSSDW_YMM_K1Z_YMM_YMMM256B32: Code = 1565 # type: ignore
 """
 ``VPACKSSDW ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -15641,7 +15647,7 @@ EVEX_VPACKSSDW_YMM_K1Z_YMM_YMMM256B32: int = 1565
 
 ``16/32/64-bit``
 """
-EVEX_VPACKSSDW_ZMM_K1Z_ZMM_ZMMM512B32: int = 1566
+EVEX_VPACKSSDW_ZMM_K1Z_ZMM_ZMMM512B32: Code = 1566 # type: ignore
 """
 ``VPACKSSDW zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -15651,7 +15657,7 @@ EVEX_VPACKSSDW_ZMM_K1Z_ZMM_ZMMM512B32: int = 1566
 
 ``16/32/64-bit``
 """
-PUNPCKLQDQ_XMM_XMMM128: int = 1567
+PUNPCKLQDQ_XMM_XMMM128: Code = 1567 # type: ignore
 """
 ``PUNPCKLQDQ xmm1, xmm2/m128``
 
@@ -15661,7 +15667,7 @@ PUNPCKLQDQ_XMM_XMMM128: int = 1567
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKLQDQ_XMM_XMM_XMMM128: int = 1568
+VEX_VPUNPCKLQDQ_XMM_XMM_XMMM128: Code = 1568 # type: ignore
 """
 ``VPUNPCKLQDQ xmm1, xmm2, xmm3/m128``
 
@@ -15671,7 +15677,7 @@ VEX_VPUNPCKLQDQ_XMM_XMM_XMMM128: int = 1568
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKLQDQ_YMM_YMM_YMMM256: int = 1569
+VEX_VPUNPCKLQDQ_YMM_YMM_YMMM256: Code = 1569 # type: ignore
 """
 ``VPUNPCKLQDQ ymm1, ymm2, ymm3/m256``
 
@@ -15681,7 +15687,7 @@ VEX_VPUNPCKLQDQ_YMM_YMM_YMMM256: int = 1569
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLQDQ_XMM_K1Z_XMM_XMMM128B64: int = 1570
+EVEX_VPUNPCKLQDQ_XMM_K1Z_XMM_XMMM128B64: Code = 1570 # type: ignore
 """
 ``VPUNPCKLQDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -15691,7 +15697,7 @@ EVEX_VPUNPCKLQDQ_XMM_K1Z_XMM_XMMM128B64: int = 1570
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLQDQ_YMM_K1Z_YMM_YMMM256B64: int = 1571
+EVEX_VPUNPCKLQDQ_YMM_K1Z_YMM_YMMM256B64: Code = 1571 # type: ignore
 """
 ``VPUNPCKLQDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -15701,7 +15707,7 @@ EVEX_VPUNPCKLQDQ_YMM_K1Z_YMM_YMMM256B64: int = 1571
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKLQDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 1572
+EVEX_VPUNPCKLQDQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 1572 # type: ignore
 """
 ``VPUNPCKLQDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -15711,7 +15717,7 @@ EVEX_VPUNPCKLQDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 1572
 
 ``16/32/64-bit``
 """
-PUNPCKHQDQ_XMM_XMMM128: int = 1573
+PUNPCKHQDQ_XMM_XMMM128: Code = 1573 # type: ignore
 """
 ``PUNPCKHQDQ xmm1, xmm2/m128``
 
@@ -15721,7 +15727,7 @@ PUNPCKHQDQ_XMM_XMMM128: int = 1573
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKHQDQ_XMM_XMM_XMMM128: int = 1574
+VEX_VPUNPCKHQDQ_XMM_XMM_XMMM128: Code = 1574 # type: ignore
 """
 ``VPUNPCKHQDQ xmm1, xmm2, xmm3/m128``
 
@@ -15731,7 +15737,7 @@ VEX_VPUNPCKHQDQ_XMM_XMM_XMMM128: int = 1574
 
 ``16/32/64-bit``
 """
-VEX_VPUNPCKHQDQ_YMM_YMM_YMMM256: int = 1575
+VEX_VPUNPCKHQDQ_YMM_YMM_YMMM256: Code = 1575 # type: ignore
 """
 ``VPUNPCKHQDQ ymm1, ymm2, ymm3/m256``
 
@@ -15741,7 +15747,7 @@ VEX_VPUNPCKHQDQ_YMM_YMM_YMMM256: int = 1575
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHQDQ_XMM_K1Z_XMM_XMMM128B64: int = 1576
+EVEX_VPUNPCKHQDQ_XMM_K1Z_XMM_XMMM128B64: Code = 1576 # type: ignore
 """
 ``VPUNPCKHQDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -15751,7 +15757,7 @@ EVEX_VPUNPCKHQDQ_XMM_K1Z_XMM_XMMM128B64: int = 1576
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHQDQ_YMM_K1Z_YMM_YMMM256B64: int = 1577
+EVEX_VPUNPCKHQDQ_YMM_K1Z_YMM_YMMM256B64: Code = 1577 # type: ignore
 """
 ``VPUNPCKHQDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -15761,7 +15767,7 @@ EVEX_VPUNPCKHQDQ_YMM_K1Z_YMM_YMMM256B64: int = 1577
 
 ``16/32/64-bit``
 """
-EVEX_VPUNPCKHQDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 1578
+EVEX_VPUNPCKHQDQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 1578 # type: ignore
 """
 ``VPUNPCKHQDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -15771,7 +15777,7 @@ EVEX_VPUNPCKHQDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 1578
 
 ``16/32/64-bit``
 """
-MOVD_MM_RM32: int = 1579
+MOVD_MM_RM32: Code = 1579 # type: ignore
 """
 ``MOVD mm, r/m32``
 
@@ -15781,7 +15787,7 @@ MOVD_MM_RM32: int = 1579
 
 ``16/32/64-bit``
 """
-MOVQ_MM_RM64: int = 1580
+MOVQ_MM_RM64: Code = 1580 # type: ignore
 """
 ``MOVQ mm, r/m64``
 
@@ -15791,7 +15797,7 @@ MOVQ_MM_RM64: int = 1580
 
 ``64-bit``
 """
-MOVD_XMM_RM32: int = 1581
+MOVD_XMM_RM32: Code = 1581 # type: ignore
 """
 ``MOVD xmm, r/m32``
 
@@ -15801,7 +15807,7 @@ MOVD_XMM_RM32: int = 1581
 
 ``16/32/64-bit``
 """
-MOVQ_XMM_RM64: int = 1582
+MOVQ_XMM_RM64: Code = 1582 # type: ignore
 """
 ``MOVQ xmm, r/m64``
 
@@ -15811,7 +15817,7 @@ MOVQ_XMM_RM64: int = 1582
 
 ``64-bit``
 """
-VEX_VMOVD_XMM_RM32: int = 1583
+VEX_VMOVD_XMM_RM32: Code = 1583 # type: ignore
 """
 ``VMOVD xmm1, r/m32``
 
@@ -15821,7 +15827,7 @@ VEX_VMOVD_XMM_RM32: int = 1583
 
 ``16/32/64-bit``
 """
-VEX_VMOVQ_XMM_RM64: int = 1584
+VEX_VMOVQ_XMM_RM64: Code = 1584 # type: ignore
 """
 ``VMOVQ xmm1, r/m64``
 
@@ -15831,7 +15837,7 @@ VEX_VMOVQ_XMM_RM64: int = 1584
 
 ``64-bit``
 """
-EVEX_VMOVD_XMM_RM32: int = 1585
+EVEX_VMOVD_XMM_RM32: Code = 1585 # type: ignore
 """
 ``VMOVD xmm1, r/m32``
 
@@ -15841,7 +15847,7 @@ EVEX_VMOVD_XMM_RM32: int = 1585
 
 ``16/32/64-bit``
 """
-EVEX_VMOVQ_XMM_RM64: int = 1586
+EVEX_VMOVQ_XMM_RM64: Code = 1586 # type: ignore
 """
 ``VMOVQ xmm1, r/m64``
 
@@ -15851,7 +15857,7 @@ EVEX_VMOVQ_XMM_RM64: int = 1586
 
 ``64-bit``
 """
-MOVQ_MM_MMM64: int = 1587
+MOVQ_MM_MMM64: Code = 1587 # type: ignore
 """
 ``MOVQ mm, mm/m64``
 
@@ -15861,7 +15867,7 @@ MOVQ_MM_MMM64: int = 1587
 
 ``16/32/64-bit``
 """
-MOVDQA_XMM_XMMM128: int = 1588
+MOVDQA_XMM_XMMM128: Code = 1588 # type: ignore
 """
 ``MOVDQA xmm1, xmm2/m128``
 
@@ -15871,7 +15877,7 @@ MOVDQA_XMM_XMMM128: int = 1588
 
 ``16/32/64-bit``
 """
-VEX_VMOVDQA_XMM_XMMM128: int = 1589
+VEX_VMOVDQA_XMM_XMMM128: Code = 1589 # type: ignore
 """
 ``VMOVDQA xmm1, xmm2/m128``
 
@@ -15881,7 +15887,7 @@ VEX_VMOVDQA_XMM_XMMM128: int = 1589
 
 ``16/32/64-bit``
 """
-VEX_VMOVDQA_YMM_YMMM256: int = 1590
+VEX_VMOVDQA_YMM_YMMM256: Code = 1590 # type: ignore
 """
 ``VMOVDQA ymm1, ymm2/m256``
 
@@ -15891,7 +15897,7 @@ VEX_VMOVDQA_YMM_YMMM256: int = 1590
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA32_XMM_K1Z_XMMM128: int = 1591
+EVEX_VMOVDQA32_XMM_K1Z_XMMM128: Code = 1591 # type: ignore
 """
 ``VMOVDQA32 xmm1 {k1}{z}, xmm2/m128``
 
@@ -15901,7 +15907,7 @@ EVEX_VMOVDQA32_XMM_K1Z_XMMM128: int = 1591
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA32_YMM_K1Z_YMMM256: int = 1592
+EVEX_VMOVDQA32_YMM_K1Z_YMMM256: Code = 1592 # type: ignore
 """
 ``VMOVDQA32 ymm1 {k1}{z}, ymm2/m256``
 
@@ -15911,7 +15917,7 @@ EVEX_VMOVDQA32_YMM_K1Z_YMMM256: int = 1592
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA32_ZMM_K1Z_ZMMM512: int = 1593
+EVEX_VMOVDQA32_ZMM_K1Z_ZMMM512: Code = 1593 # type: ignore
 """
 ``VMOVDQA32 zmm1 {k1}{z}, zmm2/m512``
 
@@ -15921,7 +15927,7 @@ EVEX_VMOVDQA32_ZMM_K1Z_ZMMM512: int = 1593
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA64_XMM_K1Z_XMMM128: int = 1594
+EVEX_VMOVDQA64_XMM_K1Z_XMMM128: Code = 1594 # type: ignore
 """
 ``VMOVDQA64 xmm1 {k1}{z}, xmm2/m128``
 
@@ -15931,7 +15937,7 @@ EVEX_VMOVDQA64_XMM_K1Z_XMMM128: int = 1594
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA64_YMM_K1Z_YMMM256: int = 1595
+EVEX_VMOVDQA64_YMM_K1Z_YMMM256: Code = 1595 # type: ignore
 """
 ``VMOVDQA64 ymm1 {k1}{z}, ymm2/m256``
 
@@ -15941,7 +15947,7 @@ EVEX_VMOVDQA64_YMM_K1Z_YMMM256: int = 1595
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA64_ZMM_K1Z_ZMMM512: int = 1596
+EVEX_VMOVDQA64_ZMM_K1Z_ZMMM512: Code = 1596 # type: ignore
 """
 ``VMOVDQA64 zmm1 {k1}{z}, zmm2/m512``
 
@@ -15951,7 +15957,7 @@ EVEX_VMOVDQA64_ZMM_K1Z_ZMMM512: int = 1596
 
 ``16/32/64-bit``
 """
-MOVDQU_XMM_XMMM128: int = 1597
+MOVDQU_XMM_XMMM128: Code = 1597 # type: ignore
 """
 ``MOVDQU xmm1, xmm2/m128``
 
@@ -15961,7 +15967,7 @@ MOVDQU_XMM_XMMM128: int = 1597
 
 ``16/32/64-bit``
 """
-VEX_VMOVDQU_XMM_XMMM128: int = 1598
+VEX_VMOVDQU_XMM_XMMM128: Code = 1598 # type: ignore
 """
 ``VMOVDQU xmm1, xmm2/m128``
 
@@ -15971,7 +15977,7 @@ VEX_VMOVDQU_XMM_XMMM128: int = 1598
 
 ``16/32/64-bit``
 """
-VEX_VMOVDQU_YMM_YMMM256: int = 1599
+VEX_VMOVDQU_YMM_YMMM256: Code = 1599 # type: ignore
 """
 ``VMOVDQU ymm1, ymm2/m256``
 
@@ -15981,7 +15987,7 @@ VEX_VMOVDQU_YMM_YMMM256: int = 1599
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU32_XMM_K1Z_XMMM128: int = 1600
+EVEX_VMOVDQU32_XMM_K1Z_XMMM128: Code = 1600 # type: ignore
 """
 ``VMOVDQU32 xmm1 {k1}{z}, xmm2/m128``
 
@@ -15991,7 +15997,7 @@ EVEX_VMOVDQU32_XMM_K1Z_XMMM128: int = 1600
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU32_YMM_K1Z_YMMM256: int = 1601
+EVEX_VMOVDQU32_YMM_K1Z_YMMM256: Code = 1601 # type: ignore
 """
 ``VMOVDQU32 ymm1 {k1}{z}, ymm2/m256``
 
@@ -16001,7 +16007,7 @@ EVEX_VMOVDQU32_YMM_K1Z_YMMM256: int = 1601
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU32_ZMM_K1Z_ZMMM512: int = 1602
+EVEX_VMOVDQU32_ZMM_K1Z_ZMMM512: Code = 1602 # type: ignore
 """
 ``VMOVDQU32 zmm1 {k1}{z}, zmm2/m512``
 
@@ -16011,7 +16017,7 @@ EVEX_VMOVDQU32_ZMM_K1Z_ZMMM512: int = 1602
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU64_XMM_K1Z_XMMM128: int = 1603
+EVEX_VMOVDQU64_XMM_K1Z_XMMM128: Code = 1603 # type: ignore
 """
 ``VMOVDQU64 xmm1 {k1}{z}, xmm2/m128``
 
@@ -16021,7 +16027,7 @@ EVEX_VMOVDQU64_XMM_K1Z_XMMM128: int = 1603
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU64_YMM_K1Z_YMMM256: int = 1604
+EVEX_VMOVDQU64_YMM_K1Z_YMMM256: Code = 1604 # type: ignore
 """
 ``VMOVDQU64 ymm1 {k1}{z}, ymm2/m256``
 
@@ -16031,7 +16037,7 @@ EVEX_VMOVDQU64_YMM_K1Z_YMMM256: int = 1604
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU64_ZMM_K1Z_ZMMM512: int = 1605
+EVEX_VMOVDQU64_ZMM_K1Z_ZMMM512: Code = 1605 # type: ignore
 """
 ``VMOVDQU64 zmm1 {k1}{z}, zmm2/m512``
 
@@ -16041,7 +16047,7 @@ EVEX_VMOVDQU64_ZMM_K1Z_ZMMM512: int = 1605
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU8_XMM_K1Z_XMMM128: int = 1606
+EVEX_VMOVDQU8_XMM_K1Z_XMMM128: Code = 1606 # type: ignore
 """
 ``VMOVDQU8 xmm1 {k1}{z}, xmm2/m128``
 
@@ -16051,7 +16057,7 @@ EVEX_VMOVDQU8_XMM_K1Z_XMMM128: int = 1606
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU8_YMM_K1Z_YMMM256: int = 1607
+EVEX_VMOVDQU8_YMM_K1Z_YMMM256: Code = 1607 # type: ignore
 """
 ``VMOVDQU8 ymm1 {k1}{z}, ymm2/m256``
 
@@ -16061,7 +16067,7 @@ EVEX_VMOVDQU8_YMM_K1Z_YMMM256: int = 1607
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU8_ZMM_K1Z_ZMMM512: int = 1608
+EVEX_VMOVDQU8_ZMM_K1Z_ZMMM512: Code = 1608 # type: ignore
 """
 ``VMOVDQU8 zmm1 {k1}{z}, zmm2/m512``
 
@@ -16071,7 +16077,7 @@ EVEX_VMOVDQU8_ZMM_K1Z_ZMMM512: int = 1608
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU16_XMM_K1Z_XMMM128: int = 1609
+EVEX_VMOVDQU16_XMM_K1Z_XMMM128: Code = 1609 # type: ignore
 """
 ``VMOVDQU16 xmm1 {k1}{z}, xmm2/m128``
 
@@ -16081,7 +16087,7 @@ EVEX_VMOVDQU16_XMM_K1Z_XMMM128: int = 1609
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU16_YMM_K1Z_YMMM256: int = 1610
+EVEX_VMOVDQU16_YMM_K1Z_YMMM256: Code = 1610 # type: ignore
 """
 ``VMOVDQU16 ymm1 {k1}{z}, ymm2/m256``
 
@@ -16091,7 +16097,7 @@ EVEX_VMOVDQU16_YMM_K1Z_YMMM256: int = 1610
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU16_ZMM_K1Z_ZMMM512: int = 1611
+EVEX_VMOVDQU16_ZMM_K1Z_ZMMM512: Code = 1611 # type: ignore
 """
 ``VMOVDQU16 zmm1 {k1}{z}, zmm2/m512``
 
@@ -16101,7 +16107,7 @@ EVEX_VMOVDQU16_ZMM_K1Z_ZMMM512: int = 1611
 
 ``16/32/64-bit``
 """
-PSHUFW_MM_MMM64_IMM8: int = 1612
+PSHUFW_MM_MMM64_IMM8: Code = 1612 # type: ignore
 """
 ``PSHUFW mm1, mm2/m64, imm8``
 
@@ -16111,7 +16117,7 @@ PSHUFW_MM_MMM64_IMM8: int = 1612
 
 ``16/32/64-bit``
 """
-PSHUFD_XMM_XMMM128_IMM8: int = 1613
+PSHUFD_XMM_XMMM128_IMM8: Code = 1613 # type: ignore
 """
 ``PSHUFD xmm1, xmm2/m128, imm8``
 
@@ -16121,7 +16127,7 @@ PSHUFD_XMM_XMMM128_IMM8: int = 1613
 
 ``16/32/64-bit``
 """
-VEX_VPSHUFD_XMM_XMMM128_IMM8: int = 1614
+VEX_VPSHUFD_XMM_XMMM128_IMM8: Code = 1614 # type: ignore
 """
 ``VPSHUFD xmm1, xmm2/m128, imm8``
 
@@ -16131,7 +16137,7 @@ VEX_VPSHUFD_XMM_XMMM128_IMM8: int = 1614
 
 ``16/32/64-bit``
 """
-VEX_VPSHUFD_YMM_YMMM256_IMM8: int = 1615
+VEX_VPSHUFD_YMM_YMMM256_IMM8: Code = 1615 # type: ignore
 """
 ``VPSHUFD ymm1, ymm2/m256, imm8``
 
@@ -16141,7 +16147,7 @@ VEX_VPSHUFD_YMM_YMMM256_IMM8: int = 1615
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFD_XMM_K1Z_XMMM128B32_IMM8: int = 1616
+EVEX_VPSHUFD_XMM_K1Z_XMMM128B32_IMM8: Code = 1616 # type: ignore
 """
 ``VPSHUFD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8``
 
@@ -16151,7 +16157,7 @@ EVEX_VPSHUFD_XMM_K1Z_XMMM128B32_IMM8: int = 1616
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFD_YMM_K1Z_YMMM256B32_IMM8: int = 1617
+EVEX_VPSHUFD_YMM_K1Z_YMMM256B32_IMM8: Code = 1617 # type: ignore
 """
 ``VPSHUFD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8``
 
@@ -16161,7 +16167,7 @@ EVEX_VPSHUFD_YMM_K1Z_YMMM256B32_IMM8: int = 1617
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1618
+EVEX_VPSHUFD_ZMM_K1Z_ZMMM512B32_IMM8: Code = 1618 # type: ignore
 """
 ``VPSHUFD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8``
 
@@ -16171,7 +16177,7 @@ EVEX_VPSHUFD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1618
 
 ``16/32/64-bit``
 """
-PSHUFHW_XMM_XMMM128_IMM8: int = 1619
+PSHUFHW_XMM_XMMM128_IMM8: Code = 1619 # type: ignore
 """
 ``PSHUFHW xmm1, xmm2/m128, imm8``
 
@@ -16181,7 +16187,7 @@ PSHUFHW_XMM_XMMM128_IMM8: int = 1619
 
 ``16/32/64-bit``
 """
-VEX_VPSHUFHW_XMM_XMMM128_IMM8: int = 1620
+VEX_VPSHUFHW_XMM_XMMM128_IMM8: Code = 1620 # type: ignore
 """
 ``VPSHUFHW xmm1, xmm2/m128, imm8``
 
@@ -16191,7 +16197,7 @@ VEX_VPSHUFHW_XMM_XMMM128_IMM8: int = 1620
 
 ``16/32/64-bit``
 """
-VEX_VPSHUFHW_YMM_YMMM256_IMM8: int = 1621
+VEX_VPSHUFHW_YMM_YMMM256_IMM8: Code = 1621 # type: ignore
 """
 ``VPSHUFHW ymm1, ymm2/m256, imm8``
 
@@ -16201,7 +16207,7 @@ VEX_VPSHUFHW_YMM_YMMM256_IMM8: int = 1621
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFHW_XMM_K1Z_XMMM128_IMM8: int = 1622
+EVEX_VPSHUFHW_XMM_K1Z_XMMM128_IMM8: Code = 1622 # type: ignore
 """
 ``VPSHUFHW xmm1 {k1}{z}, xmm2/m128, imm8``
 
@@ -16211,7 +16217,7 @@ EVEX_VPSHUFHW_XMM_K1Z_XMMM128_IMM8: int = 1622
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFHW_YMM_K1Z_YMMM256_IMM8: int = 1623
+EVEX_VPSHUFHW_YMM_K1Z_YMMM256_IMM8: Code = 1623 # type: ignore
 """
 ``VPSHUFHW ymm1 {k1}{z}, ymm2/m256, imm8``
 
@@ -16221,7 +16227,7 @@ EVEX_VPSHUFHW_YMM_K1Z_YMMM256_IMM8: int = 1623
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFHW_ZMM_K1Z_ZMMM512_IMM8: int = 1624
+EVEX_VPSHUFHW_ZMM_K1Z_ZMMM512_IMM8: Code = 1624 # type: ignore
 """
 ``VPSHUFHW zmm1 {k1}{z}, zmm2/m512, imm8``
 
@@ -16231,7 +16237,7 @@ EVEX_VPSHUFHW_ZMM_K1Z_ZMMM512_IMM8: int = 1624
 
 ``16/32/64-bit``
 """
-PSHUFLW_XMM_XMMM128_IMM8: int = 1625
+PSHUFLW_XMM_XMMM128_IMM8: Code = 1625 # type: ignore
 """
 ``PSHUFLW xmm1, xmm2/m128, imm8``
 
@@ -16241,7 +16247,7 @@ PSHUFLW_XMM_XMMM128_IMM8: int = 1625
 
 ``16/32/64-bit``
 """
-VEX_VPSHUFLW_XMM_XMMM128_IMM8: int = 1626
+VEX_VPSHUFLW_XMM_XMMM128_IMM8: Code = 1626 # type: ignore
 """
 ``VPSHUFLW xmm1, xmm2/m128, imm8``
 
@@ -16251,7 +16257,7 @@ VEX_VPSHUFLW_XMM_XMMM128_IMM8: int = 1626
 
 ``16/32/64-bit``
 """
-VEX_VPSHUFLW_YMM_YMMM256_IMM8: int = 1627
+VEX_VPSHUFLW_YMM_YMMM256_IMM8: Code = 1627 # type: ignore
 """
 ``VPSHUFLW ymm1, ymm2/m256, imm8``
 
@@ -16261,7 +16267,7 @@ VEX_VPSHUFLW_YMM_YMMM256_IMM8: int = 1627
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFLW_XMM_K1Z_XMMM128_IMM8: int = 1628
+EVEX_VPSHUFLW_XMM_K1Z_XMMM128_IMM8: Code = 1628 # type: ignore
 """
 ``VPSHUFLW xmm1 {k1}{z}, xmm2/m128, imm8``
 
@@ -16271,7 +16277,7 @@ EVEX_VPSHUFLW_XMM_K1Z_XMMM128_IMM8: int = 1628
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFLW_YMM_K1Z_YMMM256_IMM8: int = 1629
+EVEX_VPSHUFLW_YMM_K1Z_YMMM256_IMM8: Code = 1629 # type: ignore
 """
 ``VPSHUFLW ymm1 {k1}{z}, ymm2/m256, imm8``
 
@@ -16281,7 +16287,7 @@ EVEX_VPSHUFLW_YMM_K1Z_YMMM256_IMM8: int = 1629
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFLW_ZMM_K1Z_ZMMM512_IMM8: int = 1630
+EVEX_VPSHUFLW_ZMM_K1Z_ZMMM512_IMM8: Code = 1630 # type: ignore
 """
 ``VPSHUFLW zmm1 {k1}{z}, zmm2/m512, imm8``
 
@@ -16291,7 +16297,7 @@ EVEX_VPSHUFLW_ZMM_K1Z_ZMMM512_IMM8: int = 1630
 
 ``16/32/64-bit``
 """
-PSRLW_MM_IMM8: int = 1631
+PSRLW_MM_IMM8: Code = 1631 # type: ignore
 """
 ``PSRLW mm, imm8``
 
@@ -16301,7 +16307,7 @@ PSRLW_MM_IMM8: int = 1631
 
 ``16/32/64-bit``
 """
-PSRLW_XMM_IMM8: int = 1632
+PSRLW_XMM_IMM8: Code = 1632 # type: ignore
 """
 ``PSRLW xmm1, imm8``
 
@@ -16311,7 +16317,7 @@ PSRLW_XMM_IMM8: int = 1632
 
 ``16/32/64-bit``
 """
-VEX_VPSRLW_XMM_XMM_IMM8: int = 1633
+VEX_VPSRLW_XMM_XMM_IMM8: Code = 1633 # type: ignore
 """
 ``VPSRLW xmm1, xmm2, imm8``
 
@@ -16321,7 +16327,7 @@ VEX_VPSRLW_XMM_XMM_IMM8: int = 1633
 
 ``16/32/64-bit``
 """
-VEX_VPSRLW_YMM_YMM_IMM8: int = 1634
+VEX_VPSRLW_YMM_YMM_IMM8: Code = 1634 # type: ignore
 """
 ``VPSRLW ymm1, ymm2, imm8``
 
@@ -16331,7 +16337,7 @@ VEX_VPSRLW_YMM_YMM_IMM8: int = 1634
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLW_XMM_K1Z_XMMM128_IMM8: int = 1635
+EVEX_VPSRLW_XMM_K1Z_XMMM128_IMM8: Code = 1635 # type: ignore
 """
 ``VPSRLW xmm1 {k1}{z}, xmm2/m128, imm8``
 
@@ -16341,7 +16347,7 @@ EVEX_VPSRLW_XMM_K1Z_XMMM128_IMM8: int = 1635
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLW_YMM_K1Z_YMMM256_IMM8: int = 1636
+EVEX_VPSRLW_YMM_K1Z_YMMM256_IMM8: Code = 1636 # type: ignore
 """
 ``VPSRLW ymm1 {k1}{z}, ymm2/m256, imm8``
 
@@ -16351,7 +16357,7 @@ EVEX_VPSRLW_YMM_K1Z_YMMM256_IMM8: int = 1636
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLW_ZMM_K1Z_ZMMM512_IMM8: int = 1637
+EVEX_VPSRLW_ZMM_K1Z_ZMMM512_IMM8: Code = 1637 # type: ignore
 """
 ``VPSRLW zmm1 {k1}{z}, zmm2/m512, imm8``
 
@@ -16361,7 +16367,7 @@ EVEX_VPSRLW_ZMM_K1Z_ZMMM512_IMM8: int = 1637
 
 ``16/32/64-bit``
 """
-PSRAW_MM_IMM8: int = 1638
+PSRAW_MM_IMM8: Code = 1638 # type: ignore
 """
 ``PSRAW mm, imm8``
 
@@ -16371,7 +16377,7 @@ PSRAW_MM_IMM8: int = 1638
 
 ``16/32/64-bit``
 """
-PSRAW_XMM_IMM8: int = 1639
+PSRAW_XMM_IMM8: Code = 1639 # type: ignore
 """
 ``PSRAW xmm1, imm8``
 
@@ -16381,7 +16387,7 @@ PSRAW_XMM_IMM8: int = 1639
 
 ``16/32/64-bit``
 """
-VEX_VPSRAW_XMM_XMM_IMM8: int = 1640
+VEX_VPSRAW_XMM_XMM_IMM8: Code = 1640 # type: ignore
 """
 ``VPSRAW xmm1, xmm2, imm8``
 
@@ -16391,7 +16397,7 @@ VEX_VPSRAW_XMM_XMM_IMM8: int = 1640
 
 ``16/32/64-bit``
 """
-VEX_VPSRAW_YMM_YMM_IMM8: int = 1641
+VEX_VPSRAW_YMM_YMM_IMM8: Code = 1641 # type: ignore
 """
 ``VPSRAW ymm1, ymm2, imm8``
 
@@ -16401,7 +16407,7 @@ VEX_VPSRAW_YMM_YMM_IMM8: int = 1641
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAW_XMM_K1Z_XMMM128_IMM8: int = 1642
+EVEX_VPSRAW_XMM_K1Z_XMMM128_IMM8: Code = 1642 # type: ignore
 """
 ``VPSRAW xmm1 {k1}{z}, xmm2/m128, imm8``
 
@@ -16411,7 +16417,7 @@ EVEX_VPSRAW_XMM_K1Z_XMMM128_IMM8: int = 1642
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAW_YMM_K1Z_YMMM256_IMM8: int = 1643
+EVEX_VPSRAW_YMM_K1Z_YMMM256_IMM8: Code = 1643 # type: ignore
 """
 ``VPSRAW ymm1 {k1}{z}, ymm2/m256, imm8``
 
@@ -16421,7 +16427,7 @@ EVEX_VPSRAW_YMM_K1Z_YMMM256_IMM8: int = 1643
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAW_ZMM_K1Z_ZMMM512_IMM8: int = 1644
+EVEX_VPSRAW_ZMM_K1Z_ZMMM512_IMM8: Code = 1644 # type: ignore
 """
 ``VPSRAW zmm1 {k1}{z}, zmm2/m512, imm8``
 
@@ -16431,7 +16437,7 @@ EVEX_VPSRAW_ZMM_K1Z_ZMMM512_IMM8: int = 1644
 
 ``16/32/64-bit``
 """
-PSLLW_MM_IMM8: int = 1645
+PSLLW_MM_IMM8: Code = 1645 # type: ignore
 """
 ``PSLLW mm1, imm8``
 
@@ -16441,7 +16447,7 @@ PSLLW_MM_IMM8: int = 1645
 
 ``16/32/64-bit``
 """
-PSLLW_XMM_IMM8: int = 1646
+PSLLW_XMM_IMM8: Code = 1646 # type: ignore
 """
 ``PSLLW xmm1, imm8``
 
@@ -16451,7 +16457,7 @@ PSLLW_XMM_IMM8: int = 1646
 
 ``16/32/64-bit``
 """
-VEX_VPSLLW_XMM_XMM_IMM8: int = 1647
+VEX_VPSLLW_XMM_XMM_IMM8: Code = 1647 # type: ignore
 """
 ``VPSLLW xmm1, xmm2, imm8``
 
@@ -16461,7 +16467,7 @@ VEX_VPSLLW_XMM_XMM_IMM8: int = 1647
 
 ``16/32/64-bit``
 """
-VEX_VPSLLW_YMM_YMM_IMM8: int = 1648
+VEX_VPSLLW_YMM_YMM_IMM8: Code = 1648 # type: ignore
 """
 ``VPSLLW ymm1, ymm2, imm8``
 
@@ -16471,7 +16477,7 @@ VEX_VPSLLW_YMM_YMM_IMM8: int = 1648
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLW_XMM_K1Z_XMMM128_IMM8: int = 1649
+EVEX_VPSLLW_XMM_K1Z_XMMM128_IMM8: Code = 1649 # type: ignore
 """
 ``VPSLLW xmm1 {k1}{z}, xmm2/m128, imm8``
 
@@ -16481,7 +16487,7 @@ EVEX_VPSLLW_XMM_K1Z_XMMM128_IMM8: int = 1649
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLW_YMM_K1Z_YMMM256_IMM8: int = 1650
+EVEX_VPSLLW_YMM_K1Z_YMMM256_IMM8: Code = 1650 # type: ignore
 """
 ``VPSLLW ymm1 {k1}{z}, ymm2/m256, imm8``
 
@@ -16491,7 +16497,7 @@ EVEX_VPSLLW_YMM_K1Z_YMMM256_IMM8: int = 1650
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLW_ZMM_K1Z_ZMMM512_IMM8: int = 1651
+EVEX_VPSLLW_ZMM_K1Z_ZMMM512_IMM8: Code = 1651 # type: ignore
 """
 ``VPSLLW zmm1 {k1}{z}, zmm2/m512, imm8``
 
@@ -16501,7 +16507,7 @@ EVEX_VPSLLW_ZMM_K1Z_ZMMM512_IMM8: int = 1651
 
 ``16/32/64-bit``
 """
-EVEX_VPRORD_XMM_K1Z_XMMM128B32_IMM8: int = 1652
+EVEX_VPRORD_XMM_K1Z_XMMM128B32_IMM8: Code = 1652 # type: ignore
 """
 ``VPRORD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8``
 
@@ -16511,7 +16517,7 @@ EVEX_VPRORD_XMM_K1Z_XMMM128B32_IMM8: int = 1652
 
 ``16/32/64-bit``
 """
-EVEX_VPRORD_YMM_K1Z_YMMM256B32_IMM8: int = 1653
+EVEX_VPRORD_YMM_K1Z_YMMM256B32_IMM8: Code = 1653 # type: ignore
 """
 ``VPRORD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8``
 
@@ -16521,7 +16527,7 @@ EVEX_VPRORD_YMM_K1Z_YMMM256B32_IMM8: int = 1653
 
 ``16/32/64-bit``
 """
-EVEX_VPRORD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1654
+EVEX_VPRORD_ZMM_K1Z_ZMMM512B32_IMM8: Code = 1654 # type: ignore
 """
 ``VPRORD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8``
 
@@ -16531,7 +16537,7 @@ EVEX_VPRORD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1654
 
 ``16/32/64-bit``
 """
-EVEX_VPRORQ_XMM_K1Z_XMMM128B64_IMM8: int = 1655
+EVEX_VPRORQ_XMM_K1Z_XMMM128B64_IMM8: Code = 1655 # type: ignore
 """
 ``VPRORQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8``
 
@@ -16541,7 +16547,7 @@ EVEX_VPRORQ_XMM_K1Z_XMMM128B64_IMM8: int = 1655
 
 ``16/32/64-bit``
 """
-EVEX_VPRORQ_YMM_K1Z_YMMM256B64_IMM8: int = 1656
+EVEX_VPRORQ_YMM_K1Z_YMMM256B64_IMM8: Code = 1656 # type: ignore
 """
 ``VPRORQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -16551,7 +16557,7 @@ EVEX_VPRORQ_YMM_K1Z_YMMM256B64_IMM8: int = 1656
 
 ``16/32/64-bit``
 """
-EVEX_VPRORQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 1657
+EVEX_VPRORQ_ZMM_K1Z_ZMMM512B64_IMM8: Code = 1657 # type: ignore
 """
 ``VPRORQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8``
 
@@ -16561,7 +16567,7 @@ EVEX_VPRORQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 1657
 
 ``16/32/64-bit``
 """
-EVEX_VPROLD_XMM_K1Z_XMMM128B32_IMM8: int = 1658
+EVEX_VPROLD_XMM_K1Z_XMMM128B32_IMM8: Code = 1658 # type: ignore
 """
 ``VPROLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8``
 
@@ -16571,7 +16577,7 @@ EVEX_VPROLD_XMM_K1Z_XMMM128B32_IMM8: int = 1658
 
 ``16/32/64-bit``
 """
-EVEX_VPROLD_YMM_K1Z_YMMM256B32_IMM8: int = 1659
+EVEX_VPROLD_YMM_K1Z_YMMM256B32_IMM8: Code = 1659 # type: ignore
 """
 ``VPROLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8``
 
@@ -16581,7 +16587,7 @@ EVEX_VPROLD_YMM_K1Z_YMMM256B32_IMM8: int = 1659
 
 ``16/32/64-bit``
 """
-EVEX_VPROLD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1660
+EVEX_VPROLD_ZMM_K1Z_ZMMM512B32_IMM8: Code = 1660 # type: ignore
 """
 ``VPROLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8``
 
@@ -16591,7 +16597,7 @@ EVEX_VPROLD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1660
 
 ``16/32/64-bit``
 """
-EVEX_VPROLQ_XMM_K1Z_XMMM128B64_IMM8: int = 1661
+EVEX_VPROLQ_XMM_K1Z_XMMM128B64_IMM8: Code = 1661 # type: ignore
 """
 ``VPROLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8``
 
@@ -16601,7 +16607,7 @@ EVEX_VPROLQ_XMM_K1Z_XMMM128B64_IMM8: int = 1661
 
 ``16/32/64-bit``
 """
-EVEX_VPROLQ_YMM_K1Z_YMMM256B64_IMM8: int = 1662
+EVEX_VPROLQ_YMM_K1Z_YMMM256B64_IMM8: Code = 1662 # type: ignore
 """
 ``VPROLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -16611,7 +16617,7 @@ EVEX_VPROLQ_YMM_K1Z_YMMM256B64_IMM8: int = 1662
 
 ``16/32/64-bit``
 """
-EVEX_VPROLQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 1663
+EVEX_VPROLQ_ZMM_K1Z_ZMMM512B64_IMM8: Code = 1663 # type: ignore
 """
 ``VPROLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8``
 
@@ -16621,7 +16627,7 @@ EVEX_VPROLQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 1663
 
 ``16/32/64-bit``
 """
-PSRLD_MM_IMM8: int = 1664
+PSRLD_MM_IMM8: Code = 1664 # type: ignore
 """
 ``PSRLD mm, imm8``
 
@@ -16631,7 +16637,7 @@ PSRLD_MM_IMM8: int = 1664
 
 ``16/32/64-bit``
 """
-PSRLD_XMM_IMM8: int = 1665
+PSRLD_XMM_IMM8: Code = 1665 # type: ignore
 """
 ``PSRLD xmm1, imm8``
 
@@ -16641,7 +16647,7 @@ PSRLD_XMM_IMM8: int = 1665
 
 ``16/32/64-bit``
 """
-VEX_VPSRLD_XMM_XMM_IMM8: int = 1666
+VEX_VPSRLD_XMM_XMM_IMM8: Code = 1666 # type: ignore
 """
 ``VPSRLD xmm1, xmm2, imm8``
 
@@ -16651,7 +16657,7 @@ VEX_VPSRLD_XMM_XMM_IMM8: int = 1666
 
 ``16/32/64-bit``
 """
-VEX_VPSRLD_YMM_YMM_IMM8: int = 1667
+VEX_VPSRLD_YMM_YMM_IMM8: Code = 1667 # type: ignore
 """
 ``VPSRLD ymm1, ymm2, imm8``
 
@@ -16661,7 +16667,7 @@ VEX_VPSRLD_YMM_YMM_IMM8: int = 1667
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLD_XMM_K1Z_XMMM128B32_IMM8: int = 1668
+EVEX_VPSRLD_XMM_K1Z_XMMM128B32_IMM8: Code = 1668 # type: ignore
 """
 ``VPSRLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8``
 
@@ -16671,7 +16677,7 @@ EVEX_VPSRLD_XMM_K1Z_XMMM128B32_IMM8: int = 1668
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLD_YMM_K1Z_YMMM256B32_IMM8: int = 1669
+EVEX_VPSRLD_YMM_K1Z_YMMM256B32_IMM8: Code = 1669 # type: ignore
 """
 ``VPSRLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8``
 
@@ -16681,7 +16687,7 @@ EVEX_VPSRLD_YMM_K1Z_YMMM256B32_IMM8: int = 1669
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1670
+EVEX_VPSRLD_ZMM_K1Z_ZMMM512B32_IMM8: Code = 1670 # type: ignore
 """
 ``VPSRLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8``
 
@@ -16691,7 +16697,7 @@ EVEX_VPSRLD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1670
 
 ``16/32/64-bit``
 """
-PSRAD_MM_IMM8: int = 1671
+PSRAD_MM_IMM8: Code = 1671 # type: ignore
 """
 ``PSRAD mm, imm8``
 
@@ -16701,7 +16707,7 @@ PSRAD_MM_IMM8: int = 1671
 
 ``16/32/64-bit``
 """
-PSRAD_XMM_IMM8: int = 1672
+PSRAD_XMM_IMM8: Code = 1672 # type: ignore
 """
 ``PSRAD xmm1, imm8``
 
@@ -16711,7 +16717,7 @@ PSRAD_XMM_IMM8: int = 1672
 
 ``16/32/64-bit``
 """
-VEX_VPSRAD_XMM_XMM_IMM8: int = 1673
+VEX_VPSRAD_XMM_XMM_IMM8: Code = 1673 # type: ignore
 """
 ``VPSRAD xmm1, xmm2, imm8``
 
@@ -16721,7 +16727,7 @@ VEX_VPSRAD_XMM_XMM_IMM8: int = 1673
 
 ``16/32/64-bit``
 """
-VEX_VPSRAD_YMM_YMM_IMM8: int = 1674
+VEX_VPSRAD_YMM_YMM_IMM8: Code = 1674 # type: ignore
 """
 ``VPSRAD ymm1, ymm2, imm8``
 
@@ -16731,7 +16737,7 @@ VEX_VPSRAD_YMM_YMM_IMM8: int = 1674
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAD_XMM_K1Z_XMMM128B32_IMM8: int = 1675
+EVEX_VPSRAD_XMM_K1Z_XMMM128B32_IMM8: Code = 1675 # type: ignore
 """
 ``VPSRAD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8``
 
@@ -16741,7 +16747,7 @@ EVEX_VPSRAD_XMM_K1Z_XMMM128B32_IMM8: int = 1675
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAD_YMM_K1Z_YMMM256B32_IMM8: int = 1676
+EVEX_VPSRAD_YMM_K1Z_YMMM256B32_IMM8: Code = 1676 # type: ignore
 """
 ``VPSRAD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8``
 
@@ -16751,7 +16757,7 @@ EVEX_VPSRAD_YMM_K1Z_YMMM256B32_IMM8: int = 1676
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1677
+EVEX_VPSRAD_ZMM_K1Z_ZMMM512B32_IMM8: Code = 1677 # type: ignore
 """
 ``VPSRAD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8``
 
@@ -16761,7 +16767,7 @@ EVEX_VPSRAD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1677
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAQ_XMM_K1Z_XMMM128B64_IMM8: int = 1678
+EVEX_VPSRAQ_XMM_K1Z_XMMM128B64_IMM8: Code = 1678 # type: ignore
 """
 ``VPSRAQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8``
 
@@ -16771,7 +16777,7 @@ EVEX_VPSRAQ_XMM_K1Z_XMMM128B64_IMM8: int = 1678
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAQ_YMM_K1Z_YMMM256B64_IMM8: int = 1679
+EVEX_VPSRAQ_YMM_K1Z_YMMM256B64_IMM8: Code = 1679 # type: ignore
 """
 ``VPSRAQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -16781,7 +16787,7 @@ EVEX_VPSRAQ_YMM_K1Z_YMMM256B64_IMM8: int = 1679
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 1680
+EVEX_VPSRAQ_ZMM_K1Z_ZMMM512B64_IMM8: Code = 1680 # type: ignore
 """
 ``VPSRAQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8``
 
@@ -16791,7 +16797,7 @@ EVEX_VPSRAQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 1680
 
 ``16/32/64-bit``
 """
-PSLLD_MM_IMM8: int = 1681
+PSLLD_MM_IMM8: Code = 1681 # type: ignore
 """
 ``PSLLD mm, imm8``
 
@@ -16801,7 +16807,7 @@ PSLLD_MM_IMM8: int = 1681
 
 ``16/32/64-bit``
 """
-PSLLD_XMM_IMM8: int = 1682
+PSLLD_XMM_IMM8: Code = 1682 # type: ignore
 """
 ``PSLLD xmm1, imm8``
 
@@ -16811,7 +16817,7 @@ PSLLD_XMM_IMM8: int = 1682
 
 ``16/32/64-bit``
 """
-VEX_VPSLLD_XMM_XMM_IMM8: int = 1683
+VEX_VPSLLD_XMM_XMM_IMM8: Code = 1683 # type: ignore
 """
 ``VPSLLD xmm1, xmm2, imm8``
 
@@ -16821,7 +16827,7 @@ VEX_VPSLLD_XMM_XMM_IMM8: int = 1683
 
 ``16/32/64-bit``
 """
-VEX_VPSLLD_YMM_YMM_IMM8: int = 1684
+VEX_VPSLLD_YMM_YMM_IMM8: Code = 1684 # type: ignore
 """
 ``VPSLLD ymm1, ymm2, imm8``
 
@@ -16831,7 +16837,7 @@ VEX_VPSLLD_YMM_YMM_IMM8: int = 1684
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLD_XMM_K1Z_XMMM128B32_IMM8: int = 1685
+EVEX_VPSLLD_XMM_K1Z_XMMM128B32_IMM8: Code = 1685 # type: ignore
 """
 ``VPSLLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8``
 
@@ -16841,7 +16847,7 @@ EVEX_VPSLLD_XMM_K1Z_XMMM128B32_IMM8: int = 1685
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLD_YMM_K1Z_YMMM256B32_IMM8: int = 1686
+EVEX_VPSLLD_YMM_K1Z_YMMM256B32_IMM8: Code = 1686 # type: ignore
 """
 ``VPSLLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8``
 
@@ -16851,7 +16857,7 @@ EVEX_VPSLLD_YMM_K1Z_YMMM256B32_IMM8: int = 1686
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1687
+EVEX_VPSLLD_ZMM_K1Z_ZMMM512B32_IMM8: Code = 1687 # type: ignore
 """
 ``VPSLLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8``
 
@@ -16861,7 +16867,7 @@ EVEX_VPSLLD_ZMM_K1Z_ZMMM512B32_IMM8: int = 1687
 
 ``16/32/64-bit``
 """
-PSRLQ_MM_IMM8: int = 1688
+PSRLQ_MM_IMM8: Code = 1688 # type: ignore
 """
 ``PSRLQ mm, imm8``
 
@@ -16871,7 +16877,7 @@ PSRLQ_MM_IMM8: int = 1688
 
 ``16/32/64-bit``
 """
-PSRLQ_XMM_IMM8: int = 1689
+PSRLQ_XMM_IMM8: Code = 1689 # type: ignore
 """
 ``PSRLQ xmm1, imm8``
 
@@ -16881,7 +16887,7 @@ PSRLQ_XMM_IMM8: int = 1689
 
 ``16/32/64-bit``
 """
-VEX_VPSRLQ_XMM_XMM_IMM8: int = 1690
+VEX_VPSRLQ_XMM_XMM_IMM8: Code = 1690 # type: ignore
 """
 ``VPSRLQ xmm1, xmm2, imm8``
 
@@ -16891,7 +16897,7 @@ VEX_VPSRLQ_XMM_XMM_IMM8: int = 1690
 
 ``16/32/64-bit``
 """
-VEX_VPSRLQ_YMM_YMM_IMM8: int = 1691
+VEX_VPSRLQ_YMM_YMM_IMM8: Code = 1691 # type: ignore
 """
 ``VPSRLQ ymm1, ymm2, imm8``
 
@@ -16901,7 +16907,7 @@ VEX_VPSRLQ_YMM_YMM_IMM8: int = 1691
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLQ_XMM_K1Z_XMMM128B64_IMM8: int = 1692
+EVEX_VPSRLQ_XMM_K1Z_XMMM128B64_IMM8: Code = 1692 # type: ignore
 """
 ``VPSRLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8``
 
@@ -16911,7 +16917,7 @@ EVEX_VPSRLQ_XMM_K1Z_XMMM128B64_IMM8: int = 1692
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLQ_YMM_K1Z_YMMM256B64_IMM8: int = 1693
+EVEX_VPSRLQ_YMM_K1Z_YMMM256B64_IMM8: Code = 1693 # type: ignore
 """
 ``VPSRLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -16921,7 +16927,7 @@ EVEX_VPSRLQ_YMM_K1Z_YMMM256B64_IMM8: int = 1693
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 1694
+EVEX_VPSRLQ_ZMM_K1Z_ZMMM512B64_IMM8: Code = 1694 # type: ignore
 """
 ``VPSRLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8``
 
@@ -16931,7 +16937,7 @@ EVEX_VPSRLQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 1694
 
 ``16/32/64-bit``
 """
-PSRLDQ_XMM_IMM8: int = 1695
+PSRLDQ_XMM_IMM8: Code = 1695 # type: ignore
 """
 ``PSRLDQ xmm1, imm8``
 
@@ -16941,7 +16947,7 @@ PSRLDQ_XMM_IMM8: int = 1695
 
 ``16/32/64-bit``
 """
-VEX_VPSRLDQ_XMM_XMM_IMM8: int = 1696
+VEX_VPSRLDQ_XMM_XMM_IMM8: Code = 1696 # type: ignore
 """
 ``VPSRLDQ xmm1, xmm2, imm8``
 
@@ -16951,7 +16957,7 @@ VEX_VPSRLDQ_XMM_XMM_IMM8: int = 1696
 
 ``16/32/64-bit``
 """
-VEX_VPSRLDQ_YMM_YMM_IMM8: int = 1697
+VEX_VPSRLDQ_YMM_YMM_IMM8: Code = 1697 # type: ignore
 """
 ``VPSRLDQ ymm1, ymm2, imm8``
 
@@ -16961,7 +16967,7 @@ VEX_VPSRLDQ_YMM_YMM_IMM8: int = 1697
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLDQ_XMM_XMMM128_IMM8: int = 1698
+EVEX_VPSRLDQ_XMM_XMMM128_IMM8: Code = 1698 # type: ignore
 """
 ``VPSRLDQ xmm1, xmm2/m128, imm8``
 
@@ -16971,7 +16977,7 @@ EVEX_VPSRLDQ_XMM_XMMM128_IMM8: int = 1698
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLDQ_YMM_YMMM256_IMM8: int = 1699
+EVEX_VPSRLDQ_YMM_YMMM256_IMM8: Code = 1699 # type: ignore
 """
 ``VPSRLDQ ymm1, ymm2/m256, imm8``
 
@@ -16981,7 +16987,7 @@ EVEX_VPSRLDQ_YMM_YMMM256_IMM8: int = 1699
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLDQ_ZMM_ZMMM512_IMM8: int = 1700
+EVEX_VPSRLDQ_ZMM_ZMMM512_IMM8: Code = 1700 # type: ignore
 """
 ``VPSRLDQ zmm1, zmm2/m512, imm8``
 
@@ -16991,7 +16997,7 @@ EVEX_VPSRLDQ_ZMM_ZMMM512_IMM8: int = 1700
 
 ``16/32/64-bit``
 """
-PSLLQ_MM_IMM8: int = 1701
+PSLLQ_MM_IMM8: Code = 1701 # type: ignore
 """
 ``PSLLQ mm, imm8``
 
@@ -17001,7 +17007,7 @@ PSLLQ_MM_IMM8: int = 1701
 
 ``16/32/64-bit``
 """
-PSLLQ_XMM_IMM8: int = 1702
+PSLLQ_XMM_IMM8: Code = 1702 # type: ignore
 """
 ``PSLLQ xmm1, imm8``
 
@@ -17011,7 +17017,7 @@ PSLLQ_XMM_IMM8: int = 1702
 
 ``16/32/64-bit``
 """
-VEX_VPSLLQ_XMM_XMM_IMM8: int = 1703
+VEX_VPSLLQ_XMM_XMM_IMM8: Code = 1703 # type: ignore
 """
 ``VPSLLQ xmm1, xmm2, imm8``
 
@@ -17021,7 +17027,7 @@ VEX_VPSLLQ_XMM_XMM_IMM8: int = 1703
 
 ``16/32/64-bit``
 """
-VEX_VPSLLQ_YMM_YMM_IMM8: int = 1704
+VEX_VPSLLQ_YMM_YMM_IMM8: Code = 1704 # type: ignore
 """
 ``VPSLLQ ymm1, ymm2, imm8``
 
@@ -17031,7 +17037,7 @@ VEX_VPSLLQ_YMM_YMM_IMM8: int = 1704
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLQ_XMM_K1Z_XMMM128B64_IMM8: int = 1705
+EVEX_VPSLLQ_XMM_K1Z_XMMM128B64_IMM8: Code = 1705 # type: ignore
 """
 ``VPSLLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8``
 
@@ -17041,7 +17047,7 @@ EVEX_VPSLLQ_XMM_K1Z_XMMM128B64_IMM8: int = 1705
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLQ_YMM_K1Z_YMMM256B64_IMM8: int = 1706
+EVEX_VPSLLQ_YMM_K1Z_YMMM256B64_IMM8: Code = 1706 # type: ignore
 """
 ``VPSLLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -17051,7 +17057,7 @@ EVEX_VPSLLQ_YMM_K1Z_YMMM256B64_IMM8: int = 1706
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 1707
+EVEX_VPSLLQ_ZMM_K1Z_ZMMM512B64_IMM8: Code = 1707 # type: ignore
 """
 ``VPSLLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8``
 
@@ -17061,7 +17067,7 @@ EVEX_VPSLLQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 1707
 
 ``16/32/64-bit``
 """
-PSLLDQ_XMM_IMM8: int = 1708
+PSLLDQ_XMM_IMM8: Code = 1708 # type: ignore
 """
 ``PSLLDQ xmm1, imm8``
 
@@ -17071,7 +17077,7 @@ PSLLDQ_XMM_IMM8: int = 1708
 
 ``16/32/64-bit``
 """
-VEX_VPSLLDQ_XMM_XMM_IMM8: int = 1709
+VEX_VPSLLDQ_XMM_XMM_IMM8: Code = 1709 # type: ignore
 """
 ``VPSLLDQ xmm1, xmm2, imm8``
 
@@ -17081,7 +17087,7 @@ VEX_VPSLLDQ_XMM_XMM_IMM8: int = 1709
 
 ``16/32/64-bit``
 """
-VEX_VPSLLDQ_YMM_YMM_IMM8: int = 1710
+VEX_VPSLLDQ_YMM_YMM_IMM8: Code = 1710 # type: ignore
 """
 ``VPSLLDQ ymm1, ymm2, imm8``
 
@@ -17091,7 +17097,7 @@ VEX_VPSLLDQ_YMM_YMM_IMM8: int = 1710
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLDQ_XMM_XMMM128_IMM8: int = 1711
+EVEX_VPSLLDQ_XMM_XMMM128_IMM8: Code = 1711 # type: ignore
 """
 ``VPSLLDQ xmm1, xmm2/m128, imm8``
 
@@ -17101,7 +17107,7 @@ EVEX_VPSLLDQ_XMM_XMMM128_IMM8: int = 1711
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLDQ_YMM_YMMM256_IMM8: int = 1712
+EVEX_VPSLLDQ_YMM_YMMM256_IMM8: Code = 1712 # type: ignore
 """
 ``VPSLLDQ ymm1, ymm2/m256, imm8``
 
@@ -17111,7 +17117,7 @@ EVEX_VPSLLDQ_YMM_YMMM256_IMM8: int = 1712
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLDQ_ZMM_ZMMM512_IMM8: int = 1713
+EVEX_VPSLLDQ_ZMM_ZMMM512_IMM8: Code = 1713 # type: ignore
 """
 ``VPSLLDQ zmm1, zmm2/m512, imm8``
 
@@ -17121,7 +17127,7 @@ EVEX_VPSLLDQ_ZMM_ZMMM512_IMM8: int = 1713
 
 ``16/32/64-bit``
 """
-PCMPEQB_MM_MMM64: int = 1714
+PCMPEQB_MM_MMM64: Code = 1714 # type: ignore
 """
 ``PCMPEQB mm, mm/m64``
 
@@ -17131,7 +17137,7 @@ PCMPEQB_MM_MMM64: int = 1714
 
 ``16/32/64-bit``
 """
-PCMPEQB_XMM_XMMM128: int = 1715
+PCMPEQB_XMM_XMMM128: Code = 1715 # type: ignore
 """
 ``PCMPEQB xmm1, xmm2/m128``
 
@@ -17141,7 +17147,7 @@ PCMPEQB_XMM_XMMM128: int = 1715
 
 ``16/32/64-bit``
 """
-VEX_VPCMPEQB_XMM_XMM_XMMM128: int = 1716
+VEX_VPCMPEQB_XMM_XMM_XMMM128: Code = 1716 # type: ignore
 """
 ``VPCMPEQB xmm1, xmm2, xmm3/m128``
 
@@ -17151,7 +17157,7 @@ VEX_VPCMPEQB_XMM_XMM_XMMM128: int = 1716
 
 ``16/32/64-bit``
 """
-VEX_VPCMPEQB_YMM_YMM_YMMM256: int = 1717
+VEX_VPCMPEQB_YMM_YMM_YMMM256: Code = 1717 # type: ignore
 """
 ``VPCMPEQB ymm1, ymm2, ymm3/m256``
 
@@ -17161,7 +17167,7 @@ VEX_VPCMPEQB_YMM_YMM_YMMM256: int = 1717
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQB_KR_K1_XMM_XMMM128: int = 1718
+EVEX_VPCMPEQB_KR_K1_XMM_XMMM128: Code = 1718 # type: ignore
 """
 ``VPCMPEQB k1 {k2}, xmm2, xmm3/m128``
 
@@ -17171,7 +17177,7 @@ EVEX_VPCMPEQB_KR_K1_XMM_XMMM128: int = 1718
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQB_KR_K1_YMM_YMMM256: int = 1719
+EVEX_VPCMPEQB_KR_K1_YMM_YMMM256: Code = 1719 # type: ignore
 """
 ``VPCMPEQB k1 {k2}, ymm2, ymm3/m256``
 
@@ -17181,7 +17187,7 @@ EVEX_VPCMPEQB_KR_K1_YMM_YMMM256: int = 1719
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQB_KR_K1_ZMM_ZMMM512: int = 1720
+EVEX_VPCMPEQB_KR_K1_ZMM_ZMMM512: Code = 1720 # type: ignore
 """
 ``VPCMPEQB k1 {k2}, zmm2, zmm3/m512``
 
@@ -17191,7 +17197,7 @@ EVEX_VPCMPEQB_KR_K1_ZMM_ZMMM512: int = 1720
 
 ``16/32/64-bit``
 """
-PCMPEQW_MM_MMM64: int = 1721
+PCMPEQW_MM_MMM64: Code = 1721 # type: ignore
 """
 ``PCMPEQW mm, mm/m64``
 
@@ -17201,7 +17207,7 @@ PCMPEQW_MM_MMM64: int = 1721
 
 ``16/32/64-bit``
 """
-PCMPEQW_XMM_XMMM128: int = 1722
+PCMPEQW_XMM_XMMM128: Code = 1722 # type: ignore
 """
 ``PCMPEQW xmm1, xmm2/m128``
 
@@ -17211,7 +17217,7 @@ PCMPEQW_XMM_XMMM128: int = 1722
 
 ``16/32/64-bit``
 """
-VEX_VPCMPEQW_XMM_XMM_XMMM128: int = 1723
+VEX_VPCMPEQW_XMM_XMM_XMMM128: Code = 1723 # type: ignore
 """
 ``VPCMPEQW xmm1, xmm2, xmm3/m128``
 
@@ -17221,7 +17227,7 @@ VEX_VPCMPEQW_XMM_XMM_XMMM128: int = 1723
 
 ``16/32/64-bit``
 """
-VEX_VPCMPEQW_YMM_YMM_YMMM256: int = 1724
+VEX_VPCMPEQW_YMM_YMM_YMMM256: Code = 1724 # type: ignore
 """
 ``VPCMPEQW ymm1, ymm2, ymm3/m256``
 
@@ -17231,7 +17237,7 @@ VEX_VPCMPEQW_YMM_YMM_YMMM256: int = 1724
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQW_KR_K1_XMM_XMMM128: int = 1725
+EVEX_VPCMPEQW_KR_K1_XMM_XMMM128: Code = 1725 # type: ignore
 """
 ``VPCMPEQW k1 {k2}, xmm2, xmm3/m128``
 
@@ -17241,7 +17247,7 @@ EVEX_VPCMPEQW_KR_K1_XMM_XMMM128: int = 1725
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQW_KR_K1_YMM_YMMM256: int = 1726
+EVEX_VPCMPEQW_KR_K1_YMM_YMMM256: Code = 1726 # type: ignore
 """
 ``VPCMPEQW k1 {k2}, ymm2, ymm3/m256``
 
@@ -17251,7 +17257,7 @@ EVEX_VPCMPEQW_KR_K1_YMM_YMMM256: int = 1726
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQW_KR_K1_ZMM_ZMMM512: int = 1727
+EVEX_VPCMPEQW_KR_K1_ZMM_ZMMM512: Code = 1727 # type: ignore
 """
 ``VPCMPEQW k1 {k2}, zmm2, zmm3/m512``
 
@@ -17261,7 +17267,7 @@ EVEX_VPCMPEQW_KR_K1_ZMM_ZMMM512: int = 1727
 
 ``16/32/64-bit``
 """
-PCMPEQD_MM_MMM64: int = 1728
+PCMPEQD_MM_MMM64: Code = 1728 # type: ignore
 """
 ``PCMPEQD mm, mm/m64``
 
@@ -17271,7 +17277,7 @@ PCMPEQD_MM_MMM64: int = 1728
 
 ``16/32/64-bit``
 """
-PCMPEQD_XMM_XMMM128: int = 1729
+PCMPEQD_XMM_XMMM128: Code = 1729 # type: ignore
 """
 ``PCMPEQD xmm1, xmm2/m128``
 
@@ -17281,7 +17287,7 @@ PCMPEQD_XMM_XMMM128: int = 1729
 
 ``16/32/64-bit``
 """
-VEX_VPCMPEQD_XMM_XMM_XMMM128: int = 1730
+VEX_VPCMPEQD_XMM_XMM_XMMM128: Code = 1730 # type: ignore
 """
 ``VPCMPEQD xmm1, xmm2, xmm3/m128``
 
@@ -17291,7 +17297,7 @@ VEX_VPCMPEQD_XMM_XMM_XMMM128: int = 1730
 
 ``16/32/64-bit``
 """
-VEX_VPCMPEQD_YMM_YMM_YMMM256: int = 1731
+VEX_VPCMPEQD_YMM_YMM_YMMM256: Code = 1731 # type: ignore
 """
 ``VPCMPEQD ymm1, ymm2, ymm3/m256``
 
@@ -17301,7 +17307,7 @@ VEX_VPCMPEQD_YMM_YMM_YMMM256: int = 1731
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQD_KR_K1_XMM_XMMM128B32: int = 1732
+EVEX_VPCMPEQD_KR_K1_XMM_XMMM128B32: Code = 1732 # type: ignore
 """
 ``VPCMPEQD k1 {k2}, xmm2, xmm3/m128/m32bcst``
 
@@ -17311,7 +17317,7 @@ EVEX_VPCMPEQD_KR_K1_XMM_XMMM128B32: int = 1732
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQD_KR_K1_YMM_YMMM256B32: int = 1733
+EVEX_VPCMPEQD_KR_K1_YMM_YMMM256B32: Code = 1733 # type: ignore
 """
 ``VPCMPEQD k1 {k2}, ymm2, ymm3/m256/m32bcst``
 
@@ -17321,7 +17327,7 @@ EVEX_VPCMPEQD_KR_K1_YMM_YMMM256B32: int = 1733
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQD_KR_K1_ZMM_ZMMM512B32: int = 1734
+EVEX_VPCMPEQD_KR_K1_ZMM_ZMMM512B32: Code = 1734 # type: ignore
 """
 ``VPCMPEQD k1 {k2}, zmm2, zmm3/m512/m32bcst``
 
@@ -17331,7 +17337,7 @@ EVEX_VPCMPEQD_KR_K1_ZMM_ZMMM512B32: int = 1734
 
 ``16/32/64-bit``
 """
-EMMS: int = 1735
+EMMS: Code = 1735 # type: ignore
 """
 ``EMMS``
 
@@ -17341,7 +17347,7 @@ EMMS: int = 1735
 
 ``16/32/64-bit``
 """
-VEX_VZEROUPPER: int = 1736
+VEX_VZEROUPPER: Code = 1736 # type: ignore
 """
 ``VZEROUPPER``
 
@@ -17351,7 +17357,7 @@ VEX_VZEROUPPER: int = 1736
 
 ``16/32/64-bit``
 """
-VEX_VZEROALL: int = 1737
+VEX_VZEROALL: Code = 1737 # type: ignore
 """
 ``VZEROALL``
 
@@ -17361,7 +17367,7 @@ VEX_VZEROALL: int = 1737
 
 ``16/32/64-bit``
 """
-VMREAD_RM32_R32: int = 1738
+VMREAD_RM32_R32: Code = 1738 # type: ignore
 """
 ``VMREAD r/m32, r32``
 
@@ -17371,7 +17377,7 @@ VMREAD_RM32_R32: int = 1738
 
 ``16/32-bit``
 """
-VMREAD_RM64_R64: int = 1739
+VMREAD_RM64_R64: Code = 1739 # type: ignore
 """
 ``VMREAD r/m64, r64``
 
@@ -17381,7 +17387,7 @@ VMREAD_RM64_R64: int = 1739
 
 ``64-bit``
 """
-EVEX_VCVTTPS2UDQ_XMM_K1Z_XMMM128B32: int = 1740
+EVEX_VCVTTPS2UDQ_XMM_K1Z_XMMM128B32: Code = 1740 # type: ignore
 """
 ``VCVTTPS2UDQ xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -17391,7 +17397,7 @@ EVEX_VCVTTPS2UDQ_XMM_K1Z_XMMM128B32: int = 1740
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPS2UDQ_YMM_K1Z_YMMM256B32: int = 1741
+EVEX_VCVTTPS2UDQ_YMM_K1Z_YMMM256B32: Code = 1741 # type: ignore
 """
 ``VCVTTPS2UDQ ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -17401,7 +17407,7 @@ EVEX_VCVTTPS2UDQ_YMM_K1Z_YMMM256B32: int = 1741
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPS2UDQ_ZMM_K1Z_ZMMM512B32_SAE: int = 1742
+EVEX_VCVTTPS2UDQ_ZMM_K1Z_ZMMM512B32_SAE: Code = 1742 # type: ignore
 """
 ``VCVTTPS2UDQ zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}``
 
@@ -17411,7 +17417,7 @@ EVEX_VCVTTPS2UDQ_ZMM_K1Z_ZMMM512B32_SAE: int = 1742
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2UDQ_XMM_K1Z_XMMM128B64: int = 1743
+EVEX_VCVTTPD2UDQ_XMM_K1Z_XMMM128B64: Code = 1743 # type: ignore
 """
 ``VCVTTPD2UDQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -17421,7 +17427,7 @@ EVEX_VCVTTPD2UDQ_XMM_K1Z_XMMM128B64: int = 1743
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2UDQ_XMM_K1Z_YMMM256B64: int = 1744
+EVEX_VCVTTPD2UDQ_XMM_K1Z_YMMM256B64: Code = 1744 # type: ignore
 """
 ``VCVTTPD2UDQ xmm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -17431,7 +17437,7 @@ EVEX_VCVTTPD2UDQ_XMM_K1Z_YMMM256B64: int = 1744
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2UDQ_YMM_K1Z_ZMMM512B64_SAE: int = 1745
+EVEX_VCVTTPD2UDQ_YMM_K1Z_ZMMM512B64_SAE: Code = 1745 # type: ignore
 """
 ``VCVTTPD2UDQ ymm1 {k1}{z}, zmm2/m512/m64bcst{sae}``
 
@@ -17441,7 +17447,7 @@ EVEX_VCVTTPD2UDQ_YMM_K1Z_ZMMM512B64_SAE: int = 1745
 
 ``16/32/64-bit``
 """
-EXTRQ_XMM_IMM8_IMM8: int = 1746
+EXTRQ_XMM_IMM8_IMM8: Code = 1746 # type: ignore
 """
 ``EXTRQ xmm1, imm8, imm8``
 
@@ -17451,7 +17457,7 @@ EXTRQ_XMM_IMM8_IMM8: int = 1746
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPS2UQQ_XMM_K1Z_XMMM64B32: int = 1747
+EVEX_VCVTTPS2UQQ_XMM_K1Z_XMMM64B32: Code = 1747 # type: ignore
 """
 ``VCVTTPS2UQQ xmm1 {k1}{z}, xmm2/m64/m32bcst``
 
@@ -17461,7 +17467,7 @@ EVEX_VCVTTPS2UQQ_XMM_K1Z_XMMM64B32: int = 1747
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPS2UQQ_YMM_K1Z_XMMM128B32: int = 1748
+EVEX_VCVTTPS2UQQ_YMM_K1Z_XMMM128B32: Code = 1748 # type: ignore
 """
 ``VCVTTPS2UQQ ymm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -17471,7 +17477,7 @@ EVEX_VCVTTPS2UQQ_YMM_K1Z_XMMM128B32: int = 1748
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPS2UQQ_ZMM_K1Z_YMMM256B32_SAE: int = 1749
+EVEX_VCVTTPS2UQQ_ZMM_K1Z_YMMM256B32_SAE: Code = 1749 # type: ignore
 """
 ``VCVTTPS2UQQ zmm1 {k1}{z}, ymm2/m256/m32bcst{sae}``
 
@@ -17481,7 +17487,7 @@ EVEX_VCVTTPS2UQQ_ZMM_K1Z_YMMM256B32_SAE: int = 1749
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2UQQ_XMM_K1Z_XMMM128B64: int = 1750
+EVEX_VCVTTPD2UQQ_XMM_K1Z_XMMM128B64: Code = 1750 # type: ignore
 """
 ``VCVTTPD2UQQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -17491,7 +17497,7 @@ EVEX_VCVTTPD2UQQ_XMM_K1Z_XMMM128B64: int = 1750
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2UQQ_YMM_K1Z_YMMM256B64: int = 1751
+EVEX_VCVTTPD2UQQ_YMM_K1Z_YMMM256B64: Code = 1751 # type: ignore
 """
 ``VCVTTPD2UQQ ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -17501,7 +17507,7 @@ EVEX_VCVTTPD2UQQ_YMM_K1Z_YMMM256B64: int = 1751
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2UQQ_ZMM_K1Z_ZMMM512B64_SAE: int = 1752
+EVEX_VCVTTPD2UQQ_ZMM_K1Z_ZMMM512B64_SAE: Code = 1752 # type: ignore
 """
 ``VCVTTPD2UQQ zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}``
 
@@ -17511,7 +17517,7 @@ EVEX_VCVTTPD2UQQ_ZMM_K1Z_ZMMM512B64_SAE: int = 1752
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTSS2USI_R32_XMMM32_SAE: int = 1753
+EVEX_VCVTTSS2USI_R32_XMMM32_SAE: Code = 1753 # type: ignore
 """
 ``VCVTTSS2USI r32, xmm1/m32{sae}``
 
@@ -17521,7 +17527,7 @@ EVEX_VCVTTSS2USI_R32_XMMM32_SAE: int = 1753
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTSS2USI_R64_XMMM32_SAE: int = 1754
+EVEX_VCVTTSS2USI_R64_XMMM32_SAE: Code = 1754 # type: ignore
 """
 ``VCVTTSS2USI r64, xmm1/m32{sae}``
 
@@ -17531,7 +17537,7 @@ EVEX_VCVTTSS2USI_R64_XMMM32_SAE: int = 1754
 
 ``64-bit``
 """
-INSERTQ_XMM_XMM_IMM8_IMM8: int = 1755
+INSERTQ_XMM_XMM_IMM8_IMM8: Code = 1755 # type: ignore
 """
 ``INSERTQ xmm1, xmm2, imm8, imm8``
 
@@ -17541,7 +17547,7 @@ INSERTQ_XMM_XMM_IMM8_IMM8: int = 1755
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTSD2USI_R32_XMMM64_SAE: int = 1756
+EVEX_VCVTTSD2USI_R32_XMMM64_SAE: Code = 1756 # type: ignore
 """
 ``VCVTTSD2USI r32, xmm1/m64{sae}``
 
@@ -17551,7 +17557,7 @@ EVEX_VCVTTSD2USI_R32_XMMM64_SAE: int = 1756
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTSD2USI_R64_XMMM64_SAE: int = 1757
+EVEX_VCVTTSD2USI_R64_XMMM64_SAE: Code = 1757 # type: ignore
 """
 ``VCVTTSD2USI r64, xmm1/m64{sae}``
 
@@ -17561,7 +17567,7 @@ EVEX_VCVTTSD2USI_R64_XMMM64_SAE: int = 1757
 
 ``64-bit``
 """
-VMWRITE_R32_RM32: int = 1758
+VMWRITE_R32_RM32: Code = 1758 # type: ignore
 """
 ``VMWRITE r32, r/m32``
 
@@ -17571,7 +17577,7 @@ VMWRITE_R32_RM32: int = 1758
 
 ``16/32-bit``
 """
-VMWRITE_R64_RM64: int = 1759
+VMWRITE_R64_RM64: Code = 1759 # type: ignore
 """
 ``VMWRITE r64, r/m64``
 
@@ -17581,7 +17587,7 @@ VMWRITE_R64_RM64: int = 1759
 
 ``64-bit``
 """
-EVEX_VCVTPS2UDQ_XMM_K1Z_XMMM128B32: int = 1760
+EVEX_VCVTPS2UDQ_XMM_K1Z_XMMM128B32: Code = 1760 # type: ignore
 """
 ``VCVTPS2UDQ xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -17591,7 +17597,7 @@ EVEX_VCVTPS2UDQ_XMM_K1Z_XMMM128B32: int = 1760
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2UDQ_YMM_K1Z_YMMM256B32: int = 1761
+EVEX_VCVTPS2UDQ_YMM_K1Z_YMMM256B32: Code = 1761 # type: ignore
 """
 ``VCVTPS2UDQ ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -17601,7 +17607,7 @@ EVEX_VCVTPS2UDQ_YMM_K1Z_YMMM256B32: int = 1761
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2UDQ_ZMM_K1Z_ZMMM512B32_ER: int = 1762
+EVEX_VCVTPS2UDQ_ZMM_K1Z_ZMMM512B32_ER: Code = 1762 # type: ignore
 """
 ``VCVTPS2UDQ zmm1 {k1}{z}, zmm2/m512/m32bcst{er}``
 
@@ -17611,7 +17617,7 @@ EVEX_VCVTPS2UDQ_ZMM_K1Z_ZMMM512B32_ER: int = 1762
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2UDQ_XMM_K1Z_XMMM128B64: int = 1763
+EVEX_VCVTPD2UDQ_XMM_K1Z_XMMM128B64: Code = 1763 # type: ignore
 """
 ``VCVTPD2UDQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -17621,7 +17627,7 @@ EVEX_VCVTPD2UDQ_XMM_K1Z_XMMM128B64: int = 1763
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2UDQ_XMM_K1Z_YMMM256B64: int = 1764
+EVEX_VCVTPD2UDQ_XMM_K1Z_YMMM256B64: Code = 1764 # type: ignore
 """
 ``VCVTPD2UDQ xmm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -17631,7 +17637,7 @@ EVEX_VCVTPD2UDQ_XMM_K1Z_YMMM256B64: int = 1764
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2UDQ_YMM_K1Z_ZMMM512B64_ER: int = 1765
+EVEX_VCVTPD2UDQ_YMM_K1Z_ZMMM512B64_ER: Code = 1765 # type: ignore
 """
 ``VCVTPD2UDQ ymm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -17641,7 +17647,7 @@ EVEX_VCVTPD2UDQ_YMM_K1Z_ZMMM512B64_ER: int = 1765
 
 ``16/32/64-bit``
 """
-EXTRQ_XMM_XMM: int = 1766
+EXTRQ_XMM_XMM: Code = 1766 # type: ignore
 """
 ``EXTRQ xmm1, xmm2``
 
@@ -17651,7 +17657,7 @@ EXTRQ_XMM_XMM: int = 1766
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2UQQ_XMM_K1Z_XMMM64B32: int = 1767
+EVEX_VCVTPS2UQQ_XMM_K1Z_XMMM64B32: Code = 1767 # type: ignore
 """
 ``VCVTPS2UQQ xmm1 {k1}{z}, xmm2/m64/m32bcst``
 
@@ -17661,7 +17667,7 @@ EVEX_VCVTPS2UQQ_XMM_K1Z_XMMM64B32: int = 1767
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2UQQ_YMM_K1Z_XMMM128B32: int = 1768
+EVEX_VCVTPS2UQQ_YMM_K1Z_XMMM128B32: Code = 1768 # type: ignore
 """
 ``VCVTPS2UQQ ymm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -17671,7 +17677,7 @@ EVEX_VCVTPS2UQQ_YMM_K1Z_XMMM128B32: int = 1768
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2UQQ_ZMM_K1Z_YMMM256B32_ER: int = 1769
+EVEX_VCVTPS2UQQ_ZMM_K1Z_YMMM256B32_ER: Code = 1769 # type: ignore
 """
 ``VCVTPS2UQQ zmm1 {k1}{z}, ymm2/m256/m32bcst{er}``
 
@@ -17681,7 +17687,7 @@ EVEX_VCVTPS2UQQ_ZMM_K1Z_YMMM256B32_ER: int = 1769
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2UQQ_XMM_K1Z_XMMM128B64: int = 1770
+EVEX_VCVTPD2UQQ_XMM_K1Z_XMMM128B64: Code = 1770 # type: ignore
 """
 ``VCVTPD2UQQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -17691,7 +17697,7 @@ EVEX_VCVTPD2UQQ_XMM_K1Z_XMMM128B64: int = 1770
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2UQQ_YMM_K1Z_YMMM256B64: int = 1771
+EVEX_VCVTPD2UQQ_YMM_K1Z_YMMM256B64: Code = 1771 # type: ignore
 """
 ``VCVTPD2UQQ ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -17701,7 +17707,7 @@ EVEX_VCVTPD2UQQ_YMM_K1Z_YMMM256B64: int = 1771
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2UQQ_ZMM_K1Z_ZMMM512B64_ER: int = 1772
+EVEX_VCVTPD2UQQ_ZMM_K1Z_ZMMM512B64_ER: Code = 1772 # type: ignore
 """
 ``VCVTPD2UQQ zmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -17711,7 +17717,7 @@ EVEX_VCVTPD2UQQ_ZMM_K1Z_ZMMM512B64_ER: int = 1772
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSS2USI_R32_XMMM32_ER: int = 1773
+EVEX_VCVTSS2USI_R32_XMMM32_ER: Code = 1773 # type: ignore
 """
 ``VCVTSS2USI r32, xmm1/m32{er}``
 
@@ -17721,7 +17727,7 @@ EVEX_VCVTSS2USI_R32_XMMM32_ER: int = 1773
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSS2USI_R64_XMMM32_ER: int = 1774
+EVEX_VCVTSS2USI_R64_XMMM32_ER: Code = 1774 # type: ignore
 """
 ``VCVTSS2USI r64, xmm1/m32{er}``
 
@@ -17731,7 +17737,7 @@ EVEX_VCVTSS2USI_R64_XMMM32_ER: int = 1774
 
 ``64-bit``
 """
-INSERTQ_XMM_XMM: int = 1775
+INSERTQ_XMM_XMM: Code = 1775 # type: ignore
 """
 ``INSERTQ xmm1, xmm2``
 
@@ -17741,7 +17747,7 @@ INSERTQ_XMM_XMM: int = 1775
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSD2USI_R32_XMMM64_ER: int = 1776
+EVEX_VCVTSD2USI_R32_XMMM64_ER: Code = 1776 # type: ignore
 """
 ``VCVTSD2USI r32, xmm1/m64{er}``
 
@@ -17751,7 +17757,7 @@ EVEX_VCVTSD2USI_R32_XMMM64_ER: int = 1776
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSD2USI_R64_XMMM64_ER: int = 1777
+EVEX_VCVTSD2USI_R64_XMMM64_ER: Code = 1777 # type: ignore
 """
 ``VCVTSD2USI r64, xmm1/m64{er}``
 
@@ -17761,7 +17767,7 @@ EVEX_VCVTSD2USI_R64_XMMM64_ER: int = 1777
 
 ``64-bit``
 """
-EVEX_VCVTTPS2QQ_XMM_K1Z_XMMM64B32: int = 1778
+EVEX_VCVTTPS2QQ_XMM_K1Z_XMMM64B32: Code = 1778 # type: ignore
 """
 ``VCVTTPS2QQ xmm1 {k1}{z}, xmm2/m64/m32bcst``
 
@@ -17771,7 +17777,7 @@ EVEX_VCVTTPS2QQ_XMM_K1Z_XMMM64B32: int = 1778
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPS2QQ_YMM_K1Z_XMMM128B32: int = 1779
+EVEX_VCVTTPS2QQ_YMM_K1Z_XMMM128B32: Code = 1779 # type: ignore
 """
 ``VCVTTPS2QQ ymm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -17781,7 +17787,7 @@ EVEX_VCVTTPS2QQ_YMM_K1Z_XMMM128B32: int = 1779
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPS2QQ_ZMM_K1Z_YMMM256B32_SAE: int = 1780
+EVEX_VCVTTPS2QQ_ZMM_K1Z_YMMM256B32_SAE: Code = 1780 # type: ignore
 """
 ``VCVTTPS2QQ zmm1 {k1}{z}, ymm2/m256/m32bcst{sae}``
 
@@ -17791,7 +17797,7 @@ EVEX_VCVTTPS2QQ_ZMM_K1Z_YMMM256B32_SAE: int = 1780
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2QQ_XMM_K1Z_XMMM128B64: int = 1781
+EVEX_VCVTTPD2QQ_XMM_K1Z_XMMM128B64: Code = 1781 # type: ignore
 """
 ``VCVTTPD2QQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -17801,7 +17807,7 @@ EVEX_VCVTTPD2QQ_XMM_K1Z_XMMM128B64: int = 1781
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2QQ_YMM_K1Z_YMMM256B64: int = 1782
+EVEX_VCVTTPD2QQ_YMM_K1Z_YMMM256B64: Code = 1782 # type: ignore
 """
 ``VCVTTPD2QQ ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -17811,7 +17817,7 @@ EVEX_VCVTTPD2QQ_YMM_K1Z_YMMM256B64: int = 1782
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2QQ_ZMM_K1Z_ZMMM512B64_SAE: int = 1783
+EVEX_VCVTTPD2QQ_ZMM_K1Z_ZMMM512B64_SAE: Code = 1783 # type: ignore
 """
 ``VCVTTPD2QQ zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}``
 
@@ -17821,7 +17827,7 @@ EVEX_VCVTTPD2QQ_ZMM_K1Z_ZMMM512B64_SAE: int = 1783
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUDQ2PD_XMM_K1Z_XMMM64B32: int = 1784
+EVEX_VCVTUDQ2PD_XMM_K1Z_XMMM64B32: Code = 1784 # type: ignore
 """
 ``VCVTUDQ2PD xmm1 {k1}{z}, xmm2/m64/m32bcst``
 
@@ -17831,7 +17837,7 @@ EVEX_VCVTUDQ2PD_XMM_K1Z_XMMM64B32: int = 1784
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUDQ2PD_YMM_K1Z_XMMM128B32: int = 1785
+EVEX_VCVTUDQ2PD_YMM_K1Z_XMMM128B32: Code = 1785 # type: ignore
 """
 ``VCVTUDQ2PD ymm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -17841,7 +17847,7 @@ EVEX_VCVTUDQ2PD_YMM_K1Z_XMMM128B32: int = 1785
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUDQ2PD_ZMM_K1Z_YMMM256B32_ER: int = 1786
+EVEX_VCVTUDQ2PD_ZMM_K1Z_YMMM256B32_ER: Code = 1786 # type: ignore
 """
 ``VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er}``
 
@@ -17851,7 +17857,7 @@ EVEX_VCVTUDQ2PD_ZMM_K1Z_YMMM256B32_ER: int = 1786
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUQQ2PD_XMM_K1Z_XMMM128B64: int = 1787
+EVEX_VCVTUQQ2PD_XMM_K1Z_XMMM128B64: Code = 1787 # type: ignore
 """
 ``VCVTUQQ2PD xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -17861,7 +17867,7 @@ EVEX_VCVTUQQ2PD_XMM_K1Z_XMMM128B64: int = 1787
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUQQ2PD_YMM_K1Z_YMMM256B64: int = 1788
+EVEX_VCVTUQQ2PD_YMM_K1Z_YMMM256B64: Code = 1788 # type: ignore
 """
 ``VCVTUQQ2PD ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -17871,7 +17877,7 @@ EVEX_VCVTUQQ2PD_YMM_K1Z_YMMM256B64: int = 1788
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUQQ2PD_ZMM_K1Z_ZMMM512B64_ER: int = 1789
+EVEX_VCVTUQQ2PD_ZMM_K1Z_ZMMM512B64_ER: Code = 1789 # type: ignore
 """
 ``VCVTUQQ2PD zmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -17881,7 +17887,7 @@ EVEX_VCVTUQQ2PD_ZMM_K1Z_ZMMM512B64_ER: int = 1789
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUDQ2PS_XMM_K1Z_XMMM128B32: int = 1790
+EVEX_VCVTUDQ2PS_XMM_K1Z_XMMM128B32: Code = 1790 # type: ignore
 """
 ``VCVTUDQ2PS xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -17891,7 +17897,7 @@ EVEX_VCVTUDQ2PS_XMM_K1Z_XMMM128B32: int = 1790
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUDQ2PS_YMM_K1Z_YMMM256B32: int = 1791
+EVEX_VCVTUDQ2PS_YMM_K1Z_YMMM256B32: Code = 1791 # type: ignore
 """
 ``VCVTUDQ2PS ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -17901,7 +17907,7 @@ EVEX_VCVTUDQ2PS_YMM_K1Z_YMMM256B32: int = 1791
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUDQ2PS_ZMM_K1Z_ZMMM512B32_ER: int = 1792
+EVEX_VCVTUDQ2PS_ZMM_K1Z_ZMMM512B32_ER: Code = 1792 # type: ignore
 """
 ``VCVTUDQ2PS zmm1 {k1}{z}, zmm2/m512/m32bcst{er}``
 
@@ -17911,7 +17917,7 @@ EVEX_VCVTUDQ2PS_ZMM_K1Z_ZMMM512B32_ER: int = 1792
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUQQ2PS_XMM_K1Z_XMMM128B64: int = 1793
+EVEX_VCVTUQQ2PS_XMM_K1Z_XMMM128B64: Code = 1793 # type: ignore
 """
 ``VCVTUQQ2PS xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -17921,7 +17927,7 @@ EVEX_VCVTUQQ2PS_XMM_K1Z_XMMM128B64: int = 1793
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUQQ2PS_XMM_K1Z_YMMM256B64: int = 1794
+EVEX_VCVTUQQ2PS_XMM_K1Z_YMMM256B64: Code = 1794 # type: ignore
 """
 ``VCVTUQQ2PS xmm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -17931,7 +17937,7 @@ EVEX_VCVTUQQ2PS_XMM_K1Z_YMMM256B64: int = 1794
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUQQ2PS_YMM_K1Z_ZMMM512B64_ER: int = 1795
+EVEX_VCVTUQQ2PS_YMM_K1Z_ZMMM512B64_ER: Code = 1795 # type: ignore
 """
 ``VCVTUQQ2PS ymm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -17941,7 +17947,7 @@ EVEX_VCVTUQQ2PS_YMM_K1Z_ZMMM512B64_ER: int = 1795
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2QQ_XMM_K1Z_XMMM64B32: int = 1796
+EVEX_VCVTPS2QQ_XMM_K1Z_XMMM64B32: Code = 1796 # type: ignore
 """
 ``VCVTPS2QQ xmm1 {k1}{z}, xmm2/m64/m32bcst``
 
@@ -17951,7 +17957,7 @@ EVEX_VCVTPS2QQ_XMM_K1Z_XMMM64B32: int = 1796
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2QQ_YMM_K1Z_XMMM128B32: int = 1797
+EVEX_VCVTPS2QQ_YMM_K1Z_XMMM128B32: Code = 1797 # type: ignore
 """
 ``VCVTPS2QQ ymm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -17961,7 +17967,7 @@ EVEX_VCVTPS2QQ_YMM_K1Z_XMMM128B32: int = 1797
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2QQ_ZMM_K1Z_YMMM256B32_ER: int = 1798
+EVEX_VCVTPS2QQ_ZMM_K1Z_YMMM256B32_ER: Code = 1798 # type: ignore
 """
 ``VCVTPS2QQ zmm1 {k1}{z}, ymm2/m256/m32bcst{er}``
 
@@ -17971,7 +17977,7 @@ EVEX_VCVTPS2QQ_ZMM_K1Z_YMMM256B32_ER: int = 1798
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2QQ_XMM_K1Z_XMMM128B64: int = 1799
+EVEX_VCVTPD2QQ_XMM_K1Z_XMMM128B64: Code = 1799 # type: ignore
 """
 ``VCVTPD2QQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -17981,7 +17987,7 @@ EVEX_VCVTPD2QQ_XMM_K1Z_XMMM128B64: int = 1799
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2QQ_YMM_K1Z_YMMM256B64: int = 1800
+EVEX_VCVTPD2QQ_YMM_K1Z_YMMM256B64: Code = 1800 # type: ignore
 """
 ``VCVTPD2QQ ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -17991,7 +17997,7 @@ EVEX_VCVTPD2QQ_YMM_K1Z_YMMM256B64: int = 1800
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2QQ_ZMM_K1Z_ZMMM512B64_ER: int = 1801
+EVEX_VCVTPD2QQ_ZMM_K1Z_ZMMM512B64_ER: Code = 1801 # type: ignore
 """
 ``VCVTPD2QQ zmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -18001,7 +18007,7 @@ EVEX_VCVTPD2QQ_ZMM_K1Z_ZMMM512B64_ER: int = 1801
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUSI2SS_XMM_XMM_RM32_ER: int = 1802
+EVEX_VCVTUSI2SS_XMM_XMM_RM32_ER: Code = 1802 # type: ignore
 """
 ``VCVTUSI2SS xmm1, xmm2, r/m32{er}``
 
@@ -18011,7 +18017,7 @@ EVEX_VCVTUSI2SS_XMM_XMM_RM32_ER: int = 1802
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUSI2SS_XMM_XMM_RM64_ER: int = 1803
+EVEX_VCVTUSI2SS_XMM_XMM_RM64_ER: Code = 1803 # type: ignore
 """
 ``VCVTUSI2SS xmm1, xmm2, r/m64{er}``
 
@@ -18021,7 +18027,7 @@ EVEX_VCVTUSI2SS_XMM_XMM_RM64_ER: int = 1803
 
 ``64-bit``
 """
-EVEX_VCVTUSI2SD_XMM_XMM_RM32_ER: int = 1804
+EVEX_VCVTUSI2SD_XMM_XMM_RM32_ER: Code = 1804 # type: ignore
 """
 ``VCVTUSI2SD xmm1, xmm2, r/m32{er}``
 
@@ -18031,7 +18037,7 @@ EVEX_VCVTUSI2SD_XMM_XMM_RM32_ER: int = 1804
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUSI2SD_XMM_XMM_RM64_ER: int = 1805
+EVEX_VCVTUSI2SD_XMM_XMM_RM64_ER: Code = 1805 # type: ignore
 """
 ``VCVTUSI2SD xmm1, xmm2, r/m64{er}``
 
@@ -18041,7 +18047,7 @@ EVEX_VCVTUSI2SD_XMM_XMM_RM64_ER: int = 1805
 
 ``64-bit``
 """
-HADDPD_XMM_XMMM128: int = 1806
+HADDPD_XMM_XMMM128: Code = 1806 # type: ignore
 """
 ``HADDPD xmm1, xmm2/m128``
 
@@ -18051,7 +18057,7 @@ HADDPD_XMM_XMMM128: int = 1806
 
 ``16/32/64-bit``
 """
-VEX_VHADDPD_XMM_XMM_XMMM128: int = 1807
+VEX_VHADDPD_XMM_XMM_XMMM128: Code = 1807 # type: ignore
 """
 ``VHADDPD xmm1, xmm2, xmm3/m128``
 
@@ -18061,7 +18067,7 @@ VEX_VHADDPD_XMM_XMM_XMMM128: int = 1807
 
 ``16/32/64-bit``
 """
-VEX_VHADDPD_YMM_YMM_YMMM256: int = 1808
+VEX_VHADDPD_YMM_YMM_YMMM256: Code = 1808 # type: ignore
 """
 ``VHADDPD ymm1, ymm2, ymm3/m256``
 
@@ -18071,7 +18077,7 @@ VEX_VHADDPD_YMM_YMM_YMMM256: int = 1808
 
 ``16/32/64-bit``
 """
-HADDPS_XMM_XMMM128: int = 1809
+HADDPS_XMM_XMMM128: Code = 1809 # type: ignore
 """
 ``HADDPS xmm1, xmm2/m128``
 
@@ -18081,7 +18087,7 @@ HADDPS_XMM_XMMM128: int = 1809
 
 ``16/32/64-bit``
 """
-VEX_VHADDPS_XMM_XMM_XMMM128: int = 1810
+VEX_VHADDPS_XMM_XMM_XMMM128: Code = 1810 # type: ignore
 """
 ``VHADDPS xmm1, xmm2, xmm3/m128``
 
@@ -18091,7 +18097,7 @@ VEX_VHADDPS_XMM_XMM_XMMM128: int = 1810
 
 ``16/32/64-bit``
 """
-VEX_VHADDPS_YMM_YMM_YMMM256: int = 1811
+VEX_VHADDPS_YMM_YMM_YMMM256: Code = 1811 # type: ignore
 """
 ``VHADDPS ymm1, ymm2, ymm3/m256``
 
@@ -18101,7 +18107,7 @@ VEX_VHADDPS_YMM_YMM_YMMM256: int = 1811
 
 ``16/32/64-bit``
 """
-HSUBPD_XMM_XMMM128: int = 1812
+HSUBPD_XMM_XMMM128: Code = 1812 # type: ignore
 """
 ``HSUBPD xmm1, xmm2/m128``
 
@@ -18111,7 +18117,7 @@ HSUBPD_XMM_XMMM128: int = 1812
 
 ``16/32/64-bit``
 """
-VEX_VHSUBPD_XMM_XMM_XMMM128: int = 1813
+VEX_VHSUBPD_XMM_XMM_XMMM128: Code = 1813 # type: ignore
 """
 ``VHSUBPD xmm1, xmm2, xmm3/m128``
 
@@ -18121,7 +18127,7 @@ VEX_VHSUBPD_XMM_XMM_XMMM128: int = 1813
 
 ``16/32/64-bit``
 """
-VEX_VHSUBPD_YMM_YMM_YMMM256: int = 1814
+VEX_VHSUBPD_YMM_YMM_YMMM256: Code = 1814 # type: ignore
 """
 ``VHSUBPD ymm1, ymm2, ymm3/m256``
 
@@ -18131,7 +18137,7 @@ VEX_VHSUBPD_YMM_YMM_YMMM256: int = 1814
 
 ``16/32/64-bit``
 """
-HSUBPS_XMM_XMMM128: int = 1815
+HSUBPS_XMM_XMMM128: Code = 1815 # type: ignore
 """
 ``HSUBPS xmm1, xmm2/m128``
 
@@ -18141,7 +18147,7 @@ HSUBPS_XMM_XMMM128: int = 1815
 
 ``16/32/64-bit``
 """
-VEX_VHSUBPS_XMM_XMM_XMMM128: int = 1816
+VEX_VHSUBPS_XMM_XMM_XMMM128: Code = 1816 # type: ignore
 """
 ``VHSUBPS xmm1, xmm2, xmm3/m128``
 
@@ -18151,7 +18157,7 @@ VEX_VHSUBPS_XMM_XMM_XMMM128: int = 1816
 
 ``16/32/64-bit``
 """
-VEX_VHSUBPS_YMM_YMM_YMMM256: int = 1817
+VEX_VHSUBPS_YMM_YMM_YMMM256: Code = 1817 # type: ignore
 """
 ``VHSUBPS ymm1, ymm2, ymm3/m256``
 
@@ -18161,7 +18167,7 @@ VEX_VHSUBPS_YMM_YMM_YMMM256: int = 1817
 
 ``16/32/64-bit``
 """
-MOVD_RM32_MM: int = 1818
+MOVD_RM32_MM: Code = 1818 # type: ignore
 """
 ``MOVD r/m32, mm``
 
@@ -18171,7 +18177,7 @@ MOVD_RM32_MM: int = 1818
 
 ``16/32/64-bit``
 """
-MOVQ_RM64_MM: int = 1819
+MOVQ_RM64_MM: Code = 1819 # type: ignore
 """
 ``MOVQ r/m64, mm``
 
@@ -18181,7 +18187,7 @@ MOVQ_RM64_MM: int = 1819
 
 ``64-bit``
 """
-MOVD_RM32_XMM: int = 1820
+MOVD_RM32_XMM: Code = 1820 # type: ignore
 """
 ``MOVD r/m32, xmm``
 
@@ -18191,7 +18197,7 @@ MOVD_RM32_XMM: int = 1820
 
 ``16/32/64-bit``
 """
-MOVQ_RM64_XMM: int = 1821
+MOVQ_RM64_XMM: Code = 1821 # type: ignore
 """
 ``MOVQ r/m64, xmm``
 
@@ -18201,7 +18207,7 @@ MOVQ_RM64_XMM: int = 1821
 
 ``64-bit``
 """
-VEX_VMOVD_RM32_XMM: int = 1822
+VEX_VMOVD_RM32_XMM: Code = 1822 # type: ignore
 """
 ``VMOVD r/m32, xmm1``
 
@@ -18211,7 +18217,7 @@ VEX_VMOVD_RM32_XMM: int = 1822
 
 ``16/32/64-bit``
 """
-VEX_VMOVQ_RM64_XMM: int = 1823
+VEX_VMOVQ_RM64_XMM: Code = 1823 # type: ignore
 """
 ``VMOVQ r/m64, xmm1``
 
@@ -18221,7 +18227,7 @@ VEX_VMOVQ_RM64_XMM: int = 1823
 
 ``64-bit``
 """
-EVEX_VMOVD_RM32_XMM: int = 1824
+EVEX_VMOVD_RM32_XMM: Code = 1824 # type: ignore
 """
 ``VMOVD r/m32, xmm1``
 
@@ -18231,7 +18237,7 @@ EVEX_VMOVD_RM32_XMM: int = 1824
 
 ``16/32/64-bit``
 """
-EVEX_VMOVQ_RM64_XMM: int = 1825
+EVEX_VMOVQ_RM64_XMM: Code = 1825 # type: ignore
 """
 ``VMOVQ r/m64, xmm1``
 
@@ -18241,7 +18247,7 @@ EVEX_VMOVQ_RM64_XMM: int = 1825
 
 ``64-bit``
 """
-MOVQ_XMM_XMMM64: int = 1826
+MOVQ_XMM_XMMM64: Code = 1826 # type: ignore
 """
 ``MOVQ xmm1, xmm2/m64``
 
@@ -18251,7 +18257,7 @@ MOVQ_XMM_XMMM64: int = 1826
 
 ``16/32/64-bit``
 """
-VEX_VMOVQ_XMM_XMMM64: int = 1827
+VEX_VMOVQ_XMM_XMMM64: Code = 1827 # type: ignore
 """
 ``VMOVQ xmm1, xmm2/m64``
 
@@ -18261,7 +18267,7 @@ VEX_VMOVQ_XMM_XMMM64: int = 1827
 
 ``16/32/64-bit``
 """
-EVEX_VMOVQ_XMM_XMMM64: int = 1828
+EVEX_VMOVQ_XMM_XMMM64: Code = 1828 # type: ignore
 """
 ``VMOVQ xmm1, xmm2/m64``
 
@@ -18271,7 +18277,7 @@ EVEX_VMOVQ_XMM_XMMM64: int = 1828
 
 ``16/32/64-bit``
 """
-MOVQ_MMM64_MM: int = 1829
+MOVQ_MMM64_MM: Code = 1829 # type: ignore
 """
 ``MOVQ mm/m64, mm``
 
@@ -18281,7 +18287,7 @@ MOVQ_MMM64_MM: int = 1829
 
 ``16/32/64-bit``
 """
-MOVDQA_XMMM128_XMM: int = 1830
+MOVDQA_XMMM128_XMM: Code = 1830 # type: ignore
 """
 ``MOVDQA xmm2/m128, xmm1``
 
@@ -18291,7 +18297,7 @@ MOVDQA_XMMM128_XMM: int = 1830
 
 ``16/32/64-bit``
 """
-VEX_VMOVDQA_XMMM128_XMM: int = 1831
+VEX_VMOVDQA_XMMM128_XMM: Code = 1831 # type: ignore
 """
 ``VMOVDQA xmm2/m128, xmm1``
 
@@ -18301,7 +18307,7 @@ VEX_VMOVDQA_XMMM128_XMM: int = 1831
 
 ``16/32/64-bit``
 """
-VEX_VMOVDQA_YMMM256_YMM: int = 1832
+VEX_VMOVDQA_YMMM256_YMM: Code = 1832 # type: ignore
 """
 ``VMOVDQA ymm2/m256, ymm1``
 
@@ -18311,7 +18317,7 @@ VEX_VMOVDQA_YMMM256_YMM: int = 1832
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA32_XMMM128_K1Z_XMM: int = 1833
+EVEX_VMOVDQA32_XMMM128_K1Z_XMM: Code = 1833 # type: ignore
 """
 ``VMOVDQA32 xmm2/m128 {k1}{z}, xmm1``
 
@@ -18321,7 +18327,7 @@ EVEX_VMOVDQA32_XMMM128_K1Z_XMM: int = 1833
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA32_YMMM256_K1Z_YMM: int = 1834
+EVEX_VMOVDQA32_YMMM256_K1Z_YMM: Code = 1834 # type: ignore
 """
 ``VMOVDQA32 ymm2/m256 {k1}{z}, ymm1``
 
@@ -18331,7 +18337,7 @@ EVEX_VMOVDQA32_YMMM256_K1Z_YMM: int = 1834
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA32_ZMMM512_K1Z_ZMM: int = 1835
+EVEX_VMOVDQA32_ZMMM512_K1Z_ZMM: Code = 1835 # type: ignore
 """
 ``VMOVDQA32 zmm2/m512 {k1}{z}, zmm1``
 
@@ -18341,7 +18347,7 @@ EVEX_VMOVDQA32_ZMMM512_K1Z_ZMM: int = 1835
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA64_XMMM128_K1Z_XMM: int = 1836
+EVEX_VMOVDQA64_XMMM128_K1Z_XMM: Code = 1836 # type: ignore
 """
 ``VMOVDQA64 xmm2/m128 {k1}{z}, xmm1``
 
@@ -18351,7 +18357,7 @@ EVEX_VMOVDQA64_XMMM128_K1Z_XMM: int = 1836
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA64_YMMM256_K1Z_YMM: int = 1837
+EVEX_VMOVDQA64_YMMM256_K1Z_YMM: Code = 1837 # type: ignore
 """
 ``VMOVDQA64 ymm2/m256 {k1}{z}, ymm1``
 
@@ -18361,7 +18367,7 @@ EVEX_VMOVDQA64_YMMM256_K1Z_YMM: int = 1837
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQA64_ZMMM512_K1Z_ZMM: int = 1838
+EVEX_VMOVDQA64_ZMMM512_K1Z_ZMM: Code = 1838 # type: ignore
 """
 ``VMOVDQA64 zmm2/m512 {k1}{z}, zmm1``
 
@@ -18371,7 +18377,7 @@ EVEX_VMOVDQA64_ZMMM512_K1Z_ZMM: int = 1838
 
 ``16/32/64-bit``
 """
-MOVDQU_XMMM128_XMM: int = 1839
+MOVDQU_XMMM128_XMM: Code = 1839 # type: ignore
 """
 ``MOVDQU xmm2/m128, xmm1``
 
@@ -18381,7 +18387,7 @@ MOVDQU_XMMM128_XMM: int = 1839
 
 ``16/32/64-bit``
 """
-VEX_VMOVDQU_XMMM128_XMM: int = 1840
+VEX_VMOVDQU_XMMM128_XMM: Code = 1840 # type: ignore
 """
 ``VMOVDQU xmm2/m128, xmm1``
 
@@ -18391,7 +18397,7 @@ VEX_VMOVDQU_XMMM128_XMM: int = 1840
 
 ``16/32/64-bit``
 """
-VEX_VMOVDQU_YMMM256_YMM: int = 1841
+VEX_VMOVDQU_YMMM256_YMM: Code = 1841 # type: ignore
 """
 ``VMOVDQU ymm2/m256, ymm1``
 
@@ -18401,7 +18407,7 @@ VEX_VMOVDQU_YMMM256_YMM: int = 1841
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU32_XMMM128_K1Z_XMM: int = 1842
+EVEX_VMOVDQU32_XMMM128_K1Z_XMM: Code = 1842 # type: ignore
 """
 ``VMOVDQU32 xmm2/m128 {k1}{z}, xmm1``
 
@@ -18411,7 +18417,7 @@ EVEX_VMOVDQU32_XMMM128_K1Z_XMM: int = 1842
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU32_YMMM256_K1Z_YMM: int = 1843
+EVEX_VMOVDQU32_YMMM256_K1Z_YMM: Code = 1843 # type: ignore
 """
 ``VMOVDQU32 ymm2/m256 {k1}{z}, ymm1``
 
@@ -18421,7 +18427,7 @@ EVEX_VMOVDQU32_YMMM256_K1Z_YMM: int = 1843
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU32_ZMMM512_K1Z_ZMM: int = 1844
+EVEX_VMOVDQU32_ZMMM512_K1Z_ZMM: Code = 1844 # type: ignore
 """
 ``VMOVDQU32 zmm2/m512 {k1}{z}, zmm1``
 
@@ -18431,7 +18437,7 @@ EVEX_VMOVDQU32_ZMMM512_K1Z_ZMM: int = 1844
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU64_XMMM128_K1Z_XMM: int = 1845
+EVEX_VMOVDQU64_XMMM128_K1Z_XMM: Code = 1845 # type: ignore
 """
 ``VMOVDQU64 xmm2/m128 {k1}{z}, xmm1``
 
@@ -18441,7 +18447,7 @@ EVEX_VMOVDQU64_XMMM128_K1Z_XMM: int = 1845
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU64_YMMM256_K1Z_YMM: int = 1846
+EVEX_VMOVDQU64_YMMM256_K1Z_YMM: Code = 1846 # type: ignore
 """
 ``VMOVDQU64 ymm2/m256 {k1}{z}, ymm1``
 
@@ -18451,7 +18457,7 @@ EVEX_VMOVDQU64_YMMM256_K1Z_YMM: int = 1846
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU64_ZMMM512_K1Z_ZMM: int = 1847
+EVEX_VMOVDQU64_ZMMM512_K1Z_ZMM: Code = 1847 # type: ignore
 """
 ``VMOVDQU64 zmm2/m512 {k1}{z}, zmm1``
 
@@ -18461,7 +18467,7 @@ EVEX_VMOVDQU64_ZMMM512_K1Z_ZMM: int = 1847
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU8_XMMM128_K1Z_XMM: int = 1848
+EVEX_VMOVDQU8_XMMM128_K1Z_XMM: Code = 1848 # type: ignore
 """
 ``VMOVDQU8 xmm2/m128 {k1}{z}, xmm1``
 
@@ -18471,7 +18477,7 @@ EVEX_VMOVDQU8_XMMM128_K1Z_XMM: int = 1848
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU8_YMMM256_K1Z_YMM: int = 1849
+EVEX_VMOVDQU8_YMMM256_K1Z_YMM: Code = 1849 # type: ignore
 """
 ``VMOVDQU8 ymm2/m256 {k1}{z}, ymm1``
 
@@ -18481,7 +18487,7 @@ EVEX_VMOVDQU8_YMMM256_K1Z_YMM: int = 1849
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU8_ZMMM512_K1Z_ZMM: int = 1850
+EVEX_VMOVDQU8_ZMMM512_K1Z_ZMM: Code = 1850 # type: ignore
 """
 ``VMOVDQU8 zmm2/m512 {k1}{z}, zmm1``
 
@@ -18491,7 +18497,7 @@ EVEX_VMOVDQU8_ZMMM512_K1Z_ZMM: int = 1850
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU16_XMMM128_K1Z_XMM: int = 1851
+EVEX_VMOVDQU16_XMMM128_K1Z_XMM: Code = 1851 # type: ignore
 """
 ``VMOVDQU16 xmm2/m128 {k1}{z}, xmm1``
 
@@ -18501,7 +18507,7 @@ EVEX_VMOVDQU16_XMMM128_K1Z_XMM: int = 1851
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU16_YMMM256_K1Z_YMM: int = 1852
+EVEX_VMOVDQU16_YMMM256_K1Z_YMM: Code = 1852 # type: ignore
 """
 ``VMOVDQU16 ymm2/m256 {k1}{z}, ymm1``
 
@@ -18511,7 +18517,7 @@ EVEX_VMOVDQU16_YMMM256_K1Z_YMM: int = 1852
 
 ``16/32/64-bit``
 """
-EVEX_VMOVDQU16_ZMMM512_K1Z_ZMM: int = 1853
+EVEX_VMOVDQU16_ZMMM512_K1Z_ZMM: Code = 1853 # type: ignore
 """
 ``VMOVDQU16 zmm2/m512 {k1}{z}, zmm1``
 
@@ -18521,7 +18527,7 @@ EVEX_VMOVDQU16_ZMMM512_K1Z_ZMM: int = 1853
 
 ``16/32/64-bit``
 """
-JO_REL16: int = 1854
+JO_REL16: Code = 1854 # type: ignore
 """
 ``JO rel16``
 
@@ -18531,7 +18537,7 @@ JO_REL16: int = 1854
 
 ``16/32/64-bit``
 """
-JO_REL32_32: int = 1855
+JO_REL32_32: Code = 1855 # type: ignore
 """
 ``JO rel32``
 
@@ -18541,7 +18547,7 @@ JO_REL32_32: int = 1855
 
 ``16/32-bit``
 """
-JO_REL32_64: int = 1856
+JO_REL32_64: Code = 1856 # type: ignore
 """
 ``JO rel32``
 
@@ -18551,7 +18557,7 @@ JO_REL32_64: int = 1856
 
 ``64-bit``
 """
-JNO_REL16: int = 1857
+JNO_REL16: Code = 1857 # type: ignore
 """
 ``JNO rel16``
 
@@ -18561,7 +18567,7 @@ JNO_REL16: int = 1857
 
 ``16/32/64-bit``
 """
-JNO_REL32_32: int = 1858
+JNO_REL32_32: Code = 1858 # type: ignore
 """
 ``JNO rel32``
 
@@ -18571,7 +18577,7 @@ JNO_REL32_32: int = 1858
 
 ``16/32-bit``
 """
-JNO_REL32_64: int = 1859
+JNO_REL32_64: Code = 1859 # type: ignore
 """
 ``JNO rel32``
 
@@ -18581,7 +18587,7 @@ JNO_REL32_64: int = 1859
 
 ``64-bit``
 """
-JB_REL16: int = 1860
+JB_REL16: Code = 1860 # type: ignore
 """
 ``JB rel16``
 
@@ -18591,7 +18597,7 @@ JB_REL16: int = 1860
 
 ``16/32/64-bit``
 """
-JB_REL32_32: int = 1861
+JB_REL32_32: Code = 1861 # type: ignore
 """
 ``JB rel32``
 
@@ -18601,7 +18607,7 @@ JB_REL32_32: int = 1861
 
 ``16/32-bit``
 """
-JB_REL32_64: int = 1862
+JB_REL32_64: Code = 1862 # type: ignore
 """
 ``JB rel32``
 
@@ -18611,7 +18617,7 @@ JB_REL32_64: int = 1862
 
 ``64-bit``
 """
-JAE_REL16: int = 1863
+JAE_REL16: Code = 1863 # type: ignore
 """
 ``JAE rel16``
 
@@ -18621,7 +18627,7 @@ JAE_REL16: int = 1863
 
 ``16/32/64-bit``
 """
-JAE_REL32_32: int = 1864
+JAE_REL32_32: Code = 1864 # type: ignore
 """
 ``JAE rel32``
 
@@ -18631,7 +18637,7 @@ JAE_REL32_32: int = 1864
 
 ``16/32-bit``
 """
-JAE_REL32_64: int = 1865
+JAE_REL32_64: Code = 1865 # type: ignore
 """
 ``JAE rel32``
 
@@ -18641,7 +18647,7 @@ JAE_REL32_64: int = 1865
 
 ``64-bit``
 """
-JE_REL16: int = 1866
+JE_REL16: Code = 1866 # type: ignore
 """
 ``JE rel16``
 
@@ -18651,7 +18657,7 @@ JE_REL16: int = 1866
 
 ``16/32/64-bit``
 """
-JE_REL32_32: int = 1867
+JE_REL32_32: Code = 1867 # type: ignore
 """
 ``JE rel32``
 
@@ -18661,7 +18667,7 @@ JE_REL32_32: int = 1867
 
 ``16/32-bit``
 """
-JE_REL32_64: int = 1868
+JE_REL32_64: Code = 1868 # type: ignore
 """
 ``JE rel32``
 
@@ -18671,7 +18677,7 @@ JE_REL32_64: int = 1868
 
 ``64-bit``
 """
-JNE_REL16: int = 1869
+JNE_REL16: Code = 1869 # type: ignore
 """
 ``JNE rel16``
 
@@ -18681,7 +18687,7 @@ JNE_REL16: int = 1869
 
 ``16/32/64-bit``
 """
-JNE_REL32_32: int = 1870
+JNE_REL32_32: Code = 1870 # type: ignore
 """
 ``JNE rel32``
 
@@ -18691,7 +18697,7 @@ JNE_REL32_32: int = 1870
 
 ``16/32-bit``
 """
-JNE_REL32_64: int = 1871
+JNE_REL32_64: Code = 1871 # type: ignore
 """
 ``JNE rel32``
 
@@ -18701,7 +18707,7 @@ JNE_REL32_64: int = 1871
 
 ``64-bit``
 """
-JBE_REL16: int = 1872
+JBE_REL16: Code = 1872 # type: ignore
 """
 ``JBE rel16``
 
@@ -18711,7 +18717,7 @@ JBE_REL16: int = 1872
 
 ``16/32/64-bit``
 """
-JBE_REL32_32: int = 1873
+JBE_REL32_32: Code = 1873 # type: ignore
 """
 ``JBE rel32``
 
@@ -18721,7 +18727,7 @@ JBE_REL32_32: int = 1873
 
 ``16/32-bit``
 """
-JBE_REL32_64: int = 1874
+JBE_REL32_64: Code = 1874 # type: ignore
 """
 ``JBE rel32``
 
@@ -18731,7 +18737,7 @@ JBE_REL32_64: int = 1874
 
 ``64-bit``
 """
-JA_REL16: int = 1875
+JA_REL16: Code = 1875 # type: ignore
 """
 ``JA rel16``
 
@@ -18741,7 +18747,7 @@ JA_REL16: int = 1875
 
 ``16/32/64-bit``
 """
-JA_REL32_32: int = 1876
+JA_REL32_32: Code = 1876 # type: ignore
 """
 ``JA rel32``
 
@@ -18751,7 +18757,7 @@ JA_REL32_32: int = 1876
 
 ``16/32-bit``
 """
-JA_REL32_64: int = 1877
+JA_REL32_64: Code = 1877 # type: ignore
 """
 ``JA rel32``
 
@@ -18761,7 +18767,7 @@ JA_REL32_64: int = 1877
 
 ``64-bit``
 """
-JS_REL16: int = 1878
+JS_REL16: Code = 1878 # type: ignore
 """
 ``JS rel16``
 
@@ -18771,7 +18777,7 @@ JS_REL16: int = 1878
 
 ``16/32/64-bit``
 """
-JS_REL32_32: int = 1879
+JS_REL32_32: Code = 1879 # type: ignore
 """
 ``JS rel32``
 
@@ -18781,7 +18787,7 @@ JS_REL32_32: int = 1879
 
 ``16/32-bit``
 """
-JS_REL32_64: int = 1880
+JS_REL32_64: Code = 1880 # type: ignore
 """
 ``JS rel32``
 
@@ -18791,7 +18797,7 @@ JS_REL32_64: int = 1880
 
 ``64-bit``
 """
-JNS_REL16: int = 1881
+JNS_REL16: Code = 1881 # type: ignore
 """
 ``JNS rel16``
 
@@ -18801,7 +18807,7 @@ JNS_REL16: int = 1881
 
 ``16/32/64-bit``
 """
-JNS_REL32_32: int = 1882
+JNS_REL32_32: Code = 1882 # type: ignore
 """
 ``JNS rel32``
 
@@ -18811,7 +18817,7 @@ JNS_REL32_32: int = 1882
 
 ``16/32-bit``
 """
-JNS_REL32_64: int = 1883
+JNS_REL32_64: Code = 1883 # type: ignore
 """
 ``JNS rel32``
 
@@ -18821,7 +18827,7 @@ JNS_REL32_64: int = 1883
 
 ``64-bit``
 """
-JP_REL16: int = 1884
+JP_REL16: Code = 1884 # type: ignore
 """
 ``JP rel16``
 
@@ -18831,7 +18837,7 @@ JP_REL16: int = 1884
 
 ``16/32/64-bit``
 """
-JP_REL32_32: int = 1885
+JP_REL32_32: Code = 1885 # type: ignore
 """
 ``JP rel32``
 
@@ -18841,7 +18847,7 @@ JP_REL32_32: int = 1885
 
 ``16/32-bit``
 """
-JP_REL32_64: int = 1886
+JP_REL32_64: Code = 1886 # type: ignore
 """
 ``JP rel32``
 
@@ -18851,7 +18857,7 @@ JP_REL32_64: int = 1886
 
 ``64-bit``
 """
-JNP_REL16: int = 1887
+JNP_REL16: Code = 1887 # type: ignore
 """
 ``JNP rel16``
 
@@ -18861,7 +18867,7 @@ JNP_REL16: int = 1887
 
 ``16/32/64-bit``
 """
-JNP_REL32_32: int = 1888
+JNP_REL32_32: Code = 1888 # type: ignore
 """
 ``JNP rel32``
 
@@ -18871,7 +18877,7 @@ JNP_REL32_32: int = 1888
 
 ``16/32-bit``
 """
-JNP_REL32_64: int = 1889
+JNP_REL32_64: Code = 1889 # type: ignore
 """
 ``JNP rel32``
 
@@ -18881,7 +18887,7 @@ JNP_REL32_64: int = 1889
 
 ``64-bit``
 """
-JL_REL16: int = 1890
+JL_REL16: Code = 1890 # type: ignore
 """
 ``JL rel16``
 
@@ -18891,7 +18897,7 @@ JL_REL16: int = 1890
 
 ``16/32/64-bit``
 """
-JL_REL32_32: int = 1891
+JL_REL32_32: Code = 1891 # type: ignore
 """
 ``JL rel32``
 
@@ -18901,7 +18907,7 @@ JL_REL32_32: int = 1891
 
 ``16/32-bit``
 """
-JL_REL32_64: int = 1892
+JL_REL32_64: Code = 1892 # type: ignore
 """
 ``JL rel32``
 
@@ -18911,7 +18917,7 @@ JL_REL32_64: int = 1892
 
 ``64-bit``
 """
-JGE_REL16: int = 1893
+JGE_REL16: Code = 1893 # type: ignore
 """
 ``JGE rel16``
 
@@ -18921,7 +18927,7 @@ JGE_REL16: int = 1893
 
 ``16/32/64-bit``
 """
-JGE_REL32_32: int = 1894
+JGE_REL32_32: Code = 1894 # type: ignore
 """
 ``JGE rel32``
 
@@ -18931,7 +18937,7 @@ JGE_REL32_32: int = 1894
 
 ``16/32-bit``
 """
-JGE_REL32_64: int = 1895
+JGE_REL32_64: Code = 1895 # type: ignore
 """
 ``JGE rel32``
 
@@ -18941,7 +18947,7 @@ JGE_REL32_64: int = 1895
 
 ``64-bit``
 """
-JLE_REL16: int = 1896
+JLE_REL16: Code = 1896 # type: ignore
 """
 ``JLE rel16``
 
@@ -18951,7 +18957,7 @@ JLE_REL16: int = 1896
 
 ``16/32/64-bit``
 """
-JLE_REL32_32: int = 1897
+JLE_REL32_32: Code = 1897 # type: ignore
 """
 ``JLE rel32``
 
@@ -18961,7 +18967,7 @@ JLE_REL32_32: int = 1897
 
 ``16/32-bit``
 """
-JLE_REL32_64: int = 1898
+JLE_REL32_64: Code = 1898 # type: ignore
 """
 ``JLE rel32``
 
@@ -18971,7 +18977,7 @@ JLE_REL32_64: int = 1898
 
 ``64-bit``
 """
-JG_REL16: int = 1899
+JG_REL16: Code = 1899 # type: ignore
 """
 ``JG rel16``
 
@@ -18981,7 +18987,7 @@ JG_REL16: int = 1899
 
 ``16/32/64-bit``
 """
-JG_REL32_32: int = 1900
+JG_REL32_32: Code = 1900 # type: ignore
 """
 ``JG rel32``
 
@@ -18991,7 +18997,7 @@ JG_REL32_32: int = 1900
 
 ``16/32-bit``
 """
-JG_REL32_64: int = 1901
+JG_REL32_64: Code = 1901 # type: ignore
 """
 ``JG rel32``
 
@@ -19001,7 +19007,7 @@ JG_REL32_64: int = 1901
 
 ``64-bit``
 """
-SETO_RM8: int = 1902
+SETO_RM8: Code = 1902 # type: ignore
 """
 ``SETO r/m8``
 
@@ -19011,7 +19017,7 @@ SETO_RM8: int = 1902
 
 ``16/32/64-bit``
 """
-SETNO_RM8: int = 1903
+SETNO_RM8: Code = 1903 # type: ignore
 """
 ``SETNO r/m8``
 
@@ -19021,7 +19027,7 @@ SETNO_RM8: int = 1903
 
 ``16/32/64-bit``
 """
-SETB_RM8: int = 1904
+SETB_RM8: Code = 1904 # type: ignore
 """
 ``SETB r/m8``
 
@@ -19031,7 +19037,7 @@ SETB_RM8: int = 1904
 
 ``16/32/64-bit``
 """
-SETAE_RM8: int = 1905
+SETAE_RM8: Code = 1905 # type: ignore
 """
 ``SETAE r/m8``
 
@@ -19041,7 +19047,7 @@ SETAE_RM8: int = 1905
 
 ``16/32/64-bit``
 """
-SETE_RM8: int = 1906
+SETE_RM8: Code = 1906 # type: ignore
 """
 ``SETE r/m8``
 
@@ -19051,7 +19057,7 @@ SETE_RM8: int = 1906
 
 ``16/32/64-bit``
 """
-SETNE_RM8: int = 1907
+SETNE_RM8: Code = 1907 # type: ignore
 """
 ``SETNE r/m8``
 
@@ -19061,7 +19067,7 @@ SETNE_RM8: int = 1907
 
 ``16/32/64-bit``
 """
-SETBE_RM8: int = 1908
+SETBE_RM8: Code = 1908 # type: ignore
 """
 ``SETBE r/m8``
 
@@ -19071,7 +19077,7 @@ SETBE_RM8: int = 1908
 
 ``16/32/64-bit``
 """
-SETA_RM8: int = 1909
+SETA_RM8: Code = 1909 # type: ignore
 """
 ``SETA r/m8``
 
@@ -19081,7 +19087,7 @@ SETA_RM8: int = 1909
 
 ``16/32/64-bit``
 """
-SETS_RM8: int = 1910
+SETS_RM8: Code = 1910 # type: ignore
 """
 ``SETS r/m8``
 
@@ -19091,7 +19097,7 @@ SETS_RM8: int = 1910
 
 ``16/32/64-bit``
 """
-SETNS_RM8: int = 1911
+SETNS_RM8: Code = 1911 # type: ignore
 """
 ``SETNS r/m8``
 
@@ -19101,7 +19107,7 @@ SETNS_RM8: int = 1911
 
 ``16/32/64-bit``
 """
-SETP_RM8: int = 1912
+SETP_RM8: Code = 1912 # type: ignore
 """
 ``SETP r/m8``
 
@@ -19111,7 +19117,7 @@ SETP_RM8: int = 1912
 
 ``16/32/64-bit``
 """
-SETNP_RM8: int = 1913
+SETNP_RM8: Code = 1913 # type: ignore
 """
 ``SETNP r/m8``
 
@@ -19121,7 +19127,7 @@ SETNP_RM8: int = 1913
 
 ``16/32/64-bit``
 """
-SETL_RM8: int = 1914
+SETL_RM8: Code = 1914 # type: ignore
 """
 ``SETL r/m8``
 
@@ -19131,7 +19137,7 @@ SETL_RM8: int = 1914
 
 ``16/32/64-bit``
 """
-SETGE_RM8: int = 1915
+SETGE_RM8: Code = 1915 # type: ignore
 """
 ``SETGE r/m8``
 
@@ -19141,7 +19147,7 @@ SETGE_RM8: int = 1915
 
 ``16/32/64-bit``
 """
-SETLE_RM8: int = 1916
+SETLE_RM8: Code = 1916 # type: ignore
 """
 ``SETLE r/m8``
 
@@ -19151,7 +19157,7 @@ SETLE_RM8: int = 1916
 
 ``16/32/64-bit``
 """
-SETG_RM8: int = 1917
+SETG_RM8: Code = 1917 # type: ignore
 """
 ``SETG r/m8``
 
@@ -19161,7 +19167,7 @@ SETG_RM8: int = 1917
 
 ``16/32/64-bit``
 """
-VEX_KMOVW_KR_KM16: int = 1918
+VEX_KMOVW_KR_KM16: Code = 1918 # type: ignore
 """
 ``KMOVW k1, k2/m16``
 
@@ -19171,7 +19177,7 @@ VEX_KMOVW_KR_KM16: int = 1918
 
 ``16/32/64-bit``
 """
-VEX_KMOVQ_KR_KM64: int = 1919
+VEX_KMOVQ_KR_KM64: Code = 1919 # type: ignore
 """
 ``KMOVQ k1, k2/m64``
 
@@ -19181,7 +19187,7 @@ VEX_KMOVQ_KR_KM64: int = 1919
 
 ``16/32/64-bit``
 """
-VEX_KMOVB_KR_KM8: int = 1920
+VEX_KMOVB_KR_KM8: Code = 1920 # type: ignore
 """
 ``KMOVB k1, k2/m8``
 
@@ -19191,7 +19197,7 @@ VEX_KMOVB_KR_KM8: int = 1920
 
 ``16/32/64-bit``
 """
-VEX_KMOVD_KR_KM32: int = 1921
+VEX_KMOVD_KR_KM32: Code = 1921 # type: ignore
 """
 ``KMOVD k1, k2/m32``
 
@@ -19201,7 +19207,7 @@ VEX_KMOVD_KR_KM32: int = 1921
 
 ``16/32/64-bit``
 """
-VEX_KMOVW_M16_KR: int = 1922
+VEX_KMOVW_M16_KR: Code = 1922 # type: ignore
 """
 ``KMOVW m16, k1``
 
@@ -19211,7 +19217,7 @@ VEX_KMOVW_M16_KR: int = 1922
 
 ``16/32/64-bit``
 """
-VEX_KMOVQ_M64_KR: int = 1923
+VEX_KMOVQ_M64_KR: Code = 1923 # type: ignore
 """
 ``KMOVQ m64, k1``
 
@@ -19221,7 +19227,7 @@ VEX_KMOVQ_M64_KR: int = 1923
 
 ``16/32/64-bit``
 """
-VEX_KMOVB_M8_KR: int = 1924
+VEX_KMOVB_M8_KR: Code = 1924 # type: ignore
 """
 ``KMOVB m8, k1``
 
@@ -19231,7 +19237,7 @@ VEX_KMOVB_M8_KR: int = 1924
 
 ``16/32/64-bit``
 """
-VEX_KMOVD_M32_KR: int = 1925
+VEX_KMOVD_M32_KR: Code = 1925 # type: ignore
 """
 ``KMOVD m32, k1``
 
@@ -19241,7 +19247,7 @@ VEX_KMOVD_M32_KR: int = 1925
 
 ``16/32/64-bit``
 """
-VEX_KMOVW_KR_R32: int = 1926
+VEX_KMOVW_KR_R32: Code = 1926 # type: ignore
 """
 ``KMOVW k1, r32``
 
@@ -19251,7 +19257,7 @@ VEX_KMOVW_KR_R32: int = 1926
 
 ``16/32/64-bit``
 """
-VEX_KMOVB_KR_R32: int = 1927
+VEX_KMOVB_KR_R32: Code = 1927 # type: ignore
 """
 ``KMOVB k1, r32``
 
@@ -19261,7 +19267,7 @@ VEX_KMOVB_KR_R32: int = 1927
 
 ``16/32/64-bit``
 """
-VEX_KMOVD_KR_R32: int = 1928
+VEX_KMOVD_KR_R32: Code = 1928 # type: ignore
 """
 ``KMOVD k1, r32``
 
@@ -19271,7 +19277,7 @@ VEX_KMOVD_KR_R32: int = 1928
 
 ``16/32/64-bit``
 """
-VEX_KMOVQ_KR_R64: int = 1929
+VEX_KMOVQ_KR_R64: Code = 1929 # type: ignore
 """
 ``KMOVQ k1, r64``
 
@@ -19281,7 +19287,7 @@ VEX_KMOVQ_KR_R64: int = 1929
 
 ``64-bit``
 """
-VEX_KMOVW_R32_KR: int = 1930
+VEX_KMOVW_R32_KR: Code = 1930 # type: ignore
 """
 ``KMOVW r32, k1``
 
@@ -19291,7 +19297,7 @@ VEX_KMOVW_R32_KR: int = 1930
 
 ``16/32/64-bit``
 """
-VEX_KMOVB_R32_KR: int = 1931
+VEX_KMOVB_R32_KR: Code = 1931 # type: ignore
 """
 ``KMOVB r32, k1``
 
@@ -19301,7 +19307,7 @@ VEX_KMOVB_R32_KR: int = 1931
 
 ``16/32/64-bit``
 """
-VEX_KMOVD_R32_KR: int = 1932
+VEX_KMOVD_R32_KR: Code = 1932 # type: ignore
 """
 ``KMOVD r32, k1``
 
@@ -19311,7 +19317,7 @@ VEX_KMOVD_R32_KR: int = 1932
 
 ``16/32/64-bit``
 """
-VEX_KMOVQ_R64_KR: int = 1933
+VEX_KMOVQ_R64_KR: Code = 1933 # type: ignore
 """
 ``KMOVQ r64, k1``
 
@@ -19321,7 +19327,7 @@ VEX_KMOVQ_R64_KR: int = 1933
 
 ``64-bit``
 """
-VEX_KORTESTW_KR_KR: int = 1934
+VEX_KORTESTW_KR_KR: Code = 1934 # type: ignore
 """
 ``KORTESTW k1, k2``
 
@@ -19331,7 +19337,7 @@ VEX_KORTESTW_KR_KR: int = 1934
 
 ``16/32/64-bit``
 """
-VEX_KORTESTQ_KR_KR: int = 1935
+VEX_KORTESTQ_KR_KR: Code = 1935 # type: ignore
 """
 ``KORTESTQ k1, k2``
 
@@ -19341,7 +19347,7 @@ VEX_KORTESTQ_KR_KR: int = 1935
 
 ``16/32/64-bit``
 """
-VEX_KORTESTB_KR_KR: int = 1936
+VEX_KORTESTB_KR_KR: Code = 1936 # type: ignore
 """
 ``KORTESTB k1, k2``
 
@@ -19351,7 +19357,7 @@ VEX_KORTESTB_KR_KR: int = 1936
 
 ``16/32/64-bit``
 """
-VEX_KORTESTD_KR_KR: int = 1937
+VEX_KORTESTD_KR_KR: Code = 1937 # type: ignore
 """
 ``KORTESTD k1, k2``
 
@@ -19361,7 +19367,7 @@ VEX_KORTESTD_KR_KR: int = 1937
 
 ``16/32/64-bit``
 """
-VEX_KTESTW_KR_KR: int = 1938
+VEX_KTESTW_KR_KR: Code = 1938 # type: ignore
 """
 ``KTESTW k1, k2``
 
@@ -19371,7 +19377,7 @@ VEX_KTESTW_KR_KR: int = 1938
 
 ``16/32/64-bit``
 """
-VEX_KTESTQ_KR_KR: int = 1939
+VEX_KTESTQ_KR_KR: Code = 1939 # type: ignore
 """
 ``KTESTQ k1, k2``
 
@@ -19381,7 +19387,7 @@ VEX_KTESTQ_KR_KR: int = 1939
 
 ``16/32/64-bit``
 """
-VEX_KTESTB_KR_KR: int = 1940
+VEX_KTESTB_KR_KR: Code = 1940 # type: ignore
 """
 ``KTESTB k1, k2``
 
@@ -19391,7 +19397,7 @@ VEX_KTESTB_KR_KR: int = 1940
 
 ``16/32/64-bit``
 """
-VEX_KTESTD_KR_KR: int = 1941
+VEX_KTESTD_KR_KR: Code = 1941 # type: ignore
 """
 ``KTESTD k1, k2``
 
@@ -19401,7 +19407,7 @@ VEX_KTESTD_KR_KR: int = 1941
 
 ``16/32/64-bit``
 """
-PUSHW_FS: int = 1942
+PUSHW_FS: Code = 1942 # type: ignore
 """
 ``PUSH FS``
 
@@ -19411,7 +19417,7 @@ PUSHW_FS: int = 1942
 
 ``16/32/64-bit``
 """
-PUSHD_FS: int = 1943
+PUSHD_FS: Code = 1943 # type: ignore
 """
 ``PUSH FS``
 
@@ -19421,7 +19427,7 @@ PUSHD_FS: int = 1943
 
 ``16/32-bit``
 """
-PUSHQ_FS: int = 1944
+PUSHQ_FS: Code = 1944 # type: ignore
 """
 ``PUSH FS``
 
@@ -19431,7 +19437,7 @@ PUSHQ_FS: int = 1944
 
 ``64-bit``
 """
-POPW_FS: int = 1945
+POPW_FS: Code = 1945 # type: ignore
 """
 ``POP FS``
 
@@ -19441,7 +19447,7 @@ POPW_FS: int = 1945
 
 ``16/32/64-bit``
 """
-POPD_FS: int = 1946
+POPD_FS: Code = 1946 # type: ignore
 """
 ``POP FS``
 
@@ -19451,7 +19457,7 @@ POPD_FS: int = 1946
 
 ``16/32-bit``
 """
-POPQ_FS: int = 1947
+POPQ_FS: Code = 1947 # type: ignore
 """
 ``POP FS``
 
@@ -19461,7 +19467,7 @@ POPQ_FS: int = 1947
 
 ``64-bit``
 """
-CPUID: int = 1948
+CPUID: Code = 1948 # type: ignore
 """
 ``CPUID``
 
@@ -19471,7 +19477,7 @@ CPUID: int = 1948
 
 ``16/32/64-bit``
 """
-BT_RM16_R16: int = 1949
+BT_RM16_R16: Code = 1949 # type: ignore
 """
 ``BT r/m16, r16``
 
@@ -19481,7 +19487,7 @@ BT_RM16_R16: int = 1949
 
 ``16/32/64-bit``
 """
-BT_RM32_R32: int = 1950
+BT_RM32_R32: Code = 1950 # type: ignore
 """
 ``BT r/m32, r32``
 
@@ -19491,7 +19497,7 @@ BT_RM32_R32: int = 1950
 
 ``16/32/64-bit``
 """
-BT_RM64_R64: int = 1951
+BT_RM64_R64: Code = 1951 # type: ignore
 """
 ``BT r/m64, r64``
 
@@ -19501,7 +19507,7 @@ BT_RM64_R64: int = 1951
 
 ``64-bit``
 """
-SHLD_RM16_R16_IMM8: int = 1952
+SHLD_RM16_R16_IMM8: Code = 1952 # type: ignore
 """
 ``SHLD r/m16, r16, imm8``
 
@@ -19511,7 +19517,7 @@ SHLD_RM16_R16_IMM8: int = 1952
 
 ``16/32/64-bit``
 """
-SHLD_RM32_R32_IMM8: int = 1953
+SHLD_RM32_R32_IMM8: Code = 1953 # type: ignore
 """
 ``SHLD r/m32, r32, imm8``
 
@@ -19521,7 +19527,7 @@ SHLD_RM32_R32_IMM8: int = 1953
 
 ``16/32/64-bit``
 """
-SHLD_RM64_R64_IMM8: int = 1954
+SHLD_RM64_R64_IMM8: Code = 1954 # type: ignore
 """
 ``SHLD r/m64, r64, imm8``
 
@@ -19531,7 +19537,7 @@ SHLD_RM64_R64_IMM8: int = 1954
 
 ``64-bit``
 """
-SHLD_RM16_R16_CL: int = 1955
+SHLD_RM16_R16_CL: Code = 1955 # type: ignore
 """
 ``SHLD r/m16, r16, CL``
 
@@ -19541,7 +19547,7 @@ SHLD_RM16_R16_CL: int = 1955
 
 ``16/32/64-bit``
 """
-SHLD_RM32_R32_CL: int = 1956
+SHLD_RM32_R32_CL: Code = 1956 # type: ignore
 """
 ``SHLD r/m32, r32, CL``
 
@@ -19551,7 +19557,7 @@ SHLD_RM32_R32_CL: int = 1956
 
 ``16/32/64-bit``
 """
-SHLD_RM64_R64_CL: int = 1957
+SHLD_RM64_R64_CL: Code = 1957 # type: ignore
 """
 ``SHLD r/m64, r64, CL``
 
@@ -19561,7 +19567,7 @@ SHLD_RM64_R64_CL: int = 1957
 
 ``64-bit``
 """
-MONTMUL_16: int = 1958
+MONTMUL_16: Code = 1958 # type: ignore
 """
 ``MONTMUL``
 
@@ -19571,7 +19577,7 @@ MONTMUL_16: int = 1958
 
 ``16/32-bit``
 """
-MONTMUL_32: int = 1959
+MONTMUL_32: Code = 1959 # type: ignore
 """
 ``MONTMUL``
 
@@ -19581,7 +19587,7 @@ MONTMUL_32: int = 1959
 
 ``16/32/64-bit``
 """
-MONTMUL_64: int = 1960
+MONTMUL_64: Code = 1960 # type: ignore
 """
 ``MONTMUL``
 
@@ -19591,7 +19597,7 @@ MONTMUL_64: int = 1960
 
 ``64-bit``
 """
-XSHA1_16: int = 1961
+XSHA1_16: Code = 1961 # type: ignore
 """
 ``XSHA1``
 
@@ -19601,7 +19607,7 @@ XSHA1_16: int = 1961
 
 ``16/32-bit``
 """
-XSHA1_32: int = 1962
+XSHA1_32: Code = 1962 # type: ignore
 """
 ``XSHA1``
 
@@ -19611,7 +19617,7 @@ XSHA1_32: int = 1962
 
 ``16/32/64-bit``
 """
-XSHA1_64: int = 1963
+XSHA1_64: Code = 1963 # type: ignore
 """
 ``XSHA1``
 
@@ -19621,7 +19627,7 @@ XSHA1_64: int = 1963
 
 ``64-bit``
 """
-XSHA256_16: int = 1964
+XSHA256_16: Code = 1964 # type: ignore
 """
 ``XSHA256``
 
@@ -19631,7 +19637,7 @@ XSHA256_16: int = 1964
 
 ``16/32-bit``
 """
-XSHA256_32: int = 1965
+XSHA256_32: Code = 1965 # type: ignore
 """
 ``XSHA256``
 
@@ -19641,7 +19647,7 @@ XSHA256_32: int = 1965
 
 ``16/32/64-bit``
 """
-XSHA256_64: int = 1966
+XSHA256_64: Code = 1966 # type: ignore
 """
 ``XSHA256``
 
@@ -19651,7 +19657,7 @@ XSHA256_64: int = 1966
 
 ``64-bit``
 """
-XBTS_R16_RM16: int = 1967
+XBTS_R16_RM16: Code = 1967 # type: ignore
 """
 ``XBTS r16, r/m16``
 
@@ -19661,7 +19667,7 @@ XBTS_R16_RM16: int = 1967
 
 ``16/32-bit``
 """
-XBTS_R32_RM32: int = 1968
+XBTS_R32_RM32: Code = 1968 # type: ignore
 """
 ``XBTS r32, r/m32``
 
@@ -19671,7 +19677,7 @@ XBTS_R32_RM32: int = 1968
 
 ``16/32-bit``
 """
-XSTORE_16: int = 1969
+XSTORE_16: Code = 1969 # type: ignore
 """
 ``XSTORE``
 
@@ -19681,7 +19687,7 @@ XSTORE_16: int = 1969
 
 ``16/32-bit``
 """
-XSTORE_32: int = 1970
+XSTORE_32: Code = 1970 # type: ignore
 """
 ``XSTORE``
 
@@ -19691,7 +19697,7 @@ XSTORE_32: int = 1970
 
 ``16/32/64-bit``
 """
-XSTORE_64: int = 1971
+XSTORE_64: Code = 1971 # type: ignore
 """
 ``XSTORE``
 
@@ -19701,7 +19707,7 @@ XSTORE_64: int = 1971
 
 ``64-bit``
 """
-XCRYPTECB_16: int = 1972
+XCRYPTECB_16: Code = 1972 # type: ignore
 """
 ``XCRYPTECB``
 
@@ -19711,7 +19717,7 @@ XCRYPTECB_16: int = 1972
 
 ``16/32-bit``
 """
-XCRYPTECB_32: int = 1973
+XCRYPTECB_32: Code = 1973 # type: ignore
 """
 ``XCRYPTECB``
 
@@ -19721,7 +19727,7 @@ XCRYPTECB_32: int = 1973
 
 ``16/32/64-bit``
 """
-XCRYPTECB_64: int = 1974
+XCRYPTECB_64: Code = 1974 # type: ignore
 """
 ``XCRYPTECB``
 
@@ -19731,7 +19737,7 @@ XCRYPTECB_64: int = 1974
 
 ``64-bit``
 """
-XCRYPTCBC_16: int = 1975
+XCRYPTCBC_16: Code = 1975 # type: ignore
 """
 ``XCRYPTCBC``
 
@@ -19741,7 +19747,7 @@ XCRYPTCBC_16: int = 1975
 
 ``16/32-bit``
 """
-XCRYPTCBC_32: int = 1976
+XCRYPTCBC_32: Code = 1976 # type: ignore
 """
 ``XCRYPTCBC``
 
@@ -19751,7 +19757,7 @@ XCRYPTCBC_32: int = 1976
 
 ``16/32/64-bit``
 """
-XCRYPTCBC_64: int = 1977
+XCRYPTCBC_64: Code = 1977 # type: ignore
 """
 ``XCRYPTCBC``
 
@@ -19761,7 +19767,7 @@ XCRYPTCBC_64: int = 1977
 
 ``64-bit``
 """
-XCRYPTCTR_16: int = 1978
+XCRYPTCTR_16: Code = 1978 # type: ignore
 """
 ``XCRYPTCTR``
 
@@ -19771,7 +19777,7 @@ XCRYPTCTR_16: int = 1978
 
 ``16/32-bit``
 """
-XCRYPTCTR_32: int = 1979
+XCRYPTCTR_32: Code = 1979 # type: ignore
 """
 ``XCRYPTCTR``
 
@@ -19781,7 +19787,7 @@ XCRYPTCTR_32: int = 1979
 
 ``16/32/64-bit``
 """
-XCRYPTCTR_64: int = 1980
+XCRYPTCTR_64: Code = 1980 # type: ignore
 """
 ``XCRYPTCTR``
 
@@ -19791,7 +19797,7 @@ XCRYPTCTR_64: int = 1980
 
 ``64-bit``
 """
-XCRYPTCFB_16: int = 1981
+XCRYPTCFB_16: Code = 1981 # type: ignore
 """
 ``XCRYPTCFB``
 
@@ -19801,7 +19807,7 @@ XCRYPTCFB_16: int = 1981
 
 ``16/32-bit``
 """
-XCRYPTCFB_32: int = 1982
+XCRYPTCFB_32: Code = 1982 # type: ignore
 """
 ``XCRYPTCFB``
 
@@ -19811,7 +19817,7 @@ XCRYPTCFB_32: int = 1982
 
 ``16/32/64-bit``
 """
-XCRYPTCFB_64: int = 1983
+XCRYPTCFB_64: Code = 1983 # type: ignore
 """
 ``XCRYPTCFB``
 
@@ -19821,7 +19827,7 @@ XCRYPTCFB_64: int = 1983
 
 ``64-bit``
 """
-XCRYPTOFB_16: int = 1984
+XCRYPTOFB_16: Code = 1984 # type: ignore
 """
 ``XCRYPTOFB``
 
@@ -19831,7 +19837,7 @@ XCRYPTOFB_16: int = 1984
 
 ``16/32-bit``
 """
-XCRYPTOFB_32: int = 1985
+XCRYPTOFB_32: Code = 1985 # type: ignore
 """
 ``XCRYPTOFB``
 
@@ -19841,7 +19847,7 @@ XCRYPTOFB_32: int = 1985
 
 ``16/32/64-bit``
 """
-XCRYPTOFB_64: int = 1986
+XCRYPTOFB_64: Code = 1986 # type: ignore
 """
 ``XCRYPTOFB``
 
@@ -19851,7 +19857,7 @@ XCRYPTOFB_64: int = 1986
 
 ``64-bit``
 """
-IBTS_RM16_R16: int = 1987
+IBTS_RM16_R16: Code = 1987 # type: ignore
 """
 ``IBTS r/m16, r16``
 
@@ -19861,7 +19867,7 @@ IBTS_RM16_R16: int = 1987
 
 ``16/32-bit``
 """
-IBTS_RM32_R32: int = 1988
+IBTS_RM32_R32: Code = 1988 # type: ignore
 """
 ``IBTS r/m32, r32``
 
@@ -19871,7 +19877,7 @@ IBTS_RM32_R32: int = 1988
 
 ``16/32-bit``
 """
-CMPXCHG486_RM8_R8: int = 1989
+CMPXCHG486_RM8_R8: Code = 1989 # type: ignore
 """
 ``CMPXCHG r/m8, r8``
 
@@ -19881,7 +19887,7 @@ CMPXCHG486_RM8_R8: int = 1989
 
 ``16/32-bit``
 """
-CMPXCHG486_RM16_R16: int = 1990
+CMPXCHG486_RM16_R16: Code = 1990 # type: ignore
 """
 ``CMPXCHG r/m16, r16``
 
@@ -19891,7 +19897,7 @@ CMPXCHG486_RM16_R16: int = 1990
 
 ``16/32-bit``
 """
-CMPXCHG486_RM32_R32: int = 1991
+CMPXCHG486_RM32_R32: Code = 1991 # type: ignore
 """
 ``CMPXCHG r/m32, r32``
 
@@ -19901,7 +19907,7 @@ CMPXCHG486_RM32_R32: int = 1991
 
 ``16/32-bit``
 """
-PUSHW_GS: int = 1992
+PUSHW_GS: Code = 1992 # type: ignore
 """
 ``PUSH GS``
 
@@ -19911,7 +19917,7 @@ PUSHW_GS: int = 1992
 
 ``16/32/64-bit``
 """
-PUSHD_GS: int = 1993
+PUSHD_GS: Code = 1993 # type: ignore
 """
 ``PUSH GS``
 
@@ -19921,7 +19927,7 @@ PUSHD_GS: int = 1993
 
 ``16/32-bit``
 """
-PUSHQ_GS: int = 1994
+PUSHQ_GS: Code = 1994 # type: ignore
 """
 ``PUSH GS``
 
@@ -19931,7 +19937,7 @@ PUSHQ_GS: int = 1994
 
 ``64-bit``
 """
-POPW_GS: int = 1995
+POPW_GS: Code = 1995 # type: ignore
 """
 ``POP GS``
 
@@ -19941,7 +19947,7 @@ POPW_GS: int = 1995
 
 ``16/32/64-bit``
 """
-POPD_GS: int = 1996
+POPD_GS: Code = 1996 # type: ignore
 """
 ``POP GS``
 
@@ -19951,7 +19957,7 @@ POPD_GS: int = 1996
 
 ``16/32-bit``
 """
-POPQ_GS: int = 1997
+POPQ_GS: Code = 1997 # type: ignore
 """
 ``POP GS``
 
@@ -19961,7 +19967,7 @@ POPQ_GS: int = 1997
 
 ``64-bit``
 """
-RSM: int = 1998
+RSM: Code = 1998 # type: ignore
 """
 ``RSM``
 
@@ -19971,7 +19977,7 @@ RSM: int = 1998
 
 ``16/32/64-bit``
 """
-BTS_RM16_R16: int = 1999
+BTS_RM16_R16: Code = 1999 # type: ignore
 """
 ``BTS r/m16, r16``
 
@@ -19981,7 +19987,7 @@ BTS_RM16_R16: int = 1999
 
 ``16/32/64-bit``
 """
-BTS_RM32_R32: int = 2000
+BTS_RM32_R32: Code = 2000 # type: ignore
 """
 ``BTS r/m32, r32``
 
@@ -19991,7 +19997,7 @@ BTS_RM32_R32: int = 2000
 
 ``16/32/64-bit``
 """
-BTS_RM64_R64: int = 2001
+BTS_RM64_R64: Code = 2001 # type: ignore
 """
 ``BTS r/m64, r64``
 
@@ -20001,7 +20007,7 @@ BTS_RM64_R64: int = 2001
 
 ``64-bit``
 """
-SHRD_RM16_R16_IMM8: int = 2002
+SHRD_RM16_R16_IMM8: Code = 2002 # type: ignore
 """
 ``SHRD r/m16, r16, imm8``
 
@@ -20011,7 +20017,7 @@ SHRD_RM16_R16_IMM8: int = 2002
 
 ``16/32/64-bit``
 """
-SHRD_RM32_R32_IMM8: int = 2003
+SHRD_RM32_R32_IMM8: Code = 2003 # type: ignore
 """
 ``SHRD r/m32, r32, imm8``
 
@@ -20021,7 +20027,7 @@ SHRD_RM32_R32_IMM8: int = 2003
 
 ``16/32/64-bit``
 """
-SHRD_RM64_R64_IMM8: int = 2004
+SHRD_RM64_R64_IMM8: Code = 2004 # type: ignore
 """
 ``SHRD r/m64, r64, imm8``
 
@@ -20031,7 +20037,7 @@ SHRD_RM64_R64_IMM8: int = 2004
 
 ``64-bit``
 """
-SHRD_RM16_R16_CL: int = 2005
+SHRD_RM16_R16_CL: Code = 2005 # type: ignore
 """
 ``SHRD r/m16, r16, CL``
 
@@ -20041,7 +20047,7 @@ SHRD_RM16_R16_CL: int = 2005
 
 ``16/32/64-bit``
 """
-SHRD_RM32_R32_CL: int = 2006
+SHRD_RM32_R32_CL: Code = 2006 # type: ignore
 """
 ``SHRD r/m32, r32, CL``
 
@@ -20051,7 +20057,7 @@ SHRD_RM32_R32_CL: int = 2006
 
 ``16/32/64-bit``
 """
-SHRD_RM64_R64_CL: int = 2007
+SHRD_RM64_R64_CL: Code = 2007 # type: ignore
 """
 ``SHRD r/m64, r64, CL``
 
@@ -20061,7 +20067,7 @@ SHRD_RM64_R64_CL: int = 2007
 
 ``64-bit``
 """
-FXSAVE_M512BYTE: int = 2008
+FXSAVE_M512BYTE: Code = 2008 # type: ignore
 """
 ``FXSAVE m512byte``
 
@@ -20071,7 +20077,7 @@ FXSAVE_M512BYTE: int = 2008
 
 ``16/32/64-bit``
 """
-FXSAVE64_M512BYTE: int = 2009
+FXSAVE64_M512BYTE: Code = 2009 # type: ignore
 """
 ``FXSAVE64 m512byte``
 
@@ -20081,7 +20087,7 @@ FXSAVE64_M512BYTE: int = 2009
 
 ``64-bit``
 """
-RDFSBASE_R32: int = 2010
+RDFSBASE_R32: Code = 2010 # type: ignore
 """
 ``RDFSBASE r32``
 
@@ -20091,7 +20097,7 @@ RDFSBASE_R32: int = 2010
 
 ``64-bit``
 """
-RDFSBASE_R64: int = 2011
+RDFSBASE_R64: Code = 2011 # type: ignore
 """
 ``RDFSBASE r64``
 
@@ -20101,7 +20107,7 @@ RDFSBASE_R64: int = 2011
 
 ``64-bit``
 """
-FXRSTOR_M512BYTE: int = 2012
+FXRSTOR_M512BYTE: Code = 2012 # type: ignore
 """
 ``FXRSTOR m512byte``
 
@@ -20111,7 +20117,7 @@ FXRSTOR_M512BYTE: int = 2012
 
 ``16/32/64-bit``
 """
-FXRSTOR64_M512BYTE: int = 2013
+FXRSTOR64_M512BYTE: Code = 2013 # type: ignore
 """
 ``FXRSTOR64 m512byte``
 
@@ -20121,7 +20127,7 @@ FXRSTOR64_M512BYTE: int = 2013
 
 ``64-bit``
 """
-RDGSBASE_R32: int = 2014
+RDGSBASE_R32: Code = 2014 # type: ignore
 """
 ``RDGSBASE r32``
 
@@ -20131,7 +20137,7 @@ RDGSBASE_R32: int = 2014
 
 ``64-bit``
 """
-RDGSBASE_R64: int = 2015
+RDGSBASE_R64: Code = 2015 # type: ignore
 """
 ``RDGSBASE r64``
 
@@ -20141,7 +20147,7 @@ RDGSBASE_R64: int = 2015
 
 ``64-bit``
 """
-LDMXCSR_M32: int = 2016
+LDMXCSR_M32: Code = 2016 # type: ignore
 """
 ``LDMXCSR m32``
 
@@ -20151,7 +20157,7 @@ LDMXCSR_M32: int = 2016
 
 ``16/32/64-bit``
 """
-WRFSBASE_R32: int = 2017
+WRFSBASE_R32: Code = 2017 # type: ignore
 """
 ``WRFSBASE r32``
 
@@ -20161,7 +20167,7 @@ WRFSBASE_R32: int = 2017
 
 ``64-bit``
 """
-WRFSBASE_R64: int = 2018
+WRFSBASE_R64: Code = 2018 # type: ignore
 """
 ``WRFSBASE r64``
 
@@ -20171,7 +20177,7 @@ WRFSBASE_R64: int = 2018
 
 ``64-bit``
 """
-VEX_VLDMXCSR_M32: int = 2019
+VEX_VLDMXCSR_M32: Code = 2019 # type: ignore
 """
 ``VLDMXCSR m32``
 
@@ -20181,7 +20187,7 @@ VEX_VLDMXCSR_M32: int = 2019
 
 ``16/32/64-bit``
 """
-STMXCSR_M32: int = 2020
+STMXCSR_M32: Code = 2020 # type: ignore
 """
 ``STMXCSR m32``
 
@@ -20191,7 +20197,7 @@ STMXCSR_M32: int = 2020
 
 ``16/32/64-bit``
 """
-WRGSBASE_R32: int = 2021
+WRGSBASE_R32: Code = 2021 # type: ignore
 """
 ``WRGSBASE r32``
 
@@ -20201,7 +20207,7 @@ WRGSBASE_R32: int = 2021
 
 ``64-bit``
 """
-WRGSBASE_R64: int = 2022
+WRGSBASE_R64: Code = 2022 # type: ignore
 """
 ``WRGSBASE r64``
 
@@ -20211,7 +20217,7 @@ WRGSBASE_R64: int = 2022
 
 ``64-bit``
 """
-VEX_VSTMXCSR_M32: int = 2023
+VEX_VSTMXCSR_M32: Code = 2023 # type: ignore
 """
 ``VSTMXCSR m32``
 
@@ -20221,7 +20227,7 @@ VEX_VSTMXCSR_M32: int = 2023
 
 ``16/32/64-bit``
 """
-XSAVE_MEM: int = 2024
+XSAVE_MEM: Code = 2024 # type: ignore
 """
 ``XSAVE mem``
 
@@ -20231,7 +20237,7 @@ XSAVE_MEM: int = 2024
 
 ``16/32/64-bit``
 """
-XSAVE64_MEM: int = 2025
+XSAVE64_MEM: Code = 2025 # type: ignore
 """
 ``XSAVE64 mem``
 
@@ -20241,7 +20247,7 @@ XSAVE64_MEM: int = 2025
 
 ``64-bit``
 """
-PTWRITE_RM32: int = 2026
+PTWRITE_RM32: Code = 2026 # type: ignore
 """
 ``PTWRITE r/m32``
 
@@ -20251,7 +20257,7 @@ PTWRITE_RM32: int = 2026
 
 ``16/32/64-bit``
 """
-PTWRITE_RM64: int = 2027
+PTWRITE_RM64: Code = 2027 # type: ignore
 """
 ``PTWRITE r/m64``
 
@@ -20261,7 +20267,7 @@ PTWRITE_RM64: int = 2027
 
 ``64-bit``
 """
-XRSTOR_MEM: int = 2028
+XRSTOR_MEM: Code = 2028 # type: ignore
 """
 ``XRSTOR mem``
 
@@ -20271,7 +20277,7 @@ XRSTOR_MEM: int = 2028
 
 ``16/32/64-bit``
 """
-XRSTOR64_MEM: int = 2029
+XRSTOR64_MEM: Code = 2029 # type: ignore
 """
 ``XRSTOR64 mem``
 
@@ -20281,7 +20287,7 @@ XRSTOR64_MEM: int = 2029
 
 ``64-bit``
 """
-INCSSPD_R32: int = 2030
+INCSSPD_R32: Code = 2030 # type: ignore
 """
 ``INCSSPD r32``
 
@@ -20291,7 +20297,7 @@ INCSSPD_R32: int = 2030
 
 ``16/32/64-bit``
 """
-INCSSPQ_R64: int = 2031
+INCSSPQ_R64: Code = 2031 # type: ignore
 """
 ``INCSSPQ r64``
 
@@ -20301,7 +20307,7 @@ INCSSPQ_R64: int = 2031
 
 ``64-bit``
 """
-XSAVEOPT_MEM: int = 2032
+XSAVEOPT_MEM: Code = 2032 # type: ignore
 """
 ``XSAVEOPT mem``
 
@@ -20311,7 +20317,7 @@ XSAVEOPT_MEM: int = 2032
 
 ``16/32/64-bit``
 """
-XSAVEOPT64_MEM: int = 2033
+XSAVEOPT64_MEM: Code = 2033 # type: ignore
 """
 ``XSAVEOPT64 mem``
 
@@ -20321,7 +20327,7 @@ XSAVEOPT64_MEM: int = 2033
 
 ``64-bit``
 """
-CLWB_M8: int = 2034
+CLWB_M8: Code = 2034 # type: ignore
 """
 ``CLWB m8``
 
@@ -20331,7 +20337,7 @@ CLWB_M8: int = 2034
 
 ``16/32/64-bit``
 """
-TPAUSE_R32: int = 2035
+TPAUSE_R32: Code = 2035 # type: ignore
 """
 ``TPAUSE r32, <edx>, <eax>``
 
@@ -20341,7 +20347,7 @@ TPAUSE_R32: int = 2035
 
 ``16/32/64-bit``
 """
-TPAUSE_R64: int = 2036
+TPAUSE_R64: Code = 2036 # type: ignore
 """
 ``TPAUSE r64, <edx>, <eax>``
 
@@ -20351,7 +20357,7 @@ TPAUSE_R64: int = 2036
 
 ``64-bit``
 """
-CLRSSBSY_M64: int = 2037
+CLRSSBSY_M64: Code = 2037 # type: ignore
 """
 ``CLRSSBSY m64``
 
@@ -20361,7 +20367,7 @@ CLRSSBSY_M64: int = 2037
 
 ``16/32/64-bit``
 """
-UMONITOR_R16: int = 2038
+UMONITOR_R16: Code = 2038 # type: ignore
 """
 ``UMONITOR r16``
 
@@ -20371,7 +20377,7 @@ UMONITOR_R16: int = 2038
 
 ``16/32-bit``
 """
-UMONITOR_R32: int = 2039
+UMONITOR_R32: Code = 2039 # type: ignore
 """
 ``UMONITOR r32``
 
@@ -20381,7 +20387,7 @@ UMONITOR_R32: int = 2039
 
 ``16/32/64-bit``
 """
-UMONITOR_R64: int = 2040
+UMONITOR_R64: Code = 2040 # type: ignore
 """
 ``UMONITOR r64``
 
@@ -20391,7 +20397,7 @@ UMONITOR_R64: int = 2040
 
 ``64-bit``
 """
-UMWAIT_R32: int = 2041
+UMWAIT_R32: Code = 2041 # type: ignore
 """
 ``UMWAIT r32, <edx>, <eax>``
 
@@ -20401,7 +20407,7 @@ UMWAIT_R32: int = 2041
 
 ``16/32/64-bit``
 """
-UMWAIT_R64: int = 2042
+UMWAIT_R64: Code = 2042 # type: ignore
 """
 ``UMWAIT r64, <edx>, <eax>``
 
@@ -20411,7 +20417,7 @@ UMWAIT_R64: int = 2042
 
 ``64-bit``
 """
-CLFLUSH_M8: int = 2043
+CLFLUSH_M8: Code = 2043 # type: ignore
 """
 ``CLFLUSH m8``
 
@@ -20421,7 +20427,7 @@ CLFLUSH_M8: int = 2043
 
 ``16/32/64-bit``
 """
-CLFLUSHOPT_M8: int = 2044
+CLFLUSHOPT_M8: Code = 2044 # type: ignore
 """
 ``CLFLUSHOPT m8``
 
@@ -20431,7 +20437,7 @@ CLFLUSHOPT_M8: int = 2044
 
 ``16/32/64-bit``
 """
-LFENCE: int = 2045
+LFENCE: Code = 2045 # type: ignore
 """
 ``LFENCE``
 
@@ -20441,7 +20447,7 @@ LFENCE: int = 2045
 
 ``16/32/64-bit``
 """
-LFENCE_E9: int = 2046
+LFENCE_E9: Code = 2046 # type: ignore
 """
 ``LFENCE``
 
@@ -20451,7 +20457,7 @@ LFENCE_E9: int = 2046
 
 ``16/32/64-bit``
 """
-LFENCE_EA: int = 2047
+LFENCE_EA: Code = 2047 # type: ignore
 """
 ``LFENCE``
 
@@ -20461,7 +20467,7 @@ LFENCE_EA: int = 2047
 
 ``16/32/64-bit``
 """
-LFENCE_EB: int = 2048
+LFENCE_EB: Code = 2048 # type: ignore
 """
 ``LFENCE``
 
@@ -20471,7 +20477,7 @@ LFENCE_EB: int = 2048
 
 ``16/32/64-bit``
 """
-LFENCE_EC: int = 2049
+LFENCE_EC: Code = 2049 # type: ignore
 """
 ``LFENCE``
 
@@ -20481,7 +20487,7 @@ LFENCE_EC: int = 2049
 
 ``16/32/64-bit``
 """
-LFENCE_ED: int = 2050
+LFENCE_ED: Code = 2050 # type: ignore
 """
 ``LFENCE``
 
@@ -20491,7 +20497,7 @@ LFENCE_ED: int = 2050
 
 ``16/32/64-bit``
 """
-LFENCE_EE: int = 2051
+LFENCE_EE: Code = 2051 # type: ignore
 """
 ``LFENCE``
 
@@ -20501,7 +20507,7 @@ LFENCE_EE: int = 2051
 
 ``16/32/64-bit``
 """
-LFENCE_EF: int = 2052
+LFENCE_EF: Code = 2052 # type: ignore
 """
 ``LFENCE``
 
@@ -20511,7 +20517,7 @@ LFENCE_EF: int = 2052
 
 ``16/32/64-bit``
 """
-MFENCE: int = 2053
+MFENCE: Code = 2053 # type: ignore
 """
 ``MFENCE``
 
@@ -20521,7 +20527,7 @@ MFENCE: int = 2053
 
 ``16/32/64-bit``
 """
-MFENCE_F1: int = 2054
+MFENCE_F1: Code = 2054 # type: ignore
 """
 ``MFENCE``
 
@@ -20531,7 +20537,7 @@ MFENCE_F1: int = 2054
 
 ``16/32/64-bit``
 """
-MFENCE_F2: int = 2055
+MFENCE_F2: Code = 2055 # type: ignore
 """
 ``MFENCE``
 
@@ -20541,7 +20547,7 @@ MFENCE_F2: int = 2055
 
 ``16/32/64-bit``
 """
-MFENCE_F3: int = 2056
+MFENCE_F3: Code = 2056 # type: ignore
 """
 ``MFENCE``
 
@@ -20551,7 +20557,7 @@ MFENCE_F3: int = 2056
 
 ``16/32/64-bit``
 """
-MFENCE_F4: int = 2057
+MFENCE_F4: Code = 2057 # type: ignore
 """
 ``MFENCE``
 
@@ -20561,7 +20567,7 @@ MFENCE_F4: int = 2057
 
 ``16/32/64-bit``
 """
-MFENCE_F5: int = 2058
+MFENCE_F5: Code = 2058 # type: ignore
 """
 ``MFENCE``
 
@@ -20571,7 +20577,7 @@ MFENCE_F5: int = 2058
 
 ``16/32/64-bit``
 """
-MFENCE_F6: int = 2059
+MFENCE_F6: Code = 2059 # type: ignore
 """
 ``MFENCE``
 
@@ -20581,7 +20587,7 @@ MFENCE_F6: int = 2059
 
 ``16/32/64-bit``
 """
-MFENCE_F7: int = 2060
+MFENCE_F7: Code = 2060 # type: ignore
 """
 ``MFENCE``
 
@@ -20591,7 +20597,7 @@ MFENCE_F7: int = 2060
 
 ``16/32/64-bit``
 """
-SFENCE: int = 2061
+SFENCE: Code = 2061 # type: ignore
 """
 ``SFENCE``
 
@@ -20601,7 +20607,7 @@ SFENCE: int = 2061
 
 ``16/32/64-bit``
 """
-SFENCE_F9: int = 2062
+SFENCE_F9: Code = 2062 # type: ignore
 """
 ``SFENCE``
 
@@ -20611,7 +20617,7 @@ SFENCE_F9: int = 2062
 
 ``16/32/64-bit``
 """
-SFENCE_FA: int = 2063
+SFENCE_FA: Code = 2063 # type: ignore
 """
 ``SFENCE``
 
@@ -20621,7 +20627,7 @@ SFENCE_FA: int = 2063
 
 ``16/32/64-bit``
 """
-SFENCE_FB: int = 2064
+SFENCE_FB: Code = 2064 # type: ignore
 """
 ``SFENCE``
 
@@ -20631,7 +20637,7 @@ SFENCE_FB: int = 2064
 
 ``16/32/64-bit``
 """
-SFENCE_FC: int = 2065
+SFENCE_FC: Code = 2065 # type: ignore
 """
 ``SFENCE``
 
@@ -20641,7 +20647,7 @@ SFENCE_FC: int = 2065
 
 ``16/32/64-bit``
 """
-SFENCE_FD: int = 2066
+SFENCE_FD: Code = 2066 # type: ignore
 """
 ``SFENCE``
 
@@ -20651,7 +20657,7 @@ SFENCE_FD: int = 2066
 
 ``16/32/64-bit``
 """
-SFENCE_FE: int = 2067
+SFENCE_FE: Code = 2067 # type: ignore
 """
 ``SFENCE``
 
@@ -20661,7 +20667,7 @@ SFENCE_FE: int = 2067
 
 ``16/32/64-bit``
 """
-SFENCE_FF: int = 2068
+SFENCE_FF: Code = 2068 # type: ignore
 """
 ``SFENCE``
 
@@ -20671,7 +20677,7 @@ SFENCE_FF: int = 2068
 
 ``16/32/64-bit``
 """
-PCOMMIT: int = 2069
+PCOMMIT: Code = 2069 # type: ignore
 """
 ``PCOMMIT``
 
@@ -20681,7 +20687,7 @@ PCOMMIT: int = 2069
 
 ``16/32/64-bit``
 """
-IMUL_R16_RM16: int = 2070
+IMUL_R16_RM16: Code = 2070 # type: ignore
 """
 ``IMUL r16, r/m16``
 
@@ -20691,7 +20697,7 @@ IMUL_R16_RM16: int = 2070
 
 ``16/32/64-bit``
 """
-IMUL_R32_RM32: int = 2071
+IMUL_R32_RM32: Code = 2071 # type: ignore
 """
 ``IMUL r32, r/m32``
 
@@ -20701,7 +20707,7 @@ IMUL_R32_RM32: int = 2071
 
 ``16/32/64-bit``
 """
-IMUL_R64_RM64: int = 2072
+IMUL_R64_RM64: Code = 2072 # type: ignore
 """
 ``IMUL r64, r/m64``
 
@@ -20711,7 +20717,7 @@ IMUL_R64_RM64: int = 2072
 
 ``64-bit``
 """
-CMPXCHG_RM8_R8: int = 2073
+CMPXCHG_RM8_R8: Code = 2073 # type: ignore
 """
 ``CMPXCHG r/m8, r8``
 
@@ -20721,7 +20727,7 @@ CMPXCHG_RM8_R8: int = 2073
 
 ``16/32/64-bit``
 """
-CMPXCHG_RM16_R16: int = 2074
+CMPXCHG_RM16_R16: Code = 2074 # type: ignore
 """
 ``CMPXCHG r/m16, r16``
 
@@ -20731,7 +20737,7 @@ CMPXCHG_RM16_R16: int = 2074
 
 ``16/32/64-bit``
 """
-CMPXCHG_RM32_R32: int = 2075
+CMPXCHG_RM32_R32: Code = 2075 # type: ignore
 """
 ``CMPXCHG r/m32, r32``
 
@@ -20741,7 +20747,7 @@ CMPXCHG_RM32_R32: int = 2075
 
 ``16/32/64-bit``
 """
-CMPXCHG_RM64_R64: int = 2076
+CMPXCHG_RM64_R64: Code = 2076 # type: ignore
 """
 ``CMPXCHG r/m64, r64``
 
@@ -20751,7 +20757,7 @@ CMPXCHG_RM64_R64: int = 2076
 
 ``64-bit``
 """
-LSS_R16_M1616: int = 2077
+LSS_R16_M1616: Code = 2077 # type: ignore
 """
 ``LSS r16, m16:16``
 
@@ -20761,7 +20767,7 @@ LSS_R16_M1616: int = 2077
 
 ``16/32/64-bit``
 """
-LSS_R32_M1632: int = 2078
+LSS_R32_M1632: Code = 2078 # type: ignore
 """
 ``LSS r32, m16:32``
 
@@ -20771,7 +20777,7 @@ LSS_R32_M1632: int = 2078
 
 ``16/32/64-bit``
 """
-LSS_R64_M1664: int = 2079
+LSS_R64_M1664: Code = 2079 # type: ignore
 """
 ``LSS r64, m16:64``
 
@@ -20781,7 +20787,7 @@ LSS_R64_M1664: int = 2079
 
 ``64-bit``
 """
-BTR_RM16_R16: int = 2080
+BTR_RM16_R16: Code = 2080 # type: ignore
 """
 ``BTR r/m16, r16``
 
@@ -20791,7 +20797,7 @@ BTR_RM16_R16: int = 2080
 
 ``16/32/64-bit``
 """
-BTR_RM32_R32: int = 2081
+BTR_RM32_R32: Code = 2081 # type: ignore
 """
 ``BTR r/m32, r32``
 
@@ -20801,7 +20807,7 @@ BTR_RM32_R32: int = 2081
 
 ``16/32/64-bit``
 """
-BTR_RM64_R64: int = 2082
+BTR_RM64_R64: Code = 2082 # type: ignore
 """
 ``BTR r/m64, r64``
 
@@ -20811,7 +20817,7 @@ BTR_RM64_R64: int = 2082
 
 ``64-bit``
 """
-LFS_R16_M1616: int = 2083
+LFS_R16_M1616: Code = 2083 # type: ignore
 """
 ``LFS r16, m16:16``
 
@@ -20821,7 +20827,7 @@ LFS_R16_M1616: int = 2083
 
 ``16/32/64-bit``
 """
-LFS_R32_M1632: int = 2084
+LFS_R32_M1632: Code = 2084 # type: ignore
 """
 ``LFS r32, m16:32``
 
@@ -20831,7 +20837,7 @@ LFS_R32_M1632: int = 2084
 
 ``16/32/64-bit``
 """
-LFS_R64_M1664: int = 2085
+LFS_R64_M1664: Code = 2085 # type: ignore
 """
 ``LFS r64, m16:64``
 
@@ -20841,7 +20847,7 @@ LFS_R64_M1664: int = 2085
 
 ``64-bit``
 """
-LGS_R16_M1616: int = 2086
+LGS_R16_M1616: Code = 2086 # type: ignore
 """
 ``LGS r16, m16:16``
 
@@ -20851,7 +20857,7 @@ LGS_R16_M1616: int = 2086
 
 ``16/32/64-bit``
 """
-LGS_R32_M1632: int = 2087
+LGS_R32_M1632: Code = 2087 # type: ignore
 """
 ``LGS r32, m16:32``
 
@@ -20861,7 +20867,7 @@ LGS_R32_M1632: int = 2087
 
 ``16/32/64-bit``
 """
-LGS_R64_M1664: int = 2088
+LGS_R64_M1664: Code = 2088 # type: ignore
 """
 ``LGS r64, m16:64``
 
@@ -20871,7 +20877,7 @@ LGS_R64_M1664: int = 2088
 
 ``64-bit``
 """
-MOVZX_R16_RM8: int = 2089
+MOVZX_R16_RM8: Code = 2089 # type: ignore
 """
 ``MOVZX r16, r/m8``
 
@@ -20881,7 +20887,7 @@ MOVZX_R16_RM8: int = 2089
 
 ``16/32/64-bit``
 """
-MOVZX_R32_RM8: int = 2090
+MOVZX_R32_RM8: Code = 2090 # type: ignore
 """
 ``MOVZX r32, r/m8``
 
@@ -20891,7 +20897,7 @@ MOVZX_R32_RM8: int = 2090
 
 ``16/32/64-bit``
 """
-MOVZX_R64_RM8: int = 2091
+MOVZX_R64_RM8: Code = 2091 # type: ignore
 """
 ``MOVZX r64, r/m8``
 
@@ -20901,7 +20907,7 @@ MOVZX_R64_RM8: int = 2091
 
 ``64-bit``
 """
-MOVZX_R16_RM16: int = 2092
+MOVZX_R16_RM16: Code = 2092 # type: ignore
 """
 ``MOVZX r16, r/m16``
 
@@ -20911,7 +20917,7 @@ MOVZX_R16_RM16: int = 2092
 
 ``16/32/64-bit``
 """
-MOVZX_R32_RM16: int = 2093
+MOVZX_R32_RM16: Code = 2093 # type: ignore
 """
 ``MOVZX r32, r/m16``
 
@@ -20921,7 +20927,7 @@ MOVZX_R32_RM16: int = 2093
 
 ``16/32/64-bit``
 """
-MOVZX_R64_RM16: int = 2094
+MOVZX_R64_RM16: Code = 2094 # type: ignore
 """
 ``MOVZX r64, r/m16``
 
@@ -20931,7 +20937,7 @@ MOVZX_R64_RM16: int = 2094
 
 ``64-bit``
 """
-JMPE_DISP16: int = 2095
+JMPE_DISP16: Code = 2095 # type: ignore
 """
 ``JMPE disp16``
 
@@ -20941,7 +20947,7 @@ JMPE_DISP16: int = 2095
 
 ``16/32-bit``
 """
-JMPE_DISP32: int = 2096
+JMPE_DISP32: Code = 2096 # type: ignore
 """
 ``JMPE disp32``
 
@@ -20951,7 +20957,7 @@ JMPE_DISP32: int = 2096
 
 ``16/32-bit``
 """
-POPCNT_R16_RM16: int = 2097
+POPCNT_R16_RM16: Code = 2097 # type: ignore
 """
 ``POPCNT r16, r/m16``
 
@@ -20961,7 +20967,7 @@ POPCNT_R16_RM16: int = 2097
 
 ``16/32/64-bit``
 """
-POPCNT_R32_RM32: int = 2098
+POPCNT_R32_RM32: Code = 2098 # type: ignore
 """
 ``POPCNT r32, r/m32``
 
@@ -20971,7 +20977,7 @@ POPCNT_R32_RM32: int = 2098
 
 ``16/32/64-bit``
 """
-POPCNT_R64_RM64: int = 2099
+POPCNT_R64_RM64: Code = 2099 # type: ignore
 """
 ``POPCNT r64, r/m64``
 
@@ -20981,7 +20987,7 @@ POPCNT_R64_RM64: int = 2099
 
 ``64-bit``
 """
-UD1_R16_RM16: int = 2100
+UD1_R16_RM16: Code = 2100 # type: ignore
 """
 ``UD1 r16, r/m16``
 
@@ -20991,7 +20997,7 @@ UD1_R16_RM16: int = 2100
 
 ``16/32/64-bit``
 """
-UD1_R32_RM32: int = 2101
+UD1_R32_RM32: Code = 2101 # type: ignore
 """
 ``UD1 r32, r/m32``
 
@@ -21001,7 +21007,7 @@ UD1_R32_RM32: int = 2101
 
 ``16/32/64-bit``
 """
-UD1_R64_RM64: int = 2102
+UD1_R64_RM64: Code = 2102 # type: ignore
 """
 ``UD1 r64, r/m64``
 
@@ -21011,7 +21017,7 @@ UD1_R64_RM64: int = 2102
 
 ``64-bit``
 """
-BT_RM16_IMM8: int = 2103
+BT_RM16_IMM8: Code = 2103 # type: ignore
 """
 ``BT r/m16, imm8``
 
@@ -21021,7 +21027,7 @@ BT_RM16_IMM8: int = 2103
 
 ``16/32/64-bit``
 """
-BT_RM32_IMM8: int = 2104
+BT_RM32_IMM8: Code = 2104 # type: ignore
 """
 ``BT r/m32, imm8``
 
@@ -21031,7 +21037,7 @@ BT_RM32_IMM8: int = 2104
 
 ``16/32/64-bit``
 """
-BT_RM64_IMM8: int = 2105
+BT_RM64_IMM8: Code = 2105 # type: ignore
 """
 ``BT r/m64, imm8``
 
@@ -21041,7 +21047,7 @@ BT_RM64_IMM8: int = 2105
 
 ``64-bit``
 """
-BTS_RM16_IMM8: int = 2106
+BTS_RM16_IMM8: Code = 2106 # type: ignore
 """
 ``BTS r/m16, imm8``
 
@@ -21051,7 +21057,7 @@ BTS_RM16_IMM8: int = 2106
 
 ``16/32/64-bit``
 """
-BTS_RM32_IMM8: int = 2107
+BTS_RM32_IMM8: Code = 2107 # type: ignore
 """
 ``BTS r/m32, imm8``
 
@@ -21061,7 +21067,7 @@ BTS_RM32_IMM8: int = 2107
 
 ``16/32/64-bit``
 """
-BTS_RM64_IMM8: int = 2108
+BTS_RM64_IMM8: Code = 2108 # type: ignore
 """
 ``BTS r/m64, imm8``
 
@@ -21071,7 +21077,7 @@ BTS_RM64_IMM8: int = 2108
 
 ``64-bit``
 """
-BTR_RM16_IMM8: int = 2109
+BTR_RM16_IMM8: Code = 2109 # type: ignore
 """
 ``BTR r/m16, imm8``
 
@@ -21081,7 +21087,7 @@ BTR_RM16_IMM8: int = 2109
 
 ``16/32/64-bit``
 """
-BTR_RM32_IMM8: int = 2110
+BTR_RM32_IMM8: Code = 2110 # type: ignore
 """
 ``BTR r/m32, imm8``
 
@@ -21091,7 +21097,7 @@ BTR_RM32_IMM8: int = 2110
 
 ``16/32/64-bit``
 """
-BTR_RM64_IMM8: int = 2111
+BTR_RM64_IMM8: Code = 2111 # type: ignore
 """
 ``BTR r/m64, imm8``
 
@@ -21101,7 +21107,7 @@ BTR_RM64_IMM8: int = 2111
 
 ``64-bit``
 """
-BTC_RM16_IMM8: int = 2112
+BTC_RM16_IMM8: Code = 2112 # type: ignore
 """
 ``BTC r/m16, imm8``
 
@@ -21111,7 +21117,7 @@ BTC_RM16_IMM8: int = 2112
 
 ``16/32/64-bit``
 """
-BTC_RM32_IMM8: int = 2113
+BTC_RM32_IMM8: Code = 2113 # type: ignore
 """
 ``BTC r/m32, imm8``
 
@@ -21121,7 +21127,7 @@ BTC_RM32_IMM8: int = 2113
 
 ``16/32/64-bit``
 """
-BTC_RM64_IMM8: int = 2114
+BTC_RM64_IMM8: Code = 2114 # type: ignore
 """
 ``BTC r/m64, imm8``
 
@@ -21131,7 +21137,7 @@ BTC_RM64_IMM8: int = 2114
 
 ``64-bit``
 """
-BTC_RM16_R16: int = 2115
+BTC_RM16_R16: Code = 2115 # type: ignore
 """
 ``BTC r/m16, r16``
 
@@ -21141,7 +21147,7 @@ BTC_RM16_R16: int = 2115
 
 ``16/32/64-bit``
 """
-BTC_RM32_R32: int = 2116
+BTC_RM32_R32: Code = 2116 # type: ignore
 """
 ``BTC r/m32, r32``
 
@@ -21151,7 +21157,7 @@ BTC_RM32_R32: int = 2116
 
 ``16/32/64-bit``
 """
-BTC_RM64_R64: int = 2117
+BTC_RM64_R64: Code = 2117 # type: ignore
 """
 ``BTC r/m64, r64``
 
@@ -21161,7 +21167,7 @@ BTC_RM64_R64: int = 2117
 
 ``64-bit``
 """
-BSF_R16_RM16: int = 2118
+BSF_R16_RM16: Code = 2118 # type: ignore
 """
 ``BSF r16, r/m16``
 
@@ -21171,7 +21177,7 @@ BSF_R16_RM16: int = 2118
 
 ``16/32/64-bit``
 """
-BSF_R32_RM32: int = 2119
+BSF_R32_RM32: Code = 2119 # type: ignore
 """
 ``BSF r32, r/m32``
 
@@ -21181,7 +21187,7 @@ BSF_R32_RM32: int = 2119
 
 ``16/32/64-bit``
 """
-BSF_R64_RM64: int = 2120
+BSF_R64_RM64: Code = 2120 # type: ignore
 """
 ``BSF r64, r/m64``
 
@@ -21191,7 +21197,7 @@ BSF_R64_RM64: int = 2120
 
 ``64-bit``
 """
-TZCNT_R16_RM16: int = 2121
+TZCNT_R16_RM16: Code = 2121 # type: ignore
 """
 ``TZCNT r16, r/m16``
 
@@ -21201,7 +21207,7 @@ TZCNT_R16_RM16: int = 2121
 
 ``16/32/64-bit``
 """
-TZCNT_R32_RM32: int = 2122
+TZCNT_R32_RM32: Code = 2122 # type: ignore
 """
 ``TZCNT r32, r/m32``
 
@@ -21211,7 +21217,7 @@ TZCNT_R32_RM32: int = 2122
 
 ``16/32/64-bit``
 """
-TZCNT_R64_RM64: int = 2123
+TZCNT_R64_RM64: Code = 2123 # type: ignore
 """
 ``TZCNT r64, r/m64``
 
@@ -21221,7 +21227,7 @@ TZCNT_R64_RM64: int = 2123
 
 ``64-bit``
 """
-BSR_R16_RM16: int = 2124
+BSR_R16_RM16: Code = 2124 # type: ignore
 """
 ``BSR r16, r/m16``
 
@@ -21231,7 +21237,7 @@ BSR_R16_RM16: int = 2124
 
 ``16/32/64-bit``
 """
-BSR_R32_RM32: int = 2125
+BSR_R32_RM32: Code = 2125 # type: ignore
 """
 ``BSR r32, r/m32``
 
@@ -21241,7 +21247,7 @@ BSR_R32_RM32: int = 2125
 
 ``16/32/64-bit``
 """
-BSR_R64_RM64: int = 2126
+BSR_R64_RM64: Code = 2126 # type: ignore
 """
 ``BSR r64, r/m64``
 
@@ -21251,7 +21257,7 @@ BSR_R64_RM64: int = 2126
 
 ``64-bit``
 """
-LZCNT_R16_RM16: int = 2127
+LZCNT_R16_RM16: Code = 2127 # type: ignore
 """
 ``LZCNT r16, r/m16``
 
@@ -21261,7 +21267,7 @@ LZCNT_R16_RM16: int = 2127
 
 ``16/32/64-bit``
 """
-LZCNT_R32_RM32: int = 2128
+LZCNT_R32_RM32: Code = 2128 # type: ignore
 """
 ``LZCNT r32, r/m32``
 
@@ -21271,7 +21277,7 @@ LZCNT_R32_RM32: int = 2128
 
 ``16/32/64-bit``
 """
-LZCNT_R64_RM64: int = 2129
+LZCNT_R64_RM64: Code = 2129 # type: ignore
 """
 ``LZCNT r64, r/m64``
 
@@ -21281,7 +21287,7 @@ LZCNT_R64_RM64: int = 2129
 
 ``64-bit``
 """
-MOVSX_R16_RM8: int = 2130
+MOVSX_R16_RM8: Code = 2130 # type: ignore
 """
 ``MOVSX r16, r/m8``
 
@@ -21291,7 +21297,7 @@ MOVSX_R16_RM8: int = 2130
 
 ``16/32/64-bit``
 """
-MOVSX_R32_RM8: int = 2131
+MOVSX_R32_RM8: Code = 2131 # type: ignore
 """
 ``MOVSX r32, r/m8``
 
@@ -21301,7 +21307,7 @@ MOVSX_R32_RM8: int = 2131
 
 ``16/32/64-bit``
 """
-MOVSX_R64_RM8: int = 2132
+MOVSX_R64_RM8: Code = 2132 # type: ignore
 """
 ``MOVSX r64, r/m8``
 
@@ -21311,7 +21317,7 @@ MOVSX_R64_RM8: int = 2132
 
 ``64-bit``
 """
-MOVSX_R16_RM16: int = 2133
+MOVSX_R16_RM16: Code = 2133 # type: ignore
 """
 ``MOVSX r16, r/m16``
 
@@ -21321,7 +21327,7 @@ MOVSX_R16_RM16: int = 2133
 
 ``16/32/64-bit``
 """
-MOVSX_R32_RM16: int = 2134
+MOVSX_R32_RM16: Code = 2134 # type: ignore
 """
 ``MOVSX r32, r/m16``
 
@@ -21331,7 +21337,7 @@ MOVSX_R32_RM16: int = 2134
 
 ``16/32/64-bit``
 """
-MOVSX_R64_RM16: int = 2135
+MOVSX_R64_RM16: Code = 2135 # type: ignore
 """
 ``MOVSX r64, r/m16``
 
@@ -21341,7 +21347,7 @@ MOVSX_R64_RM16: int = 2135
 
 ``64-bit``
 """
-XADD_RM8_R8: int = 2136
+XADD_RM8_R8: Code = 2136 # type: ignore
 """
 ``XADD r/m8, r8``
 
@@ -21351,7 +21357,7 @@ XADD_RM8_R8: int = 2136
 
 ``16/32/64-bit``
 """
-XADD_RM16_R16: int = 2137
+XADD_RM16_R16: Code = 2137 # type: ignore
 """
 ``XADD r/m16, r16``
 
@@ -21361,7 +21367,7 @@ XADD_RM16_R16: int = 2137
 
 ``16/32/64-bit``
 """
-XADD_RM32_R32: int = 2138
+XADD_RM32_R32: Code = 2138 # type: ignore
 """
 ``XADD r/m32, r32``
 
@@ -21371,7 +21377,7 @@ XADD_RM32_R32: int = 2138
 
 ``16/32/64-bit``
 """
-XADD_RM64_R64: int = 2139
+XADD_RM64_R64: Code = 2139 # type: ignore
 """
 ``XADD r/m64, r64``
 
@@ -21381,7 +21387,7 @@ XADD_RM64_R64: int = 2139
 
 ``64-bit``
 """
-CMPPS_XMM_XMMM128_IMM8: int = 2140
+CMPPS_XMM_XMMM128_IMM8: Code = 2140 # type: ignore
 """
 ``CMPPS xmm1, xmm2/m128, imm8``
 
@@ -21391,7 +21397,7 @@ CMPPS_XMM_XMMM128_IMM8: int = 2140
 
 ``16/32/64-bit``
 """
-VEX_VCMPPS_XMM_XMM_XMMM128_IMM8: int = 2141
+VEX_VCMPPS_XMM_XMM_XMMM128_IMM8: Code = 2141 # type: ignore
 """
 ``VCMPPS xmm1, xmm2, xmm3/m128, imm8``
 
@@ -21401,7 +21407,7 @@ VEX_VCMPPS_XMM_XMM_XMMM128_IMM8: int = 2141
 
 ``16/32/64-bit``
 """
-VEX_VCMPPS_YMM_YMM_YMMM256_IMM8: int = 2142
+VEX_VCMPPS_YMM_YMM_YMMM256_IMM8: Code = 2142 # type: ignore
 """
 ``VCMPPS ymm1, ymm2, ymm3/m256, imm8``
 
@@ -21411,7 +21417,7 @@ VEX_VCMPPS_YMM_YMM_YMMM256_IMM8: int = 2142
 
 ``16/32/64-bit``
 """
-EVEX_VCMPPS_KR_K1_XMM_XMMM128B32_IMM8: int = 2143
+EVEX_VCMPPS_KR_K1_XMM_XMMM128B32_IMM8: Code = 2143 # type: ignore
 """
 ``VCMPPS k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8``
 
@@ -21421,7 +21427,7 @@ EVEX_VCMPPS_KR_K1_XMM_XMMM128B32_IMM8: int = 2143
 
 ``16/32/64-bit``
 """
-EVEX_VCMPPS_KR_K1_YMM_YMMM256B32_IMM8: int = 2144
+EVEX_VCMPPS_KR_K1_YMM_YMMM256B32_IMM8: Code = 2144 # type: ignore
 """
 ``VCMPPS k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -21431,7 +21437,7 @@ EVEX_VCMPPS_KR_K1_YMM_YMMM256B32_IMM8: int = 2144
 
 ``16/32/64-bit``
 """
-EVEX_VCMPPS_KR_K1_ZMM_ZMMM512B32_IMM8_SAE: int = 2145
+EVEX_VCMPPS_KR_K1_ZMM_ZMMM512B32_IMM8_SAE: Code = 2145 # type: ignore
 """
 ``VCMPPS k1 {k2}, zmm2, zmm3/m512/m32bcst{sae}, imm8``
 
@@ -21441,7 +21447,7 @@ EVEX_VCMPPS_KR_K1_ZMM_ZMMM512B32_IMM8_SAE: int = 2145
 
 ``16/32/64-bit``
 """
-CMPPD_XMM_XMMM128_IMM8: int = 2146
+CMPPD_XMM_XMMM128_IMM8: Code = 2146 # type: ignore
 """
 ``CMPPD xmm1, xmm2/m128, imm8``
 
@@ -21451,7 +21457,7 @@ CMPPD_XMM_XMMM128_IMM8: int = 2146
 
 ``16/32/64-bit``
 """
-VEX_VCMPPD_XMM_XMM_XMMM128_IMM8: int = 2147
+VEX_VCMPPD_XMM_XMM_XMMM128_IMM8: Code = 2147 # type: ignore
 """
 ``VCMPPD xmm1, xmm2, xmm3/m128, imm8``
 
@@ -21461,7 +21467,7 @@ VEX_VCMPPD_XMM_XMM_XMMM128_IMM8: int = 2147
 
 ``16/32/64-bit``
 """
-VEX_VCMPPD_YMM_YMM_YMMM256_IMM8: int = 2148
+VEX_VCMPPD_YMM_YMM_YMMM256_IMM8: Code = 2148 # type: ignore
 """
 ``VCMPPD ymm1, ymm2, ymm3/m256, imm8``
 
@@ -21471,7 +21477,7 @@ VEX_VCMPPD_YMM_YMM_YMMM256_IMM8: int = 2148
 
 ``16/32/64-bit``
 """
-EVEX_VCMPPD_KR_K1_XMM_XMMM128B64_IMM8: int = 2149
+EVEX_VCMPPD_KR_K1_XMM_XMMM128B64_IMM8: Code = 2149 # type: ignore
 """
 ``VCMPPD k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -21481,7 +21487,7 @@ EVEX_VCMPPD_KR_K1_XMM_XMMM128B64_IMM8: int = 2149
 
 ``16/32/64-bit``
 """
-EVEX_VCMPPD_KR_K1_YMM_YMMM256B64_IMM8: int = 2150
+EVEX_VCMPPD_KR_K1_YMM_YMMM256B64_IMM8: Code = 2150 # type: ignore
 """
 ``VCMPPD k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -21491,7 +21497,7 @@ EVEX_VCMPPD_KR_K1_YMM_YMMM256B64_IMM8: int = 2150
 
 ``16/32/64-bit``
 """
-EVEX_VCMPPD_KR_K1_ZMM_ZMMM512B64_IMM8_SAE: int = 2151
+EVEX_VCMPPD_KR_K1_ZMM_ZMMM512B64_IMM8_SAE: Code = 2151 # type: ignore
 """
 ``VCMPPD k1 {k2}, zmm2, zmm3/m512/m64bcst{sae}, imm8``
 
@@ -21501,7 +21507,7 @@ EVEX_VCMPPD_KR_K1_ZMM_ZMMM512B64_IMM8_SAE: int = 2151
 
 ``16/32/64-bit``
 """
-CMPSS_XMM_XMMM32_IMM8: int = 2152
+CMPSS_XMM_XMMM32_IMM8: Code = 2152 # type: ignore
 """
 ``CMPSS xmm1, xmm2/m32, imm8``
 
@@ -21511,7 +21517,7 @@ CMPSS_XMM_XMMM32_IMM8: int = 2152
 
 ``16/32/64-bit``
 """
-VEX_VCMPSS_XMM_XMM_XMMM32_IMM8: int = 2153
+VEX_VCMPSS_XMM_XMM_XMMM32_IMM8: Code = 2153 # type: ignore
 """
 ``VCMPSS xmm1, xmm2, xmm3/m32, imm8``
 
@@ -21521,7 +21527,7 @@ VEX_VCMPSS_XMM_XMM_XMMM32_IMM8: int = 2153
 
 ``16/32/64-bit``
 """
-EVEX_VCMPSS_KR_K1_XMM_XMMM32_IMM8_SAE: int = 2154
+EVEX_VCMPSS_KR_K1_XMM_XMMM32_IMM8_SAE: Code = 2154 # type: ignore
 """
 ``VCMPSS k1 {k2}, xmm2, xmm3/m32{sae}, imm8``
 
@@ -21531,7 +21537,7 @@ EVEX_VCMPSS_KR_K1_XMM_XMMM32_IMM8_SAE: int = 2154
 
 ``16/32/64-bit``
 """
-CMPSD_XMM_XMMM64_IMM8: int = 2155
+CMPSD_XMM_XMMM64_IMM8: Code = 2155 # type: ignore
 """
 ``CMPSD xmm1, xmm2/m64, imm8``
 
@@ -21541,7 +21547,7 @@ CMPSD_XMM_XMMM64_IMM8: int = 2155
 
 ``16/32/64-bit``
 """
-VEX_VCMPSD_XMM_XMM_XMMM64_IMM8: int = 2156
+VEX_VCMPSD_XMM_XMM_XMMM64_IMM8: Code = 2156 # type: ignore
 """
 ``VCMPSD xmm1, xmm2, xmm3/m64, imm8``
 
@@ -21551,7 +21557,7 @@ VEX_VCMPSD_XMM_XMM_XMMM64_IMM8: int = 2156
 
 ``16/32/64-bit``
 """
-EVEX_VCMPSD_KR_K1_XMM_XMMM64_IMM8_SAE: int = 2157
+EVEX_VCMPSD_KR_K1_XMM_XMMM64_IMM8_SAE: Code = 2157 # type: ignore
 """
 ``VCMPSD k1 {k2}, xmm2, xmm3/m64{sae}, imm8``
 
@@ -21561,7 +21567,7 @@ EVEX_VCMPSD_KR_K1_XMM_XMMM64_IMM8_SAE: int = 2157
 
 ``16/32/64-bit``
 """
-MOVNTI_M32_R32: int = 2158
+MOVNTI_M32_R32: Code = 2158 # type: ignore
 """
 ``MOVNTI m32, r32``
 
@@ -21571,7 +21577,7 @@ MOVNTI_M32_R32: int = 2158
 
 ``16/32/64-bit``
 """
-MOVNTI_M64_R64: int = 2159
+MOVNTI_M64_R64: Code = 2159 # type: ignore
 """
 ``MOVNTI m64, r64``
 
@@ -21581,7 +21587,7 @@ MOVNTI_M64_R64: int = 2159
 
 ``64-bit``
 """
-PINSRW_MM_R32M16_IMM8: int = 2160
+PINSRW_MM_R32M16_IMM8: Code = 2160 # type: ignore
 """
 ``PINSRW mm, r32/m16, imm8``
 
@@ -21591,7 +21597,7 @@ PINSRW_MM_R32M16_IMM8: int = 2160
 
 ``16/32/64-bit``
 """
-PINSRW_MM_R64M16_IMM8: int = 2161
+PINSRW_MM_R64M16_IMM8: Code = 2161 # type: ignore
 """
 ``PINSRW mm, r64/m16, imm8``
 
@@ -21601,7 +21607,7 @@ PINSRW_MM_R64M16_IMM8: int = 2161
 
 ``64-bit``
 """
-PINSRW_XMM_R32M16_IMM8: int = 2162
+PINSRW_XMM_R32M16_IMM8: Code = 2162 # type: ignore
 """
 ``PINSRW xmm, r32/m16, imm8``
 
@@ -21611,7 +21617,7 @@ PINSRW_XMM_R32M16_IMM8: int = 2162
 
 ``16/32/64-bit``
 """
-PINSRW_XMM_R64M16_IMM8: int = 2163
+PINSRW_XMM_R64M16_IMM8: Code = 2163 # type: ignore
 """
 ``PINSRW xmm, r64/m16, imm8``
 
@@ -21621,7 +21627,7 @@ PINSRW_XMM_R64M16_IMM8: int = 2163
 
 ``64-bit``
 """
-VEX_VPINSRW_XMM_XMM_R32M16_IMM8: int = 2164
+VEX_VPINSRW_XMM_XMM_R32M16_IMM8: Code = 2164 # type: ignore
 """
 ``VPINSRW xmm1, xmm2, r32/m16, imm8``
 
@@ -21631,7 +21637,7 @@ VEX_VPINSRW_XMM_XMM_R32M16_IMM8: int = 2164
 
 ``16/32/64-bit``
 """
-VEX_VPINSRW_XMM_XMM_R64M16_IMM8: int = 2165
+VEX_VPINSRW_XMM_XMM_R64M16_IMM8: Code = 2165 # type: ignore
 """
 ``VPINSRW xmm1, xmm2, r64/m16, imm8``
 
@@ -21641,7 +21647,7 @@ VEX_VPINSRW_XMM_XMM_R64M16_IMM8: int = 2165
 
 ``64-bit``
 """
-EVEX_VPINSRW_XMM_XMM_R32M16_IMM8: int = 2166
+EVEX_VPINSRW_XMM_XMM_R32M16_IMM8: Code = 2166 # type: ignore
 """
 ``VPINSRW xmm1, xmm2, r32/m16, imm8``
 
@@ -21651,7 +21657,7 @@ EVEX_VPINSRW_XMM_XMM_R32M16_IMM8: int = 2166
 
 ``16/32/64-bit``
 """
-EVEX_VPINSRW_XMM_XMM_R64M16_IMM8: int = 2167
+EVEX_VPINSRW_XMM_XMM_R64M16_IMM8: Code = 2167 # type: ignore
 """
 ``VPINSRW xmm1, xmm2, r64/m16, imm8``
 
@@ -21661,7 +21667,7 @@ EVEX_VPINSRW_XMM_XMM_R64M16_IMM8: int = 2167
 
 ``64-bit``
 """
-PEXTRW_R32_MM_IMM8: int = 2168
+PEXTRW_R32_MM_IMM8: Code = 2168 # type: ignore
 """
 ``PEXTRW r32, mm, imm8``
 
@@ -21671,7 +21677,7 @@ PEXTRW_R32_MM_IMM8: int = 2168
 
 ``16/32/64-bit``
 """
-PEXTRW_R64_MM_IMM8: int = 2169
+PEXTRW_R64_MM_IMM8: Code = 2169 # type: ignore
 """
 ``PEXTRW r64, mm, imm8``
 
@@ -21681,7 +21687,7 @@ PEXTRW_R64_MM_IMM8: int = 2169
 
 ``64-bit``
 """
-PEXTRW_R32_XMM_IMM8: int = 2170
+PEXTRW_R32_XMM_IMM8: Code = 2170 # type: ignore
 """
 ``PEXTRW r32, xmm, imm8``
 
@@ -21691,7 +21697,7 @@ PEXTRW_R32_XMM_IMM8: int = 2170
 
 ``16/32/64-bit``
 """
-PEXTRW_R64_XMM_IMM8: int = 2171
+PEXTRW_R64_XMM_IMM8: Code = 2171 # type: ignore
 """
 ``PEXTRW r64, xmm, imm8``
 
@@ -21701,7 +21707,7 @@ PEXTRW_R64_XMM_IMM8: int = 2171
 
 ``64-bit``
 """
-VEX_VPEXTRW_R32_XMM_IMM8: int = 2172
+VEX_VPEXTRW_R32_XMM_IMM8: Code = 2172 # type: ignore
 """
 ``VPEXTRW r32, xmm1, imm8``
 
@@ -21711,7 +21717,7 @@ VEX_VPEXTRW_R32_XMM_IMM8: int = 2172
 
 ``16/32/64-bit``
 """
-VEX_VPEXTRW_R64_XMM_IMM8: int = 2173
+VEX_VPEXTRW_R64_XMM_IMM8: Code = 2173 # type: ignore
 """
 ``VPEXTRW r64, xmm1, imm8``
 
@@ -21721,7 +21727,7 @@ VEX_VPEXTRW_R64_XMM_IMM8: int = 2173
 
 ``64-bit``
 """
-EVEX_VPEXTRW_R32_XMM_IMM8: int = 2174
+EVEX_VPEXTRW_R32_XMM_IMM8: Code = 2174 # type: ignore
 """
 ``VPEXTRW r32, xmm1, imm8``
 
@@ -21731,7 +21737,7 @@ EVEX_VPEXTRW_R32_XMM_IMM8: int = 2174
 
 ``16/32/64-bit``
 """
-EVEX_VPEXTRW_R64_XMM_IMM8: int = 2175
+EVEX_VPEXTRW_R64_XMM_IMM8: Code = 2175 # type: ignore
 """
 ``VPEXTRW r64, xmm1, imm8``
 
@@ -21741,7 +21747,7 @@ EVEX_VPEXTRW_R64_XMM_IMM8: int = 2175
 
 ``64-bit``
 """
-SHUFPS_XMM_XMMM128_IMM8: int = 2176
+SHUFPS_XMM_XMMM128_IMM8: Code = 2176 # type: ignore
 """
 ``SHUFPS xmm1, xmm2/m128, imm8``
 
@@ -21751,7 +21757,7 @@ SHUFPS_XMM_XMMM128_IMM8: int = 2176
 
 ``16/32/64-bit``
 """
-VEX_VSHUFPS_XMM_XMM_XMMM128_IMM8: int = 2177
+VEX_VSHUFPS_XMM_XMM_XMMM128_IMM8: Code = 2177 # type: ignore
 """
 ``VSHUFPS xmm1, xmm2, xmm3/m128, imm8``
 
@@ -21761,7 +21767,7 @@ VEX_VSHUFPS_XMM_XMM_XMMM128_IMM8: int = 2177
 
 ``16/32/64-bit``
 """
-VEX_VSHUFPS_YMM_YMM_YMMM256_IMM8: int = 2178
+VEX_VSHUFPS_YMM_YMM_YMMM256_IMM8: Code = 2178 # type: ignore
 """
 ``VSHUFPS ymm1, ymm2, ymm3/m256, imm8``
 
@@ -21771,7 +21777,7 @@ VEX_VSHUFPS_YMM_YMM_YMMM256_IMM8: int = 2178
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFPS_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 2179
+EVEX_VSHUFPS_XMM_K1Z_XMM_XMMM128B32_IMM8: Code = 2179 # type: ignore
 """
 ``VSHUFPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8``
 
@@ -21781,7 +21787,7 @@ EVEX_VSHUFPS_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 2179
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFPS_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 2180
+EVEX_VSHUFPS_YMM_K1Z_YMM_YMMM256B32_IMM8: Code = 2180 # type: ignore
 """
 ``VSHUFPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -21791,7 +21797,7 @@ EVEX_VSHUFPS_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 2180
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFPS_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 2181
+EVEX_VSHUFPS_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: Code = 2181 # type: ignore
 """
 ``VSHUFPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8``
 
@@ -21801,7 +21807,7 @@ EVEX_VSHUFPS_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 2181
 
 ``16/32/64-bit``
 """
-SHUFPD_XMM_XMMM128_IMM8: int = 2182
+SHUFPD_XMM_XMMM128_IMM8: Code = 2182 # type: ignore
 """
 ``SHUFPD xmm1, xmm2/m128, imm8``
 
@@ -21811,7 +21817,7 @@ SHUFPD_XMM_XMMM128_IMM8: int = 2182
 
 ``16/32/64-bit``
 """
-VEX_VSHUFPD_XMM_XMM_XMMM128_IMM8: int = 2183
+VEX_VSHUFPD_XMM_XMM_XMMM128_IMM8: Code = 2183 # type: ignore
 """
 ``VSHUFPD xmm1, xmm2, xmm3/m128, imm8``
 
@@ -21821,7 +21827,7 @@ VEX_VSHUFPD_XMM_XMM_XMMM128_IMM8: int = 2183
 
 ``16/32/64-bit``
 """
-VEX_VSHUFPD_YMM_YMM_YMMM256_IMM8: int = 2184
+VEX_VSHUFPD_YMM_YMM_YMMM256_IMM8: Code = 2184 # type: ignore
 """
 ``VSHUFPD ymm1, ymm2, ymm3/m256, imm8``
 
@@ -21831,7 +21837,7 @@ VEX_VSHUFPD_YMM_YMM_YMMM256_IMM8: int = 2184
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFPD_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 2185
+EVEX_VSHUFPD_XMM_K1Z_XMM_XMMM128B64_IMM8: Code = 2185 # type: ignore
 """
 ``VSHUFPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -21841,7 +21847,7 @@ EVEX_VSHUFPD_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 2185
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFPD_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 2186
+EVEX_VSHUFPD_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 2186 # type: ignore
 """
 ``VSHUFPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -21851,7 +21857,7 @@ EVEX_VSHUFPD_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 2186
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFPD_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 2187
+EVEX_VSHUFPD_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: Code = 2187 # type: ignore
 """
 ``VSHUFPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -21861,7 +21867,7 @@ EVEX_VSHUFPD_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 2187
 
 ``16/32/64-bit``
 """
-CMPXCHG8B_M64: int = 2188
+CMPXCHG8B_M64: Code = 2188 # type: ignore
 """
 ``CMPXCHG8B m64``
 
@@ -21871,7 +21877,7 @@ CMPXCHG8B_M64: int = 2188
 
 ``16/32/64-bit``
 """
-CMPXCHG16B_M128: int = 2189
+CMPXCHG16B_M128: Code = 2189 # type: ignore
 """
 ``CMPXCHG16B m128``
 
@@ -21881,7 +21887,7 @@ CMPXCHG16B_M128: int = 2189
 
 ``64-bit``
 """
-XRSTORS_MEM: int = 2190
+XRSTORS_MEM: Code = 2190 # type: ignore
 """
 ``XRSTORS mem``
 
@@ -21891,7 +21897,7 @@ XRSTORS_MEM: int = 2190
 
 ``16/32/64-bit``
 """
-XRSTORS64_MEM: int = 2191
+XRSTORS64_MEM: Code = 2191 # type: ignore
 """
 ``XRSTORS64 mem``
 
@@ -21901,7 +21907,7 @@ XRSTORS64_MEM: int = 2191
 
 ``64-bit``
 """
-XSAVEC_MEM: int = 2192
+XSAVEC_MEM: Code = 2192 # type: ignore
 """
 ``XSAVEC mem``
 
@@ -21911,7 +21917,7 @@ XSAVEC_MEM: int = 2192
 
 ``16/32/64-bit``
 """
-XSAVEC64_MEM: int = 2193
+XSAVEC64_MEM: Code = 2193 # type: ignore
 """
 ``XSAVEC64 mem``
 
@@ -21921,7 +21927,7 @@ XSAVEC64_MEM: int = 2193
 
 ``64-bit``
 """
-XSAVES_MEM: int = 2194
+XSAVES_MEM: Code = 2194 # type: ignore
 """
 ``XSAVES mem``
 
@@ -21931,7 +21937,7 @@ XSAVES_MEM: int = 2194
 
 ``16/32/64-bit``
 """
-XSAVES64_MEM: int = 2195
+XSAVES64_MEM: Code = 2195 # type: ignore
 """
 ``XSAVES64 mem``
 
@@ -21941,7 +21947,7 @@ XSAVES64_MEM: int = 2195
 
 ``64-bit``
 """
-VMPTRLD_M64: int = 2196
+VMPTRLD_M64: Code = 2196 # type: ignore
 """
 ``VMPTRLD m64``
 
@@ -21951,7 +21957,7 @@ VMPTRLD_M64: int = 2196
 
 ``16/32/64-bit``
 """
-VMCLEAR_M64: int = 2197
+VMCLEAR_M64: Code = 2197 # type: ignore
 """
 ``VMCLEAR m64``
 
@@ -21961,7 +21967,7 @@ VMCLEAR_M64: int = 2197
 
 ``16/32/64-bit``
 """
-VMXON_M64: int = 2198
+VMXON_M64: Code = 2198 # type: ignore
 """
 ``VMXON m64``
 
@@ -21971,7 +21977,7 @@ VMXON_M64: int = 2198
 
 ``16/32/64-bit``
 """
-RDRAND_R16: int = 2199
+RDRAND_R16: Code = 2199 # type: ignore
 """
 ``RDRAND r16``
 
@@ -21981,7 +21987,7 @@ RDRAND_R16: int = 2199
 
 ``16/32/64-bit``
 """
-RDRAND_R32: int = 2200
+RDRAND_R32: Code = 2200 # type: ignore
 """
 ``RDRAND r32``
 
@@ -21991,7 +21997,7 @@ RDRAND_R32: int = 2200
 
 ``16/32/64-bit``
 """
-RDRAND_R64: int = 2201
+RDRAND_R64: Code = 2201 # type: ignore
 """
 ``RDRAND r64``
 
@@ -22001,7 +22007,7 @@ RDRAND_R64: int = 2201
 
 ``64-bit``
 """
-VMPTRST_M64: int = 2202
+VMPTRST_M64: Code = 2202 # type: ignore
 """
 ``VMPTRST m64``
 
@@ -22011,7 +22017,7 @@ VMPTRST_M64: int = 2202
 
 ``16/32/64-bit``
 """
-RDSEED_R16: int = 2203
+RDSEED_R16: Code = 2203 # type: ignore
 """
 ``RDSEED r16``
 
@@ -22021,7 +22027,7 @@ RDSEED_R16: int = 2203
 
 ``16/32/64-bit``
 """
-RDSEED_R32: int = 2204
+RDSEED_R32: Code = 2204 # type: ignore
 """
 ``RDSEED r32``
 
@@ -22031,7 +22037,7 @@ RDSEED_R32: int = 2204
 
 ``16/32/64-bit``
 """
-RDSEED_R64: int = 2205
+RDSEED_R64: Code = 2205 # type: ignore
 """
 ``RDSEED r64``
 
@@ -22041,7 +22047,7 @@ RDSEED_R64: int = 2205
 
 ``64-bit``
 """
-RDPID_R32: int = 2206
+RDPID_R32: Code = 2206 # type: ignore
 """
 ``RDPID r32``
 
@@ -22051,7 +22057,7 @@ RDPID_R32: int = 2206
 
 ``16/32-bit``
 """
-RDPID_R64: int = 2207
+RDPID_R64: Code = 2207 # type: ignore
 """
 ``RDPID r64``
 
@@ -22061,7 +22067,7 @@ RDPID_R64: int = 2207
 
 ``64-bit``
 """
-BSWAP_R16: int = 2208
+BSWAP_R16: Code = 2208 # type: ignore
 """
 ``BSWAP r16``
 
@@ -22071,7 +22077,7 @@ BSWAP_R16: int = 2208
 
 ``16/32/64-bit``
 """
-BSWAP_R32: int = 2209
+BSWAP_R32: Code = 2209 # type: ignore
 """
 ``BSWAP r32``
 
@@ -22081,7 +22087,7 @@ BSWAP_R32: int = 2209
 
 ``16/32/64-bit``
 """
-BSWAP_R64: int = 2210
+BSWAP_R64: Code = 2210 # type: ignore
 """
 ``BSWAP r64``
 
@@ -22091,7 +22097,7 @@ BSWAP_R64: int = 2210
 
 ``64-bit``
 """
-ADDSUBPD_XMM_XMMM128: int = 2211
+ADDSUBPD_XMM_XMMM128: Code = 2211 # type: ignore
 """
 ``ADDSUBPD xmm1, xmm2/m128``
 
@@ -22101,7 +22107,7 @@ ADDSUBPD_XMM_XMMM128: int = 2211
 
 ``16/32/64-bit``
 """
-VEX_VADDSUBPD_XMM_XMM_XMMM128: int = 2212
+VEX_VADDSUBPD_XMM_XMM_XMMM128: Code = 2212 # type: ignore
 """
 ``VADDSUBPD xmm1, xmm2, xmm3/m128``
 
@@ -22111,7 +22117,7 @@ VEX_VADDSUBPD_XMM_XMM_XMMM128: int = 2212
 
 ``16/32/64-bit``
 """
-VEX_VADDSUBPD_YMM_YMM_YMMM256: int = 2213
+VEX_VADDSUBPD_YMM_YMM_YMMM256: Code = 2213 # type: ignore
 """
 ``VADDSUBPD ymm1, ymm2, ymm3/m256``
 
@@ -22121,7 +22127,7 @@ VEX_VADDSUBPD_YMM_YMM_YMMM256: int = 2213
 
 ``16/32/64-bit``
 """
-ADDSUBPS_XMM_XMMM128: int = 2214
+ADDSUBPS_XMM_XMMM128: Code = 2214 # type: ignore
 """
 ``ADDSUBPS xmm1, xmm2/m128``
 
@@ -22131,7 +22137,7 @@ ADDSUBPS_XMM_XMMM128: int = 2214
 
 ``16/32/64-bit``
 """
-VEX_VADDSUBPS_XMM_XMM_XMMM128: int = 2215
+VEX_VADDSUBPS_XMM_XMM_XMMM128: Code = 2215 # type: ignore
 """
 ``VADDSUBPS xmm1, xmm2, xmm3/m128``
 
@@ -22141,7 +22147,7 @@ VEX_VADDSUBPS_XMM_XMM_XMMM128: int = 2215
 
 ``16/32/64-bit``
 """
-VEX_VADDSUBPS_YMM_YMM_YMMM256: int = 2216
+VEX_VADDSUBPS_YMM_YMM_YMMM256: Code = 2216 # type: ignore
 """
 ``VADDSUBPS ymm1, ymm2, ymm3/m256``
 
@@ -22151,7 +22157,7 @@ VEX_VADDSUBPS_YMM_YMM_YMMM256: int = 2216
 
 ``16/32/64-bit``
 """
-PSRLW_MM_MMM64: int = 2217
+PSRLW_MM_MMM64: Code = 2217 # type: ignore
 """
 ``PSRLW mm, mm/m64``
 
@@ -22161,7 +22167,7 @@ PSRLW_MM_MMM64: int = 2217
 
 ``16/32/64-bit``
 """
-PSRLW_XMM_XMMM128: int = 2218
+PSRLW_XMM_XMMM128: Code = 2218 # type: ignore
 """
 ``PSRLW xmm1, xmm2/m128``
 
@@ -22171,7 +22177,7 @@ PSRLW_XMM_XMMM128: int = 2218
 
 ``16/32/64-bit``
 """
-VEX_VPSRLW_XMM_XMM_XMMM128: int = 2219
+VEX_VPSRLW_XMM_XMM_XMMM128: Code = 2219 # type: ignore
 """
 ``VPSRLW xmm1, xmm2, xmm3/m128``
 
@@ -22181,7 +22187,7 @@ VEX_VPSRLW_XMM_XMM_XMMM128: int = 2219
 
 ``16/32/64-bit``
 """
-VEX_VPSRLW_YMM_YMM_XMMM128: int = 2220
+VEX_VPSRLW_YMM_YMM_XMMM128: Code = 2220 # type: ignore
 """
 ``VPSRLW ymm1, ymm2, xmm3/m128``
 
@@ -22191,7 +22197,7 @@ VEX_VPSRLW_YMM_YMM_XMMM128: int = 2220
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLW_XMM_K1Z_XMM_XMMM128: int = 2221
+EVEX_VPSRLW_XMM_K1Z_XMM_XMMM128: Code = 2221 # type: ignore
 """
 ``VPSRLW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -22201,7 +22207,7 @@ EVEX_VPSRLW_XMM_K1Z_XMM_XMMM128: int = 2221
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLW_YMM_K1Z_YMM_XMMM128: int = 2222
+EVEX_VPSRLW_YMM_K1Z_YMM_XMMM128: Code = 2222 # type: ignore
 """
 ``VPSRLW ymm1 {k1}{z}, ymm2, xmm3/m128``
 
@@ -22211,7 +22217,7 @@ EVEX_VPSRLW_YMM_K1Z_YMM_XMMM128: int = 2222
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLW_ZMM_K1Z_ZMM_XMMM128: int = 2223
+EVEX_VPSRLW_ZMM_K1Z_ZMM_XMMM128: Code = 2223 # type: ignore
 """
 ``VPSRLW zmm1 {k1}{z}, zmm2, xmm3/m128``
 
@@ -22221,7 +22227,7 @@ EVEX_VPSRLW_ZMM_K1Z_ZMM_XMMM128: int = 2223
 
 ``16/32/64-bit``
 """
-PSRLD_MM_MMM64: int = 2224
+PSRLD_MM_MMM64: Code = 2224 # type: ignore
 """
 ``PSRLD mm, mm/m64``
 
@@ -22231,7 +22237,7 @@ PSRLD_MM_MMM64: int = 2224
 
 ``16/32/64-bit``
 """
-PSRLD_XMM_XMMM128: int = 2225
+PSRLD_XMM_XMMM128: Code = 2225 # type: ignore
 """
 ``PSRLD xmm1, xmm2/m128``
 
@@ -22241,7 +22247,7 @@ PSRLD_XMM_XMMM128: int = 2225
 
 ``16/32/64-bit``
 """
-VEX_VPSRLD_XMM_XMM_XMMM128: int = 2226
+VEX_VPSRLD_XMM_XMM_XMMM128: Code = 2226 # type: ignore
 """
 ``VPSRLD xmm1, xmm2, xmm3/m128``
 
@@ -22251,7 +22257,7 @@ VEX_VPSRLD_XMM_XMM_XMMM128: int = 2226
 
 ``16/32/64-bit``
 """
-VEX_VPSRLD_YMM_YMM_XMMM128: int = 2227
+VEX_VPSRLD_YMM_YMM_XMMM128: Code = 2227 # type: ignore
 """
 ``VPSRLD ymm1, ymm2, xmm3/m128``
 
@@ -22261,7 +22267,7 @@ VEX_VPSRLD_YMM_YMM_XMMM128: int = 2227
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLD_XMM_K1Z_XMM_XMMM128: int = 2228
+EVEX_VPSRLD_XMM_K1Z_XMM_XMMM128: Code = 2228 # type: ignore
 """
 ``VPSRLD xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -22271,7 +22277,7 @@ EVEX_VPSRLD_XMM_K1Z_XMM_XMMM128: int = 2228
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLD_YMM_K1Z_YMM_XMMM128: int = 2229
+EVEX_VPSRLD_YMM_K1Z_YMM_XMMM128: Code = 2229 # type: ignore
 """
 ``VPSRLD ymm1 {k1}{z}, ymm2, xmm3/m128``
 
@@ -22281,7 +22287,7 @@ EVEX_VPSRLD_YMM_K1Z_YMM_XMMM128: int = 2229
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLD_ZMM_K1Z_ZMM_XMMM128: int = 2230
+EVEX_VPSRLD_ZMM_K1Z_ZMM_XMMM128: Code = 2230 # type: ignore
 """
 ``VPSRLD zmm1 {k1}{z}, zmm2, xmm3/m128``
 
@@ -22291,7 +22297,7 @@ EVEX_VPSRLD_ZMM_K1Z_ZMM_XMMM128: int = 2230
 
 ``16/32/64-bit``
 """
-PSRLQ_MM_MMM64: int = 2231
+PSRLQ_MM_MMM64: Code = 2231 # type: ignore
 """
 ``PSRLQ mm, mm/m64``
 
@@ -22301,7 +22307,7 @@ PSRLQ_MM_MMM64: int = 2231
 
 ``16/32/64-bit``
 """
-PSRLQ_XMM_XMMM128: int = 2232
+PSRLQ_XMM_XMMM128: Code = 2232 # type: ignore
 """
 ``PSRLQ xmm1, xmm2/m128``
 
@@ -22311,7 +22317,7 @@ PSRLQ_XMM_XMMM128: int = 2232
 
 ``16/32/64-bit``
 """
-VEX_VPSRLQ_XMM_XMM_XMMM128: int = 2233
+VEX_VPSRLQ_XMM_XMM_XMMM128: Code = 2233 # type: ignore
 """
 ``VPSRLQ xmm1, xmm2, xmm3/m128``
 
@@ -22321,7 +22327,7 @@ VEX_VPSRLQ_XMM_XMM_XMMM128: int = 2233
 
 ``16/32/64-bit``
 """
-VEX_VPSRLQ_YMM_YMM_XMMM128: int = 2234
+VEX_VPSRLQ_YMM_YMM_XMMM128: Code = 2234 # type: ignore
 """
 ``VPSRLQ ymm1, ymm2, xmm3/m128``
 
@@ -22331,7 +22337,7 @@ VEX_VPSRLQ_YMM_YMM_XMMM128: int = 2234
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLQ_XMM_K1Z_XMM_XMMM128: int = 2235
+EVEX_VPSRLQ_XMM_K1Z_XMM_XMMM128: Code = 2235 # type: ignore
 """
 ``VPSRLQ xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -22341,7 +22347,7 @@ EVEX_VPSRLQ_XMM_K1Z_XMM_XMMM128: int = 2235
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLQ_YMM_K1Z_YMM_XMMM128: int = 2236
+EVEX_VPSRLQ_YMM_K1Z_YMM_XMMM128: Code = 2236 # type: ignore
 """
 ``VPSRLQ ymm1 {k1}{z}, ymm2, xmm3/m128``
 
@@ -22351,7 +22357,7 @@ EVEX_VPSRLQ_YMM_K1Z_YMM_XMMM128: int = 2236
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLQ_ZMM_K1Z_ZMM_XMMM128: int = 2237
+EVEX_VPSRLQ_ZMM_K1Z_ZMM_XMMM128: Code = 2237 # type: ignore
 """
 ``VPSRLQ zmm1 {k1}{z}, zmm2, xmm3/m128``
 
@@ -22361,7 +22367,7 @@ EVEX_VPSRLQ_ZMM_K1Z_ZMM_XMMM128: int = 2237
 
 ``16/32/64-bit``
 """
-PADDQ_MM_MMM64: int = 2238
+PADDQ_MM_MMM64: Code = 2238 # type: ignore
 """
 ``PADDQ mm, mm/m64``
 
@@ -22371,7 +22377,7 @@ PADDQ_MM_MMM64: int = 2238
 
 ``16/32/64-bit``
 """
-PADDQ_XMM_XMMM128: int = 2239
+PADDQ_XMM_XMMM128: Code = 2239 # type: ignore
 """
 ``PADDQ xmm1, xmm2/m128``
 
@@ -22381,7 +22387,7 @@ PADDQ_XMM_XMMM128: int = 2239
 
 ``16/32/64-bit``
 """
-VEX_VPADDQ_XMM_XMM_XMMM128: int = 2240
+VEX_VPADDQ_XMM_XMM_XMMM128: Code = 2240 # type: ignore
 """
 ``VPADDQ xmm1, xmm2, xmm3/m128``
 
@@ -22391,7 +22397,7 @@ VEX_VPADDQ_XMM_XMM_XMMM128: int = 2240
 
 ``16/32/64-bit``
 """
-VEX_VPADDQ_YMM_YMM_YMMM256: int = 2241
+VEX_VPADDQ_YMM_YMM_YMMM256: Code = 2241 # type: ignore
 """
 ``VPADDQ ymm1, ymm2, ymm3/m256``
 
@@ -22401,7 +22407,7 @@ VEX_VPADDQ_YMM_YMM_YMMM256: int = 2241
 
 ``16/32/64-bit``
 """
-EVEX_VPADDQ_XMM_K1Z_XMM_XMMM128B64: int = 2242
+EVEX_VPADDQ_XMM_K1Z_XMM_XMMM128B64: Code = 2242 # type: ignore
 """
 ``VPADDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -22411,7 +22417,7 @@ EVEX_VPADDQ_XMM_K1Z_XMM_XMMM128B64: int = 2242
 
 ``16/32/64-bit``
 """
-EVEX_VPADDQ_YMM_K1Z_YMM_YMMM256B64: int = 2243
+EVEX_VPADDQ_YMM_K1Z_YMM_YMMM256B64: Code = 2243 # type: ignore
 """
 ``VPADDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -22421,7 +22427,7 @@ EVEX_VPADDQ_YMM_K1Z_YMM_YMMM256B64: int = 2243
 
 ``16/32/64-bit``
 """
-EVEX_VPADDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2244
+EVEX_VPADDQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2244 # type: ignore
 """
 ``VPADDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -22431,7 +22437,7 @@ EVEX_VPADDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2244
 
 ``16/32/64-bit``
 """
-PMULLW_MM_MMM64: int = 2245
+PMULLW_MM_MMM64: Code = 2245 # type: ignore
 """
 ``PMULLW mm, mm/m64``
 
@@ -22441,7 +22447,7 @@ PMULLW_MM_MMM64: int = 2245
 
 ``16/32/64-bit``
 """
-PMULLW_XMM_XMMM128: int = 2246
+PMULLW_XMM_XMMM128: Code = 2246 # type: ignore
 """
 ``PMULLW xmm1, xmm2/m128``
 
@@ -22451,7 +22457,7 @@ PMULLW_XMM_XMMM128: int = 2246
 
 ``16/32/64-bit``
 """
-VEX_VPMULLW_XMM_XMM_XMMM128: int = 2247
+VEX_VPMULLW_XMM_XMM_XMMM128: Code = 2247 # type: ignore
 """
 ``VPMULLW xmm1, xmm2, xmm3/m128``
 
@@ -22461,7 +22467,7 @@ VEX_VPMULLW_XMM_XMM_XMMM128: int = 2247
 
 ``16/32/64-bit``
 """
-VEX_VPMULLW_YMM_YMM_YMMM256: int = 2248
+VEX_VPMULLW_YMM_YMM_YMMM256: Code = 2248 # type: ignore
 """
 ``VPMULLW ymm1, ymm2, ymm3/m256``
 
@@ -22471,7 +22477,7 @@ VEX_VPMULLW_YMM_YMM_YMMM256: int = 2248
 
 ``16/32/64-bit``
 """
-EVEX_VPMULLW_XMM_K1Z_XMM_XMMM128: int = 2249
+EVEX_VPMULLW_XMM_K1Z_XMM_XMMM128: Code = 2249 # type: ignore
 """
 ``VPMULLW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -22481,7 +22487,7 @@ EVEX_VPMULLW_XMM_K1Z_XMM_XMMM128: int = 2249
 
 ``16/32/64-bit``
 """
-EVEX_VPMULLW_YMM_K1Z_YMM_YMMM256: int = 2250
+EVEX_VPMULLW_YMM_K1Z_YMM_YMMM256: Code = 2250 # type: ignore
 """
 ``VPMULLW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -22491,7 +22497,7 @@ EVEX_VPMULLW_YMM_K1Z_YMM_YMMM256: int = 2250
 
 ``16/32/64-bit``
 """
-EVEX_VPMULLW_ZMM_K1Z_ZMM_ZMMM512: int = 2251
+EVEX_VPMULLW_ZMM_K1Z_ZMM_ZMMM512: Code = 2251 # type: ignore
 """
 ``VPMULLW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -22501,7 +22507,7 @@ EVEX_VPMULLW_ZMM_K1Z_ZMM_ZMMM512: int = 2251
 
 ``16/32/64-bit``
 """
-MOVQ_XMMM64_XMM: int = 2252
+MOVQ_XMMM64_XMM: Code = 2252 # type: ignore
 """
 ``MOVQ xmm2/m64, xmm1``
 
@@ -22511,7 +22517,7 @@ MOVQ_XMMM64_XMM: int = 2252
 
 ``16/32/64-bit``
 """
-VEX_VMOVQ_XMMM64_XMM: int = 2253
+VEX_VMOVQ_XMMM64_XMM: Code = 2253 # type: ignore
 """
 ``VMOVQ xmm1/m64, xmm2``
 
@@ -22521,7 +22527,7 @@ VEX_VMOVQ_XMMM64_XMM: int = 2253
 
 ``16/32/64-bit``
 """
-EVEX_VMOVQ_XMMM64_XMM: int = 2254
+EVEX_VMOVQ_XMMM64_XMM: Code = 2254 # type: ignore
 """
 ``VMOVQ xmm1/m64, xmm2``
 
@@ -22531,7 +22537,7 @@ EVEX_VMOVQ_XMMM64_XMM: int = 2254
 
 ``16/32/64-bit``
 """
-MOVQ2DQ_XMM_MM: int = 2255
+MOVQ2DQ_XMM_MM: Code = 2255 # type: ignore
 """
 ``MOVQ2DQ xmm, mm``
 
@@ -22541,7 +22547,7 @@ MOVQ2DQ_XMM_MM: int = 2255
 
 ``16/32/64-bit``
 """
-MOVDQ2Q_MM_XMM: int = 2256
+MOVDQ2Q_MM_XMM: Code = 2256 # type: ignore
 """
 ``MOVDQ2Q mm, xmm``
 
@@ -22551,7 +22557,7 @@ MOVDQ2Q_MM_XMM: int = 2256
 
 ``16/32/64-bit``
 """
-PMOVMSKB_R32_MM: int = 2257
+PMOVMSKB_R32_MM: Code = 2257 # type: ignore
 """
 ``PMOVMSKB r32, mm``
 
@@ -22561,7 +22567,7 @@ PMOVMSKB_R32_MM: int = 2257
 
 ``16/32/64-bit``
 """
-PMOVMSKB_R64_MM: int = 2258
+PMOVMSKB_R64_MM: Code = 2258 # type: ignore
 """
 ``PMOVMSKB r64, mm``
 
@@ -22571,7 +22577,7 @@ PMOVMSKB_R64_MM: int = 2258
 
 ``64-bit``
 """
-PMOVMSKB_R32_XMM: int = 2259
+PMOVMSKB_R32_XMM: Code = 2259 # type: ignore
 """
 ``PMOVMSKB r32, xmm``
 
@@ -22581,7 +22587,7 @@ PMOVMSKB_R32_XMM: int = 2259
 
 ``16/32/64-bit``
 """
-PMOVMSKB_R64_XMM: int = 2260
+PMOVMSKB_R64_XMM: Code = 2260 # type: ignore
 """
 ``PMOVMSKB r64, xmm``
 
@@ -22591,7 +22597,7 @@ PMOVMSKB_R64_XMM: int = 2260
 
 ``64-bit``
 """
-VEX_VPMOVMSKB_R32_XMM: int = 2261
+VEX_VPMOVMSKB_R32_XMM: Code = 2261 # type: ignore
 """
 ``VPMOVMSKB r32, xmm1``
 
@@ -22601,7 +22607,7 @@ VEX_VPMOVMSKB_R32_XMM: int = 2261
 
 ``16/32/64-bit``
 """
-VEX_VPMOVMSKB_R64_XMM: int = 2262
+VEX_VPMOVMSKB_R64_XMM: Code = 2262 # type: ignore
 """
 ``VPMOVMSKB r64, xmm1``
 
@@ -22611,7 +22617,7 @@ VEX_VPMOVMSKB_R64_XMM: int = 2262
 
 ``64-bit``
 """
-VEX_VPMOVMSKB_R32_YMM: int = 2263
+VEX_VPMOVMSKB_R32_YMM: Code = 2263 # type: ignore
 """
 ``VPMOVMSKB r32, ymm1``
 
@@ -22621,7 +22627,7 @@ VEX_VPMOVMSKB_R32_YMM: int = 2263
 
 ``16/32/64-bit``
 """
-VEX_VPMOVMSKB_R64_YMM: int = 2264
+VEX_VPMOVMSKB_R64_YMM: Code = 2264 # type: ignore
 """
 ``VPMOVMSKB r64, ymm1``
 
@@ -22631,7 +22637,7 @@ VEX_VPMOVMSKB_R64_YMM: int = 2264
 
 ``64-bit``
 """
-PSUBUSB_MM_MMM64: int = 2265
+PSUBUSB_MM_MMM64: Code = 2265 # type: ignore
 """
 ``PSUBUSB mm, mm/m64``
 
@@ -22641,7 +22647,7 @@ PSUBUSB_MM_MMM64: int = 2265
 
 ``16/32/64-bit``
 """
-PSUBUSB_XMM_XMMM128: int = 2266
+PSUBUSB_XMM_XMMM128: Code = 2266 # type: ignore
 """
 ``PSUBUSB xmm1, xmm2/m128``
 
@@ -22651,7 +22657,7 @@ PSUBUSB_XMM_XMMM128: int = 2266
 
 ``16/32/64-bit``
 """
-VEX_VPSUBUSB_XMM_XMM_XMMM128: int = 2267
+VEX_VPSUBUSB_XMM_XMM_XMMM128: Code = 2267 # type: ignore
 """
 ``VPSUBUSB xmm1, xmm2, xmm3/m128``
 
@@ -22661,7 +22667,7 @@ VEX_VPSUBUSB_XMM_XMM_XMMM128: int = 2267
 
 ``16/32/64-bit``
 """
-VEX_VPSUBUSB_YMM_YMM_YMMM256: int = 2268
+VEX_VPSUBUSB_YMM_YMM_YMMM256: Code = 2268 # type: ignore
 """
 ``VPSUBUSB ymm1, ymm2, ymm3/m256``
 
@@ -22671,7 +22677,7 @@ VEX_VPSUBUSB_YMM_YMM_YMMM256: int = 2268
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBUSB_XMM_K1Z_XMM_XMMM128: int = 2269
+EVEX_VPSUBUSB_XMM_K1Z_XMM_XMMM128: Code = 2269 # type: ignore
 """
 ``VPSUBUSB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -22681,7 +22687,7 @@ EVEX_VPSUBUSB_XMM_K1Z_XMM_XMMM128: int = 2269
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBUSB_YMM_K1Z_YMM_YMMM256: int = 2270
+EVEX_VPSUBUSB_YMM_K1Z_YMM_YMMM256: Code = 2270 # type: ignore
 """
 ``VPSUBUSB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -22691,7 +22697,7 @@ EVEX_VPSUBUSB_YMM_K1Z_YMM_YMMM256: int = 2270
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBUSB_ZMM_K1Z_ZMM_ZMMM512: int = 2271
+EVEX_VPSUBUSB_ZMM_K1Z_ZMM_ZMMM512: Code = 2271 # type: ignore
 """
 ``VPSUBUSB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -22701,7 +22707,7 @@ EVEX_VPSUBUSB_ZMM_K1Z_ZMM_ZMMM512: int = 2271
 
 ``16/32/64-bit``
 """
-PSUBUSW_MM_MMM64: int = 2272
+PSUBUSW_MM_MMM64: Code = 2272 # type: ignore
 """
 ``PSUBUSW mm, mm/m64``
 
@@ -22711,7 +22717,7 @@ PSUBUSW_MM_MMM64: int = 2272
 
 ``16/32/64-bit``
 """
-PSUBUSW_XMM_XMMM128: int = 2273
+PSUBUSW_XMM_XMMM128: Code = 2273 # type: ignore
 """
 ``PSUBUSW xmm1, xmm2/m128``
 
@@ -22721,7 +22727,7 @@ PSUBUSW_XMM_XMMM128: int = 2273
 
 ``16/32/64-bit``
 """
-VEX_VPSUBUSW_XMM_XMM_XMMM128: int = 2274
+VEX_VPSUBUSW_XMM_XMM_XMMM128: Code = 2274 # type: ignore
 """
 ``VPSUBUSW xmm1, xmm2, xmm3/m128``
 
@@ -22731,7 +22737,7 @@ VEX_VPSUBUSW_XMM_XMM_XMMM128: int = 2274
 
 ``16/32/64-bit``
 """
-VEX_VPSUBUSW_YMM_YMM_YMMM256: int = 2275
+VEX_VPSUBUSW_YMM_YMM_YMMM256: Code = 2275 # type: ignore
 """
 ``VPSUBUSW ymm1, ymm2, ymm3/m256``
 
@@ -22741,7 +22747,7 @@ VEX_VPSUBUSW_YMM_YMM_YMMM256: int = 2275
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBUSW_XMM_K1Z_XMM_XMMM128: int = 2276
+EVEX_VPSUBUSW_XMM_K1Z_XMM_XMMM128: Code = 2276 # type: ignore
 """
 ``VPSUBUSW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -22751,7 +22757,7 @@ EVEX_VPSUBUSW_XMM_K1Z_XMM_XMMM128: int = 2276
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBUSW_YMM_K1Z_YMM_YMMM256: int = 2277
+EVEX_VPSUBUSW_YMM_K1Z_YMM_YMMM256: Code = 2277 # type: ignore
 """
 ``VPSUBUSW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -22761,7 +22767,7 @@ EVEX_VPSUBUSW_YMM_K1Z_YMM_YMMM256: int = 2277
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBUSW_ZMM_K1Z_ZMM_ZMMM512: int = 2278
+EVEX_VPSUBUSW_ZMM_K1Z_ZMM_ZMMM512: Code = 2278 # type: ignore
 """
 ``VPSUBUSW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -22771,7 +22777,7 @@ EVEX_VPSUBUSW_ZMM_K1Z_ZMM_ZMMM512: int = 2278
 
 ``16/32/64-bit``
 """
-PMINUB_MM_MMM64: int = 2279
+PMINUB_MM_MMM64: Code = 2279 # type: ignore
 """
 ``PMINUB mm1, mm2/m64``
 
@@ -22781,7 +22787,7 @@ PMINUB_MM_MMM64: int = 2279
 
 ``16/32/64-bit``
 """
-PMINUB_XMM_XMMM128: int = 2280
+PMINUB_XMM_XMMM128: Code = 2280 # type: ignore
 """
 ``PMINUB xmm1, xmm2/m128``
 
@@ -22791,7 +22797,7 @@ PMINUB_XMM_XMMM128: int = 2280
 
 ``16/32/64-bit``
 """
-VEX_VPMINUB_XMM_XMM_XMMM128: int = 2281
+VEX_VPMINUB_XMM_XMM_XMMM128: Code = 2281 # type: ignore
 """
 ``VPMINUB xmm1, xmm2, xmm3/m128``
 
@@ -22801,7 +22807,7 @@ VEX_VPMINUB_XMM_XMM_XMMM128: int = 2281
 
 ``16/32/64-bit``
 """
-VEX_VPMINUB_YMM_YMM_YMMM256: int = 2282
+VEX_VPMINUB_YMM_YMM_YMMM256: Code = 2282 # type: ignore
 """
 ``VPMINUB ymm1, ymm2, ymm3/m256``
 
@@ -22811,7 +22817,7 @@ VEX_VPMINUB_YMM_YMM_YMMM256: int = 2282
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUB_XMM_K1Z_XMM_XMMM128: int = 2283
+EVEX_VPMINUB_XMM_K1Z_XMM_XMMM128: Code = 2283 # type: ignore
 """
 ``VPMINUB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -22821,7 +22827,7 @@ EVEX_VPMINUB_XMM_K1Z_XMM_XMMM128: int = 2283
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUB_YMM_K1Z_YMM_YMMM256: int = 2284
+EVEX_VPMINUB_YMM_K1Z_YMM_YMMM256: Code = 2284 # type: ignore
 """
 ``VPMINUB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -22831,7 +22837,7 @@ EVEX_VPMINUB_YMM_K1Z_YMM_YMMM256: int = 2284
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUB_ZMM_K1Z_ZMM_ZMMM512: int = 2285
+EVEX_VPMINUB_ZMM_K1Z_ZMM_ZMMM512: Code = 2285 # type: ignore
 """
 ``VPMINUB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -22841,7 +22847,7 @@ EVEX_VPMINUB_ZMM_K1Z_ZMM_ZMMM512: int = 2285
 
 ``16/32/64-bit``
 """
-PAND_MM_MMM64: int = 2286
+PAND_MM_MMM64: Code = 2286 # type: ignore
 """
 ``PAND mm, mm/m64``
 
@@ -22851,7 +22857,7 @@ PAND_MM_MMM64: int = 2286
 
 ``16/32/64-bit``
 """
-PAND_XMM_XMMM128: int = 2287
+PAND_XMM_XMMM128: Code = 2287 # type: ignore
 """
 ``PAND xmm1, xmm2/m128``
 
@@ -22861,7 +22867,7 @@ PAND_XMM_XMMM128: int = 2287
 
 ``16/32/64-bit``
 """
-VEX_VPAND_XMM_XMM_XMMM128: int = 2288
+VEX_VPAND_XMM_XMM_XMMM128: Code = 2288 # type: ignore
 """
 ``VPAND xmm1, xmm2, xmm3/m128``
 
@@ -22871,7 +22877,7 @@ VEX_VPAND_XMM_XMM_XMMM128: int = 2288
 
 ``16/32/64-bit``
 """
-VEX_VPAND_YMM_YMM_YMMM256: int = 2289
+VEX_VPAND_YMM_YMM_YMMM256: Code = 2289 # type: ignore
 """
 ``VPAND ymm1, ymm2, ymm3/m256``
 
@@ -22881,7 +22887,7 @@ VEX_VPAND_YMM_YMM_YMMM256: int = 2289
 
 ``16/32/64-bit``
 """
-EVEX_VPANDD_XMM_K1Z_XMM_XMMM128B32: int = 2290
+EVEX_VPANDD_XMM_K1Z_XMM_XMMM128B32: Code = 2290 # type: ignore
 """
 ``VPANDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -22891,7 +22897,7 @@ EVEX_VPANDD_XMM_K1Z_XMM_XMMM128B32: int = 2290
 
 ``16/32/64-bit``
 """
-EVEX_VPANDD_YMM_K1Z_YMM_YMMM256B32: int = 2291
+EVEX_VPANDD_YMM_K1Z_YMM_YMMM256B32: Code = 2291 # type: ignore
 """
 ``VPANDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -22901,7 +22907,7 @@ EVEX_VPANDD_YMM_K1Z_YMM_YMMM256B32: int = 2291
 
 ``16/32/64-bit``
 """
-EVEX_VPANDD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2292
+EVEX_VPANDD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2292 # type: ignore
 """
 ``VPANDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -22911,7 +22917,7 @@ EVEX_VPANDD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2292
 
 ``16/32/64-bit``
 """
-EVEX_VPANDQ_XMM_K1Z_XMM_XMMM128B64: int = 2293
+EVEX_VPANDQ_XMM_K1Z_XMM_XMMM128B64: Code = 2293 # type: ignore
 """
 ``VPANDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -22921,7 +22927,7 @@ EVEX_VPANDQ_XMM_K1Z_XMM_XMMM128B64: int = 2293
 
 ``16/32/64-bit``
 """
-EVEX_VPANDQ_YMM_K1Z_YMM_YMMM256B64: int = 2294
+EVEX_VPANDQ_YMM_K1Z_YMM_YMMM256B64: Code = 2294 # type: ignore
 """
 ``VPANDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -22931,7 +22937,7 @@ EVEX_VPANDQ_YMM_K1Z_YMM_YMMM256B64: int = 2294
 
 ``16/32/64-bit``
 """
-EVEX_VPANDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2295
+EVEX_VPANDQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2295 # type: ignore
 """
 ``VPANDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -22941,7 +22947,7 @@ EVEX_VPANDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2295
 
 ``16/32/64-bit``
 """
-PADDUSB_MM_MMM64: int = 2296
+PADDUSB_MM_MMM64: Code = 2296 # type: ignore
 """
 ``PADDUSB mm, mm/m64``
 
@@ -22951,7 +22957,7 @@ PADDUSB_MM_MMM64: int = 2296
 
 ``16/32/64-bit``
 """
-PADDUSB_XMM_XMMM128: int = 2297
+PADDUSB_XMM_XMMM128: Code = 2297 # type: ignore
 """
 ``PADDUSB xmm1, xmm2/m128``
 
@@ -22961,7 +22967,7 @@ PADDUSB_XMM_XMMM128: int = 2297
 
 ``16/32/64-bit``
 """
-VEX_VPADDUSB_XMM_XMM_XMMM128: int = 2298
+VEX_VPADDUSB_XMM_XMM_XMMM128: Code = 2298 # type: ignore
 """
 ``VPADDUSB xmm1, xmm2, xmm3/m128``
 
@@ -22971,7 +22977,7 @@ VEX_VPADDUSB_XMM_XMM_XMMM128: int = 2298
 
 ``16/32/64-bit``
 """
-VEX_VPADDUSB_YMM_YMM_YMMM256: int = 2299
+VEX_VPADDUSB_YMM_YMM_YMMM256: Code = 2299 # type: ignore
 """
 ``VPADDUSB ymm1, ymm2, ymm3/m256``
 
@@ -22981,7 +22987,7 @@ VEX_VPADDUSB_YMM_YMM_YMMM256: int = 2299
 
 ``16/32/64-bit``
 """
-EVEX_VPADDUSB_XMM_K1Z_XMM_XMMM128: int = 2300
+EVEX_VPADDUSB_XMM_K1Z_XMM_XMMM128: Code = 2300 # type: ignore
 """
 ``VPADDUSB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -22991,7 +22997,7 @@ EVEX_VPADDUSB_XMM_K1Z_XMM_XMMM128: int = 2300
 
 ``16/32/64-bit``
 """
-EVEX_VPADDUSB_YMM_K1Z_YMM_YMMM256: int = 2301
+EVEX_VPADDUSB_YMM_K1Z_YMM_YMMM256: Code = 2301 # type: ignore
 """
 ``VPADDUSB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -23001,7 +23007,7 @@ EVEX_VPADDUSB_YMM_K1Z_YMM_YMMM256: int = 2301
 
 ``16/32/64-bit``
 """
-EVEX_VPADDUSB_ZMM_K1Z_ZMM_ZMMM512: int = 2302
+EVEX_VPADDUSB_ZMM_K1Z_ZMM_ZMMM512: Code = 2302 # type: ignore
 """
 ``VPADDUSB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -23011,7 +23017,7 @@ EVEX_VPADDUSB_ZMM_K1Z_ZMM_ZMMM512: int = 2302
 
 ``16/32/64-bit``
 """
-PADDUSW_MM_MMM64: int = 2303
+PADDUSW_MM_MMM64: Code = 2303 # type: ignore
 """
 ``PADDUSW mm, mm/m64``
 
@@ -23021,7 +23027,7 @@ PADDUSW_MM_MMM64: int = 2303
 
 ``16/32/64-bit``
 """
-PADDUSW_XMM_XMMM128: int = 2304
+PADDUSW_XMM_XMMM128: Code = 2304 # type: ignore
 """
 ``PADDUSW xmm1, xmm2/m128``
 
@@ -23031,7 +23037,7 @@ PADDUSW_XMM_XMMM128: int = 2304
 
 ``16/32/64-bit``
 """
-VEX_VPADDUSW_XMM_XMM_XMMM128: int = 2305
+VEX_VPADDUSW_XMM_XMM_XMMM128: Code = 2305 # type: ignore
 """
 ``VPADDUSW xmm1, xmm2, xmm3/m128``
 
@@ -23041,7 +23047,7 @@ VEX_VPADDUSW_XMM_XMM_XMMM128: int = 2305
 
 ``16/32/64-bit``
 """
-VEX_VPADDUSW_YMM_YMM_YMMM256: int = 2306
+VEX_VPADDUSW_YMM_YMM_YMMM256: Code = 2306 # type: ignore
 """
 ``VPADDUSW ymm1, ymm2, ymm3/m256``
 
@@ -23051,7 +23057,7 @@ VEX_VPADDUSW_YMM_YMM_YMMM256: int = 2306
 
 ``16/32/64-bit``
 """
-EVEX_VPADDUSW_XMM_K1Z_XMM_XMMM128: int = 2307
+EVEX_VPADDUSW_XMM_K1Z_XMM_XMMM128: Code = 2307 # type: ignore
 """
 ``VPADDUSW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -23061,7 +23067,7 @@ EVEX_VPADDUSW_XMM_K1Z_XMM_XMMM128: int = 2307
 
 ``16/32/64-bit``
 """
-EVEX_VPADDUSW_YMM_K1Z_YMM_YMMM256: int = 2308
+EVEX_VPADDUSW_YMM_K1Z_YMM_YMMM256: Code = 2308 # type: ignore
 """
 ``VPADDUSW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -23071,7 +23077,7 @@ EVEX_VPADDUSW_YMM_K1Z_YMM_YMMM256: int = 2308
 
 ``16/32/64-bit``
 """
-EVEX_VPADDUSW_ZMM_K1Z_ZMM_ZMMM512: int = 2309
+EVEX_VPADDUSW_ZMM_K1Z_ZMM_ZMMM512: Code = 2309 # type: ignore
 """
 ``VPADDUSW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -23081,7 +23087,7 @@ EVEX_VPADDUSW_ZMM_K1Z_ZMM_ZMMM512: int = 2309
 
 ``16/32/64-bit``
 """
-PMAXUB_MM_MMM64: int = 2310
+PMAXUB_MM_MMM64: Code = 2310 # type: ignore
 """
 ``PMAXUB mm1, mm2/m64``
 
@@ -23091,7 +23097,7 @@ PMAXUB_MM_MMM64: int = 2310
 
 ``16/32/64-bit``
 """
-PMAXUB_XMM_XMMM128: int = 2311
+PMAXUB_XMM_XMMM128: Code = 2311 # type: ignore
 """
 ``PMAXUB xmm1, xmm2/m128``
 
@@ -23101,7 +23107,7 @@ PMAXUB_XMM_XMMM128: int = 2311
 
 ``16/32/64-bit``
 """
-VEX_VPMAXUB_XMM_XMM_XMMM128: int = 2312
+VEX_VPMAXUB_XMM_XMM_XMMM128: Code = 2312 # type: ignore
 """
 ``VPMAXUB xmm1, xmm2, xmm3/m128``
 
@@ -23111,7 +23117,7 @@ VEX_VPMAXUB_XMM_XMM_XMMM128: int = 2312
 
 ``16/32/64-bit``
 """
-VEX_VPMAXUB_YMM_YMM_YMMM256: int = 2313
+VEX_VPMAXUB_YMM_YMM_YMMM256: Code = 2313 # type: ignore
 """
 ``VPMAXUB ymm1, ymm2, ymm3/m256``
 
@@ -23121,7 +23127,7 @@ VEX_VPMAXUB_YMM_YMM_YMMM256: int = 2313
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUB_XMM_K1Z_XMM_XMMM128: int = 2314
+EVEX_VPMAXUB_XMM_K1Z_XMM_XMMM128: Code = 2314 # type: ignore
 """
 ``VPMAXUB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -23131,7 +23137,7 @@ EVEX_VPMAXUB_XMM_K1Z_XMM_XMMM128: int = 2314
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUB_YMM_K1Z_YMM_YMMM256: int = 2315
+EVEX_VPMAXUB_YMM_K1Z_YMM_YMMM256: Code = 2315 # type: ignore
 """
 ``VPMAXUB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -23141,7 +23147,7 @@ EVEX_VPMAXUB_YMM_K1Z_YMM_YMMM256: int = 2315
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUB_ZMM_K1Z_ZMM_ZMMM512: int = 2316
+EVEX_VPMAXUB_ZMM_K1Z_ZMM_ZMMM512: Code = 2316 # type: ignore
 """
 ``VPMAXUB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -23151,7 +23157,7 @@ EVEX_VPMAXUB_ZMM_K1Z_ZMM_ZMMM512: int = 2316
 
 ``16/32/64-bit``
 """
-PANDN_MM_MMM64: int = 2317
+PANDN_MM_MMM64: Code = 2317 # type: ignore
 """
 ``PANDN mm, mm/m64``
 
@@ -23161,7 +23167,7 @@ PANDN_MM_MMM64: int = 2317
 
 ``16/32/64-bit``
 """
-PANDN_XMM_XMMM128: int = 2318
+PANDN_XMM_XMMM128: Code = 2318 # type: ignore
 """
 ``PANDN xmm1, xmm2/m128``
 
@@ -23171,7 +23177,7 @@ PANDN_XMM_XMMM128: int = 2318
 
 ``16/32/64-bit``
 """
-VEX_VPANDN_XMM_XMM_XMMM128: int = 2319
+VEX_VPANDN_XMM_XMM_XMMM128: Code = 2319 # type: ignore
 """
 ``VPANDN xmm1, xmm2, xmm3/m128``
 
@@ -23181,7 +23187,7 @@ VEX_VPANDN_XMM_XMM_XMMM128: int = 2319
 
 ``16/32/64-bit``
 """
-VEX_VPANDN_YMM_YMM_YMMM256: int = 2320
+VEX_VPANDN_YMM_YMM_YMMM256: Code = 2320 # type: ignore
 """
 ``VPANDN ymm1, ymm2, ymm3/m256``
 
@@ -23191,7 +23197,7 @@ VEX_VPANDN_YMM_YMM_YMMM256: int = 2320
 
 ``16/32/64-bit``
 """
-EVEX_VPANDND_XMM_K1Z_XMM_XMMM128B32: int = 2321
+EVEX_VPANDND_XMM_K1Z_XMM_XMMM128B32: Code = 2321 # type: ignore
 """
 ``VPANDND xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -23201,7 +23207,7 @@ EVEX_VPANDND_XMM_K1Z_XMM_XMMM128B32: int = 2321
 
 ``16/32/64-bit``
 """
-EVEX_VPANDND_YMM_K1Z_YMM_YMMM256B32: int = 2322
+EVEX_VPANDND_YMM_K1Z_YMM_YMMM256B32: Code = 2322 # type: ignore
 """
 ``VPANDND ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -23211,7 +23217,7 @@ EVEX_VPANDND_YMM_K1Z_YMM_YMMM256B32: int = 2322
 
 ``16/32/64-bit``
 """
-EVEX_VPANDND_ZMM_K1Z_ZMM_ZMMM512B32: int = 2323
+EVEX_VPANDND_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2323 # type: ignore
 """
 ``VPANDND zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -23221,7 +23227,7 @@ EVEX_VPANDND_ZMM_K1Z_ZMM_ZMMM512B32: int = 2323
 
 ``16/32/64-bit``
 """
-EVEX_VPANDNQ_XMM_K1Z_XMM_XMMM128B64: int = 2324
+EVEX_VPANDNQ_XMM_K1Z_XMM_XMMM128B64: Code = 2324 # type: ignore
 """
 ``VPANDNQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -23231,7 +23237,7 @@ EVEX_VPANDNQ_XMM_K1Z_XMM_XMMM128B64: int = 2324
 
 ``16/32/64-bit``
 """
-EVEX_VPANDNQ_YMM_K1Z_YMM_YMMM256B64: int = 2325
+EVEX_VPANDNQ_YMM_K1Z_YMM_YMMM256B64: Code = 2325 # type: ignore
 """
 ``VPANDNQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -23241,7 +23247,7 @@ EVEX_VPANDNQ_YMM_K1Z_YMM_YMMM256B64: int = 2325
 
 ``16/32/64-bit``
 """
-EVEX_VPANDNQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2326
+EVEX_VPANDNQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2326 # type: ignore
 """
 ``VPANDNQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -23251,7 +23257,7 @@ EVEX_VPANDNQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2326
 
 ``16/32/64-bit``
 """
-PAVGB_MM_MMM64: int = 2327
+PAVGB_MM_MMM64: Code = 2327 # type: ignore
 """
 ``PAVGB mm1, mm2/m64``
 
@@ -23261,7 +23267,7 @@ PAVGB_MM_MMM64: int = 2327
 
 ``16/32/64-bit``
 """
-PAVGB_XMM_XMMM128: int = 2328
+PAVGB_XMM_XMMM128: Code = 2328 # type: ignore
 """
 ``PAVGB xmm1, xmm2/m128``
 
@@ -23271,7 +23277,7 @@ PAVGB_XMM_XMMM128: int = 2328
 
 ``16/32/64-bit``
 """
-VEX_VPAVGB_XMM_XMM_XMMM128: int = 2329
+VEX_VPAVGB_XMM_XMM_XMMM128: Code = 2329 # type: ignore
 """
 ``VPAVGB xmm1, xmm2, xmm3/m128``
 
@@ -23281,7 +23287,7 @@ VEX_VPAVGB_XMM_XMM_XMMM128: int = 2329
 
 ``16/32/64-bit``
 """
-VEX_VPAVGB_YMM_YMM_YMMM256: int = 2330
+VEX_VPAVGB_YMM_YMM_YMMM256: Code = 2330 # type: ignore
 """
 ``VPAVGB ymm1, ymm2, ymm3/m256``
 
@@ -23291,7 +23297,7 @@ VEX_VPAVGB_YMM_YMM_YMMM256: int = 2330
 
 ``16/32/64-bit``
 """
-EVEX_VPAVGB_XMM_K1Z_XMM_XMMM128: int = 2331
+EVEX_VPAVGB_XMM_K1Z_XMM_XMMM128: Code = 2331 # type: ignore
 """
 ``VPAVGB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -23301,7 +23307,7 @@ EVEX_VPAVGB_XMM_K1Z_XMM_XMMM128: int = 2331
 
 ``16/32/64-bit``
 """
-EVEX_VPAVGB_YMM_K1Z_YMM_YMMM256: int = 2332
+EVEX_VPAVGB_YMM_K1Z_YMM_YMMM256: Code = 2332 # type: ignore
 """
 ``VPAVGB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -23311,7 +23317,7 @@ EVEX_VPAVGB_YMM_K1Z_YMM_YMMM256: int = 2332
 
 ``16/32/64-bit``
 """
-EVEX_VPAVGB_ZMM_K1Z_ZMM_ZMMM512: int = 2333
+EVEX_VPAVGB_ZMM_K1Z_ZMM_ZMMM512: Code = 2333 # type: ignore
 """
 ``VPAVGB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -23321,7 +23327,7 @@ EVEX_VPAVGB_ZMM_K1Z_ZMM_ZMMM512: int = 2333
 
 ``16/32/64-bit``
 """
-PSRAW_MM_MMM64: int = 2334
+PSRAW_MM_MMM64: Code = 2334 # type: ignore
 """
 ``PSRAW mm, mm/m64``
 
@@ -23331,7 +23337,7 @@ PSRAW_MM_MMM64: int = 2334
 
 ``16/32/64-bit``
 """
-PSRAW_XMM_XMMM128: int = 2335
+PSRAW_XMM_XMMM128: Code = 2335 # type: ignore
 """
 ``PSRAW xmm1, xmm2/m128``
 
@@ -23341,7 +23347,7 @@ PSRAW_XMM_XMMM128: int = 2335
 
 ``16/32/64-bit``
 """
-VEX_VPSRAW_XMM_XMM_XMMM128: int = 2336
+VEX_VPSRAW_XMM_XMM_XMMM128: Code = 2336 # type: ignore
 """
 ``VPSRAW xmm1, xmm2, xmm3/m128``
 
@@ -23351,7 +23357,7 @@ VEX_VPSRAW_XMM_XMM_XMMM128: int = 2336
 
 ``16/32/64-bit``
 """
-VEX_VPSRAW_YMM_YMM_XMMM128: int = 2337
+VEX_VPSRAW_YMM_YMM_XMMM128: Code = 2337 # type: ignore
 """
 ``VPSRAW ymm1, ymm2, xmm3/m128``
 
@@ -23361,7 +23367,7 @@ VEX_VPSRAW_YMM_YMM_XMMM128: int = 2337
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAW_XMM_K1Z_XMM_XMMM128: int = 2338
+EVEX_VPSRAW_XMM_K1Z_XMM_XMMM128: Code = 2338 # type: ignore
 """
 ``VPSRAW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -23371,7 +23377,7 @@ EVEX_VPSRAW_XMM_K1Z_XMM_XMMM128: int = 2338
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAW_YMM_K1Z_YMM_XMMM128: int = 2339
+EVEX_VPSRAW_YMM_K1Z_YMM_XMMM128: Code = 2339 # type: ignore
 """
 ``VPSRAW ymm1 {k1}{z}, ymm2, xmm3/m128``
 
@@ -23381,7 +23387,7 @@ EVEX_VPSRAW_YMM_K1Z_YMM_XMMM128: int = 2339
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAW_ZMM_K1Z_ZMM_XMMM128: int = 2340
+EVEX_VPSRAW_ZMM_K1Z_ZMM_XMMM128: Code = 2340 # type: ignore
 """
 ``VPSRAW zmm1 {k1}{z}, zmm2, xmm3/m128``
 
@@ -23391,7 +23397,7 @@ EVEX_VPSRAW_ZMM_K1Z_ZMM_XMMM128: int = 2340
 
 ``16/32/64-bit``
 """
-PSRAD_MM_MMM64: int = 2341
+PSRAD_MM_MMM64: Code = 2341 # type: ignore
 """
 ``PSRAD mm, mm/m64``
 
@@ -23401,7 +23407,7 @@ PSRAD_MM_MMM64: int = 2341
 
 ``16/32/64-bit``
 """
-PSRAD_XMM_XMMM128: int = 2342
+PSRAD_XMM_XMMM128: Code = 2342 # type: ignore
 """
 ``PSRAD xmm1, xmm2/m128``
 
@@ -23411,7 +23417,7 @@ PSRAD_XMM_XMMM128: int = 2342
 
 ``16/32/64-bit``
 """
-VEX_VPSRAD_XMM_XMM_XMMM128: int = 2343
+VEX_VPSRAD_XMM_XMM_XMMM128: Code = 2343 # type: ignore
 """
 ``VPSRAD xmm1, xmm2, xmm3/m128``
 
@@ -23421,7 +23427,7 @@ VEX_VPSRAD_XMM_XMM_XMMM128: int = 2343
 
 ``16/32/64-bit``
 """
-VEX_VPSRAD_YMM_YMM_XMMM128: int = 2344
+VEX_VPSRAD_YMM_YMM_XMMM128: Code = 2344 # type: ignore
 """
 ``VPSRAD ymm1, ymm2, xmm3/m128``
 
@@ -23431,7 +23437,7 @@ VEX_VPSRAD_YMM_YMM_XMMM128: int = 2344
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAD_XMM_K1Z_XMM_XMMM128: int = 2345
+EVEX_VPSRAD_XMM_K1Z_XMM_XMMM128: Code = 2345 # type: ignore
 """
 ``VPSRAD xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -23441,7 +23447,7 @@ EVEX_VPSRAD_XMM_K1Z_XMM_XMMM128: int = 2345
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAD_YMM_K1Z_YMM_XMMM128: int = 2346
+EVEX_VPSRAD_YMM_K1Z_YMM_XMMM128: Code = 2346 # type: ignore
 """
 ``VPSRAD ymm1 {k1}{z}, ymm2, xmm3/m128``
 
@@ -23451,7 +23457,7 @@ EVEX_VPSRAD_YMM_K1Z_YMM_XMMM128: int = 2346
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAD_ZMM_K1Z_ZMM_XMMM128: int = 2347
+EVEX_VPSRAD_ZMM_K1Z_ZMM_XMMM128: Code = 2347 # type: ignore
 """
 ``VPSRAD zmm1 {k1}{z}, zmm2, xmm3/m128``
 
@@ -23461,7 +23467,7 @@ EVEX_VPSRAD_ZMM_K1Z_ZMM_XMMM128: int = 2347
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAQ_XMM_K1Z_XMM_XMMM128: int = 2348
+EVEX_VPSRAQ_XMM_K1Z_XMM_XMMM128: Code = 2348 # type: ignore
 """
 ``VPSRAQ xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -23471,7 +23477,7 @@ EVEX_VPSRAQ_XMM_K1Z_XMM_XMMM128: int = 2348
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAQ_YMM_K1Z_YMM_XMMM128: int = 2349
+EVEX_VPSRAQ_YMM_K1Z_YMM_XMMM128: Code = 2349 # type: ignore
 """
 ``VPSRAQ ymm1 {k1}{z}, ymm2, xmm3/m128``
 
@@ -23481,7 +23487,7 @@ EVEX_VPSRAQ_YMM_K1Z_YMM_XMMM128: int = 2349
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAQ_ZMM_K1Z_ZMM_XMMM128: int = 2350
+EVEX_VPSRAQ_ZMM_K1Z_ZMM_XMMM128: Code = 2350 # type: ignore
 """
 ``VPSRAQ zmm1 {k1}{z}, zmm2, xmm3/m128``
 
@@ -23491,7 +23497,7 @@ EVEX_VPSRAQ_ZMM_K1Z_ZMM_XMMM128: int = 2350
 
 ``16/32/64-bit``
 """
-PAVGW_MM_MMM64: int = 2351
+PAVGW_MM_MMM64: Code = 2351 # type: ignore
 """
 ``PAVGW mm1, mm2/m64``
 
@@ -23501,7 +23507,7 @@ PAVGW_MM_MMM64: int = 2351
 
 ``16/32/64-bit``
 """
-PAVGW_XMM_XMMM128: int = 2352
+PAVGW_XMM_XMMM128: Code = 2352 # type: ignore
 """
 ``PAVGW xmm1, xmm2/m128``
 
@@ -23511,7 +23517,7 @@ PAVGW_XMM_XMMM128: int = 2352
 
 ``16/32/64-bit``
 """
-VEX_VPAVGW_XMM_XMM_XMMM128: int = 2353
+VEX_VPAVGW_XMM_XMM_XMMM128: Code = 2353 # type: ignore
 """
 ``VPAVGW xmm1, xmm2, xmm3/m128``
 
@@ -23521,7 +23527,7 @@ VEX_VPAVGW_XMM_XMM_XMMM128: int = 2353
 
 ``16/32/64-bit``
 """
-VEX_VPAVGW_YMM_YMM_YMMM256: int = 2354
+VEX_VPAVGW_YMM_YMM_YMMM256: Code = 2354 # type: ignore
 """
 ``VPAVGW ymm1, ymm2, ymm3/m256``
 
@@ -23531,7 +23537,7 @@ VEX_VPAVGW_YMM_YMM_YMMM256: int = 2354
 
 ``16/32/64-bit``
 """
-EVEX_VPAVGW_XMM_K1Z_XMM_XMMM128: int = 2355
+EVEX_VPAVGW_XMM_K1Z_XMM_XMMM128: Code = 2355 # type: ignore
 """
 ``VPAVGW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -23541,7 +23547,7 @@ EVEX_VPAVGW_XMM_K1Z_XMM_XMMM128: int = 2355
 
 ``16/32/64-bit``
 """
-EVEX_VPAVGW_YMM_K1Z_YMM_YMMM256: int = 2356
+EVEX_VPAVGW_YMM_K1Z_YMM_YMMM256: Code = 2356 # type: ignore
 """
 ``VPAVGW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -23551,7 +23557,7 @@ EVEX_VPAVGW_YMM_K1Z_YMM_YMMM256: int = 2356
 
 ``16/32/64-bit``
 """
-EVEX_VPAVGW_ZMM_K1Z_ZMM_ZMMM512: int = 2357
+EVEX_VPAVGW_ZMM_K1Z_ZMM_ZMMM512: Code = 2357 # type: ignore
 """
 ``VPAVGW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -23561,7 +23567,7 @@ EVEX_VPAVGW_ZMM_K1Z_ZMM_ZMMM512: int = 2357
 
 ``16/32/64-bit``
 """
-PMULHUW_MM_MMM64: int = 2358
+PMULHUW_MM_MMM64: Code = 2358 # type: ignore
 """
 ``PMULHUW mm1, mm2/m64``
 
@@ -23571,7 +23577,7 @@ PMULHUW_MM_MMM64: int = 2358
 
 ``16/32/64-bit``
 """
-PMULHUW_XMM_XMMM128: int = 2359
+PMULHUW_XMM_XMMM128: Code = 2359 # type: ignore
 """
 ``PMULHUW xmm1, xmm2/m128``
 
@@ -23581,7 +23587,7 @@ PMULHUW_XMM_XMMM128: int = 2359
 
 ``16/32/64-bit``
 """
-VEX_VPMULHUW_XMM_XMM_XMMM128: int = 2360
+VEX_VPMULHUW_XMM_XMM_XMMM128: Code = 2360 # type: ignore
 """
 ``VPMULHUW xmm1, xmm2, xmm3/m128``
 
@@ -23591,7 +23597,7 @@ VEX_VPMULHUW_XMM_XMM_XMMM128: int = 2360
 
 ``16/32/64-bit``
 """
-VEX_VPMULHUW_YMM_YMM_YMMM256: int = 2361
+VEX_VPMULHUW_YMM_YMM_YMMM256: Code = 2361 # type: ignore
 """
 ``VPMULHUW ymm1, ymm2, ymm3/m256``
 
@@ -23601,7 +23607,7 @@ VEX_VPMULHUW_YMM_YMM_YMMM256: int = 2361
 
 ``16/32/64-bit``
 """
-EVEX_VPMULHUW_XMM_K1Z_XMM_XMMM128: int = 2362
+EVEX_VPMULHUW_XMM_K1Z_XMM_XMMM128: Code = 2362 # type: ignore
 """
 ``VPMULHUW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -23611,7 +23617,7 @@ EVEX_VPMULHUW_XMM_K1Z_XMM_XMMM128: int = 2362
 
 ``16/32/64-bit``
 """
-EVEX_VPMULHUW_YMM_K1Z_YMM_YMMM256: int = 2363
+EVEX_VPMULHUW_YMM_K1Z_YMM_YMMM256: Code = 2363 # type: ignore
 """
 ``VPMULHUW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -23621,7 +23627,7 @@ EVEX_VPMULHUW_YMM_K1Z_YMM_YMMM256: int = 2363
 
 ``16/32/64-bit``
 """
-EVEX_VPMULHUW_ZMM_K1Z_ZMM_ZMMM512: int = 2364
+EVEX_VPMULHUW_ZMM_K1Z_ZMM_ZMMM512: Code = 2364 # type: ignore
 """
 ``VPMULHUW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -23631,7 +23637,7 @@ EVEX_VPMULHUW_ZMM_K1Z_ZMM_ZMMM512: int = 2364
 
 ``16/32/64-bit``
 """
-PMULHW_MM_MMM64: int = 2365
+PMULHW_MM_MMM64: Code = 2365 # type: ignore
 """
 ``PMULHW mm, mm/m64``
 
@@ -23641,7 +23647,7 @@ PMULHW_MM_MMM64: int = 2365
 
 ``16/32/64-bit``
 """
-PMULHW_XMM_XMMM128: int = 2366
+PMULHW_XMM_XMMM128: Code = 2366 # type: ignore
 """
 ``PMULHW xmm1, xmm2/m128``
 
@@ -23651,7 +23657,7 @@ PMULHW_XMM_XMMM128: int = 2366
 
 ``16/32/64-bit``
 """
-VEX_VPMULHW_XMM_XMM_XMMM128: int = 2367
+VEX_VPMULHW_XMM_XMM_XMMM128: Code = 2367 # type: ignore
 """
 ``VPMULHW xmm1, xmm2, xmm3/m128``
 
@@ -23661,7 +23667,7 @@ VEX_VPMULHW_XMM_XMM_XMMM128: int = 2367
 
 ``16/32/64-bit``
 """
-VEX_VPMULHW_YMM_YMM_YMMM256: int = 2368
+VEX_VPMULHW_YMM_YMM_YMMM256: Code = 2368 # type: ignore
 """
 ``VPMULHW ymm1, ymm2, ymm3/m256``
 
@@ -23671,7 +23677,7 @@ VEX_VPMULHW_YMM_YMM_YMMM256: int = 2368
 
 ``16/32/64-bit``
 """
-EVEX_VPMULHW_XMM_K1Z_XMM_XMMM128: int = 2369
+EVEX_VPMULHW_XMM_K1Z_XMM_XMMM128: Code = 2369 # type: ignore
 """
 ``VPMULHW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -23681,7 +23687,7 @@ EVEX_VPMULHW_XMM_K1Z_XMM_XMMM128: int = 2369
 
 ``16/32/64-bit``
 """
-EVEX_VPMULHW_YMM_K1Z_YMM_YMMM256: int = 2370
+EVEX_VPMULHW_YMM_K1Z_YMM_YMMM256: Code = 2370 # type: ignore
 """
 ``VPMULHW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -23691,7 +23697,7 @@ EVEX_VPMULHW_YMM_K1Z_YMM_YMMM256: int = 2370
 
 ``16/32/64-bit``
 """
-EVEX_VPMULHW_ZMM_K1Z_ZMM_ZMMM512: int = 2371
+EVEX_VPMULHW_ZMM_K1Z_ZMM_ZMMM512: Code = 2371 # type: ignore
 """
 ``VPMULHW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -23701,7 +23707,7 @@ EVEX_VPMULHW_ZMM_K1Z_ZMM_ZMMM512: int = 2371
 
 ``16/32/64-bit``
 """
-CVTTPD2DQ_XMM_XMMM128: int = 2372
+CVTTPD2DQ_XMM_XMMM128: Code = 2372 # type: ignore
 """
 ``CVTTPD2DQ xmm1, xmm2/m128``
 
@@ -23711,7 +23717,7 @@ CVTTPD2DQ_XMM_XMMM128: int = 2372
 
 ``16/32/64-bit``
 """
-VEX_VCVTTPD2DQ_XMM_XMMM128: int = 2373
+VEX_VCVTTPD2DQ_XMM_XMMM128: Code = 2373 # type: ignore
 """
 ``VCVTTPD2DQ xmm1, xmm2/m128``
 
@@ -23721,7 +23727,7 @@ VEX_VCVTTPD2DQ_XMM_XMMM128: int = 2373
 
 ``16/32/64-bit``
 """
-VEX_VCVTTPD2DQ_XMM_YMMM256: int = 2374
+VEX_VCVTTPD2DQ_XMM_YMMM256: Code = 2374 # type: ignore
 """
 ``VCVTTPD2DQ xmm1, ymm2/m256``
 
@@ -23731,7 +23737,7 @@ VEX_VCVTTPD2DQ_XMM_YMMM256: int = 2374
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2DQ_XMM_K1Z_XMMM128B64: int = 2375
+EVEX_VCVTTPD2DQ_XMM_K1Z_XMMM128B64: Code = 2375 # type: ignore
 """
 ``VCVTTPD2DQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -23741,7 +23747,7 @@ EVEX_VCVTTPD2DQ_XMM_K1Z_XMMM128B64: int = 2375
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2DQ_XMM_K1Z_YMMM256B64: int = 2376
+EVEX_VCVTTPD2DQ_XMM_K1Z_YMMM256B64: Code = 2376 # type: ignore
 """
 ``VCVTTPD2DQ xmm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -23751,7 +23757,7 @@ EVEX_VCVTTPD2DQ_XMM_K1Z_YMMM256B64: int = 2376
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPD2DQ_YMM_K1Z_ZMMM512B64_SAE: int = 2377
+EVEX_VCVTTPD2DQ_YMM_K1Z_ZMMM512B64_SAE: Code = 2377 # type: ignore
 """
 ``VCVTTPD2DQ ymm1 {k1}{z}, zmm2/m512/m64bcst{sae}``
 
@@ -23761,7 +23767,7 @@ EVEX_VCVTTPD2DQ_YMM_K1Z_ZMMM512B64_SAE: int = 2377
 
 ``16/32/64-bit``
 """
-CVTDQ2PD_XMM_XMMM64: int = 2378
+CVTDQ2PD_XMM_XMMM64: Code = 2378 # type: ignore
 """
 ``CVTDQ2PD xmm1, xmm2/m64``
 
@@ -23771,7 +23777,7 @@ CVTDQ2PD_XMM_XMMM64: int = 2378
 
 ``16/32/64-bit``
 """
-VEX_VCVTDQ2PD_XMM_XMMM64: int = 2379
+VEX_VCVTDQ2PD_XMM_XMMM64: Code = 2379 # type: ignore
 """
 ``VCVTDQ2PD xmm1, xmm2/m64``
 
@@ -23781,7 +23787,7 @@ VEX_VCVTDQ2PD_XMM_XMMM64: int = 2379
 
 ``16/32/64-bit``
 """
-VEX_VCVTDQ2PD_YMM_XMMM128: int = 2380
+VEX_VCVTDQ2PD_YMM_XMMM128: Code = 2380 # type: ignore
 """
 ``VCVTDQ2PD ymm1, xmm2/m128``
 
@@ -23791,7 +23797,7 @@ VEX_VCVTDQ2PD_YMM_XMMM128: int = 2380
 
 ``16/32/64-bit``
 """
-EVEX_VCVTDQ2PD_XMM_K1Z_XMMM64B32: int = 2381
+EVEX_VCVTDQ2PD_XMM_K1Z_XMMM64B32: Code = 2381 # type: ignore
 """
 ``VCVTDQ2PD xmm1 {k1}{z}, xmm2/m64/m32bcst``
 
@@ -23801,7 +23807,7 @@ EVEX_VCVTDQ2PD_XMM_K1Z_XMMM64B32: int = 2381
 
 ``16/32/64-bit``
 """
-EVEX_VCVTDQ2PD_YMM_K1Z_XMMM128B32: int = 2382
+EVEX_VCVTDQ2PD_YMM_K1Z_XMMM128B32: Code = 2382 # type: ignore
 """
 ``VCVTDQ2PD ymm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -23811,7 +23817,7 @@ EVEX_VCVTDQ2PD_YMM_K1Z_XMMM128B32: int = 2382
 
 ``16/32/64-bit``
 """
-EVEX_VCVTDQ2PD_ZMM_K1Z_YMMM256B32_ER: int = 2383
+EVEX_VCVTDQ2PD_ZMM_K1Z_YMMM256B32_ER: Code = 2383 # type: ignore
 """
 ``VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er}``
 
@@ -23821,7 +23827,7 @@ EVEX_VCVTDQ2PD_ZMM_K1Z_YMMM256B32_ER: int = 2383
 
 ``16/32/64-bit``
 """
-EVEX_VCVTQQ2PD_XMM_K1Z_XMMM128B64: int = 2384
+EVEX_VCVTQQ2PD_XMM_K1Z_XMMM128B64: Code = 2384 # type: ignore
 """
 ``VCVTQQ2PD xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -23831,7 +23837,7 @@ EVEX_VCVTQQ2PD_XMM_K1Z_XMMM128B64: int = 2384
 
 ``16/32/64-bit``
 """
-EVEX_VCVTQQ2PD_YMM_K1Z_YMMM256B64: int = 2385
+EVEX_VCVTQQ2PD_YMM_K1Z_YMMM256B64: Code = 2385 # type: ignore
 """
 ``VCVTQQ2PD ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -23841,7 +23847,7 @@ EVEX_VCVTQQ2PD_YMM_K1Z_YMMM256B64: int = 2385
 
 ``16/32/64-bit``
 """
-EVEX_VCVTQQ2PD_ZMM_K1Z_ZMMM512B64_ER: int = 2386
+EVEX_VCVTQQ2PD_ZMM_K1Z_ZMMM512B64_ER: Code = 2386 # type: ignore
 """
 ``VCVTQQ2PD zmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -23851,7 +23857,7 @@ EVEX_VCVTQQ2PD_ZMM_K1Z_ZMMM512B64_ER: int = 2386
 
 ``16/32/64-bit``
 """
-CVTPD2DQ_XMM_XMMM128: int = 2387
+CVTPD2DQ_XMM_XMMM128: Code = 2387 # type: ignore
 """
 ``CVTPD2DQ xmm1, xmm2/m128``
 
@@ -23861,7 +23867,7 @@ CVTPD2DQ_XMM_XMMM128: int = 2387
 
 ``16/32/64-bit``
 """
-VEX_VCVTPD2DQ_XMM_XMMM128: int = 2388
+VEX_VCVTPD2DQ_XMM_XMMM128: Code = 2388 # type: ignore
 """
 ``VCVTPD2DQ xmm1, xmm2/m128``
 
@@ -23871,7 +23877,7 @@ VEX_VCVTPD2DQ_XMM_XMMM128: int = 2388
 
 ``16/32/64-bit``
 """
-VEX_VCVTPD2DQ_XMM_YMMM256: int = 2389
+VEX_VCVTPD2DQ_XMM_YMMM256: Code = 2389 # type: ignore
 """
 ``VCVTPD2DQ xmm1, ymm2/m256``
 
@@ -23881,7 +23887,7 @@ VEX_VCVTPD2DQ_XMM_YMMM256: int = 2389
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2DQ_XMM_K1Z_XMMM128B64: int = 2390
+EVEX_VCVTPD2DQ_XMM_K1Z_XMMM128B64: Code = 2390 # type: ignore
 """
 ``VCVTPD2DQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -23891,7 +23897,7 @@ EVEX_VCVTPD2DQ_XMM_K1Z_XMMM128B64: int = 2390
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2DQ_XMM_K1Z_YMMM256B64: int = 2391
+EVEX_VCVTPD2DQ_XMM_K1Z_YMMM256B64: Code = 2391 # type: ignore
 """
 ``VCVTPD2DQ xmm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -23901,7 +23907,7 @@ EVEX_VCVTPD2DQ_XMM_K1Z_YMMM256B64: int = 2391
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2DQ_YMM_K1Z_ZMMM512B64_ER: int = 2392
+EVEX_VCVTPD2DQ_YMM_K1Z_ZMMM512B64_ER: Code = 2392 # type: ignore
 """
 ``VCVTPD2DQ ymm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -23911,7 +23917,7 @@ EVEX_VCVTPD2DQ_YMM_K1Z_ZMMM512B64_ER: int = 2392
 
 ``16/32/64-bit``
 """
-MOVNTQ_M64_MM: int = 2393
+MOVNTQ_M64_MM: Code = 2393 # type: ignore
 """
 ``MOVNTQ m64, mm``
 
@@ -23921,7 +23927,7 @@ MOVNTQ_M64_MM: int = 2393
 
 ``16/32/64-bit``
 """
-MOVNTDQ_M128_XMM: int = 2394
+MOVNTDQ_M128_XMM: Code = 2394 # type: ignore
 """
 ``MOVNTDQ m128, xmm1``
 
@@ -23931,7 +23937,7 @@ MOVNTDQ_M128_XMM: int = 2394
 
 ``16/32/64-bit``
 """
-VEX_VMOVNTDQ_M128_XMM: int = 2395
+VEX_VMOVNTDQ_M128_XMM: Code = 2395 # type: ignore
 """
 ``VMOVNTDQ m128, xmm1``
 
@@ -23941,7 +23947,7 @@ VEX_VMOVNTDQ_M128_XMM: int = 2395
 
 ``16/32/64-bit``
 """
-VEX_VMOVNTDQ_M256_YMM: int = 2396
+VEX_VMOVNTDQ_M256_YMM: Code = 2396 # type: ignore
 """
 ``VMOVNTDQ m256, ymm1``
 
@@ -23951,7 +23957,7 @@ VEX_VMOVNTDQ_M256_YMM: int = 2396
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTDQ_M128_XMM: int = 2397
+EVEX_VMOVNTDQ_M128_XMM: Code = 2397 # type: ignore
 """
 ``VMOVNTDQ m128, xmm1``
 
@@ -23961,7 +23967,7 @@ EVEX_VMOVNTDQ_M128_XMM: int = 2397
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTDQ_M256_YMM: int = 2398
+EVEX_VMOVNTDQ_M256_YMM: Code = 2398 # type: ignore
 """
 ``VMOVNTDQ m256, ymm1``
 
@@ -23971,7 +23977,7 @@ EVEX_VMOVNTDQ_M256_YMM: int = 2398
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTDQ_M512_ZMM: int = 2399
+EVEX_VMOVNTDQ_M512_ZMM: Code = 2399 # type: ignore
 """
 ``VMOVNTDQ m512, zmm1``
 
@@ -23981,7 +23987,7 @@ EVEX_VMOVNTDQ_M512_ZMM: int = 2399
 
 ``16/32/64-bit``
 """
-PSUBSB_MM_MMM64: int = 2400
+PSUBSB_MM_MMM64: Code = 2400 # type: ignore
 """
 ``PSUBSB mm, mm/m64``
 
@@ -23991,7 +23997,7 @@ PSUBSB_MM_MMM64: int = 2400
 
 ``16/32/64-bit``
 """
-PSUBSB_XMM_XMMM128: int = 2401
+PSUBSB_XMM_XMMM128: Code = 2401 # type: ignore
 """
 ``PSUBSB xmm1, xmm2/m128``
 
@@ -24001,7 +24007,7 @@ PSUBSB_XMM_XMMM128: int = 2401
 
 ``16/32/64-bit``
 """
-VEX_VPSUBSB_XMM_XMM_XMMM128: int = 2402
+VEX_VPSUBSB_XMM_XMM_XMMM128: Code = 2402 # type: ignore
 """
 ``VPSUBSB xmm1, xmm2, xmm3/m128``
 
@@ -24011,7 +24017,7 @@ VEX_VPSUBSB_XMM_XMM_XMMM128: int = 2402
 
 ``16/32/64-bit``
 """
-VEX_VPSUBSB_YMM_YMM_YMMM256: int = 2403
+VEX_VPSUBSB_YMM_YMM_YMMM256: Code = 2403 # type: ignore
 """
 ``VPSUBSB ymm1, ymm2, ymm3/m256``
 
@@ -24021,7 +24027,7 @@ VEX_VPSUBSB_YMM_YMM_YMMM256: int = 2403
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBSB_XMM_K1Z_XMM_XMMM128: int = 2404
+EVEX_VPSUBSB_XMM_K1Z_XMM_XMMM128: Code = 2404 # type: ignore
 """
 ``VPSUBSB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -24031,7 +24037,7 @@ EVEX_VPSUBSB_XMM_K1Z_XMM_XMMM128: int = 2404
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBSB_YMM_K1Z_YMM_YMMM256: int = 2405
+EVEX_VPSUBSB_YMM_K1Z_YMM_YMMM256: Code = 2405 # type: ignore
 """
 ``VPSUBSB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -24041,7 +24047,7 @@ EVEX_VPSUBSB_YMM_K1Z_YMM_YMMM256: int = 2405
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBSB_ZMM_K1Z_ZMM_ZMMM512: int = 2406
+EVEX_VPSUBSB_ZMM_K1Z_ZMM_ZMMM512: Code = 2406 # type: ignore
 """
 ``VPSUBSB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -24051,7 +24057,7 @@ EVEX_VPSUBSB_ZMM_K1Z_ZMM_ZMMM512: int = 2406
 
 ``16/32/64-bit``
 """
-PSUBSW_MM_MMM64: int = 2407
+PSUBSW_MM_MMM64: Code = 2407 # type: ignore
 """
 ``PSUBSW mm, mm/m64``
 
@@ -24061,7 +24067,7 @@ PSUBSW_MM_MMM64: int = 2407
 
 ``16/32/64-bit``
 """
-PSUBSW_XMM_XMMM128: int = 2408
+PSUBSW_XMM_XMMM128: Code = 2408 # type: ignore
 """
 ``PSUBSW xmm1, xmm2/m128``
 
@@ -24071,7 +24077,7 @@ PSUBSW_XMM_XMMM128: int = 2408
 
 ``16/32/64-bit``
 """
-VEX_VPSUBSW_XMM_XMM_XMMM128: int = 2409
+VEX_VPSUBSW_XMM_XMM_XMMM128: Code = 2409 # type: ignore
 """
 ``VPSUBSW xmm1, xmm2, xmm3/m128``
 
@@ -24081,7 +24087,7 @@ VEX_VPSUBSW_XMM_XMM_XMMM128: int = 2409
 
 ``16/32/64-bit``
 """
-VEX_VPSUBSW_YMM_YMM_YMMM256: int = 2410
+VEX_VPSUBSW_YMM_YMM_YMMM256: Code = 2410 # type: ignore
 """
 ``VPSUBSW ymm1, ymm2, ymm3/m256``
 
@@ -24091,7 +24097,7 @@ VEX_VPSUBSW_YMM_YMM_YMMM256: int = 2410
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBSW_XMM_K1Z_XMM_XMMM128: int = 2411
+EVEX_VPSUBSW_XMM_K1Z_XMM_XMMM128: Code = 2411 # type: ignore
 """
 ``VPSUBSW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -24101,7 +24107,7 @@ EVEX_VPSUBSW_XMM_K1Z_XMM_XMMM128: int = 2411
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBSW_YMM_K1Z_YMM_YMMM256: int = 2412
+EVEX_VPSUBSW_YMM_K1Z_YMM_YMMM256: Code = 2412 # type: ignore
 """
 ``VPSUBSW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -24111,7 +24117,7 @@ EVEX_VPSUBSW_YMM_K1Z_YMM_YMMM256: int = 2412
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBSW_ZMM_K1Z_ZMM_ZMMM512: int = 2413
+EVEX_VPSUBSW_ZMM_K1Z_ZMM_ZMMM512: Code = 2413 # type: ignore
 """
 ``VPSUBSW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -24121,7 +24127,7 @@ EVEX_VPSUBSW_ZMM_K1Z_ZMM_ZMMM512: int = 2413
 
 ``16/32/64-bit``
 """
-PMINSW_MM_MMM64: int = 2414
+PMINSW_MM_MMM64: Code = 2414 # type: ignore
 """
 ``PMINSW mm1, mm2/m64``
 
@@ -24131,7 +24137,7 @@ PMINSW_MM_MMM64: int = 2414
 
 ``16/32/64-bit``
 """
-PMINSW_XMM_XMMM128: int = 2415
+PMINSW_XMM_XMMM128: Code = 2415 # type: ignore
 """
 ``PMINSW xmm1, xmm2/m128``
 
@@ -24141,7 +24147,7 @@ PMINSW_XMM_XMMM128: int = 2415
 
 ``16/32/64-bit``
 """
-VEX_VPMINSW_XMM_XMM_XMMM128: int = 2416
+VEX_VPMINSW_XMM_XMM_XMMM128: Code = 2416 # type: ignore
 """
 ``VPMINSW xmm1, xmm2, xmm3/m128``
 
@@ -24151,7 +24157,7 @@ VEX_VPMINSW_XMM_XMM_XMMM128: int = 2416
 
 ``16/32/64-bit``
 """
-VEX_VPMINSW_YMM_YMM_YMMM256: int = 2417
+VEX_VPMINSW_YMM_YMM_YMMM256: Code = 2417 # type: ignore
 """
 ``VPMINSW ymm1, ymm2, ymm3/m256``
 
@@ -24161,7 +24167,7 @@ VEX_VPMINSW_YMM_YMM_YMMM256: int = 2417
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSW_XMM_K1Z_XMM_XMMM128: int = 2418
+EVEX_VPMINSW_XMM_K1Z_XMM_XMMM128: Code = 2418 # type: ignore
 """
 ``VPMINSW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -24171,7 +24177,7 @@ EVEX_VPMINSW_XMM_K1Z_XMM_XMMM128: int = 2418
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSW_YMM_K1Z_YMM_YMMM256: int = 2419
+EVEX_VPMINSW_YMM_K1Z_YMM_YMMM256: Code = 2419 # type: ignore
 """
 ``VPMINSW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -24181,7 +24187,7 @@ EVEX_VPMINSW_YMM_K1Z_YMM_YMMM256: int = 2419
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSW_ZMM_K1Z_ZMM_ZMMM512: int = 2420
+EVEX_VPMINSW_ZMM_K1Z_ZMM_ZMMM512: Code = 2420 # type: ignore
 """
 ``VPMINSW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -24191,7 +24197,7 @@ EVEX_VPMINSW_ZMM_K1Z_ZMM_ZMMM512: int = 2420
 
 ``16/32/64-bit``
 """
-POR_MM_MMM64: int = 2421
+POR_MM_MMM64: Code = 2421 # type: ignore
 """
 ``POR mm, mm/m64``
 
@@ -24201,7 +24207,7 @@ POR_MM_MMM64: int = 2421
 
 ``16/32/64-bit``
 """
-POR_XMM_XMMM128: int = 2422
+POR_XMM_XMMM128: Code = 2422 # type: ignore
 """
 ``POR xmm1, xmm2/m128``
 
@@ -24211,7 +24217,7 @@ POR_XMM_XMMM128: int = 2422
 
 ``16/32/64-bit``
 """
-VEX_VPOR_XMM_XMM_XMMM128: int = 2423
+VEX_VPOR_XMM_XMM_XMMM128: Code = 2423 # type: ignore
 """
 ``VPOR xmm1, xmm2, xmm3/m128``
 
@@ -24221,7 +24227,7 @@ VEX_VPOR_XMM_XMM_XMMM128: int = 2423
 
 ``16/32/64-bit``
 """
-VEX_VPOR_YMM_YMM_YMMM256: int = 2424
+VEX_VPOR_YMM_YMM_YMMM256: Code = 2424 # type: ignore
 """
 ``VPOR ymm1, ymm2, ymm3/m256``
 
@@ -24231,7 +24237,7 @@ VEX_VPOR_YMM_YMM_YMMM256: int = 2424
 
 ``16/32/64-bit``
 """
-EVEX_VPORD_XMM_K1Z_XMM_XMMM128B32: int = 2425
+EVEX_VPORD_XMM_K1Z_XMM_XMMM128B32: Code = 2425 # type: ignore
 """
 ``VPORD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -24241,7 +24247,7 @@ EVEX_VPORD_XMM_K1Z_XMM_XMMM128B32: int = 2425
 
 ``16/32/64-bit``
 """
-EVEX_VPORD_YMM_K1Z_YMM_YMMM256B32: int = 2426
+EVEX_VPORD_YMM_K1Z_YMM_YMMM256B32: Code = 2426 # type: ignore
 """
 ``VPORD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -24251,7 +24257,7 @@ EVEX_VPORD_YMM_K1Z_YMM_YMMM256B32: int = 2426
 
 ``16/32/64-bit``
 """
-EVEX_VPORD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2427
+EVEX_VPORD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2427 # type: ignore
 """
 ``VPORD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -24261,7 +24267,7 @@ EVEX_VPORD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2427
 
 ``16/32/64-bit``
 """
-EVEX_VPORQ_XMM_K1Z_XMM_XMMM128B64: int = 2428
+EVEX_VPORQ_XMM_K1Z_XMM_XMMM128B64: Code = 2428 # type: ignore
 """
 ``VPORQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -24271,7 +24277,7 @@ EVEX_VPORQ_XMM_K1Z_XMM_XMMM128B64: int = 2428
 
 ``16/32/64-bit``
 """
-EVEX_VPORQ_YMM_K1Z_YMM_YMMM256B64: int = 2429
+EVEX_VPORQ_YMM_K1Z_YMM_YMMM256B64: Code = 2429 # type: ignore
 """
 ``VPORQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -24281,7 +24287,7 @@ EVEX_VPORQ_YMM_K1Z_YMM_YMMM256B64: int = 2429
 
 ``16/32/64-bit``
 """
-EVEX_VPORQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2430
+EVEX_VPORQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2430 # type: ignore
 """
 ``VPORQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -24291,7 +24297,7 @@ EVEX_VPORQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2430
 
 ``16/32/64-bit``
 """
-PADDSB_MM_MMM64: int = 2431
+PADDSB_MM_MMM64: Code = 2431 # type: ignore
 """
 ``PADDSB mm, mm/m64``
 
@@ -24301,7 +24307,7 @@ PADDSB_MM_MMM64: int = 2431
 
 ``16/32/64-bit``
 """
-PADDSB_XMM_XMMM128: int = 2432
+PADDSB_XMM_XMMM128: Code = 2432 # type: ignore
 """
 ``PADDSB xmm1, xmm2/m128``
 
@@ -24311,7 +24317,7 @@ PADDSB_XMM_XMMM128: int = 2432
 
 ``16/32/64-bit``
 """
-VEX_VPADDSB_XMM_XMM_XMMM128: int = 2433
+VEX_VPADDSB_XMM_XMM_XMMM128: Code = 2433 # type: ignore
 """
 ``VPADDSB xmm1, xmm2, xmm3/m128``
 
@@ -24321,7 +24327,7 @@ VEX_VPADDSB_XMM_XMM_XMMM128: int = 2433
 
 ``16/32/64-bit``
 """
-VEX_VPADDSB_YMM_YMM_YMMM256: int = 2434
+VEX_VPADDSB_YMM_YMM_YMMM256: Code = 2434 # type: ignore
 """
 ``VPADDSB ymm1, ymm2, ymm3/m256``
 
@@ -24331,7 +24337,7 @@ VEX_VPADDSB_YMM_YMM_YMMM256: int = 2434
 
 ``16/32/64-bit``
 """
-EVEX_VPADDSB_XMM_K1Z_XMM_XMMM128: int = 2435
+EVEX_VPADDSB_XMM_K1Z_XMM_XMMM128: Code = 2435 # type: ignore
 """
 ``VPADDSB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -24341,7 +24347,7 @@ EVEX_VPADDSB_XMM_K1Z_XMM_XMMM128: int = 2435
 
 ``16/32/64-bit``
 """
-EVEX_VPADDSB_YMM_K1Z_YMM_YMMM256: int = 2436
+EVEX_VPADDSB_YMM_K1Z_YMM_YMMM256: Code = 2436 # type: ignore
 """
 ``VPADDSB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -24351,7 +24357,7 @@ EVEX_VPADDSB_YMM_K1Z_YMM_YMMM256: int = 2436
 
 ``16/32/64-bit``
 """
-EVEX_VPADDSB_ZMM_K1Z_ZMM_ZMMM512: int = 2437
+EVEX_VPADDSB_ZMM_K1Z_ZMM_ZMMM512: Code = 2437 # type: ignore
 """
 ``VPADDSB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -24361,7 +24367,7 @@ EVEX_VPADDSB_ZMM_K1Z_ZMM_ZMMM512: int = 2437
 
 ``16/32/64-bit``
 """
-PADDSW_MM_MMM64: int = 2438
+PADDSW_MM_MMM64: Code = 2438 # type: ignore
 """
 ``PADDSW mm, mm/m64``
 
@@ -24371,7 +24377,7 @@ PADDSW_MM_MMM64: int = 2438
 
 ``16/32/64-bit``
 """
-PADDSW_XMM_XMMM128: int = 2439
+PADDSW_XMM_XMMM128: Code = 2439 # type: ignore
 """
 ``PADDSW xmm1, xmm2/m128``
 
@@ -24381,7 +24387,7 @@ PADDSW_XMM_XMMM128: int = 2439
 
 ``16/32/64-bit``
 """
-VEX_VPADDSW_XMM_XMM_XMMM128: int = 2440
+VEX_VPADDSW_XMM_XMM_XMMM128: Code = 2440 # type: ignore
 """
 ``VPADDSW xmm1, xmm2, xmm3/m128``
 
@@ -24391,7 +24397,7 @@ VEX_VPADDSW_XMM_XMM_XMMM128: int = 2440
 
 ``16/32/64-bit``
 """
-VEX_VPADDSW_YMM_YMM_YMMM256: int = 2441
+VEX_VPADDSW_YMM_YMM_YMMM256: Code = 2441 # type: ignore
 """
 ``VPADDSW ymm1, ymm2, ymm3/m256``
 
@@ -24401,7 +24407,7 @@ VEX_VPADDSW_YMM_YMM_YMMM256: int = 2441
 
 ``16/32/64-bit``
 """
-EVEX_VPADDSW_XMM_K1Z_XMM_XMMM128: int = 2442
+EVEX_VPADDSW_XMM_K1Z_XMM_XMMM128: Code = 2442 # type: ignore
 """
 ``VPADDSW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -24411,7 +24417,7 @@ EVEX_VPADDSW_XMM_K1Z_XMM_XMMM128: int = 2442
 
 ``16/32/64-bit``
 """
-EVEX_VPADDSW_YMM_K1Z_YMM_YMMM256: int = 2443
+EVEX_VPADDSW_YMM_K1Z_YMM_YMMM256: Code = 2443 # type: ignore
 """
 ``VPADDSW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -24421,7 +24427,7 @@ EVEX_VPADDSW_YMM_K1Z_YMM_YMMM256: int = 2443
 
 ``16/32/64-bit``
 """
-EVEX_VPADDSW_ZMM_K1Z_ZMM_ZMMM512: int = 2444
+EVEX_VPADDSW_ZMM_K1Z_ZMM_ZMMM512: Code = 2444 # type: ignore
 """
 ``VPADDSW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -24431,7 +24437,7 @@ EVEX_VPADDSW_ZMM_K1Z_ZMM_ZMMM512: int = 2444
 
 ``16/32/64-bit``
 """
-PMAXSW_MM_MMM64: int = 2445
+PMAXSW_MM_MMM64: Code = 2445 # type: ignore
 """
 ``PMAXSW mm1, mm2/m64``
 
@@ -24441,7 +24447,7 @@ PMAXSW_MM_MMM64: int = 2445
 
 ``16/32/64-bit``
 """
-PMAXSW_XMM_XMMM128: int = 2446
+PMAXSW_XMM_XMMM128: Code = 2446 # type: ignore
 """
 ``PMAXSW xmm1, xmm2/m128``
 
@@ -24451,7 +24457,7 @@ PMAXSW_XMM_XMMM128: int = 2446
 
 ``16/32/64-bit``
 """
-VEX_VPMAXSW_XMM_XMM_XMMM128: int = 2447
+VEX_VPMAXSW_XMM_XMM_XMMM128: Code = 2447 # type: ignore
 """
 ``VPMAXSW xmm1, xmm2, xmm3/m128``
 
@@ -24461,7 +24467,7 @@ VEX_VPMAXSW_XMM_XMM_XMMM128: int = 2447
 
 ``16/32/64-bit``
 """
-VEX_VPMAXSW_YMM_YMM_YMMM256: int = 2448
+VEX_VPMAXSW_YMM_YMM_YMMM256: Code = 2448 # type: ignore
 """
 ``VPMAXSW ymm1, ymm2, ymm3/m256``
 
@@ -24471,7 +24477,7 @@ VEX_VPMAXSW_YMM_YMM_YMMM256: int = 2448
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSW_XMM_K1Z_XMM_XMMM128: int = 2449
+EVEX_VPMAXSW_XMM_K1Z_XMM_XMMM128: Code = 2449 # type: ignore
 """
 ``VPMAXSW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -24481,7 +24487,7 @@ EVEX_VPMAXSW_XMM_K1Z_XMM_XMMM128: int = 2449
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSW_YMM_K1Z_YMM_YMMM256: int = 2450
+EVEX_VPMAXSW_YMM_K1Z_YMM_YMMM256: Code = 2450 # type: ignore
 """
 ``VPMAXSW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -24491,7 +24497,7 @@ EVEX_VPMAXSW_YMM_K1Z_YMM_YMMM256: int = 2450
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSW_ZMM_K1Z_ZMM_ZMMM512: int = 2451
+EVEX_VPMAXSW_ZMM_K1Z_ZMM_ZMMM512: Code = 2451 # type: ignore
 """
 ``VPMAXSW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -24501,7 +24507,7 @@ EVEX_VPMAXSW_ZMM_K1Z_ZMM_ZMMM512: int = 2451
 
 ``16/32/64-bit``
 """
-PXOR_MM_MMM64: int = 2452
+PXOR_MM_MMM64: Code = 2452 # type: ignore
 """
 ``PXOR mm, mm/m64``
 
@@ -24511,7 +24517,7 @@ PXOR_MM_MMM64: int = 2452
 
 ``16/32/64-bit``
 """
-PXOR_XMM_XMMM128: int = 2453
+PXOR_XMM_XMMM128: Code = 2453 # type: ignore
 """
 ``PXOR xmm1, xmm2/m128``
 
@@ -24521,7 +24527,7 @@ PXOR_XMM_XMMM128: int = 2453
 
 ``16/32/64-bit``
 """
-VEX_VPXOR_XMM_XMM_XMMM128: int = 2454
+VEX_VPXOR_XMM_XMM_XMMM128: Code = 2454 # type: ignore
 """
 ``VPXOR xmm1, xmm2, xmm3/m128``
 
@@ -24531,7 +24537,7 @@ VEX_VPXOR_XMM_XMM_XMMM128: int = 2454
 
 ``16/32/64-bit``
 """
-VEX_VPXOR_YMM_YMM_YMMM256: int = 2455
+VEX_VPXOR_YMM_YMM_YMMM256: Code = 2455 # type: ignore
 """
 ``VPXOR ymm1, ymm2, ymm3/m256``
 
@@ -24541,7 +24547,7 @@ VEX_VPXOR_YMM_YMM_YMMM256: int = 2455
 
 ``16/32/64-bit``
 """
-EVEX_VPXORD_XMM_K1Z_XMM_XMMM128B32: int = 2456
+EVEX_VPXORD_XMM_K1Z_XMM_XMMM128B32: Code = 2456 # type: ignore
 """
 ``VPXORD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -24551,7 +24557,7 @@ EVEX_VPXORD_XMM_K1Z_XMM_XMMM128B32: int = 2456
 
 ``16/32/64-bit``
 """
-EVEX_VPXORD_YMM_K1Z_YMM_YMMM256B32: int = 2457
+EVEX_VPXORD_YMM_K1Z_YMM_YMMM256B32: Code = 2457 # type: ignore
 """
 ``VPXORD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -24561,7 +24567,7 @@ EVEX_VPXORD_YMM_K1Z_YMM_YMMM256B32: int = 2457
 
 ``16/32/64-bit``
 """
-EVEX_VPXORD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2458
+EVEX_VPXORD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2458 # type: ignore
 """
 ``VPXORD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -24571,7 +24577,7 @@ EVEX_VPXORD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2458
 
 ``16/32/64-bit``
 """
-EVEX_VPXORQ_XMM_K1Z_XMM_XMMM128B64: int = 2459
+EVEX_VPXORQ_XMM_K1Z_XMM_XMMM128B64: Code = 2459 # type: ignore
 """
 ``VPXORQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -24581,7 +24587,7 @@ EVEX_VPXORQ_XMM_K1Z_XMM_XMMM128B64: int = 2459
 
 ``16/32/64-bit``
 """
-EVEX_VPXORQ_YMM_K1Z_YMM_YMMM256B64: int = 2460
+EVEX_VPXORQ_YMM_K1Z_YMM_YMMM256B64: Code = 2460 # type: ignore
 """
 ``VPXORQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -24591,7 +24597,7 @@ EVEX_VPXORQ_YMM_K1Z_YMM_YMMM256B64: int = 2460
 
 ``16/32/64-bit``
 """
-EVEX_VPXORQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2461
+EVEX_VPXORQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2461 # type: ignore
 """
 ``VPXORQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -24601,7 +24607,7 @@ EVEX_VPXORQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2461
 
 ``16/32/64-bit``
 """
-LDDQU_XMM_M128: int = 2462
+LDDQU_XMM_M128: Code = 2462 # type: ignore
 """
 ``LDDQU xmm1, m128``
 
@@ -24611,7 +24617,7 @@ LDDQU_XMM_M128: int = 2462
 
 ``16/32/64-bit``
 """
-VEX_VLDDQU_XMM_M128: int = 2463
+VEX_VLDDQU_XMM_M128: Code = 2463 # type: ignore
 """
 ``VLDDQU xmm1, m128``
 
@@ -24621,7 +24627,7 @@ VEX_VLDDQU_XMM_M128: int = 2463
 
 ``16/32/64-bit``
 """
-VEX_VLDDQU_YMM_M256: int = 2464
+VEX_VLDDQU_YMM_M256: Code = 2464 # type: ignore
 """
 ``VLDDQU ymm1, m256``
 
@@ -24631,7 +24637,7 @@ VEX_VLDDQU_YMM_M256: int = 2464
 
 ``16/32/64-bit``
 """
-PSLLW_MM_MMM64: int = 2465
+PSLLW_MM_MMM64: Code = 2465 # type: ignore
 """
 ``PSLLW mm, mm/m64``
 
@@ -24641,7 +24647,7 @@ PSLLW_MM_MMM64: int = 2465
 
 ``16/32/64-bit``
 """
-PSLLW_XMM_XMMM128: int = 2466
+PSLLW_XMM_XMMM128: Code = 2466 # type: ignore
 """
 ``PSLLW xmm1, xmm2/m128``
 
@@ -24651,7 +24657,7 @@ PSLLW_XMM_XMMM128: int = 2466
 
 ``16/32/64-bit``
 """
-VEX_VPSLLW_XMM_XMM_XMMM128: int = 2467
+VEX_VPSLLW_XMM_XMM_XMMM128: Code = 2467 # type: ignore
 """
 ``VPSLLW xmm1, xmm2, xmm3/m128``
 
@@ -24661,7 +24667,7 @@ VEX_VPSLLW_XMM_XMM_XMMM128: int = 2467
 
 ``16/32/64-bit``
 """
-VEX_VPSLLW_YMM_YMM_XMMM128: int = 2468
+VEX_VPSLLW_YMM_YMM_XMMM128: Code = 2468 # type: ignore
 """
 ``VPSLLW ymm1, ymm2, xmm3/m128``
 
@@ -24671,7 +24677,7 @@ VEX_VPSLLW_YMM_YMM_XMMM128: int = 2468
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLW_XMM_K1Z_XMM_XMMM128: int = 2469
+EVEX_VPSLLW_XMM_K1Z_XMM_XMMM128: Code = 2469 # type: ignore
 """
 ``VPSLLW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -24681,7 +24687,7 @@ EVEX_VPSLLW_XMM_K1Z_XMM_XMMM128: int = 2469
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLW_YMM_K1Z_YMM_XMMM128: int = 2470
+EVEX_VPSLLW_YMM_K1Z_YMM_XMMM128: Code = 2470 # type: ignore
 """
 ``VPSLLW ymm1 {k1}{z}, ymm2, xmm3/m128``
 
@@ -24691,7 +24697,7 @@ EVEX_VPSLLW_YMM_K1Z_YMM_XMMM128: int = 2470
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLW_ZMM_K1Z_ZMM_XMMM128: int = 2471
+EVEX_VPSLLW_ZMM_K1Z_ZMM_XMMM128: Code = 2471 # type: ignore
 """
 ``VPSLLW zmm1 {k1}{z}, zmm2, xmm3/m128``
 
@@ -24701,7 +24707,7 @@ EVEX_VPSLLW_ZMM_K1Z_ZMM_XMMM128: int = 2471
 
 ``16/32/64-bit``
 """
-PSLLD_MM_MMM64: int = 2472
+PSLLD_MM_MMM64: Code = 2472 # type: ignore
 """
 ``PSLLD mm, mm/m64``
 
@@ -24711,7 +24717,7 @@ PSLLD_MM_MMM64: int = 2472
 
 ``16/32/64-bit``
 """
-PSLLD_XMM_XMMM128: int = 2473
+PSLLD_XMM_XMMM128: Code = 2473 # type: ignore
 """
 ``PSLLD xmm1, xmm2/m128``
 
@@ -24721,7 +24727,7 @@ PSLLD_XMM_XMMM128: int = 2473
 
 ``16/32/64-bit``
 """
-VEX_VPSLLD_XMM_XMM_XMMM128: int = 2474
+VEX_VPSLLD_XMM_XMM_XMMM128: Code = 2474 # type: ignore
 """
 ``VPSLLD xmm1, xmm2, xmm3/m128``
 
@@ -24731,7 +24737,7 @@ VEX_VPSLLD_XMM_XMM_XMMM128: int = 2474
 
 ``16/32/64-bit``
 """
-VEX_VPSLLD_YMM_YMM_XMMM128: int = 2475
+VEX_VPSLLD_YMM_YMM_XMMM128: Code = 2475 # type: ignore
 """
 ``VPSLLD ymm1, ymm2, xmm3/m128``
 
@@ -24741,7 +24747,7 @@ VEX_VPSLLD_YMM_YMM_XMMM128: int = 2475
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLD_XMM_K1Z_XMM_XMMM128: int = 2476
+EVEX_VPSLLD_XMM_K1Z_XMM_XMMM128: Code = 2476 # type: ignore
 """
 ``VPSLLD xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -24751,7 +24757,7 @@ EVEX_VPSLLD_XMM_K1Z_XMM_XMMM128: int = 2476
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLD_YMM_K1Z_YMM_XMMM128: int = 2477
+EVEX_VPSLLD_YMM_K1Z_YMM_XMMM128: Code = 2477 # type: ignore
 """
 ``VPSLLD ymm1 {k1}{z}, ymm2, xmm3/m128``
 
@@ -24761,7 +24767,7 @@ EVEX_VPSLLD_YMM_K1Z_YMM_XMMM128: int = 2477
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLD_ZMM_K1Z_ZMM_XMMM128: int = 2478
+EVEX_VPSLLD_ZMM_K1Z_ZMM_XMMM128: Code = 2478 # type: ignore
 """
 ``VPSLLD zmm1 {k1}{z}, zmm2, xmm3/m128``
 
@@ -24771,7 +24777,7 @@ EVEX_VPSLLD_ZMM_K1Z_ZMM_XMMM128: int = 2478
 
 ``16/32/64-bit``
 """
-PSLLQ_MM_MMM64: int = 2479
+PSLLQ_MM_MMM64: Code = 2479 # type: ignore
 """
 ``PSLLQ mm, mm/m64``
 
@@ -24781,7 +24787,7 @@ PSLLQ_MM_MMM64: int = 2479
 
 ``16/32/64-bit``
 """
-PSLLQ_XMM_XMMM128: int = 2480
+PSLLQ_XMM_XMMM128: Code = 2480 # type: ignore
 """
 ``PSLLQ xmm1, xmm2/m128``
 
@@ -24791,7 +24797,7 @@ PSLLQ_XMM_XMMM128: int = 2480
 
 ``16/32/64-bit``
 """
-VEX_VPSLLQ_XMM_XMM_XMMM128: int = 2481
+VEX_VPSLLQ_XMM_XMM_XMMM128: Code = 2481 # type: ignore
 """
 ``VPSLLQ xmm1, xmm2, xmm3/m128``
 
@@ -24801,7 +24807,7 @@ VEX_VPSLLQ_XMM_XMM_XMMM128: int = 2481
 
 ``16/32/64-bit``
 """
-VEX_VPSLLQ_YMM_YMM_XMMM128: int = 2482
+VEX_VPSLLQ_YMM_YMM_XMMM128: Code = 2482 # type: ignore
 """
 ``VPSLLQ ymm1, ymm2, xmm3/m128``
 
@@ -24811,7 +24817,7 @@ VEX_VPSLLQ_YMM_YMM_XMMM128: int = 2482
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLQ_XMM_K1Z_XMM_XMMM128: int = 2483
+EVEX_VPSLLQ_XMM_K1Z_XMM_XMMM128: Code = 2483 # type: ignore
 """
 ``VPSLLQ xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -24821,7 +24827,7 @@ EVEX_VPSLLQ_XMM_K1Z_XMM_XMMM128: int = 2483
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLQ_YMM_K1Z_YMM_XMMM128: int = 2484
+EVEX_VPSLLQ_YMM_K1Z_YMM_XMMM128: Code = 2484 # type: ignore
 """
 ``VPSLLQ ymm1 {k1}{z}, ymm2, xmm3/m128``
 
@@ -24831,7 +24837,7 @@ EVEX_VPSLLQ_YMM_K1Z_YMM_XMMM128: int = 2484
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLQ_ZMM_K1Z_ZMM_XMMM128: int = 2485
+EVEX_VPSLLQ_ZMM_K1Z_ZMM_XMMM128: Code = 2485 # type: ignore
 """
 ``VPSLLQ zmm1 {k1}{z}, zmm2, xmm3/m128``
 
@@ -24841,7 +24847,7 @@ EVEX_VPSLLQ_ZMM_K1Z_ZMM_XMMM128: int = 2485
 
 ``16/32/64-bit``
 """
-PMULUDQ_MM_MMM64: int = 2486
+PMULUDQ_MM_MMM64: Code = 2486 # type: ignore
 """
 ``PMULUDQ mm1, mm2/m64``
 
@@ -24851,7 +24857,7 @@ PMULUDQ_MM_MMM64: int = 2486
 
 ``16/32/64-bit``
 """
-PMULUDQ_XMM_XMMM128: int = 2487
+PMULUDQ_XMM_XMMM128: Code = 2487 # type: ignore
 """
 ``PMULUDQ xmm1, xmm2/m128``
 
@@ -24861,7 +24867,7 @@ PMULUDQ_XMM_XMMM128: int = 2487
 
 ``16/32/64-bit``
 """
-VEX_VPMULUDQ_XMM_XMM_XMMM128: int = 2488
+VEX_VPMULUDQ_XMM_XMM_XMMM128: Code = 2488 # type: ignore
 """
 ``VPMULUDQ xmm1, xmm2, xmm3/m128``
 
@@ -24871,7 +24877,7 @@ VEX_VPMULUDQ_XMM_XMM_XMMM128: int = 2488
 
 ``16/32/64-bit``
 """
-VEX_VPMULUDQ_YMM_YMM_YMMM256: int = 2489
+VEX_VPMULUDQ_YMM_YMM_YMMM256: Code = 2489 # type: ignore
 """
 ``VPMULUDQ ymm1, ymm2, ymm3/m256``
 
@@ -24881,7 +24887,7 @@ VEX_VPMULUDQ_YMM_YMM_YMMM256: int = 2489
 
 ``16/32/64-bit``
 """
-EVEX_VPMULUDQ_XMM_K1Z_XMM_XMMM128B64: int = 2490
+EVEX_VPMULUDQ_XMM_K1Z_XMM_XMMM128B64: Code = 2490 # type: ignore
 """
 ``VPMULUDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -24891,7 +24897,7 @@ EVEX_VPMULUDQ_XMM_K1Z_XMM_XMMM128B64: int = 2490
 
 ``16/32/64-bit``
 """
-EVEX_VPMULUDQ_YMM_K1Z_YMM_YMMM256B64: int = 2491
+EVEX_VPMULUDQ_YMM_K1Z_YMM_YMMM256B64: Code = 2491 # type: ignore
 """
 ``VPMULUDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -24901,7 +24907,7 @@ EVEX_VPMULUDQ_YMM_K1Z_YMM_YMMM256B64: int = 2491
 
 ``16/32/64-bit``
 """
-EVEX_VPMULUDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2492
+EVEX_VPMULUDQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2492 # type: ignore
 """
 ``VPMULUDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -24911,7 +24917,7 @@ EVEX_VPMULUDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2492
 
 ``16/32/64-bit``
 """
-PMADDWD_MM_MMM64: int = 2493
+PMADDWD_MM_MMM64: Code = 2493 # type: ignore
 """
 ``PMADDWD mm, mm/m64``
 
@@ -24921,7 +24927,7 @@ PMADDWD_MM_MMM64: int = 2493
 
 ``16/32/64-bit``
 """
-PMADDWD_XMM_XMMM128: int = 2494
+PMADDWD_XMM_XMMM128: Code = 2494 # type: ignore
 """
 ``PMADDWD xmm1, xmm2/m128``
 
@@ -24931,7 +24937,7 @@ PMADDWD_XMM_XMMM128: int = 2494
 
 ``16/32/64-bit``
 """
-VEX_VPMADDWD_XMM_XMM_XMMM128: int = 2495
+VEX_VPMADDWD_XMM_XMM_XMMM128: Code = 2495 # type: ignore
 """
 ``VPMADDWD xmm1, xmm2, xmm3/m128``
 
@@ -24941,7 +24947,7 @@ VEX_VPMADDWD_XMM_XMM_XMMM128: int = 2495
 
 ``16/32/64-bit``
 """
-VEX_VPMADDWD_YMM_YMM_YMMM256: int = 2496
+VEX_VPMADDWD_YMM_YMM_YMMM256: Code = 2496 # type: ignore
 """
 ``VPMADDWD ymm1, ymm2, ymm3/m256``
 
@@ -24951,7 +24957,7 @@ VEX_VPMADDWD_YMM_YMM_YMMM256: int = 2496
 
 ``16/32/64-bit``
 """
-EVEX_VPMADDWD_XMM_K1Z_XMM_XMMM128: int = 2497
+EVEX_VPMADDWD_XMM_K1Z_XMM_XMMM128: Code = 2497 # type: ignore
 """
 ``VPMADDWD xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -24961,7 +24967,7 @@ EVEX_VPMADDWD_XMM_K1Z_XMM_XMMM128: int = 2497
 
 ``16/32/64-bit``
 """
-EVEX_VPMADDWD_YMM_K1Z_YMM_YMMM256: int = 2498
+EVEX_VPMADDWD_YMM_K1Z_YMM_YMMM256: Code = 2498 # type: ignore
 """
 ``VPMADDWD ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -24971,7 +24977,7 @@ EVEX_VPMADDWD_YMM_K1Z_YMM_YMMM256: int = 2498
 
 ``16/32/64-bit``
 """
-EVEX_VPMADDWD_ZMM_K1Z_ZMM_ZMMM512: int = 2499
+EVEX_VPMADDWD_ZMM_K1Z_ZMM_ZMMM512: Code = 2499 # type: ignore
 """
 ``VPMADDWD zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -24981,7 +24987,7 @@ EVEX_VPMADDWD_ZMM_K1Z_ZMM_ZMMM512: int = 2499
 
 ``16/32/64-bit``
 """
-PSADBW_MM_MMM64: int = 2500
+PSADBW_MM_MMM64: Code = 2500 # type: ignore
 """
 ``PSADBW mm1, mm2/m64``
 
@@ -24991,7 +24997,7 @@ PSADBW_MM_MMM64: int = 2500
 
 ``16/32/64-bit``
 """
-PSADBW_XMM_XMMM128: int = 2501
+PSADBW_XMM_XMMM128: Code = 2501 # type: ignore
 """
 ``PSADBW xmm1, xmm2/m128``
 
@@ -25001,7 +25007,7 @@ PSADBW_XMM_XMMM128: int = 2501
 
 ``16/32/64-bit``
 """
-VEX_VPSADBW_XMM_XMM_XMMM128: int = 2502
+VEX_VPSADBW_XMM_XMM_XMMM128: Code = 2502 # type: ignore
 """
 ``VPSADBW xmm1, xmm2, xmm3/m128``
 
@@ -25011,7 +25017,7 @@ VEX_VPSADBW_XMM_XMM_XMMM128: int = 2502
 
 ``16/32/64-bit``
 """
-VEX_VPSADBW_YMM_YMM_YMMM256: int = 2503
+VEX_VPSADBW_YMM_YMM_YMMM256: Code = 2503 # type: ignore
 """
 ``VPSADBW ymm1, ymm2, ymm3/m256``
 
@@ -25021,7 +25027,7 @@ VEX_VPSADBW_YMM_YMM_YMMM256: int = 2503
 
 ``16/32/64-bit``
 """
-EVEX_VPSADBW_XMM_XMM_XMMM128: int = 2504
+EVEX_VPSADBW_XMM_XMM_XMMM128: Code = 2504 # type: ignore
 """
 ``VPSADBW xmm1, xmm2, xmm3/m128``
 
@@ -25031,7 +25037,7 @@ EVEX_VPSADBW_XMM_XMM_XMMM128: int = 2504
 
 ``16/32/64-bit``
 """
-EVEX_VPSADBW_YMM_YMM_YMMM256: int = 2505
+EVEX_VPSADBW_YMM_YMM_YMMM256: Code = 2505 # type: ignore
 """
 ``VPSADBW ymm1, ymm2, ymm3/m256``
 
@@ -25041,7 +25047,7 @@ EVEX_VPSADBW_YMM_YMM_YMMM256: int = 2505
 
 ``16/32/64-bit``
 """
-EVEX_VPSADBW_ZMM_ZMM_ZMMM512: int = 2506
+EVEX_VPSADBW_ZMM_ZMM_ZMMM512: Code = 2506 # type: ignore
 """
 ``VPSADBW zmm1, zmm2, zmm3/m512``
 
@@ -25051,7 +25057,7 @@ EVEX_VPSADBW_ZMM_ZMM_ZMMM512: int = 2506
 
 ``16/32/64-bit``
 """
-MASKMOVQ_RDI_MM_MM: int = 2507
+MASKMOVQ_RDI_MM_MM: Code = 2507 # type: ignore
 """
 ``MASKMOVQ mm1, mm2``
 
@@ -25061,7 +25067,7 @@ MASKMOVQ_RDI_MM_MM: int = 2507
 
 ``16/32/64-bit``
 """
-MASKMOVDQU_RDI_XMM_XMM: int = 2508
+MASKMOVDQU_RDI_XMM_XMM: Code = 2508 # type: ignore
 """
 ``MASKMOVDQU xmm1, xmm2``
 
@@ -25071,7 +25077,7 @@ MASKMOVDQU_RDI_XMM_XMM: int = 2508
 
 ``16/32/64-bit``
 """
-VEX_VMASKMOVDQU_RDI_XMM_XMM: int = 2509
+VEX_VMASKMOVDQU_RDI_XMM_XMM: Code = 2509 # type: ignore
 """
 ``VMASKMOVDQU xmm1, xmm2``
 
@@ -25081,7 +25087,7 @@ VEX_VMASKMOVDQU_RDI_XMM_XMM: int = 2509
 
 ``16/32/64-bit``
 """
-PSUBB_MM_MMM64: int = 2510
+PSUBB_MM_MMM64: Code = 2510 # type: ignore
 """
 ``PSUBB mm, mm/m64``
 
@@ -25091,7 +25097,7 @@ PSUBB_MM_MMM64: int = 2510
 
 ``16/32/64-bit``
 """
-PSUBB_XMM_XMMM128: int = 2511
+PSUBB_XMM_XMMM128: Code = 2511 # type: ignore
 """
 ``PSUBB xmm1, xmm2/m128``
 
@@ -25101,7 +25107,7 @@ PSUBB_XMM_XMMM128: int = 2511
 
 ``16/32/64-bit``
 """
-VEX_VPSUBB_XMM_XMM_XMMM128: int = 2512
+VEX_VPSUBB_XMM_XMM_XMMM128: Code = 2512 # type: ignore
 """
 ``VPSUBB xmm1, xmm2, xmm3/m128``
 
@@ -25111,7 +25117,7 @@ VEX_VPSUBB_XMM_XMM_XMMM128: int = 2512
 
 ``16/32/64-bit``
 """
-VEX_VPSUBB_YMM_YMM_YMMM256: int = 2513
+VEX_VPSUBB_YMM_YMM_YMMM256: Code = 2513 # type: ignore
 """
 ``VPSUBB ymm1, ymm2, ymm3/m256``
 
@@ -25121,7 +25127,7 @@ VEX_VPSUBB_YMM_YMM_YMMM256: int = 2513
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBB_XMM_K1Z_XMM_XMMM128: int = 2514
+EVEX_VPSUBB_XMM_K1Z_XMM_XMMM128: Code = 2514 # type: ignore
 """
 ``VPSUBB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -25131,7 +25137,7 @@ EVEX_VPSUBB_XMM_K1Z_XMM_XMMM128: int = 2514
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBB_YMM_K1Z_YMM_YMMM256: int = 2515
+EVEX_VPSUBB_YMM_K1Z_YMM_YMMM256: Code = 2515 # type: ignore
 """
 ``VPSUBB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -25141,7 +25147,7 @@ EVEX_VPSUBB_YMM_K1Z_YMM_YMMM256: int = 2515
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBB_ZMM_K1Z_ZMM_ZMMM512: int = 2516
+EVEX_VPSUBB_ZMM_K1Z_ZMM_ZMMM512: Code = 2516 # type: ignore
 """
 ``VPSUBB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -25151,7 +25157,7 @@ EVEX_VPSUBB_ZMM_K1Z_ZMM_ZMMM512: int = 2516
 
 ``16/32/64-bit``
 """
-PSUBW_MM_MMM64: int = 2517
+PSUBW_MM_MMM64: Code = 2517 # type: ignore
 """
 ``PSUBW mm, mm/m64``
 
@@ -25161,7 +25167,7 @@ PSUBW_MM_MMM64: int = 2517
 
 ``16/32/64-bit``
 """
-PSUBW_XMM_XMMM128: int = 2518
+PSUBW_XMM_XMMM128: Code = 2518 # type: ignore
 """
 ``PSUBW xmm1, xmm2/m128``
 
@@ -25171,7 +25177,7 @@ PSUBW_XMM_XMMM128: int = 2518
 
 ``16/32/64-bit``
 """
-VEX_VPSUBW_XMM_XMM_XMMM128: int = 2519
+VEX_VPSUBW_XMM_XMM_XMMM128: Code = 2519 # type: ignore
 """
 ``VPSUBW xmm1, xmm2, xmm3/m128``
 
@@ -25181,7 +25187,7 @@ VEX_VPSUBW_XMM_XMM_XMMM128: int = 2519
 
 ``16/32/64-bit``
 """
-VEX_VPSUBW_YMM_YMM_YMMM256: int = 2520
+VEX_VPSUBW_YMM_YMM_YMMM256: Code = 2520 # type: ignore
 """
 ``VPSUBW ymm1, ymm2, ymm3/m256``
 
@@ -25191,7 +25197,7 @@ VEX_VPSUBW_YMM_YMM_YMMM256: int = 2520
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBW_XMM_K1Z_XMM_XMMM128: int = 2521
+EVEX_VPSUBW_XMM_K1Z_XMM_XMMM128: Code = 2521 # type: ignore
 """
 ``VPSUBW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -25201,7 +25207,7 @@ EVEX_VPSUBW_XMM_K1Z_XMM_XMMM128: int = 2521
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBW_YMM_K1Z_YMM_YMMM256: int = 2522
+EVEX_VPSUBW_YMM_K1Z_YMM_YMMM256: Code = 2522 # type: ignore
 """
 ``VPSUBW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -25211,7 +25217,7 @@ EVEX_VPSUBW_YMM_K1Z_YMM_YMMM256: int = 2522
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBW_ZMM_K1Z_ZMM_ZMMM512: int = 2523
+EVEX_VPSUBW_ZMM_K1Z_ZMM_ZMMM512: Code = 2523 # type: ignore
 """
 ``VPSUBW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -25221,7 +25227,7 @@ EVEX_VPSUBW_ZMM_K1Z_ZMM_ZMMM512: int = 2523
 
 ``16/32/64-bit``
 """
-PSUBD_MM_MMM64: int = 2524
+PSUBD_MM_MMM64: Code = 2524 # type: ignore
 """
 ``PSUBD mm, mm/m64``
 
@@ -25231,7 +25237,7 @@ PSUBD_MM_MMM64: int = 2524
 
 ``16/32/64-bit``
 """
-PSUBD_XMM_XMMM128: int = 2525
+PSUBD_XMM_XMMM128: Code = 2525 # type: ignore
 """
 ``PSUBD xmm1, xmm2/m128``
 
@@ -25241,7 +25247,7 @@ PSUBD_XMM_XMMM128: int = 2525
 
 ``16/32/64-bit``
 """
-VEX_VPSUBD_XMM_XMM_XMMM128: int = 2526
+VEX_VPSUBD_XMM_XMM_XMMM128: Code = 2526 # type: ignore
 """
 ``VPSUBD xmm1, xmm2, xmm3/m128``
 
@@ -25251,7 +25257,7 @@ VEX_VPSUBD_XMM_XMM_XMMM128: int = 2526
 
 ``16/32/64-bit``
 """
-VEX_VPSUBD_YMM_YMM_YMMM256: int = 2527
+VEX_VPSUBD_YMM_YMM_YMMM256: Code = 2527 # type: ignore
 """
 ``VPSUBD ymm1, ymm2, ymm3/m256``
 
@@ -25261,7 +25267,7 @@ VEX_VPSUBD_YMM_YMM_YMMM256: int = 2527
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBD_XMM_K1Z_XMM_XMMM128B32: int = 2528
+EVEX_VPSUBD_XMM_K1Z_XMM_XMMM128B32: Code = 2528 # type: ignore
 """
 ``VPSUBD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -25271,7 +25277,7 @@ EVEX_VPSUBD_XMM_K1Z_XMM_XMMM128B32: int = 2528
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBD_YMM_K1Z_YMM_YMMM256B32: int = 2529
+EVEX_VPSUBD_YMM_K1Z_YMM_YMMM256B32: Code = 2529 # type: ignore
 """
 ``VPSUBD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -25281,7 +25287,7 @@ EVEX_VPSUBD_YMM_K1Z_YMM_YMMM256B32: int = 2529
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2530
+EVEX_VPSUBD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2530 # type: ignore
 """
 ``VPSUBD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -25291,7 +25297,7 @@ EVEX_VPSUBD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2530
 
 ``16/32/64-bit``
 """
-PSUBQ_MM_MMM64: int = 2531
+PSUBQ_MM_MMM64: Code = 2531 # type: ignore
 """
 ``PSUBQ mm1, mm2/m64``
 
@@ -25301,7 +25307,7 @@ PSUBQ_MM_MMM64: int = 2531
 
 ``16/32/64-bit``
 """
-PSUBQ_XMM_XMMM128: int = 2532
+PSUBQ_XMM_XMMM128: Code = 2532 # type: ignore
 """
 ``PSUBQ xmm1, xmm2/m128``
 
@@ -25311,7 +25317,7 @@ PSUBQ_XMM_XMMM128: int = 2532
 
 ``16/32/64-bit``
 """
-VEX_VPSUBQ_XMM_XMM_XMMM128: int = 2533
+VEX_VPSUBQ_XMM_XMM_XMMM128: Code = 2533 # type: ignore
 """
 ``VPSUBQ xmm1, xmm2, xmm3/m128``
 
@@ -25321,7 +25327,7 @@ VEX_VPSUBQ_XMM_XMM_XMMM128: int = 2533
 
 ``16/32/64-bit``
 """
-VEX_VPSUBQ_YMM_YMM_YMMM256: int = 2534
+VEX_VPSUBQ_YMM_YMM_YMMM256: Code = 2534 # type: ignore
 """
 ``VPSUBQ ymm1, ymm2, ymm3/m256``
 
@@ -25331,7 +25337,7 @@ VEX_VPSUBQ_YMM_YMM_YMMM256: int = 2534
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBQ_XMM_K1Z_XMM_XMMM128B64: int = 2535
+EVEX_VPSUBQ_XMM_K1Z_XMM_XMMM128B64: Code = 2535 # type: ignore
 """
 ``VPSUBQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -25341,7 +25347,7 @@ EVEX_VPSUBQ_XMM_K1Z_XMM_XMMM128B64: int = 2535
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBQ_YMM_K1Z_YMM_YMMM256B64: int = 2536
+EVEX_VPSUBQ_YMM_K1Z_YMM_YMMM256B64: Code = 2536 # type: ignore
 """
 ``VPSUBQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -25351,7 +25357,7 @@ EVEX_VPSUBQ_YMM_K1Z_YMM_YMMM256B64: int = 2536
 
 ``16/32/64-bit``
 """
-EVEX_VPSUBQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2537
+EVEX_VPSUBQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2537 # type: ignore
 """
 ``VPSUBQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -25361,7 +25367,7 @@ EVEX_VPSUBQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2537
 
 ``16/32/64-bit``
 """
-PADDB_MM_MMM64: int = 2538
+PADDB_MM_MMM64: Code = 2538 # type: ignore
 """
 ``PADDB mm, mm/m64``
 
@@ -25371,7 +25377,7 @@ PADDB_MM_MMM64: int = 2538
 
 ``16/32/64-bit``
 """
-PADDB_XMM_XMMM128: int = 2539
+PADDB_XMM_XMMM128: Code = 2539 # type: ignore
 """
 ``PADDB xmm1, xmm2/m128``
 
@@ -25381,7 +25387,7 @@ PADDB_XMM_XMMM128: int = 2539
 
 ``16/32/64-bit``
 """
-VEX_VPADDB_XMM_XMM_XMMM128: int = 2540
+VEX_VPADDB_XMM_XMM_XMMM128: Code = 2540 # type: ignore
 """
 ``VPADDB xmm1, xmm2, xmm3/m128``
 
@@ -25391,7 +25397,7 @@ VEX_VPADDB_XMM_XMM_XMMM128: int = 2540
 
 ``16/32/64-bit``
 """
-VEX_VPADDB_YMM_YMM_YMMM256: int = 2541
+VEX_VPADDB_YMM_YMM_YMMM256: Code = 2541 # type: ignore
 """
 ``VPADDB ymm1, ymm2, ymm3/m256``
 
@@ -25401,7 +25407,7 @@ VEX_VPADDB_YMM_YMM_YMMM256: int = 2541
 
 ``16/32/64-bit``
 """
-EVEX_VPADDB_XMM_K1Z_XMM_XMMM128: int = 2542
+EVEX_VPADDB_XMM_K1Z_XMM_XMMM128: Code = 2542 # type: ignore
 """
 ``VPADDB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -25411,7 +25417,7 @@ EVEX_VPADDB_XMM_K1Z_XMM_XMMM128: int = 2542
 
 ``16/32/64-bit``
 """
-EVEX_VPADDB_YMM_K1Z_YMM_YMMM256: int = 2543
+EVEX_VPADDB_YMM_K1Z_YMM_YMMM256: Code = 2543 # type: ignore
 """
 ``VPADDB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -25421,7 +25427,7 @@ EVEX_VPADDB_YMM_K1Z_YMM_YMMM256: int = 2543
 
 ``16/32/64-bit``
 """
-EVEX_VPADDB_ZMM_K1Z_ZMM_ZMMM512: int = 2544
+EVEX_VPADDB_ZMM_K1Z_ZMM_ZMMM512: Code = 2544 # type: ignore
 """
 ``VPADDB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -25431,7 +25437,7 @@ EVEX_VPADDB_ZMM_K1Z_ZMM_ZMMM512: int = 2544
 
 ``16/32/64-bit``
 """
-PADDW_MM_MMM64: int = 2545
+PADDW_MM_MMM64: Code = 2545 # type: ignore
 """
 ``PADDW mm, mm/m64``
 
@@ -25441,7 +25447,7 @@ PADDW_MM_MMM64: int = 2545
 
 ``16/32/64-bit``
 """
-PADDW_XMM_XMMM128: int = 2546
+PADDW_XMM_XMMM128: Code = 2546 # type: ignore
 """
 ``PADDW xmm1, xmm2/m128``
 
@@ -25451,7 +25457,7 @@ PADDW_XMM_XMMM128: int = 2546
 
 ``16/32/64-bit``
 """
-VEX_VPADDW_XMM_XMM_XMMM128: int = 2547
+VEX_VPADDW_XMM_XMM_XMMM128: Code = 2547 # type: ignore
 """
 ``VPADDW xmm1, xmm2, xmm3/m128``
 
@@ -25461,7 +25467,7 @@ VEX_VPADDW_XMM_XMM_XMMM128: int = 2547
 
 ``16/32/64-bit``
 """
-VEX_VPADDW_YMM_YMM_YMMM256: int = 2548
+VEX_VPADDW_YMM_YMM_YMMM256: Code = 2548 # type: ignore
 """
 ``VPADDW ymm1, ymm2, ymm3/m256``
 
@@ -25471,7 +25477,7 @@ VEX_VPADDW_YMM_YMM_YMMM256: int = 2548
 
 ``16/32/64-bit``
 """
-EVEX_VPADDW_XMM_K1Z_XMM_XMMM128: int = 2549
+EVEX_VPADDW_XMM_K1Z_XMM_XMMM128: Code = 2549 # type: ignore
 """
 ``VPADDW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -25481,7 +25487,7 @@ EVEX_VPADDW_XMM_K1Z_XMM_XMMM128: int = 2549
 
 ``16/32/64-bit``
 """
-EVEX_VPADDW_YMM_K1Z_YMM_YMMM256: int = 2550
+EVEX_VPADDW_YMM_K1Z_YMM_YMMM256: Code = 2550 # type: ignore
 """
 ``VPADDW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -25491,7 +25497,7 @@ EVEX_VPADDW_YMM_K1Z_YMM_YMMM256: int = 2550
 
 ``16/32/64-bit``
 """
-EVEX_VPADDW_ZMM_K1Z_ZMM_ZMMM512: int = 2551
+EVEX_VPADDW_ZMM_K1Z_ZMM_ZMMM512: Code = 2551 # type: ignore
 """
 ``VPADDW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -25501,7 +25507,7 @@ EVEX_VPADDW_ZMM_K1Z_ZMM_ZMMM512: int = 2551
 
 ``16/32/64-bit``
 """
-PADDD_MM_MMM64: int = 2552
+PADDD_MM_MMM64: Code = 2552 # type: ignore
 """
 ``PADDD mm, mm/m64``
 
@@ -25511,7 +25517,7 @@ PADDD_MM_MMM64: int = 2552
 
 ``16/32/64-bit``
 """
-PADDD_XMM_XMMM128: int = 2553
+PADDD_XMM_XMMM128: Code = 2553 # type: ignore
 """
 ``PADDD xmm1, xmm2/m128``
 
@@ -25521,7 +25527,7 @@ PADDD_XMM_XMMM128: int = 2553
 
 ``16/32/64-bit``
 """
-VEX_VPADDD_XMM_XMM_XMMM128: int = 2554
+VEX_VPADDD_XMM_XMM_XMMM128: Code = 2554 # type: ignore
 """
 ``VPADDD xmm1, xmm2, xmm3/m128``
 
@@ -25531,7 +25537,7 @@ VEX_VPADDD_XMM_XMM_XMMM128: int = 2554
 
 ``16/32/64-bit``
 """
-VEX_VPADDD_YMM_YMM_YMMM256: int = 2555
+VEX_VPADDD_YMM_YMM_YMMM256: Code = 2555 # type: ignore
 """
 ``VPADDD ymm1, ymm2, ymm3/m256``
 
@@ -25541,7 +25547,7 @@ VEX_VPADDD_YMM_YMM_YMMM256: int = 2555
 
 ``16/32/64-bit``
 """
-EVEX_VPADDD_XMM_K1Z_XMM_XMMM128B32: int = 2556
+EVEX_VPADDD_XMM_K1Z_XMM_XMMM128B32: Code = 2556 # type: ignore
 """
 ``VPADDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -25551,7 +25557,7 @@ EVEX_VPADDD_XMM_K1Z_XMM_XMMM128B32: int = 2556
 
 ``16/32/64-bit``
 """
-EVEX_VPADDD_YMM_K1Z_YMM_YMMM256B32: int = 2557
+EVEX_VPADDD_YMM_K1Z_YMM_YMMM256B32: Code = 2557 # type: ignore
 """
 ``VPADDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -25561,7 +25567,7 @@ EVEX_VPADDD_YMM_K1Z_YMM_YMMM256B32: int = 2557
 
 ``16/32/64-bit``
 """
-EVEX_VPADDD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2558
+EVEX_VPADDD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2558 # type: ignore
 """
 ``VPADDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -25571,7 +25577,7 @@ EVEX_VPADDD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2558
 
 ``16/32/64-bit``
 """
-UD0_R16_RM16: int = 2559
+UD0_R16_RM16: Code = 2559 # type: ignore
 """
 ``UD0 r16, r/m16``
 
@@ -25581,7 +25587,7 @@ UD0_R16_RM16: int = 2559
 
 ``16/32/64-bit``
 """
-UD0_R32_RM32: int = 2560
+UD0_R32_RM32: Code = 2560 # type: ignore
 """
 ``UD0 r32, r/m32``
 
@@ -25591,7 +25597,7 @@ UD0_R32_RM32: int = 2560
 
 ``16/32/64-bit``
 """
-UD0_R64_RM64: int = 2561
+UD0_R64_RM64: Code = 2561 # type: ignore
 """
 ``UD0 r64, r/m64``
 
@@ -25601,7 +25607,7 @@ UD0_R64_RM64: int = 2561
 
 ``64-bit``
 """
-PSHUFB_MM_MMM64: int = 2562
+PSHUFB_MM_MMM64: Code = 2562 # type: ignore
 """
 ``PSHUFB mm1, mm2/m64``
 
@@ -25611,7 +25617,7 @@ PSHUFB_MM_MMM64: int = 2562
 
 ``16/32/64-bit``
 """
-PSHUFB_XMM_XMMM128: int = 2563
+PSHUFB_XMM_XMMM128: Code = 2563 # type: ignore
 """
 ``PSHUFB xmm1, xmm2/m128``
 
@@ -25621,7 +25627,7 @@ PSHUFB_XMM_XMMM128: int = 2563
 
 ``16/32/64-bit``
 """
-VEX_VPSHUFB_XMM_XMM_XMMM128: int = 2564
+VEX_VPSHUFB_XMM_XMM_XMMM128: Code = 2564 # type: ignore
 """
 ``VPSHUFB xmm1, xmm2, xmm3/m128``
 
@@ -25631,7 +25637,7 @@ VEX_VPSHUFB_XMM_XMM_XMMM128: int = 2564
 
 ``16/32/64-bit``
 """
-VEX_VPSHUFB_YMM_YMM_YMMM256: int = 2565
+VEX_VPSHUFB_YMM_YMM_YMMM256: Code = 2565 # type: ignore
 """
 ``VPSHUFB ymm1, ymm2, ymm3/m256``
 
@@ -25641,7 +25647,7 @@ VEX_VPSHUFB_YMM_YMM_YMMM256: int = 2565
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFB_XMM_K1Z_XMM_XMMM128: int = 2566
+EVEX_VPSHUFB_XMM_K1Z_XMM_XMMM128: Code = 2566 # type: ignore
 """
 ``VPSHUFB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -25651,7 +25657,7 @@ EVEX_VPSHUFB_XMM_K1Z_XMM_XMMM128: int = 2566
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFB_YMM_K1Z_YMM_YMMM256: int = 2567
+EVEX_VPSHUFB_YMM_K1Z_YMM_YMMM256: Code = 2567 # type: ignore
 """
 ``VPSHUFB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -25661,7 +25667,7 @@ EVEX_VPSHUFB_YMM_K1Z_YMM_YMMM256: int = 2567
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFB_ZMM_K1Z_ZMM_ZMMM512: int = 2568
+EVEX_VPSHUFB_ZMM_K1Z_ZMM_ZMMM512: Code = 2568 # type: ignore
 """
 ``VPSHUFB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -25671,7 +25677,7 @@ EVEX_VPSHUFB_ZMM_K1Z_ZMM_ZMMM512: int = 2568
 
 ``16/32/64-bit``
 """
-PHADDW_MM_MMM64: int = 2569
+PHADDW_MM_MMM64: Code = 2569 # type: ignore
 """
 ``PHADDW mm1, mm2/m64``
 
@@ -25681,7 +25687,7 @@ PHADDW_MM_MMM64: int = 2569
 
 ``16/32/64-bit``
 """
-PHADDW_XMM_XMMM128: int = 2570
+PHADDW_XMM_XMMM128: Code = 2570 # type: ignore
 """
 ``PHADDW xmm1, xmm2/m128``
 
@@ -25691,7 +25697,7 @@ PHADDW_XMM_XMMM128: int = 2570
 
 ``16/32/64-bit``
 """
-VEX_VPHADDW_XMM_XMM_XMMM128: int = 2571
+VEX_VPHADDW_XMM_XMM_XMMM128: Code = 2571 # type: ignore
 """
 ``VPHADDW xmm1, xmm2, xmm3/m128``
 
@@ -25701,7 +25707,7 @@ VEX_VPHADDW_XMM_XMM_XMMM128: int = 2571
 
 ``16/32/64-bit``
 """
-VEX_VPHADDW_YMM_YMM_YMMM256: int = 2572
+VEX_VPHADDW_YMM_YMM_YMMM256: Code = 2572 # type: ignore
 """
 ``VPHADDW ymm1, ymm2, ymm3/m256``
 
@@ -25711,7 +25717,7 @@ VEX_VPHADDW_YMM_YMM_YMMM256: int = 2572
 
 ``16/32/64-bit``
 """
-PHADDD_MM_MMM64: int = 2573
+PHADDD_MM_MMM64: Code = 2573 # type: ignore
 """
 ``PHADDD mm1, mm2/m64``
 
@@ -25721,7 +25727,7 @@ PHADDD_MM_MMM64: int = 2573
 
 ``16/32/64-bit``
 """
-PHADDD_XMM_XMMM128: int = 2574
+PHADDD_XMM_XMMM128: Code = 2574 # type: ignore
 """
 ``PHADDD xmm1, xmm2/m128``
 
@@ -25731,7 +25737,7 @@ PHADDD_XMM_XMMM128: int = 2574
 
 ``16/32/64-bit``
 """
-VEX_VPHADDD_XMM_XMM_XMMM128: int = 2575
+VEX_VPHADDD_XMM_XMM_XMMM128: Code = 2575 # type: ignore
 """
 ``VPHADDD xmm1, xmm2, xmm3/m128``
 
@@ -25741,7 +25747,7 @@ VEX_VPHADDD_XMM_XMM_XMMM128: int = 2575
 
 ``16/32/64-bit``
 """
-VEX_VPHADDD_YMM_YMM_YMMM256: int = 2576
+VEX_VPHADDD_YMM_YMM_YMMM256: Code = 2576 # type: ignore
 """
 ``VPHADDD ymm1, ymm2, ymm3/m256``
 
@@ -25751,7 +25757,7 @@ VEX_VPHADDD_YMM_YMM_YMMM256: int = 2576
 
 ``16/32/64-bit``
 """
-PHADDSW_MM_MMM64: int = 2577
+PHADDSW_MM_MMM64: Code = 2577 # type: ignore
 """
 ``PHADDSW mm1, mm2/m64``
 
@@ -25761,7 +25767,7 @@ PHADDSW_MM_MMM64: int = 2577
 
 ``16/32/64-bit``
 """
-PHADDSW_XMM_XMMM128: int = 2578
+PHADDSW_XMM_XMMM128: Code = 2578 # type: ignore
 """
 ``PHADDSW xmm1, xmm2/m128``
 
@@ -25771,7 +25777,7 @@ PHADDSW_XMM_XMMM128: int = 2578
 
 ``16/32/64-bit``
 """
-VEX_VPHADDSW_XMM_XMM_XMMM128: int = 2579
+VEX_VPHADDSW_XMM_XMM_XMMM128: Code = 2579 # type: ignore
 """
 ``VPHADDSW xmm1, xmm2, xmm3/m128``
 
@@ -25781,7 +25787,7 @@ VEX_VPHADDSW_XMM_XMM_XMMM128: int = 2579
 
 ``16/32/64-bit``
 """
-VEX_VPHADDSW_YMM_YMM_YMMM256: int = 2580
+VEX_VPHADDSW_YMM_YMM_YMMM256: Code = 2580 # type: ignore
 """
 ``VPHADDSW ymm1, ymm2, ymm3/m256``
 
@@ -25791,7 +25797,7 @@ VEX_VPHADDSW_YMM_YMM_YMMM256: int = 2580
 
 ``16/32/64-bit``
 """
-PMADDUBSW_MM_MMM64: int = 2581
+PMADDUBSW_MM_MMM64: Code = 2581 # type: ignore
 """
 ``PMADDUBSW mm1, mm2/m64``
 
@@ -25801,7 +25807,7 @@ PMADDUBSW_MM_MMM64: int = 2581
 
 ``16/32/64-bit``
 """
-PMADDUBSW_XMM_XMMM128: int = 2582
+PMADDUBSW_XMM_XMMM128: Code = 2582 # type: ignore
 """
 ``PMADDUBSW xmm1, xmm2/m128``
 
@@ -25811,7 +25817,7 @@ PMADDUBSW_XMM_XMMM128: int = 2582
 
 ``16/32/64-bit``
 """
-VEX_VPMADDUBSW_XMM_XMM_XMMM128: int = 2583
+VEX_VPMADDUBSW_XMM_XMM_XMMM128: Code = 2583 # type: ignore
 """
 ``VPMADDUBSW xmm1, xmm2, xmm3/m128``
 
@@ -25821,7 +25827,7 @@ VEX_VPMADDUBSW_XMM_XMM_XMMM128: int = 2583
 
 ``16/32/64-bit``
 """
-VEX_VPMADDUBSW_YMM_YMM_YMMM256: int = 2584
+VEX_VPMADDUBSW_YMM_YMM_YMMM256: Code = 2584 # type: ignore
 """
 ``VPMADDUBSW ymm1, ymm2, ymm3/m256``
 
@@ -25831,7 +25837,7 @@ VEX_VPMADDUBSW_YMM_YMM_YMMM256: int = 2584
 
 ``16/32/64-bit``
 """
-EVEX_VPMADDUBSW_XMM_K1Z_XMM_XMMM128: int = 2585
+EVEX_VPMADDUBSW_XMM_K1Z_XMM_XMMM128: Code = 2585 # type: ignore
 """
 ``VPMADDUBSW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -25841,7 +25847,7 @@ EVEX_VPMADDUBSW_XMM_K1Z_XMM_XMMM128: int = 2585
 
 ``16/32/64-bit``
 """
-EVEX_VPMADDUBSW_YMM_K1Z_YMM_YMMM256: int = 2586
+EVEX_VPMADDUBSW_YMM_K1Z_YMM_YMMM256: Code = 2586 # type: ignore
 """
 ``VPMADDUBSW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -25851,7 +25857,7 @@ EVEX_VPMADDUBSW_YMM_K1Z_YMM_YMMM256: int = 2586
 
 ``16/32/64-bit``
 """
-EVEX_VPMADDUBSW_ZMM_K1Z_ZMM_ZMMM512: int = 2587
+EVEX_VPMADDUBSW_ZMM_K1Z_ZMM_ZMMM512: Code = 2587 # type: ignore
 """
 ``VPMADDUBSW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -25861,7 +25867,7 @@ EVEX_VPMADDUBSW_ZMM_K1Z_ZMM_ZMMM512: int = 2587
 
 ``16/32/64-bit``
 """
-PHSUBW_MM_MMM64: int = 2588
+PHSUBW_MM_MMM64: Code = 2588 # type: ignore
 """
 ``PHSUBW mm1, mm2/m64``
 
@@ -25871,7 +25877,7 @@ PHSUBW_MM_MMM64: int = 2588
 
 ``16/32/64-bit``
 """
-PHSUBW_XMM_XMMM128: int = 2589
+PHSUBW_XMM_XMMM128: Code = 2589 # type: ignore
 """
 ``PHSUBW xmm1, xmm2/m128``
 
@@ -25881,7 +25887,7 @@ PHSUBW_XMM_XMMM128: int = 2589
 
 ``16/32/64-bit``
 """
-VEX_VPHSUBW_XMM_XMM_XMMM128: int = 2590
+VEX_VPHSUBW_XMM_XMM_XMMM128: Code = 2590 # type: ignore
 """
 ``VPHSUBW xmm1, xmm2, xmm3/m128``
 
@@ -25891,7 +25897,7 @@ VEX_VPHSUBW_XMM_XMM_XMMM128: int = 2590
 
 ``16/32/64-bit``
 """
-VEX_VPHSUBW_YMM_YMM_YMMM256: int = 2591
+VEX_VPHSUBW_YMM_YMM_YMMM256: Code = 2591 # type: ignore
 """
 ``VPHSUBW ymm1, ymm2, ymm3/m256``
 
@@ -25901,7 +25907,7 @@ VEX_VPHSUBW_YMM_YMM_YMMM256: int = 2591
 
 ``16/32/64-bit``
 """
-PHSUBD_MM_MMM64: int = 2592
+PHSUBD_MM_MMM64: Code = 2592 # type: ignore
 """
 ``PHSUBD mm1, mm2/m64``
 
@@ -25911,7 +25917,7 @@ PHSUBD_MM_MMM64: int = 2592
 
 ``16/32/64-bit``
 """
-PHSUBD_XMM_XMMM128: int = 2593
+PHSUBD_XMM_XMMM128: Code = 2593 # type: ignore
 """
 ``PHSUBD xmm1, xmm2/m128``
 
@@ -25921,7 +25927,7 @@ PHSUBD_XMM_XMMM128: int = 2593
 
 ``16/32/64-bit``
 """
-VEX_VPHSUBD_XMM_XMM_XMMM128: int = 2594
+VEX_VPHSUBD_XMM_XMM_XMMM128: Code = 2594 # type: ignore
 """
 ``VPHSUBD xmm1, xmm2, xmm3/m128``
 
@@ -25931,7 +25937,7 @@ VEX_VPHSUBD_XMM_XMM_XMMM128: int = 2594
 
 ``16/32/64-bit``
 """
-VEX_VPHSUBD_YMM_YMM_YMMM256: int = 2595
+VEX_VPHSUBD_YMM_YMM_YMMM256: Code = 2595 # type: ignore
 """
 ``VPHSUBD ymm1, ymm2, ymm3/m256``
 
@@ -25941,7 +25947,7 @@ VEX_VPHSUBD_YMM_YMM_YMMM256: int = 2595
 
 ``16/32/64-bit``
 """
-PHSUBSW_MM_MMM64: int = 2596
+PHSUBSW_MM_MMM64: Code = 2596 # type: ignore
 """
 ``PHSUBSW mm1, mm2/m64``
 
@@ -25951,7 +25957,7 @@ PHSUBSW_MM_MMM64: int = 2596
 
 ``16/32/64-bit``
 """
-PHSUBSW_XMM_XMMM128: int = 2597
+PHSUBSW_XMM_XMMM128: Code = 2597 # type: ignore
 """
 ``PHSUBSW xmm1, xmm2/m128``
 
@@ -25961,7 +25967,7 @@ PHSUBSW_XMM_XMMM128: int = 2597
 
 ``16/32/64-bit``
 """
-VEX_VPHSUBSW_XMM_XMM_XMMM128: int = 2598
+VEX_VPHSUBSW_XMM_XMM_XMMM128: Code = 2598 # type: ignore
 """
 ``VPHSUBSW xmm1, xmm2, xmm3/m128``
 
@@ -25971,7 +25977,7 @@ VEX_VPHSUBSW_XMM_XMM_XMMM128: int = 2598
 
 ``16/32/64-bit``
 """
-VEX_VPHSUBSW_YMM_YMM_YMMM256: int = 2599
+VEX_VPHSUBSW_YMM_YMM_YMMM256: Code = 2599 # type: ignore
 """
 ``VPHSUBSW ymm1, ymm2, ymm3/m256``
 
@@ -25981,7 +25987,7 @@ VEX_VPHSUBSW_YMM_YMM_YMMM256: int = 2599
 
 ``16/32/64-bit``
 """
-PSIGNB_MM_MMM64: int = 2600
+PSIGNB_MM_MMM64: Code = 2600 # type: ignore
 """
 ``PSIGNB mm1, mm2/m64``
 
@@ -25991,7 +25997,7 @@ PSIGNB_MM_MMM64: int = 2600
 
 ``16/32/64-bit``
 """
-PSIGNB_XMM_XMMM128: int = 2601
+PSIGNB_XMM_XMMM128: Code = 2601 # type: ignore
 """
 ``PSIGNB xmm1, xmm2/m128``
 
@@ -26001,7 +26007,7 @@ PSIGNB_XMM_XMMM128: int = 2601
 
 ``16/32/64-bit``
 """
-VEX_VPSIGNB_XMM_XMM_XMMM128: int = 2602
+VEX_VPSIGNB_XMM_XMM_XMMM128: Code = 2602 # type: ignore
 """
 ``VPSIGNB xmm1, xmm2, xmm3/m128``
 
@@ -26011,7 +26017,7 @@ VEX_VPSIGNB_XMM_XMM_XMMM128: int = 2602
 
 ``16/32/64-bit``
 """
-VEX_VPSIGNB_YMM_YMM_YMMM256: int = 2603
+VEX_VPSIGNB_YMM_YMM_YMMM256: Code = 2603 # type: ignore
 """
 ``VPSIGNB ymm1, ymm2, ymm3/m256``
 
@@ -26021,7 +26027,7 @@ VEX_VPSIGNB_YMM_YMM_YMMM256: int = 2603
 
 ``16/32/64-bit``
 """
-PSIGNW_MM_MMM64: int = 2604
+PSIGNW_MM_MMM64: Code = 2604 # type: ignore
 """
 ``PSIGNW mm1, mm2/m64``
 
@@ -26031,7 +26037,7 @@ PSIGNW_MM_MMM64: int = 2604
 
 ``16/32/64-bit``
 """
-PSIGNW_XMM_XMMM128: int = 2605
+PSIGNW_XMM_XMMM128: Code = 2605 # type: ignore
 """
 ``PSIGNW xmm1, xmm2/m128``
 
@@ -26041,7 +26047,7 @@ PSIGNW_XMM_XMMM128: int = 2605
 
 ``16/32/64-bit``
 """
-VEX_VPSIGNW_XMM_XMM_XMMM128: int = 2606
+VEX_VPSIGNW_XMM_XMM_XMMM128: Code = 2606 # type: ignore
 """
 ``VPSIGNW xmm1, xmm2, xmm3/m128``
 
@@ -26051,7 +26057,7 @@ VEX_VPSIGNW_XMM_XMM_XMMM128: int = 2606
 
 ``16/32/64-bit``
 """
-VEX_VPSIGNW_YMM_YMM_YMMM256: int = 2607
+VEX_VPSIGNW_YMM_YMM_YMMM256: Code = 2607 # type: ignore
 """
 ``VPSIGNW ymm1, ymm2, ymm3/m256``
 
@@ -26061,7 +26067,7 @@ VEX_VPSIGNW_YMM_YMM_YMMM256: int = 2607
 
 ``16/32/64-bit``
 """
-PSIGND_MM_MMM64: int = 2608
+PSIGND_MM_MMM64: Code = 2608 # type: ignore
 """
 ``PSIGND mm1, mm2/m64``
 
@@ -26071,7 +26077,7 @@ PSIGND_MM_MMM64: int = 2608
 
 ``16/32/64-bit``
 """
-PSIGND_XMM_XMMM128: int = 2609
+PSIGND_XMM_XMMM128: Code = 2609 # type: ignore
 """
 ``PSIGND xmm1, xmm2/m128``
 
@@ -26081,7 +26087,7 @@ PSIGND_XMM_XMMM128: int = 2609
 
 ``16/32/64-bit``
 """
-VEX_VPSIGND_XMM_XMM_XMMM128: int = 2610
+VEX_VPSIGND_XMM_XMM_XMMM128: Code = 2610 # type: ignore
 """
 ``VPSIGND xmm1, xmm2, xmm3/m128``
 
@@ -26091,7 +26097,7 @@ VEX_VPSIGND_XMM_XMM_XMMM128: int = 2610
 
 ``16/32/64-bit``
 """
-VEX_VPSIGND_YMM_YMM_YMMM256: int = 2611
+VEX_VPSIGND_YMM_YMM_YMMM256: Code = 2611 # type: ignore
 """
 ``VPSIGND ymm1, ymm2, ymm3/m256``
 
@@ -26101,7 +26107,7 @@ VEX_VPSIGND_YMM_YMM_YMMM256: int = 2611
 
 ``16/32/64-bit``
 """
-PMULHRSW_MM_MMM64: int = 2612
+PMULHRSW_MM_MMM64: Code = 2612 # type: ignore
 """
 ``PMULHRSW mm1, mm2/m64``
 
@@ -26111,7 +26117,7 @@ PMULHRSW_MM_MMM64: int = 2612
 
 ``16/32/64-bit``
 """
-PMULHRSW_XMM_XMMM128: int = 2613
+PMULHRSW_XMM_XMMM128: Code = 2613 # type: ignore
 """
 ``PMULHRSW xmm1, xmm2/m128``
 
@@ -26121,7 +26127,7 @@ PMULHRSW_XMM_XMMM128: int = 2613
 
 ``16/32/64-bit``
 """
-VEX_VPMULHRSW_XMM_XMM_XMMM128: int = 2614
+VEX_VPMULHRSW_XMM_XMM_XMMM128: Code = 2614 # type: ignore
 """
 ``VPMULHRSW xmm1, xmm2, xmm3/m128``
 
@@ -26131,7 +26137,7 @@ VEX_VPMULHRSW_XMM_XMM_XMMM128: int = 2614
 
 ``16/32/64-bit``
 """
-VEX_VPMULHRSW_YMM_YMM_YMMM256: int = 2615
+VEX_VPMULHRSW_YMM_YMM_YMMM256: Code = 2615 # type: ignore
 """
 ``VPMULHRSW ymm1, ymm2, ymm3/m256``
 
@@ -26141,7 +26147,7 @@ VEX_VPMULHRSW_YMM_YMM_YMMM256: int = 2615
 
 ``16/32/64-bit``
 """
-EVEX_VPMULHRSW_XMM_K1Z_XMM_XMMM128: int = 2616
+EVEX_VPMULHRSW_XMM_K1Z_XMM_XMMM128: Code = 2616 # type: ignore
 """
 ``VPMULHRSW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -26151,7 +26157,7 @@ EVEX_VPMULHRSW_XMM_K1Z_XMM_XMMM128: int = 2616
 
 ``16/32/64-bit``
 """
-EVEX_VPMULHRSW_YMM_K1Z_YMM_YMMM256: int = 2617
+EVEX_VPMULHRSW_YMM_K1Z_YMM_YMMM256: Code = 2617 # type: ignore
 """
 ``VPMULHRSW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -26161,7 +26167,7 @@ EVEX_VPMULHRSW_YMM_K1Z_YMM_YMMM256: int = 2617
 
 ``16/32/64-bit``
 """
-EVEX_VPMULHRSW_ZMM_K1Z_ZMM_ZMMM512: int = 2618
+EVEX_VPMULHRSW_ZMM_K1Z_ZMM_ZMMM512: Code = 2618 # type: ignore
 """
 ``VPMULHRSW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -26171,7 +26177,7 @@ EVEX_VPMULHRSW_ZMM_K1Z_ZMM_ZMMM512: int = 2618
 
 ``16/32/64-bit``
 """
-VEX_VPERMILPS_XMM_XMM_XMMM128: int = 2619
+VEX_VPERMILPS_XMM_XMM_XMMM128: Code = 2619 # type: ignore
 """
 ``VPERMILPS xmm1, xmm2, xmm3/m128``
 
@@ -26181,7 +26187,7 @@ VEX_VPERMILPS_XMM_XMM_XMMM128: int = 2619
 
 ``16/32/64-bit``
 """
-VEX_VPERMILPS_YMM_YMM_YMMM256: int = 2620
+VEX_VPERMILPS_YMM_YMM_YMMM256: Code = 2620 # type: ignore
 """
 ``VPERMILPS ymm1, ymm2, ymm3/m256``
 
@@ -26191,7 +26197,7 @@ VEX_VPERMILPS_YMM_YMM_YMMM256: int = 2620
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPS_XMM_K1Z_XMM_XMMM128B32: int = 2621
+EVEX_VPERMILPS_XMM_K1Z_XMM_XMMM128B32: Code = 2621 # type: ignore
 """
 ``VPERMILPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -26201,7 +26207,7 @@ EVEX_VPERMILPS_XMM_K1Z_XMM_XMMM128B32: int = 2621
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPS_YMM_K1Z_YMM_YMMM256B32: int = 2622
+EVEX_VPERMILPS_YMM_K1Z_YMM_YMMM256B32: Code = 2622 # type: ignore
 """
 ``VPERMILPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -26211,7 +26217,7 @@ EVEX_VPERMILPS_YMM_K1Z_YMM_YMMM256B32: int = 2622
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 2623
+EVEX_VPERMILPS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2623 # type: ignore
 """
 ``VPERMILPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -26221,7 +26227,7 @@ EVEX_VPERMILPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 2623
 
 ``16/32/64-bit``
 """
-VEX_VPERMILPD_XMM_XMM_XMMM128: int = 2624
+VEX_VPERMILPD_XMM_XMM_XMMM128: Code = 2624 # type: ignore
 """
 ``VPERMILPD xmm1, xmm2, xmm3/m128``
 
@@ -26231,7 +26237,7 @@ VEX_VPERMILPD_XMM_XMM_XMMM128: int = 2624
 
 ``16/32/64-bit``
 """
-VEX_VPERMILPD_YMM_YMM_YMMM256: int = 2625
+VEX_VPERMILPD_YMM_YMM_YMMM256: Code = 2625 # type: ignore
 """
 ``VPERMILPD ymm1, ymm2, ymm3/m256``
 
@@ -26241,7 +26247,7 @@ VEX_VPERMILPD_YMM_YMM_YMMM256: int = 2625
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPD_XMM_K1Z_XMM_XMMM128B64: int = 2626
+EVEX_VPERMILPD_XMM_K1Z_XMM_XMMM128B64: Code = 2626 # type: ignore
 """
 ``VPERMILPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -26251,7 +26257,7 @@ EVEX_VPERMILPD_XMM_K1Z_XMM_XMMM128B64: int = 2626
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPD_YMM_K1Z_YMM_YMMM256B64: int = 2627
+EVEX_VPERMILPD_YMM_K1Z_YMM_YMMM256B64: Code = 2627 # type: ignore
 """
 ``VPERMILPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -26261,7 +26267,7 @@ EVEX_VPERMILPD_YMM_K1Z_YMM_YMMM256B64: int = 2627
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 2628
+EVEX_VPERMILPD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2628 # type: ignore
 """
 ``VPERMILPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -26271,7 +26277,7 @@ EVEX_VPERMILPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 2628
 
 ``16/32/64-bit``
 """
-VEX_VTESTPS_XMM_XMMM128: int = 2629
+VEX_VTESTPS_XMM_XMMM128: Code = 2629 # type: ignore
 """
 ``VTESTPS xmm1, xmm2/m128``
 
@@ -26281,7 +26287,7 @@ VEX_VTESTPS_XMM_XMMM128: int = 2629
 
 ``16/32/64-bit``
 """
-VEX_VTESTPS_YMM_YMMM256: int = 2630
+VEX_VTESTPS_YMM_YMMM256: Code = 2630 # type: ignore
 """
 ``VTESTPS ymm1, ymm2/m256``
 
@@ -26291,7 +26297,7 @@ VEX_VTESTPS_YMM_YMMM256: int = 2630
 
 ``16/32/64-bit``
 """
-VEX_VTESTPD_XMM_XMMM128: int = 2631
+VEX_VTESTPD_XMM_XMMM128: Code = 2631 # type: ignore
 """
 ``VTESTPD xmm1, xmm2/m128``
 
@@ -26301,7 +26307,7 @@ VEX_VTESTPD_XMM_XMMM128: int = 2631
 
 ``16/32/64-bit``
 """
-VEX_VTESTPD_YMM_YMMM256: int = 2632
+VEX_VTESTPD_YMM_YMMM256: Code = 2632 # type: ignore
 """
 ``VTESTPD ymm1, ymm2/m256``
 
@@ -26311,7 +26317,7 @@ VEX_VTESTPD_YMM_YMMM256: int = 2632
 
 ``16/32/64-bit``
 """
-PBLENDVB_XMM_XMMM128: int = 2633
+PBLENDVB_XMM_XMMM128: Code = 2633 # type: ignore
 """
 ``PBLENDVB xmm1, xmm2/m128, <XMM0>``
 
@@ -26321,7 +26327,7 @@ PBLENDVB_XMM_XMMM128: int = 2633
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLVW_XMM_K1Z_XMM_XMMM128: int = 2634
+EVEX_VPSRLVW_XMM_K1Z_XMM_XMMM128: Code = 2634 # type: ignore
 """
 ``VPSRLVW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -26331,7 +26337,7 @@ EVEX_VPSRLVW_XMM_K1Z_XMM_XMMM128: int = 2634
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLVW_YMM_K1Z_YMM_YMMM256: int = 2635
+EVEX_VPSRLVW_YMM_K1Z_YMM_YMMM256: Code = 2635 # type: ignore
 """
 ``VPSRLVW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -26341,7 +26347,7 @@ EVEX_VPSRLVW_YMM_K1Z_YMM_YMMM256: int = 2635
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLVW_ZMM_K1Z_ZMM_ZMMM512: int = 2636
+EVEX_VPSRLVW_ZMM_K1Z_ZMM_ZMMM512: Code = 2636 # type: ignore
 """
 ``VPSRLVW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -26351,7 +26357,7 @@ EVEX_VPSRLVW_ZMM_K1Z_ZMM_ZMMM512: int = 2636
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSWB_XMMM64_K1Z_XMM: int = 2637
+EVEX_VPMOVUSWB_XMMM64_K1Z_XMM: Code = 2637 # type: ignore
 """
 ``VPMOVUSWB xmm1/m64 {k1}{z}, xmm2``
 
@@ -26361,7 +26367,7 @@ EVEX_VPMOVUSWB_XMMM64_K1Z_XMM: int = 2637
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSWB_XMMM128_K1Z_YMM: int = 2638
+EVEX_VPMOVUSWB_XMMM128_K1Z_YMM: Code = 2638 # type: ignore
 """
 ``VPMOVUSWB xmm1/m128 {k1}{z}, ymm2``
 
@@ -26371,7 +26377,7 @@ EVEX_VPMOVUSWB_XMMM128_K1Z_YMM: int = 2638
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSWB_YMMM256_K1Z_ZMM: int = 2639
+EVEX_VPMOVUSWB_YMMM256_K1Z_ZMM: Code = 2639 # type: ignore
 """
 ``VPMOVUSWB ymm1/m256 {k1}{z}, zmm2``
 
@@ -26381,7 +26387,7 @@ EVEX_VPMOVUSWB_YMMM256_K1Z_ZMM: int = 2639
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAVW_XMM_K1Z_XMM_XMMM128: int = 2640
+EVEX_VPSRAVW_XMM_K1Z_XMM_XMMM128: Code = 2640 # type: ignore
 """
 ``VPSRAVW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -26391,7 +26397,7 @@ EVEX_VPSRAVW_XMM_K1Z_XMM_XMMM128: int = 2640
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAVW_YMM_K1Z_YMM_YMMM256: int = 2641
+EVEX_VPSRAVW_YMM_K1Z_YMM_YMMM256: Code = 2641 # type: ignore
 """
 ``VPSRAVW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -26401,7 +26407,7 @@ EVEX_VPSRAVW_YMM_K1Z_YMM_YMMM256: int = 2641
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAVW_ZMM_K1Z_ZMM_ZMMM512: int = 2642
+EVEX_VPSRAVW_ZMM_K1Z_ZMM_ZMMM512: Code = 2642 # type: ignore
 """
 ``VPSRAVW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -26411,7 +26417,7 @@ EVEX_VPSRAVW_ZMM_K1Z_ZMM_ZMMM512: int = 2642
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSDB_XMMM32_K1Z_XMM: int = 2643
+EVEX_VPMOVUSDB_XMMM32_K1Z_XMM: Code = 2643 # type: ignore
 """
 ``VPMOVUSDB xmm1/m32 {k1}{z}, xmm2``
 
@@ -26421,7 +26427,7 @@ EVEX_VPMOVUSDB_XMMM32_K1Z_XMM: int = 2643
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSDB_XMMM64_K1Z_YMM: int = 2644
+EVEX_VPMOVUSDB_XMMM64_K1Z_YMM: Code = 2644 # type: ignore
 """
 ``VPMOVUSDB xmm1/m64 {k1}{z}, ymm2``
 
@@ -26431,7 +26437,7 @@ EVEX_VPMOVUSDB_XMMM64_K1Z_YMM: int = 2644
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSDB_XMMM128_K1Z_ZMM: int = 2645
+EVEX_VPMOVUSDB_XMMM128_K1Z_ZMM: Code = 2645 # type: ignore
 """
 ``VPMOVUSDB xmm1/m128 {k1}{z}, zmm2``
 
@@ -26441,7 +26447,7 @@ EVEX_VPMOVUSDB_XMMM128_K1Z_ZMM: int = 2645
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLVW_XMM_K1Z_XMM_XMMM128: int = 2646
+EVEX_VPSLLVW_XMM_K1Z_XMM_XMMM128: Code = 2646 # type: ignore
 """
 ``VPSLLVW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -26451,7 +26457,7 @@ EVEX_VPSLLVW_XMM_K1Z_XMM_XMMM128: int = 2646
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLVW_YMM_K1Z_YMM_YMMM256: int = 2647
+EVEX_VPSLLVW_YMM_K1Z_YMM_YMMM256: Code = 2647 # type: ignore
 """
 ``VPSLLVW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -26461,7 +26467,7 @@ EVEX_VPSLLVW_YMM_K1Z_YMM_YMMM256: int = 2647
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLVW_ZMM_K1Z_ZMM_ZMMM512: int = 2648
+EVEX_VPSLLVW_ZMM_K1Z_ZMM_ZMMM512: Code = 2648 # type: ignore
 """
 ``VPSLLVW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -26471,7 +26477,7 @@ EVEX_VPSLLVW_ZMM_K1Z_ZMM_ZMMM512: int = 2648
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSQB_XMMM16_K1Z_XMM: int = 2649
+EVEX_VPMOVUSQB_XMMM16_K1Z_XMM: Code = 2649 # type: ignore
 """
 ``VPMOVUSQB xmm1/m16 {k1}{z}, xmm2``
 
@@ -26481,7 +26487,7 @@ EVEX_VPMOVUSQB_XMMM16_K1Z_XMM: int = 2649
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSQB_XMMM32_K1Z_YMM: int = 2650
+EVEX_VPMOVUSQB_XMMM32_K1Z_YMM: Code = 2650 # type: ignore
 """
 ``VPMOVUSQB xmm1/m32 {k1}{z}, ymm2``
 
@@ -26491,7 +26497,7 @@ EVEX_VPMOVUSQB_XMMM32_K1Z_YMM: int = 2650
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSQB_XMMM64_K1Z_ZMM: int = 2651
+EVEX_VPMOVUSQB_XMMM64_K1Z_ZMM: Code = 2651 # type: ignore
 """
 ``VPMOVUSQB xmm1/m64 {k1}{z}, zmm2``
 
@@ -26501,7 +26507,7 @@ EVEX_VPMOVUSQB_XMMM64_K1Z_ZMM: int = 2651
 
 ``16/32/64-bit``
 """
-VEX_VCVTPH2PS_XMM_XMMM64: int = 2652
+VEX_VCVTPH2PS_XMM_XMMM64: Code = 2652 # type: ignore
 """
 ``VCVTPH2PS xmm1, xmm2/m64``
 
@@ -26511,7 +26517,7 @@ VEX_VCVTPH2PS_XMM_XMMM64: int = 2652
 
 ``16/32/64-bit``
 """
-VEX_VCVTPH2PS_YMM_XMMM128: int = 2653
+VEX_VCVTPH2PS_YMM_XMMM128: Code = 2653 # type: ignore
 """
 ``VCVTPH2PS ymm1, xmm2/m128``
 
@@ -26521,7 +26527,7 @@ VEX_VCVTPH2PS_YMM_XMMM128: int = 2653
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2PS_XMM_K1Z_XMMM64: int = 2654
+EVEX_VCVTPH2PS_XMM_K1Z_XMMM64: Code = 2654 # type: ignore
 """
 ``VCVTPH2PS xmm1 {k1}{z}, xmm2/m64``
 
@@ -26531,7 +26537,7 @@ EVEX_VCVTPH2PS_XMM_K1Z_XMMM64: int = 2654
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2PS_YMM_K1Z_XMMM128: int = 2655
+EVEX_VCVTPH2PS_YMM_K1Z_XMMM128: Code = 2655 # type: ignore
 """
 ``VCVTPH2PS ymm1 {k1}{z}, xmm2/m128``
 
@@ -26541,7 +26547,7 @@ EVEX_VCVTPH2PS_YMM_K1Z_XMMM128: int = 2655
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2PS_ZMM_K1Z_YMMM256_SAE: int = 2656
+EVEX_VCVTPH2PS_ZMM_K1Z_YMMM256_SAE: Code = 2656 # type: ignore
 """
 ``VCVTPH2PS zmm1 {k1}{z}, ymm2/m256{sae}``
 
@@ -26551,7 +26557,7 @@ EVEX_VCVTPH2PS_ZMM_K1Z_YMMM256_SAE: int = 2656
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSDW_XMMM64_K1Z_XMM: int = 2657
+EVEX_VPMOVUSDW_XMMM64_K1Z_XMM: Code = 2657 # type: ignore
 """
 ``VPMOVUSDW xmm1/m64 {k1}{z}, xmm2``
 
@@ -26561,7 +26567,7 @@ EVEX_VPMOVUSDW_XMMM64_K1Z_XMM: int = 2657
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSDW_XMMM128_K1Z_YMM: int = 2658
+EVEX_VPMOVUSDW_XMMM128_K1Z_YMM: Code = 2658 # type: ignore
 """
 ``VPMOVUSDW xmm1/m128 {k1}{z}, ymm2``
 
@@ -26571,7 +26577,7 @@ EVEX_VPMOVUSDW_XMMM128_K1Z_YMM: int = 2658
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSDW_YMMM256_K1Z_ZMM: int = 2659
+EVEX_VPMOVUSDW_YMMM256_K1Z_ZMM: Code = 2659 # type: ignore
 """
 ``VPMOVUSDW ymm1/m256 {k1}{z}, zmm2``
 
@@ -26581,7 +26587,7 @@ EVEX_VPMOVUSDW_YMMM256_K1Z_ZMM: int = 2659
 
 ``16/32/64-bit``
 """
-BLENDVPS_XMM_XMMM128: int = 2660
+BLENDVPS_XMM_XMMM128: Code = 2660 # type: ignore
 """
 ``BLENDVPS xmm1, xmm2/m128, <XMM0>``
 
@@ -26591,7 +26597,7 @@ BLENDVPS_XMM_XMMM128: int = 2660
 
 ``16/32/64-bit``
 """
-EVEX_VPRORVD_XMM_K1Z_XMM_XMMM128B32: int = 2661
+EVEX_VPRORVD_XMM_K1Z_XMM_XMMM128B32: Code = 2661 # type: ignore
 """
 ``VPRORVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -26601,7 +26607,7 @@ EVEX_VPRORVD_XMM_K1Z_XMM_XMMM128B32: int = 2661
 
 ``16/32/64-bit``
 """
-EVEX_VPRORVD_YMM_K1Z_YMM_YMMM256B32: int = 2662
+EVEX_VPRORVD_YMM_K1Z_YMM_YMMM256B32: Code = 2662 # type: ignore
 """
 ``VPRORVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -26611,7 +26617,7 @@ EVEX_VPRORVD_YMM_K1Z_YMM_YMMM256B32: int = 2662
 
 ``16/32/64-bit``
 """
-EVEX_VPRORVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2663
+EVEX_VPRORVD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2663 # type: ignore
 """
 ``VPRORVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -26621,7 +26627,7 @@ EVEX_VPRORVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2663
 
 ``16/32/64-bit``
 """
-EVEX_VPRORVQ_XMM_K1Z_XMM_XMMM128B64: int = 2664
+EVEX_VPRORVQ_XMM_K1Z_XMM_XMMM128B64: Code = 2664 # type: ignore
 """
 ``VPRORVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -26631,7 +26637,7 @@ EVEX_VPRORVQ_XMM_K1Z_XMM_XMMM128B64: int = 2664
 
 ``16/32/64-bit``
 """
-EVEX_VPRORVQ_YMM_K1Z_YMM_YMMM256B64: int = 2665
+EVEX_VPRORVQ_YMM_K1Z_YMM_YMMM256B64: Code = 2665 # type: ignore
 """
 ``VPRORVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -26641,7 +26647,7 @@ EVEX_VPRORVQ_YMM_K1Z_YMM_YMMM256B64: int = 2665
 
 ``16/32/64-bit``
 """
-EVEX_VPRORVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2666
+EVEX_VPRORVQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2666 # type: ignore
 """
 ``VPRORVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -26651,7 +26657,7 @@ EVEX_VPRORVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2666
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSQW_XMMM32_K1Z_XMM: int = 2667
+EVEX_VPMOVUSQW_XMMM32_K1Z_XMM: Code = 2667 # type: ignore
 """
 ``VPMOVUSQW xmm1/m32 {k1}{z}, xmm2``
 
@@ -26661,7 +26667,7 @@ EVEX_VPMOVUSQW_XMMM32_K1Z_XMM: int = 2667
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSQW_XMMM64_K1Z_YMM: int = 2668
+EVEX_VPMOVUSQW_XMMM64_K1Z_YMM: Code = 2668 # type: ignore
 """
 ``VPMOVUSQW xmm1/m64 {k1}{z}, ymm2``
 
@@ -26671,7 +26677,7 @@ EVEX_VPMOVUSQW_XMMM64_K1Z_YMM: int = 2668
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSQW_XMMM128_K1Z_ZMM: int = 2669
+EVEX_VPMOVUSQW_XMMM128_K1Z_ZMM: Code = 2669 # type: ignore
 """
 ``VPMOVUSQW xmm1/m128 {k1}{z}, zmm2``
 
@@ -26681,7 +26687,7 @@ EVEX_VPMOVUSQW_XMMM128_K1Z_ZMM: int = 2669
 
 ``16/32/64-bit``
 """
-BLENDVPD_XMM_XMMM128: int = 2670
+BLENDVPD_XMM_XMMM128: Code = 2670 # type: ignore
 """
 ``BLENDVPD xmm1, xmm2/m128, <XMM0>``
 
@@ -26691,7 +26697,7 @@ BLENDVPD_XMM_XMMM128: int = 2670
 
 ``16/32/64-bit``
 """
-EVEX_VPROLVD_XMM_K1Z_XMM_XMMM128B32: int = 2671
+EVEX_VPROLVD_XMM_K1Z_XMM_XMMM128B32: Code = 2671 # type: ignore
 """
 ``VPROLVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -26701,7 +26707,7 @@ EVEX_VPROLVD_XMM_K1Z_XMM_XMMM128B32: int = 2671
 
 ``16/32/64-bit``
 """
-EVEX_VPROLVD_YMM_K1Z_YMM_YMMM256B32: int = 2672
+EVEX_VPROLVD_YMM_K1Z_YMM_YMMM256B32: Code = 2672 # type: ignore
 """
 ``VPROLVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -26711,7 +26717,7 @@ EVEX_VPROLVD_YMM_K1Z_YMM_YMMM256B32: int = 2672
 
 ``16/32/64-bit``
 """
-EVEX_VPROLVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2673
+EVEX_VPROLVD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2673 # type: ignore
 """
 ``VPROLVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -26721,7 +26727,7 @@ EVEX_VPROLVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2673
 
 ``16/32/64-bit``
 """
-EVEX_VPROLVQ_XMM_K1Z_XMM_XMMM128B64: int = 2674
+EVEX_VPROLVQ_XMM_K1Z_XMM_XMMM128B64: Code = 2674 # type: ignore
 """
 ``VPROLVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -26731,7 +26737,7 @@ EVEX_VPROLVQ_XMM_K1Z_XMM_XMMM128B64: int = 2674
 
 ``16/32/64-bit``
 """
-EVEX_VPROLVQ_YMM_K1Z_YMM_YMMM256B64: int = 2675
+EVEX_VPROLVQ_YMM_K1Z_YMM_YMMM256B64: Code = 2675 # type: ignore
 """
 ``VPROLVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -26741,7 +26747,7 @@ EVEX_VPROLVQ_YMM_K1Z_YMM_YMMM256B64: int = 2675
 
 ``16/32/64-bit``
 """
-EVEX_VPROLVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2676
+EVEX_VPROLVQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2676 # type: ignore
 """
 ``VPROLVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -26751,7 +26757,7 @@ EVEX_VPROLVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2676
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSQD_XMMM64_K1Z_XMM: int = 2677
+EVEX_VPMOVUSQD_XMMM64_K1Z_XMM: Code = 2677 # type: ignore
 """
 ``VPMOVUSQD xmm1/m64 {k1}{z}, xmm2``
 
@@ -26761,7 +26767,7 @@ EVEX_VPMOVUSQD_XMMM64_K1Z_XMM: int = 2677
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSQD_XMMM128_K1Z_YMM: int = 2678
+EVEX_VPMOVUSQD_XMMM128_K1Z_YMM: Code = 2678 # type: ignore
 """
 ``VPMOVUSQD xmm1/m128 {k1}{z}, ymm2``
 
@@ -26771,7 +26777,7 @@ EVEX_VPMOVUSQD_XMMM128_K1Z_YMM: int = 2678
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVUSQD_YMMM256_K1Z_ZMM: int = 2679
+EVEX_VPMOVUSQD_YMMM256_K1Z_ZMM: Code = 2679 # type: ignore
 """
 ``VPMOVUSQD ymm1/m256 {k1}{z}, zmm2``
 
@@ -26781,7 +26787,7 @@ EVEX_VPMOVUSQD_YMMM256_K1Z_ZMM: int = 2679
 
 ``16/32/64-bit``
 """
-VEX_VPERMPS_YMM_YMM_YMMM256: int = 2680
+VEX_VPERMPS_YMM_YMM_YMMM256: Code = 2680 # type: ignore
 """
 ``VPERMPS ymm1, ymm2, ymm3/m256``
 
@@ -26791,7 +26797,7 @@ VEX_VPERMPS_YMM_YMM_YMMM256: int = 2680
 
 ``16/32/64-bit``
 """
-EVEX_VPERMPS_YMM_K1Z_YMM_YMMM256B32: int = 2681
+EVEX_VPERMPS_YMM_K1Z_YMM_YMMM256B32: Code = 2681 # type: ignore
 """
 ``VPERMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -26801,7 +26807,7 @@ EVEX_VPERMPS_YMM_K1Z_YMM_YMMM256B32: int = 2681
 
 ``16/32/64-bit``
 """
-EVEX_VPERMPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 2682
+EVEX_VPERMPS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2682 # type: ignore
 """
 ``VPERMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -26811,7 +26817,7 @@ EVEX_VPERMPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 2682
 
 ``16/32/64-bit``
 """
-EVEX_VPERMPD_YMM_K1Z_YMM_YMMM256B64: int = 2683
+EVEX_VPERMPD_YMM_K1Z_YMM_YMMM256B64: Code = 2683 # type: ignore
 """
 ``VPERMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -26821,7 +26827,7 @@ EVEX_VPERMPD_YMM_K1Z_YMM_YMMM256B64: int = 2683
 
 ``16/32/64-bit``
 """
-EVEX_VPERMPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 2684
+EVEX_VPERMPD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2684 # type: ignore
 """
 ``VPERMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -26831,7 +26837,7 @@ EVEX_VPERMPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 2684
 
 ``16/32/64-bit``
 """
-PTEST_XMM_XMMM128: int = 2685
+PTEST_XMM_XMMM128: Code = 2685 # type: ignore
 """
 ``PTEST xmm1, xmm2/m128``
 
@@ -26841,7 +26847,7 @@ PTEST_XMM_XMMM128: int = 2685
 
 ``16/32/64-bit``
 """
-VEX_VPTEST_XMM_XMMM128: int = 2686
+VEX_VPTEST_XMM_XMMM128: Code = 2686 # type: ignore
 """
 ``VPTEST xmm1, xmm2/m128``
 
@@ -26851,7 +26857,7 @@ VEX_VPTEST_XMM_XMMM128: int = 2686
 
 ``16/32/64-bit``
 """
-VEX_VPTEST_YMM_YMMM256: int = 2687
+VEX_VPTEST_YMM_YMMM256: Code = 2687 # type: ignore
 """
 ``VPTEST ymm1, ymm2/m256``
 
@@ -26861,7 +26867,7 @@ VEX_VPTEST_YMM_YMMM256: int = 2687
 
 ``16/32/64-bit``
 """
-VEX_VBROADCASTSS_XMM_M32: int = 2688
+VEX_VBROADCASTSS_XMM_M32: Code = 2688 # type: ignore
 """
 ``VBROADCASTSS xmm1, m32``
 
@@ -26871,7 +26877,7 @@ VEX_VBROADCASTSS_XMM_M32: int = 2688
 
 ``16/32/64-bit``
 """
-VEX_VBROADCASTSS_YMM_M32: int = 2689
+VEX_VBROADCASTSS_YMM_M32: Code = 2689 # type: ignore
 """
 ``VBROADCASTSS ymm1, m32``
 
@@ -26881,7 +26887,7 @@ VEX_VBROADCASTSS_YMM_M32: int = 2689
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTSS_XMM_K1Z_XMMM32: int = 2690
+EVEX_VBROADCASTSS_XMM_K1Z_XMMM32: Code = 2690 # type: ignore
 """
 ``VBROADCASTSS xmm1 {k1}{z}, xmm2/m32``
 
@@ -26891,7 +26897,7 @@ EVEX_VBROADCASTSS_XMM_K1Z_XMMM32: int = 2690
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTSS_YMM_K1Z_XMMM32: int = 2691
+EVEX_VBROADCASTSS_YMM_K1Z_XMMM32: Code = 2691 # type: ignore
 """
 ``VBROADCASTSS ymm1 {k1}{z}, xmm2/m32``
 
@@ -26901,7 +26907,7 @@ EVEX_VBROADCASTSS_YMM_K1Z_XMMM32: int = 2691
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTSS_ZMM_K1Z_XMMM32: int = 2692
+EVEX_VBROADCASTSS_ZMM_K1Z_XMMM32: Code = 2692 # type: ignore
 """
 ``VBROADCASTSS zmm1 {k1}{z}, xmm2/m32``
 
@@ -26911,7 +26917,7 @@ EVEX_VBROADCASTSS_ZMM_K1Z_XMMM32: int = 2692
 
 ``16/32/64-bit``
 """
-VEX_VBROADCASTSD_YMM_M64: int = 2693
+VEX_VBROADCASTSD_YMM_M64: Code = 2693 # type: ignore
 """
 ``VBROADCASTSD ymm1, m64``
 
@@ -26921,7 +26927,7 @@ VEX_VBROADCASTSD_YMM_M64: int = 2693
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTF32X2_YMM_K1Z_XMMM64: int = 2694
+EVEX_VBROADCASTF32X2_YMM_K1Z_XMMM64: Code = 2694 # type: ignore
 """
 ``VBROADCASTF32X2 ymm1 {k1}{z}, xmm2/m64``
 
@@ -26931,7 +26937,7 @@ EVEX_VBROADCASTF32X2_YMM_K1Z_XMMM64: int = 2694
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTF32X2_ZMM_K1Z_XMMM64: int = 2695
+EVEX_VBROADCASTF32X2_ZMM_K1Z_XMMM64: Code = 2695 # type: ignore
 """
 ``VBROADCASTF32X2 zmm1 {k1}{z}, xmm2/m64``
 
@@ -26941,7 +26947,7 @@ EVEX_VBROADCASTF32X2_ZMM_K1Z_XMMM64: int = 2695
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTSD_YMM_K1Z_XMMM64: int = 2696
+EVEX_VBROADCASTSD_YMM_K1Z_XMMM64: Code = 2696 # type: ignore
 """
 ``VBROADCASTSD ymm1 {k1}{z}, xmm2/m64``
 
@@ -26951,7 +26957,7 @@ EVEX_VBROADCASTSD_YMM_K1Z_XMMM64: int = 2696
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTSD_ZMM_K1Z_XMMM64: int = 2697
+EVEX_VBROADCASTSD_ZMM_K1Z_XMMM64: Code = 2697 # type: ignore
 """
 ``VBROADCASTSD zmm1 {k1}{z}, xmm2/m64``
 
@@ -26961,7 +26967,7 @@ EVEX_VBROADCASTSD_ZMM_K1Z_XMMM64: int = 2697
 
 ``16/32/64-bit``
 """
-VEX_VBROADCASTF128_YMM_M128: int = 2698
+VEX_VBROADCASTF128_YMM_M128: Code = 2698 # type: ignore
 """
 ``VBROADCASTF128 ymm1, m128``
 
@@ -26971,7 +26977,7 @@ VEX_VBROADCASTF128_YMM_M128: int = 2698
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTF32X4_YMM_K1Z_M128: int = 2699
+EVEX_VBROADCASTF32X4_YMM_K1Z_M128: Code = 2699 # type: ignore
 """
 ``VBROADCASTF32X4 ymm1 {k1}{z}, m128``
 
@@ -26981,7 +26987,7 @@ EVEX_VBROADCASTF32X4_YMM_K1Z_M128: int = 2699
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTF32X4_ZMM_K1Z_M128: int = 2700
+EVEX_VBROADCASTF32X4_ZMM_K1Z_M128: Code = 2700 # type: ignore
 """
 ``VBROADCASTF32X4 zmm1 {k1}{z}, m128``
 
@@ -26991,7 +26997,7 @@ EVEX_VBROADCASTF32X4_ZMM_K1Z_M128: int = 2700
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTF64X2_YMM_K1Z_M128: int = 2701
+EVEX_VBROADCASTF64X2_YMM_K1Z_M128: Code = 2701 # type: ignore
 """
 ``VBROADCASTF64X2 ymm1 {k1}{z}, m128``
 
@@ -27001,7 +27007,7 @@ EVEX_VBROADCASTF64X2_YMM_K1Z_M128: int = 2701
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTF64X2_ZMM_K1Z_M128: int = 2702
+EVEX_VBROADCASTF64X2_ZMM_K1Z_M128: Code = 2702 # type: ignore
 """
 ``VBROADCASTF64X2 zmm1 {k1}{z}, m128``
 
@@ -27011,7 +27017,7 @@ EVEX_VBROADCASTF64X2_ZMM_K1Z_M128: int = 2702
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTF32X8_ZMM_K1Z_M256: int = 2703
+EVEX_VBROADCASTF32X8_ZMM_K1Z_M256: Code = 2703 # type: ignore
 """
 ``VBROADCASTF32X8 zmm1 {k1}{z}, m256``
 
@@ -27021,7 +27027,7 @@ EVEX_VBROADCASTF32X8_ZMM_K1Z_M256: int = 2703
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTF64X4_ZMM_K1Z_M256: int = 2704
+EVEX_VBROADCASTF64X4_ZMM_K1Z_M256: Code = 2704 # type: ignore
 """
 ``VBROADCASTF64X4 zmm1 {k1}{z}, m256``
 
@@ -27031,7 +27037,7 @@ EVEX_VBROADCASTF64X4_ZMM_K1Z_M256: int = 2704
 
 ``16/32/64-bit``
 """
-PABSB_MM_MMM64: int = 2705
+PABSB_MM_MMM64: Code = 2705 # type: ignore
 """
 ``PABSB mm1, mm2/m64``
 
@@ -27041,7 +27047,7 @@ PABSB_MM_MMM64: int = 2705
 
 ``16/32/64-bit``
 """
-PABSB_XMM_XMMM128: int = 2706
+PABSB_XMM_XMMM128: Code = 2706 # type: ignore
 """
 ``PABSB xmm1, xmm2/m128``
 
@@ -27051,7 +27057,7 @@ PABSB_XMM_XMMM128: int = 2706
 
 ``16/32/64-bit``
 """
-VEX_VPABSB_XMM_XMMM128: int = 2707
+VEX_VPABSB_XMM_XMMM128: Code = 2707 # type: ignore
 """
 ``VPABSB xmm1, xmm2/m128``
 
@@ -27061,7 +27067,7 @@ VEX_VPABSB_XMM_XMMM128: int = 2707
 
 ``16/32/64-bit``
 """
-VEX_VPABSB_YMM_YMMM256: int = 2708
+VEX_VPABSB_YMM_YMMM256: Code = 2708 # type: ignore
 """
 ``VPABSB ymm1, ymm2/m256``
 
@@ -27071,7 +27077,7 @@ VEX_VPABSB_YMM_YMMM256: int = 2708
 
 ``16/32/64-bit``
 """
-EVEX_VPABSB_XMM_K1Z_XMMM128: int = 2709
+EVEX_VPABSB_XMM_K1Z_XMMM128: Code = 2709 # type: ignore
 """
 ``VPABSB xmm1 {k1}{z}, xmm2/m128``
 
@@ -27081,7 +27087,7 @@ EVEX_VPABSB_XMM_K1Z_XMMM128: int = 2709
 
 ``16/32/64-bit``
 """
-EVEX_VPABSB_YMM_K1Z_YMMM256: int = 2710
+EVEX_VPABSB_YMM_K1Z_YMMM256: Code = 2710 # type: ignore
 """
 ``VPABSB ymm1 {k1}{z}, ymm2/m256``
 
@@ -27091,7 +27097,7 @@ EVEX_VPABSB_YMM_K1Z_YMMM256: int = 2710
 
 ``16/32/64-bit``
 """
-EVEX_VPABSB_ZMM_K1Z_ZMMM512: int = 2711
+EVEX_VPABSB_ZMM_K1Z_ZMMM512: Code = 2711 # type: ignore
 """
 ``VPABSB zmm1 {k1}{z}, zmm2/m512``
 
@@ -27101,7 +27107,7 @@ EVEX_VPABSB_ZMM_K1Z_ZMMM512: int = 2711
 
 ``16/32/64-bit``
 """
-PABSW_MM_MMM64: int = 2712
+PABSW_MM_MMM64: Code = 2712 # type: ignore
 """
 ``PABSW mm1, mm2/m64``
 
@@ -27111,7 +27117,7 @@ PABSW_MM_MMM64: int = 2712
 
 ``16/32/64-bit``
 """
-PABSW_XMM_XMMM128: int = 2713
+PABSW_XMM_XMMM128: Code = 2713 # type: ignore
 """
 ``PABSW xmm1, xmm2/m128``
 
@@ -27121,7 +27127,7 @@ PABSW_XMM_XMMM128: int = 2713
 
 ``16/32/64-bit``
 """
-VEX_VPABSW_XMM_XMMM128: int = 2714
+VEX_VPABSW_XMM_XMMM128: Code = 2714 # type: ignore
 """
 ``VPABSW xmm1, xmm2/m128``
 
@@ -27131,7 +27137,7 @@ VEX_VPABSW_XMM_XMMM128: int = 2714
 
 ``16/32/64-bit``
 """
-VEX_VPABSW_YMM_YMMM256: int = 2715
+VEX_VPABSW_YMM_YMMM256: Code = 2715 # type: ignore
 """
 ``VPABSW ymm1, ymm2/m256``
 
@@ -27141,7 +27147,7 @@ VEX_VPABSW_YMM_YMMM256: int = 2715
 
 ``16/32/64-bit``
 """
-EVEX_VPABSW_XMM_K1Z_XMMM128: int = 2716
+EVEX_VPABSW_XMM_K1Z_XMMM128: Code = 2716 # type: ignore
 """
 ``VPABSW xmm1 {k1}{z}, xmm2/m128``
 
@@ -27151,7 +27157,7 @@ EVEX_VPABSW_XMM_K1Z_XMMM128: int = 2716
 
 ``16/32/64-bit``
 """
-EVEX_VPABSW_YMM_K1Z_YMMM256: int = 2717
+EVEX_VPABSW_YMM_K1Z_YMMM256: Code = 2717 # type: ignore
 """
 ``VPABSW ymm1 {k1}{z}, ymm2/m256``
 
@@ -27161,7 +27167,7 @@ EVEX_VPABSW_YMM_K1Z_YMMM256: int = 2717
 
 ``16/32/64-bit``
 """
-EVEX_VPABSW_ZMM_K1Z_ZMMM512: int = 2718
+EVEX_VPABSW_ZMM_K1Z_ZMMM512: Code = 2718 # type: ignore
 """
 ``VPABSW zmm1 {k1}{z}, zmm2/m512``
 
@@ -27171,7 +27177,7 @@ EVEX_VPABSW_ZMM_K1Z_ZMMM512: int = 2718
 
 ``16/32/64-bit``
 """
-PABSD_MM_MMM64: int = 2719
+PABSD_MM_MMM64: Code = 2719 # type: ignore
 """
 ``PABSD mm1, mm2/m64``
 
@@ -27181,7 +27187,7 @@ PABSD_MM_MMM64: int = 2719
 
 ``16/32/64-bit``
 """
-PABSD_XMM_XMMM128: int = 2720
+PABSD_XMM_XMMM128: Code = 2720 # type: ignore
 """
 ``PABSD xmm1, xmm2/m128``
 
@@ -27191,7 +27197,7 @@ PABSD_XMM_XMMM128: int = 2720
 
 ``16/32/64-bit``
 """
-VEX_VPABSD_XMM_XMMM128: int = 2721
+VEX_VPABSD_XMM_XMMM128: Code = 2721 # type: ignore
 """
 ``VPABSD xmm1, xmm2/m128``
 
@@ -27201,7 +27207,7 @@ VEX_VPABSD_XMM_XMMM128: int = 2721
 
 ``16/32/64-bit``
 """
-VEX_VPABSD_YMM_YMMM256: int = 2722
+VEX_VPABSD_YMM_YMMM256: Code = 2722 # type: ignore
 """
 ``VPABSD ymm1, ymm2/m256``
 
@@ -27211,7 +27217,7 @@ VEX_VPABSD_YMM_YMMM256: int = 2722
 
 ``16/32/64-bit``
 """
-EVEX_VPABSD_XMM_K1Z_XMMM128B32: int = 2723
+EVEX_VPABSD_XMM_K1Z_XMMM128B32: Code = 2723 # type: ignore
 """
 ``VPABSD xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -27221,7 +27227,7 @@ EVEX_VPABSD_XMM_K1Z_XMMM128B32: int = 2723
 
 ``16/32/64-bit``
 """
-EVEX_VPABSD_YMM_K1Z_YMMM256B32: int = 2724
+EVEX_VPABSD_YMM_K1Z_YMMM256B32: Code = 2724 # type: ignore
 """
 ``VPABSD ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -27231,7 +27237,7 @@ EVEX_VPABSD_YMM_K1Z_YMMM256B32: int = 2724
 
 ``16/32/64-bit``
 """
-EVEX_VPABSD_ZMM_K1Z_ZMMM512B32: int = 2725
+EVEX_VPABSD_ZMM_K1Z_ZMMM512B32: Code = 2725 # type: ignore
 """
 ``VPABSD zmm1 {k1}{z}, zmm2/m512/m32bcst``
 
@@ -27241,7 +27247,7 @@ EVEX_VPABSD_ZMM_K1Z_ZMMM512B32: int = 2725
 
 ``16/32/64-bit``
 """
-EVEX_VPABSQ_XMM_K1Z_XMMM128B64: int = 2726
+EVEX_VPABSQ_XMM_K1Z_XMMM128B64: Code = 2726 # type: ignore
 """
 ``VPABSQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -27251,7 +27257,7 @@ EVEX_VPABSQ_XMM_K1Z_XMMM128B64: int = 2726
 
 ``16/32/64-bit``
 """
-EVEX_VPABSQ_YMM_K1Z_YMMM256B64: int = 2727
+EVEX_VPABSQ_YMM_K1Z_YMMM256B64: Code = 2727 # type: ignore
 """
 ``VPABSQ ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -27261,7 +27267,7 @@ EVEX_VPABSQ_YMM_K1Z_YMMM256B64: int = 2727
 
 ``16/32/64-bit``
 """
-EVEX_VPABSQ_ZMM_K1Z_ZMMM512B64: int = 2728
+EVEX_VPABSQ_ZMM_K1Z_ZMMM512B64: Code = 2728 # type: ignore
 """
 ``VPABSQ zmm1 {k1}{z}, zmm2/m512/m64bcst``
 
@@ -27271,7 +27277,7 @@ EVEX_VPABSQ_ZMM_K1Z_ZMMM512B64: int = 2728
 
 ``16/32/64-bit``
 """
-PMOVSXBW_XMM_XMMM64: int = 2729
+PMOVSXBW_XMM_XMMM64: Code = 2729 # type: ignore
 """
 ``PMOVSXBW xmm1, xmm2/m64``
 
@@ -27281,7 +27287,7 @@ PMOVSXBW_XMM_XMMM64: int = 2729
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXBW_XMM_XMMM64: int = 2730
+VEX_VPMOVSXBW_XMM_XMMM64: Code = 2730 # type: ignore
 """
 ``VPMOVSXBW xmm1, xmm2/m64``
 
@@ -27291,7 +27297,7 @@ VEX_VPMOVSXBW_XMM_XMMM64: int = 2730
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXBW_YMM_XMMM128: int = 2731
+VEX_VPMOVSXBW_YMM_XMMM128: Code = 2731 # type: ignore
 """
 ``VPMOVSXBW ymm1, xmm2/m128``
 
@@ -27301,7 +27307,7 @@ VEX_VPMOVSXBW_YMM_XMMM128: int = 2731
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXBW_XMM_K1Z_XMMM64: int = 2732
+EVEX_VPMOVSXBW_XMM_K1Z_XMMM64: Code = 2732 # type: ignore
 """
 ``VPMOVSXBW xmm1 {k1}{z}, xmm2/m64``
 
@@ -27311,7 +27317,7 @@ EVEX_VPMOVSXBW_XMM_K1Z_XMMM64: int = 2732
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXBW_YMM_K1Z_XMMM128: int = 2733
+EVEX_VPMOVSXBW_YMM_K1Z_XMMM128: Code = 2733 # type: ignore
 """
 ``VPMOVSXBW ymm1 {k1}{z}, xmm2/m128``
 
@@ -27321,7 +27327,7 @@ EVEX_VPMOVSXBW_YMM_K1Z_XMMM128: int = 2733
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXBW_ZMM_K1Z_YMMM256: int = 2734
+EVEX_VPMOVSXBW_ZMM_K1Z_YMMM256: Code = 2734 # type: ignore
 """
 ``VPMOVSXBW zmm1 {k1}{z}, ymm2/m256``
 
@@ -27331,7 +27337,7 @@ EVEX_VPMOVSXBW_ZMM_K1Z_YMMM256: int = 2734
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSWB_XMMM64_K1Z_XMM: int = 2735
+EVEX_VPMOVSWB_XMMM64_K1Z_XMM: Code = 2735 # type: ignore
 """
 ``VPMOVSWB xmm1/m64 {k1}{z}, xmm2``
 
@@ -27341,7 +27347,7 @@ EVEX_VPMOVSWB_XMMM64_K1Z_XMM: int = 2735
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSWB_XMMM128_K1Z_YMM: int = 2736
+EVEX_VPMOVSWB_XMMM128_K1Z_YMM: Code = 2736 # type: ignore
 """
 ``VPMOVSWB xmm1/m128 {k1}{z}, ymm2``
 
@@ -27351,7 +27357,7 @@ EVEX_VPMOVSWB_XMMM128_K1Z_YMM: int = 2736
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSWB_YMMM256_K1Z_ZMM: int = 2737
+EVEX_VPMOVSWB_YMMM256_K1Z_ZMM: Code = 2737 # type: ignore
 """
 ``VPMOVSWB ymm1/m256 {k1}{z}, zmm2``
 
@@ -27361,7 +27367,7 @@ EVEX_VPMOVSWB_YMMM256_K1Z_ZMM: int = 2737
 
 ``16/32/64-bit``
 """
-PMOVSXBD_XMM_XMMM32: int = 2738
+PMOVSXBD_XMM_XMMM32: Code = 2738 # type: ignore
 """
 ``PMOVSXBD xmm1, xmm2/m32``
 
@@ -27371,7 +27377,7 @@ PMOVSXBD_XMM_XMMM32: int = 2738
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXBD_XMM_XMMM32: int = 2739
+VEX_VPMOVSXBD_XMM_XMMM32: Code = 2739 # type: ignore
 """
 ``VPMOVSXBD xmm1, xmm2/m32``
 
@@ -27381,7 +27387,7 @@ VEX_VPMOVSXBD_XMM_XMMM32: int = 2739
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXBD_YMM_XMMM64: int = 2740
+VEX_VPMOVSXBD_YMM_XMMM64: Code = 2740 # type: ignore
 """
 ``VPMOVSXBD ymm1, xmm2/m64``
 
@@ -27391,7 +27397,7 @@ VEX_VPMOVSXBD_YMM_XMMM64: int = 2740
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXBD_XMM_K1Z_XMMM32: int = 2741
+EVEX_VPMOVSXBD_XMM_K1Z_XMMM32: Code = 2741 # type: ignore
 """
 ``VPMOVSXBD xmm1 {k1}{z}, xmm2/m32``
 
@@ -27401,7 +27407,7 @@ EVEX_VPMOVSXBD_XMM_K1Z_XMMM32: int = 2741
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXBD_YMM_K1Z_XMMM64: int = 2742
+EVEX_VPMOVSXBD_YMM_K1Z_XMMM64: Code = 2742 # type: ignore
 """
 ``VPMOVSXBD ymm1 {k1}{z}, xmm2/m64``
 
@@ -27411,7 +27417,7 @@ EVEX_VPMOVSXBD_YMM_K1Z_XMMM64: int = 2742
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXBD_ZMM_K1Z_XMMM128: int = 2743
+EVEX_VPMOVSXBD_ZMM_K1Z_XMMM128: Code = 2743 # type: ignore
 """
 ``VPMOVSXBD zmm1 {k1}{z}, xmm2/m128``
 
@@ -27421,7 +27427,7 @@ EVEX_VPMOVSXBD_ZMM_K1Z_XMMM128: int = 2743
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSDB_XMMM32_K1Z_XMM: int = 2744
+EVEX_VPMOVSDB_XMMM32_K1Z_XMM: Code = 2744 # type: ignore
 """
 ``VPMOVSDB xmm1/m32 {k1}{z}, xmm2``
 
@@ -27431,7 +27437,7 @@ EVEX_VPMOVSDB_XMMM32_K1Z_XMM: int = 2744
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSDB_XMMM64_K1Z_YMM: int = 2745
+EVEX_VPMOVSDB_XMMM64_K1Z_YMM: Code = 2745 # type: ignore
 """
 ``VPMOVSDB xmm1/m64 {k1}{z}, ymm2``
 
@@ -27441,7 +27447,7 @@ EVEX_VPMOVSDB_XMMM64_K1Z_YMM: int = 2745
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSDB_XMMM128_K1Z_ZMM: int = 2746
+EVEX_VPMOVSDB_XMMM128_K1Z_ZMM: Code = 2746 # type: ignore
 """
 ``VPMOVSDB xmm1/m128 {k1}{z}, zmm2``
 
@@ -27451,7 +27457,7 @@ EVEX_VPMOVSDB_XMMM128_K1Z_ZMM: int = 2746
 
 ``16/32/64-bit``
 """
-PMOVSXBQ_XMM_XMMM16: int = 2747
+PMOVSXBQ_XMM_XMMM16: Code = 2747 # type: ignore
 """
 ``PMOVSXBQ xmm1, xmm2/m16``
 
@@ -27461,7 +27467,7 @@ PMOVSXBQ_XMM_XMMM16: int = 2747
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXBQ_XMM_XMMM16: int = 2748
+VEX_VPMOVSXBQ_XMM_XMMM16: Code = 2748 # type: ignore
 """
 ``VPMOVSXBQ xmm1, xmm2/m16``
 
@@ -27471,7 +27477,7 @@ VEX_VPMOVSXBQ_XMM_XMMM16: int = 2748
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXBQ_YMM_XMMM32: int = 2749
+VEX_VPMOVSXBQ_YMM_XMMM32: Code = 2749 # type: ignore
 """
 ``VPMOVSXBQ ymm1, xmm2/m32``
 
@@ -27481,7 +27487,7 @@ VEX_VPMOVSXBQ_YMM_XMMM32: int = 2749
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXBQ_XMM_K1Z_XMMM16: int = 2750
+EVEX_VPMOVSXBQ_XMM_K1Z_XMMM16: Code = 2750 # type: ignore
 """
 ``VPMOVSXBQ xmm1 {k1}{z}, xmm2/m16``
 
@@ -27491,7 +27497,7 @@ EVEX_VPMOVSXBQ_XMM_K1Z_XMMM16: int = 2750
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXBQ_YMM_K1Z_XMMM32: int = 2751
+EVEX_VPMOVSXBQ_YMM_K1Z_XMMM32: Code = 2751 # type: ignore
 """
 ``VPMOVSXBQ ymm1 {k1}{z}, xmm2/m32``
 
@@ -27501,7 +27507,7 @@ EVEX_VPMOVSXBQ_YMM_K1Z_XMMM32: int = 2751
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXBQ_ZMM_K1Z_XMMM64: int = 2752
+EVEX_VPMOVSXBQ_ZMM_K1Z_XMMM64: Code = 2752 # type: ignore
 """
 ``VPMOVSXBQ zmm1 {k1}{z}, xmm2/m64``
 
@@ -27511,7 +27517,7 @@ EVEX_VPMOVSXBQ_ZMM_K1Z_XMMM64: int = 2752
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSQB_XMMM16_K1Z_XMM: int = 2753
+EVEX_VPMOVSQB_XMMM16_K1Z_XMM: Code = 2753 # type: ignore
 """
 ``VPMOVSQB xmm1/m16 {k1}{z}, xmm2``
 
@@ -27521,7 +27527,7 @@ EVEX_VPMOVSQB_XMMM16_K1Z_XMM: int = 2753
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSQB_XMMM32_K1Z_YMM: int = 2754
+EVEX_VPMOVSQB_XMMM32_K1Z_YMM: Code = 2754 # type: ignore
 """
 ``VPMOVSQB xmm1/m32 {k1}{z}, ymm2``
 
@@ -27531,7 +27537,7 @@ EVEX_VPMOVSQB_XMMM32_K1Z_YMM: int = 2754
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSQB_XMMM64_K1Z_ZMM: int = 2755
+EVEX_VPMOVSQB_XMMM64_K1Z_ZMM: Code = 2755 # type: ignore
 """
 ``VPMOVSQB xmm1/m64 {k1}{z}, zmm2``
 
@@ -27541,7 +27547,7 @@ EVEX_VPMOVSQB_XMMM64_K1Z_ZMM: int = 2755
 
 ``16/32/64-bit``
 """
-PMOVSXWD_XMM_XMMM64: int = 2756
+PMOVSXWD_XMM_XMMM64: Code = 2756 # type: ignore
 """
 ``PMOVSXWD xmm1, xmm2/m64``
 
@@ -27551,7 +27557,7 @@ PMOVSXWD_XMM_XMMM64: int = 2756
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXWD_XMM_XMMM64: int = 2757
+VEX_VPMOVSXWD_XMM_XMMM64: Code = 2757 # type: ignore
 """
 ``VPMOVSXWD xmm1, xmm2/m64``
 
@@ -27561,7 +27567,7 @@ VEX_VPMOVSXWD_XMM_XMMM64: int = 2757
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXWD_YMM_XMMM128: int = 2758
+VEX_VPMOVSXWD_YMM_XMMM128: Code = 2758 # type: ignore
 """
 ``VPMOVSXWD ymm1, xmm2/m128``
 
@@ -27571,7 +27577,7 @@ VEX_VPMOVSXWD_YMM_XMMM128: int = 2758
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXWD_XMM_K1Z_XMMM64: int = 2759
+EVEX_VPMOVSXWD_XMM_K1Z_XMMM64: Code = 2759 # type: ignore
 """
 ``VPMOVSXWD xmm1 {k1}{z}, xmm2/m64``
 
@@ -27581,7 +27587,7 @@ EVEX_VPMOVSXWD_XMM_K1Z_XMMM64: int = 2759
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXWD_YMM_K1Z_XMMM128: int = 2760
+EVEX_VPMOVSXWD_YMM_K1Z_XMMM128: Code = 2760 # type: ignore
 """
 ``VPMOVSXWD ymm1 {k1}{z}, xmm2/m128``
 
@@ -27591,7 +27597,7 @@ EVEX_VPMOVSXWD_YMM_K1Z_XMMM128: int = 2760
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXWD_ZMM_K1Z_YMMM256: int = 2761
+EVEX_VPMOVSXWD_ZMM_K1Z_YMMM256: Code = 2761 # type: ignore
 """
 ``VPMOVSXWD zmm1 {k1}{z}, ymm2/m256``
 
@@ -27601,7 +27607,7 @@ EVEX_VPMOVSXWD_ZMM_K1Z_YMMM256: int = 2761
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSDW_XMMM64_K1Z_XMM: int = 2762
+EVEX_VPMOVSDW_XMMM64_K1Z_XMM: Code = 2762 # type: ignore
 """
 ``VPMOVSDW xmm1/m64 {k1}{z}, xmm2``
 
@@ -27611,7 +27617,7 @@ EVEX_VPMOVSDW_XMMM64_K1Z_XMM: int = 2762
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSDW_XMMM128_K1Z_YMM: int = 2763
+EVEX_VPMOVSDW_XMMM128_K1Z_YMM: Code = 2763 # type: ignore
 """
 ``VPMOVSDW xmm1/m128 {k1}{z}, ymm2``
 
@@ -27621,7 +27627,7 @@ EVEX_VPMOVSDW_XMMM128_K1Z_YMM: int = 2763
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSDW_YMMM256_K1Z_ZMM: int = 2764
+EVEX_VPMOVSDW_YMMM256_K1Z_ZMM: Code = 2764 # type: ignore
 """
 ``VPMOVSDW ymm1/m256 {k1}{z}, zmm2``
 
@@ -27631,7 +27637,7 @@ EVEX_VPMOVSDW_YMMM256_K1Z_ZMM: int = 2764
 
 ``16/32/64-bit``
 """
-PMOVSXWQ_XMM_XMMM32: int = 2765
+PMOVSXWQ_XMM_XMMM32: Code = 2765 # type: ignore
 """
 ``PMOVSXWQ xmm1, xmm2/m32``
 
@@ -27641,7 +27647,7 @@ PMOVSXWQ_XMM_XMMM32: int = 2765
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXWQ_XMM_XMMM32: int = 2766
+VEX_VPMOVSXWQ_XMM_XMMM32: Code = 2766 # type: ignore
 """
 ``VPMOVSXWQ xmm1, xmm2/m32``
 
@@ -27651,7 +27657,7 @@ VEX_VPMOVSXWQ_XMM_XMMM32: int = 2766
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXWQ_YMM_XMMM64: int = 2767
+VEX_VPMOVSXWQ_YMM_XMMM64: Code = 2767 # type: ignore
 """
 ``VPMOVSXWQ ymm1, xmm2/m64``
 
@@ -27661,7 +27667,7 @@ VEX_VPMOVSXWQ_YMM_XMMM64: int = 2767
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXWQ_XMM_K1Z_XMMM32: int = 2768
+EVEX_VPMOVSXWQ_XMM_K1Z_XMMM32: Code = 2768 # type: ignore
 """
 ``VPMOVSXWQ xmm1 {k1}{z}, xmm2/m32``
 
@@ -27671,7 +27677,7 @@ EVEX_VPMOVSXWQ_XMM_K1Z_XMMM32: int = 2768
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXWQ_YMM_K1Z_XMMM64: int = 2769
+EVEX_VPMOVSXWQ_YMM_K1Z_XMMM64: Code = 2769 # type: ignore
 """
 ``VPMOVSXWQ ymm1 {k1}{z}, xmm2/m64``
 
@@ -27681,7 +27687,7 @@ EVEX_VPMOVSXWQ_YMM_K1Z_XMMM64: int = 2769
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXWQ_ZMM_K1Z_XMMM128: int = 2770
+EVEX_VPMOVSXWQ_ZMM_K1Z_XMMM128: Code = 2770 # type: ignore
 """
 ``VPMOVSXWQ zmm1 {k1}{z}, xmm2/m128``
 
@@ -27691,7 +27697,7 @@ EVEX_VPMOVSXWQ_ZMM_K1Z_XMMM128: int = 2770
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSQW_XMMM32_K1Z_XMM: int = 2771
+EVEX_VPMOVSQW_XMMM32_K1Z_XMM: Code = 2771 # type: ignore
 """
 ``VPMOVSQW xmm1/m32 {k1}{z}, xmm2``
 
@@ -27701,7 +27707,7 @@ EVEX_VPMOVSQW_XMMM32_K1Z_XMM: int = 2771
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSQW_XMMM64_K1Z_YMM: int = 2772
+EVEX_VPMOVSQW_XMMM64_K1Z_YMM: Code = 2772 # type: ignore
 """
 ``VPMOVSQW xmm1/m64 {k1}{z}, ymm2``
 
@@ -27711,7 +27717,7 @@ EVEX_VPMOVSQW_XMMM64_K1Z_YMM: int = 2772
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSQW_XMMM128_K1Z_ZMM: int = 2773
+EVEX_VPMOVSQW_XMMM128_K1Z_ZMM: Code = 2773 # type: ignore
 """
 ``VPMOVSQW xmm1/m128 {k1}{z}, zmm2``
 
@@ -27721,7 +27727,7 @@ EVEX_VPMOVSQW_XMMM128_K1Z_ZMM: int = 2773
 
 ``16/32/64-bit``
 """
-PMOVSXDQ_XMM_XMMM64: int = 2774
+PMOVSXDQ_XMM_XMMM64: Code = 2774 # type: ignore
 """
 ``PMOVSXDQ xmm1, xmm2/m64``
 
@@ -27731,7 +27737,7 @@ PMOVSXDQ_XMM_XMMM64: int = 2774
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXDQ_XMM_XMMM64: int = 2775
+VEX_VPMOVSXDQ_XMM_XMMM64: Code = 2775 # type: ignore
 """
 ``VPMOVSXDQ xmm1, xmm2/m64``
 
@@ -27741,7 +27747,7 @@ VEX_VPMOVSXDQ_XMM_XMMM64: int = 2775
 
 ``16/32/64-bit``
 """
-VEX_VPMOVSXDQ_YMM_XMMM128: int = 2776
+VEX_VPMOVSXDQ_YMM_XMMM128: Code = 2776 # type: ignore
 """
 ``VPMOVSXDQ ymm1, xmm2/m128``
 
@@ -27751,7 +27757,7 @@ VEX_VPMOVSXDQ_YMM_XMMM128: int = 2776
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXDQ_XMM_K1Z_XMMM64: int = 2777
+EVEX_VPMOVSXDQ_XMM_K1Z_XMMM64: Code = 2777 # type: ignore
 """
 ``VPMOVSXDQ xmm1 {k1}{z}, xmm2/m64``
 
@@ -27761,7 +27767,7 @@ EVEX_VPMOVSXDQ_XMM_K1Z_XMMM64: int = 2777
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXDQ_YMM_K1Z_XMMM128: int = 2778
+EVEX_VPMOVSXDQ_YMM_K1Z_XMMM128: Code = 2778 # type: ignore
 """
 ``VPMOVSXDQ ymm1 {k1}{z}, xmm2/m128``
 
@@ -27771,7 +27777,7 @@ EVEX_VPMOVSXDQ_YMM_K1Z_XMMM128: int = 2778
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSXDQ_ZMM_K1Z_YMMM256: int = 2779
+EVEX_VPMOVSXDQ_ZMM_K1Z_YMMM256: Code = 2779 # type: ignore
 """
 ``VPMOVSXDQ zmm1 {k1}{z}, ymm2/m256``
 
@@ -27781,7 +27787,7 @@ EVEX_VPMOVSXDQ_ZMM_K1Z_YMMM256: int = 2779
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSQD_XMMM64_K1Z_XMM: int = 2780
+EVEX_VPMOVSQD_XMMM64_K1Z_XMM: Code = 2780 # type: ignore
 """
 ``VPMOVSQD xmm1/m64 {k1}{z}, xmm2``
 
@@ -27791,7 +27797,7 @@ EVEX_VPMOVSQD_XMMM64_K1Z_XMM: int = 2780
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSQD_XMMM128_K1Z_YMM: int = 2781
+EVEX_VPMOVSQD_XMMM128_K1Z_YMM: Code = 2781 # type: ignore
 """
 ``VPMOVSQD xmm1/m128 {k1}{z}, ymm2``
 
@@ -27801,7 +27807,7 @@ EVEX_VPMOVSQD_XMMM128_K1Z_YMM: int = 2781
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVSQD_YMMM256_K1Z_ZMM: int = 2782
+EVEX_VPMOVSQD_YMMM256_K1Z_ZMM: Code = 2782 # type: ignore
 """
 ``VPMOVSQD ymm1/m256 {k1}{z}, zmm2``
 
@@ -27811,7 +27817,7 @@ EVEX_VPMOVSQD_YMMM256_K1Z_ZMM: int = 2782
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMB_KR_K1_XMM_XMMM128: int = 2783
+EVEX_VPTESTMB_KR_K1_XMM_XMMM128: Code = 2783 # type: ignore
 """
 ``VPTESTMB k2 {k1}, xmm2, xmm3/m128``
 
@@ -27821,7 +27827,7 @@ EVEX_VPTESTMB_KR_K1_XMM_XMMM128: int = 2783
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMB_KR_K1_YMM_YMMM256: int = 2784
+EVEX_VPTESTMB_KR_K1_YMM_YMMM256: Code = 2784 # type: ignore
 """
 ``VPTESTMB k2 {k1}, ymm2, ymm3/m256``
 
@@ -27831,7 +27837,7 @@ EVEX_VPTESTMB_KR_K1_YMM_YMMM256: int = 2784
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMB_KR_K1_ZMM_ZMMM512: int = 2785
+EVEX_VPTESTMB_KR_K1_ZMM_ZMMM512: Code = 2785 # type: ignore
 """
 ``VPTESTMB k2 {k1}, zmm2, zmm3/m512``
 
@@ -27841,7 +27847,7 @@ EVEX_VPTESTMB_KR_K1_ZMM_ZMMM512: int = 2785
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMW_KR_K1_XMM_XMMM128: int = 2786
+EVEX_VPTESTMW_KR_K1_XMM_XMMM128: Code = 2786 # type: ignore
 """
 ``VPTESTMW k2 {k1}, xmm2, xmm3/m128``
 
@@ -27851,7 +27857,7 @@ EVEX_VPTESTMW_KR_K1_XMM_XMMM128: int = 2786
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMW_KR_K1_YMM_YMMM256: int = 2787
+EVEX_VPTESTMW_KR_K1_YMM_YMMM256: Code = 2787 # type: ignore
 """
 ``VPTESTMW k2 {k1}, ymm2, ymm3/m256``
 
@@ -27861,7 +27867,7 @@ EVEX_VPTESTMW_KR_K1_YMM_YMMM256: int = 2787
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMW_KR_K1_ZMM_ZMMM512: int = 2788
+EVEX_VPTESTMW_KR_K1_ZMM_ZMMM512: Code = 2788 # type: ignore
 """
 ``VPTESTMW k2 {k1}, zmm2, zmm3/m512``
 
@@ -27871,7 +27877,7 @@ EVEX_VPTESTMW_KR_K1_ZMM_ZMMM512: int = 2788
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMB_KR_K1_XMM_XMMM128: int = 2789
+EVEX_VPTESTNMB_KR_K1_XMM_XMMM128: Code = 2789 # type: ignore
 """
 ``VPTESTNMB k2 {k1}, xmm2, xmm3/m128``
 
@@ -27881,7 +27887,7 @@ EVEX_VPTESTNMB_KR_K1_XMM_XMMM128: int = 2789
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMB_KR_K1_YMM_YMMM256: int = 2790
+EVEX_VPTESTNMB_KR_K1_YMM_YMMM256: Code = 2790 # type: ignore
 """
 ``VPTESTNMB k2 {k1}, ymm2, ymm3/m256``
 
@@ -27891,7 +27897,7 @@ EVEX_VPTESTNMB_KR_K1_YMM_YMMM256: int = 2790
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMB_KR_K1_ZMM_ZMMM512: int = 2791
+EVEX_VPTESTNMB_KR_K1_ZMM_ZMMM512: Code = 2791 # type: ignore
 """
 ``VPTESTNMB k2 {k1}, zmm2, zmm3/m512``
 
@@ -27901,7 +27907,7 @@ EVEX_VPTESTNMB_KR_K1_ZMM_ZMMM512: int = 2791
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMW_KR_K1_XMM_XMMM128: int = 2792
+EVEX_VPTESTNMW_KR_K1_XMM_XMMM128: Code = 2792 # type: ignore
 """
 ``VPTESTNMW k2 {k1}, xmm2, xmm3/m128``
 
@@ -27911,7 +27917,7 @@ EVEX_VPTESTNMW_KR_K1_XMM_XMMM128: int = 2792
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMW_KR_K1_YMM_YMMM256: int = 2793
+EVEX_VPTESTNMW_KR_K1_YMM_YMMM256: Code = 2793 # type: ignore
 """
 ``VPTESTNMW k2 {k1}, ymm2, ymm3/m256``
 
@@ -27921,7 +27927,7 @@ EVEX_VPTESTNMW_KR_K1_YMM_YMMM256: int = 2793
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMW_KR_K1_ZMM_ZMMM512: int = 2794
+EVEX_VPTESTNMW_KR_K1_ZMM_ZMMM512: Code = 2794 # type: ignore
 """
 ``VPTESTNMW k2 {k1}, zmm2, zmm3/m512``
 
@@ -27931,7 +27937,7 @@ EVEX_VPTESTNMW_KR_K1_ZMM_ZMMM512: int = 2794
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMD_KR_K1_XMM_XMMM128B32: int = 2795
+EVEX_VPTESTMD_KR_K1_XMM_XMMM128B32: Code = 2795 # type: ignore
 """
 ``VPTESTMD k2 {k1}, xmm2, xmm3/m128/m32bcst``
 
@@ -27941,7 +27947,7 @@ EVEX_VPTESTMD_KR_K1_XMM_XMMM128B32: int = 2795
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMD_KR_K1_YMM_YMMM256B32: int = 2796
+EVEX_VPTESTMD_KR_K1_YMM_YMMM256B32: Code = 2796 # type: ignore
 """
 ``VPTESTMD k2 {k1}, ymm2, ymm3/m256/m32bcst``
 
@@ -27951,7 +27957,7 @@ EVEX_VPTESTMD_KR_K1_YMM_YMMM256B32: int = 2796
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMD_KR_K1_ZMM_ZMMM512B32: int = 2797
+EVEX_VPTESTMD_KR_K1_ZMM_ZMMM512B32: Code = 2797 # type: ignore
 """
 ``VPTESTMD k2 {k1}, zmm2, zmm3/m512/m32bcst``
 
@@ -27961,7 +27967,7 @@ EVEX_VPTESTMD_KR_K1_ZMM_ZMMM512B32: int = 2797
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMQ_KR_K1_XMM_XMMM128B64: int = 2798
+EVEX_VPTESTMQ_KR_K1_XMM_XMMM128B64: Code = 2798 # type: ignore
 """
 ``VPTESTMQ k2 {k1}, xmm2, xmm3/m128/m64bcst``
 
@@ -27971,7 +27977,7 @@ EVEX_VPTESTMQ_KR_K1_XMM_XMMM128B64: int = 2798
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMQ_KR_K1_YMM_YMMM256B64: int = 2799
+EVEX_VPTESTMQ_KR_K1_YMM_YMMM256B64: Code = 2799 # type: ignore
 """
 ``VPTESTMQ k2 {k1}, ymm2, ymm3/m256/m64bcst``
 
@@ -27981,7 +27987,7 @@ EVEX_VPTESTMQ_KR_K1_YMM_YMMM256B64: int = 2799
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTMQ_KR_K1_ZMM_ZMMM512B64: int = 2800
+EVEX_VPTESTMQ_KR_K1_ZMM_ZMMM512B64: Code = 2800 # type: ignore
 """
 ``VPTESTMQ k2 {k1}, zmm2, zmm3/m512/m64bcst``
 
@@ -27991,7 +27997,7 @@ EVEX_VPTESTMQ_KR_K1_ZMM_ZMMM512B64: int = 2800
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMD_KR_K1_XMM_XMMM128B32: int = 2801
+EVEX_VPTESTNMD_KR_K1_XMM_XMMM128B32: Code = 2801 # type: ignore
 """
 ``VPTESTNMD k2 {k1}, xmm2, xmm3/m128/m32bcst``
 
@@ -28001,7 +28007,7 @@ EVEX_VPTESTNMD_KR_K1_XMM_XMMM128B32: int = 2801
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMD_KR_K1_YMM_YMMM256B32: int = 2802
+EVEX_VPTESTNMD_KR_K1_YMM_YMMM256B32: Code = 2802 # type: ignore
 """
 ``VPTESTNMD k2 {k1}, ymm2, ymm3/m256/m32bcst``
 
@@ -28011,7 +28017,7 @@ EVEX_VPTESTNMD_KR_K1_YMM_YMMM256B32: int = 2802
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMD_KR_K1_ZMM_ZMMM512B32: int = 2803
+EVEX_VPTESTNMD_KR_K1_ZMM_ZMMM512B32: Code = 2803 # type: ignore
 """
 ``VPTESTNMD k2 {k1}, zmm2, zmm3/m512/m32bcst``
 
@@ -28021,7 +28027,7 @@ EVEX_VPTESTNMD_KR_K1_ZMM_ZMMM512B32: int = 2803
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMQ_KR_K1_XMM_XMMM128B64: int = 2804
+EVEX_VPTESTNMQ_KR_K1_XMM_XMMM128B64: Code = 2804 # type: ignore
 """
 ``VPTESTNMQ k2 {k1}, xmm2, xmm3/m128/m64bcst``
 
@@ -28031,7 +28037,7 @@ EVEX_VPTESTNMQ_KR_K1_XMM_XMMM128B64: int = 2804
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMQ_KR_K1_YMM_YMMM256B64: int = 2805
+EVEX_VPTESTNMQ_KR_K1_YMM_YMMM256B64: Code = 2805 # type: ignore
 """
 ``VPTESTNMQ k2 {k1}, ymm2, ymm3/m256/m64bcst``
 
@@ -28041,7 +28047,7 @@ EVEX_VPTESTNMQ_KR_K1_YMM_YMMM256B64: int = 2805
 
 ``16/32/64-bit``
 """
-EVEX_VPTESTNMQ_KR_K1_ZMM_ZMMM512B64: int = 2806
+EVEX_VPTESTNMQ_KR_K1_ZMM_ZMMM512B64: Code = 2806 # type: ignore
 """
 ``VPTESTNMQ k2 {k1}, zmm2, zmm3/m512/m64bcst``
 
@@ -28051,7 +28057,7 @@ EVEX_VPTESTNMQ_KR_K1_ZMM_ZMMM512B64: int = 2806
 
 ``16/32/64-bit``
 """
-PMULDQ_XMM_XMMM128: int = 2807
+PMULDQ_XMM_XMMM128: Code = 2807 # type: ignore
 """
 ``PMULDQ xmm1, xmm2/m128``
 
@@ -28061,7 +28067,7 @@ PMULDQ_XMM_XMMM128: int = 2807
 
 ``16/32/64-bit``
 """
-VEX_VPMULDQ_XMM_XMM_XMMM128: int = 2808
+VEX_VPMULDQ_XMM_XMM_XMMM128: Code = 2808 # type: ignore
 """
 ``VPMULDQ xmm1, xmm2, xmm3/m128``
 
@@ -28071,7 +28077,7 @@ VEX_VPMULDQ_XMM_XMM_XMMM128: int = 2808
 
 ``16/32/64-bit``
 """
-VEX_VPMULDQ_YMM_YMM_YMMM256: int = 2809
+VEX_VPMULDQ_YMM_YMM_YMMM256: Code = 2809 # type: ignore
 """
 ``VPMULDQ ymm1, ymm2, ymm3/m256``
 
@@ -28081,7 +28087,7 @@ VEX_VPMULDQ_YMM_YMM_YMMM256: int = 2809
 
 ``16/32/64-bit``
 """
-EVEX_VPMULDQ_XMM_K1Z_XMM_XMMM128B64: int = 2810
+EVEX_VPMULDQ_XMM_K1Z_XMM_XMMM128B64: Code = 2810 # type: ignore
 """
 ``VPMULDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -28091,7 +28097,7 @@ EVEX_VPMULDQ_XMM_K1Z_XMM_XMMM128B64: int = 2810
 
 ``16/32/64-bit``
 """
-EVEX_VPMULDQ_YMM_K1Z_YMM_YMMM256B64: int = 2811
+EVEX_VPMULDQ_YMM_K1Z_YMM_YMMM256B64: Code = 2811 # type: ignore
 """
 ``VPMULDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -28101,7 +28107,7 @@ EVEX_VPMULDQ_YMM_K1Z_YMM_YMMM256B64: int = 2811
 
 ``16/32/64-bit``
 """
-EVEX_VPMULDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2812
+EVEX_VPMULDQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2812 # type: ignore
 """
 ``VPMULDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -28111,7 +28117,7 @@ EVEX_VPMULDQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2812
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2B_XMM_KR: int = 2813
+EVEX_VPMOVM2B_XMM_KR: Code = 2813 # type: ignore
 """
 ``VPMOVM2B xmm1, k1``
 
@@ -28121,7 +28127,7 @@ EVEX_VPMOVM2B_XMM_KR: int = 2813
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2B_YMM_KR: int = 2814
+EVEX_VPMOVM2B_YMM_KR: Code = 2814 # type: ignore
 """
 ``VPMOVM2B ymm1, k1``
 
@@ -28131,7 +28137,7 @@ EVEX_VPMOVM2B_YMM_KR: int = 2814
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2B_ZMM_KR: int = 2815
+EVEX_VPMOVM2B_ZMM_KR: Code = 2815 # type: ignore
 """
 ``VPMOVM2B zmm1, k1``
 
@@ -28141,7 +28147,7 @@ EVEX_VPMOVM2B_ZMM_KR: int = 2815
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2W_XMM_KR: int = 2816
+EVEX_VPMOVM2W_XMM_KR: Code = 2816 # type: ignore
 """
 ``VPMOVM2W xmm1, k1``
 
@@ -28151,7 +28157,7 @@ EVEX_VPMOVM2W_XMM_KR: int = 2816
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2W_YMM_KR: int = 2817
+EVEX_VPMOVM2W_YMM_KR: Code = 2817 # type: ignore
 """
 ``VPMOVM2W ymm1, k1``
 
@@ -28161,7 +28167,7 @@ EVEX_VPMOVM2W_YMM_KR: int = 2817
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2W_ZMM_KR: int = 2818
+EVEX_VPMOVM2W_ZMM_KR: Code = 2818 # type: ignore
 """
 ``VPMOVM2W zmm1, k1``
 
@@ -28171,7 +28177,7 @@ EVEX_VPMOVM2W_ZMM_KR: int = 2818
 
 ``16/32/64-bit``
 """
-PCMPEQQ_XMM_XMMM128: int = 2819
+PCMPEQQ_XMM_XMMM128: Code = 2819 # type: ignore
 """
 ``PCMPEQQ xmm1, xmm2/m128``
 
@@ -28181,7 +28187,7 @@ PCMPEQQ_XMM_XMMM128: int = 2819
 
 ``16/32/64-bit``
 """
-VEX_VPCMPEQQ_XMM_XMM_XMMM128: int = 2820
+VEX_VPCMPEQQ_XMM_XMM_XMMM128: Code = 2820 # type: ignore
 """
 ``VPCMPEQQ xmm1, xmm2, xmm3/m128``
 
@@ -28191,7 +28197,7 @@ VEX_VPCMPEQQ_XMM_XMM_XMMM128: int = 2820
 
 ``16/32/64-bit``
 """
-VEX_VPCMPEQQ_YMM_YMM_YMMM256: int = 2821
+VEX_VPCMPEQQ_YMM_YMM_YMMM256: Code = 2821 # type: ignore
 """
 ``VPCMPEQQ ymm1, ymm2, ymm3/m256``
 
@@ -28201,7 +28207,7 @@ VEX_VPCMPEQQ_YMM_YMM_YMMM256: int = 2821
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQQ_KR_K1_XMM_XMMM128B64: int = 2822
+EVEX_VPCMPEQQ_KR_K1_XMM_XMMM128B64: Code = 2822 # type: ignore
 """
 ``VPCMPEQQ k1 {k2}, xmm2, xmm3/m128/m64bcst``
 
@@ -28211,7 +28217,7 @@ EVEX_VPCMPEQQ_KR_K1_XMM_XMMM128B64: int = 2822
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQQ_KR_K1_YMM_YMMM256B64: int = 2823
+EVEX_VPCMPEQQ_KR_K1_YMM_YMMM256B64: Code = 2823 # type: ignore
 """
 ``VPCMPEQQ k1 {k2}, ymm2, ymm3/m256/m64bcst``
 
@@ -28221,7 +28227,7 @@ EVEX_VPCMPEQQ_KR_K1_YMM_YMMM256B64: int = 2823
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPEQQ_KR_K1_ZMM_ZMMM512B64: int = 2824
+EVEX_VPCMPEQQ_KR_K1_ZMM_ZMMM512B64: Code = 2824 # type: ignore
 """
 ``VPCMPEQQ k1 {k2}, zmm2, zmm3/m512/m64bcst``
 
@@ -28231,7 +28237,7 @@ EVEX_VPCMPEQQ_KR_K1_ZMM_ZMMM512B64: int = 2824
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVB2M_KR_XMM: int = 2825
+EVEX_VPMOVB2M_KR_XMM: Code = 2825 # type: ignore
 """
 ``VPMOVB2M k1, xmm1``
 
@@ -28241,7 +28247,7 @@ EVEX_VPMOVB2M_KR_XMM: int = 2825
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVB2M_KR_YMM: int = 2826
+EVEX_VPMOVB2M_KR_YMM: Code = 2826 # type: ignore
 """
 ``VPMOVB2M k1, ymm1``
 
@@ -28251,7 +28257,7 @@ EVEX_VPMOVB2M_KR_YMM: int = 2826
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVB2M_KR_ZMM: int = 2827
+EVEX_VPMOVB2M_KR_ZMM: Code = 2827 # type: ignore
 """
 ``VPMOVB2M k1, zmm1``
 
@@ -28261,7 +28267,7 @@ EVEX_VPMOVB2M_KR_ZMM: int = 2827
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVW2M_KR_XMM: int = 2828
+EVEX_VPMOVW2M_KR_XMM: Code = 2828 # type: ignore
 """
 ``VPMOVW2M k1, xmm1``
 
@@ -28271,7 +28277,7 @@ EVEX_VPMOVW2M_KR_XMM: int = 2828
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVW2M_KR_YMM: int = 2829
+EVEX_VPMOVW2M_KR_YMM: Code = 2829 # type: ignore
 """
 ``VPMOVW2M k1, ymm1``
 
@@ -28281,7 +28287,7 @@ EVEX_VPMOVW2M_KR_YMM: int = 2829
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVW2M_KR_ZMM: int = 2830
+EVEX_VPMOVW2M_KR_ZMM: Code = 2830 # type: ignore
 """
 ``VPMOVW2M k1, zmm1``
 
@@ -28291,7 +28297,7 @@ EVEX_VPMOVW2M_KR_ZMM: int = 2830
 
 ``16/32/64-bit``
 """
-MOVNTDQA_XMM_M128: int = 2831
+MOVNTDQA_XMM_M128: Code = 2831 # type: ignore
 """
 ``MOVNTDQA xmm1, m128``
 
@@ -28301,7 +28307,7 @@ MOVNTDQA_XMM_M128: int = 2831
 
 ``16/32/64-bit``
 """
-VEX_VMOVNTDQA_XMM_M128: int = 2832
+VEX_VMOVNTDQA_XMM_M128: Code = 2832 # type: ignore
 """
 ``VMOVNTDQA xmm1, m128``
 
@@ -28311,7 +28317,7 @@ VEX_VMOVNTDQA_XMM_M128: int = 2832
 
 ``16/32/64-bit``
 """
-VEX_VMOVNTDQA_YMM_M256: int = 2833
+VEX_VMOVNTDQA_YMM_M256: Code = 2833 # type: ignore
 """
 ``VMOVNTDQA ymm1, m256``
 
@@ -28321,7 +28327,7 @@ VEX_VMOVNTDQA_YMM_M256: int = 2833
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTDQA_XMM_M128: int = 2834
+EVEX_VMOVNTDQA_XMM_M128: Code = 2834 # type: ignore
 """
 ``VMOVNTDQA xmm1, m128``
 
@@ -28331,7 +28337,7 @@ EVEX_VMOVNTDQA_XMM_M128: int = 2834
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTDQA_YMM_M256: int = 2835
+EVEX_VMOVNTDQA_YMM_M256: Code = 2835 # type: ignore
 """
 ``VMOVNTDQA ymm1, m256``
 
@@ -28341,7 +28347,7 @@ EVEX_VMOVNTDQA_YMM_M256: int = 2835
 
 ``16/32/64-bit``
 """
-EVEX_VMOVNTDQA_ZMM_M512: int = 2836
+EVEX_VMOVNTDQA_ZMM_M512: Code = 2836 # type: ignore
 """
 ``VMOVNTDQA zmm1, m512``
 
@@ -28351,7 +28357,7 @@ EVEX_VMOVNTDQA_ZMM_M512: int = 2836
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTMB2Q_XMM_KR: int = 2837
+EVEX_VPBROADCASTMB2Q_XMM_KR: Code = 2837 # type: ignore
 """
 ``VPBROADCASTMB2Q xmm1, k1``
 
@@ -28361,7 +28367,7 @@ EVEX_VPBROADCASTMB2Q_XMM_KR: int = 2837
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTMB2Q_YMM_KR: int = 2838
+EVEX_VPBROADCASTMB2Q_YMM_KR: Code = 2838 # type: ignore
 """
 ``VPBROADCASTMB2Q ymm1, k1``
 
@@ -28371,7 +28377,7 @@ EVEX_VPBROADCASTMB2Q_YMM_KR: int = 2838
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTMB2Q_ZMM_KR: int = 2839
+EVEX_VPBROADCASTMB2Q_ZMM_KR: Code = 2839 # type: ignore
 """
 ``VPBROADCASTMB2Q zmm1, k1``
 
@@ -28381,7 +28387,7 @@ EVEX_VPBROADCASTMB2Q_ZMM_KR: int = 2839
 
 ``16/32/64-bit``
 """
-PACKUSDW_XMM_XMMM128: int = 2840
+PACKUSDW_XMM_XMMM128: Code = 2840 # type: ignore
 """
 ``PACKUSDW xmm1, xmm2/m128``
 
@@ -28391,7 +28397,7 @@ PACKUSDW_XMM_XMMM128: int = 2840
 
 ``16/32/64-bit``
 """
-VEX_VPACKUSDW_XMM_XMM_XMMM128: int = 2841
+VEX_VPACKUSDW_XMM_XMM_XMMM128: Code = 2841 # type: ignore
 """
 ``VPACKUSDW xmm1, xmm2, xmm3/m128``
 
@@ -28401,7 +28407,7 @@ VEX_VPACKUSDW_XMM_XMM_XMMM128: int = 2841
 
 ``16/32/64-bit``
 """
-VEX_VPACKUSDW_YMM_YMM_YMMM256: int = 2842
+VEX_VPACKUSDW_YMM_YMM_YMMM256: Code = 2842 # type: ignore
 """
 ``VPACKUSDW ymm1, ymm2, ymm3/m256``
 
@@ -28411,7 +28417,7 @@ VEX_VPACKUSDW_YMM_YMM_YMMM256: int = 2842
 
 ``16/32/64-bit``
 """
-EVEX_VPACKUSDW_XMM_K1Z_XMM_XMMM128B32: int = 2843
+EVEX_VPACKUSDW_XMM_K1Z_XMM_XMMM128B32: Code = 2843 # type: ignore
 """
 ``VPACKUSDW xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -28421,7 +28427,7 @@ EVEX_VPACKUSDW_XMM_K1Z_XMM_XMMM128B32: int = 2843
 
 ``16/32/64-bit``
 """
-EVEX_VPACKUSDW_YMM_K1Z_YMM_YMMM256B32: int = 2844
+EVEX_VPACKUSDW_YMM_K1Z_YMM_YMMM256B32: Code = 2844 # type: ignore
 """
 ``VPACKUSDW ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -28431,7 +28437,7 @@ EVEX_VPACKUSDW_YMM_K1Z_YMM_YMMM256B32: int = 2844
 
 ``16/32/64-bit``
 """
-EVEX_VPACKUSDW_ZMM_K1Z_ZMM_ZMMM512B32: int = 2845
+EVEX_VPACKUSDW_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2845 # type: ignore
 """
 ``VPACKUSDW zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -28441,7 +28447,7 @@ EVEX_VPACKUSDW_ZMM_K1Z_ZMM_ZMMM512B32: int = 2845
 
 ``16/32/64-bit``
 """
-VEX_VMASKMOVPS_XMM_XMM_M128: int = 2846
+VEX_VMASKMOVPS_XMM_XMM_M128: Code = 2846 # type: ignore
 """
 ``VMASKMOVPS xmm1, xmm2, m128``
 
@@ -28451,7 +28457,7 @@ VEX_VMASKMOVPS_XMM_XMM_M128: int = 2846
 
 ``16/32/64-bit``
 """
-VEX_VMASKMOVPS_YMM_YMM_M256: int = 2847
+VEX_VMASKMOVPS_YMM_YMM_M256: Code = 2847 # type: ignore
 """
 ``VMASKMOVPS ymm1, ymm2, m256``
 
@@ -28461,7 +28467,7 @@ VEX_VMASKMOVPS_YMM_YMM_M256: int = 2847
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFPS_XMM_K1Z_XMM_XMMM128B32: int = 2848
+EVEX_VSCALEFPS_XMM_K1Z_XMM_XMMM128B32: Code = 2848 # type: ignore
 """
 ``VSCALEFPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -28471,7 +28477,7 @@ EVEX_VSCALEFPS_XMM_K1Z_XMM_XMMM128B32: int = 2848
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFPS_YMM_K1Z_YMM_YMMM256B32: int = 2849
+EVEX_VSCALEFPS_YMM_K1Z_YMM_YMMM256B32: Code = 2849 # type: ignore
 """
 ``VSCALEFPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -28481,7 +28487,7 @@ EVEX_VSCALEFPS_YMM_K1Z_YMM_YMMM256B32: int = 2849
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 2850
+EVEX_VSCALEFPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 2850 # type: ignore
 """
 ``VSCALEFPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -28491,7 +28497,7 @@ EVEX_VSCALEFPS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 2850
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFPD_XMM_K1Z_XMM_XMMM128B64: int = 2851
+EVEX_VSCALEFPD_XMM_K1Z_XMM_XMMM128B64: Code = 2851 # type: ignore
 """
 ``VSCALEFPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -28501,7 +28507,7 @@ EVEX_VSCALEFPD_XMM_K1Z_XMM_XMMM128B64: int = 2851
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFPD_YMM_K1Z_YMM_YMMM256B64: int = 2852
+EVEX_VSCALEFPD_YMM_K1Z_YMM_YMMM256B64: Code = 2852 # type: ignore
 """
 ``VSCALEFPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -28511,7 +28517,7 @@ EVEX_VSCALEFPD_YMM_K1Z_YMM_YMMM256B64: int = 2852
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 2853
+EVEX_VSCALEFPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 2853 # type: ignore
 """
 ``VSCALEFPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -28521,7 +28527,7 @@ EVEX_VSCALEFPD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 2853
 
 ``16/32/64-bit``
 """
-VEX_VMASKMOVPD_XMM_XMM_M128: int = 2854
+VEX_VMASKMOVPD_XMM_XMM_M128: Code = 2854 # type: ignore
 """
 ``VMASKMOVPD xmm1, xmm2, m128``
 
@@ -28531,7 +28537,7 @@ VEX_VMASKMOVPD_XMM_XMM_M128: int = 2854
 
 ``16/32/64-bit``
 """
-VEX_VMASKMOVPD_YMM_YMM_M256: int = 2855
+VEX_VMASKMOVPD_YMM_YMM_M256: Code = 2855 # type: ignore
 """
 ``VMASKMOVPD ymm1, ymm2, m256``
 
@@ -28541,7 +28547,7 @@ VEX_VMASKMOVPD_YMM_YMM_M256: int = 2855
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFSS_XMM_K1Z_XMM_XMMM32_ER: int = 2856
+EVEX_VSCALEFSS_XMM_K1Z_XMM_XMMM32_ER: Code = 2856 # type: ignore
 """
 ``VSCALEFSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -28551,7 +28557,7 @@ EVEX_VSCALEFSS_XMM_K1Z_XMM_XMMM32_ER: int = 2856
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFSD_XMM_K1Z_XMM_XMMM64_ER: int = 2857
+EVEX_VSCALEFSD_XMM_K1Z_XMM_XMMM64_ER: Code = 2857 # type: ignore
 """
 ``VSCALEFSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -28561,7 +28567,7 @@ EVEX_VSCALEFSD_XMM_K1Z_XMM_XMMM64_ER: int = 2857
 
 ``16/32/64-bit``
 """
-VEX_VMASKMOVPS_M128_XMM_XMM: int = 2858
+VEX_VMASKMOVPS_M128_XMM_XMM: Code = 2858 # type: ignore
 """
 ``VMASKMOVPS m128, xmm1, xmm2``
 
@@ -28571,7 +28577,7 @@ VEX_VMASKMOVPS_M128_XMM_XMM: int = 2858
 
 ``16/32/64-bit``
 """
-VEX_VMASKMOVPS_M256_YMM_YMM: int = 2859
+VEX_VMASKMOVPS_M256_YMM_YMM: Code = 2859 # type: ignore
 """
 ``VMASKMOVPS m256, ymm1, ymm2``
 
@@ -28581,7 +28587,7 @@ VEX_VMASKMOVPS_M256_YMM_YMM: int = 2859
 
 ``16/32/64-bit``
 """
-VEX_VMASKMOVPD_M128_XMM_XMM: int = 2860
+VEX_VMASKMOVPD_M128_XMM_XMM: Code = 2860 # type: ignore
 """
 ``VMASKMOVPD m128, xmm1, xmm2``
 
@@ -28591,7 +28597,7 @@ VEX_VMASKMOVPD_M128_XMM_XMM: int = 2860
 
 ``16/32/64-bit``
 """
-VEX_VMASKMOVPD_M256_YMM_YMM: int = 2861
+VEX_VMASKMOVPD_M256_YMM_YMM: Code = 2861 # type: ignore
 """
 ``VMASKMOVPD m256, ymm1, ymm2``
 
@@ -28601,7 +28607,7 @@ VEX_VMASKMOVPD_M256_YMM_YMM: int = 2861
 
 ``16/32/64-bit``
 """
-PMOVZXBW_XMM_XMMM64: int = 2862
+PMOVZXBW_XMM_XMMM64: Code = 2862 # type: ignore
 """
 ``PMOVZXBW xmm1, xmm2/m64``
 
@@ -28611,7 +28617,7 @@ PMOVZXBW_XMM_XMMM64: int = 2862
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXBW_XMM_XMMM64: int = 2863
+VEX_VPMOVZXBW_XMM_XMMM64: Code = 2863 # type: ignore
 """
 ``VPMOVZXBW xmm1, xmm2/m64``
 
@@ -28621,7 +28627,7 @@ VEX_VPMOVZXBW_XMM_XMMM64: int = 2863
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXBW_YMM_XMMM128: int = 2864
+VEX_VPMOVZXBW_YMM_XMMM128: Code = 2864 # type: ignore
 """
 ``VPMOVZXBW ymm1, xmm2/m128``
 
@@ -28631,7 +28637,7 @@ VEX_VPMOVZXBW_YMM_XMMM128: int = 2864
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXBW_XMM_K1Z_XMMM64: int = 2865
+EVEX_VPMOVZXBW_XMM_K1Z_XMMM64: Code = 2865 # type: ignore
 """
 ``VPMOVZXBW xmm1 {k1}{z}, xmm2/m64``
 
@@ -28641,7 +28647,7 @@ EVEX_VPMOVZXBW_XMM_K1Z_XMMM64: int = 2865
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXBW_YMM_K1Z_XMMM128: int = 2866
+EVEX_VPMOVZXBW_YMM_K1Z_XMMM128: Code = 2866 # type: ignore
 """
 ``VPMOVZXBW ymm1 {k1}{z}, xmm2/m128``
 
@@ -28651,7 +28657,7 @@ EVEX_VPMOVZXBW_YMM_K1Z_XMMM128: int = 2866
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXBW_ZMM_K1Z_YMMM256: int = 2867
+EVEX_VPMOVZXBW_ZMM_K1Z_YMMM256: Code = 2867 # type: ignore
 """
 ``VPMOVZXBW zmm1 {k1}{z}, ymm2/m256``
 
@@ -28661,7 +28667,7 @@ EVEX_VPMOVZXBW_ZMM_K1Z_YMMM256: int = 2867
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVWB_XMMM64_K1Z_XMM: int = 2868
+EVEX_VPMOVWB_XMMM64_K1Z_XMM: Code = 2868 # type: ignore
 """
 ``VPMOVWB xmm1/m64 {k1}{z}, xmm2``
 
@@ -28671,7 +28677,7 @@ EVEX_VPMOVWB_XMMM64_K1Z_XMM: int = 2868
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVWB_XMMM128_K1Z_YMM: int = 2869
+EVEX_VPMOVWB_XMMM128_K1Z_YMM: Code = 2869 # type: ignore
 """
 ``VPMOVWB xmm1/m128 {k1}{z}, ymm2``
 
@@ -28681,7 +28687,7 @@ EVEX_VPMOVWB_XMMM128_K1Z_YMM: int = 2869
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVWB_YMMM256_K1Z_ZMM: int = 2870
+EVEX_VPMOVWB_YMMM256_K1Z_ZMM: Code = 2870 # type: ignore
 """
 ``VPMOVWB ymm1/m256 {k1}{z}, zmm2``
 
@@ -28691,7 +28697,7 @@ EVEX_VPMOVWB_YMMM256_K1Z_ZMM: int = 2870
 
 ``16/32/64-bit``
 """
-PMOVZXBD_XMM_XMMM32: int = 2871
+PMOVZXBD_XMM_XMMM32: Code = 2871 # type: ignore
 """
 ``PMOVZXBD xmm1, xmm2/m32``
 
@@ -28701,7 +28707,7 @@ PMOVZXBD_XMM_XMMM32: int = 2871
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXBD_XMM_XMMM32: int = 2872
+VEX_VPMOVZXBD_XMM_XMMM32: Code = 2872 # type: ignore
 """
 ``VPMOVZXBD xmm1, xmm2/m32``
 
@@ -28711,7 +28717,7 @@ VEX_VPMOVZXBD_XMM_XMMM32: int = 2872
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXBD_YMM_XMMM64: int = 2873
+VEX_VPMOVZXBD_YMM_XMMM64: Code = 2873 # type: ignore
 """
 ``VPMOVZXBD ymm1, xmm2/m64``
 
@@ -28721,7 +28727,7 @@ VEX_VPMOVZXBD_YMM_XMMM64: int = 2873
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXBD_XMM_K1Z_XMMM32: int = 2874
+EVEX_VPMOVZXBD_XMM_K1Z_XMMM32: Code = 2874 # type: ignore
 """
 ``VPMOVZXBD xmm1 {k1}{z}, xmm2/m32``
 
@@ -28731,7 +28737,7 @@ EVEX_VPMOVZXBD_XMM_K1Z_XMMM32: int = 2874
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXBD_YMM_K1Z_XMMM64: int = 2875
+EVEX_VPMOVZXBD_YMM_K1Z_XMMM64: Code = 2875 # type: ignore
 """
 ``VPMOVZXBD ymm1 {k1}{z}, xmm2/m64``
 
@@ -28741,7 +28747,7 @@ EVEX_VPMOVZXBD_YMM_K1Z_XMMM64: int = 2875
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXBD_ZMM_K1Z_XMMM128: int = 2876
+EVEX_VPMOVZXBD_ZMM_K1Z_XMMM128: Code = 2876 # type: ignore
 """
 ``VPMOVZXBD zmm1 {k1}{z}, xmm2/m128``
 
@@ -28751,7 +28757,7 @@ EVEX_VPMOVZXBD_ZMM_K1Z_XMMM128: int = 2876
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVDB_XMMM32_K1Z_XMM: int = 2877
+EVEX_VPMOVDB_XMMM32_K1Z_XMM: Code = 2877 # type: ignore
 """
 ``VPMOVDB xmm1/m32 {k1}{z}, xmm2``
 
@@ -28761,7 +28767,7 @@ EVEX_VPMOVDB_XMMM32_K1Z_XMM: int = 2877
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVDB_XMMM64_K1Z_YMM: int = 2878
+EVEX_VPMOVDB_XMMM64_K1Z_YMM: Code = 2878 # type: ignore
 """
 ``VPMOVDB xmm1/m64 {k1}{z}, ymm2``
 
@@ -28771,7 +28777,7 @@ EVEX_VPMOVDB_XMMM64_K1Z_YMM: int = 2878
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVDB_XMMM128_K1Z_ZMM: int = 2879
+EVEX_VPMOVDB_XMMM128_K1Z_ZMM: Code = 2879 # type: ignore
 """
 ``VPMOVDB xmm1/m128 {k1}{z}, zmm2``
 
@@ -28781,7 +28787,7 @@ EVEX_VPMOVDB_XMMM128_K1Z_ZMM: int = 2879
 
 ``16/32/64-bit``
 """
-PMOVZXBQ_XMM_XMMM16: int = 2880
+PMOVZXBQ_XMM_XMMM16: Code = 2880 # type: ignore
 """
 ``PMOVZXBQ xmm1, xmm2/m16``
 
@@ -28791,7 +28797,7 @@ PMOVZXBQ_XMM_XMMM16: int = 2880
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXBQ_XMM_XMMM16: int = 2881
+VEX_VPMOVZXBQ_XMM_XMMM16: Code = 2881 # type: ignore
 """
 ``VPMOVZXBQ xmm1, xmm2/m16``
 
@@ -28801,7 +28807,7 @@ VEX_VPMOVZXBQ_XMM_XMMM16: int = 2881
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXBQ_YMM_XMMM32: int = 2882
+VEX_VPMOVZXBQ_YMM_XMMM32: Code = 2882 # type: ignore
 """
 ``VPMOVZXBQ ymm1, xmm2/m32``
 
@@ -28811,7 +28817,7 @@ VEX_VPMOVZXBQ_YMM_XMMM32: int = 2882
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXBQ_XMM_K1Z_XMMM16: int = 2883
+EVEX_VPMOVZXBQ_XMM_K1Z_XMMM16: Code = 2883 # type: ignore
 """
 ``VPMOVZXBQ xmm1 {k1}{z}, xmm2/m16``
 
@@ -28821,7 +28827,7 @@ EVEX_VPMOVZXBQ_XMM_K1Z_XMMM16: int = 2883
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXBQ_YMM_K1Z_XMMM32: int = 2884
+EVEX_VPMOVZXBQ_YMM_K1Z_XMMM32: Code = 2884 # type: ignore
 """
 ``VPMOVZXBQ ymm1 {k1}{z}, xmm2/m32``
 
@@ -28831,7 +28837,7 @@ EVEX_VPMOVZXBQ_YMM_K1Z_XMMM32: int = 2884
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXBQ_ZMM_K1Z_XMMM64: int = 2885
+EVEX_VPMOVZXBQ_ZMM_K1Z_XMMM64: Code = 2885 # type: ignore
 """
 ``VPMOVZXBQ zmm1 {k1}{z}, xmm2/m64``
 
@@ -28841,7 +28847,7 @@ EVEX_VPMOVZXBQ_ZMM_K1Z_XMMM64: int = 2885
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQB_XMMM16_K1Z_XMM: int = 2886
+EVEX_VPMOVQB_XMMM16_K1Z_XMM: Code = 2886 # type: ignore
 """
 ``VPMOVQB xmm1/m16 {k1}{z}, xmm2``
 
@@ -28851,7 +28857,7 @@ EVEX_VPMOVQB_XMMM16_K1Z_XMM: int = 2886
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQB_XMMM32_K1Z_YMM: int = 2887
+EVEX_VPMOVQB_XMMM32_K1Z_YMM: Code = 2887 # type: ignore
 """
 ``VPMOVQB xmm1/m32 {k1}{z}, ymm2``
 
@@ -28861,7 +28867,7 @@ EVEX_VPMOVQB_XMMM32_K1Z_YMM: int = 2887
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQB_XMMM64_K1Z_ZMM: int = 2888
+EVEX_VPMOVQB_XMMM64_K1Z_ZMM: Code = 2888 # type: ignore
 """
 ``VPMOVQB xmm1/m64 {k1}{z}, zmm2``
 
@@ -28871,7 +28877,7 @@ EVEX_VPMOVQB_XMMM64_K1Z_ZMM: int = 2888
 
 ``16/32/64-bit``
 """
-PMOVZXWD_XMM_XMMM64: int = 2889
+PMOVZXWD_XMM_XMMM64: Code = 2889 # type: ignore
 """
 ``PMOVZXWD xmm1, xmm2/m64``
 
@@ -28881,7 +28887,7 @@ PMOVZXWD_XMM_XMMM64: int = 2889
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXWD_XMM_XMMM64: int = 2890
+VEX_VPMOVZXWD_XMM_XMMM64: Code = 2890 # type: ignore
 """
 ``VPMOVZXWD xmm1, xmm2/m64``
 
@@ -28891,7 +28897,7 @@ VEX_VPMOVZXWD_XMM_XMMM64: int = 2890
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXWD_YMM_XMMM128: int = 2891
+VEX_VPMOVZXWD_YMM_XMMM128: Code = 2891 # type: ignore
 """
 ``VPMOVZXWD ymm1, xmm2/m128``
 
@@ -28901,7 +28907,7 @@ VEX_VPMOVZXWD_YMM_XMMM128: int = 2891
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXWD_XMM_K1Z_XMMM64: int = 2892
+EVEX_VPMOVZXWD_XMM_K1Z_XMMM64: Code = 2892 # type: ignore
 """
 ``VPMOVZXWD xmm1 {k1}{z}, xmm2/m64``
 
@@ -28911,7 +28917,7 @@ EVEX_VPMOVZXWD_XMM_K1Z_XMMM64: int = 2892
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXWD_YMM_K1Z_XMMM128: int = 2893
+EVEX_VPMOVZXWD_YMM_K1Z_XMMM128: Code = 2893 # type: ignore
 """
 ``VPMOVZXWD ymm1 {k1}{z}, xmm2/m128``
 
@@ -28921,7 +28927,7 @@ EVEX_VPMOVZXWD_YMM_K1Z_XMMM128: int = 2893
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXWD_ZMM_K1Z_YMMM256: int = 2894
+EVEX_VPMOVZXWD_ZMM_K1Z_YMMM256: Code = 2894 # type: ignore
 """
 ``VPMOVZXWD zmm1 {k1}{z}, ymm2/m256``
 
@@ -28931,7 +28937,7 @@ EVEX_VPMOVZXWD_ZMM_K1Z_YMMM256: int = 2894
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVDW_XMMM64_K1Z_XMM: int = 2895
+EVEX_VPMOVDW_XMMM64_K1Z_XMM: Code = 2895 # type: ignore
 """
 ``VPMOVDW xmm1/m64 {k1}{z}, xmm2``
 
@@ -28941,7 +28947,7 @@ EVEX_VPMOVDW_XMMM64_K1Z_XMM: int = 2895
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVDW_XMMM128_K1Z_YMM: int = 2896
+EVEX_VPMOVDW_XMMM128_K1Z_YMM: Code = 2896 # type: ignore
 """
 ``VPMOVDW xmm1/m128 {k1}{z}, ymm2``
 
@@ -28951,7 +28957,7 @@ EVEX_VPMOVDW_XMMM128_K1Z_YMM: int = 2896
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVDW_YMMM256_K1Z_ZMM: int = 2897
+EVEX_VPMOVDW_YMMM256_K1Z_ZMM: Code = 2897 # type: ignore
 """
 ``VPMOVDW ymm1/m256 {k1}{z}, zmm2``
 
@@ -28961,7 +28967,7 @@ EVEX_VPMOVDW_YMMM256_K1Z_ZMM: int = 2897
 
 ``16/32/64-bit``
 """
-PMOVZXWQ_XMM_XMMM32: int = 2898
+PMOVZXWQ_XMM_XMMM32: Code = 2898 # type: ignore
 """
 ``PMOVZXWQ xmm1, xmm2/m32``
 
@@ -28971,7 +28977,7 @@ PMOVZXWQ_XMM_XMMM32: int = 2898
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXWQ_XMM_XMMM32: int = 2899
+VEX_VPMOVZXWQ_XMM_XMMM32: Code = 2899 # type: ignore
 """
 ``VPMOVZXWQ xmm1, xmm2/m32``
 
@@ -28981,7 +28987,7 @@ VEX_VPMOVZXWQ_XMM_XMMM32: int = 2899
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXWQ_YMM_XMMM64: int = 2900
+VEX_VPMOVZXWQ_YMM_XMMM64: Code = 2900 # type: ignore
 """
 ``VPMOVZXWQ ymm1, xmm2/m64``
 
@@ -28991,7 +28997,7 @@ VEX_VPMOVZXWQ_YMM_XMMM64: int = 2900
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXWQ_XMM_K1Z_XMMM32: int = 2901
+EVEX_VPMOVZXWQ_XMM_K1Z_XMMM32: Code = 2901 # type: ignore
 """
 ``VPMOVZXWQ xmm1 {k1}{z}, xmm2/m32``
 
@@ -29001,7 +29007,7 @@ EVEX_VPMOVZXWQ_XMM_K1Z_XMMM32: int = 2901
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXWQ_YMM_K1Z_XMMM64: int = 2902
+EVEX_VPMOVZXWQ_YMM_K1Z_XMMM64: Code = 2902 # type: ignore
 """
 ``VPMOVZXWQ ymm1 {k1}{z}, xmm2/m64``
 
@@ -29011,7 +29017,7 @@ EVEX_VPMOVZXWQ_YMM_K1Z_XMMM64: int = 2902
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXWQ_ZMM_K1Z_XMMM128: int = 2903
+EVEX_VPMOVZXWQ_ZMM_K1Z_XMMM128: Code = 2903 # type: ignore
 """
 ``VPMOVZXWQ zmm1 {k1}{z}, xmm2/m128``
 
@@ -29021,7 +29027,7 @@ EVEX_VPMOVZXWQ_ZMM_K1Z_XMMM128: int = 2903
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQW_XMMM32_K1Z_XMM: int = 2904
+EVEX_VPMOVQW_XMMM32_K1Z_XMM: Code = 2904 # type: ignore
 """
 ``VPMOVQW xmm1/m32 {k1}{z}, xmm2``
 
@@ -29031,7 +29037,7 @@ EVEX_VPMOVQW_XMMM32_K1Z_XMM: int = 2904
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQW_XMMM64_K1Z_YMM: int = 2905
+EVEX_VPMOVQW_XMMM64_K1Z_YMM: Code = 2905 # type: ignore
 """
 ``VPMOVQW xmm1/m64 {k1}{z}, ymm2``
 
@@ -29041,7 +29047,7 @@ EVEX_VPMOVQW_XMMM64_K1Z_YMM: int = 2905
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQW_XMMM128_K1Z_ZMM: int = 2906
+EVEX_VPMOVQW_XMMM128_K1Z_ZMM: Code = 2906 # type: ignore
 """
 ``VPMOVQW xmm1/m128 {k1}{z}, zmm2``
 
@@ -29051,7 +29057,7 @@ EVEX_VPMOVQW_XMMM128_K1Z_ZMM: int = 2906
 
 ``16/32/64-bit``
 """
-PMOVZXDQ_XMM_XMMM64: int = 2907
+PMOVZXDQ_XMM_XMMM64: Code = 2907 # type: ignore
 """
 ``PMOVZXDQ xmm1, xmm2/m64``
 
@@ -29061,7 +29067,7 @@ PMOVZXDQ_XMM_XMMM64: int = 2907
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXDQ_XMM_XMMM64: int = 2908
+VEX_VPMOVZXDQ_XMM_XMMM64: Code = 2908 # type: ignore
 """
 ``VPMOVZXDQ xmm1, xmm2/m64``
 
@@ -29071,7 +29077,7 @@ VEX_VPMOVZXDQ_XMM_XMMM64: int = 2908
 
 ``16/32/64-bit``
 """
-VEX_VPMOVZXDQ_YMM_XMMM128: int = 2909
+VEX_VPMOVZXDQ_YMM_XMMM128: Code = 2909 # type: ignore
 """
 ``VPMOVZXDQ ymm1, xmm2/m128``
 
@@ -29081,7 +29087,7 @@ VEX_VPMOVZXDQ_YMM_XMMM128: int = 2909
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXDQ_XMM_K1Z_XMMM64: int = 2910
+EVEX_VPMOVZXDQ_XMM_K1Z_XMMM64: Code = 2910 # type: ignore
 """
 ``VPMOVZXDQ xmm1 {k1}{z}, xmm2/m64``
 
@@ -29091,7 +29097,7 @@ EVEX_VPMOVZXDQ_XMM_K1Z_XMMM64: int = 2910
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXDQ_YMM_K1Z_XMMM128: int = 2911
+EVEX_VPMOVZXDQ_YMM_K1Z_XMMM128: Code = 2911 # type: ignore
 """
 ``VPMOVZXDQ ymm1 {k1}{z}, xmm2/m128``
 
@@ -29101,7 +29107,7 @@ EVEX_VPMOVZXDQ_YMM_K1Z_XMMM128: int = 2911
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVZXDQ_ZMM_K1Z_YMMM256: int = 2912
+EVEX_VPMOVZXDQ_ZMM_K1Z_YMMM256: Code = 2912 # type: ignore
 """
 ``VPMOVZXDQ zmm1 {k1}{z}, ymm2/m256``
 
@@ -29111,7 +29117,7 @@ EVEX_VPMOVZXDQ_ZMM_K1Z_YMMM256: int = 2912
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQD_XMMM64_K1Z_XMM: int = 2913
+EVEX_VPMOVQD_XMMM64_K1Z_XMM: Code = 2913 # type: ignore
 """
 ``VPMOVQD xmm1/m64 {k1}{z}, xmm2``
 
@@ -29121,7 +29127,7 @@ EVEX_VPMOVQD_XMMM64_K1Z_XMM: int = 2913
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQD_XMMM128_K1Z_YMM: int = 2914
+EVEX_VPMOVQD_XMMM128_K1Z_YMM: Code = 2914 # type: ignore
 """
 ``VPMOVQD xmm1/m128 {k1}{z}, ymm2``
 
@@ -29131,7 +29137,7 @@ EVEX_VPMOVQD_XMMM128_K1Z_YMM: int = 2914
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQD_YMMM256_K1Z_ZMM: int = 2915
+EVEX_VPMOVQD_YMMM256_K1Z_ZMM: Code = 2915 # type: ignore
 """
 ``VPMOVQD ymm1/m256 {k1}{z}, zmm2``
 
@@ -29141,7 +29147,7 @@ EVEX_VPMOVQD_YMMM256_K1Z_ZMM: int = 2915
 
 ``16/32/64-bit``
 """
-VEX_VPERMD_YMM_YMM_YMMM256: int = 2916
+VEX_VPERMD_YMM_YMM_YMMM256: Code = 2916 # type: ignore
 """
 ``VPERMD ymm1, ymm2, ymm3/m256``
 
@@ -29151,7 +29157,7 @@ VEX_VPERMD_YMM_YMM_YMMM256: int = 2916
 
 ``16/32/64-bit``
 """
-EVEX_VPERMD_YMM_K1Z_YMM_YMMM256B32: int = 2917
+EVEX_VPERMD_YMM_K1Z_YMM_YMMM256B32: Code = 2917 # type: ignore
 """
 ``VPERMD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -29161,7 +29167,7 @@ EVEX_VPERMD_YMM_K1Z_YMM_YMMM256B32: int = 2917
 
 ``16/32/64-bit``
 """
-EVEX_VPERMD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2918
+EVEX_VPERMD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2918 # type: ignore
 """
 ``VPERMD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -29171,7 +29177,7 @@ EVEX_VPERMD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2918
 
 ``16/32/64-bit``
 """
-EVEX_VPERMQ_YMM_K1Z_YMM_YMMM256B64: int = 2919
+EVEX_VPERMQ_YMM_K1Z_YMM_YMMM256B64: Code = 2919 # type: ignore
 """
 ``VPERMQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -29181,7 +29187,7 @@ EVEX_VPERMQ_YMM_K1Z_YMM_YMMM256B64: int = 2919
 
 ``16/32/64-bit``
 """
-EVEX_VPERMQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2920
+EVEX_VPERMQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2920 # type: ignore
 """
 ``VPERMQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -29191,7 +29197,7 @@ EVEX_VPERMQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2920
 
 ``16/32/64-bit``
 """
-PCMPGTQ_XMM_XMMM128: int = 2921
+PCMPGTQ_XMM_XMMM128: Code = 2921 # type: ignore
 """
 ``PCMPGTQ xmm1, xmm2/m128``
 
@@ -29201,7 +29207,7 @@ PCMPGTQ_XMM_XMMM128: int = 2921
 
 ``16/32/64-bit``
 """
-VEX_VPCMPGTQ_XMM_XMM_XMMM128: int = 2922
+VEX_VPCMPGTQ_XMM_XMM_XMMM128: Code = 2922 # type: ignore
 """
 ``VPCMPGTQ xmm1, xmm2, xmm3/m128``
 
@@ -29211,7 +29217,7 @@ VEX_VPCMPGTQ_XMM_XMM_XMMM128: int = 2922
 
 ``16/32/64-bit``
 """
-VEX_VPCMPGTQ_YMM_YMM_YMMM256: int = 2923
+VEX_VPCMPGTQ_YMM_YMM_YMMM256: Code = 2923 # type: ignore
 """
 ``VPCMPGTQ ymm1, ymm2, ymm3/m256``
 
@@ -29221,7 +29227,7 @@ VEX_VPCMPGTQ_YMM_YMM_YMMM256: int = 2923
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTQ_KR_K1_XMM_XMMM128B64: int = 2924
+EVEX_VPCMPGTQ_KR_K1_XMM_XMMM128B64: Code = 2924 # type: ignore
 """
 ``VPCMPGTQ k1 {k2}, xmm2, xmm3/m128/m64bcst``
 
@@ -29231,7 +29237,7 @@ EVEX_VPCMPGTQ_KR_K1_XMM_XMMM128B64: int = 2924
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTQ_KR_K1_YMM_YMMM256B64: int = 2925
+EVEX_VPCMPGTQ_KR_K1_YMM_YMMM256B64: Code = 2925 # type: ignore
 """
 ``VPCMPGTQ k1 {k2}, ymm2, ymm3/m256/m64bcst``
 
@@ -29241,7 +29247,7 @@ EVEX_VPCMPGTQ_KR_K1_YMM_YMMM256B64: int = 2925
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPGTQ_KR_K1_ZMM_ZMMM512B64: int = 2926
+EVEX_VPCMPGTQ_KR_K1_ZMM_ZMMM512B64: Code = 2926 # type: ignore
 """
 ``VPCMPGTQ k1 {k2}, zmm2, zmm3/m512/m64bcst``
 
@@ -29251,7 +29257,7 @@ EVEX_VPCMPGTQ_KR_K1_ZMM_ZMMM512B64: int = 2926
 
 ``16/32/64-bit``
 """
-PMINSB_XMM_XMMM128: int = 2927
+PMINSB_XMM_XMMM128: Code = 2927 # type: ignore
 """
 ``PMINSB xmm1, xmm2/m128``
 
@@ -29261,7 +29267,7 @@ PMINSB_XMM_XMMM128: int = 2927
 
 ``16/32/64-bit``
 """
-VEX_VPMINSB_XMM_XMM_XMMM128: int = 2928
+VEX_VPMINSB_XMM_XMM_XMMM128: Code = 2928 # type: ignore
 """
 ``VPMINSB xmm1, xmm2, xmm3/m128``
 
@@ -29271,7 +29277,7 @@ VEX_VPMINSB_XMM_XMM_XMMM128: int = 2928
 
 ``16/32/64-bit``
 """
-VEX_VPMINSB_YMM_YMM_YMMM256: int = 2929
+VEX_VPMINSB_YMM_YMM_YMMM256: Code = 2929 # type: ignore
 """
 ``VPMINSB ymm1, ymm2, ymm3/m256``
 
@@ -29281,7 +29287,7 @@ VEX_VPMINSB_YMM_YMM_YMMM256: int = 2929
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSB_XMM_K1Z_XMM_XMMM128: int = 2930
+EVEX_VPMINSB_XMM_K1Z_XMM_XMMM128: Code = 2930 # type: ignore
 """
 ``VPMINSB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -29291,7 +29297,7 @@ EVEX_VPMINSB_XMM_K1Z_XMM_XMMM128: int = 2930
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSB_YMM_K1Z_YMM_YMMM256: int = 2931
+EVEX_VPMINSB_YMM_K1Z_YMM_YMMM256: Code = 2931 # type: ignore
 """
 ``VPMINSB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -29301,7 +29307,7 @@ EVEX_VPMINSB_YMM_K1Z_YMM_YMMM256: int = 2931
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSB_ZMM_K1Z_ZMM_ZMMM512: int = 2932
+EVEX_VPMINSB_ZMM_K1Z_ZMM_ZMMM512: Code = 2932 # type: ignore
 """
 ``VPMINSB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -29311,7 +29317,7 @@ EVEX_VPMINSB_ZMM_K1Z_ZMM_ZMMM512: int = 2932
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2D_XMM_KR: int = 2933
+EVEX_VPMOVM2D_XMM_KR: Code = 2933 # type: ignore
 """
 ``VPMOVM2D xmm1, k1``
 
@@ -29321,7 +29327,7 @@ EVEX_VPMOVM2D_XMM_KR: int = 2933
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2D_YMM_KR: int = 2934
+EVEX_VPMOVM2D_YMM_KR: Code = 2934 # type: ignore
 """
 ``VPMOVM2D ymm1, k1``
 
@@ -29331,7 +29337,7 @@ EVEX_VPMOVM2D_YMM_KR: int = 2934
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2D_ZMM_KR: int = 2935
+EVEX_VPMOVM2D_ZMM_KR: Code = 2935 # type: ignore
 """
 ``VPMOVM2D zmm1, k1``
 
@@ -29341,7 +29347,7 @@ EVEX_VPMOVM2D_ZMM_KR: int = 2935
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2Q_XMM_KR: int = 2936
+EVEX_VPMOVM2Q_XMM_KR: Code = 2936 # type: ignore
 """
 ``VPMOVM2Q xmm1, k1``
 
@@ -29351,7 +29357,7 @@ EVEX_VPMOVM2Q_XMM_KR: int = 2936
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2Q_YMM_KR: int = 2937
+EVEX_VPMOVM2Q_YMM_KR: Code = 2937 # type: ignore
 """
 ``VPMOVM2Q ymm1, k1``
 
@@ -29361,7 +29367,7 @@ EVEX_VPMOVM2Q_YMM_KR: int = 2937
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVM2Q_ZMM_KR: int = 2938
+EVEX_VPMOVM2Q_ZMM_KR: Code = 2938 # type: ignore
 """
 ``VPMOVM2Q zmm1, k1``
 
@@ -29371,7 +29377,7 @@ EVEX_VPMOVM2Q_ZMM_KR: int = 2938
 
 ``16/32/64-bit``
 """
-PMINSD_XMM_XMMM128: int = 2939
+PMINSD_XMM_XMMM128: Code = 2939 # type: ignore
 """
 ``PMINSD xmm1, xmm2/m128``
 
@@ -29381,7 +29387,7 @@ PMINSD_XMM_XMMM128: int = 2939
 
 ``16/32/64-bit``
 """
-VEX_VPMINSD_XMM_XMM_XMMM128: int = 2940
+VEX_VPMINSD_XMM_XMM_XMMM128: Code = 2940 # type: ignore
 """
 ``VPMINSD xmm1, xmm2, xmm3/m128``
 
@@ -29391,7 +29397,7 @@ VEX_VPMINSD_XMM_XMM_XMMM128: int = 2940
 
 ``16/32/64-bit``
 """
-VEX_VPMINSD_YMM_YMM_YMMM256: int = 2941
+VEX_VPMINSD_YMM_YMM_YMMM256: Code = 2941 # type: ignore
 """
 ``VPMINSD ymm1, ymm2, ymm3/m256``
 
@@ -29401,7 +29407,7 @@ VEX_VPMINSD_YMM_YMM_YMMM256: int = 2941
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSD_XMM_K1Z_XMM_XMMM128B32: int = 2942
+EVEX_VPMINSD_XMM_K1Z_XMM_XMMM128B32: Code = 2942 # type: ignore
 """
 ``VPMINSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -29411,7 +29417,7 @@ EVEX_VPMINSD_XMM_K1Z_XMM_XMMM128B32: int = 2942
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSD_YMM_K1Z_YMM_YMMM256B32: int = 2943
+EVEX_VPMINSD_YMM_K1Z_YMM_YMMM256B32: Code = 2943 # type: ignore
 """
 ``VPMINSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -29421,7 +29427,7 @@ EVEX_VPMINSD_YMM_K1Z_YMM_YMMM256B32: int = 2943
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2944
+EVEX_VPMINSD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2944 # type: ignore
 """
 ``VPMINSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -29431,7 +29437,7 @@ EVEX_VPMINSD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2944
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSQ_XMM_K1Z_XMM_XMMM128B64: int = 2945
+EVEX_VPMINSQ_XMM_K1Z_XMM_XMMM128B64: Code = 2945 # type: ignore
 """
 ``VPMINSQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -29441,7 +29447,7 @@ EVEX_VPMINSQ_XMM_K1Z_XMM_XMMM128B64: int = 2945
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSQ_YMM_K1Z_YMM_YMMM256B64: int = 2946
+EVEX_VPMINSQ_YMM_K1Z_YMM_YMMM256B64: Code = 2946 # type: ignore
 """
 ``VPMINSQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -29451,7 +29457,7 @@ EVEX_VPMINSQ_YMM_K1Z_YMM_YMMM256B64: int = 2946
 
 ``16/32/64-bit``
 """
-EVEX_VPMINSQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2947
+EVEX_VPMINSQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2947 # type: ignore
 """
 ``VPMINSQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -29461,7 +29467,7 @@ EVEX_VPMINSQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2947
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVD2M_KR_XMM: int = 2948
+EVEX_VPMOVD2M_KR_XMM: Code = 2948 # type: ignore
 """
 ``VPMOVD2M k1, xmm1``
 
@@ -29471,7 +29477,7 @@ EVEX_VPMOVD2M_KR_XMM: int = 2948
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVD2M_KR_YMM: int = 2949
+EVEX_VPMOVD2M_KR_YMM: Code = 2949 # type: ignore
 """
 ``VPMOVD2M k1, ymm1``
 
@@ -29481,7 +29487,7 @@ EVEX_VPMOVD2M_KR_YMM: int = 2949
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVD2M_KR_ZMM: int = 2950
+EVEX_VPMOVD2M_KR_ZMM: Code = 2950 # type: ignore
 """
 ``VPMOVD2M k1, zmm1``
 
@@ -29491,7 +29497,7 @@ EVEX_VPMOVD2M_KR_ZMM: int = 2950
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQ2M_KR_XMM: int = 2951
+EVEX_VPMOVQ2M_KR_XMM: Code = 2951 # type: ignore
 """
 ``VPMOVQ2M k1, xmm1``
 
@@ -29501,7 +29507,7 @@ EVEX_VPMOVQ2M_KR_XMM: int = 2951
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQ2M_KR_YMM: int = 2952
+EVEX_VPMOVQ2M_KR_YMM: Code = 2952 # type: ignore
 """
 ``VPMOVQ2M k1, ymm1``
 
@@ -29511,7 +29517,7 @@ EVEX_VPMOVQ2M_KR_YMM: int = 2952
 
 ``16/32/64-bit``
 """
-EVEX_VPMOVQ2M_KR_ZMM: int = 2953
+EVEX_VPMOVQ2M_KR_ZMM: Code = 2953 # type: ignore
 """
 ``VPMOVQ2M k1, zmm1``
 
@@ -29521,7 +29527,7 @@ EVEX_VPMOVQ2M_KR_ZMM: int = 2953
 
 ``16/32/64-bit``
 """
-PMINUW_XMM_XMMM128: int = 2954
+PMINUW_XMM_XMMM128: Code = 2954 # type: ignore
 """
 ``PMINUW xmm1, xmm2/m128``
 
@@ -29531,7 +29537,7 @@ PMINUW_XMM_XMMM128: int = 2954
 
 ``16/32/64-bit``
 """
-VEX_VPMINUW_XMM_XMM_XMMM128: int = 2955
+VEX_VPMINUW_XMM_XMM_XMMM128: Code = 2955 # type: ignore
 """
 ``VPMINUW xmm1, xmm2, xmm3/m128``
 
@@ -29541,7 +29547,7 @@ VEX_VPMINUW_XMM_XMM_XMMM128: int = 2955
 
 ``16/32/64-bit``
 """
-VEX_VPMINUW_YMM_YMM_YMMM256: int = 2956
+VEX_VPMINUW_YMM_YMM_YMMM256: Code = 2956 # type: ignore
 """
 ``VPMINUW ymm1, ymm2, ymm3/m256``
 
@@ -29551,7 +29557,7 @@ VEX_VPMINUW_YMM_YMM_YMMM256: int = 2956
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUW_XMM_K1Z_XMM_XMMM128: int = 2957
+EVEX_VPMINUW_XMM_K1Z_XMM_XMMM128: Code = 2957 # type: ignore
 """
 ``VPMINUW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -29561,7 +29567,7 @@ EVEX_VPMINUW_XMM_K1Z_XMM_XMMM128: int = 2957
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUW_YMM_K1Z_YMM_YMMM256: int = 2958
+EVEX_VPMINUW_YMM_K1Z_YMM_YMMM256: Code = 2958 # type: ignore
 """
 ``VPMINUW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -29571,7 +29577,7 @@ EVEX_VPMINUW_YMM_K1Z_YMM_YMMM256: int = 2958
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUW_ZMM_K1Z_ZMM_ZMMM512: int = 2959
+EVEX_VPMINUW_ZMM_K1Z_ZMM_ZMMM512: Code = 2959 # type: ignore
 """
 ``VPMINUW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -29581,7 +29587,7 @@ EVEX_VPMINUW_ZMM_K1Z_ZMM_ZMMM512: int = 2959
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTMW2D_XMM_KR: int = 2960
+EVEX_VPBROADCASTMW2D_XMM_KR: Code = 2960 # type: ignore
 """
 ``VPBROADCASTMW2D xmm1, k1``
 
@@ -29591,7 +29597,7 @@ EVEX_VPBROADCASTMW2D_XMM_KR: int = 2960
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTMW2D_YMM_KR: int = 2961
+EVEX_VPBROADCASTMW2D_YMM_KR: Code = 2961 # type: ignore
 """
 ``VPBROADCASTMW2D ymm1, k1``
 
@@ -29601,7 +29607,7 @@ EVEX_VPBROADCASTMW2D_YMM_KR: int = 2961
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTMW2D_ZMM_KR: int = 2962
+EVEX_VPBROADCASTMW2D_ZMM_KR: Code = 2962 # type: ignore
 """
 ``VPBROADCASTMW2D zmm1, k1``
 
@@ -29611,7 +29617,7 @@ EVEX_VPBROADCASTMW2D_ZMM_KR: int = 2962
 
 ``16/32/64-bit``
 """
-PMINUD_XMM_XMMM128: int = 2963
+PMINUD_XMM_XMMM128: Code = 2963 # type: ignore
 """
 ``PMINUD xmm1, xmm2/m128``
 
@@ -29621,7 +29627,7 @@ PMINUD_XMM_XMMM128: int = 2963
 
 ``16/32/64-bit``
 """
-VEX_VPMINUD_XMM_XMM_XMMM128: int = 2964
+VEX_VPMINUD_XMM_XMM_XMMM128: Code = 2964 # type: ignore
 """
 ``VPMINUD xmm1, xmm2, xmm3/m128``
 
@@ -29631,7 +29637,7 @@ VEX_VPMINUD_XMM_XMM_XMMM128: int = 2964
 
 ``16/32/64-bit``
 """
-VEX_VPMINUD_YMM_YMM_YMMM256: int = 2965
+VEX_VPMINUD_YMM_YMM_YMMM256: Code = 2965 # type: ignore
 """
 ``VPMINUD ymm1, ymm2, ymm3/m256``
 
@@ -29641,7 +29647,7 @@ VEX_VPMINUD_YMM_YMM_YMMM256: int = 2965
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUD_XMM_K1Z_XMM_XMMM128B32: int = 2966
+EVEX_VPMINUD_XMM_K1Z_XMM_XMMM128B32: Code = 2966 # type: ignore
 """
 ``VPMINUD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -29651,7 +29657,7 @@ EVEX_VPMINUD_XMM_K1Z_XMM_XMMM128B32: int = 2966
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUD_YMM_K1Z_YMM_YMMM256B32: int = 2967
+EVEX_VPMINUD_YMM_K1Z_YMM_YMMM256B32: Code = 2967 # type: ignore
 """
 ``VPMINUD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -29661,7 +29667,7 @@ EVEX_VPMINUD_YMM_K1Z_YMM_YMMM256B32: int = 2967
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2968
+EVEX_VPMINUD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2968 # type: ignore
 """
 ``VPMINUD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -29671,7 +29677,7 @@ EVEX_VPMINUD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2968
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUQ_XMM_K1Z_XMM_XMMM128B64: int = 2969
+EVEX_VPMINUQ_XMM_K1Z_XMM_XMMM128B64: Code = 2969 # type: ignore
 """
 ``VPMINUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -29681,7 +29687,7 @@ EVEX_VPMINUQ_XMM_K1Z_XMM_XMMM128B64: int = 2969
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUQ_YMM_K1Z_YMM_YMMM256B64: int = 2970
+EVEX_VPMINUQ_YMM_K1Z_YMM_YMMM256B64: Code = 2970 # type: ignore
 """
 ``VPMINUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -29691,7 +29697,7 @@ EVEX_VPMINUQ_YMM_K1Z_YMM_YMMM256B64: int = 2970
 
 ``16/32/64-bit``
 """
-EVEX_VPMINUQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2971
+EVEX_VPMINUQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2971 # type: ignore
 """
 ``VPMINUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -29701,7 +29707,7 @@ EVEX_VPMINUQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2971
 
 ``16/32/64-bit``
 """
-PMAXSB_XMM_XMMM128: int = 2972
+PMAXSB_XMM_XMMM128: Code = 2972 # type: ignore
 """
 ``PMAXSB xmm1, xmm2/m128``
 
@@ -29711,7 +29717,7 @@ PMAXSB_XMM_XMMM128: int = 2972
 
 ``16/32/64-bit``
 """
-VEX_VPMAXSB_XMM_XMM_XMMM128: int = 2973
+VEX_VPMAXSB_XMM_XMM_XMMM128: Code = 2973 # type: ignore
 """
 ``VPMAXSB xmm1, xmm2, xmm3/m128``
 
@@ -29721,7 +29727,7 @@ VEX_VPMAXSB_XMM_XMM_XMMM128: int = 2973
 
 ``16/32/64-bit``
 """
-VEX_VPMAXSB_YMM_YMM_YMMM256: int = 2974
+VEX_VPMAXSB_YMM_YMM_YMMM256: Code = 2974 # type: ignore
 """
 ``VPMAXSB ymm1, ymm2, ymm3/m256``
 
@@ -29731,7 +29737,7 @@ VEX_VPMAXSB_YMM_YMM_YMMM256: int = 2974
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSB_XMM_K1Z_XMM_XMMM128: int = 2975
+EVEX_VPMAXSB_XMM_K1Z_XMM_XMMM128: Code = 2975 # type: ignore
 """
 ``VPMAXSB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -29741,7 +29747,7 @@ EVEX_VPMAXSB_XMM_K1Z_XMM_XMMM128: int = 2975
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSB_YMM_K1Z_YMM_YMMM256: int = 2976
+EVEX_VPMAXSB_YMM_K1Z_YMM_YMMM256: Code = 2976 # type: ignore
 """
 ``VPMAXSB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -29751,7 +29757,7 @@ EVEX_VPMAXSB_YMM_K1Z_YMM_YMMM256: int = 2976
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSB_ZMM_K1Z_ZMM_ZMMM512: int = 2977
+EVEX_VPMAXSB_ZMM_K1Z_ZMM_ZMMM512: Code = 2977 # type: ignore
 """
 ``VPMAXSB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -29761,7 +29767,7 @@ EVEX_VPMAXSB_ZMM_K1Z_ZMM_ZMMM512: int = 2977
 
 ``16/32/64-bit``
 """
-PMAXSD_XMM_XMMM128: int = 2978
+PMAXSD_XMM_XMMM128: Code = 2978 # type: ignore
 """
 ``PMAXSD xmm1, xmm2/m128``
 
@@ -29771,7 +29777,7 @@ PMAXSD_XMM_XMMM128: int = 2978
 
 ``16/32/64-bit``
 """
-VEX_VPMAXSD_XMM_XMM_XMMM128: int = 2979
+VEX_VPMAXSD_XMM_XMM_XMMM128: Code = 2979 # type: ignore
 """
 ``VPMAXSD xmm1, xmm2, xmm3/m128``
 
@@ -29781,7 +29787,7 @@ VEX_VPMAXSD_XMM_XMM_XMMM128: int = 2979
 
 ``16/32/64-bit``
 """
-VEX_VPMAXSD_YMM_YMM_YMMM256: int = 2980
+VEX_VPMAXSD_YMM_YMM_YMMM256: Code = 2980 # type: ignore
 """
 ``VPMAXSD ymm1, ymm2, ymm3/m256``
 
@@ -29791,7 +29797,7 @@ VEX_VPMAXSD_YMM_YMM_YMMM256: int = 2980
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSD_XMM_K1Z_XMM_XMMM128B32: int = 2981
+EVEX_VPMAXSD_XMM_K1Z_XMM_XMMM128B32: Code = 2981 # type: ignore
 """
 ``VPMAXSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -29801,7 +29807,7 @@ EVEX_VPMAXSD_XMM_K1Z_XMM_XMMM128B32: int = 2981
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSD_YMM_K1Z_YMM_YMMM256B32: int = 2982
+EVEX_VPMAXSD_YMM_K1Z_YMM_YMMM256B32: Code = 2982 # type: ignore
 """
 ``VPMAXSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -29811,7 +29817,7 @@ EVEX_VPMAXSD_YMM_K1Z_YMM_YMMM256B32: int = 2982
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2983
+EVEX_VPMAXSD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2983 # type: ignore
 """
 ``VPMAXSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -29821,7 +29827,7 @@ EVEX_VPMAXSD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2983
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSQ_XMM_K1Z_XMM_XMMM128B64: int = 2984
+EVEX_VPMAXSQ_XMM_K1Z_XMM_XMMM128B64: Code = 2984 # type: ignore
 """
 ``VPMAXSQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -29831,7 +29837,7 @@ EVEX_VPMAXSQ_XMM_K1Z_XMM_XMMM128B64: int = 2984
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSQ_YMM_K1Z_YMM_YMMM256B64: int = 2985
+EVEX_VPMAXSQ_YMM_K1Z_YMM_YMMM256B64: Code = 2985 # type: ignore
 """
 ``VPMAXSQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -29841,7 +29847,7 @@ EVEX_VPMAXSQ_YMM_K1Z_YMM_YMMM256B64: int = 2985
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXSQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2986
+EVEX_VPMAXSQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 2986 # type: ignore
 """
 ``VPMAXSQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -29851,7 +29857,7 @@ EVEX_VPMAXSQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 2986
 
 ``16/32/64-bit``
 """
-PMAXUW_XMM_XMMM128: int = 2987
+PMAXUW_XMM_XMMM128: Code = 2987 # type: ignore
 """
 ``PMAXUW xmm1, xmm2/m128``
 
@@ -29861,7 +29867,7 @@ PMAXUW_XMM_XMMM128: int = 2987
 
 ``16/32/64-bit``
 """
-VEX_VPMAXUW_XMM_XMM_XMMM128: int = 2988
+VEX_VPMAXUW_XMM_XMM_XMMM128: Code = 2988 # type: ignore
 """
 ``VPMAXUW xmm1, xmm2, xmm3/m128``
 
@@ -29871,7 +29877,7 @@ VEX_VPMAXUW_XMM_XMM_XMMM128: int = 2988
 
 ``16/32/64-bit``
 """
-VEX_VPMAXUW_YMM_YMM_YMMM256: int = 2989
+VEX_VPMAXUW_YMM_YMM_YMMM256: Code = 2989 # type: ignore
 """
 ``VPMAXUW ymm1, ymm2, ymm3/m256``
 
@@ -29881,7 +29887,7 @@ VEX_VPMAXUW_YMM_YMM_YMMM256: int = 2989
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUW_XMM_K1Z_XMM_XMMM128: int = 2990
+EVEX_VPMAXUW_XMM_K1Z_XMM_XMMM128: Code = 2990 # type: ignore
 """
 ``VPMAXUW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -29891,7 +29897,7 @@ EVEX_VPMAXUW_XMM_K1Z_XMM_XMMM128: int = 2990
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUW_YMM_K1Z_YMM_YMMM256: int = 2991
+EVEX_VPMAXUW_YMM_K1Z_YMM_YMMM256: Code = 2991 # type: ignore
 """
 ``VPMAXUW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -29901,7 +29907,7 @@ EVEX_VPMAXUW_YMM_K1Z_YMM_YMMM256: int = 2991
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUW_ZMM_K1Z_ZMM_ZMMM512: int = 2992
+EVEX_VPMAXUW_ZMM_K1Z_ZMM_ZMMM512: Code = 2992 # type: ignore
 """
 ``VPMAXUW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -29911,7 +29917,7 @@ EVEX_VPMAXUW_ZMM_K1Z_ZMM_ZMMM512: int = 2992
 
 ``16/32/64-bit``
 """
-PMAXUD_XMM_XMMM128: int = 2993
+PMAXUD_XMM_XMMM128: Code = 2993 # type: ignore
 """
 ``PMAXUD xmm1, xmm2/m128``
 
@@ -29921,7 +29927,7 @@ PMAXUD_XMM_XMMM128: int = 2993
 
 ``16/32/64-bit``
 """
-VEX_VPMAXUD_XMM_XMM_XMMM128: int = 2994
+VEX_VPMAXUD_XMM_XMM_XMMM128: Code = 2994 # type: ignore
 """
 ``VPMAXUD xmm1, xmm2, xmm3/m128``
 
@@ -29931,7 +29937,7 @@ VEX_VPMAXUD_XMM_XMM_XMMM128: int = 2994
 
 ``16/32/64-bit``
 """
-VEX_VPMAXUD_YMM_YMM_YMMM256: int = 2995
+VEX_VPMAXUD_YMM_YMM_YMMM256: Code = 2995 # type: ignore
 """
 ``VPMAXUD ymm1, ymm2, ymm3/m256``
 
@@ -29941,7 +29947,7 @@ VEX_VPMAXUD_YMM_YMM_YMMM256: int = 2995
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUD_XMM_K1Z_XMM_XMMM128B32: int = 2996
+EVEX_VPMAXUD_XMM_K1Z_XMM_XMMM128B32: Code = 2996 # type: ignore
 """
 ``VPMAXUD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -29951,7 +29957,7 @@ EVEX_VPMAXUD_XMM_K1Z_XMM_XMMM128B32: int = 2996
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUD_YMM_K1Z_YMM_YMMM256B32: int = 2997
+EVEX_VPMAXUD_YMM_K1Z_YMM_YMMM256B32: Code = 2997 # type: ignore
 """
 ``VPMAXUD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -29961,7 +29967,7 @@ EVEX_VPMAXUD_YMM_K1Z_YMM_YMMM256B32: int = 2997
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2998
+EVEX_VPMAXUD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 2998 # type: ignore
 """
 ``VPMAXUD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -29971,7 +29977,7 @@ EVEX_VPMAXUD_ZMM_K1Z_ZMM_ZMMM512B32: int = 2998
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUQ_XMM_K1Z_XMM_XMMM128B64: int = 2999
+EVEX_VPMAXUQ_XMM_K1Z_XMM_XMMM128B64: Code = 2999 # type: ignore
 """
 ``VPMAXUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -29981,7 +29987,7 @@ EVEX_VPMAXUQ_XMM_K1Z_XMM_XMMM128B64: int = 2999
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUQ_YMM_K1Z_YMM_YMMM256B64: int = 3000
+EVEX_VPMAXUQ_YMM_K1Z_YMM_YMMM256B64: Code = 3000 # type: ignore
 """
 ``VPMAXUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -29991,7 +29997,7 @@ EVEX_VPMAXUQ_YMM_K1Z_YMM_YMMM256B64: int = 3000
 
 ``16/32/64-bit``
 """
-EVEX_VPMAXUQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3001
+EVEX_VPMAXUQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3001 # type: ignore
 """
 ``VPMAXUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -30001,7 +30007,7 @@ EVEX_VPMAXUQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3001
 
 ``16/32/64-bit``
 """
-PMULLD_XMM_XMMM128: int = 3002
+PMULLD_XMM_XMMM128: Code = 3002 # type: ignore
 """
 ``PMULLD xmm1, xmm2/m128``
 
@@ -30011,7 +30017,7 @@ PMULLD_XMM_XMMM128: int = 3002
 
 ``16/32/64-bit``
 """
-VEX_VPMULLD_XMM_XMM_XMMM128: int = 3003
+VEX_VPMULLD_XMM_XMM_XMMM128: Code = 3003 # type: ignore
 """
 ``VPMULLD xmm1, xmm2, xmm3/m128``
 
@@ -30021,7 +30027,7 @@ VEX_VPMULLD_XMM_XMM_XMMM128: int = 3003
 
 ``16/32/64-bit``
 """
-VEX_VPMULLD_YMM_YMM_YMMM256: int = 3004
+VEX_VPMULLD_YMM_YMM_YMMM256: Code = 3004 # type: ignore
 """
 ``VPMULLD ymm1, ymm2, ymm3/m256``
 
@@ -30031,7 +30037,7 @@ VEX_VPMULLD_YMM_YMM_YMMM256: int = 3004
 
 ``16/32/64-bit``
 """
-EVEX_VPMULLD_XMM_K1Z_XMM_XMMM128B32: int = 3005
+EVEX_VPMULLD_XMM_K1Z_XMM_XMMM128B32: Code = 3005 # type: ignore
 """
 ``VPMULLD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -30041,7 +30047,7 @@ EVEX_VPMULLD_XMM_K1Z_XMM_XMMM128B32: int = 3005
 
 ``16/32/64-bit``
 """
-EVEX_VPMULLD_YMM_K1Z_YMM_YMMM256B32: int = 3006
+EVEX_VPMULLD_YMM_K1Z_YMM_YMMM256B32: Code = 3006 # type: ignore
 """
 ``VPMULLD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -30051,7 +30057,7 @@ EVEX_VPMULLD_YMM_K1Z_YMM_YMMM256B32: int = 3006
 
 ``16/32/64-bit``
 """
-EVEX_VPMULLD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3007
+EVEX_VPMULLD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3007 # type: ignore
 """
 ``VPMULLD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -30061,7 +30067,7 @@ EVEX_VPMULLD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3007
 
 ``16/32/64-bit``
 """
-EVEX_VPMULLQ_XMM_K1Z_XMM_XMMM128B64: int = 3008
+EVEX_VPMULLQ_XMM_K1Z_XMM_XMMM128B64: Code = 3008 # type: ignore
 """
 ``VPMULLQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -30071,7 +30077,7 @@ EVEX_VPMULLQ_XMM_K1Z_XMM_XMMM128B64: int = 3008
 
 ``16/32/64-bit``
 """
-EVEX_VPMULLQ_YMM_K1Z_YMM_YMMM256B64: int = 3009
+EVEX_VPMULLQ_YMM_K1Z_YMM_YMMM256B64: Code = 3009 # type: ignore
 """
 ``VPMULLQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -30081,7 +30087,7 @@ EVEX_VPMULLQ_YMM_K1Z_YMM_YMMM256B64: int = 3009
 
 ``16/32/64-bit``
 """
-EVEX_VPMULLQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3010
+EVEX_VPMULLQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3010 # type: ignore
 """
 ``VPMULLQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -30091,7 +30097,7 @@ EVEX_VPMULLQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3010
 
 ``16/32/64-bit``
 """
-PHMINPOSUW_XMM_XMMM128: int = 3011
+PHMINPOSUW_XMM_XMMM128: Code = 3011 # type: ignore
 """
 ``PHMINPOSUW xmm1, xmm2/m128``
 
@@ -30101,7 +30107,7 @@ PHMINPOSUW_XMM_XMMM128: int = 3011
 
 ``16/32/64-bit``
 """
-VEX_VPHMINPOSUW_XMM_XMMM128: int = 3012
+VEX_VPHMINPOSUW_XMM_XMMM128: Code = 3012 # type: ignore
 """
 ``VPHMINPOSUW xmm1, xmm2/m128``
 
@@ -30111,7 +30117,7 @@ VEX_VPHMINPOSUW_XMM_XMMM128: int = 3012
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPPS_XMM_K1Z_XMMM128B32: int = 3013
+EVEX_VGETEXPPS_XMM_K1Z_XMMM128B32: Code = 3013 # type: ignore
 """
 ``VGETEXPPS xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -30121,7 +30127,7 @@ EVEX_VGETEXPPS_XMM_K1Z_XMMM128B32: int = 3013
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPPS_YMM_K1Z_YMMM256B32: int = 3014
+EVEX_VGETEXPPS_YMM_K1Z_YMMM256B32: Code = 3014 # type: ignore
 """
 ``VGETEXPPS ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -30131,7 +30137,7 @@ EVEX_VGETEXPPS_YMM_K1Z_YMMM256B32: int = 3014
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPPS_ZMM_K1Z_ZMMM512B32_SAE: int = 3015
+EVEX_VGETEXPPS_ZMM_K1Z_ZMMM512B32_SAE: Code = 3015 # type: ignore
 """
 ``VGETEXPPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}``
 
@@ -30141,7 +30147,7 @@ EVEX_VGETEXPPS_ZMM_K1Z_ZMMM512B32_SAE: int = 3015
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPPD_XMM_K1Z_XMMM128B64: int = 3016
+EVEX_VGETEXPPD_XMM_K1Z_XMMM128B64: Code = 3016 # type: ignore
 """
 ``VGETEXPPD xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -30151,7 +30157,7 @@ EVEX_VGETEXPPD_XMM_K1Z_XMMM128B64: int = 3016
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPPD_YMM_K1Z_YMMM256B64: int = 3017
+EVEX_VGETEXPPD_YMM_K1Z_YMMM256B64: Code = 3017 # type: ignore
 """
 ``VGETEXPPD ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -30161,7 +30167,7 @@ EVEX_VGETEXPPD_YMM_K1Z_YMMM256B64: int = 3017
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPPD_ZMM_K1Z_ZMMM512B64_SAE: int = 3018
+EVEX_VGETEXPPD_ZMM_K1Z_ZMMM512B64_SAE: Code = 3018 # type: ignore
 """
 ``VGETEXPPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}``
 
@@ -30171,7 +30177,7 @@ EVEX_VGETEXPPD_ZMM_K1Z_ZMMM512B64_SAE: int = 3018
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPSS_XMM_K1Z_XMM_XMMM32_SAE: int = 3019
+EVEX_VGETEXPSS_XMM_K1Z_XMM_XMMM32_SAE: Code = 3019 # type: ignore
 """
 ``VGETEXPSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}``
 
@@ -30181,7 +30187,7 @@ EVEX_VGETEXPSS_XMM_K1Z_XMM_XMMM32_SAE: int = 3019
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPSD_XMM_K1Z_XMM_XMMM64_SAE: int = 3020
+EVEX_VGETEXPSD_XMM_K1Z_XMM_XMMM64_SAE: Code = 3020 # type: ignore
 """
 ``VGETEXPSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}``
 
@@ -30191,7 +30197,7 @@ EVEX_VGETEXPSD_XMM_K1Z_XMM_XMMM64_SAE: int = 3020
 
 ``16/32/64-bit``
 """
-EVEX_VPLZCNTD_XMM_K1Z_XMMM128B32: int = 3021
+EVEX_VPLZCNTD_XMM_K1Z_XMMM128B32: Code = 3021 # type: ignore
 """
 ``VPLZCNTD xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -30201,7 +30207,7 @@ EVEX_VPLZCNTD_XMM_K1Z_XMMM128B32: int = 3021
 
 ``16/32/64-bit``
 """
-EVEX_VPLZCNTD_YMM_K1Z_YMMM256B32: int = 3022
+EVEX_VPLZCNTD_YMM_K1Z_YMMM256B32: Code = 3022 # type: ignore
 """
 ``VPLZCNTD ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -30211,7 +30217,7 @@ EVEX_VPLZCNTD_YMM_K1Z_YMMM256B32: int = 3022
 
 ``16/32/64-bit``
 """
-EVEX_VPLZCNTD_ZMM_K1Z_ZMMM512B32: int = 3023
+EVEX_VPLZCNTD_ZMM_K1Z_ZMMM512B32: Code = 3023 # type: ignore
 """
 ``VPLZCNTD zmm1 {k1}{z}, zmm2/m512/m32bcst``
 
@@ -30221,7 +30227,7 @@ EVEX_VPLZCNTD_ZMM_K1Z_ZMMM512B32: int = 3023
 
 ``16/32/64-bit``
 """
-EVEX_VPLZCNTQ_XMM_K1Z_XMMM128B64: int = 3024
+EVEX_VPLZCNTQ_XMM_K1Z_XMMM128B64: Code = 3024 # type: ignore
 """
 ``VPLZCNTQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -30231,7 +30237,7 @@ EVEX_VPLZCNTQ_XMM_K1Z_XMMM128B64: int = 3024
 
 ``16/32/64-bit``
 """
-EVEX_VPLZCNTQ_YMM_K1Z_YMMM256B64: int = 3025
+EVEX_VPLZCNTQ_YMM_K1Z_YMMM256B64: Code = 3025 # type: ignore
 """
 ``VPLZCNTQ ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -30241,7 +30247,7 @@ EVEX_VPLZCNTQ_YMM_K1Z_YMMM256B64: int = 3025
 
 ``16/32/64-bit``
 """
-EVEX_VPLZCNTQ_ZMM_K1Z_ZMMM512B64: int = 3026
+EVEX_VPLZCNTQ_ZMM_K1Z_ZMMM512B64: Code = 3026 # type: ignore
 """
 ``VPLZCNTQ zmm1 {k1}{z}, zmm2/m512/m64bcst``
 
@@ -30251,7 +30257,7 @@ EVEX_VPLZCNTQ_ZMM_K1Z_ZMMM512B64: int = 3026
 
 ``16/32/64-bit``
 """
-VEX_VPSRLVD_XMM_XMM_XMMM128: int = 3027
+VEX_VPSRLVD_XMM_XMM_XMMM128: Code = 3027 # type: ignore
 """
 ``VPSRLVD xmm1, xmm2, xmm3/m128``
 
@@ -30261,7 +30267,7 @@ VEX_VPSRLVD_XMM_XMM_XMMM128: int = 3027
 
 ``16/32/64-bit``
 """
-VEX_VPSRLVD_YMM_YMM_YMMM256: int = 3028
+VEX_VPSRLVD_YMM_YMM_YMMM256: Code = 3028 # type: ignore
 """
 ``VPSRLVD ymm1, ymm2, ymm3/m256``
 
@@ -30271,7 +30277,7 @@ VEX_VPSRLVD_YMM_YMM_YMMM256: int = 3028
 
 ``16/32/64-bit``
 """
-VEX_VPSRLVQ_XMM_XMM_XMMM128: int = 3029
+VEX_VPSRLVQ_XMM_XMM_XMMM128: Code = 3029 # type: ignore
 """
 ``VPSRLVQ xmm1, xmm2, xmm3/m128``
 
@@ -30281,7 +30287,7 @@ VEX_VPSRLVQ_XMM_XMM_XMMM128: int = 3029
 
 ``16/32/64-bit``
 """
-VEX_VPSRLVQ_YMM_YMM_YMMM256: int = 3030
+VEX_VPSRLVQ_YMM_YMM_YMMM256: Code = 3030 # type: ignore
 """
 ``VPSRLVQ ymm1, ymm2, ymm3/m256``
 
@@ -30291,7 +30297,7 @@ VEX_VPSRLVQ_YMM_YMM_YMMM256: int = 3030
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLVD_XMM_K1Z_XMM_XMMM128B32: int = 3031
+EVEX_VPSRLVD_XMM_K1Z_XMM_XMMM128B32: Code = 3031 # type: ignore
 """
 ``VPSRLVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -30301,7 +30307,7 @@ EVEX_VPSRLVD_XMM_K1Z_XMM_XMMM128B32: int = 3031
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLVD_YMM_K1Z_YMM_YMMM256B32: int = 3032
+EVEX_VPSRLVD_YMM_K1Z_YMM_YMMM256B32: Code = 3032 # type: ignore
 """
 ``VPSRLVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -30311,7 +30317,7 @@ EVEX_VPSRLVD_YMM_K1Z_YMM_YMMM256B32: int = 3032
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3033
+EVEX_VPSRLVD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3033 # type: ignore
 """
 ``VPSRLVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -30321,7 +30327,7 @@ EVEX_VPSRLVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3033
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLVQ_XMM_K1Z_XMM_XMMM128B64: int = 3034
+EVEX_VPSRLVQ_XMM_K1Z_XMM_XMMM128B64: Code = 3034 # type: ignore
 """
 ``VPSRLVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -30331,7 +30337,7 @@ EVEX_VPSRLVQ_XMM_K1Z_XMM_XMMM128B64: int = 3034
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLVQ_YMM_K1Z_YMM_YMMM256B64: int = 3035
+EVEX_VPSRLVQ_YMM_K1Z_YMM_YMMM256B64: Code = 3035 # type: ignore
 """
 ``VPSRLVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -30341,7 +30347,7 @@ EVEX_VPSRLVQ_YMM_K1Z_YMM_YMMM256B64: int = 3035
 
 ``16/32/64-bit``
 """
-EVEX_VPSRLVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3036
+EVEX_VPSRLVQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3036 # type: ignore
 """
 ``VPSRLVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -30351,7 +30357,7 @@ EVEX_VPSRLVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3036
 
 ``16/32/64-bit``
 """
-VEX_VPSRAVD_XMM_XMM_XMMM128: int = 3037
+VEX_VPSRAVD_XMM_XMM_XMMM128: Code = 3037 # type: ignore
 """
 ``VPSRAVD xmm1, xmm2, xmm3/m128``
 
@@ -30361,7 +30367,7 @@ VEX_VPSRAVD_XMM_XMM_XMMM128: int = 3037
 
 ``16/32/64-bit``
 """
-VEX_VPSRAVD_YMM_YMM_YMMM256: int = 3038
+VEX_VPSRAVD_YMM_YMM_YMMM256: Code = 3038 # type: ignore
 """
 ``VPSRAVD ymm1, ymm2, ymm3/m256``
 
@@ -30371,7 +30377,7 @@ VEX_VPSRAVD_YMM_YMM_YMMM256: int = 3038
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAVD_XMM_K1Z_XMM_XMMM128B32: int = 3039
+EVEX_VPSRAVD_XMM_K1Z_XMM_XMMM128B32: Code = 3039 # type: ignore
 """
 ``VPSRAVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -30381,7 +30387,7 @@ EVEX_VPSRAVD_XMM_K1Z_XMM_XMMM128B32: int = 3039
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAVD_YMM_K1Z_YMM_YMMM256B32: int = 3040
+EVEX_VPSRAVD_YMM_K1Z_YMM_YMMM256B32: Code = 3040 # type: ignore
 """
 ``VPSRAVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -30391,7 +30397,7 @@ EVEX_VPSRAVD_YMM_K1Z_YMM_YMMM256B32: int = 3040
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3041
+EVEX_VPSRAVD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3041 # type: ignore
 """
 ``VPSRAVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -30401,7 +30407,7 @@ EVEX_VPSRAVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3041
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAVQ_XMM_K1Z_XMM_XMMM128B64: int = 3042
+EVEX_VPSRAVQ_XMM_K1Z_XMM_XMMM128B64: Code = 3042 # type: ignore
 """
 ``VPSRAVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -30411,7 +30417,7 @@ EVEX_VPSRAVQ_XMM_K1Z_XMM_XMMM128B64: int = 3042
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAVQ_YMM_K1Z_YMM_YMMM256B64: int = 3043
+EVEX_VPSRAVQ_YMM_K1Z_YMM_YMMM256B64: Code = 3043 # type: ignore
 """
 ``VPSRAVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -30421,7 +30427,7 @@ EVEX_VPSRAVQ_YMM_K1Z_YMM_YMMM256B64: int = 3043
 
 ``16/32/64-bit``
 """
-EVEX_VPSRAVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3044
+EVEX_VPSRAVQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3044 # type: ignore
 """
 ``VPSRAVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -30431,7 +30437,7 @@ EVEX_VPSRAVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3044
 
 ``16/32/64-bit``
 """
-VEX_VPSLLVD_XMM_XMM_XMMM128: int = 3045
+VEX_VPSLLVD_XMM_XMM_XMMM128: Code = 3045 # type: ignore
 """
 ``VPSLLVD xmm1, xmm2, xmm3/m128``
 
@@ -30441,7 +30447,7 @@ VEX_VPSLLVD_XMM_XMM_XMMM128: int = 3045
 
 ``16/32/64-bit``
 """
-VEX_VPSLLVD_YMM_YMM_YMMM256: int = 3046
+VEX_VPSLLVD_YMM_YMM_YMMM256: Code = 3046 # type: ignore
 """
 ``VPSLLVD ymm1, ymm2, ymm3/m256``
 
@@ -30451,7 +30457,7 @@ VEX_VPSLLVD_YMM_YMM_YMMM256: int = 3046
 
 ``16/32/64-bit``
 """
-VEX_VPSLLVQ_XMM_XMM_XMMM128: int = 3047
+VEX_VPSLLVQ_XMM_XMM_XMMM128: Code = 3047 # type: ignore
 """
 ``VPSLLVQ xmm1, xmm2, xmm3/m128``
 
@@ -30461,7 +30467,7 @@ VEX_VPSLLVQ_XMM_XMM_XMMM128: int = 3047
 
 ``16/32/64-bit``
 """
-VEX_VPSLLVQ_YMM_YMM_YMMM256: int = 3048
+VEX_VPSLLVQ_YMM_YMM_YMMM256: Code = 3048 # type: ignore
 """
 ``VPSLLVQ ymm1, ymm2, ymm3/m256``
 
@@ -30471,7 +30477,7 @@ VEX_VPSLLVQ_YMM_YMM_YMMM256: int = 3048
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLVD_XMM_K1Z_XMM_XMMM128B32: int = 3049
+EVEX_VPSLLVD_XMM_K1Z_XMM_XMMM128B32: Code = 3049 # type: ignore
 """
 ``VPSLLVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -30481,7 +30487,7 @@ EVEX_VPSLLVD_XMM_K1Z_XMM_XMMM128B32: int = 3049
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLVD_YMM_K1Z_YMM_YMMM256B32: int = 3050
+EVEX_VPSLLVD_YMM_K1Z_YMM_YMMM256B32: Code = 3050 # type: ignore
 """
 ``VPSLLVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -30491,7 +30497,7 @@ EVEX_VPSLLVD_YMM_K1Z_YMM_YMMM256B32: int = 3050
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3051
+EVEX_VPSLLVD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3051 # type: ignore
 """
 ``VPSLLVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -30501,7 +30507,7 @@ EVEX_VPSLLVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3051
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLVQ_XMM_K1Z_XMM_XMMM128B64: int = 3052
+EVEX_VPSLLVQ_XMM_K1Z_XMM_XMMM128B64: Code = 3052 # type: ignore
 """
 ``VPSLLVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -30511,7 +30517,7 @@ EVEX_VPSLLVQ_XMM_K1Z_XMM_XMMM128B64: int = 3052
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLVQ_YMM_K1Z_YMM_YMMM256B64: int = 3053
+EVEX_VPSLLVQ_YMM_K1Z_YMM_YMMM256B64: Code = 3053 # type: ignore
 """
 ``VPSLLVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -30521,7 +30527,7 @@ EVEX_VPSLLVQ_YMM_K1Z_YMM_YMMM256B64: int = 3053
 
 ``16/32/64-bit``
 """
-EVEX_VPSLLVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3054
+EVEX_VPSLLVQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3054 # type: ignore
 """
 ``VPSLLVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -30531,7 +30537,7 @@ EVEX_VPSLLVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3054
 
 ``16/32/64-bit``
 """
-EVEX_VRCP14PS_XMM_K1Z_XMMM128B32: int = 3055
+EVEX_VRCP14PS_XMM_K1Z_XMMM128B32: Code = 3055 # type: ignore
 """
 ``VRCP14PS xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -30541,7 +30547,7 @@ EVEX_VRCP14PS_XMM_K1Z_XMMM128B32: int = 3055
 
 ``16/32/64-bit``
 """
-EVEX_VRCP14PS_YMM_K1Z_YMMM256B32: int = 3056
+EVEX_VRCP14PS_YMM_K1Z_YMMM256B32: Code = 3056 # type: ignore
 """
 ``VRCP14PS ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -30551,7 +30557,7 @@ EVEX_VRCP14PS_YMM_K1Z_YMMM256B32: int = 3056
 
 ``16/32/64-bit``
 """
-EVEX_VRCP14PS_ZMM_K1Z_ZMMM512B32: int = 3057
+EVEX_VRCP14PS_ZMM_K1Z_ZMMM512B32: Code = 3057 # type: ignore
 """
 ``VRCP14PS zmm1 {k1}{z}, zmm2/m512/m32bcst``
 
@@ -30561,7 +30567,7 @@ EVEX_VRCP14PS_ZMM_K1Z_ZMMM512B32: int = 3057
 
 ``16/32/64-bit``
 """
-EVEX_VRCP14PD_XMM_K1Z_XMMM128B64: int = 3058
+EVEX_VRCP14PD_XMM_K1Z_XMMM128B64: Code = 3058 # type: ignore
 """
 ``VRCP14PD xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -30571,7 +30577,7 @@ EVEX_VRCP14PD_XMM_K1Z_XMMM128B64: int = 3058
 
 ``16/32/64-bit``
 """
-EVEX_VRCP14PD_YMM_K1Z_YMMM256B64: int = 3059
+EVEX_VRCP14PD_YMM_K1Z_YMMM256B64: Code = 3059 # type: ignore
 """
 ``VRCP14PD ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -30581,7 +30587,7 @@ EVEX_VRCP14PD_YMM_K1Z_YMMM256B64: int = 3059
 
 ``16/32/64-bit``
 """
-EVEX_VRCP14PD_ZMM_K1Z_ZMMM512B64: int = 3060
+EVEX_VRCP14PD_ZMM_K1Z_ZMMM512B64: Code = 3060 # type: ignore
 """
 ``VRCP14PD zmm1 {k1}{z}, zmm2/m512/m64bcst``
 
@@ -30591,7 +30597,7 @@ EVEX_VRCP14PD_ZMM_K1Z_ZMMM512B64: int = 3060
 
 ``16/32/64-bit``
 """
-EVEX_VRCP14SS_XMM_K1Z_XMM_XMMM32: int = 3061
+EVEX_VRCP14SS_XMM_K1Z_XMM_XMMM32: Code = 3061 # type: ignore
 """
 ``VRCP14SS xmm1 {k1}{z}, xmm2, xmm3/m32``
 
@@ -30601,7 +30607,7 @@ EVEX_VRCP14SS_XMM_K1Z_XMM_XMMM32: int = 3061
 
 ``16/32/64-bit``
 """
-EVEX_VRCP14SD_XMM_K1Z_XMM_XMMM64: int = 3062
+EVEX_VRCP14SD_XMM_K1Z_XMM_XMMM64: Code = 3062 # type: ignore
 """
 ``VRCP14SD xmm1 {k1}{z}, xmm2, xmm3/m64``
 
@@ -30611,7 +30617,7 @@ EVEX_VRCP14SD_XMM_K1Z_XMM_XMMM64: int = 3062
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT14PS_XMM_K1Z_XMMM128B32: int = 3063
+EVEX_VRSQRT14PS_XMM_K1Z_XMMM128B32: Code = 3063 # type: ignore
 """
 ``VRSQRT14PS xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -30621,7 +30627,7 @@ EVEX_VRSQRT14PS_XMM_K1Z_XMMM128B32: int = 3063
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT14PS_YMM_K1Z_YMMM256B32: int = 3064
+EVEX_VRSQRT14PS_YMM_K1Z_YMMM256B32: Code = 3064 # type: ignore
 """
 ``VRSQRT14PS ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -30631,7 +30637,7 @@ EVEX_VRSQRT14PS_YMM_K1Z_YMMM256B32: int = 3064
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT14PS_ZMM_K1Z_ZMMM512B32: int = 3065
+EVEX_VRSQRT14PS_ZMM_K1Z_ZMMM512B32: Code = 3065 # type: ignore
 """
 ``VRSQRT14PS zmm1 {k1}{z}, zmm2/m512/m32bcst``
 
@@ -30641,7 +30647,7 @@ EVEX_VRSQRT14PS_ZMM_K1Z_ZMMM512B32: int = 3065
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT14PD_XMM_K1Z_XMMM128B64: int = 3066
+EVEX_VRSQRT14PD_XMM_K1Z_XMMM128B64: Code = 3066 # type: ignore
 """
 ``VRSQRT14PD xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -30651,7 +30657,7 @@ EVEX_VRSQRT14PD_XMM_K1Z_XMMM128B64: int = 3066
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT14PD_YMM_K1Z_YMMM256B64: int = 3067
+EVEX_VRSQRT14PD_YMM_K1Z_YMMM256B64: Code = 3067 # type: ignore
 """
 ``VRSQRT14PD ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -30661,7 +30667,7 @@ EVEX_VRSQRT14PD_YMM_K1Z_YMMM256B64: int = 3067
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT14PD_ZMM_K1Z_ZMMM512B64: int = 3068
+EVEX_VRSQRT14PD_ZMM_K1Z_ZMMM512B64: Code = 3068 # type: ignore
 """
 ``VRSQRT14PD zmm1 {k1}{z}, zmm2/m512/m64bcst``
 
@@ -30671,7 +30677,7 @@ EVEX_VRSQRT14PD_ZMM_K1Z_ZMMM512B64: int = 3068
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT14SS_XMM_K1Z_XMM_XMMM32: int = 3069
+EVEX_VRSQRT14SS_XMM_K1Z_XMM_XMMM32: Code = 3069 # type: ignore
 """
 ``VRSQRT14SS xmm1 {k1}{z}, xmm2, xmm3/m32``
 
@@ -30681,7 +30687,7 @@ EVEX_VRSQRT14SS_XMM_K1Z_XMM_XMMM32: int = 3069
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT14SD_XMM_K1Z_XMM_XMMM64: int = 3070
+EVEX_VRSQRT14SD_XMM_K1Z_XMM_XMMM64: Code = 3070 # type: ignore
 """
 ``VRSQRT14SD xmm1 {k1}{z}, xmm2, xmm3/m64``
 
@@ -30691,7 +30697,7 @@ EVEX_VRSQRT14SD_XMM_K1Z_XMM_XMMM64: int = 3070
 
 ``16/32/64-bit``
 """
-EVEX_VPDPBUSD_XMM_K1Z_XMM_XMMM128B32: int = 3071
+EVEX_VPDPBUSD_XMM_K1Z_XMM_XMMM128B32: Code = 3071 # type: ignore
 """
 ``VPDPBUSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -30701,7 +30707,7 @@ EVEX_VPDPBUSD_XMM_K1Z_XMM_XMMM128B32: int = 3071
 
 ``16/32/64-bit``
 """
-EVEX_VPDPBUSD_YMM_K1Z_YMM_YMMM256B32: int = 3072
+EVEX_VPDPBUSD_YMM_K1Z_YMM_YMMM256B32: Code = 3072 # type: ignore
 """
 ``VPDPBUSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -30711,7 +30717,7 @@ EVEX_VPDPBUSD_YMM_K1Z_YMM_YMMM256B32: int = 3072
 
 ``16/32/64-bit``
 """
-EVEX_VPDPBUSD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3073
+EVEX_VPDPBUSD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3073 # type: ignore
 """
 ``VPDPBUSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -30721,7 +30727,7 @@ EVEX_VPDPBUSD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3073
 
 ``16/32/64-bit``
 """
-EVEX_VPDPBUSDS_XMM_K1Z_XMM_XMMM128B32: int = 3074
+EVEX_VPDPBUSDS_XMM_K1Z_XMM_XMMM128B32: Code = 3074 # type: ignore
 """
 ``VPDPBUSDS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -30731,7 +30737,7 @@ EVEX_VPDPBUSDS_XMM_K1Z_XMM_XMMM128B32: int = 3074
 
 ``16/32/64-bit``
 """
-EVEX_VPDPBUSDS_YMM_K1Z_YMM_YMMM256B32: int = 3075
+EVEX_VPDPBUSDS_YMM_K1Z_YMM_YMMM256B32: Code = 3075 # type: ignore
 """
 ``VPDPBUSDS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -30741,7 +30747,7 @@ EVEX_VPDPBUSDS_YMM_K1Z_YMM_YMMM256B32: int = 3075
 
 ``16/32/64-bit``
 """
-EVEX_VPDPBUSDS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3076
+EVEX_VPDPBUSDS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3076 # type: ignore
 """
 ``VPDPBUSDS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -30751,7 +30757,7 @@ EVEX_VPDPBUSDS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3076
 
 ``16/32/64-bit``
 """
-EVEX_VPDPWSSD_XMM_K1Z_XMM_XMMM128B32: int = 3077
+EVEX_VPDPWSSD_XMM_K1Z_XMM_XMMM128B32: Code = 3077 # type: ignore
 """
 ``VPDPWSSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -30761,7 +30767,7 @@ EVEX_VPDPWSSD_XMM_K1Z_XMM_XMMM128B32: int = 3077
 
 ``16/32/64-bit``
 """
-EVEX_VPDPWSSD_YMM_K1Z_YMM_YMMM256B32: int = 3078
+EVEX_VPDPWSSD_YMM_K1Z_YMM_YMMM256B32: Code = 3078 # type: ignore
 """
 ``VPDPWSSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -30771,7 +30777,7 @@ EVEX_VPDPWSSD_YMM_K1Z_YMM_YMMM256B32: int = 3078
 
 ``16/32/64-bit``
 """
-EVEX_VPDPWSSD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3079
+EVEX_VPDPWSSD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3079 # type: ignore
 """
 ``VPDPWSSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -30781,7 +30787,7 @@ EVEX_VPDPWSSD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3079
 
 ``16/32/64-bit``
 """
-EVEX_VDPBF16PS_XMM_K1Z_XMM_XMMM128B32: int = 3080
+EVEX_VDPBF16PS_XMM_K1Z_XMM_XMMM128B32: Code = 3080 # type: ignore
 """
 ``VDPBF16PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -30791,7 +30797,7 @@ EVEX_VDPBF16PS_XMM_K1Z_XMM_XMMM128B32: int = 3080
 
 ``16/32/64-bit``
 """
-EVEX_VDPBF16PS_YMM_K1Z_YMM_YMMM256B32: int = 3081
+EVEX_VDPBF16PS_YMM_K1Z_YMM_YMMM256B32: Code = 3081 # type: ignore
 """
 ``VDPBF16PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -30801,7 +30807,7 @@ EVEX_VDPBF16PS_YMM_K1Z_YMM_YMMM256B32: int = 3081
 
 ``16/32/64-bit``
 """
-EVEX_VDPBF16PS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3082
+EVEX_VDPBF16PS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3082 # type: ignore
 """
 ``VDPBF16PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -30811,7 +30817,7 @@ EVEX_VDPBF16PS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3082
 
 ``16/32/64-bit``
 """
-EVEX_VP4DPWSSD_ZMM_K1Z_ZMMP3_M128: int = 3083
+EVEX_VP4DPWSSD_ZMM_K1Z_ZMMP3_M128: Code = 3083 # type: ignore
 """
 ``VP4DPWSSD zmm1 {k1}{z}, zmm2+3, m128``
 
@@ -30821,7 +30827,7 @@ EVEX_VP4DPWSSD_ZMM_K1Z_ZMMP3_M128: int = 3083
 
 ``16/32/64-bit``
 """
-EVEX_VPDPWSSDS_XMM_K1Z_XMM_XMMM128B32: int = 3084
+EVEX_VPDPWSSDS_XMM_K1Z_XMM_XMMM128B32: Code = 3084 # type: ignore
 """
 ``VPDPWSSDS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -30831,7 +30837,7 @@ EVEX_VPDPWSSDS_XMM_K1Z_XMM_XMMM128B32: int = 3084
 
 ``16/32/64-bit``
 """
-EVEX_VPDPWSSDS_YMM_K1Z_YMM_YMMM256B32: int = 3085
+EVEX_VPDPWSSDS_YMM_K1Z_YMM_YMMM256B32: Code = 3085 # type: ignore
 """
 ``VPDPWSSDS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -30841,7 +30847,7 @@ EVEX_VPDPWSSDS_YMM_K1Z_YMM_YMMM256B32: int = 3085
 
 ``16/32/64-bit``
 """
-EVEX_VPDPWSSDS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3086
+EVEX_VPDPWSSDS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3086 # type: ignore
 """
 ``VPDPWSSDS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -30851,7 +30857,7 @@ EVEX_VPDPWSSDS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3086
 
 ``16/32/64-bit``
 """
-EVEX_VP4DPWSSDS_ZMM_K1Z_ZMMP3_M128: int = 3087
+EVEX_VP4DPWSSDS_ZMM_K1Z_ZMMP3_M128: Code = 3087 # type: ignore
 """
 ``VP4DPWSSDS zmm1 {k1}{z}, zmm2+3, m128``
 
@@ -30861,7 +30867,7 @@ EVEX_VP4DPWSSDS_ZMM_K1Z_ZMMP3_M128: int = 3087
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTB_XMM_K1Z_XMMM128: int = 3088
+EVEX_VPOPCNTB_XMM_K1Z_XMMM128: Code = 3088 # type: ignore
 """
 ``VPOPCNTB xmm1 {k1}{z}, xmm2/m128``
 
@@ -30871,7 +30877,7 @@ EVEX_VPOPCNTB_XMM_K1Z_XMMM128: int = 3088
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTB_YMM_K1Z_YMMM256: int = 3089
+EVEX_VPOPCNTB_YMM_K1Z_YMMM256: Code = 3089 # type: ignore
 """
 ``VPOPCNTB ymm1 {k1}{z}, ymm2/m256``
 
@@ -30881,7 +30887,7 @@ EVEX_VPOPCNTB_YMM_K1Z_YMMM256: int = 3089
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTB_ZMM_K1Z_ZMMM512: int = 3090
+EVEX_VPOPCNTB_ZMM_K1Z_ZMMM512: Code = 3090 # type: ignore
 """
 ``VPOPCNTB zmm1 {k1}{z}, zmm2/m512``
 
@@ -30891,7 +30897,7 @@ EVEX_VPOPCNTB_ZMM_K1Z_ZMMM512: int = 3090
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTW_XMM_K1Z_XMMM128: int = 3091
+EVEX_VPOPCNTW_XMM_K1Z_XMMM128: Code = 3091 # type: ignore
 """
 ``VPOPCNTW xmm1 {k1}{z}, xmm2/m128``
 
@@ -30901,7 +30907,7 @@ EVEX_VPOPCNTW_XMM_K1Z_XMMM128: int = 3091
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTW_YMM_K1Z_YMMM256: int = 3092
+EVEX_VPOPCNTW_YMM_K1Z_YMMM256: Code = 3092 # type: ignore
 """
 ``VPOPCNTW ymm1 {k1}{z}, ymm2/m256``
 
@@ -30911,7 +30917,7 @@ EVEX_VPOPCNTW_YMM_K1Z_YMMM256: int = 3092
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTW_ZMM_K1Z_ZMMM512: int = 3093
+EVEX_VPOPCNTW_ZMM_K1Z_ZMMM512: Code = 3093 # type: ignore
 """
 ``VPOPCNTW zmm1 {k1}{z}, zmm2/m512``
 
@@ -30921,7 +30927,7 @@ EVEX_VPOPCNTW_ZMM_K1Z_ZMMM512: int = 3093
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTD_XMM_K1Z_XMMM128B32: int = 3094
+EVEX_VPOPCNTD_XMM_K1Z_XMMM128B32: Code = 3094 # type: ignore
 """
 ``VPOPCNTD xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -30931,7 +30937,7 @@ EVEX_VPOPCNTD_XMM_K1Z_XMMM128B32: int = 3094
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTD_YMM_K1Z_YMMM256B32: int = 3095
+EVEX_VPOPCNTD_YMM_K1Z_YMMM256B32: Code = 3095 # type: ignore
 """
 ``VPOPCNTD ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -30941,7 +30947,7 @@ EVEX_VPOPCNTD_YMM_K1Z_YMMM256B32: int = 3095
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTD_ZMM_K1Z_ZMMM512B32: int = 3096
+EVEX_VPOPCNTD_ZMM_K1Z_ZMMM512B32: Code = 3096 # type: ignore
 """
 ``VPOPCNTD zmm1 {k1}{z}, zmm2/m512/m32bcst``
 
@@ -30951,7 +30957,7 @@ EVEX_VPOPCNTD_ZMM_K1Z_ZMMM512B32: int = 3096
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTQ_XMM_K1Z_XMMM128B64: int = 3097
+EVEX_VPOPCNTQ_XMM_K1Z_XMMM128B64: Code = 3097 # type: ignore
 """
 ``VPOPCNTQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -30961,7 +30967,7 @@ EVEX_VPOPCNTQ_XMM_K1Z_XMMM128B64: int = 3097
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTQ_YMM_K1Z_YMMM256B64: int = 3098
+EVEX_VPOPCNTQ_YMM_K1Z_YMMM256B64: Code = 3098 # type: ignore
 """
 ``VPOPCNTQ ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -30971,7 +30977,7 @@ EVEX_VPOPCNTQ_YMM_K1Z_YMMM256B64: int = 3098
 
 ``16/32/64-bit``
 """
-EVEX_VPOPCNTQ_ZMM_K1Z_ZMMM512B64: int = 3099
+EVEX_VPOPCNTQ_ZMM_K1Z_ZMMM512B64: Code = 3099 # type: ignore
 """
 ``VPOPCNTQ zmm1 {k1}{z}, zmm2/m512/m64bcst``
 
@@ -30981,7 +30987,7 @@ EVEX_VPOPCNTQ_ZMM_K1Z_ZMMM512B64: int = 3099
 
 ``16/32/64-bit``
 """
-VEX_VPBROADCASTD_XMM_XMMM32: int = 3100
+VEX_VPBROADCASTD_XMM_XMMM32: Code = 3100 # type: ignore
 """
 ``VPBROADCASTD xmm1, xmm2/m32``
 
@@ -30991,7 +30997,7 @@ VEX_VPBROADCASTD_XMM_XMMM32: int = 3100
 
 ``16/32/64-bit``
 """
-VEX_VPBROADCASTD_YMM_XMMM32: int = 3101
+VEX_VPBROADCASTD_YMM_XMMM32: Code = 3101 # type: ignore
 """
 ``VPBROADCASTD ymm1, xmm2/m32``
 
@@ -31001,7 +31007,7 @@ VEX_VPBROADCASTD_YMM_XMMM32: int = 3101
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTD_XMM_K1Z_XMMM32: int = 3102
+EVEX_VPBROADCASTD_XMM_K1Z_XMMM32: Code = 3102 # type: ignore
 """
 ``VPBROADCASTD xmm1 {k1}{z}, xmm2/m32``
 
@@ -31011,7 +31017,7 @@ EVEX_VPBROADCASTD_XMM_K1Z_XMMM32: int = 3102
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTD_YMM_K1Z_XMMM32: int = 3103
+EVEX_VPBROADCASTD_YMM_K1Z_XMMM32: Code = 3103 # type: ignore
 """
 ``VPBROADCASTD ymm1 {k1}{z}, xmm2/m32``
 
@@ -31021,7 +31027,7 @@ EVEX_VPBROADCASTD_YMM_K1Z_XMMM32: int = 3103
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTD_ZMM_K1Z_XMMM32: int = 3104
+EVEX_VPBROADCASTD_ZMM_K1Z_XMMM32: Code = 3104 # type: ignore
 """
 ``VPBROADCASTD zmm1 {k1}{z}, xmm2/m32``
 
@@ -31031,7 +31037,7 @@ EVEX_VPBROADCASTD_ZMM_K1Z_XMMM32: int = 3104
 
 ``16/32/64-bit``
 """
-VEX_VPBROADCASTQ_XMM_XMMM64: int = 3105
+VEX_VPBROADCASTQ_XMM_XMMM64: Code = 3105 # type: ignore
 """
 ``VPBROADCASTQ xmm1, xmm2/m64``
 
@@ -31041,7 +31047,7 @@ VEX_VPBROADCASTQ_XMM_XMMM64: int = 3105
 
 ``16/32/64-bit``
 """
-VEX_VPBROADCASTQ_YMM_XMMM64: int = 3106
+VEX_VPBROADCASTQ_YMM_XMMM64: Code = 3106 # type: ignore
 """
 ``VPBROADCASTQ ymm1, xmm2/m64``
 
@@ -31051,7 +31057,7 @@ VEX_VPBROADCASTQ_YMM_XMMM64: int = 3106
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTI32X2_XMM_K1Z_XMMM64: int = 3107
+EVEX_VBROADCASTI32X2_XMM_K1Z_XMMM64: Code = 3107 # type: ignore
 """
 ``VBROADCASTI32X2 xmm1 {k1}{z}, xmm2/m64``
 
@@ -31061,7 +31067,7 @@ EVEX_VBROADCASTI32X2_XMM_K1Z_XMMM64: int = 3107
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTI32X2_YMM_K1Z_XMMM64: int = 3108
+EVEX_VBROADCASTI32X2_YMM_K1Z_XMMM64: Code = 3108 # type: ignore
 """
 ``VBROADCASTI32X2 ymm1 {k1}{z}, xmm2/m64``
 
@@ -31071,7 +31077,7 @@ EVEX_VBROADCASTI32X2_YMM_K1Z_XMMM64: int = 3108
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTI32X2_ZMM_K1Z_XMMM64: int = 3109
+EVEX_VBROADCASTI32X2_ZMM_K1Z_XMMM64: Code = 3109 # type: ignore
 """
 ``VBROADCASTI32X2 zmm1 {k1}{z}, xmm2/m64``
 
@@ -31081,7 +31087,7 @@ EVEX_VBROADCASTI32X2_ZMM_K1Z_XMMM64: int = 3109
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTQ_XMM_K1Z_XMMM64: int = 3110
+EVEX_VPBROADCASTQ_XMM_K1Z_XMMM64: Code = 3110 # type: ignore
 """
 ``VPBROADCASTQ xmm1 {k1}{z}, xmm2/m64``
 
@@ -31091,7 +31097,7 @@ EVEX_VPBROADCASTQ_XMM_K1Z_XMMM64: int = 3110
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTQ_YMM_K1Z_XMMM64: int = 3111
+EVEX_VPBROADCASTQ_YMM_K1Z_XMMM64: Code = 3111 # type: ignore
 """
 ``VPBROADCASTQ ymm1 {k1}{z}, xmm2/m64``
 
@@ -31101,7 +31107,7 @@ EVEX_VPBROADCASTQ_YMM_K1Z_XMMM64: int = 3111
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTQ_ZMM_K1Z_XMMM64: int = 3112
+EVEX_VPBROADCASTQ_ZMM_K1Z_XMMM64: Code = 3112 # type: ignore
 """
 ``VPBROADCASTQ zmm1 {k1}{z}, xmm2/m64``
 
@@ -31111,7 +31117,7 @@ EVEX_VPBROADCASTQ_ZMM_K1Z_XMMM64: int = 3112
 
 ``16/32/64-bit``
 """
-VEX_VBROADCASTI128_YMM_M128: int = 3113
+VEX_VBROADCASTI128_YMM_M128: Code = 3113 # type: ignore
 """
 ``VBROADCASTI128 ymm1, m128``
 
@@ -31121,7 +31127,7 @@ VEX_VBROADCASTI128_YMM_M128: int = 3113
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTI32X4_YMM_K1Z_M128: int = 3114
+EVEX_VBROADCASTI32X4_YMM_K1Z_M128: Code = 3114 # type: ignore
 """
 ``VBROADCASTI32X4 ymm1 {k1}{z}, m128``
 
@@ -31131,7 +31137,7 @@ EVEX_VBROADCASTI32X4_YMM_K1Z_M128: int = 3114
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTI32X4_ZMM_K1Z_M128: int = 3115
+EVEX_VBROADCASTI32X4_ZMM_K1Z_M128: Code = 3115 # type: ignore
 """
 ``VBROADCASTI32X4 zmm1 {k1}{z}, m128``
 
@@ -31141,7 +31147,7 @@ EVEX_VBROADCASTI32X4_ZMM_K1Z_M128: int = 3115
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTI64X2_YMM_K1Z_M128: int = 3116
+EVEX_VBROADCASTI64X2_YMM_K1Z_M128: Code = 3116 # type: ignore
 """
 ``VBROADCASTI64X2 ymm1 {k1}{z}, m128``
 
@@ -31151,7 +31157,7 @@ EVEX_VBROADCASTI64X2_YMM_K1Z_M128: int = 3116
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTI64X2_ZMM_K1Z_M128: int = 3117
+EVEX_VBROADCASTI64X2_ZMM_K1Z_M128: Code = 3117 # type: ignore
 """
 ``VBROADCASTI64X2 zmm1 {k1}{z}, m128``
 
@@ -31161,7 +31167,7 @@ EVEX_VBROADCASTI64X2_ZMM_K1Z_M128: int = 3117
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTI32X8_ZMM_K1Z_M256: int = 3118
+EVEX_VBROADCASTI32X8_ZMM_K1Z_M256: Code = 3118 # type: ignore
 """
 ``VBROADCASTI32X8 zmm1 {k1}{z}, m256``
 
@@ -31171,7 +31177,7 @@ EVEX_VBROADCASTI32X8_ZMM_K1Z_M256: int = 3118
 
 ``16/32/64-bit``
 """
-EVEX_VBROADCASTI64X4_ZMM_K1Z_M256: int = 3119
+EVEX_VBROADCASTI64X4_ZMM_K1Z_M256: Code = 3119 # type: ignore
 """
 ``VBROADCASTI64X4 zmm1 {k1}{z}, m256``
 
@@ -31181,7 +31187,7 @@ EVEX_VBROADCASTI64X4_ZMM_K1Z_M256: int = 3119
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDB_XMM_K1Z_XMMM128: int = 3120
+EVEX_VPEXPANDB_XMM_K1Z_XMMM128: Code = 3120 # type: ignore
 """
 ``VPEXPANDB xmm1 {k1}{z}, xmm2/m128``
 
@@ -31191,7 +31197,7 @@ EVEX_VPEXPANDB_XMM_K1Z_XMMM128: int = 3120
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDB_YMM_K1Z_YMMM256: int = 3121
+EVEX_VPEXPANDB_YMM_K1Z_YMMM256: Code = 3121 # type: ignore
 """
 ``VPEXPANDB ymm1 {k1}{z}, ymm2/m256``
 
@@ -31201,7 +31207,7 @@ EVEX_VPEXPANDB_YMM_K1Z_YMMM256: int = 3121
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDB_ZMM_K1Z_ZMMM512: int = 3122
+EVEX_VPEXPANDB_ZMM_K1Z_ZMMM512: Code = 3122 # type: ignore
 """
 ``VPEXPANDB zmm1 {k1}{z}, zmm2/m512``
 
@@ -31211,7 +31217,7 @@ EVEX_VPEXPANDB_ZMM_K1Z_ZMMM512: int = 3122
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDW_XMM_K1Z_XMMM128: int = 3123
+EVEX_VPEXPANDW_XMM_K1Z_XMMM128: Code = 3123 # type: ignore
 """
 ``VPEXPANDW xmm1 {k1}{z}, xmm2/m128``
 
@@ -31221,7 +31227,7 @@ EVEX_VPEXPANDW_XMM_K1Z_XMMM128: int = 3123
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDW_YMM_K1Z_YMMM256: int = 3124
+EVEX_VPEXPANDW_YMM_K1Z_YMMM256: Code = 3124 # type: ignore
 """
 ``VPEXPANDW ymm1 {k1}{z}, ymm2/m256``
 
@@ -31231,7 +31237,7 @@ EVEX_VPEXPANDW_YMM_K1Z_YMMM256: int = 3124
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDW_ZMM_K1Z_ZMMM512: int = 3125
+EVEX_VPEXPANDW_ZMM_K1Z_ZMMM512: Code = 3125 # type: ignore
 """
 ``VPEXPANDW zmm1 {k1}{z}, zmm2/m512``
 
@@ -31241,7 +31247,7 @@ EVEX_VPEXPANDW_ZMM_K1Z_ZMMM512: int = 3125
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSB_XMMM128_K1Z_XMM: int = 3126
+EVEX_VPCOMPRESSB_XMMM128_K1Z_XMM: Code = 3126 # type: ignore
 """
 ``VPCOMPRESSB xmm1/m128 {k1}{z}, xmm2``
 
@@ -31251,7 +31257,7 @@ EVEX_VPCOMPRESSB_XMMM128_K1Z_XMM: int = 3126
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSB_YMMM256_K1Z_YMM: int = 3127
+EVEX_VPCOMPRESSB_YMMM256_K1Z_YMM: Code = 3127 # type: ignore
 """
 ``VPCOMPRESSB ymm1/m256 {k1}{z}, ymm2``
 
@@ -31261,7 +31267,7 @@ EVEX_VPCOMPRESSB_YMMM256_K1Z_YMM: int = 3127
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSB_ZMMM512_K1Z_ZMM: int = 3128
+EVEX_VPCOMPRESSB_ZMMM512_K1Z_ZMM: Code = 3128 # type: ignore
 """
 ``VPCOMPRESSB zmm1/m512 {k1}{z}, zmm2``
 
@@ -31271,7 +31277,7 @@ EVEX_VPCOMPRESSB_ZMMM512_K1Z_ZMM: int = 3128
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSW_XMMM128_K1Z_XMM: int = 3129
+EVEX_VPCOMPRESSW_XMMM128_K1Z_XMM: Code = 3129 # type: ignore
 """
 ``VPCOMPRESSW xmm1/m128 {k1}{z}, xmm2``
 
@@ -31281,7 +31287,7 @@ EVEX_VPCOMPRESSW_XMMM128_K1Z_XMM: int = 3129
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSW_YMMM256_K1Z_YMM: int = 3130
+EVEX_VPCOMPRESSW_YMMM256_K1Z_YMM: Code = 3130 # type: ignore
 """
 ``VPCOMPRESSW ymm1/m256 {k1}{z}, ymm2``
 
@@ -31291,7 +31297,7 @@ EVEX_VPCOMPRESSW_YMMM256_K1Z_YMM: int = 3130
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSW_ZMMM512_K1Z_ZMM: int = 3131
+EVEX_VPCOMPRESSW_ZMMM512_K1Z_ZMM: Code = 3131 # type: ignore
 """
 ``VPCOMPRESSW zmm1/m512 {k1}{z}, zmm2``
 
@@ -31301,7 +31307,7 @@ EVEX_VPCOMPRESSW_ZMMM512_K1Z_ZMM: int = 3131
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMD_XMM_K1Z_XMM_XMMM128B32: int = 3132
+EVEX_VPBLENDMD_XMM_K1Z_XMM_XMMM128B32: Code = 3132 # type: ignore
 """
 ``VPBLENDMD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -31311,7 +31317,7 @@ EVEX_VPBLENDMD_XMM_K1Z_XMM_XMMM128B32: int = 3132
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMD_YMM_K1Z_YMM_YMMM256B32: int = 3133
+EVEX_VPBLENDMD_YMM_K1Z_YMM_YMMM256B32: Code = 3133 # type: ignore
 """
 ``VPBLENDMD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -31321,7 +31327,7 @@ EVEX_VPBLENDMD_YMM_K1Z_YMM_YMMM256B32: int = 3133
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3134
+EVEX_VPBLENDMD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3134 # type: ignore
 """
 ``VPBLENDMD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -31331,7 +31337,7 @@ EVEX_VPBLENDMD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3134
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMQ_XMM_K1Z_XMM_XMMM128B64: int = 3135
+EVEX_VPBLENDMQ_XMM_K1Z_XMM_XMMM128B64: Code = 3135 # type: ignore
 """
 ``VPBLENDMQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -31341,7 +31347,7 @@ EVEX_VPBLENDMQ_XMM_K1Z_XMM_XMMM128B64: int = 3135
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMQ_YMM_K1Z_YMM_YMMM256B64: int = 3136
+EVEX_VPBLENDMQ_YMM_K1Z_YMM_YMMM256B64: Code = 3136 # type: ignore
 """
 ``VPBLENDMQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -31351,7 +31357,7 @@ EVEX_VPBLENDMQ_YMM_K1Z_YMM_YMMM256B64: int = 3136
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3137
+EVEX_VPBLENDMQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3137 # type: ignore
 """
 ``VPBLENDMQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -31361,7 +31367,7 @@ EVEX_VPBLENDMQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3137
 
 ``16/32/64-bit``
 """
-EVEX_VBLENDMPS_XMM_K1Z_XMM_XMMM128B32: int = 3138
+EVEX_VBLENDMPS_XMM_K1Z_XMM_XMMM128B32: Code = 3138 # type: ignore
 """
 ``VBLENDMPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -31371,7 +31377,7 @@ EVEX_VBLENDMPS_XMM_K1Z_XMM_XMMM128B32: int = 3138
 
 ``16/32/64-bit``
 """
-EVEX_VBLENDMPS_YMM_K1Z_YMM_YMMM256B32: int = 3139
+EVEX_VBLENDMPS_YMM_K1Z_YMM_YMMM256B32: Code = 3139 # type: ignore
 """
 ``VBLENDMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -31381,7 +31387,7 @@ EVEX_VBLENDMPS_YMM_K1Z_YMM_YMMM256B32: int = 3139
 
 ``16/32/64-bit``
 """
-EVEX_VBLENDMPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3140
+EVEX_VBLENDMPS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3140 # type: ignore
 """
 ``VBLENDMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -31391,7 +31397,7 @@ EVEX_VBLENDMPS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3140
 
 ``16/32/64-bit``
 """
-EVEX_VBLENDMPD_XMM_K1Z_XMM_XMMM128B64: int = 3141
+EVEX_VBLENDMPD_XMM_K1Z_XMM_XMMM128B64: Code = 3141 # type: ignore
 """
 ``VBLENDMPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -31401,7 +31407,7 @@ EVEX_VBLENDMPD_XMM_K1Z_XMM_XMMM128B64: int = 3141
 
 ``16/32/64-bit``
 """
-EVEX_VBLENDMPD_YMM_K1Z_YMM_YMMM256B64: int = 3142
+EVEX_VBLENDMPD_YMM_K1Z_YMM_YMMM256B64: Code = 3142 # type: ignore
 """
 ``VBLENDMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -31411,7 +31417,7 @@ EVEX_VBLENDMPD_YMM_K1Z_YMM_YMMM256B64: int = 3142
 
 ``16/32/64-bit``
 """
-EVEX_VBLENDMPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 3143
+EVEX_VBLENDMPD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3143 # type: ignore
 """
 ``VBLENDMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -31421,7 +31427,7 @@ EVEX_VBLENDMPD_ZMM_K1Z_ZMM_ZMMM512B64: int = 3143
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMB_XMM_K1Z_XMM_XMMM128: int = 3144
+EVEX_VPBLENDMB_XMM_K1Z_XMM_XMMM128: Code = 3144 # type: ignore
 """
 ``VPBLENDMB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -31431,7 +31437,7 @@ EVEX_VPBLENDMB_XMM_K1Z_XMM_XMMM128: int = 3144
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMB_YMM_K1Z_YMM_YMMM256: int = 3145
+EVEX_VPBLENDMB_YMM_K1Z_YMM_YMMM256: Code = 3145 # type: ignore
 """
 ``VPBLENDMB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -31441,7 +31447,7 @@ EVEX_VPBLENDMB_YMM_K1Z_YMM_YMMM256: int = 3145
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMB_ZMM_K1Z_ZMM_ZMMM512: int = 3146
+EVEX_VPBLENDMB_ZMM_K1Z_ZMM_ZMMM512: Code = 3146 # type: ignore
 """
 ``VPBLENDMB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -31451,7 +31457,7 @@ EVEX_VPBLENDMB_ZMM_K1Z_ZMM_ZMMM512: int = 3146
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMW_XMM_K1Z_XMM_XMMM128: int = 3147
+EVEX_VPBLENDMW_XMM_K1Z_XMM_XMMM128: Code = 3147 # type: ignore
 """
 ``VPBLENDMW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -31461,7 +31467,7 @@ EVEX_VPBLENDMW_XMM_K1Z_XMM_XMMM128: int = 3147
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMW_YMM_K1Z_YMM_YMMM256: int = 3148
+EVEX_VPBLENDMW_YMM_K1Z_YMM_YMMM256: Code = 3148 # type: ignore
 """
 ``VPBLENDMW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -31471,7 +31477,7 @@ EVEX_VPBLENDMW_YMM_K1Z_YMM_YMMM256: int = 3148
 
 ``16/32/64-bit``
 """
-EVEX_VPBLENDMW_ZMM_K1Z_ZMM_ZMMM512: int = 3149
+EVEX_VPBLENDMW_ZMM_K1Z_ZMM_ZMMM512: Code = 3149 # type: ignore
 """
 ``VPBLENDMW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -31481,7 +31487,7 @@ EVEX_VPBLENDMW_ZMM_K1Z_ZMM_ZMMM512: int = 3149
 
 ``16/32/64-bit``
 """
-EVEX_VP2INTERSECTD_KP1_XMM_XMMM128B32: int = 3150
+EVEX_VP2INTERSECTD_KP1_XMM_XMMM128B32: Code = 3150 # type: ignore
 """
 ``VP2INTERSECTD k1+1, xmm2, xmm3/m128/m32bcst``
 
@@ -31491,7 +31497,7 @@ EVEX_VP2INTERSECTD_KP1_XMM_XMMM128B32: int = 3150
 
 ``16/32/64-bit``
 """
-EVEX_VP2INTERSECTD_KP1_YMM_YMMM256B32: int = 3151
+EVEX_VP2INTERSECTD_KP1_YMM_YMMM256B32: Code = 3151 # type: ignore
 """
 ``VP2INTERSECTD k1+1, ymm2, ymm3/m256/m32bcst``
 
@@ -31501,7 +31507,7 @@ EVEX_VP2INTERSECTD_KP1_YMM_YMMM256B32: int = 3151
 
 ``16/32/64-bit``
 """
-EVEX_VP2INTERSECTD_KP1_ZMM_ZMMM512B32: int = 3152
+EVEX_VP2INTERSECTD_KP1_ZMM_ZMMM512B32: Code = 3152 # type: ignore
 """
 ``VP2INTERSECTD k1+1, zmm2, zmm3/m512/m32bcst``
 
@@ -31511,7 +31517,7 @@ EVEX_VP2INTERSECTD_KP1_ZMM_ZMMM512B32: int = 3152
 
 ``16/32/64-bit``
 """
-EVEX_VP2INTERSECTQ_KP1_XMM_XMMM128B64: int = 3153
+EVEX_VP2INTERSECTQ_KP1_XMM_XMMM128B64: Code = 3153 # type: ignore
 """
 ``VP2INTERSECTQ k1+1, xmm2, xmm3/m128/m64bcst``
 
@@ -31521,7 +31527,7 @@ EVEX_VP2INTERSECTQ_KP1_XMM_XMMM128B64: int = 3153
 
 ``16/32/64-bit``
 """
-EVEX_VP2INTERSECTQ_KP1_YMM_YMMM256B64: int = 3154
+EVEX_VP2INTERSECTQ_KP1_YMM_YMMM256B64: Code = 3154 # type: ignore
 """
 ``VP2INTERSECTQ k1+1, ymm2, ymm3/m256/m64bcst``
 
@@ -31531,7 +31537,7 @@ EVEX_VP2INTERSECTQ_KP1_YMM_YMMM256B64: int = 3154
 
 ``16/32/64-bit``
 """
-EVEX_VP2INTERSECTQ_KP1_ZMM_ZMMM512B64: int = 3155
+EVEX_VP2INTERSECTQ_KP1_ZMM_ZMMM512B64: Code = 3155 # type: ignore
 """
 ``VP2INTERSECTQ k1+1, zmm2, zmm3/m512/m64bcst``
 
@@ -31541,7 +31547,7 @@ EVEX_VP2INTERSECTQ_KP1_ZMM_ZMMM512B64: int = 3155
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDVW_XMM_K1Z_XMM_XMMM128: int = 3156
+EVEX_VPSHLDVW_XMM_K1Z_XMM_XMMM128: Code = 3156 # type: ignore
 """
 ``VPSHLDVW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -31551,7 +31557,7 @@ EVEX_VPSHLDVW_XMM_K1Z_XMM_XMMM128: int = 3156
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDVW_YMM_K1Z_YMM_YMMM256: int = 3157
+EVEX_VPSHLDVW_YMM_K1Z_YMM_YMMM256: Code = 3157 # type: ignore
 """
 ``VPSHLDVW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -31561,7 +31567,7 @@ EVEX_VPSHLDVW_YMM_K1Z_YMM_YMMM256: int = 3157
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDVW_ZMM_K1Z_ZMM_ZMMM512: int = 3158
+EVEX_VPSHLDVW_ZMM_K1Z_ZMM_ZMMM512: Code = 3158 # type: ignore
 """
 ``VPSHLDVW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -31571,7 +31577,7 @@ EVEX_VPSHLDVW_ZMM_K1Z_ZMM_ZMMM512: int = 3158
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDVD_XMM_K1Z_XMM_XMMM128B32: int = 3159
+EVEX_VPSHLDVD_XMM_K1Z_XMM_XMMM128B32: Code = 3159 # type: ignore
 """
 ``VPSHLDVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -31581,7 +31587,7 @@ EVEX_VPSHLDVD_XMM_K1Z_XMM_XMMM128B32: int = 3159
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDVD_YMM_K1Z_YMM_YMMM256B32: int = 3160
+EVEX_VPSHLDVD_YMM_K1Z_YMM_YMMM256B32: Code = 3160 # type: ignore
 """
 ``VPSHLDVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -31591,7 +31597,7 @@ EVEX_VPSHLDVD_YMM_K1Z_YMM_YMMM256B32: int = 3160
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3161
+EVEX_VPSHLDVD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3161 # type: ignore
 """
 ``VPSHLDVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -31601,7 +31607,7 @@ EVEX_VPSHLDVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3161
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDVQ_XMM_K1Z_XMM_XMMM128B64: int = 3162
+EVEX_VPSHLDVQ_XMM_K1Z_XMM_XMMM128B64: Code = 3162 # type: ignore
 """
 ``VPSHLDVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -31611,7 +31617,7 @@ EVEX_VPSHLDVQ_XMM_K1Z_XMM_XMMM128B64: int = 3162
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDVQ_YMM_K1Z_YMM_YMMM256B64: int = 3163
+EVEX_VPSHLDVQ_YMM_K1Z_YMM_YMMM256B64: Code = 3163 # type: ignore
 """
 ``VPSHLDVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -31621,7 +31627,7 @@ EVEX_VPSHLDVQ_YMM_K1Z_YMM_YMMM256B64: int = 3163
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3164
+EVEX_VPSHLDVQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3164 # type: ignore
 """
 ``VPSHLDVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -31631,7 +31637,7 @@ EVEX_VPSHLDVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3164
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDVW_XMM_K1Z_XMM_XMMM128: int = 3165
+EVEX_VPSHRDVW_XMM_K1Z_XMM_XMMM128: Code = 3165 # type: ignore
 """
 ``VPSHRDVW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -31641,7 +31647,7 @@ EVEX_VPSHRDVW_XMM_K1Z_XMM_XMMM128: int = 3165
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDVW_YMM_K1Z_YMM_YMMM256: int = 3166
+EVEX_VPSHRDVW_YMM_K1Z_YMM_YMMM256: Code = 3166 # type: ignore
 """
 ``VPSHRDVW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -31651,7 +31657,7 @@ EVEX_VPSHRDVW_YMM_K1Z_YMM_YMMM256: int = 3166
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDVW_ZMM_K1Z_ZMM_ZMMM512: int = 3167
+EVEX_VPSHRDVW_ZMM_K1Z_ZMM_ZMMM512: Code = 3167 # type: ignore
 """
 ``VPSHRDVW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -31661,7 +31667,7 @@ EVEX_VPSHRDVW_ZMM_K1Z_ZMM_ZMMM512: int = 3167
 
 ``16/32/64-bit``
 """
-EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32: int = 3168
+EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32: Code = 3168 # type: ignore
 """
 ``VCVTNEPS2BF16 xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -31671,7 +31677,7 @@ EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32: int = 3168
 
 ``16/32/64-bit``
 """
-EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32: int = 3169
+EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32: Code = 3169 # type: ignore
 """
 ``VCVTNEPS2BF16 xmm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -31681,7 +31687,7 @@ EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32: int = 3169
 
 ``16/32/64-bit``
 """
-EVEX_VCVTNEPS2BF16_YMM_K1Z_ZMMM512B32: int = 3170
+EVEX_VCVTNEPS2BF16_YMM_K1Z_ZMMM512B32: Code = 3170 # type: ignore
 """
 ``VCVTNEPS2BF16 ymm1 {k1}{z}, zmm2/m512/m32bcst``
 
@@ -31691,7 +31697,7 @@ EVEX_VCVTNEPS2BF16_YMM_K1Z_ZMMM512B32: int = 3170
 
 ``16/32/64-bit``
 """
-EVEX_VCVTNE2PS2BF16_XMM_K1Z_XMM_XMMM128B32: int = 3171
+EVEX_VCVTNE2PS2BF16_XMM_K1Z_XMM_XMMM128B32: Code = 3171 # type: ignore
 """
 ``VCVTNE2PS2BF16 xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -31701,7 +31707,7 @@ EVEX_VCVTNE2PS2BF16_XMM_K1Z_XMM_XMMM128B32: int = 3171
 
 ``16/32/64-bit``
 """
-EVEX_VCVTNE2PS2BF16_YMM_K1Z_YMM_YMMM256B32: int = 3172
+EVEX_VCVTNE2PS2BF16_YMM_K1Z_YMM_YMMM256B32: Code = 3172 # type: ignore
 """
 ``VCVTNE2PS2BF16 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -31711,7 +31717,7 @@ EVEX_VCVTNE2PS2BF16_YMM_K1Z_YMM_YMMM256B32: int = 3172
 
 ``16/32/64-bit``
 """
-EVEX_VCVTNE2PS2BF16_ZMM_K1Z_ZMM_ZMMM512B32: int = 3173
+EVEX_VCVTNE2PS2BF16_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3173 # type: ignore
 """
 ``VCVTNE2PS2BF16 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -31721,7 +31727,7 @@ EVEX_VCVTNE2PS2BF16_ZMM_K1Z_ZMM_ZMMM512B32: int = 3173
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDVD_XMM_K1Z_XMM_XMMM128B32: int = 3174
+EVEX_VPSHRDVD_XMM_K1Z_XMM_XMMM128B32: Code = 3174 # type: ignore
 """
 ``VPSHRDVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -31731,7 +31737,7 @@ EVEX_VPSHRDVD_XMM_K1Z_XMM_XMMM128B32: int = 3174
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDVD_YMM_K1Z_YMM_YMMM256B32: int = 3175
+EVEX_VPSHRDVD_YMM_K1Z_YMM_YMMM256B32: Code = 3175 # type: ignore
 """
 ``VPSHRDVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -31741,7 +31747,7 @@ EVEX_VPSHRDVD_YMM_K1Z_YMM_YMMM256B32: int = 3175
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3176
+EVEX_VPSHRDVD_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3176 # type: ignore
 """
 ``VPSHRDVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -31751,7 +31757,7 @@ EVEX_VPSHRDVD_ZMM_K1Z_ZMM_ZMMM512B32: int = 3176
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDVQ_XMM_K1Z_XMM_XMMM128B64: int = 3177
+EVEX_VPSHRDVQ_XMM_K1Z_XMM_XMMM128B64: Code = 3177 # type: ignore
 """
 ``VPSHRDVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -31761,7 +31767,7 @@ EVEX_VPSHRDVQ_XMM_K1Z_XMM_XMMM128B64: int = 3177
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDVQ_YMM_K1Z_YMM_YMMM256B64: int = 3178
+EVEX_VPSHRDVQ_YMM_K1Z_YMM_YMMM256B64: Code = 3178 # type: ignore
 """
 ``VPSHRDVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -31771,7 +31777,7 @@ EVEX_VPSHRDVQ_YMM_K1Z_YMM_YMMM256B64: int = 3178
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3179
+EVEX_VPSHRDVQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3179 # type: ignore
 """
 ``VPSHRDVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -31781,7 +31787,7 @@ EVEX_VPSHRDVQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3179
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2B_XMM_K1Z_XMM_XMMM128: int = 3180
+EVEX_VPERMI2B_XMM_K1Z_XMM_XMMM128: Code = 3180 # type: ignore
 """
 ``VPERMI2B xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -31791,7 +31797,7 @@ EVEX_VPERMI2B_XMM_K1Z_XMM_XMMM128: int = 3180
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2B_YMM_K1Z_YMM_YMMM256: int = 3181
+EVEX_VPERMI2B_YMM_K1Z_YMM_YMMM256: Code = 3181 # type: ignore
 """
 ``VPERMI2B ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -31801,7 +31807,7 @@ EVEX_VPERMI2B_YMM_K1Z_YMM_YMMM256: int = 3181
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2B_ZMM_K1Z_ZMM_ZMMM512: int = 3182
+EVEX_VPERMI2B_ZMM_K1Z_ZMM_ZMMM512: Code = 3182 # type: ignore
 """
 ``VPERMI2B zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -31811,7 +31817,7 @@ EVEX_VPERMI2B_ZMM_K1Z_ZMM_ZMMM512: int = 3182
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2W_XMM_K1Z_XMM_XMMM128: int = 3183
+EVEX_VPERMI2W_XMM_K1Z_XMM_XMMM128: Code = 3183 # type: ignore
 """
 ``VPERMI2W xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -31821,7 +31827,7 @@ EVEX_VPERMI2W_XMM_K1Z_XMM_XMMM128: int = 3183
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2W_YMM_K1Z_YMM_YMMM256: int = 3184
+EVEX_VPERMI2W_YMM_K1Z_YMM_YMMM256: Code = 3184 # type: ignore
 """
 ``VPERMI2W ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -31831,7 +31837,7 @@ EVEX_VPERMI2W_YMM_K1Z_YMM_YMMM256: int = 3184
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2W_ZMM_K1Z_ZMM_ZMMM512: int = 3185
+EVEX_VPERMI2W_ZMM_K1Z_ZMM_ZMMM512: Code = 3185 # type: ignore
 """
 ``VPERMI2W zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -31841,7 +31847,7 @@ EVEX_VPERMI2W_ZMM_K1Z_ZMM_ZMMM512: int = 3185
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2D_XMM_K1Z_XMM_XMMM128B32: int = 3186
+EVEX_VPERMI2D_XMM_K1Z_XMM_XMMM128B32: Code = 3186 # type: ignore
 """
 ``VPERMI2D xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -31851,7 +31857,7 @@ EVEX_VPERMI2D_XMM_K1Z_XMM_XMMM128B32: int = 3186
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2D_YMM_K1Z_YMM_YMMM256B32: int = 3187
+EVEX_VPERMI2D_YMM_K1Z_YMM_YMMM256B32: Code = 3187 # type: ignore
 """
 ``VPERMI2D ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -31861,7 +31867,7 @@ EVEX_VPERMI2D_YMM_K1Z_YMM_YMMM256B32: int = 3187
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2D_ZMM_K1Z_ZMM_ZMMM512B32: int = 3188
+EVEX_VPERMI2D_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3188 # type: ignore
 """
 ``VPERMI2D zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -31871,7 +31877,7 @@ EVEX_VPERMI2D_ZMM_K1Z_ZMM_ZMMM512B32: int = 3188
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2Q_XMM_K1Z_XMM_XMMM128B64: int = 3189
+EVEX_VPERMI2Q_XMM_K1Z_XMM_XMMM128B64: Code = 3189 # type: ignore
 """
 ``VPERMI2Q xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -31881,7 +31887,7 @@ EVEX_VPERMI2Q_XMM_K1Z_XMM_XMMM128B64: int = 3189
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2Q_YMM_K1Z_YMM_YMMM256B64: int = 3190
+EVEX_VPERMI2Q_YMM_K1Z_YMM_YMMM256B64: Code = 3190 # type: ignore
 """
 ``VPERMI2Q ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -31891,7 +31897,7 @@ EVEX_VPERMI2Q_YMM_K1Z_YMM_YMMM256B64: int = 3190
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2Q_ZMM_K1Z_ZMM_ZMMM512B64: int = 3191
+EVEX_VPERMI2Q_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3191 # type: ignore
 """
 ``VPERMI2Q zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -31901,7 +31907,7 @@ EVEX_VPERMI2Q_ZMM_K1Z_ZMM_ZMMM512B64: int = 3191
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2PS_XMM_K1Z_XMM_XMMM128B32: int = 3192
+EVEX_VPERMI2PS_XMM_K1Z_XMM_XMMM128B32: Code = 3192 # type: ignore
 """
 ``VPERMI2PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -31911,7 +31917,7 @@ EVEX_VPERMI2PS_XMM_K1Z_XMM_XMMM128B32: int = 3192
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2PS_YMM_K1Z_YMM_YMMM256B32: int = 3193
+EVEX_VPERMI2PS_YMM_K1Z_YMM_YMMM256B32: Code = 3193 # type: ignore
 """
 ``VPERMI2PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -31921,7 +31927,7 @@ EVEX_VPERMI2PS_YMM_K1Z_YMM_YMMM256B32: int = 3193
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2PS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3194
+EVEX_VPERMI2PS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3194 # type: ignore
 """
 ``VPERMI2PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -31931,7 +31937,7 @@ EVEX_VPERMI2PS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3194
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2PD_XMM_K1Z_XMM_XMMM128B64: int = 3195
+EVEX_VPERMI2PD_XMM_K1Z_XMM_XMMM128B64: Code = 3195 # type: ignore
 """
 ``VPERMI2PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -31941,7 +31947,7 @@ EVEX_VPERMI2PD_XMM_K1Z_XMM_XMMM128B64: int = 3195
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2PD_YMM_K1Z_YMM_YMMM256B64: int = 3196
+EVEX_VPERMI2PD_YMM_K1Z_YMM_YMMM256B64: Code = 3196 # type: ignore
 """
 ``VPERMI2PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -31951,7 +31957,7 @@ EVEX_VPERMI2PD_YMM_K1Z_YMM_YMMM256B64: int = 3196
 
 ``16/32/64-bit``
 """
-EVEX_VPERMI2PD_ZMM_K1Z_ZMM_ZMMM512B64: int = 3197
+EVEX_VPERMI2PD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3197 # type: ignore
 """
 ``VPERMI2PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -31961,7 +31967,7 @@ EVEX_VPERMI2PD_ZMM_K1Z_ZMM_ZMMM512B64: int = 3197
 
 ``16/32/64-bit``
 """
-VEX_VPBROADCASTB_XMM_XMMM8: int = 3198
+VEX_VPBROADCASTB_XMM_XMMM8: Code = 3198 # type: ignore
 """
 ``VPBROADCASTB xmm1, xmm2/m8``
 
@@ -31971,7 +31977,7 @@ VEX_VPBROADCASTB_XMM_XMMM8: int = 3198
 
 ``16/32/64-bit``
 """
-VEX_VPBROADCASTB_YMM_XMMM8: int = 3199
+VEX_VPBROADCASTB_YMM_XMMM8: Code = 3199 # type: ignore
 """
 ``VPBROADCASTB ymm1, xmm2/m8``
 
@@ -31981,7 +31987,7 @@ VEX_VPBROADCASTB_YMM_XMMM8: int = 3199
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTB_XMM_K1Z_XMMM8: int = 3200
+EVEX_VPBROADCASTB_XMM_K1Z_XMMM8: Code = 3200 # type: ignore
 """
 ``VPBROADCASTB xmm1 {k1}{z}, xmm2/m8``
 
@@ -31991,7 +31997,7 @@ EVEX_VPBROADCASTB_XMM_K1Z_XMMM8: int = 3200
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTB_YMM_K1Z_XMMM8: int = 3201
+EVEX_VPBROADCASTB_YMM_K1Z_XMMM8: Code = 3201 # type: ignore
 """
 ``VPBROADCASTB ymm1 {k1}{z}, xmm2/m8``
 
@@ -32001,7 +32007,7 @@ EVEX_VPBROADCASTB_YMM_K1Z_XMMM8: int = 3201
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTB_ZMM_K1Z_XMMM8: int = 3202
+EVEX_VPBROADCASTB_ZMM_K1Z_XMMM8: Code = 3202 # type: ignore
 """
 ``VPBROADCASTB zmm1 {k1}{z}, xmm2/m8``
 
@@ -32011,7 +32017,7 @@ EVEX_VPBROADCASTB_ZMM_K1Z_XMMM8: int = 3202
 
 ``16/32/64-bit``
 """
-VEX_VPBROADCASTW_XMM_XMMM16: int = 3203
+VEX_VPBROADCASTW_XMM_XMMM16: Code = 3203 # type: ignore
 """
 ``VPBROADCASTW xmm1, xmm2/m16``
 
@@ -32021,7 +32027,7 @@ VEX_VPBROADCASTW_XMM_XMMM16: int = 3203
 
 ``16/32/64-bit``
 """
-VEX_VPBROADCASTW_YMM_XMMM16: int = 3204
+VEX_VPBROADCASTW_YMM_XMMM16: Code = 3204 # type: ignore
 """
 ``VPBROADCASTW ymm1, xmm2/m16``
 
@@ -32031,7 +32037,7 @@ VEX_VPBROADCASTW_YMM_XMMM16: int = 3204
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTW_XMM_K1Z_XMMM16: int = 3205
+EVEX_VPBROADCASTW_XMM_K1Z_XMMM16: Code = 3205 # type: ignore
 """
 ``VPBROADCASTW xmm1 {k1}{z}, xmm2/m16``
 
@@ -32041,7 +32047,7 @@ EVEX_VPBROADCASTW_XMM_K1Z_XMMM16: int = 3205
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTW_YMM_K1Z_XMMM16: int = 3206
+EVEX_VPBROADCASTW_YMM_K1Z_XMMM16: Code = 3206 # type: ignore
 """
 ``VPBROADCASTW ymm1 {k1}{z}, xmm2/m16``
 
@@ -32051,7 +32057,7 @@ EVEX_VPBROADCASTW_YMM_K1Z_XMMM16: int = 3206
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTW_ZMM_K1Z_XMMM16: int = 3207
+EVEX_VPBROADCASTW_ZMM_K1Z_XMMM16: Code = 3207 # type: ignore
 """
 ``VPBROADCASTW zmm1 {k1}{z}, xmm2/m16``
 
@@ -32061,7 +32067,7 @@ EVEX_VPBROADCASTW_ZMM_K1Z_XMMM16: int = 3207
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTB_XMM_K1Z_R32: int = 3208
+EVEX_VPBROADCASTB_XMM_K1Z_R32: Code = 3208 # type: ignore
 """
 ``VPBROADCASTB xmm1 {k1}{z}, r32``
 
@@ -32071,7 +32077,7 @@ EVEX_VPBROADCASTB_XMM_K1Z_R32: int = 3208
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTB_YMM_K1Z_R32: int = 3209
+EVEX_VPBROADCASTB_YMM_K1Z_R32: Code = 3209 # type: ignore
 """
 ``VPBROADCASTB ymm1 {k1}{z}, r32``
 
@@ -32081,7 +32087,7 @@ EVEX_VPBROADCASTB_YMM_K1Z_R32: int = 3209
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTB_ZMM_K1Z_R32: int = 3210
+EVEX_VPBROADCASTB_ZMM_K1Z_R32: Code = 3210 # type: ignore
 """
 ``VPBROADCASTB zmm1 {k1}{z}, r32``
 
@@ -32091,7 +32097,7 @@ EVEX_VPBROADCASTB_ZMM_K1Z_R32: int = 3210
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTW_XMM_K1Z_R32: int = 3211
+EVEX_VPBROADCASTW_XMM_K1Z_R32: Code = 3211 # type: ignore
 """
 ``VPBROADCASTW xmm1 {k1}{z}, r32``
 
@@ -32101,7 +32107,7 @@ EVEX_VPBROADCASTW_XMM_K1Z_R32: int = 3211
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTW_YMM_K1Z_R32: int = 3212
+EVEX_VPBROADCASTW_YMM_K1Z_R32: Code = 3212 # type: ignore
 """
 ``VPBROADCASTW ymm1 {k1}{z}, r32``
 
@@ -32111,7 +32117,7 @@ EVEX_VPBROADCASTW_YMM_K1Z_R32: int = 3212
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTW_ZMM_K1Z_R32: int = 3213
+EVEX_VPBROADCASTW_ZMM_K1Z_R32: Code = 3213 # type: ignore
 """
 ``VPBROADCASTW zmm1 {k1}{z}, r32``
 
@@ -32121,7 +32127,7 @@ EVEX_VPBROADCASTW_ZMM_K1Z_R32: int = 3213
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTD_XMM_K1Z_R32: int = 3214
+EVEX_VPBROADCASTD_XMM_K1Z_R32: Code = 3214 # type: ignore
 """
 ``VPBROADCASTD xmm1 {k1}{z}, r32``
 
@@ -32131,7 +32137,7 @@ EVEX_VPBROADCASTD_XMM_K1Z_R32: int = 3214
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTD_YMM_K1Z_R32: int = 3215
+EVEX_VPBROADCASTD_YMM_K1Z_R32: Code = 3215 # type: ignore
 """
 ``VPBROADCASTD ymm1 {k1}{z}, r32``
 
@@ -32141,7 +32147,7 @@ EVEX_VPBROADCASTD_YMM_K1Z_R32: int = 3215
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTD_ZMM_K1Z_R32: int = 3216
+EVEX_VPBROADCASTD_ZMM_K1Z_R32: Code = 3216 # type: ignore
 """
 ``VPBROADCASTD zmm1 {k1}{z}, r32``
 
@@ -32151,7 +32157,7 @@ EVEX_VPBROADCASTD_ZMM_K1Z_R32: int = 3216
 
 ``16/32/64-bit``
 """
-EVEX_VPBROADCASTQ_XMM_K1Z_R64: int = 3217
+EVEX_VPBROADCASTQ_XMM_K1Z_R64: Code = 3217 # type: ignore
 """
 ``VPBROADCASTQ xmm1 {k1}{z}, r64``
 
@@ -32161,7 +32167,7 @@ EVEX_VPBROADCASTQ_XMM_K1Z_R64: int = 3217
 
 ``64-bit``
 """
-EVEX_VPBROADCASTQ_YMM_K1Z_R64: int = 3218
+EVEX_VPBROADCASTQ_YMM_K1Z_R64: Code = 3218 # type: ignore
 """
 ``VPBROADCASTQ ymm1 {k1}{z}, r64``
 
@@ -32171,7 +32177,7 @@ EVEX_VPBROADCASTQ_YMM_K1Z_R64: int = 3218
 
 ``64-bit``
 """
-EVEX_VPBROADCASTQ_ZMM_K1Z_R64: int = 3219
+EVEX_VPBROADCASTQ_ZMM_K1Z_R64: Code = 3219 # type: ignore
 """
 ``VPBROADCASTQ zmm1 {k1}{z}, r64``
 
@@ -32181,7 +32187,7 @@ EVEX_VPBROADCASTQ_ZMM_K1Z_R64: int = 3219
 
 ``64-bit``
 """
-EVEX_VPERMT2B_XMM_K1Z_XMM_XMMM128: int = 3220
+EVEX_VPERMT2B_XMM_K1Z_XMM_XMMM128: Code = 3220 # type: ignore
 """
 ``VPERMT2B xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -32191,7 +32197,7 @@ EVEX_VPERMT2B_XMM_K1Z_XMM_XMMM128: int = 3220
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2B_YMM_K1Z_YMM_YMMM256: int = 3221
+EVEX_VPERMT2B_YMM_K1Z_YMM_YMMM256: Code = 3221 # type: ignore
 """
 ``VPERMT2B ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -32201,7 +32207,7 @@ EVEX_VPERMT2B_YMM_K1Z_YMM_YMMM256: int = 3221
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2B_ZMM_K1Z_ZMM_ZMMM512: int = 3222
+EVEX_VPERMT2B_ZMM_K1Z_ZMM_ZMMM512: Code = 3222 # type: ignore
 """
 ``VPERMT2B zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -32211,7 +32217,7 @@ EVEX_VPERMT2B_ZMM_K1Z_ZMM_ZMMM512: int = 3222
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2W_XMM_K1Z_XMM_XMMM128: int = 3223
+EVEX_VPERMT2W_XMM_K1Z_XMM_XMMM128: Code = 3223 # type: ignore
 """
 ``VPERMT2W xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -32221,7 +32227,7 @@ EVEX_VPERMT2W_XMM_K1Z_XMM_XMMM128: int = 3223
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2W_YMM_K1Z_YMM_YMMM256: int = 3224
+EVEX_VPERMT2W_YMM_K1Z_YMM_YMMM256: Code = 3224 # type: ignore
 """
 ``VPERMT2W ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -32231,7 +32237,7 @@ EVEX_VPERMT2W_YMM_K1Z_YMM_YMMM256: int = 3224
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2W_ZMM_K1Z_ZMM_ZMMM512: int = 3225
+EVEX_VPERMT2W_ZMM_K1Z_ZMM_ZMMM512: Code = 3225 # type: ignore
 """
 ``VPERMT2W zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -32241,7 +32247,7 @@ EVEX_VPERMT2W_ZMM_K1Z_ZMM_ZMMM512: int = 3225
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2D_XMM_K1Z_XMM_XMMM128B32: int = 3226
+EVEX_VPERMT2D_XMM_K1Z_XMM_XMMM128B32: Code = 3226 # type: ignore
 """
 ``VPERMT2D xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -32251,7 +32257,7 @@ EVEX_VPERMT2D_XMM_K1Z_XMM_XMMM128B32: int = 3226
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2D_YMM_K1Z_YMM_YMMM256B32: int = 3227
+EVEX_VPERMT2D_YMM_K1Z_YMM_YMMM256B32: Code = 3227 # type: ignore
 """
 ``VPERMT2D ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -32261,7 +32267,7 @@ EVEX_VPERMT2D_YMM_K1Z_YMM_YMMM256B32: int = 3227
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2D_ZMM_K1Z_ZMM_ZMMM512B32: int = 3228
+EVEX_VPERMT2D_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3228 # type: ignore
 """
 ``VPERMT2D zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -32271,7 +32277,7 @@ EVEX_VPERMT2D_ZMM_K1Z_ZMM_ZMMM512B32: int = 3228
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2Q_XMM_K1Z_XMM_XMMM128B64: int = 3229
+EVEX_VPERMT2Q_XMM_K1Z_XMM_XMMM128B64: Code = 3229 # type: ignore
 """
 ``VPERMT2Q xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -32281,7 +32287,7 @@ EVEX_VPERMT2Q_XMM_K1Z_XMM_XMMM128B64: int = 3229
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2Q_YMM_K1Z_YMM_YMMM256B64: int = 3230
+EVEX_VPERMT2Q_YMM_K1Z_YMM_YMMM256B64: Code = 3230 # type: ignore
 """
 ``VPERMT2Q ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -32291,7 +32297,7 @@ EVEX_VPERMT2Q_YMM_K1Z_YMM_YMMM256B64: int = 3230
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2Q_ZMM_K1Z_ZMM_ZMMM512B64: int = 3231
+EVEX_VPERMT2Q_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3231 # type: ignore
 """
 ``VPERMT2Q zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -32301,7 +32307,7 @@ EVEX_VPERMT2Q_ZMM_K1Z_ZMM_ZMMM512B64: int = 3231
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2PS_XMM_K1Z_XMM_XMMM128B32: int = 3232
+EVEX_VPERMT2PS_XMM_K1Z_XMM_XMMM128B32: Code = 3232 # type: ignore
 """
 ``VPERMT2PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -32311,7 +32317,7 @@ EVEX_VPERMT2PS_XMM_K1Z_XMM_XMMM128B32: int = 3232
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2PS_YMM_K1Z_YMM_YMMM256B32: int = 3233
+EVEX_VPERMT2PS_YMM_K1Z_YMM_YMMM256B32: Code = 3233 # type: ignore
 """
 ``VPERMT2PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -32321,7 +32327,7 @@ EVEX_VPERMT2PS_YMM_K1Z_YMM_YMMM256B32: int = 3233
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2PS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3234
+EVEX_VPERMT2PS_ZMM_K1Z_ZMM_ZMMM512B32: Code = 3234 # type: ignore
 """
 ``VPERMT2PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst``
 
@@ -32331,7 +32337,7 @@ EVEX_VPERMT2PS_ZMM_K1Z_ZMM_ZMMM512B32: int = 3234
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2PD_XMM_K1Z_XMM_XMMM128B64: int = 3235
+EVEX_VPERMT2PD_XMM_K1Z_XMM_XMMM128B64: Code = 3235 # type: ignore
 """
 ``VPERMT2PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -32341,7 +32347,7 @@ EVEX_VPERMT2PD_XMM_K1Z_XMM_XMMM128B64: int = 3235
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2PD_YMM_K1Z_YMM_YMMM256B64: int = 3236
+EVEX_VPERMT2PD_YMM_K1Z_YMM_YMMM256B64: Code = 3236 # type: ignore
 """
 ``VPERMT2PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -32351,7 +32357,7 @@ EVEX_VPERMT2PD_YMM_K1Z_YMM_YMMM256B64: int = 3236
 
 ``16/32/64-bit``
 """
-EVEX_VPERMT2PD_ZMM_K1Z_ZMM_ZMMM512B64: int = 3237
+EVEX_VPERMT2PD_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3237 # type: ignore
 """
 ``VPERMT2PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -32361,7 +32367,7 @@ EVEX_VPERMT2PD_ZMM_K1Z_ZMM_ZMMM512B64: int = 3237
 
 ``16/32/64-bit``
 """
-INVEPT_R32_M128: int = 3238
+INVEPT_R32_M128: Code = 3238 # type: ignore
 """
 ``INVEPT r32, m128``
 
@@ -32371,7 +32377,7 @@ INVEPT_R32_M128: int = 3238
 
 ``16/32-bit``
 """
-INVEPT_R64_M128: int = 3239
+INVEPT_R64_M128: Code = 3239 # type: ignore
 """
 ``INVEPT r64, m128``
 
@@ -32381,7 +32387,7 @@ INVEPT_R64_M128: int = 3239
 
 ``64-bit``
 """
-INVVPID_R32_M128: int = 3240
+INVVPID_R32_M128: Code = 3240 # type: ignore
 """
 ``INVVPID r32, m128``
 
@@ -32391,7 +32397,7 @@ INVVPID_R32_M128: int = 3240
 
 ``16/32-bit``
 """
-INVVPID_R64_M128: int = 3241
+INVVPID_R64_M128: Code = 3241 # type: ignore
 """
 ``INVVPID r64, m128``
 
@@ -32401,7 +32407,7 @@ INVVPID_R64_M128: int = 3241
 
 ``64-bit``
 """
-INVPCID_R32_M128: int = 3242
+INVPCID_R32_M128: Code = 3242 # type: ignore
 """
 ``INVPCID r32, m128``
 
@@ -32411,7 +32417,7 @@ INVPCID_R32_M128: int = 3242
 
 ``16/32-bit``
 """
-INVPCID_R64_M128: int = 3243
+INVPCID_R64_M128: Code = 3243 # type: ignore
 """
 ``INVPCID r64, m128``
 
@@ -32421,7 +32427,7 @@ INVPCID_R64_M128: int = 3243
 
 ``64-bit``
 """
-EVEX_VPMULTISHIFTQB_XMM_K1Z_XMM_XMMM128B64: int = 3244
+EVEX_VPMULTISHIFTQB_XMM_K1Z_XMM_XMMM128B64: Code = 3244 # type: ignore
 """
 ``VPMULTISHIFTQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -32431,7 +32437,7 @@ EVEX_VPMULTISHIFTQB_XMM_K1Z_XMM_XMMM128B64: int = 3244
 
 ``16/32/64-bit``
 """
-EVEX_VPMULTISHIFTQB_YMM_K1Z_YMM_YMMM256B64: int = 3245
+EVEX_VPMULTISHIFTQB_YMM_K1Z_YMM_YMMM256B64: Code = 3245 # type: ignore
 """
 ``VPMULTISHIFTQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -32441,7 +32447,7 @@ EVEX_VPMULTISHIFTQB_YMM_K1Z_YMM_YMMM256B64: int = 3245
 
 ``16/32/64-bit``
 """
-EVEX_VPMULTISHIFTQB_ZMM_K1Z_ZMM_ZMMM512B64: int = 3246
+EVEX_VPMULTISHIFTQB_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3246 # type: ignore
 """
 ``VPMULTISHIFTQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -32451,7 +32457,7 @@ EVEX_VPMULTISHIFTQB_ZMM_K1Z_ZMM_ZMMM512B64: int = 3246
 
 ``16/32/64-bit``
 """
-EVEX_VEXPANDPS_XMM_K1Z_XMMM128: int = 3247
+EVEX_VEXPANDPS_XMM_K1Z_XMMM128: Code = 3247 # type: ignore
 """
 ``VEXPANDPS xmm1 {k1}{z}, xmm2/m128``
 
@@ -32461,7 +32467,7 @@ EVEX_VEXPANDPS_XMM_K1Z_XMMM128: int = 3247
 
 ``16/32/64-bit``
 """
-EVEX_VEXPANDPS_YMM_K1Z_YMMM256: int = 3248
+EVEX_VEXPANDPS_YMM_K1Z_YMMM256: Code = 3248 # type: ignore
 """
 ``VEXPANDPS ymm1 {k1}{z}, ymm2/m256``
 
@@ -32471,7 +32477,7 @@ EVEX_VEXPANDPS_YMM_K1Z_YMMM256: int = 3248
 
 ``16/32/64-bit``
 """
-EVEX_VEXPANDPS_ZMM_K1Z_ZMMM512: int = 3249
+EVEX_VEXPANDPS_ZMM_K1Z_ZMMM512: Code = 3249 # type: ignore
 """
 ``VEXPANDPS zmm1 {k1}{z}, zmm2/m512``
 
@@ -32481,7 +32487,7 @@ EVEX_VEXPANDPS_ZMM_K1Z_ZMMM512: int = 3249
 
 ``16/32/64-bit``
 """
-EVEX_VEXPANDPD_XMM_K1Z_XMMM128: int = 3250
+EVEX_VEXPANDPD_XMM_K1Z_XMMM128: Code = 3250 # type: ignore
 """
 ``VEXPANDPD xmm1 {k1}{z}, xmm2/m128``
 
@@ -32491,7 +32497,7 @@ EVEX_VEXPANDPD_XMM_K1Z_XMMM128: int = 3250
 
 ``16/32/64-bit``
 """
-EVEX_VEXPANDPD_YMM_K1Z_YMMM256: int = 3251
+EVEX_VEXPANDPD_YMM_K1Z_YMMM256: Code = 3251 # type: ignore
 """
 ``VEXPANDPD ymm1 {k1}{z}, ymm2/m256``
 
@@ -32501,7 +32507,7 @@ EVEX_VEXPANDPD_YMM_K1Z_YMMM256: int = 3251
 
 ``16/32/64-bit``
 """
-EVEX_VEXPANDPD_ZMM_K1Z_ZMMM512: int = 3252
+EVEX_VEXPANDPD_ZMM_K1Z_ZMMM512: Code = 3252 # type: ignore
 """
 ``VEXPANDPD zmm1 {k1}{z}, zmm2/m512``
 
@@ -32511,7 +32517,7 @@ EVEX_VEXPANDPD_ZMM_K1Z_ZMMM512: int = 3252
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDD_XMM_K1Z_XMMM128: int = 3253
+EVEX_VPEXPANDD_XMM_K1Z_XMMM128: Code = 3253 # type: ignore
 """
 ``VPEXPANDD xmm1 {k1}{z}, xmm2/m128``
 
@@ -32521,7 +32527,7 @@ EVEX_VPEXPANDD_XMM_K1Z_XMMM128: int = 3253
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDD_YMM_K1Z_YMMM256: int = 3254
+EVEX_VPEXPANDD_YMM_K1Z_YMMM256: Code = 3254 # type: ignore
 """
 ``VPEXPANDD ymm1 {k1}{z}, ymm2/m256``
 
@@ -32531,7 +32537,7 @@ EVEX_VPEXPANDD_YMM_K1Z_YMMM256: int = 3254
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDD_ZMM_K1Z_ZMMM512: int = 3255
+EVEX_VPEXPANDD_ZMM_K1Z_ZMMM512: Code = 3255 # type: ignore
 """
 ``VPEXPANDD zmm1 {k1}{z}, zmm2/m512``
 
@@ -32541,7 +32547,7 @@ EVEX_VPEXPANDD_ZMM_K1Z_ZMMM512: int = 3255
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDQ_XMM_K1Z_XMMM128: int = 3256
+EVEX_VPEXPANDQ_XMM_K1Z_XMMM128: Code = 3256 # type: ignore
 """
 ``VPEXPANDQ xmm1 {k1}{z}, xmm2/m128``
 
@@ -32551,7 +32557,7 @@ EVEX_VPEXPANDQ_XMM_K1Z_XMMM128: int = 3256
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDQ_YMM_K1Z_YMMM256: int = 3257
+EVEX_VPEXPANDQ_YMM_K1Z_YMMM256: Code = 3257 # type: ignore
 """
 ``VPEXPANDQ ymm1 {k1}{z}, ymm2/m256``
 
@@ -32561,7 +32567,7 @@ EVEX_VPEXPANDQ_YMM_K1Z_YMMM256: int = 3257
 
 ``16/32/64-bit``
 """
-EVEX_VPEXPANDQ_ZMM_K1Z_ZMMM512: int = 3258
+EVEX_VPEXPANDQ_ZMM_K1Z_ZMMM512: Code = 3258 # type: ignore
 """
 ``VPEXPANDQ zmm1 {k1}{z}, zmm2/m512``
 
@@ -32571,7 +32577,7 @@ EVEX_VPEXPANDQ_ZMM_K1Z_ZMMM512: int = 3258
 
 ``16/32/64-bit``
 """
-EVEX_VCOMPRESSPS_XMMM128_K1Z_XMM: int = 3259
+EVEX_VCOMPRESSPS_XMMM128_K1Z_XMM: Code = 3259 # type: ignore
 """
 ``VCOMPRESSPS xmm1/m128 {k1}{z}, xmm2``
 
@@ -32581,7 +32587,7 @@ EVEX_VCOMPRESSPS_XMMM128_K1Z_XMM: int = 3259
 
 ``16/32/64-bit``
 """
-EVEX_VCOMPRESSPS_YMMM256_K1Z_YMM: int = 3260
+EVEX_VCOMPRESSPS_YMMM256_K1Z_YMM: Code = 3260 # type: ignore
 """
 ``VCOMPRESSPS ymm1/m256 {k1}{z}, ymm2``
 
@@ -32591,7 +32597,7 @@ EVEX_VCOMPRESSPS_YMMM256_K1Z_YMM: int = 3260
 
 ``16/32/64-bit``
 """
-EVEX_VCOMPRESSPS_ZMMM512_K1Z_ZMM: int = 3261
+EVEX_VCOMPRESSPS_ZMMM512_K1Z_ZMM: Code = 3261 # type: ignore
 """
 ``VCOMPRESSPS zmm1/m512 {k1}{z}, zmm2``
 
@@ -32601,7 +32607,7 @@ EVEX_VCOMPRESSPS_ZMMM512_K1Z_ZMM: int = 3261
 
 ``16/32/64-bit``
 """
-EVEX_VCOMPRESSPD_XMMM128_K1Z_XMM: int = 3262
+EVEX_VCOMPRESSPD_XMMM128_K1Z_XMM: Code = 3262 # type: ignore
 """
 ``VCOMPRESSPD xmm1/m128 {k1}{z}, xmm2``
 
@@ -32611,7 +32617,7 @@ EVEX_VCOMPRESSPD_XMMM128_K1Z_XMM: int = 3262
 
 ``16/32/64-bit``
 """
-EVEX_VCOMPRESSPD_YMMM256_K1Z_YMM: int = 3263
+EVEX_VCOMPRESSPD_YMMM256_K1Z_YMM: Code = 3263 # type: ignore
 """
 ``VCOMPRESSPD ymm1/m256 {k1}{z}, ymm2``
 
@@ -32621,7 +32627,7 @@ EVEX_VCOMPRESSPD_YMMM256_K1Z_YMM: int = 3263
 
 ``16/32/64-bit``
 """
-EVEX_VCOMPRESSPD_ZMMM512_K1Z_ZMM: int = 3264
+EVEX_VCOMPRESSPD_ZMMM512_K1Z_ZMM: Code = 3264 # type: ignore
 """
 ``VCOMPRESSPD zmm1/m512 {k1}{z}, zmm2``
 
@@ -32631,7 +32637,7 @@ EVEX_VCOMPRESSPD_ZMMM512_K1Z_ZMM: int = 3264
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSD_XMMM128_K1Z_XMM: int = 3265
+EVEX_VPCOMPRESSD_XMMM128_K1Z_XMM: Code = 3265 # type: ignore
 """
 ``VPCOMPRESSD xmm1/m128 {k1}{z}, xmm2``
 
@@ -32641,7 +32647,7 @@ EVEX_VPCOMPRESSD_XMMM128_K1Z_XMM: int = 3265
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSD_YMMM256_K1Z_YMM: int = 3266
+EVEX_VPCOMPRESSD_YMMM256_K1Z_YMM: Code = 3266 # type: ignore
 """
 ``VPCOMPRESSD ymm1/m256 {k1}{z}, ymm2``
 
@@ -32651,7 +32657,7 @@ EVEX_VPCOMPRESSD_YMMM256_K1Z_YMM: int = 3266
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSD_ZMMM512_K1Z_ZMM: int = 3267
+EVEX_VPCOMPRESSD_ZMMM512_K1Z_ZMM: Code = 3267 # type: ignore
 """
 ``VPCOMPRESSD zmm1/m512 {k1}{z}, zmm2``
 
@@ -32661,7 +32667,7 @@ EVEX_VPCOMPRESSD_ZMMM512_K1Z_ZMM: int = 3267
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSQ_XMMM128_K1Z_XMM: int = 3268
+EVEX_VPCOMPRESSQ_XMMM128_K1Z_XMM: Code = 3268 # type: ignore
 """
 ``VPCOMPRESSQ xmm1/m128 {k1}{z}, xmm2``
 
@@ -32671,7 +32677,7 @@ EVEX_VPCOMPRESSQ_XMMM128_K1Z_XMM: int = 3268
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSQ_YMMM256_K1Z_YMM: int = 3269
+EVEX_VPCOMPRESSQ_YMMM256_K1Z_YMM: Code = 3269 # type: ignore
 """
 ``VPCOMPRESSQ ymm1/m256 {k1}{z}, ymm2``
 
@@ -32681,7 +32687,7 @@ EVEX_VPCOMPRESSQ_YMMM256_K1Z_YMM: int = 3269
 
 ``16/32/64-bit``
 """
-EVEX_VPCOMPRESSQ_ZMMM512_K1Z_ZMM: int = 3270
+EVEX_VPCOMPRESSQ_ZMMM512_K1Z_ZMM: Code = 3270 # type: ignore
 """
 ``VPCOMPRESSQ zmm1/m512 {k1}{z}, zmm2``
 
@@ -32691,7 +32697,7 @@ EVEX_VPCOMPRESSQ_ZMMM512_K1Z_ZMM: int = 3270
 
 ``16/32/64-bit``
 """
-VEX_VPMASKMOVD_XMM_XMM_M128: int = 3271
+VEX_VPMASKMOVD_XMM_XMM_M128: Code = 3271 # type: ignore
 """
 ``VPMASKMOVD xmm1, xmm2, m128``
 
@@ -32701,7 +32707,7 @@ VEX_VPMASKMOVD_XMM_XMM_M128: int = 3271
 
 ``16/32/64-bit``
 """
-VEX_VPMASKMOVD_YMM_YMM_M256: int = 3272
+VEX_VPMASKMOVD_YMM_YMM_M256: Code = 3272 # type: ignore
 """
 ``VPMASKMOVD ymm1, ymm2, m256``
 
@@ -32711,7 +32717,7 @@ VEX_VPMASKMOVD_YMM_YMM_M256: int = 3272
 
 ``16/32/64-bit``
 """
-VEX_VPMASKMOVQ_XMM_XMM_M128: int = 3273
+VEX_VPMASKMOVQ_XMM_XMM_M128: Code = 3273 # type: ignore
 """
 ``VPMASKMOVQ xmm1, xmm2, m128``
 
@@ -32721,7 +32727,7 @@ VEX_VPMASKMOVQ_XMM_XMM_M128: int = 3273
 
 ``16/32/64-bit``
 """
-VEX_VPMASKMOVQ_YMM_YMM_M256: int = 3274
+VEX_VPMASKMOVQ_YMM_YMM_M256: Code = 3274 # type: ignore
 """
 ``VPMASKMOVQ ymm1, ymm2, m256``
 
@@ -32731,7 +32737,7 @@ VEX_VPMASKMOVQ_YMM_YMM_M256: int = 3274
 
 ``16/32/64-bit``
 """
-EVEX_VPERMB_XMM_K1Z_XMM_XMMM128: int = 3275
+EVEX_VPERMB_XMM_K1Z_XMM_XMMM128: Code = 3275 # type: ignore
 """
 ``VPERMB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -32741,7 +32747,7 @@ EVEX_VPERMB_XMM_K1Z_XMM_XMMM128: int = 3275
 
 ``16/32/64-bit``
 """
-EVEX_VPERMB_YMM_K1Z_YMM_YMMM256: int = 3276
+EVEX_VPERMB_YMM_K1Z_YMM_YMMM256: Code = 3276 # type: ignore
 """
 ``VPERMB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -32751,7 +32757,7 @@ EVEX_VPERMB_YMM_K1Z_YMM_YMMM256: int = 3276
 
 ``16/32/64-bit``
 """
-EVEX_VPERMB_ZMM_K1Z_ZMM_ZMMM512: int = 3277
+EVEX_VPERMB_ZMM_K1Z_ZMM_ZMMM512: Code = 3277 # type: ignore
 """
 ``VPERMB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -32761,7 +32767,7 @@ EVEX_VPERMB_ZMM_K1Z_ZMM_ZMMM512: int = 3277
 
 ``16/32/64-bit``
 """
-EVEX_VPERMW_XMM_K1Z_XMM_XMMM128: int = 3278
+EVEX_VPERMW_XMM_K1Z_XMM_XMMM128: Code = 3278 # type: ignore
 """
 ``VPERMW xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -32771,7 +32777,7 @@ EVEX_VPERMW_XMM_K1Z_XMM_XMMM128: int = 3278
 
 ``16/32/64-bit``
 """
-EVEX_VPERMW_YMM_K1Z_YMM_YMMM256: int = 3279
+EVEX_VPERMW_YMM_K1Z_YMM_YMMM256: Code = 3279 # type: ignore
 """
 ``VPERMW ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -32781,7 +32787,7 @@ EVEX_VPERMW_YMM_K1Z_YMM_YMMM256: int = 3279
 
 ``16/32/64-bit``
 """
-EVEX_VPERMW_ZMM_K1Z_ZMM_ZMMM512: int = 3280
+EVEX_VPERMW_ZMM_K1Z_ZMM_ZMMM512: Code = 3280 # type: ignore
 """
 ``VPERMW zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -32791,7 +32797,7 @@ EVEX_VPERMW_ZMM_K1Z_ZMM_ZMMM512: int = 3280
 
 ``16/32/64-bit``
 """
-VEX_VPMASKMOVD_M128_XMM_XMM: int = 3281
+VEX_VPMASKMOVD_M128_XMM_XMM: Code = 3281 # type: ignore
 """
 ``VPMASKMOVD m128, xmm1, xmm2``
 
@@ -32801,7 +32807,7 @@ VEX_VPMASKMOVD_M128_XMM_XMM: int = 3281
 
 ``16/32/64-bit``
 """
-VEX_VPMASKMOVD_M256_YMM_YMM: int = 3282
+VEX_VPMASKMOVD_M256_YMM_YMM: Code = 3282 # type: ignore
 """
 ``VPMASKMOVD m256, ymm1, ymm2``
 
@@ -32811,7 +32817,7 @@ VEX_VPMASKMOVD_M256_YMM_YMM: int = 3282
 
 ``16/32/64-bit``
 """
-VEX_VPMASKMOVQ_M128_XMM_XMM: int = 3283
+VEX_VPMASKMOVQ_M128_XMM_XMM: Code = 3283 # type: ignore
 """
 ``VPMASKMOVQ m128, xmm1, xmm2``
 
@@ -32821,7 +32827,7 @@ VEX_VPMASKMOVQ_M128_XMM_XMM: int = 3283
 
 ``16/32/64-bit``
 """
-VEX_VPMASKMOVQ_M256_YMM_YMM: int = 3284
+VEX_VPMASKMOVQ_M256_YMM_YMM: Code = 3284 # type: ignore
 """
 ``VPMASKMOVQ m256, ymm1, ymm2``
 
@@ -32831,7 +32837,7 @@ VEX_VPMASKMOVQ_M256_YMM_YMM: int = 3284
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFBITQMB_KR_K1_XMM_XMMM128: int = 3285
+EVEX_VPSHUFBITQMB_KR_K1_XMM_XMMM128: Code = 3285 # type: ignore
 """
 ``VPSHUFBITQMB k1 {k2}, xmm2, xmm3/m128``
 
@@ -32841,7 +32847,7 @@ EVEX_VPSHUFBITQMB_KR_K1_XMM_XMMM128: int = 3285
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFBITQMB_KR_K1_YMM_YMMM256: int = 3286
+EVEX_VPSHUFBITQMB_KR_K1_YMM_YMMM256: Code = 3286 # type: ignore
 """
 ``VPSHUFBITQMB k1 {k2}, ymm2, ymm3/m256``
 
@@ -32851,7 +32857,7 @@ EVEX_VPSHUFBITQMB_KR_K1_YMM_YMMM256: int = 3286
 
 ``16/32/64-bit``
 """
-EVEX_VPSHUFBITQMB_KR_K1_ZMM_ZMMM512: int = 3287
+EVEX_VPSHUFBITQMB_KR_K1_ZMM_ZMMM512: Code = 3287 # type: ignore
 """
 ``VPSHUFBITQMB k1 {k2}, zmm2, zmm3/m512``
 
@@ -32861,7 +32867,7 @@ EVEX_VPSHUFBITQMB_KR_K1_ZMM_ZMMM512: int = 3287
 
 ``16/32/64-bit``
 """
-VEX_VPGATHERDD_XMM_VM32X_XMM: int = 3288
+VEX_VPGATHERDD_XMM_VM32X_XMM: Code = 3288 # type: ignore
 """
 ``VPGATHERDD xmm1, vm32x, xmm2``
 
@@ -32871,7 +32877,7 @@ VEX_VPGATHERDD_XMM_VM32X_XMM: int = 3288
 
 ``16/32/64-bit``
 """
-VEX_VPGATHERDD_YMM_VM32Y_YMM: int = 3289
+VEX_VPGATHERDD_YMM_VM32Y_YMM: Code = 3289 # type: ignore
 """
 ``VPGATHERDD ymm1, vm32y, ymm2``
 
@@ -32881,7 +32887,7 @@ VEX_VPGATHERDD_YMM_VM32Y_YMM: int = 3289
 
 ``16/32/64-bit``
 """
-VEX_VPGATHERDQ_XMM_VM32X_XMM: int = 3290
+VEX_VPGATHERDQ_XMM_VM32X_XMM: Code = 3290 # type: ignore
 """
 ``VPGATHERDQ xmm1, vm32x, xmm2``
 
@@ -32891,7 +32897,7 @@ VEX_VPGATHERDQ_XMM_VM32X_XMM: int = 3290
 
 ``16/32/64-bit``
 """
-VEX_VPGATHERDQ_YMM_VM32X_YMM: int = 3291
+VEX_VPGATHERDQ_YMM_VM32X_YMM: Code = 3291 # type: ignore
 """
 ``VPGATHERDQ ymm1, vm32x, ymm2``
 
@@ -32901,7 +32907,7 @@ VEX_VPGATHERDQ_YMM_VM32X_YMM: int = 3291
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERDD_XMM_K1_VM32X: int = 3292
+EVEX_VPGATHERDD_XMM_K1_VM32X: Code = 3292 # type: ignore
 """
 ``VPGATHERDD xmm1 {k1}, vm32x``
 
@@ -32911,7 +32917,7 @@ EVEX_VPGATHERDD_XMM_K1_VM32X: int = 3292
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERDD_YMM_K1_VM32Y: int = 3293
+EVEX_VPGATHERDD_YMM_K1_VM32Y: Code = 3293 # type: ignore
 """
 ``VPGATHERDD ymm1 {k1}, vm32y``
 
@@ -32921,7 +32927,7 @@ EVEX_VPGATHERDD_YMM_K1_VM32Y: int = 3293
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERDD_ZMM_K1_VM32Z: int = 3294
+EVEX_VPGATHERDD_ZMM_K1_VM32Z: Code = 3294 # type: ignore
 """
 ``VPGATHERDD zmm1 {k1}, vm32z``
 
@@ -32931,7 +32937,7 @@ EVEX_VPGATHERDD_ZMM_K1_VM32Z: int = 3294
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERDQ_XMM_K1_VM32X: int = 3295
+EVEX_VPGATHERDQ_XMM_K1_VM32X: Code = 3295 # type: ignore
 """
 ``VPGATHERDQ xmm1 {k1}, vm32x``
 
@@ -32941,7 +32947,7 @@ EVEX_VPGATHERDQ_XMM_K1_VM32X: int = 3295
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERDQ_YMM_K1_VM32X: int = 3296
+EVEX_VPGATHERDQ_YMM_K1_VM32X: Code = 3296 # type: ignore
 """
 ``VPGATHERDQ ymm1 {k1}, vm32x``
 
@@ -32951,7 +32957,7 @@ EVEX_VPGATHERDQ_YMM_K1_VM32X: int = 3296
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERDQ_ZMM_K1_VM32Y: int = 3297
+EVEX_VPGATHERDQ_ZMM_K1_VM32Y: Code = 3297 # type: ignore
 """
 ``VPGATHERDQ zmm1 {k1}, vm32y``
 
@@ -32961,7 +32967,7 @@ EVEX_VPGATHERDQ_ZMM_K1_VM32Y: int = 3297
 
 ``16/32/64-bit``
 """
-VEX_VPGATHERQD_XMM_VM64X_XMM: int = 3298
+VEX_VPGATHERQD_XMM_VM64X_XMM: Code = 3298 # type: ignore
 """
 ``VPGATHERQD xmm1, vm64x, xmm2``
 
@@ -32971,7 +32977,7 @@ VEX_VPGATHERQD_XMM_VM64X_XMM: int = 3298
 
 ``16/32/64-bit``
 """
-VEX_VPGATHERQD_XMM_VM64Y_XMM: int = 3299
+VEX_VPGATHERQD_XMM_VM64Y_XMM: Code = 3299 # type: ignore
 """
 ``VPGATHERQD xmm1, vm64y, xmm2``
 
@@ -32981,7 +32987,7 @@ VEX_VPGATHERQD_XMM_VM64Y_XMM: int = 3299
 
 ``16/32/64-bit``
 """
-VEX_VPGATHERQQ_XMM_VM64X_XMM: int = 3300
+VEX_VPGATHERQQ_XMM_VM64X_XMM: Code = 3300 # type: ignore
 """
 ``VPGATHERQQ xmm1, vm64x, xmm2``
 
@@ -32991,7 +32997,7 @@ VEX_VPGATHERQQ_XMM_VM64X_XMM: int = 3300
 
 ``16/32/64-bit``
 """
-VEX_VPGATHERQQ_YMM_VM64Y_YMM: int = 3301
+VEX_VPGATHERQQ_YMM_VM64Y_YMM: Code = 3301 # type: ignore
 """
 ``VPGATHERQQ ymm1, vm64y, ymm2``
 
@@ -33001,7 +33007,7 @@ VEX_VPGATHERQQ_YMM_VM64Y_YMM: int = 3301
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERQD_XMM_K1_VM64X: int = 3302
+EVEX_VPGATHERQD_XMM_K1_VM64X: Code = 3302 # type: ignore
 """
 ``VPGATHERQD xmm1 {k1}, vm64x``
 
@@ -33011,7 +33017,7 @@ EVEX_VPGATHERQD_XMM_K1_VM64X: int = 3302
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERQD_XMM_K1_VM64Y: int = 3303
+EVEX_VPGATHERQD_XMM_K1_VM64Y: Code = 3303 # type: ignore
 """
 ``VPGATHERQD xmm1 {k1}, vm64y``
 
@@ -33021,7 +33027,7 @@ EVEX_VPGATHERQD_XMM_K1_VM64Y: int = 3303
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERQD_YMM_K1_VM64Z: int = 3304
+EVEX_VPGATHERQD_YMM_K1_VM64Z: Code = 3304 # type: ignore
 """
 ``VPGATHERQD ymm1 {k1}, vm64z``
 
@@ -33031,7 +33037,7 @@ EVEX_VPGATHERQD_YMM_K1_VM64Z: int = 3304
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERQQ_XMM_K1_VM64X: int = 3305
+EVEX_VPGATHERQQ_XMM_K1_VM64X: Code = 3305 # type: ignore
 """
 ``VPGATHERQQ xmm1 {k1}, vm64x``
 
@@ -33041,7 +33047,7 @@ EVEX_VPGATHERQQ_XMM_K1_VM64X: int = 3305
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERQQ_YMM_K1_VM64Y: int = 3306
+EVEX_VPGATHERQQ_YMM_K1_VM64Y: Code = 3306 # type: ignore
 """
 ``VPGATHERQQ ymm1 {k1}, vm64y``
 
@@ -33051,7 +33057,7 @@ EVEX_VPGATHERQQ_YMM_K1_VM64Y: int = 3306
 
 ``16/32/64-bit``
 """
-EVEX_VPGATHERQQ_ZMM_K1_VM64Z: int = 3307
+EVEX_VPGATHERQQ_ZMM_K1_VM64Z: Code = 3307 # type: ignore
 """
 ``VPGATHERQQ zmm1 {k1}, vm64z``
 
@@ -33061,7 +33067,7 @@ EVEX_VPGATHERQQ_ZMM_K1_VM64Z: int = 3307
 
 ``16/32/64-bit``
 """
-VEX_VGATHERDPS_XMM_VM32X_XMM: int = 3308
+VEX_VGATHERDPS_XMM_VM32X_XMM: Code = 3308 # type: ignore
 """
 ``VGATHERDPS xmm1, vm32x, xmm2``
 
@@ -33071,7 +33077,7 @@ VEX_VGATHERDPS_XMM_VM32X_XMM: int = 3308
 
 ``16/32/64-bit``
 """
-VEX_VGATHERDPS_YMM_VM32Y_YMM: int = 3309
+VEX_VGATHERDPS_YMM_VM32Y_YMM: Code = 3309 # type: ignore
 """
 ``VGATHERDPS ymm1, vm32y, ymm2``
 
@@ -33081,7 +33087,7 @@ VEX_VGATHERDPS_YMM_VM32Y_YMM: int = 3309
 
 ``16/32/64-bit``
 """
-VEX_VGATHERDPD_XMM_VM32X_XMM: int = 3310
+VEX_VGATHERDPD_XMM_VM32X_XMM: Code = 3310 # type: ignore
 """
 ``VGATHERDPD xmm1, vm32x, xmm2``
 
@@ -33091,7 +33097,7 @@ VEX_VGATHERDPD_XMM_VM32X_XMM: int = 3310
 
 ``16/32/64-bit``
 """
-VEX_VGATHERDPD_YMM_VM32X_YMM: int = 3311
+VEX_VGATHERDPD_YMM_VM32X_YMM: Code = 3311 # type: ignore
 """
 ``VGATHERDPD ymm1, vm32x, ymm2``
 
@@ -33101,7 +33107,7 @@ VEX_VGATHERDPD_YMM_VM32X_YMM: int = 3311
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERDPS_XMM_K1_VM32X: int = 3312
+EVEX_VGATHERDPS_XMM_K1_VM32X: Code = 3312 # type: ignore
 """
 ``VGATHERDPS xmm1 {k1}, vm32x``
 
@@ -33111,7 +33117,7 @@ EVEX_VGATHERDPS_XMM_K1_VM32X: int = 3312
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERDPS_YMM_K1_VM32Y: int = 3313
+EVEX_VGATHERDPS_YMM_K1_VM32Y: Code = 3313 # type: ignore
 """
 ``VGATHERDPS ymm1 {k1}, vm32y``
 
@@ -33121,7 +33127,7 @@ EVEX_VGATHERDPS_YMM_K1_VM32Y: int = 3313
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERDPS_ZMM_K1_VM32Z: int = 3314
+EVEX_VGATHERDPS_ZMM_K1_VM32Z: Code = 3314 # type: ignore
 """
 ``VGATHERDPS zmm1 {k1}, vm32z``
 
@@ -33131,7 +33137,7 @@ EVEX_VGATHERDPS_ZMM_K1_VM32Z: int = 3314
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERDPD_XMM_K1_VM32X: int = 3315
+EVEX_VGATHERDPD_XMM_K1_VM32X: Code = 3315 # type: ignore
 """
 ``VGATHERDPD xmm1 {k1}, vm32x``
 
@@ -33141,7 +33147,7 @@ EVEX_VGATHERDPD_XMM_K1_VM32X: int = 3315
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERDPD_YMM_K1_VM32X: int = 3316
+EVEX_VGATHERDPD_YMM_K1_VM32X: Code = 3316 # type: ignore
 """
 ``VGATHERDPD ymm1 {k1}, vm32x``
 
@@ -33151,7 +33157,7 @@ EVEX_VGATHERDPD_YMM_K1_VM32X: int = 3316
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERDPD_ZMM_K1_VM32Y: int = 3317
+EVEX_VGATHERDPD_ZMM_K1_VM32Y: Code = 3317 # type: ignore
 """
 ``VGATHERDPD zmm1 {k1}, vm32y``
 
@@ -33161,7 +33167,7 @@ EVEX_VGATHERDPD_ZMM_K1_VM32Y: int = 3317
 
 ``16/32/64-bit``
 """
-VEX_VGATHERQPS_XMM_VM64X_XMM: int = 3318
+VEX_VGATHERQPS_XMM_VM64X_XMM: Code = 3318 # type: ignore
 """
 ``VGATHERQPS xmm1, vm64x, xmm2``
 
@@ -33171,7 +33177,7 @@ VEX_VGATHERQPS_XMM_VM64X_XMM: int = 3318
 
 ``16/32/64-bit``
 """
-VEX_VGATHERQPS_XMM_VM64Y_XMM: int = 3319
+VEX_VGATHERQPS_XMM_VM64Y_XMM: Code = 3319 # type: ignore
 """
 ``VGATHERQPS xmm1, vm64y, xmm2``
 
@@ -33181,7 +33187,7 @@ VEX_VGATHERQPS_XMM_VM64Y_XMM: int = 3319
 
 ``16/32/64-bit``
 """
-VEX_VGATHERQPD_XMM_VM64X_XMM: int = 3320
+VEX_VGATHERQPD_XMM_VM64X_XMM: Code = 3320 # type: ignore
 """
 ``VGATHERQPD xmm1, vm64x, xmm2``
 
@@ -33191,7 +33197,7 @@ VEX_VGATHERQPD_XMM_VM64X_XMM: int = 3320
 
 ``16/32/64-bit``
 """
-VEX_VGATHERQPD_YMM_VM64Y_YMM: int = 3321
+VEX_VGATHERQPD_YMM_VM64Y_YMM: Code = 3321 # type: ignore
 """
 ``VGATHERQPD ymm1, vm64y, ymm2``
 
@@ -33201,7 +33207,7 @@ VEX_VGATHERQPD_YMM_VM64Y_YMM: int = 3321
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERQPS_XMM_K1_VM64X: int = 3322
+EVEX_VGATHERQPS_XMM_K1_VM64X: Code = 3322 # type: ignore
 """
 ``VGATHERQPS xmm1 {k1}, vm64x``
 
@@ -33211,7 +33217,7 @@ EVEX_VGATHERQPS_XMM_K1_VM64X: int = 3322
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERQPS_XMM_K1_VM64Y: int = 3323
+EVEX_VGATHERQPS_XMM_K1_VM64Y: Code = 3323 # type: ignore
 """
 ``VGATHERQPS xmm1 {k1}, vm64y``
 
@@ -33221,7 +33227,7 @@ EVEX_VGATHERQPS_XMM_K1_VM64Y: int = 3323
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERQPS_YMM_K1_VM64Z: int = 3324
+EVEX_VGATHERQPS_YMM_K1_VM64Z: Code = 3324 # type: ignore
 """
 ``VGATHERQPS ymm1 {k1}, vm64z``
 
@@ -33231,7 +33237,7 @@ EVEX_VGATHERQPS_YMM_K1_VM64Z: int = 3324
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERQPD_XMM_K1_VM64X: int = 3325
+EVEX_VGATHERQPD_XMM_K1_VM64X: Code = 3325 # type: ignore
 """
 ``VGATHERQPD xmm1 {k1}, vm64x``
 
@@ -33241,7 +33247,7 @@ EVEX_VGATHERQPD_XMM_K1_VM64X: int = 3325
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERQPD_YMM_K1_VM64Y: int = 3326
+EVEX_VGATHERQPD_YMM_K1_VM64Y: Code = 3326 # type: ignore
 """
 ``VGATHERQPD ymm1 {k1}, vm64y``
 
@@ -33251,7 +33257,7 @@ EVEX_VGATHERQPD_YMM_K1_VM64Y: int = 3326
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERQPD_ZMM_K1_VM64Z: int = 3327
+EVEX_VGATHERQPD_ZMM_K1_VM64Z: Code = 3327 # type: ignore
 """
 ``VGATHERQPD zmm1 {k1}, vm64z``
 
@@ -33261,7 +33267,7 @@ EVEX_VGATHERQPD_ZMM_K1_VM64Z: int = 3327
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB132PS_XMM_XMM_XMMM128: int = 3328
+VEX_VFMADDSUB132PS_XMM_XMM_XMMM128: Code = 3328 # type: ignore
 """
 ``VFMADDSUB132PS xmm1, xmm2, xmm3/m128``
 
@@ -33271,7 +33277,7 @@ VEX_VFMADDSUB132PS_XMM_XMM_XMMM128: int = 3328
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB132PS_YMM_YMM_YMMM256: int = 3329
+VEX_VFMADDSUB132PS_YMM_YMM_YMMM256: Code = 3329 # type: ignore
 """
 ``VFMADDSUB132PS ymm1, ymm2, ymm3/m256``
 
@@ -33281,7 +33287,7 @@ VEX_VFMADDSUB132PS_YMM_YMM_YMMM256: int = 3329
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB132PD_XMM_XMM_XMMM128: int = 3330
+VEX_VFMADDSUB132PD_XMM_XMM_XMMM128: Code = 3330 # type: ignore
 """
 ``VFMADDSUB132PD xmm1, xmm2, xmm3/m128``
 
@@ -33291,7 +33297,7 @@ VEX_VFMADDSUB132PD_XMM_XMM_XMMM128: int = 3330
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB132PD_YMM_YMM_YMMM256: int = 3331
+VEX_VFMADDSUB132PD_YMM_YMM_YMMM256: Code = 3331 # type: ignore
 """
 ``VFMADDSUB132PD ymm1, ymm2, ymm3/m256``
 
@@ -33301,7 +33307,7 @@ VEX_VFMADDSUB132PD_YMM_YMM_YMMM256: int = 3331
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB132PS_XMM_K1Z_XMM_XMMM128B32: int = 3332
+EVEX_VFMADDSUB132PS_XMM_K1Z_XMM_XMMM128B32: Code = 3332 # type: ignore
 """
 ``VFMADDSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -33311,7 +33317,7 @@ EVEX_VFMADDSUB132PS_XMM_K1Z_XMM_XMMM128B32: int = 3332
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB132PS_YMM_K1Z_YMM_YMMM256B32: int = 3333
+EVEX_VFMADDSUB132PS_YMM_K1Z_YMM_YMMM256B32: Code = 3333 # type: ignore
 """
 ``VFMADDSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -33321,7 +33327,7 @@ EVEX_VFMADDSUB132PS_YMM_K1Z_YMM_YMMM256B32: int = 3333
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3334
+EVEX_VFMADDSUB132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3334 # type: ignore
 """
 ``VFMADDSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -33331,7 +33337,7 @@ EVEX_VFMADDSUB132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3334
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB132PD_XMM_K1Z_XMM_XMMM128B64: int = 3335
+EVEX_VFMADDSUB132PD_XMM_K1Z_XMM_XMMM128B64: Code = 3335 # type: ignore
 """
 ``VFMADDSUB132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -33341,7 +33347,7 @@ EVEX_VFMADDSUB132PD_XMM_K1Z_XMM_XMMM128B64: int = 3335
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB132PD_YMM_K1Z_YMM_YMMM256B64: int = 3336
+EVEX_VFMADDSUB132PD_YMM_K1Z_YMM_YMMM256B64: Code = 3336 # type: ignore
 """
 ``VFMADDSUB132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -33351,7 +33357,7 @@ EVEX_VFMADDSUB132PD_YMM_K1Z_YMM_YMMM256B64: int = 3336
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3337
+EVEX_VFMADDSUB132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3337 # type: ignore
 """
 ``VFMADDSUB132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -33361,7 +33367,7 @@ EVEX_VFMADDSUB132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3337
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD132PS_XMM_XMM_XMMM128: int = 3338
+VEX_VFMSUBADD132PS_XMM_XMM_XMMM128: Code = 3338 # type: ignore
 """
 ``VFMSUBADD132PS xmm1, xmm2, xmm3/m128``
 
@@ -33371,7 +33377,7 @@ VEX_VFMSUBADD132PS_XMM_XMM_XMMM128: int = 3338
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD132PS_YMM_YMM_YMMM256: int = 3339
+VEX_VFMSUBADD132PS_YMM_YMM_YMMM256: Code = 3339 # type: ignore
 """
 ``VFMSUBADD132PS ymm1, ymm2, ymm3/m256``
 
@@ -33381,7 +33387,7 @@ VEX_VFMSUBADD132PS_YMM_YMM_YMMM256: int = 3339
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD132PD_XMM_XMM_XMMM128: int = 3340
+VEX_VFMSUBADD132PD_XMM_XMM_XMMM128: Code = 3340 # type: ignore
 """
 ``VFMSUBADD132PD xmm1, xmm2, xmm3/m128``
 
@@ -33391,7 +33397,7 @@ VEX_VFMSUBADD132PD_XMM_XMM_XMMM128: int = 3340
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD132PD_YMM_YMM_YMMM256: int = 3341
+VEX_VFMSUBADD132PD_YMM_YMM_YMMM256: Code = 3341 # type: ignore
 """
 ``VFMSUBADD132PD ymm1, ymm2, ymm3/m256``
 
@@ -33401,7 +33407,7 @@ VEX_VFMSUBADD132PD_YMM_YMM_YMMM256: int = 3341
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD132PS_XMM_K1Z_XMM_XMMM128B32: int = 3342
+EVEX_VFMSUBADD132PS_XMM_K1Z_XMM_XMMM128B32: Code = 3342 # type: ignore
 """
 ``VFMSUBADD132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -33411,7 +33417,7 @@ EVEX_VFMSUBADD132PS_XMM_K1Z_XMM_XMMM128B32: int = 3342
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD132PS_YMM_K1Z_YMM_YMMM256B32: int = 3343
+EVEX_VFMSUBADD132PS_YMM_K1Z_YMM_YMMM256B32: Code = 3343 # type: ignore
 """
 ``VFMSUBADD132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -33421,7 +33427,7 @@ EVEX_VFMSUBADD132PS_YMM_K1Z_YMM_YMMM256B32: int = 3343
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3344
+EVEX_VFMSUBADD132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3344 # type: ignore
 """
 ``VFMSUBADD132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -33431,7 +33437,7 @@ EVEX_VFMSUBADD132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3344
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD132PD_XMM_K1Z_XMM_XMMM128B64: int = 3345
+EVEX_VFMSUBADD132PD_XMM_K1Z_XMM_XMMM128B64: Code = 3345 # type: ignore
 """
 ``VFMSUBADD132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -33441,7 +33447,7 @@ EVEX_VFMSUBADD132PD_XMM_K1Z_XMM_XMMM128B64: int = 3345
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD132PD_YMM_K1Z_YMM_YMMM256B64: int = 3346
+EVEX_VFMSUBADD132PD_YMM_K1Z_YMM_YMMM256B64: Code = 3346 # type: ignore
 """
 ``VFMSUBADD132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -33451,7 +33457,7 @@ EVEX_VFMSUBADD132PD_YMM_K1Z_YMM_YMMM256B64: int = 3346
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3347
+EVEX_VFMSUBADD132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3347 # type: ignore
 """
 ``VFMSUBADD132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -33461,7 +33467,7 @@ EVEX_VFMSUBADD132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3347
 
 ``16/32/64-bit``
 """
-VEX_VFMADD132PS_XMM_XMM_XMMM128: int = 3348
+VEX_VFMADD132PS_XMM_XMM_XMMM128: Code = 3348 # type: ignore
 """
 ``VFMADD132PS xmm1, xmm2, xmm3/m128``
 
@@ -33471,7 +33477,7 @@ VEX_VFMADD132PS_XMM_XMM_XMMM128: int = 3348
 
 ``16/32/64-bit``
 """
-VEX_VFMADD132PS_YMM_YMM_YMMM256: int = 3349
+VEX_VFMADD132PS_YMM_YMM_YMMM256: Code = 3349 # type: ignore
 """
 ``VFMADD132PS ymm1, ymm2, ymm3/m256``
 
@@ -33481,7 +33487,7 @@ VEX_VFMADD132PS_YMM_YMM_YMMM256: int = 3349
 
 ``16/32/64-bit``
 """
-VEX_VFMADD132PD_XMM_XMM_XMMM128: int = 3350
+VEX_VFMADD132PD_XMM_XMM_XMMM128: Code = 3350 # type: ignore
 """
 ``VFMADD132PD xmm1, xmm2, xmm3/m128``
 
@@ -33491,7 +33497,7 @@ VEX_VFMADD132PD_XMM_XMM_XMMM128: int = 3350
 
 ``16/32/64-bit``
 """
-VEX_VFMADD132PD_YMM_YMM_YMMM256: int = 3351
+VEX_VFMADD132PD_YMM_YMM_YMMM256: Code = 3351 # type: ignore
 """
 ``VFMADD132PD ymm1, ymm2, ymm3/m256``
 
@@ -33501,7 +33507,7 @@ VEX_VFMADD132PD_YMM_YMM_YMMM256: int = 3351
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132PS_XMM_K1Z_XMM_XMMM128B32: int = 3352
+EVEX_VFMADD132PS_XMM_K1Z_XMM_XMMM128B32: Code = 3352 # type: ignore
 """
 ``VFMADD132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -33511,7 +33517,7 @@ EVEX_VFMADD132PS_XMM_K1Z_XMM_XMMM128B32: int = 3352
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132PS_YMM_K1Z_YMM_YMMM256B32: int = 3353
+EVEX_VFMADD132PS_YMM_K1Z_YMM_YMMM256B32: Code = 3353 # type: ignore
 """
 ``VFMADD132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -33521,7 +33527,7 @@ EVEX_VFMADD132PS_YMM_K1Z_YMM_YMMM256B32: int = 3353
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3354
+EVEX_VFMADD132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3354 # type: ignore
 """
 ``VFMADD132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -33531,7 +33537,7 @@ EVEX_VFMADD132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3354
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132PD_XMM_K1Z_XMM_XMMM128B64: int = 3355
+EVEX_VFMADD132PD_XMM_K1Z_XMM_XMMM128B64: Code = 3355 # type: ignore
 """
 ``VFMADD132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -33541,7 +33547,7 @@ EVEX_VFMADD132PD_XMM_K1Z_XMM_XMMM128B64: int = 3355
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132PD_YMM_K1Z_YMM_YMMM256B64: int = 3356
+EVEX_VFMADD132PD_YMM_K1Z_YMM_YMMM256B64: Code = 3356 # type: ignore
 """
 ``VFMADD132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -33551,7 +33557,7 @@ EVEX_VFMADD132PD_YMM_K1Z_YMM_YMMM256B64: int = 3356
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3357
+EVEX_VFMADD132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3357 # type: ignore
 """
 ``VFMADD132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -33561,7 +33567,7 @@ EVEX_VFMADD132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3357
 
 ``16/32/64-bit``
 """
-VEX_VFMADD132SS_XMM_XMM_XMMM32: int = 3358
+VEX_VFMADD132SS_XMM_XMM_XMMM32: Code = 3358 # type: ignore
 """
 ``VFMADD132SS xmm1, xmm2, xmm3/m32``
 
@@ -33571,7 +33577,7 @@ VEX_VFMADD132SS_XMM_XMM_XMMM32: int = 3358
 
 ``16/32/64-bit``
 """
-VEX_VFMADD132SD_XMM_XMM_XMMM64: int = 3359
+VEX_VFMADD132SD_XMM_XMM_XMMM64: Code = 3359 # type: ignore
 """
 ``VFMADD132SD xmm1, xmm2, xmm3/m64``
 
@@ -33581,7 +33587,7 @@ VEX_VFMADD132SD_XMM_XMM_XMMM64: int = 3359
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132SS_XMM_K1Z_XMM_XMMM32_ER: int = 3360
+EVEX_VFMADD132SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3360 # type: ignore
 """
 ``VFMADD132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -33591,7 +33597,7 @@ EVEX_VFMADD132SS_XMM_K1Z_XMM_XMMM32_ER: int = 3360
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132SD_XMM_K1Z_XMM_XMMM64_ER: int = 3361
+EVEX_VFMADD132SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3361 # type: ignore
 """
 ``VFMADD132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -33601,7 +33607,7 @@ EVEX_VFMADD132SD_XMM_K1Z_XMM_XMMM64_ER: int = 3361
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB132PS_XMM_XMM_XMMM128: int = 3362
+VEX_VFMSUB132PS_XMM_XMM_XMMM128: Code = 3362 # type: ignore
 """
 ``VFMSUB132PS xmm1, xmm2, xmm3/m128``
 
@@ -33611,7 +33617,7 @@ VEX_VFMSUB132PS_XMM_XMM_XMMM128: int = 3362
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB132PS_YMM_YMM_YMMM256: int = 3363
+VEX_VFMSUB132PS_YMM_YMM_YMMM256: Code = 3363 # type: ignore
 """
 ``VFMSUB132PS ymm1, ymm2, ymm3/m256``
 
@@ -33621,7 +33627,7 @@ VEX_VFMSUB132PS_YMM_YMM_YMMM256: int = 3363
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB132PD_XMM_XMM_XMMM128: int = 3364
+VEX_VFMSUB132PD_XMM_XMM_XMMM128: Code = 3364 # type: ignore
 """
 ``VFMSUB132PD xmm1, xmm2, xmm3/m128``
 
@@ -33631,7 +33637,7 @@ VEX_VFMSUB132PD_XMM_XMM_XMMM128: int = 3364
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB132PD_YMM_YMM_YMMM256: int = 3365
+VEX_VFMSUB132PD_YMM_YMM_YMMM256: Code = 3365 # type: ignore
 """
 ``VFMSUB132PD ymm1, ymm2, ymm3/m256``
 
@@ -33641,7 +33647,7 @@ VEX_VFMSUB132PD_YMM_YMM_YMMM256: int = 3365
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132PS_XMM_K1Z_XMM_XMMM128B32: int = 3366
+EVEX_VFMSUB132PS_XMM_K1Z_XMM_XMMM128B32: Code = 3366 # type: ignore
 """
 ``VFMSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -33651,7 +33657,7 @@ EVEX_VFMSUB132PS_XMM_K1Z_XMM_XMMM128B32: int = 3366
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132PS_YMM_K1Z_YMM_YMMM256B32: int = 3367
+EVEX_VFMSUB132PS_YMM_K1Z_YMM_YMMM256B32: Code = 3367 # type: ignore
 """
 ``VFMSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -33661,7 +33667,7 @@ EVEX_VFMSUB132PS_YMM_K1Z_YMM_YMMM256B32: int = 3367
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3368
+EVEX_VFMSUB132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3368 # type: ignore
 """
 ``VFMSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -33671,7 +33677,7 @@ EVEX_VFMSUB132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3368
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132PD_XMM_K1Z_XMM_XMMM128B64: int = 3369
+EVEX_VFMSUB132PD_XMM_K1Z_XMM_XMMM128B64: Code = 3369 # type: ignore
 """
 ``VFMSUB132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -33681,7 +33687,7 @@ EVEX_VFMSUB132PD_XMM_K1Z_XMM_XMMM128B64: int = 3369
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132PD_YMM_K1Z_YMM_YMMM256B64: int = 3370
+EVEX_VFMSUB132PD_YMM_K1Z_YMM_YMMM256B64: Code = 3370 # type: ignore
 """
 ``VFMSUB132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -33691,7 +33697,7 @@ EVEX_VFMSUB132PD_YMM_K1Z_YMM_YMMM256B64: int = 3370
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3371
+EVEX_VFMSUB132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3371 # type: ignore
 """
 ``VFMSUB132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -33701,7 +33707,7 @@ EVEX_VFMSUB132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3371
 
 ``16/32/64-bit``
 """
-EVEX_V4FMADDPS_ZMM_K1Z_ZMMP3_M128: int = 3372
+EVEX_V4FMADDPS_ZMM_K1Z_ZMMP3_M128: Code = 3372 # type: ignore
 """
 ``V4FMADDPS zmm1 {k1}{z}, zmm2+3, m128``
 
@@ -33711,7 +33717,7 @@ EVEX_V4FMADDPS_ZMM_K1Z_ZMMP3_M128: int = 3372
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB132SS_XMM_XMM_XMMM32: int = 3373
+VEX_VFMSUB132SS_XMM_XMM_XMMM32: Code = 3373 # type: ignore
 """
 ``VFMSUB132SS xmm1, xmm2, xmm3/m32``
 
@@ -33721,7 +33727,7 @@ VEX_VFMSUB132SS_XMM_XMM_XMMM32: int = 3373
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB132SD_XMM_XMM_XMMM64: int = 3374
+VEX_VFMSUB132SD_XMM_XMM_XMMM64: Code = 3374 # type: ignore
 """
 ``VFMSUB132SD xmm1, xmm2, xmm3/m64``
 
@@ -33731,7 +33737,7 @@ VEX_VFMSUB132SD_XMM_XMM_XMMM64: int = 3374
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132SS_XMM_K1Z_XMM_XMMM32_ER: int = 3375
+EVEX_VFMSUB132SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3375 # type: ignore
 """
 ``VFMSUB132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -33741,7 +33747,7 @@ EVEX_VFMSUB132SS_XMM_K1Z_XMM_XMMM32_ER: int = 3375
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132SD_XMM_K1Z_XMM_XMMM64_ER: int = 3376
+EVEX_VFMSUB132SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3376 # type: ignore
 """
 ``VFMSUB132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -33751,7 +33757,7 @@ EVEX_VFMSUB132SD_XMM_K1Z_XMM_XMMM64_ER: int = 3376
 
 ``16/32/64-bit``
 """
-EVEX_V4FMADDSS_XMM_K1Z_XMMP3_M128: int = 3377
+EVEX_V4FMADDSS_XMM_K1Z_XMMP3_M128: Code = 3377 # type: ignore
 """
 ``V4FMADDSS xmm1 {k1}{z}, xmm2+3, m128``
 
@@ -33761,7 +33767,7 @@ EVEX_V4FMADDSS_XMM_K1Z_XMMP3_M128: int = 3377
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD132PS_XMM_XMM_XMMM128: int = 3378
+VEX_VFNMADD132PS_XMM_XMM_XMMM128: Code = 3378 # type: ignore
 """
 ``VFNMADD132PS xmm1, xmm2, xmm3/m128``
 
@@ -33771,7 +33777,7 @@ VEX_VFNMADD132PS_XMM_XMM_XMMM128: int = 3378
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD132PS_YMM_YMM_YMMM256: int = 3379
+VEX_VFNMADD132PS_YMM_YMM_YMMM256: Code = 3379 # type: ignore
 """
 ``VFNMADD132PS ymm1, ymm2, ymm3/m256``
 
@@ -33781,7 +33787,7 @@ VEX_VFNMADD132PS_YMM_YMM_YMMM256: int = 3379
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD132PD_XMM_XMM_XMMM128: int = 3380
+VEX_VFNMADD132PD_XMM_XMM_XMMM128: Code = 3380 # type: ignore
 """
 ``VFNMADD132PD xmm1, xmm2, xmm3/m128``
 
@@ -33791,7 +33797,7 @@ VEX_VFNMADD132PD_XMM_XMM_XMMM128: int = 3380
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD132PD_YMM_YMM_YMMM256: int = 3381
+VEX_VFNMADD132PD_YMM_YMM_YMMM256: Code = 3381 # type: ignore
 """
 ``VFNMADD132PD ymm1, ymm2, ymm3/m256``
 
@@ -33801,7 +33807,7 @@ VEX_VFNMADD132PD_YMM_YMM_YMMM256: int = 3381
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132PS_XMM_K1Z_XMM_XMMM128B32: int = 3382
+EVEX_VFNMADD132PS_XMM_K1Z_XMM_XMMM128B32: Code = 3382 # type: ignore
 """
 ``VFNMADD132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -33811,7 +33817,7 @@ EVEX_VFNMADD132PS_XMM_K1Z_XMM_XMMM128B32: int = 3382
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132PS_YMM_K1Z_YMM_YMMM256B32: int = 3383
+EVEX_VFNMADD132PS_YMM_K1Z_YMM_YMMM256B32: Code = 3383 # type: ignore
 """
 ``VFNMADD132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -33821,7 +33827,7 @@ EVEX_VFNMADD132PS_YMM_K1Z_YMM_YMMM256B32: int = 3383
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3384
+EVEX_VFNMADD132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3384 # type: ignore
 """
 ``VFNMADD132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -33831,7 +33837,7 @@ EVEX_VFNMADD132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3384
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132PD_XMM_K1Z_XMM_XMMM128B64: int = 3385
+EVEX_VFNMADD132PD_XMM_K1Z_XMM_XMMM128B64: Code = 3385 # type: ignore
 """
 ``VFNMADD132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -33841,7 +33847,7 @@ EVEX_VFNMADD132PD_XMM_K1Z_XMM_XMMM128B64: int = 3385
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132PD_YMM_K1Z_YMM_YMMM256B64: int = 3386
+EVEX_VFNMADD132PD_YMM_K1Z_YMM_YMMM256B64: Code = 3386 # type: ignore
 """
 ``VFNMADD132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -33851,7 +33857,7 @@ EVEX_VFNMADD132PD_YMM_K1Z_YMM_YMMM256B64: int = 3386
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3387
+EVEX_VFNMADD132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3387 # type: ignore
 """
 ``VFNMADD132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -33861,7 +33867,7 @@ EVEX_VFNMADD132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3387
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD132SS_XMM_XMM_XMMM32: int = 3388
+VEX_VFNMADD132SS_XMM_XMM_XMMM32: Code = 3388 # type: ignore
 """
 ``VFNMADD132SS xmm1, xmm2, xmm3/m32``
 
@@ -33871,7 +33877,7 @@ VEX_VFNMADD132SS_XMM_XMM_XMMM32: int = 3388
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD132SD_XMM_XMM_XMMM64: int = 3389
+VEX_VFNMADD132SD_XMM_XMM_XMMM64: Code = 3389 # type: ignore
 """
 ``VFNMADD132SD xmm1, xmm2, xmm3/m64``
 
@@ -33881,7 +33887,7 @@ VEX_VFNMADD132SD_XMM_XMM_XMMM64: int = 3389
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132SS_XMM_K1Z_XMM_XMMM32_ER: int = 3390
+EVEX_VFNMADD132SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3390 # type: ignore
 """
 ``VFNMADD132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -33891,7 +33897,7 @@ EVEX_VFNMADD132SS_XMM_K1Z_XMM_XMMM32_ER: int = 3390
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132SD_XMM_K1Z_XMM_XMMM64_ER: int = 3391
+EVEX_VFNMADD132SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3391 # type: ignore
 """
 ``VFNMADD132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -33901,7 +33907,7 @@ EVEX_VFNMADD132SD_XMM_K1Z_XMM_XMMM64_ER: int = 3391
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB132PS_XMM_XMM_XMMM128: int = 3392
+VEX_VFNMSUB132PS_XMM_XMM_XMMM128: Code = 3392 # type: ignore
 """
 ``VFNMSUB132PS xmm1, xmm2, xmm3/m128``
 
@@ -33911,7 +33917,7 @@ VEX_VFNMSUB132PS_XMM_XMM_XMMM128: int = 3392
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB132PS_YMM_YMM_YMMM256: int = 3393
+VEX_VFNMSUB132PS_YMM_YMM_YMMM256: Code = 3393 # type: ignore
 """
 ``VFNMSUB132PS ymm1, ymm2, ymm3/m256``
 
@@ -33921,7 +33927,7 @@ VEX_VFNMSUB132PS_YMM_YMM_YMMM256: int = 3393
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB132PD_XMM_XMM_XMMM128: int = 3394
+VEX_VFNMSUB132PD_XMM_XMM_XMMM128: Code = 3394 # type: ignore
 """
 ``VFNMSUB132PD xmm1, xmm2, xmm3/m128``
 
@@ -33931,7 +33937,7 @@ VEX_VFNMSUB132PD_XMM_XMM_XMMM128: int = 3394
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB132PD_YMM_YMM_YMMM256: int = 3395
+VEX_VFNMSUB132PD_YMM_YMM_YMMM256: Code = 3395 # type: ignore
 """
 ``VFNMSUB132PD ymm1, ymm2, ymm3/m256``
 
@@ -33941,7 +33947,7 @@ VEX_VFNMSUB132PD_YMM_YMM_YMMM256: int = 3395
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132PS_XMM_K1Z_XMM_XMMM128B32: int = 3396
+EVEX_VFNMSUB132PS_XMM_K1Z_XMM_XMMM128B32: Code = 3396 # type: ignore
 """
 ``VFNMSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -33951,7 +33957,7 @@ EVEX_VFNMSUB132PS_XMM_K1Z_XMM_XMMM128B32: int = 3396
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132PS_YMM_K1Z_YMM_YMMM256B32: int = 3397
+EVEX_VFNMSUB132PS_YMM_K1Z_YMM_YMMM256B32: Code = 3397 # type: ignore
 """
 ``VFNMSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -33961,7 +33967,7 @@ EVEX_VFNMSUB132PS_YMM_K1Z_YMM_YMMM256B32: int = 3397
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3398
+EVEX_VFNMSUB132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3398 # type: ignore
 """
 ``VFNMSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -33971,7 +33977,7 @@ EVEX_VFNMSUB132PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3398
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132PD_XMM_K1Z_XMM_XMMM128B64: int = 3399
+EVEX_VFNMSUB132PD_XMM_K1Z_XMM_XMMM128B64: Code = 3399 # type: ignore
 """
 ``VFNMSUB132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -33981,7 +33987,7 @@ EVEX_VFNMSUB132PD_XMM_K1Z_XMM_XMMM128B64: int = 3399
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132PD_YMM_K1Z_YMM_YMMM256B64: int = 3400
+EVEX_VFNMSUB132PD_YMM_K1Z_YMM_YMMM256B64: Code = 3400 # type: ignore
 """
 ``VFNMSUB132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -33991,7 +33997,7 @@ EVEX_VFNMSUB132PD_YMM_K1Z_YMM_YMMM256B64: int = 3400
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3401
+EVEX_VFNMSUB132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3401 # type: ignore
 """
 ``VFNMSUB132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -34001,7 +34007,7 @@ EVEX_VFNMSUB132PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3401
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB132SS_XMM_XMM_XMMM32: int = 3402
+VEX_VFNMSUB132SS_XMM_XMM_XMMM32: Code = 3402 # type: ignore
 """
 ``VFNMSUB132SS xmm1, xmm2, xmm3/m32``
 
@@ -34011,7 +34017,7 @@ VEX_VFNMSUB132SS_XMM_XMM_XMMM32: int = 3402
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB132SD_XMM_XMM_XMMM64: int = 3403
+VEX_VFNMSUB132SD_XMM_XMM_XMMM64: Code = 3403 # type: ignore
 """
 ``VFNMSUB132SD xmm1, xmm2, xmm3/m64``
 
@@ -34021,7 +34027,7 @@ VEX_VFNMSUB132SD_XMM_XMM_XMMM64: int = 3403
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132SS_XMM_K1Z_XMM_XMMM32_ER: int = 3404
+EVEX_VFNMSUB132SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3404 # type: ignore
 """
 ``VFNMSUB132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -34031,7 +34037,7 @@ EVEX_VFNMSUB132SS_XMM_K1Z_XMM_XMMM32_ER: int = 3404
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132SD_XMM_K1Z_XMM_XMMM64_ER: int = 3405
+EVEX_VFNMSUB132SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3405 # type: ignore
 """
 ``VFNMSUB132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -34041,7 +34047,7 @@ EVEX_VFNMSUB132SD_XMM_K1Z_XMM_XMMM64_ER: int = 3405
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERDD_VM32X_K1_XMM: int = 3406
+EVEX_VPSCATTERDD_VM32X_K1_XMM: Code = 3406 # type: ignore
 """
 ``VPSCATTERDD vm32x {k1}, xmm1``
 
@@ -34051,7 +34057,7 @@ EVEX_VPSCATTERDD_VM32X_K1_XMM: int = 3406
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERDD_VM32Y_K1_YMM: int = 3407
+EVEX_VPSCATTERDD_VM32Y_K1_YMM: Code = 3407 # type: ignore
 """
 ``VPSCATTERDD vm32y {k1}, ymm1``
 
@@ -34061,7 +34067,7 @@ EVEX_VPSCATTERDD_VM32Y_K1_YMM: int = 3407
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERDD_VM32Z_K1_ZMM: int = 3408
+EVEX_VPSCATTERDD_VM32Z_K1_ZMM: Code = 3408 # type: ignore
 """
 ``VPSCATTERDD vm32z {k1}, zmm1``
 
@@ -34071,7 +34077,7 @@ EVEX_VPSCATTERDD_VM32Z_K1_ZMM: int = 3408
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERDQ_VM32X_K1_XMM: int = 3409
+EVEX_VPSCATTERDQ_VM32X_K1_XMM: Code = 3409 # type: ignore
 """
 ``VPSCATTERDQ vm32x {k1}, xmm1``
 
@@ -34081,7 +34087,7 @@ EVEX_VPSCATTERDQ_VM32X_K1_XMM: int = 3409
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERDQ_VM32X_K1_YMM: int = 3410
+EVEX_VPSCATTERDQ_VM32X_K1_YMM: Code = 3410 # type: ignore
 """
 ``VPSCATTERDQ vm32x {k1}, ymm1``
 
@@ -34091,7 +34097,7 @@ EVEX_VPSCATTERDQ_VM32X_K1_YMM: int = 3410
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERDQ_VM32Y_K1_ZMM: int = 3411
+EVEX_VPSCATTERDQ_VM32Y_K1_ZMM: Code = 3411 # type: ignore
 """
 ``VPSCATTERDQ vm32y {k1}, zmm1``
 
@@ -34101,7 +34107,7 @@ EVEX_VPSCATTERDQ_VM32Y_K1_ZMM: int = 3411
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERQD_VM64X_K1_XMM: int = 3412
+EVEX_VPSCATTERQD_VM64X_K1_XMM: Code = 3412 # type: ignore
 """
 ``VPSCATTERQD vm64x {k1}, xmm1``
 
@@ -34111,7 +34117,7 @@ EVEX_VPSCATTERQD_VM64X_K1_XMM: int = 3412
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERQD_VM64Y_K1_XMM: int = 3413
+EVEX_VPSCATTERQD_VM64Y_K1_XMM: Code = 3413 # type: ignore
 """
 ``VPSCATTERQD vm64y {k1}, xmm1``
 
@@ -34121,7 +34127,7 @@ EVEX_VPSCATTERQD_VM64Y_K1_XMM: int = 3413
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERQD_VM64Z_K1_YMM: int = 3414
+EVEX_VPSCATTERQD_VM64Z_K1_YMM: Code = 3414 # type: ignore
 """
 ``VPSCATTERQD vm64z {k1}, ymm1``
 
@@ -34131,7 +34137,7 @@ EVEX_VPSCATTERQD_VM64Z_K1_YMM: int = 3414
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERQQ_VM64X_K1_XMM: int = 3415
+EVEX_VPSCATTERQQ_VM64X_K1_XMM: Code = 3415 # type: ignore
 """
 ``VPSCATTERQQ vm64x {k1}, xmm1``
 
@@ -34141,7 +34147,7 @@ EVEX_VPSCATTERQQ_VM64X_K1_XMM: int = 3415
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERQQ_VM64Y_K1_YMM: int = 3416
+EVEX_VPSCATTERQQ_VM64Y_K1_YMM: Code = 3416 # type: ignore
 """
 ``VPSCATTERQQ vm64y {k1}, ymm1``
 
@@ -34151,7 +34157,7 @@ EVEX_VPSCATTERQQ_VM64Y_K1_YMM: int = 3416
 
 ``16/32/64-bit``
 """
-EVEX_VPSCATTERQQ_VM64Z_K1_ZMM: int = 3417
+EVEX_VPSCATTERQQ_VM64Z_K1_ZMM: Code = 3417 # type: ignore
 """
 ``VPSCATTERQQ vm64z {k1}, zmm1``
 
@@ -34161,7 +34167,7 @@ EVEX_VPSCATTERQQ_VM64Z_K1_ZMM: int = 3417
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERDPS_VM32X_K1_XMM: int = 3418
+EVEX_VSCATTERDPS_VM32X_K1_XMM: Code = 3418 # type: ignore
 """
 ``VSCATTERDPS vm32x {k1}, xmm1``
 
@@ -34171,7 +34177,7 @@ EVEX_VSCATTERDPS_VM32X_K1_XMM: int = 3418
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERDPS_VM32Y_K1_YMM: int = 3419
+EVEX_VSCATTERDPS_VM32Y_K1_YMM: Code = 3419 # type: ignore
 """
 ``VSCATTERDPS vm32y {k1}, ymm1``
 
@@ -34181,7 +34187,7 @@ EVEX_VSCATTERDPS_VM32Y_K1_YMM: int = 3419
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERDPS_VM32Z_K1_ZMM: int = 3420
+EVEX_VSCATTERDPS_VM32Z_K1_ZMM: Code = 3420 # type: ignore
 """
 ``VSCATTERDPS vm32z {k1}, zmm1``
 
@@ -34191,7 +34197,7 @@ EVEX_VSCATTERDPS_VM32Z_K1_ZMM: int = 3420
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERDPD_VM32X_K1_XMM: int = 3421
+EVEX_VSCATTERDPD_VM32X_K1_XMM: Code = 3421 # type: ignore
 """
 ``VSCATTERDPD vm32x {k1}, xmm1``
 
@@ -34201,7 +34207,7 @@ EVEX_VSCATTERDPD_VM32X_K1_XMM: int = 3421
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERDPD_VM32X_K1_YMM: int = 3422
+EVEX_VSCATTERDPD_VM32X_K1_YMM: Code = 3422 # type: ignore
 """
 ``VSCATTERDPD vm32x {k1}, ymm1``
 
@@ -34211,7 +34217,7 @@ EVEX_VSCATTERDPD_VM32X_K1_YMM: int = 3422
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERDPD_VM32Y_K1_ZMM: int = 3423
+EVEX_VSCATTERDPD_VM32Y_K1_ZMM: Code = 3423 # type: ignore
 """
 ``VSCATTERDPD vm32y {k1}, zmm1``
 
@@ -34221,7 +34227,7 @@ EVEX_VSCATTERDPD_VM32Y_K1_ZMM: int = 3423
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERQPS_VM64X_K1_XMM: int = 3424
+EVEX_VSCATTERQPS_VM64X_K1_XMM: Code = 3424 # type: ignore
 """
 ``VSCATTERQPS vm64x {k1}, xmm1``
 
@@ -34231,7 +34237,7 @@ EVEX_VSCATTERQPS_VM64X_K1_XMM: int = 3424
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERQPS_VM64Y_K1_XMM: int = 3425
+EVEX_VSCATTERQPS_VM64Y_K1_XMM: Code = 3425 # type: ignore
 """
 ``VSCATTERQPS vm64y {k1}, xmm1``
 
@@ -34241,7 +34247,7 @@ EVEX_VSCATTERQPS_VM64Y_K1_XMM: int = 3425
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERQPS_VM64Z_K1_YMM: int = 3426
+EVEX_VSCATTERQPS_VM64Z_K1_YMM: Code = 3426 # type: ignore
 """
 ``VSCATTERQPS vm64z {k1}, ymm1``
 
@@ -34251,7 +34257,7 @@ EVEX_VSCATTERQPS_VM64Z_K1_YMM: int = 3426
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERQPD_VM64X_K1_XMM: int = 3427
+EVEX_VSCATTERQPD_VM64X_K1_XMM: Code = 3427 # type: ignore
 """
 ``VSCATTERQPD vm64x {k1}, xmm1``
 
@@ -34261,7 +34267,7 @@ EVEX_VSCATTERQPD_VM64X_K1_XMM: int = 3427
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERQPD_VM64Y_K1_YMM: int = 3428
+EVEX_VSCATTERQPD_VM64Y_K1_YMM: Code = 3428 # type: ignore
 """
 ``VSCATTERQPD vm64y {k1}, ymm1``
 
@@ -34271,7 +34277,7 @@ EVEX_VSCATTERQPD_VM64Y_K1_YMM: int = 3428
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERQPD_VM64Z_K1_ZMM: int = 3429
+EVEX_VSCATTERQPD_VM64Z_K1_ZMM: Code = 3429 # type: ignore
 """
 ``VSCATTERQPD vm64z {k1}, zmm1``
 
@@ -34281,7 +34287,7 @@ EVEX_VSCATTERQPD_VM64Z_K1_ZMM: int = 3429
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB213PS_XMM_XMM_XMMM128: int = 3430
+VEX_VFMADDSUB213PS_XMM_XMM_XMMM128: Code = 3430 # type: ignore
 """
 ``VFMADDSUB213PS xmm1, xmm2, xmm3/m128``
 
@@ -34291,7 +34297,7 @@ VEX_VFMADDSUB213PS_XMM_XMM_XMMM128: int = 3430
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB213PS_YMM_YMM_YMMM256: int = 3431
+VEX_VFMADDSUB213PS_YMM_YMM_YMMM256: Code = 3431 # type: ignore
 """
 ``VFMADDSUB213PS ymm1, ymm2, ymm3/m256``
 
@@ -34301,7 +34307,7 @@ VEX_VFMADDSUB213PS_YMM_YMM_YMMM256: int = 3431
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB213PD_XMM_XMM_XMMM128: int = 3432
+VEX_VFMADDSUB213PD_XMM_XMM_XMMM128: Code = 3432 # type: ignore
 """
 ``VFMADDSUB213PD xmm1, xmm2, xmm3/m128``
 
@@ -34311,7 +34317,7 @@ VEX_VFMADDSUB213PD_XMM_XMM_XMMM128: int = 3432
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB213PD_YMM_YMM_YMMM256: int = 3433
+VEX_VFMADDSUB213PD_YMM_YMM_YMMM256: Code = 3433 # type: ignore
 """
 ``VFMADDSUB213PD ymm1, ymm2, ymm3/m256``
 
@@ -34321,7 +34327,7 @@ VEX_VFMADDSUB213PD_YMM_YMM_YMMM256: int = 3433
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB213PS_XMM_K1Z_XMM_XMMM128B32: int = 3434
+EVEX_VFMADDSUB213PS_XMM_K1Z_XMM_XMMM128B32: Code = 3434 # type: ignore
 """
 ``VFMADDSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -34331,7 +34337,7 @@ EVEX_VFMADDSUB213PS_XMM_K1Z_XMM_XMMM128B32: int = 3434
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB213PS_YMM_K1Z_YMM_YMMM256B32: int = 3435
+EVEX_VFMADDSUB213PS_YMM_K1Z_YMM_YMMM256B32: Code = 3435 # type: ignore
 """
 ``VFMADDSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -34341,7 +34347,7 @@ EVEX_VFMADDSUB213PS_YMM_K1Z_YMM_YMMM256B32: int = 3435
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3436
+EVEX_VFMADDSUB213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3436 # type: ignore
 """
 ``VFMADDSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -34351,7 +34357,7 @@ EVEX_VFMADDSUB213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3436
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB213PD_XMM_K1Z_XMM_XMMM128B64: int = 3437
+EVEX_VFMADDSUB213PD_XMM_K1Z_XMM_XMMM128B64: Code = 3437 # type: ignore
 """
 ``VFMADDSUB213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -34361,7 +34367,7 @@ EVEX_VFMADDSUB213PD_XMM_K1Z_XMM_XMMM128B64: int = 3437
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB213PD_YMM_K1Z_YMM_YMMM256B64: int = 3438
+EVEX_VFMADDSUB213PD_YMM_K1Z_YMM_YMMM256B64: Code = 3438 # type: ignore
 """
 ``VFMADDSUB213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -34371,7 +34377,7 @@ EVEX_VFMADDSUB213PD_YMM_K1Z_YMM_YMMM256B64: int = 3438
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3439
+EVEX_VFMADDSUB213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3439 # type: ignore
 """
 ``VFMADDSUB213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -34381,7 +34387,7 @@ EVEX_VFMADDSUB213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3439
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD213PS_XMM_XMM_XMMM128: int = 3440
+VEX_VFMSUBADD213PS_XMM_XMM_XMMM128: Code = 3440 # type: ignore
 """
 ``VFMSUBADD213PS xmm1, xmm2, xmm3/m128``
 
@@ -34391,7 +34397,7 @@ VEX_VFMSUBADD213PS_XMM_XMM_XMMM128: int = 3440
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD213PS_YMM_YMM_YMMM256: int = 3441
+VEX_VFMSUBADD213PS_YMM_YMM_YMMM256: Code = 3441 # type: ignore
 """
 ``VFMSUBADD213PS ymm1, ymm2, ymm3/m256``
 
@@ -34401,7 +34407,7 @@ VEX_VFMSUBADD213PS_YMM_YMM_YMMM256: int = 3441
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD213PD_XMM_XMM_XMMM128: int = 3442
+VEX_VFMSUBADD213PD_XMM_XMM_XMMM128: Code = 3442 # type: ignore
 """
 ``VFMSUBADD213PD xmm1, xmm2, xmm3/m128``
 
@@ -34411,7 +34417,7 @@ VEX_VFMSUBADD213PD_XMM_XMM_XMMM128: int = 3442
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD213PD_YMM_YMM_YMMM256: int = 3443
+VEX_VFMSUBADD213PD_YMM_YMM_YMMM256: Code = 3443 # type: ignore
 """
 ``VFMSUBADD213PD ymm1, ymm2, ymm3/m256``
 
@@ -34421,7 +34427,7 @@ VEX_VFMSUBADD213PD_YMM_YMM_YMMM256: int = 3443
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD213PS_XMM_K1Z_XMM_XMMM128B32: int = 3444
+EVEX_VFMSUBADD213PS_XMM_K1Z_XMM_XMMM128B32: Code = 3444 # type: ignore
 """
 ``VFMSUBADD213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -34431,7 +34437,7 @@ EVEX_VFMSUBADD213PS_XMM_K1Z_XMM_XMMM128B32: int = 3444
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD213PS_YMM_K1Z_YMM_YMMM256B32: int = 3445
+EVEX_VFMSUBADD213PS_YMM_K1Z_YMM_YMMM256B32: Code = 3445 # type: ignore
 """
 ``VFMSUBADD213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -34441,7 +34447,7 @@ EVEX_VFMSUBADD213PS_YMM_K1Z_YMM_YMMM256B32: int = 3445
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3446
+EVEX_VFMSUBADD213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3446 # type: ignore
 """
 ``VFMSUBADD213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -34451,7 +34457,7 @@ EVEX_VFMSUBADD213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3446
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD213PD_XMM_K1Z_XMM_XMMM128B64: int = 3447
+EVEX_VFMSUBADD213PD_XMM_K1Z_XMM_XMMM128B64: Code = 3447 # type: ignore
 """
 ``VFMSUBADD213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -34461,7 +34467,7 @@ EVEX_VFMSUBADD213PD_XMM_K1Z_XMM_XMMM128B64: int = 3447
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD213PD_YMM_K1Z_YMM_YMMM256B64: int = 3448
+EVEX_VFMSUBADD213PD_YMM_K1Z_YMM_YMMM256B64: Code = 3448 # type: ignore
 """
 ``VFMSUBADD213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -34471,7 +34477,7 @@ EVEX_VFMSUBADD213PD_YMM_K1Z_YMM_YMMM256B64: int = 3448
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3449
+EVEX_VFMSUBADD213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3449 # type: ignore
 """
 ``VFMSUBADD213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -34481,7 +34487,7 @@ EVEX_VFMSUBADD213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3449
 
 ``16/32/64-bit``
 """
-VEX_VFMADD213PS_XMM_XMM_XMMM128: int = 3450
+VEX_VFMADD213PS_XMM_XMM_XMMM128: Code = 3450 # type: ignore
 """
 ``VFMADD213PS xmm1, xmm2, xmm3/m128``
 
@@ -34491,7 +34497,7 @@ VEX_VFMADD213PS_XMM_XMM_XMMM128: int = 3450
 
 ``16/32/64-bit``
 """
-VEX_VFMADD213PS_YMM_YMM_YMMM256: int = 3451
+VEX_VFMADD213PS_YMM_YMM_YMMM256: Code = 3451 # type: ignore
 """
 ``VFMADD213PS ymm1, ymm2, ymm3/m256``
 
@@ -34501,7 +34507,7 @@ VEX_VFMADD213PS_YMM_YMM_YMMM256: int = 3451
 
 ``16/32/64-bit``
 """
-VEX_VFMADD213PD_XMM_XMM_XMMM128: int = 3452
+VEX_VFMADD213PD_XMM_XMM_XMMM128: Code = 3452 # type: ignore
 """
 ``VFMADD213PD xmm1, xmm2, xmm3/m128``
 
@@ -34511,7 +34517,7 @@ VEX_VFMADD213PD_XMM_XMM_XMMM128: int = 3452
 
 ``16/32/64-bit``
 """
-VEX_VFMADD213PD_YMM_YMM_YMMM256: int = 3453
+VEX_VFMADD213PD_YMM_YMM_YMMM256: Code = 3453 # type: ignore
 """
 ``VFMADD213PD ymm1, ymm2, ymm3/m256``
 
@@ -34521,7 +34527,7 @@ VEX_VFMADD213PD_YMM_YMM_YMMM256: int = 3453
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213PS_XMM_K1Z_XMM_XMMM128B32: int = 3454
+EVEX_VFMADD213PS_XMM_K1Z_XMM_XMMM128B32: Code = 3454 # type: ignore
 """
 ``VFMADD213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -34531,7 +34537,7 @@ EVEX_VFMADD213PS_XMM_K1Z_XMM_XMMM128B32: int = 3454
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213PS_YMM_K1Z_YMM_YMMM256B32: int = 3455
+EVEX_VFMADD213PS_YMM_K1Z_YMM_YMMM256B32: Code = 3455 # type: ignore
 """
 ``VFMADD213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -34541,7 +34547,7 @@ EVEX_VFMADD213PS_YMM_K1Z_YMM_YMMM256B32: int = 3455
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3456
+EVEX_VFMADD213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3456 # type: ignore
 """
 ``VFMADD213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -34551,7 +34557,7 @@ EVEX_VFMADD213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3456
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213PD_XMM_K1Z_XMM_XMMM128B64: int = 3457
+EVEX_VFMADD213PD_XMM_K1Z_XMM_XMMM128B64: Code = 3457 # type: ignore
 """
 ``VFMADD213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -34561,7 +34567,7 @@ EVEX_VFMADD213PD_XMM_K1Z_XMM_XMMM128B64: int = 3457
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213PD_YMM_K1Z_YMM_YMMM256B64: int = 3458
+EVEX_VFMADD213PD_YMM_K1Z_YMM_YMMM256B64: Code = 3458 # type: ignore
 """
 ``VFMADD213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -34571,7 +34577,7 @@ EVEX_VFMADD213PD_YMM_K1Z_YMM_YMMM256B64: int = 3458
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3459
+EVEX_VFMADD213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3459 # type: ignore
 """
 ``VFMADD213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -34581,7 +34587,7 @@ EVEX_VFMADD213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3459
 
 ``16/32/64-bit``
 """
-VEX_VFMADD213SS_XMM_XMM_XMMM32: int = 3460
+VEX_VFMADD213SS_XMM_XMM_XMMM32: Code = 3460 # type: ignore
 """
 ``VFMADD213SS xmm1, xmm2, xmm3/m32``
 
@@ -34591,7 +34597,7 @@ VEX_VFMADD213SS_XMM_XMM_XMMM32: int = 3460
 
 ``16/32/64-bit``
 """
-VEX_VFMADD213SD_XMM_XMM_XMMM64: int = 3461
+VEX_VFMADD213SD_XMM_XMM_XMMM64: Code = 3461 # type: ignore
 """
 ``VFMADD213SD xmm1, xmm2, xmm3/m64``
 
@@ -34601,7 +34607,7 @@ VEX_VFMADD213SD_XMM_XMM_XMMM64: int = 3461
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213SS_XMM_K1Z_XMM_XMMM32_ER: int = 3462
+EVEX_VFMADD213SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3462 # type: ignore
 """
 ``VFMADD213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -34611,7 +34617,7 @@ EVEX_VFMADD213SS_XMM_K1Z_XMM_XMMM32_ER: int = 3462
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213SD_XMM_K1Z_XMM_XMMM64_ER: int = 3463
+EVEX_VFMADD213SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3463 # type: ignore
 """
 ``VFMADD213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -34621,7 +34627,7 @@ EVEX_VFMADD213SD_XMM_K1Z_XMM_XMMM64_ER: int = 3463
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB213PS_XMM_XMM_XMMM128: int = 3464
+VEX_VFMSUB213PS_XMM_XMM_XMMM128: Code = 3464 # type: ignore
 """
 ``VFMSUB213PS xmm1, xmm2, xmm3/m128``
 
@@ -34631,7 +34637,7 @@ VEX_VFMSUB213PS_XMM_XMM_XMMM128: int = 3464
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB213PS_YMM_YMM_YMMM256: int = 3465
+VEX_VFMSUB213PS_YMM_YMM_YMMM256: Code = 3465 # type: ignore
 """
 ``VFMSUB213PS ymm1, ymm2, ymm3/m256``
 
@@ -34641,7 +34647,7 @@ VEX_VFMSUB213PS_YMM_YMM_YMMM256: int = 3465
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB213PD_XMM_XMM_XMMM128: int = 3466
+VEX_VFMSUB213PD_XMM_XMM_XMMM128: Code = 3466 # type: ignore
 """
 ``VFMSUB213PD xmm1, xmm2, xmm3/m128``
 
@@ -34651,7 +34657,7 @@ VEX_VFMSUB213PD_XMM_XMM_XMMM128: int = 3466
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB213PD_YMM_YMM_YMMM256: int = 3467
+VEX_VFMSUB213PD_YMM_YMM_YMMM256: Code = 3467 # type: ignore
 """
 ``VFMSUB213PD ymm1, ymm2, ymm3/m256``
 
@@ -34661,7 +34667,7 @@ VEX_VFMSUB213PD_YMM_YMM_YMMM256: int = 3467
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213PS_XMM_K1Z_XMM_XMMM128B32: int = 3468
+EVEX_VFMSUB213PS_XMM_K1Z_XMM_XMMM128B32: Code = 3468 # type: ignore
 """
 ``VFMSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -34671,7 +34677,7 @@ EVEX_VFMSUB213PS_XMM_K1Z_XMM_XMMM128B32: int = 3468
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213PS_YMM_K1Z_YMM_YMMM256B32: int = 3469
+EVEX_VFMSUB213PS_YMM_K1Z_YMM_YMMM256B32: Code = 3469 # type: ignore
 """
 ``VFMSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -34681,7 +34687,7 @@ EVEX_VFMSUB213PS_YMM_K1Z_YMM_YMMM256B32: int = 3469
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3470
+EVEX_VFMSUB213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3470 # type: ignore
 """
 ``VFMSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -34691,7 +34697,7 @@ EVEX_VFMSUB213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3470
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213PD_XMM_K1Z_XMM_XMMM128B64: int = 3471
+EVEX_VFMSUB213PD_XMM_K1Z_XMM_XMMM128B64: Code = 3471 # type: ignore
 """
 ``VFMSUB213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -34701,7 +34707,7 @@ EVEX_VFMSUB213PD_XMM_K1Z_XMM_XMMM128B64: int = 3471
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213PD_YMM_K1Z_YMM_YMMM256B64: int = 3472
+EVEX_VFMSUB213PD_YMM_K1Z_YMM_YMMM256B64: Code = 3472 # type: ignore
 """
 ``VFMSUB213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -34711,7 +34717,7 @@ EVEX_VFMSUB213PD_YMM_K1Z_YMM_YMMM256B64: int = 3472
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3473
+EVEX_VFMSUB213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3473 # type: ignore
 """
 ``VFMSUB213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -34721,7 +34727,7 @@ EVEX_VFMSUB213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3473
 
 ``16/32/64-bit``
 """
-EVEX_V4FNMADDPS_ZMM_K1Z_ZMMP3_M128: int = 3474
+EVEX_V4FNMADDPS_ZMM_K1Z_ZMMP3_M128: Code = 3474 # type: ignore
 """
 ``V4FNMADDPS zmm1 {k1}{z}, zmm2+3, m128``
 
@@ -34731,7 +34737,7 @@ EVEX_V4FNMADDPS_ZMM_K1Z_ZMMP3_M128: int = 3474
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB213SS_XMM_XMM_XMMM32: int = 3475
+VEX_VFMSUB213SS_XMM_XMM_XMMM32: Code = 3475 # type: ignore
 """
 ``VFMSUB213SS xmm1, xmm2, xmm3/m32``
 
@@ -34741,7 +34747,7 @@ VEX_VFMSUB213SS_XMM_XMM_XMMM32: int = 3475
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB213SD_XMM_XMM_XMMM64: int = 3476
+VEX_VFMSUB213SD_XMM_XMM_XMMM64: Code = 3476 # type: ignore
 """
 ``VFMSUB213SD xmm1, xmm2, xmm3/m64``
 
@@ -34751,7 +34757,7 @@ VEX_VFMSUB213SD_XMM_XMM_XMMM64: int = 3476
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213SS_XMM_K1Z_XMM_XMMM32_ER: int = 3477
+EVEX_VFMSUB213SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3477 # type: ignore
 """
 ``VFMSUB213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -34761,7 +34767,7 @@ EVEX_VFMSUB213SS_XMM_K1Z_XMM_XMMM32_ER: int = 3477
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213SD_XMM_K1Z_XMM_XMMM64_ER: int = 3478
+EVEX_VFMSUB213SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3478 # type: ignore
 """
 ``VFMSUB213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -34771,7 +34777,7 @@ EVEX_VFMSUB213SD_XMM_K1Z_XMM_XMMM64_ER: int = 3478
 
 ``16/32/64-bit``
 """
-EVEX_V4FNMADDSS_XMM_K1Z_XMMP3_M128: int = 3479
+EVEX_V4FNMADDSS_XMM_K1Z_XMMP3_M128: Code = 3479 # type: ignore
 """
 ``V4FNMADDSS xmm1 {k1}{z}, xmm2+3, m128``
 
@@ -34781,7 +34787,7 @@ EVEX_V4FNMADDSS_XMM_K1Z_XMMP3_M128: int = 3479
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD213PS_XMM_XMM_XMMM128: int = 3480
+VEX_VFNMADD213PS_XMM_XMM_XMMM128: Code = 3480 # type: ignore
 """
 ``VFNMADD213PS xmm1, xmm2, xmm3/m128``
 
@@ -34791,7 +34797,7 @@ VEX_VFNMADD213PS_XMM_XMM_XMMM128: int = 3480
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD213PS_YMM_YMM_YMMM256: int = 3481
+VEX_VFNMADD213PS_YMM_YMM_YMMM256: Code = 3481 # type: ignore
 """
 ``VFNMADD213PS ymm1, ymm2, ymm3/m256``
 
@@ -34801,7 +34807,7 @@ VEX_VFNMADD213PS_YMM_YMM_YMMM256: int = 3481
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD213PD_XMM_XMM_XMMM128: int = 3482
+VEX_VFNMADD213PD_XMM_XMM_XMMM128: Code = 3482 # type: ignore
 """
 ``VFNMADD213PD xmm1, xmm2, xmm3/m128``
 
@@ -34811,7 +34817,7 @@ VEX_VFNMADD213PD_XMM_XMM_XMMM128: int = 3482
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD213PD_YMM_YMM_YMMM256: int = 3483
+VEX_VFNMADD213PD_YMM_YMM_YMMM256: Code = 3483 # type: ignore
 """
 ``VFNMADD213PD ymm1, ymm2, ymm3/m256``
 
@@ -34821,7 +34827,7 @@ VEX_VFNMADD213PD_YMM_YMM_YMMM256: int = 3483
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213PS_XMM_K1Z_XMM_XMMM128B32: int = 3484
+EVEX_VFNMADD213PS_XMM_K1Z_XMM_XMMM128B32: Code = 3484 # type: ignore
 """
 ``VFNMADD213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -34831,7 +34837,7 @@ EVEX_VFNMADD213PS_XMM_K1Z_XMM_XMMM128B32: int = 3484
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213PS_YMM_K1Z_YMM_YMMM256B32: int = 3485
+EVEX_VFNMADD213PS_YMM_K1Z_YMM_YMMM256B32: Code = 3485 # type: ignore
 """
 ``VFNMADD213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -34841,7 +34847,7 @@ EVEX_VFNMADD213PS_YMM_K1Z_YMM_YMMM256B32: int = 3485
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3486
+EVEX_VFNMADD213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3486 # type: ignore
 """
 ``VFNMADD213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -34851,7 +34857,7 @@ EVEX_VFNMADD213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3486
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213PD_XMM_K1Z_XMM_XMMM128B64: int = 3487
+EVEX_VFNMADD213PD_XMM_K1Z_XMM_XMMM128B64: Code = 3487 # type: ignore
 """
 ``VFNMADD213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -34861,7 +34867,7 @@ EVEX_VFNMADD213PD_XMM_K1Z_XMM_XMMM128B64: int = 3487
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213PD_YMM_K1Z_YMM_YMMM256B64: int = 3488
+EVEX_VFNMADD213PD_YMM_K1Z_YMM_YMMM256B64: Code = 3488 # type: ignore
 """
 ``VFNMADD213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -34871,7 +34877,7 @@ EVEX_VFNMADD213PD_YMM_K1Z_YMM_YMMM256B64: int = 3488
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3489
+EVEX_VFNMADD213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3489 # type: ignore
 """
 ``VFNMADD213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -34881,7 +34887,7 @@ EVEX_VFNMADD213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3489
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD213SS_XMM_XMM_XMMM32: int = 3490
+VEX_VFNMADD213SS_XMM_XMM_XMMM32: Code = 3490 # type: ignore
 """
 ``VFNMADD213SS xmm1, xmm2, xmm3/m32``
 
@@ -34891,7 +34897,7 @@ VEX_VFNMADD213SS_XMM_XMM_XMMM32: int = 3490
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD213SD_XMM_XMM_XMMM64: int = 3491
+VEX_VFNMADD213SD_XMM_XMM_XMMM64: Code = 3491 # type: ignore
 """
 ``VFNMADD213SD xmm1, xmm2, xmm3/m64``
 
@@ -34901,7 +34907,7 @@ VEX_VFNMADD213SD_XMM_XMM_XMMM64: int = 3491
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213SS_XMM_K1Z_XMM_XMMM32_ER: int = 3492
+EVEX_VFNMADD213SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3492 # type: ignore
 """
 ``VFNMADD213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -34911,7 +34917,7 @@ EVEX_VFNMADD213SS_XMM_K1Z_XMM_XMMM32_ER: int = 3492
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213SD_XMM_K1Z_XMM_XMMM64_ER: int = 3493
+EVEX_VFNMADD213SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3493 # type: ignore
 """
 ``VFNMADD213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -34921,7 +34927,7 @@ EVEX_VFNMADD213SD_XMM_K1Z_XMM_XMMM64_ER: int = 3493
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB213PS_XMM_XMM_XMMM128: int = 3494
+VEX_VFNMSUB213PS_XMM_XMM_XMMM128: Code = 3494 # type: ignore
 """
 ``VFNMSUB213PS xmm1, xmm2, xmm3/m128``
 
@@ -34931,7 +34937,7 @@ VEX_VFNMSUB213PS_XMM_XMM_XMMM128: int = 3494
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB213PS_YMM_YMM_YMMM256: int = 3495
+VEX_VFNMSUB213PS_YMM_YMM_YMMM256: Code = 3495 # type: ignore
 """
 ``VFNMSUB213PS ymm1, ymm2, ymm3/m256``
 
@@ -34941,7 +34947,7 @@ VEX_VFNMSUB213PS_YMM_YMM_YMMM256: int = 3495
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB213PD_XMM_XMM_XMMM128: int = 3496
+VEX_VFNMSUB213PD_XMM_XMM_XMMM128: Code = 3496 # type: ignore
 """
 ``VFNMSUB213PD xmm1, xmm2, xmm3/m128``
 
@@ -34951,7 +34957,7 @@ VEX_VFNMSUB213PD_XMM_XMM_XMMM128: int = 3496
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB213PD_YMM_YMM_YMMM256: int = 3497
+VEX_VFNMSUB213PD_YMM_YMM_YMMM256: Code = 3497 # type: ignore
 """
 ``VFNMSUB213PD ymm1, ymm2, ymm3/m256``
 
@@ -34961,7 +34967,7 @@ VEX_VFNMSUB213PD_YMM_YMM_YMMM256: int = 3497
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213PS_XMM_K1Z_XMM_XMMM128B32: int = 3498
+EVEX_VFNMSUB213PS_XMM_K1Z_XMM_XMMM128B32: Code = 3498 # type: ignore
 """
 ``VFNMSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -34971,7 +34977,7 @@ EVEX_VFNMSUB213PS_XMM_K1Z_XMM_XMMM128B32: int = 3498
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213PS_YMM_K1Z_YMM_YMMM256B32: int = 3499
+EVEX_VFNMSUB213PS_YMM_K1Z_YMM_YMMM256B32: Code = 3499 # type: ignore
 """
 ``VFNMSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -34981,7 +34987,7 @@ EVEX_VFNMSUB213PS_YMM_K1Z_YMM_YMMM256B32: int = 3499
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3500
+EVEX_VFNMSUB213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3500 # type: ignore
 """
 ``VFNMSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -34991,7 +34997,7 @@ EVEX_VFNMSUB213PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3500
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213PD_XMM_K1Z_XMM_XMMM128B64: int = 3501
+EVEX_VFNMSUB213PD_XMM_K1Z_XMM_XMMM128B64: Code = 3501 # type: ignore
 """
 ``VFNMSUB213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -35001,7 +35007,7 @@ EVEX_VFNMSUB213PD_XMM_K1Z_XMM_XMMM128B64: int = 3501
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213PD_YMM_K1Z_YMM_YMMM256B64: int = 3502
+EVEX_VFNMSUB213PD_YMM_K1Z_YMM_YMMM256B64: Code = 3502 # type: ignore
 """
 ``VFNMSUB213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -35011,7 +35017,7 @@ EVEX_VFNMSUB213PD_YMM_K1Z_YMM_YMMM256B64: int = 3502
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3503
+EVEX_VFNMSUB213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3503 # type: ignore
 """
 ``VFNMSUB213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -35021,7 +35027,7 @@ EVEX_VFNMSUB213PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3503
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB213SS_XMM_XMM_XMMM32: int = 3504
+VEX_VFNMSUB213SS_XMM_XMM_XMMM32: Code = 3504 # type: ignore
 """
 ``VFNMSUB213SS xmm1, xmm2, xmm3/m32``
 
@@ -35031,7 +35037,7 @@ VEX_VFNMSUB213SS_XMM_XMM_XMMM32: int = 3504
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB213SD_XMM_XMM_XMMM64: int = 3505
+VEX_VFNMSUB213SD_XMM_XMM_XMMM64: Code = 3505 # type: ignore
 """
 ``VFNMSUB213SD xmm1, xmm2, xmm3/m64``
 
@@ -35041,7 +35047,7 @@ VEX_VFNMSUB213SD_XMM_XMM_XMMM64: int = 3505
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213SS_XMM_K1Z_XMM_XMMM32_ER: int = 3506
+EVEX_VFNMSUB213SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3506 # type: ignore
 """
 ``VFNMSUB213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -35051,7 +35057,7 @@ EVEX_VFNMSUB213SS_XMM_K1Z_XMM_XMMM32_ER: int = 3506
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213SD_XMM_K1Z_XMM_XMMM64_ER: int = 3507
+EVEX_VFNMSUB213SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3507 # type: ignore
 """
 ``VFNMSUB213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -35061,7 +35067,7 @@ EVEX_VFNMSUB213SD_XMM_K1Z_XMM_XMMM64_ER: int = 3507
 
 ``16/32/64-bit``
 """
-EVEX_VPMADD52LUQ_XMM_K1Z_XMM_XMMM128B64: int = 3508
+EVEX_VPMADD52LUQ_XMM_K1Z_XMM_XMMM128B64: Code = 3508 # type: ignore
 """
 ``VPMADD52LUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -35071,7 +35077,7 @@ EVEX_VPMADD52LUQ_XMM_K1Z_XMM_XMMM128B64: int = 3508
 
 ``16/32/64-bit``
 """
-EVEX_VPMADD52LUQ_YMM_K1Z_YMM_YMMM256B64: int = 3509
+EVEX_VPMADD52LUQ_YMM_K1Z_YMM_YMMM256B64: Code = 3509 # type: ignore
 """
 ``VPMADD52LUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -35081,7 +35087,7 @@ EVEX_VPMADD52LUQ_YMM_K1Z_YMM_YMMM256B64: int = 3509
 
 ``16/32/64-bit``
 """
-EVEX_VPMADD52LUQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3510
+EVEX_VPMADD52LUQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3510 # type: ignore
 """
 ``VPMADD52LUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -35091,7 +35097,7 @@ EVEX_VPMADD52LUQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3510
 
 ``16/32/64-bit``
 """
-EVEX_VPMADD52HUQ_XMM_K1Z_XMM_XMMM128B64: int = 3511
+EVEX_VPMADD52HUQ_XMM_K1Z_XMM_XMMM128B64: Code = 3511 # type: ignore
 """
 ``VPMADD52HUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -35101,7 +35107,7 @@ EVEX_VPMADD52HUQ_XMM_K1Z_XMM_XMMM128B64: int = 3511
 
 ``16/32/64-bit``
 """
-EVEX_VPMADD52HUQ_YMM_K1Z_YMM_YMMM256B64: int = 3512
+EVEX_VPMADD52HUQ_YMM_K1Z_YMM_YMMM256B64: Code = 3512 # type: ignore
 """
 ``VPMADD52HUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -35111,7 +35117,7 @@ EVEX_VPMADD52HUQ_YMM_K1Z_YMM_YMMM256B64: int = 3512
 
 ``16/32/64-bit``
 """
-EVEX_VPMADD52HUQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3513
+EVEX_VPMADD52HUQ_ZMM_K1Z_ZMM_ZMMM512B64: Code = 3513 # type: ignore
 """
 ``VPMADD52HUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst``
 
@@ -35121,7 +35127,7 @@ EVEX_VPMADD52HUQ_ZMM_K1Z_ZMM_ZMMM512B64: int = 3513
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB231PS_XMM_XMM_XMMM128: int = 3514
+VEX_VFMADDSUB231PS_XMM_XMM_XMMM128: Code = 3514 # type: ignore
 """
 ``VFMADDSUB231PS xmm1, xmm2, xmm3/m128``
 
@@ -35131,7 +35137,7 @@ VEX_VFMADDSUB231PS_XMM_XMM_XMMM128: int = 3514
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB231PS_YMM_YMM_YMMM256: int = 3515
+VEX_VFMADDSUB231PS_YMM_YMM_YMMM256: Code = 3515 # type: ignore
 """
 ``VFMADDSUB231PS ymm1, ymm2, ymm3/m256``
 
@@ -35141,7 +35147,7 @@ VEX_VFMADDSUB231PS_YMM_YMM_YMMM256: int = 3515
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB231PD_XMM_XMM_XMMM128: int = 3516
+VEX_VFMADDSUB231PD_XMM_XMM_XMMM128: Code = 3516 # type: ignore
 """
 ``VFMADDSUB231PD xmm1, xmm2, xmm3/m128``
 
@@ -35151,7 +35157,7 @@ VEX_VFMADDSUB231PD_XMM_XMM_XMMM128: int = 3516
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUB231PD_YMM_YMM_YMMM256: int = 3517
+VEX_VFMADDSUB231PD_YMM_YMM_YMMM256: Code = 3517 # type: ignore
 """
 ``VFMADDSUB231PD ymm1, ymm2, ymm3/m256``
 
@@ -35161,7 +35167,7 @@ VEX_VFMADDSUB231PD_YMM_YMM_YMMM256: int = 3517
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB231PS_XMM_K1Z_XMM_XMMM128B32: int = 3518
+EVEX_VFMADDSUB231PS_XMM_K1Z_XMM_XMMM128B32: Code = 3518 # type: ignore
 """
 ``VFMADDSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -35171,7 +35177,7 @@ EVEX_VFMADDSUB231PS_XMM_K1Z_XMM_XMMM128B32: int = 3518
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB231PS_YMM_K1Z_YMM_YMMM256B32: int = 3519
+EVEX_VFMADDSUB231PS_YMM_K1Z_YMM_YMMM256B32: Code = 3519 # type: ignore
 """
 ``VFMADDSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -35181,7 +35187,7 @@ EVEX_VFMADDSUB231PS_YMM_K1Z_YMM_YMMM256B32: int = 3519
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3520
+EVEX_VFMADDSUB231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3520 # type: ignore
 """
 ``VFMADDSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -35191,7 +35197,7 @@ EVEX_VFMADDSUB231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3520
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB231PD_XMM_K1Z_XMM_XMMM128B64: int = 3521
+EVEX_VFMADDSUB231PD_XMM_K1Z_XMM_XMMM128B64: Code = 3521 # type: ignore
 """
 ``VFMADDSUB231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -35201,7 +35207,7 @@ EVEX_VFMADDSUB231PD_XMM_K1Z_XMM_XMMM128B64: int = 3521
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB231PD_YMM_K1Z_YMM_YMMM256B64: int = 3522
+EVEX_VFMADDSUB231PD_YMM_K1Z_YMM_YMMM256B64: Code = 3522 # type: ignore
 """
 ``VFMADDSUB231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -35211,7 +35217,7 @@ EVEX_VFMADDSUB231PD_YMM_K1Z_YMM_YMMM256B64: int = 3522
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3523
+EVEX_VFMADDSUB231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3523 # type: ignore
 """
 ``VFMADDSUB231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -35221,7 +35227,7 @@ EVEX_VFMADDSUB231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3523
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD231PS_XMM_XMM_XMMM128: int = 3524
+VEX_VFMSUBADD231PS_XMM_XMM_XMMM128: Code = 3524 # type: ignore
 """
 ``VFMSUBADD231PS xmm1, xmm2, xmm3/m128``
 
@@ -35231,7 +35237,7 @@ VEX_VFMSUBADD231PS_XMM_XMM_XMMM128: int = 3524
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD231PS_YMM_YMM_YMMM256: int = 3525
+VEX_VFMSUBADD231PS_YMM_YMM_YMMM256: Code = 3525 # type: ignore
 """
 ``VFMSUBADD231PS ymm1, ymm2, ymm3/m256``
 
@@ -35241,7 +35247,7 @@ VEX_VFMSUBADD231PS_YMM_YMM_YMMM256: int = 3525
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD231PD_XMM_XMM_XMMM128: int = 3526
+VEX_VFMSUBADD231PD_XMM_XMM_XMMM128: Code = 3526 # type: ignore
 """
 ``VFMSUBADD231PD xmm1, xmm2, xmm3/m128``
 
@@ -35251,7 +35257,7 @@ VEX_VFMSUBADD231PD_XMM_XMM_XMMM128: int = 3526
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADD231PD_YMM_YMM_YMMM256: int = 3527
+VEX_VFMSUBADD231PD_YMM_YMM_YMMM256: Code = 3527 # type: ignore
 """
 ``VFMSUBADD231PD ymm1, ymm2, ymm3/m256``
 
@@ -35261,7 +35267,7 @@ VEX_VFMSUBADD231PD_YMM_YMM_YMMM256: int = 3527
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD231PS_XMM_K1Z_XMM_XMMM128B32: int = 3528
+EVEX_VFMSUBADD231PS_XMM_K1Z_XMM_XMMM128B32: Code = 3528 # type: ignore
 """
 ``VFMSUBADD231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -35271,7 +35277,7 @@ EVEX_VFMSUBADD231PS_XMM_K1Z_XMM_XMMM128B32: int = 3528
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD231PS_YMM_K1Z_YMM_YMMM256B32: int = 3529
+EVEX_VFMSUBADD231PS_YMM_K1Z_YMM_YMMM256B32: Code = 3529 # type: ignore
 """
 ``VFMSUBADD231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -35281,7 +35287,7 @@ EVEX_VFMSUBADD231PS_YMM_K1Z_YMM_YMMM256B32: int = 3529
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3530
+EVEX_VFMSUBADD231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3530 # type: ignore
 """
 ``VFMSUBADD231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -35291,7 +35297,7 @@ EVEX_VFMSUBADD231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3530
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD231PD_XMM_K1Z_XMM_XMMM128B64: int = 3531
+EVEX_VFMSUBADD231PD_XMM_K1Z_XMM_XMMM128B64: Code = 3531 # type: ignore
 """
 ``VFMSUBADD231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -35301,7 +35307,7 @@ EVEX_VFMSUBADD231PD_XMM_K1Z_XMM_XMMM128B64: int = 3531
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD231PD_YMM_K1Z_YMM_YMMM256B64: int = 3532
+EVEX_VFMSUBADD231PD_YMM_K1Z_YMM_YMMM256B64: Code = 3532 # type: ignore
 """
 ``VFMSUBADD231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -35311,7 +35317,7 @@ EVEX_VFMSUBADD231PD_YMM_K1Z_YMM_YMMM256B64: int = 3532
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3533
+EVEX_VFMSUBADD231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3533 # type: ignore
 """
 ``VFMSUBADD231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -35321,7 +35327,7 @@ EVEX_VFMSUBADD231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3533
 
 ``16/32/64-bit``
 """
-VEX_VFMADD231PS_XMM_XMM_XMMM128: int = 3534
+VEX_VFMADD231PS_XMM_XMM_XMMM128: Code = 3534 # type: ignore
 """
 ``VFMADD231PS xmm1, xmm2, xmm3/m128``
 
@@ -35331,7 +35337,7 @@ VEX_VFMADD231PS_XMM_XMM_XMMM128: int = 3534
 
 ``16/32/64-bit``
 """
-VEX_VFMADD231PS_YMM_YMM_YMMM256: int = 3535
+VEX_VFMADD231PS_YMM_YMM_YMMM256: Code = 3535 # type: ignore
 """
 ``VFMADD231PS ymm1, ymm2, ymm3/m256``
 
@@ -35341,7 +35347,7 @@ VEX_VFMADD231PS_YMM_YMM_YMMM256: int = 3535
 
 ``16/32/64-bit``
 """
-VEX_VFMADD231PD_XMM_XMM_XMMM128: int = 3536
+VEX_VFMADD231PD_XMM_XMM_XMMM128: Code = 3536 # type: ignore
 """
 ``VFMADD231PD xmm1, xmm2, xmm3/m128``
 
@@ -35351,7 +35357,7 @@ VEX_VFMADD231PD_XMM_XMM_XMMM128: int = 3536
 
 ``16/32/64-bit``
 """
-VEX_VFMADD231PD_YMM_YMM_YMMM256: int = 3537
+VEX_VFMADD231PD_YMM_YMM_YMMM256: Code = 3537 # type: ignore
 """
 ``VFMADD231PD ymm1, ymm2, ymm3/m256``
 
@@ -35361,7 +35367,7 @@ VEX_VFMADD231PD_YMM_YMM_YMMM256: int = 3537
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231PS_XMM_K1Z_XMM_XMMM128B32: int = 3538
+EVEX_VFMADD231PS_XMM_K1Z_XMM_XMMM128B32: Code = 3538 # type: ignore
 """
 ``VFMADD231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -35371,7 +35377,7 @@ EVEX_VFMADD231PS_XMM_K1Z_XMM_XMMM128B32: int = 3538
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231PS_YMM_K1Z_YMM_YMMM256B32: int = 3539
+EVEX_VFMADD231PS_YMM_K1Z_YMM_YMMM256B32: Code = 3539 # type: ignore
 """
 ``VFMADD231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -35381,7 +35387,7 @@ EVEX_VFMADD231PS_YMM_K1Z_YMM_YMMM256B32: int = 3539
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3540
+EVEX_VFMADD231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3540 # type: ignore
 """
 ``VFMADD231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -35391,7 +35397,7 @@ EVEX_VFMADD231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3540
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231PD_XMM_K1Z_XMM_XMMM128B64: int = 3541
+EVEX_VFMADD231PD_XMM_K1Z_XMM_XMMM128B64: Code = 3541 # type: ignore
 """
 ``VFMADD231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -35401,7 +35407,7 @@ EVEX_VFMADD231PD_XMM_K1Z_XMM_XMMM128B64: int = 3541
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231PD_YMM_K1Z_YMM_YMMM256B64: int = 3542
+EVEX_VFMADD231PD_YMM_K1Z_YMM_YMMM256B64: Code = 3542 # type: ignore
 """
 ``VFMADD231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -35411,7 +35417,7 @@ EVEX_VFMADD231PD_YMM_K1Z_YMM_YMMM256B64: int = 3542
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3543
+EVEX_VFMADD231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3543 # type: ignore
 """
 ``VFMADD231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -35421,7 +35427,7 @@ EVEX_VFMADD231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3543
 
 ``16/32/64-bit``
 """
-VEX_VFMADD231SS_XMM_XMM_XMMM32: int = 3544
+VEX_VFMADD231SS_XMM_XMM_XMMM32: Code = 3544 # type: ignore
 """
 ``VFMADD231SS xmm1, xmm2, xmm3/m32``
 
@@ -35431,7 +35437,7 @@ VEX_VFMADD231SS_XMM_XMM_XMMM32: int = 3544
 
 ``16/32/64-bit``
 """
-VEX_VFMADD231SD_XMM_XMM_XMMM64: int = 3545
+VEX_VFMADD231SD_XMM_XMM_XMMM64: Code = 3545 # type: ignore
 """
 ``VFMADD231SD xmm1, xmm2, xmm3/m64``
 
@@ -35441,7 +35447,7 @@ VEX_VFMADD231SD_XMM_XMM_XMMM64: int = 3545
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231SS_XMM_K1Z_XMM_XMMM32_ER: int = 3546
+EVEX_VFMADD231SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3546 # type: ignore
 """
 ``VFMADD231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -35451,7 +35457,7 @@ EVEX_VFMADD231SS_XMM_K1Z_XMM_XMMM32_ER: int = 3546
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231SD_XMM_K1Z_XMM_XMMM64_ER: int = 3547
+EVEX_VFMADD231SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3547 # type: ignore
 """
 ``VFMADD231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -35461,7 +35467,7 @@ EVEX_VFMADD231SD_XMM_K1Z_XMM_XMMM64_ER: int = 3547
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB231PS_XMM_XMM_XMMM128: int = 3548
+VEX_VFMSUB231PS_XMM_XMM_XMMM128: Code = 3548 # type: ignore
 """
 ``VFMSUB231PS xmm1, xmm2, xmm3/m128``
 
@@ -35471,7 +35477,7 @@ VEX_VFMSUB231PS_XMM_XMM_XMMM128: int = 3548
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB231PS_YMM_YMM_YMMM256: int = 3549
+VEX_VFMSUB231PS_YMM_YMM_YMMM256: Code = 3549 # type: ignore
 """
 ``VFMSUB231PS ymm1, ymm2, ymm3/m256``
 
@@ -35481,7 +35487,7 @@ VEX_VFMSUB231PS_YMM_YMM_YMMM256: int = 3549
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB231PD_XMM_XMM_XMMM128: int = 3550
+VEX_VFMSUB231PD_XMM_XMM_XMMM128: Code = 3550 # type: ignore
 """
 ``VFMSUB231PD xmm1, xmm2, xmm3/m128``
 
@@ -35491,7 +35497,7 @@ VEX_VFMSUB231PD_XMM_XMM_XMMM128: int = 3550
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB231PD_YMM_YMM_YMMM256: int = 3551
+VEX_VFMSUB231PD_YMM_YMM_YMMM256: Code = 3551 # type: ignore
 """
 ``VFMSUB231PD ymm1, ymm2, ymm3/m256``
 
@@ -35501,7 +35507,7 @@ VEX_VFMSUB231PD_YMM_YMM_YMMM256: int = 3551
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231PS_XMM_K1Z_XMM_XMMM128B32: int = 3552
+EVEX_VFMSUB231PS_XMM_K1Z_XMM_XMMM128B32: Code = 3552 # type: ignore
 """
 ``VFMSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -35511,7 +35517,7 @@ EVEX_VFMSUB231PS_XMM_K1Z_XMM_XMMM128B32: int = 3552
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231PS_YMM_K1Z_YMM_YMMM256B32: int = 3553
+EVEX_VFMSUB231PS_YMM_K1Z_YMM_YMMM256B32: Code = 3553 # type: ignore
 """
 ``VFMSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -35521,7 +35527,7 @@ EVEX_VFMSUB231PS_YMM_K1Z_YMM_YMMM256B32: int = 3553
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3554
+EVEX_VFMSUB231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3554 # type: ignore
 """
 ``VFMSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -35531,7 +35537,7 @@ EVEX_VFMSUB231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3554
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231PD_XMM_K1Z_XMM_XMMM128B64: int = 3555
+EVEX_VFMSUB231PD_XMM_K1Z_XMM_XMMM128B64: Code = 3555 # type: ignore
 """
 ``VFMSUB231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -35541,7 +35547,7 @@ EVEX_VFMSUB231PD_XMM_K1Z_XMM_XMMM128B64: int = 3555
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231PD_YMM_K1Z_YMM_YMMM256B64: int = 3556
+EVEX_VFMSUB231PD_YMM_K1Z_YMM_YMMM256B64: Code = 3556 # type: ignore
 """
 ``VFMSUB231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -35551,7 +35557,7 @@ EVEX_VFMSUB231PD_YMM_K1Z_YMM_YMMM256B64: int = 3556
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3557
+EVEX_VFMSUB231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3557 # type: ignore
 """
 ``VFMSUB231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -35561,7 +35567,7 @@ EVEX_VFMSUB231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3557
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB231SS_XMM_XMM_XMMM32: int = 3558
+VEX_VFMSUB231SS_XMM_XMM_XMMM32: Code = 3558 # type: ignore
 """
 ``VFMSUB231SS xmm1, xmm2, xmm3/m32``
 
@@ -35571,7 +35577,7 @@ VEX_VFMSUB231SS_XMM_XMM_XMMM32: int = 3558
 
 ``16/32/64-bit``
 """
-VEX_VFMSUB231SD_XMM_XMM_XMMM64: int = 3559
+VEX_VFMSUB231SD_XMM_XMM_XMMM64: Code = 3559 # type: ignore
 """
 ``VFMSUB231SD xmm1, xmm2, xmm3/m64``
 
@@ -35581,7 +35587,7 @@ VEX_VFMSUB231SD_XMM_XMM_XMMM64: int = 3559
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231SS_XMM_K1Z_XMM_XMMM32_ER: int = 3560
+EVEX_VFMSUB231SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3560 # type: ignore
 """
 ``VFMSUB231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -35591,7 +35597,7 @@ EVEX_VFMSUB231SS_XMM_K1Z_XMM_XMMM32_ER: int = 3560
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231SD_XMM_K1Z_XMM_XMMM64_ER: int = 3561
+EVEX_VFMSUB231SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3561 # type: ignore
 """
 ``VFMSUB231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -35601,7 +35607,7 @@ EVEX_VFMSUB231SD_XMM_K1Z_XMM_XMMM64_ER: int = 3561
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD231PS_XMM_XMM_XMMM128: int = 3562
+VEX_VFNMADD231PS_XMM_XMM_XMMM128: Code = 3562 # type: ignore
 """
 ``VFNMADD231PS xmm1, xmm2, xmm3/m128``
 
@@ -35611,7 +35617,7 @@ VEX_VFNMADD231PS_XMM_XMM_XMMM128: int = 3562
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD231PS_YMM_YMM_YMMM256: int = 3563
+VEX_VFNMADD231PS_YMM_YMM_YMMM256: Code = 3563 # type: ignore
 """
 ``VFNMADD231PS ymm1, ymm2, ymm3/m256``
 
@@ -35621,7 +35627,7 @@ VEX_VFNMADD231PS_YMM_YMM_YMMM256: int = 3563
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD231PD_XMM_XMM_XMMM128: int = 3564
+VEX_VFNMADD231PD_XMM_XMM_XMMM128: Code = 3564 # type: ignore
 """
 ``VFNMADD231PD xmm1, xmm2, xmm3/m128``
 
@@ -35631,7 +35637,7 @@ VEX_VFNMADD231PD_XMM_XMM_XMMM128: int = 3564
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD231PD_YMM_YMM_YMMM256: int = 3565
+VEX_VFNMADD231PD_YMM_YMM_YMMM256: Code = 3565 # type: ignore
 """
 ``VFNMADD231PD ymm1, ymm2, ymm3/m256``
 
@@ -35641,7 +35647,7 @@ VEX_VFNMADD231PD_YMM_YMM_YMMM256: int = 3565
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231PS_XMM_K1Z_XMM_XMMM128B32: int = 3566
+EVEX_VFNMADD231PS_XMM_K1Z_XMM_XMMM128B32: Code = 3566 # type: ignore
 """
 ``VFNMADD231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -35651,7 +35657,7 @@ EVEX_VFNMADD231PS_XMM_K1Z_XMM_XMMM128B32: int = 3566
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231PS_YMM_K1Z_YMM_YMMM256B32: int = 3567
+EVEX_VFNMADD231PS_YMM_K1Z_YMM_YMMM256B32: Code = 3567 # type: ignore
 """
 ``VFNMADD231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -35661,7 +35667,7 @@ EVEX_VFNMADD231PS_YMM_K1Z_YMM_YMMM256B32: int = 3567
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3568
+EVEX_VFNMADD231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3568 # type: ignore
 """
 ``VFNMADD231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -35671,7 +35677,7 @@ EVEX_VFNMADD231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3568
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231PD_XMM_K1Z_XMM_XMMM128B64: int = 3569
+EVEX_VFNMADD231PD_XMM_K1Z_XMM_XMMM128B64: Code = 3569 # type: ignore
 """
 ``VFNMADD231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -35681,7 +35687,7 @@ EVEX_VFNMADD231PD_XMM_K1Z_XMM_XMMM128B64: int = 3569
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231PD_YMM_K1Z_YMM_YMMM256B64: int = 3570
+EVEX_VFNMADD231PD_YMM_K1Z_YMM_YMMM256B64: Code = 3570 # type: ignore
 """
 ``VFNMADD231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -35691,7 +35697,7 @@ EVEX_VFNMADD231PD_YMM_K1Z_YMM_YMMM256B64: int = 3570
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3571
+EVEX_VFNMADD231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3571 # type: ignore
 """
 ``VFNMADD231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -35701,7 +35707,7 @@ EVEX_VFNMADD231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3571
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD231SS_XMM_XMM_XMMM32: int = 3572
+VEX_VFNMADD231SS_XMM_XMM_XMMM32: Code = 3572 # type: ignore
 """
 ``VFNMADD231SS xmm1, xmm2, xmm3/m32``
 
@@ -35711,7 +35717,7 @@ VEX_VFNMADD231SS_XMM_XMM_XMMM32: int = 3572
 
 ``16/32/64-bit``
 """
-VEX_VFNMADD231SD_XMM_XMM_XMMM64: int = 3573
+VEX_VFNMADD231SD_XMM_XMM_XMMM64: Code = 3573 # type: ignore
 """
 ``VFNMADD231SD xmm1, xmm2, xmm3/m64``
 
@@ -35721,7 +35727,7 @@ VEX_VFNMADD231SD_XMM_XMM_XMMM64: int = 3573
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231SS_XMM_K1Z_XMM_XMMM32_ER: int = 3574
+EVEX_VFNMADD231SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3574 # type: ignore
 """
 ``VFNMADD231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -35731,7 +35737,7 @@ EVEX_VFNMADD231SS_XMM_K1Z_XMM_XMMM32_ER: int = 3574
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231SD_XMM_K1Z_XMM_XMMM64_ER: int = 3575
+EVEX_VFNMADD231SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3575 # type: ignore
 """
 ``VFNMADD231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -35741,7 +35747,7 @@ EVEX_VFNMADD231SD_XMM_K1Z_XMM_XMMM64_ER: int = 3575
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB231PS_XMM_XMM_XMMM128: int = 3576
+VEX_VFNMSUB231PS_XMM_XMM_XMMM128: Code = 3576 # type: ignore
 """
 ``VFNMSUB231PS xmm1, xmm2, xmm3/m128``
 
@@ -35751,7 +35757,7 @@ VEX_VFNMSUB231PS_XMM_XMM_XMMM128: int = 3576
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB231PS_YMM_YMM_YMMM256: int = 3577
+VEX_VFNMSUB231PS_YMM_YMM_YMMM256: Code = 3577 # type: ignore
 """
 ``VFNMSUB231PS ymm1, ymm2, ymm3/m256``
 
@@ -35761,7 +35767,7 @@ VEX_VFNMSUB231PS_YMM_YMM_YMMM256: int = 3577
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB231PD_XMM_XMM_XMMM128: int = 3578
+VEX_VFNMSUB231PD_XMM_XMM_XMMM128: Code = 3578 # type: ignore
 """
 ``VFNMSUB231PD xmm1, xmm2, xmm3/m128``
 
@@ -35771,7 +35777,7 @@ VEX_VFNMSUB231PD_XMM_XMM_XMMM128: int = 3578
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB231PD_YMM_YMM_YMMM256: int = 3579
+VEX_VFNMSUB231PD_YMM_YMM_YMMM256: Code = 3579 # type: ignore
 """
 ``VFNMSUB231PD ymm1, ymm2, ymm3/m256``
 
@@ -35781,7 +35787,7 @@ VEX_VFNMSUB231PD_YMM_YMM_YMMM256: int = 3579
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231PS_XMM_K1Z_XMM_XMMM128B32: int = 3580
+EVEX_VFNMSUB231PS_XMM_K1Z_XMM_XMMM128B32: Code = 3580 # type: ignore
 """
 ``VFNMSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -35791,7 +35797,7 @@ EVEX_VFNMSUB231PS_XMM_K1Z_XMM_XMMM128B32: int = 3580
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231PS_YMM_K1Z_YMM_YMMM256B32: int = 3581
+EVEX_VFNMSUB231PS_YMM_K1Z_YMM_YMMM256B32: Code = 3581 # type: ignore
 """
 ``VFNMSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -35801,7 +35807,7 @@ EVEX_VFNMSUB231PS_YMM_K1Z_YMM_YMMM256B32: int = 3581
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3582
+EVEX_VFNMSUB231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 3582 # type: ignore
 """
 ``VFNMSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -35811,7 +35817,7 @@ EVEX_VFNMSUB231PS_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 3582
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231PD_XMM_K1Z_XMM_XMMM128B64: int = 3583
+EVEX_VFNMSUB231PD_XMM_K1Z_XMM_XMMM128B64: Code = 3583 # type: ignore
 """
 ``VFNMSUB231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst``
 
@@ -35821,7 +35827,7 @@ EVEX_VFNMSUB231PD_XMM_K1Z_XMM_XMMM128B64: int = 3583
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231PD_YMM_K1Z_YMM_YMMM256B64: int = 3584
+EVEX_VFNMSUB231PD_YMM_K1Z_YMM_YMMM256B64: Code = 3584 # type: ignore
 """
 ``VFNMSUB231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst``
 
@@ -35831,7 +35837,7 @@ EVEX_VFNMSUB231PD_YMM_K1Z_YMM_YMMM256B64: int = 3584
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3585
+EVEX_VFNMSUB231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: Code = 3585 # type: ignore
 """
 ``VFNMSUB231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}``
 
@@ -35841,7 +35847,7 @@ EVEX_VFNMSUB231PD_ZMM_K1Z_ZMM_ZMMM512B64_ER: int = 3585
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB231SS_XMM_XMM_XMMM32: int = 3586
+VEX_VFNMSUB231SS_XMM_XMM_XMMM32: Code = 3586 # type: ignore
 """
 ``VFNMSUB231SS xmm1, xmm2, xmm3/m32``
 
@@ -35851,7 +35857,7 @@ VEX_VFNMSUB231SS_XMM_XMM_XMMM32: int = 3586
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUB231SD_XMM_XMM_XMMM64: int = 3587
+VEX_VFNMSUB231SD_XMM_XMM_XMMM64: Code = 3587 # type: ignore
 """
 ``VFNMSUB231SD xmm1, xmm2, xmm3/m64``
 
@@ -35861,7 +35867,7 @@ VEX_VFNMSUB231SD_XMM_XMM_XMMM64: int = 3587
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231SS_XMM_K1Z_XMM_XMMM32_ER: int = 3588
+EVEX_VFNMSUB231SS_XMM_K1Z_XMM_XMMM32_ER: Code = 3588 # type: ignore
 """
 ``VFNMSUB231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -35871,7 +35877,7 @@ EVEX_VFNMSUB231SS_XMM_K1Z_XMM_XMMM32_ER: int = 3588
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231SD_XMM_K1Z_XMM_XMMM64_ER: int = 3589
+EVEX_VFNMSUB231SD_XMM_K1Z_XMM_XMMM64_ER: Code = 3589 # type: ignore
 """
 ``VFNMSUB231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -35881,7 +35887,7 @@ EVEX_VFNMSUB231SD_XMM_K1Z_XMM_XMMM64_ER: int = 3589
 
 ``16/32/64-bit``
 """
-EVEX_VPCONFLICTD_XMM_K1Z_XMMM128B32: int = 3590
+EVEX_VPCONFLICTD_XMM_K1Z_XMMM128B32: Code = 3590 # type: ignore
 """
 ``VPCONFLICTD xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -35891,7 +35897,7 @@ EVEX_VPCONFLICTD_XMM_K1Z_XMMM128B32: int = 3590
 
 ``16/32/64-bit``
 """
-EVEX_VPCONFLICTD_YMM_K1Z_YMMM256B32: int = 3591
+EVEX_VPCONFLICTD_YMM_K1Z_YMMM256B32: Code = 3591 # type: ignore
 """
 ``VPCONFLICTD ymm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -35901,7 +35907,7 @@ EVEX_VPCONFLICTD_YMM_K1Z_YMMM256B32: int = 3591
 
 ``16/32/64-bit``
 """
-EVEX_VPCONFLICTD_ZMM_K1Z_ZMMM512B32: int = 3592
+EVEX_VPCONFLICTD_ZMM_K1Z_ZMMM512B32: Code = 3592 # type: ignore
 """
 ``VPCONFLICTD zmm1 {k1}{z}, zmm2/m512/m32bcst``
 
@@ -35911,7 +35917,7 @@ EVEX_VPCONFLICTD_ZMM_K1Z_ZMMM512B32: int = 3592
 
 ``16/32/64-bit``
 """
-EVEX_VPCONFLICTQ_XMM_K1Z_XMMM128B64: int = 3593
+EVEX_VPCONFLICTQ_XMM_K1Z_XMMM128B64: Code = 3593 # type: ignore
 """
 ``VPCONFLICTQ xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -35921,7 +35927,7 @@ EVEX_VPCONFLICTQ_XMM_K1Z_XMMM128B64: int = 3593
 
 ``16/32/64-bit``
 """
-EVEX_VPCONFLICTQ_YMM_K1Z_YMMM256B64: int = 3594
+EVEX_VPCONFLICTQ_YMM_K1Z_YMMM256B64: Code = 3594 # type: ignore
 """
 ``VPCONFLICTQ ymm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -35931,7 +35937,7 @@ EVEX_VPCONFLICTQ_YMM_K1Z_YMMM256B64: int = 3594
 
 ``16/32/64-bit``
 """
-EVEX_VPCONFLICTQ_ZMM_K1Z_ZMMM512B64: int = 3595
+EVEX_VPCONFLICTQ_ZMM_K1Z_ZMMM512B64: Code = 3595 # type: ignore
 """
 ``VPCONFLICTQ zmm1 {k1}{z}, zmm2/m512/m64bcst``
 
@@ -35941,7 +35947,7 @@ EVEX_VPCONFLICTQ_ZMM_K1Z_ZMMM512B64: int = 3595
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERPF0DPS_VM32Z_K1: int = 3596
+EVEX_VGATHERPF0DPS_VM32Z_K1: Code = 3596 # type: ignore
 """
 ``VGATHERPF0DPS vm32z {k1}``
 
@@ -35951,7 +35957,7 @@ EVEX_VGATHERPF0DPS_VM32Z_K1: int = 3596
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERPF0DPD_VM32Y_K1: int = 3597
+EVEX_VGATHERPF0DPD_VM32Y_K1: Code = 3597 # type: ignore
 """
 ``VGATHERPF0DPD vm32y {k1}``
 
@@ -35961,7 +35967,7 @@ EVEX_VGATHERPF0DPD_VM32Y_K1: int = 3597
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERPF1DPS_VM32Z_K1: int = 3598
+EVEX_VGATHERPF1DPS_VM32Z_K1: Code = 3598 # type: ignore
 """
 ``VGATHERPF1DPS vm32z {k1}``
 
@@ -35971,7 +35977,7 @@ EVEX_VGATHERPF1DPS_VM32Z_K1: int = 3598
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERPF1DPD_VM32Y_K1: int = 3599
+EVEX_VGATHERPF1DPD_VM32Y_K1: Code = 3599 # type: ignore
 """
 ``VGATHERPF1DPD vm32y {k1}``
 
@@ -35981,7 +35987,7 @@ EVEX_VGATHERPF1DPD_VM32Y_K1: int = 3599
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERPF0DPS_VM32Z_K1: int = 3600
+EVEX_VSCATTERPF0DPS_VM32Z_K1: Code = 3600 # type: ignore
 """
 ``VSCATTERPF0DPS vm32z {k1}``
 
@@ -35991,7 +35997,7 @@ EVEX_VSCATTERPF0DPS_VM32Z_K1: int = 3600
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERPF0DPD_VM32Y_K1: int = 3601
+EVEX_VSCATTERPF0DPD_VM32Y_K1: Code = 3601 # type: ignore
 """
 ``VSCATTERPF0DPD vm32y {k1}``
 
@@ -36001,7 +36007,7 @@ EVEX_VSCATTERPF0DPD_VM32Y_K1: int = 3601
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERPF1DPS_VM32Z_K1: int = 3602
+EVEX_VSCATTERPF1DPS_VM32Z_K1: Code = 3602 # type: ignore
 """
 ``VSCATTERPF1DPS vm32z {k1}``
 
@@ -36011,7 +36017,7 @@ EVEX_VSCATTERPF1DPS_VM32Z_K1: int = 3602
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERPF1DPD_VM32Y_K1: int = 3603
+EVEX_VSCATTERPF1DPD_VM32Y_K1: Code = 3603 # type: ignore
 """
 ``VSCATTERPF1DPD vm32y {k1}``
 
@@ -36021,7 +36027,7 @@ EVEX_VSCATTERPF1DPD_VM32Y_K1: int = 3603
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERPF0QPS_VM64Z_K1: int = 3604
+EVEX_VGATHERPF0QPS_VM64Z_K1: Code = 3604 # type: ignore
 """
 ``VGATHERPF0QPS vm64z {k1}``
 
@@ -36031,7 +36037,7 @@ EVEX_VGATHERPF0QPS_VM64Z_K1: int = 3604
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERPF0QPD_VM64Z_K1: int = 3605
+EVEX_VGATHERPF0QPD_VM64Z_K1: Code = 3605 # type: ignore
 """
 ``VGATHERPF0QPD vm64z {k1}``
 
@@ -36041,7 +36047,7 @@ EVEX_VGATHERPF0QPD_VM64Z_K1: int = 3605
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERPF1QPS_VM64Z_K1: int = 3606
+EVEX_VGATHERPF1QPS_VM64Z_K1: Code = 3606 # type: ignore
 """
 ``VGATHERPF1QPS vm64z {k1}``
 
@@ -36051,7 +36057,7 @@ EVEX_VGATHERPF1QPS_VM64Z_K1: int = 3606
 
 ``16/32/64-bit``
 """
-EVEX_VGATHERPF1QPD_VM64Z_K1: int = 3607
+EVEX_VGATHERPF1QPD_VM64Z_K1: Code = 3607 # type: ignore
 """
 ``VGATHERPF1QPD vm64z {k1}``
 
@@ -36061,7 +36067,7 @@ EVEX_VGATHERPF1QPD_VM64Z_K1: int = 3607
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERPF0QPS_VM64Z_K1: int = 3608
+EVEX_VSCATTERPF0QPS_VM64Z_K1: Code = 3608 # type: ignore
 """
 ``VSCATTERPF0QPS vm64z {k1}``
 
@@ -36071,7 +36077,7 @@ EVEX_VSCATTERPF0QPS_VM64Z_K1: int = 3608
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERPF0QPD_VM64Z_K1: int = 3609
+EVEX_VSCATTERPF0QPD_VM64Z_K1: Code = 3609 # type: ignore
 """
 ``VSCATTERPF0QPD vm64z {k1}``
 
@@ -36081,7 +36087,7 @@ EVEX_VSCATTERPF0QPD_VM64Z_K1: int = 3609
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERPF1QPS_VM64Z_K1: int = 3610
+EVEX_VSCATTERPF1QPS_VM64Z_K1: Code = 3610 # type: ignore
 """
 ``VSCATTERPF1QPS vm64z {k1}``
 
@@ -36091,7 +36097,7 @@ EVEX_VSCATTERPF1QPS_VM64Z_K1: int = 3610
 
 ``16/32/64-bit``
 """
-EVEX_VSCATTERPF1QPD_VM64Z_K1: int = 3611
+EVEX_VSCATTERPF1QPD_VM64Z_K1: Code = 3611 # type: ignore
 """
 ``VSCATTERPF1QPD vm64z {k1}``
 
@@ -36101,7 +36107,7 @@ EVEX_VSCATTERPF1QPD_VM64Z_K1: int = 3611
 
 ``16/32/64-bit``
 """
-SHA1NEXTE_XMM_XMMM128: int = 3612
+SHA1NEXTE_XMM_XMMM128: Code = 3612 # type: ignore
 """
 ``SHA1NEXTE xmm1, xmm2/m128``
 
@@ -36111,7 +36117,7 @@ SHA1NEXTE_XMM_XMMM128: int = 3612
 
 ``16/32/64-bit``
 """
-EVEX_VEXP2PS_ZMM_K1Z_ZMMM512B32_SAE: int = 3613
+EVEX_VEXP2PS_ZMM_K1Z_ZMMM512B32_SAE: Code = 3613 # type: ignore
 """
 ``VEXP2PS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}``
 
@@ -36121,7 +36127,7 @@ EVEX_VEXP2PS_ZMM_K1Z_ZMMM512B32_SAE: int = 3613
 
 ``16/32/64-bit``
 """
-EVEX_VEXP2PD_ZMM_K1Z_ZMMM512B64_SAE: int = 3614
+EVEX_VEXP2PD_ZMM_K1Z_ZMMM512B64_SAE: Code = 3614 # type: ignore
 """
 ``VEXP2PD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}``
 
@@ -36131,7 +36137,7 @@ EVEX_VEXP2PD_ZMM_K1Z_ZMMM512B64_SAE: int = 3614
 
 ``16/32/64-bit``
 """
-SHA1MSG1_XMM_XMMM128: int = 3615
+SHA1MSG1_XMM_XMMM128: Code = 3615 # type: ignore
 """
 ``SHA1MSG1 xmm1, xmm2/m128``
 
@@ -36141,7 +36147,7 @@ SHA1MSG1_XMM_XMMM128: int = 3615
 
 ``16/32/64-bit``
 """
-SHA1MSG2_XMM_XMMM128: int = 3616
+SHA1MSG2_XMM_XMMM128: Code = 3616 # type: ignore
 """
 ``SHA1MSG2 xmm1, xmm2/m128``
 
@@ -36151,7 +36157,7 @@ SHA1MSG2_XMM_XMMM128: int = 3616
 
 ``16/32/64-bit``
 """
-EVEX_VRCP28PS_ZMM_K1Z_ZMMM512B32_SAE: int = 3617
+EVEX_VRCP28PS_ZMM_K1Z_ZMMM512B32_SAE: Code = 3617 # type: ignore
 """
 ``VRCP28PS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}``
 
@@ -36161,7 +36167,7 @@ EVEX_VRCP28PS_ZMM_K1Z_ZMMM512B32_SAE: int = 3617
 
 ``16/32/64-bit``
 """
-EVEX_VRCP28PD_ZMM_K1Z_ZMMM512B64_SAE: int = 3618
+EVEX_VRCP28PD_ZMM_K1Z_ZMMM512B64_SAE: Code = 3618 # type: ignore
 """
 ``VRCP28PD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}``
 
@@ -36171,7 +36177,7 @@ EVEX_VRCP28PD_ZMM_K1Z_ZMMM512B64_SAE: int = 3618
 
 ``16/32/64-bit``
 """
-SHA256RNDS2_XMM_XMMM128: int = 3619
+SHA256RNDS2_XMM_XMMM128: Code = 3619 # type: ignore
 """
 ``SHA256RNDS2 xmm1, xmm2/m128, <XMM0>``
 
@@ -36181,7 +36187,7 @@ SHA256RNDS2_XMM_XMMM128: int = 3619
 
 ``16/32/64-bit``
 """
-EVEX_VRCP28SS_XMM_K1Z_XMM_XMMM32_SAE: int = 3620
+EVEX_VRCP28SS_XMM_K1Z_XMM_XMMM32_SAE: Code = 3620 # type: ignore
 """
 ``VRCP28SS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}``
 
@@ -36191,7 +36197,7 @@ EVEX_VRCP28SS_XMM_K1Z_XMM_XMMM32_SAE: int = 3620
 
 ``16/32/64-bit``
 """
-EVEX_VRCP28SD_XMM_K1Z_XMM_XMMM64_SAE: int = 3621
+EVEX_VRCP28SD_XMM_K1Z_XMM_XMMM64_SAE: Code = 3621 # type: ignore
 """
 ``VRCP28SD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}``
 
@@ -36201,7 +36207,7 @@ EVEX_VRCP28SD_XMM_K1Z_XMM_XMMM64_SAE: int = 3621
 
 ``16/32/64-bit``
 """
-SHA256MSG1_XMM_XMMM128: int = 3622
+SHA256MSG1_XMM_XMMM128: Code = 3622 # type: ignore
 """
 ``SHA256MSG1 xmm1, xmm2/m128``
 
@@ -36211,7 +36217,7 @@ SHA256MSG1_XMM_XMMM128: int = 3622
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT28PS_ZMM_K1Z_ZMMM512B32_SAE: int = 3623
+EVEX_VRSQRT28PS_ZMM_K1Z_ZMMM512B32_SAE: Code = 3623 # type: ignore
 """
 ``VRSQRT28PS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}``
 
@@ -36221,7 +36227,7 @@ EVEX_VRSQRT28PS_ZMM_K1Z_ZMMM512B32_SAE: int = 3623
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT28PD_ZMM_K1Z_ZMMM512B64_SAE: int = 3624
+EVEX_VRSQRT28PD_ZMM_K1Z_ZMMM512B64_SAE: Code = 3624 # type: ignore
 """
 ``VRSQRT28PD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}``
 
@@ -36231,7 +36237,7 @@ EVEX_VRSQRT28PD_ZMM_K1Z_ZMMM512B64_SAE: int = 3624
 
 ``16/32/64-bit``
 """
-SHA256MSG2_XMM_XMMM128: int = 3625
+SHA256MSG2_XMM_XMMM128: Code = 3625 # type: ignore
 """
 ``SHA256MSG2 xmm1, xmm2/m128``
 
@@ -36241,7 +36247,7 @@ SHA256MSG2_XMM_XMMM128: int = 3625
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT28SS_XMM_K1Z_XMM_XMMM32_SAE: int = 3626
+EVEX_VRSQRT28SS_XMM_K1Z_XMM_XMMM32_SAE: Code = 3626 # type: ignore
 """
 ``VRSQRT28SS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}``
 
@@ -36251,7 +36257,7 @@ EVEX_VRSQRT28SS_XMM_K1Z_XMM_XMMM32_SAE: int = 3626
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRT28SD_XMM_K1Z_XMM_XMMM64_SAE: int = 3627
+EVEX_VRSQRT28SD_XMM_K1Z_XMM_XMMM64_SAE: Code = 3627 # type: ignore
 """
 ``VRSQRT28SD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}``
 
@@ -36261,7 +36267,7 @@ EVEX_VRSQRT28SD_XMM_K1Z_XMM_XMMM64_SAE: int = 3627
 
 ``16/32/64-bit``
 """
-GF2P8MULB_XMM_XMMM128: int = 3628
+GF2P8MULB_XMM_XMMM128: Code = 3628 # type: ignore
 """
 ``GF2P8MULB xmm1, xmm2/m128``
 
@@ -36271,7 +36277,7 @@ GF2P8MULB_XMM_XMMM128: int = 3628
 
 ``16/32/64-bit``
 """
-VEX_VGF2P8MULB_XMM_XMM_XMMM128: int = 3629
+VEX_VGF2P8MULB_XMM_XMM_XMMM128: Code = 3629 # type: ignore
 """
 ``VGF2P8MULB xmm1, xmm2, xmm3/m128``
 
@@ -36281,7 +36287,7 @@ VEX_VGF2P8MULB_XMM_XMM_XMMM128: int = 3629
 
 ``16/32/64-bit``
 """
-VEX_VGF2P8MULB_YMM_YMM_YMMM256: int = 3630
+VEX_VGF2P8MULB_YMM_YMM_YMMM256: Code = 3630 # type: ignore
 """
 ``VGF2P8MULB ymm1, ymm2, ymm3/m256``
 
@@ -36291,7 +36297,7 @@ VEX_VGF2P8MULB_YMM_YMM_YMMM256: int = 3630
 
 ``16/32/64-bit``
 """
-EVEX_VGF2P8MULB_XMM_K1Z_XMM_XMMM128: int = 3631
+EVEX_VGF2P8MULB_XMM_K1Z_XMM_XMMM128: Code = 3631 # type: ignore
 """
 ``VGF2P8MULB xmm1 {k1}{z}, xmm2, xmm3/m128``
 
@@ -36301,7 +36307,7 @@ EVEX_VGF2P8MULB_XMM_K1Z_XMM_XMMM128: int = 3631
 
 ``16/32/64-bit``
 """
-EVEX_VGF2P8MULB_YMM_K1Z_YMM_YMMM256: int = 3632
+EVEX_VGF2P8MULB_YMM_K1Z_YMM_YMMM256: Code = 3632 # type: ignore
 """
 ``VGF2P8MULB ymm1 {k1}{z}, ymm2, ymm3/m256``
 
@@ -36311,7 +36317,7 @@ EVEX_VGF2P8MULB_YMM_K1Z_YMM_YMMM256: int = 3632
 
 ``16/32/64-bit``
 """
-EVEX_VGF2P8MULB_ZMM_K1Z_ZMM_ZMMM512: int = 3633
+EVEX_VGF2P8MULB_ZMM_K1Z_ZMM_ZMMM512: Code = 3633 # type: ignore
 """
 ``VGF2P8MULB zmm1 {k1}{z}, zmm2, zmm3/m512``
 
@@ -36321,7 +36327,7 @@ EVEX_VGF2P8MULB_ZMM_K1Z_ZMM_ZMMM512: int = 3633
 
 ``16/32/64-bit``
 """
-AESIMC_XMM_XMMM128: int = 3634
+AESIMC_XMM_XMMM128: Code = 3634 # type: ignore
 """
 ``AESIMC xmm1, xmm2/m128``
 
@@ -36331,7 +36337,7 @@ AESIMC_XMM_XMMM128: int = 3634
 
 ``16/32/64-bit``
 """
-VEX_VAESIMC_XMM_XMMM128: int = 3635
+VEX_VAESIMC_XMM_XMMM128: Code = 3635 # type: ignore
 """
 ``VAESIMC xmm1, xmm2/m128``
 
@@ -36341,7 +36347,7 @@ VEX_VAESIMC_XMM_XMMM128: int = 3635
 
 ``16/32/64-bit``
 """
-AESENC_XMM_XMMM128: int = 3636
+AESENC_XMM_XMMM128: Code = 3636 # type: ignore
 """
 ``AESENC xmm1, xmm2/m128``
 
@@ -36351,7 +36357,7 @@ AESENC_XMM_XMMM128: int = 3636
 
 ``16/32/64-bit``
 """
-VEX_VAESENC_XMM_XMM_XMMM128: int = 3637
+VEX_VAESENC_XMM_XMM_XMMM128: Code = 3637 # type: ignore
 """
 ``VAESENC xmm1, xmm2, xmm3/m128``
 
@@ -36361,7 +36367,7 @@ VEX_VAESENC_XMM_XMM_XMMM128: int = 3637
 
 ``16/32/64-bit``
 """
-VEX_VAESENC_YMM_YMM_YMMM256: int = 3638
+VEX_VAESENC_YMM_YMM_YMMM256: Code = 3638 # type: ignore
 """
 ``VAESENC ymm1, ymm2, ymm3/m256``
 
@@ -36371,7 +36377,7 @@ VEX_VAESENC_YMM_YMM_YMMM256: int = 3638
 
 ``16/32/64-bit``
 """
-EVEX_VAESENC_XMM_XMM_XMMM128: int = 3639
+EVEX_VAESENC_XMM_XMM_XMMM128: Code = 3639 # type: ignore
 """
 ``VAESENC xmm1, xmm2, xmm3/m128``
 
@@ -36381,7 +36387,7 @@ EVEX_VAESENC_XMM_XMM_XMMM128: int = 3639
 
 ``16/32/64-bit``
 """
-EVEX_VAESENC_YMM_YMM_YMMM256: int = 3640
+EVEX_VAESENC_YMM_YMM_YMMM256: Code = 3640 # type: ignore
 """
 ``VAESENC ymm1, ymm2, ymm3/m256``
 
@@ -36391,7 +36397,7 @@ EVEX_VAESENC_YMM_YMM_YMMM256: int = 3640
 
 ``16/32/64-bit``
 """
-EVEX_VAESENC_ZMM_ZMM_ZMMM512: int = 3641
+EVEX_VAESENC_ZMM_ZMM_ZMMM512: Code = 3641 # type: ignore
 """
 ``VAESENC zmm1, zmm2, zmm3/m512``
 
@@ -36401,7 +36407,7 @@ EVEX_VAESENC_ZMM_ZMM_ZMMM512: int = 3641
 
 ``16/32/64-bit``
 """
-AESENCLAST_XMM_XMMM128: int = 3642
+AESENCLAST_XMM_XMMM128: Code = 3642 # type: ignore
 """
 ``AESENCLAST xmm1, xmm2/m128``
 
@@ -36411,7 +36417,7 @@ AESENCLAST_XMM_XMMM128: int = 3642
 
 ``16/32/64-bit``
 """
-VEX_VAESENCLAST_XMM_XMM_XMMM128: int = 3643
+VEX_VAESENCLAST_XMM_XMM_XMMM128: Code = 3643 # type: ignore
 """
 ``VAESENCLAST xmm1, xmm2, xmm3/m128``
 
@@ -36421,7 +36427,7 @@ VEX_VAESENCLAST_XMM_XMM_XMMM128: int = 3643
 
 ``16/32/64-bit``
 """
-VEX_VAESENCLAST_YMM_YMM_YMMM256: int = 3644
+VEX_VAESENCLAST_YMM_YMM_YMMM256: Code = 3644 # type: ignore
 """
 ``VAESENCLAST ymm1, ymm2, ymm3/m256``
 
@@ -36431,7 +36437,7 @@ VEX_VAESENCLAST_YMM_YMM_YMMM256: int = 3644
 
 ``16/32/64-bit``
 """
-EVEX_VAESENCLAST_XMM_XMM_XMMM128: int = 3645
+EVEX_VAESENCLAST_XMM_XMM_XMMM128: Code = 3645 # type: ignore
 """
 ``VAESENCLAST xmm1, xmm2, xmm3/m128``
 
@@ -36441,7 +36447,7 @@ EVEX_VAESENCLAST_XMM_XMM_XMMM128: int = 3645
 
 ``16/32/64-bit``
 """
-EVEX_VAESENCLAST_YMM_YMM_YMMM256: int = 3646
+EVEX_VAESENCLAST_YMM_YMM_YMMM256: Code = 3646 # type: ignore
 """
 ``VAESENCLAST ymm1, ymm2, ymm3/m256``
 
@@ -36451,7 +36457,7 @@ EVEX_VAESENCLAST_YMM_YMM_YMMM256: int = 3646
 
 ``16/32/64-bit``
 """
-EVEX_VAESENCLAST_ZMM_ZMM_ZMMM512: int = 3647
+EVEX_VAESENCLAST_ZMM_ZMM_ZMMM512: Code = 3647 # type: ignore
 """
 ``VAESENCLAST zmm1, zmm2, zmm3/m512``
 
@@ -36461,7 +36467,7 @@ EVEX_VAESENCLAST_ZMM_ZMM_ZMMM512: int = 3647
 
 ``16/32/64-bit``
 """
-AESDEC_XMM_XMMM128: int = 3648
+AESDEC_XMM_XMMM128: Code = 3648 # type: ignore
 """
 ``AESDEC xmm1, xmm2/m128``
 
@@ -36471,7 +36477,7 @@ AESDEC_XMM_XMMM128: int = 3648
 
 ``16/32/64-bit``
 """
-VEX_VAESDEC_XMM_XMM_XMMM128: int = 3649
+VEX_VAESDEC_XMM_XMM_XMMM128: Code = 3649 # type: ignore
 """
 ``VAESDEC xmm1, xmm2, xmm3/m128``
 
@@ -36481,7 +36487,7 @@ VEX_VAESDEC_XMM_XMM_XMMM128: int = 3649
 
 ``16/32/64-bit``
 """
-VEX_VAESDEC_YMM_YMM_YMMM256: int = 3650
+VEX_VAESDEC_YMM_YMM_YMMM256: Code = 3650 # type: ignore
 """
 ``VAESDEC ymm1, ymm2, ymm3/m256``
 
@@ -36491,7 +36497,7 @@ VEX_VAESDEC_YMM_YMM_YMMM256: int = 3650
 
 ``16/32/64-bit``
 """
-EVEX_VAESDEC_XMM_XMM_XMMM128: int = 3651
+EVEX_VAESDEC_XMM_XMM_XMMM128: Code = 3651 # type: ignore
 """
 ``VAESDEC xmm1, xmm2, xmm3/m128``
 
@@ -36501,7 +36507,7 @@ EVEX_VAESDEC_XMM_XMM_XMMM128: int = 3651
 
 ``16/32/64-bit``
 """
-EVEX_VAESDEC_YMM_YMM_YMMM256: int = 3652
+EVEX_VAESDEC_YMM_YMM_YMMM256: Code = 3652 # type: ignore
 """
 ``VAESDEC ymm1, ymm2, ymm3/m256``
 
@@ -36511,7 +36517,7 @@ EVEX_VAESDEC_YMM_YMM_YMMM256: int = 3652
 
 ``16/32/64-bit``
 """
-EVEX_VAESDEC_ZMM_ZMM_ZMMM512: int = 3653
+EVEX_VAESDEC_ZMM_ZMM_ZMMM512: Code = 3653 # type: ignore
 """
 ``VAESDEC zmm1, zmm2, zmm3/m512``
 
@@ -36521,7 +36527,7 @@ EVEX_VAESDEC_ZMM_ZMM_ZMMM512: int = 3653
 
 ``16/32/64-bit``
 """
-AESDECLAST_XMM_XMMM128: int = 3654
+AESDECLAST_XMM_XMMM128: Code = 3654 # type: ignore
 """
 ``AESDECLAST xmm1, xmm2/m128``
 
@@ -36531,7 +36537,7 @@ AESDECLAST_XMM_XMMM128: int = 3654
 
 ``16/32/64-bit``
 """
-VEX_VAESDECLAST_XMM_XMM_XMMM128: int = 3655
+VEX_VAESDECLAST_XMM_XMM_XMMM128: Code = 3655 # type: ignore
 """
 ``VAESDECLAST xmm1, xmm2, xmm3/m128``
 
@@ -36541,7 +36547,7 @@ VEX_VAESDECLAST_XMM_XMM_XMMM128: int = 3655
 
 ``16/32/64-bit``
 """
-VEX_VAESDECLAST_YMM_YMM_YMMM256: int = 3656
+VEX_VAESDECLAST_YMM_YMM_YMMM256: Code = 3656 # type: ignore
 """
 ``VAESDECLAST ymm1, ymm2, ymm3/m256``
 
@@ -36551,7 +36557,7 @@ VEX_VAESDECLAST_YMM_YMM_YMMM256: int = 3656
 
 ``16/32/64-bit``
 """
-EVEX_VAESDECLAST_XMM_XMM_XMMM128: int = 3657
+EVEX_VAESDECLAST_XMM_XMM_XMMM128: Code = 3657 # type: ignore
 """
 ``VAESDECLAST xmm1, xmm2, xmm3/m128``
 
@@ -36561,7 +36567,7 @@ EVEX_VAESDECLAST_XMM_XMM_XMMM128: int = 3657
 
 ``16/32/64-bit``
 """
-EVEX_VAESDECLAST_YMM_YMM_YMMM256: int = 3658
+EVEX_VAESDECLAST_YMM_YMM_YMMM256: Code = 3658 # type: ignore
 """
 ``VAESDECLAST ymm1, ymm2, ymm3/m256``
 
@@ -36571,7 +36577,7 @@ EVEX_VAESDECLAST_YMM_YMM_YMMM256: int = 3658
 
 ``16/32/64-bit``
 """
-EVEX_VAESDECLAST_ZMM_ZMM_ZMMM512: int = 3659
+EVEX_VAESDECLAST_ZMM_ZMM_ZMMM512: Code = 3659 # type: ignore
 """
 ``VAESDECLAST zmm1, zmm2, zmm3/m512``
 
@@ -36581,7 +36587,7 @@ EVEX_VAESDECLAST_ZMM_ZMM_ZMMM512: int = 3659
 
 ``16/32/64-bit``
 """
-MOVBE_R16_M16: int = 3660
+MOVBE_R16_M16: Code = 3660 # type: ignore
 """
 ``MOVBE r16, m16``
 
@@ -36591,7 +36597,7 @@ MOVBE_R16_M16: int = 3660
 
 ``16/32/64-bit``
 """
-MOVBE_R32_M32: int = 3661
+MOVBE_R32_M32: Code = 3661 # type: ignore
 """
 ``MOVBE r32, m32``
 
@@ -36601,7 +36607,7 @@ MOVBE_R32_M32: int = 3661
 
 ``16/32/64-bit``
 """
-MOVBE_R64_M64: int = 3662
+MOVBE_R64_M64: Code = 3662 # type: ignore
 """
 ``MOVBE r64, m64``
 
@@ -36611,7 +36617,7 @@ MOVBE_R64_M64: int = 3662
 
 ``64-bit``
 """
-CRC32_R32_RM8: int = 3663
+CRC32_R32_RM8: Code = 3663 # type: ignore
 """
 ``CRC32 r32, r/m8``
 
@@ -36621,7 +36627,7 @@ CRC32_R32_RM8: int = 3663
 
 ``16/32/64-bit``
 """
-CRC32_R64_RM8: int = 3664
+CRC32_R64_RM8: Code = 3664 # type: ignore
 """
 ``CRC32 r64, r/m8``
 
@@ -36631,7 +36637,7 @@ CRC32_R64_RM8: int = 3664
 
 ``64-bit``
 """
-MOVBE_M16_R16: int = 3665
+MOVBE_M16_R16: Code = 3665 # type: ignore
 """
 ``MOVBE m16, r16``
 
@@ -36641,7 +36647,7 @@ MOVBE_M16_R16: int = 3665
 
 ``16/32/64-bit``
 """
-MOVBE_M32_R32: int = 3666
+MOVBE_M32_R32: Code = 3666 # type: ignore
 """
 ``MOVBE m32, r32``
 
@@ -36651,7 +36657,7 @@ MOVBE_M32_R32: int = 3666
 
 ``16/32/64-bit``
 """
-MOVBE_M64_R64: int = 3667
+MOVBE_M64_R64: Code = 3667 # type: ignore
 """
 ``MOVBE m64, r64``
 
@@ -36661,7 +36667,7 @@ MOVBE_M64_R64: int = 3667
 
 ``64-bit``
 """
-CRC32_R32_RM16: int = 3668
+CRC32_R32_RM16: Code = 3668 # type: ignore
 """
 ``CRC32 r32, r/m16``
 
@@ -36671,7 +36677,7 @@ CRC32_R32_RM16: int = 3668
 
 ``16/32/64-bit``
 """
-CRC32_R32_RM32: int = 3669
+CRC32_R32_RM32: Code = 3669 # type: ignore
 """
 ``CRC32 r32, r/m32``
 
@@ -36681,7 +36687,7 @@ CRC32_R32_RM32: int = 3669
 
 ``16/32/64-bit``
 """
-CRC32_R64_RM64: int = 3670
+CRC32_R64_RM64: Code = 3670 # type: ignore
 """
 ``CRC32 r64, r/m64``
 
@@ -36691,7 +36697,7 @@ CRC32_R64_RM64: int = 3670
 
 ``64-bit``
 """
-VEX_ANDN_R32_R32_RM32: int = 3671
+VEX_ANDN_R32_R32_RM32: Code = 3671 # type: ignore
 """
 ``ANDN r32a, r32b, r/m32``
 
@@ -36701,7 +36707,7 @@ VEX_ANDN_R32_R32_RM32: int = 3671
 
 ``16/32/64-bit``
 """
-VEX_ANDN_R64_R64_RM64: int = 3672
+VEX_ANDN_R64_R64_RM64: Code = 3672 # type: ignore
 """
 ``ANDN r64a, r64b, r/m64``
 
@@ -36711,7 +36717,7 @@ VEX_ANDN_R64_R64_RM64: int = 3672
 
 ``64-bit``
 """
-VEX_BLSR_R32_RM32: int = 3673
+VEX_BLSR_R32_RM32: Code = 3673 # type: ignore
 """
 ``BLSR r32, r/m32``
 
@@ -36721,7 +36727,7 @@ VEX_BLSR_R32_RM32: int = 3673
 
 ``16/32/64-bit``
 """
-VEX_BLSR_R64_RM64: int = 3674
+VEX_BLSR_R64_RM64: Code = 3674 # type: ignore
 """
 ``BLSR r64, r/m64``
 
@@ -36731,7 +36737,7 @@ VEX_BLSR_R64_RM64: int = 3674
 
 ``64-bit``
 """
-VEX_BLSMSK_R32_RM32: int = 3675
+VEX_BLSMSK_R32_RM32: Code = 3675 # type: ignore
 """
 ``BLSMSK r32, r/m32``
 
@@ -36741,7 +36747,7 @@ VEX_BLSMSK_R32_RM32: int = 3675
 
 ``16/32/64-bit``
 """
-VEX_BLSMSK_R64_RM64: int = 3676
+VEX_BLSMSK_R64_RM64: Code = 3676 # type: ignore
 """
 ``BLSMSK r64, r/m64``
 
@@ -36751,7 +36757,7 @@ VEX_BLSMSK_R64_RM64: int = 3676
 
 ``64-bit``
 """
-VEX_BLSI_R32_RM32: int = 3677
+VEX_BLSI_R32_RM32: Code = 3677 # type: ignore
 """
 ``BLSI r32, r/m32``
 
@@ -36761,7 +36767,7 @@ VEX_BLSI_R32_RM32: int = 3677
 
 ``16/32/64-bit``
 """
-VEX_BLSI_R64_RM64: int = 3678
+VEX_BLSI_R64_RM64: Code = 3678 # type: ignore
 """
 ``BLSI r64, r/m64``
 
@@ -36771,7 +36777,7 @@ VEX_BLSI_R64_RM64: int = 3678
 
 ``64-bit``
 """
-VEX_BZHI_R32_RM32_R32: int = 3679
+VEX_BZHI_R32_RM32_R32: Code = 3679 # type: ignore
 """
 ``BZHI r32a, r/m32, r32b``
 
@@ -36781,7 +36787,7 @@ VEX_BZHI_R32_RM32_R32: int = 3679
 
 ``16/32/64-bit``
 """
-VEX_BZHI_R64_RM64_R64: int = 3680
+VEX_BZHI_R64_RM64_R64: Code = 3680 # type: ignore
 """
 ``BZHI r64a, r/m64, r64b``
 
@@ -36791,7 +36797,7 @@ VEX_BZHI_R64_RM64_R64: int = 3680
 
 ``64-bit``
 """
-WRUSSD_M32_R32: int = 3681
+WRUSSD_M32_R32: Code = 3681 # type: ignore
 """
 ``WRUSSD m32, r32``
 
@@ -36801,7 +36807,7 @@ WRUSSD_M32_R32: int = 3681
 
 ``16/32/64-bit``
 """
-WRUSSQ_M64_R64: int = 3682
+WRUSSQ_M64_R64: Code = 3682 # type: ignore
 """
 ``WRUSSQ m64, r64``
 
@@ -36811,7 +36817,7 @@ WRUSSQ_M64_R64: int = 3682
 
 ``64-bit``
 """
-VEX_PEXT_R32_R32_RM32: int = 3683
+VEX_PEXT_R32_R32_RM32: Code = 3683 # type: ignore
 """
 ``PEXT r32a, r32b, r/m32``
 
@@ -36821,7 +36827,7 @@ VEX_PEXT_R32_R32_RM32: int = 3683
 
 ``16/32/64-bit``
 """
-VEX_PEXT_R64_R64_RM64: int = 3684
+VEX_PEXT_R64_R64_RM64: Code = 3684 # type: ignore
 """
 ``PEXT r64a, r64b, r/m64``
 
@@ -36831,7 +36837,7 @@ VEX_PEXT_R64_R64_RM64: int = 3684
 
 ``64-bit``
 """
-VEX_PDEP_R32_R32_RM32: int = 3685
+VEX_PDEP_R32_R32_RM32: Code = 3685 # type: ignore
 """
 ``PDEP r32a, r32b, r/m32``
 
@@ -36841,7 +36847,7 @@ VEX_PDEP_R32_R32_RM32: int = 3685
 
 ``16/32/64-bit``
 """
-VEX_PDEP_R64_R64_RM64: int = 3686
+VEX_PDEP_R64_R64_RM64: Code = 3686 # type: ignore
 """
 ``PDEP r64a, r64b, r/m64``
 
@@ -36851,7 +36857,7 @@ VEX_PDEP_R64_R64_RM64: int = 3686
 
 ``64-bit``
 """
-WRSSD_M32_R32: int = 3687
+WRSSD_M32_R32: Code = 3687 # type: ignore
 """
 ``WRSSD m32, r32``
 
@@ -36861,7 +36867,7 @@ WRSSD_M32_R32: int = 3687
 
 ``16/32/64-bit``
 """
-WRSSQ_M64_R64: int = 3688
+WRSSQ_M64_R64: Code = 3688 # type: ignore
 """
 ``WRSSQ m64, r64``
 
@@ -36871,7 +36877,7 @@ WRSSQ_M64_R64: int = 3688
 
 ``64-bit``
 """
-ADCX_R32_RM32: int = 3689
+ADCX_R32_RM32: Code = 3689 # type: ignore
 """
 ``ADCX r32, r/m32``
 
@@ -36881,7 +36887,7 @@ ADCX_R32_RM32: int = 3689
 
 ``16/32/64-bit``
 """
-ADCX_R64_RM64: int = 3690
+ADCX_R64_RM64: Code = 3690 # type: ignore
 """
 ``ADCX r64, r/m64``
 
@@ -36891,7 +36897,7 @@ ADCX_R64_RM64: int = 3690
 
 ``64-bit``
 """
-ADOX_R32_RM32: int = 3691
+ADOX_R32_RM32: Code = 3691 # type: ignore
 """
 ``ADOX r32, r/m32``
 
@@ -36901,7 +36907,7 @@ ADOX_R32_RM32: int = 3691
 
 ``16/32/64-bit``
 """
-ADOX_R64_RM64: int = 3692
+ADOX_R64_RM64: Code = 3692 # type: ignore
 """
 ``ADOX r64, r/m64``
 
@@ -36911,7 +36917,7 @@ ADOX_R64_RM64: int = 3692
 
 ``64-bit``
 """
-VEX_MULX_R32_R32_RM32: int = 3693
+VEX_MULX_R32_R32_RM32: Code = 3693 # type: ignore
 """
 ``MULX r32a, r32b, r/m32``
 
@@ -36921,7 +36927,7 @@ VEX_MULX_R32_R32_RM32: int = 3693
 
 ``16/32/64-bit``
 """
-VEX_MULX_R64_R64_RM64: int = 3694
+VEX_MULX_R64_R64_RM64: Code = 3694 # type: ignore
 """
 ``MULX r64a, r64b, r/m64``
 
@@ -36931,7 +36937,7 @@ VEX_MULX_R64_R64_RM64: int = 3694
 
 ``64-bit``
 """
-VEX_BEXTR_R32_RM32_R32: int = 3695
+VEX_BEXTR_R32_RM32_R32: Code = 3695 # type: ignore
 """
 ``BEXTR r32a, r/m32, r32b``
 
@@ -36941,7 +36947,7 @@ VEX_BEXTR_R32_RM32_R32: int = 3695
 
 ``16/32/64-bit``
 """
-VEX_BEXTR_R64_RM64_R64: int = 3696
+VEX_BEXTR_R64_RM64_R64: Code = 3696 # type: ignore
 """
 ``BEXTR r64a, r/m64, r64b``
 
@@ -36951,7 +36957,7 @@ VEX_BEXTR_R64_RM64_R64: int = 3696
 
 ``64-bit``
 """
-VEX_SHLX_R32_RM32_R32: int = 3697
+VEX_SHLX_R32_RM32_R32: Code = 3697 # type: ignore
 """
 ``SHLX r32a, r/m32, r32b``
 
@@ -36961,7 +36967,7 @@ VEX_SHLX_R32_RM32_R32: int = 3697
 
 ``16/32/64-bit``
 """
-VEX_SHLX_R64_RM64_R64: int = 3698
+VEX_SHLX_R64_RM64_R64: Code = 3698 # type: ignore
 """
 ``SHLX r64a, r/m64, r64b``
 
@@ -36971,7 +36977,7 @@ VEX_SHLX_R64_RM64_R64: int = 3698
 
 ``64-bit``
 """
-VEX_SARX_R32_RM32_R32: int = 3699
+VEX_SARX_R32_RM32_R32: Code = 3699 # type: ignore
 """
 ``SARX r32a, r/m32, r32b``
 
@@ -36981,7 +36987,7 @@ VEX_SARX_R32_RM32_R32: int = 3699
 
 ``16/32/64-bit``
 """
-VEX_SARX_R64_RM64_R64: int = 3700
+VEX_SARX_R64_RM64_R64: Code = 3700 # type: ignore
 """
 ``SARX r64a, r/m64, r64b``
 
@@ -36991,7 +36997,7 @@ VEX_SARX_R64_RM64_R64: int = 3700
 
 ``64-bit``
 """
-VEX_SHRX_R32_RM32_R32: int = 3701
+VEX_SHRX_R32_RM32_R32: Code = 3701 # type: ignore
 """
 ``SHRX r32a, r/m32, r32b``
 
@@ -37001,7 +37007,7 @@ VEX_SHRX_R32_RM32_R32: int = 3701
 
 ``16/32/64-bit``
 """
-VEX_SHRX_R64_RM64_R64: int = 3702
+VEX_SHRX_R64_RM64_R64: Code = 3702 # type: ignore
 """
 ``SHRX r64a, r/m64, r64b``
 
@@ -37011,7 +37017,7 @@ VEX_SHRX_R64_RM64_R64: int = 3702
 
 ``64-bit``
 """
-MOVDIR64B_R16_M512: int = 3703
+MOVDIR64B_R16_M512: Code = 3703 # type: ignore
 """
 ``MOVDIR64B r16, m512``
 
@@ -37021,7 +37027,7 @@ MOVDIR64B_R16_M512: int = 3703
 
 ``16/32-bit``
 """
-MOVDIR64B_R32_M512: int = 3704
+MOVDIR64B_R32_M512: Code = 3704 # type: ignore
 """
 ``MOVDIR64B r32, m512``
 
@@ -37031,7 +37037,7 @@ MOVDIR64B_R32_M512: int = 3704
 
 ``16/32/64-bit``
 """
-MOVDIR64B_R64_M512: int = 3705
+MOVDIR64B_R64_M512: Code = 3705 # type: ignore
 """
 ``MOVDIR64B r64, m512``
 
@@ -37041,7 +37047,7 @@ MOVDIR64B_R64_M512: int = 3705
 
 ``64-bit``
 """
-ENQCMDS_R16_M512: int = 3706
+ENQCMDS_R16_M512: Code = 3706 # type: ignore
 """
 ``ENQCMDS r16, m512``
 
@@ -37051,7 +37057,7 @@ ENQCMDS_R16_M512: int = 3706
 
 ``16/32-bit``
 """
-ENQCMDS_R32_M512: int = 3707
+ENQCMDS_R32_M512: Code = 3707 # type: ignore
 """
 ``ENQCMDS r32, m512``
 
@@ -37061,7 +37067,7 @@ ENQCMDS_R32_M512: int = 3707
 
 ``16/32/64-bit``
 """
-ENQCMDS_R64_M512: int = 3708
+ENQCMDS_R64_M512: Code = 3708 # type: ignore
 """
 ``ENQCMDS r64, m512``
 
@@ -37071,7 +37077,7 @@ ENQCMDS_R64_M512: int = 3708
 
 ``64-bit``
 """
-ENQCMD_R16_M512: int = 3709
+ENQCMD_R16_M512: Code = 3709 # type: ignore
 """
 ``ENQCMD r16, m512``
 
@@ -37081,7 +37087,7 @@ ENQCMD_R16_M512: int = 3709
 
 ``16/32-bit``
 """
-ENQCMD_R32_M512: int = 3710
+ENQCMD_R32_M512: Code = 3710 # type: ignore
 """
 ``ENQCMD r32, m512``
 
@@ -37091,7 +37097,7 @@ ENQCMD_R32_M512: int = 3710
 
 ``16/32/64-bit``
 """
-ENQCMD_R64_M512: int = 3711
+ENQCMD_R64_M512: Code = 3711 # type: ignore
 """
 ``ENQCMD r64, m512``
 
@@ -37101,7 +37107,7 @@ ENQCMD_R64_M512: int = 3711
 
 ``64-bit``
 """
-MOVDIRI_M32_R32: int = 3712
+MOVDIRI_M32_R32: Code = 3712 # type: ignore
 """
 ``MOVDIRI m32, r32``
 
@@ -37111,7 +37117,7 @@ MOVDIRI_M32_R32: int = 3712
 
 ``16/32/64-bit``
 """
-MOVDIRI_M64_R64: int = 3713
+MOVDIRI_M64_R64: Code = 3713 # type: ignore
 """
 ``MOVDIRI m64, r64``
 
@@ -37121,7 +37127,7 @@ MOVDIRI_M64_R64: int = 3713
 
 ``64-bit``
 """
-VEX_VPERMQ_YMM_YMMM256_IMM8: int = 3714
+VEX_VPERMQ_YMM_YMMM256_IMM8: Code = 3714 # type: ignore
 """
 ``VPERMQ ymm1, ymm2/m256, imm8``
 
@@ -37131,7 +37137,7 @@ VEX_VPERMQ_YMM_YMMM256_IMM8: int = 3714
 
 ``16/32/64-bit``
 """
-EVEX_VPERMQ_YMM_K1Z_YMMM256B64_IMM8: int = 3715
+EVEX_VPERMQ_YMM_K1Z_YMMM256B64_IMM8: Code = 3715 # type: ignore
 """
 ``VPERMQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -37141,7 +37147,7 @@ EVEX_VPERMQ_YMM_K1Z_YMMM256B64_IMM8: int = 3715
 
 ``16/32/64-bit``
 """
-EVEX_VPERMQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 3716
+EVEX_VPERMQ_ZMM_K1Z_ZMMM512B64_IMM8: Code = 3716 # type: ignore
 """
 ``VPERMQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8``
 
@@ -37151,7 +37157,7 @@ EVEX_VPERMQ_ZMM_K1Z_ZMMM512B64_IMM8: int = 3716
 
 ``16/32/64-bit``
 """
-VEX_VPERMPD_YMM_YMMM256_IMM8: int = 3717
+VEX_VPERMPD_YMM_YMMM256_IMM8: Code = 3717 # type: ignore
 """
 ``VPERMPD ymm1, ymm2/m256, imm8``
 
@@ -37161,7 +37167,7 @@ VEX_VPERMPD_YMM_YMMM256_IMM8: int = 3717
 
 ``16/32/64-bit``
 """
-EVEX_VPERMPD_YMM_K1Z_YMMM256B64_IMM8: int = 3718
+EVEX_VPERMPD_YMM_K1Z_YMMM256B64_IMM8: Code = 3718 # type: ignore
 """
 ``VPERMPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -37171,7 +37177,7 @@ EVEX_VPERMPD_YMM_K1Z_YMMM256B64_IMM8: int = 3718
 
 ``16/32/64-bit``
 """
-EVEX_VPERMPD_ZMM_K1Z_ZMMM512B64_IMM8: int = 3719
+EVEX_VPERMPD_ZMM_K1Z_ZMMM512B64_IMM8: Code = 3719 # type: ignore
 """
 ``VPERMPD zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8``
 
@@ -37181,7 +37187,7 @@ EVEX_VPERMPD_ZMM_K1Z_ZMMM512B64_IMM8: int = 3719
 
 ``16/32/64-bit``
 """
-VEX_VPBLENDD_XMM_XMM_XMMM128_IMM8: int = 3720
+VEX_VPBLENDD_XMM_XMM_XMMM128_IMM8: Code = 3720 # type: ignore
 """
 ``VPBLENDD xmm1, xmm2, xmm3/m128, imm8``
 
@@ -37191,7 +37197,7 @@ VEX_VPBLENDD_XMM_XMM_XMMM128_IMM8: int = 3720
 
 ``16/32/64-bit``
 """
-VEX_VPBLENDD_YMM_YMM_YMMM256_IMM8: int = 3721
+VEX_VPBLENDD_YMM_YMM_YMMM256_IMM8: Code = 3721 # type: ignore
 """
 ``VPBLENDD ymm1, ymm2, ymm3/m256, imm8``
 
@@ -37201,7 +37207,7 @@ VEX_VPBLENDD_YMM_YMM_YMMM256_IMM8: int = 3721
 
 ``16/32/64-bit``
 """
-EVEX_VALIGND_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 3722
+EVEX_VALIGND_XMM_K1Z_XMM_XMMM128B32_IMM8: Code = 3722 # type: ignore
 """
 ``VALIGND xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8``
 
@@ -37211,7 +37217,7 @@ EVEX_VALIGND_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 3722
 
 ``16/32/64-bit``
 """
-EVEX_VALIGND_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3723
+EVEX_VALIGND_YMM_K1Z_YMM_YMMM256B32_IMM8: Code = 3723 # type: ignore
 """
 ``VALIGND ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -37221,7 +37227,7 @@ EVEX_VALIGND_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3723
 
 ``16/32/64-bit``
 """
-EVEX_VALIGND_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 3724
+EVEX_VALIGND_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: Code = 3724 # type: ignore
 """
 ``VALIGND zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8``
 
@@ -37231,7 +37237,7 @@ EVEX_VALIGND_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 3724
 
 ``16/32/64-bit``
 """
-EVEX_VALIGNQ_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 3725
+EVEX_VALIGNQ_XMM_K1Z_XMM_XMMM128B64_IMM8: Code = 3725 # type: ignore
 """
 ``VALIGNQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -37241,7 +37247,7 @@ EVEX_VALIGNQ_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 3725
 
 ``16/32/64-bit``
 """
-EVEX_VALIGNQ_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3726
+EVEX_VALIGNQ_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 3726 # type: ignore
 """
 ``VALIGNQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -37251,7 +37257,7 @@ EVEX_VALIGNQ_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3726
 
 ``16/32/64-bit``
 """
-EVEX_VALIGNQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 3727
+EVEX_VALIGNQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: Code = 3727 # type: ignore
 """
 ``VALIGNQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -37261,7 +37267,7 @@ EVEX_VALIGNQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 3727
 
 ``16/32/64-bit``
 """
-VEX_VPERMILPS_XMM_XMMM128_IMM8: int = 3728
+VEX_VPERMILPS_XMM_XMMM128_IMM8: Code = 3728 # type: ignore
 """
 ``VPERMILPS xmm1, xmm2/m128, imm8``
 
@@ -37271,7 +37277,7 @@ VEX_VPERMILPS_XMM_XMMM128_IMM8: int = 3728
 
 ``16/32/64-bit``
 """
-VEX_VPERMILPS_YMM_YMMM256_IMM8: int = 3729
+VEX_VPERMILPS_YMM_YMMM256_IMM8: Code = 3729 # type: ignore
 """
 ``VPERMILPS ymm1, ymm2/m256, imm8``
 
@@ -37281,7 +37287,7 @@ VEX_VPERMILPS_YMM_YMMM256_IMM8: int = 3729
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPS_XMM_K1Z_XMMM128B32_IMM8: int = 3730
+EVEX_VPERMILPS_XMM_K1Z_XMMM128B32_IMM8: Code = 3730 # type: ignore
 """
 ``VPERMILPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8``
 
@@ -37291,7 +37297,7 @@ EVEX_VPERMILPS_XMM_K1Z_XMMM128B32_IMM8: int = 3730
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPS_YMM_K1Z_YMMM256B32_IMM8: int = 3731
+EVEX_VPERMILPS_YMM_K1Z_YMMM256B32_IMM8: Code = 3731 # type: ignore
 """
 ``VPERMILPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8``
 
@@ -37301,7 +37307,7 @@ EVEX_VPERMILPS_YMM_K1Z_YMMM256B32_IMM8: int = 3731
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPS_ZMM_K1Z_ZMMM512B32_IMM8: int = 3732
+EVEX_VPERMILPS_ZMM_K1Z_ZMMM512B32_IMM8: Code = 3732 # type: ignore
 """
 ``VPERMILPS zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8``
 
@@ -37311,7 +37317,7 @@ EVEX_VPERMILPS_ZMM_K1Z_ZMMM512B32_IMM8: int = 3732
 
 ``16/32/64-bit``
 """
-VEX_VPERMILPD_XMM_XMMM128_IMM8: int = 3733
+VEX_VPERMILPD_XMM_XMMM128_IMM8: Code = 3733 # type: ignore
 """
 ``VPERMILPD xmm1, xmm2/m128, imm8``
 
@@ -37321,7 +37327,7 @@ VEX_VPERMILPD_XMM_XMMM128_IMM8: int = 3733
 
 ``16/32/64-bit``
 """
-VEX_VPERMILPD_YMM_YMMM256_IMM8: int = 3734
+VEX_VPERMILPD_YMM_YMMM256_IMM8: Code = 3734 # type: ignore
 """
 ``VPERMILPD ymm1, ymm2/m256, imm8``
 
@@ -37331,7 +37337,7 @@ VEX_VPERMILPD_YMM_YMMM256_IMM8: int = 3734
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPD_XMM_K1Z_XMMM128B64_IMM8: int = 3735
+EVEX_VPERMILPD_XMM_K1Z_XMMM128B64_IMM8: Code = 3735 # type: ignore
 """
 ``VPERMILPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8``
 
@@ -37341,7 +37347,7 @@ EVEX_VPERMILPD_XMM_K1Z_XMMM128B64_IMM8: int = 3735
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPD_YMM_K1Z_YMMM256B64_IMM8: int = 3736
+EVEX_VPERMILPD_YMM_K1Z_YMMM256B64_IMM8: Code = 3736 # type: ignore
 """
 ``VPERMILPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -37351,7 +37357,7 @@ EVEX_VPERMILPD_YMM_K1Z_YMMM256B64_IMM8: int = 3736
 
 ``16/32/64-bit``
 """
-EVEX_VPERMILPD_ZMM_K1Z_ZMMM512B64_IMM8: int = 3737
+EVEX_VPERMILPD_ZMM_K1Z_ZMMM512B64_IMM8: Code = 3737 # type: ignore
 """
 ``VPERMILPD zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8``
 
@@ -37361,7 +37367,7 @@ EVEX_VPERMILPD_ZMM_K1Z_ZMMM512B64_IMM8: int = 3737
 
 ``16/32/64-bit``
 """
-VEX_VPERM2F128_YMM_YMM_YMMM256_IMM8: int = 3738
+VEX_VPERM2F128_YMM_YMM_YMMM256_IMM8: Code = 3738 # type: ignore
 """
 ``VPERM2F128 ymm1, ymm2, ymm3/m256, imm8``
 
@@ -37371,7 +37377,7 @@ VEX_VPERM2F128_YMM_YMM_YMMM256_IMM8: int = 3738
 
 ``16/32/64-bit``
 """
-ROUNDPS_XMM_XMMM128_IMM8: int = 3739
+ROUNDPS_XMM_XMMM128_IMM8: Code = 3739 # type: ignore
 """
 ``ROUNDPS xmm1, xmm2/m128, imm8``
 
@@ -37381,7 +37387,7 @@ ROUNDPS_XMM_XMMM128_IMM8: int = 3739
 
 ``16/32/64-bit``
 """
-VEX_VROUNDPS_XMM_XMMM128_IMM8: int = 3740
+VEX_VROUNDPS_XMM_XMMM128_IMM8: Code = 3740 # type: ignore
 """
 ``VROUNDPS xmm1, xmm2/m128, imm8``
 
@@ -37391,7 +37397,7 @@ VEX_VROUNDPS_XMM_XMMM128_IMM8: int = 3740
 
 ``16/32/64-bit``
 """
-VEX_VROUNDPS_YMM_YMMM256_IMM8: int = 3741
+VEX_VROUNDPS_YMM_YMMM256_IMM8: Code = 3741 # type: ignore
 """
 ``VROUNDPS ymm1, ymm2/m256, imm8``
 
@@ -37401,7 +37407,7 @@ VEX_VROUNDPS_YMM_YMMM256_IMM8: int = 3741
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALEPS_XMM_K1Z_XMMM128B32_IMM8: int = 3742
+EVEX_VRNDSCALEPS_XMM_K1Z_XMMM128B32_IMM8: Code = 3742 # type: ignore
 """
 ``VRNDSCALEPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8``
 
@@ -37411,7 +37417,7 @@ EVEX_VRNDSCALEPS_XMM_K1Z_XMMM128B32_IMM8: int = 3742
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALEPS_YMM_K1Z_YMMM256B32_IMM8: int = 3743
+EVEX_VRNDSCALEPS_YMM_K1Z_YMMM256B32_IMM8: Code = 3743 # type: ignore
 """
 ``VRNDSCALEPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8``
 
@@ -37421,7 +37427,7 @@ EVEX_VRNDSCALEPS_YMM_K1Z_YMMM256B32_IMM8: int = 3743
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALEPS_ZMM_K1Z_ZMMM512B32_IMM8_SAE: int = 3744
+EVEX_VRNDSCALEPS_ZMM_K1Z_ZMMM512B32_IMM8_SAE: Code = 3744 # type: ignore
 """
 ``VRNDSCALEPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8``
 
@@ -37431,7 +37437,7 @@ EVEX_VRNDSCALEPS_ZMM_K1Z_ZMMM512B32_IMM8_SAE: int = 3744
 
 ``16/32/64-bit``
 """
-ROUNDPD_XMM_XMMM128_IMM8: int = 3745
+ROUNDPD_XMM_XMMM128_IMM8: Code = 3745 # type: ignore
 """
 ``ROUNDPD xmm1, xmm2/m128, imm8``
 
@@ -37441,7 +37447,7 @@ ROUNDPD_XMM_XMMM128_IMM8: int = 3745
 
 ``16/32/64-bit``
 """
-VEX_VROUNDPD_XMM_XMMM128_IMM8: int = 3746
+VEX_VROUNDPD_XMM_XMMM128_IMM8: Code = 3746 # type: ignore
 """
 ``VROUNDPD xmm1, xmm2/m128, imm8``
 
@@ -37451,7 +37457,7 @@ VEX_VROUNDPD_XMM_XMMM128_IMM8: int = 3746
 
 ``16/32/64-bit``
 """
-VEX_VROUNDPD_YMM_YMMM256_IMM8: int = 3747
+VEX_VROUNDPD_YMM_YMMM256_IMM8: Code = 3747 # type: ignore
 """
 ``VROUNDPD ymm1, ymm2/m256, imm8``
 
@@ -37461,7 +37467,7 @@ VEX_VROUNDPD_YMM_YMMM256_IMM8: int = 3747
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALEPD_XMM_K1Z_XMMM128B64_IMM8: int = 3748
+EVEX_VRNDSCALEPD_XMM_K1Z_XMMM128B64_IMM8: Code = 3748 # type: ignore
 """
 ``VRNDSCALEPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8``
 
@@ -37471,7 +37477,7 @@ EVEX_VRNDSCALEPD_XMM_K1Z_XMMM128B64_IMM8: int = 3748
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALEPD_YMM_K1Z_YMMM256B64_IMM8: int = 3749
+EVEX_VRNDSCALEPD_YMM_K1Z_YMMM256B64_IMM8: Code = 3749 # type: ignore
 """
 ``VRNDSCALEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -37481,7 +37487,7 @@ EVEX_VRNDSCALEPD_YMM_K1Z_YMMM256B64_IMM8: int = 3749
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALEPD_ZMM_K1Z_ZMMM512B64_IMM8_SAE: int = 3750
+EVEX_VRNDSCALEPD_ZMM_K1Z_ZMMM512B64_IMM8_SAE: Code = 3750 # type: ignore
 """
 ``VRNDSCALEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8``
 
@@ -37491,7 +37497,7 @@ EVEX_VRNDSCALEPD_ZMM_K1Z_ZMMM512B64_IMM8_SAE: int = 3750
 
 ``16/32/64-bit``
 """
-ROUNDSS_XMM_XMMM32_IMM8: int = 3751
+ROUNDSS_XMM_XMMM32_IMM8: Code = 3751 # type: ignore
 """
 ``ROUNDSS xmm1, xmm2/m32, imm8``
 
@@ -37501,7 +37507,7 @@ ROUNDSS_XMM_XMMM32_IMM8: int = 3751
 
 ``16/32/64-bit``
 """
-VEX_VROUNDSS_XMM_XMM_XMMM32_IMM8: int = 3752
+VEX_VROUNDSS_XMM_XMM_XMMM32_IMM8: Code = 3752 # type: ignore
 """
 ``VROUNDSS xmm1, xmm2, xmm3/m32, imm8``
 
@@ -37511,7 +37517,7 @@ VEX_VROUNDSS_XMM_XMM_XMMM32_IMM8: int = 3752
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALESS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: int = 3753
+EVEX_VRNDSCALESS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: Code = 3753 # type: ignore
 """
 ``VRNDSCALESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8``
 
@@ -37521,7 +37527,7 @@ EVEX_VRNDSCALESS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: int = 3753
 
 ``16/32/64-bit``
 """
-ROUNDSD_XMM_XMMM64_IMM8: int = 3754
+ROUNDSD_XMM_XMMM64_IMM8: Code = 3754 # type: ignore
 """
 ``ROUNDSD xmm1, xmm2/m64, imm8``
 
@@ -37531,7 +37537,7 @@ ROUNDSD_XMM_XMMM64_IMM8: int = 3754
 
 ``16/32/64-bit``
 """
-VEX_VROUNDSD_XMM_XMM_XMMM64_IMM8: int = 3755
+VEX_VROUNDSD_XMM_XMM_XMMM64_IMM8: Code = 3755 # type: ignore
 """
 ``VROUNDSD xmm1, xmm2, xmm3/m64, imm8``
 
@@ -37541,7 +37547,7 @@ VEX_VROUNDSD_XMM_XMM_XMMM64_IMM8: int = 3755
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALESD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: int = 3756
+EVEX_VRNDSCALESD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: Code = 3756 # type: ignore
 """
 ``VRNDSCALESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8``
 
@@ -37551,7 +37557,7 @@ EVEX_VRNDSCALESD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: int = 3756
 
 ``16/32/64-bit``
 """
-BLENDPS_XMM_XMMM128_IMM8: int = 3757
+BLENDPS_XMM_XMMM128_IMM8: Code = 3757 # type: ignore
 """
 ``BLENDPS xmm1, xmm2/m128, imm8``
 
@@ -37561,7 +37567,7 @@ BLENDPS_XMM_XMMM128_IMM8: int = 3757
 
 ``16/32/64-bit``
 """
-VEX_VBLENDPS_XMM_XMM_XMMM128_IMM8: int = 3758
+VEX_VBLENDPS_XMM_XMM_XMMM128_IMM8: Code = 3758 # type: ignore
 """
 ``VBLENDPS xmm1, xmm2, xmm3/m128, imm8``
 
@@ -37571,7 +37577,7 @@ VEX_VBLENDPS_XMM_XMM_XMMM128_IMM8: int = 3758
 
 ``16/32/64-bit``
 """
-VEX_VBLENDPS_YMM_YMM_YMMM256_IMM8: int = 3759
+VEX_VBLENDPS_YMM_YMM_YMMM256_IMM8: Code = 3759 # type: ignore
 """
 ``VBLENDPS ymm1, ymm2, ymm3/m256, imm8``
 
@@ -37581,7 +37587,7 @@ VEX_VBLENDPS_YMM_YMM_YMMM256_IMM8: int = 3759
 
 ``16/32/64-bit``
 """
-BLENDPD_XMM_XMMM128_IMM8: int = 3760
+BLENDPD_XMM_XMMM128_IMM8: Code = 3760 # type: ignore
 """
 ``BLENDPD xmm1, xmm2/m128, imm8``
 
@@ -37591,7 +37597,7 @@ BLENDPD_XMM_XMMM128_IMM8: int = 3760
 
 ``16/32/64-bit``
 """
-VEX_VBLENDPD_XMM_XMM_XMMM128_IMM8: int = 3761
+VEX_VBLENDPD_XMM_XMM_XMMM128_IMM8: Code = 3761 # type: ignore
 """
 ``VBLENDPD xmm1, xmm2, xmm3/m128, imm8``
 
@@ -37601,7 +37607,7 @@ VEX_VBLENDPD_XMM_XMM_XMMM128_IMM8: int = 3761
 
 ``16/32/64-bit``
 """
-VEX_VBLENDPD_YMM_YMM_YMMM256_IMM8: int = 3762
+VEX_VBLENDPD_YMM_YMM_YMMM256_IMM8: Code = 3762 # type: ignore
 """
 ``VBLENDPD ymm1, ymm2, ymm3/m256, imm8``
 
@@ -37611,7 +37617,7 @@ VEX_VBLENDPD_YMM_YMM_YMMM256_IMM8: int = 3762
 
 ``16/32/64-bit``
 """
-PBLENDW_XMM_XMMM128_IMM8: int = 3763
+PBLENDW_XMM_XMMM128_IMM8: Code = 3763 # type: ignore
 """
 ``PBLENDW xmm1, xmm2/m128, imm8``
 
@@ -37621,7 +37627,7 @@ PBLENDW_XMM_XMMM128_IMM8: int = 3763
 
 ``16/32/64-bit``
 """
-VEX_VPBLENDW_XMM_XMM_XMMM128_IMM8: int = 3764
+VEX_VPBLENDW_XMM_XMM_XMMM128_IMM8: Code = 3764 # type: ignore
 """
 ``VPBLENDW xmm1, xmm2, xmm3/m128, imm8``
 
@@ -37631,7 +37637,7 @@ VEX_VPBLENDW_XMM_XMM_XMMM128_IMM8: int = 3764
 
 ``16/32/64-bit``
 """
-VEX_VPBLENDW_YMM_YMM_YMMM256_IMM8: int = 3765
+VEX_VPBLENDW_YMM_YMM_YMMM256_IMM8: Code = 3765 # type: ignore
 """
 ``VPBLENDW ymm1, ymm2, ymm3/m256, imm8``
 
@@ -37641,7 +37647,7 @@ VEX_VPBLENDW_YMM_YMM_YMMM256_IMM8: int = 3765
 
 ``16/32/64-bit``
 """
-PALIGNR_MM_MMM64_IMM8: int = 3766
+PALIGNR_MM_MMM64_IMM8: Code = 3766 # type: ignore
 """
 ``PALIGNR mm1, mm2/m64, imm8``
 
@@ -37651,7 +37657,7 @@ PALIGNR_MM_MMM64_IMM8: int = 3766
 
 ``16/32/64-bit``
 """
-PALIGNR_XMM_XMMM128_IMM8: int = 3767
+PALIGNR_XMM_XMMM128_IMM8: Code = 3767 # type: ignore
 """
 ``PALIGNR xmm1, xmm2/m128, imm8``
 
@@ -37661,7 +37667,7 @@ PALIGNR_XMM_XMMM128_IMM8: int = 3767
 
 ``16/32/64-bit``
 """
-VEX_VPALIGNR_XMM_XMM_XMMM128_IMM8: int = 3768
+VEX_VPALIGNR_XMM_XMM_XMMM128_IMM8: Code = 3768 # type: ignore
 """
 ``VPALIGNR xmm1, xmm2, xmm3/m128, imm8``
 
@@ -37671,7 +37677,7 @@ VEX_VPALIGNR_XMM_XMM_XMMM128_IMM8: int = 3768
 
 ``16/32/64-bit``
 """
-VEX_VPALIGNR_YMM_YMM_YMMM256_IMM8: int = 3769
+VEX_VPALIGNR_YMM_YMM_YMMM256_IMM8: Code = 3769 # type: ignore
 """
 ``VPALIGNR ymm1, ymm2, ymm3/m256, imm8``
 
@@ -37681,7 +37687,7 @@ VEX_VPALIGNR_YMM_YMM_YMMM256_IMM8: int = 3769
 
 ``16/32/64-bit``
 """
-EVEX_VPALIGNR_XMM_K1Z_XMM_XMMM128_IMM8: int = 3770
+EVEX_VPALIGNR_XMM_K1Z_XMM_XMMM128_IMM8: Code = 3770 # type: ignore
 """
 ``VPALIGNR xmm1 {k1}{z}, xmm2, xmm3/m128, imm8``
 
@@ -37691,7 +37697,7 @@ EVEX_VPALIGNR_XMM_K1Z_XMM_XMMM128_IMM8: int = 3770
 
 ``16/32/64-bit``
 """
-EVEX_VPALIGNR_YMM_K1Z_YMM_YMMM256_IMM8: int = 3771
+EVEX_VPALIGNR_YMM_K1Z_YMM_YMMM256_IMM8: Code = 3771 # type: ignore
 """
 ``VPALIGNR ymm1 {k1}{z}, ymm2, ymm3/m256, imm8``
 
@@ -37701,7 +37707,7 @@ EVEX_VPALIGNR_YMM_K1Z_YMM_YMMM256_IMM8: int = 3771
 
 ``16/32/64-bit``
 """
-EVEX_VPALIGNR_ZMM_K1Z_ZMM_ZMMM512_IMM8: int = 3772
+EVEX_VPALIGNR_ZMM_K1Z_ZMM_ZMMM512_IMM8: Code = 3772 # type: ignore
 """
 ``VPALIGNR zmm1 {k1}{z}, zmm2, zmm3/m512, imm8``
 
@@ -37711,7 +37717,7 @@ EVEX_VPALIGNR_ZMM_K1Z_ZMM_ZMMM512_IMM8: int = 3772
 
 ``16/32/64-bit``
 """
-PEXTRB_R32M8_XMM_IMM8: int = 3773
+PEXTRB_R32M8_XMM_IMM8: Code = 3773 # type: ignore
 """
 ``PEXTRB r32/m8, xmm2, imm8``
 
@@ -37721,7 +37727,7 @@ PEXTRB_R32M8_XMM_IMM8: int = 3773
 
 ``16/32/64-bit``
 """
-PEXTRB_R64M8_XMM_IMM8: int = 3774
+PEXTRB_R64M8_XMM_IMM8: Code = 3774 # type: ignore
 """
 ``PEXTRB r64/m8, xmm2, imm8``
 
@@ -37731,7 +37737,7 @@ PEXTRB_R64M8_XMM_IMM8: int = 3774
 
 ``64-bit``
 """
-VEX_VPEXTRB_R32M8_XMM_IMM8: int = 3775
+VEX_VPEXTRB_R32M8_XMM_IMM8: Code = 3775 # type: ignore
 """
 ``VPEXTRB r32/m8, xmm2, imm8``
 
@@ -37741,7 +37747,7 @@ VEX_VPEXTRB_R32M8_XMM_IMM8: int = 3775
 
 ``16/32/64-bit``
 """
-VEX_VPEXTRB_R64M8_XMM_IMM8: int = 3776
+VEX_VPEXTRB_R64M8_XMM_IMM8: Code = 3776 # type: ignore
 """
 ``VPEXTRB r64/m8, xmm2, imm8``
 
@@ -37751,7 +37757,7 @@ VEX_VPEXTRB_R64M8_XMM_IMM8: int = 3776
 
 ``64-bit``
 """
-EVEX_VPEXTRB_R32M8_XMM_IMM8: int = 3777
+EVEX_VPEXTRB_R32M8_XMM_IMM8: Code = 3777 # type: ignore
 """
 ``VPEXTRB r32/m8, xmm2, imm8``
 
@@ -37761,7 +37767,7 @@ EVEX_VPEXTRB_R32M8_XMM_IMM8: int = 3777
 
 ``16/32/64-bit``
 """
-EVEX_VPEXTRB_R64M8_XMM_IMM8: int = 3778
+EVEX_VPEXTRB_R64M8_XMM_IMM8: Code = 3778 # type: ignore
 """
 ``VPEXTRB r64/m8, xmm2, imm8``
 
@@ -37771,7 +37777,7 @@ EVEX_VPEXTRB_R64M8_XMM_IMM8: int = 3778
 
 ``64-bit``
 """
-PEXTRW_R32M16_XMM_IMM8: int = 3779
+PEXTRW_R32M16_XMM_IMM8: Code = 3779 # type: ignore
 """
 ``PEXTRW r32/m16, xmm, imm8``
 
@@ -37781,7 +37787,7 @@ PEXTRW_R32M16_XMM_IMM8: int = 3779
 
 ``16/32/64-bit``
 """
-PEXTRW_R64M16_XMM_IMM8: int = 3780
+PEXTRW_R64M16_XMM_IMM8: Code = 3780 # type: ignore
 """
 ``PEXTRW r64/m16, xmm, imm8``
 
@@ -37791,7 +37797,7 @@ PEXTRW_R64M16_XMM_IMM8: int = 3780
 
 ``64-bit``
 """
-VEX_VPEXTRW_R32M16_XMM_IMM8: int = 3781
+VEX_VPEXTRW_R32M16_XMM_IMM8: Code = 3781 # type: ignore
 """
 ``VPEXTRW r32/m16, xmm2, imm8``
 
@@ -37801,7 +37807,7 @@ VEX_VPEXTRW_R32M16_XMM_IMM8: int = 3781
 
 ``16/32/64-bit``
 """
-VEX_VPEXTRW_R64M16_XMM_IMM8: int = 3782
+VEX_VPEXTRW_R64M16_XMM_IMM8: Code = 3782 # type: ignore
 """
 ``VPEXTRW r64/m16, xmm2, imm8``
 
@@ -37811,7 +37817,7 @@ VEX_VPEXTRW_R64M16_XMM_IMM8: int = 3782
 
 ``64-bit``
 """
-EVEX_VPEXTRW_R32M16_XMM_IMM8: int = 3783
+EVEX_VPEXTRW_R32M16_XMM_IMM8: Code = 3783 # type: ignore
 """
 ``VPEXTRW r32/m16, xmm2, imm8``
 
@@ -37821,7 +37827,7 @@ EVEX_VPEXTRW_R32M16_XMM_IMM8: int = 3783
 
 ``16/32/64-bit``
 """
-EVEX_VPEXTRW_R64M16_XMM_IMM8: int = 3784
+EVEX_VPEXTRW_R64M16_XMM_IMM8: Code = 3784 # type: ignore
 """
 ``VPEXTRW r64/m16, xmm2, imm8``
 
@@ -37831,7 +37837,7 @@ EVEX_VPEXTRW_R64M16_XMM_IMM8: int = 3784
 
 ``64-bit``
 """
-PEXTRD_RM32_XMM_IMM8: int = 3785
+PEXTRD_RM32_XMM_IMM8: Code = 3785 # type: ignore
 """
 ``PEXTRD r/m32, xmm2, imm8``
 
@@ -37841,7 +37847,7 @@ PEXTRD_RM32_XMM_IMM8: int = 3785
 
 ``16/32/64-bit``
 """
-PEXTRQ_RM64_XMM_IMM8: int = 3786
+PEXTRQ_RM64_XMM_IMM8: Code = 3786 # type: ignore
 """
 ``PEXTRQ r/m64, xmm2, imm8``
 
@@ -37851,7 +37857,7 @@ PEXTRQ_RM64_XMM_IMM8: int = 3786
 
 ``64-bit``
 """
-VEX_VPEXTRD_RM32_XMM_IMM8: int = 3787
+VEX_VPEXTRD_RM32_XMM_IMM8: Code = 3787 # type: ignore
 """
 ``VPEXTRD r/m32, xmm2, imm8``
 
@@ -37861,7 +37867,7 @@ VEX_VPEXTRD_RM32_XMM_IMM8: int = 3787
 
 ``16/32/64-bit``
 """
-VEX_VPEXTRQ_RM64_XMM_IMM8: int = 3788
+VEX_VPEXTRQ_RM64_XMM_IMM8: Code = 3788 # type: ignore
 """
 ``VPEXTRQ r/m64, xmm2, imm8``
 
@@ -37871,7 +37877,7 @@ VEX_VPEXTRQ_RM64_XMM_IMM8: int = 3788
 
 ``64-bit``
 """
-EVEX_VPEXTRD_RM32_XMM_IMM8: int = 3789
+EVEX_VPEXTRD_RM32_XMM_IMM8: Code = 3789 # type: ignore
 """
 ``VPEXTRD r/m32, xmm2, imm8``
 
@@ -37881,7 +37887,7 @@ EVEX_VPEXTRD_RM32_XMM_IMM8: int = 3789
 
 ``16/32/64-bit``
 """
-EVEX_VPEXTRQ_RM64_XMM_IMM8: int = 3790
+EVEX_VPEXTRQ_RM64_XMM_IMM8: Code = 3790 # type: ignore
 """
 ``VPEXTRQ r/m64, xmm2, imm8``
 
@@ -37891,7 +37897,7 @@ EVEX_VPEXTRQ_RM64_XMM_IMM8: int = 3790
 
 ``64-bit``
 """
-EXTRACTPS_RM32_XMM_IMM8: int = 3791
+EXTRACTPS_RM32_XMM_IMM8: Code = 3791 # type: ignore
 """
 ``EXTRACTPS r/m32, xmm1, imm8``
 
@@ -37901,7 +37907,7 @@ EXTRACTPS_RM32_XMM_IMM8: int = 3791
 
 ``16/32/64-bit``
 """
-EXTRACTPS_R64M32_XMM_IMM8: int = 3792
+EXTRACTPS_R64M32_XMM_IMM8: Code = 3792 # type: ignore
 """
 ``EXTRACTPS r64/m32, xmm1, imm8``
 
@@ -37911,7 +37917,7 @@ EXTRACTPS_R64M32_XMM_IMM8: int = 3792
 
 ``64-bit``
 """
-VEX_VEXTRACTPS_RM32_XMM_IMM8: int = 3793
+VEX_VEXTRACTPS_RM32_XMM_IMM8: Code = 3793 # type: ignore
 """
 ``VEXTRACTPS r/m32, xmm1, imm8``
 
@@ -37921,7 +37927,7 @@ VEX_VEXTRACTPS_RM32_XMM_IMM8: int = 3793
 
 ``16/32/64-bit``
 """
-VEX_VEXTRACTPS_R64M32_XMM_IMM8: int = 3794
+VEX_VEXTRACTPS_R64M32_XMM_IMM8: Code = 3794 # type: ignore
 """
 ``VEXTRACTPS r64/m32, xmm1, imm8``
 
@@ -37931,7 +37937,7 @@ VEX_VEXTRACTPS_R64M32_XMM_IMM8: int = 3794
 
 ``64-bit``
 """
-EVEX_VEXTRACTPS_RM32_XMM_IMM8: int = 3795
+EVEX_VEXTRACTPS_RM32_XMM_IMM8: Code = 3795 # type: ignore
 """
 ``VEXTRACTPS r/m32, xmm1, imm8``
 
@@ -37941,7 +37947,7 @@ EVEX_VEXTRACTPS_RM32_XMM_IMM8: int = 3795
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTPS_R64M32_XMM_IMM8: int = 3796
+EVEX_VEXTRACTPS_R64M32_XMM_IMM8: Code = 3796 # type: ignore
 """
 ``VEXTRACTPS r64/m32, xmm1, imm8``
 
@@ -37951,7 +37957,7 @@ EVEX_VEXTRACTPS_R64M32_XMM_IMM8: int = 3796
 
 ``64-bit``
 """
-VEX_VINSERTF128_YMM_YMM_XMMM128_IMM8: int = 3797
+VEX_VINSERTF128_YMM_YMM_XMMM128_IMM8: Code = 3797 # type: ignore
 """
 ``VINSERTF128 ymm1, ymm2, xmm3/m128, imm8``
 
@@ -37961,7 +37967,7 @@ VEX_VINSERTF128_YMM_YMM_XMMM128_IMM8: int = 3797
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTF32X4_YMM_K1Z_YMM_XMMM128_IMM8: int = 3798
+EVEX_VINSERTF32X4_YMM_K1Z_YMM_XMMM128_IMM8: Code = 3798 # type: ignore
 """
 ``VINSERTF32X4 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8``
 
@@ -37971,7 +37977,7 @@ EVEX_VINSERTF32X4_YMM_K1Z_YMM_XMMM128_IMM8: int = 3798
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTF32X4_ZMM_K1Z_ZMM_XMMM128_IMM8: int = 3799
+EVEX_VINSERTF32X4_ZMM_K1Z_ZMM_XMMM128_IMM8: Code = 3799 # type: ignore
 """
 ``VINSERTF32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8``
 
@@ -37981,7 +37987,7 @@ EVEX_VINSERTF32X4_ZMM_K1Z_ZMM_XMMM128_IMM8: int = 3799
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTF64X2_YMM_K1Z_YMM_XMMM128_IMM8: int = 3800
+EVEX_VINSERTF64X2_YMM_K1Z_YMM_XMMM128_IMM8: Code = 3800 # type: ignore
 """
 ``VINSERTF64X2 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8``
 
@@ -37991,7 +37997,7 @@ EVEX_VINSERTF64X2_YMM_K1Z_YMM_XMMM128_IMM8: int = 3800
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTF64X2_ZMM_K1Z_ZMM_XMMM128_IMM8: int = 3801
+EVEX_VINSERTF64X2_ZMM_K1Z_ZMM_XMMM128_IMM8: Code = 3801 # type: ignore
 """
 ``VINSERTF64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8``
 
@@ -38001,7 +38007,7 @@ EVEX_VINSERTF64X2_ZMM_K1Z_ZMM_XMMM128_IMM8: int = 3801
 
 ``16/32/64-bit``
 """
-VEX_VEXTRACTF128_XMMM128_YMM_IMM8: int = 3802
+VEX_VEXTRACTF128_XMMM128_YMM_IMM8: Code = 3802 # type: ignore
 """
 ``VEXTRACTF128 xmm1/m128, ymm2, imm8``
 
@@ -38011,7 +38017,7 @@ VEX_VEXTRACTF128_XMMM128_YMM_IMM8: int = 3802
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTF32X4_XMMM128_K1Z_YMM_IMM8: int = 3803
+EVEX_VEXTRACTF32X4_XMMM128_K1Z_YMM_IMM8: Code = 3803 # type: ignore
 """
 ``VEXTRACTF32X4 xmm1/m128 {k1}{z}, ymm2, imm8``
 
@@ -38021,7 +38027,7 @@ EVEX_VEXTRACTF32X4_XMMM128_K1Z_YMM_IMM8: int = 3803
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTF32X4_XMMM128_K1Z_ZMM_IMM8: int = 3804
+EVEX_VEXTRACTF32X4_XMMM128_K1Z_ZMM_IMM8: Code = 3804 # type: ignore
 """
 ``VEXTRACTF32X4 xmm1/m128 {k1}{z}, zmm2, imm8``
 
@@ -38031,7 +38037,7 @@ EVEX_VEXTRACTF32X4_XMMM128_K1Z_ZMM_IMM8: int = 3804
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTF64X2_XMMM128_K1Z_YMM_IMM8: int = 3805
+EVEX_VEXTRACTF64X2_XMMM128_K1Z_YMM_IMM8: Code = 3805 # type: ignore
 """
 ``VEXTRACTF64X2 xmm1/m128 {k1}{z}, ymm2, imm8``
 
@@ -38041,7 +38047,7 @@ EVEX_VEXTRACTF64X2_XMMM128_K1Z_YMM_IMM8: int = 3805
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTF64X2_XMMM128_K1Z_ZMM_IMM8: int = 3806
+EVEX_VEXTRACTF64X2_XMMM128_K1Z_ZMM_IMM8: Code = 3806 # type: ignore
 """
 ``VEXTRACTF64X2 xmm1/m128 {k1}{z}, zmm2, imm8``
 
@@ -38051,7 +38057,7 @@ EVEX_VEXTRACTF64X2_XMMM128_K1Z_ZMM_IMM8: int = 3806
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTF32X8_ZMM_K1Z_ZMM_YMMM256_IMM8: int = 3807
+EVEX_VINSERTF32X8_ZMM_K1Z_ZMM_YMMM256_IMM8: Code = 3807 # type: ignore
 """
 ``VINSERTF32X8 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8``
 
@@ -38061,7 +38067,7 @@ EVEX_VINSERTF32X8_ZMM_K1Z_ZMM_YMMM256_IMM8: int = 3807
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTF64X4_ZMM_K1Z_ZMM_YMMM256_IMM8: int = 3808
+EVEX_VINSERTF64X4_ZMM_K1Z_ZMM_YMMM256_IMM8: Code = 3808 # type: ignore
 """
 ``VINSERTF64X4 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8``
 
@@ -38071,7 +38077,7 @@ EVEX_VINSERTF64X4_ZMM_K1Z_ZMM_YMMM256_IMM8: int = 3808
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTF32X8_YMMM256_K1Z_ZMM_IMM8: int = 3809
+EVEX_VEXTRACTF32X8_YMMM256_K1Z_ZMM_IMM8: Code = 3809 # type: ignore
 """
 ``VEXTRACTF32X8 ymm1/m256 {k1}{z}, zmm2, imm8``
 
@@ -38081,7 +38087,7 @@ EVEX_VEXTRACTF32X8_YMMM256_K1Z_ZMM_IMM8: int = 3809
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTF64X4_YMMM256_K1Z_ZMM_IMM8: int = 3810
+EVEX_VEXTRACTF64X4_YMMM256_K1Z_ZMM_IMM8: Code = 3810 # type: ignore
 """
 ``VEXTRACTF64X4 ymm1/m256 {k1}{z}, zmm2, imm8``
 
@@ -38091,7 +38097,7 @@ EVEX_VEXTRACTF64X4_YMMM256_K1Z_ZMM_IMM8: int = 3810
 
 ``16/32/64-bit``
 """
-VEX_VCVTPS2PH_XMMM64_XMM_IMM8: int = 3811
+VEX_VCVTPS2PH_XMMM64_XMM_IMM8: Code = 3811 # type: ignore
 """
 ``VCVTPS2PH xmm1/m64, xmm2, imm8``
 
@@ -38101,7 +38107,7 @@ VEX_VCVTPS2PH_XMMM64_XMM_IMM8: int = 3811
 
 ``16/32/64-bit``
 """
-VEX_VCVTPS2PH_XMMM128_YMM_IMM8: int = 3812
+VEX_VCVTPS2PH_XMMM128_YMM_IMM8: Code = 3812 # type: ignore
 """
 ``VCVTPS2PH xmm1/m128, ymm2, imm8``
 
@@ -38111,7 +38117,7 @@ VEX_VCVTPS2PH_XMMM128_YMM_IMM8: int = 3812
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2PH_XMMM64_K1Z_XMM_IMM8: int = 3813
+EVEX_VCVTPS2PH_XMMM64_K1Z_XMM_IMM8: Code = 3813 # type: ignore
 """
 ``VCVTPS2PH xmm1/m64 {k1}{z}, xmm2, imm8``
 
@@ -38121,7 +38127,7 @@ EVEX_VCVTPS2PH_XMMM64_K1Z_XMM_IMM8: int = 3813
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2PH_XMMM128_K1Z_YMM_IMM8: int = 3814
+EVEX_VCVTPS2PH_XMMM128_K1Z_YMM_IMM8: Code = 3814 # type: ignore
 """
 ``VCVTPS2PH xmm1/m128 {k1}{z}, ymm2, imm8``
 
@@ -38131,7 +38137,7 @@ EVEX_VCVTPS2PH_XMMM128_K1Z_YMM_IMM8: int = 3814
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2PH_YMMM256_K1Z_ZMM_IMM8_SAE: int = 3815
+EVEX_VCVTPS2PH_YMMM256_K1Z_ZMM_IMM8_SAE: Code = 3815 # type: ignore
 """
 ``VCVTPS2PH ymm1/m256 {k1}{z}, zmm2{sae}, imm8``
 
@@ -38141,7 +38147,7 @@ EVEX_VCVTPS2PH_YMMM256_K1Z_ZMM_IMM8_SAE: int = 3815
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUD_KR_K1_XMM_XMMM128B32_IMM8: int = 3816
+EVEX_VPCMPUD_KR_K1_XMM_XMMM128B32_IMM8: Code = 3816 # type: ignore
 """
 ``VPCMPUD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8``
 
@@ -38151,7 +38157,7 @@ EVEX_VPCMPUD_KR_K1_XMM_XMMM128B32_IMM8: int = 3816
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUD_KR_K1_YMM_YMMM256B32_IMM8: int = 3817
+EVEX_VPCMPUD_KR_K1_YMM_YMMM256B32_IMM8: Code = 3817 # type: ignore
 """
 ``VPCMPUD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -38161,7 +38167,7 @@ EVEX_VPCMPUD_KR_K1_YMM_YMMM256B32_IMM8: int = 3817
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUD_KR_K1_ZMM_ZMMM512B32_IMM8: int = 3818
+EVEX_VPCMPUD_KR_K1_ZMM_ZMMM512B32_IMM8: Code = 3818 # type: ignore
 """
 ``VPCMPUD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8``
 
@@ -38171,7 +38177,7 @@ EVEX_VPCMPUD_KR_K1_ZMM_ZMMM512B32_IMM8: int = 3818
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUQ_KR_K1_XMM_XMMM128B64_IMM8: int = 3819
+EVEX_VPCMPUQ_KR_K1_XMM_XMMM128B64_IMM8: Code = 3819 # type: ignore
 """
 ``VPCMPUQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -38181,7 +38187,7 @@ EVEX_VPCMPUQ_KR_K1_XMM_XMMM128B64_IMM8: int = 3819
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUQ_KR_K1_YMM_YMMM256B64_IMM8: int = 3820
+EVEX_VPCMPUQ_KR_K1_YMM_YMMM256B64_IMM8: Code = 3820 # type: ignore
 """
 ``VPCMPUQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -38191,7 +38197,7 @@ EVEX_VPCMPUQ_KR_K1_YMM_YMMM256B64_IMM8: int = 3820
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUQ_KR_K1_ZMM_ZMMM512B64_IMM8: int = 3821
+EVEX_VPCMPUQ_KR_K1_ZMM_ZMMM512B64_IMM8: Code = 3821 # type: ignore
 """
 ``VPCMPUQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -38201,7 +38207,7 @@ EVEX_VPCMPUQ_KR_K1_ZMM_ZMMM512B64_IMM8: int = 3821
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPD_KR_K1_XMM_XMMM128B32_IMM8: int = 3822
+EVEX_VPCMPD_KR_K1_XMM_XMMM128B32_IMM8: Code = 3822 # type: ignore
 """
 ``VPCMPD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8``
 
@@ -38211,7 +38217,7 @@ EVEX_VPCMPD_KR_K1_XMM_XMMM128B32_IMM8: int = 3822
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPD_KR_K1_YMM_YMMM256B32_IMM8: int = 3823
+EVEX_VPCMPD_KR_K1_YMM_YMMM256B32_IMM8: Code = 3823 # type: ignore
 """
 ``VPCMPD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -38221,7 +38227,7 @@ EVEX_VPCMPD_KR_K1_YMM_YMMM256B32_IMM8: int = 3823
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPD_KR_K1_ZMM_ZMMM512B32_IMM8: int = 3824
+EVEX_VPCMPD_KR_K1_ZMM_ZMMM512B32_IMM8: Code = 3824 # type: ignore
 """
 ``VPCMPD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8``
 
@@ -38231,7 +38237,7 @@ EVEX_VPCMPD_KR_K1_ZMM_ZMMM512B32_IMM8: int = 3824
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPQ_KR_K1_XMM_XMMM128B64_IMM8: int = 3825
+EVEX_VPCMPQ_KR_K1_XMM_XMMM128B64_IMM8: Code = 3825 # type: ignore
 """
 ``VPCMPQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -38241,7 +38247,7 @@ EVEX_VPCMPQ_KR_K1_XMM_XMMM128B64_IMM8: int = 3825
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPQ_KR_K1_YMM_YMMM256B64_IMM8: int = 3826
+EVEX_VPCMPQ_KR_K1_YMM_YMMM256B64_IMM8: Code = 3826 # type: ignore
 """
 ``VPCMPQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -38251,7 +38257,7 @@ EVEX_VPCMPQ_KR_K1_YMM_YMMM256B64_IMM8: int = 3826
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPQ_KR_K1_ZMM_ZMMM512B64_IMM8: int = 3827
+EVEX_VPCMPQ_KR_K1_ZMM_ZMMM512B64_IMM8: Code = 3827 # type: ignore
 """
 ``VPCMPQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -38261,7 +38267,7 @@ EVEX_VPCMPQ_KR_K1_ZMM_ZMMM512B64_IMM8: int = 3827
 
 ``16/32/64-bit``
 """
-PINSRB_XMM_R32M8_IMM8: int = 3828
+PINSRB_XMM_R32M8_IMM8: Code = 3828 # type: ignore
 """
 ``PINSRB xmm1, r32/m8, imm8``
 
@@ -38271,7 +38277,7 @@ PINSRB_XMM_R32M8_IMM8: int = 3828
 
 ``16/32/64-bit``
 """
-PINSRB_XMM_R64M8_IMM8: int = 3829
+PINSRB_XMM_R64M8_IMM8: Code = 3829 # type: ignore
 """
 ``PINSRB xmm1, r64/m8, imm8``
 
@@ -38281,7 +38287,7 @@ PINSRB_XMM_R64M8_IMM8: int = 3829
 
 ``64-bit``
 """
-VEX_VPINSRB_XMM_XMM_R32M8_IMM8: int = 3830
+VEX_VPINSRB_XMM_XMM_R32M8_IMM8: Code = 3830 # type: ignore
 """
 ``VPINSRB xmm1, xmm2, r32/m8, imm8``
 
@@ -38291,7 +38297,7 @@ VEX_VPINSRB_XMM_XMM_R32M8_IMM8: int = 3830
 
 ``16/32/64-bit``
 """
-VEX_VPINSRB_XMM_XMM_R64M8_IMM8: int = 3831
+VEX_VPINSRB_XMM_XMM_R64M8_IMM8: Code = 3831 # type: ignore
 """
 ``VPINSRB xmm1, xmm2, r64/m8, imm8``
 
@@ -38301,7 +38307,7 @@ VEX_VPINSRB_XMM_XMM_R64M8_IMM8: int = 3831
 
 ``64-bit``
 """
-EVEX_VPINSRB_XMM_XMM_R32M8_IMM8: int = 3832
+EVEX_VPINSRB_XMM_XMM_R32M8_IMM8: Code = 3832 # type: ignore
 """
 ``VPINSRB xmm1, xmm2, r32/m8, imm8``
 
@@ -38311,7 +38317,7 @@ EVEX_VPINSRB_XMM_XMM_R32M8_IMM8: int = 3832
 
 ``16/32/64-bit``
 """
-EVEX_VPINSRB_XMM_XMM_R64M8_IMM8: int = 3833
+EVEX_VPINSRB_XMM_XMM_R64M8_IMM8: Code = 3833 # type: ignore
 """
 ``VPINSRB xmm1, xmm2, r64/m8, imm8``
 
@@ -38321,7 +38327,7 @@ EVEX_VPINSRB_XMM_XMM_R64M8_IMM8: int = 3833
 
 ``64-bit``
 """
-INSERTPS_XMM_XMMM32_IMM8: int = 3834
+INSERTPS_XMM_XMMM32_IMM8: Code = 3834 # type: ignore
 """
 ``INSERTPS xmm1, xmm2/m32, imm8``
 
@@ -38331,7 +38337,7 @@ INSERTPS_XMM_XMMM32_IMM8: int = 3834
 
 ``16/32/64-bit``
 """
-VEX_VINSERTPS_XMM_XMM_XMMM32_IMM8: int = 3835
+VEX_VINSERTPS_XMM_XMM_XMMM32_IMM8: Code = 3835 # type: ignore
 """
 ``VINSERTPS xmm1, xmm2, xmm3/m32, imm8``
 
@@ -38341,7 +38347,7 @@ VEX_VINSERTPS_XMM_XMM_XMMM32_IMM8: int = 3835
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTPS_XMM_XMM_XMMM32_IMM8: int = 3836
+EVEX_VINSERTPS_XMM_XMM_XMMM32_IMM8: Code = 3836 # type: ignore
 """
 ``VINSERTPS xmm1, xmm2, xmm3/m32, imm8``
 
@@ -38351,7 +38357,7 @@ EVEX_VINSERTPS_XMM_XMM_XMMM32_IMM8: int = 3836
 
 ``16/32/64-bit``
 """
-PINSRD_XMM_RM32_IMM8: int = 3837
+PINSRD_XMM_RM32_IMM8: Code = 3837 # type: ignore
 """
 ``PINSRD xmm1, r/m32, imm8``
 
@@ -38361,7 +38367,7 @@ PINSRD_XMM_RM32_IMM8: int = 3837
 
 ``16/32/64-bit``
 """
-PINSRQ_XMM_RM64_IMM8: int = 3838
+PINSRQ_XMM_RM64_IMM8: Code = 3838 # type: ignore
 """
 ``PINSRQ xmm1, r/m64, imm8``
 
@@ -38371,7 +38377,7 @@ PINSRQ_XMM_RM64_IMM8: int = 3838
 
 ``64-bit``
 """
-VEX_VPINSRD_XMM_XMM_RM32_IMM8: int = 3839
+VEX_VPINSRD_XMM_XMM_RM32_IMM8: Code = 3839 # type: ignore
 """
 ``VPINSRD xmm1, xmm2, r/m32, imm8``
 
@@ -38381,7 +38387,7 @@ VEX_VPINSRD_XMM_XMM_RM32_IMM8: int = 3839
 
 ``16/32/64-bit``
 """
-VEX_VPINSRQ_XMM_XMM_RM64_IMM8: int = 3840
+VEX_VPINSRQ_XMM_XMM_RM64_IMM8: Code = 3840 # type: ignore
 """
 ``VPINSRQ xmm1, xmm2, r/m64, imm8``
 
@@ -38391,7 +38397,7 @@ VEX_VPINSRQ_XMM_XMM_RM64_IMM8: int = 3840
 
 ``64-bit``
 """
-EVEX_VPINSRD_XMM_XMM_RM32_IMM8: int = 3841
+EVEX_VPINSRD_XMM_XMM_RM32_IMM8: Code = 3841 # type: ignore
 """
 ``VPINSRD xmm1, xmm2, r/m32, imm8``
 
@@ -38401,7 +38407,7 @@ EVEX_VPINSRD_XMM_XMM_RM32_IMM8: int = 3841
 
 ``16/32/64-bit``
 """
-EVEX_VPINSRQ_XMM_XMM_RM64_IMM8: int = 3842
+EVEX_VPINSRQ_XMM_XMM_RM64_IMM8: Code = 3842 # type: ignore
 """
 ``VPINSRQ xmm1, xmm2, r/m64, imm8``
 
@@ -38411,7 +38417,7 @@ EVEX_VPINSRQ_XMM_XMM_RM64_IMM8: int = 3842
 
 ``64-bit``
 """
-EVEX_VSHUFF32X4_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3843
+EVEX_VSHUFF32X4_YMM_K1Z_YMM_YMMM256B32_IMM8: Code = 3843 # type: ignore
 """
 ``VSHUFF32X4 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -38421,7 +38427,7 @@ EVEX_VSHUFF32X4_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3843
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFF32X4_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 3844
+EVEX_VSHUFF32X4_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: Code = 3844 # type: ignore
 """
 ``VSHUFF32X4 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8``
 
@@ -38431,7 +38437,7 @@ EVEX_VSHUFF32X4_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 3844
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFF64X2_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3845
+EVEX_VSHUFF64X2_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 3845 # type: ignore
 """
 ``VSHUFF64X2 ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -38441,7 +38447,7 @@ EVEX_VSHUFF64X2_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3845
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFF64X2_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 3846
+EVEX_VSHUFF64X2_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: Code = 3846 # type: ignore
 """
 ``VSHUFF64X2 zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -38451,7 +38457,7 @@ EVEX_VSHUFF64X2_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 3846
 
 ``16/32/64-bit``
 """
-EVEX_VPTERNLOGD_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 3847
+EVEX_VPTERNLOGD_XMM_K1Z_XMM_XMMM128B32_IMM8: Code = 3847 # type: ignore
 """
 ``VPTERNLOGD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8``
 
@@ -38461,7 +38467,7 @@ EVEX_VPTERNLOGD_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 3847
 
 ``16/32/64-bit``
 """
-EVEX_VPTERNLOGD_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3848
+EVEX_VPTERNLOGD_YMM_K1Z_YMM_YMMM256B32_IMM8: Code = 3848 # type: ignore
 """
 ``VPTERNLOGD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -38471,7 +38477,7 @@ EVEX_VPTERNLOGD_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3848
 
 ``16/32/64-bit``
 """
-EVEX_VPTERNLOGD_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 3849
+EVEX_VPTERNLOGD_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: Code = 3849 # type: ignore
 """
 ``VPTERNLOGD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8``
 
@@ -38481,7 +38487,7 @@ EVEX_VPTERNLOGD_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 3849
 
 ``16/32/64-bit``
 """
-EVEX_VPTERNLOGQ_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 3850
+EVEX_VPTERNLOGQ_XMM_K1Z_XMM_XMMM128B64_IMM8: Code = 3850 # type: ignore
 """
 ``VPTERNLOGQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -38491,7 +38497,7 @@ EVEX_VPTERNLOGQ_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 3850
 
 ``16/32/64-bit``
 """
-EVEX_VPTERNLOGQ_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3851
+EVEX_VPTERNLOGQ_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 3851 # type: ignore
 """
 ``VPTERNLOGQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -38501,7 +38507,7 @@ EVEX_VPTERNLOGQ_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3851
 
 ``16/32/64-bit``
 """
-EVEX_VPTERNLOGQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 3852
+EVEX_VPTERNLOGQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: Code = 3852 # type: ignore
 """
 ``VPTERNLOGQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -38511,7 +38517,7 @@ EVEX_VPTERNLOGQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 3852
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTPS_XMM_K1Z_XMMM128B32_IMM8: int = 3853
+EVEX_VGETMANTPS_XMM_K1Z_XMMM128B32_IMM8: Code = 3853 # type: ignore
 """
 ``VGETMANTPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8``
 
@@ -38521,7 +38527,7 @@ EVEX_VGETMANTPS_XMM_K1Z_XMMM128B32_IMM8: int = 3853
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTPS_YMM_K1Z_YMMM256B32_IMM8: int = 3854
+EVEX_VGETMANTPS_YMM_K1Z_YMMM256B32_IMM8: Code = 3854 # type: ignore
 """
 ``VGETMANTPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8``
 
@@ -38531,7 +38537,7 @@ EVEX_VGETMANTPS_YMM_K1Z_YMMM256B32_IMM8: int = 3854
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTPS_ZMM_K1Z_ZMMM512B32_IMM8_SAE: int = 3855
+EVEX_VGETMANTPS_ZMM_K1Z_ZMMM512B32_IMM8_SAE: Code = 3855 # type: ignore
 """
 ``VGETMANTPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8``
 
@@ -38541,7 +38547,7 @@ EVEX_VGETMANTPS_ZMM_K1Z_ZMMM512B32_IMM8_SAE: int = 3855
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTPD_XMM_K1Z_XMMM128B64_IMM8: int = 3856
+EVEX_VGETMANTPD_XMM_K1Z_XMMM128B64_IMM8: Code = 3856 # type: ignore
 """
 ``VGETMANTPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8``
 
@@ -38551,7 +38557,7 @@ EVEX_VGETMANTPD_XMM_K1Z_XMMM128B64_IMM8: int = 3856
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTPD_YMM_K1Z_YMMM256B64_IMM8: int = 3857
+EVEX_VGETMANTPD_YMM_K1Z_YMMM256B64_IMM8: Code = 3857 # type: ignore
 """
 ``VGETMANTPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -38561,7 +38567,7 @@ EVEX_VGETMANTPD_YMM_K1Z_YMMM256B64_IMM8: int = 3857
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTPD_ZMM_K1Z_ZMMM512B64_IMM8_SAE: int = 3858
+EVEX_VGETMANTPD_ZMM_K1Z_ZMMM512B64_IMM8_SAE: Code = 3858 # type: ignore
 """
 ``VGETMANTPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8``
 
@@ -38571,7 +38577,7 @@ EVEX_VGETMANTPD_ZMM_K1Z_ZMMM512B64_IMM8_SAE: int = 3858
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTSS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: int = 3859
+EVEX_VGETMANTSS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: Code = 3859 # type: ignore
 """
 ``VGETMANTSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8``
 
@@ -38581,7 +38587,7 @@ EVEX_VGETMANTSS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: int = 3859
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTSD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: int = 3860
+EVEX_VGETMANTSD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: Code = 3860 # type: ignore
 """
 ``VGETMANTSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8``
 
@@ -38591,7 +38597,7 @@ EVEX_VGETMANTSD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: int = 3860
 
 ``16/32/64-bit``
 """
-VEX_KSHIFTRB_KR_KR_IMM8: int = 3861
+VEX_KSHIFTRB_KR_KR_IMM8: Code = 3861 # type: ignore
 """
 ``KSHIFTRB k1, k2, imm8``
 
@@ -38601,7 +38607,7 @@ VEX_KSHIFTRB_KR_KR_IMM8: int = 3861
 
 ``16/32/64-bit``
 """
-VEX_KSHIFTRW_KR_KR_IMM8: int = 3862
+VEX_KSHIFTRW_KR_KR_IMM8: Code = 3862 # type: ignore
 """
 ``KSHIFTRW k1, k2, imm8``
 
@@ -38611,7 +38617,7 @@ VEX_KSHIFTRW_KR_KR_IMM8: int = 3862
 
 ``16/32/64-bit``
 """
-VEX_KSHIFTRD_KR_KR_IMM8: int = 3863
+VEX_KSHIFTRD_KR_KR_IMM8: Code = 3863 # type: ignore
 """
 ``KSHIFTRD k1, k2, imm8``
 
@@ -38621,7 +38627,7 @@ VEX_KSHIFTRD_KR_KR_IMM8: int = 3863
 
 ``16/32/64-bit``
 """
-VEX_KSHIFTRQ_KR_KR_IMM8: int = 3864
+VEX_KSHIFTRQ_KR_KR_IMM8: Code = 3864 # type: ignore
 """
 ``KSHIFTRQ k1, k2, imm8``
 
@@ -38631,7 +38637,7 @@ VEX_KSHIFTRQ_KR_KR_IMM8: int = 3864
 
 ``16/32/64-bit``
 """
-VEX_KSHIFTLB_KR_KR_IMM8: int = 3865
+VEX_KSHIFTLB_KR_KR_IMM8: Code = 3865 # type: ignore
 """
 ``KSHIFTLB k1, k2, imm8``
 
@@ -38641,7 +38647,7 @@ VEX_KSHIFTLB_KR_KR_IMM8: int = 3865
 
 ``16/32/64-bit``
 """
-VEX_KSHIFTLW_KR_KR_IMM8: int = 3866
+VEX_KSHIFTLW_KR_KR_IMM8: Code = 3866 # type: ignore
 """
 ``KSHIFTLW k1, k2, imm8``
 
@@ -38651,7 +38657,7 @@ VEX_KSHIFTLW_KR_KR_IMM8: int = 3866
 
 ``16/32/64-bit``
 """
-VEX_KSHIFTLD_KR_KR_IMM8: int = 3867
+VEX_KSHIFTLD_KR_KR_IMM8: Code = 3867 # type: ignore
 """
 ``KSHIFTLD k1, k2, imm8``
 
@@ -38661,7 +38667,7 @@ VEX_KSHIFTLD_KR_KR_IMM8: int = 3867
 
 ``16/32/64-bit``
 """
-VEX_KSHIFTLQ_KR_KR_IMM8: int = 3868
+VEX_KSHIFTLQ_KR_KR_IMM8: Code = 3868 # type: ignore
 """
 ``KSHIFTLQ k1, k2, imm8``
 
@@ -38671,7 +38677,7 @@ VEX_KSHIFTLQ_KR_KR_IMM8: int = 3868
 
 ``16/32/64-bit``
 """
-VEX_VINSERTI128_YMM_YMM_XMMM128_IMM8: int = 3869
+VEX_VINSERTI128_YMM_YMM_XMMM128_IMM8: Code = 3869 # type: ignore
 """
 ``VINSERTI128 ymm1, ymm2, xmm3/m128, imm8``
 
@@ -38681,7 +38687,7 @@ VEX_VINSERTI128_YMM_YMM_XMMM128_IMM8: int = 3869
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTI32X4_YMM_K1Z_YMM_XMMM128_IMM8: int = 3870
+EVEX_VINSERTI32X4_YMM_K1Z_YMM_XMMM128_IMM8: Code = 3870 # type: ignore
 """
 ``VINSERTI32X4 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8``
 
@@ -38691,7 +38697,7 @@ EVEX_VINSERTI32X4_YMM_K1Z_YMM_XMMM128_IMM8: int = 3870
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTI32X4_ZMM_K1Z_ZMM_XMMM128_IMM8: int = 3871
+EVEX_VINSERTI32X4_ZMM_K1Z_ZMM_XMMM128_IMM8: Code = 3871 # type: ignore
 """
 ``VINSERTI32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8``
 
@@ -38701,7 +38707,7 @@ EVEX_VINSERTI32X4_ZMM_K1Z_ZMM_XMMM128_IMM8: int = 3871
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTI64X2_YMM_K1Z_YMM_XMMM128_IMM8: int = 3872
+EVEX_VINSERTI64X2_YMM_K1Z_YMM_XMMM128_IMM8: Code = 3872 # type: ignore
 """
 ``VINSERTI64X2 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8``
 
@@ -38711,7 +38717,7 @@ EVEX_VINSERTI64X2_YMM_K1Z_YMM_XMMM128_IMM8: int = 3872
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTI64X2_ZMM_K1Z_ZMM_XMMM128_IMM8: int = 3873
+EVEX_VINSERTI64X2_ZMM_K1Z_ZMM_XMMM128_IMM8: Code = 3873 # type: ignore
 """
 ``VINSERTI64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8``
 
@@ -38721,7 +38727,7 @@ EVEX_VINSERTI64X2_ZMM_K1Z_ZMM_XMMM128_IMM8: int = 3873
 
 ``16/32/64-bit``
 """
-VEX_VEXTRACTI128_XMMM128_YMM_IMM8: int = 3874
+VEX_VEXTRACTI128_XMMM128_YMM_IMM8: Code = 3874 # type: ignore
 """
 ``VEXTRACTI128 xmm1/m128, ymm2, imm8``
 
@@ -38731,7 +38737,7 @@ VEX_VEXTRACTI128_XMMM128_YMM_IMM8: int = 3874
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTI32X4_XMMM128_K1Z_YMM_IMM8: int = 3875
+EVEX_VEXTRACTI32X4_XMMM128_K1Z_YMM_IMM8: Code = 3875 # type: ignore
 """
 ``VEXTRACTI32X4 xmm1/m128 {k1}{z}, ymm2, imm8``
 
@@ -38741,7 +38747,7 @@ EVEX_VEXTRACTI32X4_XMMM128_K1Z_YMM_IMM8: int = 3875
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTI32X4_XMMM128_K1Z_ZMM_IMM8: int = 3876
+EVEX_VEXTRACTI32X4_XMMM128_K1Z_ZMM_IMM8: Code = 3876 # type: ignore
 """
 ``VEXTRACTI32X4 xmm1/m128 {k1}{z}, zmm2, imm8``
 
@@ -38751,7 +38757,7 @@ EVEX_VEXTRACTI32X4_XMMM128_K1Z_ZMM_IMM8: int = 3876
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTI64X2_XMMM128_K1Z_YMM_IMM8: int = 3877
+EVEX_VEXTRACTI64X2_XMMM128_K1Z_YMM_IMM8: Code = 3877 # type: ignore
 """
 ``VEXTRACTI64X2 xmm1/m128 {k1}{z}, ymm2, imm8``
 
@@ -38761,7 +38767,7 @@ EVEX_VEXTRACTI64X2_XMMM128_K1Z_YMM_IMM8: int = 3877
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTI64X2_XMMM128_K1Z_ZMM_IMM8: int = 3878
+EVEX_VEXTRACTI64X2_XMMM128_K1Z_ZMM_IMM8: Code = 3878 # type: ignore
 """
 ``VEXTRACTI64X2 xmm1/m128 {k1}{z}, zmm2, imm8``
 
@@ -38771,7 +38777,7 @@ EVEX_VEXTRACTI64X2_XMMM128_K1Z_ZMM_IMM8: int = 3878
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTI32X8_ZMM_K1Z_ZMM_YMMM256_IMM8: int = 3879
+EVEX_VINSERTI32X8_ZMM_K1Z_ZMM_YMMM256_IMM8: Code = 3879 # type: ignore
 """
 ``VINSERTI32X8 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8``
 
@@ -38781,7 +38787,7 @@ EVEX_VINSERTI32X8_ZMM_K1Z_ZMM_YMMM256_IMM8: int = 3879
 
 ``16/32/64-bit``
 """
-EVEX_VINSERTI64X4_ZMM_K1Z_ZMM_YMMM256_IMM8: int = 3880
+EVEX_VINSERTI64X4_ZMM_K1Z_ZMM_YMMM256_IMM8: Code = 3880 # type: ignore
 """
 ``VINSERTI64X4 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8``
 
@@ -38791,7 +38797,7 @@ EVEX_VINSERTI64X4_ZMM_K1Z_ZMM_YMMM256_IMM8: int = 3880
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTI32X8_YMMM256_K1Z_ZMM_IMM8: int = 3881
+EVEX_VEXTRACTI32X8_YMMM256_K1Z_ZMM_IMM8: Code = 3881 # type: ignore
 """
 ``VEXTRACTI32X8 ymm1/m256 {k1}{z}, zmm2, imm8``
 
@@ -38801,7 +38807,7 @@ EVEX_VEXTRACTI32X8_YMMM256_K1Z_ZMM_IMM8: int = 3881
 
 ``16/32/64-bit``
 """
-EVEX_VEXTRACTI64X4_YMMM256_K1Z_ZMM_IMM8: int = 3882
+EVEX_VEXTRACTI64X4_YMMM256_K1Z_ZMM_IMM8: Code = 3882 # type: ignore
 """
 ``VEXTRACTI64X4 ymm1/m256 {k1}{z}, zmm2, imm8``
 
@@ -38811,7 +38817,7 @@ EVEX_VEXTRACTI64X4_YMMM256_K1Z_ZMM_IMM8: int = 3882
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUB_KR_K1_XMM_XMMM128_IMM8: int = 3883
+EVEX_VPCMPUB_KR_K1_XMM_XMMM128_IMM8: Code = 3883 # type: ignore
 """
 ``VPCMPUB k1 {k2}, xmm2, xmm3/m128, imm8``
 
@@ -38821,7 +38827,7 @@ EVEX_VPCMPUB_KR_K1_XMM_XMMM128_IMM8: int = 3883
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUB_KR_K1_YMM_YMMM256_IMM8: int = 3884
+EVEX_VPCMPUB_KR_K1_YMM_YMMM256_IMM8: Code = 3884 # type: ignore
 """
 ``VPCMPUB k1 {k2}, ymm2, ymm3/m256, imm8``
 
@@ -38831,7 +38837,7 @@ EVEX_VPCMPUB_KR_K1_YMM_YMMM256_IMM8: int = 3884
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUB_KR_K1_ZMM_ZMMM512_IMM8: int = 3885
+EVEX_VPCMPUB_KR_K1_ZMM_ZMMM512_IMM8: Code = 3885 # type: ignore
 """
 ``VPCMPUB k1 {k2}, zmm2, zmm3/m512, imm8``
 
@@ -38841,7 +38847,7 @@ EVEX_VPCMPUB_KR_K1_ZMM_ZMMM512_IMM8: int = 3885
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUW_KR_K1_XMM_XMMM128_IMM8: int = 3886
+EVEX_VPCMPUW_KR_K1_XMM_XMMM128_IMM8: Code = 3886 # type: ignore
 """
 ``VPCMPUW k1 {k2}, xmm2, xmm3/m128, imm8``
 
@@ -38851,7 +38857,7 @@ EVEX_VPCMPUW_KR_K1_XMM_XMMM128_IMM8: int = 3886
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUW_KR_K1_YMM_YMMM256_IMM8: int = 3887
+EVEX_VPCMPUW_KR_K1_YMM_YMMM256_IMM8: Code = 3887 # type: ignore
 """
 ``VPCMPUW k1 {k2}, ymm2, ymm3/m256, imm8``
 
@@ -38861,7 +38867,7 @@ EVEX_VPCMPUW_KR_K1_YMM_YMMM256_IMM8: int = 3887
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPUW_KR_K1_ZMM_ZMMM512_IMM8: int = 3888
+EVEX_VPCMPUW_KR_K1_ZMM_ZMMM512_IMM8: Code = 3888 # type: ignore
 """
 ``VPCMPUW k1 {k2}, zmm2, zmm3/m512, imm8``
 
@@ -38871,7 +38877,7 @@ EVEX_VPCMPUW_KR_K1_ZMM_ZMMM512_IMM8: int = 3888
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPB_KR_K1_XMM_XMMM128_IMM8: int = 3889
+EVEX_VPCMPB_KR_K1_XMM_XMMM128_IMM8: Code = 3889 # type: ignore
 """
 ``VPCMPB k1 {k2}, xmm2, xmm3/m128, imm8``
 
@@ -38881,7 +38887,7 @@ EVEX_VPCMPB_KR_K1_XMM_XMMM128_IMM8: int = 3889
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPB_KR_K1_YMM_YMMM256_IMM8: int = 3890
+EVEX_VPCMPB_KR_K1_YMM_YMMM256_IMM8: Code = 3890 # type: ignore
 """
 ``VPCMPB k1 {k2}, ymm2, ymm3/m256, imm8``
 
@@ -38891,7 +38897,7 @@ EVEX_VPCMPB_KR_K1_YMM_YMMM256_IMM8: int = 3890
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPB_KR_K1_ZMM_ZMMM512_IMM8: int = 3891
+EVEX_VPCMPB_KR_K1_ZMM_ZMMM512_IMM8: Code = 3891 # type: ignore
 """
 ``VPCMPB k1 {k2}, zmm2, zmm3/m512, imm8``
 
@@ -38901,7 +38907,7 @@ EVEX_VPCMPB_KR_K1_ZMM_ZMMM512_IMM8: int = 3891
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPW_KR_K1_XMM_XMMM128_IMM8: int = 3892
+EVEX_VPCMPW_KR_K1_XMM_XMMM128_IMM8: Code = 3892 # type: ignore
 """
 ``VPCMPW k1 {k2}, xmm2, xmm3/m128, imm8``
 
@@ -38911,7 +38917,7 @@ EVEX_VPCMPW_KR_K1_XMM_XMMM128_IMM8: int = 3892
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPW_KR_K1_YMM_YMMM256_IMM8: int = 3893
+EVEX_VPCMPW_KR_K1_YMM_YMMM256_IMM8: Code = 3893 # type: ignore
 """
 ``VPCMPW k1 {k2}, ymm2, ymm3/m256, imm8``
 
@@ -38921,7 +38927,7 @@ EVEX_VPCMPW_KR_K1_YMM_YMMM256_IMM8: int = 3893
 
 ``16/32/64-bit``
 """
-EVEX_VPCMPW_KR_K1_ZMM_ZMMM512_IMM8: int = 3894
+EVEX_VPCMPW_KR_K1_ZMM_ZMMM512_IMM8: Code = 3894 # type: ignore
 """
 ``VPCMPW k1 {k2}, zmm2, zmm3/m512, imm8``
 
@@ -38931,7 +38937,7 @@ EVEX_VPCMPW_KR_K1_ZMM_ZMMM512_IMM8: int = 3894
 
 ``16/32/64-bit``
 """
-DPPS_XMM_XMMM128_IMM8: int = 3895
+DPPS_XMM_XMMM128_IMM8: Code = 3895 # type: ignore
 """
 ``DPPS xmm1, xmm2/m128, imm8``
 
@@ -38941,7 +38947,7 @@ DPPS_XMM_XMMM128_IMM8: int = 3895
 
 ``16/32/64-bit``
 """
-VEX_VDPPS_XMM_XMM_XMMM128_IMM8: int = 3896
+VEX_VDPPS_XMM_XMM_XMMM128_IMM8: Code = 3896 # type: ignore
 """
 ``VDPPS xmm1, xmm2, xmm3/m128, imm8``
 
@@ -38951,7 +38957,7 @@ VEX_VDPPS_XMM_XMM_XMMM128_IMM8: int = 3896
 
 ``16/32/64-bit``
 """
-VEX_VDPPS_YMM_YMM_YMMM256_IMM8: int = 3897
+VEX_VDPPS_YMM_YMM_YMMM256_IMM8: Code = 3897 # type: ignore
 """
 ``VDPPS ymm1, ymm2, ymm3/m256, imm8``
 
@@ -38961,7 +38967,7 @@ VEX_VDPPS_YMM_YMM_YMMM256_IMM8: int = 3897
 
 ``16/32/64-bit``
 """
-DPPD_XMM_XMMM128_IMM8: int = 3898
+DPPD_XMM_XMMM128_IMM8: Code = 3898 # type: ignore
 """
 ``DPPD xmm1, xmm2/m128, imm8``
 
@@ -38971,7 +38977,7 @@ DPPD_XMM_XMMM128_IMM8: int = 3898
 
 ``16/32/64-bit``
 """
-VEX_VDPPD_XMM_XMM_XMMM128_IMM8: int = 3899
+VEX_VDPPD_XMM_XMM_XMMM128_IMM8: Code = 3899 # type: ignore
 """
 ``VDPPD xmm1, xmm2, xmm3/m128, imm8``
 
@@ -38981,7 +38987,7 @@ VEX_VDPPD_XMM_XMM_XMMM128_IMM8: int = 3899
 
 ``16/32/64-bit``
 """
-MPSADBW_XMM_XMMM128_IMM8: int = 3900
+MPSADBW_XMM_XMMM128_IMM8: Code = 3900 # type: ignore
 """
 ``MPSADBW xmm1, xmm2/m128, imm8``
 
@@ -38991,7 +38997,7 @@ MPSADBW_XMM_XMMM128_IMM8: int = 3900
 
 ``16/32/64-bit``
 """
-VEX_VMPSADBW_XMM_XMM_XMMM128_IMM8: int = 3901
+VEX_VMPSADBW_XMM_XMM_XMMM128_IMM8: Code = 3901 # type: ignore
 """
 ``VMPSADBW xmm1, xmm2, xmm3/m128, imm8``
 
@@ -39001,7 +39007,7 @@ VEX_VMPSADBW_XMM_XMM_XMMM128_IMM8: int = 3901
 
 ``16/32/64-bit``
 """
-VEX_VMPSADBW_YMM_YMM_YMMM256_IMM8: int = 3902
+VEX_VMPSADBW_YMM_YMM_YMMM256_IMM8: Code = 3902 # type: ignore
 """
 ``VMPSADBW ymm1, ymm2, ymm3/m256, imm8``
 
@@ -39011,7 +39017,7 @@ VEX_VMPSADBW_YMM_YMM_YMMM256_IMM8: int = 3902
 
 ``16/32/64-bit``
 """
-EVEX_VDBPSADBW_XMM_K1Z_XMM_XMMM128_IMM8: int = 3903
+EVEX_VDBPSADBW_XMM_K1Z_XMM_XMMM128_IMM8: Code = 3903 # type: ignore
 """
 ``VDBPSADBW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8``
 
@@ -39021,7 +39027,7 @@ EVEX_VDBPSADBW_XMM_K1Z_XMM_XMMM128_IMM8: int = 3903
 
 ``16/32/64-bit``
 """
-EVEX_VDBPSADBW_YMM_K1Z_YMM_YMMM256_IMM8: int = 3904
+EVEX_VDBPSADBW_YMM_K1Z_YMM_YMMM256_IMM8: Code = 3904 # type: ignore
 """
 ``VDBPSADBW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8``
 
@@ -39031,7 +39037,7 @@ EVEX_VDBPSADBW_YMM_K1Z_YMM_YMMM256_IMM8: int = 3904
 
 ``16/32/64-bit``
 """
-EVEX_VDBPSADBW_ZMM_K1Z_ZMM_ZMMM512_IMM8: int = 3905
+EVEX_VDBPSADBW_ZMM_K1Z_ZMM_ZMMM512_IMM8: Code = 3905 # type: ignore
 """
 ``VDBPSADBW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8``
 
@@ -39041,7 +39047,7 @@ EVEX_VDBPSADBW_ZMM_K1Z_ZMM_ZMMM512_IMM8: int = 3905
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFI32X4_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3906
+EVEX_VSHUFI32X4_YMM_K1Z_YMM_YMMM256B32_IMM8: Code = 3906 # type: ignore
 """
 ``VSHUFI32X4 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -39051,7 +39057,7 @@ EVEX_VSHUFI32X4_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3906
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFI32X4_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 3907
+EVEX_VSHUFI32X4_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: Code = 3907 # type: ignore
 """
 ``VSHUFI32X4 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8``
 
@@ -39061,7 +39067,7 @@ EVEX_VSHUFI32X4_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 3907
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFI64X2_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3908
+EVEX_VSHUFI64X2_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 3908 # type: ignore
 """
 ``VSHUFI64X2 ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -39071,7 +39077,7 @@ EVEX_VSHUFI64X2_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3908
 
 ``16/32/64-bit``
 """
-EVEX_VSHUFI64X2_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 3909
+EVEX_VSHUFI64X2_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: Code = 3909 # type: ignore
 """
 ``VSHUFI64X2 zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -39081,7 +39087,7 @@ EVEX_VSHUFI64X2_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 3909
 
 ``16/32/64-bit``
 """
-PCLMULQDQ_XMM_XMMM128_IMM8: int = 3910
+PCLMULQDQ_XMM_XMMM128_IMM8: Code = 3910 # type: ignore
 """
 ``PCLMULQDQ xmm1, xmm2/m128, imm8``
 
@@ -39091,7 +39097,7 @@ PCLMULQDQ_XMM_XMMM128_IMM8: int = 3910
 
 ``16/32/64-bit``
 """
-VEX_VPCLMULQDQ_XMM_XMM_XMMM128_IMM8: int = 3911
+VEX_VPCLMULQDQ_XMM_XMM_XMMM128_IMM8: Code = 3911 # type: ignore
 """
 ``VPCLMULQDQ xmm1, xmm2, xmm3/m128, imm8``
 
@@ -39101,7 +39107,7 @@ VEX_VPCLMULQDQ_XMM_XMM_XMMM128_IMM8: int = 3911
 
 ``16/32/64-bit``
 """
-VEX_VPCLMULQDQ_YMM_YMM_YMMM256_IMM8: int = 3912
+VEX_VPCLMULQDQ_YMM_YMM_YMMM256_IMM8: Code = 3912 # type: ignore
 """
 ``VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8``
 
@@ -39111,7 +39117,7 @@ VEX_VPCLMULQDQ_YMM_YMM_YMMM256_IMM8: int = 3912
 
 ``16/32/64-bit``
 """
-EVEX_VPCLMULQDQ_XMM_XMM_XMMM128_IMM8: int = 3913
+EVEX_VPCLMULQDQ_XMM_XMM_XMMM128_IMM8: Code = 3913 # type: ignore
 """
 ``VPCLMULQDQ xmm1, xmm2, xmm3/m128, imm8``
 
@@ -39121,7 +39127,7 @@ EVEX_VPCLMULQDQ_XMM_XMM_XMMM128_IMM8: int = 3913
 
 ``16/32/64-bit``
 """
-EVEX_VPCLMULQDQ_YMM_YMM_YMMM256_IMM8: int = 3914
+EVEX_VPCLMULQDQ_YMM_YMM_YMMM256_IMM8: Code = 3914 # type: ignore
 """
 ``VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8``
 
@@ -39131,7 +39137,7 @@ EVEX_VPCLMULQDQ_YMM_YMM_YMMM256_IMM8: int = 3914
 
 ``16/32/64-bit``
 """
-EVEX_VPCLMULQDQ_ZMM_ZMM_ZMMM512_IMM8: int = 3915
+EVEX_VPCLMULQDQ_ZMM_ZMM_ZMMM512_IMM8: Code = 3915 # type: ignore
 """
 ``VPCLMULQDQ zmm1, zmm2, zmm3/m512, imm8``
 
@@ -39141,7 +39147,7 @@ EVEX_VPCLMULQDQ_ZMM_ZMM_ZMMM512_IMM8: int = 3915
 
 ``16/32/64-bit``
 """
-VEX_VPERM2I128_YMM_YMM_YMMM256_IMM8: int = 3916
+VEX_VPERM2I128_YMM_YMM_YMMM256_IMM8: Code = 3916 # type: ignore
 """
 ``VPERM2I128 ymm1, ymm2, ymm3/m256, imm8``
 
@@ -39151,7 +39157,7 @@ VEX_VPERM2I128_YMM_YMM_YMMM256_IMM8: int = 3916
 
 ``16/32/64-bit``
 """
-VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4: int = 3917
+VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4: Code = 3917 # type: ignore
 """
 ``VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm4``
 
@@ -39161,7 +39167,7 @@ VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4: int = 3917
 
 ``16/32/64-bit``
 """
-VEX_VPERMIL2PS_YMM_YMM_YMMM256_YMM_IMM4: int = 3918
+VEX_VPERMIL2PS_YMM_YMM_YMMM256_YMM_IMM4: Code = 3918 # type: ignore
 """
 ``VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm4``
 
@@ -39171,7 +39177,7 @@ VEX_VPERMIL2PS_YMM_YMM_YMMM256_YMM_IMM4: int = 3918
 
 ``16/32/64-bit``
 """
-VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4: int = 3919
+VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4: Code = 3919 # type: ignore
 """
 ``VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm4``
 
@@ -39181,7 +39187,7 @@ VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4: int = 3919
 
 ``16/32/64-bit``
 """
-VEX_VPERMIL2PS_YMM_YMM_YMM_YMMM256_IMM4: int = 3920
+VEX_VPERMIL2PS_YMM_YMM_YMM_YMMM256_IMM4: Code = 3920 # type: ignore
 """
 ``VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm4``
 
@@ -39191,7 +39197,7 @@ VEX_VPERMIL2PS_YMM_YMM_YMM_YMMM256_IMM4: int = 3920
 
 ``16/32/64-bit``
 """
-VEX_VPERMIL2PD_XMM_XMM_XMMM128_XMM_IMM4: int = 3921
+VEX_VPERMIL2PD_XMM_XMM_XMMM128_XMM_IMM4: Code = 3921 # type: ignore
 """
 ``VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm4``
 
@@ -39201,7 +39207,7 @@ VEX_VPERMIL2PD_XMM_XMM_XMMM128_XMM_IMM4: int = 3921
 
 ``16/32/64-bit``
 """
-VEX_VPERMIL2PD_YMM_YMM_YMMM256_YMM_IMM4: int = 3922
+VEX_VPERMIL2PD_YMM_YMM_YMMM256_YMM_IMM4: Code = 3922 # type: ignore
 """
 ``VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm4``
 
@@ -39211,7 +39217,7 @@ VEX_VPERMIL2PD_YMM_YMM_YMMM256_YMM_IMM4: int = 3922
 
 ``16/32/64-bit``
 """
-VEX_VPERMIL2PD_XMM_XMM_XMM_XMMM128_IMM4: int = 3923
+VEX_VPERMIL2PD_XMM_XMM_XMM_XMMM128_IMM4: Code = 3923 # type: ignore
 """
 ``VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm4``
 
@@ -39221,7 +39227,7 @@ VEX_VPERMIL2PD_XMM_XMM_XMM_XMMM128_IMM4: int = 3923
 
 ``16/32/64-bit``
 """
-VEX_VPERMIL2PD_YMM_YMM_YMM_YMMM256_IMM4: int = 3924
+VEX_VPERMIL2PD_YMM_YMM_YMM_YMMM256_IMM4: Code = 3924 # type: ignore
 """
 ``VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm4``
 
@@ -39231,7 +39237,7 @@ VEX_VPERMIL2PD_YMM_YMM_YMM_YMMM256_IMM4: int = 3924
 
 ``16/32/64-bit``
 """
-VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM: int = 3925
+VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM: Code = 3925 # type: ignore
 """
 ``VBLENDVPS xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -39241,7 +39247,7 @@ VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM: int = 3925
 
 ``16/32/64-bit``
 """
-VEX_VBLENDVPS_YMM_YMM_YMMM256_YMM: int = 3926
+VEX_VBLENDVPS_YMM_YMM_YMMM256_YMM: Code = 3926 # type: ignore
 """
 ``VBLENDVPS ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -39251,7 +39257,7 @@ VEX_VBLENDVPS_YMM_YMM_YMMM256_YMM: int = 3926
 
 ``16/32/64-bit``
 """
-VEX_VBLENDVPD_XMM_XMM_XMMM128_XMM: int = 3927
+VEX_VBLENDVPD_XMM_XMM_XMMM128_XMM: Code = 3927 # type: ignore
 """
 ``VBLENDVPD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -39261,7 +39267,7 @@ VEX_VBLENDVPD_XMM_XMM_XMMM128_XMM: int = 3927
 
 ``16/32/64-bit``
 """
-VEX_VBLENDVPD_YMM_YMM_YMMM256_YMM: int = 3928
+VEX_VBLENDVPD_YMM_YMM_YMMM256_YMM: Code = 3928 # type: ignore
 """
 ``VBLENDVPD ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -39271,7 +39277,7 @@ VEX_VBLENDVPD_YMM_YMM_YMMM256_YMM: int = 3928
 
 ``16/32/64-bit``
 """
-VEX_VPBLENDVB_XMM_XMM_XMMM128_XMM: int = 3929
+VEX_VPBLENDVB_XMM_XMM_XMMM128_XMM: Code = 3929 # type: ignore
 """
 ``VPBLENDVB xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -39281,7 +39287,7 @@ VEX_VPBLENDVB_XMM_XMM_XMMM128_XMM: int = 3929
 
 ``16/32/64-bit``
 """
-VEX_VPBLENDVB_YMM_YMM_YMMM256_YMM: int = 3930
+VEX_VPBLENDVB_YMM_YMM_YMMM256_YMM: Code = 3930 # type: ignore
 """
 ``VPBLENDVB ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -39291,7 +39297,7 @@ VEX_VPBLENDVB_YMM_YMM_YMMM256_YMM: int = 3930
 
 ``16/32/64-bit``
 """
-EVEX_VRANGEPS_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 3931
+EVEX_VRANGEPS_XMM_K1Z_XMM_XMMM128B32_IMM8: Code = 3931 # type: ignore
 """
 ``VRANGEPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8``
 
@@ -39301,7 +39307,7 @@ EVEX_VRANGEPS_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 3931
 
 ``16/32/64-bit``
 """
-EVEX_VRANGEPS_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3932
+EVEX_VRANGEPS_YMM_K1Z_YMM_YMMM256B32_IMM8: Code = 3932 # type: ignore
 """
 ``VRANGEPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -39311,7 +39317,7 @@ EVEX_VRANGEPS_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3932
 
 ``16/32/64-bit``
 """
-EVEX_VRANGEPS_ZMM_K1Z_ZMM_ZMMM512B32_IMM8_SAE: int = 3933
+EVEX_VRANGEPS_ZMM_K1Z_ZMM_ZMMM512B32_IMM8_SAE: Code = 3933 # type: ignore
 """
 ``VRANGEPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}, imm8``
 
@@ -39321,7 +39327,7 @@ EVEX_VRANGEPS_ZMM_K1Z_ZMM_ZMMM512B32_IMM8_SAE: int = 3933
 
 ``16/32/64-bit``
 """
-EVEX_VRANGEPD_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 3934
+EVEX_VRANGEPD_XMM_K1Z_XMM_XMMM128B64_IMM8: Code = 3934 # type: ignore
 """
 ``VRANGEPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -39331,7 +39337,7 @@ EVEX_VRANGEPD_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 3934
 
 ``16/32/64-bit``
 """
-EVEX_VRANGEPD_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3935
+EVEX_VRANGEPD_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 3935 # type: ignore
 """
 ``VRANGEPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -39341,7 +39347,7 @@ EVEX_VRANGEPD_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3935
 
 ``16/32/64-bit``
 """
-EVEX_VRANGEPD_ZMM_K1Z_ZMM_ZMMM512B64_IMM8_SAE: int = 3936
+EVEX_VRANGEPD_ZMM_K1Z_ZMM_ZMMM512B64_IMM8_SAE: Code = 3936 # type: ignore
 """
 ``VRANGEPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8``
 
@@ -39351,7 +39357,7 @@ EVEX_VRANGEPD_ZMM_K1Z_ZMM_ZMMM512B64_IMM8_SAE: int = 3936
 
 ``16/32/64-bit``
 """
-EVEX_VRANGESS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: int = 3937
+EVEX_VRANGESS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: Code = 3937 # type: ignore
 """
 ``VRANGESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8``
 
@@ -39361,7 +39367,7 @@ EVEX_VRANGESS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: int = 3937
 
 ``16/32/64-bit``
 """
-EVEX_VRANGESD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: int = 3938
+EVEX_VRANGESD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: Code = 3938 # type: ignore
 """
 ``VRANGESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8``
 
@@ -39371,7 +39377,7 @@ EVEX_VRANGESD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: int = 3938
 
 ``16/32/64-bit``
 """
-EVEX_VFIXUPIMMPS_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 3939
+EVEX_VFIXUPIMMPS_XMM_K1Z_XMM_XMMM128B32_IMM8: Code = 3939 # type: ignore
 """
 ``VFIXUPIMMPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8``
 
@@ -39381,7 +39387,7 @@ EVEX_VFIXUPIMMPS_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 3939
 
 ``16/32/64-bit``
 """
-EVEX_VFIXUPIMMPS_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3940
+EVEX_VFIXUPIMMPS_YMM_K1Z_YMM_YMMM256B32_IMM8: Code = 3940 # type: ignore
 """
 ``VFIXUPIMMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -39391,7 +39397,7 @@ EVEX_VFIXUPIMMPS_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 3940
 
 ``16/32/64-bit``
 """
-EVEX_VFIXUPIMMPS_ZMM_K1Z_ZMM_ZMMM512B32_IMM8_SAE: int = 3941
+EVEX_VFIXUPIMMPS_ZMM_K1Z_ZMM_ZMMM512B32_IMM8_SAE: Code = 3941 # type: ignore
 """
 ``VFIXUPIMMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}, imm8``
 
@@ -39401,7 +39407,7 @@ EVEX_VFIXUPIMMPS_ZMM_K1Z_ZMM_ZMMM512B32_IMM8_SAE: int = 3941
 
 ``16/32/64-bit``
 """
-EVEX_VFIXUPIMMPD_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 3942
+EVEX_VFIXUPIMMPD_XMM_K1Z_XMM_XMMM128B64_IMM8: Code = 3942 # type: ignore
 """
 ``VFIXUPIMMPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -39411,7 +39417,7 @@ EVEX_VFIXUPIMMPD_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 3942
 
 ``16/32/64-bit``
 """
-EVEX_VFIXUPIMMPD_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3943
+EVEX_VFIXUPIMMPD_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 3943 # type: ignore
 """
 ``VFIXUPIMMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -39421,7 +39427,7 @@ EVEX_VFIXUPIMMPD_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 3943
 
 ``16/32/64-bit``
 """
-EVEX_VFIXUPIMMPD_ZMM_K1Z_ZMM_ZMMM512B64_IMM8_SAE: int = 3944
+EVEX_VFIXUPIMMPD_ZMM_K1Z_ZMM_ZMMM512B64_IMM8_SAE: Code = 3944 # type: ignore
 """
 ``VFIXUPIMMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8``
 
@@ -39431,7 +39437,7 @@ EVEX_VFIXUPIMMPD_ZMM_K1Z_ZMM_ZMMM512B64_IMM8_SAE: int = 3944
 
 ``16/32/64-bit``
 """
-EVEX_VFIXUPIMMSS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: int = 3945
+EVEX_VFIXUPIMMSS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: Code = 3945 # type: ignore
 """
 ``VFIXUPIMMSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8``
 
@@ -39441,7 +39447,7 @@ EVEX_VFIXUPIMMSS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: int = 3945
 
 ``16/32/64-bit``
 """
-EVEX_VFIXUPIMMSD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: int = 3946
+EVEX_VFIXUPIMMSD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: Code = 3946 # type: ignore
 """
 ``VFIXUPIMMSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8``
 
@@ -39451,7 +39457,7 @@ EVEX_VFIXUPIMMSD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: int = 3946
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCEPS_XMM_K1Z_XMMM128B32_IMM8: int = 3947
+EVEX_VREDUCEPS_XMM_K1Z_XMMM128B32_IMM8: Code = 3947 # type: ignore
 """
 ``VREDUCEPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8``
 
@@ -39461,7 +39467,7 @@ EVEX_VREDUCEPS_XMM_K1Z_XMMM128B32_IMM8: int = 3947
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCEPS_YMM_K1Z_YMMM256B32_IMM8: int = 3948
+EVEX_VREDUCEPS_YMM_K1Z_YMMM256B32_IMM8: Code = 3948 # type: ignore
 """
 ``VREDUCEPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8``
 
@@ -39471,7 +39477,7 @@ EVEX_VREDUCEPS_YMM_K1Z_YMMM256B32_IMM8: int = 3948
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCEPS_ZMM_K1Z_ZMMM512B32_IMM8_SAE: int = 3949
+EVEX_VREDUCEPS_ZMM_K1Z_ZMMM512B32_IMM8_SAE: Code = 3949 # type: ignore
 """
 ``VREDUCEPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8``
 
@@ -39481,7 +39487,7 @@ EVEX_VREDUCEPS_ZMM_K1Z_ZMMM512B32_IMM8_SAE: int = 3949
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCEPD_XMM_K1Z_XMMM128B64_IMM8: int = 3950
+EVEX_VREDUCEPD_XMM_K1Z_XMMM128B64_IMM8: Code = 3950 # type: ignore
 """
 ``VREDUCEPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8``
 
@@ -39491,7 +39497,7 @@ EVEX_VREDUCEPD_XMM_K1Z_XMMM128B64_IMM8: int = 3950
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCEPD_YMM_K1Z_YMMM256B64_IMM8: int = 3951
+EVEX_VREDUCEPD_YMM_K1Z_YMMM256B64_IMM8: Code = 3951 # type: ignore
 """
 ``VREDUCEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8``
 
@@ -39501,7 +39507,7 @@ EVEX_VREDUCEPD_YMM_K1Z_YMMM256B64_IMM8: int = 3951
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCEPD_ZMM_K1Z_ZMMM512B64_IMM8_SAE: int = 3952
+EVEX_VREDUCEPD_ZMM_K1Z_ZMMM512B64_IMM8_SAE: Code = 3952 # type: ignore
 """
 ``VREDUCEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8``
 
@@ -39511,7 +39517,7 @@ EVEX_VREDUCEPD_ZMM_K1Z_ZMMM512B64_IMM8_SAE: int = 3952
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCESS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: int = 3953
+EVEX_VREDUCESS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: Code = 3953 # type: ignore
 """
 ``VREDUCESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8``
 
@@ -39521,7 +39527,7 @@ EVEX_VREDUCESS_XMM_K1Z_XMM_XMMM32_IMM8_SAE: int = 3953
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCESD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: int = 3954
+EVEX_VREDUCESD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: Code = 3954 # type: ignore
 """
 ``VREDUCESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8``
 
@@ -39531,7 +39537,7 @@ EVEX_VREDUCESD_XMM_K1Z_XMM_XMMM64_IMM8_SAE: int = 3954
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUBPS_XMM_XMM_XMMM128_XMM: int = 3955
+VEX_VFMADDSUBPS_XMM_XMM_XMMM128_XMM: Code = 3955 # type: ignore
 """
 ``VFMADDSUBPS xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -39541,7 +39547,7 @@ VEX_VFMADDSUBPS_XMM_XMM_XMMM128_XMM: int = 3955
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUBPS_YMM_YMM_YMMM256_YMM: int = 3956
+VEX_VFMADDSUBPS_YMM_YMM_YMMM256_YMM: Code = 3956 # type: ignore
 """
 ``VFMADDSUBPS ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -39551,7 +39557,7 @@ VEX_VFMADDSUBPS_YMM_YMM_YMMM256_YMM: int = 3956
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUBPS_XMM_XMM_XMM_XMMM128: int = 3957
+VEX_VFMADDSUBPS_XMM_XMM_XMM_XMMM128: Code = 3957 # type: ignore
 """
 ``VFMADDSUBPS xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -39561,7 +39567,7 @@ VEX_VFMADDSUBPS_XMM_XMM_XMM_XMMM128: int = 3957
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUBPS_YMM_YMM_YMM_YMMM256: int = 3958
+VEX_VFMADDSUBPS_YMM_YMM_YMM_YMMM256: Code = 3958 # type: ignore
 """
 ``VFMADDSUBPS ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -39571,7 +39577,7 @@ VEX_VFMADDSUBPS_YMM_YMM_YMM_YMMM256: int = 3958
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUBPD_XMM_XMM_XMMM128_XMM: int = 3959
+VEX_VFMADDSUBPD_XMM_XMM_XMMM128_XMM: Code = 3959 # type: ignore
 """
 ``VFMADDSUBPD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -39581,7 +39587,7 @@ VEX_VFMADDSUBPD_XMM_XMM_XMMM128_XMM: int = 3959
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUBPD_YMM_YMM_YMMM256_YMM: int = 3960
+VEX_VFMADDSUBPD_YMM_YMM_YMMM256_YMM: Code = 3960 # type: ignore
 """
 ``VFMADDSUBPD ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -39591,7 +39597,7 @@ VEX_VFMADDSUBPD_YMM_YMM_YMMM256_YMM: int = 3960
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUBPD_XMM_XMM_XMM_XMMM128: int = 3961
+VEX_VFMADDSUBPD_XMM_XMM_XMM_XMMM128: Code = 3961 # type: ignore
 """
 ``VFMADDSUBPD xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -39601,7 +39607,7 @@ VEX_VFMADDSUBPD_XMM_XMM_XMM_XMMM128: int = 3961
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSUBPD_YMM_YMM_YMM_YMMM256: int = 3962
+VEX_VFMADDSUBPD_YMM_YMM_YMM_YMMM256: Code = 3962 # type: ignore
 """
 ``VFMADDSUBPD ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -39611,7 +39617,7 @@ VEX_VFMADDSUBPD_YMM_YMM_YMM_YMMM256: int = 3962
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADDPS_XMM_XMM_XMMM128_XMM: int = 3963
+VEX_VFMSUBADDPS_XMM_XMM_XMMM128_XMM: Code = 3963 # type: ignore
 """
 ``VFMSUBADDPS xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -39621,7 +39627,7 @@ VEX_VFMSUBADDPS_XMM_XMM_XMMM128_XMM: int = 3963
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADDPS_YMM_YMM_YMMM256_YMM: int = 3964
+VEX_VFMSUBADDPS_YMM_YMM_YMMM256_YMM: Code = 3964 # type: ignore
 """
 ``VFMSUBADDPS ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -39631,7 +39637,7 @@ VEX_VFMSUBADDPS_YMM_YMM_YMMM256_YMM: int = 3964
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADDPS_XMM_XMM_XMM_XMMM128: int = 3965
+VEX_VFMSUBADDPS_XMM_XMM_XMM_XMMM128: Code = 3965 # type: ignore
 """
 ``VFMSUBADDPS xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -39641,7 +39647,7 @@ VEX_VFMSUBADDPS_XMM_XMM_XMM_XMMM128: int = 3965
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADDPS_YMM_YMM_YMM_YMMM256: int = 3966
+VEX_VFMSUBADDPS_YMM_YMM_YMM_YMMM256: Code = 3966 # type: ignore
 """
 ``VFMSUBADDPS ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -39651,7 +39657,7 @@ VEX_VFMSUBADDPS_YMM_YMM_YMM_YMMM256: int = 3966
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADDPD_XMM_XMM_XMMM128_XMM: int = 3967
+VEX_VFMSUBADDPD_XMM_XMM_XMMM128_XMM: Code = 3967 # type: ignore
 """
 ``VFMSUBADDPD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -39661,7 +39667,7 @@ VEX_VFMSUBADDPD_XMM_XMM_XMMM128_XMM: int = 3967
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADDPD_YMM_YMM_YMMM256_YMM: int = 3968
+VEX_VFMSUBADDPD_YMM_YMM_YMMM256_YMM: Code = 3968 # type: ignore
 """
 ``VFMSUBADDPD ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -39671,7 +39677,7 @@ VEX_VFMSUBADDPD_YMM_YMM_YMMM256_YMM: int = 3968
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADDPD_XMM_XMM_XMM_XMMM128: int = 3969
+VEX_VFMSUBADDPD_XMM_XMM_XMM_XMMM128: Code = 3969 # type: ignore
 """
 ``VFMSUBADDPD xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -39681,7 +39687,7 @@ VEX_VFMSUBADDPD_XMM_XMM_XMM_XMMM128: int = 3969
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBADDPD_YMM_YMM_YMM_YMMM256: int = 3970
+VEX_VFMSUBADDPD_YMM_YMM_YMM_YMMM256: Code = 3970 # type: ignore
 """
 ``VFMSUBADDPD ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -39691,7 +39697,7 @@ VEX_VFMSUBADDPD_YMM_YMM_YMM_YMMM256: int = 3970
 
 ``16/32/64-bit``
 """
-PCMPESTRM_XMM_XMMM128_IMM8: int = 3971
+PCMPESTRM_XMM_XMMM128_IMM8: Code = 3971 # type: ignore
 """
 ``PCMPESTRM xmm1, xmm2/m128, imm8``
 
@@ -39701,7 +39707,7 @@ PCMPESTRM_XMM_XMMM128_IMM8: int = 3971
 
 ``16/32/64-bit``
 """
-PCMPESTRM64_XMM_XMMM128_IMM8: int = 3972
+PCMPESTRM64_XMM_XMMM128_IMM8: Code = 3972 # type: ignore
 """
 ``PCMPESTRM64 xmm1, xmm2/m128, imm8``
 
@@ -39711,7 +39717,7 @@ PCMPESTRM64_XMM_XMMM128_IMM8: int = 3972
 
 ``64-bit``
 """
-VEX_VPCMPESTRM_XMM_XMMM128_IMM8: int = 3973
+VEX_VPCMPESTRM_XMM_XMMM128_IMM8: Code = 3973 # type: ignore
 """
 ``VPCMPESTRM xmm1, xmm2/m128, imm8``
 
@@ -39721,7 +39727,7 @@ VEX_VPCMPESTRM_XMM_XMMM128_IMM8: int = 3973
 
 ``16/32/64-bit``
 """
-VEX_VPCMPESTRM64_XMM_XMMM128_IMM8: int = 3974
+VEX_VPCMPESTRM64_XMM_XMMM128_IMM8: Code = 3974 # type: ignore
 """
 ``VPCMPESTRM64 xmm1, xmm2/m128, imm8``
 
@@ -39731,7 +39737,7 @@ VEX_VPCMPESTRM64_XMM_XMMM128_IMM8: int = 3974
 
 ``64-bit``
 """
-PCMPESTRI_XMM_XMMM128_IMM8: int = 3975
+PCMPESTRI_XMM_XMMM128_IMM8: Code = 3975 # type: ignore
 """
 ``PCMPESTRI xmm1, xmm2/m128, imm8``
 
@@ -39741,7 +39747,7 @@ PCMPESTRI_XMM_XMMM128_IMM8: int = 3975
 
 ``16/32/64-bit``
 """
-PCMPESTRI64_XMM_XMMM128_IMM8: int = 3976
+PCMPESTRI64_XMM_XMMM128_IMM8: Code = 3976 # type: ignore
 """
 ``PCMPESTRI64 xmm1, xmm2/m128, imm8``
 
@@ -39751,7 +39757,7 @@ PCMPESTRI64_XMM_XMMM128_IMM8: int = 3976
 
 ``64-bit``
 """
-VEX_VPCMPESTRI_XMM_XMMM128_IMM8: int = 3977
+VEX_VPCMPESTRI_XMM_XMMM128_IMM8: Code = 3977 # type: ignore
 """
 ``VPCMPESTRI xmm1, xmm2/m128, imm8``
 
@@ -39761,7 +39767,7 @@ VEX_VPCMPESTRI_XMM_XMMM128_IMM8: int = 3977
 
 ``16/32/64-bit``
 """
-VEX_VPCMPESTRI64_XMM_XMMM128_IMM8: int = 3978
+VEX_VPCMPESTRI64_XMM_XMMM128_IMM8: Code = 3978 # type: ignore
 """
 ``VPCMPESTRI64 xmm1, xmm2/m128, imm8``
 
@@ -39771,7 +39777,7 @@ VEX_VPCMPESTRI64_XMM_XMMM128_IMM8: int = 3978
 
 ``64-bit``
 """
-PCMPISTRM_XMM_XMMM128_IMM8: int = 3979
+PCMPISTRM_XMM_XMMM128_IMM8: Code = 3979 # type: ignore
 """
 ``PCMPISTRM xmm1, xmm2/m128, imm8``
 
@@ -39781,7 +39787,7 @@ PCMPISTRM_XMM_XMMM128_IMM8: int = 3979
 
 ``16/32/64-bit``
 """
-VEX_VPCMPISTRM_XMM_XMMM128_IMM8: int = 3980
+VEX_VPCMPISTRM_XMM_XMMM128_IMM8: Code = 3980 # type: ignore
 """
 ``VPCMPISTRM xmm1, xmm2/m128, imm8``
 
@@ -39791,7 +39797,7 @@ VEX_VPCMPISTRM_XMM_XMMM128_IMM8: int = 3980
 
 ``16/32/64-bit``
 """
-PCMPISTRI_XMM_XMMM128_IMM8: int = 3981
+PCMPISTRI_XMM_XMMM128_IMM8: Code = 3981 # type: ignore
 """
 ``PCMPISTRI xmm1, xmm2/m128, imm8``
 
@@ -39801,7 +39807,7 @@ PCMPISTRI_XMM_XMMM128_IMM8: int = 3981
 
 ``16/32/64-bit``
 """
-VEX_VPCMPISTRI_XMM_XMMM128_IMM8: int = 3982
+VEX_VPCMPISTRI_XMM_XMMM128_IMM8: Code = 3982 # type: ignore
 """
 ``VPCMPISTRI xmm1, xmm2/m128, imm8``
 
@@ -39811,7 +39817,7 @@ VEX_VPCMPISTRI_XMM_XMMM128_IMM8: int = 3982
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSPS_KR_K1_XMMM128B32_IMM8: int = 3983
+EVEX_VFPCLASSPS_KR_K1_XMMM128B32_IMM8: Code = 3983 # type: ignore
 """
 ``VFPCLASSPS k2 {k1}, xmm2/m128/m32bcst, imm8``
 
@@ -39821,7 +39827,7 @@ EVEX_VFPCLASSPS_KR_K1_XMMM128B32_IMM8: int = 3983
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSPS_KR_K1_YMMM256B32_IMM8: int = 3984
+EVEX_VFPCLASSPS_KR_K1_YMMM256B32_IMM8: Code = 3984 # type: ignore
 """
 ``VFPCLASSPS k2 {k1}, ymm2/m256/m32bcst, imm8``
 
@@ -39831,7 +39837,7 @@ EVEX_VFPCLASSPS_KR_K1_YMMM256B32_IMM8: int = 3984
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSPS_KR_K1_ZMMM512B32_IMM8: int = 3985
+EVEX_VFPCLASSPS_KR_K1_ZMMM512B32_IMM8: Code = 3985 # type: ignore
 """
 ``VFPCLASSPS k2 {k1}, zmm2/m512/m32bcst, imm8``
 
@@ -39841,7 +39847,7 @@ EVEX_VFPCLASSPS_KR_K1_ZMMM512B32_IMM8: int = 3985
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSPD_KR_K1_XMMM128B64_IMM8: int = 3986
+EVEX_VFPCLASSPD_KR_K1_XMMM128B64_IMM8: Code = 3986 # type: ignore
 """
 ``VFPCLASSPD k2 {k1}, xmm2/m128/m64bcst, imm8``
 
@@ -39851,7 +39857,7 @@ EVEX_VFPCLASSPD_KR_K1_XMMM128B64_IMM8: int = 3986
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSPD_KR_K1_YMMM256B64_IMM8: int = 3987
+EVEX_VFPCLASSPD_KR_K1_YMMM256B64_IMM8: Code = 3987 # type: ignore
 """
 ``VFPCLASSPD k2 {k1}, ymm2/m256/m64bcst, imm8``
 
@@ -39861,7 +39867,7 @@ EVEX_VFPCLASSPD_KR_K1_YMMM256B64_IMM8: int = 3987
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSPD_KR_K1_ZMMM512B64_IMM8: int = 3988
+EVEX_VFPCLASSPD_KR_K1_ZMMM512B64_IMM8: Code = 3988 # type: ignore
 """
 ``VFPCLASSPD k2 {k1}, zmm2/m512/m64bcst, imm8``
 
@@ -39871,7 +39877,7 @@ EVEX_VFPCLASSPD_KR_K1_ZMMM512B64_IMM8: int = 3988
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSSS_KR_K1_XMMM32_IMM8: int = 3989
+EVEX_VFPCLASSSS_KR_K1_XMMM32_IMM8: Code = 3989 # type: ignore
 """
 ``VFPCLASSSS k2 {k1}, xmm2/m32, imm8``
 
@@ -39881,7 +39887,7 @@ EVEX_VFPCLASSSS_KR_K1_XMMM32_IMM8: int = 3989
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSSD_KR_K1_XMMM64_IMM8: int = 3990
+EVEX_VFPCLASSSD_KR_K1_XMMM64_IMM8: Code = 3990 # type: ignore
 """
 ``VFPCLASSSD k2 {k1}, xmm2/m64, imm8``
 
@@ -39891,7 +39897,7 @@ EVEX_VFPCLASSSD_KR_K1_XMMM64_IMM8: int = 3990
 
 ``16/32/64-bit``
 """
-VEX_VFMADDPS_XMM_XMM_XMMM128_XMM: int = 3991
+VEX_VFMADDPS_XMM_XMM_XMMM128_XMM: Code = 3991 # type: ignore
 """
 ``VFMADDPS xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -39901,7 +39907,7 @@ VEX_VFMADDPS_XMM_XMM_XMMM128_XMM: int = 3991
 
 ``16/32/64-bit``
 """
-VEX_VFMADDPS_YMM_YMM_YMMM256_YMM: int = 3992
+VEX_VFMADDPS_YMM_YMM_YMMM256_YMM: Code = 3992 # type: ignore
 """
 ``VFMADDPS ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -39911,7 +39917,7 @@ VEX_VFMADDPS_YMM_YMM_YMMM256_YMM: int = 3992
 
 ``16/32/64-bit``
 """
-VEX_VFMADDPS_XMM_XMM_XMM_XMMM128: int = 3993
+VEX_VFMADDPS_XMM_XMM_XMM_XMMM128: Code = 3993 # type: ignore
 """
 ``VFMADDPS xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -39921,7 +39927,7 @@ VEX_VFMADDPS_XMM_XMM_XMM_XMMM128: int = 3993
 
 ``16/32/64-bit``
 """
-VEX_VFMADDPS_YMM_YMM_YMM_YMMM256: int = 3994
+VEX_VFMADDPS_YMM_YMM_YMM_YMMM256: Code = 3994 # type: ignore
 """
 ``VFMADDPS ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -39931,7 +39937,7 @@ VEX_VFMADDPS_YMM_YMM_YMM_YMMM256: int = 3994
 
 ``16/32/64-bit``
 """
-VEX_VFMADDPD_XMM_XMM_XMMM128_XMM: int = 3995
+VEX_VFMADDPD_XMM_XMM_XMMM128_XMM: Code = 3995 # type: ignore
 """
 ``VFMADDPD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -39941,7 +39947,7 @@ VEX_VFMADDPD_XMM_XMM_XMMM128_XMM: int = 3995
 
 ``16/32/64-bit``
 """
-VEX_VFMADDPD_YMM_YMM_YMMM256_YMM: int = 3996
+VEX_VFMADDPD_YMM_YMM_YMMM256_YMM: Code = 3996 # type: ignore
 """
 ``VFMADDPD ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -39951,7 +39957,7 @@ VEX_VFMADDPD_YMM_YMM_YMMM256_YMM: int = 3996
 
 ``16/32/64-bit``
 """
-VEX_VFMADDPD_XMM_XMM_XMM_XMMM128: int = 3997
+VEX_VFMADDPD_XMM_XMM_XMM_XMMM128: Code = 3997 # type: ignore
 """
 ``VFMADDPD xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -39961,7 +39967,7 @@ VEX_VFMADDPD_XMM_XMM_XMM_XMMM128: int = 3997
 
 ``16/32/64-bit``
 """
-VEX_VFMADDPD_YMM_YMM_YMM_YMMM256: int = 3998
+VEX_VFMADDPD_YMM_YMM_YMM_YMMM256: Code = 3998 # type: ignore
 """
 ``VFMADDPD ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -39971,7 +39977,7 @@ VEX_VFMADDPD_YMM_YMM_YMM_YMMM256: int = 3998
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSS_XMM_XMM_XMMM32_XMM: int = 3999
+VEX_VFMADDSS_XMM_XMM_XMMM32_XMM: Code = 3999 # type: ignore
 """
 ``VFMADDSS xmm1, xmm2, xmm3/m32, xmm4``
 
@@ -39981,7 +39987,7 @@ VEX_VFMADDSS_XMM_XMM_XMMM32_XMM: int = 3999
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSS_XMM_XMM_XMM_XMMM32: int = 4000
+VEX_VFMADDSS_XMM_XMM_XMM_XMMM32: Code = 4000 # type: ignore
 """
 ``VFMADDSS xmm1, xmm2, xmm3, xmm4/m32``
 
@@ -39991,7 +39997,7 @@ VEX_VFMADDSS_XMM_XMM_XMM_XMMM32: int = 4000
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSD_XMM_XMM_XMMM64_XMM: int = 4001
+VEX_VFMADDSD_XMM_XMM_XMMM64_XMM: Code = 4001 # type: ignore
 """
 ``VFMADDSD xmm1, xmm2, xmm3/m64, xmm4``
 
@@ -40001,7 +40007,7 @@ VEX_VFMADDSD_XMM_XMM_XMMM64_XMM: int = 4001
 
 ``16/32/64-bit``
 """
-VEX_VFMADDSD_XMM_XMM_XMM_XMMM64: int = 4002
+VEX_VFMADDSD_XMM_XMM_XMM_XMMM64: Code = 4002 # type: ignore
 """
 ``VFMADDSD xmm1, xmm2, xmm3, xmm4/m64``
 
@@ -40011,7 +40017,7 @@ VEX_VFMADDSD_XMM_XMM_XMM_XMMM64: int = 4002
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBPS_XMM_XMM_XMMM128_XMM: int = 4003
+VEX_VFMSUBPS_XMM_XMM_XMMM128_XMM: Code = 4003 # type: ignore
 """
 ``VFMSUBPS xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40021,7 +40027,7 @@ VEX_VFMSUBPS_XMM_XMM_XMMM128_XMM: int = 4003
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBPS_YMM_YMM_YMMM256_YMM: int = 4004
+VEX_VFMSUBPS_YMM_YMM_YMMM256_YMM: Code = 4004 # type: ignore
 """
 ``VFMSUBPS ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -40031,7 +40037,7 @@ VEX_VFMSUBPS_YMM_YMM_YMMM256_YMM: int = 4004
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBPS_XMM_XMM_XMM_XMMM128: int = 4005
+VEX_VFMSUBPS_XMM_XMM_XMM_XMMM128: Code = 4005 # type: ignore
 """
 ``VFMSUBPS xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -40041,7 +40047,7 @@ VEX_VFMSUBPS_XMM_XMM_XMM_XMMM128: int = 4005
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBPS_YMM_YMM_YMM_YMMM256: int = 4006
+VEX_VFMSUBPS_YMM_YMM_YMM_YMMM256: Code = 4006 # type: ignore
 """
 ``VFMSUBPS ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -40051,7 +40057,7 @@ VEX_VFMSUBPS_YMM_YMM_YMM_YMMM256: int = 4006
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBPD_XMM_XMM_XMMM128_XMM: int = 4007
+VEX_VFMSUBPD_XMM_XMM_XMMM128_XMM: Code = 4007 # type: ignore
 """
 ``VFMSUBPD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40061,7 +40067,7 @@ VEX_VFMSUBPD_XMM_XMM_XMMM128_XMM: int = 4007
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBPD_YMM_YMM_YMMM256_YMM: int = 4008
+VEX_VFMSUBPD_YMM_YMM_YMMM256_YMM: Code = 4008 # type: ignore
 """
 ``VFMSUBPD ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -40071,7 +40077,7 @@ VEX_VFMSUBPD_YMM_YMM_YMMM256_YMM: int = 4008
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBPD_XMM_XMM_XMM_XMMM128: int = 4009
+VEX_VFMSUBPD_XMM_XMM_XMM_XMMM128: Code = 4009 # type: ignore
 """
 ``VFMSUBPD xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -40081,7 +40087,7 @@ VEX_VFMSUBPD_XMM_XMM_XMM_XMMM128: int = 4009
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBPD_YMM_YMM_YMM_YMMM256: int = 4010
+VEX_VFMSUBPD_YMM_YMM_YMM_YMMM256: Code = 4010 # type: ignore
 """
 ``VFMSUBPD ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -40091,7 +40097,7 @@ VEX_VFMSUBPD_YMM_YMM_YMM_YMMM256: int = 4010
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBSS_XMM_XMM_XMMM32_XMM: int = 4011
+VEX_VFMSUBSS_XMM_XMM_XMMM32_XMM: Code = 4011 # type: ignore
 """
 ``VFMSUBSS xmm1, xmm2, xmm3/m32, xmm4``
 
@@ -40101,7 +40107,7 @@ VEX_VFMSUBSS_XMM_XMM_XMMM32_XMM: int = 4011
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBSS_XMM_XMM_XMM_XMMM32: int = 4012
+VEX_VFMSUBSS_XMM_XMM_XMM_XMMM32: Code = 4012 # type: ignore
 """
 ``VFMSUBSS xmm1, xmm2, xmm3, xmm4/m32``
 
@@ -40111,7 +40117,7 @@ VEX_VFMSUBSS_XMM_XMM_XMM_XMMM32: int = 4012
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBSD_XMM_XMM_XMMM64_XMM: int = 4013
+VEX_VFMSUBSD_XMM_XMM_XMMM64_XMM: Code = 4013 # type: ignore
 """
 ``VFMSUBSD xmm1, xmm2, xmm3/m64, xmm4``
 
@@ -40121,7 +40127,7 @@ VEX_VFMSUBSD_XMM_XMM_XMMM64_XMM: int = 4013
 
 ``16/32/64-bit``
 """
-VEX_VFMSUBSD_XMM_XMM_XMM_XMMM64: int = 4014
+VEX_VFMSUBSD_XMM_XMM_XMM_XMMM64: Code = 4014 # type: ignore
 """
 ``VFMSUBSD xmm1, xmm2, xmm3, xmm4/m64``
 
@@ -40131,7 +40137,7 @@ VEX_VFMSUBSD_XMM_XMM_XMM_XMMM64: int = 4014
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDW_XMM_K1Z_XMM_XMMM128_IMM8: int = 4015
+EVEX_VPSHLDW_XMM_K1Z_XMM_XMMM128_IMM8: Code = 4015 # type: ignore
 """
 ``VPSHLDW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8``
 
@@ -40141,7 +40147,7 @@ EVEX_VPSHLDW_XMM_K1Z_XMM_XMMM128_IMM8: int = 4015
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDW_YMM_K1Z_YMM_YMMM256_IMM8: int = 4016
+EVEX_VPSHLDW_YMM_K1Z_YMM_YMMM256_IMM8: Code = 4016 # type: ignore
 """
 ``VPSHLDW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8``
 
@@ -40151,7 +40157,7 @@ EVEX_VPSHLDW_YMM_K1Z_YMM_YMMM256_IMM8: int = 4016
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDW_ZMM_K1Z_ZMM_ZMMM512_IMM8: int = 4017
+EVEX_VPSHLDW_ZMM_K1Z_ZMM_ZMMM512_IMM8: Code = 4017 # type: ignore
 """
 ``VPSHLDW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8``
 
@@ -40161,7 +40167,7 @@ EVEX_VPSHLDW_ZMM_K1Z_ZMM_ZMMM512_IMM8: int = 4017
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDD_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 4018
+EVEX_VPSHLDD_XMM_K1Z_XMM_XMMM128B32_IMM8: Code = 4018 # type: ignore
 """
 ``VPSHLDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8``
 
@@ -40171,7 +40177,7 @@ EVEX_VPSHLDD_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 4018
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDD_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 4019
+EVEX_VPSHLDD_YMM_K1Z_YMM_YMMM256B32_IMM8: Code = 4019 # type: ignore
 """
 ``VPSHLDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -40181,7 +40187,7 @@ EVEX_VPSHLDD_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 4019
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDD_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 4020
+EVEX_VPSHLDD_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: Code = 4020 # type: ignore
 """
 ``VPSHLDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8``
 
@@ -40191,7 +40197,7 @@ EVEX_VPSHLDD_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 4020
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDQ_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 4021
+EVEX_VPSHLDQ_XMM_K1Z_XMM_XMMM128B64_IMM8: Code = 4021 # type: ignore
 """
 ``VPSHLDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -40201,7 +40207,7 @@ EVEX_VPSHLDQ_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 4021
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDQ_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 4022
+EVEX_VPSHLDQ_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 4022 # type: ignore
 """
 ``VPSHLDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -40211,7 +40217,7 @@ EVEX_VPSHLDQ_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 4022
 
 ``16/32/64-bit``
 """
-EVEX_VPSHLDQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 4023
+EVEX_VPSHLDQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: Code = 4023 # type: ignore
 """
 ``VPSHLDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -40221,7 +40227,7 @@ EVEX_VPSHLDQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 4023
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDW_XMM_K1Z_XMM_XMMM128_IMM8: int = 4024
+EVEX_VPSHRDW_XMM_K1Z_XMM_XMMM128_IMM8: Code = 4024 # type: ignore
 """
 ``VPSHRDW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8``
 
@@ -40231,7 +40237,7 @@ EVEX_VPSHRDW_XMM_K1Z_XMM_XMMM128_IMM8: int = 4024
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDW_YMM_K1Z_YMM_YMMM256_IMM8: int = 4025
+EVEX_VPSHRDW_YMM_K1Z_YMM_YMMM256_IMM8: Code = 4025 # type: ignore
 """
 ``VPSHRDW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8``
 
@@ -40241,7 +40247,7 @@ EVEX_VPSHRDW_YMM_K1Z_YMM_YMMM256_IMM8: int = 4025
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDW_ZMM_K1Z_ZMM_ZMMM512_IMM8: int = 4026
+EVEX_VPSHRDW_ZMM_K1Z_ZMM_ZMMM512_IMM8: Code = 4026 # type: ignore
 """
 ``VPSHRDW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8``
 
@@ -40251,7 +40257,7 @@ EVEX_VPSHRDW_ZMM_K1Z_ZMM_ZMMM512_IMM8: int = 4026
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDD_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 4027
+EVEX_VPSHRDD_XMM_K1Z_XMM_XMMM128B32_IMM8: Code = 4027 # type: ignore
 """
 ``VPSHRDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8``
 
@@ -40261,7 +40267,7 @@ EVEX_VPSHRDD_XMM_K1Z_XMM_XMMM128B32_IMM8: int = 4027
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDD_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 4028
+EVEX_VPSHRDD_YMM_K1Z_YMM_YMMM256B32_IMM8: Code = 4028 # type: ignore
 """
 ``VPSHRDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8``
 
@@ -40271,7 +40277,7 @@ EVEX_VPSHRDD_YMM_K1Z_YMM_YMMM256B32_IMM8: int = 4028
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDD_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 4029
+EVEX_VPSHRDD_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: Code = 4029 # type: ignore
 """
 ``VPSHRDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8``
 
@@ -40281,7 +40287,7 @@ EVEX_VPSHRDD_ZMM_K1Z_ZMM_ZMMM512B32_IMM8: int = 4029
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDQ_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 4030
+EVEX_VPSHRDQ_XMM_K1Z_XMM_XMMM128B64_IMM8: Code = 4030 # type: ignore
 """
 ``VPSHRDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -40291,7 +40297,7 @@ EVEX_VPSHRDQ_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 4030
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDQ_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 4031
+EVEX_VPSHRDQ_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 4031 # type: ignore
 """
 ``VPSHRDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -40301,7 +40307,7 @@ EVEX_VPSHRDQ_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 4031
 
 ``16/32/64-bit``
 """
-EVEX_VPSHRDQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 4032
+EVEX_VPSHRDQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: Code = 4032 # type: ignore
 """
 ``VPSHRDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -40311,7 +40317,7 @@ EVEX_VPSHRDQ_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 4032
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDPS_XMM_XMM_XMMM128_XMM: int = 4033
+VEX_VFNMADDPS_XMM_XMM_XMMM128_XMM: Code = 4033 # type: ignore
 """
 ``VFNMADDPS xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40321,7 +40327,7 @@ VEX_VFNMADDPS_XMM_XMM_XMMM128_XMM: int = 4033
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDPS_YMM_YMM_YMMM256_YMM: int = 4034
+VEX_VFNMADDPS_YMM_YMM_YMMM256_YMM: Code = 4034 # type: ignore
 """
 ``VFNMADDPS ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -40331,7 +40337,7 @@ VEX_VFNMADDPS_YMM_YMM_YMMM256_YMM: int = 4034
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDPS_XMM_XMM_XMM_XMMM128: int = 4035
+VEX_VFNMADDPS_XMM_XMM_XMM_XMMM128: Code = 4035 # type: ignore
 """
 ``VFNMADDPS xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -40341,7 +40347,7 @@ VEX_VFNMADDPS_XMM_XMM_XMM_XMMM128: int = 4035
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDPS_YMM_YMM_YMM_YMMM256: int = 4036
+VEX_VFNMADDPS_YMM_YMM_YMM_YMMM256: Code = 4036 # type: ignore
 """
 ``VFNMADDPS ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -40351,7 +40357,7 @@ VEX_VFNMADDPS_YMM_YMM_YMM_YMMM256: int = 4036
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDPD_XMM_XMM_XMMM128_XMM: int = 4037
+VEX_VFNMADDPD_XMM_XMM_XMMM128_XMM: Code = 4037 # type: ignore
 """
 ``VFNMADDPD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40361,7 +40367,7 @@ VEX_VFNMADDPD_XMM_XMM_XMMM128_XMM: int = 4037
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDPD_YMM_YMM_YMMM256_YMM: int = 4038
+VEX_VFNMADDPD_YMM_YMM_YMMM256_YMM: Code = 4038 # type: ignore
 """
 ``VFNMADDPD ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -40371,7 +40377,7 @@ VEX_VFNMADDPD_YMM_YMM_YMMM256_YMM: int = 4038
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDPD_XMM_XMM_XMM_XMMM128: int = 4039
+VEX_VFNMADDPD_XMM_XMM_XMM_XMMM128: Code = 4039 # type: ignore
 """
 ``VFNMADDPD xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -40381,7 +40387,7 @@ VEX_VFNMADDPD_XMM_XMM_XMM_XMMM128: int = 4039
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDPD_YMM_YMM_YMM_YMMM256: int = 4040
+VEX_VFNMADDPD_YMM_YMM_YMM_YMMM256: Code = 4040 # type: ignore
 """
 ``VFNMADDPD ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -40391,7 +40397,7 @@ VEX_VFNMADDPD_YMM_YMM_YMM_YMMM256: int = 4040
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDSS_XMM_XMM_XMMM32_XMM: int = 4041
+VEX_VFNMADDSS_XMM_XMM_XMMM32_XMM: Code = 4041 # type: ignore
 """
 ``VFNMADDSS xmm1, xmm2, xmm3/m32, xmm4``
 
@@ -40401,7 +40407,7 @@ VEX_VFNMADDSS_XMM_XMM_XMMM32_XMM: int = 4041
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDSS_XMM_XMM_XMM_XMMM32: int = 4042
+VEX_VFNMADDSS_XMM_XMM_XMM_XMMM32: Code = 4042 # type: ignore
 """
 ``VFNMADDSS xmm1, xmm2, xmm3, xmm4/m32``
 
@@ -40411,7 +40417,7 @@ VEX_VFNMADDSS_XMM_XMM_XMM_XMMM32: int = 4042
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDSD_XMM_XMM_XMMM64_XMM: int = 4043
+VEX_VFNMADDSD_XMM_XMM_XMMM64_XMM: Code = 4043 # type: ignore
 """
 ``VFNMADDSD xmm1, xmm2, xmm3/m64, xmm4``
 
@@ -40421,7 +40427,7 @@ VEX_VFNMADDSD_XMM_XMM_XMMM64_XMM: int = 4043
 
 ``16/32/64-bit``
 """
-VEX_VFNMADDSD_XMM_XMM_XMM_XMMM64: int = 4044
+VEX_VFNMADDSD_XMM_XMM_XMM_XMMM64: Code = 4044 # type: ignore
 """
 ``VFNMADDSD xmm1, xmm2, xmm3, xmm4/m64``
 
@@ -40431,7 +40437,7 @@ VEX_VFNMADDSD_XMM_XMM_XMM_XMMM64: int = 4044
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBPS_XMM_XMM_XMMM128_XMM: int = 4045
+VEX_VFNMSUBPS_XMM_XMM_XMMM128_XMM: Code = 4045 # type: ignore
 """
 ``VFNMSUBPS xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40441,7 +40447,7 @@ VEX_VFNMSUBPS_XMM_XMM_XMMM128_XMM: int = 4045
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBPS_YMM_YMM_YMMM256_YMM: int = 4046
+VEX_VFNMSUBPS_YMM_YMM_YMMM256_YMM: Code = 4046 # type: ignore
 """
 ``VFNMSUBPS ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -40451,7 +40457,7 @@ VEX_VFNMSUBPS_YMM_YMM_YMMM256_YMM: int = 4046
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBPS_XMM_XMM_XMM_XMMM128: int = 4047
+VEX_VFNMSUBPS_XMM_XMM_XMM_XMMM128: Code = 4047 # type: ignore
 """
 ``VFNMSUBPS xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -40461,7 +40467,7 @@ VEX_VFNMSUBPS_XMM_XMM_XMM_XMMM128: int = 4047
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBPS_YMM_YMM_YMM_YMMM256: int = 4048
+VEX_VFNMSUBPS_YMM_YMM_YMM_YMMM256: Code = 4048 # type: ignore
 """
 ``VFNMSUBPS ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -40471,7 +40477,7 @@ VEX_VFNMSUBPS_YMM_YMM_YMM_YMMM256: int = 4048
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBPD_XMM_XMM_XMMM128_XMM: int = 4049
+VEX_VFNMSUBPD_XMM_XMM_XMMM128_XMM: Code = 4049 # type: ignore
 """
 ``VFNMSUBPD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40481,7 +40487,7 @@ VEX_VFNMSUBPD_XMM_XMM_XMMM128_XMM: int = 4049
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBPD_YMM_YMM_YMMM256_YMM: int = 4050
+VEX_VFNMSUBPD_YMM_YMM_YMMM256_YMM: Code = 4050 # type: ignore
 """
 ``VFNMSUBPD ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -40491,7 +40497,7 @@ VEX_VFNMSUBPD_YMM_YMM_YMMM256_YMM: int = 4050
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBPD_XMM_XMM_XMM_XMMM128: int = 4051
+VEX_VFNMSUBPD_XMM_XMM_XMM_XMMM128: Code = 4051 # type: ignore
 """
 ``VFNMSUBPD xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -40501,7 +40507,7 @@ VEX_VFNMSUBPD_XMM_XMM_XMM_XMMM128: int = 4051
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBPD_YMM_YMM_YMM_YMMM256: int = 4052
+VEX_VFNMSUBPD_YMM_YMM_YMM_YMMM256: Code = 4052 # type: ignore
 """
 ``VFNMSUBPD ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -40511,7 +40517,7 @@ VEX_VFNMSUBPD_YMM_YMM_YMM_YMMM256: int = 4052
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBSS_XMM_XMM_XMMM32_XMM: int = 4053
+VEX_VFNMSUBSS_XMM_XMM_XMMM32_XMM: Code = 4053 # type: ignore
 """
 ``VFNMSUBSS xmm1, xmm2, xmm3/m32, xmm4``
 
@@ -40521,7 +40527,7 @@ VEX_VFNMSUBSS_XMM_XMM_XMMM32_XMM: int = 4053
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBSS_XMM_XMM_XMM_XMMM32: int = 4054
+VEX_VFNMSUBSS_XMM_XMM_XMM_XMMM32: Code = 4054 # type: ignore
 """
 ``VFNMSUBSS xmm1, xmm2, xmm3, xmm4/m32``
 
@@ -40531,7 +40537,7 @@ VEX_VFNMSUBSS_XMM_XMM_XMM_XMMM32: int = 4054
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBSD_XMM_XMM_XMMM64_XMM: int = 4055
+VEX_VFNMSUBSD_XMM_XMM_XMMM64_XMM: Code = 4055 # type: ignore
 """
 ``VFNMSUBSD xmm1, xmm2, xmm3/m64, xmm4``
 
@@ -40541,7 +40547,7 @@ VEX_VFNMSUBSD_XMM_XMM_XMMM64_XMM: int = 4055
 
 ``16/32/64-bit``
 """
-VEX_VFNMSUBSD_XMM_XMM_XMM_XMMM64: int = 4056
+VEX_VFNMSUBSD_XMM_XMM_XMM_XMMM64: Code = 4056 # type: ignore
 """
 ``VFNMSUBSD xmm1, xmm2, xmm3, xmm4/m64``
 
@@ -40551,7 +40557,7 @@ VEX_VFNMSUBSD_XMM_XMM_XMM_XMMM64: int = 4056
 
 ``16/32/64-bit``
 """
-SHA1RNDS4_XMM_XMMM128_IMM8: int = 4057
+SHA1RNDS4_XMM_XMMM128_IMM8: Code = 4057 # type: ignore
 """
 ``SHA1RNDS4 xmm1, xmm2/m128, imm8``
 
@@ -40561,7 +40567,7 @@ SHA1RNDS4_XMM_XMMM128_IMM8: int = 4057
 
 ``16/32/64-bit``
 """
-GF2P8AFFINEQB_XMM_XMMM128_IMM8: int = 4058
+GF2P8AFFINEQB_XMM_XMMM128_IMM8: Code = 4058 # type: ignore
 """
 ``GF2P8AFFINEQB xmm1, xmm2/m128, imm8``
 
@@ -40571,7 +40577,7 @@ GF2P8AFFINEQB_XMM_XMMM128_IMM8: int = 4058
 
 ``16/32/64-bit``
 """
-VEX_VGF2P8AFFINEQB_XMM_XMM_XMMM128_IMM8: int = 4059
+VEX_VGF2P8AFFINEQB_XMM_XMM_XMMM128_IMM8: Code = 4059 # type: ignore
 """
 ``VGF2P8AFFINEQB xmm1, xmm2, xmm3/m128, imm8``
 
@@ -40581,7 +40587,7 @@ VEX_VGF2P8AFFINEQB_XMM_XMM_XMMM128_IMM8: int = 4059
 
 ``16/32/64-bit``
 """
-VEX_VGF2P8AFFINEQB_YMM_YMM_YMMM256_IMM8: int = 4060
+VEX_VGF2P8AFFINEQB_YMM_YMM_YMMM256_IMM8: Code = 4060 # type: ignore
 """
 ``VGF2P8AFFINEQB ymm1, ymm2, ymm3/m256, imm8``
 
@@ -40591,7 +40597,7 @@ VEX_VGF2P8AFFINEQB_YMM_YMM_YMMM256_IMM8: int = 4060
 
 ``16/32/64-bit``
 """
-EVEX_VGF2P8AFFINEQB_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 4061
+EVEX_VGF2P8AFFINEQB_XMM_K1Z_XMM_XMMM128B64_IMM8: Code = 4061 # type: ignore
 """
 ``VGF2P8AFFINEQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -40601,7 +40607,7 @@ EVEX_VGF2P8AFFINEQB_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 4061
 
 ``16/32/64-bit``
 """
-EVEX_VGF2P8AFFINEQB_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 4062
+EVEX_VGF2P8AFFINEQB_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 4062 # type: ignore
 """
 ``VGF2P8AFFINEQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -40611,7 +40617,7 @@ EVEX_VGF2P8AFFINEQB_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 4062
 
 ``16/32/64-bit``
 """
-EVEX_VGF2P8AFFINEQB_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 4063
+EVEX_VGF2P8AFFINEQB_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: Code = 4063 # type: ignore
 """
 ``VGF2P8AFFINEQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -40621,7 +40627,7 @@ EVEX_VGF2P8AFFINEQB_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 4063
 
 ``16/32/64-bit``
 """
-GF2P8AFFINEINVQB_XMM_XMMM128_IMM8: int = 4064
+GF2P8AFFINEINVQB_XMM_XMMM128_IMM8: Code = 4064 # type: ignore
 """
 ``GF2P8AFFINEINVQB xmm1, xmm2/m128, imm8``
 
@@ -40631,7 +40637,7 @@ GF2P8AFFINEINVQB_XMM_XMMM128_IMM8: int = 4064
 
 ``16/32/64-bit``
 """
-VEX_VGF2P8AFFINEINVQB_XMM_XMM_XMMM128_IMM8: int = 4065
+VEX_VGF2P8AFFINEINVQB_XMM_XMM_XMMM128_IMM8: Code = 4065 # type: ignore
 """
 ``VGF2P8AFFINEINVQB xmm1, xmm2, xmm3/m128, imm8``
 
@@ -40641,7 +40647,7 @@ VEX_VGF2P8AFFINEINVQB_XMM_XMM_XMMM128_IMM8: int = 4065
 
 ``16/32/64-bit``
 """
-VEX_VGF2P8AFFINEINVQB_YMM_YMM_YMMM256_IMM8: int = 4066
+VEX_VGF2P8AFFINEINVQB_YMM_YMM_YMMM256_IMM8: Code = 4066 # type: ignore
 """
 ``VGF2P8AFFINEINVQB ymm1, ymm2, ymm3/m256, imm8``
 
@@ -40651,7 +40657,7 @@ VEX_VGF2P8AFFINEINVQB_YMM_YMM_YMMM256_IMM8: int = 4066
 
 ``16/32/64-bit``
 """
-EVEX_VGF2P8AFFINEINVQB_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 4067
+EVEX_VGF2P8AFFINEINVQB_XMM_K1Z_XMM_XMMM128B64_IMM8: Code = 4067 # type: ignore
 """
 ``VGF2P8AFFINEINVQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8``
 
@@ -40661,7 +40667,7 @@ EVEX_VGF2P8AFFINEINVQB_XMM_K1Z_XMM_XMMM128B64_IMM8: int = 4067
 
 ``16/32/64-bit``
 """
-EVEX_VGF2P8AFFINEINVQB_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 4068
+EVEX_VGF2P8AFFINEINVQB_YMM_K1Z_YMM_YMMM256B64_IMM8: Code = 4068 # type: ignore
 """
 ``VGF2P8AFFINEINVQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8``
 
@@ -40671,7 +40677,7 @@ EVEX_VGF2P8AFFINEINVQB_YMM_K1Z_YMM_YMMM256B64_IMM8: int = 4068
 
 ``16/32/64-bit``
 """
-EVEX_VGF2P8AFFINEINVQB_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 4069
+EVEX_VGF2P8AFFINEINVQB_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: Code = 4069 # type: ignore
 """
 ``VGF2P8AFFINEINVQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8``
 
@@ -40681,7 +40687,7 @@ EVEX_VGF2P8AFFINEINVQB_ZMM_K1Z_ZMM_ZMMM512B64_IMM8: int = 4069
 
 ``16/32/64-bit``
 """
-AESKEYGENASSIST_XMM_XMMM128_IMM8: int = 4070
+AESKEYGENASSIST_XMM_XMMM128_IMM8: Code = 4070 # type: ignore
 """
 ``AESKEYGENASSIST xmm1, xmm2/m128, imm8``
 
@@ -40691,7 +40697,7 @@ AESKEYGENASSIST_XMM_XMMM128_IMM8: int = 4070
 
 ``16/32/64-bit``
 """
-VEX_VAESKEYGENASSIST_XMM_XMMM128_IMM8: int = 4071
+VEX_VAESKEYGENASSIST_XMM_XMMM128_IMM8: Code = 4071 # type: ignore
 """
 ``VAESKEYGENASSIST xmm1, xmm2/m128, imm8``
 
@@ -40701,7 +40707,7 @@ VEX_VAESKEYGENASSIST_XMM_XMMM128_IMM8: int = 4071
 
 ``16/32/64-bit``
 """
-VEX_RORX_R32_RM32_IMM8: int = 4072
+VEX_RORX_R32_RM32_IMM8: Code = 4072 # type: ignore
 """
 ``RORX r32, r/m32, imm8``
 
@@ -40711,7 +40717,7 @@ VEX_RORX_R32_RM32_IMM8: int = 4072
 
 ``16/32/64-bit``
 """
-VEX_RORX_R64_RM64_IMM8: int = 4073
+VEX_RORX_R64_RM64_IMM8: Code = 4073 # type: ignore
 """
 ``RORX r64, r/m64, imm8``
 
@@ -40721,7 +40727,7 @@ VEX_RORX_R64_RM64_IMM8: int = 4073
 
 ``64-bit``
 """
-XOP_VPMACSSWW_XMM_XMM_XMMM128_XMM: int = 4074
+XOP_VPMACSSWW_XMM_XMM_XMMM128_XMM: Code = 4074 # type: ignore
 """
 ``VPMACSSWW xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40731,7 +40737,7 @@ XOP_VPMACSSWW_XMM_XMM_XMMM128_XMM: int = 4074
 
 ``16/32/64-bit``
 """
-XOP_VPMACSSWD_XMM_XMM_XMMM128_XMM: int = 4075
+XOP_VPMACSSWD_XMM_XMM_XMMM128_XMM: Code = 4075 # type: ignore
 """
 ``VPMACSSWD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40741,7 +40747,7 @@ XOP_VPMACSSWD_XMM_XMM_XMMM128_XMM: int = 4075
 
 ``16/32/64-bit``
 """
-XOP_VPMACSSDQL_XMM_XMM_XMMM128_XMM: int = 4076
+XOP_VPMACSSDQL_XMM_XMM_XMMM128_XMM: Code = 4076 # type: ignore
 """
 ``VPMACSSDQL xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40751,7 +40757,7 @@ XOP_VPMACSSDQL_XMM_XMM_XMMM128_XMM: int = 4076
 
 ``16/32/64-bit``
 """
-XOP_VPMACSSDD_XMM_XMM_XMMM128_XMM: int = 4077
+XOP_VPMACSSDD_XMM_XMM_XMMM128_XMM: Code = 4077 # type: ignore
 """
 ``VPMACSSDD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40761,7 +40767,7 @@ XOP_VPMACSSDD_XMM_XMM_XMMM128_XMM: int = 4077
 
 ``16/32/64-bit``
 """
-XOP_VPMACSSDQH_XMM_XMM_XMMM128_XMM: int = 4078
+XOP_VPMACSSDQH_XMM_XMM_XMMM128_XMM: Code = 4078 # type: ignore
 """
 ``VPMACSSDQH xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40771,7 +40777,7 @@ XOP_VPMACSSDQH_XMM_XMM_XMMM128_XMM: int = 4078
 
 ``16/32/64-bit``
 """
-XOP_VPMACSWW_XMM_XMM_XMMM128_XMM: int = 4079
+XOP_VPMACSWW_XMM_XMM_XMMM128_XMM: Code = 4079 # type: ignore
 """
 ``VPMACSWW xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40781,7 +40787,7 @@ XOP_VPMACSWW_XMM_XMM_XMMM128_XMM: int = 4079
 
 ``16/32/64-bit``
 """
-XOP_VPMACSWD_XMM_XMM_XMMM128_XMM: int = 4080
+XOP_VPMACSWD_XMM_XMM_XMMM128_XMM: Code = 4080 # type: ignore
 """
 ``VPMACSWD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40791,7 +40797,7 @@ XOP_VPMACSWD_XMM_XMM_XMMM128_XMM: int = 4080
 
 ``16/32/64-bit``
 """
-XOP_VPMACSDQL_XMM_XMM_XMMM128_XMM: int = 4081
+XOP_VPMACSDQL_XMM_XMM_XMMM128_XMM: Code = 4081 # type: ignore
 """
 ``VPMACSDQL xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40801,7 +40807,7 @@ XOP_VPMACSDQL_XMM_XMM_XMMM128_XMM: int = 4081
 
 ``16/32/64-bit``
 """
-XOP_VPMACSDD_XMM_XMM_XMMM128_XMM: int = 4082
+XOP_VPMACSDD_XMM_XMM_XMMM128_XMM: Code = 4082 # type: ignore
 """
 ``VPMACSDD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40811,7 +40817,7 @@ XOP_VPMACSDD_XMM_XMM_XMMM128_XMM: int = 4082
 
 ``16/32/64-bit``
 """
-XOP_VPMACSDQH_XMM_XMM_XMMM128_XMM: int = 4083
+XOP_VPMACSDQH_XMM_XMM_XMMM128_XMM: Code = 4083 # type: ignore
 """
 ``VPMACSDQH xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40821,7 +40827,7 @@ XOP_VPMACSDQH_XMM_XMM_XMMM128_XMM: int = 4083
 
 ``16/32/64-bit``
 """
-XOP_VPCMOV_XMM_XMM_XMMM128_XMM: int = 4084
+XOP_VPCMOV_XMM_XMM_XMMM128_XMM: Code = 4084 # type: ignore
 """
 ``VPCMOV xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40831,7 +40837,7 @@ XOP_VPCMOV_XMM_XMM_XMMM128_XMM: int = 4084
 
 ``16/32/64-bit``
 """
-XOP_VPCMOV_YMM_YMM_YMMM256_YMM: int = 4085
+XOP_VPCMOV_YMM_YMM_YMMM256_YMM: Code = 4085 # type: ignore
 """
 ``VPCMOV ymm1, ymm2, ymm3/m256, ymm4``
 
@@ -40841,7 +40847,7 @@ XOP_VPCMOV_YMM_YMM_YMMM256_YMM: int = 4085
 
 ``16/32/64-bit``
 """
-XOP_VPCMOV_XMM_XMM_XMM_XMMM128: int = 4086
+XOP_VPCMOV_XMM_XMM_XMM_XMMM128: Code = 4086 # type: ignore
 """
 ``VPCMOV xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -40851,7 +40857,7 @@ XOP_VPCMOV_XMM_XMM_XMM_XMMM128: int = 4086
 
 ``16/32/64-bit``
 """
-XOP_VPCMOV_YMM_YMM_YMM_YMMM256: int = 4087
+XOP_VPCMOV_YMM_YMM_YMM_YMMM256: Code = 4087 # type: ignore
 """
 ``VPCMOV ymm1, ymm2, ymm3, ymm4/m256``
 
@@ -40861,7 +40867,7 @@ XOP_VPCMOV_YMM_YMM_YMM_YMMM256: int = 4087
 
 ``16/32/64-bit``
 """
-XOP_VPPERM_XMM_XMM_XMMM128_XMM: int = 4088
+XOP_VPPERM_XMM_XMM_XMMM128_XMM: Code = 4088 # type: ignore
 """
 ``VPPERM xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40871,7 +40877,7 @@ XOP_VPPERM_XMM_XMM_XMMM128_XMM: int = 4088
 
 ``16/32/64-bit``
 """
-XOP_VPPERM_XMM_XMM_XMM_XMMM128: int = 4089
+XOP_VPPERM_XMM_XMM_XMM_XMMM128: Code = 4089 # type: ignore
 """
 ``VPPERM xmm1, xmm2, xmm3, xmm4/m128``
 
@@ -40881,7 +40887,7 @@ XOP_VPPERM_XMM_XMM_XMM_XMMM128: int = 4089
 
 ``16/32/64-bit``
 """
-XOP_VPMADCSSWD_XMM_XMM_XMMM128_XMM: int = 4090
+XOP_VPMADCSSWD_XMM_XMM_XMMM128_XMM: Code = 4090 # type: ignore
 """
 ``VPMADCSSWD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40891,7 +40897,7 @@ XOP_VPMADCSSWD_XMM_XMM_XMMM128_XMM: int = 4090
 
 ``16/32/64-bit``
 """
-XOP_VPMADCSWD_XMM_XMM_XMMM128_XMM: int = 4091
+XOP_VPMADCSWD_XMM_XMM_XMMM128_XMM: Code = 4091 # type: ignore
 """
 ``VPMADCSWD xmm1, xmm2, xmm3/m128, xmm4``
 
@@ -40901,7 +40907,7 @@ XOP_VPMADCSWD_XMM_XMM_XMMM128_XMM: int = 4091
 
 ``16/32/64-bit``
 """
-XOP_VPROTB_XMM_XMMM128_IMM8: int = 4092
+XOP_VPROTB_XMM_XMMM128_IMM8: Code = 4092 # type: ignore
 """
 ``VPROTB xmm1, xmm2/m128, imm8``
 
@@ -40911,7 +40917,7 @@ XOP_VPROTB_XMM_XMMM128_IMM8: int = 4092
 
 ``16/32/64-bit``
 """
-XOP_VPROTW_XMM_XMMM128_IMM8: int = 4093
+XOP_VPROTW_XMM_XMMM128_IMM8: Code = 4093 # type: ignore
 """
 ``VPROTW xmm1, xmm2/m128, imm8``
 
@@ -40921,7 +40927,7 @@ XOP_VPROTW_XMM_XMMM128_IMM8: int = 4093
 
 ``16/32/64-bit``
 """
-XOP_VPROTD_XMM_XMMM128_IMM8: int = 4094
+XOP_VPROTD_XMM_XMMM128_IMM8: Code = 4094 # type: ignore
 """
 ``VPROTD xmm1, xmm2/m128, imm8``
 
@@ -40931,7 +40937,7 @@ XOP_VPROTD_XMM_XMMM128_IMM8: int = 4094
 
 ``16/32/64-bit``
 """
-XOP_VPROTQ_XMM_XMMM128_IMM8: int = 4095
+XOP_VPROTQ_XMM_XMMM128_IMM8: Code = 4095 # type: ignore
 """
 ``VPROTQ xmm1, xmm2/m128, imm8``
 
@@ -40941,7 +40947,7 @@ XOP_VPROTQ_XMM_XMMM128_IMM8: int = 4095
 
 ``16/32/64-bit``
 """
-XOP_VPCOMB_XMM_XMM_XMMM128_IMM8: int = 4096
+XOP_VPCOMB_XMM_XMM_XMMM128_IMM8: Code = 4096 # type: ignore
 """
 ``VPCOMB xmm1, xmm2, xmm3/m128, imm8``
 
@@ -40951,7 +40957,7 @@ XOP_VPCOMB_XMM_XMM_XMMM128_IMM8: int = 4096
 
 ``16/32/64-bit``
 """
-XOP_VPCOMW_XMM_XMM_XMMM128_IMM8: int = 4097
+XOP_VPCOMW_XMM_XMM_XMMM128_IMM8: Code = 4097 # type: ignore
 """
 ``VPCOMW xmm1, xmm2, xmm3/m128, imm8``
 
@@ -40961,7 +40967,7 @@ XOP_VPCOMW_XMM_XMM_XMMM128_IMM8: int = 4097
 
 ``16/32/64-bit``
 """
-XOP_VPCOMD_XMM_XMM_XMMM128_IMM8: int = 4098
+XOP_VPCOMD_XMM_XMM_XMMM128_IMM8: Code = 4098 # type: ignore
 """
 ``VPCOMD xmm1, xmm2, xmm3/m128, imm8``
 
@@ -40971,7 +40977,7 @@ XOP_VPCOMD_XMM_XMM_XMMM128_IMM8: int = 4098
 
 ``16/32/64-bit``
 """
-XOP_VPCOMQ_XMM_XMM_XMMM128_IMM8: int = 4099
+XOP_VPCOMQ_XMM_XMM_XMMM128_IMM8: Code = 4099 # type: ignore
 """
 ``VPCOMQ xmm1, xmm2, xmm3/m128, imm8``
 
@@ -40981,7 +40987,7 @@ XOP_VPCOMQ_XMM_XMM_XMMM128_IMM8: int = 4099
 
 ``16/32/64-bit``
 """
-XOP_VPCOMUB_XMM_XMM_XMMM128_IMM8: int = 4100
+XOP_VPCOMUB_XMM_XMM_XMMM128_IMM8: Code = 4100 # type: ignore
 """
 ``VPCOMUB xmm1, xmm2, xmm3/m128, imm8``
 
@@ -40991,7 +40997,7 @@ XOP_VPCOMUB_XMM_XMM_XMMM128_IMM8: int = 4100
 
 ``16/32/64-bit``
 """
-XOP_VPCOMUW_XMM_XMM_XMMM128_IMM8: int = 4101
+XOP_VPCOMUW_XMM_XMM_XMMM128_IMM8: Code = 4101 # type: ignore
 """
 ``VPCOMUW xmm1, xmm2, xmm3/m128, imm8``
 
@@ -41001,7 +41007,7 @@ XOP_VPCOMUW_XMM_XMM_XMMM128_IMM8: int = 4101
 
 ``16/32/64-bit``
 """
-XOP_VPCOMUD_XMM_XMM_XMMM128_IMM8: int = 4102
+XOP_VPCOMUD_XMM_XMM_XMMM128_IMM8: Code = 4102 # type: ignore
 """
 ``VPCOMUD xmm1, xmm2, xmm3/m128, imm8``
 
@@ -41011,7 +41017,7 @@ XOP_VPCOMUD_XMM_XMM_XMMM128_IMM8: int = 4102
 
 ``16/32/64-bit``
 """
-XOP_VPCOMUQ_XMM_XMM_XMMM128_IMM8: int = 4103
+XOP_VPCOMUQ_XMM_XMM_XMMM128_IMM8: Code = 4103 # type: ignore
 """
 ``VPCOMUQ xmm1, xmm2, xmm3/m128, imm8``
 
@@ -41021,7 +41027,7 @@ XOP_VPCOMUQ_XMM_XMM_XMMM128_IMM8: int = 4103
 
 ``16/32/64-bit``
 """
-XOP_BLCFILL_R32_RM32: int = 4104
+XOP_BLCFILL_R32_RM32: Code = 4104 # type: ignore
 """
 ``BLCFILL r32, r/m32``
 
@@ -41031,7 +41037,7 @@ XOP_BLCFILL_R32_RM32: int = 4104
 
 ``16/32/64-bit``
 """
-XOP_BLCFILL_R64_RM64: int = 4105
+XOP_BLCFILL_R64_RM64: Code = 4105 # type: ignore
 """
 ``BLCFILL r64, r/m64``
 
@@ -41041,7 +41047,7 @@ XOP_BLCFILL_R64_RM64: int = 4105
 
 ``64-bit``
 """
-XOP_BLSFILL_R32_RM32: int = 4106
+XOP_BLSFILL_R32_RM32: Code = 4106 # type: ignore
 """
 ``BLSFILL r32, r/m32``
 
@@ -41051,7 +41057,7 @@ XOP_BLSFILL_R32_RM32: int = 4106
 
 ``16/32/64-bit``
 """
-XOP_BLSFILL_R64_RM64: int = 4107
+XOP_BLSFILL_R64_RM64: Code = 4107 # type: ignore
 """
 ``BLSFILL r64, r/m64``
 
@@ -41061,7 +41067,7 @@ XOP_BLSFILL_R64_RM64: int = 4107
 
 ``64-bit``
 """
-XOP_BLCS_R32_RM32: int = 4108
+XOP_BLCS_R32_RM32: Code = 4108 # type: ignore
 """
 ``BLCS r32, r/m32``
 
@@ -41071,7 +41077,7 @@ XOP_BLCS_R32_RM32: int = 4108
 
 ``16/32/64-bit``
 """
-XOP_BLCS_R64_RM64: int = 4109
+XOP_BLCS_R64_RM64: Code = 4109 # type: ignore
 """
 ``BLCS r64, r/m64``
 
@@ -41081,7 +41087,7 @@ XOP_BLCS_R64_RM64: int = 4109
 
 ``64-bit``
 """
-XOP_TZMSK_R32_RM32: int = 4110
+XOP_TZMSK_R32_RM32: Code = 4110 # type: ignore
 """
 ``TZMSK r32, r/m32``
 
@@ -41091,7 +41097,7 @@ XOP_TZMSK_R32_RM32: int = 4110
 
 ``16/32/64-bit``
 """
-XOP_TZMSK_R64_RM64: int = 4111
+XOP_TZMSK_R64_RM64: Code = 4111 # type: ignore
 """
 ``TZMSK r64, r/m64``
 
@@ -41101,7 +41107,7 @@ XOP_TZMSK_R64_RM64: int = 4111
 
 ``64-bit``
 """
-XOP_BLCIC_R32_RM32: int = 4112
+XOP_BLCIC_R32_RM32: Code = 4112 # type: ignore
 """
 ``BLCIC r32, r/m32``
 
@@ -41111,7 +41117,7 @@ XOP_BLCIC_R32_RM32: int = 4112
 
 ``16/32/64-bit``
 """
-XOP_BLCIC_R64_RM64: int = 4113
+XOP_BLCIC_R64_RM64: Code = 4113 # type: ignore
 """
 ``BLCIC r64, r/m64``
 
@@ -41121,7 +41127,7 @@ XOP_BLCIC_R64_RM64: int = 4113
 
 ``64-bit``
 """
-XOP_BLSIC_R32_RM32: int = 4114
+XOP_BLSIC_R32_RM32: Code = 4114 # type: ignore
 """
 ``BLSIC r32, r/m32``
 
@@ -41131,7 +41137,7 @@ XOP_BLSIC_R32_RM32: int = 4114
 
 ``16/32/64-bit``
 """
-XOP_BLSIC_R64_RM64: int = 4115
+XOP_BLSIC_R64_RM64: Code = 4115 # type: ignore
 """
 ``BLSIC r64, r/m64``
 
@@ -41141,7 +41147,7 @@ XOP_BLSIC_R64_RM64: int = 4115
 
 ``64-bit``
 """
-XOP_T1MSKC_R32_RM32: int = 4116
+XOP_T1MSKC_R32_RM32: Code = 4116 # type: ignore
 """
 ``T1MSKC r32, r/m32``
 
@@ -41151,7 +41157,7 @@ XOP_T1MSKC_R32_RM32: int = 4116
 
 ``16/32/64-bit``
 """
-XOP_T1MSKC_R64_RM64: int = 4117
+XOP_T1MSKC_R64_RM64: Code = 4117 # type: ignore
 """
 ``T1MSKC r64, r/m64``
 
@@ -41161,7 +41167,7 @@ XOP_T1MSKC_R64_RM64: int = 4117
 
 ``64-bit``
 """
-XOP_BLCMSK_R32_RM32: int = 4118
+XOP_BLCMSK_R32_RM32: Code = 4118 # type: ignore
 """
 ``BLCMSK r32, r/m32``
 
@@ -41171,7 +41177,7 @@ XOP_BLCMSK_R32_RM32: int = 4118
 
 ``16/32/64-bit``
 """
-XOP_BLCMSK_R64_RM64: int = 4119
+XOP_BLCMSK_R64_RM64: Code = 4119 # type: ignore
 """
 ``BLCMSK r64, r/m64``
 
@@ -41181,7 +41187,7 @@ XOP_BLCMSK_R64_RM64: int = 4119
 
 ``64-bit``
 """
-XOP_BLCI_R32_RM32: int = 4120
+XOP_BLCI_R32_RM32: Code = 4120 # type: ignore
 """
 ``BLCI r32, r/m32``
 
@@ -41191,7 +41197,7 @@ XOP_BLCI_R32_RM32: int = 4120
 
 ``16/32/64-bit``
 """
-XOP_BLCI_R64_RM64: int = 4121
+XOP_BLCI_R64_RM64: Code = 4121 # type: ignore
 """
 ``BLCI r64, r/m64``
 
@@ -41201,7 +41207,7 @@ XOP_BLCI_R64_RM64: int = 4121
 
 ``64-bit``
 """
-XOP_LLWPCB_R32: int = 4122
+XOP_LLWPCB_R32: Code = 4122 # type: ignore
 """
 ``LLWPCB r32``
 
@@ -41211,7 +41217,7 @@ XOP_LLWPCB_R32: int = 4122
 
 ``16/32/64-bit``
 """
-XOP_LLWPCB_R64: int = 4123
+XOP_LLWPCB_R64: Code = 4123 # type: ignore
 """
 ``LLWPCB r64``
 
@@ -41221,7 +41227,7 @@ XOP_LLWPCB_R64: int = 4123
 
 ``64-bit``
 """
-XOP_SLWPCB_R32: int = 4124
+XOP_SLWPCB_R32: Code = 4124 # type: ignore
 """
 ``SLWPCB r32``
 
@@ -41231,7 +41237,7 @@ XOP_SLWPCB_R32: int = 4124
 
 ``16/32/64-bit``
 """
-XOP_SLWPCB_R64: int = 4125
+XOP_SLWPCB_R64: Code = 4125 # type: ignore
 """
 ``SLWPCB r64``
 
@@ -41241,7 +41247,7 @@ XOP_SLWPCB_R64: int = 4125
 
 ``64-bit``
 """
-XOP_VFRCZPS_XMM_XMMM128: int = 4126
+XOP_VFRCZPS_XMM_XMMM128: Code = 4126 # type: ignore
 """
 ``VFRCZPS xmm1, xmm2/m128``
 
@@ -41251,7 +41257,7 @@ XOP_VFRCZPS_XMM_XMMM128: int = 4126
 
 ``16/32/64-bit``
 """
-XOP_VFRCZPS_YMM_YMMM256: int = 4127
+XOP_VFRCZPS_YMM_YMMM256: Code = 4127 # type: ignore
 """
 ``VFRCZPS ymm1, ymm2/m256``
 
@@ -41261,7 +41267,7 @@ XOP_VFRCZPS_YMM_YMMM256: int = 4127
 
 ``16/32/64-bit``
 """
-XOP_VFRCZPD_XMM_XMMM128: int = 4128
+XOP_VFRCZPD_XMM_XMMM128: Code = 4128 # type: ignore
 """
 ``VFRCZPD xmm1, xmm2/m128``
 
@@ -41271,7 +41277,7 @@ XOP_VFRCZPD_XMM_XMMM128: int = 4128
 
 ``16/32/64-bit``
 """
-XOP_VFRCZPD_YMM_YMMM256: int = 4129
+XOP_VFRCZPD_YMM_YMMM256: Code = 4129 # type: ignore
 """
 ``VFRCZPD ymm1, ymm2/m256``
 
@@ -41281,7 +41287,7 @@ XOP_VFRCZPD_YMM_YMMM256: int = 4129
 
 ``16/32/64-bit``
 """
-XOP_VFRCZSS_XMM_XMMM32: int = 4130
+XOP_VFRCZSS_XMM_XMMM32: Code = 4130 # type: ignore
 """
 ``VFRCZSS xmm1, xmm2/m32``
 
@@ -41291,7 +41297,7 @@ XOP_VFRCZSS_XMM_XMMM32: int = 4130
 
 ``16/32/64-bit``
 """
-XOP_VFRCZSD_XMM_XMMM64: int = 4131
+XOP_VFRCZSD_XMM_XMMM64: Code = 4131 # type: ignore
 """
 ``VFRCZSD xmm1, xmm2/m64``
 
@@ -41301,7 +41307,7 @@ XOP_VFRCZSD_XMM_XMMM64: int = 4131
 
 ``16/32/64-bit``
 """
-XOP_VPROTB_XMM_XMMM128_XMM: int = 4132
+XOP_VPROTB_XMM_XMMM128_XMM: Code = 4132 # type: ignore
 """
 ``VPROTB xmm1, xmm2/m128, xmm3``
 
@@ -41311,7 +41317,7 @@ XOP_VPROTB_XMM_XMMM128_XMM: int = 4132
 
 ``16/32/64-bit``
 """
-XOP_VPROTB_XMM_XMM_XMMM128: int = 4133
+XOP_VPROTB_XMM_XMM_XMMM128: Code = 4133 # type: ignore
 """
 ``VPROTB xmm1, xmm2, xmm3/m128``
 
@@ -41321,7 +41327,7 @@ XOP_VPROTB_XMM_XMM_XMMM128: int = 4133
 
 ``16/32/64-bit``
 """
-XOP_VPROTW_XMM_XMMM128_XMM: int = 4134
+XOP_VPROTW_XMM_XMMM128_XMM: Code = 4134 # type: ignore
 """
 ``VPROTW xmm1, xmm2/m128, xmm3``
 
@@ -41331,7 +41337,7 @@ XOP_VPROTW_XMM_XMMM128_XMM: int = 4134
 
 ``16/32/64-bit``
 """
-XOP_VPROTW_XMM_XMM_XMMM128: int = 4135
+XOP_VPROTW_XMM_XMM_XMMM128: Code = 4135 # type: ignore
 """
 ``VPROTW xmm1, xmm2, xmm3/m128``
 
@@ -41341,7 +41347,7 @@ XOP_VPROTW_XMM_XMM_XMMM128: int = 4135
 
 ``16/32/64-bit``
 """
-XOP_VPROTD_XMM_XMMM128_XMM: int = 4136
+XOP_VPROTD_XMM_XMMM128_XMM: Code = 4136 # type: ignore
 """
 ``VPROTD xmm1, xmm2/m128, xmm3``
 
@@ -41351,7 +41357,7 @@ XOP_VPROTD_XMM_XMMM128_XMM: int = 4136
 
 ``16/32/64-bit``
 """
-XOP_VPROTD_XMM_XMM_XMMM128: int = 4137
+XOP_VPROTD_XMM_XMM_XMMM128: Code = 4137 # type: ignore
 """
 ``VPROTD xmm1, xmm2, xmm3/m128``
 
@@ -41361,7 +41367,7 @@ XOP_VPROTD_XMM_XMM_XMMM128: int = 4137
 
 ``16/32/64-bit``
 """
-XOP_VPROTQ_XMM_XMMM128_XMM: int = 4138
+XOP_VPROTQ_XMM_XMMM128_XMM: Code = 4138 # type: ignore
 """
 ``VPROTQ xmm1, xmm2/m128, xmm3``
 
@@ -41371,7 +41377,7 @@ XOP_VPROTQ_XMM_XMMM128_XMM: int = 4138
 
 ``16/32/64-bit``
 """
-XOP_VPROTQ_XMM_XMM_XMMM128: int = 4139
+XOP_VPROTQ_XMM_XMM_XMMM128: Code = 4139 # type: ignore
 """
 ``VPROTQ xmm1, xmm2, xmm3/m128``
 
@@ -41381,7 +41387,7 @@ XOP_VPROTQ_XMM_XMM_XMMM128: int = 4139
 
 ``16/32/64-bit``
 """
-XOP_VPSHLB_XMM_XMMM128_XMM: int = 4140
+XOP_VPSHLB_XMM_XMMM128_XMM: Code = 4140 # type: ignore
 """
 ``VPSHLB xmm1, xmm2/m128, xmm3``
 
@@ -41391,7 +41397,7 @@ XOP_VPSHLB_XMM_XMMM128_XMM: int = 4140
 
 ``16/32/64-bit``
 """
-XOP_VPSHLB_XMM_XMM_XMMM128: int = 4141
+XOP_VPSHLB_XMM_XMM_XMMM128: Code = 4141 # type: ignore
 """
 ``VPSHLB xmm1, xmm2, xmm3/m128``
 
@@ -41401,7 +41407,7 @@ XOP_VPSHLB_XMM_XMM_XMMM128: int = 4141
 
 ``16/32/64-bit``
 """
-XOP_VPSHLW_XMM_XMMM128_XMM: int = 4142
+XOP_VPSHLW_XMM_XMMM128_XMM: Code = 4142 # type: ignore
 """
 ``VPSHLW xmm1, xmm2/m128, xmm3``
 
@@ -41411,7 +41417,7 @@ XOP_VPSHLW_XMM_XMMM128_XMM: int = 4142
 
 ``16/32/64-bit``
 """
-XOP_VPSHLW_XMM_XMM_XMMM128: int = 4143
+XOP_VPSHLW_XMM_XMM_XMMM128: Code = 4143 # type: ignore
 """
 ``VPSHLW xmm1, xmm2, xmm3/m128``
 
@@ -41421,7 +41427,7 @@ XOP_VPSHLW_XMM_XMM_XMMM128: int = 4143
 
 ``16/32/64-bit``
 """
-XOP_VPSHLD_XMM_XMMM128_XMM: int = 4144
+XOP_VPSHLD_XMM_XMMM128_XMM: Code = 4144 # type: ignore
 """
 ``VPSHLD xmm1, xmm2/m128, xmm3``
 
@@ -41431,7 +41437,7 @@ XOP_VPSHLD_XMM_XMMM128_XMM: int = 4144
 
 ``16/32/64-bit``
 """
-XOP_VPSHLD_XMM_XMM_XMMM128: int = 4145
+XOP_VPSHLD_XMM_XMM_XMMM128: Code = 4145 # type: ignore
 """
 ``VPSHLD xmm1, xmm2, xmm3/m128``
 
@@ -41441,7 +41447,7 @@ XOP_VPSHLD_XMM_XMM_XMMM128: int = 4145
 
 ``16/32/64-bit``
 """
-XOP_VPSHLQ_XMM_XMMM128_XMM: int = 4146
+XOP_VPSHLQ_XMM_XMMM128_XMM: Code = 4146 # type: ignore
 """
 ``VPSHLQ xmm1, xmm2/m128, xmm3``
 
@@ -41451,7 +41457,7 @@ XOP_VPSHLQ_XMM_XMMM128_XMM: int = 4146
 
 ``16/32/64-bit``
 """
-XOP_VPSHLQ_XMM_XMM_XMMM128: int = 4147
+XOP_VPSHLQ_XMM_XMM_XMMM128: Code = 4147 # type: ignore
 """
 ``VPSHLQ xmm1, xmm2, xmm3/m128``
 
@@ -41461,7 +41467,7 @@ XOP_VPSHLQ_XMM_XMM_XMMM128: int = 4147
 
 ``16/32/64-bit``
 """
-XOP_VPSHAB_XMM_XMMM128_XMM: int = 4148
+XOP_VPSHAB_XMM_XMMM128_XMM: Code = 4148 # type: ignore
 """
 ``VPSHAB xmm1, xmm2/m128, xmm3``
 
@@ -41471,7 +41477,7 @@ XOP_VPSHAB_XMM_XMMM128_XMM: int = 4148
 
 ``16/32/64-bit``
 """
-XOP_VPSHAB_XMM_XMM_XMMM128: int = 4149
+XOP_VPSHAB_XMM_XMM_XMMM128: Code = 4149 # type: ignore
 """
 ``VPSHAB xmm1, xmm2, xmm3/m128``
 
@@ -41481,7 +41487,7 @@ XOP_VPSHAB_XMM_XMM_XMMM128: int = 4149
 
 ``16/32/64-bit``
 """
-XOP_VPSHAW_XMM_XMMM128_XMM: int = 4150
+XOP_VPSHAW_XMM_XMMM128_XMM: Code = 4150 # type: ignore
 """
 ``VPSHAW xmm1, xmm2/m128, xmm3``
 
@@ -41491,7 +41497,7 @@ XOP_VPSHAW_XMM_XMMM128_XMM: int = 4150
 
 ``16/32/64-bit``
 """
-XOP_VPSHAW_XMM_XMM_XMMM128: int = 4151
+XOP_VPSHAW_XMM_XMM_XMMM128: Code = 4151 # type: ignore
 """
 ``VPSHAW xmm1, xmm2, xmm3/m128``
 
@@ -41501,7 +41507,7 @@ XOP_VPSHAW_XMM_XMM_XMMM128: int = 4151
 
 ``16/32/64-bit``
 """
-XOP_VPSHAD_XMM_XMMM128_XMM: int = 4152
+XOP_VPSHAD_XMM_XMMM128_XMM: Code = 4152 # type: ignore
 """
 ``VPSHAD xmm1, xmm2/m128, xmm3``
 
@@ -41511,7 +41517,7 @@ XOP_VPSHAD_XMM_XMMM128_XMM: int = 4152
 
 ``16/32/64-bit``
 """
-XOP_VPSHAD_XMM_XMM_XMMM128: int = 4153
+XOP_VPSHAD_XMM_XMM_XMMM128: Code = 4153 # type: ignore
 """
 ``VPSHAD xmm1, xmm2, xmm3/m128``
 
@@ -41521,7 +41527,7 @@ XOP_VPSHAD_XMM_XMM_XMMM128: int = 4153
 
 ``16/32/64-bit``
 """
-XOP_VPSHAQ_XMM_XMMM128_XMM: int = 4154
+XOP_VPSHAQ_XMM_XMMM128_XMM: Code = 4154 # type: ignore
 """
 ``VPSHAQ xmm1, xmm2/m128, xmm3``
 
@@ -41531,7 +41537,7 @@ XOP_VPSHAQ_XMM_XMMM128_XMM: int = 4154
 
 ``16/32/64-bit``
 """
-XOP_VPSHAQ_XMM_XMM_XMMM128: int = 4155
+XOP_VPSHAQ_XMM_XMM_XMMM128: Code = 4155 # type: ignore
 """
 ``VPSHAQ xmm1, xmm2, xmm3/m128``
 
@@ -41541,7 +41547,7 @@ XOP_VPSHAQ_XMM_XMM_XMMM128: int = 4155
 
 ``16/32/64-bit``
 """
-XOP_VPHADDBW_XMM_XMMM128: int = 4156
+XOP_VPHADDBW_XMM_XMMM128: Code = 4156 # type: ignore
 """
 ``VPHADDBW xmm1, xmm2/m128``
 
@@ -41551,7 +41557,7 @@ XOP_VPHADDBW_XMM_XMMM128: int = 4156
 
 ``16/32/64-bit``
 """
-XOP_VPHADDBD_XMM_XMMM128: int = 4157
+XOP_VPHADDBD_XMM_XMMM128: Code = 4157 # type: ignore
 """
 ``VPHADDBD xmm1, xmm2/m128``
 
@@ -41561,7 +41567,7 @@ XOP_VPHADDBD_XMM_XMMM128: int = 4157
 
 ``16/32/64-bit``
 """
-XOP_VPHADDBQ_XMM_XMMM128: int = 4158
+XOP_VPHADDBQ_XMM_XMMM128: Code = 4158 # type: ignore
 """
 ``VPHADDBQ xmm1, xmm2/m128``
 
@@ -41571,7 +41577,7 @@ XOP_VPHADDBQ_XMM_XMMM128: int = 4158
 
 ``16/32/64-bit``
 """
-XOP_VPHADDWD_XMM_XMMM128: int = 4159
+XOP_VPHADDWD_XMM_XMMM128: Code = 4159 # type: ignore
 """
 ``VPHADDWD xmm1, xmm2/m128``
 
@@ -41581,7 +41587,7 @@ XOP_VPHADDWD_XMM_XMMM128: int = 4159
 
 ``16/32/64-bit``
 """
-XOP_VPHADDWQ_XMM_XMMM128: int = 4160
+XOP_VPHADDWQ_XMM_XMMM128: Code = 4160 # type: ignore
 """
 ``VPHADDWQ xmm1, xmm2/m128``
 
@@ -41591,7 +41597,7 @@ XOP_VPHADDWQ_XMM_XMMM128: int = 4160
 
 ``16/32/64-bit``
 """
-XOP_VPHADDDQ_XMM_XMMM128: int = 4161
+XOP_VPHADDDQ_XMM_XMMM128: Code = 4161 # type: ignore
 """
 ``VPHADDDQ xmm1, xmm2/m128``
 
@@ -41601,7 +41607,7 @@ XOP_VPHADDDQ_XMM_XMMM128: int = 4161
 
 ``16/32/64-bit``
 """
-XOP_VPHADDUBW_XMM_XMMM128: int = 4162
+XOP_VPHADDUBW_XMM_XMMM128: Code = 4162 # type: ignore
 """
 ``VPHADDUBW xmm1, xmm2/m128``
 
@@ -41611,7 +41617,7 @@ XOP_VPHADDUBW_XMM_XMMM128: int = 4162
 
 ``16/32/64-bit``
 """
-XOP_VPHADDUBD_XMM_XMMM128: int = 4163
+XOP_VPHADDUBD_XMM_XMMM128: Code = 4163 # type: ignore
 """
 ``VPHADDUBD xmm1, xmm2/m128``
 
@@ -41621,7 +41627,7 @@ XOP_VPHADDUBD_XMM_XMMM128: int = 4163
 
 ``16/32/64-bit``
 """
-XOP_VPHADDUBQ_XMM_XMMM128: int = 4164
+XOP_VPHADDUBQ_XMM_XMMM128: Code = 4164 # type: ignore
 """
 ``VPHADDUBQ xmm1, xmm2/m128``
 
@@ -41631,7 +41637,7 @@ XOP_VPHADDUBQ_XMM_XMMM128: int = 4164
 
 ``16/32/64-bit``
 """
-XOP_VPHADDUWD_XMM_XMMM128: int = 4165
+XOP_VPHADDUWD_XMM_XMMM128: Code = 4165 # type: ignore
 """
 ``VPHADDUWD xmm1, xmm2/m128``
 
@@ -41641,7 +41647,7 @@ XOP_VPHADDUWD_XMM_XMMM128: int = 4165
 
 ``16/32/64-bit``
 """
-XOP_VPHADDUWQ_XMM_XMMM128: int = 4166
+XOP_VPHADDUWQ_XMM_XMMM128: Code = 4166 # type: ignore
 """
 ``VPHADDUWQ xmm1, xmm2/m128``
 
@@ -41651,7 +41657,7 @@ XOP_VPHADDUWQ_XMM_XMMM128: int = 4166
 
 ``16/32/64-bit``
 """
-XOP_VPHADDUDQ_XMM_XMMM128: int = 4167
+XOP_VPHADDUDQ_XMM_XMMM128: Code = 4167 # type: ignore
 """
 ``VPHADDUDQ xmm1, xmm2/m128``
 
@@ -41661,7 +41667,7 @@ XOP_VPHADDUDQ_XMM_XMMM128: int = 4167
 
 ``16/32/64-bit``
 """
-XOP_VPHSUBBW_XMM_XMMM128: int = 4168
+XOP_VPHSUBBW_XMM_XMMM128: Code = 4168 # type: ignore
 """
 ``VPHSUBBW xmm1, xmm2/m128``
 
@@ -41671,7 +41677,7 @@ XOP_VPHSUBBW_XMM_XMMM128: int = 4168
 
 ``16/32/64-bit``
 """
-XOP_VPHSUBWD_XMM_XMMM128: int = 4169
+XOP_VPHSUBWD_XMM_XMMM128: Code = 4169 # type: ignore
 """
 ``VPHSUBWD xmm1, xmm2/m128``
 
@@ -41681,7 +41687,7 @@ XOP_VPHSUBWD_XMM_XMMM128: int = 4169
 
 ``16/32/64-bit``
 """
-XOP_VPHSUBDQ_XMM_XMMM128: int = 4170
+XOP_VPHSUBDQ_XMM_XMMM128: Code = 4170 # type: ignore
 """
 ``VPHSUBDQ xmm1, xmm2/m128``
 
@@ -41691,7 +41697,7 @@ XOP_VPHSUBDQ_XMM_XMMM128: int = 4170
 
 ``16/32/64-bit``
 """
-XOP_BEXTR_R32_RM32_IMM32: int = 4171
+XOP_BEXTR_R32_RM32_IMM32: Code = 4171 # type: ignore
 """
 ``BEXTR r32, r/m32, imm32``
 
@@ -41701,7 +41707,7 @@ XOP_BEXTR_R32_RM32_IMM32: int = 4171
 
 ``16/32/64-bit``
 """
-XOP_BEXTR_R64_RM64_IMM32: int = 4172
+XOP_BEXTR_R64_RM64_IMM32: Code = 4172 # type: ignore
 """
 ``BEXTR r64, r/m64, imm32``
 
@@ -41711,7 +41717,7 @@ XOP_BEXTR_R64_RM64_IMM32: int = 4172
 
 ``64-bit``
 """
-XOP_LWPINS_R32_RM32_IMM32: int = 4173
+XOP_LWPINS_R32_RM32_IMM32: Code = 4173 # type: ignore
 """
 ``LWPINS r32, r/m32, imm32``
 
@@ -41721,7 +41727,7 @@ XOP_LWPINS_R32_RM32_IMM32: int = 4173
 
 ``16/32/64-bit``
 """
-XOP_LWPINS_R64_RM32_IMM32: int = 4174
+XOP_LWPINS_R64_RM32_IMM32: Code = 4174 # type: ignore
 """
 ``LWPINS r64, r/m32, imm32``
 
@@ -41731,7 +41737,7 @@ XOP_LWPINS_R64_RM32_IMM32: int = 4174
 
 ``64-bit``
 """
-XOP_LWPVAL_R32_RM32_IMM32: int = 4175
+XOP_LWPVAL_R32_RM32_IMM32: Code = 4175 # type: ignore
 """
 ``LWPVAL r32, r/m32, imm32``
 
@@ -41741,7 +41747,7 @@ XOP_LWPVAL_R32_RM32_IMM32: int = 4175
 
 ``16/32/64-bit``
 """
-XOP_LWPVAL_R64_RM32_IMM32: int = 4176
+XOP_LWPVAL_R64_RM32_IMM32: Code = 4176 # type: ignore
 """
 ``LWPVAL r64, r/m32, imm32``
 
@@ -41751,7 +41757,7 @@ XOP_LWPVAL_R64_RM32_IMM32: int = 4176
 
 ``64-bit``
 """
-D3NOW_PI2FW_MM_MMM64: int = 4177
+D3NOW_PI2FW_MM_MMM64: Code = 4177 # type: ignore
 """
 ``PI2FW mm, mm/m64``
 
@@ -41761,7 +41767,7 @@ D3NOW_PI2FW_MM_MMM64: int = 4177
 
 ``16/32/64-bit``
 """
-D3NOW_PI2FD_MM_MMM64: int = 4178
+D3NOW_PI2FD_MM_MMM64: Code = 4178 # type: ignore
 """
 ``PI2FD mm, mm/m64``
 
@@ -41771,7 +41777,7 @@ D3NOW_PI2FD_MM_MMM64: int = 4178
 
 ``16/32/64-bit``
 """
-D3NOW_PF2IW_MM_MMM64: int = 4179
+D3NOW_PF2IW_MM_MMM64: Code = 4179 # type: ignore
 """
 ``PF2IW mm, mm/m64``
 
@@ -41781,7 +41787,7 @@ D3NOW_PF2IW_MM_MMM64: int = 4179
 
 ``16/32/64-bit``
 """
-D3NOW_PF2ID_MM_MMM64: int = 4180
+D3NOW_PF2ID_MM_MMM64: Code = 4180 # type: ignore
 """
 ``PF2ID mm, mm/m64``
 
@@ -41791,7 +41797,7 @@ D3NOW_PF2ID_MM_MMM64: int = 4180
 
 ``16/32/64-bit``
 """
-D3NOW_PFRCPV_MM_MMM64: int = 4181
+D3NOW_PFRCPV_MM_MMM64: Code = 4181 # type: ignore
 """
 ``PFRCPV mm, mm/m64``
 
@@ -41801,7 +41807,7 @@ D3NOW_PFRCPV_MM_MMM64: int = 4181
 
 ``16/32-bit``
 """
-D3NOW_PFRSQRTV_MM_MMM64: int = 4182
+D3NOW_PFRSQRTV_MM_MMM64: Code = 4182 # type: ignore
 """
 ``PFRSQRTV mm, mm/m64``
 
@@ -41811,7 +41817,7 @@ D3NOW_PFRSQRTV_MM_MMM64: int = 4182
 
 ``16/32-bit``
 """
-D3NOW_PFNACC_MM_MMM64: int = 4183
+D3NOW_PFNACC_MM_MMM64: Code = 4183 # type: ignore
 """
 ``PFNACC mm, mm/m64``
 
@@ -41821,7 +41827,7 @@ D3NOW_PFNACC_MM_MMM64: int = 4183
 
 ``16/32/64-bit``
 """
-D3NOW_PFPNACC_MM_MMM64: int = 4184
+D3NOW_PFPNACC_MM_MMM64: Code = 4184 # type: ignore
 """
 ``PFPNACC mm, mm/m64``
 
@@ -41831,7 +41837,7 @@ D3NOW_PFPNACC_MM_MMM64: int = 4184
 
 ``16/32/64-bit``
 """
-D3NOW_PFCMPGE_MM_MMM64: int = 4185
+D3NOW_PFCMPGE_MM_MMM64: Code = 4185 # type: ignore
 """
 ``PFCMPGE mm, mm/m64``
 
@@ -41841,7 +41847,7 @@ D3NOW_PFCMPGE_MM_MMM64: int = 4185
 
 ``16/32/64-bit``
 """
-D3NOW_PFMIN_MM_MMM64: int = 4186
+D3NOW_PFMIN_MM_MMM64: Code = 4186 # type: ignore
 """
 ``PFMIN mm, mm/m64``
 
@@ -41851,7 +41857,7 @@ D3NOW_PFMIN_MM_MMM64: int = 4186
 
 ``16/32/64-bit``
 """
-D3NOW_PFRCP_MM_MMM64: int = 4187
+D3NOW_PFRCP_MM_MMM64: Code = 4187 # type: ignore
 """
 ``PFRCP mm, mm/m64``
 
@@ -41861,7 +41867,7 @@ D3NOW_PFRCP_MM_MMM64: int = 4187
 
 ``16/32/64-bit``
 """
-D3NOW_PFRSQRT_MM_MMM64: int = 4188
+D3NOW_PFRSQRT_MM_MMM64: Code = 4188 # type: ignore
 """
 ``PFRSQRT mm, mm/m64``
 
@@ -41871,7 +41877,7 @@ D3NOW_PFRSQRT_MM_MMM64: int = 4188
 
 ``16/32/64-bit``
 """
-D3NOW_PFSUB_MM_MMM64: int = 4189
+D3NOW_PFSUB_MM_MMM64: Code = 4189 # type: ignore
 """
 ``PFSUB mm, mm/m64``
 
@@ -41881,7 +41887,7 @@ D3NOW_PFSUB_MM_MMM64: int = 4189
 
 ``16/32/64-bit``
 """
-D3NOW_PFADD_MM_MMM64: int = 4190
+D3NOW_PFADD_MM_MMM64: Code = 4190 # type: ignore
 """
 ``PFADD mm, mm/m64``
 
@@ -41891,7 +41897,7 @@ D3NOW_PFADD_MM_MMM64: int = 4190
 
 ``16/32/64-bit``
 """
-D3NOW_PFCMPGT_MM_MMM64: int = 4191
+D3NOW_PFCMPGT_MM_MMM64: Code = 4191 # type: ignore
 """
 ``PFCMPGT mm, mm/m64``
 
@@ -41901,7 +41907,7 @@ D3NOW_PFCMPGT_MM_MMM64: int = 4191
 
 ``16/32/64-bit``
 """
-D3NOW_PFMAX_MM_MMM64: int = 4192
+D3NOW_PFMAX_MM_MMM64: Code = 4192 # type: ignore
 """
 ``PFMAX mm, mm/m64``
 
@@ -41911,7 +41917,7 @@ D3NOW_PFMAX_MM_MMM64: int = 4192
 
 ``16/32/64-bit``
 """
-D3NOW_PFRCPIT1_MM_MMM64: int = 4193
+D3NOW_PFRCPIT1_MM_MMM64: Code = 4193 # type: ignore
 """
 ``PFRCPIT1 mm, mm/m64``
 
@@ -41921,7 +41927,7 @@ D3NOW_PFRCPIT1_MM_MMM64: int = 4193
 
 ``16/32/64-bit``
 """
-D3NOW_PFRSQIT1_MM_MMM64: int = 4194
+D3NOW_PFRSQIT1_MM_MMM64: Code = 4194 # type: ignore
 """
 ``PFRSQIT1 mm, mm/m64``
 
@@ -41931,7 +41937,7 @@ D3NOW_PFRSQIT1_MM_MMM64: int = 4194
 
 ``16/32/64-bit``
 """
-D3NOW_PFSUBR_MM_MMM64: int = 4195
+D3NOW_PFSUBR_MM_MMM64: Code = 4195 # type: ignore
 """
 ``PFSUBR mm, mm/m64``
 
@@ -41941,7 +41947,7 @@ D3NOW_PFSUBR_MM_MMM64: int = 4195
 
 ``16/32/64-bit``
 """
-D3NOW_PFACC_MM_MMM64: int = 4196
+D3NOW_PFACC_MM_MMM64: Code = 4196 # type: ignore
 """
 ``PFACC mm, mm/m64``
 
@@ -41951,7 +41957,7 @@ D3NOW_PFACC_MM_MMM64: int = 4196
 
 ``16/32/64-bit``
 """
-D3NOW_PFCMPEQ_MM_MMM64: int = 4197
+D3NOW_PFCMPEQ_MM_MMM64: Code = 4197 # type: ignore
 """
 ``PFCMPEQ mm, mm/m64``
 
@@ -41961,7 +41967,7 @@ D3NOW_PFCMPEQ_MM_MMM64: int = 4197
 
 ``16/32/64-bit``
 """
-D3NOW_PFMUL_MM_MMM64: int = 4198
+D3NOW_PFMUL_MM_MMM64: Code = 4198 # type: ignore
 """
 ``PFMUL mm, mm/m64``
 
@@ -41971,7 +41977,7 @@ D3NOW_PFMUL_MM_MMM64: int = 4198
 
 ``16/32/64-bit``
 """
-D3NOW_PFRCPIT2_MM_MMM64: int = 4199
+D3NOW_PFRCPIT2_MM_MMM64: Code = 4199 # type: ignore
 """
 ``PFRCPIT2 mm, mm/m64``
 
@@ -41981,7 +41987,7 @@ D3NOW_PFRCPIT2_MM_MMM64: int = 4199
 
 ``16/32/64-bit``
 """
-D3NOW_PMULHRW_MM_MMM64: int = 4200
+D3NOW_PMULHRW_MM_MMM64: Code = 4200 # type: ignore
 """
 ``PMULHRW mm, mm/m64``
 
@@ -41991,7 +41997,7 @@ D3NOW_PMULHRW_MM_MMM64: int = 4200
 
 ``16/32/64-bit``
 """
-D3NOW_PSWAPD_MM_MMM64: int = 4201
+D3NOW_PSWAPD_MM_MMM64: Code = 4201 # type: ignore
 """
 ``PSWAPD mm, mm/m64``
 
@@ -42001,7 +42007,7 @@ D3NOW_PSWAPD_MM_MMM64: int = 4201
 
 ``16/32/64-bit``
 """
-D3NOW_PAVGUSB_MM_MMM64: int = 4202
+D3NOW_PAVGUSB_MM_MMM64: Code = 4202 # type: ignore
 """
 ``PAVGUSB mm, mm/m64``
 
@@ -42011,7 +42017,7 @@ D3NOW_PAVGUSB_MM_MMM64: int = 4202
 
 ``16/32/64-bit``
 """
-RMPADJUST: int = 4203
+RMPADJUST: Code = 4203 # type: ignore
 """
 ``RMPADJUST``
 
@@ -42021,7 +42027,7 @@ RMPADJUST: int = 4203
 
 ``64-bit``
 """
-RMPUPDATE: int = 4204
+RMPUPDATE: Code = 4204 # type: ignore
 """
 ``RMPUPDATE``
 
@@ -42031,7 +42037,7 @@ RMPUPDATE: int = 4204
 
 ``64-bit``
 """
-PSMASH: int = 4205
+PSMASH: Code = 4205 # type: ignore
 """
 ``PSMASH``
 
@@ -42041,7 +42047,7 @@ PSMASH: int = 4205
 
 ``64-bit``
 """
-PVALIDATEW: int = 4206
+PVALIDATEW: Code = 4206 # type: ignore
 """
 ``PVALIDATE``
 
@@ -42051,7 +42057,7 @@ PVALIDATEW: int = 4206
 
 ``16/32-bit``
 """
-PVALIDATED: int = 4207
+PVALIDATED: Code = 4207 # type: ignore
 """
 ``PVALIDATE``
 
@@ -42061,7 +42067,7 @@ PVALIDATED: int = 4207
 
 ``16/32/64-bit``
 """
-PVALIDATEQ: int = 4208
+PVALIDATEQ: Code = 4208 # type: ignore
 """
 ``PVALIDATE``
 
@@ -42071,7 +42077,7 @@ PVALIDATEQ: int = 4208
 
 ``64-bit``
 """
-SERIALIZE: int = 4209
+SERIALIZE: Code = 4209 # type: ignore
 """
 ``SERIALIZE``
 
@@ -42081,7 +42087,7 @@ SERIALIZE: int = 4209
 
 ``16/32/64-bit``
 """
-XSUSLDTRK: int = 4210
+XSUSLDTRK: Code = 4210 # type: ignore
 """
 ``XSUSLDTRK``
 
@@ -42091,7 +42097,7 @@ XSUSLDTRK: int = 4210
 
 ``16/32/64-bit``
 """
-XRESLDTRK: int = 4211
+XRESLDTRK: Code = 4211 # type: ignore
 """
 ``XRESLDTRK``
 
@@ -42101,7 +42107,7 @@ XRESLDTRK: int = 4211
 
 ``16/32/64-bit``
 """
-INVLPGBW: int = 4212
+INVLPGBW: Code = 4212 # type: ignore
 """
 ``INVLPGB``
 
@@ -42111,7 +42117,7 @@ INVLPGBW: int = 4212
 
 ``16/32-bit``
 """
-INVLPGBD: int = 4213
+INVLPGBD: Code = 4213 # type: ignore
 """
 ``INVLPGB``
 
@@ -42121,7 +42127,7 @@ INVLPGBD: int = 4213
 
 ``16/32/64-bit``
 """
-INVLPGBQ: int = 4214
+INVLPGBQ: Code = 4214 # type: ignore
 """
 ``INVLPGB``
 
@@ -42131,7 +42137,7 @@ INVLPGBQ: int = 4214
 
 ``64-bit``
 """
-TLBSYNC: int = 4215
+TLBSYNC: Code = 4215 # type: ignore
 """
 ``TLBSYNC``
 
@@ -42141,7 +42147,7 @@ TLBSYNC: int = 4215
 
 ``16/32/64-bit``
 """
-PREFETCHRESERVED3_M8: int = 4216
+PREFETCHRESERVED3_M8: Code = 4216 # type: ignore
 """
 ``PREFETCHW m8``
 
@@ -42151,7 +42157,7 @@ PREFETCHRESERVED3_M8: int = 4216
 
 ``16/32/64-bit``
 """
-PREFETCHRESERVED4_M8: int = 4217
+PREFETCHRESERVED4_M8: Code = 4217 # type: ignore
 """
 ``PREFETCH m8``
 
@@ -42161,7 +42167,7 @@ PREFETCHRESERVED4_M8: int = 4217
 
 ``16/32/64-bit``
 """
-PREFETCHRESERVED5_M8: int = 4218
+PREFETCHRESERVED5_M8: Code = 4218 # type: ignore
 """
 ``PREFETCH m8``
 
@@ -42171,7 +42177,7 @@ PREFETCHRESERVED5_M8: int = 4218
 
 ``16/32/64-bit``
 """
-PREFETCHRESERVED6_M8: int = 4219
+PREFETCHRESERVED6_M8: Code = 4219 # type: ignore
 """
 ``PREFETCH m8``
 
@@ -42181,7 +42187,7 @@ PREFETCHRESERVED6_M8: int = 4219
 
 ``16/32/64-bit``
 """
-PREFETCHRESERVED7_M8: int = 4220
+PREFETCHRESERVED7_M8: Code = 4220 # type: ignore
 """
 ``PREFETCH m8``
 
@@ -42191,7 +42197,7 @@ PREFETCHRESERVED7_M8: int = 4220
 
 ``16/32/64-bit``
 """
-UD0: int = 4221
+UD0: Code = 4221 # type: ignore
 """
 ``UD0``
 
@@ -42201,7 +42207,7 @@ UD0: int = 4221
 
 ``16/32/64-bit``
 """
-VMGEXIT: int = 4222
+VMGEXIT: Code = 4222 # type: ignore
 """
 ``VMGEXIT``
 
@@ -42211,7 +42217,7 @@ VMGEXIT: int = 4222
 
 ``16/32/64-bit``
 """
-GETSECQ: int = 4223
+GETSECQ: Code = 4223 # type: ignore
 """
 ``GETSECQ``
 
@@ -42221,7 +42227,7 @@ GETSECQ: int = 4223
 
 ``64-bit``
 """
-VEX_LDTILECFG_M512: int = 4224
+VEX_LDTILECFG_M512: Code = 4224 # type: ignore
 """
 ``LDTILECFG m512``
 
@@ -42231,7 +42237,7 @@ VEX_LDTILECFG_M512: int = 4224
 
 ``64-bit``
 """
-VEX_TILERELEASE: int = 4225
+VEX_TILERELEASE: Code = 4225 # type: ignore
 """
 ``TILERELEASE``
 
@@ -42241,7 +42247,7 @@ VEX_TILERELEASE: int = 4225
 
 ``64-bit``
 """
-VEX_STTILECFG_M512: int = 4226
+VEX_STTILECFG_M512: Code = 4226 # type: ignore
 """
 ``STTILECFG m512``
 
@@ -42251,7 +42257,7 @@ VEX_STTILECFG_M512: int = 4226
 
 ``64-bit``
 """
-VEX_TILEZERO_TMM: int = 4227
+VEX_TILEZERO_TMM: Code = 4227 # type: ignore
 """
 ``TILEZERO tmm1``
 
@@ -42261,7 +42267,7 @@ VEX_TILEZERO_TMM: int = 4227
 
 ``64-bit``
 """
-VEX_TILELOADDT1_TMM_SIBMEM: int = 4228
+VEX_TILELOADDT1_TMM_SIBMEM: Code = 4228 # type: ignore
 """
 ``TILELOADDT1 tmm1, sibmem``
 
@@ -42271,7 +42277,7 @@ VEX_TILELOADDT1_TMM_SIBMEM: int = 4228
 
 ``64-bit``
 """
-VEX_TILESTORED_SIBMEM_TMM: int = 4229
+VEX_TILESTORED_SIBMEM_TMM: Code = 4229 # type: ignore
 """
 ``TILESTORED sibmem, tmm1``
 
@@ -42281,7 +42287,7 @@ VEX_TILESTORED_SIBMEM_TMM: int = 4229
 
 ``64-bit``
 """
-VEX_TILELOADD_TMM_SIBMEM: int = 4230
+VEX_TILELOADD_TMM_SIBMEM: Code = 4230 # type: ignore
 """
 ``TILELOADD tmm1, sibmem``
 
@@ -42291,7 +42297,7 @@ VEX_TILELOADD_TMM_SIBMEM: int = 4230
 
 ``64-bit``
 """
-VEX_TDPBF16PS_TMM_TMM_TMM: int = 4231
+VEX_TDPBF16PS_TMM_TMM_TMM: Code = 4231 # type: ignore
 """
 ``TDPBF16PS tmm1, tmm2, tmm3``
 
@@ -42301,7 +42307,7 @@ VEX_TDPBF16PS_TMM_TMM_TMM: int = 4231
 
 ``64-bit``
 """
-VEX_TDPBUUD_TMM_TMM_TMM: int = 4232
+VEX_TDPBUUD_TMM_TMM_TMM: Code = 4232 # type: ignore
 """
 ``TDPBUUD tmm1, tmm2, tmm3``
 
@@ -42311,7 +42317,7 @@ VEX_TDPBUUD_TMM_TMM_TMM: int = 4232
 
 ``64-bit``
 """
-VEX_TDPBUSD_TMM_TMM_TMM: int = 4233
+VEX_TDPBUSD_TMM_TMM_TMM: Code = 4233 # type: ignore
 """
 ``TDPBUSD tmm1, tmm2, tmm3``
 
@@ -42321,7 +42327,7 @@ VEX_TDPBUSD_TMM_TMM_TMM: int = 4233
 
 ``64-bit``
 """
-VEX_TDPBSUD_TMM_TMM_TMM: int = 4234
+VEX_TDPBSUD_TMM_TMM_TMM: Code = 4234 # type: ignore
 """
 ``TDPBSUD tmm1, tmm2, tmm3``
 
@@ -42331,7 +42337,7 @@ VEX_TDPBSUD_TMM_TMM_TMM: int = 4234
 
 ``64-bit``
 """
-VEX_TDPBSSD_TMM_TMM_TMM: int = 4235
+VEX_TDPBSSD_TMM_TMM_TMM: Code = 4235 # type: ignore
 """
 ``TDPBSSD tmm1, tmm2, tmm3``
 
@@ -42341,7 +42347,7 @@ VEX_TDPBSSD_TMM_TMM_TMM: int = 4235
 
 ``64-bit``
 """
-FNSTDW_AX: int = 4236
+FNSTDW_AX: Code = 4236 # type: ignore
 """
 ``FNSTDW AX``
 
@@ -42351,7 +42357,7 @@ FNSTDW_AX: int = 4236
 
 ``16/32-bit``
 """
-FNSTSG_AX: int = 4237
+FNSTSG_AX: Code = 4237 # type: ignore
 """
 ``FNSTSG AX``
 
@@ -42361,7 +42367,7 @@ FNSTSG_AX: int = 4237
 
 ``16/32-bit``
 """
-RDSHR_RM32: int = 4238
+RDSHR_RM32: Code = 4238 # type: ignore
 """
 ``RDSHR r/m32``
 
@@ -42371,7 +42377,7 @@ RDSHR_RM32: int = 4238
 
 ``16/32-bit``
 """
-WRSHR_RM32: int = 4239
+WRSHR_RM32: Code = 4239 # type: ignore
 """
 ``WRSHR r/m32``
 
@@ -42381,7 +42387,7 @@ WRSHR_RM32: int = 4239
 
 ``16/32-bit``
 """
-SMINT: int = 4240
+SMINT: Code = 4240 # type: ignore
 """
 ``SMINT``
 
@@ -42391,7 +42397,7 @@ SMINT: int = 4240
 
 ``16/32-bit``
 """
-DMINT: int = 4241
+DMINT: Code = 4241 # type: ignore
 """
 ``DMINT``
 
@@ -42401,7 +42407,7 @@ DMINT: int = 4241
 
 ``16/32-bit``
 """
-RDM: int = 4242
+RDM: Code = 4242 # type: ignore
 """
 ``RDM``
 
@@ -42411,7 +42417,7 @@ RDM: int = 4242
 
 ``16/32-bit``
 """
-SVDC_M80_SREG: int = 4243
+SVDC_M80_SREG: Code = 4243 # type: ignore
 """
 ``SVDC m80, Sreg``
 
@@ -42421,7 +42427,7 @@ SVDC_M80_SREG: int = 4243
 
 ``16/32-bit``
 """
-RSDC_SREG_M80: int = 4244
+RSDC_SREG_M80: Code = 4244 # type: ignore
 """
 ``RSDC Sreg, m80``
 
@@ -42431,7 +42437,7 @@ RSDC_SREG_M80: int = 4244
 
 ``16/32-bit``
 """
-SVLDT_M80: int = 4245
+SVLDT_M80: Code = 4245 # type: ignore
 """
 ``SVLDT m80``
 
@@ -42441,7 +42447,7 @@ SVLDT_M80: int = 4245
 
 ``16/32-bit``
 """
-RSLDT_M80: int = 4246
+RSLDT_M80: Code = 4246 # type: ignore
 """
 ``RSLDT m80``
 
@@ -42451,7 +42457,7 @@ RSLDT_M80: int = 4246
 
 ``16/32-bit``
 """
-SVTS_M80: int = 4247
+SVTS_M80: Code = 4247 # type: ignore
 """
 ``SVTS m80``
 
@@ -42461,7 +42467,7 @@ SVTS_M80: int = 4247
 
 ``16/32-bit``
 """
-RSTS_M80: int = 4248
+RSTS_M80: Code = 4248 # type: ignore
 """
 ``RSTS m80``
 
@@ -42471,7 +42477,7 @@ RSTS_M80: int = 4248
 
 ``16/32-bit``
 """
-SMINT_0F7E: int = 4249
+SMINT_0F7E: Code = 4249 # type: ignore
 """
 ``SMINT``
 
@@ -42481,7 +42487,7 @@ SMINT_0F7E: int = 4249
 
 ``16/32-bit``
 """
-BB0_RESET: int = 4250
+BB0_RESET: Code = 4250 # type: ignore
 """
 ``BB0_RESET``
 
@@ -42491,7 +42497,7 @@ BB0_RESET: int = 4250
 
 ``16/32-bit``
 """
-BB1_RESET: int = 4251
+BB1_RESET: Code = 4251 # type: ignore
 """
 ``BB1_RESET``
 
@@ -42501,7 +42507,7 @@ BB1_RESET: int = 4251
 
 ``16/32-bit``
 """
-CPU_WRITE: int = 4252
+CPU_WRITE: Code = 4252 # type: ignore
 """
 ``CPU_WRITE``
 
@@ -42511,7 +42517,7 @@ CPU_WRITE: int = 4252
 
 ``16/32-bit``
 """
-CPU_READ: int = 4253
+CPU_READ: Code = 4253 # type: ignore
 """
 ``CPU_READ``
 
@@ -42521,7 +42527,7 @@ CPU_READ: int = 4253
 
 ``16/32-bit``
 """
-ALTINST: int = 4254
+ALTINST: Code = 4254 # type: ignore
 """
 ``ALTINST``
 
@@ -42531,7 +42537,7 @@ ALTINST: int = 4254
 
 ``16/32-bit``
 """
-PAVEB_MM_MMM64: int = 4255
+PAVEB_MM_MMM64: Code = 4255 # type: ignore
 """
 ``PAVEB mm, mm/m64``
 
@@ -42541,7 +42547,7 @@ PAVEB_MM_MMM64: int = 4255
 
 ``16/32-bit``
 """
-PADDSIW_MM_MMM64: int = 4256
+PADDSIW_MM_MMM64: Code = 4256 # type: ignore
 """
 ``PADDSIW mm, mm/m64``
 
@@ -42551,7 +42557,7 @@ PADDSIW_MM_MMM64: int = 4256
 
 ``16/32-bit``
 """
-PMAGW_MM_MMM64: int = 4257
+PMAGW_MM_MMM64: Code = 4257 # type: ignore
 """
 ``PMAGW mm, mm/m64``
 
@@ -42561,7 +42567,7 @@ PMAGW_MM_MMM64: int = 4257
 
 ``16/32-bit``
 """
-PDISTIB_MM_M64: int = 4258
+PDISTIB_MM_M64: Code = 4258 # type: ignore
 """
 ``PDISTIB mm, m64``
 
@@ -42571,7 +42577,7 @@ PDISTIB_MM_M64: int = 4258
 
 ``16/32-bit``
 """
-PSUBSIW_MM_MMM64: int = 4259
+PSUBSIW_MM_MMM64: Code = 4259 # type: ignore
 """
 ``PSUBSIW mm, mm/m64``
 
@@ -42581,7 +42587,7 @@ PSUBSIW_MM_MMM64: int = 4259
 
 ``16/32-bit``
 """
-PMVZB_MM_M64: int = 4260
+PMVZB_MM_M64: Code = 4260 # type: ignore
 """
 ``PMVZB mm, m64``
 
@@ -42591,7 +42597,7 @@ PMVZB_MM_M64: int = 4260
 
 ``16/32-bit``
 """
-PMULHRW_MM_MMM64: int = 4261
+PMULHRW_MM_MMM64: Code = 4261 # type: ignore
 """
 ``PMULHRW mm, mm/m64``
 
@@ -42601,7 +42607,7 @@ PMULHRW_MM_MMM64: int = 4261
 
 ``16/32-bit``
 """
-PMVNZB_MM_M64: int = 4262
+PMVNZB_MM_M64: Code = 4262 # type: ignore
 """
 ``PMVNZB mm, m64``
 
@@ -42611,7 +42617,7 @@ PMVNZB_MM_M64: int = 4262
 
 ``16/32-bit``
 """
-PMVLZB_MM_M64: int = 4263
+PMVLZB_MM_M64: Code = 4263 # type: ignore
 """
 ``PMVLZB mm, m64``
 
@@ -42621,7 +42627,7 @@ PMVLZB_MM_M64: int = 4263
 
 ``16/32-bit``
 """
-PMVGEZB_MM_M64: int = 4264
+PMVGEZB_MM_M64: Code = 4264 # type: ignore
 """
 ``PMVGEZB mm, m64``
 
@@ -42631,7 +42637,7 @@ PMVGEZB_MM_M64: int = 4264
 
 ``16/32-bit``
 """
-PMULHRIW_MM_MMM64: int = 4265
+PMULHRIW_MM_MMM64: Code = 4265 # type: ignore
 """
 ``PMULHRIW mm, mm/m64``
 
@@ -42641,7 +42647,7 @@ PMULHRIW_MM_MMM64: int = 4265
 
 ``16/32-bit``
 """
-PMACHRIW_MM_M64: int = 4266
+PMACHRIW_MM_M64: Code = 4266 # type: ignore
 """
 ``PMACHRIW mm, m64``
 
@@ -42651,7 +42657,7 @@ PMACHRIW_MM_M64: int = 4266
 
 ``16/32-bit``
 """
-CYRIX_D9D7: int = 4267
+CYRIX_D9D7: Code = 4267 # type: ignore
 """
 ``UNDOC``
 
@@ -42661,7 +42667,7 @@ CYRIX_D9D7: int = 4267
 
 ``16/32-bit``
 """
-CYRIX_D9E2: int = 4268
+CYRIX_D9E2: Code = 4268 # type: ignore
 """
 ``UNDOC``
 
@@ -42671,7 +42677,7 @@ CYRIX_D9E2: int = 4268
 
 ``16/32-bit``
 """
-FTSTP: int = 4269
+FTSTP: Code = 4269 # type: ignore
 """
 ``FTSTP``
 
@@ -42681,7 +42687,7 @@ FTSTP: int = 4269
 
 ``16/32-bit``
 """
-CYRIX_D9E7: int = 4270
+CYRIX_D9E7: Code = 4270 # type: ignore
 """
 ``UNDOC``
 
@@ -42691,7 +42697,7 @@ CYRIX_D9E7: int = 4270
 
 ``16/32-bit``
 """
-FRINT2: int = 4271
+FRINT2: Code = 4271 # type: ignore
 """
 ``FRINT2``
 
@@ -42701,7 +42707,7 @@ FRINT2: int = 4271
 
 ``16/32-bit``
 """
-FRICHOP: int = 4272
+FRICHOP: Code = 4272 # type: ignore
 """
 ``FRICHOP``
 
@@ -42711,7 +42717,7 @@ FRICHOP: int = 4272
 
 ``16/32-bit``
 """
-CYRIX_DED8: int = 4273
+CYRIX_DED8: Code = 4273 # type: ignore
 """
 ``UNDOC``
 
@@ -42721,7 +42727,7 @@ CYRIX_DED8: int = 4273
 
 ``16/32-bit``
 """
-CYRIX_DEDA: int = 4274
+CYRIX_DEDA: Code = 4274 # type: ignore
 """
 ``UNDOC``
 
@@ -42731,7 +42737,7 @@ CYRIX_DEDA: int = 4274
 
 ``16/32-bit``
 """
-CYRIX_DEDC: int = 4275
+CYRIX_DEDC: Code = 4275 # type: ignore
 """
 ``UNDOC``
 
@@ -42741,7 +42747,7 @@ CYRIX_DEDC: int = 4275
 
 ``16/32-bit``
 """
-CYRIX_DEDD: int = 4276
+CYRIX_DEDD: Code = 4276 # type: ignore
 """
 ``UNDOC``
 
@@ -42751,7 +42757,7 @@ CYRIX_DEDD: int = 4276
 
 ``16/32-bit``
 """
-CYRIX_DEDE: int = 4277
+CYRIX_DEDE: Code = 4277 # type: ignore
 """
 ``UNDOC``
 
@@ -42761,7 +42767,7 @@ CYRIX_DEDE: int = 4277
 
 ``16/32-bit``
 """
-FRINEAR: int = 4278
+FRINEAR: Code = 4278 # type: ignore
 """
 ``FRINEAR``
 
@@ -42771,7 +42777,7 @@ FRINEAR: int = 4278
 
 ``16/32-bit``
 """
-TDCALL: int = 4279
+TDCALL: Code = 4279 # type: ignore
 """
 ``TDCALL``
 
@@ -42781,7 +42787,7 @@ TDCALL: int = 4279
 
 ``16/32/64-bit``
 """
-SEAMRET: int = 4280
+SEAMRET: Code = 4280 # type: ignore
 """
 ``SEAMRET``
 
@@ -42791,7 +42797,7 @@ SEAMRET: int = 4280
 
 ``64-bit``
 """
-SEAMOPS: int = 4281
+SEAMOPS: Code = 4281 # type: ignore
 """
 ``SEAMOPS``
 
@@ -42801,7 +42807,7 @@ SEAMOPS: int = 4281
 
 ``64-bit``
 """
-SEAMCALL: int = 4282
+SEAMCALL: Code = 4282 # type: ignore
 """
 ``SEAMCALL``
 
@@ -42811,7 +42817,7 @@ SEAMCALL: int = 4282
 
 ``64-bit``
 """
-AESENCWIDE128KL_M384: int = 4283
+AESENCWIDE128KL_M384: Code = 4283 # type: ignore
 """
 ``AESENCWIDE128KL m384, <XMM0-7>``
 
@@ -42821,7 +42827,7 @@ AESENCWIDE128KL_M384: int = 4283
 
 ``16/32/64-bit``
 """
-AESDECWIDE128KL_M384: int = 4284
+AESDECWIDE128KL_M384: Code = 4284 # type: ignore
 """
 ``AESDECWIDE128KL m384, <XMM0-7>``
 
@@ -42831,7 +42837,7 @@ AESDECWIDE128KL_M384: int = 4284
 
 ``16/32/64-bit``
 """
-AESENCWIDE256KL_M512: int = 4285
+AESENCWIDE256KL_M512: Code = 4285 # type: ignore
 """
 ``AESENCWIDE256KL m512, <XMM0-7>``
 
@@ -42841,7 +42847,7 @@ AESENCWIDE256KL_M512: int = 4285
 
 ``16/32/64-bit``
 """
-AESDECWIDE256KL_M512: int = 4286
+AESDECWIDE256KL_M512: Code = 4286 # type: ignore
 """
 ``AESDECWIDE256KL m512, <XMM0-7>``
 
@@ -42851,7 +42857,7 @@ AESDECWIDE256KL_M512: int = 4286
 
 ``16/32/64-bit``
 """
-LOADIWKEY_XMM_XMM: int = 4287
+LOADIWKEY_XMM_XMM: Code = 4287 # type: ignore
 """
 ``LOADIWKEY xmm1, xmm2, <EAX>, <XMM0>``
 
@@ -42861,7 +42867,7 @@ LOADIWKEY_XMM_XMM: int = 4287
 
 ``16/32/64-bit``
 """
-AESENC128KL_XMM_M384: int = 4288
+AESENC128KL_XMM_M384: Code = 4288 # type: ignore
 """
 ``AESENC128KL xmm, m384``
 
@@ -42871,7 +42877,7 @@ AESENC128KL_XMM_M384: int = 4288
 
 ``16/32/64-bit``
 """
-AESDEC128KL_XMM_M384: int = 4289
+AESDEC128KL_XMM_M384: Code = 4289 # type: ignore
 """
 ``AESDEC128KL xmm, m384``
 
@@ -42881,7 +42887,7 @@ AESDEC128KL_XMM_M384: int = 4289
 
 ``16/32/64-bit``
 """
-AESENC256KL_XMM_M512: int = 4290
+AESENC256KL_XMM_M512: Code = 4290 # type: ignore
 """
 ``AESENC256KL xmm, m512``
 
@@ -42891,7 +42897,7 @@ AESENC256KL_XMM_M512: int = 4290
 
 ``16/32/64-bit``
 """
-AESDEC256KL_XMM_M512: int = 4291
+AESDEC256KL_XMM_M512: Code = 4291 # type: ignore
 """
 ``AESDEC256KL xmm, m512``
 
@@ -42901,7 +42907,7 @@ AESDEC256KL_XMM_M512: int = 4291
 
 ``16/32/64-bit``
 """
-ENCODEKEY128_R32_R32: int = 4292
+ENCODEKEY128_R32_R32: Code = 4292 # type: ignore
 """
 ``ENCODEKEY128 r32, r32, <XMM0-2>, <XMM4-6>``
 
@@ -42911,7 +42917,7 @@ ENCODEKEY128_R32_R32: int = 4292
 
 ``16/32/64-bit``
 """
-ENCODEKEY256_R32_R32: int = 4293
+ENCODEKEY256_R32_R32: Code = 4293 # type: ignore
 """
 ``ENCODEKEY256 r32, r32, <XMM0-6>``
 
@@ -42921,7 +42927,7 @@ ENCODEKEY256_R32_R32: int = 4293
 
 ``16/32/64-bit``
 """
-VEX_VBROADCASTSS_XMM_XMM: int = 4294
+VEX_VBROADCASTSS_XMM_XMM: Code = 4294 # type: ignore
 """
 ``VBROADCASTSS xmm1, xmm2``
 
@@ -42931,7 +42937,7 @@ VEX_VBROADCASTSS_XMM_XMM: int = 4294
 
 ``16/32/64-bit``
 """
-VEX_VBROADCASTSS_YMM_XMM: int = 4295
+VEX_VBROADCASTSS_YMM_XMM: Code = 4295 # type: ignore
 """
 ``VBROADCASTSS ymm1, xmm2``
 
@@ -42941,7 +42947,7 @@ VEX_VBROADCASTSS_YMM_XMM: int = 4295
 
 ``16/32/64-bit``
 """
-VEX_VBROADCASTSD_YMM_XMM: int = 4296
+VEX_VBROADCASTSD_YMM_XMM: Code = 4296 # type: ignore
 """
 ``VBROADCASTSD ymm1, xmm2``
 
@@ -42951,7 +42957,7 @@ VEX_VBROADCASTSD_YMM_XMM: int = 4296
 
 ``16/32/64-bit``
 """
-VMGEXIT_F2: int = 4297
+VMGEXIT_F2: Code = 4297 # type: ignore
 """
 ``VMGEXIT``
 
@@ -42961,7 +42967,7 @@ VMGEXIT_F2: int = 4297
 
 ``16/32/64-bit``
 """
-UIRET: int = 4298
+UIRET: Code = 4298 # type: ignore
 """
 ``UIRET``
 
@@ -42971,7 +42977,7 @@ UIRET: int = 4298
 
 ``64-bit``
 """
-TESTUI: int = 4299
+TESTUI: Code = 4299 # type: ignore
 """
 ``TESTUI``
 
@@ -42981,7 +42987,7 @@ TESTUI: int = 4299
 
 ``64-bit``
 """
-CLUI: int = 4300
+CLUI: Code = 4300 # type: ignore
 """
 ``CLUI``
 
@@ -42991,7 +42997,7 @@ CLUI: int = 4300
 
 ``64-bit``
 """
-STUI: int = 4301
+STUI: Code = 4301 # type: ignore
 """
 ``STUI``
 
@@ -43001,7 +43007,7 @@ STUI: int = 4301
 
 ``64-bit``
 """
-SENDUIPI_R64: int = 4302
+SENDUIPI_R64: Code = 4302 # type: ignore
 """
 ``SENDUIPI r64``
 
@@ -43011,7 +43017,7 @@ SENDUIPI_R64: int = 4302
 
 ``64-bit``
 """
-HRESET_IMM8: int = 4303
+HRESET_IMM8: Code = 4303 # type: ignore
 """
 ``HRESET imm8, <EAX>``
 
@@ -43021,7 +43027,7 @@ HRESET_IMM8: int = 4303
 
 ``16/32/64-bit``
 """
-VEX_VPDPBUSD_XMM_XMM_XMMM128: int = 4304
+VEX_VPDPBUSD_XMM_XMM_XMMM128: Code = 4304 # type: ignore
 """
 ``VPDPBUSD xmm1, xmm2, xmm3/m128``
 
@@ -43031,7 +43037,7 @@ VEX_VPDPBUSD_XMM_XMM_XMMM128: int = 4304
 
 ``16/32/64-bit``
 """
-VEX_VPDPBUSD_YMM_YMM_YMMM256: int = 4305
+VEX_VPDPBUSD_YMM_YMM_YMMM256: Code = 4305 # type: ignore
 """
 ``VPDPBUSD ymm1, ymm2, ymm3/m256``
 
@@ -43041,7 +43047,7 @@ VEX_VPDPBUSD_YMM_YMM_YMMM256: int = 4305
 
 ``16/32/64-bit``
 """
-VEX_VPDPBUSDS_XMM_XMM_XMMM128: int = 4306
+VEX_VPDPBUSDS_XMM_XMM_XMMM128: Code = 4306 # type: ignore
 """
 ``VPDPBUSDS xmm1, xmm2, xmm3/m128``
 
@@ -43051,7 +43057,7 @@ VEX_VPDPBUSDS_XMM_XMM_XMMM128: int = 4306
 
 ``16/32/64-bit``
 """
-VEX_VPDPBUSDS_YMM_YMM_YMMM256: int = 4307
+VEX_VPDPBUSDS_YMM_YMM_YMMM256: Code = 4307 # type: ignore
 """
 ``VPDPBUSDS ymm1, ymm2, ymm3/m256``
 
@@ -43061,7 +43067,7 @@ VEX_VPDPBUSDS_YMM_YMM_YMMM256: int = 4307
 
 ``16/32/64-bit``
 """
-VEX_VPDPWSSD_XMM_XMM_XMMM128: int = 4308
+VEX_VPDPWSSD_XMM_XMM_XMMM128: Code = 4308 # type: ignore
 """
 ``VPDPWSSD xmm1, xmm2, xmm3/m128``
 
@@ -43071,7 +43077,7 @@ VEX_VPDPWSSD_XMM_XMM_XMMM128: int = 4308
 
 ``16/32/64-bit``
 """
-VEX_VPDPWSSD_YMM_YMM_YMMM256: int = 4309
+VEX_VPDPWSSD_YMM_YMM_YMMM256: Code = 4309 # type: ignore
 """
 ``VPDPWSSD ymm1, ymm2, ymm3/m256``
 
@@ -43081,7 +43087,7 @@ VEX_VPDPWSSD_YMM_YMM_YMMM256: int = 4309
 
 ``16/32/64-bit``
 """
-VEX_VPDPWSSDS_XMM_XMM_XMMM128: int = 4310
+VEX_VPDPWSSDS_XMM_XMM_XMMM128: Code = 4310 # type: ignore
 """
 ``VPDPWSSDS xmm1, xmm2, xmm3/m128``
 
@@ -43091,7 +43097,7 @@ VEX_VPDPWSSDS_XMM_XMM_XMMM128: int = 4310
 
 ``16/32/64-bit``
 """
-VEX_VPDPWSSDS_YMM_YMM_YMMM256: int = 4311
+VEX_VPDPWSSDS_YMM_YMM_YMMM256: Code = 4311 # type: ignore
 """
 ``VPDPWSSDS ymm1, ymm2, ymm3/m256``
 
@@ -43101,7 +43107,7 @@ VEX_VPDPWSSDS_YMM_YMM_YMMM256: int = 4311
 
 ``16/32/64-bit``
 """
-CCS_HASH_16: int = 4312
+CCS_HASH_16: Code = 4312 # type: ignore
 """
 ``CCS_HASH``
 
@@ -43111,7 +43117,7 @@ CCS_HASH_16: int = 4312
 
 ``16/32-bit``
 """
-CCS_HASH_32: int = 4313
+CCS_HASH_32: Code = 4313 # type: ignore
 """
 ``CCS_HASH``
 
@@ -43121,7 +43127,7 @@ CCS_HASH_32: int = 4313
 
 ``16/32/64-bit``
 """
-CCS_HASH_64: int = 4314
+CCS_HASH_64: Code = 4314 # type: ignore
 """
 ``CCS_HASH``
 
@@ -43131,7 +43137,7 @@ CCS_HASH_64: int = 4314
 
 ``64-bit``
 """
-CCS_ENCRYPT_16: int = 4315
+CCS_ENCRYPT_16: Code = 4315 # type: ignore
 """
 ``CCS_ENCRYPT``
 
@@ -43141,7 +43147,7 @@ CCS_ENCRYPT_16: int = 4315
 
 ``16/32-bit``
 """
-CCS_ENCRYPT_32: int = 4316
+CCS_ENCRYPT_32: Code = 4316 # type: ignore
 """
 ``CCS_ENCRYPT``
 
@@ -43151,7 +43157,7 @@ CCS_ENCRYPT_32: int = 4316
 
 ``16/32/64-bit``
 """
-CCS_ENCRYPT_64: int = 4317
+CCS_ENCRYPT_64: Code = 4317 # type: ignore
 """
 ``CCS_ENCRYPT``
 
@@ -43161,7 +43167,7 @@ CCS_ENCRYPT_64: int = 4317
 
 ``64-bit``
 """
-LKGS_RM16: int = 4318
+LKGS_RM16: Code = 4318 # type: ignore
 """
 ``LKGS r/m16``
 
@@ -43171,7 +43177,7 @@ LKGS_RM16: int = 4318
 
 ``64-bit``
 """
-LKGS_R32M16: int = 4319
+LKGS_R32M16: Code = 4319 # type: ignore
 """
 ``LKGS r32/m16``
 
@@ -43181,7 +43187,7 @@ LKGS_R32M16: int = 4319
 
 ``64-bit``
 """
-LKGS_R64M16: int = 4320
+LKGS_R64M16: Code = 4320 # type: ignore
 """
 ``LKGS r64/m16``
 
@@ -43191,7 +43197,7 @@ LKGS_R64M16: int = 4320
 
 ``64-bit``
 """
-ERETU: int = 4321
+ERETU: Code = 4321 # type: ignore
 """
 ``ERETU``
 
@@ -43201,7 +43207,7 @@ ERETU: int = 4321
 
 ``64-bit``
 """
-ERETS: int = 4322
+ERETS: Code = 4322 # type: ignore
 """
 ``ERETS``
 
@@ -43211,7 +43217,7 @@ ERETS: int = 4322
 
 ``64-bit``
 """
-EVEX_VADDPH_XMM_K1Z_XMM_XMMM128B16: int = 4323
+EVEX_VADDPH_XMM_K1Z_XMM_XMMM128B16: Code = 4323 # type: ignore
 """
 ``VADDPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -43221,7 +43227,7 @@ EVEX_VADDPH_XMM_K1Z_XMM_XMMM128B16: int = 4323
 
 ``16/32/64-bit``
 """
-EVEX_VADDPH_YMM_K1Z_YMM_YMMM256B16: int = 4324
+EVEX_VADDPH_YMM_K1Z_YMM_YMMM256B16: Code = 4324 # type: ignore
 """
 ``VADDPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -43231,7 +43237,7 @@ EVEX_VADDPH_YMM_K1Z_YMM_YMMM256B16: int = 4324
 
 ``16/32/64-bit``
 """
-EVEX_VADDPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4325
+EVEX_VADDPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4325 # type: ignore
 """
 ``VADDPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -43241,7 +43247,7 @@ EVEX_VADDPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4325
 
 ``16/32/64-bit``
 """
-EVEX_VADDSH_XMM_K1Z_XMM_XMMM16_ER: int = 4326
+EVEX_VADDSH_XMM_K1Z_XMM_XMMM16_ER: Code = 4326 # type: ignore
 """
 ``VADDSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -43251,7 +43257,7 @@ EVEX_VADDSH_XMM_K1Z_XMM_XMMM16_ER: int = 4326
 
 ``16/32/64-bit``
 """
-EVEX_VCMPPH_KR_K1_XMM_XMMM128B16_IMM8: int = 4327
+EVEX_VCMPPH_KR_K1_XMM_XMMM128B16_IMM8: Code = 4327 # type: ignore
 """
 ``VCMPPH k1 {k2}, xmm2, xmm3/m128/m16bcst, imm8``
 
@@ -43261,7 +43267,7 @@ EVEX_VCMPPH_KR_K1_XMM_XMMM128B16_IMM8: int = 4327
 
 ``16/32/64-bit``
 """
-EVEX_VCMPPH_KR_K1_YMM_YMMM256B16_IMM8: int = 4328
+EVEX_VCMPPH_KR_K1_YMM_YMMM256B16_IMM8: Code = 4328 # type: ignore
 """
 ``VCMPPH k1 {k2}, ymm2, ymm3/m256/m16bcst, imm8``
 
@@ -43271,7 +43277,7 @@ EVEX_VCMPPH_KR_K1_YMM_YMMM256B16_IMM8: int = 4328
 
 ``16/32/64-bit``
 """
-EVEX_VCMPPH_KR_K1_ZMM_ZMMM512B16_IMM8_SAE: int = 4329
+EVEX_VCMPPH_KR_K1_ZMM_ZMMM512B16_IMM8_SAE: Code = 4329 # type: ignore
 """
 ``VCMPPH k1 {k2}, zmm2, zmm3/m512/m16bcst{sae}, imm8``
 
@@ -43281,7 +43287,7 @@ EVEX_VCMPPH_KR_K1_ZMM_ZMMM512B16_IMM8_SAE: int = 4329
 
 ``16/32/64-bit``
 """
-EVEX_VCMPSH_KR_K1_XMM_XMMM16_IMM8_SAE: int = 4330
+EVEX_VCMPSH_KR_K1_XMM_XMMM16_IMM8_SAE: Code = 4330 # type: ignore
 """
 ``VCMPSH k1 {k2}, xmm2, xmm3/m16{sae}, imm8``
 
@@ -43291,7 +43297,7 @@ EVEX_VCMPSH_KR_K1_XMM_XMMM16_IMM8_SAE: int = 4330
 
 ``16/32/64-bit``
 """
-EVEX_VCOMISH_XMM_XMMM16_SAE: int = 4331
+EVEX_VCOMISH_XMM_XMMM16_SAE: Code = 4331 # type: ignore
 """
 ``VCOMISH xmm1, xmm2/m16{sae}``
 
@@ -43301,7 +43307,7 @@ EVEX_VCOMISH_XMM_XMMM16_SAE: int = 4331
 
 ``16/32/64-bit``
 """
-EVEX_VCVTDQ2PH_XMM_K1Z_XMMM128B32: int = 4332
+EVEX_VCVTDQ2PH_XMM_K1Z_XMMM128B32: Code = 4332 # type: ignore
 """
 ``VCVTDQ2PH xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -43311,7 +43317,7 @@ EVEX_VCVTDQ2PH_XMM_K1Z_XMMM128B32: int = 4332
 
 ``16/32/64-bit``
 """
-EVEX_VCVTDQ2PH_XMM_K1Z_YMMM256B32: int = 4333
+EVEX_VCVTDQ2PH_XMM_K1Z_YMMM256B32: Code = 4333 # type: ignore
 """
 ``VCVTDQ2PH xmm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -43321,7 +43327,7 @@ EVEX_VCVTDQ2PH_XMM_K1Z_YMMM256B32: int = 4333
 
 ``16/32/64-bit``
 """
-EVEX_VCVTDQ2PH_YMM_K1Z_ZMMM512B32_ER: int = 4334
+EVEX_VCVTDQ2PH_YMM_K1Z_ZMMM512B32_ER: Code = 4334 # type: ignore
 """
 ``VCVTDQ2PH ymm1 {k1}{z}, zmm2/m512/m32bcst{er}``
 
@@ -43331,7 +43337,7 @@ EVEX_VCVTDQ2PH_YMM_K1Z_ZMMM512B32_ER: int = 4334
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2PH_XMM_K1Z_XMMM128B64: int = 4335
+EVEX_VCVTPD2PH_XMM_K1Z_XMMM128B64: Code = 4335 # type: ignore
 """
 ``VCVTPD2PH xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -43341,7 +43347,7 @@ EVEX_VCVTPD2PH_XMM_K1Z_XMMM128B64: int = 4335
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2PH_XMM_K1Z_YMMM256B64: int = 4336
+EVEX_VCVTPD2PH_XMM_K1Z_YMMM256B64: Code = 4336 # type: ignore
 """
 ``VCVTPD2PH xmm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -43351,7 +43357,7 @@ EVEX_VCVTPD2PH_XMM_K1Z_YMMM256B64: int = 4336
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPD2PH_XMM_K1Z_ZMMM512B64_ER: int = 4337
+EVEX_VCVTPD2PH_XMM_K1Z_ZMMM512B64_ER: Code = 4337 # type: ignore
 """
 ``VCVTPD2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -43361,7 +43367,7 @@ EVEX_VCVTPD2PH_XMM_K1Z_ZMMM512B64_ER: int = 4337
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2DQ_XMM_K1Z_XMMM64B16: int = 4338
+EVEX_VCVTPH2DQ_XMM_K1Z_XMMM64B16: Code = 4338 # type: ignore
 """
 ``VCVTPH2DQ xmm1 {k1}{z}, xmm2/m64/m16bcst``
 
@@ -43371,7 +43377,7 @@ EVEX_VCVTPH2DQ_XMM_K1Z_XMMM64B16: int = 4338
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2DQ_YMM_K1Z_XMMM128B16: int = 4339
+EVEX_VCVTPH2DQ_YMM_K1Z_XMMM128B16: Code = 4339 # type: ignore
 """
 ``VCVTPH2DQ ymm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -43381,7 +43387,7 @@ EVEX_VCVTPH2DQ_YMM_K1Z_XMMM128B16: int = 4339
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2DQ_ZMM_K1Z_YMMM256B16_ER: int = 4340
+EVEX_VCVTPH2DQ_ZMM_K1Z_YMMM256B16_ER: Code = 4340 # type: ignore
 """
 ``VCVTPH2DQ zmm1 {k1}{z}, ymm2/m256/m16bcst{er}``
 
@@ -43391,7 +43397,7 @@ EVEX_VCVTPH2DQ_ZMM_K1Z_YMMM256B16_ER: int = 4340
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2PD_XMM_K1Z_XMMM32B16: int = 4341
+EVEX_VCVTPH2PD_XMM_K1Z_XMMM32B16: Code = 4341 # type: ignore
 """
 ``VCVTPH2PD xmm1 {k1}{z}, xmm2/m32/m16bcst``
 
@@ -43401,7 +43407,7 @@ EVEX_VCVTPH2PD_XMM_K1Z_XMMM32B16: int = 4341
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2PD_YMM_K1Z_XMMM64B16: int = 4342
+EVEX_VCVTPH2PD_YMM_K1Z_XMMM64B16: Code = 4342 # type: ignore
 """
 ``VCVTPH2PD ymm1 {k1}{z}, xmm2/m64/m16bcst``
 
@@ -43411,7 +43417,7 @@ EVEX_VCVTPH2PD_YMM_K1Z_XMMM64B16: int = 4342
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2PD_ZMM_K1Z_XMMM128B16_SAE: int = 4343
+EVEX_VCVTPH2PD_ZMM_K1Z_XMMM128B16_SAE: Code = 4343 # type: ignore
 """
 ``VCVTPH2PD zmm1 {k1}{z}, xmm2/m128/m16bcst{sae}``
 
@@ -43421,7 +43427,7 @@ EVEX_VCVTPH2PD_ZMM_K1Z_XMMM128B16_SAE: int = 4343
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2PSX_XMM_K1Z_XMMM64B16: int = 4344
+EVEX_VCVTPH2PSX_XMM_K1Z_XMMM64B16: Code = 4344 # type: ignore
 """
 ``VCVTPH2PSX xmm1 {k1}{z}, xmm2/m64/m16bcst``
 
@@ -43431,7 +43437,7 @@ EVEX_VCVTPH2PSX_XMM_K1Z_XMMM64B16: int = 4344
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2PSX_YMM_K1Z_XMMM128B16: int = 4345
+EVEX_VCVTPH2PSX_YMM_K1Z_XMMM128B16: Code = 4345 # type: ignore
 """
 ``VCVTPH2PSX ymm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -43441,7 +43447,7 @@ EVEX_VCVTPH2PSX_YMM_K1Z_XMMM128B16: int = 4345
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2PSX_ZMM_K1Z_YMMM256B16_SAE: int = 4346
+EVEX_VCVTPH2PSX_ZMM_K1Z_YMMM256B16_SAE: Code = 4346 # type: ignore
 """
 ``VCVTPH2PSX zmm1 {k1}{z}, ymm2/m256/m16bcst{sae}``
 
@@ -43451,7 +43457,7 @@ EVEX_VCVTPH2PSX_ZMM_K1Z_YMMM256B16_SAE: int = 4346
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2QQ_XMM_K1Z_XMMM32B16: int = 4347
+EVEX_VCVTPH2QQ_XMM_K1Z_XMMM32B16: Code = 4347 # type: ignore
 """
 ``VCVTPH2QQ xmm1 {k1}{z}, xmm2/m32/m16bcst``
 
@@ -43461,7 +43467,7 @@ EVEX_VCVTPH2QQ_XMM_K1Z_XMMM32B16: int = 4347
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2QQ_YMM_K1Z_XMMM64B16: int = 4348
+EVEX_VCVTPH2QQ_YMM_K1Z_XMMM64B16: Code = 4348 # type: ignore
 """
 ``VCVTPH2QQ ymm1 {k1}{z}, xmm2/m64/m16bcst``
 
@@ -43471,7 +43477,7 @@ EVEX_VCVTPH2QQ_YMM_K1Z_XMMM64B16: int = 4348
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2QQ_ZMM_K1Z_XMMM128B16_ER: int = 4349
+EVEX_VCVTPH2QQ_ZMM_K1Z_XMMM128B16_ER: Code = 4349 # type: ignore
 """
 ``VCVTPH2QQ zmm1 {k1}{z}, xmm2/m128/m16bcst{er}``
 
@@ -43481,7 +43487,7 @@ EVEX_VCVTPH2QQ_ZMM_K1Z_XMMM128B16_ER: int = 4349
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2UDQ_XMM_K1Z_XMMM64B16: int = 4350
+EVEX_VCVTPH2UDQ_XMM_K1Z_XMMM64B16: Code = 4350 # type: ignore
 """
 ``VCVTPH2UDQ xmm1 {k1}{z}, xmm2/m64/m16bcst``
 
@@ -43491,7 +43497,7 @@ EVEX_VCVTPH2UDQ_XMM_K1Z_XMMM64B16: int = 4350
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2UDQ_YMM_K1Z_XMMM128B16: int = 4351
+EVEX_VCVTPH2UDQ_YMM_K1Z_XMMM128B16: Code = 4351 # type: ignore
 """
 ``VCVTPH2UDQ ymm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -43501,7 +43507,7 @@ EVEX_VCVTPH2UDQ_YMM_K1Z_XMMM128B16: int = 4351
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2UDQ_ZMM_K1Z_YMMM256B16_ER: int = 4352
+EVEX_VCVTPH2UDQ_ZMM_K1Z_YMMM256B16_ER: Code = 4352 # type: ignore
 """
 ``VCVTPH2UDQ zmm1 {k1}{z}, ymm2/m256/m16bcst{er}``
 
@@ -43511,7 +43517,7 @@ EVEX_VCVTPH2UDQ_ZMM_K1Z_YMMM256B16_ER: int = 4352
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2UQQ_XMM_K1Z_XMMM32B16: int = 4353
+EVEX_VCVTPH2UQQ_XMM_K1Z_XMMM32B16: Code = 4353 # type: ignore
 """
 ``VCVTPH2UQQ xmm1 {k1}{z}, xmm2/m32/m16bcst``
 
@@ -43521,7 +43527,7 @@ EVEX_VCVTPH2UQQ_XMM_K1Z_XMMM32B16: int = 4353
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2UQQ_YMM_K1Z_XMMM64B16: int = 4354
+EVEX_VCVTPH2UQQ_YMM_K1Z_XMMM64B16: Code = 4354 # type: ignore
 """
 ``VCVTPH2UQQ ymm1 {k1}{z}, xmm2/m64/m16bcst``
 
@@ -43531,7 +43537,7 @@ EVEX_VCVTPH2UQQ_YMM_K1Z_XMMM64B16: int = 4354
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2UQQ_ZMM_K1Z_XMMM128B16_ER: int = 4355
+EVEX_VCVTPH2UQQ_ZMM_K1Z_XMMM128B16_ER: Code = 4355 # type: ignore
 """
 ``VCVTPH2UQQ zmm1 {k1}{z}, xmm2/m128/m16bcst{er}``
 
@@ -43541,7 +43547,7 @@ EVEX_VCVTPH2UQQ_ZMM_K1Z_XMMM128B16_ER: int = 4355
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2UW_XMM_K1Z_XMMM128B16: int = 4356
+EVEX_VCVTPH2UW_XMM_K1Z_XMMM128B16: Code = 4356 # type: ignore
 """
 ``VCVTPH2UW xmm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -43551,7 +43557,7 @@ EVEX_VCVTPH2UW_XMM_K1Z_XMMM128B16: int = 4356
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2UW_YMM_K1Z_YMMM256B16: int = 4357
+EVEX_VCVTPH2UW_YMM_K1Z_YMMM256B16: Code = 4357 # type: ignore
 """
 ``VCVTPH2UW ymm1 {k1}{z}, ymm2/m256/m16bcst``
 
@@ -43561,7 +43567,7 @@ EVEX_VCVTPH2UW_YMM_K1Z_YMMM256B16: int = 4357
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2UW_ZMM_K1Z_ZMMM512B16_ER: int = 4358
+EVEX_VCVTPH2UW_ZMM_K1Z_ZMMM512B16_ER: Code = 4358 # type: ignore
 """
 ``VCVTPH2UW zmm1 {k1}{z}, zmm2/m512/m16bcst{er}``
 
@@ -43571,7 +43577,7 @@ EVEX_VCVTPH2UW_ZMM_K1Z_ZMMM512B16_ER: int = 4358
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2W_XMM_K1Z_XMMM128B16: int = 4359
+EVEX_VCVTPH2W_XMM_K1Z_XMMM128B16: Code = 4359 # type: ignore
 """
 ``VCVTPH2W xmm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -43581,7 +43587,7 @@ EVEX_VCVTPH2W_XMM_K1Z_XMMM128B16: int = 4359
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2W_YMM_K1Z_YMMM256B16: int = 4360
+EVEX_VCVTPH2W_YMM_K1Z_YMMM256B16: Code = 4360 # type: ignore
 """
 ``VCVTPH2W ymm1 {k1}{z}, ymm2/m256/m16bcst``
 
@@ -43591,7 +43597,7 @@ EVEX_VCVTPH2W_YMM_K1Z_YMMM256B16: int = 4360
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPH2W_ZMM_K1Z_ZMMM512B16_ER: int = 4361
+EVEX_VCVTPH2W_ZMM_K1Z_ZMMM512B16_ER: Code = 4361 # type: ignore
 """
 ``VCVTPH2W zmm1 {k1}{z}, zmm2/m512/m16bcst{er}``
 
@@ -43601,7 +43607,7 @@ EVEX_VCVTPH2W_ZMM_K1Z_ZMMM512B16_ER: int = 4361
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2PHX_XMM_K1Z_XMMM128B32: int = 4362
+EVEX_VCVTPS2PHX_XMM_K1Z_XMMM128B32: Code = 4362 # type: ignore
 """
 ``VCVTPS2PHX xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -43611,7 +43617,7 @@ EVEX_VCVTPS2PHX_XMM_K1Z_XMMM128B32: int = 4362
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2PHX_XMM_K1Z_YMMM256B32: int = 4363
+EVEX_VCVTPS2PHX_XMM_K1Z_YMMM256B32: Code = 4363 # type: ignore
 """
 ``VCVTPS2PHX xmm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -43621,7 +43627,7 @@ EVEX_VCVTPS2PHX_XMM_K1Z_YMMM256B32: int = 4363
 
 ``16/32/64-bit``
 """
-EVEX_VCVTPS2PHX_YMM_K1Z_ZMMM512B32_ER: int = 4364
+EVEX_VCVTPS2PHX_YMM_K1Z_ZMMM512B32_ER: Code = 4364 # type: ignore
 """
 ``VCVTPS2PHX ymm1 {k1}{z}, zmm2/m512/m32bcst{er}``
 
@@ -43631,7 +43637,7 @@ EVEX_VCVTPS2PHX_YMM_K1Z_ZMMM512B32_ER: int = 4364
 
 ``16/32/64-bit``
 """
-EVEX_VCVTQQ2PH_XMM_K1Z_XMMM128B64: int = 4365
+EVEX_VCVTQQ2PH_XMM_K1Z_XMMM128B64: Code = 4365 # type: ignore
 """
 ``VCVTQQ2PH xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -43641,7 +43647,7 @@ EVEX_VCVTQQ2PH_XMM_K1Z_XMMM128B64: int = 4365
 
 ``16/32/64-bit``
 """
-EVEX_VCVTQQ2PH_XMM_K1Z_YMMM256B64: int = 4366
+EVEX_VCVTQQ2PH_XMM_K1Z_YMMM256B64: Code = 4366 # type: ignore
 """
 ``VCVTQQ2PH xmm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -43651,7 +43657,7 @@ EVEX_VCVTQQ2PH_XMM_K1Z_YMMM256B64: int = 4366
 
 ``16/32/64-bit``
 """
-EVEX_VCVTQQ2PH_XMM_K1Z_ZMMM512B64_ER: int = 4367
+EVEX_VCVTQQ2PH_XMM_K1Z_ZMMM512B64_ER: Code = 4367 # type: ignore
 """
 ``VCVTQQ2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -43661,7 +43667,7 @@ EVEX_VCVTQQ2PH_XMM_K1Z_ZMMM512B64_ER: int = 4367
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSD2SH_XMM_K1Z_XMM_XMMM64_ER: int = 4368
+EVEX_VCVTSD2SH_XMM_K1Z_XMM_XMMM64_ER: Code = 4368 # type: ignore
 """
 ``VCVTSD2SH xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
 
@@ -43671,7 +43677,7 @@ EVEX_VCVTSD2SH_XMM_K1Z_XMM_XMMM64_ER: int = 4368
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSH2SD_XMM_K1Z_XMM_XMMM16_SAE: int = 4369
+EVEX_VCVTSH2SD_XMM_K1Z_XMM_XMMM16_SAE: Code = 4369 # type: ignore
 """
 ``VCVTSH2SD xmm1 {k1}{z}, xmm2, xmm3/m16{sae}``
 
@@ -43681,7 +43687,7 @@ EVEX_VCVTSH2SD_XMM_K1Z_XMM_XMMM16_SAE: int = 4369
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSH2SI_R32_XMMM16_ER: int = 4370
+EVEX_VCVTSH2SI_R32_XMMM16_ER: Code = 4370 # type: ignore
 """
 ``VCVTSH2SI r32, xmm1/m16{er}``
 
@@ -43691,7 +43697,7 @@ EVEX_VCVTSH2SI_R32_XMMM16_ER: int = 4370
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSH2SI_R64_XMMM16_ER: int = 4371
+EVEX_VCVTSH2SI_R64_XMMM16_ER: Code = 4371 # type: ignore
 """
 ``VCVTSH2SI r64, xmm1/m16{er}``
 
@@ -43701,7 +43707,7 @@ EVEX_VCVTSH2SI_R64_XMMM16_ER: int = 4371
 
 ``64-bit``
 """
-EVEX_VCVTSH2SS_XMM_K1Z_XMM_XMMM16_SAE: int = 4372
+EVEX_VCVTSH2SS_XMM_K1Z_XMM_XMMM16_SAE: Code = 4372 # type: ignore
 """
 ``VCVTSH2SS xmm1 {k1}{z}, xmm2, xmm3/m16{sae}``
 
@@ -43711,7 +43717,7 @@ EVEX_VCVTSH2SS_XMM_K1Z_XMM_XMMM16_SAE: int = 4372
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSH2USI_R32_XMMM16_ER: int = 4373
+EVEX_VCVTSH2USI_R32_XMMM16_ER: Code = 4373 # type: ignore
 """
 ``VCVTSH2USI r32, xmm1/m16{er}``
 
@@ -43721,7 +43727,7 @@ EVEX_VCVTSH2USI_R32_XMMM16_ER: int = 4373
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSH2USI_R64_XMMM16_ER: int = 4374
+EVEX_VCVTSH2USI_R64_XMMM16_ER: Code = 4374 # type: ignore
 """
 ``VCVTSH2USI r64, xmm1/m16{er}``
 
@@ -43731,7 +43737,7 @@ EVEX_VCVTSH2USI_R64_XMMM16_ER: int = 4374
 
 ``64-bit``
 """
-EVEX_VCVTSI2SH_XMM_XMM_RM32_ER: int = 4375
+EVEX_VCVTSI2SH_XMM_XMM_RM32_ER: Code = 4375 # type: ignore
 """
 ``VCVTSI2SH xmm1, xmm2, r/m32{er}``
 
@@ -43741,7 +43747,7 @@ EVEX_VCVTSI2SH_XMM_XMM_RM32_ER: int = 4375
 
 ``16/32/64-bit``
 """
-EVEX_VCVTSI2SH_XMM_XMM_RM64_ER: int = 4376
+EVEX_VCVTSI2SH_XMM_XMM_RM64_ER: Code = 4376 # type: ignore
 """
 ``VCVTSI2SH xmm1, xmm2, r/m64{er}``
 
@@ -43751,7 +43757,7 @@ EVEX_VCVTSI2SH_XMM_XMM_RM64_ER: int = 4376
 
 ``64-bit``
 """
-EVEX_VCVTSS2SH_XMM_K1Z_XMM_XMMM32_ER: int = 4377
+EVEX_VCVTSS2SH_XMM_K1Z_XMM_XMMM32_ER: Code = 4377 # type: ignore
 """
 ``VCVTSS2SH xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -43761,7 +43767,7 @@ EVEX_VCVTSS2SH_XMM_K1Z_XMM_XMMM32_ER: int = 4377
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2DQ_XMM_K1Z_XMMM64B16: int = 4378
+EVEX_VCVTTPH2DQ_XMM_K1Z_XMMM64B16: Code = 4378 # type: ignore
 """
 ``VCVTTPH2DQ xmm1 {k1}{z}, xmm2/m64/m16bcst``
 
@@ -43771,7 +43777,7 @@ EVEX_VCVTTPH2DQ_XMM_K1Z_XMMM64B16: int = 4378
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2DQ_YMM_K1Z_XMMM128B16: int = 4379
+EVEX_VCVTTPH2DQ_YMM_K1Z_XMMM128B16: Code = 4379 # type: ignore
 """
 ``VCVTTPH2DQ ymm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -43781,7 +43787,7 @@ EVEX_VCVTTPH2DQ_YMM_K1Z_XMMM128B16: int = 4379
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2DQ_ZMM_K1Z_YMMM256B16_SAE: int = 4380
+EVEX_VCVTTPH2DQ_ZMM_K1Z_YMMM256B16_SAE: Code = 4380 # type: ignore
 """
 ``VCVTTPH2DQ zmm1 {k1}{z}, ymm2/m256/m16bcst{sae}``
 
@@ -43791,7 +43797,7 @@ EVEX_VCVTTPH2DQ_ZMM_K1Z_YMMM256B16_SAE: int = 4380
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2QQ_XMM_K1Z_XMMM32B16: int = 4381
+EVEX_VCVTTPH2QQ_XMM_K1Z_XMMM32B16: Code = 4381 # type: ignore
 """
 ``VCVTTPH2QQ xmm1 {k1}{z}, xmm2/m32/m16bcst``
 
@@ -43801,7 +43807,7 @@ EVEX_VCVTTPH2QQ_XMM_K1Z_XMMM32B16: int = 4381
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2QQ_YMM_K1Z_XMMM64B16: int = 4382
+EVEX_VCVTTPH2QQ_YMM_K1Z_XMMM64B16: Code = 4382 # type: ignore
 """
 ``VCVTTPH2QQ ymm1 {k1}{z}, xmm2/m64/m16bcst``
 
@@ -43811,7 +43817,7 @@ EVEX_VCVTTPH2QQ_YMM_K1Z_XMMM64B16: int = 4382
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2QQ_ZMM_K1Z_XMMM128B16_SAE: int = 4383
+EVEX_VCVTTPH2QQ_ZMM_K1Z_XMMM128B16_SAE: Code = 4383 # type: ignore
 """
 ``VCVTTPH2QQ zmm1 {k1}{z}, xmm2/m128/m16bcst{sae}``
 
@@ -43821,7 +43827,7 @@ EVEX_VCVTTPH2QQ_ZMM_K1Z_XMMM128B16_SAE: int = 4383
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2UDQ_XMM_K1Z_XMMM64B16: int = 4384
+EVEX_VCVTTPH2UDQ_XMM_K1Z_XMMM64B16: Code = 4384 # type: ignore
 """
 ``VCVTTPH2UDQ xmm1 {k1}{z}, xmm2/m64/m16bcst``
 
@@ -43831,7 +43837,7 @@ EVEX_VCVTTPH2UDQ_XMM_K1Z_XMMM64B16: int = 4384
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2UDQ_YMM_K1Z_XMMM128B16: int = 4385
+EVEX_VCVTTPH2UDQ_YMM_K1Z_XMMM128B16: Code = 4385 # type: ignore
 """
 ``VCVTTPH2UDQ ymm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -43841,7 +43847,7 @@ EVEX_VCVTTPH2UDQ_YMM_K1Z_XMMM128B16: int = 4385
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2UDQ_ZMM_K1Z_YMMM256B16_SAE: int = 4386
+EVEX_VCVTTPH2UDQ_ZMM_K1Z_YMMM256B16_SAE: Code = 4386 # type: ignore
 """
 ``VCVTTPH2UDQ zmm1 {k1}{z}, ymm2/m256/m16bcst{sae}``
 
@@ -43851,7 +43857,7 @@ EVEX_VCVTTPH2UDQ_ZMM_K1Z_YMMM256B16_SAE: int = 4386
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2UQQ_XMM_K1Z_XMMM32B16: int = 4387
+EVEX_VCVTTPH2UQQ_XMM_K1Z_XMMM32B16: Code = 4387 # type: ignore
 """
 ``VCVTTPH2UQQ xmm1 {k1}{z}, xmm2/m32/m16bcst``
 
@@ -43861,7 +43867,7 @@ EVEX_VCVTTPH2UQQ_XMM_K1Z_XMMM32B16: int = 4387
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2UQQ_YMM_K1Z_XMMM64B16: int = 4388
+EVEX_VCVTTPH2UQQ_YMM_K1Z_XMMM64B16: Code = 4388 # type: ignore
 """
 ``VCVTTPH2UQQ ymm1 {k1}{z}, xmm2/m64/m16bcst``
 
@@ -43871,7 +43877,7 @@ EVEX_VCVTTPH2UQQ_YMM_K1Z_XMMM64B16: int = 4388
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2UQQ_ZMM_K1Z_XMMM128B16_SAE: int = 4389
+EVEX_VCVTTPH2UQQ_ZMM_K1Z_XMMM128B16_SAE: Code = 4389 # type: ignore
 """
 ``VCVTTPH2UQQ zmm1 {k1}{z}, xmm2/m128/m16bcst{sae}``
 
@@ -43881,7 +43887,7 @@ EVEX_VCVTTPH2UQQ_ZMM_K1Z_XMMM128B16_SAE: int = 4389
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2UW_XMM_K1Z_XMMM128B16: int = 4390
+EVEX_VCVTTPH2UW_XMM_K1Z_XMMM128B16: Code = 4390 # type: ignore
 """
 ``VCVTTPH2UW xmm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -43891,7 +43897,7 @@ EVEX_VCVTTPH2UW_XMM_K1Z_XMMM128B16: int = 4390
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2UW_YMM_K1Z_YMMM256B16: int = 4391
+EVEX_VCVTTPH2UW_YMM_K1Z_YMMM256B16: Code = 4391 # type: ignore
 """
 ``VCVTTPH2UW ymm1 {k1}{z}, ymm2/m256/m16bcst``
 
@@ -43901,7 +43907,7 @@ EVEX_VCVTTPH2UW_YMM_K1Z_YMMM256B16: int = 4391
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2UW_ZMM_K1Z_ZMMM512B16_SAE: int = 4392
+EVEX_VCVTTPH2UW_ZMM_K1Z_ZMMM512B16_SAE: Code = 4392 # type: ignore
 """
 ``VCVTTPH2UW zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}``
 
@@ -43911,7 +43917,7 @@ EVEX_VCVTTPH2UW_ZMM_K1Z_ZMMM512B16_SAE: int = 4392
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2W_XMM_K1Z_XMMM128B16: int = 4393
+EVEX_VCVTTPH2W_XMM_K1Z_XMMM128B16: Code = 4393 # type: ignore
 """
 ``VCVTTPH2W xmm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -43921,7 +43927,7 @@ EVEX_VCVTTPH2W_XMM_K1Z_XMMM128B16: int = 4393
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2W_YMM_K1Z_YMMM256B16: int = 4394
+EVEX_VCVTTPH2W_YMM_K1Z_YMMM256B16: Code = 4394 # type: ignore
 """
 ``VCVTTPH2W ymm1 {k1}{z}, ymm2/m256/m16bcst``
 
@@ -43931,7 +43937,7 @@ EVEX_VCVTTPH2W_YMM_K1Z_YMMM256B16: int = 4394
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTPH2W_ZMM_K1Z_ZMMM512B16_SAE: int = 4395
+EVEX_VCVTTPH2W_ZMM_K1Z_ZMMM512B16_SAE: Code = 4395 # type: ignore
 """
 ``VCVTTPH2W zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}``
 
@@ -43941,7 +43947,7 @@ EVEX_VCVTTPH2W_ZMM_K1Z_ZMMM512B16_SAE: int = 4395
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTSH2SI_R32_XMMM16_SAE: int = 4396
+EVEX_VCVTTSH2SI_R32_XMMM16_SAE: Code = 4396 # type: ignore
 """
 ``VCVTTSH2SI r32, xmm1/m16{sae}``
 
@@ -43951,7 +43957,7 @@ EVEX_VCVTTSH2SI_R32_XMMM16_SAE: int = 4396
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTSH2SI_R64_XMMM16_SAE: int = 4397
+EVEX_VCVTTSH2SI_R64_XMMM16_SAE: Code = 4397 # type: ignore
 """
 ``VCVTTSH2SI r64, xmm1/m16{sae}``
 
@@ -43961,7 +43967,7 @@ EVEX_VCVTTSH2SI_R64_XMMM16_SAE: int = 4397
 
 ``64-bit``
 """
-EVEX_VCVTTSH2USI_R32_XMMM16_SAE: int = 4398
+EVEX_VCVTTSH2USI_R32_XMMM16_SAE: Code = 4398 # type: ignore
 """
 ``VCVTTSH2USI r32, xmm1/m16{sae}``
 
@@ -43971,7 +43977,7 @@ EVEX_VCVTTSH2USI_R32_XMMM16_SAE: int = 4398
 
 ``16/32/64-bit``
 """
-EVEX_VCVTTSH2USI_R64_XMMM16_SAE: int = 4399
+EVEX_VCVTTSH2USI_R64_XMMM16_SAE: Code = 4399 # type: ignore
 """
 ``VCVTTSH2USI r64, xmm1/m16{sae}``
 
@@ -43981,7 +43987,7 @@ EVEX_VCVTTSH2USI_R64_XMMM16_SAE: int = 4399
 
 ``64-bit``
 """
-EVEX_VCVTUDQ2PH_XMM_K1Z_XMMM128B32: int = 4400
+EVEX_VCVTUDQ2PH_XMM_K1Z_XMMM128B32: Code = 4400 # type: ignore
 """
 ``VCVTUDQ2PH xmm1 {k1}{z}, xmm2/m128/m32bcst``
 
@@ -43991,7 +43997,7 @@ EVEX_VCVTUDQ2PH_XMM_K1Z_XMMM128B32: int = 4400
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUDQ2PH_XMM_K1Z_YMMM256B32: int = 4401
+EVEX_VCVTUDQ2PH_XMM_K1Z_YMMM256B32: Code = 4401 # type: ignore
 """
 ``VCVTUDQ2PH xmm1 {k1}{z}, ymm2/m256/m32bcst``
 
@@ -44001,7 +44007,7 @@ EVEX_VCVTUDQ2PH_XMM_K1Z_YMMM256B32: int = 4401
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUDQ2PH_YMM_K1Z_ZMMM512B32_ER: int = 4402
+EVEX_VCVTUDQ2PH_YMM_K1Z_ZMMM512B32_ER: Code = 4402 # type: ignore
 """
 ``VCVTUDQ2PH ymm1 {k1}{z}, zmm2/m512/m32bcst{er}``
 
@@ -44011,7 +44017,7 @@ EVEX_VCVTUDQ2PH_YMM_K1Z_ZMMM512B32_ER: int = 4402
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUQQ2PH_XMM_K1Z_XMMM128B64: int = 4403
+EVEX_VCVTUQQ2PH_XMM_K1Z_XMMM128B64: Code = 4403 # type: ignore
 """
 ``VCVTUQQ2PH xmm1 {k1}{z}, xmm2/m128/m64bcst``
 
@@ -44021,7 +44027,7 @@ EVEX_VCVTUQQ2PH_XMM_K1Z_XMMM128B64: int = 4403
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUQQ2PH_XMM_K1Z_YMMM256B64: int = 4404
+EVEX_VCVTUQQ2PH_XMM_K1Z_YMMM256B64: Code = 4404 # type: ignore
 """
 ``VCVTUQQ2PH xmm1 {k1}{z}, ymm2/m256/m64bcst``
 
@@ -44031,7 +44037,7 @@ EVEX_VCVTUQQ2PH_XMM_K1Z_YMMM256B64: int = 4404
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUQQ2PH_XMM_K1Z_ZMMM512B64_ER: int = 4405
+EVEX_VCVTUQQ2PH_XMM_K1Z_ZMMM512B64_ER: Code = 4405 # type: ignore
 """
 ``VCVTUQQ2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
 
@@ -44041,7 +44047,7 @@ EVEX_VCVTUQQ2PH_XMM_K1Z_ZMMM512B64_ER: int = 4405
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUSI2SH_XMM_XMM_RM32_ER: int = 4406
+EVEX_VCVTUSI2SH_XMM_XMM_RM32_ER: Code = 4406 # type: ignore
 """
 ``VCVTUSI2SH xmm1, xmm2, r/m32{er}``
 
@@ -44051,7 +44057,7 @@ EVEX_VCVTUSI2SH_XMM_XMM_RM32_ER: int = 4406
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUSI2SH_XMM_XMM_RM64_ER: int = 4407
+EVEX_VCVTUSI2SH_XMM_XMM_RM64_ER: Code = 4407 # type: ignore
 """
 ``VCVTUSI2SH xmm1, xmm2, r/m64{er}``
 
@@ -44061,7 +44067,7 @@ EVEX_VCVTUSI2SH_XMM_XMM_RM64_ER: int = 4407
 
 ``64-bit``
 """
-EVEX_VCVTUW2PH_XMM_K1Z_XMMM128B16: int = 4408
+EVEX_VCVTUW2PH_XMM_K1Z_XMMM128B16: Code = 4408 # type: ignore
 """
 ``VCVTUW2PH xmm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -44071,7 +44077,7 @@ EVEX_VCVTUW2PH_XMM_K1Z_XMMM128B16: int = 4408
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUW2PH_YMM_K1Z_YMMM256B16: int = 4409
+EVEX_VCVTUW2PH_YMM_K1Z_YMMM256B16: Code = 4409 # type: ignore
 """
 ``VCVTUW2PH ymm1 {k1}{z}, ymm2/m256/m16bcst``
 
@@ -44081,7 +44087,7 @@ EVEX_VCVTUW2PH_YMM_K1Z_YMMM256B16: int = 4409
 
 ``16/32/64-bit``
 """
-EVEX_VCVTUW2PH_ZMM_K1Z_ZMMM512B16_ER: int = 4410
+EVEX_VCVTUW2PH_ZMM_K1Z_ZMMM512B16_ER: Code = 4410 # type: ignore
 """
 ``VCVTUW2PH zmm1 {k1}{z}, zmm2/m512/m16bcst{er}``
 
@@ -44091,7 +44097,7 @@ EVEX_VCVTUW2PH_ZMM_K1Z_ZMMM512B16_ER: int = 4410
 
 ``16/32/64-bit``
 """
-EVEX_VCVTW2PH_XMM_K1Z_XMMM128B16: int = 4411
+EVEX_VCVTW2PH_XMM_K1Z_XMMM128B16: Code = 4411 # type: ignore
 """
 ``VCVTW2PH xmm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -44101,7 +44107,7 @@ EVEX_VCVTW2PH_XMM_K1Z_XMMM128B16: int = 4411
 
 ``16/32/64-bit``
 """
-EVEX_VCVTW2PH_YMM_K1Z_YMMM256B16: int = 4412
+EVEX_VCVTW2PH_YMM_K1Z_YMMM256B16: Code = 4412 # type: ignore
 """
 ``VCVTW2PH ymm1 {k1}{z}, ymm2/m256/m16bcst``
 
@@ -44111,7 +44117,7 @@ EVEX_VCVTW2PH_YMM_K1Z_YMMM256B16: int = 4412
 
 ``16/32/64-bit``
 """
-EVEX_VCVTW2PH_ZMM_K1Z_ZMMM512B16_ER: int = 4413
+EVEX_VCVTW2PH_ZMM_K1Z_ZMMM512B16_ER: Code = 4413 # type: ignore
 """
 ``VCVTW2PH zmm1 {k1}{z}, zmm2/m512/m16bcst{er}``
 
@@ -44121,7 +44127,7 @@ EVEX_VCVTW2PH_ZMM_K1Z_ZMMM512B16_ER: int = 4413
 
 ``16/32/64-bit``
 """
-EVEX_VDIVPH_XMM_K1Z_XMM_XMMM128B16: int = 4414
+EVEX_VDIVPH_XMM_K1Z_XMM_XMMM128B16: Code = 4414 # type: ignore
 """
 ``VDIVPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44131,7 +44137,7 @@ EVEX_VDIVPH_XMM_K1Z_XMM_XMMM128B16: int = 4414
 
 ``16/32/64-bit``
 """
-EVEX_VDIVPH_YMM_K1Z_YMM_YMMM256B16: int = 4415
+EVEX_VDIVPH_YMM_K1Z_YMM_YMMM256B16: Code = 4415 # type: ignore
 """
 ``VDIVPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44141,7 +44147,7 @@ EVEX_VDIVPH_YMM_K1Z_YMM_YMMM256B16: int = 4415
 
 ``16/32/64-bit``
 """
-EVEX_VDIVPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4416
+EVEX_VDIVPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4416 # type: ignore
 """
 ``VDIVPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44151,7 +44157,7 @@ EVEX_VDIVPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4416
 
 ``16/32/64-bit``
 """
-EVEX_VDIVSH_XMM_K1Z_XMM_XMMM16_ER: int = 4417
+EVEX_VDIVSH_XMM_K1Z_XMM_XMMM16_ER: Code = 4417 # type: ignore
 """
 ``VDIVSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44161,7 +44167,7 @@ EVEX_VDIVSH_XMM_K1Z_XMM_XMMM16_ER: int = 4417
 
 ``16/32/64-bit``
 """
-EVEX_VFCMADDCPH_XMM_K1Z_XMM_XMMM128B32: int = 4418
+EVEX_VFCMADDCPH_XMM_K1Z_XMM_XMMM128B32: Code = 4418 # type: ignore
 """
 ``VFCMADDCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -44171,7 +44177,7 @@ EVEX_VFCMADDCPH_XMM_K1Z_XMM_XMMM128B32: int = 4418
 
 ``16/32/64-bit``
 """
-EVEX_VFCMADDCPH_YMM_K1Z_YMM_YMMM256B32: int = 4419
+EVEX_VFCMADDCPH_YMM_K1Z_YMM_YMMM256B32: Code = 4419 # type: ignore
 """
 ``VFCMADDCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -44181,7 +44187,7 @@ EVEX_VFCMADDCPH_YMM_K1Z_YMM_YMMM256B32: int = 4419
 
 ``16/32/64-bit``
 """
-EVEX_VFCMADDCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4420
+EVEX_VFCMADDCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 4420 # type: ignore
 """
 ``VFCMADDCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -44191,7 +44197,7 @@ EVEX_VFCMADDCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4420
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDCPH_XMM_K1Z_XMM_XMMM128B32: int = 4421
+EVEX_VFMADDCPH_XMM_K1Z_XMM_XMMM128B32: Code = 4421 # type: ignore
 """
 ``VFMADDCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -44201,7 +44207,7 @@ EVEX_VFMADDCPH_XMM_K1Z_XMM_XMMM128B32: int = 4421
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDCPH_YMM_K1Z_YMM_YMMM256B32: int = 4422
+EVEX_VFMADDCPH_YMM_K1Z_YMM_YMMM256B32: Code = 4422 # type: ignore
 """
 ``VFMADDCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -44211,7 +44217,7 @@ EVEX_VFMADDCPH_YMM_K1Z_YMM_YMMM256B32: int = 4422
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4423
+EVEX_VFMADDCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 4423 # type: ignore
 """
 ``VFMADDCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -44221,7 +44227,7 @@ EVEX_VFMADDCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4423
 
 ``16/32/64-bit``
 """
-EVEX_VFCMADDCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4424
+EVEX_VFCMADDCSH_XMM_K1Z_XMM_XMMM32_ER: Code = 4424 # type: ignore
 """
 ``VFCMADDCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -44231,7 +44237,7 @@ EVEX_VFCMADDCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4424
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4425
+EVEX_VFMADDCSH_XMM_K1Z_XMM_XMMM32_ER: Code = 4425 # type: ignore
 """
 ``VFMADDCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -44241,7 +44247,7 @@ EVEX_VFMADDCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4425
 
 ``16/32/64-bit``
 """
-EVEX_VFCMULCPH_XMM_K1Z_XMM_XMMM128B32: int = 4426
+EVEX_VFCMULCPH_XMM_K1Z_XMM_XMMM128B32: Code = 4426 # type: ignore
 """
 ``VFCMULCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -44251,7 +44257,7 @@ EVEX_VFCMULCPH_XMM_K1Z_XMM_XMMM128B32: int = 4426
 
 ``16/32/64-bit``
 """
-EVEX_VFCMULCPH_YMM_K1Z_YMM_YMMM256B32: int = 4427
+EVEX_VFCMULCPH_YMM_K1Z_YMM_YMMM256B32: Code = 4427 # type: ignore
 """
 ``VFCMULCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -44261,7 +44267,7 @@ EVEX_VFCMULCPH_YMM_K1Z_YMM_YMMM256B32: int = 4427
 
 ``16/32/64-bit``
 """
-EVEX_VFCMULCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4428
+EVEX_VFCMULCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 4428 # type: ignore
 """
 ``VFCMULCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -44271,7 +44277,7 @@ EVEX_VFCMULCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4428
 
 ``16/32/64-bit``
 """
-EVEX_VFMULCPH_XMM_K1Z_XMM_XMMM128B32: int = 4429
+EVEX_VFMULCPH_XMM_K1Z_XMM_XMMM128B32: Code = 4429 # type: ignore
 """
 ``VFMULCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
 
@@ -44281,7 +44287,7 @@ EVEX_VFMULCPH_XMM_K1Z_XMM_XMMM128B32: int = 4429
 
 ``16/32/64-bit``
 """
-EVEX_VFMULCPH_YMM_K1Z_YMM_YMMM256B32: int = 4430
+EVEX_VFMULCPH_YMM_K1Z_YMM_YMMM256B32: Code = 4430 # type: ignore
 """
 ``VFMULCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
 
@@ -44291,7 +44297,7 @@ EVEX_VFMULCPH_YMM_K1Z_YMM_YMMM256B32: int = 4430
 
 ``16/32/64-bit``
 """
-EVEX_VFMULCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4431
+EVEX_VFMULCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: Code = 4431 # type: ignore
 """
 ``VFMULCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
 
@@ -44301,7 +44307,7 @@ EVEX_VFMULCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4431
 
 ``16/32/64-bit``
 """
-EVEX_VFCMULCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4432
+EVEX_VFCMULCSH_XMM_K1Z_XMM_XMMM32_ER: Code = 4432 # type: ignore
 """
 ``VFCMULCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -44311,7 +44317,7 @@ EVEX_VFCMULCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4432
 
 ``16/32/64-bit``
 """
-EVEX_VFMULCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4433
+EVEX_VFMULCSH_XMM_K1Z_XMM_XMMM32_ER: Code = 4433 # type: ignore
 """
 ``VFMULCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
 
@@ -44321,7 +44327,7 @@ EVEX_VFMULCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4433
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB132PH_XMM_K1Z_XMM_XMMM128B16: int = 4434
+EVEX_VFMADDSUB132PH_XMM_K1Z_XMM_XMMM128B16: Code = 4434 # type: ignore
 """
 ``VFMADDSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44331,7 +44337,7 @@ EVEX_VFMADDSUB132PH_XMM_K1Z_XMM_XMMM128B16: int = 4434
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB132PH_YMM_K1Z_YMM_YMMM256B16: int = 4435
+EVEX_VFMADDSUB132PH_YMM_K1Z_YMM_YMMM256B16: Code = 4435 # type: ignore
 """
 ``VFMADDSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44341,7 +44347,7 @@ EVEX_VFMADDSUB132PH_YMM_K1Z_YMM_YMMM256B16: int = 4435
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4436
+EVEX_VFMADDSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4436 # type: ignore
 """
 ``VFMADDSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44351,7 +44357,7 @@ EVEX_VFMADDSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4436
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB213PH_XMM_K1Z_XMM_XMMM128B16: int = 4437
+EVEX_VFMADDSUB213PH_XMM_K1Z_XMM_XMMM128B16: Code = 4437 # type: ignore
 """
 ``VFMADDSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44361,7 +44367,7 @@ EVEX_VFMADDSUB213PH_XMM_K1Z_XMM_XMMM128B16: int = 4437
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB213PH_YMM_K1Z_YMM_YMMM256B16: int = 4438
+EVEX_VFMADDSUB213PH_YMM_K1Z_YMM_YMMM256B16: Code = 4438 # type: ignore
 """
 ``VFMADDSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44371,7 +44377,7 @@ EVEX_VFMADDSUB213PH_YMM_K1Z_YMM_YMMM256B16: int = 4438
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4439
+EVEX_VFMADDSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4439 # type: ignore
 """
 ``VFMADDSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44381,7 +44387,7 @@ EVEX_VFMADDSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4439
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB231PH_XMM_K1Z_XMM_XMMM128B16: int = 4440
+EVEX_VFMADDSUB231PH_XMM_K1Z_XMM_XMMM128B16: Code = 4440 # type: ignore
 """
 ``VFMADDSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44391,7 +44397,7 @@ EVEX_VFMADDSUB231PH_XMM_K1Z_XMM_XMMM128B16: int = 4440
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB231PH_YMM_K1Z_YMM_YMMM256B16: int = 4441
+EVEX_VFMADDSUB231PH_YMM_K1Z_YMM_YMMM256B16: Code = 4441 # type: ignore
 """
 ``VFMADDSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44401,7 +44407,7 @@ EVEX_VFMADDSUB231PH_YMM_K1Z_YMM_YMMM256B16: int = 4441
 
 ``16/32/64-bit``
 """
-EVEX_VFMADDSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4442
+EVEX_VFMADDSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4442 # type: ignore
 """
 ``VFMADDSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44411,7 +44417,7 @@ EVEX_VFMADDSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4442
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD132PH_XMM_K1Z_XMM_XMMM128B16: int = 4443
+EVEX_VFMSUBADD132PH_XMM_K1Z_XMM_XMMM128B16: Code = 4443 # type: ignore
 """
 ``VFMSUBADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44421,7 +44427,7 @@ EVEX_VFMSUBADD132PH_XMM_K1Z_XMM_XMMM128B16: int = 4443
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD132PH_YMM_K1Z_YMM_YMMM256B16: int = 4444
+EVEX_VFMSUBADD132PH_YMM_K1Z_YMM_YMMM256B16: Code = 4444 # type: ignore
 """
 ``VFMSUBADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44431,7 +44437,7 @@ EVEX_VFMSUBADD132PH_YMM_K1Z_YMM_YMMM256B16: int = 4444
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4445
+EVEX_VFMSUBADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4445 # type: ignore
 """
 ``VFMSUBADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44441,7 +44447,7 @@ EVEX_VFMSUBADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4445
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD213PH_XMM_K1Z_XMM_XMMM128B16: int = 4446
+EVEX_VFMSUBADD213PH_XMM_K1Z_XMM_XMMM128B16: Code = 4446 # type: ignore
 """
 ``VFMSUBADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44451,7 +44457,7 @@ EVEX_VFMSUBADD213PH_XMM_K1Z_XMM_XMMM128B16: int = 4446
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD213PH_YMM_K1Z_YMM_YMMM256B16: int = 4447
+EVEX_VFMSUBADD213PH_YMM_K1Z_YMM_YMMM256B16: Code = 4447 # type: ignore
 """
 ``VFMSUBADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44461,7 +44467,7 @@ EVEX_VFMSUBADD213PH_YMM_K1Z_YMM_YMMM256B16: int = 4447
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4448
+EVEX_VFMSUBADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4448 # type: ignore
 """
 ``VFMSUBADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44471,7 +44477,7 @@ EVEX_VFMSUBADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4448
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD231PH_XMM_K1Z_XMM_XMMM128B16: int = 4449
+EVEX_VFMSUBADD231PH_XMM_K1Z_XMM_XMMM128B16: Code = 4449 # type: ignore
 """
 ``VFMSUBADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44481,7 +44487,7 @@ EVEX_VFMSUBADD231PH_XMM_K1Z_XMM_XMMM128B16: int = 4449
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD231PH_YMM_K1Z_YMM_YMMM256B16: int = 4450
+EVEX_VFMSUBADD231PH_YMM_K1Z_YMM_YMMM256B16: Code = 4450 # type: ignore
 """
 ``VFMSUBADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44491,7 +44497,7 @@ EVEX_VFMSUBADD231PH_YMM_K1Z_YMM_YMMM256B16: int = 4450
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUBADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4451
+EVEX_VFMSUBADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4451 # type: ignore
 """
 ``VFMSUBADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44501,7 +44507,7 @@ EVEX_VFMSUBADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4451
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132PH_XMM_K1Z_XMM_XMMM128B16: int = 4452
+EVEX_VFMADD132PH_XMM_K1Z_XMM_XMMM128B16: Code = 4452 # type: ignore
 """
 ``VFMADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44511,7 +44517,7 @@ EVEX_VFMADD132PH_XMM_K1Z_XMM_XMMM128B16: int = 4452
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132PH_YMM_K1Z_YMM_YMMM256B16: int = 4453
+EVEX_VFMADD132PH_YMM_K1Z_YMM_YMMM256B16: Code = 4453 # type: ignore
 """
 ``VFMADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44521,7 +44527,7 @@ EVEX_VFMADD132PH_YMM_K1Z_YMM_YMMM256B16: int = 4453
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4454
+EVEX_VFMADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4454 # type: ignore
 """
 ``VFMADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44531,7 +44537,7 @@ EVEX_VFMADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4454
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213PH_XMM_K1Z_XMM_XMMM128B16: int = 4455
+EVEX_VFMADD213PH_XMM_K1Z_XMM_XMMM128B16: Code = 4455 # type: ignore
 """
 ``VFMADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44541,7 +44547,7 @@ EVEX_VFMADD213PH_XMM_K1Z_XMM_XMMM128B16: int = 4455
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213PH_YMM_K1Z_YMM_YMMM256B16: int = 4456
+EVEX_VFMADD213PH_YMM_K1Z_YMM_YMMM256B16: Code = 4456 # type: ignore
 """
 ``VFMADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44551,7 +44557,7 @@ EVEX_VFMADD213PH_YMM_K1Z_YMM_YMMM256B16: int = 4456
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4457
+EVEX_VFMADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4457 # type: ignore
 """
 ``VFMADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44561,7 +44567,7 @@ EVEX_VFMADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4457
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231PH_XMM_K1Z_XMM_XMMM128B16: int = 4458
+EVEX_VFMADD231PH_XMM_K1Z_XMM_XMMM128B16: Code = 4458 # type: ignore
 """
 ``VFMADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44571,7 +44577,7 @@ EVEX_VFMADD231PH_XMM_K1Z_XMM_XMMM128B16: int = 4458
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231PH_YMM_K1Z_YMM_YMMM256B16: int = 4459
+EVEX_VFMADD231PH_YMM_K1Z_YMM_YMMM256B16: Code = 4459 # type: ignore
 """
 ``VFMADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44581,7 +44587,7 @@ EVEX_VFMADD231PH_YMM_K1Z_YMM_YMMM256B16: int = 4459
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4460
+EVEX_VFMADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4460 # type: ignore
 """
 ``VFMADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44591,7 +44597,7 @@ EVEX_VFMADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4460
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132PH_XMM_K1Z_XMM_XMMM128B16: int = 4461
+EVEX_VFNMADD132PH_XMM_K1Z_XMM_XMMM128B16: Code = 4461 # type: ignore
 """
 ``VFNMADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44601,7 +44607,7 @@ EVEX_VFNMADD132PH_XMM_K1Z_XMM_XMMM128B16: int = 4461
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132PH_YMM_K1Z_YMM_YMMM256B16: int = 4462
+EVEX_VFNMADD132PH_YMM_K1Z_YMM_YMMM256B16: Code = 4462 # type: ignore
 """
 ``VFNMADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44611,7 +44617,7 @@ EVEX_VFNMADD132PH_YMM_K1Z_YMM_YMMM256B16: int = 4462
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4463
+EVEX_VFNMADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4463 # type: ignore
 """
 ``VFNMADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44621,7 +44627,7 @@ EVEX_VFNMADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4463
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213PH_XMM_K1Z_XMM_XMMM128B16: int = 4464
+EVEX_VFNMADD213PH_XMM_K1Z_XMM_XMMM128B16: Code = 4464 # type: ignore
 """
 ``VFNMADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44631,7 +44637,7 @@ EVEX_VFNMADD213PH_XMM_K1Z_XMM_XMMM128B16: int = 4464
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213PH_YMM_K1Z_YMM_YMMM256B16: int = 4465
+EVEX_VFNMADD213PH_YMM_K1Z_YMM_YMMM256B16: Code = 4465 # type: ignore
 """
 ``VFNMADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44641,7 +44647,7 @@ EVEX_VFNMADD213PH_YMM_K1Z_YMM_YMMM256B16: int = 4465
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4466
+EVEX_VFNMADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4466 # type: ignore
 """
 ``VFNMADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44651,7 +44657,7 @@ EVEX_VFNMADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4466
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231PH_XMM_K1Z_XMM_XMMM128B16: int = 4467
+EVEX_VFNMADD231PH_XMM_K1Z_XMM_XMMM128B16: Code = 4467 # type: ignore
 """
 ``VFNMADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44661,7 +44667,7 @@ EVEX_VFNMADD231PH_XMM_K1Z_XMM_XMMM128B16: int = 4467
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231PH_YMM_K1Z_YMM_YMMM256B16: int = 4468
+EVEX_VFNMADD231PH_YMM_K1Z_YMM_YMMM256B16: Code = 4468 # type: ignore
 """
 ``VFNMADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44671,7 +44677,7 @@ EVEX_VFNMADD231PH_YMM_K1Z_YMM_YMMM256B16: int = 4468
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4469
+EVEX_VFNMADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4469 # type: ignore
 """
 ``VFNMADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44681,7 +44687,7 @@ EVEX_VFNMADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4469
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4470
+EVEX_VFMADD132SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4470 # type: ignore
 """
 ``VFMADD132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44691,7 +44697,7 @@ EVEX_VFMADD132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4470
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4471
+EVEX_VFMADD213SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4471 # type: ignore
 """
 ``VFMADD213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44701,7 +44707,7 @@ EVEX_VFMADD213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4471
 
 ``16/32/64-bit``
 """
-EVEX_VFMADD231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4472
+EVEX_VFMADD231SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4472 # type: ignore
 """
 ``VFMADD231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44711,7 +44717,7 @@ EVEX_VFMADD231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4472
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4473
+EVEX_VFNMADD132SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4473 # type: ignore
 """
 ``VFNMADD132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44721,7 +44727,7 @@ EVEX_VFNMADD132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4473
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4474
+EVEX_VFNMADD213SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4474 # type: ignore
 """
 ``VFNMADD213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44731,7 +44737,7 @@ EVEX_VFNMADD213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4474
 
 ``16/32/64-bit``
 """
-EVEX_VFNMADD231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4475
+EVEX_VFNMADD231SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4475 # type: ignore
 """
 ``VFNMADD231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44741,7 +44747,7 @@ EVEX_VFNMADD231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4475
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132PH_XMM_K1Z_XMM_XMMM128B16: int = 4476
+EVEX_VFMSUB132PH_XMM_K1Z_XMM_XMMM128B16: Code = 4476 # type: ignore
 """
 ``VFMSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44751,7 +44757,7 @@ EVEX_VFMSUB132PH_XMM_K1Z_XMM_XMMM128B16: int = 4476
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132PH_YMM_K1Z_YMM_YMMM256B16: int = 4477
+EVEX_VFMSUB132PH_YMM_K1Z_YMM_YMMM256B16: Code = 4477 # type: ignore
 """
 ``VFMSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44761,7 +44767,7 @@ EVEX_VFMSUB132PH_YMM_K1Z_YMM_YMMM256B16: int = 4477
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4478
+EVEX_VFMSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4478 # type: ignore
 """
 ``VFMSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44771,7 +44777,7 @@ EVEX_VFMSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4478
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213PH_XMM_K1Z_XMM_XMMM128B16: int = 4479
+EVEX_VFMSUB213PH_XMM_K1Z_XMM_XMMM128B16: Code = 4479 # type: ignore
 """
 ``VFMSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44781,7 +44787,7 @@ EVEX_VFMSUB213PH_XMM_K1Z_XMM_XMMM128B16: int = 4479
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213PH_YMM_K1Z_YMM_YMMM256B16: int = 4480
+EVEX_VFMSUB213PH_YMM_K1Z_YMM_YMMM256B16: Code = 4480 # type: ignore
 """
 ``VFMSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44791,7 +44797,7 @@ EVEX_VFMSUB213PH_YMM_K1Z_YMM_YMMM256B16: int = 4480
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4481
+EVEX_VFMSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4481 # type: ignore
 """
 ``VFMSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44801,7 +44807,7 @@ EVEX_VFMSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4481
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231PH_XMM_K1Z_XMM_XMMM128B16: int = 4482
+EVEX_VFMSUB231PH_XMM_K1Z_XMM_XMMM128B16: Code = 4482 # type: ignore
 """
 ``VFMSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44811,7 +44817,7 @@ EVEX_VFMSUB231PH_XMM_K1Z_XMM_XMMM128B16: int = 4482
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231PH_YMM_K1Z_YMM_YMMM256B16: int = 4483
+EVEX_VFMSUB231PH_YMM_K1Z_YMM_YMMM256B16: Code = 4483 # type: ignore
 """
 ``VFMSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44821,7 +44827,7 @@ EVEX_VFMSUB231PH_YMM_K1Z_YMM_YMMM256B16: int = 4483
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4484
+EVEX_VFMSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4484 # type: ignore
 """
 ``VFMSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44831,7 +44837,7 @@ EVEX_VFMSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4484
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132PH_XMM_K1Z_XMM_XMMM128B16: int = 4485
+EVEX_VFNMSUB132PH_XMM_K1Z_XMM_XMMM128B16: Code = 4485 # type: ignore
 """
 ``VFNMSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44841,7 +44847,7 @@ EVEX_VFNMSUB132PH_XMM_K1Z_XMM_XMMM128B16: int = 4485
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132PH_YMM_K1Z_YMM_YMMM256B16: int = 4486
+EVEX_VFNMSUB132PH_YMM_K1Z_YMM_YMMM256B16: Code = 4486 # type: ignore
 """
 ``VFNMSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44851,7 +44857,7 @@ EVEX_VFNMSUB132PH_YMM_K1Z_YMM_YMMM256B16: int = 4486
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4487
+EVEX_VFNMSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4487 # type: ignore
 """
 ``VFNMSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44861,7 +44867,7 @@ EVEX_VFNMSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4487
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213PH_XMM_K1Z_XMM_XMMM128B16: int = 4488
+EVEX_VFNMSUB213PH_XMM_K1Z_XMM_XMMM128B16: Code = 4488 # type: ignore
 """
 ``VFNMSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44871,7 +44877,7 @@ EVEX_VFNMSUB213PH_XMM_K1Z_XMM_XMMM128B16: int = 4488
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213PH_YMM_K1Z_YMM_YMMM256B16: int = 4489
+EVEX_VFNMSUB213PH_YMM_K1Z_YMM_YMMM256B16: Code = 4489 # type: ignore
 """
 ``VFNMSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44881,7 +44887,7 @@ EVEX_VFNMSUB213PH_YMM_K1Z_YMM_YMMM256B16: int = 4489
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4490
+EVEX_VFNMSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4490 # type: ignore
 """
 ``VFNMSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44891,7 +44897,7 @@ EVEX_VFNMSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4490
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231PH_XMM_K1Z_XMM_XMMM128B16: int = 4491
+EVEX_VFNMSUB231PH_XMM_K1Z_XMM_XMMM128B16: Code = 4491 # type: ignore
 """
 ``VFNMSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -44901,7 +44907,7 @@ EVEX_VFNMSUB231PH_XMM_K1Z_XMM_XMMM128B16: int = 4491
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231PH_YMM_K1Z_YMM_YMMM256B16: int = 4492
+EVEX_VFNMSUB231PH_YMM_K1Z_YMM_YMMM256B16: Code = 4492 # type: ignore
 """
 ``VFNMSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -44911,7 +44917,7 @@ EVEX_VFNMSUB231PH_YMM_K1Z_YMM_YMMM256B16: int = 4492
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4493
+EVEX_VFNMSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4493 # type: ignore
 """
 ``VFNMSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -44921,7 +44927,7 @@ EVEX_VFNMSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4493
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4494
+EVEX_VFMSUB132SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4494 # type: ignore
 """
 ``VFMSUB132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44931,7 +44937,7 @@ EVEX_VFMSUB132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4494
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4495
+EVEX_VFMSUB213SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4495 # type: ignore
 """
 ``VFMSUB213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44941,7 +44947,7 @@ EVEX_VFMSUB213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4495
 
 ``16/32/64-bit``
 """
-EVEX_VFMSUB231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4496
+EVEX_VFMSUB231SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4496 # type: ignore
 """
 ``VFMSUB231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44951,7 +44957,7 @@ EVEX_VFMSUB231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4496
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4497
+EVEX_VFNMSUB132SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4497 # type: ignore
 """
 ``VFNMSUB132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44961,7 +44967,7 @@ EVEX_VFNMSUB132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4497
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4498
+EVEX_VFNMSUB213SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4498 # type: ignore
 """
 ``VFNMSUB213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44971,7 +44977,7 @@ EVEX_VFNMSUB213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4498
 
 ``16/32/64-bit``
 """
-EVEX_VFNMSUB231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4499
+EVEX_VFNMSUB231SH_XMM_K1Z_XMM_XMMM16_ER: Code = 4499 # type: ignore
 """
 ``VFNMSUB231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -44981,7 +44987,7 @@ EVEX_VFNMSUB231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4499
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSPH_KR_K1_XMMM128B16_IMM8: int = 4500
+EVEX_VFPCLASSPH_KR_K1_XMMM128B16_IMM8: Code = 4500 # type: ignore
 """
 ``VFPCLASSPH k1 {k2}, xmm2/m128/m16bcst, imm8``
 
@@ -44991,7 +44997,7 @@ EVEX_VFPCLASSPH_KR_K1_XMMM128B16_IMM8: int = 4500
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSPH_KR_K1_YMMM256B16_IMM8: int = 4501
+EVEX_VFPCLASSPH_KR_K1_YMMM256B16_IMM8: Code = 4501 # type: ignore
 """
 ``VFPCLASSPH k1 {k2}, ymm2/m256/m16bcst, imm8``
 
@@ -45001,7 +45007,7 @@ EVEX_VFPCLASSPH_KR_K1_YMMM256B16_IMM8: int = 4501
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSPH_KR_K1_ZMMM512B16_IMM8: int = 4502
+EVEX_VFPCLASSPH_KR_K1_ZMMM512B16_IMM8: Code = 4502 # type: ignore
 """
 ``VFPCLASSPH k1 {k2}, zmm2/m512/m16bcst, imm8``
 
@@ -45011,7 +45017,7 @@ EVEX_VFPCLASSPH_KR_K1_ZMMM512B16_IMM8: int = 4502
 
 ``16/32/64-bit``
 """
-EVEX_VFPCLASSSH_KR_K1_XMMM16_IMM8: int = 4503
+EVEX_VFPCLASSSH_KR_K1_XMMM16_IMM8: Code = 4503 # type: ignore
 """
 ``VFPCLASSSH k1 {k2}, xmm2/m16, imm8``
 
@@ -45021,7 +45027,7 @@ EVEX_VFPCLASSSH_KR_K1_XMMM16_IMM8: int = 4503
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPPH_XMM_K1Z_XMMM128B16: int = 4504
+EVEX_VGETEXPPH_XMM_K1Z_XMMM128B16: Code = 4504 # type: ignore
 """
 ``VGETEXPPH xmm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -45031,7 +45037,7 @@ EVEX_VGETEXPPH_XMM_K1Z_XMMM128B16: int = 4504
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPPH_YMM_K1Z_YMMM256B16: int = 4505
+EVEX_VGETEXPPH_YMM_K1Z_YMMM256B16: Code = 4505 # type: ignore
 """
 ``VGETEXPPH ymm1 {k1}{z}, ymm2/m256/m16bcst``
 
@@ -45041,7 +45047,7 @@ EVEX_VGETEXPPH_YMM_K1Z_YMMM256B16: int = 4505
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPPH_ZMM_K1Z_ZMMM512B16_SAE: int = 4506
+EVEX_VGETEXPPH_ZMM_K1Z_ZMMM512B16_SAE: Code = 4506 # type: ignore
 """
 ``VGETEXPPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}``
 
@@ -45051,7 +45057,7 @@ EVEX_VGETEXPPH_ZMM_K1Z_ZMMM512B16_SAE: int = 4506
 
 ``16/32/64-bit``
 """
-EVEX_VGETEXPSH_XMM_K1Z_XMM_XMMM16_SAE: int = 4507
+EVEX_VGETEXPSH_XMM_K1Z_XMM_XMMM16_SAE: Code = 4507 # type: ignore
 """
 ``VGETEXPSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}``
 
@@ -45061,7 +45067,7 @@ EVEX_VGETEXPSH_XMM_K1Z_XMM_XMMM16_SAE: int = 4507
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTPH_XMM_K1Z_XMMM128B16_IMM8: int = 4508
+EVEX_VGETMANTPH_XMM_K1Z_XMMM128B16_IMM8: Code = 4508 # type: ignore
 """
 ``VGETMANTPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8``
 
@@ -45071,7 +45077,7 @@ EVEX_VGETMANTPH_XMM_K1Z_XMMM128B16_IMM8: int = 4508
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTPH_YMM_K1Z_YMMM256B16_IMM8: int = 4509
+EVEX_VGETMANTPH_YMM_K1Z_YMMM256B16_IMM8: Code = 4509 # type: ignore
 """
 ``VGETMANTPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8``
 
@@ -45081,7 +45087,7 @@ EVEX_VGETMANTPH_YMM_K1Z_YMMM256B16_IMM8: int = 4509
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: int = 4510
+EVEX_VGETMANTPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: Code = 4510 # type: ignore
 """
 ``VGETMANTPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8``
 
@@ -45091,7 +45097,7 @@ EVEX_VGETMANTPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: int = 4510
 
 ``16/32/64-bit``
 """
-EVEX_VGETMANTSH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: int = 4511
+EVEX_VGETMANTSH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: Code = 4511 # type: ignore
 """
 ``VGETMANTSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8``
 
@@ -45101,7 +45107,7 @@ EVEX_VGETMANTSH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: int = 4511
 
 ``16/32/64-bit``
 """
-EVEX_VMAXPH_XMM_K1Z_XMM_XMMM128B16: int = 4512
+EVEX_VMAXPH_XMM_K1Z_XMM_XMMM128B16: Code = 4512 # type: ignore
 """
 ``VMAXPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -45111,7 +45117,7 @@ EVEX_VMAXPH_XMM_K1Z_XMM_XMMM128B16: int = 4512
 
 ``16/32/64-bit``
 """
-EVEX_VMAXPH_YMM_K1Z_YMM_YMMM256B16: int = 4513
+EVEX_VMAXPH_YMM_K1Z_YMM_YMMM256B16: Code = 4513 # type: ignore
 """
 ``VMAXPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -45121,7 +45127,7 @@ EVEX_VMAXPH_YMM_K1Z_YMM_YMMM256B16: int = 4513
 
 ``16/32/64-bit``
 """
-EVEX_VMAXPH_ZMM_K1Z_ZMM_ZMMM512B16_SAE: int = 4514
+EVEX_VMAXPH_ZMM_K1Z_ZMM_ZMMM512B16_SAE: Code = 4514 # type: ignore
 """
 ``VMAXPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{sae}``
 
@@ -45131,7 +45137,7 @@ EVEX_VMAXPH_ZMM_K1Z_ZMM_ZMMM512B16_SAE: int = 4514
 
 ``16/32/64-bit``
 """
-EVEX_VMAXSH_XMM_K1Z_XMM_XMMM16_SAE: int = 4515
+EVEX_VMAXSH_XMM_K1Z_XMM_XMMM16_SAE: Code = 4515 # type: ignore
 """
 ``VMAXSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}``
 
@@ -45141,7 +45147,7 @@ EVEX_VMAXSH_XMM_K1Z_XMM_XMMM16_SAE: int = 4515
 
 ``16/32/64-bit``
 """
-EVEX_VMINPH_XMM_K1Z_XMM_XMMM128B16: int = 4516
+EVEX_VMINPH_XMM_K1Z_XMM_XMMM128B16: Code = 4516 # type: ignore
 """
 ``VMINPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -45151,7 +45157,7 @@ EVEX_VMINPH_XMM_K1Z_XMM_XMMM128B16: int = 4516
 
 ``16/32/64-bit``
 """
-EVEX_VMINPH_YMM_K1Z_YMM_YMMM256B16: int = 4517
+EVEX_VMINPH_YMM_K1Z_YMM_YMMM256B16: Code = 4517 # type: ignore
 """
 ``VMINPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -45161,7 +45167,7 @@ EVEX_VMINPH_YMM_K1Z_YMM_YMMM256B16: int = 4517
 
 ``16/32/64-bit``
 """
-EVEX_VMINPH_ZMM_K1Z_ZMM_ZMMM512B16_SAE: int = 4518
+EVEX_VMINPH_ZMM_K1Z_ZMM_ZMMM512B16_SAE: Code = 4518 # type: ignore
 """
 ``VMINPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{sae}``
 
@@ -45171,7 +45177,7 @@ EVEX_VMINPH_ZMM_K1Z_ZMM_ZMMM512B16_SAE: int = 4518
 
 ``16/32/64-bit``
 """
-EVEX_VMINSH_XMM_K1Z_XMM_XMMM16_SAE: int = 4519
+EVEX_VMINSH_XMM_K1Z_XMM_XMMM16_SAE: Code = 4519 # type: ignore
 """
 ``VMINSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}``
 
@@ -45181,7 +45187,7 @@ EVEX_VMINSH_XMM_K1Z_XMM_XMMM16_SAE: int = 4519
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSH_XMM_K1Z_M16: int = 4520
+EVEX_VMOVSH_XMM_K1Z_M16: Code = 4520 # type: ignore
 """
 ``VMOVSH xmm1 {k1}{z}, m16``
 
@@ -45191,7 +45197,7 @@ EVEX_VMOVSH_XMM_K1Z_M16: int = 4520
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSH_M16_K1_XMM: int = 4521
+EVEX_VMOVSH_M16_K1_XMM: Code = 4521 # type: ignore
 """
 ``VMOVSH m16 {k1}, xmm1``
 
@@ -45201,7 +45207,7 @@ EVEX_VMOVSH_M16_K1_XMM: int = 4521
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSH_XMM_K1Z_XMM_XMM: int = 4522
+EVEX_VMOVSH_XMM_K1Z_XMM_XMM: Code = 4522 # type: ignore
 """
 ``VMOVSH xmm1 {k1}{z}, xmm2, xmm3``
 
@@ -45211,7 +45217,7 @@ EVEX_VMOVSH_XMM_K1Z_XMM_XMM: int = 4522
 
 ``16/32/64-bit``
 """
-EVEX_VMOVSH_XMM_K1Z_XMM_XMM_MAP5_11: int = 4523
+EVEX_VMOVSH_XMM_K1Z_XMM_XMM_MAP5_11: Code = 4523 # type: ignore
 """
 ``VMOVSH xmm1 {k1}{z}, xmm2, xmm3``
 
@@ -45221,7 +45227,7 @@ EVEX_VMOVSH_XMM_K1Z_XMM_XMM_MAP5_11: int = 4523
 
 ``16/32/64-bit``
 """
-EVEX_VMOVW_XMM_R32M16: int = 4524
+EVEX_VMOVW_XMM_R32M16: Code = 4524 # type: ignore
 """
 ``VMOVW xmm1, r32/m16``
 
@@ -45231,7 +45237,7 @@ EVEX_VMOVW_XMM_R32M16: int = 4524
 
 ``16/32/64-bit``
 """
-EVEX_VMOVW_XMM_R64M16: int = 4525
+EVEX_VMOVW_XMM_R64M16: Code = 4525 # type: ignore
 """
 ``VMOVW xmm1, r64/m16``
 
@@ -45241,7 +45247,7 @@ EVEX_VMOVW_XMM_R64M16: int = 4525
 
 ``64-bit``
 """
-EVEX_VMOVW_R32M16_XMM: int = 4526
+EVEX_VMOVW_R32M16_XMM: Code = 4526 # type: ignore
 """
 ``VMOVW r32/m16, xmm1``
 
@@ -45251,7 +45257,7 @@ EVEX_VMOVW_R32M16_XMM: int = 4526
 
 ``16/32/64-bit``
 """
-EVEX_VMOVW_R64M16_XMM: int = 4527
+EVEX_VMOVW_R64M16_XMM: Code = 4527 # type: ignore
 """
 ``VMOVW r64/m16, xmm1``
 
@@ -45261,7 +45267,7 @@ EVEX_VMOVW_R64M16_XMM: int = 4527
 
 ``64-bit``
 """
-EVEX_VMULPH_XMM_K1Z_XMM_XMMM128B16: int = 4528
+EVEX_VMULPH_XMM_K1Z_XMM_XMMM128B16: Code = 4528 # type: ignore
 """
 ``VMULPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -45271,7 +45277,7 @@ EVEX_VMULPH_XMM_K1Z_XMM_XMMM128B16: int = 4528
 
 ``16/32/64-bit``
 """
-EVEX_VMULPH_YMM_K1Z_YMM_YMMM256B16: int = 4529
+EVEX_VMULPH_YMM_K1Z_YMM_YMMM256B16: Code = 4529 # type: ignore
 """
 ``VMULPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -45281,7 +45287,7 @@ EVEX_VMULPH_YMM_K1Z_YMM_YMMM256B16: int = 4529
 
 ``16/32/64-bit``
 """
-EVEX_VMULPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4530
+EVEX_VMULPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4530 # type: ignore
 """
 ``VMULPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -45291,7 +45297,7 @@ EVEX_VMULPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4530
 
 ``16/32/64-bit``
 """
-EVEX_VMULSH_XMM_K1Z_XMM_XMMM16_ER: int = 4531
+EVEX_VMULSH_XMM_K1Z_XMM_XMMM16_ER: Code = 4531 # type: ignore
 """
 ``VMULSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -45301,7 +45307,7 @@ EVEX_VMULSH_XMM_K1Z_XMM_XMMM16_ER: int = 4531
 
 ``16/32/64-bit``
 """
-EVEX_VRCPPH_XMM_K1Z_XMMM128B16: int = 4532
+EVEX_VRCPPH_XMM_K1Z_XMMM128B16: Code = 4532 # type: ignore
 """
 ``VRCPPH xmm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -45311,7 +45317,7 @@ EVEX_VRCPPH_XMM_K1Z_XMMM128B16: int = 4532
 
 ``16/32/64-bit``
 """
-EVEX_VRCPPH_YMM_K1Z_YMMM256B16: int = 4533
+EVEX_VRCPPH_YMM_K1Z_YMMM256B16: Code = 4533 # type: ignore
 """
 ``VRCPPH ymm1 {k1}{z}, ymm2/m256/m16bcst``
 
@@ -45321,7 +45327,7 @@ EVEX_VRCPPH_YMM_K1Z_YMMM256B16: int = 4533
 
 ``16/32/64-bit``
 """
-EVEX_VRCPPH_ZMM_K1Z_ZMMM512B16: int = 4534
+EVEX_VRCPPH_ZMM_K1Z_ZMMM512B16: Code = 4534 # type: ignore
 """
 ``VRCPPH zmm1 {k1}{z}, zmm2/m512/m16bcst``
 
@@ -45331,7 +45337,7 @@ EVEX_VRCPPH_ZMM_K1Z_ZMMM512B16: int = 4534
 
 ``16/32/64-bit``
 """
-EVEX_VRCPSH_XMM_K1Z_XMM_XMMM16: int = 4535
+EVEX_VRCPSH_XMM_K1Z_XMM_XMMM16: Code = 4535 # type: ignore
 """
 ``VRCPSH xmm1 {k1}{z}, xmm2, xmm3/m16``
 
@@ -45341,7 +45347,7 @@ EVEX_VRCPSH_XMM_K1Z_XMM_XMMM16: int = 4535
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCEPH_XMM_K1Z_XMMM128B16_IMM8: int = 4536
+EVEX_VREDUCEPH_XMM_K1Z_XMMM128B16_IMM8: Code = 4536 # type: ignore
 """
 ``VREDUCEPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8``
 
@@ -45351,7 +45357,7 @@ EVEX_VREDUCEPH_XMM_K1Z_XMMM128B16_IMM8: int = 4536
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCEPH_YMM_K1Z_YMMM256B16_IMM8: int = 4537
+EVEX_VREDUCEPH_YMM_K1Z_YMMM256B16_IMM8: Code = 4537 # type: ignore
 """
 ``VREDUCEPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8``
 
@@ -45361,7 +45367,7 @@ EVEX_VREDUCEPH_YMM_K1Z_YMMM256B16_IMM8: int = 4537
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCEPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: int = 4538
+EVEX_VREDUCEPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: Code = 4538 # type: ignore
 """
 ``VREDUCEPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8``
 
@@ -45371,7 +45377,7 @@ EVEX_VREDUCEPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: int = 4538
 
 ``16/32/64-bit``
 """
-EVEX_VREDUCESH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: int = 4539
+EVEX_VREDUCESH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: Code = 4539 # type: ignore
 """
 ``VREDUCESH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8``
 
@@ -45381,7 +45387,7 @@ EVEX_VREDUCESH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: int = 4539
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALEPH_XMM_K1Z_XMMM128B16_IMM8: int = 4540
+EVEX_VRNDSCALEPH_XMM_K1Z_XMMM128B16_IMM8: Code = 4540 # type: ignore
 """
 ``VRNDSCALEPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8``
 
@@ -45391,7 +45397,7 @@ EVEX_VRNDSCALEPH_XMM_K1Z_XMMM128B16_IMM8: int = 4540
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALEPH_YMM_K1Z_YMMM256B16_IMM8: int = 4541
+EVEX_VRNDSCALEPH_YMM_K1Z_YMMM256B16_IMM8: Code = 4541 # type: ignore
 """
 ``VRNDSCALEPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8``
 
@@ -45401,7 +45407,7 @@ EVEX_VRNDSCALEPH_YMM_K1Z_YMMM256B16_IMM8: int = 4541
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALEPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: int = 4542
+EVEX_VRNDSCALEPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: Code = 4542 # type: ignore
 """
 ``VRNDSCALEPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8``
 
@@ -45411,7 +45417,7 @@ EVEX_VRNDSCALEPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: int = 4542
 
 ``16/32/64-bit``
 """
-EVEX_VRNDSCALESH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: int = 4543
+EVEX_VRNDSCALESH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: Code = 4543 # type: ignore
 """
 ``VRNDSCALESH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8``
 
@@ -45421,7 +45427,7 @@ EVEX_VRNDSCALESH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: int = 4543
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRTPH_XMM_K1Z_XMMM128B16: int = 4544
+EVEX_VRSQRTPH_XMM_K1Z_XMMM128B16: Code = 4544 # type: ignore
 """
 ``VRSQRTPH xmm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -45431,7 +45437,7 @@ EVEX_VRSQRTPH_XMM_K1Z_XMMM128B16: int = 4544
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRTPH_YMM_K1Z_YMMM256B16: int = 4545
+EVEX_VRSQRTPH_YMM_K1Z_YMMM256B16: Code = 4545 # type: ignore
 """
 ``VRSQRTPH ymm1 {k1}{z}, ymm2/m256/m16bcst``
 
@@ -45441,7 +45447,7 @@ EVEX_VRSQRTPH_YMM_K1Z_YMMM256B16: int = 4545
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRTPH_ZMM_K1Z_ZMMM512B16: int = 4546
+EVEX_VRSQRTPH_ZMM_K1Z_ZMMM512B16: Code = 4546 # type: ignore
 """
 ``VRSQRTPH zmm1 {k1}{z}, zmm2/m512/m16bcst``
 
@@ -45451,7 +45457,7 @@ EVEX_VRSQRTPH_ZMM_K1Z_ZMMM512B16: int = 4546
 
 ``16/32/64-bit``
 """
-EVEX_VRSQRTSH_XMM_K1Z_XMM_XMMM16: int = 4547
+EVEX_VRSQRTSH_XMM_K1Z_XMM_XMMM16: Code = 4547 # type: ignore
 """
 ``VRSQRTSH xmm1 {k1}{z}, xmm2, xmm3/m16``
 
@@ -45461,7 +45467,7 @@ EVEX_VRSQRTSH_XMM_K1Z_XMM_XMMM16: int = 4547
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFPH_XMM_K1Z_XMM_XMMM128B16: int = 4548
+EVEX_VSCALEFPH_XMM_K1Z_XMM_XMMM128B16: Code = 4548 # type: ignore
 """
 ``VSCALEFPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -45471,7 +45477,7 @@ EVEX_VSCALEFPH_XMM_K1Z_XMM_XMMM128B16: int = 4548
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFPH_YMM_K1Z_YMM_YMMM256B16: int = 4549
+EVEX_VSCALEFPH_YMM_K1Z_YMM_YMMM256B16: Code = 4549 # type: ignore
 """
 ``VSCALEFPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -45481,7 +45487,7 @@ EVEX_VSCALEFPH_YMM_K1Z_YMM_YMMM256B16: int = 4549
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4550
+EVEX_VSCALEFPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4550 # type: ignore
 """
 ``VSCALEFPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -45491,7 +45497,7 @@ EVEX_VSCALEFPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4550
 
 ``16/32/64-bit``
 """
-EVEX_VSCALEFSH_XMM_K1Z_XMM_XMMM16_ER: int = 4551
+EVEX_VSCALEFSH_XMM_K1Z_XMM_XMMM16_ER: Code = 4551 # type: ignore
 """
 ``VSCALEFSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -45501,7 +45507,7 @@ EVEX_VSCALEFSH_XMM_K1Z_XMM_XMMM16_ER: int = 4551
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTPH_XMM_K1Z_XMMM128B16: int = 4552
+EVEX_VSQRTPH_XMM_K1Z_XMMM128B16: Code = 4552 # type: ignore
 """
 ``VSQRTPH xmm1 {k1}{z}, xmm2/m128/m16bcst``
 
@@ -45511,7 +45517,7 @@ EVEX_VSQRTPH_XMM_K1Z_XMMM128B16: int = 4552
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTPH_YMM_K1Z_YMMM256B16: int = 4553
+EVEX_VSQRTPH_YMM_K1Z_YMMM256B16: Code = 4553 # type: ignore
 """
 ``VSQRTPH ymm1 {k1}{z}, ymm2/m256/m16bcst``
 
@@ -45521,7 +45527,7 @@ EVEX_VSQRTPH_YMM_K1Z_YMMM256B16: int = 4553
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTPH_ZMM_K1Z_ZMMM512B16_ER: int = 4554
+EVEX_VSQRTPH_ZMM_K1Z_ZMMM512B16_ER: Code = 4554 # type: ignore
 """
 ``VSQRTPH zmm1 {k1}{z}, zmm2/m512/m16bcst{er}``
 
@@ -45531,7 +45537,7 @@ EVEX_VSQRTPH_ZMM_K1Z_ZMMM512B16_ER: int = 4554
 
 ``16/32/64-bit``
 """
-EVEX_VSQRTSH_XMM_K1Z_XMM_XMMM16_ER: int = 4555
+EVEX_VSQRTSH_XMM_K1Z_XMM_XMMM16_ER: Code = 4555 # type: ignore
 """
 ``VSQRTSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -45541,7 +45547,7 @@ EVEX_VSQRTSH_XMM_K1Z_XMM_XMMM16_ER: int = 4555
 
 ``16/32/64-bit``
 """
-EVEX_VSUBPH_XMM_K1Z_XMM_XMMM128B16: int = 4556
+EVEX_VSUBPH_XMM_K1Z_XMM_XMMM128B16: Code = 4556 # type: ignore
 """
 ``VSUBPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
 
@@ -45551,7 +45557,7 @@ EVEX_VSUBPH_XMM_K1Z_XMM_XMMM128B16: int = 4556
 
 ``16/32/64-bit``
 """
-EVEX_VSUBPH_YMM_K1Z_YMM_YMMM256B16: int = 4557
+EVEX_VSUBPH_YMM_K1Z_YMM_YMMM256B16: Code = 4557 # type: ignore
 """
 ``VSUBPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
 
@@ -45561,7 +45567,7 @@ EVEX_VSUBPH_YMM_K1Z_YMM_YMMM256B16: int = 4557
 
 ``16/32/64-bit``
 """
-EVEX_VSUBPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4558
+EVEX_VSUBPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: Code = 4558 # type: ignore
 """
 ``VSUBPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
 
@@ -45571,7 +45577,7 @@ EVEX_VSUBPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4558
 
 ``16/32/64-bit``
 """
-EVEX_VSUBSH_XMM_K1Z_XMM_XMMM16_ER: int = 4559
+EVEX_VSUBSH_XMM_K1Z_XMM_XMMM16_ER: Code = 4559 # type: ignore
 """
 ``VSUBSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
 
@@ -45581,7 +45587,7 @@ EVEX_VSUBSH_XMM_K1Z_XMM_XMMM16_ER: int = 4559
 
 ``16/32/64-bit``
 """
-EVEX_VUCOMISH_XMM_XMMM16_SAE: int = 4560
+EVEX_VUCOMISH_XMM_XMMM16_SAE: Code = 4560 # type: ignore
 """
 ``VUCOMISH xmm1, xmm2/m16{sae}``
 
@@ -45591,7 +45597,7 @@ EVEX_VUCOMISH_XMM_XMMM16_SAE: int = 4560
 
 ``16/32/64-bit``
 """
-RDUDBG: int = 4561
+RDUDBG: Code = 4561 # type: ignore
 """
 ``RDUDBG``
 
@@ -45601,7 +45607,7 @@ RDUDBG: int = 4561
 
 ``16/32/64-bit``
 """
-WRUDBG: int = 4562
+WRUDBG: Code = 4562 # type: ignore
 """
 ``WRUDBG``
 

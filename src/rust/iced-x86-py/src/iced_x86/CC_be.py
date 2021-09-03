@@ -11,11 +11,17 @@
 Mnemonic condition code selector (eg. ``JBE`` / ``JNA``)
 """
 
-BE: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import CC_be
+else:
+	CC_be = int
+
+BE: CC_be = 0 # type: ignore
 """
 ``JBE``, ``CMOVBE``, ``SETBE``
 """
-NA: int = 1
+NA: CC_be = 1 # type: ignore
 """
 ``JNA``, ``CMOVNA``, ``SETNA``
 """

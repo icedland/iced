@@ -11,11 +11,17 @@
 Mnemonic condition code selector (eg. ``JE`` / ``JZ``)
 """
 
-E: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import CC_e
+else:
+	CC_e = int
+
+E: CC_e = 0 # type: ignore
 """
 ``JE``, ``CMOVE``, ``SETE``, ``LOOPE``, ``REPE``
 """
-Z: int = 1
+Z: CC_e = 1 # type: ignore
 """
 ``JZ``, ``CMOVZ``, ``SETZ``, ``LOOPZ``, ``REPZ``
 """

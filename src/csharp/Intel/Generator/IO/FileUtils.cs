@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Generator.IO {
 	static class FileUtils {
-		static readonly Encoding fileEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
+		public static readonly Encoding FileEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
 
 		public static StreamWriter OpenWrite(string filename) =>
-			new(filename, append: false, fileEncoding);
+			new(filename, append: false, FileEncoding);
 	}
 }

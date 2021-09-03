@@ -11,15 +11,21 @@
 ``REP``/``REPE``/``REPNE`` prefix
 """
 
-NONE: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import RepPrefixKind
+else:
+	RepPrefixKind = int
+
+NONE: RepPrefixKind = 0 # type: ignore
 """
 No ``REP``/``REPE``/``REPNE`` prefix
 """
-REPE: int = 1
+REPE: RepPrefixKind = 1 # type: ignore
 """
 ``REP``/``REPE`` prefix
 """
-REPNE: int = 2
+REPNE: RepPrefixKind = 2 # type: ignore
 """
 ``REPNE`` prefix
 """

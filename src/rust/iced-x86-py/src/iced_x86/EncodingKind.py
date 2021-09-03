@@ -11,23 +11,29 @@
 Instruction encoding
 """
 
-LEGACY: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import EncodingKind
+else:
+	EncodingKind = int
+
+LEGACY: EncodingKind = 0 # type: ignore
 """
 Legacy encoding
 """
-VEX: int = 1
+VEX: EncodingKind = 1 # type: ignore
 """
 VEX encoding
 """
-EVEX: int = 2
+EVEX: EncodingKind = 2 # type: ignore
 """
 EVEX encoding
 """
-XOP: int = 3
+XOP: EncodingKind = 3 # type: ignore
 """
 XOP encoding
 """
-D3NOW: int = 4
+D3NOW: EncodingKind = 4 # type: ignore
 """
 3DNow! encoding
 """

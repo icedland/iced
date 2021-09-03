@@ -11,19 +11,25 @@
 The code size (16/32/64) that was used when an instruction was decoded
 """
 
-UNKNOWN: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import CodeSize
+else:
+	CodeSize = int
+
+UNKNOWN: CodeSize = 0 # type: ignore
 """
 Unknown size
 """
-CODE16: int = 1
+CODE16: CodeSize = 1 # type: ignore
 """
 16-bit code
 """
-CODE32: int = 2
+CODE32: CodeSize = 2 # type: ignore
 """
 32-bit code
 """
-CODE64: int = 3
+CODE64: CodeSize = 3 # type: ignore
 """
 64-bit code
 """

@@ -11,19 +11,25 @@
 Memory size options used by the formatters
 """
 
-DEFAULT: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import MemorySizeOptions
+else:
+	MemorySizeOptions = int
+
+DEFAULT: MemorySizeOptions = 0 # type: ignore
 """
 Show memory size if the assembler requires it, else don't show anything
 """
-ALWAYS: int = 1
+ALWAYS: MemorySizeOptions = 1 # type: ignore
 """
 Always show the memory size, even if the assembler doesn't need it
 """
-MINIMAL: int = 2
+MINIMAL: MemorySizeOptions = 2 # type: ignore
 """
 Show memory size if a human can't figure out the size of the operand
 """
-NEVER: int = 3
+NEVER: MemorySizeOptions = 3 # type: ignore
 """
 Never show memory size
 """

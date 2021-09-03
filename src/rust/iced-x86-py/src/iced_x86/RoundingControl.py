@@ -11,23 +11,29 @@
 Rounding control
 """
 
-NONE: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import RoundingControl
+else:
+	RoundingControl = int
+
+NONE: RoundingControl = 0 # type: ignore
 """
 No rounding mode
 """
-ROUND_TO_NEAREST: int = 1
+ROUND_TO_NEAREST: RoundingControl = 1 # type: ignore
 """
 Round to nearest (even)
 """
-ROUND_DOWN: int = 2
+ROUND_DOWN: RoundingControl = 2 # type: ignore
 """
 Round down (toward -inf)
 """
-ROUND_UP: int = 3
+ROUND_UP: RoundingControl = 3 # type: ignore
 """
 Round up (toward +inf)
 """
-ROUND_TOWARD_ZERO: int = 4
+ROUND_TOWARD_ZERO: RoundingControl = 4 # type: ignore
 """
 Round toward zero (truncate)
 """

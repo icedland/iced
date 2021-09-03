@@ -11,643 +11,649 @@
 Size of a memory reference
 """
 
-UNKNOWN: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import MemorySize
+else:
+	MemorySize = int
+
+UNKNOWN: MemorySize = 0 # type: ignore
 """
 Unknown size or the instruction doesn't reference any memory (eg. ``LEA``)
 """
-UINT8: int = 1
+UINT8: MemorySize = 1 # type: ignore
 """
 Memory location contains a ``u8``
 """
-UINT16: int = 2
+UINT16: MemorySize = 2 # type: ignore
 """
 Memory location contains a ``u16``
 """
-UINT32: int = 3
+UINT32: MemorySize = 3 # type: ignore
 """
 Memory location contains a ``u32``
 """
-UINT52: int = 4
+UINT52: MemorySize = 4 # type: ignore
 """
 Memory location contains a ``u52``
 """
-UINT64: int = 5
+UINT64: MemorySize = 5 # type: ignore
 """
 Memory location contains a ``u64``
 """
-UINT128: int = 6
+UINT128: MemorySize = 6 # type: ignore
 """
 Memory location contains a ``u128``
 """
-UINT256: int = 7
+UINT256: MemorySize = 7 # type: ignore
 """
 Memory location contains a ``u256``
 """
-UINT512: int = 8
+UINT512: MemorySize = 8 # type: ignore
 """
 Memory location contains a ``u512``
 """
-INT8: int = 9
+INT8: MemorySize = 9 # type: ignore
 """
 Memory location contains a ``i8``
 """
-INT16: int = 10
+INT16: MemorySize = 10 # type: ignore
 """
 Memory location contains a ``i16``
 """
-INT32: int = 11
+INT32: MemorySize = 11 # type: ignore
 """
 Memory location contains a ``i32``
 """
-INT64: int = 12
+INT64: MemorySize = 12 # type: ignore
 """
 Memory location contains a ``i64``
 """
-INT128: int = 13
+INT128: MemorySize = 13 # type: ignore
 """
 Memory location contains a ``i128``
 """
-INT256: int = 14
+INT256: MemorySize = 14 # type: ignore
 """
 Memory location contains a ``i256``
 """
-INT512: int = 15
+INT512: MemorySize = 15 # type: ignore
 """
 Memory location contains a ``i512``
 """
-SEG_PTR16: int = 16
+SEG_PTR16: MemorySize = 16 # type: ignore
 """
 : Memory location contains a seg:ptr pair, ``u16`` (offset) + ``u16`` (segment/selector)
 """
-SEG_PTR32: int = 17
+SEG_PTR32: MemorySize = 17 # type: ignore
 """
 : Memory location contains a seg:ptr pair, ``u32`` (offset) + ``u16`` (segment/selector)
 """
-SEG_PTR64: int = 18
+SEG_PTR64: MemorySize = 18 # type: ignore
 """
 : Memory location contains a seg:ptr pair, ``u64`` (offset) + ``u16`` (segment/selector)
 """
-WORD_OFFSET: int = 19
+WORD_OFFSET: MemorySize = 19 # type: ignore
 """
 Memory location contains a 16-bit offset (``JMP/CALL WORD PTR [mem]``)
 """
-DWORD_OFFSET: int = 20
+DWORD_OFFSET: MemorySize = 20 # type: ignore
 """
 Memory location contains a 32-bit offset (``JMP/CALL DWORD PTR [mem]``)
 """
-QWORD_OFFSET: int = 21
+QWORD_OFFSET: MemorySize = 21 # type: ignore
 """
 Memory location contains a 64-bit offset (``JMP/CALL QWORD PTR [mem]``)
 """
-BOUND16_WORD_WORD: int = 22
+BOUND16_WORD_WORD: MemorySize = 22 # type: ignore
 """
 Memory location contains two ``u16``s (16-bit ``BOUND``)
 """
-BOUND32_DWORD_DWORD: int = 23
+BOUND32_DWORD_DWORD: MemorySize = 23 # type: ignore
 """
 Memory location contains two ``u32``s (32-bit ``BOUND``)
 """
-BND32: int = 24
+BND32: MemorySize = 24 # type: ignore
 """
 32-bit ``BNDMOV``, 2 x ``u32``
 """
-BND64: int = 25
+BND64: MemorySize = 25 # type: ignore
 """
 64-bit ``BNDMOV``, 2 x ``u64``
 """
-FWORD6: int = 26
+FWORD6: MemorySize = 26 # type: ignore
 """
 Memory location contains a 16-bit limit and a 32-bit address (eg. ``LGDTW``, ``LGDTD``)
 """
-FWORD10: int = 27
+FWORD10: MemorySize = 27 # type: ignore
 """
 Memory location contains a 16-bit limit and a 64-bit address (eg. ``LGDTQ``)
 """
-FLOAT16: int = 28
+FLOAT16: MemorySize = 28 # type: ignore
 """
 Memory location contains a ``f16``
 """
-FLOAT32: int = 29
+FLOAT32: MemorySize = 29 # type: ignore
 """
 Memory location contains a ``f32``
 """
-FLOAT64: int = 30
+FLOAT64: MemorySize = 30 # type: ignore
 """
 Memory location contains a ``f64``
 """
-FLOAT80: int = 31
+FLOAT80: MemorySize = 31 # type: ignore
 """
 Memory location contains a ``f80``
 """
-FLOAT128: int = 32
+FLOAT128: MemorySize = 32 # type: ignore
 """
 Memory location contains a ``f128``
 """
-BFLOAT16: int = 33
+BFLOAT16: MemorySize = 33 # type: ignore
 """
 Memory location contains a ``bfloat16``
 """
-FPU_ENV14: int = 34
+FPU_ENV14: MemorySize = 34 # type: ignore
 """
 Memory location contains a 14-byte FPU environment (16-bit ``FLDENV``/``FSTENV``)
 """
-FPU_ENV28: int = 35
+FPU_ENV28: MemorySize = 35 # type: ignore
 """
 Memory location contains a 28-byte FPU environment (32/64-bit ``FLDENV``/``FSTENV``)
 """
-FPU_STATE94: int = 36
+FPU_STATE94: MemorySize = 36 # type: ignore
 """
 Memory location contains a 94-byte FPU environment (16-bit ``FSAVE``/``FRSTOR``)
 """
-FPU_STATE108: int = 37
+FPU_STATE108: MemorySize = 37 # type: ignore
 """
 Memory location contains a 108-byte FPU environment (32/64-bit ``FSAVE``/``FRSTOR``)
 """
-FXSAVE_512BYTE: int = 38
+FXSAVE_512BYTE: MemorySize = 38 # type: ignore
 """
 Memory location contains 512-bytes of ``FXSAVE``/``FXRSTOR`` data
 """
-FXSAVE64_512BYTE: int = 39
+FXSAVE64_512BYTE: MemorySize = 39 # type: ignore
 """
 Memory location contains 512-bytes of ``FXSAVE64``/``FXRSTOR64`` data
 """
-XSAVE: int = 40
+XSAVE: MemorySize = 40 # type: ignore
 """
 32-bit ``XSAVE`` area
 """
-XSAVE64: int = 41
+XSAVE64: MemorySize = 41 # type: ignore
 """
 64-bit ``XSAVE`` area
 """
-BCD: int = 42
+BCD: MemorySize = 42 # type: ignore
 """
 Memory location contains a 10-byte ``bcd`` value (``FBLD``/``FBSTP``)
 """
-TILECFG: int = 43
+TILECFG: MemorySize = 43 # type: ignore
 """
 : 64-bit location: TILECFG (``LDTILECFG``/``STTILECFG``)
 """
-TILE: int = 44
+TILE: MemorySize = 44 # type: ignore
 """
 Tile data
 """
-SEGMENT_DESC_SELECTOR: int = 45
+SEGMENT_DESC_SELECTOR: MemorySize = 45 # type: ignore
 """
 : 80-bit segment descriptor and selector: 0-7 = descriptor, 8-9 = selector
 """
-KLHANDLE_AES128: int = 46
+KLHANDLE_AES128: MemorySize = 46 # type: ignore
 """
 384-bit AES 128 handle (Key Locker)
 """
-KLHANDLE_AES256: int = 47
+KLHANDLE_AES256: MemorySize = 47 # type: ignore
 """
 512-bit AES 256 handle (Key Locker)
 """
-PACKED16_UINT8: int = 48
+PACKED16_UINT8: MemorySize = 48 # type: ignore
 """
 : 16-bit location: 2 x ``u8``
 """
-PACKED16_INT8: int = 49
+PACKED16_INT8: MemorySize = 49 # type: ignore
 """
 : 16-bit location: 2 x ``i8``
 """
-PACKED32_UINT8: int = 50
+PACKED32_UINT8: MemorySize = 50 # type: ignore
 """
 : 32-bit location: 4 x ``u8``
 """
-PACKED32_INT8: int = 51
+PACKED32_INT8: MemorySize = 51 # type: ignore
 """
 : 32-bit location: 4 x ``i8``
 """
-PACKED32_UINT16: int = 52
+PACKED32_UINT16: MemorySize = 52 # type: ignore
 """
 : 32-bit location: 2 x ``u16``
 """
-PACKED32_INT16: int = 53
+PACKED32_INT16: MemorySize = 53 # type: ignore
 """
 : 32-bit location: 2 x ``i16``
 """
-PACKED32_FLOAT16: int = 54
+PACKED32_FLOAT16: MemorySize = 54 # type: ignore
 """
 : 32-bit location: 2 x ``f16``
 """
-PACKED32_BFLOAT16: int = 55
+PACKED32_BFLOAT16: MemorySize = 55 # type: ignore
 """
 : 32-bit location: 2 x ``bfloat16``
 """
-PACKED64_UINT8: int = 56
+PACKED64_UINT8: MemorySize = 56 # type: ignore
 """
 : 64-bit location: 8 x ``u8``
 """
-PACKED64_INT8: int = 57
+PACKED64_INT8: MemorySize = 57 # type: ignore
 """
 : 64-bit location: 8 x ``i8``
 """
-PACKED64_UINT16: int = 58
+PACKED64_UINT16: MemorySize = 58 # type: ignore
 """
 : 64-bit location: 4 x ``u16``
 """
-PACKED64_INT16: int = 59
+PACKED64_INT16: MemorySize = 59 # type: ignore
 """
 : 64-bit location: 4 x ``i16``
 """
-PACKED64_UINT32: int = 60
+PACKED64_UINT32: MemorySize = 60 # type: ignore
 """
 : 64-bit location: 2 x ``u32``
 """
-PACKED64_INT32: int = 61
+PACKED64_INT32: MemorySize = 61 # type: ignore
 """
 : 64-bit location: 2 x ``i32``
 """
-PACKED64_FLOAT16: int = 62
+PACKED64_FLOAT16: MemorySize = 62 # type: ignore
 """
 : 64-bit location: 4 x ``f16``
 """
-PACKED64_FLOAT32: int = 63
+PACKED64_FLOAT32: MemorySize = 63 # type: ignore
 """
 : 64-bit location: 2 x ``f32``
 """
-PACKED128_UINT8: int = 64
+PACKED128_UINT8: MemorySize = 64 # type: ignore
 """
 : 128-bit location: 16 x ``u8``
 """
-PACKED128_INT8: int = 65
+PACKED128_INT8: MemorySize = 65 # type: ignore
 """
 : 128-bit location: 16 x ``i8``
 """
-PACKED128_UINT16: int = 66
+PACKED128_UINT16: MemorySize = 66 # type: ignore
 """
 : 128-bit location: 8 x ``u16``
 """
-PACKED128_INT16: int = 67
+PACKED128_INT16: MemorySize = 67 # type: ignore
 """
 : 128-bit location: 8 x ``i16``
 """
-PACKED128_UINT32: int = 68
+PACKED128_UINT32: MemorySize = 68 # type: ignore
 """
 : 128-bit location: 4 x ``u32``
 """
-PACKED128_INT32: int = 69
+PACKED128_INT32: MemorySize = 69 # type: ignore
 """
 : 128-bit location: 4 x ``i32``
 """
-PACKED128_UINT52: int = 70
+PACKED128_UINT52: MemorySize = 70 # type: ignore
 """
 : 128-bit location: 2 x ``u52``
 """
-PACKED128_UINT64: int = 71
+PACKED128_UINT64: MemorySize = 71 # type: ignore
 """
 : 128-bit location: 2 x ``u64``
 """
-PACKED128_INT64: int = 72
+PACKED128_INT64: MemorySize = 72 # type: ignore
 """
 : 128-bit location: 2 x ``i64``
 """
-PACKED128_FLOAT16: int = 73
+PACKED128_FLOAT16: MemorySize = 73 # type: ignore
 """
 : 128-bit location: 8 x ``f16``
 """
-PACKED128_FLOAT32: int = 74
+PACKED128_FLOAT32: MemorySize = 74 # type: ignore
 """
 : 128-bit location: 4 x ``f32``
 """
-PACKED128_FLOAT64: int = 75
+PACKED128_FLOAT64: MemorySize = 75 # type: ignore
 """
 : 128-bit location: 2 x ``f64``
 """
-PACKED128_2X_FLOAT16: int = 76
+PACKED128_2X_FLOAT16: MemorySize = 76 # type: ignore
 """
 : 128-bit location: 4 x (2 x ``f16``)
 """
-PACKED128_2X_BFLOAT16: int = 77
+PACKED128_2X_BFLOAT16: MemorySize = 77 # type: ignore
 """
 : 128-bit location: 4 x (2 x ``bfloat16``)
 """
-PACKED256_UINT8: int = 78
+PACKED256_UINT8: MemorySize = 78 # type: ignore
 """
 : 256-bit location: 32 x ``u8``
 """
-PACKED256_INT8: int = 79
+PACKED256_INT8: MemorySize = 79 # type: ignore
 """
 : 256-bit location: 32 x ``i8``
 """
-PACKED256_UINT16: int = 80
+PACKED256_UINT16: MemorySize = 80 # type: ignore
 """
 : 256-bit location: 16 x ``u16``
 """
-PACKED256_INT16: int = 81
+PACKED256_INT16: MemorySize = 81 # type: ignore
 """
 : 256-bit location: 16 x ``i16``
 """
-PACKED256_UINT32: int = 82
+PACKED256_UINT32: MemorySize = 82 # type: ignore
 """
 : 256-bit location: 8 x ``u32``
 """
-PACKED256_INT32: int = 83
+PACKED256_INT32: MemorySize = 83 # type: ignore
 """
 : 256-bit location: 8 x ``i32``
 """
-PACKED256_UINT52: int = 84
+PACKED256_UINT52: MemorySize = 84 # type: ignore
 """
 : 256-bit location: 4 x ``u52``
 """
-PACKED256_UINT64: int = 85
+PACKED256_UINT64: MemorySize = 85 # type: ignore
 """
 : 256-bit location: 4 x ``u64``
 """
-PACKED256_INT64: int = 86
+PACKED256_INT64: MemorySize = 86 # type: ignore
 """
 : 256-bit location: 4 x ``i64``
 """
-PACKED256_UINT128: int = 87
+PACKED256_UINT128: MemorySize = 87 # type: ignore
 """
 : 256-bit location: 2 x ``u128``
 """
-PACKED256_INT128: int = 88
+PACKED256_INT128: MemorySize = 88 # type: ignore
 """
 : 256-bit location: 2 x ``i128``
 """
-PACKED256_FLOAT16: int = 89
+PACKED256_FLOAT16: MemorySize = 89 # type: ignore
 """
 : 256-bit location: 16 x ``f16``
 """
-PACKED256_FLOAT32: int = 90
+PACKED256_FLOAT32: MemorySize = 90 # type: ignore
 """
 : 256-bit location: 8 x ``f32``
 """
-PACKED256_FLOAT64: int = 91
+PACKED256_FLOAT64: MemorySize = 91 # type: ignore
 """
 : 256-bit location: 4 x ``f64``
 """
-PACKED256_FLOAT128: int = 92
+PACKED256_FLOAT128: MemorySize = 92 # type: ignore
 """
 : 256-bit location: 2 x ``f128``
 """
-PACKED256_2X_FLOAT16: int = 93
+PACKED256_2X_FLOAT16: MemorySize = 93 # type: ignore
 """
 : 256-bit location: 8 x (2 x ``f16``)
 """
-PACKED256_2X_BFLOAT16: int = 94
+PACKED256_2X_BFLOAT16: MemorySize = 94 # type: ignore
 """
 : 256-bit location: 8 x (2 x ``bfloat16``)
 """
-PACKED512_UINT8: int = 95
+PACKED512_UINT8: MemorySize = 95 # type: ignore
 """
 : 512-bit location: 64 x ``u8``
 """
-PACKED512_INT8: int = 96
+PACKED512_INT8: MemorySize = 96 # type: ignore
 """
 : 512-bit location: 64 x ``i8``
 """
-PACKED512_UINT16: int = 97
+PACKED512_UINT16: MemorySize = 97 # type: ignore
 """
 : 512-bit location: 32 x ``u16``
 """
-PACKED512_INT16: int = 98
+PACKED512_INT16: MemorySize = 98 # type: ignore
 """
 : 512-bit location: 32 x ``i16``
 """
-PACKED512_UINT32: int = 99
+PACKED512_UINT32: MemorySize = 99 # type: ignore
 """
 : 512-bit location: 16 x ``u32``
 """
-PACKED512_INT32: int = 100
+PACKED512_INT32: MemorySize = 100 # type: ignore
 """
 : 512-bit location: 16 x ``i32``
 """
-PACKED512_UINT52: int = 101
+PACKED512_UINT52: MemorySize = 101 # type: ignore
 """
 : 512-bit location: 8 x ``u52``
 """
-PACKED512_UINT64: int = 102
+PACKED512_UINT64: MemorySize = 102 # type: ignore
 """
 : 512-bit location: 8 x ``u64``
 """
-PACKED512_INT64: int = 103
+PACKED512_INT64: MemorySize = 103 # type: ignore
 """
 : 512-bit location: 8 x ``i64``
 """
-PACKED512_UINT128: int = 104
+PACKED512_UINT128: MemorySize = 104 # type: ignore
 """
 : 256-bit location: 4 x ``u128``
 """
-PACKED512_FLOAT16: int = 105
+PACKED512_FLOAT16: MemorySize = 105 # type: ignore
 """
 : 512-bit location: 32 x ``f16``
 """
-PACKED512_FLOAT32: int = 106
+PACKED512_FLOAT32: MemorySize = 106 # type: ignore
 """
 : 512-bit location: 16 x ``f32``
 """
-PACKED512_FLOAT64: int = 107
+PACKED512_FLOAT64: MemorySize = 107 # type: ignore
 """
 : 512-bit location: 8 x ``f64``
 """
-PACKED512_2X_FLOAT16: int = 108
+PACKED512_2X_FLOAT16: MemorySize = 108 # type: ignore
 """
 : 512-bit location: 16 x (2 x ``f16``)
 """
-PACKED512_2X_BFLOAT16: int = 109
+PACKED512_2X_BFLOAT16: MemorySize = 109 # type: ignore
 """
 : 512-bit location: 16 x (2 x ``bfloat16``)
 """
-BROADCAST32_FLOAT16: int = 110
+BROADCAST32_FLOAT16: MemorySize = 110 # type: ignore
 """
 Broadcast ``f16`` to 32-bits
 """
-BROADCAST64_UINT32: int = 111
+BROADCAST64_UINT32: MemorySize = 111 # type: ignore
 """
 Broadcast ``u32`` to 64-bits
 """
-BROADCAST64_INT32: int = 112
+BROADCAST64_INT32: MemorySize = 112 # type: ignore
 """
 Broadcast ``i32`` to 64-bits
 """
-BROADCAST64_FLOAT16: int = 113
+BROADCAST64_FLOAT16: MemorySize = 113 # type: ignore
 """
 Broadcast ``f16`` to 64-bits
 """
-BROADCAST64_FLOAT32: int = 114
+BROADCAST64_FLOAT32: MemorySize = 114 # type: ignore
 """
 Broadcast ``f32`` to 64-bits
 """
-BROADCAST128_INT16: int = 115
+BROADCAST128_INT16: MemorySize = 115 # type: ignore
 """
 Broadcast ``i16`` to 128-bits
 """
-BROADCAST128_UINT16: int = 116
+BROADCAST128_UINT16: MemorySize = 116 # type: ignore
 """
 Broadcast ``u16`` to 128-bits
 """
-BROADCAST128_UINT32: int = 117
+BROADCAST128_UINT32: MemorySize = 117 # type: ignore
 """
 Broadcast ``u32`` to 128-bits
 """
-BROADCAST128_INT32: int = 118
+BROADCAST128_INT32: MemorySize = 118 # type: ignore
 """
 Broadcast ``i32`` to 128-bits
 """
-BROADCAST128_UINT52: int = 119
+BROADCAST128_UINT52: MemorySize = 119 # type: ignore
 """
 Broadcast ``u52`` to 128-bits
 """
-BROADCAST128_UINT64: int = 120
+BROADCAST128_UINT64: MemorySize = 120 # type: ignore
 """
 Broadcast ``u64`` to 128-bits
 """
-BROADCAST128_INT64: int = 121
+BROADCAST128_INT64: MemorySize = 121 # type: ignore
 """
 Broadcast ``i64`` to 128-bits
 """
-BROADCAST128_FLOAT16: int = 122
+BROADCAST128_FLOAT16: MemorySize = 122 # type: ignore
 """
 Broadcast ``f16`` to 128-bits
 """
-BROADCAST128_FLOAT32: int = 123
+BROADCAST128_FLOAT32: MemorySize = 123 # type: ignore
 """
 Broadcast ``f32`` to 128-bits
 """
-BROADCAST128_FLOAT64: int = 124
+BROADCAST128_FLOAT64: MemorySize = 124 # type: ignore
 """
 Broadcast ``f64`` to 128-bits
 """
-BROADCAST128_2X_INT16: int = 125
+BROADCAST128_2X_INT16: MemorySize = 125 # type: ignore
 """
 Broadcast 2 x ``i16`` to 128-bits
 """
-BROADCAST128_2X_INT32: int = 126
+BROADCAST128_2X_INT32: MemorySize = 126 # type: ignore
 """
 Broadcast 2 x ``i32`` to 128-bits
 """
-BROADCAST128_2X_UINT32: int = 127
+BROADCAST128_2X_UINT32: MemorySize = 127 # type: ignore
 """
 Broadcast 2 x ``u32`` to 128-bits
 """
-BROADCAST128_2X_FLOAT16: int = 128
+BROADCAST128_2X_FLOAT16: MemorySize = 128 # type: ignore
 """
 Broadcast 2 x ``f16`` to 128-bits
 """
-BROADCAST128_2X_BFLOAT16: int = 129
+BROADCAST128_2X_BFLOAT16: MemorySize = 129 # type: ignore
 """
 Broadcast 2 x ``bfloat16`` to 128-bits
 """
-BROADCAST256_INT16: int = 130
+BROADCAST256_INT16: MemorySize = 130 # type: ignore
 """
 Broadcast ``i16`` to 256-bits
 """
-BROADCAST256_UINT16: int = 131
+BROADCAST256_UINT16: MemorySize = 131 # type: ignore
 """
 Broadcast ``u16`` to 256-bits
 """
-BROADCAST256_UINT32: int = 132
+BROADCAST256_UINT32: MemorySize = 132 # type: ignore
 """
 Broadcast ``u32`` to 256-bits
 """
-BROADCAST256_INT32: int = 133
+BROADCAST256_INT32: MemorySize = 133 # type: ignore
 """
 Broadcast ``i32`` to 256-bits
 """
-BROADCAST256_UINT52: int = 134
+BROADCAST256_UINT52: MemorySize = 134 # type: ignore
 """
 Broadcast ``u52`` to 256-bits
 """
-BROADCAST256_UINT64: int = 135
+BROADCAST256_UINT64: MemorySize = 135 # type: ignore
 """
 Broadcast ``u64`` to 256-bits
 """
-BROADCAST256_INT64: int = 136
+BROADCAST256_INT64: MemorySize = 136 # type: ignore
 """
 Broadcast ``i64`` to 256-bits
 """
-BROADCAST256_FLOAT16: int = 137
+BROADCAST256_FLOAT16: MemorySize = 137 # type: ignore
 """
 Broadcast ``f16`` to 256-bits
 """
-BROADCAST256_FLOAT32: int = 138
+BROADCAST256_FLOAT32: MemorySize = 138 # type: ignore
 """
 Broadcast ``f32`` to 256-bits
 """
-BROADCAST256_FLOAT64: int = 139
+BROADCAST256_FLOAT64: MemorySize = 139 # type: ignore
 """
 Broadcast ``f64`` to 256-bits
 """
-BROADCAST256_2X_INT16: int = 140
+BROADCAST256_2X_INT16: MemorySize = 140 # type: ignore
 """
 Broadcast 2 x ``i16`` to 256-bits
 """
-BROADCAST256_2X_INT32: int = 141
+BROADCAST256_2X_INT32: MemorySize = 141 # type: ignore
 """
 Broadcast 2 x ``i32`` to 256-bits
 """
-BROADCAST256_2X_UINT32: int = 142
+BROADCAST256_2X_UINT32: MemorySize = 142 # type: ignore
 """
 Broadcast 2 x ``u32`` to 256-bits
 """
-BROADCAST256_2X_FLOAT16: int = 143
+BROADCAST256_2X_FLOAT16: MemorySize = 143 # type: ignore
 """
 Broadcast 2 x ``f16`` to 256-bits
 """
-BROADCAST256_2X_BFLOAT16: int = 144
+BROADCAST256_2X_BFLOAT16: MemorySize = 144 # type: ignore
 """
 Broadcast 2 x ``bfloat16`` to 256-bits
 """
-BROADCAST512_INT16: int = 145
+BROADCAST512_INT16: MemorySize = 145 # type: ignore
 """
 Broadcast ``i16`` to 512-bits
 """
-BROADCAST512_UINT16: int = 146
+BROADCAST512_UINT16: MemorySize = 146 # type: ignore
 """
 Broadcast ``u16`` to 512-bits
 """
-BROADCAST512_UINT32: int = 147
+BROADCAST512_UINT32: MemorySize = 147 # type: ignore
 """
 Broadcast ``u32`` to 512-bits
 """
-BROADCAST512_INT32: int = 148
+BROADCAST512_INT32: MemorySize = 148 # type: ignore
 """
 Broadcast ``i32`` to 512-bits
 """
-BROADCAST512_UINT52: int = 149
+BROADCAST512_UINT52: MemorySize = 149 # type: ignore
 """
 Broadcast ``u52`` to 512-bits
 """
-BROADCAST512_UINT64: int = 150
+BROADCAST512_UINT64: MemorySize = 150 # type: ignore
 """
 Broadcast ``u64`` to 512-bits
 """
-BROADCAST512_INT64: int = 151
+BROADCAST512_INT64: MemorySize = 151 # type: ignore
 """
 Broadcast ``i64`` to 512-bits
 """
-BROADCAST512_FLOAT16: int = 152
+BROADCAST512_FLOAT16: MemorySize = 152 # type: ignore
 """
 Broadcast ``f16`` to 512-bits
 """
-BROADCAST512_FLOAT32: int = 153
+BROADCAST512_FLOAT32: MemorySize = 153 # type: ignore
 """
 Broadcast ``f32`` to 512-bits
 """
-BROADCAST512_FLOAT64: int = 154
+BROADCAST512_FLOAT64: MemorySize = 154 # type: ignore
 """
 Broadcast ``f64`` to 512-bits
 """
-BROADCAST512_2X_FLOAT16: int = 155
+BROADCAST512_2X_FLOAT16: MemorySize = 155 # type: ignore
 """
 Broadcast 2 x ``f16`` to 512-bits
 """
-BROADCAST512_2X_INT16: int = 156
+BROADCAST512_2X_INT16: MemorySize = 156 # type: ignore
 """
 Broadcast 2 x ``i16`` to 512-bits
 """
-BROADCAST512_2X_UINT32: int = 157
+BROADCAST512_2X_UINT32: MemorySize = 157 # type: ignore
 """
 Broadcast 2 x ``u32`` to 512-bits
 """
-BROADCAST512_2X_INT32: int = 158
+BROADCAST512_2X_INT32: MemorySize = 158 # type: ignore
 """
 Broadcast 2 x ``i32`` to 512-bits
 """
-BROADCAST512_2X_BFLOAT16: int = 159
+BROADCAST512_2X_BFLOAT16: MemorySize = 159 # type: ignore
 """
 Broadcast 2 x ``bfloat16`` to 512-bits
 """

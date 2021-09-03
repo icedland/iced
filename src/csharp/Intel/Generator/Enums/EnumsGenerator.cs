@@ -8,7 +8,9 @@ namespace Generator.Enums {
 		protected EnumsGenerator(GenTypes genTypes) =>
 			this.genTypes = genTypes;
 
+		public virtual void GenerateBegin() {}
 		public abstract void Generate(EnumType enumType);
+		public virtual void GenerateEnd() {}
 
 		public void Generate() {
 			var allEnums = new EnumType[] {
@@ -115,8 +117,10 @@ namespace Generator.Enums {
 				genTypes[TypeIds.TestInstrFlags],
 			};
 
+			GenerateBegin();
 			foreach (var enumType in allEnums)
 				Generate(enumType);
+			GenerateEnd();
 		}
 	}
 }

@@ -11,15 +11,21 @@
 Mnemonic condition code selector (eg. ``JAE`` / ``JNB`` / ``JNC``)
 """
 
-AE: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import CC_ae
+else:
+	CC_ae = int
+
+AE: CC_ae = 0 # type: ignore
 """
 ``JAE``, ``CMOVAE``, ``SETAE``
 """
-NB: int = 1
+NB: CC_ae = 1 # type: ignore
 """
 ``JNB``, ``CMOVNB``, ``SETNB``
 """
-NC: int = 2
+NC: CC_ae = 2 # type: ignore
 """
 ``JNC``, ``CMOVNC``, ``SETNC``
 """

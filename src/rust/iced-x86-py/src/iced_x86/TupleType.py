@@ -11,79 +11,85 @@
 Tuple type (EVEX) which can be used to get the disp8 scale factor ``N``
 """
 
-N1: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import TupleType
+else:
+	TupleType = int
+
+N1: TupleType = 0 # type: ignore
 """
 ``N = 1``
 """
-N2: int = 1
+N2: TupleType = 1 # type: ignore
 """
 ``N = 2``
 """
-N4: int = 2
+N4: TupleType = 2 # type: ignore
 """
 ``N = 4``
 """
-N8: int = 3
+N8: TupleType = 3 # type: ignore
 """
 ``N = 8``
 """
-N16: int = 4
+N16: TupleType = 4 # type: ignore
 """
 ``N = 16``
 """
-N32: int = 5
+N32: TupleType = 5 # type: ignore
 """
 ``N = 32``
 """
-N64: int = 6
+N64: TupleType = 6 # type: ignore
 """
 ``N = 64``
 """
-N8B4: int = 7
+N8B4: TupleType = 7 # type: ignore
 """
 ``N = b ? 4 : 8``
 """
-N16B4: int = 8
+N16B4: TupleType = 8 # type: ignore
 """
 ``N = b ? 4 : 16``
 """
-N32B4: int = 9
+N32B4: TupleType = 9 # type: ignore
 """
 ``N = b ? 4 : 32``
 """
-N64B4: int = 10
+N64B4: TupleType = 10 # type: ignore
 """
 ``N = b ? 4 : 64``
 """
-N16B8: int = 11
+N16B8: TupleType = 11 # type: ignore
 """
 ``N = b ? 8 : 16``
 """
-N32B8: int = 12
+N32B8: TupleType = 12 # type: ignore
 """
 ``N = b ? 8 : 32``
 """
-N64B8: int = 13
+N64B8: TupleType = 13 # type: ignore
 """
 ``N = b ? 8 : 64``
 """
-N4B2: int = 14
+N4B2: TupleType = 14 # type: ignore
 """
 ``N = b ? 2 : 4``
 """
-N8B2: int = 15
+N8B2: TupleType = 15 # type: ignore
 """
 ``N = b ? 2 : 8``
 """
-N16B2: int = 16
+N16B2: TupleType = 16 # type: ignore
 """
 ``N = b ? 2 : 16``
 """
-N32B2: int = 17
+N32B2: TupleType = 17 # type: ignore
 """
 ``N = b ? 2 : 32``
 """
-N64B2: int = 18
+N64B2: TupleType = 18 # type: ignore
 """
 ``N = b ? 2 : 64``
 """

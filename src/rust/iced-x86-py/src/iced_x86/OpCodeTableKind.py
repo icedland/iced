@@ -11,39 +11,45 @@
 Opcode table
 """
 
-NORMAL: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import OpCodeTableKind
+else:
+	OpCodeTableKind = int
+
+NORMAL: OpCodeTableKind = 0 # type: ignore
 """
 Legacy/``MAP0`` table
 """
-T0F: int = 1
+T0F: OpCodeTableKind = 1 # type: ignore
 """
 ``0F``/``MAP1`` table (legacy, VEX, EVEX)
 """
-T0F38: int = 2
+T0F38: OpCodeTableKind = 2 # type: ignore
 """
 ``0F38``/``MAP2`` table (legacy, VEX, EVEX)
 """
-T0F3A: int = 3
+T0F3A: OpCodeTableKind = 3 # type: ignore
 """
 ``0F3A``/``MAP3`` table (legacy, VEX, EVEX)
 """
-MAP5: int = 4
+MAP5: OpCodeTableKind = 4 # type: ignore
 """
 ``MAP5`` table (EVEX)
 """
-MAP6: int = 5
+MAP6: OpCodeTableKind = 5 # type: ignore
 """
 ``MAP6`` table (EVEX)
 """
-MAP8: int = 6
+MAP8: OpCodeTableKind = 6 # type: ignore
 """
 ``MAP8`` table (XOP)
 """
-MAP9: int = 7
+MAP9: OpCodeTableKind = 7 # type: ignore
 """
 ``MAP9`` table (XOP)
 """
-MAP10: int = 8
+MAP10: OpCodeTableKind = 8 # type: ignore
 """
 ``MAP10`` table (XOP)
 """

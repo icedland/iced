@@ -68,6 +68,7 @@ python3 -m sphinx --color -n -W --keep-going -b doctest docs docs/_build
 ## How-tos
 
 - [Disassemble (decode and format instructions)](#disassemble-decode-and-format-instructions)
+- [Adding type annotations](#adding-type-annotations)
 - [Create and encode instructions](#create-and-encode-instructions)
 - [Move code in memory (eg. hook a function)](#move-code-in-memory-eg-hook-a-function)
 - [Get instruction info, eg. read/written regs/mem, control flow info, etc](#get-instruction-info-eg-readwritten-regsmem-control-flow-info-etc)
@@ -174,6 +175,28 @@ print(f"{instr:gG_xSs}")
 # M      Always show the memory size (eg. ``BYTE PTR``) even when not needed
 # _      Use digit separators (eg. ``0x12345678`` vs ``0x1234_5678``) (ignored by fast fmt)
 # ====== =============================================================================
+```
+
+## Adding type annotations
+
+For performance reasons, real Python enums are not used. They're just too slow. Instead, all enums are
+currently modules with constants in them. However, this causes problems with type checkers such as
+`mypy` since it sees `int`egers instead of eg. `Register`s.
+
+If you add type annotations to methods or variables, the enum name to use is the enum name with an
+appended `_`, eg. if the enum is `Register` (which is a module), use `Register_` as the type name.
+
+You don't need to do this with classes, eg. `Instruction`, since they're not enums.
+
+```python
+from iced_x86 import *
+
+BASE_REG: Register_ = Register.RAX
+
+def my_fun(code: Code_, reg: Register_, reg2: Register_) -> Register_:
+	return reg2
+
+my_fun(Code.RDTSC, BASE_REG, Register.ECX)
 ```
 
 ## Create and encode instructions
@@ -767,57 +790,57 @@ EXAMPLE_CODE: bytes = \
 def create_enum_dict(module: ModuleType) -> Dict[int, str]:
     return {module.__dict__[key]:key for key in module.__dict__ if isinstance(module.__dict__[key], int)}
 
-REGISTER_TO_STRING: Dict[int, str] = create_enum_dict(Register)
-def register_to_string(value: int) -> str:
+REGISTER_TO_STRING: Dict[Register_, str] = create_enum_dict(Register)
+def register_to_string(value: Register_) -> str:
     s = REGISTER_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*Register enum*/"
     return s
 
-OP_ACCESS_TO_STRING: Dict[int, str] = create_enum_dict(OpAccess)
-def op_access_to_string(value: int) -> str:
+OP_ACCESS_TO_STRING: Dict[OpAccess_, str] = create_enum_dict(OpAccess)
+def op_access_to_string(value: OpAccess_) -> str:
     s = OP_ACCESS_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*OpAccess enum*/"
     return s
 
-ENCODING_KIND_TO_STRING: Dict[int, str] = create_enum_dict(EncodingKind)
-def encoding_kind_to_string(value: int) -> str:
+ENCODING_KIND_TO_STRING: Dict[EncodingKind_, str] = create_enum_dict(EncodingKind)
+def encoding_kind_to_string(value: EncodingKind_) -> str:
     s = ENCODING_KIND_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*EncodingKind enum*/"
     return s
 
-MNEMONIC_TO_STRING: Dict[int, str] = create_enum_dict(Mnemonic)
-def mnemonic_to_string(value: int) -> str:
+MNEMONIC_TO_STRING: Dict[Mnemonic_, str] = create_enum_dict(Mnemonic)
+def mnemonic_to_string(value: Mnemonic_) -> str:
     s = MNEMONIC_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*Mnemonic enum*/"
     return s
 
-CODE_TO_STRING: Dict[int, str] = create_enum_dict(Code)
-def code_to_string(value: int) -> str:
+CODE_TO_STRING: Dict[Code_, str] = create_enum_dict(Code)
+def code_to_string(value: Code_) -> str:
     s = CODE_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*Code enum*/"
     return s
 
-FLOW_CONTROL_TO_STRING: Dict[int, str] = create_enum_dict(FlowControl)
-def flow_control_to_string(value: int) -> str:
+FLOW_CONTROL_TO_STRING: Dict[FlowControl_, str] = create_enum_dict(FlowControl)
+def flow_control_to_string(value: FlowControl_) -> str:
     s = FLOW_CONTROL_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*FlowControl enum*/"
     return s
 
-OP_CODE_OPERAND_KIND_TO_STRING: Dict[int, str] = create_enum_dict(OpCodeOperandKind)
-def op_code_operand_kind_to_string(value: int) -> str:
+OP_CODE_OPERAND_KIND_TO_STRING: Dict[OpCodeOperandKind_, str] = create_enum_dict(OpCodeOperandKind)
+def op_code_operand_kind_to_string(value: OpCodeOperandKind_) -> str:
     s = OP_CODE_OPERAND_KIND_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*OpCodeOperandKind enum*/"
     return s
 
-CPUID_FEATURE_TO_STRING: Dict[int, str] = create_enum_dict(CpuidFeature)
-def cpuid_feature_to_string(value: int) -> str:
+CPUID_FEATURE_TO_STRING: Dict[CpuidFeature_, str] = create_enum_dict(CpuidFeature)
+def cpuid_feature_to_string(value: CpuidFeature_) -> str:
     s = CPUID_FEATURE_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*CpuidFeature enum*/"
@@ -826,15 +849,15 @@ def cpuid_feature_to_string(value: int) -> str:
 def cpuid_features_to_string(cpuid_features: Sequence[int]) -> str:
     return " and ".join([cpuid_feature_to_string(f) for f in cpuid_features])
 
-MEMORY_SIZE_TO_STRING: Dict[int, str] = create_enum_dict(MemorySize)
-def memory_size_to_string(value: int) -> str:
+MEMORY_SIZE_TO_STRING: Dict[MemorySize_, str] = create_enum_dict(MemorySize)
+def memory_size_to_string(value: MemorySize_) -> str:
     s = MEMORY_SIZE_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*MemorySize enum*/"
     return s
 
-CONDITION_CODE_TO_STRING: Dict[int, str] = create_enum_dict(ConditionCode)
-def condition_code_to_string(value: int) -> str:
+CONDITION_CODE_TO_STRING: Dict[ConditionCode_, str] = create_enum_dict(ConditionCode)
+def condition_code_to_string(value: ConditionCode_) -> str:
     s = CONDITION_CODE_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*ConditionCode enum*/"

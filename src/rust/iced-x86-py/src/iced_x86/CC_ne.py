@@ -11,11 +11,17 @@
 Mnemonic condition code selector (eg. ``JNE`` / ``JNZ``)
 """
 
-NE: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import CC_ne
+else:
+	CC_ne = int
+
+NE: CC_ne = 0 # type: ignore
 """
 ``JNE``, ``CMOVNE``, ``SETNE``, ``LOOPNE``, ``REPNE``
 """
-NZ: int = 1
+NZ: CC_ne = 1 # type: ignore
 """
 ``JNZ``, ``CMOVNZ``, ``SETNZ``, ``LOOPNZ``, ``REPNZ``
 """

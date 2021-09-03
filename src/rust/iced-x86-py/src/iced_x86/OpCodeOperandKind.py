@@ -11,27 +11,33 @@
 Operand kind
 """
 
-NONE: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import OpCodeOperandKind
+else:
+	OpCodeOperandKind = int
+
+NONE: OpCodeOperandKind = 0 # type: ignore
 """
 No operand
 """
-FARBR2_2: int = 1
+FARBR2_2: OpCodeOperandKind = 1 # type: ignore
 """
 Far branch 16-bit offset, 16-bit segment/selector
 """
-FARBR4_2: int = 2
+FARBR4_2: OpCodeOperandKind = 2 # type: ignore
 """
 Far branch 32-bit offset, 16-bit segment/selector
 """
-MEM_OFFS: int = 3
+MEM_OFFS: OpCodeOperandKind = 3 # type: ignore
 """
 Memory offset without a modrm byte (eg. ``MOV AL,[offset]``)
 """
-MEM: int = 4
+MEM: OpCodeOperandKind = 4 # type: ignore
 """
 Memory (modrm)
 """
-MEM_MPX: int = 5
+MEM_MPX: OpCodeOperandKind = 5 # type: ignore
 """
 : Memory (modrm), MPX:
 
@@ -39,7 +45,7 @@ MEM_MPX: int = 5
 
 64-bit mode: 64-bit addressing is forced and must not be RIP relative
 """
-MEM_MIB: int = 6
+MEM_MIB: OpCodeOperandKind = 6 # type: ignore
 """
 : Memory (modrm), MPX:
 
@@ -47,411 +53,411 @@ MEM_MIB: int = 6
 
 64-bit mode: 64-bit addressing is forced and must not be RIP relative
 """
-MEM_VSIB32X: int = 7
+MEM_VSIB32X: OpCodeOperandKind = 7 # type: ignore
 """
 Memory (modrm), vsib32, ``XMM`` registers
 """
-MEM_VSIB64X: int = 8
+MEM_VSIB64X: OpCodeOperandKind = 8 # type: ignore
 """
 Memory (modrm), vsib64, ``XMM`` registers
 """
-MEM_VSIB32Y: int = 9
+MEM_VSIB32Y: OpCodeOperandKind = 9 # type: ignore
 """
 Memory (modrm), vsib32, ``YMM`` registers
 """
-MEM_VSIB64Y: int = 10
+MEM_VSIB64Y: OpCodeOperandKind = 10 # type: ignore
 """
 Memory (modrm), vsib64, ``YMM`` registers
 """
-MEM_VSIB32Z: int = 11
+MEM_VSIB32Z: OpCodeOperandKind = 11 # type: ignore
 """
 Memory (modrm), vsib32, ``ZMM`` registers
 """
-MEM_VSIB64Z: int = 12
+MEM_VSIB64Z: OpCodeOperandKind = 12 # type: ignore
 """
 Memory (modrm), vsib64, ``ZMM`` registers
 """
-R8_OR_MEM: int = 13
+R8_OR_MEM: OpCodeOperandKind = 13 # type: ignore
 """
 8-bit GPR or memory
 """
-R16_OR_MEM: int = 14
+R16_OR_MEM: OpCodeOperandKind = 14 # type: ignore
 """
 16-bit GPR or memory
 """
-R32_OR_MEM: int = 15
+R32_OR_MEM: OpCodeOperandKind = 15 # type: ignore
 """
 32-bit GPR or memory
 """
-R32_OR_MEM_MPX: int = 16
+R32_OR_MEM_MPX: OpCodeOperandKind = 16 # type: ignore
 """
 : 32-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 """
-R64_OR_MEM: int = 17
+R64_OR_MEM: OpCodeOperandKind = 17 # type: ignore
 """
 64-bit GPR or memory
 """
-R64_OR_MEM_MPX: int = 18
+R64_OR_MEM_MPX: OpCodeOperandKind = 18 # type: ignore
 """
 : 64-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 """
-MM_OR_MEM: int = 19
+MM_OR_MEM: OpCodeOperandKind = 19 # type: ignore
 """
 ``MM`` register or memory
 """
-XMM_OR_MEM: int = 20
+XMM_OR_MEM: OpCodeOperandKind = 20 # type: ignore
 """
 ``XMM`` register or memory
 """
-YMM_OR_MEM: int = 21
+YMM_OR_MEM: OpCodeOperandKind = 21 # type: ignore
 """
 ``YMM`` register or memory
 """
-ZMM_OR_MEM: int = 22
+ZMM_OR_MEM: OpCodeOperandKind = 22 # type: ignore
 """
 ``ZMM`` register or memory
 """
-BND_OR_MEM_MPX: int = 23
+BND_OR_MEM_MPX: OpCodeOperandKind = 23 # type: ignore
 """
 : ``BND`` register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 """
-K_OR_MEM: int = 24
+K_OR_MEM: OpCodeOperandKind = 24 # type: ignore
 """
 ``K`` register or memory
 """
-R8_REG: int = 25
+R8_REG: OpCodeOperandKind = 25 # type: ignore
 """
 8-bit GPR encoded in the ``reg`` field of the modrm byte
 """
-R8_OPCODE: int = 26
+R8_OPCODE: OpCodeOperandKind = 26 # type: ignore
 """
 8-bit GPR encoded in the low 3 bits of the opcode
 """
-R16_REG: int = 27
+R16_REG: OpCodeOperandKind = 27 # type: ignore
 """
 16-bit GPR encoded in the ``reg`` field of the modrm byte
 """
-R16_REG_MEM: int = 28
+R16_REG_MEM: OpCodeOperandKind = 28 # type: ignore
 """
 16-bit GPR encoded in the ``reg`` field of the modrm byte. This is a memory operand and it uses the address size prefix (``67h``) not the operand size prefix (``66h``).
 """
-R16_RM: int = 29
+R16_RM: OpCodeOperandKind = 29 # type: ignore
 """
 16-bit GPR encoded in the ``mod + r/m`` fields of the modrm byte
 """
-R16_OPCODE: int = 30
+R16_OPCODE: OpCodeOperandKind = 30 # type: ignore
 """
 16-bit GPR encoded in the low 3 bits of the opcode
 """
-R32_REG: int = 31
+R32_REG: OpCodeOperandKind = 31 # type: ignore
 """
 32-bit GPR encoded in the ``reg`` field of the modrm byte
 """
-R32_REG_MEM: int = 32
+R32_REG_MEM: OpCodeOperandKind = 32 # type: ignore
 """
 32-bit GPR encoded in the ``reg`` field of the modrm byte. This is a memory operand and it uses the address size prefix (``67h``) not the operand size prefix (``66h``).
 """
-R32_RM: int = 33
+R32_RM: OpCodeOperandKind = 33 # type: ignore
 """
 32-bit GPR encoded in the ``mod + r/m`` fields of the modrm byte
 """
-R32_OPCODE: int = 34
+R32_OPCODE: OpCodeOperandKind = 34 # type: ignore
 """
 32-bit GPR encoded in the low 3 bits of the opcode
 """
-R32_VVVV: int = 35
+R32_VVVV: OpCodeOperandKind = 35 # type: ignore
 """
 32-bit GPR encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
 """
-R64_REG: int = 36
+R64_REG: OpCodeOperandKind = 36 # type: ignore
 """
 64-bit GPR encoded in the ``reg`` field of the modrm byte
 """
-R64_REG_MEM: int = 37
+R64_REG_MEM: OpCodeOperandKind = 37 # type: ignore
 """
 64-bit GPR encoded in the ``reg`` field of the modrm byte. This is a memory operand and it uses the address size prefix (``67h``) not the operand size prefix (``66h``).
 """
-R64_RM: int = 38
+R64_RM: OpCodeOperandKind = 38 # type: ignore
 """
 64-bit GPR encoded in the ``mod + r/m`` fields of the modrm byte
 """
-R64_OPCODE: int = 39
+R64_OPCODE: OpCodeOperandKind = 39 # type: ignore
 """
 64-bit GPR encoded in the low 3 bits of the opcode
 """
-R64_VVVV: int = 40
+R64_VVVV: OpCodeOperandKind = 40 # type: ignore
 """
 64-bit GPR encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
 """
-SEG_REG: int = 41
+SEG_REG: OpCodeOperandKind = 41 # type: ignore
 """
 Segment register encoded in the ``reg`` field of the modrm byte
 """
-K_REG: int = 42
+K_REG: OpCodeOperandKind = 42 # type: ignore
 """
 ``K`` register encoded in the ``reg`` field of the modrm byte
 """
-KP1_REG: int = 43
+KP1_REG: OpCodeOperandKind = 43 # type: ignore
 """
 ``K`` register (+1) encoded in the ``reg`` field of the modrm byte
 """
-K_RM: int = 44
+K_RM: OpCodeOperandKind = 44 # type: ignore
 """
 ``K`` register encoded in the ``mod + r/m`` fields of the modrm byte
 """
-K_VVVV: int = 45
+K_VVVV: OpCodeOperandKind = 45 # type: ignore
 """
 ``K`` register encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
 """
-MM_REG: int = 46
+MM_REG: OpCodeOperandKind = 46 # type: ignore
 """
 ``MM`` register encoded in the ``reg`` field of the modrm byte
 """
-MM_RM: int = 47
+MM_RM: OpCodeOperandKind = 47 # type: ignore
 """
 ``MM`` register encoded in the ``mod + r/m`` fields of the modrm byte
 """
-XMM_REG: int = 48
+XMM_REG: OpCodeOperandKind = 48 # type: ignore
 """
 ``XMM`` register encoded in the ``reg`` field of the modrm byte
 """
-XMM_RM: int = 49
+XMM_RM: OpCodeOperandKind = 49 # type: ignore
 """
 ``XMM`` register encoded in the ``mod + r/m`` fields of the modrm byte
 """
-XMM_VVVV: int = 50
+XMM_VVVV: OpCodeOperandKind = 50 # type: ignore
 """
 ``XMM`` register encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
 """
-XMMP3_VVVV: int = 51
+XMMP3_VVVV: OpCodeOperandKind = 51 # type: ignore
 """
 ``XMM`` register (+3) encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
 """
-XMM_IS4: int = 52
+XMM_IS4: OpCodeOperandKind = 52 # type: ignore
 """
 ``XMM`` register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only ``XMM0``-``XMM15``)
 """
-XMM_IS5: int = 53
+XMM_IS5: OpCodeOperandKind = 53 # type: ignore
 """
 ``XMM`` register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only ``XMM0``-``XMM15``)
 """
-YMM_REG: int = 54
+YMM_REG: OpCodeOperandKind = 54 # type: ignore
 """
 ``YMM`` register encoded in the ``reg`` field of the modrm byte
 """
-YMM_RM: int = 55
+YMM_RM: OpCodeOperandKind = 55 # type: ignore
 """
 ``YMM`` register encoded in the ``mod + r/m`` fields of the modrm byte
 """
-YMM_VVVV: int = 56
+YMM_VVVV: OpCodeOperandKind = 56 # type: ignore
 """
 ``YMM`` register encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
 """
-YMM_IS4: int = 57
+YMM_IS4: OpCodeOperandKind = 57 # type: ignore
 """
 ``YMM`` register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only ``YMM0``-``YMM15``)
 """
-YMM_IS5: int = 58
+YMM_IS5: OpCodeOperandKind = 58 # type: ignore
 """
 ``YMM`` register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only ``YMM0``-``YMM15``)
 """
-ZMM_REG: int = 59
+ZMM_REG: OpCodeOperandKind = 59 # type: ignore
 """
 ``ZMM`` register encoded in the ``reg`` field of the modrm byte
 """
-ZMM_RM: int = 60
+ZMM_RM: OpCodeOperandKind = 60 # type: ignore
 """
 ``ZMM`` register encoded in the ``mod + r/m`` fields of the modrm byte
 """
-ZMM_VVVV: int = 61
+ZMM_VVVV: OpCodeOperandKind = 61 # type: ignore
 """
 ``ZMM`` register encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
 """
-ZMMP3_VVVV: int = 62
+ZMMP3_VVVV: OpCodeOperandKind = 62 # type: ignore
 """
 ``ZMM`` register (+3) encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
 """
-CR_REG: int = 63
+CR_REG: OpCodeOperandKind = 63 # type: ignore
 """
 ``CR`` register encoded in the ``reg`` field of the modrm byte
 """
-DR_REG: int = 64
+DR_REG: OpCodeOperandKind = 64 # type: ignore
 """
 ``DR`` register encoded in the ``reg`` field of the modrm byte
 """
-TR_REG: int = 65
+TR_REG: OpCodeOperandKind = 65 # type: ignore
 """
 ``TR`` register encoded in the ``reg`` field of the modrm byte
 """
-BND_REG: int = 66
+BND_REG: OpCodeOperandKind = 66 # type: ignore
 """
 ``BND`` register encoded in the ``reg`` field of the modrm byte
 """
-ES: int = 67
+ES: OpCodeOperandKind = 67 # type: ignore
 """
 ``ES`` register
 """
-CS: int = 68
+CS: OpCodeOperandKind = 68 # type: ignore
 """
 ``CS`` register
 """
-SS: int = 69
+SS: OpCodeOperandKind = 69 # type: ignore
 """
 ``SS`` register
 """
-DS: int = 70
+DS: OpCodeOperandKind = 70 # type: ignore
 """
 ``DS`` register
 """
-FS: int = 71
+FS: OpCodeOperandKind = 71 # type: ignore
 """
 ``FS`` register
 """
-GS: int = 72
+GS: OpCodeOperandKind = 72 # type: ignore
 """
 ``GS`` register
 """
-AL: int = 73
+AL: OpCodeOperandKind = 73 # type: ignore
 """
 ``AL`` register
 """
-CL: int = 74
+CL: OpCodeOperandKind = 74 # type: ignore
 """
 ``CL`` register
 """
-AX: int = 75
+AX: OpCodeOperandKind = 75 # type: ignore
 """
 ``AX`` register
 """
-DX: int = 76
+DX: OpCodeOperandKind = 76 # type: ignore
 """
 ``DX`` register
 """
-EAX: int = 77
+EAX: OpCodeOperandKind = 77 # type: ignore
 """
 ``EAX`` register
 """
-RAX: int = 78
+RAX: OpCodeOperandKind = 78 # type: ignore
 """
 ``RAX`` register
 """
-ST0: int = 79
+ST0: OpCodeOperandKind = 79 # type: ignore
 """
 ``ST(0)`` register
 """
-STI_OPCODE: int = 80
+STI_OPCODE: OpCodeOperandKind = 80 # type: ignore
 """
 ``ST(i)`` register encoded in the low 3 bits of the opcode
 """
-IMM4_M2Z: int = 81
+IMM4_M2Z: OpCodeOperandKind = 81 # type: ignore
 """
 4-bit immediate (m2z field, low 4 bits of the /is5 immediate, eg. ``VPERMIL2PS``)
 """
-IMM8: int = 82
+IMM8: OpCodeOperandKind = 82 # type: ignore
 """
 8-bit immediate
 """
-IMM8_CONST_1: int = 83
+IMM8_CONST_1: OpCodeOperandKind = 83 # type: ignore
 """
 Constant 1 (8-bit immediate)
 """
-IMM8SEX16: int = 84
+IMM8SEX16: OpCodeOperandKind = 84 # type: ignore
 """
 8-bit immediate sign extended to 16 bits
 """
-IMM8SEX32: int = 85
+IMM8SEX32: OpCodeOperandKind = 85 # type: ignore
 """
 8-bit immediate sign extended to 32 bits
 """
-IMM8SEX64: int = 86
+IMM8SEX64: OpCodeOperandKind = 86 # type: ignore
 """
 8-bit immediate sign extended to 64 bits
 """
-IMM16: int = 87
+IMM16: OpCodeOperandKind = 87 # type: ignore
 """
 16-bit immediate
 """
-IMM32: int = 88
+IMM32: OpCodeOperandKind = 88 # type: ignore
 """
 32-bit immediate
 """
-IMM32SEX64: int = 89
+IMM32SEX64: OpCodeOperandKind = 89 # type: ignore
 """
 32-bit immediate sign extended to 64 bits
 """
-IMM64: int = 90
+IMM64: OpCodeOperandKind = 90 # type: ignore
 """
 64-bit immediate
 """
-SEG_RSI: int = 91
+SEG_RSI: OpCodeOperandKind = 91 # type: ignore
 """
 ``seg:[rSI]`` memory operand (string instructions)
 """
-ES_RDI: int = 92
+ES_RDI: OpCodeOperandKind = 92 # type: ignore
 """
 ``es:[rDI]`` memory operand (string instructions)
 """
-SEG_RDI: int = 93
+SEG_RDI: OpCodeOperandKind = 93 # type: ignore
 """
 ``seg:[rDI]`` memory operand (``(V)MASKMOVQ`` instructions)
 """
-SEG_RBX_AL: int = 94
+SEG_RBX_AL: OpCodeOperandKind = 94 # type: ignore
 """
 ``seg:[rBX+al]`` memory operand (``XLATB`` instruction)
 """
-BR16_1: int = 95
+BR16_1: OpCodeOperandKind = 95 # type: ignore
 """
 16-bit branch, 1-byte signed relative offset
 """
-BR32_1: int = 96
+BR32_1: OpCodeOperandKind = 96 # type: ignore
 """
 32-bit branch, 1-byte signed relative offset
 """
-BR64_1: int = 97
+BR64_1: OpCodeOperandKind = 97 # type: ignore
 """
 64-bit branch, 1-byte signed relative offset
 """
-BR16_2: int = 98
+BR16_2: OpCodeOperandKind = 98 # type: ignore
 """
 16-bit branch, 2-byte signed relative offset
 """
-BR32_4: int = 99
+BR32_4: OpCodeOperandKind = 99 # type: ignore
 """
 32-bit branch, 4-byte signed relative offset
 """
-BR64_4: int = 100
+BR64_4: OpCodeOperandKind = 100 # type: ignore
 """
 64-bit branch, 4-byte signed relative offset
 """
-XBEGIN_2: int = 101
+XBEGIN_2: OpCodeOperandKind = 101 # type: ignore
 """
 ``XBEGIN``, 2-byte signed relative offset
 """
-XBEGIN_4: int = 102
+XBEGIN_4: OpCodeOperandKind = 102 # type: ignore
 """
 ``XBEGIN``, 4-byte signed relative offset
 """
-BRDISP_2: int = 103
+BRDISP_2: OpCodeOperandKind = 103 # type: ignore
 """
 2-byte branch offset (``JMPE`` instruction)
 """
-BRDISP_4: int = 104
+BRDISP_4: OpCodeOperandKind = 104 # type: ignore
 """
 4-byte branch offset (``JMPE`` instruction)
 """
-SIBMEM: int = 105
+SIBMEM: OpCodeOperandKind = 105 # type: ignore
 """
 Memory (modrm) and the sib byte must be present
 """
-TMM_REG: int = 106
+TMM_REG: OpCodeOperandKind = 106 # type: ignore
 """
 ``TMM`` register encoded in the ``reg`` field of the modrm byte
 """
-TMM_RM: int = 107
+TMM_RM: OpCodeOperandKind = 107 # type: ignore
 """
 ``TMM`` register encoded in the ``mod + r/m`` fields of the modrm byte
 """
-TMM_VVVV: int = 108
+TMM_VVVV: OpCodeOperandKind = 108 # type: ignore
 """
 ``TMM`` register encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
 """

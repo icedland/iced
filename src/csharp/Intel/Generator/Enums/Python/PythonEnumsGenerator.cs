@@ -3,6 +3,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Generator.Documentation.Python;
 using Generator.IO;
 using Generator.Misc.Python;
@@ -149,6 +151,15 @@ namespace Generator.Enums.Python {
 				writer.WriteLine();
 				docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
 				writer.WriteLine();
+				// Needed by Sphinx or it will generate a lot of errors
+				writer.WriteLine("import typing");
+				writer.WriteLine("if typing.TYPE_CHECKING:");
+				using (writer.Indent())
+					writer.WriteLine($"from ._iced_x86_py import {enumType.Name(pythonIdConverter)}");
+				writer.WriteLine("else:");
+				using (writer.Indent())
+					writer.WriteLine($"{enumType.Name(pythonIdConverter)} = int");
+				writer.WriteLine();
 				WriteEnumCore(writer, enumType, docWriter);
 			}
 		}
@@ -156,6 +167,7 @@ namespace Generator.Enums.Python {
 		void WriteEnumCore(FileWriter writer, EnumType enumType, PythonDocCommentWriter docWriter) {
 			bool mustHaveDocs = enumType.TypeId != TypeIds.Register && enumType.TypeId != TypeIds.Mnemonic;
 			bool uppercaseRawName = PythonUtils.UppercaseEnum(enumType.TypeId.Id1);
+			var enumTypeName = enumType.Name(pythonIdConverter);
 			var firstVersion = new Version(1, 12, 0);
 			// *****************************************************************************
 			// For PERF reasons, we do NOT use Enums. They're incredibly slow to load!
@@ -175,7 +187,7 @@ namespace Generator.Enums.Python {
 				}
 
 				var (valueName, numStr) = PythonUtils.GetEnumNameValue(pythonIdConverter, value, uppercaseRawName);
-				writer.WriteLine($"{valueName}: int = {numStr}");
+				writer.WriteLine($"{valueName}: {enumTypeName} = {numStr} # type: ignore");
 				if (value.DeprecatedInfo.IsDeprecated) {
 					string? extra;
 					if (value.DeprecatedInfo.NewName is not null)
@@ -190,6 +202,111 @@ namespace Generator.Enums.Python {
 					docs = $"DEPRECATED({value.DeprecatedInfo.VersionStr}){extra}";
 				}
 				docWriter.WriteSummary(writer, docs, enumType.RawName);
+			}
+		}
+
+		public override void GenerateEnd() {
+			// If you add a new struct/enum, also add it to
+			//	- iced-x86-py/docs/index.rst
+			//	- iced-x86-py/docs/src/<ClassName>.rst
+			//		- if it's an enum, we generate this file
+			var exportedClasses = new[] {
+				"BlockEncoder",
+				"ConstantOffsets",
+				"Decoder",
+				"Encoder",
+				"FastFormatter",
+				"Formatter",
+				"FpuStackIncrementInfo",
+				"Instruction",
+				"InstructionInfo",
+				"InstructionInfoFactory",
+				"MemoryOperand",
+				"MemorySizeExt",
+				"MemorySizeInfo",
+				"OpCodeInfo",
+				"RegisterExt",
+				"RegisterInfo",
+				"UsedMemory",
+				"UsedRegister",
+			};
+
+			var enumTypes = exportedPythonTypes.Enums.
+				Select(x => (enumType: x, pyName: x.Name(pythonIdConverter))).
+				OrderBy(x => x.pyName, StringComparer.Ordinal).ToArray();
+			var librsFilename = genTypes.Dirs.GetPythonRustFilename("lib.rs");
+			var initPyFilename = genTypes.Dirs.GetPythonPyFilename("__init__.py");
+
+			if (exportedClasses.Length != 18)
+				throw new InvalidOperationException("New struct: Update the files in the comment above and then fix the `if` cond");
+			if (enumTypes.Length != 35)
+				throw new InvalidOperationException("New enum: Update the files in the comment above and then fix the `if` cond");
+
+			new FileUpdater(TargetLanguage.Rust, "EnumClassDefs", librsFilename).Generate(writer => {
+				foreach (var (_, pyName) in enumTypes) {
+					writer.WriteLine("/// DO NOT USE");
+					writer.WriteLine("#[pyclass(module = \"iced_x86._iced_x86_py\")]");
+					writer.WriteLine(RustConstants.AttributeAllowNonCamelCaseTypes);
+					writer.WriteLine($"struct {pyName} {{}}");
+				}
+			});
+			new FileUpdater(TargetLanguage.Rust, "ClassExport", librsFilename).Generate(writer => {
+				foreach (var exportedClass in exportedClasses.Concat(enumTypes.Select(x => x.pyName)))
+					writer.WriteLine($"m.add_class::<{exportedClass}>()?;");
+			});
+
+			static string GetNewTypeCheckerName(string pyName) => pyName + "_";
+			using (var writer = new FileWriter(TargetLanguage.Python, FileUtils.OpenWrite(initPyFilename))) {
+				writer.WriteFileHeader();
+				writer.WriteLine("# pylint: disable=line-too-long");
+				writer.WriteLine("# pylint: disable=no-name-in-module");
+				writer.WriteLine("# pylint: disable=invalid-name");
+				writer.WriteLine();
+				writer.WriteLine("\"\"\"");
+				writer.WriteLine("iced-x86 is a blazing fast and correct x86/x64 disassembler, assembler and instruction decoder written in Rust with Python bindings");
+				writer.WriteLine("\"\"\"");
+				writer.WriteLine();
+				writer.WriteLine("import typing");
+				foreach (var exportedClass in exportedClasses)
+					writer.WriteLine($"from ._iced_x86_py import {exportedClass}");
+				foreach (var (_, pyName) in enumTypes)
+					writer.WriteLine($"from . import {pyName}");
+				writer.WriteLine();
+				writer.WriteLine("if typing.TYPE_CHECKING:");
+				using (writer.Indent()) {
+					writer.WriteLine("from . import _iced_x86_py # pylint: disable=import-self");
+					foreach (var (_, pyName) in enumTypes)
+						writer.WriteLine($"{GetNewTypeCheckerName(pyName)} = _iced_x86_py.{pyName}");
+				}
+				writer.WriteLine("else:");
+				using (writer.Indent()) {
+					foreach (var (_, pyName) in enumTypes)
+						writer.WriteLine($"{GetNewTypeCheckerName(pyName)} = int");
+				}
+				writer.WriteLine();
+				writer.WriteLine("__all__ = [");
+				using (writer.Indent()) {
+					foreach (var exportedClass in exportedClasses)
+						writer.WriteLine($"\"{exportedClass}\",");
+					foreach (var (_, pyName) in enumTypes)
+						writer.WriteLine($"\"{pyName}\",");
+					foreach (var (_, pyName) in enumTypes)
+						writer.WriteLine($"\"{GetNewTypeCheckerName(pyName)}\",");
+				}
+				writer.WriteLine("]");
+			}
+
+			foreach (var (_, pyName) in enumTypes) {
+				var rstFilename = genTypes.Dirs.GetPythonRstFilename($"{pyName}.rst");
+				var lines = new[] {
+					pyName,
+					new string('=', pyName.Length),
+					string.Empty,
+					$".. automodule:: iced_x86.{pyName}",
+					"\t:members:",
+					"\t:undoc-members:",
+				};
+				File.WriteAllLines(rstFilename, lines, FileUtils.FileEncoding);
 			}
 		}
 	}

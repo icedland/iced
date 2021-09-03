@@ -11,1027 +11,1033 @@
 A register
 """
 
-NONE: int = 0
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import Register
+else:
+	Register = int
+
+NONE: Register = 0 # type: ignore
 """
 <no docs>
 """
-AL: int = 1
+AL: Register = 1 # type: ignore
 """
 <no docs>
 """
-CL: int = 2
+CL: Register = 2 # type: ignore
 """
 <no docs>
 """
-DL: int = 3
+DL: Register = 3 # type: ignore
 """
 <no docs>
 """
-BL: int = 4
+BL: Register = 4 # type: ignore
 """
 <no docs>
 """
-AH: int = 5
+AH: Register = 5 # type: ignore
 """
 <no docs>
 """
-CH: int = 6
+CH: Register = 6 # type: ignore
 """
 <no docs>
 """
-DH: int = 7
+DH: Register = 7 # type: ignore
 """
 <no docs>
 """
-BH: int = 8
+BH: Register = 8 # type: ignore
 """
 <no docs>
 """
-SPL: int = 9
+SPL: Register = 9 # type: ignore
 """
 <no docs>
 """
-BPL: int = 10
+BPL: Register = 10 # type: ignore
 """
 <no docs>
 """
-SIL: int = 11
+SIL: Register = 11 # type: ignore
 """
 <no docs>
 """
-DIL: int = 12
+DIL: Register = 12 # type: ignore
 """
 <no docs>
 """
-R8L: int = 13
+R8L: Register = 13 # type: ignore
 """
 <no docs>
 """
-R9L: int = 14
+R9L: Register = 14 # type: ignore
 """
 <no docs>
 """
-R10L: int = 15
+R10L: Register = 15 # type: ignore
 """
 <no docs>
 """
-R11L: int = 16
+R11L: Register = 16 # type: ignore
 """
 <no docs>
 """
-R12L: int = 17
+R12L: Register = 17 # type: ignore
 """
 <no docs>
 """
-R13L: int = 18
+R13L: Register = 18 # type: ignore
 """
 <no docs>
 """
-R14L: int = 19
+R14L: Register = 19 # type: ignore
 """
 <no docs>
 """
-R15L: int = 20
+R15L: Register = 20 # type: ignore
 """
 <no docs>
 """
-AX: int = 21
+AX: Register = 21 # type: ignore
 """
 <no docs>
 """
-CX: int = 22
+CX: Register = 22 # type: ignore
 """
 <no docs>
 """
-DX: int = 23
+DX: Register = 23 # type: ignore
 """
 <no docs>
 """
-BX: int = 24
+BX: Register = 24 # type: ignore
 """
 <no docs>
 """
-SP: int = 25
+SP: Register = 25 # type: ignore
 """
 <no docs>
 """
-BP: int = 26
+BP: Register = 26 # type: ignore
 """
 <no docs>
 """
-SI: int = 27
+SI: Register = 27 # type: ignore
 """
 <no docs>
 """
-DI: int = 28
+DI: Register = 28 # type: ignore
 """
 <no docs>
 """
-R8W: int = 29
+R8W: Register = 29 # type: ignore
 """
 <no docs>
 """
-R9W: int = 30
+R9W: Register = 30 # type: ignore
 """
 <no docs>
 """
-R10W: int = 31
+R10W: Register = 31 # type: ignore
 """
 <no docs>
 """
-R11W: int = 32
+R11W: Register = 32 # type: ignore
 """
 <no docs>
 """
-R12W: int = 33
+R12W: Register = 33 # type: ignore
 """
 <no docs>
 """
-R13W: int = 34
+R13W: Register = 34 # type: ignore
 """
 <no docs>
 """
-R14W: int = 35
+R14W: Register = 35 # type: ignore
 """
 <no docs>
 """
-R15W: int = 36
+R15W: Register = 36 # type: ignore
 """
 <no docs>
 """
-EAX: int = 37
+EAX: Register = 37 # type: ignore
 """
 <no docs>
 """
-ECX: int = 38
+ECX: Register = 38 # type: ignore
 """
 <no docs>
 """
-EDX: int = 39
+EDX: Register = 39 # type: ignore
 """
 <no docs>
 """
-EBX: int = 40
+EBX: Register = 40 # type: ignore
 """
 <no docs>
 """
-ESP: int = 41
+ESP: Register = 41 # type: ignore
 """
 <no docs>
 """
-EBP: int = 42
+EBP: Register = 42 # type: ignore
 """
 <no docs>
 """
-ESI: int = 43
+ESI: Register = 43 # type: ignore
 """
 <no docs>
 """
-EDI: int = 44
+EDI: Register = 44 # type: ignore
 """
 <no docs>
 """
-R8D: int = 45
+R8D: Register = 45 # type: ignore
 """
 <no docs>
 """
-R9D: int = 46
+R9D: Register = 46 # type: ignore
 """
 <no docs>
 """
-R10D: int = 47
+R10D: Register = 47 # type: ignore
 """
 <no docs>
 """
-R11D: int = 48
+R11D: Register = 48 # type: ignore
 """
 <no docs>
 """
-R12D: int = 49
+R12D: Register = 49 # type: ignore
 """
 <no docs>
 """
-R13D: int = 50
+R13D: Register = 50 # type: ignore
 """
 <no docs>
 """
-R14D: int = 51
+R14D: Register = 51 # type: ignore
 """
 <no docs>
 """
-R15D: int = 52
+R15D: Register = 52 # type: ignore
 """
 <no docs>
 """
-RAX: int = 53
+RAX: Register = 53 # type: ignore
 """
 <no docs>
 """
-RCX: int = 54
+RCX: Register = 54 # type: ignore
 """
 <no docs>
 """
-RDX: int = 55
+RDX: Register = 55 # type: ignore
 """
 <no docs>
 """
-RBX: int = 56
+RBX: Register = 56 # type: ignore
 """
 <no docs>
 """
-RSP: int = 57
+RSP: Register = 57 # type: ignore
 """
 <no docs>
 """
-RBP: int = 58
+RBP: Register = 58 # type: ignore
 """
 <no docs>
 """
-RSI: int = 59
+RSI: Register = 59 # type: ignore
 """
 <no docs>
 """
-RDI: int = 60
+RDI: Register = 60 # type: ignore
 """
 <no docs>
 """
-R8: int = 61
+R8: Register = 61 # type: ignore
 """
 <no docs>
 """
-R9: int = 62
+R9: Register = 62 # type: ignore
 """
 <no docs>
 """
-R10: int = 63
+R10: Register = 63 # type: ignore
 """
 <no docs>
 """
-R11: int = 64
+R11: Register = 64 # type: ignore
 """
 <no docs>
 """
-R12: int = 65
+R12: Register = 65 # type: ignore
 """
 <no docs>
 """
-R13: int = 66
+R13: Register = 66 # type: ignore
 """
 <no docs>
 """
-R14: int = 67
+R14: Register = 67 # type: ignore
 """
 <no docs>
 """
-R15: int = 68
+R15: Register = 68 # type: ignore
 """
 <no docs>
 """
-EIP: int = 69
+EIP: Register = 69 # type: ignore
 """
 <no docs>
 """
-RIP: int = 70
+RIP: Register = 70 # type: ignore
 """
 <no docs>
 """
-ES: int = 71
+ES: Register = 71 # type: ignore
 """
 <no docs>
 """
-CS: int = 72
+CS: Register = 72 # type: ignore
 """
 <no docs>
 """
-SS: int = 73
+SS: Register = 73 # type: ignore
 """
 <no docs>
 """
-DS: int = 74
+DS: Register = 74 # type: ignore
 """
 <no docs>
 """
-FS: int = 75
+FS: Register = 75 # type: ignore
 """
 <no docs>
 """
-GS: int = 76
+GS: Register = 76 # type: ignore
 """
 <no docs>
 """
-XMM0: int = 77
+XMM0: Register = 77 # type: ignore
 """
 <no docs>
 """
-XMM1: int = 78
+XMM1: Register = 78 # type: ignore
 """
 <no docs>
 """
-XMM2: int = 79
+XMM2: Register = 79 # type: ignore
 """
 <no docs>
 """
-XMM3: int = 80
+XMM3: Register = 80 # type: ignore
 """
 <no docs>
 """
-XMM4: int = 81
+XMM4: Register = 81 # type: ignore
 """
 <no docs>
 """
-XMM5: int = 82
+XMM5: Register = 82 # type: ignore
 """
 <no docs>
 """
-XMM6: int = 83
+XMM6: Register = 83 # type: ignore
 """
 <no docs>
 """
-XMM7: int = 84
+XMM7: Register = 84 # type: ignore
 """
 <no docs>
 """
-XMM8: int = 85
+XMM8: Register = 85 # type: ignore
 """
 <no docs>
 """
-XMM9: int = 86
+XMM9: Register = 86 # type: ignore
 """
 <no docs>
 """
-XMM10: int = 87
+XMM10: Register = 87 # type: ignore
 """
 <no docs>
 """
-XMM11: int = 88
+XMM11: Register = 88 # type: ignore
 """
 <no docs>
 """
-XMM12: int = 89
+XMM12: Register = 89 # type: ignore
 """
 <no docs>
 """
-XMM13: int = 90
+XMM13: Register = 90 # type: ignore
 """
 <no docs>
 """
-XMM14: int = 91
+XMM14: Register = 91 # type: ignore
 """
 <no docs>
 """
-XMM15: int = 92
+XMM15: Register = 92 # type: ignore
 """
 <no docs>
 """
-XMM16: int = 93
+XMM16: Register = 93 # type: ignore
 """
 <no docs>
 """
-XMM17: int = 94
+XMM17: Register = 94 # type: ignore
 """
 <no docs>
 """
-XMM18: int = 95
+XMM18: Register = 95 # type: ignore
 """
 <no docs>
 """
-XMM19: int = 96
+XMM19: Register = 96 # type: ignore
 """
 <no docs>
 """
-XMM20: int = 97
+XMM20: Register = 97 # type: ignore
 """
 <no docs>
 """
-XMM21: int = 98
+XMM21: Register = 98 # type: ignore
 """
 <no docs>
 """
-XMM22: int = 99
+XMM22: Register = 99 # type: ignore
 """
 <no docs>
 """
-XMM23: int = 100
+XMM23: Register = 100 # type: ignore
 """
 <no docs>
 """
-XMM24: int = 101
+XMM24: Register = 101 # type: ignore
 """
 <no docs>
 """
-XMM25: int = 102
+XMM25: Register = 102 # type: ignore
 """
 <no docs>
 """
-XMM26: int = 103
+XMM26: Register = 103 # type: ignore
 """
 <no docs>
 """
-XMM27: int = 104
+XMM27: Register = 104 # type: ignore
 """
 <no docs>
 """
-XMM28: int = 105
+XMM28: Register = 105 # type: ignore
 """
 <no docs>
 """
-XMM29: int = 106
+XMM29: Register = 106 # type: ignore
 """
 <no docs>
 """
-XMM30: int = 107
+XMM30: Register = 107 # type: ignore
 """
 <no docs>
 """
-XMM31: int = 108
+XMM31: Register = 108 # type: ignore
 """
 <no docs>
 """
-YMM0: int = 109
+YMM0: Register = 109 # type: ignore
 """
 <no docs>
 """
-YMM1: int = 110
+YMM1: Register = 110 # type: ignore
 """
 <no docs>
 """
-YMM2: int = 111
+YMM2: Register = 111 # type: ignore
 """
 <no docs>
 """
-YMM3: int = 112
+YMM3: Register = 112 # type: ignore
 """
 <no docs>
 """
-YMM4: int = 113
+YMM4: Register = 113 # type: ignore
 """
 <no docs>
 """
-YMM5: int = 114
+YMM5: Register = 114 # type: ignore
 """
 <no docs>
 """
-YMM6: int = 115
+YMM6: Register = 115 # type: ignore
 """
 <no docs>
 """
-YMM7: int = 116
+YMM7: Register = 116 # type: ignore
 """
 <no docs>
 """
-YMM8: int = 117
+YMM8: Register = 117 # type: ignore
 """
 <no docs>
 """
-YMM9: int = 118
+YMM9: Register = 118 # type: ignore
 """
 <no docs>
 """
-YMM10: int = 119
+YMM10: Register = 119 # type: ignore
 """
 <no docs>
 """
-YMM11: int = 120
+YMM11: Register = 120 # type: ignore
 """
 <no docs>
 """
-YMM12: int = 121
+YMM12: Register = 121 # type: ignore
 """
 <no docs>
 """
-YMM13: int = 122
+YMM13: Register = 122 # type: ignore
 """
 <no docs>
 """
-YMM14: int = 123
+YMM14: Register = 123 # type: ignore
 """
 <no docs>
 """
-YMM15: int = 124
+YMM15: Register = 124 # type: ignore
 """
 <no docs>
 """
-YMM16: int = 125
+YMM16: Register = 125 # type: ignore
 """
 <no docs>
 """
-YMM17: int = 126
+YMM17: Register = 126 # type: ignore
 """
 <no docs>
 """
-YMM18: int = 127
+YMM18: Register = 127 # type: ignore
 """
 <no docs>
 """
-YMM19: int = 128
+YMM19: Register = 128 # type: ignore
 """
 <no docs>
 """
-YMM20: int = 129
+YMM20: Register = 129 # type: ignore
 """
 <no docs>
 """
-YMM21: int = 130
+YMM21: Register = 130 # type: ignore
 """
 <no docs>
 """
-YMM22: int = 131
+YMM22: Register = 131 # type: ignore
 """
 <no docs>
 """
-YMM23: int = 132
+YMM23: Register = 132 # type: ignore
 """
 <no docs>
 """
-YMM24: int = 133
+YMM24: Register = 133 # type: ignore
 """
 <no docs>
 """
-YMM25: int = 134
+YMM25: Register = 134 # type: ignore
 """
 <no docs>
 """
-YMM26: int = 135
+YMM26: Register = 135 # type: ignore
 """
 <no docs>
 """
-YMM27: int = 136
+YMM27: Register = 136 # type: ignore
 """
 <no docs>
 """
-YMM28: int = 137
+YMM28: Register = 137 # type: ignore
 """
 <no docs>
 """
-YMM29: int = 138
+YMM29: Register = 138 # type: ignore
 """
 <no docs>
 """
-YMM30: int = 139
+YMM30: Register = 139 # type: ignore
 """
 <no docs>
 """
-YMM31: int = 140
+YMM31: Register = 140 # type: ignore
 """
 <no docs>
 """
-ZMM0: int = 141
+ZMM0: Register = 141 # type: ignore
 """
 <no docs>
 """
-ZMM1: int = 142
+ZMM1: Register = 142 # type: ignore
 """
 <no docs>
 """
-ZMM2: int = 143
+ZMM2: Register = 143 # type: ignore
 """
 <no docs>
 """
-ZMM3: int = 144
+ZMM3: Register = 144 # type: ignore
 """
 <no docs>
 """
-ZMM4: int = 145
+ZMM4: Register = 145 # type: ignore
 """
 <no docs>
 """
-ZMM5: int = 146
+ZMM5: Register = 146 # type: ignore
 """
 <no docs>
 """
-ZMM6: int = 147
+ZMM6: Register = 147 # type: ignore
 """
 <no docs>
 """
-ZMM7: int = 148
+ZMM7: Register = 148 # type: ignore
 """
 <no docs>
 """
-ZMM8: int = 149
+ZMM8: Register = 149 # type: ignore
 """
 <no docs>
 """
-ZMM9: int = 150
+ZMM9: Register = 150 # type: ignore
 """
 <no docs>
 """
-ZMM10: int = 151
+ZMM10: Register = 151 # type: ignore
 """
 <no docs>
 """
-ZMM11: int = 152
+ZMM11: Register = 152 # type: ignore
 """
 <no docs>
 """
-ZMM12: int = 153
+ZMM12: Register = 153 # type: ignore
 """
 <no docs>
 """
-ZMM13: int = 154
+ZMM13: Register = 154 # type: ignore
 """
 <no docs>
 """
-ZMM14: int = 155
+ZMM14: Register = 155 # type: ignore
 """
 <no docs>
 """
-ZMM15: int = 156
+ZMM15: Register = 156 # type: ignore
 """
 <no docs>
 """
-ZMM16: int = 157
+ZMM16: Register = 157 # type: ignore
 """
 <no docs>
 """
-ZMM17: int = 158
+ZMM17: Register = 158 # type: ignore
 """
 <no docs>
 """
-ZMM18: int = 159
+ZMM18: Register = 159 # type: ignore
 """
 <no docs>
 """
-ZMM19: int = 160
+ZMM19: Register = 160 # type: ignore
 """
 <no docs>
 """
-ZMM20: int = 161
+ZMM20: Register = 161 # type: ignore
 """
 <no docs>
 """
-ZMM21: int = 162
+ZMM21: Register = 162 # type: ignore
 """
 <no docs>
 """
-ZMM22: int = 163
+ZMM22: Register = 163 # type: ignore
 """
 <no docs>
 """
-ZMM23: int = 164
+ZMM23: Register = 164 # type: ignore
 """
 <no docs>
 """
-ZMM24: int = 165
+ZMM24: Register = 165 # type: ignore
 """
 <no docs>
 """
-ZMM25: int = 166
+ZMM25: Register = 166 # type: ignore
 """
 <no docs>
 """
-ZMM26: int = 167
+ZMM26: Register = 167 # type: ignore
 """
 <no docs>
 """
-ZMM27: int = 168
+ZMM27: Register = 168 # type: ignore
 """
 <no docs>
 """
-ZMM28: int = 169
+ZMM28: Register = 169 # type: ignore
 """
 <no docs>
 """
-ZMM29: int = 170
+ZMM29: Register = 170 # type: ignore
 """
 <no docs>
 """
-ZMM30: int = 171
+ZMM30: Register = 171 # type: ignore
 """
 <no docs>
 """
-ZMM31: int = 172
+ZMM31: Register = 172 # type: ignore
 """
 <no docs>
 """
-K0: int = 173
+K0: Register = 173 # type: ignore
 """
 <no docs>
 """
-K1: int = 174
+K1: Register = 174 # type: ignore
 """
 <no docs>
 """
-K2: int = 175
+K2: Register = 175 # type: ignore
 """
 <no docs>
 """
-K3: int = 176
+K3: Register = 176 # type: ignore
 """
 <no docs>
 """
-K4: int = 177
+K4: Register = 177 # type: ignore
 """
 <no docs>
 """
-K5: int = 178
+K5: Register = 178 # type: ignore
 """
 <no docs>
 """
-K6: int = 179
+K6: Register = 179 # type: ignore
 """
 <no docs>
 """
-K7: int = 180
+K7: Register = 180 # type: ignore
 """
 <no docs>
 """
-BND0: int = 181
+BND0: Register = 181 # type: ignore
 """
 <no docs>
 """
-BND1: int = 182
+BND1: Register = 182 # type: ignore
 """
 <no docs>
 """
-BND2: int = 183
+BND2: Register = 183 # type: ignore
 """
 <no docs>
 """
-BND3: int = 184
+BND3: Register = 184 # type: ignore
 """
 <no docs>
 """
-CR0: int = 185
+CR0: Register = 185 # type: ignore
 """
 <no docs>
 """
-CR1: int = 186
+CR1: Register = 186 # type: ignore
 """
 <no docs>
 """
-CR2: int = 187
+CR2: Register = 187 # type: ignore
 """
 <no docs>
 """
-CR3: int = 188
+CR3: Register = 188 # type: ignore
 """
 <no docs>
 """
-CR4: int = 189
+CR4: Register = 189 # type: ignore
 """
 <no docs>
 """
-CR5: int = 190
+CR5: Register = 190 # type: ignore
 """
 <no docs>
 """
-CR6: int = 191
+CR6: Register = 191 # type: ignore
 """
 <no docs>
 """
-CR7: int = 192
+CR7: Register = 192 # type: ignore
 """
 <no docs>
 """
-CR8: int = 193
+CR8: Register = 193 # type: ignore
 """
 <no docs>
 """
-CR9: int = 194
+CR9: Register = 194 # type: ignore
 """
 <no docs>
 """
-CR10: int = 195
+CR10: Register = 195 # type: ignore
 """
 <no docs>
 """
-CR11: int = 196
+CR11: Register = 196 # type: ignore
 """
 <no docs>
 """
-CR12: int = 197
+CR12: Register = 197 # type: ignore
 """
 <no docs>
 """
-CR13: int = 198
+CR13: Register = 198 # type: ignore
 """
 <no docs>
 """
-CR14: int = 199
+CR14: Register = 199 # type: ignore
 """
 <no docs>
 """
-CR15: int = 200
+CR15: Register = 200 # type: ignore
 """
 <no docs>
 """
-DR0: int = 201
+DR0: Register = 201 # type: ignore
 """
 <no docs>
 """
-DR1: int = 202
+DR1: Register = 202 # type: ignore
 """
 <no docs>
 """
-DR2: int = 203
+DR2: Register = 203 # type: ignore
 """
 <no docs>
 """
-DR3: int = 204
+DR3: Register = 204 # type: ignore
 """
 <no docs>
 """
-DR4: int = 205
+DR4: Register = 205 # type: ignore
 """
 <no docs>
 """
-DR5: int = 206
+DR5: Register = 206 # type: ignore
 """
 <no docs>
 """
-DR6: int = 207
+DR6: Register = 207 # type: ignore
 """
 <no docs>
 """
-DR7: int = 208
+DR7: Register = 208 # type: ignore
 """
 <no docs>
 """
-DR8: int = 209
+DR8: Register = 209 # type: ignore
 """
 <no docs>
 """
-DR9: int = 210
+DR9: Register = 210 # type: ignore
 """
 <no docs>
 """
-DR10: int = 211
+DR10: Register = 211 # type: ignore
 """
 <no docs>
 """
-DR11: int = 212
+DR11: Register = 212 # type: ignore
 """
 <no docs>
 """
-DR12: int = 213
+DR12: Register = 213 # type: ignore
 """
 <no docs>
 """
-DR13: int = 214
+DR13: Register = 214 # type: ignore
 """
 <no docs>
 """
-DR14: int = 215
+DR14: Register = 215 # type: ignore
 """
 <no docs>
 """
-DR15: int = 216
+DR15: Register = 216 # type: ignore
 """
 <no docs>
 """
-ST0: int = 217
+ST0: Register = 217 # type: ignore
 """
 <no docs>
 """
-ST1: int = 218
+ST1: Register = 218 # type: ignore
 """
 <no docs>
 """
-ST2: int = 219
+ST2: Register = 219 # type: ignore
 """
 <no docs>
 """
-ST3: int = 220
+ST3: Register = 220 # type: ignore
 """
 <no docs>
 """
-ST4: int = 221
+ST4: Register = 221 # type: ignore
 """
 <no docs>
 """
-ST5: int = 222
+ST5: Register = 222 # type: ignore
 """
 <no docs>
 """
-ST6: int = 223
+ST6: Register = 223 # type: ignore
 """
 <no docs>
 """
-ST7: int = 224
+ST7: Register = 224 # type: ignore
 """
 <no docs>
 """
-MM0: int = 225
+MM0: Register = 225 # type: ignore
 """
 <no docs>
 """
-MM1: int = 226
+MM1: Register = 226 # type: ignore
 """
 <no docs>
 """
-MM2: int = 227
+MM2: Register = 227 # type: ignore
 """
 <no docs>
 """
-MM3: int = 228
+MM3: Register = 228 # type: ignore
 """
 <no docs>
 """
-MM4: int = 229
+MM4: Register = 229 # type: ignore
 """
 <no docs>
 """
-MM5: int = 230
+MM5: Register = 230 # type: ignore
 """
 <no docs>
 """
-MM6: int = 231
+MM6: Register = 231 # type: ignore
 """
 <no docs>
 """
-MM7: int = 232
+MM7: Register = 232 # type: ignore
 """
 <no docs>
 """
-TR0: int = 233
+TR0: Register = 233 # type: ignore
 """
 <no docs>
 """
-TR1: int = 234
+TR1: Register = 234 # type: ignore
 """
 <no docs>
 """
-TR2: int = 235
+TR2: Register = 235 # type: ignore
 """
 <no docs>
 """
-TR3: int = 236
+TR3: Register = 236 # type: ignore
 """
 <no docs>
 """
-TR4: int = 237
+TR4: Register = 237 # type: ignore
 """
 <no docs>
 """
-TR5: int = 238
+TR5: Register = 238 # type: ignore
 """
 <no docs>
 """
-TR6: int = 239
+TR6: Register = 239 # type: ignore
 """
 <no docs>
 """
-TR7: int = 240
+TR7: Register = 240 # type: ignore
 """
 <no docs>
 """
-TMM0: int = 241
+TMM0: Register = 241 # type: ignore
 """
 <no docs>
 """
-TMM1: int = 242
+TMM1: Register = 242 # type: ignore
 """
 <no docs>
 """
-TMM2: int = 243
+TMM2: Register = 243 # type: ignore
 """
 <no docs>
 """
-TMM3: int = 244
+TMM3: Register = 244 # type: ignore
 """
 <no docs>
 """
-TMM4: int = 245
+TMM4: Register = 245 # type: ignore
 """
 <no docs>
 """
-TMM5: int = 246
+TMM5: Register = 246 # type: ignore
 """
 <no docs>
 """
-TMM6: int = 247
+TMM6: Register = 247 # type: ignore
 """
 <no docs>
 """
-TMM7: int = 248
+TMM7: Register = 248 # type: ignore
 """
 <no docs>
 """
-DONTUSE0: int = 249
+DONTUSE0: Register = 249 # type: ignore
 """
 DEPRECATED(1.12.0)
 """
-DONTUSEFA: int = 250
+DONTUSEFA: Register = 250 # type: ignore
 """
 DEPRECATED(1.12.0)
 """
-DONTUSEFB: int = 251
+DONTUSEFB: Register = 251 # type: ignore
 """
 DEPRECATED(1.12.0)
 """
-DONTUSEFC: int = 252
+DONTUSEFC: Register = 252 # type: ignore
 """
 DEPRECATED(1.12.0)
 """
-DONTUSEFD: int = 253
+DONTUSEFD: Register = 253 # type: ignore
 """
 DEPRECATED(1.12.0)
 """
-DONTUSEFE: int = 254
+DONTUSEFE: Register = 254 # type: ignore
 """
 DEPRECATED(1.12.0)
 """
-DONTUSEFF: int = 255
+DONTUSEFF: Register = 255 # type: ignore
 """
 DEPRECATED(1.12.0)
 """

@@ -11,63 +11,69 @@
 ``RFLAGS`` bits, FPU condition code bits and misc bits (``UIF``) supported by the instruction info code
 """
 
-NONE: int = 0x0000_0000
+import typing
+if typing.TYPE_CHECKING:
+	from ._iced_x86_py import RflagsBits
+else:
+	RflagsBits = int
+
+NONE: RflagsBits = 0x0000_0000 # type: ignore
 """
 No bit is set
 """
-OF: int = 0x0000_0001
+OF: RflagsBits = 0x0000_0001 # type: ignore
 """
 ``RFLAGS.OF``
 """
-SF: int = 0x0000_0002
+SF: RflagsBits = 0x0000_0002 # type: ignore
 """
 ``RFLAGS.SF``
 """
-ZF: int = 0x0000_0004
+ZF: RflagsBits = 0x0000_0004 # type: ignore
 """
 ``RFLAGS.ZF``
 """
-AF: int = 0x0000_0008
+AF: RflagsBits = 0x0000_0008 # type: ignore
 """
 ``RFLAGS.AF``
 """
-CF: int = 0x0000_0010
+CF: RflagsBits = 0x0000_0010 # type: ignore
 """
 ``RFLAGS.CF``
 """
-PF: int = 0x0000_0020
+PF: RflagsBits = 0x0000_0020 # type: ignore
 """
 ``RFLAGS.PF``
 """
-DF: int = 0x0000_0040
+DF: RflagsBits = 0x0000_0040 # type: ignore
 """
 ``RFLAGS.DF``
 """
-IF: int = 0x0000_0080
+IF: RflagsBits = 0x0000_0080 # type: ignore
 """
 ``RFLAGS.IF``
 """
-AC: int = 0x0000_0100
+AC: RflagsBits = 0x0000_0100 # type: ignore
 """
 ``RFLAGS.AC``
 """
-UIF: int = 0x0000_0200
+UIF: RflagsBits = 0x0000_0200 # type: ignore
 """
 ``UIF``
 """
-C0: int = 0x0000_0400
+C0: RflagsBits = 0x0000_0400 # type: ignore
 """
 FPU status word bit ``C0``
 """
-C1: int = 0x0000_0800
+C1: RflagsBits = 0x0000_0800 # type: ignore
 """
 FPU status word bit ``C1``
 """
-C2: int = 0x0000_1000
+C2: RflagsBits = 0x0000_1000 # type: ignore
 """
 FPU status word bit ``C2``
 """
-C3: int = 0x0000_2000
+C3: RflagsBits = 0x0000_2000 # type: ignore
 """
 FPU status word bit ``C3``
 """
