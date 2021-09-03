@@ -3,6 +3,7 @@
 
 import pytest
 from iced_x86 import *
+from typing import Any, Callable, Union
 
 @pytest.mark.parametrize("bitness, data, options, created_instr", [
 	(64, b"\x90", DecoderOptions.NONE, Instruction.create(Code.NOPD)),
@@ -419,7 +420,7 @@ from iced_x86 import *
 	(64, b"\x64\x62\xF1\x6D\x08\xC4\x8C\x75\x01\xEF\xCD\xAB\xA5", DecoderOptions.NONE, Instruction.create_reg_reg_mem_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5)),
 	(64, b"\x64\x62\xF1\x6D\x08\xC4\x8C\x75\x01\xEF\xCD\xAB\xA5", DecoderOptions.NONE, Instruction.create_reg_reg_mem_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5)),
 ])
-def test_create(bitness, data, options, created_instr):
+def test_create(bitness: int, data: bytes, options: DecoderOptions_, created_instr: Instruction) -> None:
 	if bitness == 64:
 		ip = 0x7FFF_FFFF_FFFF_FFF0
 	elif bitness == 32:
@@ -458,7 +459,7 @@ def test_create(bitness, data, options, created_instr):
 	(Instruction.create_declare_byte_15(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA), b"\x77\xA9\xCE\x9D\x55\x05\x42\x6C\x86\x32\xFE\x4F\x34\x27\xAA"),
 	(Instruction.create_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08), b"\x77\xA9\xCE\x9D\x55\x05\x42\x6C\x86\x32\xFE\x4F\x34\x27\xAA\x08"),
 ])
-def test_db(instr: Instruction, data: bytes):
+def test_db(instr: Instruction, data: bytes) -> None:
 	assert instr.code == Code.DECLAREBYTE
 	assert instr.declare_data_len == len(data)
 	for i, d in enumerate(data):
@@ -476,7 +477,7 @@ def test_db(instr: Instruction, data: bytes):
 	(Instruction.create_declare_word_7(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427), [0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427]),
 	(Instruction.create_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08), [0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08]),
 ])
-def test_dw(instr: Instruction, data: bytes):
+def test_dw(instr: Instruction, data: bytes) -> None:
 	assert instr.code == Code.DECLAREWORD
 	assert instr.declare_data_len == len(data)
 	for i, d in enumerate(data):
@@ -488,7 +489,7 @@ def test_dw(instr: Instruction, data: bytes):
 	(Instruction.create_declare_dword_3(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F), [0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F]),
 	(Instruction.create_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08), [0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08]),
 ])
-def test_dd(instr: Instruction, data: bytes):
+def test_dd(instr: Instruction, data: bytes) -> None:
 	assert instr.code == Code.DECLAREDWORD
 	assert instr.declare_data_len == len(data)
 	for i, d in enumerate(data):
@@ -498,7 +499,7 @@ def test_dd(instr: Instruction, data: bytes):
 	(Instruction.create_declare_qword_1(0x77A9_CE9D_5505_426C), [0x77A9_CE9D_5505_426C]),
 	(Instruction.create_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08), [0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08]),
 ])
-def test_dq(instr: Instruction, data: bytes):
+def test_dq(instr: Instruction, data: bytes) -> None:
 	assert instr.code == Code.DECLAREQWORD
 	assert instr.declare_data_len == len(data)
 	for i, d in enumerate(data):
@@ -510,7 +511,7 @@ def test_dq(instr: Instruction, data: bytes):
 	bytearray(b""),
 	bytearray(b"A" * 17),
 ])
-def test_invalid_db_slice_len(data):
+def test_invalid_db_slice_len(data: Union[bytes, bytearray]) -> None:
 	with pytest.raises(ValueError):
 		Instruction.create_declare_byte(data)
 
@@ -523,7 +524,7 @@ def test_invalid_db_slice_len(data):
 	(123, False),
 	("Hello", False),
 ])
-def test_invalid_db_slice_type(data, is_valid):
+def test_invalid_db_slice_type(data: Any, is_valid: bool) -> None:
 	if is_valid:
 		db = Instruction.create_declare_byte(data)
 		assert db.declare_data_len == len(data)
@@ -534,88 +535,88 @@ def test_invalid_db_slice_type(data, is_valid):
 			Instruction.create_declare_byte(data)
 
 @pytest.mark.parametrize("create", [
-	lambda: Instruction.create(12345),
-	lambda: Instruction.create_reg_i64(12345, Register.RCX, -1),
-	lambda: Instruction.create_reg_i32(12345, Register.RCX, -1),
-	lambda: Instruction.create_reg_u64(12345, Register.RCX, 0x31DE_BC9A_7856_3412),
-	lambda: Instruction.create_reg_u32(12345, Register.RCX, 0xFFFF_FFFF),
-	lambda: Instruction.create_reg(12345, Register.RCX),
-	lambda: Instruction.create_mem(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)),
-	lambda: Instruction.create_u32(12345, 0x5A),
-	lambda: Instruction.create_i32(12345, 0xA55A),
-	lambda: Instruction.create_i32(12345, 0x3412_A55A),
-	lambda: Instruction.create_i32(12345, 0x5A),
-	lambda: Instruction.create_i32(12345, 0x5A),
-	lambda: Instruction.create_i32(12345, 0x5A),
-	lambda: Instruction.create_i32(12345, -0x5BED_5AA6),
-	lambda: Instruction.create_branch(12345, 0x4D),
-	lambda: Instruction.create_branch(12345, 0x8000_004C),
-	lambda: Instruction.create_branch(12345, 0x8000_0000_0000_004C),
-	lambda: Instruction.create_far_branch(12345, 0x7856, 0x3412),
-	lambda: Instruction.create_far_branch(12345, 0xBC9A, 0x7856_3412),
-	lambda: Instruction.create_reg_reg(12345, Register.CL, Register.DL),
-	lambda: Instruction.create_reg_mem(12345, Register.CL, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)),
-	lambda: Instruction.create_reg_i32(12345, Register.CL, 0x5A),
-	lambda: Instruction.create_reg_i32(12345, Register.CX, 0xA55A),
-	lambda: Instruction.create_reg_i32(12345, Register.ECX, 0x3412_A55A),
-	lambda: Instruction.create_reg_u64(12345, Register.RCX, 0x7856_5AA5_3726_1504),
-	lambda: Instruction.create_reg_i32(12345, Register.CX, 0x5A),
-	lambda: Instruction.create_reg_i32(12345, Register.ECX, 0x5A),
-	lambda: Instruction.create_reg_i32(12345, Register.RCX, 0x5A),
-	lambda: Instruction.create_reg_i32(12345, Register.RCX, 0x3412_A55A),
-	lambda: Instruction.create_mem_reg(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.DL),
-	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A),
-	lambda: Instruction.create_mem_u32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA55A),
-	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x3412_A55A),
-	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A),
-	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A),
-	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A),
-	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x3412_A55A),
-	lambda: Instruction.create_i32_reg(12345, 0x5A, Register.AL),
-	lambda: Instruction.create_u32_reg(12345, 0x5A, Register.AL),
-	lambda: Instruction.create_i32_i32(12345, 0xA55A, 0xA6),
-	lambda: Instruction.create_u32_u32(12345, 0xA55A, 0xA6),
-	lambda: Instruction.create_reg_reg_u32(12345, Register.CX, Register.DX, 0x5AA5),
-	lambda: Instruction.create_reg_reg_i32(12345, Register.ECX, Register.EDX, 0x3412_A55A),
-	lambda: Instruction.create_reg_reg_i32(12345, Register.CX, Register.DX, 0x5A),
-	lambda: Instruction.create_reg_reg_i32(12345, Register.ECX, Register.EDX, 0x5A),
-	lambda: Instruction.create_reg_reg_i32(12345, Register.RCX, Register.RDX, 0x5A),
-	lambda: Instruction.create_reg_reg_i32(12345, Register.RCX, Register.RDX, -0x5BED_5AA6),
-	lambda: Instruction.create_reg_mem_u32(12345, Register.CX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA55A),
-	lambda: Instruction.create_reg_mem_i32(12345, Register.ECX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x3412_A55A),
-	lambda: Instruction.create_reg_mem_i32(12345, Register.CX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A),
-	lambda: Instruction.create_reg_mem_i32(12345, Register.ECX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A),
-	lambda: Instruction.create_reg_mem_i32(12345, Register.RCX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A),
-	lambda: Instruction.create_reg_mem_i32(12345, Register.RCX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), -0x5BED_5AA6),
-	lambda: Instruction.create_reg_i32_i32(12345, Register.XMM1, 0xA5, 0xFD),
-	lambda: Instruction.create_reg_u32_u32(12345, Register.XMM1, 0xA5, 0xFD),
-	lambda: Instruction.create_mem_reg_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.DX, 0x5A),
-	lambda: Instruction.create_mem_reg_u32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.DX, 0x5A),
-	lambda: Instruction.create_reg_reg_i32_i32(12345, Register.XMM1, Register.XMM2, 0xA5, 0xFD),
-	lambda: Instruction.create_reg_reg_u32_u32(12345, Register.XMM1, Register.XMM2, 0xA5, 0xFD),
-	lambda: Instruction.create_branch(12345, 0xAA55),
-	lambda: Instruction.create_branch(12345, 0xAA55_3412),
-	lambda: Instruction.create_reg_reg_reg(12345, Register.XMM1, Register.XMM2, Register.XMM3),
-	lambda: Instruction.create_reg_reg_mem(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)),
-	lambda: Instruction.create_reg_mem_reg(12345, Register.XMM1, MemoryOperand(Register.RBP, Register.XMM6, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM3),
-	lambda: Instruction.create_mem_reg_reg(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM2, Register.XMM3),
-	lambda: Instruction.create_reg_reg_reg_reg(12345, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4),
-	lambda: Instruction.create_reg_reg_reg_mem(12345, Register.XMM1, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)),
-	lambda: Instruction.create_reg_reg_mem_reg(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4),
-	lambda: Instruction.create_reg_reg_reg_reg_i32(12345, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0),
-	lambda: Instruction.create_reg_reg_reg_reg_u32(12345, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0),
-	lambda: Instruction.create_reg_reg_reg_mem_i32(12345, Register.XMM1, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1),
-	lambda: Instruction.create_reg_reg_reg_mem_u32(12345, Register.XMM1, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1),
-	lambda: Instruction.create_reg_reg_mem_reg_i32(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1),
-	lambda: Instruction.create_reg_reg_mem_reg_u32(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1),
-	lambda: Instruction.create_reg_reg_i32(12345, Register.XMM1, Register.XMM2, 0xA5),
-	lambda: Instruction.create_reg_mem_i32(12345, Register.XMM1, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5),
-	lambda: Instruction.create_reg_reg_reg_i32(12345, Register.XMM1, Register.XMM2, Register.EBX, 0xA5),
-	lambda: Instruction.create_reg_reg_reg_u32(12345, Register.XMM1, Register.XMM2, Register.EBX, 0xA5),
-	lambda: Instruction.create_reg_reg_mem_i32(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5),
-	lambda: Instruction.create_reg_reg_mem_u32(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5),
+	lambda: Instruction.create(12345), # type: ignore
+	lambda: Instruction.create_reg_i64(12345, Register.RCX, -1), # type: ignore
+	lambda: Instruction.create_reg_i32(12345, Register.RCX, -1), # type: ignore
+	lambda: Instruction.create_reg_u64(12345, Register.RCX, 0x31DE_BC9A_7856_3412), # type: ignore
+	lambda: Instruction.create_reg_u32(12345, Register.RCX, 0xFFFF_FFFF), # type: ignore
+	lambda: Instruction.create_reg(12345, Register.RCX), # type: ignore
+	lambda: Instruction.create_mem(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)), # type: ignore
+	lambda: Instruction.create_u32(12345, 0x5A), # type: ignore
+	lambda: Instruction.create_i32(12345, 0xA55A), # type: ignore
+	lambda: Instruction.create_i32(12345, 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_i32(12345, 0x5A), # type: ignore
+	lambda: Instruction.create_i32(12345, 0x5A), # type: ignore
+	lambda: Instruction.create_i32(12345, 0x5A), # type: ignore
+	lambda: Instruction.create_i32(12345, -0x5BED_5AA6), # type: ignore
+	lambda: Instruction.create_branch(12345, 0x4D), # type: ignore
+	lambda: Instruction.create_branch(12345, 0x8000_004C), # type: ignore
+	lambda: Instruction.create_branch(12345, 0x8000_0000_0000_004C), # type: ignore
+	lambda: Instruction.create_far_branch(12345, 0x7856, 0x3412), # type: ignore
+	lambda: Instruction.create_far_branch(12345, 0xBC9A, 0x7856_3412), # type: ignore
+	lambda: Instruction.create_reg_reg(12345, Register.CL, Register.DL), # type: ignore
+	lambda: Instruction.create_reg_mem(12345, Register.CL, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)), # type: ignore
+	lambda: Instruction.create_reg_i32(12345, Register.CL, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_i32(12345, Register.CX, 0xA55A), # type: ignore
+	lambda: Instruction.create_reg_i32(12345, Register.ECX, 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_reg_u64(12345, Register.RCX, 0x7856_5AA5_3726_1504), # type: ignore
+	lambda: Instruction.create_reg_i32(12345, Register.CX, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_i32(12345, Register.ECX, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_i32(12345, Register.RCX, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_i32(12345, Register.RCX, 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_mem_reg(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.DL), # type: ignore
+	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A), # type: ignore
+	lambda: Instruction.create_mem_u32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA55A), # type: ignore
+	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A), # type: ignore
+	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A), # type: ignore
+	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A), # type: ignore
+	lambda: Instruction.create_mem_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_i32_reg(12345, 0x5A, Register.AL), # type: ignore
+	lambda: Instruction.create_u32_reg(12345, 0x5A, Register.AL), # type: ignore
+	lambda: Instruction.create_i32_i32(12345, 0xA55A, 0xA6), # type: ignore
+	lambda: Instruction.create_u32_u32(12345, 0xA55A, 0xA6), # type: ignore
+	lambda: Instruction.create_reg_reg_u32(12345, Register.CX, Register.DX, 0x5AA5), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(12345, Register.ECX, Register.EDX, 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(12345, Register.CX, Register.DX, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(12345, Register.ECX, Register.EDX, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(12345, Register.RCX, Register.RDX, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(12345, Register.RCX, Register.RDX, -0x5BED_5AA6), # type: ignore
+	lambda: Instruction.create_reg_mem_u32(12345, Register.CX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA55A), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(12345, Register.ECX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(12345, Register.CX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(12345, Register.ECX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(12345, Register.RCX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(12345, Register.RCX, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), -0x5BED_5AA6), # type: ignore
+	lambda: Instruction.create_reg_i32_i32(12345, Register.XMM1, 0xA5, 0xFD), # type: ignore
+	lambda: Instruction.create_reg_u32_u32(12345, Register.XMM1, 0xA5, 0xFD), # type: ignore
+	lambda: Instruction.create_mem_reg_i32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.DX, 0x5A), # type: ignore
+	lambda: Instruction.create_mem_reg_u32(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.DX, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32_i32(12345, Register.XMM1, Register.XMM2, 0xA5, 0xFD), # type: ignore
+	lambda: Instruction.create_reg_reg_u32_u32(12345, Register.XMM1, Register.XMM2, 0xA5, 0xFD), # type: ignore
+	lambda: Instruction.create_branch(12345, 0xAA55), # type: ignore
+	lambda: Instruction.create_branch(12345, 0xAA55_3412), # type: ignore
+	lambda: Instruction.create_reg_reg_reg(12345, Register.XMM1, Register.XMM2, Register.XMM3), # type: ignore
+	lambda: Instruction.create_reg_reg_mem(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)), # type: ignore
+	lambda: Instruction.create_reg_mem_reg(12345, Register.XMM1, MemoryOperand(Register.RBP, Register.XMM6, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM3), # type: ignore
+	lambda: Instruction.create_mem_reg_reg(12345, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM2, Register.XMM3), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg(12345, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem(12345, Register.XMM1, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg_i32(12345, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg_u32(12345, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem_i32(12345, Register.XMM1, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem_u32(12345, Register.XMM1, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg_i32(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg_u32(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(12345, Register.XMM1, Register.XMM2, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(12345, Register.XMM1, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_i32(12345, Register.XMM1, Register.XMM2, Register.EBX, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_u32(12345, Register.XMM1, Register.XMM2, Register.EBX, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_i32(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_u32(12345, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5), # type: ignore
 ])
-def test_invalid_code_arg(create):
+def test_invalid_code_arg(create: Callable[[], Instruction]) -> None:
 	with pytest.raises(ValueError):
 		create()
 
@@ -737,195 +738,195 @@ def test_invalid_code_arg(create):
 	lambda: Instruction.create_rep_movsq(1234),
 	lambda: Instruction.create_vmaskmovdqu(1234, Register.XMM2, Register.XMM3, Register.FS),
 ])
-def test_invalid_bitness_arg(create):
+def test_invalid_bitness_arg(create: Callable[[], Instruction]) -> None:
 	with pytest.raises(ValueError):
 		create()
 
 @pytest.mark.parametrize("create", [
-	lambda: Instruction.create_cmpsb(64, Register.FS, 123),
-	lambda: Instruction.create_cmpsd(64, Register.FS, 123),
-	lambda: Instruction.create_cmpsq(64, Register.FS, 123),
-	lambda: Instruction.create_cmpsw(64, Register.FS, 123),
-	lambda: Instruction.create_insb(64, 123),
-	lambda: Instruction.create_insd(64, 123),
-	lambda: Instruction.create_insw(64, 123),
-	lambda: Instruction.create_lodsb(64, Register.FS, 123),
-	lambda: Instruction.create_lodsd(64, Register.FS, 123),
-	lambda: Instruction.create_lodsq(64, Register.FS, 123),
-	lambda: Instruction.create_lodsw(64, Register.FS, 123),
-	lambda: Instruction.create_movsb(64, Register.FS, 123),
-	lambda: Instruction.create_movsd(64, Register.FS, 123),
-	lambda: Instruction.create_movsq(64, Register.FS, 123),
-	lambda: Instruction.create_movsw(64, Register.FS, 123),
-	lambda: Instruction.create_outsb(64, Register.FS, 123),
-	lambda: Instruction.create_outsd(64, Register.FS, 123),
-	lambda: Instruction.create_outsw(64, Register.FS, 123),
-	lambda: Instruction.create_scasb(64, 123),
-	lambda: Instruction.create_scasd(64, 123),
-	lambda: Instruction.create_scasq(64, 123),
-	lambda: Instruction.create_scasw(64, 123),
-	lambda: Instruction.create_stosb(64, 123),
-	lambda: Instruction.create_stosd(64, 123),
-	lambda: Instruction.create_stosq(64, 123),
-	lambda: Instruction.create_stosw(64, 123),
+	lambda: Instruction.create_cmpsb(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_cmpsd(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_cmpsq(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_cmpsw(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_insb(64, 123), # type: ignore
+	lambda: Instruction.create_insd(64, 123), # type: ignore
+	lambda: Instruction.create_insw(64, 123), # type: ignore
+	lambda: Instruction.create_lodsb(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_lodsd(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_lodsq(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_lodsw(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_movsb(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_movsd(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_movsq(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_movsw(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_outsb(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_outsd(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_outsw(64, Register.FS, 123), # type: ignore
+	lambda: Instruction.create_scasb(64, 123), # type: ignore
+	lambda: Instruction.create_scasd(64, 123), # type: ignore
+	lambda: Instruction.create_scasq(64, 123), # type: ignore
+	lambda: Instruction.create_scasw(64, 123), # type: ignore
+	lambda: Instruction.create_stosb(64, 123), # type: ignore
+	lambda: Instruction.create_stosd(64, 123), # type: ignore
+	lambda: Instruction.create_stosq(64, 123), # type: ignore
+	lambda: Instruction.create_stosw(64, 123), # type: ignore
 ])
-def test_invalid_rep_enum_arg(create):
+def test_invalid_rep_enum_arg(create: Callable[[], Instruction]) -> None:
 	with pytest.raises(ValueError):
 		create()
 
 @pytest.mark.parametrize("create", [
-	lambda: Instruction.create_reg_i64(Code.MOV_R64_IMM64, 1234, -1),
-	lambda: Instruction.create_reg_i32(Code.MOV_R64_IMM64, 1234, -1),
-	lambda: Instruction.create_reg_u64(Code.MOV_R64_IMM64, 1234, 0x31DE_BC9A_7856_3412),
-	lambda: Instruction.create_reg_u32(Code.MOV_R64_IMM64, 1234, 0xFFFF_FFFF),
-	lambda: Instruction.create_reg(Code.POP_RM64, 1234),
-	lambda: Instruction.create_reg_reg(Code.ADD_RM8_R8, 1234, Register.DL),
-	lambda: Instruction.create_reg_reg(Code.ADD_RM8_R8, Register.CL, 1234),
-	lambda: Instruction.create_reg_mem(Code.ADD_R8_RM8, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)),
-	lambda: Instruction.create_reg_i32(Code.ADD_RM8_IMM8, 1234, 0x5A),
-	lambda: Instruction.create_reg_i32(Code.ADD_RM16_IMM16, 1234, 0xA55A),
-	lambda: Instruction.create_reg_i32(Code.ADD_RM32_IMM32, 1234, 0x3412_A55A),
-	lambda: Instruction.create_reg_u64(Code.MOV_R64_IMM64, 1234, 0x7856_5AA5_3726_1504),
-	lambda: Instruction.create_reg_i32(Code.ADD_RM16_IMM8, 1234, 0x5A),
-	lambda: Instruction.create_reg_i32(Code.ADD_RM32_IMM8, 1234, 0x5A),
-	lambda: Instruction.create_reg_i32(Code.ADD_RM64_IMM8, 1234, 0x5A),
-	lambda: Instruction.create_reg_i32(Code.ADD_RM64_IMM32, 1234, 0x3412_A55A),
-	lambda: Instruction.create_mem_reg(Code.ADD_RM8_R8, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234),
-	lambda: Instruction.create_i32_reg(Code.OUT_IMM8_AL, 0x5A, 1234),
-	lambda: Instruction.create_u32_reg(Code.OUT_IMM8_AL, 0x5A, 1234),
-	lambda: Instruction.create_reg_reg_u32(Code.IMUL_R16_RM16_IMM16, 1234, Register.DX, 0x5AA5),
-	lambda: Instruction.create_reg_reg_u32(Code.IMUL_R16_RM16_IMM16, Register.CX, 1234, 0x5AA5),
-	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R32_RM32_IMM32, 1234, Register.EDX, 0x3412_A55A),
-	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R32_RM32_IMM32, Register.ECX, 1234, 0x3412_A55A),
-	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R16_RM16_IMM8, 1234, Register.DX, 0x5A),
-	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R16_RM16_IMM8, Register.CX, 1234, 0x5A),
-	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R32_RM32_IMM8, 1234, Register.EDX, 0x5A),
-	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R32_RM32_IMM8, Register.ECX, 1234, 0x5A),
-	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R64_RM64_IMM8, 1234, Register.RDX, 0x5A),
-	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R64_RM64_IMM8, Register.RCX, 1234, 0x5A),
-	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R64_RM64_IMM32, 1234, Register.RDX, -0x5BED_5AA6),
-	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R64_RM64_IMM32, Register.RCX, 1234, -0x5BED_5AA6),
-	lambda: Instruction.create_reg_mem_u32(Code.IMUL_R16_RM16_IMM16, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA55A),
-	lambda: Instruction.create_reg_mem_i32(Code.IMUL_R32_RM32_IMM32, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x3412_A55A),
-	lambda: Instruction.create_reg_mem_i32(Code.IMUL_R16_RM16_IMM8, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A),
-	lambda: Instruction.create_reg_mem_i32(Code.IMUL_R32_RM32_IMM8, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A),
-	lambda: Instruction.create_reg_mem_i32(Code.IMUL_R64_RM64_IMM8, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A),
-	lambda: Instruction.create_reg_mem_i32(Code.IMUL_R64_RM64_IMM32, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), -0x5BED_5AA6),
-	lambda: Instruction.create_reg_i32_i32(Code.EXTRQ_XMM_IMM8_IMM8, 1234, 0xA5, 0xFD),
-	lambda: Instruction.create_reg_u32_u32(Code.EXTRQ_XMM_IMM8_IMM8, 1234, 0xA5, 0xFD),
-	lambda: Instruction.create_mem_reg_i32(Code.SHLD_RM16_R16_IMM8, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234, 0x5A),
-	lambda: Instruction.create_mem_reg_u32(Code.SHLD_RM16_R16_IMM8, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234, 0x5A),
-	lambda: Instruction.create_reg_reg_i32_i32(Code.INSERTQ_XMM_XMM_IMM8_IMM8, 1234, Register.XMM2, 0xA5, 0xFD),
-	lambda: Instruction.create_reg_reg_i32_i32(Code.INSERTQ_XMM_XMM_IMM8_IMM8, Register.XMM1, 1234, 0xA5, 0xFD),
-	lambda: Instruction.create_reg_reg_u32_u32(Code.INSERTQ_XMM_XMM_IMM8_IMM8, 1234, Register.XMM2, 0xA5, 0xFD),
-	lambda: Instruction.create_reg_reg_u32_u32(Code.INSERTQ_XMM_XMM_IMM8_IMM8, Register.XMM1, 1234, 0xA5, 0xFD),
-	lambda: Instruction.create_outsb(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_outsw(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_outsd(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_lodsb(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_lodsw(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_lodsd(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_lodsq(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_cmpsb(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_cmpsw(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_cmpsd(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_cmpsq(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_movsb(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_movsw(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_movsd(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_movsq(64, 1234, RepPrefixKind.NONE),
-	lambda: Instruction.create_maskmovq(64, 1234, Register.MM3, Register.FS),
-	lambda: Instruction.create_maskmovq(64, Register.MM2, 1234, Register.FS),
-	lambda: Instruction.create_maskmovq(64, Register.MM2, Register.MM3, 1234),
-	lambda: Instruction.create_maskmovdqu(64, 1234, Register.XMM3, Register.FS),
-	lambda: Instruction.create_maskmovdqu(64, Register.XMM2, 1234, Register.FS),
-	lambda: Instruction.create_maskmovdqu(64, Register.XMM2, Register.XMM3, 1234),
-	lambda: Instruction.create_outsb(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_outsw(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_outsd(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_lodsb(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_lodsw(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_lodsd(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_lodsq(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_cmpsb(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_cmpsw(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_cmpsd(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_cmpsq(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_movsb(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_movsw(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_movsd(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_movsq(64, 1234, RepPrefixKind.REPE),
-	lambda: Instruction.create_outsb(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_outsw(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_outsd(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_lodsb(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_lodsw(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_lodsd(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_lodsq(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_cmpsb(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_cmpsw(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_cmpsd(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_cmpsq(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_movsb(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_movsw(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_movsd(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_movsq(64, 1234, RepPrefixKind.REPNE),
-	lambda: Instruction.create_reg_reg_reg(Code.VEX_VUNPCKLPS_XMM_XMM_XMMM128, 1234, Register.XMM2, Register.XMM3),
-	lambda: Instruction.create_reg_reg_reg(Code.VEX_VUNPCKLPS_XMM_XMM_XMMM128, Register.XMM1, 1234, Register.XMM3),
-	lambda: Instruction.create_reg_reg_reg(Code.VEX_VUNPCKLPS_XMM_XMM_XMMM128, Register.XMM1, Register.XMM2, 1234),
-	lambda: Instruction.create_reg_reg_mem(Code.VEX_VUNPCKLPS_XMM_XMM_XMMM128, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)),
-	lambda: Instruction.create_reg_reg_mem(Code.VEX_VUNPCKLPS_XMM_XMM_XMMM128, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)),
-	lambda: Instruction.create_reg_mem_reg(Code.VEX_VPGATHERDD_XMM_VM32X_XMM, 1234, MemoryOperand(Register.RBP, Register.XMM6, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM3),
-	lambda: Instruction.create_reg_mem_reg(Code.VEX_VPGATHERDD_XMM_VM32X_XMM, Register.XMM1, MemoryOperand(Register.RBP, Register.XMM6, 2, -0x5432_10FF, 8, False, Register.FS), 1234),
-	lambda: Instruction.create_mem_reg_reg(Code.VEX_VMASKMOVPS_M128_XMM_XMM, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234, Register.XMM3),
-	lambda: Instruction.create_mem_reg_reg(Code.VEX_VMASKMOVPS_M128_XMM_XMM, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM2, 1234),
-	lambda: Instruction.create_reg_reg_reg_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, 1234, Register.XMM2, Register.XMM3, Register.XMM4),
-	lambda: Instruction.create_reg_reg_reg_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, Register.XMM1, 1234, Register.XMM3, Register.XMM4),
-	lambda: Instruction.create_reg_reg_reg_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, Register.XMM1, Register.XMM2, 1234, Register.XMM4),
-	lambda: Instruction.create_reg_reg_reg_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, Register.XMM1, Register.XMM2, Register.XMM3, 1234),
-	lambda: Instruction.create_reg_reg_reg_mem(Code.VEX_VFMADDSUBPS_XMM_XMM_XMM_XMMM128, 1234, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)),
-	lambda: Instruction.create_reg_reg_reg_mem(Code.VEX_VFMADDSUBPS_XMM_XMM_XMM_XMMM128, Register.XMM1, 1234, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)),
-	lambda: Instruction.create_reg_reg_reg_mem(Code.VEX_VFMADDSUBPS_XMM_XMM_XMM_XMMM128, Register.XMM1, Register.XMM2, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)),
-	lambda: Instruction.create_reg_reg_mem_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4),
-	lambda: Instruction.create_reg_reg_mem_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4),
-	lambda: Instruction.create_reg_reg_mem_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234),
-	lambda: Instruction.create_reg_reg_reg_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, 1234, Register.XMM2, Register.XMM3, Register.XMM4, 0x0),
-	lambda: Instruction.create_reg_reg_reg_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, 1234, Register.XMM3, Register.XMM4, 0x0),
-	lambda: Instruction.create_reg_reg_reg_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, 1234, Register.XMM4, 0x0),
-	lambda: Instruction.create_reg_reg_reg_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, Register.XMM3, 1234, 0x0),
-	lambda: Instruction.create_reg_reg_reg_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, 1234, Register.XMM2, Register.XMM3, Register.XMM4, 0x0),
-	lambda: Instruction.create_reg_reg_reg_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, 1234, Register.XMM3, Register.XMM4, 0x0),
-	lambda: Instruction.create_reg_reg_reg_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, 1234, Register.XMM4, 0x0),
-	lambda: Instruction.create_reg_reg_reg_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, Register.XMM3, 1234, 0x0),
-	lambda: Instruction.create_reg_reg_reg_mem_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, 1234, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1),
-	lambda: Instruction.create_reg_reg_reg_mem_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, Register.XMM1, 1234, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1),
-	lambda: Instruction.create_reg_reg_reg_mem_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, Register.XMM1, Register.XMM2, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1),
-	lambda: Instruction.create_reg_reg_reg_mem_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, 1234, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1),
-	lambda: Instruction.create_reg_reg_reg_mem_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, Register.XMM1, 1234, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1),
-	lambda: Instruction.create_reg_reg_reg_mem_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, Register.XMM1, Register.XMM2, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1),
-	lambda: Instruction.create_reg_reg_mem_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1),
-	lambda: Instruction.create_reg_reg_mem_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1),
-	lambda: Instruction.create_reg_reg_mem_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234, 0x1),
-	lambda: Instruction.create_reg_reg_mem_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1),
-	lambda: Instruction.create_reg_reg_mem_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1),
-	lambda: Instruction.create_reg_reg_mem_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234, 0x1),
-	lambda: Instruction.create_vmaskmovdqu(64, 1234, Register.XMM3, Register.FS),
-	lambda: Instruction.create_vmaskmovdqu(64, Register.XMM2, 1234, Register.FS),
-	lambda: Instruction.create_vmaskmovdqu(64, Register.XMM2, Register.XMM3, 1234),
-	lambda: Instruction.create_reg_reg_i32(Code.EVEX_VPSRLQ_XMM_K1Z_XMMM128B64_IMM8, 1234, Register.XMM2, 0xA5),
-	lambda: Instruction.create_reg_reg_i32(Code.EVEX_VPSRLQ_XMM_K1Z_XMMM128B64_IMM8, Register.XMM1, 1234, 0xA5),
-	lambda: Instruction.create_reg_mem_i32(Code.EVEX_VPSRLQ_XMM_K1Z_XMMM128B64_IMM8, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5),
-	lambda: Instruction.create_reg_reg_reg_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, 1234, Register.XMM2, Register.EBX, 0xA5),
-	lambda: Instruction.create_reg_reg_reg_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, 1234, Register.EBX, 0xA5),
-	lambda: Instruction.create_reg_reg_reg_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, Register.XMM2, 1234, 0xA5),
-	lambda: Instruction.create_reg_reg_reg_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, 1234, Register.XMM2, Register.EBX, 0xA5),
-	lambda: Instruction.create_reg_reg_reg_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, 1234, Register.EBX, 0xA5),
-	lambda: Instruction.create_reg_reg_reg_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, Register.XMM2, 1234, 0xA5),
-	lambda: Instruction.create_reg_reg_mem_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5),
-	lambda: Instruction.create_reg_reg_mem_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5),
-	lambda: Instruction.create_reg_reg_mem_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5),
-	lambda: Instruction.create_reg_reg_mem_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5),
+	lambda: Instruction.create_reg_i64(Code.MOV_R64_IMM64, 1234, -1), # type: ignore
+	lambda: Instruction.create_reg_i32(Code.MOV_R64_IMM64, 1234, -1), # type: ignore
+	lambda: Instruction.create_reg_u64(Code.MOV_R64_IMM64, 1234, 0x31DE_BC9A_7856_3412), # type: ignore
+	lambda: Instruction.create_reg_u32(Code.MOV_R64_IMM64, 1234, 0xFFFF_FFFF), # type: ignore
+	lambda: Instruction.create_reg(Code.POP_RM64, 1234), # type: ignore
+	lambda: Instruction.create_reg_reg(Code.ADD_RM8_R8, 1234, Register.DL), # type: ignore
+	lambda: Instruction.create_reg_reg(Code.ADD_RM8_R8, Register.CL, 1234), # type: ignore
+	lambda: Instruction.create_reg_mem(Code.ADD_R8_RM8, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)), # type: ignore
+	lambda: Instruction.create_reg_i32(Code.ADD_RM8_IMM8, 1234, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_i32(Code.ADD_RM16_IMM16, 1234, 0xA55A), # type: ignore
+	lambda: Instruction.create_reg_i32(Code.ADD_RM32_IMM32, 1234, 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_reg_u64(Code.MOV_R64_IMM64, 1234, 0x7856_5AA5_3726_1504), # type: ignore
+	lambda: Instruction.create_reg_i32(Code.ADD_RM16_IMM8, 1234, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_i32(Code.ADD_RM32_IMM8, 1234, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_i32(Code.ADD_RM64_IMM8, 1234, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_i32(Code.ADD_RM64_IMM32, 1234, 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_mem_reg(Code.ADD_RM8_R8, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234), # type: ignore
+	lambda: Instruction.create_i32_reg(Code.OUT_IMM8_AL, 0x5A, 1234), # type: ignore
+	lambda: Instruction.create_u32_reg(Code.OUT_IMM8_AL, 0x5A, 1234), # type: ignore
+	lambda: Instruction.create_reg_reg_u32(Code.IMUL_R16_RM16_IMM16, 1234, Register.DX, 0x5AA5), # type: ignore
+	lambda: Instruction.create_reg_reg_u32(Code.IMUL_R16_RM16_IMM16, Register.CX, 1234, 0x5AA5), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R32_RM32_IMM32, 1234, Register.EDX, 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R32_RM32_IMM32, Register.ECX, 1234, 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R16_RM16_IMM8, 1234, Register.DX, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R16_RM16_IMM8, Register.CX, 1234, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R32_RM32_IMM8, 1234, Register.EDX, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R32_RM32_IMM8, Register.ECX, 1234, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R64_RM64_IMM8, 1234, Register.RDX, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R64_RM64_IMM8, Register.RCX, 1234, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R64_RM64_IMM32, 1234, Register.RDX, -0x5BED_5AA6), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.IMUL_R64_RM64_IMM32, Register.RCX, 1234, -0x5BED_5AA6), # type: ignore
+	lambda: Instruction.create_reg_mem_u32(Code.IMUL_R16_RM16_IMM16, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA55A), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(Code.IMUL_R32_RM32_IMM32, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x3412_A55A), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(Code.IMUL_R16_RM16_IMM8, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(Code.IMUL_R32_RM32_IMM8, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(Code.IMUL_R64_RM64_IMM8, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x5A), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(Code.IMUL_R64_RM64_IMM32, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), -0x5BED_5AA6), # type: ignore
+	lambda: Instruction.create_reg_i32_i32(Code.EXTRQ_XMM_IMM8_IMM8, 1234, 0xA5, 0xFD), # type: ignore
+	lambda: Instruction.create_reg_u32_u32(Code.EXTRQ_XMM_IMM8_IMM8, 1234, 0xA5, 0xFD), # type: ignore
+	lambda: Instruction.create_mem_reg_i32(Code.SHLD_RM16_R16_IMM8, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234, 0x5A), # type: ignore
+	lambda: Instruction.create_mem_reg_u32(Code.SHLD_RM16_R16_IMM8, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234, 0x5A), # type: ignore
+	lambda: Instruction.create_reg_reg_i32_i32(Code.INSERTQ_XMM_XMM_IMM8_IMM8, 1234, Register.XMM2, 0xA5, 0xFD), # type: ignore
+	lambda: Instruction.create_reg_reg_i32_i32(Code.INSERTQ_XMM_XMM_IMM8_IMM8, Register.XMM1, 1234, 0xA5, 0xFD), # type: ignore
+	lambda: Instruction.create_reg_reg_u32_u32(Code.INSERTQ_XMM_XMM_IMM8_IMM8, 1234, Register.XMM2, 0xA5, 0xFD), # type: ignore
+	lambda: Instruction.create_reg_reg_u32_u32(Code.INSERTQ_XMM_XMM_IMM8_IMM8, Register.XMM1, 1234, 0xA5, 0xFD), # type: ignore
+	lambda: Instruction.create_outsb(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_outsw(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_outsd(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_lodsb(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_lodsw(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_lodsd(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_lodsq(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_cmpsb(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_cmpsw(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_cmpsd(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_cmpsq(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_movsb(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_movsw(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_movsd(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_movsq(64, 1234, RepPrefixKind.NONE), # type: ignore
+	lambda: Instruction.create_maskmovq(64, 1234, Register.MM3, Register.FS), # type: ignore
+	lambda: Instruction.create_maskmovq(64, Register.MM2, 1234, Register.FS), # type: ignore
+	lambda: Instruction.create_maskmovq(64, Register.MM2, Register.MM3, 1234), # type: ignore
+	lambda: Instruction.create_maskmovdqu(64, 1234, Register.XMM3, Register.FS), # type: ignore
+	lambda: Instruction.create_maskmovdqu(64, Register.XMM2, 1234, Register.FS), # type: ignore
+	lambda: Instruction.create_maskmovdqu(64, Register.XMM2, Register.XMM3, 1234), # type: ignore
+	lambda: Instruction.create_outsb(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_outsw(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_outsd(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_lodsb(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_lodsw(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_lodsd(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_lodsq(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_cmpsb(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_cmpsw(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_cmpsd(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_cmpsq(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_movsb(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_movsw(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_movsd(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_movsq(64, 1234, RepPrefixKind.REPE), # type: ignore
+	lambda: Instruction.create_outsb(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_outsw(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_outsd(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_lodsb(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_lodsw(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_lodsd(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_lodsq(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_cmpsb(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_cmpsw(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_cmpsd(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_cmpsq(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_movsb(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_movsw(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_movsd(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_movsq(64, 1234, RepPrefixKind.REPNE), # type: ignore
+	lambda: Instruction.create_reg_reg_reg(Code.VEX_VUNPCKLPS_XMM_XMM_XMMM128, 1234, Register.XMM2, Register.XMM3), # type: ignore
+	lambda: Instruction.create_reg_reg_reg(Code.VEX_VUNPCKLPS_XMM_XMM_XMMM128, Register.XMM1, 1234, Register.XMM3), # type: ignore
+	lambda: Instruction.create_reg_reg_reg(Code.VEX_VUNPCKLPS_XMM_XMM_XMMM128, Register.XMM1, Register.XMM2, 1234), # type: ignore
+	lambda: Instruction.create_reg_reg_mem(Code.VEX_VUNPCKLPS_XMM_XMM_XMMM128, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)), # type: ignore
+	lambda: Instruction.create_reg_reg_mem(Code.VEX_VUNPCKLPS_XMM_XMM_XMMM128, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)), # type: ignore
+	lambda: Instruction.create_reg_mem_reg(Code.VEX_VPGATHERDD_XMM_VM32X_XMM, 1234, MemoryOperand(Register.RBP, Register.XMM6, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM3), # type: ignore
+	lambda: Instruction.create_reg_mem_reg(Code.VEX_VPGATHERDD_XMM_VM32X_XMM, Register.XMM1, MemoryOperand(Register.RBP, Register.XMM6, 2, -0x5432_10FF, 8, False, Register.FS), 1234), # type: ignore
+	lambda: Instruction.create_mem_reg_reg(Code.VEX_VMASKMOVPS_M128_XMM_XMM, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234, Register.XMM3), # type: ignore
+	lambda: Instruction.create_mem_reg_reg(Code.VEX_VMASKMOVPS_M128_XMM_XMM, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM2, 1234), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, 1234, Register.XMM2, Register.XMM3, Register.XMM4), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, Register.XMM1, 1234, Register.XMM3, Register.XMM4), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, Register.XMM1, Register.XMM2, 1234, Register.XMM4), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, Register.XMM1, Register.XMM2, Register.XMM3, 1234), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem(Code.VEX_VFMADDSUBPS_XMM_XMM_XMM_XMMM128, 1234, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem(Code.VEX_VFMADDSUBPS_XMM_XMM_XMM_XMMM128, Register.XMM1, 1234, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem(Code.VEX_VFMADDSUBPS_XMM_XMM_XMM_XMMM128, Register.XMM1, Register.XMM2, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS)), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg(Code.VEX_VBLENDVPS_XMM_XMM_XMMM128_XMM, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, 1234, Register.XMM2, Register.XMM3, Register.XMM4, 0x0), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, 1234, Register.XMM3, Register.XMM4, 0x0), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, 1234, Register.XMM4, 0x0), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, Register.XMM3, 1234, 0x0), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, 1234, Register.XMM2, Register.XMM3, Register.XMM4, 0x0), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, 1234, Register.XMM3, Register.XMM4, 0x0), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, 1234, Register.XMM4, 0x0), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, Register.XMM3, 1234, 0x0), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, 1234, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, Register.XMM1, 1234, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, Register.XMM1, Register.XMM2, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, 1234, Register.XMM2, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, Register.XMM1, 1234, Register.XMM3, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_mem_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMM_XMMM128_IMM4, Register.XMM1, Register.XMM2, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg_i32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234, 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), Register.XMM4, 0x1), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_reg_u32(Code.VEX_VPERMIL2PS_XMM_XMM_XMMM128_XMM_IMM4, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 1234, 0x1), # type: ignore
+	lambda: Instruction.create_vmaskmovdqu(64, 1234, Register.XMM3, Register.FS), # type: ignore
+	lambda: Instruction.create_vmaskmovdqu(64, Register.XMM2, 1234, Register.FS), # type: ignore
+	lambda: Instruction.create_vmaskmovdqu(64, Register.XMM2, Register.XMM3, 1234), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.EVEX_VPSRLQ_XMM_K1Z_XMMM128B64_IMM8, 1234, Register.XMM2, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_i32(Code.EVEX_VPSRLQ_XMM_K1Z_XMMM128B64_IMM8, Register.XMM1, 1234, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_mem_i32(Code.EVEX_VPSRLQ_XMM_K1Z_XMMM128B64_IMM8, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, 1234, Register.XMM2, Register.EBX, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, 1234, Register.EBX, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, Register.XMM2, 1234, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, 1234, Register.XMM2, Register.EBX, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, 1234, Register.EBX, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_reg_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, Register.XMM2, 1234, 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_i32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, 1234, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5), # type: ignore
+	lambda: Instruction.create_reg_reg_mem_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, 1234, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5), # type: ignore
 ])
-def test_invalid_register_enum_arg(create):
+def test_invalid_register_enum_arg(create: Callable[[], Instruction]) -> None:
 	with pytest.raises(ValueError):
 		create()

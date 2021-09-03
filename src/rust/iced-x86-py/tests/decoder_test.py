@@ -4,11 +4,12 @@
 import copy
 import pytest
 from iced_x86 import *
+from typing import Any, Callable
 
 @pytest.mark.parametrize("bitness", [16, 32, 64, 0, 15, 128])
-def test_invalid_bitness(bitness):
+def test_invalid_bitness(bitness: int) -> None:
 	data = b"\x90"
-	if bitness == 16 or bitness == 32 or bitness == 64:
+	if bitness in (16, 32, 64):
 		Decoder(bitness, data)
 	else:
 		with pytest.raises(ValueError):
@@ -27,7 +28,7 @@ def test_invalid_bitness(bitness):
 	(123, False),
 	("Hello", False),
 ])
-def test_different_data_types(data, is_valid):
+def test_different_data_types(data: Any, is_valid: bool) -> None:
 	bitness = 64
 	if is_valid:
 		decoder = Decoder(bitness, data)
@@ -46,23 +47,23 @@ def test_different_data_types(data, is_valid):
 	(32, b"\x03\xCE", Code.ADD_R32_RM32),
 	(64, b"\x48\x03\xCE", Code.ADD_R64_RM64),
 ])
-def test_bitness(bitness, data, code):
+def test_bitness(bitness: int, data: bytes, code: Code_) -> None:
 	decoder = Decoder(bitness, data)
 	assert decoder.bitness == bitness
 	instr = decoder.decode()
 	assert instr.code == code
 
-def test_without_decoder_options():
+def test_without_decoder_options() -> None:
 	decoder = Decoder(64, b"\x0F\x1A\x08")
 	instr = decoder.decode()
 	assert instr.code != Code.BNDLDX_BND_MIB
 
-def test_with_decoder_options():
+def test_with_decoder_options() -> None:
 	decoder = Decoder(64, b"\x0F\x1A\x08", DecoderOptions.MPX)
 	instr = decoder.decode()
 	assert instr.code == Code.BNDLDX_BND_MIB
 
-def test_iter():
+def test_iter() -> None:
 	decoder = Decoder(64, b"\x48\x09\xCE\x90\xF3\x90")
 	instrs = [instr for instr in decoder]
 	assert len(instrs) == 3
@@ -70,7 +71,7 @@ def test_iter():
 	assert instrs[1].code == Code.NOPD
 	assert instrs[2].code == Code.PAUSE
 
-def test_ip():
+def test_ip() -> None:
 	decoder = Decoder(64, b"\x48\x09\xCE\x90")
 	assert decoder.ip == 0
 	decoder = Decoder(64, b"\x48\x09\xCE\x90", ip=0xABCD_EF01_2345_6789)
@@ -86,7 +87,7 @@ def test_ip():
 	decoder.ip = 0xFEDC_BA98_7654_3210
 	assert decoder.ip == 0xFEDC_BA98_7654_3210
 
-def test_position():
+def test_position() -> None:
 	decoder = Decoder(64, b"\x48\x09\xCE\x90\xF3\x90")
 
 	for _ in range(2):
@@ -122,14 +123,14 @@ def test_position():
 	assert decoder.max_position == 6
 	assert decoder.position == 4
 
-def test_invalid_position():
+def test_invalid_position() -> None:
 	decoder = Decoder(64, b"\x48\x09\xCE\x90\xF3\x90")
 	decoder.position = 0
 	decoder.position = 6
 	with pytest.raises(ValueError):
 		decoder.position = 7
 
-def test_last_error():
+def test_last_error() -> None:
 	decoder = Decoder(64, b"\x90\x48")
 	assert decoder.last_error == DecoderError.NONE
 
@@ -142,7 +143,7 @@ def test_last_error():
 	assert decoder.decode().code == Code.INVALID
 	assert decoder.last_error == DecoderError.INVALID_INSTRUCTION
 
-def test_decode():
+def test_decode() -> None:
 	data = b"\x48\x09\xCE\x90\xF3\x90"
 	decodera = Decoder(64, data)
 	decoderb = Decoder(64, data)
@@ -156,7 +157,7 @@ def test_decode():
 	decoderb.decode_out(instr)
 	assert instr.eq_all_bits(instr2)
 
-def test_offsets():
+def test_offsets() -> None:
 	decoder = Decoder(64, b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A")
 
 	instr = decoder.decode()
@@ -183,7 +184,7 @@ def test_offsets():
 	assert co.has_immediate
 	assert not co.has_immediate2
 
-def test_co_eq_ne_hash():
+def test_co_eq_ne_hash() -> None:
 	decoder = Decoder(64, b"\x90\x90\x83\xB3\x34\x12\x5A\xA5\x5A\x83\xB3\x34\x12\x5A\xA5\x5A")
 	instr = decoder.decode()
 	co1 = decoder.get_constant_offsets(instr)
@@ -228,7 +229,7 @@ def test_co_eq_ne_hash():
 	lambda instr: copy.deepcopy(instr),
 	lambda instr: instr.copy(),
 ])
-def test_co_copy_deepcopy_mcopy(copy_co):
+def test_co_copy_deepcopy_mcopy(copy_co: Callable[[ConstantOffsets], ConstantOffsets]) -> None:
 	decoder = Decoder(64, b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A", ip=0x1234_5678_9ABC_DEF1)
 	coa = decoder.get_constant_offsets(decoder.decode())
 	cob = decoder.get_constant_offsets(decoder.decode())
@@ -243,7 +244,7 @@ def test_co_copy_deepcopy_mcopy(copy_co):
 	assert id(cob) != id(cob2)
 	assert cob == cob2
 
-def test_no_bytes():
+def test_no_bytes() -> None:
 	decoder = Decoder(64, b"")
 	assert not decoder.can_decode
 	assert decoder.position == 0
@@ -257,7 +258,7 @@ def test_no_bytes():
 	assert decoder.position == 0
 	assert decoder.max_position == 0
 
-def test_no_invalid_check_option():
+def test_no_invalid_check_option() -> None:
 	data = b"\xF0\x02\xCE"
 	decodera = Decoder(64, data)
 	decoderb = Decoder(64, data, DecoderOptions.NO_INVALID_CHECK)
@@ -269,7 +270,7 @@ def test_no_invalid_check_option():
 	assert decodera.last_error == DecoderError.INVALID_INSTRUCTION
 	assert instrb.code == Code.ADD_R8_RM8
 
-def test_amd_option():
+def test_amd_option() -> None:
 	data = b"\x66\x70\x5A"
 	decodera = Decoder(64, data)
 	decoderb = Decoder(64, data, DecoderOptions.AMD)
@@ -280,7 +281,7 @@ def test_amd_option():
 	assert instra.code == Code.JO_REL8_64
 	assert instrb.code == Code.JO_REL8_16
 
-def test_multiple_options():
+def test_multiple_options() -> None:
 	decoder = Decoder(64, b"\xF3\x90", DecoderOptions.AMD | DecoderOptions.NO_PAUSE)
 	instr = decoder.decode()
 	assert instr.code == Code.NOPD

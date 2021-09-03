@@ -1,10 +1,11 @@
 # SPDX-License-Identifier: MIT
 # Copyright (C) 2018-present iced project and contributors
 
+from typing import Callable
 import pytest
 from iced_x86 import *
 
-def test_memory_size_ext():
+def test_memory_size_ext() -> None:
 	assert MemorySizeExt.size(MemorySize.UINT128) == 16
 	assert MemorySizeExt.element_size(MemorySize.UINT128) == 16
 	assert MemorySizeExt.element_type(MemorySize.UINT128) == MemorySize.UINT128
@@ -32,7 +33,7 @@ def test_memory_size_ext():
 	lambda memory_size: MemorySizeExt.info(memory_size),
 	lambda memory_size: MemorySizeInfo(memory_size),
 ])
-def test_memory_size_info(create):
+def test_memory_size_info(create: Callable[[MemorySize_], MemorySizeInfo]) -> None:
 	info = create(MemorySize.UINT128)
 	assert info.memory_size == MemorySize.UINT128
 	assert info.size == 16
@@ -60,38 +61,38 @@ def test_memory_size_info(create):
 	lambda memory_size: MemorySizeExt.info(memory_size),
 	lambda memory_size: MemorySizeInfo(memory_size),
 ])
-def test_memory_size_info_invalid_arg(create):
+def test_memory_size_info_invalid_arg(create: Callable[[MemorySize_], MemorySizeInfo]) -> None:
 	with pytest.raises(ValueError):
-		create(1234)
+		create(1234) # type: ignore
 
-def test_ext_size_invalid_arg():
+def test_ext_size_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		MemorySizeExt.size(1234)
+		MemorySizeExt.size(1234) # type: ignore
 
-def test_ext_element_size_invalid_arg():
+def test_ext_element_size_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		MemorySizeExt.element_size(1234)
+		MemorySizeExt.element_size(1234) # type: ignore
 
-def test_ext_element_type_invalid_arg():
+def test_ext_element_type_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		MemorySizeExt.element_type(1234)
+		MemorySizeExt.element_type(1234) # type: ignore
 
-def test_ext_element_type_info_invalid_arg():
+def test_ext_element_type_info_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		MemorySizeExt.element_type_info(1234)
+		MemorySizeExt.element_type_info(1234) # type: ignore
 
-def test_ext_is_signed_invalid_arg():
+def test_ext_is_signed_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		MemorySizeExt.is_signed(1234)
+		MemorySizeExt.is_signed(1234) # type: ignore
 
-def test_ext_is_packed_invalid_arg():
+def test_ext_is_packed_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		MemorySizeExt.is_packed(1234)
+		MemorySizeExt.is_packed(1234) # type: ignore
 
-def test_ext_element_count_invalid_arg():
+def test_ext_element_count_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		MemorySizeExt.element_count(1234)
+		MemorySizeExt.element_count(1234) # type: ignore
 
-def test_ext_is_broadcast_invalid_arg():
+def test_ext_is_broadcast_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		MemorySizeExt.is_broadcast(1234)
+		MemorySizeExt.is_broadcast(1234) # type: ignore

@@ -1,10 +1,11 @@
 # SPDX-License-Identifier: MIT
 # Copyright (C) 2018-present iced project and contributors
 
+from typing import Callable
 import pytest
 from iced_x86 import *
 
-def test_register_ext():
+def test_register_ext() -> None:
 	assert RegisterExt.base(Register.DL) == Register.AL
 	assert RegisterExt.base(Register.R8W) == Register.AX
 	assert RegisterExt.base(Register.R15D) == Register.EAX
@@ -128,7 +129,7 @@ def test_register_ext():
 	lambda register: RegisterExt.info(register),
 	lambda register: RegisterInfo(register),
 ])
-def test_register_info(create):
+def test_register_info(create: Callable[[Register_], RegisterInfo]) -> None:
 	info = create(Register.R10D)
 	assert info.register == Register.R10D
 	assert info.base == Register.EAX
@@ -141,102 +142,102 @@ def test_register_info(create):
 	lambda register: RegisterExt.info(register),
 	lambda register: RegisterInfo(register),
 ])
-def test_register_invalid_arg(create):
+def test_register_invalid_arg(create: Callable[[Register_], RegisterInfo]) -> None:
 	with pytest.raises(ValueError):
-		create(1234)
+		create(1234) # type: ignore
 
-def test_ext_base_invalid_arg():
+def test_ext_base_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.base(1234)
+		RegisterExt.base(1234) # type: ignore
 
-def test_ext_number_invalid_arg():
+def test_ext_number_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.number(1234)
+		RegisterExt.number(1234) # type: ignore
 
-def test_ext_full_register_invalid_arg():
+def test_ext_full_register_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.full_register(1234)
+		RegisterExt.full_register(1234) # type: ignore
 
-def test_ext_full_register32_invalid_arg():
+def test_ext_full_register32_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.full_register32(1234)
+		RegisterExt.full_register32(1234) # type: ignore
 
-def test_ext_size_invalid_arg():
+def test_ext_size_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.size(1234)
+		RegisterExt.size(1234) # type: ignore
 
-def test_ext_is_segment_register_invalid_arg():
+def test_ext_is_segment_register_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_segment_register(1234)
+		RegisterExt.is_segment_register(1234) # type: ignore
 
-def test_ext_is_gpr_invalid_arg():
+def test_ext_is_gpr_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_gpr(1234)
+		RegisterExt.is_gpr(1234) # type: ignore
 
-def test_ext_is_gpr8_invalid_arg():
+def test_ext_is_gpr8_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_gpr8(1234)
+		RegisterExt.is_gpr8(1234) # type: ignore
 
-def test_ext_is_gpr16_invalid_arg():
+def test_ext_is_gpr16_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_gpr16(1234)
+		RegisterExt.is_gpr16(1234) # type: ignore
 
-def test_ext_is_gpr32_invalid_arg():
+def test_ext_is_gpr32_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_gpr32(1234)
+		RegisterExt.is_gpr32(1234) # type: ignore
 
-def test_ext_is_gpr64_invalid_arg():
+def test_ext_is_gpr64_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_gpr64(1234)
+		RegisterExt.is_gpr64(1234) # type: ignore
 
-def test_ext_is_xmm_invalid_arg():
+def test_ext_is_xmm_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_xmm(1234)
+		RegisterExt.is_xmm(1234) # type: ignore
 
-def test_ext_is_ymm_invalid_arg():
+def test_ext_is_ymm_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_ymm(1234)
+		RegisterExt.is_ymm(1234) # type: ignore
 
-def test_ext_is_zmm_invalid_arg():
+def test_ext_is_zmm_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_zmm(1234)
+		RegisterExt.is_zmm(1234) # type: ignore
 
-def test_ext_is_vector_register_invalid_arg():
+def test_ext_is_vector_register_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_vector_register(1234)
+		RegisterExt.is_vector_register(1234) # type: ignore
 
-def test_ext_is_ip_invalid_arg():
+def test_ext_is_ip_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_ip(1234)
+		RegisterExt.is_ip(1234) # type: ignore
 
-def test_ext_is_k_invalid_arg():
+def test_ext_is_k_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_k(1234)
+		RegisterExt.is_k(1234) # type: ignore
 
-def test_ext_is_cr_invalid_arg():
+def test_ext_is_cr_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_cr(1234)
+		RegisterExt.is_cr(1234) # type: ignore
 
-def test_ext_is_dr_invalid_arg():
+def test_ext_is_dr_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_dr(1234)
+		RegisterExt.is_dr(1234) # type: ignore
 
-def test_ext_is_tr_invalid_arg():
+def test_ext_is_tr_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_tr(1234)
+		RegisterExt.is_tr(1234) # type: ignore
 
-def test_ext_is_st_invalid_arg():
+def test_ext_is_st_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_st(1234)
+		RegisterExt.is_st(1234) # type: ignore
 
-def test_ext_is_bnd_invalid_arg():
+def test_ext_is_bnd_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_bnd(1234)
+		RegisterExt.is_bnd(1234) # type: ignore
 
-def test_ext_is_mm_invalid_arg():
+def test_ext_is_mm_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_mm(1234)
+		RegisterExt.is_mm(1234) # type: ignore
 
-def test_ext_is_tmm_invalid_arg():
+def test_ext_is_tmm_invalid_arg() -> None:
 	with pytest.raises(ValueError):
-		RegisterExt.is_tmm(1234)
+		RegisterExt.is_tmm(1234) # type: ignore

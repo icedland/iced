@@ -4,8 +4,9 @@
 import copy
 import pytest
 from iced_x86 import *
+from typing import Callable
 
-def test_info():
+def test_info() -> None:
 	instr = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41").decode()
 	factory = InstructionInfoFactory()
 	info = factory.info(instr)
@@ -22,7 +23,7 @@ def test_info():
 	assert info.op_access(4) == info.op4_access
 
 	mem_list = info.used_memory()
-	assert type(mem_list) == list
+	assert isinstance(mem_list, list)
 	assert len(mem_list) == 1
 	mem = mem_list[0]
 	assert mem.segment == Register.DS
@@ -37,7 +38,7 @@ def test_info():
 	assert mem.vsib_size == 0
 
 	reg_list = info.used_registers()
-	assert type(reg_list) == list
+	assert isinstance(reg_list, list)
 	assert len(reg_list) == 4
 	assert (reg_list[0].register, reg_list[0].access) == (Register.ZMM2, OpAccess.WRITE)
 	assert (reg_list[1].register, reg_list[1].access) == (Register.XMM6, OpAccess.READ)
@@ -49,7 +50,7 @@ def test_info():
 	lambda instr: copy.deepcopy(instr),
 	lambda instr: instr.copy(),
 ])
-def test_copy_deepcopy_mcopy(copy_value):
+def test_copy_deepcopy_mcopy_used_mem(copy_value: Callable[[UsedMemory], UsedMemory]) -> None:
 	instr = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41").decode()
 	factory = InstructionInfoFactory()
 	info = factory.info(instr)
@@ -62,6 +63,16 @@ def test_copy_deepcopy_mcopy(copy_value):
 	assert not (mem != mem2)
 	assert hash(mem) == hash(mem2)
 
+@pytest.mark.parametrize("copy_value", [
+	lambda instr: copy.copy(instr),
+	lambda instr: copy.deepcopy(instr),
+	lambda instr: instr.copy(),
+])
+def test_copy_deepcopy_mcopy_used_reg(copy_value: Callable[[UsedRegister], UsedRegister]) -> None:
+	instr = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41").decode()
+	factory = InstructionInfoFactory()
+	info = factory.info(instr)
+
 	reg = info.used_registers()[0]
 	reg2 = copy_value(reg)
 	assert reg is not reg2
@@ -70,7 +81,7 @@ def test_copy_deepcopy_mcopy(copy_value):
 	assert not (reg != reg2)
 	assert hash(reg) == hash(reg2)
 
-def test_op_access_raise():
+def test_op_access_raise() -> None:
 	instr = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41").decode()
 	factory = InstructionInfoFactory()
 	info = factory.info(instr)

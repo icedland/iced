@@ -5,7 +5,7 @@ from iced_x86 import *
 
 FORMATTER_SYNTAX = FormatterSyntax.INTEL
 
-def test_default_options():
+def test_default_options() -> None:
 	formatter = Formatter(FORMATTER_SYNTAX)
 
 	assert not formatter.uppercase_prefixes
@@ -73,7 +73,7 @@ def test_default_options():
 	assert formatter.cc_le == CC_le.LE
 	assert formatter.cc_g == CC_g.G
 
-def test_format():
+def test_format() -> None:
 	instr, instr2 = [instr for instr in Decoder(64, b"\x62\xF2\x4F\xDD\x72\x50\x01\xF0\x00\x18")]
 	formatter = Formatter(FORMATTER_SYNTAX)
 

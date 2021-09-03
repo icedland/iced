@@ -4,7 +4,7 @@
 import pytest
 from iced_x86 import *
 
-def test_props():
+def test_props() -> None:
 	idef = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
 
 	assert idef.code == Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256
@@ -120,7 +120,7 @@ def test_props():
 	assert idef.op_kind(2) == idef.op2_kind
 	assert idef.op_kind(3) == idef.op3_kind
 	assert idef.op_kind(4) == idef.op4_kind
-	assert type(idef.op_kinds()) == list
+	assert isinstance(idef.op_kinds(), list)
 	assert idef.op_kinds() == [OpCodeOperandKind.YMM_REG, OpCodeOperandKind.YMM_OR_MEM]
 	assert idef.is_available_in_mode(16)
 	assert idef.is_available_in_mode(32)
@@ -134,7 +134,7 @@ def test_props():
 	assert f"{idef:i}" == "VMOVAPD ymm1 {k1}{z}, ymm2/m256"
 	assert f"{idef:o}" == "EVEX.256.66.0F.W1 28 /r"
 
-def test_eq_ne_hash():
+def test_eq_ne_hash() -> None:
 	idef1 = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
 	idef2 = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
 	idef3 = OpCodeInfo(Code.EVEX_VMOVAPD_XMM_K1Z_XMMM128)
@@ -164,21 +164,21 @@ def test_eq_ne_hash():
 	assert hash(idef1) == hash(idef1)
 	assert hash(idef1) == hash(idef2)
 
-def test_invalid_format_spec():
+def test_invalid_format_spec() -> None:
 	idef = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
 	with pytest.raises(ValueError):
 		f"{idef:Q}"
 
-def test_invalid_op_kind_arg():
+def test_invalid_op_kind_arg() -> None:
 	idef = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
 	with pytest.raises(ValueError):
 		idef.op_kind(100)
 
 @pytest.mark.parametrize("bitness", [16, 32, 64, 0, 15, 128])
-def test_invalid_bitness(bitness):
+def test_invalid_bitness(bitness: int) -> None:
 	idef = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
 	idef.is_available_in_mode(bitness)
 
-def test_op_code_raise():
+def test_op_code_raise() -> None:
 	with pytest.raises(ValueError):
-		OpCodeInfo(100000)
+		OpCodeInfo(100000) # type: ignore

@@ -3,7 +3,7 @@
 
 from iced_x86 import *
 
-def test_default_options():
+def test_default_options() -> None:
 	formatter = FastFormatter()
 	assert not formatter.space_after_operand_separator
 	assert not formatter.rip_relative_addresses
@@ -32,12 +32,12 @@ def test_default_options():
 	assert not formatter.uppercase_hex
 	assert formatter.use_hex_prefix
 
-def test_format():
+def test_format() -> None:
 	decoder = Decoder(64, b"\x62\xF2\x4F\xDD\x72\x50\x03")
 	instr = decoder.decode()
 	formatter = FastFormatter()
 
-	assert type(formatter.format(instr)) == str
+	assert isinstance(formatter.format(instr), str)
 
 	assert formatter.format(instr) == "vcvtne2ps2bf16 zmm2{k5}{z},zmm6,dword bcst [rax+0Ch]"
 	formatter.space_after_operand_separator = True
