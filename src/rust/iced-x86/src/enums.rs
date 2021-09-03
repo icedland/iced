@@ -163,7 +163,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_CODE_SIZE[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_CODE_SIZE.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -367,7 +367,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_ROUNDING_CONTROL[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_ROUNDING_CONTROL.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -719,7 +719,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_OP_KIND[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_OP_KIND.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -1007,7 +1007,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_ENCODING_KIND[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_ENCODING_KIND.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -1265,7 +1265,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_TUPLE_TYPE[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_TUPLE_TYPE.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -1496,7 +1496,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_FLOW_CONTROL[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_FLOW_CONTROL.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -2998,7 +2998,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_OP_ACCESS[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_OP_ACCESS.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -3249,7 +3249,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_CONDITION_CODE[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_CONDITION_CODE.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -3463,7 +3463,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_MANDATORY_PREFIX[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_MANDATORY_PREFIX.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -3690,7 +3690,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_OP_CODE_TABLE_KIND[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_OP_CODE_TABLE_KIND.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -3889,7 +3889,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_INSTR_SCALE[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_INSTR_SCALE.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}

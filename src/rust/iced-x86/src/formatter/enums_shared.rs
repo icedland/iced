@@ -216,7 +216,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_FORMATTER_TEXT_KIND[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_FORMATTER_TEXT_KIND.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
@@ -498,7 +498,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_MEMORY_SIZE_OPTIONS[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_MEMORY_SIZE_OPTIONS.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}

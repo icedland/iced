@@ -495,7 +495,7 @@ namespace Generator.Enums.Rust {
 										writer.WriteLine("}");
 									}
 									else {
-										writer.WriteLine($"for (&name, value) in {arrayName}[..].iter().zip(EnumType::values()) {{");
+										writer.WriteLine($"for (&name, value) in {arrayName}.iter().zip(EnumType::values()) {{");
 										using (writer.Indent()) {
 											writer.WriteLine("if name.as_bytes() == v {");
 											using (writer.Indent())

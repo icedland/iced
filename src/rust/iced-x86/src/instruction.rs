@@ -4246,7 +4246,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in FIELDS[..].iter().zip(StructField::values()) {
+					for (&name, value) in FIELDS.iter().zip(StructField::values()) {
 						if name.as_bytes() == v {
 							return Ok(value);
 						}

@@ -153,7 +153,7 @@ const _: () = {
 				where
 					E: de::Error,
 				{
-					for (&name, value) in GEN_DEBUG_RELOC_KIND[..].iter().zip(EnumType::values()) {
+					for (&name, value) in GEN_DEBUG_RELOC_KIND.iter().zip(EnumType::values()) {
 						if name.as_bytes() == v {
 							return Ok(EnumValue(value));
 						}
