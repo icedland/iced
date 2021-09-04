@@ -395,6 +395,7 @@ impl PyGCProtocol for Decoder {
 
 	fn __clear__(&mut self) {
 		if let DecoderDataRef::PyObj(_) = self.data_ref {
+			self.decoder = iced_x86::Decoder::new(64, b"", iced_x86::DecoderOptions::NONE);
 			self.data_ref = DecoderDataRef::None;
 		}
 	}
