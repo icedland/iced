@@ -205,54 +205,52 @@ namespace Generator.Enums.Python {
 			}
 		}
 
-		public override void GenerateEnd() {
-			// If you add a new struct/enum, also add it to
-			//	- iced-x86-py/docs/index.rst
-			//	- iced-x86-py/docs/src/<ClassName>.rst
-			//		- if it's an enum, we generate this file
-			var exportedClasses = new[] {
-				"BlockEncoder",
-				"ConstantOffsets",
-				"Decoder",
-				"Encoder",
-				"FastFormatter",
-				"Formatter",
-				"FpuStackIncrementInfo",
-				"Instruction",
-				"InstructionInfo",
-				"InstructionInfoFactory",
-				"MemoryOperand",
-				"MemorySizeExt",
-				"MemorySizeInfo",
-				"OpCodeInfo",
-				"RegisterExt",
-				"RegisterInfo",
-				"UsedMemory",
-				"UsedRegister",
-			};
+		enum DocClassKind {
+			Class,
+			// Less important class
+			MiscClass,
+			Enum,
+		}
 
-			var enumTypes = exportedPythonTypes.Enums.
-				Select(x => (enumType: x, pyName: x.Name(pythonIdConverter))).
-				OrderBy(x => x.pyName, StringComparer.Ordinal).ToArray();
+		public override void GenerateEnd() {
+			var exportedClasses = new (string name, DocClassKind kind)[] {
+				("BlockEncoder", DocClassKind.Class),
+				("Decoder", DocClassKind.Class),
+				("Encoder", DocClassKind.Class),
+				("FastFormatter", DocClassKind.Class),
+				("Formatter", DocClassKind.Class),
+				("Instruction", DocClassKind.Class),
+				("InstructionInfo", DocClassKind.Class),
+				("InstructionInfoFactory", DocClassKind.Class),
+				("OpCodeInfo", DocClassKind.Class),
+
+				("ConstantOffsets", DocClassKind.MiscClass),
+				("FpuStackIncrementInfo", DocClassKind.MiscClass),
+				("MemoryOperand", DocClassKind.MiscClass),
+				("MemorySizeExt", DocClassKind.MiscClass),
+				("MemorySizeInfo", DocClassKind.MiscClass),
+				("RegisterExt", DocClassKind.MiscClass),
+				("RegisterInfo", DocClassKind.MiscClass),
+				("UsedMemory", DocClassKind.MiscClass),
+				("UsedRegister", DocClassKind.MiscClass),
+			}.
+			Concat(exportedPythonTypes.Enums.Select(x => (name: x.Name(pythonIdConverter), kind: DocClassKind.Enum))).
+			OrderBy(x => x.name, StringComparer.Ordinal).ToArray();
+
 			var librsFilename = genTypes.Dirs.GetPythonRustFilename("lib.rs");
 			var initPyFilename = genTypes.Dirs.GetPythonPyFilename("__init__.py");
 
-			if (exportedClasses.Length != 18)
-				throw new InvalidOperationException("New struct: Update the files in the comment above and then fix the `if` cond");
-			if (enumTypes.Length != 35)
-				throw new InvalidOperationException("New enum: Update the files in the comment above and then fix the `if` cond");
-
 			new FileUpdater(TargetLanguage.Rust, "EnumClassDefs", librsFilename).Generate(writer => {
-				foreach (var (_, pyName) in enumTypes) {
+				foreach (var cls in exportedClasses.Where(x => x.kind == DocClassKind.Enum)) {
 					writer.WriteLine("/// DO NOT USE");
 					writer.WriteLine("#[pyclass(module = \"iced_x86._iced_x86_py\")]");
 					writer.WriteLine(RustConstants.AttributeAllowNonCamelCaseTypes);
-					writer.WriteLine($"struct {pyName} {{}}");
+					writer.WriteLine($"struct {cls.name} {{}}");
 				}
 			});
 			new FileUpdater(TargetLanguage.Rust, "ClassExport", librsFilename).Generate(writer => {
-				foreach (var exportedClass in exportedClasses.Concat(enumTypes.Select(x => x.pyName)))
-					writer.WriteLine($"m.add_class::<{exportedClass}>()?;");
+				foreach (var name in exportedClasses.Select(x => x.name))
+					writer.WriteLine($"m.add_class::<{name}>()?;");
 			});
 
 			static string GetNewTypeCheckerName(string pyName) => pyName + "_";
@@ -267,47 +265,132 @@ namespace Generator.Enums.Python {
 				writer.WriteLine("\"\"\"");
 				writer.WriteLine();
 				writer.WriteLine("import typing");
-				foreach (var exportedClass in exportedClasses)
-					writer.WriteLine($"from ._iced_x86_py import {exportedClass}");
-				foreach (var (_, pyName) in enumTypes)
-					writer.WriteLine($"from . import {pyName}");
+				foreach (var cls in exportedClasses.Where(x => x.kind != DocClassKind.Enum))
+					writer.WriteLine($"from ._iced_x86_py import {cls.name}");
+				foreach (var cls in exportedClasses.Where(x => x.kind == DocClassKind.Enum))
+					writer.WriteLine($"from . import {cls.name}");
 				writer.WriteLine();
 				writer.WriteLine("if typing.TYPE_CHECKING:");
 				using (writer.Indent()) {
 					writer.WriteLine("from . import _iced_x86_py # pylint: disable=import-self");
-					foreach (var (_, pyName) in enumTypes)
-						writer.WriteLine($"{GetNewTypeCheckerName(pyName)} = _iced_x86_py.{pyName}");
+					foreach (var cls in exportedClasses.Where(x => x.kind == DocClassKind.Enum))
+						writer.WriteLine($"{GetNewTypeCheckerName(cls.name)} = _iced_x86_py.{cls.name}");
 				}
 				writer.WriteLine("else:");
 				using (writer.Indent()) {
-					foreach (var (_, pyName) in enumTypes)
-						writer.WriteLine($"{GetNewTypeCheckerName(pyName)} = int");
+					foreach (var cls in exportedClasses.Where(x => x.kind == DocClassKind.Enum))
+						writer.WriteLine($"{GetNewTypeCheckerName(cls.name)} = int");
 				}
 				writer.WriteLine();
 				writer.WriteLine("__all__ = [");
 				using (writer.Indent()) {
-					foreach (var exportedClass in exportedClasses)
-						writer.WriteLine($"\"{exportedClass}\",");
-					foreach (var (_, pyName) in enumTypes)
-						writer.WriteLine($"\"{pyName}\",");
-					foreach (var (_, pyName) in enumTypes)
-						writer.WriteLine($"\"{GetNewTypeCheckerName(pyName)}\",");
+					foreach (var cls in exportedClasses)
+						writer.WriteLine($"\"{cls.name}\",");
+					foreach (var cls in exportedClasses.Where(x => x.kind == DocClassKind.Enum))
+						writer.WriteLine($"\"{GetNewTypeCheckerName(cls.name)}\",");
 				}
 				writer.WriteLine("]");
 			}
 
-			foreach (var (_, pyName) in enumTypes) {
-				var rstFilename = genTypes.Dirs.GetPythonRstFilename($"{pyName}.rst");
+			foreach (var cls in exportedClasses) {
+				var rstFilename = genTypes.Dirs.GetPythonDocsSrcFilename($"{cls.name}.rst");
+				var autoStr = cls.kind switch {
+					DocClassKind.Class or DocClassKind.MiscClass => $".. autoclass:: iced_x86::{cls.name}",
+					DocClassKind.Enum => $".. automodule:: iced_x86.{cls.name}",
+					_ => throw new InvalidOperationException(),
+				};
 				var lines = new[] {
-					pyName,
-					new string('=', pyName.Length),
+					cls.name,
+					new string('=', cls.name.Length),
 					string.Empty,
-					$".. automodule:: iced_x86.{pyName}",
+					autoStr,
 					"\t:members:",
-					"\t:undoc-members:",
 				};
 				File.WriteAllLines(rstFilename, lines, FileUtils.FileEncoding);
 			}
+
+			var indexRstFilename = genTypes.Dirs.GetPythonDocsFilename("index.rst");
+			UpdateIndexRst(indexRstFilename, exportedClasses);
+		}
+
+		static void UpdateIndexRst(string filename, (string name, DocClassKind kind)[] exportedClasses) {
+			var lines = File.ReadAllLines(filename);
+			var newLines = new List<string>();
+
+			var docClasses = new (List<string> names, bool found)[3];
+			for (int i = 0; i < docClasses.Length; i++)
+				docClasses[i] = (new(), false);
+			foreach (var cls in exportedClasses) {
+				ref var info = ref docClasses[(int)cls.kind];
+				info.names.Add(cls.name);
+			}
+			if (docClasses.Any(x => x.names.Count == 0))
+				throw new InvalidOperationException();
+
+			for (int lineIndex = 0; lineIndex < lines.Length; lineIndex++) {
+				var line = lines[lineIndex];
+				if (line.StartsWith(".. toctree::", StringComparison.Ordinal)) {
+					newLines.Add(line);
+
+					static bool IsOption(string s) => s.TrimStart().StartsWith(":", StringComparison.Ordinal);
+
+					// Skip all files ("src/filename") until the first option
+					int optIndex = -1;
+					for (int tmpIndex = lineIndex + 1; tmpIndex < lines.Length; tmpIndex++) {
+						if (lines[tmpIndex].Length == 0)
+							throw new InvalidOperationException();
+						if (IsOption(lines[tmpIndex])) {
+							optIndex = tmpIndex;
+							break;
+						}
+					}
+					if (optIndex < 0)
+						throw new InvalidOperationException();
+
+					// Find index of last option and also the caption
+					string caption = string.Empty;
+					int optIndexEnd = -1;
+					for (int tmpIndex = optIndex; tmpIndex < lines.Length; tmpIndex++) {
+						var optLine = lines[tmpIndex];
+						if (!IsOption(optLine)) {
+							optIndexEnd = tmpIndex - 1;
+							break;
+						}
+						if (optLine.TrimStart().StartsWith(":caption:", StringComparison.Ordinal)) {
+							if (caption.Length != 0)
+								throw new InvalidOperationException();
+							caption = optLine.Trim();
+						}
+					}
+					if (caption.Length == 0)
+						throw new InvalidOperationException();
+					if (optIndexEnd < 0)
+						throw new InvalidOperationException();
+
+					var kind = caption switch {
+						":caption: Classes:" => DocClassKind.Class,
+						":caption: Misc Classes:" => DocClassKind.MiscClass,
+						":caption: Enums:" => DocClassKind.Enum,
+						_ => throw new InvalidOperationException(),
+					};
+					ref var info = ref docClasses[(int)kind];
+					if (info.found)
+						throw new InvalidOperationException($"Dupe {kind}");
+					info.found = true;
+
+					foreach (var name in info.names.OrderBy(x => x, StringComparer.Ordinal))
+						newLines.Add($"\tsrc/{name}");
+					for (int i = optIndex; i <= optIndexEnd; i++)
+						newLines.Add(lines[i]);
+
+					lineIndex = optIndexEnd;
+				}
+				else
+					newLines.Add(line);
+			}
+			if (docClasses.Any(x => !x.found))
+				throw new InvalidOperationException();
+			File.WriteAllLines(filename, newLines, FileUtils.FileEncoding);
 		}
 	}
 }
