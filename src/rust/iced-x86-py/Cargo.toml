@@ -29,6 +29,10 @@ features = ["serde"]
 # Don't remove/modify the next line. Build scripts replace it with the real path
 #pathci
 
+[workspace]
+# We can only override [profile.release] if this is the root workspace.
+# So make sure this is the root workspace.
+
 [profile.release]
 codegen-units = 1
 lto = true
