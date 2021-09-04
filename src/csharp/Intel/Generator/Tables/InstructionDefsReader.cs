@@ -15,6 +15,7 @@ using Generator.Enums.Formatter;
 using Generator.Enums.InstructionInfo;
 using Generator.Formatters;
 using Generator.InstructionInfo;
+using Generator.IO;
 
 namespace Generator.Tables {
 	sealed class InstructionDefsReader {
@@ -274,7 +275,7 @@ namespace Generator.Tables {
 					newLines.Insert(lineIndex, newCommentLine);
 			}
 			if (!IsSame(newLines, lines))
-				File.WriteAllLines(filename, newLines.ToArray(), new UTF8Encoding(false, true));
+				File.WriteAllLines(filename, newLines.ToArray(), FileUtils.FileEncoding);
 
 			static bool IsSame(List<string> a, string[] b) {
 				if (a.Count != b.Length)
