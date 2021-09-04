@@ -1013,31 +1013,3 @@ TMM7: Register = 248 # type: ignore
 """
 <no docs>
 """
-DONTUSE0: Register = 249 # type: ignore
-"""
-DEPRECATED(1.12.0)
-"""
-DONTUSEFA: Register = 250 # type: ignore
-"""
-DEPRECATED(1.12.0)
-"""
-DONTUSEFB: Register = 251 # type: ignore
-"""
-DEPRECATED(1.12.0)
-"""
-DONTUSEFC: Register = 252 # type: ignore
-"""
-DEPRECATED(1.12.0)
-"""
-DONTUSEFD: Register = 253 # type: ignore
-"""
-DEPRECATED(1.12.0)
-"""
-DONTUSEFE: Register = 254 # type: ignore
-"""
-DEPRECATED(1.12.0)
-"""
-DONTUSEFF: Register = 255 # type: ignore
-"""
-DEPRECATED(1.12.0)
-"""
