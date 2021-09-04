@@ -6,7 +6,7 @@ updates:
       interval: "daily"
 
   - package-ecosystem: "nuget"
-    directory: "/src/csharp/"
+    directory: "src/csharp/Intel/"
     schedule:
       interval: "daily"
 
