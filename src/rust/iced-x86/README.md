@@ -58,10 +58,6 @@ You can enable/disable these in your `Cargo.toml` file.
 - `std`: (👍 Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
 - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
-- `no_vex`: Disables all `VEX` instructions
-- `no_evex`: Disables all `EVEX` instructions
-- `no_xop`: Disables all `XOP` instructions
-- `no_d3now`: Disables all `3DNow!` instructions
 
 [`BlockEncoder`]: https://docs.rs/iced-x86/1.14.0/iced_x86/struct.BlockEncoder.html
 [`CodeAssembler`]: https://docs.rs/iced-x86/1.14.0/iced_x86/code_asm/struct.CodeAssembler.html
