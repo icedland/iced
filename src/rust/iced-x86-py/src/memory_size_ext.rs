@@ -26,7 +26,7 @@ impl MemorySizeExt {
 	///
 	///     from iced_x86 import *
 	///
-	///     info = MemorySizeExt.info(MemorySize.PACKED256_UINT16);
+	///     info = MemorySizeExt.info(MemorySize.PACKED256_UINT16)
 	///     assert info.size == 32
 	#[pyo3(text_signature = "(memory_size, /)")]
 	#[staticmethod]
