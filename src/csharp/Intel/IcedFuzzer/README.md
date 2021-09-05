@@ -24,7 +24,7 @@ It uses iced's instruction definitions that weren't filtered out by the user. Fo
   - `rm` group index
   - modrm opcode (no operands and modrm >= C0h)
 
-Unless you use the `--no-unused-tables` option, it will use all tables which includes EVEX table indexes 0-3, VEX table indexes 0-1Fh, XOP table indexes 0-1Fh (0-7: XOP.B=1).
+Unless you use the `--no-unused-tables` option, it will use all tables which includes EVEX table indexes 0-7, VEX table indexes 0-1Fh, XOP table indexes 0-1Fh (0-7: XOP.B=1).
 
 For every unused slot that can be a reserved-nop, create a reserved-nop instruction. The remaining instructions are undefined instructions and an invalid instruction is created. Once this is finished, every slot is either a valid or an invalid instruction.
 
