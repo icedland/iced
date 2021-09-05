@@ -185,24 +185,15 @@ fn set_position_valid_position() {
 	let bytes = b"\x23\x18\x48\x89\xCE";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	for i in 0..bytes.len() + 1 {
-		#[allow(deprecated)]
-		{
-			decoder.set_position(i);
-		}
+		decoder.set_position(i).unwrap();
 		assert_eq!(decoder.position(), i);
 	}
 	for i in (0..bytes.len() + 1).rev() {
-		#[allow(deprecated)]
-		{
-			decoder.set_position(i);
-		}
+		decoder.set_position(i).unwrap();
 		assert_eq!(decoder.position(), i);
 	}
 	let mut decoder = Decoder::new(64, b"", DecoderOptions::NONE);
-	#[allow(deprecated)]
-	{
-		decoder.set_position(0);
-	}
+	decoder.set_position(0).unwrap();
 	assert_eq!(decoder.position(), 0);
 }
 
@@ -228,10 +219,7 @@ fn try_set_position_valid_position() {
 fn set_position_panics_if_invalid() {
 	let bytes = b"\x23\x18\x48\x89\xCE";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	#[allow(deprecated)]
-	{
-		decoder.set_position(bytes.len() + 1);
-	}
+	decoder.set_position(bytes.len() + 1).unwrap();
 }
 
 #[test]

@@ -925,10 +925,10 @@ pub(crate) fn how_to_get_instruction_info() {
             }
         }
         for i in 0..instr.op_count() {
-            println!("    Op{}Access: {:?}", i, info.try_op_access(i).unwrap());
+            println!("    Op{}Access: {:?}", i, info.op_access(i));
         }
         for i in 0..op_code.op_count() {
-            println!("    Op{}: {:?}", i, op_code.try_op_kind(i).unwrap());
+            println!("    Op{}: {:?}", i, op_code.op_kind(i));
         }
         for reg_info in info.used_registers() {
             println!("    Used reg: {:?}", reg_info);
@@ -1006,7 +1006,7 @@ pub(crate) fn how_to_get_virtual_address() {
     let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
     let instr = decoder.decode();
 
-    let va = instr.try_virtual_address(0, 0, |register, _element_index, _element_size| {
+    let va = instr.virtual_address(0, 0, |register, _element_index, _element_size| {
         match register {
             // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
             Register::ES | Register::CS | Register::SS | Register::DS => Some(0),

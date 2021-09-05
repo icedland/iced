@@ -100,19 +100,19 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 			match tc.code {
 				Code::DeclareByte => {
 					assert_eq!(tc.hex_bytes, "66");
-					instr.try_set_declare_byte_value(0, 0x66).unwrap();
+					instr.set_declare_byte_value(0, 0x66);
 				}
 				Code::DeclareWord => {
 					assert_eq!(tc.hex_bytes, "6644");
-					instr.try_set_declare_word_value(0, 0x4466).unwrap();
+					instr.set_declare_word_value(0, 0x4466);
 				}
 				Code::DeclareDword => {
 					assert_eq!(tc.hex_bytes, "664422EE");
-					instr.try_set_declare_dword_value(0, 0xEE22_4466).unwrap();
+					instr.set_declare_dword_value(0, 0xEE22_4466);
 				}
 				Code::DeclareQword => {
 					assert_eq!(tc.hex_bytes, "664422EE12345678");
-					instr.try_set_declare_qword_value(0, 0x7856_3412_EE22_4466).unwrap();
+					instr.set_declare_qword_value(0, 0x7856_3412_EE22_4466);
 				}
 				_ => unreachable!(),
 			}
@@ -146,26 +146,13 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 		let mut decoder = create_decoder(tc.bitness, &code_bytes, tc.ip, tc.decoder_options).0;
 		instr = decoder.decode();
 	}
+	let instr = instr;
 	assert_eq!(instr.code(), tc.code);
 
 	assert_eq!(instr.stack_pointer_increment(), tc.stack_pointer_increment);
 
 	let mut factory1 = InstructionInfoFactory::new();
 	let info = factory1.info(&instr);
-	#[allow(deprecated)]
-	{
-		assert_eq!(info.encoding(), tc.encoding);
-		assert_eq!(info.cpuid_features(), tc.cpuid_features.as_slice());
-		assert_eq!(info.rflags_read(), tc.rflags_read);
-		assert_eq!(info.rflags_undefined(), tc.rflags_undefined);
-		assert_eq!(info.rflags_written(), tc.rflags_written);
-		assert_eq!(info.rflags_cleared(), tc.rflags_cleared);
-		assert_eq!(info.rflags_set(), tc.rflags_set);
-		assert_eq!(info.is_privileged(), tc.is_privileged);
-		assert_eq!(info.is_stack_instruction(), tc.is_stack_instruction);
-		assert_eq!(info.is_save_restore_instruction(), tc.is_save_restore_instruction);
-		assert_eq!(info.flow_control(), tc.flow_control);
-	}
 	assert_eq!(info.op0_access(), tc.op0_access);
 	assert_eq!(info.op1_access(), tc.op1_access);
 	assert_eq!(info.op2_access(), tc.op2_access);
@@ -181,7 +168,6 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 	assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT as u32);
 	for i in 0..instr.op_count() {
-		#[allow(deprecated)]
 		match i {
 			0 => assert_eq!(tc.op0_access, info.op_access(i)),
 			1 => assert_eq!(tc.op1_access, info.op_access(i)),
@@ -200,26 +186,15 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 		}
 	}
 	for i in instr.op_count()..IcedConstants::MAX_OP_COUNT as u32 {
-		#[allow(deprecated)]
-		{
-			assert_eq!(info.op_access(i), OpAccess::None);
-		}
+		assert_eq!(info.op_access(i), OpAccess::None);
 		assert_eq!(info.try_op_access(i).unwrap(), OpAccess::None);
 	}
-	#[allow(deprecated)]
-	{
+	if cfg!(debug_assertions) {
 		assert!(panic::catch_unwind(|| { info.op_access(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	} else {
+		let _ = info.op_access(IcedConstants::MAX_OP_COUNT as u32);
 	}
 	assert!(info.try_op_access(IcedConstants::MAX_OP_COUNT as u32).is_err());
-
-	#[allow(deprecated)]
-	{
-		assert_eq!(info.rflags_written() & (info.rflags_cleared() | info.rflags_set() | info.rflags_undefined()), RflagsBits::NONE);
-		assert_eq!(info.rflags_cleared() & (info.rflags_written() | info.rflags_set() | info.rflags_undefined()), RflagsBits::NONE);
-		assert_eq!(info.rflags_set() & (info.rflags_written() | info.rflags_cleared() | info.rflags_undefined()), RflagsBits::NONE);
-		assert_eq!(info.rflags_undefined() & (info.rflags_written() | info.rflags_cleared() | info.rflags_set()), RflagsBits::NONE);
-		assert_eq!(info.rflags_modified(), info.rflags_written() | info.rflags_cleared() | info.rflags_set() | info.rflags_undefined());
-	}
 
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NONE);
@@ -255,32 +230,34 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 		check_equal(info, info2, false, false);
 	}
 
-	#[allow(deprecated)]
+	assert_eq!(instr.code().encoding(), tc.encoding);
+	#[cfg(feature = "encoder")]
 	{
-		assert_eq!(instr.code().encoding(), info.encoding());
-		#[cfg(feature = "encoder")]
-		{
-			assert_eq!(info.encoding(), tc.code.op_code().encoding());
-		}
-		assert_eq!(instr.code().cpuid_features(), info.cpuid_features());
-		assert_eq!(instr.code().flow_control(), info.flow_control());
-		assert_eq!(instr.code().is_privileged(), info.is_privileged());
-		assert_eq!(instr.code().is_stack_instruction(), info.is_stack_instruction());
-		assert_eq!(instr.code().is_save_restore_instruction(), info.is_save_restore_instruction());
-
-		assert_eq!(instr.encoding(), info.encoding());
-		assert_eq!(instr.cpuid_features(), info.cpuid_features());
-		assert_eq!(instr.flow_control(), info.flow_control());
-		assert_eq!(instr.is_privileged(), info.is_privileged());
-		assert_eq!(instr.is_stack_instruction(), info.is_stack_instruction());
-		assert_eq!(instr.is_save_restore_instruction(), info.is_save_restore_instruction());
-		assert_eq!(instr.rflags_read(), info.rflags_read());
-		assert_eq!(instr.rflags_written(), info.rflags_written());
-		assert_eq!(instr.rflags_cleared(), info.rflags_cleared());
-		assert_eq!(instr.rflags_set(), info.rflags_set());
-		assert_eq!(instr.rflags_undefined(), info.rflags_undefined());
-		assert_eq!(instr.rflags_modified(), info.rflags_modified());
+		assert_eq!(tc.encoding, tc.code.op_code().encoding());
 	}
+	assert_eq!(instr.code().cpuid_features(), tc.cpuid_features);
+	assert_eq!(instr.code().flow_control(), tc.flow_control);
+	assert_eq!(instr.code().is_privileged(), tc.is_privileged);
+	assert_eq!(instr.code().is_stack_instruction(), tc.is_stack_instruction);
+	assert_eq!(instr.code().is_save_restore_instruction(), tc.is_save_restore_instruction);
+
+	assert_eq!(instr.encoding(), tc.encoding);
+	assert_eq!(instr.cpuid_features(), tc.cpuid_features);
+	assert_eq!(instr.flow_control(), tc.flow_control);
+	assert_eq!(instr.is_privileged(), tc.is_privileged);
+	assert_eq!(instr.is_stack_instruction(), tc.is_stack_instruction);
+	assert_eq!(instr.is_save_restore_instruction(), tc.is_save_restore_instruction);
+	assert_eq!(instr.rflags_read(), tc.rflags_read);
+	assert_eq!(instr.rflags_written(), tc.rflags_written);
+	assert_eq!(instr.rflags_cleared(), tc.rflags_cleared);
+	assert_eq!(instr.rflags_set(), tc.rflags_set);
+	assert_eq!(instr.rflags_undefined(), tc.rflags_undefined);
+	assert_eq!(instr.rflags_modified(), tc.rflags_written | tc.rflags_cleared | tc.rflags_set | tc.rflags_undefined);
+
+	assert_eq!(instr.rflags_written() & (instr.rflags_cleared() | instr.rflags_set() | instr.rflags_undefined()), RflagsBits::NONE);
+	assert_eq!(instr.rflags_cleared() & (instr.rflags_written() | instr.rflags_set() | instr.rflags_undefined()), RflagsBits::NONE);
+	assert_eq!(instr.rflags_set() & (instr.rflags_written() | instr.rflags_cleared() | instr.rflags_undefined()), RflagsBits::NONE);
+	assert_eq!(instr.rflags_undefined() & (instr.rflags_written() | instr.rflags_cleared() | instr.rflags_set()), RflagsBits::NONE);
 }
 
 fn check_equal(info1: &InstructionInfo, info2: &InstructionInfo, has_regs2: bool, has_mem2: bool) {
@@ -294,29 +271,11 @@ fn check_equal(info1: &InstructionInfo, info2: &InstructionInfo, has_regs2: bool
 	} else {
 		assert!(info2.used_memory().is_empty());
 	}
-	#[allow(deprecated)]
-	{
-		assert_eq!(info2.is_privileged(), info1.is_privileged());
-		assert_eq!(info2.is_stack_instruction(), info1.is_stack_instruction());
-		assert_eq!(info2.is_save_restore_instruction(), info1.is_save_restore_instruction());
-		assert_eq!(info2.encoding(), info1.encoding());
-		assert_eq!(info2.cpuid_features(), info1.cpuid_features());
-		assert_eq!(info2.flow_control(), info1.flow_control());
-	}
 	assert_eq!(info2.op0_access(), info1.op0_access());
 	assert_eq!(info2.op1_access(), info1.op1_access());
 	assert_eq!(info2.op2_access(), info1.op2_access());
 	assert_eq!(info2.op3_access(), info1.op3_access());
 	assert_eq!(info2.op4_access(), info1.op4_access());
-	#[allow(deprecated)]
-	{
-		assert_eq!(info2.rflags_read(), info1.rflags_read());
-		assert_eq!(info2.rflags_written(), info1.rflags_written());
-		assert_eq!(info2.rflags_cleared(), info1.rflags_cleared());
-		assert_eq!(info2.rflags_set(), info1.rflags_set());
-		assert_eq!(info2.rflags_undefined(), info1.rflags_undefined());
-		assert_eq!(info2.rflags_modified(), info1.rflags_modified());
-	}
 }
 
 #[must_use]

@@ -16,18 +16,15 @@ fn va_tests() {
 		let mut decoder = create_decoder(tc.bitness, &bytes, get_default_ip(tc.bitness), tc.decoder_options).0;
 		let instruction = decoder.decode();
 
-		#[allow(deprecated)]
-		{
-			let value1 = instruction.virtual_address(operand, tc.element_index, |register, element_index, element_size| {
-				for reg_value in &tc.register_values {
-					if (reg_value.register, reg_value.element_index, reg_value.element_size) == (register, element_index, element_size) {
-						return reg_value.value;
-					}
+		let value1 = instruction.virtual_address(operand, tc.element_index, |register, element_index, element_size| {
+			for reg_value in &tc.register_values {
+				if (reg_value.register, reg_value.element_index, reg_value.element_size) == (register, element_index, element_size) {
+					return Some(reg_value.value);
 				}
-				unreachable!();
-			});
-			assert_eq!(value1, tc.expected_value);
-		}
+			}
+			None
+		});
+		assert_eq!(value1, Some(tc.expected_value));
 
 		let value2 = instruction.try_virtual_address(operand, tc.element_index, |register, element_index, element_size| {
 			for reg_value in &tc.register_values {
@@ -39,7 +36,10 @@ fn va_tests() {
 		});
 		assert_eq!(value2, Some(tc.expected_value));
 
-		let value3 = instruction.try_virtual_address(operand, tc.element_index, |_register, _element_index, _element_size| None);
+		let value3 = instruction.virtual_address(operand, tc.element_index, |_register, _element_index, _element_size| None);
 		assert_eq!(value3, None);
+
+		let value4 = instruction.try_virtual_address(operand, tc.element_index, |_register, _element_index, _element_size| None);
+		assert_eq!(value4, None);
 	}
 }

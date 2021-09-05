@@ -70,16 +70,6 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// <c>true</c> to prefer short branch encoding. This is the default.
-		/// </summary>
-		[System.Obsolete("Use " + nameof(PreferShortBranch) + " instead of this property", true)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public bool PreferBranchShort {
-			get => PreferShortBranch;
-			set => PreferShortBranch = value;
-		}
-
-		/// <summary>
 		/// Gets the instructions.
 		/// </summary>
 		public IReadOnlyList<Instruction> Instructions => instructions;

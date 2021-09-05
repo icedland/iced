@@ -27,6 +27,7 @@ use alloc::string::String;
 use alloc::vec::Vec;
 use core::fmt::Write;
 use static_assertions::const_assert_eq;
+use std::panic;
 
 #[test]
 fn encode_16() {
@@ -247,36 +248,13 @@ fn try_new_fails_if_bitness_128() {
 }
 
 #[test]
-#[should_panic]
-#[allow(deprecated)]
-fn with_capacity_panics_if_bitness_0() {
-	let _ = Encoder::with_capacity(0, 1);
-}
-
-#[test]
 fn with_capacity_fails_if_bitness_0() {
 	assert!(Encoder::try_with_capacity(0, 1).is_err());
 }
 
 #[test]
-#[should_panic]
-#[allow(deprecated)]
-fn with_capacity_panics_if_bitness_128() {
-	let _ = Encoder::with_capacity(128, 1);
-}
-
-#[test]
 fn with_capacity_failss_if_bitness_128() {
 	assert!(Encoder::try_with_capacity(128, 1).is_err());
-}
-
-#[test]
-#[allow(deprecated)]
-fn with_capacity_works() {
-	let mut encoder = Encoder::with_capacity(64, 211);
-	let buffer = encoder.take_buffer();
-	assert!(buffer.is_empty());
-	assert_eq!(buffer.capacity(), 211);
 }
 
 #[test]
@@ -953,14 +931,11 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(info.op2_kind(), tc.op_kinds[2]);
 	assert_eq!(info.op3_kind(), tc.op_kinds[3]);
 	assert_eq!(info.op4_kind(), tc.op_kinds[4]);
-	#[allow(deprecated)]
-	{
-		assert_eq!(info.op_kind(0), tc.op_kinds[0]);
-		assert_eq!(info.op_kind(1), tc.op_kinds[1]);
-		assert_eq!(info.op_kind(2), tc.op_kinds[2]);
-		assert_eq!(info.op_kind(3), tc.op_kinds[3]);
-		assert_eq!(info.op_kind(4), tc.op_kinds[4]);
-	}
+	assert_eq!(info.op_kind(0), tc.op_kinds[0]);
+	assert_eq!(info.op_kind(1), tc.op_kinds[1]);
+	assert_eq!(info.op_kind(2), tc.op_kinds[2]);
+	assert_eq!(info.op_kind(3), tc.op_kinds[3]);
+	assert_eq!(info.op_kind(4), tc.op_kinds[4]);
 	assert_eq!(info.try_op_kind(0).unwrap(), tc.op_kinds[0]);
 	assert_eq!(info.try_op_kind(1).unwrap(), tc.op_kinds[1]);
 	assert_eq!(info.try_op_kind(2).unwrap(), tc.op_kinds[2]);
@@ -969,29 +944,23 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	let op_kinds = info.op_kinds();
 	assert_eq!(op_kinds.len(), tc.op_count as usize);
 	for (i, &op_kind) in op_kinds.iter().enumerate() {
-		#[allow(deprecated)]
-		{
-			assert_eq!(op_kind, info.op_kind(i as u32));
-		}
+		assert_eq!(op_kind, info.op_kind(i as u32));
 		assert_eq!(op_kind, info.try_op_kind(i as u32).unwrap());
 	}
 	const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 	for i in tc.op_count..IcedConstants::MAX_OP_COUNT as u32 {
-		#[allow(deprecated)]
-		{
-			assert_eq!(info.op_kind(i), OpCodeOperandKind::None);
-		}
+		assert_eq!(info.op_kind(i), OpCodeOperandKind::None);
 		assert_eq!(info.try_op_kind(i).unwrap(), OpCodeOperandKind::None);
 	}
 }
 
 #[cfg(feature = "op_code_info")]
 #[test]
-#[should_panic]
 fn op_kind_panics_if_invalid_input() {
 	let op_code = Code::Aaa.op_code();
-	#[allow(deprecated)]
-	{
+	if cfg!(debug_assertions) {
+		assert!(panic::catch_unwind(|| { op_code.op_kind(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	} else {
 		let _ = op_code.op_kind(IcedConstants::MAX_OP_COUNT as u32);
 	}
 }

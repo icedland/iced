@@ -18,13 +18,6 @@ namespace Iced.Intel {
 		/// </summary>
 		public override FormatterOptions Options => options;
 
-		/// <summary>
-		/// Gets the nasm formatter options
-		/// </summary>
-		[System.Obsolete("Use " + nameof(Options) + " instead of this property", true)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public FormatterOptions NasmOptions => options;
-
 		readonly FormatterOptions options;
 		readonly ISymbolResolver? symbolResolver;
 		readonly IFormatterOptionsProvider? optionsProvider;

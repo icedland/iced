@@ -652,7 +652,7 @@ impl GasFormatter {
 				} else if op_kind == InstrOpKind::Immediate8_2nd {
 					imm8 = instruction.immediate8_2nd();
 				} else {
-					imm8 = instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default();
+					imm8 = instruction.get_declare_byte_value(operand as usize);
 				}
 				let mut number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 				operand_options = FormatterOperandOptions::default();
@@ -702,7 +702,7 @@ impl GasFormatter {
 				} else if op_kind == InstrOpKind::Immediate8to16 {
 					imm16 = instruction.immediate8to16() as u16;
 				} else {
-					imm16 = instruction.try_get_declare_word_value(operand as usize).unwrap_or_default();
+					imm16 = instruction.get_declare_word_value(operand as usize);
 				}
 				let mut number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 				operand_options = FormatterOperandOptions::default();
@@ -752,7 +752,7 @@ impl GasFormatter {
 				} else if op_kind == InstrOpKind::Immediate8to32 {
 					imm32 = instruction.immediate8to32() as u32;
 				} else {
-					imm32 = instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default();
+					imm32 = instruction.get_declare_dword_value(operand as usize);
 				}
 				let mut number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 				operand_options = FormatterOperandOptions::default();
@@ -804,7 +804,7 @@ impl GasFormatter {
 				} else if op_kind == InstrOpKind::Immediate64 {
 					imm64 = instruction.immediate64();
 				} else {
-					imm64 = instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default();
+					imm64 = instruction.get_declare_qword_value(operand as usize);
 				}
 				let mut number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 				operand_options = FormatterOperandOptions::default();

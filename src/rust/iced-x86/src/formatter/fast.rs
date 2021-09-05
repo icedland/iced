@@ -709,25 +709,6 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 	/// Creates a new instance of this formatter
 	///
-	/// # Panics
-	///
-	/// Panics if [`TraitOptions::ENABLE_SYMBOL_RESOLVER`] is `false` and `symbol_resolver.is_some()`
-	///
-	/// [`TraitOptions::ENABLE_SYMBOL_RESOLVER`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.ENABLE_SYMBOL_RESOLVER
-	///
-	/// # Arguments
-	///
-	/// - `symbol_resolver`: Symbol resolver or `None`
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "This method can panic, use try_with_options() instead.")]
-	#[allow(clippy::unwrap_used)]
-	pub fn with_options(symbol_resolver: Option<Box<dyn SymbolResolver>>) -> Self {
-		SpecializedFormatter::<TraitOptions>::try_with_options(symbol_resolver).unwrap()
-	}
-
-	/// Creates a new instance of this formatter
-	///
 	/// # Errors
 	///
 	/// Fails if [`TraitOptions::ENABLE_SYMBOL_RESOLVER`] is `false` and `symbol_resolver.is_some()`
@@ -805,7 +786,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		if TraitOptions::use_pseudo_ops(&self.d.options) {
 			let flags = self.d.code_flags[code as usize];
 			let pseudo_ops_num = flags >> FastFmtFlags::PSEUDO_OPS_KIND_SHIFT;
-			if pseudo_ops_num != 0 && instruction.try_op_kind(op_count - 1).unwrap_or(OpKind::FarBranch16) == OpKind::Immediate8 {
+			if pseudo_ops_num != 0 && instruction.op_kind(op_count - 1) == OpKind::Immediate8 {
 				let mut index = instruction.immediate8() as usize;
 				// SAFETY: the generator generates only valid values (1-based)
 				let pseudo_ops_kind: PseudoOpsKind = unsafe { mem::transmute(pseudo_ops_num - 1) };
@@ -923,11 +904,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				let imm32;
 				let imm64;
 				let imm_size;
-				let op_kind = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-					declare_data_kind
-				} else {
-					instruction.try_op_kind(operand).unwrap_or(OpKind::Register)
-				};
+				let op_kind = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data { declare_data_kind } else { instruction.op_kind(operand) };
 
 				// Share as much code as possible so put these in macros
 				macro_rules! fmt_near_branch {
@@ -1247,7 +1224,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 						OpKind::Immediate8 | OpKind::Immediate8_2nd => {
 							if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-								imm8 = instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default();
+								imm8 = instruction.get_declare_byte_value(operand as usize);
 							} else if op_kind == OpKind::Immediate8 {
 								imm8 = instruction.immediate8();
 							} else {
@@ -1259,7 +1236,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 						OpKind::Immediate16 | OpKind::Immediate8to16 => {
 							if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-								imm16 = instruction.try_get_declare_word_value(operand as usize).unwrap_or_default();
+								imm16 = instruction.get_declare_word_value(operand as usize);
 							} else if op_kind == OpKind::Immediate16 {
 								imm16 = instruction.immediate16();
 							} else {
@@ -1271,7 +1248,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 						OpKind::Immediate32 | OpKind::Immediate8to32 => {
 							if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-								imm32 = instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default();
+								imm32 = instruction.get_declare_dword_value(operand as usize);
 							} else if op_kind == OpKind::Immediate32 {
 								imm32 = instruction.immediate32();
 							} else {
@@ -1283,7 +1260,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 						OpKind::Immediate64 | OpKind::Immediate8to64 | OpKind::Immediate32to64 => {
 							if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-								imm64 = instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default();
+								imm64 = instruction.get_declare_qword_value(operand as usize);
 							} else if op_kind == OpKind::Immediate32to64 {
 								imm64 = instruction.immediate32to64() as u64;
 							} else if op_kind == OpKind::Immediate8to64 {
@@ -1331,7 +1308,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 						OpKind::Immediate8 => {
 							imm8 = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-								instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default()
+								instruction.get_declare_byte_value(operand as usize)
 							} else {
 								instruction.immediate8()
 							};
@@ -1345,7 +1322,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 						OpKind::Immediate16 => {
 							imm16 = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-								instruction.try_get_declare_word_value(operand as usize).unwrap_or_default()
+								instruction.get_declare_word_value(operand as usize)
 							} else {
 								instruction.immediate16()
 							};
@@ -1359,7 +1336,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 						OpKind::Immediate32 => {
 							imm32 = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-								instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default()
+								instruction.get_declare_dword_value(operand as usize)
 							} else {
 								instruction.immediate32()
 							};
@@ -1373,7 +1350,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 						OpKind::Immediate64 => {
 							imm64 = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-								instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default()
+								instruction.get_declare_qword_value(operand as usize)
 							} else {
 								instruction.immediate64()
 							};
@@ -1450,7 +1427,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 	#[inline]
 	fn show_segment_prefix(instruction: &Instruction, op_count: u32) -> bool {
 		for i in 0..op_count {
-			match instruction.try_op_kind(i).unwrap_or(OpKind::Register) {
+			match instruction.op_kind(i) {
 				OpKind::Register
 				| OpKind::NearBranch16
 				| OpKind::NearBranch32

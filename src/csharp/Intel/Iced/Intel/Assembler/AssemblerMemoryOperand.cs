@@ -44,13 +44,6 @@ namespace Iced.Intel {
 		public readonly Register Segment;
 
 		/// <summary>
-		/// Gets the segment register.
-		/// </summary>
-		[System.Obsolete("Use " + nameof(Segment) + " instead", true)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public readonly Register Prefix => Segment;
-
-		/// <summary>
 		/// Gets the register used as a base.
 		/// </summary>
 		public readonly Register Base;

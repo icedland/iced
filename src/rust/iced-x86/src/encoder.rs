@@ -164,24 +164,6 @@ impl Encoder {
 
 	/// Creates an encoder with an initial buffer capacity
 	///
-	/// # Panics
-	///
-	/// Panics if `bitness` is not one of 16, 32, 64.
-	///
-	/// # Arguments
-	///
-	/// * `bitness`: 16, 32 or 64
-	/// * `capacity`: Initial capacity of the `u8` buffer
-	#[must_use]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_capacity() instead")]
-	#[allow(clippy::unwrap_used)]
-	#[inline]
-	pub fn with_capacity(bitness: u32, capacity: usize) -> Self {
-		Self::try_with_capacity(bitness, capacity).unwrap()
-	}
-
-	/// Creates an encoder with an initial buffer capacity
-	///
 	/// # Errors
 	///
 	/// Fails if `bitness` is not one of 16, 32, 64.
@@ -449,7 +431,7 @@ impl Encoder {
 	}
 
 	pub(super) fn add_branch(&mut self, op_kind: OpKind, imm_size: u32, instruction: &Instruction, operand: u32) {
-		if !self.verify_op_kind(operand, op_kind, instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16)) {
+		if !self.verify_op_kind(operand, op_kind, instruction.op_kind(operand)) {
 			return;
 		}
 
@@ -510,7 +492,7 @@ impl Encoder {
 
 	pub(super) fn add_branch_x(&mut self, imm_size: u32, instruction: &Instruction, operand: u32) {
 		if self.bitness == 64 {
-			if !self.verify_op_kind(operand, OpKind::NearBranch64, instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16)) {
+			if !self.verify_op_kind(operand, OpKind::NearBranch64, instruction.op_kind(operand)) {
 				return;
 			}
 
@@ -532,7 +514,7 @@ impl Encoder {
 				_ => unreachable!(),
 			}
 		} else {
-			if !self.verify_op_kind(operand, OpKind::NearBranch32, instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16)) {
+			if !self.verify_op_kind(operand, OpKind::NearBranch32, instruction.op_kind(operand)) {
 				return;
 			}
 
@@ -574,12 +556,12 @@ impl Encoder {
 
 			_ => unreachable!(),
 		}
-		let _ = self.verify_op_kind(operand, op_kind, instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16));
+		let _ = self.verify_op_kind(operand, op_kind, instruction.op_kind(operand));
 	}
 
 	pub(super) fn add_far_branch(&mut self, instruction: &Instruction, operand: u32, size: u32) {
 		if size == 2 {
-			if !self.verify_op_kind(operand, OpKind::FarBranch16, instruction.try_op_kind(operand).unwrap_or(OpKind::NearBranch16)) {
+			if !self.verify_op_kind(operand, OpKind::FarBranch16, instruction.op_kind(operand)) {
 				return;
 			}
 			self.imm_size = ImmSize::Size2_2;
@@ -587,7 +569,7 @@ impl Encoder {
 			self.immediate_hi = instruction.far_branch_selector() as u32;
 		} else {
 			debug_assert_eq!(size, 4);
-			if !self.verify_op_kind(operand, OpKind::FarBranch32, instruction.try_op_kind(operand).unwrap_or(OpKind::NearBranch16)) {
+			if !self.verify_op_kind(operand, OpKind::FarBranch32, instruction.op_kind(operand)) {
 				return;
 			}
 			self.imm_size = ImmSize::Size4_2;
@@ -625,7 +607,7 @@ impl Encoder {
 
 	pub(super) fn add_abs_mem(&mut self, instruction: &Instruction, operand: u32) {
 		self.encoder_flags |= EncoderFlags::DISPL;
-		let op_kind = instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16);
+		let op_kind = instruction.op_kind(operand);
 		if op_kind == OpKind::Memory {
 			if instruction.memory_base() != Register::None || instruction.memory_index() != Register::None {
 				self.set_error_message(format!("Operand {}: Absolute addresses can't have base and/or index regs", operand));
@@ -683,10 +665,10 @@ impl Encoder {
 
 	#[allow(clippy::too_many_arguments)]
 	pub(super) fn add_mod_rm_register(&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register) {
-		if !self.verify_op_kind(operand, OpKind::Register, instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16)) {
+		if !self.verify_op_kind(operand, OpKind::Register, instruction.op_kind(operand)) {
 			return;
 		}
-		let reg = instruction.try_op_register(operand).unwrap_or_default();
+		let reg = instruction.op_register(operand);
 		if !self.verify_register_range(operand, reg, reg_lo, reg_hi) {
 			return;
 		}
@@ -709,10 +691,10 @@ impl Encoder {
 	}
 
 	pub(super) fn add_reg(&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register) {
-		if !self.verify_op_kind(operand, OpKind::Register, instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16)) {
+		if !self.verify_op_kind(operand, OpKind::Register, instruction.op_kind(operand)) {
 			return;
 		}
-		let reg = instruction.try_op_register(operand).unwrap_or_default();
+		let reg = instruction.op_register(operand);
 		if !self.verify_register_range(operand, reg, reg_lo, reg_hi) {
 			return;
 		}
@@ -744,14 +726,14 @@ impl Encoder {
 		&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register, vsib_index_reg_lo: Register,
 		vsib_index_reg_hi: Register, allow_mem_op: bool, allow_reg_op: bool,
 	) {
-		let op_kind = instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16);
+		let op_kind = instruction.op_kind(operand);
 		self.encoder_flags |= EncoderFlags::MOD_RM;
 		if op_kind == OpKind::Register {
 			if !allow_reg_op {
 				self.set_error_message(format!("Operand {}: register operand is not allowed", operand));
 				return;
 			}
-			let reg = instruction.try_op_register(operand).unwrap_or_default();
+			let reg = instruction.op_register(operand);
 			if !self.verify_register_range(operand, reg, reg_lo, reg_hi) {
 				return;
 			}

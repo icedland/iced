@@ -45,9 +45,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(tc.SegmentRegister, instruction.MemorySegment);
 			Assert.Equal(tc.BaseRegister, instruction.MemoryBase);
 			Assert.Equal(tc.IndexRegister, instruction.MemoryIndex);
-#pragma warning disable CS0618 // Type or member is obsolete
-			Assert.Equal((uint)tc.Displacement, instruction.MemoryDisplacement);
-#pragma warning restore CS0618 // Type or member is obsolete
 			Assert.Equal((uint)tc.Displacement, instruction.MemoryDisplacement32);
 			Assert.Equal(tc.Displacement, instruction.MemoryDisplacement64);
 			Assert.Equal(1 << tc.Scale, instruction.MemoryIndexScale);
@@ -233,9 +230,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					Assert.Equal(tc.MemoryBase, instruction.MemoryBase);
 					Assert.Equal(tc.MemoryIndex, instruction.MemoryIndex);
 					Assert.Equal(tc.MemoryIndexScale, instruction.MemoryIndexScale);
-#pragma warning disable CS0618 // Type or member is obsolete
-					Assert.Equal((uint)tc.MemoryDisplacement, instruction.MemoryDisplacement);
-#pragma warning restore CS0618 // Type or member is obsolete
 					Assert.Equal((uint)tc.MemoryDisplacement, instruction.MemoryDisplacement32);
 					Assert.Equal(tc.MemoryDisplacement, instruction.MemoryDisplacement64);
 					Assert.Equal(tc.MemoryDisplSize, instruction.MemoryDisplSize);

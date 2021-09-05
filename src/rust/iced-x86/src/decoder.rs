@@ -1086,54 +1086,6 @@ impl<'a> Decoder<'a> {
 	///
 	/// [`max_position()`]: #method.max_position
 	///
-	/// # Panics
-	///
-	/// Panics if the new position is invalid.
-	///
-	/// # Arguments
-	///
-	/// * `new_pos`: New position and must be <= [`max_position()`]
-	///
-	/// # Examples
-	///
-	/// ```
-	/// # #![allow(deprecated)]
-	/// use iced_x86::*;
-	///
-	/// // nop and pause
-	/// let bytes = b"\x90\xF3\x90";
-	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
-	///
-	/// assert_eq!(decoder.position(), 0);
-	/// assert_eq!(decoder.max_position(), 3);
-	/// let instr = decoder.decode();
-	/// assert_eq!(decoder.position(), 1);
-	/// assert_eq!(instr.code(), Code::Nopd);
-	///
-	/// let instr = decoder.decode();
-	/// assert_eq!(decoder.position(), 3);
-	/// assert_eq!(instr.code(), Code::Pause);
-	///
-	/// // Start all over again
-	/// decoder.set_position(0);
-	/// decoder.set_ip(0x1234_5678);
-	/// assert_eq!(decoder.position(), 0);
-	/// assert_eq!(decoder.decode().code(), Code::Nopd);
-	/// assert_eq!(decoder.decode().code(), Code::Pause);
-	/// assert_eq!(decoder.position(), 3);
-	/// ```
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "This method can panic, use try_set_position() instead")]
-	#[allow(clippy::unwrap_used)]
-	pub fn set_position(&mut self, new_pos: usize) {
-		self.try_set_position(new_pos).unwrap();
-	}
-
-	/// Sets the current data position, which is the index into the data passed to the constructor.
-	/// This value is always <= [`max_position()`]
-	///
-	/// [`max_position()`]: #method.max_position
-	///
 	/// # Errors
 	///
 	/// Fails if the new position is invalid.
@@ -1162,15 +1114,16 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(instr.code(), Code::Pause);
 	///
 	/// // Start all over again
-	/// decoder.try_set_position(0).unwrap();
+	/// decoder.set_position(0).unwrap();
 	/// decoder.set_ip(0x1234_5678);
 	/// assert_eq!(decoder.position(), 0);
 	/// assert_eq!(decoder.decode().code(), Code::Nopd);
 	/// assert_eq!(decoder.decode().code(), Code::Pause);
 	/// assert_eq!(decoder.position(), 3);
 	/// ```
+	#[inline]
 	#[allow(clippy::missing_inline_in_public_items)]
-	pub fn try_set_position(&mut self, new_pos: usize) -> Result<(), IcedError> {
+	pub fn set_position(&mut self, new_pos: usize) -> Result<(), IcedError> {
 		if new_pos > self.data.len() {
 			Err(IcedError::new("Invalid position"))
 		} else {
@@ -1179,6 +1132,12 @@ impl<'a> Decoder<'a> {
 			self.data_ptr = self.data.as_ptr() as usize + new_pos;
 			Ok(())
 		}
+	}
+
+	#[doc(hidden)]
+	#[inline]
+	pub fn try_set_position(&mut self, new_pos: usize) -> Result<(), IcedError> {
+		self.set_position(new_pos)
 	}
 
 	/// Returns `true` if there's at least one more byte to decode. It doesn't verify that the
@@ -2281,7 +2240,7 @@ impl<'a> Decoder<'a> {
 		if (self.state.flags & StateFlags::NO_IMM) == 0 {
 			let mut extra_imm_sub = 0;
 			for i in (0..instruction.op_count()).rev() {
-				match instruction.try_op_kind(i).unwrap_or(OpKind::Register) {
+				match instruction.op_kind(i) {
 					OpKind::Immediate8 | OpKind::Immediate8to16 | OpKind::Immediate8to32 | OpKind::Immediate8to64 => {
 						constant_offsets.immediate_offset = instruction.len().wrapping_sub(extra_imm_sub).wrapping_sub(1) as u8;
 						constant_offsets.immediate_size = 1;

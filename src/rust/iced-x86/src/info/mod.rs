@@ -187,34 +187,6 @@ impl UsedMemory {
 		self.vsib_size as u32
 	}
 
-	/// Gets the virtual address of a used memory location. See also [`try_virtual_address()`]
-	///
-	/// [`try_virtual_address()`]: #method.try_virtual_address
-	///
-	/// # Panics
-	///
-	/// Panics if virtual address computation fails.
-	///
-	/// # Arguments
-	///
-	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register.
-	///
-	/// # Call-back function args
-	///
-	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base address, not the segment's register value.
-	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
-	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "This method can panic, use try_virtual_address() instead")]
-	#[allow(clippy::unwrap_used)]
-	pub fn virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> u64
-	where
-		F: FnMut(Register, usize, usize) -> u64,
-	{
-		self.try_virtual_address(element_index, |r, i, s| Some(get_register_value(r, i, s))).unwrap()
-	}
-
 	/// Gets the virtual address of a used memory location, or `None` if register resolution fails.
 	///
 	/// # Arguments
@@ -228,6 +200,16 @@ impl UsedMemory {
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[must_use]
 	#[inline]
+	pub fn virtual_address<F>(&self, element_index: usize, get_register_value: F) -> Option<u64>
+	where
+		F: FnMut(Register, usize, usize) -> Option<u64>,
+	{
+		self.try_virtual_address(element_index, get_register_value)
+	}
+
+	#[must_use]
+	#[inline]
+	#[doc(hidden)]
 	pub fn try_virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> Option<u64>
 	where
 		F: FnMut(Register, usize, usize) -> Option<u64>,
@@ -306,13 +288,6 @@ impl fmt::Debug for UsedMemory {
 	}
 }
 
-struct IIFlags;
-impl IIFlags {
-	const SAVE_RESTORE: u8 = 0x20;
-	const STACK_INSTRUCTION: u8 = 0x40;
-	const PRIVILEGED: u8 = 0x80;
-}
-
 /// Contains information about an instruction, eg. read/written registers, read/written `RFLAGS` bits, `CPUID` feature bit, etc.
 /// Created by an [`InstructionInfoFactory`].
 ///
@@ -326,7 +301,6 @@ pub struct InstructionInfo {
 	flow_control: FlowControl,
 	op_accesses: [OpAccess; IcedConstants::MAX_OP_COUNT],
 	encoding: EncodingKind,
-	flags: u8,
 }
 
 impl InstructionInfo {
@@ -350,7 +324,6 @@ impl InstructionInfo {
 			flow_control: FlowControl::default(),
 			op_accesses: [OpAccess::default(); IcedConstants::MAX_OP_COUNT],
 			encoding: EncodingKind::default(),
-			flags: 0,
 		}
 	}
 
@@ -373,60 +346,6 @@ impl InstructionInfo {
 	#[inline]
 	pub fn used_memory(&self) -> &[UsedMemory] {
 		self.used_memory_locations.as_slice()
-	}
-
-	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::is_privileged() instead")]
-	pub fn is_privileged(&self) -> bool {
-		(self.flags & IIFlags::PRIVILEGED) != 0
-	}
-
-	/// `true` if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
-	/// See also [`Instruction::stack_pointer_increment()`]
-	///
-	/// [`Instruction::stack_pointer_increment()`]: struct.Instruction.html#method.stack_pointer_increment
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::is_stack_instruction() instead")]
-	pub fn is_stack_instruction(&self) -> bool {
-		(self.flags & IIFlags::STACK_INSTRUCTION) != 0
-	}
-
-	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
-	/// [`used_registers()`] won't return all accessed registers.
-	///
-	/// [`used_registers()`]: #method.used_registers
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::is_save_restore_instruction() instead")]
-	pub fn is_save_restore_instruction(&self) -> bool {
-		(self.flags & IIFlags::SAVE_RESTORE) != 0
-	}
-
-	/// Instruction encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::encoding() instead")]
-	pub fn encoding(&self) -> EncodingKind {
-		self.encoding
-	}
-
-	/// Gets the CPU or CPUID feature flags
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::cpuid_features() instead")]
-	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
-		self::cpuid_table::CPUID[self.cpuid_feature_internal as usize]
-	}
-
-	/// Control flow info
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::flow_control() instead")]
-	pub fn flow_control(&self) -> FlowControl {
-		self.flow_control
 	}
 
 	/// Operand #0 access
@@ -466,102 +385,24 @@ impl InstructionInfo {
 
 	/// Gets operand access
 	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
 	#[must_use]
 	#[inline]
-	#[deprecated(since = "1.11.0", note = "This method can panic, use try_op_access() instead")]
-	#[allow(clippy::unwrap_used)]
 	pub fn op_access(&self, operand: u32) -> OpAccess {
-		self.try_op_access(operand).unwrap()
+		match self.op_accesses.get(operand as usize) {
+			Some(&value) => value,
+			None => {
+				debug_assert!(false, "Invalid operand: {}", operand);
+				OpAccess::default()
+			}
+		}
 	}
 
-	/// Gets operand access
-	///
-	/// # Errors
-	///
-	/// Fails if `operand` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
+	#[doc(hidden)]
 	pub fn try_op_access(&self, operand: u32) -> Result<OpAccess, IcedError> {
 		self.op_accesses.get(operand as usize).map_or_else(|| Err(IcedError::new("Invalid operand")), |&op_access| Ok(op_access))
-	}
-
-	/// All flags that are read by the CPU when executing the instruction.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
-	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_read() instead")]
-	pub fn rflags_read(&self) -> u32 {
-		crate::info::rflags_table::FLAGS_READ[self.rflags_info as usize] as u32
-	}
-
-	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
-	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_written() instead")]
-	pub fn rflags_written(&self) -> u32 {
-		crate::info::rflags_table::FLAGS_WRITTEN[self.rflags_info as usize] as u32
-	}
-
-	/// All flags that are always cleared by the CPU.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
-	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_cleared() instead")]
-	pub fn rflags_cleared(&self) -> u32 {
-		crate::info::rflags_table::FLAGS_CLEARED[self.rflags_info as usize] as u32
-	}
-
-	/// All flags that are always set by the CPU.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
-	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_set() instead")]
-	pub fn rflags_set(&self) -> u32 {
-		crate::info::rflags_table::FLAGS_SET[self.rflags_info as usize] as u32
-	}
-
-	/// All flags that are undefined after executing the instruction.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
-	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_undefined() instead")]
-	pub fn rflags_undefined(&self) -> u32 {
-		crate::info::rflags_table::FLAGS_UNDEFINED[self.rflags_info as usize] as u32
-	}
-
-	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a [`RflagsBits`] value.
-	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_modified() instead")]
-	pub fn rflags_modified(&self) -> u32 {
-		crate::info::rflags_table::FLAGS_MODIFIED[self.rflags_info as usize] as u32
 	}
 }

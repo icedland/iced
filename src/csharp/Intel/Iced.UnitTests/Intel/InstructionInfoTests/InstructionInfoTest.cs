@@ -125,19 +125,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(testCase.StackPointerIncrement, instruction.StackPointerIncrement);
 
 			var info = new InstructionInfoFactory().GetInfo(instruction);
-#pragma warning disable CS0618 // Type or member is obsolete
-			Assert.Equal(testCase.Encoding, info.Encoding);
-			Assert.Equal(testCase.CpuidFeatures, info.CpuidFeatures);
-			Assert.Equal(testCase.RflagsRead, info.RflagsRead);
-			Assert.Equal(testCase.RflagsUndefined, info.RflagsUndefined);
-			Assert.Equal(testCase.RflagsWritten, info.RflagsWritten);
-			Assert.Equal(testCase.RflagsCleared, info.RflagsCleared);
-			Assert.Equal(testCase.RflagsSet, info.RflagsSet);
-			Assert.Equal(testCase.IsPrivileged, info.IsPrivileged);
-			Assert.Equal(testCase.IsStackInstruction, info.IsStackInstruction);
-			Assert.Equal(testCase.IsSaveRestoreInstruction, info.IsSaveRestoreInstruction);
-			Assert.Equal(testCase.FlowControl, info.FlowControl);
-#pragma warning restore CS0618 // Type or member is obsolete
 			Assert.Equal(testCase.Op0Access, info.Op0Access);
 			Assert.Equal(testCase.Op1Access, info.Op1Access);
 			Assert.Equal(testCase.Op2Access, info.Op2Access);
@@ -185,14 +172,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			for (int i = instruction.OpCount; i < IcedConstants.MaxOpCount; i++)
 				Assert.Equal(OpAccess.None, info.GetOpAccess(i));
 
-#pragma warning disable CS0618 // Type or member is obsolete
-			Assert.Equal(RflagsBits.None, info.RflagsWritten & (info.RflagsCleared | info.RflagsSet | info.RflagsUndefined));
-			Assert.Equal(RflagsBits.None, info.RflagsCleared & (info.RflagsWritten | info.RflagsSet | info.RflagsUndefined));
-			Assert.Equal(RflagsBits.None, info.RflagsSet & (info.RflagsWritten | info.RflagsCleared | info.RflagsUndefined));
-			Assert.Equal(RflagsBits.None, info.RflagsUndefined & (info.RflagsWritten | info.RflagsCleared | info.RflagsSet));
-			Assert.Equal(info.RflagsWritten | info.RflagsCleared | info.RflagsSet | info.RflagsUndefined, info.RflagsModified);
-#pragma warning restore CS0618 // Type or member is obsolete
-
 			var info2 = new InstructionInfoFactory().GetInfo(instruction, InstructionInfoOptions.None);
 			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: true);
 			info2 = new InstructionInfoFactory().GetInfo(instruction, InstructionInfoOptions.NoMemoryUsage);
@@ -202,30 +181,33 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			info2 = new InstructionInfoFactory().GetInfo(instruction, InstructionInfoOptions.NoRegisterUsage | InstructionInfoOptions.NoMemoryUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
 
-#pragma warning disable CS0618 // Type or member is obsolete
-			Assert.Equal(info.Encoding, instruction.Code.Encoding());
+			Assert.Equal(testCase.Encoding, instruction.Code.Encoding());
 #if ENCODER && OPCODE_INFO
-			Assert.Equal(code.ToOpCode().Encoding, info.Encoding);
+			Assert.Equal(code.ToOpCode().Encoding, testCase.Encoding);
 #endif
-			Assert.Equal(info.CpuidFeatures, instruction.Code.CpuidFeatures());
-			Assert.Equal(info.FlowControl, instruction.Code.FlowControl());
-			Assert.Equal(info.IsPrivileged, instruction.Code.IsPrivileged());
-			Assert.Equal(info.IsStackInstruction, instruction.Code.IsStackInstruction());
-			Assert.Equal(info.IsSaveRestoreInstruction, instruction.Code.IsSaveRestoreInstruction());
+			Assert.Equal(testCase.CpuidFeatures, instruction.Code.CpuidFeatures());
+			Assert.Equal(testCase.FlowControl, instruction.Code.FlowControl());
+			Assert.Equal(testCase.IsPrivileged, instruction.Code.IsPrivileged());
+			Assert.Equal(testCase.IsStackInstruction, instruction.Code.IsStackInstruction());
+			Assert.Equal(testCase.IsSaveRestoreInstruction, instruction.Code.IsSaveRestoreInstruction());
 
-			Assert.Equal(info.Encoding, instruction.Encoding);
-			Assert.Equal(info.CpuidFeatures, instruction.CpuidFeatures);
-			Assert.Equal(info.FlowControl, instruction.FlowControl);
-			Assert.Equal(info.IsPrivileged, instruction.IsPrivileged);
-			Assert.Equal(info.IsStackInstruction, instruction.IsStackInstruction);
-			Assert.Equal(info.IsSaveRestoreInstruction, instruction.IsSaveRestoreInstruction);
-			Assert.Equal(info.RflagsRead, instruction.RflagsRead);
-			Assert.Equal(info.RflagsWritten, instruction.RflagsWritten);
-			Assert.Equal(info.RflagsCleared, instruction.RflagsCleared);
-			Assert.Equal(info.RflagsSet, instruction.RflagsSet);
-			Assert.Equal(info.RflagsUndefined, instruction.RflagsUndefined);
-			Assert.Equal(info.RflagsModified, instruction.RflagsModified);
-#pragma warning restore CS0618 // Type or member is obsolete
+			Assert.Equal(testCase.Encoding, instruction.Encoding);
+			Assert.Equal(testCase.CpuidFeatures, instruction.CpuidFeatures);
+			Assert.Equal(testCase.FlowControl, instruction.FlowControl);
+			Assert.Equal(testCase.IsPrivileged, instruction.IsPrivileged);
+			Assert.Equal(testCase.IsStackInstruction, instruction.IsStackInstruction);
+			Assert.Equal(testCase.IsSaveRestoreInstruction, instruction.IsSaveRestoreInstruction);
+			Assert.Equal(testCase.RflagsRead, instruction.RflagsRead);
+			Assert.Equal(testCase.RflagsWritten, instruction.RflagsWritten);
+			Assert.Equal(testCase.RflagsCleared, instruction.RflagsCleared);
+			Assert.Equal(testCase.RflagsSet, instruction.RflagsSet);
+			Assert.Equal(testCase.RflagsUndefined, instruction.RflagsUndefined);
+			Assert.Equal(testCase.RflagsWritten | testCase.RflagsCleared | testCase.RflagsSet | testCase.RflagsUndefined, instruction.RflagsModified);
+
+			Assert.Equal(RflagsBits.None, instruction.RflagsWritten & (instruction.RflagsCleared | instruction.RflagsSet | instruction.RflagsUndefined));
+			Assert.Equal(RflagsBits.None, instruction.RflagsCleared & (instruction.RflagsWritten | instruction.RflagsSet | instruction.RflagsUndefined));
+			Assert.Equal(RflagsBits.None, instruction.RflagsSet & (instruction.RflagsWritten | instruction.RflagsCleared | instruction.RflagsUndefined));
+			Assert.Equal(RflagsBits.None, instruction.RflagsUndefined & (instruction.RflagsWritten | instruction.RflagsCleared | instruction.RflagsSet));
 		}
 
 		void CheckEqual(ref InstructionInfo info1, ref InstructionInfo info2, bool hasRegs2, bool hasMem2) {
@@ -237,27 +219,11 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				Assert.Equal(info1.GetUsedMemory(), info2.GetUsedMemory(), UsedMemoryEqualityComparer.Instance);
 			else
 				Assert.Empty(info2.GetUsedMemory());
-#pragma warning disable CS0618 // Type or member is obsolete
-			Assert.Equal(info1.IsPrivileged, info2.IsPrivileged);
-			Assert.Equal(info1.IsStackInstruction, info2.IsStackInstruction);
-			Assert.Equal(info1.IsSaveRestoreInstruction, info2.IsSaveRestoreInstruction);
-			Assert.Equal(info1.Encoding, info2.Encoding);
-			Assert.Equal(info1.CpuidFeatures, info2.CpuidFeatures);
-			Assert.Equal(info1.FlowControl, info2.FlowControl);
-#pragma warning restore CS0618 // Type or member is obsolete
 			Assert.Equal(info1.Op0Access, info2.Op0Access);
 			Assert.Equal(info1.Op1Access, info2.Op1Access);
 			Assert.Equal(info1.Op2Access, info2.Op2Access);
 			Assert.Equal(info1.Op3Access, info2.Op3Access);
 			Assert.Equal(info1.Op4Access, info2.Op4Access);
-#pragma warning disable CS0618 // Type or member is obsolete
-			Assert.Equal(info1.RflagsRead, info2.RflagsRead);
-			Assert.Equal(info1.RflagsWritten, info2.RflagsWritten);
-			Assert.Equal(info1.RflagsCleared, info2.RflagsCleared);
-			Assert.Equal(info1.RflagsSet, info2.RflagsSet);
-			Assert.Equal(info1.RflagsUndefined, info2.RflagsUndefined);
-			Assert.Equal(info1.RflagsModified, info2.RflagsModified);
-#pragma warning restore CS0618 // Type or member is obsolete
 		}
 
 		IEnumerable<UsedRegister> GetUsedRegisters(IEnumerable<UsedRegister> usedRegisterIterator) {
@@ -368,7 +334,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			return hash;
 		}
-		static readonly (Register rl, Register rh, Register rx)[] lowRegs = new(Register rl, Register rh, Register rx)[4] {
+		static readonly (Register rl, Register rh, Register rx)[] lowRegs = new (Register rl, Register rh, Register rx)[4] {
 			(Register.AL, Register.AH, Register.AX),
 			(Register.CL, Register.CH, Register.CX),
 			(Register.DL, Register.DH, Register.DX),

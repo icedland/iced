@@ -583,34 +583,18 @@ impl Instruction {
 	/// [`op_count()`]: #method.op_count
 	/// [`try_set_op_kind()`]: #method.try_set_op_kind
 	///
-	/// # Panics
-	///
-	/// Panics if `new_value` is invalid.
-	///
-	/// # Arguments
-	///
-	/// * `new_value`: new value
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_op4_kind() instead")]
-	#[allow(clippy::unwrap_used)]
-	#[inline]
-	pub fn set_op4_kind(&mut self, new_value: OpKind) {
-		self.try_set_op4_kind(new_value).unwrap()
-	}
-
-	/// Sets operand #4's kind if the operand exists (see [`op_count()`] and [`try_set_op_kind()`])
-	///
-	/// [`op_count()`]: #method.op_count
-	/// [`try_set_op_kind()`]: #method.try_set_op_kind
-	///
-	/// # Errors
-	///
-	/// Fails if `new_value` is invalid.
-	///
 	/// # Arguments
 	///
 	/// * `new_value`: new value
 	#[allow(clippy::unused_self)]
 	#[inline]
+	pub fn set_op4_kind(&mut self, new_value: OpKind) {
+		debug_assert_eq!(new_value, OpKind::Immediate8);
+	}
+
+	#[allow(clippy::unused_self)]
+	#[inline]
+	#[doc(hidden)]
 	pub fn try_set_op4_kind(&mut self, new_value: OpKind) -> Result<(), IcedError> {
 		if new_value != OpKind::Immediate8 {
 			Err(IcedError::new("Invalid opkind"))
@@ -646,10 +630,6 @@ impl Instruction {
 	///
 	/// [`op_count()`]: #method.op_count
 	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
@@ -674,42 +654,20 @@ impl Instruction {
 	/// ```
 	#[must_use]
 	#[inline]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_op_kind() instead")]
-	#[allow(clippy::unwrap_used)]
 	pub fn op_kind(&self, operand: u32) -> OpKind {
-		self.try_op_kind(operand).unwrap()
+		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+		if let Some(&op_kind) = self.op_kinds.get(operand as usize) {
+			op_kind
+		} else if operand == 4 {
+			self.op4_kind()
+		} else {
+			debug_assert!(false, "Invalid operand: {}", operand);
+			OpKind::default()
+		}
 	}
 
-	/// Gets an operand's kind if it exists (see [`op_count()`])
-	///
-	/// [`op_count()`]: #method.op_count
-	///
-	/// # Errors
-	///
-	/// Fails if `operand` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	///
-	/// # Examples
-	///
-	/// ```
-	/// use iced_x86::*;
-	///
-	/// // add [rax],ebx
-	/// let bytes = b"\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// let instr = decoder.decode();
-	///
-	/// assert_eq!(instr.op_count(), 2);
-	/// assert_eq!(instr.try_op_kind(0).unwrap(), OpKind::Memory);
-	/// assert_eq!(instr.memory_base(), Register::RAX);
-	/// assert_eq!(instr.memory_index(), Register::None);
-	/// assert_eq!(instr.try_op_kind(1).unwrap(), OpKind::Register);
-	/// assert_eq!(instr.try_op_register(1).unwrap(), Register::EBX);
-	/// ```
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
+	#[inline]
 	pub fn try_op_kind(&self, operand: u32) -> Result<OpKind, IcedError> {
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		if let Some(&op_kind) = self.op_kinds.get(operand as usize) {
@@ -723,32 +681,24 @@ impl Instruction {
 
 	/// Sets an operand's kind
 	///
-	/// # Panics
-	///
-	/// Panics if `operand` or `op_kind` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `op_kind`: Operand kind
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_op_kind() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_op_kind(&mut self, operand: u32, op_kind: OpKind) {
-		self.try_set_op_kind(operand, op_kind).unwrap()
+		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+		if let Some(field) = self.op_kinds.get_mut(operand as usize) {
+			*field = op_kind;
+		} else if operand == 4 {
+			self.set_op4_kind(op_kind)
+		} else {
+			debug_assert!(false, "Invalid operand: {}", operand);
+		}
 	}
 
-	/// Sets an operand's kind
-	///
-	/// # Errors
-	///
-	/// Fails if `operand` or `op_kind` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	/// * `op_kind`: Operand kind
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
+	#[inline]
 	pub fn try_set_op_kind(&mut self, operand: u32, op_kind: OpKind) -> Result<(), IcedError> {
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		if let Some(field) = self.op_kinds.get_mut(operand as usize) {
@@ -966,33 +916,6 @@ impl Instruction {
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[must_use]
 	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use memory_displacement32() or memory_displacement64() instead")]
-	pub fn memory_displacement(&self) -> u32 {
-		self.memory_displacement32()
-	}
-
-	/// Gets the memory operand's displacement or the 32-bit absolute address if it's
-	/// an `EIP` or `RIP` relative memory operand.
-	/// Use this method if the operand has kind [`OpKind::Memory`]
-	///
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	///
-	/// # Arguments
-	///
-	/// * `new_value`: New value
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use set_memory_displacement32() or set_memory_displacement64() instead")]
-	pub fn set_memory_displacement(&mut self, new_value: u32) {
-		self.set_memory_displacement32(new_value);
-	}
-
-	/// Gets the memory operand's displacement or the 32-bit absolute address if it's
-	/// an `EIP` or `RIP` relative memory operand.
-	/// Use this method if the operand has kind [`OpKind::Memory`]
-	///
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	#[must_use]
-	#[inline]
 	pub fn memory_displacement32(&self) -> u32 {
 		self.mem_displ as u32
 	}
@@ -1036,16 +959,8 @@ impl Instruction {
 		self.mem_displ = new_value;
 	}
 
-	/// Gets an operand's immediate value, or `None` if the operand is not immediate
-	///
-	/// # Errors
-	///
-	/// Fails if `operand` is invalid or not an immediate operand
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_immediate(&self, operand: u32) -> Result<u64, IcedError> {
 		Ok(match self.try_op_kind(operand)? {
 			OpKind::Immediate8 => self.immediate8() as u64,
@@ -1063,145 +978,97 @@ impl Instruction {
 
 	/// Gets an operand's immediate value
 	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid or not immediate.
-	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
 	#[must_use]
-	#[deprecated(since = "1.11.0", note = "This method can panic, use try_immediate() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn immediate(&self, operand: u32) -> u64 {
-		self.try_immediate(operand).unwrap()
+		match self.try_immediate(operand) {
+			Ok(value) => value,
+			Err(_) => {
+				debug_assert!(false, "Invalid operand: {}", operand);
+				0
+			}
+		}
 	}
 
 	/// Sets an operand's immediate value
-	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
 	#[inline]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_immediate_i32() instead")]
-	#[allow(clippy::unwrap_used)]
 	pub fn set_immediate_i32(&mut self, operand: u32, new_value: i32) {
-		self.try_set_immediate_i32(operand, new_value).unwrap();
+		match self.try_set_immediate_i32(operand, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid operand: {}", operand),
+		}
 	}
 
-	/// Sets an operand's immediate value
-	///
-	/// # Errors
-	///
-	/// Fails if `operand` is invalid or if it's not an immediate operand
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	/// * `new_value`: Immediate
 	#[inline]
+	#[doc(hidden)]
 	pub fn try_set_immediate_i32(&mut self, operand: u32, new_value: i32) -> Result<(), IcedError> {
 		self.try_set_immediate_u64(operand, new_value as u64)
 	}
 
 	/// Sets an operand's immediate value
 	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
-	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
 	#[inline]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_immediate_u32() instead")]
-	#[allow(clippy::unwrap_used)]
 	pub fn set_immediate_u32(&mut self, operand: u32, new_value: u32) {
-		self.try_set_immediate_u32(operand, new_value).unwrap();
+		match self.try_set_immediate_u32(operand, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid operand: {}", operand),
+		}
 	}
 
-	/// Sets an operand's immediate value
-	///
-	/// # Errors
-	///
-	/// Fails if `operand` is invalid or if it's not an immediate operand
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	/// * `new_value`: Immediate
 	#[inline]
+	#[doc(hidden)]
 	pub fn try_set_immediate_u32(&mut self, operand: u32, new_value: u32) -> Result<(), IcedError> {
 		self.try_set_immediate_u64(operand, new_value as u64)
 	}
 
 	/// Sets an operand's immediate value
 	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
-	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
 	#[inline]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_immediate_i64() instead")]
-	#[allow(clippy::unwrap_used)]
 	pub fn set_immediate_i64(&mut self, operand: u32, new_value: i64) {
-		self.try_set_immediate_i64(operand, new_value).unwrap()
+		match self.try_set_immediate_i64(operand, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid operand: {}", operand),
+		}
 	}
 
-	/// Sets an operand's immediate value
-	///
-	/// # Errors
-	///
-	/// Fails if `operand` is invalid or if it's not an immediate operand
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	/// * `new_value`: Immediate
 	#[inline]
+	#[doc(hidden)]
 	pub fn try_set_immediate_i64(&mut self, operand: u32, new_value: i64) -> Result<(), IcedError> {
 		self.try_set_immediate_u64(operand, new_value as u64)
 	}
 
 	/// Sets an operand's immediate value
 	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
-	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
 	#[inline]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_immediate_u64() instead")]
-	#[allow(clippy::unwrap_used)]
 	pub fn set_immediate_u64(&mut self, operand: u32, new_value: u64) {
-		self.try_set_immediate_u64(operand, new_value).unwrap()
+		match self.try_set_immediate_u64(operand, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid operand: {}", operand),
+		}
 	}
 
-	/// Sets an operand's immediate value
-	///
-	/// # Errors
-	///
-	/// Fails if `operand` is invalid or if it's not an immediate operand
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	/// * `new_value`: Immediate
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_set_immediate_u64(&mut self, operand: u32, new_value: u64) -> Result<(), IcedError> {
 		match self.try_op_kind(operand)? {
 			OpKind::Immediate8 | OpKind::Immediate8to16 | OpKind::Immediate8to32 | OpKind::Immediate8to64 => self.immediate = new_value as u8 as u32,
@@ -1758,37 +1625,18 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	///
-	/// # Panics
-	///
-	/// Panics if `new_value` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `new_value`: New value
-	#[inline]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_op4_register() instead")]
-	#[allow(clippy::unwrap_used)]
-	pub fn set_op4_register(&mut self, new_value: Register) {
-		self.try_set_op4_register(new_value).unwrap();
-	}
-
-	/// Sets operand #4's register value. Use this method if operand #4 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`try_op_register()`]
-	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`try_op_register()`]: #method.try_op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
-	///
-	/// # Errors
-	///
-	/// Fails if `new_value` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `new_value`: New value
 	#[allow(clippy::unused_self)]
 	#[inline]
+	pub fn set_op4_register(&mut self, new_value: Register) {
+		debug_assert_eq!(new_value, Register::None);
+	}
+
+	#[allow(clippy::unused_self)]
+	#[inline]
+	#[doc(hidden)]
 	pub fn try_set_op4_register(&mut self, new_value: Register) -> Result<(), IcedError> {
 		if new_value != Register::None {
 			Err(IcedError::new("Invalid register"))
@@ -1800,10 +1648,6 @@ impl Instruction {
 	/// Gets the operand's register value. Use this method if the operand has kind [`OpKind::Register`]
 	///
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
-	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -1827,40 +1671,20 @@ impl Instruction {
 	/// ```
 	#[must_use]
 	#[inline]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_op_register() instead")]
-	#[allow(clippy::unwrap_used)]
 	pub fn op_register(&self, operand: u32) -> Register {
-		self.try_op_register(operand).unwrap()
+		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+		if let Some(&reg) = self.regs.get(operand as usize) {
+			reg
+		} else if operand == 4 {
+			self.op4_register()
+		} else {
+			debug_assert!(false, "Invalid operand: {}", operand);
+			Register::default()
+		}
 	}
 
-	/// Gets the operand's register value. Use this method if the operand has kind [`OpKind::Register`]
-	///
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
-	///
-	/// # Errors
-	///
-	/// Fails if `operand` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	///
-	/// # Examples
-	///
-	/// ```
-	/// use iced_x86::*;
-	///
-	/// // add [rax],ebx
-	/// let bytes = b"\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// let instr = decoder.decode();
-	///
-	/// assert_eq!(instr.op_count(), 2);
-	/// assert_eq!(instr.try_op_kind(0).unwrap(), OpKind::Memory);
-	/// assert_eq!(instr.try_op_kind(1).unwrap(), OpKind::Register);
-	/// assert_eq!(instr.try_op_register(1).unwrap(), Register::EBX);
-	/// ```
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
+	#[doc(hidden)]
 	pub fn try_op_register(&self, operand: u32) -> Result<Register, IcedError> {
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		if let Some(&reg) = self.regs.get(operand as usize) {
@@ -1876,36 +1700,25 @@ impl Instruction {
 	///
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	///
-	/// # Panics
-	///
-	/// - Panics if `operand` is invalid
-	/// - Panics if `new_value` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: New value
 	#[inline]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_op_register() instead")]
-	#[allow(clippy::unwrap_used)]
 	pub fn set_op_register(&mut self, operand: u32, new_value: Register) {
-		self.try_set_op_register(operand, new_value).unwrap();
+		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+		match operand {
+			0 => self.set_op0_register(new_value),
+			1 => self.set_op1_register(new_value),
+			2 => self.set_op2_register(new_value),
+			3 => self.set_op3_register(new_value),
+			4 => self.set_op4_register(new_value),
+			_ => debug_assert!(false, "Invalid operand: {}", operand),
+		}
 	}
 
-	/// Sets the operand's register value. Use this method if the operand has kind [`OpKind::Register`]
-	///
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
-	///
-	/// # Errors
-	///
-	/// - Fails if `operand` is invalid
-	/// - Fails if `new_value` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	/// * `new_value`: New value
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
+	#[doc(hidden)]
 	pub fn try_set_op_register(&mut self, operand: u32, new_value: Register) -> Result<(), IcedError> {
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		match operand {
@@ -2085,19 +1898,16 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareByte`]: enum.Code.html#variant.DeclareByte
 	///
-	/// # Panics
-	///
-	/// - Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-15)
 	/// * `new_value`: New value
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_byte_value_i8() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_byte_value_i8(&mut self, index: usize, new_value: i8) {
-		self.try_set_declare_byte_value_i8(index, new_value).unwrap();
+		match self.try_set_declare_byte_value_i8(index, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid index: {}", index),
+		}
 	}
 
 	/// Sets a new `db` value, see also [`declare_data_len()`].
@@ -2127,37 +1937,20 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareByte`]: enum.Code.html#variant.DeclareByte
 	///
-	/// # Panics
-	///
-	/// - Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-15)
 	/// * `new_value`: New value
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_byte_value() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_byte_value(&mut self, index: usize, new_value: u8) {
-		self.try_set_declare_byte_value(index, new_value).unwrap();
+		match self.try_set_declare_byte_value(index, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid index: {}", index),
+		}
 	}
 
-	/// Sets a new `db` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareByte`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareByte`]: enum.Code.html#variant.DeclareByte
-	///
-	/// # Errors
-	///
-	/// - Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-15)
-	/// * `new_value`: New value
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_set_declare_byte_value(&mut self, index: usize, new_value: u8) -> Result<(), IcedError> {
 		match index {
 			0 => self.regs[0] = Register::from_u8(new_value),
@@ -2188,36 +1981,23 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareByte`]: enum.Code.html#variant.DeclareByte
 	///
-	/// # Panics
-	///
-	/// Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-15)
 	#[must_use]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_byte_value() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn get_declare_byte_value(&self, index: usize) -> u8 {
-		self.try_get_declare_byte_value(index).unwrap()
+		match self.try_get_declare_byte_value(index) {
+			Ok(value) => value,
+			Err(_) => {
+				debug_assert!(false, "Invalid index: {}", index);
+				0
+			}
+		}
 	}
 
-	/// Gets a `db` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareByte`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareByte`]: enum.Code.html#variant.DeclareByte
-	///
-	/// # Errors
-	///
-	/// Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-15)
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_get_declare_byte_value(&self, index: usize) -> Result<u8, IcedError> {
 		Ok(match index {
 			0 => self.regs[0] as u8,
@@ -2247,37 +2027,20 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareWord`]: enum.Code.html#variant.DeclareWord
 	///
-	/// # Panics
-	///
-	/// - Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-7)
 	/// * `new_value`: New value
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_word_value_i16() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_word_value_i16(&mut self, index: usize, new_value: i16) {
-		self.try_set_declare_word_value_i16(index, new_value).unwrap();
+		match self.try_set_declare_word_value_i16(index, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid index: {}", index),
+		}
 	}
 
-	/// Sets a new `dw` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareWord`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareWord`]: enum.Code.html#variant.DeclareWord
-	///
-	/// # Errors
-	///
-	/// - Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-7)
-	/// * `new_value`: New value
 	#[inline]
+	#[doc(hidden)]
 	pub fn try_set_declare_word_value_i16(&mut self, index: usize, new_value: i16) -> Result<(), IcedError> {
 		self.try_set_declare_word_value(index, new_value as u16)
 	}
@@ -2289,37 +2052,20 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareWord`]: enum.Code.html#variant.DeclareWord
 	///
-	/// # Panics
-	///
-	/// - Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-7)
 	/// * `new_value`: New value
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_word_value() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_word_value(&mut self, index: usize, new_value: u16) {
-		self.try_set_declare_word_value(index, new_value).unwrap();
+		match self.try_set_declare_word_value(index, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid index: {}", index),
+		}
 	}
 
-	/// Sets a new `dw` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareWord`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareWord`]: enum.Code.html#variant.DeclareWord
-	///
-	/// # Errors
-	///
-	/// - Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-7)
-	/// * `new_value`: New value
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_set_declare_word_value(&mut self, index: usize, new_value: u16) -> Result<(), IcedError> {
 		match index {
 			0 => {
@@ -2348,36 +2094,23 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareWord`]: enum.Code.html#variant.DeclareWord
 	///
-	/// # Panics
-	///
-	/// Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-7)
 	#[must_use]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_word_value() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn get_declare_word_value(&self, index: usize) -> u16 {
-		self.try_get_declare_word_value(index).unwrap()
+		match self.try_get_declare_word_value(index) {
+			Ok(value) => value,
+			Err(_) => {
+				debug_assert!(false, "Invalid index: {}", index);
+				0
+			}
+		}
 	}
 
-	/// Gets a `dw` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareWord`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareWord`]: enum.Code.html#variant.DeclareWord
-	///
-	/// # Errors
-	///
-	/// Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-7)
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_get_declare_word_value(&self, index: usize) -> Result<u16, IcedError> {
 		Ok(match index {
 			0 => self.regs[0] as u16 | ((self.regs[1] as u16) << 8),
@@ -2399,37 +2132,20 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareDword`]: enum.Code.html#variant.DeclareDword
 	///
-	/// # Panics
-	///
-	/// - Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-3)
 	/// * `new_value`: New value
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_dword_value_i32() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_dword_value_i32(&mut self, index: usize, new_value: i32) {
-		self.try_set_declare_dword_value_i32(index, new_value).unwrap();
+		match self.try_set_declare_dword_value_i32(index, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid index: {}", index),
+		}
 	}
 
-	/// Sets a new `dd` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareDword`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareDword`]: enum.Code.html#variant.DeclareDword
-	///
-	/// # Errors
-	///
-	/// - Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-3)
-	/// * `new_value`: New value
 	#[inline]
+	#[doc(hidden)]
 	pub fn try_set_declare_dword_value_i32(&mut self, index: usize, new_value: i32) -> Result<(), IcedError> {
 		self.try_set_declare_dword_value(index, new_value as u32)
 	}
@@ -2441,37 +2157,20 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareDword`]: enum.Code.html#variant.DeclareDword
 	///
-	/// # Panics
-	///
-	/// - Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-3)
 	/// * `new_value`: New value
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_dword_value() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_dword_value(&mut self, index: usize, new_value: u32) {
-		self.try_set_declare_dword_value(index, new_value).unwrap();
+		match self.try_set_declare_dword_value(index, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid index: {}", index),
+		}
 	}
 
-	/// Sets a new `dd` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareDword`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareDword`]: enum.Code.html#variant.DeclareDword
-	///
-	/// # Errors
-	///
-	/// - Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-3)
-	/// * `new_value`: New value
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_set_declare_dword_value(&mut self, index: usize, new_value: u32) -> Result<(), IcedError> {
 		match index {
 			0 => {
@@ -2495,36 +2194,23 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareDword`]: enum.Code.html#variant.DeclareDword
 	///
-	/// # Panics
-	///
-	/// Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-3)
 	#[must_use]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_dword_value() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn get_declare_dword_value(&self, index: usize) -> u32 {
-		self.try_get_declare_dword_value(index).unwrap()
+		match self.try_get_declare_dword_value(index) {
+			Ok(value) => value,
+			Err(_) => {
+				debug_assert!(false, "Invalid index: {}", index);
+				0
+			}
+		}
 	}
 
-	/// Gets a `dd` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareDword`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareDword`]: enum.Code.html#variant.DeclareDword
-	///
-	/// # Errors
-	///
-	/// Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-3)
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_get_declare_dword_value(&self, index: usize) -> Result<u32, IcedError> {
 		Ok(match index {
 			0 => self.regs[0] as u32 | ((self.regs[1] as u32) << 8) | ((self.regs[2] as u32) << 16) | ((self.regs[3] as u32) << 24),
@@ -2542,37 +2228,20 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareQword`]: enum.Code.html#variant.DeclareQword
 	///
-	/// # Panics
-	///
-	/// - Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
 	/// * `new_value`: New value
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_qword_value_i64() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_qword_value_i64(&mut self, index: usize, new_value: i64) {
-		self.try_set_declare_qword_value_i64(index, new_value).unwrap();
+		match self.try_set_declare_qword_value_i64(index, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid index: {}", index),
+		}
 	}
 
-	/// Sets a new `dq` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareQword`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareQword`]: enum.Code.html#variant.DeclareQword
-	///
-	/// # Errors
-	///
-	/// - Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-1)
-	/// * `new_value`: New value
 	#[inline]
+	#[doc(hidden)]
 	pub fn try_set_declare_qword_value_i64(&mut self, index: usize, new_value: i64) -> Result<(), IcedError> {
 		self.try_set_declare_qword_value(index, new_value as u64)
 	}
@@ -2584,37 +2253,20 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareQword`]: enum.Code.html#variant.DeclareQword
 	///
-	/// # Panics
-	///
-	/// - Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
 	/// * `new_value`: New value
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_qword_value() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_qword_value(&mut self, index: usize, new_value: u64) {
-		self.try_set_declare_qword_value(index, new_value).unwrap();
+		match self.try_set_declare_qword_value(index, new_value) {
+			Ok(()) => {}
+			Err(_) => debug_assert!(false, "Invalid index: {}", index),
+		}
 	}
 
-	/// Sets a new `dq` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareQword`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareQword`]: enum.Code.html#variant.DeclareQword
-	///
-	/// # Errors
-	///
-	/// - Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-1)
-	/// * `new_value`: New value
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_set_declare_qword_value(&mut self, index: usize, new_value: u64) -> Result<(), IcedError> {
 		match index {
 			0 => {
@@ -2637,36 +2289,23 @@ impl Instruction {
 	/// [`code()`]: #method.code
 	/// [`Code::DeclareQword`]: enum.Code.html#variant.DeclareQword
 	///
-	/// # Panics
-	///
-	/// Panics if `index` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
 	#[must_use]
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_qword_value() instead")]
-	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn get_declare_qword_value(&self, index: usize) -> u64 {
-		self.try_get_declare_qword_value(index).unwrap()
+		match self.try_get_declare_qword_value(index) {
+			Ok(value) => value,
+			Err(_) => {
+				debug_assert!(false, "Invalid index: {}", index);
+				0
+			}
+		}
 	}
 
-	/// Gets a `dq` value, see also [`declare_data_len()`].
-	/// Can only be called if [`code()`] is [`Code::DeclareQword`]
-	///
-	/// [`declare_data_len()`]: #method.declare_data_len
-	/// [`code()`]: #method.code
-	/// [`Code::DeclareQword`]: enum.Code.html#variant.DeclareQword
-	///
-	/// # Errors
-	///
-	/// Fails if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-1)
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_get_declare_qword_value(&self, index: usize) -> Result<u64, IcedError> {
 		Ok(match index {
 			0 => {
@@ -2902,7 +2541,7 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
-	/// let va = instr.try_virtual_address(0, 0, |register, _element_index, _element_size| {
+	/// let va = instr.virtual_address(0, 0, |register, _element_index, _element_size| {
 	///     match register {
 	///         // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
 	///         Register::DS => Some(0x0000_0000_0000_0000),
@@ -2914,12 +2553,22 @@ impl Instruction {
 	/// assert_eq!(va, Some(0x0000_001F_B55A_1234));
 	/// ```
 	#[must_use]
+	#[inline]
+	pub fn virtual_address<F>(&self, operand: u32, element_index: usize, get_register_value: F) -> Option<u64>
+	where
+		F: FnMut(Register, usize, usize) -> Option<u64>,
+	{
+		self.try_virtual_address(operand, element_index, get_register_value)
+	}
+
+	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_virtual_address<F>(&self, operand: u32, element_index: usize, mut get_register_value: F) -> Option<u64>
 	where
 		F: FnMut(Register, usize, usize) -> Option<u64>,
 	{
-		let op_kind = self.try_op_kind(operand).ok()?;
+		let op_kind = self.op_kind(operand);
 		Some(match op_kind {
 			OpKind::Register
 			| OpKind::NearBranch16
@@ -2999,59 +2648,6 @@ impl Instruction {
 				}
 			}
 		})
-	}
-
-	/// Gets the virtual address of a memory operand. See also [`try_virtual_address()`]
-	///
-	/// [`try_virtual_address()`]: #method.try_virtual_address
-	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4, must be a memory operand
-	/// * `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
-	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register.
-	///
-	/// # Call-back function args
-	///
-	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base address, not the segment's register value.
-	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
-	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
-	///
-	/// # Examples
-	///
-	/// ```
-	/// # #![allow(deprecated)]
-	/// use iced_x86::*;
-	///
-	/// // add [rdi+r12*8-5AA5EDCCh],esi
-	/// let bytes = b"\x42\x01\xB4\xE7\x34\x12\x5A\xA5";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// let instr = decoder.decode();
-	///
-	/// let va = instr.virtual_address(0, 0, |register, _element_index, _element_size| {
-	///     match register {
-	///         // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
-	///         Register::DS => 0x0000_0000_0000_0000,
-	///         Register::RDI => 0x0000_0000_1000_0000,
-	///         Register::R12 => 0x0000_0004_0000_0000,
-	///         _ => unimplemented!(),
-	///     }
-	/// });
-	/// assert_eq!(va, 0x0000_001F_B55A_1234);
-	/// ```
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "This method can panic, use try_virtual_address() instead")]
-	#[allow(clippy::unwrap_used)]
-	pub fn virtual_address<F>(&self, operand: u32, element_index: usize, mut get_register_value: F) -> u64
-	where
-		F: FnMut(Register, usize, usize) -> u64,
-	{
-		self.try_virtual_address(operand, element_index, |x, y, z| Some(get_register_value(x, y, z))).unwrap()
 	}
 }
 

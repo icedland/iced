@@ -308,97 +308,66 @@ fn write_all_properties() {
 
 	for op_kind in OpKind::values() {
 		if op_kind == OpKind::Immediate8 {
-			#[allow(deprecated)]
-			{
-				instr.set_op4_kind(op_kind);
-			}
+			instr.set_op4_kind(op_kind);
 			instr.try_set_op4_kind(op_kind).unwrap();
 			assert_eq!(instr.op4_kind(), op_kind);
 		} else {
 			let mut instr = instr;
-			assert!(instr.try_set_op4_kind(op_kind).is_err());
-			#[allow(deprecated)]
-			{
+			if cfg!(debug_assertions) {
 				assert!(panic::catch_unwind(move || instr.set_op4_kind(op_kind)).is_err());
+			} else {
+				instr.set_op4_kind(op_kind)
 			}
+			assert!(instr.try_set_op4_kind(op_kind).is_err());
 		}
 	}
 
 	for op_kind in OpKind::values() {
-		#[allow(deprecated)]
-		{
-			instr.set_op_kind(0, op_kind);
-		}
+		instr.set_op_kind(0, op_kind);
 		instr.try_set_op_kind(0, op_kind).unwrap();
 		assert_eq!(instr.op0_kind(), op_kind);
-		#[allow(deprecated)]
-		{
-			assert_eq!(instr.op_kind(0), op_kind);
-		}
+		assert_eq!(instr.op_kind(0), op_kind);
 		assert_eq!(instr.try_op_kind(0).unwrap(), op_kind);
 	}
 
 	for op_kind in OpKind::values() {
-		#[allow(deprecated)]
-		{
-			instr.set_op_kind(1, op_kind);
-		}
+		instr.set_op_kind(1, op_kind);
 		instr.try_set_op_kind(1, op_kind).unwrap();
 		assert_eq!(instr.op1_kind(), op_kind);
-		#[allow(deprecated)]
-		{
-			assert_eq!(instr.op_kind(1), op_kind);
-		}
+		assert_eq!(instr.op_kind(1), op_kind);
 		assert_eq!(instr.try_op_kind(1).unwrap(), op_kind);
 	}
 
 	for op_kind in OpKind::values() {
-		#[allow(deprecated)]
-		{
-			instr.set_op_kind(2, op_kind);
-		}
+		instr.set_op_kind(2, op_kind);
 		instr.try_set_op_kind(2, op_kind).unwrap();
 		assert_eq!(instr.op2_kind(), op_kind);
-		#[allow(deprecated)]
-		{
-			assert_eq!(instr.op_kind(2), op_kind);
-		}
+		assert_eq!(instr.op_kind(2), op_kind);
 		assert_eq!(instr.try_op_kind(2).unwrap(), op_kind);
 	}
 
 	for op_kind in OpKind::values() {
-		#[allow(deprecated)]
-		{
-			instr.set_op_kind(3, op_kind);
-		}
+		instr.set_op_kind(3, op_kind);
 		instr.try_set_op_kind(3, op_kind).unwrap();
 		assert_eq!(instr.op3_kind(), op_kind);
-		#[allow(deprecated)]
-		{
-			assert_eq!(instr.op_kind(3), op_kind);
-		}
+		assert_eq!(instr.op_kind(3), op_kind);
 		assert_eq!(instr.try_op_kind(3).unwrap(), op_kind);
 	}
 
 	for op_kind in OpKind::values() {
 		if op_kind == OpKind::Immediate8 {
-			#[allow(deprecated)]
-			{
-				instr.set_op_kind(4, op_kind);
-			}
+			instr.set_op_kind(4, op_kind);
 			instr.try_set_op_kind(4, op_kind).unwrap();
 			assert_eq!(instr.op4_kind(), op_kind);
-			#[allow(deprecated)]
-			{
-				assert_eq!(instr.op_kind(4), op_kind);
-			}
+			assert_eq!(instr.op_kind(4), op_kind);
 			assert_eq!(instr.try_op_kind(4).unwrap(), op_kind);
 		} else {
 			let mut instr = instr;
 			assert!(instr.try_set_op_kind(4, op_kind).is_err());
-			#[allow(deprecated)]
-			{
+			if cfg!(debug_assertions) {
 				assert!(panic::catch_unwind(move || instr.set_op_kind(4, op_kind)).is_err());
+			} else {
+				instr.set_op_kind(4, op_kind);
 			}
 		}
 	}
@@ -458,97 +427,66 @@ fn write_all_properties() {
 
 	for reg in Register::values() {
 		if reg == Register::None {
-			#[allow(deprecated)]
-			{
-				instr.set_op4_register(reg);
-			}
+			instr.set_op4_register(reg);
 			instr.try_set_op4_register(reg).unwrap();
 			assert_eq!(instr.op4_register(), reg);
 		} else {
-			let mut instr = instr;
 			assert!(instr.try_set_op4_register(reg).is_err());
-			#[allow(deprecated)]
-			{
+			if cfg!(debug_assertions) {
+				let mut instr = instr;
 				assert!(panic::catch_unwind(move || instr.set_op4_register(reg)).is_err());
+			} else {
+				instr.set_op4_register(reg);
 			}
 		}
 	}
 
 	for reg in Register::values() {
-		#[allow(deprecated)]
-		{
-			instr.set_op_register(0, reg);
-		}
+		instr.set_op_register(0, reg);
 		instr.try_set_op_register(0, reg).unwrap();
 		assert_eq!(instr.op0_register(), reg);
-		#[allow(deprecated)]
-		{
-			assert_eq!(instr.op_register(0), reg);
-		}
+		assert_eq!(instr.op_register(0), reg);
 		assert_eq!(instr.try_op_register(0).unwrap(), reg);
 	}
 
 	for reg in Register::values() {
-		#[allow(deprecated)]
-		{
-			instr.set_op_register(1, reg);
-		}
+		instr.set_op_register(1, reg);
 		instr.try_set_op_register(1, reg).unwrap();
 		assert_eq!(instr.op1_register(), reg);
-		#[allow(deprecated)]
-		{
-			assert_eq!(instr.op_register(1), reg);
-		}
+		assert_eq!(instr.op_register(1), reg);
 		assert_eq!(instr.try_op_register(1).unwrap(), reg);
 	}
 
 	for reg in Register::values() {
-		#[allow(deprecated)]
-		{
-			instr.set_op_register(2, reg);
-		}
+		instr.set_op_register(2, reg);
 		instr.try_set_op_register(2, reg).unwrap();
 		assert_eq!(instr.op2_register(), reg);
-		#[allow(deprecated)]
-		{
-			assert_eq!(instr.op_register(2), reg);
-		}
+		assert_eq!(instr.op_register(2), reg);
 		assert_eq!(instr.try_op_register(2).unwrap(), reg);
 	}
 
 	for reg in Register::values() {
-		#[allow(deprecated)]
-		{
-			instr.set_op_register(3, reg);
-		}
+		instr.set_op_register(3, reg);
 		instr.try_set_op_register(3, reg).unwrap();
 		assert_eq!(instr.op3_register(), reg);
-		#[allow(deprecated)]
-		{
-			assert_eq!(instr.op_register(3), reg);
-		}
+		assert_eq!(instr.op_register(3), reg);
 		assert_eq!(instr.try_op_register(3).unwrap(), reg);
 	}
 
 	for reg in Register::values() {
 		if reg == Register::None {
-			#[allow(deprecated)]
-			{
-				instr.set_op_register(4, reg);
-			}
+			instr.set_op_register(4, reg);
 			instr.try_set_op_register(4, reg).unwrap();
 			assert_eq!(instr.op4_register(), reg);
-			#[allow(deprecated)]
-			{
-				assert_eq!(instr.op_register(4), reg);
-			}
+			assert_eq!(instr.op_register(4), reg);
 			assert_eq!(instr.try_op_register(4).unwrap(), reg);
 		} else {
-			let mut instr = instr;
 			assert!(instr.try_set_op_register(4, reg).is_err());
-			#[allow(deprecated)]
-			{
+			if cfg!(debug_assertions) {
+				let mut instr = instr;
 				assert!(panic::catch_unwind(move || instr.set_op_register(4, reg)).is_err());
+			} else {
+				instr.set_op_register(4, reg);
 			}
 		}
 	}
@@ -609,259 +547,150 @@ fn verify_get_set_immediate() {
 
 	instr.set_code(Code::Add_AL_imm8);
 	instr.set_op1_kind(OpKind::Immediate8);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0x5A);
-	}
+	instr.set_immediate_i32(1, 0x5A);
 	instr.try_set_immediate_i32(1, 0x5A).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0x5A);
-	}
+	assert_eq!(instr.immediate(1), 0x5A);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0x5A);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0xA5);
-	}
+	instr.set_immediate_i32(1, 0xA5);
 	instr.try_set_immediate_i32(1, 0xA5).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0xA5);
-	}
+	assert_eq!(instr.immediate(1), 0xA5);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0xA5);
 
 	instr.set_code(Code::Add_AX_imm16);
 	instr.set_op1_kind(OpKind::Immediate16);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0x5AA5);
-	}
+	instr.set_immediate_i32(1, 0x5AA5);
 	instr.try_set_immediate_i32(1, 0x5AA5).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0x5AA5);
-	}
+	assert_eq!(instr.immediate(1), 0x5AA5);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0x5AA5);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0xA55A);
-	}
+	instr.set_immediate_i32(1, 0xA55A);
 	instr.try_set_immediate_i32(1, 0xA55A).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0xA55A);
-	}
+	assert_eq!(instr.immediate(1), 0xA55A);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0xA55A);
 
 	instr.set_code(Code::Add_EAX_imm32);
 	instr.set_op1_kind(OpKind::Immediate32);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0x5AA5_1234);
-	}
+	instr.set_immediate_i32(1, 0x5AA5_1234);
 	instr.try_set_immediate_i32(1, 0x5AA5_1234).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0x5AA5_1234);
-	}
+	assert_eq!(instr.immediate(1), 0x5AA5_1234);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0x5AA5_1234);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_u32(1, 0xA54A_1234);
-	}
+	instr.set_immediate_u32(1, 0xA54A_1234);
 	instr.try_set_immediate_u32(1, 0xA54A_1234).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0xA54A_1234);
-	}
+	assert_eq!(instr.immediate(1), 0xA54A_1234);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0xA54A_1234);
 
 	instr.set_code(Code::Add_RAX_imm32);
 	instr.set_op1_kind(OpKind::Immediate32to64);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0x5AA5_1234);
-	}
+	instr.set_immediate_i32(1, 0x5AA5_1234);
 	instr.try_set_immediate_i32(1, 0x5AA5_1234).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0x5AA5_1234);
-	}
+	assert_eq!(instr.immediate(1), 0x5AA5_1234);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0x5AA5_1234);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_u32(1, 0xA54A_1234);
-	}
+	instr.set_immediate_u32(1, 0xA54A_1234);
 	instr.try_set_immediate_u32(1, 0xA54A_1234).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0xFFFF_FFFF_A54A_1234);
-	}
+	assert_eq!(instr.immediate(1), 0xFFFF_FFFF_A54A_1234);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0xFFFF_FFFF_A54A_1234);
 
 	instr.set_code(Code::Enterq_imm16_imm8);
 	instr.set_op1_kind(OpKind::Immediate8_2nd);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0x5A);
-	}
+	instr.set_immediate_i32(1, 0x5A);
 	instr.try_set_immediate_i32(1, 0x5A).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0x5A);
-	}
+	assert_eq!(instr.immediate(1), 0x5A);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0x5A);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0xA5);
-	}
+	instr.set_immediate_i32(1, 0xA5);
 	instr.try_set_immediate_i32(1, 0xA5).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0xA5);
-	}
+	assert_eq!(instr.immediate(1), 0xA5);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0xA5);
 
 	instr.set_code(Code::Adc_rm16_imm8);
 	instr.set_op1_kind(OpKind::Immediate8to16);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0x5A);
-	}
+	instr.set_immediate_i32(1, 0x5A);
 	instr.try_set_immediate_i32(1, 0x5A).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0x5A);
-	}
+	assert_eq!(instr.immediate(1), 0x5A);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0x5A);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0xA5);
-	}
+	instr.set_immediate_i32(1, 0xA5);
 	instr.try_set_immediate_i32(1, 0xA5).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0xFFFF_FFFF_FFFF_FFA5);
-	}
+	assert_eq!(instr.immediate(1), 0xFFFF_FFFF_FFFF_FFA5);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0xFFFF_FFFF_FFFF_FFA5);
 
 	instr.set_code(Code::Adc_rm32_imm8);
 	instr.set_op1_kind(OpKind::Immediate8to32);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0x5A);
-	}
+	instr.set_immediate_i32(1, 0x5A);
 	instr.try_set_immediate_i32(1, 0x5A).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0x5A);
-	}
+	assert_eq!(instr.immediate(1), 0x5A);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0x5A);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0xA5);
-	}
+	instr.set_immediate_i32(1, 0xA5);
 	instr.try_set_immediate_i32(1, 0xA5).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0xFFFF_FFFF_FFFF_FFA5);
-	}
+	assert_eq!(instr.immediate(1), 0xFFFF_FFFF_FFFF_FFA5);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0xFFFF_FFFF_FFFF_FFA5);
 
 	instr.set_code(Code::Adc_rm64_imm8);
 	instr.set_op1_kind(OpKind::Immediate8to64);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0x5A);
-	}
+	instr.set_immediate_i32(1, 0x5A);
 	instr.try_set_immediate_i32(1, 0x5A).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0x5A);
-	}
+	assert_eq!(instr.immediate(1), 0x5A);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0x5A);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i32(1, 0xA5);
-	}
+	instr.set_immediate_i32(1, 0xA5);
 	instr.try_set_immediate_i32(1, 0xA5).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0xFFFF_FFFF_FFFF_FFA5);
-	}
+	assert_eq!(instr.immediate(1), 0xFFFF_FFFF_FFFF_FFA5);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0xFFFF_FFFF_FFFF_FFA5);
 
 	instr.set_code(Code::Mov_r64_imm64);
 	instr.set_op1_kind(OpKind::Immediate64);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i64(1, 0x5AA5_1234_5678_9ABC);
-	}
+	instr.set_immediate_i64(1, 0x5AA5_1234_5678_9ABC);
 	instr.try_set_immediate_i64(1, 0x5AA5_1234_5678_9ABC).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0x5AA5_1234_5678_9ABC);
-	}
+	assert_eq!(instr.immediate(1), 0x5AA5_1234_5678_9ABC);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0x5AA5_1234_5678_9ABC);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_u64(1, 0xA54A_1234_5678_9ABC);
-	}
+	instr.set_immediate_u64(1, 0xA54A_1234_5678_9ABC);
 	instr.try_set_immediate_u64(1, 0xA54A_1234_5678_9ABC).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0xA54A_1234_5678_9ABC);
-	}
+	assert_eq!(instr.immediate(1), 0xA54A_1234_5678_9ABC);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0xA54A_1234_5678_9ABC);
-	#[allow(deprecated)]
-	{
-		instr.set_immediate_i64(1, -0x5AB5_EDCB_A987_6544);
-	}
+	instr.set_immediate_i64(1, -0x5AB5_EDCB_A987_6544);
 	instr.try_set_immediate_i64(1, -0x5AB5_EDCB_A987_6544).unwrap();
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.immediate(1), 0xA54A_1234_5678_9ABC);
-	}
+	assert_eq!(instr.immediate(1), 0xA54A_1234_5678_9ABC);
 	assert_eq!(instr.try_immediate(1).unwrap(), 0xA54A_1234_5678_9ABC);
 
 	{
 		let instr = instr;
 		assert!(instr.try_immediate(0).is_err());
-		#[allow(deprecated)]
-		{
-			assert!(panic::catch_unwind(move || instr.immediate(0)).is_err());
+		if cfg!(debug_assertions) {
+			assert!(panic::catch_unwind(move || { instr.immediate(0) }).is_err());
+		} else {
+			let _ = instr.immediate(0);
 		}
 	}
 	{
-		let mut instr = instr;
 		assert!(instr.try_set_immediate_i32(0, 0).is_err());
-		#[allow(deprecated)]
-		{
+		if cfg!(debug_assertions) {
+			let mut instr = instr;
 			assert!(panic::catch_unwind(move || instr.set_immediate_i32(0, 0)).is_err());
+		} else {
+			instr.set_immediate_i32(0, 0);
 		}
 	}
 	{
-		let mut instr = instr;
 		assert!(instr.try_set_immediate_u32(0, 0).is_err());
-		#[allow(deprecated)]
-		{
+		if cfg!(debug_assertions) {
+			let mut instr = instr;
 			assert!(panic::catch_unwind(move || instr.set_immediate_u32(0, 0)).is_err());
+		} else {
+			instr.set_immediate_u32(0, 0);
 		}
 	}
 	{
-		let mut instr = instr;
 		assert!(instr.try_set_immediate_i64(0, 0).is_err());
-		#[allow(deprecated)]
-		{
+		if cfg!(debug_assertions) {
+			let mut instr = instr;
 			assert!(panic::catch_unwind(move || instr.set_immediate_i64(0, 0)).is_err());
+		} else {
+			instr.set_immediate_i64(0, 0);
 		}
 	}
 	{
-		let mut instr = instr;
 		assert!(instr.try_set_immediate_u64(0, 0).is_err());
-		#[allow(deprecated)]
-		{
+		if cfg!(debug_assertions) {
+			let mut instr = instr;
 			assert!(panic::catch_unwind(move || instr.set_immediate_u64(0, 0)).is_err());
+		} else {
+			instr.set_immediate_u64(0, 0);
 		}
 	}
 }

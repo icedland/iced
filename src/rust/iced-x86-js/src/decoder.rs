@@ -278,7 +278,7 @@ impl Decoder {
 	/// ```
 	#[wasm_bindgen(setter)]
 	pub fn set_position(&mut self, new_pos: usize) -> Result<(), JsValue> {
-		self.decoder.try_set_position(new_pos).map_err(to_js_error)
+		self.decoder.set_position(new_pos).map_err(to_js_error)
 	}
 
 	/// Returns `true` if there's at least one more byte to decode. It doesn't verify that the

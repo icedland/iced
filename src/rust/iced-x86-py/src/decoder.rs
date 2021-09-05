@@ -203,7 +203,7 @@ impl Decoder {
 
 	#[setter]
 	fn set_position(&mut self, new_value: usize) -> PyResult<()> {
-		self.decoder.try_set_position(new_value).map_err(to_value_error)
+		self.decoder.set_position(new_value).map_err(to_value_error)
 	}
 
 	/// bool: Returns ``True`` if there's at least one more byte to decode.

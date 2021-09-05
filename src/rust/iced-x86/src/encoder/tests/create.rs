@@ -64,7 +64,7 @@ fn get_data(instr: &Instruction) -> Vec<u8> {
 		};
 	let mut v = Vec::with_capacity(length);
 	for i in 0..length {
-		v.push(instr.try_get_declare_byte_value(i).unwrap());
+		v.push(instr.get_declare_byte_value(i));
 	}
 	v
 }
@@ -105,7 +105,6 @@ fn try_declare_data_byte_order_is_same() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn declare_byte_can_get_set() {
 	let mut db = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
 	db.set_declare_byte_value(0, 0xE2);
@@ -143,7 +142,6 @@ fn declare_byte_can_get_set() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn declare_byte_can_get_set_rev() {
 	let mut db = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
 	db.set_declare_byte_value(15, 0xC3);
@@ -259,7 +257,6 @@ fn try_declare_byte_can_get_set_rev() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn declare_word_can_get_set() {
 	let mut dw = Instruction::with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
 	dw.set_declare_word_value(0, 0xE2C5);
@@ -281,7 +278,6 @@ fn declare_word_can_get_set() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn declare_word_can_get_set_rev() {
 	let mut dw = Instruction::with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
 	dw.set_declare_word_value(7, 0x06C3);
@@ -345,7 +341,6 @@ fn try_declare_word_can_get_set_rev() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn declare_dword_can_get_set() {
 	let mut dd = Instruction::with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08);
 	dd.set_declare_dword_value(0, 0xE2C5_FAB4);
@@ -359,7 +354,6 @@ fn declare_dword_can_get_set() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn declare_dword_can_get_set_rev() {
 	let mut dd = Instruction::with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08);
 	dd.set_declare_dword_value(3, 0x828D_06C3);
@@ -399,7 +393,6 @@ fn try_declare_dword_can_get_set_rev() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn declare_qword_can_get_set() {
 	let mut dq = Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08);
 	dq.set_declare_qword_value(0, 0xE2C5_FAB4_CBE3_4DE4);
@@ -409,7 +402,6 @@ fn declare_qword_can_get_set() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn declare_qword_can_get_set_rev() {
 	let mut dq = Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08);
 	dq.set_declare_qword_value(1, 0x9698_FD56_828D_06C3);
@@ -2193,23 +2185,30 @@ fn with_declare_xxx_fails_if_invalid_length_deprec() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn get_set_op_kind_panics_if_invalid_input() {
-	let mut instr = Instruction::with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX);
+	let mut instr = Instruction::with2(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
 
 	let _ = instr.op_kind(0);
 	let _ = instr.op_kind(1);
 	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
 		let _ = instr.op_kind(i);
 	}
-	assert!(panic::catch_unwind(|| { instr.op_kind(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	if cfg!(debug_assertions) {
+		assert!(panic::catch_unwind(|| { instr.op_kind(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	} else {
+		assert_eq!(instr.op_kind(IcedConstants::MAX_OP_COUNT as u32), OpKind::default());
+	}
 
 	instr.set_op_kind(0, OpKind::Register);
 	instr.set_op_kind(1, OpKind::Immediate32);
 	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
 		instr.set_op_kind(i, OpKind::Immediate8);
 	}
-	assert!(panic::catch_unwind(move || { instr.set_op_kind(IcedConstants::MAX_OP_COUNT as u32, OpKind::Register) }).is_err());
+	if cfg!(debug_assertions) {
+		assert!(panic::catch_unwind(move || { instr.set_op_kind(IcedConstants::MAX_OP_COUNT as u32, OpKind::Register) }).is_err());
+	} else {
+		instr.set_op_kind(IcedConstants::MAX_OP_COUNT as u32, OpKind::Register);
+	}
 }
 
 #[test]
@@ -2246,35 +2245,62 @@ fn try_immediate_fails_if_invalid_input() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn get_set_immediate_panics_if_invalid_input() {
-	let mut instr = Instruction::with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX);
+	let mut instr = Instruction::with2(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
 
-	assert!(panic::catch_unwind(|| { instr.immediate(0) }).is_err());
+	if cfg!(debug_assertions) {
+		assert!(panic::catch_unwind(move || { instr.immediate(0) }).is_err());
+	} else {
+		let _ = instr.immediate(0);
+	}
 	let _ = instr.immediate(1);
 	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
 		if i == 4 && instr.op4_kind() == OpKind::Immediate8 {
 			continue;
 		}
-		assert!(panic::catch_unwind(|| { instr.immediate(i) }).is_err());
+		if cfg!(debug_assertions) {
+			assert!(panic::catch_unwind(move || { instr.immediate(i) }).is_err());
+		} else {
+			let _ = instr.immediate(i);
+		}
 	}
-	assert!(panic::catch_unwind(|| { instr.immediate(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	if cfg!(debug_assertions) {
+		assert!(panic::catch_unwind(move || { instr.immediate(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	} else {
+		let _ = instr.immediate(IcedConstants::MAX_OP_COUNT as u32);
+	}
 
 	{
-		let mut instr = instr;
-		assert!(panic::catch_unwind(move || { instr.set_immediate_i32(0, 0) }).is_err());
+		if cfg!(debug_assertions) {
+			let mut instr = instr;
+			assert!(panic::catch_unwind(move || { instr.set_immediate_i32(0, 0) }).is_err());
+		} else {
+			instr.set_immediate_i32(0, 0);
+		}
 	}
 	{
-		let mut instr = instr;
-		assert!(panic::catch_unwind(move || { instr.set_immediate_i64(0, 0) }).is_err());
+		if cfg!(debug_assertions) {
+			let mut instr = instr;
+			assert!(panic::catch_unwind(move || { instr.set_immediate_i64(0, 0) }).is_err());
+		} else {
+			instr.set_immediate_i64(0, 0);
+		}
 	}
 	{
-		let mut instr = instr;
-		assert!(panic::catch_unwind(move || { instr.set_immediate_u32(0, 0) }).is_err());
+		if cfg!(debug_assertions) {
+			let mut instr = instr;
+			assert!(panic::catch_unwind(move || { instr.set_immediate_u32(0, 0) }).is_err());
+		} else {
+			instr.set_immediate_u32(0, 0);
+		}
 	}
 	{
-		let mut instr = instr;
-		assert!(panic::catch_unwind(move || { instr.set_immediate_u64(0, 0) }).is_err());
+		if cfg!(debug_assertions) {
+			let mut instr = instr;
+			assert!(panic::catch_unwind(move || { instr.set_immediate_u64(0, 0) }).is_err());
+		} else {
+			instr.set_immediate_u64(0, 0);
+		}
 	}
 
 	instr.set_immediate_i32(1, 0);
@@ -2287,54 +2313,89 @@ fn get_set_immediate_panics_if_invalid_input() {
 			continue;
 		}
 		{
-			let mut instr = instr;
-			assert!(panic::catch_unwind(move || { instr.set_immediate_i32(i, 0) }).is_err());
+			if cfg!(debug_assertions) {
+				let mut instr = instr;
+				assert!(panic::catch_unwind(move || { instr.set_immediate_i32(i, 0) }).is_err());
+			} else {
+				instr.set_immediate_i32(i, 0);
+			}
 		}
 		{
-			let mut instr = instr;
-			assert!(panic::catch_unwind(move || { instr.set_immediate_i64(i, 0) }).is_err());
+			if cfg!(debug_assertions) {
+				let mut instr = instr;
+				assert!(panic::catch_unwind(move || { instr.set_immediate_i64(i, 0) }).is_err());
+			} else {
+				instr.set_immediate_i64(i, 0);
+			}
 		}
 		{
-			let mut instr = instr;
-			assert!(panic::catch_unwind(move || { instr.set_immediate_u32(i, 0) }).is_err());
+			if cfg!(debug_assertions) {
+				let mut instr = instr;
+				assert!(panic::catch_unwind(move || { instr.set_immediate_u32(i, 0) }).is_err());
+			} else {
+				instr.set_immediate_u32(i, 0);
+			}
 		}
 		{
-			let mut instr = instr;
-			assert!(panic::catch_unwind(move || { instr.set_immediate_u64(i, 0) }).is_err());
+			if cfg!(debug_assertions) {
+				let mut instr = instr;
+				assert!(panic::catch_unwind(move || { instr.set_immediate_u64(i, 0) }).is_err());
+			} else {
+				instr.set_immediate_u64(i, 0);
+			}
 		}
 	}
-	{
+	if cfg!(debug_assertions) {
 		let mut instr = instr;
 		assert!(panic::catch_unwind(move || { instr.set_immediate_i32(IcedConstants::MAX_OP_COUNT as u32, 0) }).is_err());
+	} else {
+		instr.set_immediate_i32(IcedConstants::MAX_OP_COUNT as u32, 0);
 	}
-	{
+	if cfg!(debug_assertions) {
 		let mut instr = instr;
 		assert!(panic::catch_unwind(move || { instr.set_immediate_i64(IcedConstants::MAX_OP_COUNT as u32, 0) }).is_err());
+	} else {
+		instr.set_immediate_i64(IcedConstants::MAX_OP_COUNT as u32, 0);
 	}
-	{
+	if cfg!(debug_assertions) {
 		let mut instr = instr;
 		assert!(panic::catch_unwind(move || { instr.set_immediate_u32(IcedConstants::MAX_OP_COUNT as u32, 0) }).is_err());
+	} else {
+		instr.set_immediate_u32(IcedConstants::MAX_OP_COUNT as u32, 0);
 	}
-	{
+	if cfg!(debug_assertions) {
 		let mut instr = instr;
 		assert!(panic::catch_unwind(move || { instr.set_immediate_u64(IcedConstants::MAX_OP_COUNT as u32, 0) }).is_err());
+	} else {
+		instr.set_immediate_u64(IcedConstants::MAX_OP_COUNT as u32, 0);
 	}
 }
 
-#[allow(deprecated)]
 #[test]
 fn get_set_immediate_fails_if_invalid_input() {
-	let mut instr = Instruction::try_with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
+	let mut instr = Instruction::with2(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
 
-	assert!(panic::catch_unwind(|| { instr.immediate(0) }).is_err());
+	if cfg!(debug_assertions) {
+		assert!(panic::catch_unwind(move || { instr.immediate(0) }).is_err());
+	} else {
+		let _ = instr.immediate(0);
+	}
 	let _ = instr.immediate(1);
 	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
 		if i == 4 && instr.op4_kind() == OpKind::Immediate8 {
 			continue;
 		}
-		assert!(panic::catch_unwind(|| { instr.immediate(i) }).is_err());
+		if cfg!(debug_assertions) {
+			assert!(panic::catch_unwind(move || { instr.immediate(i) }).is_err());
+		} else {
+			let _ = instr.immediate(i);
+		}
 	}
-	assert!(panic::catch_unwind(|| { instr.immediate(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	if cfg!(debug_assertions) {
+		assert!(panic::catch_unwind(move || { instr.immediate(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	} else {
+		let _ = instr.immediate(IcedConstants::MAX_OP_COUNT as u32);
+	}
 
 	assert!(instr.try_set_immediate_i32(0, 0).is_err());
 	assert!(instr.try_set_immediate_i64(0, 0).is_err());
@@ -2401,14 +2462,17 @@ fn try_get_set_immediate_fails_if_invalid_input() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn get_set_register_panics_if_invalid_input() {
-	let mut instr = Instruction::with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX);
+	let mut instr = Instruction::with2(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
 
 	for i in 0..IcedConstants::MAX_OP_COUNT as u32 {
 		let _ = instr.op_register(i);
 	}
-	assert!(panic::catch_unwind(|| { instr.op_register(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	if cfg!(debug_assertions) {
+		assert!(panic::catch_unwind(|| { instr.op_register(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	} else {
+		let _ = instr.op_register(IcedConstants::MAX_OP_COUNT as u32);
+	}
 
 	for i in 0..IcedConstants::MAX_OP_COUNT as u32 {
 		if i == 4 && instr.op4_kind() == OpKind::Immediate8 {
@@ -2416,7 +2480,11 @@ fn get_set_register_panics_if_invalid_input() {
 		}
 		instr.set_op_register(i, Register::EAX);
 	}
-	assert!(panic::catch_unwind(move || { instr.set_op_register(IcedConstants::MAX_OP_COUNT as u32, Register::EAX) }).is_err());
+	if cfg!(debug_assertions) {
+		assert!(panic::catch_unwind(move || { instr.set_op_register(IcedConstants::MAX_OP_COUNT as u32, Register::EAX) }).is_err());
+	} else {
+		instr.set_op_register(IcedConstants::MAX_OP_COUNT as u32, Register::EAX);
+	}
 }
 
 #[test]
@@ -2439,17 +2507,20 @@ fn get_set_register_fails_if_invalid_input() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn set_declare_xxx_value_panics_if_invalid_input() {
 	{
-		let mut instr = Instruction::try_with_declare_byte(&[0; 1]).unwrap();
-		{
+		let mut instr = Instruction::with_declare_byte(&[0; 1]).unwrap();
+		if cfg!(debug_assertions) {
 			let mut instr = instr;
 			assert!(panic::catch_unwind(move || { instr.set_declare_byte_value_i8(16, 0) }).is_err());
+		} else {
+			instr.set_declare_byte_value_i8(16, 0);
 		}
-		{
+		if cfg!(debug_assertions) {
 			let mut instr = instr;
 			assert!(panic::catch_unwind(move || { instr.set_declare_byte_value(16, 0) }).is_err());
+		} else {
+			instr.set_declare_byte_value(16, 0);
 		}
 		for i in 0..16 {
 			instr.set_declare_byte_value_i8(i, 0);
@@ -2457,14 +2528,18 @@ fn set_declare_xxx_value_panics_if_invalid_input() {
 		}
 	}
 	{
-		let mut instr = Instruction::try_with_declare_word(&[0; 1]).unwrap();
-		{
+		let mut instr = Instruction::with_declare_word(&[0; 1]).unwrap();
+		if cfg!(debug_assertions) {
 			let mut instr = instr;
 			assert!(panic::catch_unwind(move || { instr.set_declare_word_value_i16(8, 0) }).is_err());
+		} else {
+			instr.set_declare_word_value_i16(8, 0);
 		}
-		{
+		if cfg!(debug_assertions) {
 			let mut instr = instr;
 			assert!(panic::catch_unwind(move || { instr.set_declare_word_value(8, 0) }).is_err());
+		} else {
+			instr.set_declare_word_value(8, 0);
 		}
 		for i in 0..8 {
 			instr.set_declare_word_value_i16(i, 0);
@@ -2472,14 +2547,18 @@ fn set_declare_xxx_value_panics_if_invalid_input() {
 		}
 	}
 	{
-		let mut instr = Instruction::try_with_declare_dword(&[0; 1]).unwrap();
-		{
+		let mut instr = Instruction::with_declare_dword(&[0; 1]).unwrap();
+		if cfg!(debug_assertions) {
 			let mut instr = instr;
 			assert!(panic::catch_unwind(move || { instr.set_declare_dword_value_i32(4, 0) }).is_err());
+		} else {
+			instr.set_declare_dword_value_i32(4, 0);
 		}
-		{
+		if cfg!(debug_assertions) {
 			let mut instr = instr;
 			assert!(panic::catch_unwind(move || { instr.set_declare_dword_value(4, 0) }).is_err());
+		} else {
+			instr.set_declare_dword_value(4, 0);
 		}
 		for i in 0..4 {
 			instr.set_declare_dword_value_i32(i, 0);
@@ -2487,14 +2566,18 @@ fn set_declare_xxx_value_panics_if_invalid_input() {
 		}
 	}
 	{
-		let mut instr = Instruction::try_with_declare_qword(&[0; 1]).unwrap();
-		{
+		let mut instr = Instruction::with_declare_qword(&[0; 1]).unwrap();
+		if cfg!(debug_assertions) {
 			let mut instr = instr;
 			assert!(panic::catch_unwind(move || { instr.set_declare_qword_value_i64(2, 0) }).is_err());
+		} else {
+			instr.set_declare_qword_value_i64(2, 0);
 		}
-		{
+		if cfg!(debug_assertions) {
 			let mut instr = instr;
 			assert!(panic::catch_unwind(move || { instr.set_declare_qword_value(2, 0) }).is_err());
+		} else {
+			instr.set_declare_qword_value(2, 0);
 		}
 		for i in 0..2 {
 			instr.set_declare_qword_value_i64(i, 0);
@@ -2544,32 +2627,47 @@ fn set_declare_xxx_value_fails_if_invalid_input() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn get_declare_xxx_value_panics_if_invalid_input() {
 	{
-		let instr = Instruction::try_with_declare_byte(&[0; 1]).unwrap();
-		assert!(panic::catch_unwind(|| { instr.get_declare_byte_value(16) }).is_err());
+		let instr = Instruction::with_declare_byte(&[0; 1]).unwrap();
+		if cfg!(debug_assertions) {
+			assert!(panic::catch_unwind(|| { instr.get_declare_byte_value(16) }).is_err());
+		} else {
+			let _ = instr.get_declare_byte_value(16);
+		}
 		for i in 0..16 {
 			let _ = instr.get_declare_byte_value(i);
 		}
 	}
 	{
-		let instr = Instruction::try_with_declare_word(&[0; 1]).unwrap();
-		assert!(panic::catch_unwind(|| { instr.get_declare_word_value(8) }).is_err());
+		let instr = Instruction::with_declare_word(&[0; 1]).unwrap();
+		if cfg!(debug_assertions) {
+			assert!(panic::catch_unwind(|| { instr.get_declare_word_value(8) }).is_err());
+		} else {
+			let _ = instr.get_declare_word_value(8);
+		}
 		for i in 0..8 {
 			let _ = instr.get_declare_word_value(i);
 		}
 	}
 	{
-		let instr = Instruction::try_with_declare_dword(&[0; 1]).unwrap();
-		assert!(panic::catch_unwind(|| { instr.get_declare_dword_value(4) }).is_err());
+		let instr = Instruction::with_declare_dword(&[0; 1]).unwrap();
+		if cfg!(debug_assertions) {
+			assert!(panic::catch_unwind(|| { instr.get_declare_dword_value(4) }).is_err());
+		} else {
+			let _ = instr.get_declare_dword_value(4);
+		}
 		for i in 0..4 {
 			let _ = instr.get_declare_dword_value(i);
 		}
 	}
 	{
-		let instr = Instruction::try_with_declare_qword(&[0; 1]).unwrap();
-		assert!(panic::catch_unwind(|| { instr.get_declare_qword_value(2) }).is_err());
+		let instr = Instruction::with_declare_qword(&[0; 1]).unwrap();
+		if cfg!(debug_assertions) {
+			assert!(panic::catch_unwind(|| { instr.get_declare_qword_value(2) }).is_err());
+		} else {
+			let _ = instr.get_declare_qword_value(2);
+		}
 		for i in 0..2 {
 			let _ = instr.get_declare_qword_value(i);
 		}

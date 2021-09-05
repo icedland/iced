@@ -255,18 +255,6 @@ namespace Iced.Intel {
 		/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
 		/// or create a new one, this property could return the wrong value.
 		/// </summary>
-		[Obsolete("Use " + nameof(Length) + " instead of this property", true)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public int ByteLength {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			readonly get => Length;
-			set => Length = value;
-		}
-
-		/// <summary>
-		/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
-		/// or create a new one, this property could return the wrong value.
-		/// </summary>
 		public int Length {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			readonly get => len;
@@ -652,18 +640,6 @@ namespace Iced.Intel {
 			readonly get => scale;
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => scale = (byte)value;
-		}
-
-		/// <summary>
-		/// Gets the memory operand's displacement or the 32-bit absolute address if it's
-		/// an <c>EIP</c> or <c>RIP</c> relative memory operand.
-		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>
-		/// </summary>
-		[System.Obsolete("Use " + nameof(MemoryDisplacement32) + " or " + nameof(MemoryDisplacement64) + " instead", false)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public uint MemoryDisplacement {
-			readonly get => MemoryDisplacement32;
-			set => MemoryDisplacement32 = value;
 		}
 
 		/// <summary>

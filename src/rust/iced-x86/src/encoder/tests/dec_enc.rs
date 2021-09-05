@@ -72,7 +72,7 @@ fn verify_invalid_and_valid_lock_prefix() {
 	fn has_modrm_memory_operand(instruction: &Instruction) -> bool {
 		let op_count = instruction.op_count();
 		for i in 0..op_count {
-			if instruction.try_op_kind(i).unwrap() == OpKind::Memory {
+			if instruction.op_kind(i) == OpKind::Memory {
 				return true;
 			}
 		}

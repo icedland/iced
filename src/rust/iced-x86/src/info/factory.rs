@@ -184,12 +184,6 @@ impl InstructionInfoFactory {
 		info.encoding = unsafe { mem::transmute(((flags2 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK) as EncodingKindUnderlyingType) };
 		info.rflags_info = unsafe { mem::transmute(((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as u8) };
 
-		const FLAGS_SHIFT: u32 = 12;
-		const_assert_eq!(InfoFlags2::SAVE_RESTORE >> FLAGS_SHIFT, IIFlags::SAVE_RESTORE as u32);
-		const_assert_eq!(InfoFlags2::STACK_INSTRUCTION >> FLAGS_SHIFT, IIFlags::STACK_INSTRUCTION as u32);
-		const_assert_eq!(InfoFlags2::PRIVILEGED >> FLAGS_SHIFT, IIFlags::PRIVILEGED as u32);
-		info.flags = (flags2 >> FLAGS_SHIFT) as u8;
-
 		let code_size = instruction.code_size();
 		const_assert_eq!(InstructionInfoOptions::NO_MEMORY_USAGE, Flags::NO_MEMORY_USAGE);
 		const_assert_eq!(InstructionInfoOptions::NO_REGISTER_USAGE, Flags::NO_REGISTER_USAGE);
@@ -281,10 +275,10 @@ impl InstructionInfoFactory {
 
 		debug_assert!(instruction.op_count() as usize <= IcedConstants::MAX_OP_COUNT);
 		info.op_accesses[0] = op0_access;
-		let op1_info = ((flags1 >> InfoFlags1::OP_INFO1_SHIFT) & InfoFlags1::OP_INFO1_MASK) as usize;
-		// SAFETY: all generated indexes are valid
-		info.op_accesses[1] = unsafe { *OP_ACCESS_1.get_unchecked(op1_info) };
-		info.op_accesses[2] = unsafe { *OP_ACCESS_2.get_unchecked(((flags1 >> InfoFlags1::OP_INFO2_SHIFT) & InfoFlags1::OP_INFO2_MASK) as usize) };
+		let op1_info: OpInfo1 = unsafe { mem::transmute(((flags1 >> InfoFlags1::OP_INFO1_SHIFT) & InfoFlags1::OP_INFO1_MASK) as u8) };
+		info.op_accesses[1] = OP_ACCESS_1[op1_info as usize];
+		let op2_info: OpInfo2 = unsafe { mem::transmute(((flags1 >> InfoFlags1::OP_INFO2_SHIFT) & InfoFlags1::OP_INFO2_MASK) as u8) };
+		info.op_accesses[2] = OP_ACCESS_2[op2_info as usize];
 		info.op_accesses[3] = if (flags1 & ((InfoFlags1::OP_INFO3_MASK) << InfoFlags1::OP_INFO3_SHIFT)) != 0 {
 			const_assert_eq!(InstrInfoConstants::OP_INFO3_COUNT, 2);
 			OpAccess::Read
@@ -306,7 +300,7 @@ impl InstructionInfoFactory {
 				continue;
 			}
 
-			match instruction.try_op_kind(i as u32).unwrap_or_default() {
+			match instruction.op_kind(i as u32) {
 				OpKind::Register => {
 					if access == OpAccess::NoMemAccess {
 						access = OpAccess::Read;
@@ -326,7 +320,7 @@ impl InstructionInfoFactory {
 									access,
 								);
 							}
-						} else if i == 1 && op1_info == OpInfo1::ReadP3 as usize {
+						} else if i == 1 && op1_info == OpInfo1::ReadP3 {
 							let reg = instruction.op1_register();
 							if Register::XMM0 <= reg && reg <= IcedConstants::VMM_LAST {
 								// SAFETY: creates 4 consecutive vec regs with first one a multiple of 4,
@@ -338,7 +332,7 @@ impl InstructionInfoFactory {
 								}
 							}
 						} else {
-							Self::add_register(flags, info, instruction.try_op_register(i as u32).unwrap_or_default(), access);
+							Self::add_register(flags, info, instruction.op_register(i as u32), access);
 						}
 					}
 				}
@@ -2686,16 +2680,13 @@ impl InstructionInfoFactory {
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			const N: usize = 1;
 			let op_count = instruction.op_count();
-			let imm_count = if instruction.try_op_kind(op_count - 1).unwrap_or(OpKind::FarBranch16) == OpKind::Immediate8 { 1 } else { 0 };
+			let imm_count = if instruction.op_kind(op_count - 1) == OpKind::Immediate8 { 1 } else { 0 };
 			let op_index = instruction.op_count() - N as u32 - imm_count;
-			if instruction.try_op_kind(op_index).unwrap_or(OpKind::FarBranch16) == OpKind::Register {
+			if instruction.op_kind(op_index) == OpKind::Register {
 				debug_assert!(info.used_registers.len() >= N);
-				debug_assert_eq!(
-					instruction.try_op_register(op_index).unwrap_or_default(),
-					info.used_registers[info.used_registers.len() - N].register()
-				);
+				debug_assert_eq!(instruction.op_register(op_index), info.used_registers[info.used_registers.len() - N].register());
 				debug_assert_eq!(info.used_registers[info.used_registers.len() - N].access(), OpAccess::Read);
-				let mut index = Self::try_get_gpr_16_32_64_index(instruction.try_op_register(op_index).unwrap_or_default());
+				let mut index = Self::try_get_gpr_16_32_64_index(instruction.op_register(op_index));
 				if index >= 4 && base_reg == Register::AL {
 					index += 4; // Skip AH, CH, DH, BH
 				}

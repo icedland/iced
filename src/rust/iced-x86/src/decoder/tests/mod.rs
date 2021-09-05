@@ -184,21 +184,16 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	let op_kinds: Vec<OpKind> = instr.op_kinds().collect();
 	assert_eq!(op_kinds.len(), instr.op_count() as usize);
 	for (i, op_kind) in op_kinds.into_iter().enumerate() {
+		assert_eq!(instr.op_kind(i as u32), op_kind);
 		assert_eq!(instr.try_op_kind(i as u32).unwrap(), op_kind);
 	}
 	for i in 0..tc.op_count {
 		let op_kind = tc.op_kinds[i as usize];
-		#[allow(deprecated)]
-		{
-			assert_eq!(instr.op_kind(i), op_kind);
-		}
+		assert_eq!(instr.op_kind(i), op_kind);
 		assert_eq!(instr.try_op_kind(i).unwrap(), op_kind);
 		match op_kind {
 			OpKind::Register => {
-				#[allow(deprecated)]
-				{
-					assert_eq!(instr.op_register(i), tc.op_registers[i as usize]);
-				}
+				assert_eq!(instr.op_register(i), tc.op_registers[i as usize]);
 				assert_eq!(instr.try_op_register(i).unwrap(), tc.op_registers[i as usize]);
 			}
 			OpKind::NearBranch16 => assert_eq!(tc.near_branch, instr.near_branch16() as u64),
@@ -237,10 +232,6 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 				assert_eq!(instr.memory_base(), tc.memory_base);
 				assert_eq!(instr.memory_index(), tc.memory_index);
 				assert_eq!(instr.memory_index_scale(), tc.memory_index_scale);
-				#[allow(deprecated)]
-				{
-					assert_eq!(instr.memory_displacement(), tc.memory_displacement as u32);
-				}
 				assert_eq!(instr.memory_displacement32(), tc.memory_displacement as u32);
 				assert_eq!(instr.memory_displacement64(), tc.memory_displacement);
 				assert_eq!(instr.memory_displ_size(), tc.memory_displ_size);
@@ -342,10 +333,6 @@ fn decode_mem_test(bitness: u32, tc: &DecoderMemoryTestCase) {
 	assert_eq!(instr.memory_segment(), tc.segment);
 	assert_eq!(instr.memory_base(), tc.base_register);
 	assert_eq!(instr.memory_index(), tc.index_register);
-	#[allow(deprecated)]
-	{
-		assert_eq!(instr.memory_displacement(), tc.displacement as u32);
-	}
 	assert_eq!(instr.memory_displacement32(), tc.displacement as u32);
 	assert_eq!(instr.memory_displacement64(), tc.displacement);
 	assert_eq!(instr.memory_index_scale(), 1 << tc.scale);

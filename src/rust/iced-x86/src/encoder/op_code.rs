@@ -1202,32 +1202,24 @@ impl OpCodeInfo {
 
 	/// Gets an operand's opkind
 	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
 	#[must_use]
 	#[inline]
-	#[deprecated(since = "1.11.0", note = "This method can panic, use try_op_kind() instead")]
-	#[allow(clippy::unwrap_used)]
 	pub fn op_kind(&self, operand: u32) -> OpCodeOperandKind {
-		self.try_op_kind(operand).unwrap()
+		match self.op_kinds.get(operand as usize) {
+			Some(&op_access) => op_access,
+			None => {
+				debug_assert!(false, "Invalid operand: {}", operand);
+				OpCodeOperandKind::default()
+			}
+		}
 	}
 
-	/// Gets an operand's opkind
-	///
-	/// # Errors
-	///
-	/// Fails if `operand` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
 	#[inline]
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
 	pub fn try_op_kind(&self, operand: u32) -> Result<OpCodeOperandKind, IcedError> {
 		match self.op_kinds.get(operand as usize) {
 			Some(&op_access) => Ok(op_access),

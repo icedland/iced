@@ -161,51 +161,6 @@ impl SymbolResolver for MySymbolResolver {
 }
 
 #[test]
-fn test_no_symresolver_with_options_ok1() {
-	struct MyTraitOptions;
-	impl SpecializedFormatterTraitOptions for MyTraitOptions {
-		const ENABLE_SYMBOL_RESOLVER: bool = false;
-	}
-	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
-	#[allow(deprecated)]
-	let _ = MyFormatter::with_options(None);
-}
-
-#[test]
-fn test_no_symresolver_with_options_ok2() {
-	struct MyTraitOptions;
-	impl SpecializedFormatterTraitOptions for MyTraitOptions {
-		const ENABLE_SYMBOL_RESOLVER: bool = true;
-	}
-	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
-	#[allow(deprecated)]
-	let _ = MyFormatter::with_options(None);
-}
-
-#[test]
-#[should_panic]
-fn test_symresolver_with_options_err() {
-	struct MyTraitOptions;
-	impl SpecializedFormatterTraitOptions for MyTraitOptions {
-		const ENABLE_SYMBOL_RESOLVER: bool = false;
-	}
-	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
-	#[allow(deprecated)]
-	let _ = MyFormatter::with_options(Some(Box::new(MySymbolResolver {})));
-}
-
-#[test]
-fn test_symresolver_with_options_ok() {
-	struct MyTraitOptions;
-	impl SpecializedFormatterTraitOptions for MyTraitOptions {
-		const ENABLE_SYMBOL_RESOLVER: bool = true;
-	}
-	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
-	#[allow(deprecated)]
-	let _ = MyFormatter::with_options(Some(Box::new(MySymbolResolver {})));
-}
-
-#[test]
 fn test_no_symresolver_try_with_options_ok1() {
 	struct MyTraitOptions;
 	impl SpecializedFormatterTraitOptions for MyTraitOptions {

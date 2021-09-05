@@ -206,15 +206,6 @@ namespace Iced.Intel {
 			(uint)(code - Code.Call_m1616) <= (uint)(Code.Call_m1664 - Code.Call_m1616);
 
 		/// <summary>
-		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c> else <see cref="ConditionCode.None"/> is returned
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <returns></returns>
-		[System.Obsolete("Use " + nameof(ConditionCode) + " instead of this method", true)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public static ConditionCode GetConditionCode(this Code code) => code.ConditionCode();
-
-		/// <summary>
 		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c> else
 		/// <see cref="ConditionCode.None"/> is returned
 		/// </summary>
