@@ -1281,8 +1281,6 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						OpKind::MemoryESDI => fmt_memory_es_di!(),
 						OpKind::MemoryESEDI => fmt_memory_es_edi!(),
 						OpKind::MemoryESRDI => fmt_memory_es_rdi!(),
-						#[allow(deprecated)]
-						OpKind::Memory64 => {}
 						OpKind::Memory => fmt_memory!(),
 					}
 				} else {
@@ -1376,8 +1374,6 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						OpKind::MemoryESDI => fmt_memory_es_di!(),
 						OpKind::MemoryESEDI => fmt_memory_es_edi!(),
 						OpKind::MemoryESRDI => fmt_memory_es_rdi!(),
-						#[allow(deprecated)]
-						OpKind::Memory64 => {}
 						OpKind::Memory => fmt_memory!(),
 					}
 				}
@@ -1454,7 +1450,6 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				| OpKind::MemorySegDI
 				| OpKind::MemorySegEDI
 				| OpKind::MemorySegRDI
-				| OpKind::Memory64
 				| OpKind::Memory => return false,
 			}
 		}

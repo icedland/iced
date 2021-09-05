@@ -334,7 +334,6 @@ impl MasmFormatter {
 				| InstrOpKind::MemorySegDI
 				| InstrOpKind::MemorySegEDI
 				| InstrOpKind::MemorySegRDI
-				| InstrOpKind::Memory64
 				| InstrOpKind::Memory => return false,
 			}
 		}
@@ -942,7 +941,6 @@ impl MasmFormatter {
 				8,
 				op_info.flags as u32,
 			),
-			InstrOpKind::Memory64 => {}
 
 			InstrOpKind::Memory => {
 				let displ_size = instruction.memory_displ_size();

@@ -833,18 +833,6 @@ namespace Iced.Intel {
 			set => immediate = (uint)value;
 		}
 
-#pragma warning disable CS0618 // Type or member is obsolete
-		/// <summary>
-		/// <see cref="OpKind.Memory64"/> is deprecated, this method does nothing now.
-		/// </summary>
-		[System.Obsolete(nameof(OpKind) + "." + nameof(OpKind.Memory64) + " is deprecated, this property does nothing now. Use " + nameof(MemoryDisplacement64) + " instead.", true)]
-#pragma warning restore CS0618 // Type or member is obsolete
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public ulong MemoryAddress64 {
-			readonly get => 0;
-			set { }
-		}
-
 		/// <summary>
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.NearBranch16"/>
 		/// </summary>

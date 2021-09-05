@@ -187,8 +187,6 @@ fn get_memory_register_size(instruction: &Instruction) -> u32 {
 					return 64;
 				}
 			}
-			#[allow(deprecated)]
-			OpKind::Memory64 => unreachable!(),
 		}
 	}
 	0

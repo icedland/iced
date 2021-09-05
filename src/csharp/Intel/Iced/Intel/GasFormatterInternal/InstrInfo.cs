@@ -34,7 +34,6 @@ namespace Iced.Intel.GasFormatterInternal {
 		MemoryESDI,
 		MemoryESEDI,
 		MemoryESRDI,
-		Memory64,
 		Memory,
 		Sae,
 		RnSae,

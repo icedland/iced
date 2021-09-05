@@ -337,9 +337,6 @@ impl InstructionInfoFactory {
 					}
 				}
 
-				#[allow(deprecated)]
-				OpKind::Memory64 => {}
-
 				OpKind::Memory => {
 					const_assert_eq!(InfoFlags1::IGNORES_SEGMENT, 1 << 31);
 					const_assert_eq!(Register::None as u32, 0);

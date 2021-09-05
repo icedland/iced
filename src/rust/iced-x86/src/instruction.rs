@@ -1271,29 +1271,6 @@ impl Instruction {
 		self.immediate = new_value as u32;
 	}
 
-	/// [`OpKind::Memory64`] is deprecated, this method does nothing now.
-	///
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
-	#[must_use]
-	#[allow(clippy::unused_self)]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "OpKind::Memory64 is deprecated, this method does nothing now. Use memory_displacement64() instead.")]
-	pub fn memory_address64(&self) -> u64 {
-		0
-	}
-
-	/// [`OpKind::Memory64`] is deprecated, this method does nothing now.
-	///
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
-	///
-	/// # Arguments
-	///
-	/// * `new_value`: New value
-	#[allow(clippy::unused_self)]
-	#[inline]
-	#[deprecated(since = "1.11.0", note = "OpKind::Memory64 is deprecated, this method does nothing now. Use set_memory_displacement64() instead.")]
-	pub fn set_memory_address64(&mut self, _new_value: u64) {}
-
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch16`]
 	///
 	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
@@ -2603,8 +2580,6 @@ impl Instruction {
 			OpKind::MemoryESDI => get_register_value(Register::ES, 0, 0)?.wrapping_add(get_register_value(Register::DI, 0, 0)? as u16 as u64),
 			OpKind::MemoryESEDI => get_register_value(Register::ES, 0, 0)?.wrapping_add(get_register_value(Register::EDI, 0, 0)? as u32 as u64),
 			OpKind::MemoryESRDI => get_register_value(Register::ES, 0, 0)?.wrapping_add(get_register_value(Register::RDI, 0, 0)?),
-			#[allow(deprecated)]
-			OpKind::Memory64 => return None,
 			OpKind::Memory => {
 				let base_reg = self.memory_base();
 				let index_reg = self.memory_index();

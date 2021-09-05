@@ -34,7 +34,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 		MemoryESDI,
 		MemoryESEDI,
 		MemoryESRDI,
-		Memory64,
 		Memory,
 		Sae,
 		RnSae,

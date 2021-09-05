@@ -50,7 +50,7 @@ namespace Iced.Intel {
 		internal const int OpAccessEnumCount = 8;
 		internal const int OpCodeOperandKindEnumCount = 109;
 		internal const int OpCodeTableKindEnumCount = 9;
-		internal const int OpKindEnumCount = 26;
+		internal const int OpKindEnumCount = 25;
 		internal const int PrefixKindEnumCount = 18;
 		internal const int RegisterEnumCount = 256;
 		internal const int RelocKindEnumCount = 1;

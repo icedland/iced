@@ -128,13 +128,6 @@ pub enum OpKind {
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
 	MemoryESRDI = 23,
-	/// DEPRECATED. Use [`Memory`]
-	///
-	/// [`Memory`]: enum.OpKind.html#variant.Memory
-	///
-	/// ***************************************************
-	/// DEPRECATED since 1.11.0: Don't use it!
-	Memory64 = 24,
 	/// Memory operand.
 	///
 	/// This operand kind uses [`Instruction.memoryDisplSize`], [`Instruction.memorySize`], [`Instruction.memoryIndexScale`], [`Instruction.memoryDisplacement64`], [`Instruction.memoryBase`], [`Instruction.memoryIndex`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`]
@@ -147,7 +140,7 @@ pub enum OpKind {
 	/// [`Instruction.memoryIndex`]: struct.Instruction.html#method.memoryIndex
 	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment
 	/// [`Instruction.segmentPrefix`]: struct.Instruction.html#method.segmentPrefix
-	Memory = 25,
+	Memory = 24,
 }
 // GENERATOR-END: Enum
 

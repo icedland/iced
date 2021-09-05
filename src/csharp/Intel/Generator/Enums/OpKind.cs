@@ -52,9 +52,6 @@ namespace Generator.Enums {
 		MemoryESEDI,
 		[Comment("#(c:ES:[RDI])#. This operand kind uses #(P:Instruction.MemorySize)#")]
 		MemoryESRDI,
-		[Comment("DEPRECATED. Use #(e:OpKind.Memory)#")]
-		[Deprecated("1.11.0", null)]
-		Memory64,
 		[Comment("Memory operand.#(p:)#This operand kind uses #(P:Instruction.MemoryDisplSize)#, #(P:Instruction.MemorySize)#, #(P:Instruction.MemoryIndexScale)#, #(P:Instruction.MemoryDisplacement64)#, #(P:Instruction.MemoryBase)#, #(P:Instruction.MemoryIndex)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
 		Memory,
 	}

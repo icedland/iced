@@ -536,11 +536,6 @@ pub enum OpKind {
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	MemoryESRDI = 23,
-	/// DEPRECATED. Use [`Memory`]
-	///
-	/// [`Memory`]: enum.OpKind.html#variant.Memory
-	#[deprecated(since = "1.11.0", note = "Don't use it!")]
-	Memory64 = 24,
 	/// Memory operand.
 	///
 	/// This operand kind uses [`Instruction::memory_displ_size()`], [`Instruction::memory_size()`], [`Instruction::memory_index_scale()`], [`Instruction::memory_displacement64()`], [`Instruction::memory_base()`], [`Instruction::memory_index()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
@@ -553,10 +548,10 @@ pub enum OpKind {
 	/// [`Instruction::memory_index()`]: struct.Instruction.html#method.memory_index
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
-	Memory = 25,
+	Memory = 24,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_OP_KIND: [&str; 26] = [
+static GEN_DEBUG_OP_KIND: [&str; 25] = [
 	"Register",
 	"NearBranch16",
 	"NearBranch32",
@@ -581,7 +576,6 @@ static GEN_DEBUG_OP_KIND: [&str; 26] = [
 	"MemoryESDI",
 	"MemoryESEDI",
 	"MemoryESRDI",
-	"Memory64",
 	"Memory",
 ];
 impl fmt::Debug for OpKind {

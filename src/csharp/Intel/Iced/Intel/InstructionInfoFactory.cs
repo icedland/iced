@@ -238,11 +238,6 @@ namespace Iced.Intel {
 					}
 					break;
 
-#pragma warning disable CS0618 // Type or member is obsolete
-				case OpKind.Memory64:
-#pragma warning restore CS0618 // Type or member is obsolete
-					break;
-
 				case OpKind.Memory:
 					Static.Assert((uint)InfoFlags1.IgnoresSegment == (1U << 31) ? 0 : -1);
 					Static.Assert(Register.None == 0 ? 0 : -1);

@@ -51,7 +51,7 @@ impl IcedConstants {
 	pub(crate) const OP_ACCESS_ENUM_COUNT: usize = 8;
 	pub(crate) const OP_CODE_OPERAND_KIND_ENUM_COUNT: usize = 109;
 	pub(crate) const OP_CODE_TABLE_KIND_ENUM_COUNT: usize = 9;
-	pub(crate) const OP_KIND_ENUM_COUNT: usize = 26;
+	pub(crate) const OP_KIND_ENUM_COUNT: usize = 25;
 	pub(crate) const PREFIX_KIND_ENUM_COUNT: usize = 18;
 	pub(crate) const REGISTER_ENUM_COUNT: usize = 256;
 	pub(crate) const RELOC_KIND_ENUM_COUNT: usize = 1;

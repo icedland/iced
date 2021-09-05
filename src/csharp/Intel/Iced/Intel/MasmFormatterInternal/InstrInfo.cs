@@ -34,7 +34,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 		MemoryESDI,
 		MemoryESEDI,
 		MemoryESRDI,
-		Memory64,
 		Memory,
 		ExtraImmediate8_Value3,
 		DeclareByte,

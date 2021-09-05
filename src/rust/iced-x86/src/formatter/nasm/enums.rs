@@ -313,7 +313,6 @@ pub(crate) enum InstrOpKind {
 	MemoryESDI,
 	MemoryESEDI,
 	MemoryESRDI,
-	Memory64,
 	Memory,
 	Sae,
 	RnSae,
@@ -326,7 +325,7 @@ pub(crate) enum InstrOpKind {
 	DeclareQword,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_INSTR_OP_KIND: [&str; 35] = [
+static GEN_DEBUG_INSTR_OP_KIND: [&str; 34] = [
 	"Register",
 	"NearBranch16",
 	"NearBranch32",
@@ -351,7 +350,6 @@ static GEN_DEBUG_INSTR_OP_KIND: [&str; 35] = [
 	"MemoryESDI",
 	"MemoryESEDI",
 	"MemoryESRDI",
-	"Memory64",
 	"Memory",
 	"Sae",
 	"RnSae",

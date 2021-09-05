@@ -358,11 +358,6 @@ namespace Iced.Intel {
 						FormatMemory(output, instruction, operand, Register.ES, Register.RDI, Register.None, 0, 0, 0, 8);
 						break;
 
-#pragma warning disable CS0618 // Type or member is obsolete
-					case OpKind.Memory64:
-#pragma warning restore CS0618 // Type or member is obsolete
-						break;
-
 					case OpKind.Memory:
 						int displSize = instruction.MemoryDisplSize;
 						var baseReg = instruction.MemoryBase;
@@ -441,9 +436,6 @@ namespace Iced.Intel {
 				case OpKind.MemorySegDI:
 				case OpKind.MemorySegEDI:
 				case OpKind.MemorySegRDI:
-#pragma warning disable CS0618 // Type or member is obsolete
-				case OpKind.Memory64:
-#pragma warning restore CS0618 // Type or member is obsolete
 				case OpKind.Memory:
 					return false;
 

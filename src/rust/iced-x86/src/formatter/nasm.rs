@@ -353,7 +353,6 @@ impl NasmFormatter {
 				| InstrOpKind::MemorySegDI
 				| InstrOpKind::MemorySegEDI
 				| InstrOpKind::MemorySegRDI
-				| InstrOpKind::Memory64
 				| InstrOpKind::Memory => return false,
 			}
 		}
@@ -948,7 +947,6 @@ impl NasmFormatter {
 				8,
 				op_info.flags,
 			),
-			InstrOpKind::Memory64 => {}
 
 			InstrOpKind::Memory => {
 				let displ_size = instruction.memory_displ_size();

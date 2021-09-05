@@ -115,7 +115,7 @@ MEMORY_ESRDI: OpKind = 23 # type: ignore
 """
 ``ES:[RDI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`
 """
-MEMORY: OpKind = 25 # type: ignore
+MEMORY: OpKind = 24 # type: ignore
 """
 Memory operand.
 

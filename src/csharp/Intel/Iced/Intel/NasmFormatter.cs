@@ -418,7 +418,6 @@ namespace Iced.Intel {
 				case InstrOpKind.MemorySegDI:
 				case InstrOpKind.MemorySegEDI:
 				case InstrOpKind.MemorySegRDI:
-				case InstrOpKind.Memory64:
 				case InstrOpKind.Memory:
 					return false;
 
@@ -728,9 +727,6 @@ namespace Iced.Intel {
 
 			case InstrOpKind.MemoryESRDI:
 				FormatMemory(output, instruction, operand, instructionOperand, opInfo.MemorySize, Register.ES, Register.RDI, Register.None, 0, 0, 0, 8, opInfo.Flags);
-				break;
-
-			case InstrOpKind.Memory64:
 				break;
 
 			case InstrOpKind.Memory:

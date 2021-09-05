@@ -156,11 +156,6 @@ namespace Iced.Intel {
 				}
 				break;
 
-#pragma warning disable CS0618 // Type or member is obsolete
-			case OpKind.Memory64:
-#pragma warning restore CS0618 // Type or member is obsolete
-				break;
-
 			case OpKind.Memory:
 				var baseReg = MemoryBase;
 				var indexReg = MemoryIndex;

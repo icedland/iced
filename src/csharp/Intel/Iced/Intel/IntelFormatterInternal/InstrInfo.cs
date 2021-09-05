@@ -34,7 +34,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 		MemoryESDI,
 		MemoryESEDI,
 		MemoryESRDI,
-		Memory64,
 		Memory,
 		DeclareByte,
 		DeclareWord,
