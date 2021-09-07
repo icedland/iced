@@ -14,29 +14,50 @@
 //		cargo run --release -p iced-x86-fzgt -- -b 64 -f C:\path\invalid64.bin --invalid
 
 use iced_x86::*;
+use std::env;
 use std::error::Error;
+use std::fmt;
 use std::fs;
 use std::mem;
 use std::path::PathBuf;
-use structopt::StructOpt;
 
-#[derive(StructOpt)]
 struct Options {
-	#[structopt(short = "b")]
 	bitness: u32,
-	#[structopt(short = "f", long, parse(from_os_str))]
-	filename: PathBuf,
-	#[structopt(long)]
+	filename: Option<PathBuf>,
 	amd: bool,
-	#[structopt(long)]
 	invalid: bool,
 }
 
+#[derive(Debug)]
+struct ProgError(&'static str);
+impl Error for ProgError {}
+impl fmt::Display for ProgError {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		f.write_str(self.0)
+	}
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
-	let options = Options::from_args();
+	let mut options = Options { bitness: 0, filename: None, amd: false, invalid: false };
+	let mut args = env::args().skip(1);
+	while let Some(arg) = args.next() {
+		match arg.as_str() {
+			"-b" => options.bitness = str::parse(&args.next().ok_or(ProgError("Missing bitness"))?)?,
+			"-f" => options.filename = Some(args.next().ok_or(ProgError("Missing filename"))?.into()),
+			"--amd" => options.amd = true,
+			"--invalid" => options.invalid = true,
+			_ => return Err(ProgError("Invalid option").into()),
+		}
+	}
+	let filename = options.filename.take().ok_or(ProgError("Missing filename"))?;
+	match options.bitness {
+		16 | 32 | 64 => {}
+		_ => return Err(ProgError("Invalid bitness").into()),
+	}
+	let options = options;
 	let has_code_value = !options.invalid;
 
-	let bytes = fs::read(options.filename)?;
+	let bytes = fs::read(filename)?;
 	let mut bytes = bytes.as_slice();
 	let mut instr = Instruction::default();
 	let decoder_options = DecoderOptions::MPX | if options.amd { DecoderOptions::AMD } else { DecoderOptions::NONE };

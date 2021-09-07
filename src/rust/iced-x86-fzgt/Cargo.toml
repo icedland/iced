@@ -7,9 +7,6 @@ description = "Test FuzzerGen output"
 edition = "2018"
 publish = false
 
-[dependencies]
-structopt = "0.3.15"
-
 [dependencies.iced-x86]
 path = "../iced-x86"
 
