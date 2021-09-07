@@ -12,7 +12,7 @@ namespace Generator.Enums.Instruction {
 	/// [17:15]	= Opmask register or 0 if none
 	/// [19:18]	= CodeSize
 	/// [23:20]	= Not used
-	/// [24]	= Broadcasted memory
+	/// [24]	= Broadcast memory
 	/// [25]	= Suppress all exceptions
 	/// [26]	= Zeroing masking
 	/// [27]	= xacquire prefix

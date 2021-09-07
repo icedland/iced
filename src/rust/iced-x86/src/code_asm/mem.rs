@@ -810,7 +810,7 @@ pub fn zmmword_ptr<M: Into<AsmMemoryOperand>>(mem: M) -> AsmMemoryOperand {
 	mem.into().zmmword_ptr()
 }
 
-/// Creates a broadcasted memory operand with no size hint
+/// Creates a broadcast memory operand with no size hint
 ///
 /// # Examples
 ///
@@ -828,7 +828,7 @@ pub fn bcst<M: Into<AsmMemoryOperand>>(mem: M) -> AsmMemoryOperand {
 	mem.into().bcst()
 }
 
-/// Creates a broadcasted memory operand with a `WORD BCST` size hint
+/// Creates a broadcast memory operand with a `WORD BCST` size hint
 ///
 /// # Examples
 ///
@@ -846,7 +846,7 @@ pub fn word_bcst<M: Into<AsmMemoryOperand>>(mem: M) -> AsmMemoryOperand {
 	mem.into().word_bcst()
 }
 
-/// Creates a broadcasted memory operand with a `DWORD BCST` size hint
+/// Creates a broadcast memory operand with a `DWORD BCST` size hint
 ///
 /// # Examples
 ///
@@ -864,7 +864,7 @@ pub fn dword_bcst<M: Into<AsmMemoryOperand>>(mem: M) -> AsmMemoryOperand {
 	mem.into().dword_bcst()
 }
 
-/// Creates a broadcasted memory operand with a `QWORD BCST` size hint
+/// Creates a broadcast memory operand with a `QWORD BCST` size hint
 ///
 /// # Examples
 ///

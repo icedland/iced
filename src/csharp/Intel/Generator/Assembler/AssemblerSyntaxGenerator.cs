@@ -187,7 +187,7 @@ namespace Generator.Assembler {
 					MemorySizeFnKind.Ptr or MemorySizeFnKind.Bcst => "no",
 					_ => AOrAn(Kind, toCodeStr(Name.ToUpperInvariant())),
 				};
-				var bcstDesc = IsBroadcast ? "broadcasted " : string.Empty;
+				var bcstDesc = IsBroadcast ? "broadcast " : string.Empty;
 				return $"{verb} a {bcstDesc}memory operand with {desc} size hint";
 			}
 

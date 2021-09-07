@@ -23,7 +23,7 @@ impl MemoryOperand {
 	/// * `scale`: Index register scale (1, 2, 4, or 8)
 	/// * `displacement`: Memory displacement
 	/// * `displSize`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	/// * `isBroadcast`: `true` if it's broadcasted memory (EVEX instructions)
+	/// * `isBroadcast`: `true` if it's broadcast memory (EVEX instructions)
 	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] value)
 	///
 	/// [`Register`]: enum.Register.html
@@ -53,7 +53,7 @@ impl MemoryOperand {
 	/// * `scale`: Index register scale (1, 2, 4, or 8)
 	/// * `displacement`: Memory displacement
 	/// * `displSize`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	/// * `isBroadcast`: `true` if it's broadcasted memory (EVEX instructions)
+	/// * `isBroadcast`: `true` if it's broadcast memory (EVEX instructions)
 	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] value)
 	///
 	/// [`Register`]: enum.Register.html
@@ -87,7 +87,7 @@ impl MemoryOperand {
 	/// * `displacementHi`: Memory displacement (high 32 bits)
 	/// * `displacementLo`: Memory displacement (low 32 bits)
 	/// * `displSize`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	/// * `isBroadcast`: `true` if it's broadcasted memory (EVEX instructions)
+	/// * `isBroadcast`: `true` if it's broadcast memory (EVEX instructions)
 	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] value)
 	///
 	/// [`Register`]: enum.Register.html
@@ -116,7 +116,7 @@ impl MemoryOperand {
 	/// * `base`: Base register or [`Register.None`] (a [`Register`] value)
 	/// * `index`: Index register or [`Register.None`] (a [`Register`] value)
 	/// * `scale`: Index register scale (1, 2, 4, or 8)
-	/// * `isBroadcast`: `true` if it's broadcasted memory (EVEX instructions)
+	/// * `isBroadcast`: `true` if it's broadcast memory (EVEX instructions)
 	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] value)
 	///
 	/// [`Register`]: enum.Register.html
@@ -141,7 +141,7 @@ impl MemoryOperand {
 	/// * `base`: Base register or [`Register.None`] (a [`Register`] value)
 	/// * `displacement`: Memory displacement
 	/// * `displSize`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	/// * `isBroadcast`: `true` if it's broadcasted memory (EVEX instructions)
+	/// * `isBroadcast`: `true` if it's broadcast memory (EVEX instructions)
 	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] value)
 	///
 	/// [`Register`]: enum.Register.html
@@ -168,7 +168,7 @@ impl MemoryOperand {
 	/// * `scale`: Index register scale (1, 2, 4, or 8)
 	/// * `displacement`: Memory displacement
 	/// * `displSize`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	/// * `isBroadcast`: `true` if it's broadcasted memory (EVEX instructions)
+	/// * `isBroadcast`: `true` if it's broadcast memory (EVEX instructions)
 	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] value)
 	///
 	/// [`Register`]: enum.Register.html
@@ -194,7 +194,7 @@ impl MemoryOperand {
 	///
 	/// * `base`: Base register or [`Register.None`] (a [`Register`] value)
 	/// * `displacement`: Memory displacement
-	/// * `isBroadcast`: `true` if it's broadcasted memory (EVEX instructions)
+	/// * `isBroadcast`: `true` if it's broadcast memory (EVEX instructions)
 	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] value)
 	///
 	/// [`Register`]: enum.Register.html

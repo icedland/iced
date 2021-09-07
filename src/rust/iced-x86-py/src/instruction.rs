@@ -602,7 +602,7 @@ impl Instruction {
 		self.instr.set_memory_displ_size(new_value)
 	}
 
-	/// bool: ``True`` if the data is broadcasted (EVEX instructions only)
+	/// bool: ``True`` if the data is broadcast (EVEX instructions only)
 	#[getter]
 	fn is_broadcast(&self) -> bool {
 		self.instr.is_broadcast()

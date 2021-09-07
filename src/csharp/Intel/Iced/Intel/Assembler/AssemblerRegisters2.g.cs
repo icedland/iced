@@ -77,22 +77,22 @@ namespace Iced.Intel {
 		public static readonly AssemblerMemoryOperandFactory __zmmword_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.Zword);
 
 		/// <summary>
-		/// Gets a broadcasted memory operand with no size hint
+		/// Gets a broadcast memory operand with no size hint
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __bcst = new AssemblerMemoryOperandFactory(MemoryOperandSize.None, Register.None, AssemblerOperandFlags.Broadcast);
 
 		/// <summary>
-		/// Gets a broadcasted memory operand with a <c>WORD BCST</c> size hint
+		/// Gets a broadcast memory operand with a <c>WORD BCST</c> size hint
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __word_bcst = new AssemblerMemoryOperandFactory(MemoryOperandSize.Word, Register.None, AssemblerOperandFlags.Broadcast);
 
 		/// <summary>
-		/// Gets a broadcasted memory operand with a <c>DWORD BCST</c> size hint
+		/// Gets a broadcast memory operand with a <c>DWORD BCST</c> size hint
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __dword_bcst = new AssemblerMemoryOperandFactory(MemoryOperandSize.Dword, Register.None, AssemblerOperandFlags.Broadcast);
 
 		/// <summary>
-		/// Gets a broadcasted memory operand with a <c>QWORD BCST</c> size hint
+		/// Gets a broadcast memory operand with a <c>QWORD BCST</c> size hint
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __qword_bcst = new AssemblerMemoryOperandFactory(MemoryOperandSize.Qword, Register.None, AssemblerOperandFlags.Broadcast);
 	}

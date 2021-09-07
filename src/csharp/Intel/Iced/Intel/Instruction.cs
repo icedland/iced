@@ -585,7 +585,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// <see langword="true"/> if the data is broadcasted (EVEX instructions only)
+		/// <see langword="true"/> if the data is broadcast (EVEX instructions only)
 		/// </summary>
 		public bool IsBroadcast {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

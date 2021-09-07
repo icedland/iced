@@ -812,7 +812,7 @@ impl Instruction {
 		self.0.set_memory_displ_size(newValue)
 	}
 
-	/// `true` if the data is broadcasted (EVEX instructions only)
+	/// `true` if the data is broadcast (EVEX instructions only)
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isBroadcast")]
 	pub fn is_broadcast(&self) -> bool {

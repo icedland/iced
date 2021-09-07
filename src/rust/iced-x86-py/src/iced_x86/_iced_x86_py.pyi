@@ -2527,7 +2527,7 @@ class Instruction:
 	def memory_displ_size(self, new_value: int) -> None: ...
 	@property
 	def is_broadcast(self) -> bool:
-		"""bool: `True` if the data is broadcasted (EVEX instructions only)"""
+		"""bool: `True` if the data is broadcast (EVEX instructions only)"""
 		...
 	@is_broadcast.setter
 	def is_broadcast(self, new_value: bool) -> None: ...
@@ -6813,7 +6813,7 @@ class MemoryOperand:
 	- `scale` (int): (default = `1`) Index register scale (1, 2, 4, or 8)
 	- `displ` (int): (`i64`) (default = `0`) Memory displacement
 	- `displ_size` (int): (default = `0`) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	- `is_broadcast` (bool): (default = `False`) `True` if it's broadcasted memory (EVEX instructions)
+	- `is_broadcast` (bool): (default = `False`) `True` if it's broadcast memory (EVEX instructions)
 	- `seg` (`Register`): (default = `Register.NONE`) Segment override or `Register.NONE`
 	"""
 	def __init__(self, base: Register = Register.NONE, index: Register = Register.NONE, scale: int = 1, displ: int = 0, displ_size: int = 0, is_broadcast: bool = False, seg: Register = Register.NONE) -> None: ...
@@ -6831,7 +6831,7 @@ class MemoryOperand:
 		- `scale` (int): (default = `1`) Index register scale (1, 2, 4, or 8)
 		- `displ` (int): (`u64`) (default = `0`) Memory displacement
 		- `displ_size` (int): (default = `0`) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-		- `is_broadcast` (bool): (default = `False`) `True` if it's broadcasted memory (EVEX instructions)
+		- `is_broadcast` (bool): (default = `False`) `True` if it's broadcast memory (EVEX instructions)
 		- `seg` (`Register`): (default = `Register.NONE`) Segment override or `Register.NONE`
 
 		### Returns:

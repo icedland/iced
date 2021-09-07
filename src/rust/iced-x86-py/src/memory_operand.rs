@@ -19,7 +19,7 @@ use std::collections::hash_map::DefaultHasher;
 ///     `scale` (int): (default = ``1``) Index register scale (1, 2, 4, or 8)
 ///     `displ` (int): (``i64``) (default = ``0``) Memory displacement
 ///     `displ_size` (int): (default = ``0``) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-///     `is_broadcast` (bool): (default = ``False``) ``True`` if it's broadcasted memory (EVEX instructions)
+///     `is_broadcast` (bool): (default = ``False``) ``True`` if it's broadcast memory (EVEX instructions)
 ///     `seg` (:class:`Register`): (default = :class:`Register.NONE`) Segment override or :class:`Register.NONE`
 #[pyclass(module = "iced_x86._iced_x86_py")]
 #[pyo3(text_signature = "(base, index, scale, displ, displ_size, is_broadcast, seg, /)")]
@@ -55,7 +55,7 @@ impl MemoryOperand {
 	///     `scale` (int): (default = ``1``) Index register scale (1, 2, 4, or 8)
 	///     `displ` (int): (``u64``) (default = ``0``) Memory displacement
 	///     `displ_size` (int): (default = ``0``) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	///     `is_broadcast` (bool): (default = ``False``) ``True`` if it's broadcasted memory (EVEX instructions)
+	///     `is_broadcast` (bool): (default = ``False``) ``True`` if it's broadcast memory (EVEX instructions)
 	///     `seg` (:class:`Register`): (default = :class:`Register.NONE`) Segment override or :class:`Register.NONE`
 	///
 	/// Returns:

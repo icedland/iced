@@ -38,7 +38,7 @@ namespace Iced.Intel {
 		public readonly int DisplSize;
 
 		/// <summary>
-		/// <see langword="true"/> if it's broadcasted memory (EVEX instructions)
+		/// <see langword="true"/> if it's broadcast memory (EVEX instructions)
 		/// </summary>
 		public readonly bool IsBroadcast;
 
@@ -50,7 +50,7 @@ namespace Iced.Intel {
 		/// <param name="scale">Index register scale (1, 2, 4, or 8)</param>
 		/// <param name="displacement">Memory displacement</param>
 		/// <param name="displSize">0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <see cref="sbyte"/>), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
-		/// <param name="isBroadcast"><see langword="true"/> if it's broadcasted memory (EVEX instructions)</param>
+		/// <param name="isBroadcast"><see langword="true"/> if it's broadcast memory (EVEX instructions)</param>
 		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
 		public MemoryOperand(Register @base, Register index, int scale, long displacement, int displSize, bool isBroadcast, Register segmentPrefix) {
 			SegmentPrefix = segmentPrefix;
@@ -68,7 +68,7 @@ namespace Iced.Intel {
 		/// <param name="base">Base register or <see cref="Register.None"/></param>
 		/// <param name="index">Index register or <see cref="Register.None"/></param>
 		/// <param name="scale">Index register scale (1, 2, 4, or 8)</param>
-		/// <param name="isBroadcast"><see langword="true"/> if it's broadcasted memory (EVEX instructions)</param>
+		/// <param name="isBroadcast"><see langword="true"/> if it's broadcast memory (EVEX instructions)</param>
 		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
 		public MemoryOperand(Register @base, Register index, int scale, bool isBroadcast, Register segmentPrefix) {
 			SegmentPrefix = segmentPrefix;
@@ -86,7 +86,7 @@ namespace Iced.Intel {
 		/// <param name="base">Base register or <see cref="Register.None"/></param>
 		/// <param name="displacement">Memory displacement</param>
 		/// <param name="displSize">0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <see cref="sbyte"/>), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
-		/// <param name="isBroadcast"><see langword="true"/> if it's broadcasted memory (EVEX instructions)</param>
+		/// <param name="isBroadcast"><see langword="true"/> if it's broadcast memory (EVEX instructions)</param>
 		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
 		public MemoryOperand(Register @base, long displacement, int displSize, bool isBroadcast, Register segmentPrefix) {
 			SegmentPrefix = segmentPrefix;
@@ -105,7 +105,7 @@ namespace Iced.Intel {
 		/// <param name="scale">Index register scale (1, 2, 4, or 8)</param>
 		/// <param name="displacement">Memory displacement</param>
 		/// <param name="displSize">0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <see cref="sbyte"/>), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
-		/// <param name="isBroadcast"><see langword="true"/> if it's broadcasted memory (EVEX instructions)</param>
+		/// <param name="isBroadcast"><see langword="true"/> if it's broadcast memory (EVEX instructions)</param>
 		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
 		public MemoryOperand(Register index, int scale, long displacement, int displSize, bool isBroadcast, Register segmentPrefix) {
 			SegmentPrefix = segmentPrefix;
@@ -122,7 +122,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="base">Base register or <see cref="Register.None"/></param>
 		/// <param name="displacement">Memory displacement</param>
-		/// <param name="isBroadcast"><see langword="true"/> if it's broadcasted memory (EVEX instructions)</param>
+		/// <param name="isBroadcast"><see langword="true"/> if it's broadcast memory (EVEX instructions)</param>
 		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
 		public MemoryOperand(Register @base, long displacement, bool isBroadcast, Register segmentPrefix) {
 			SegmentPrefix = segmentPrefix;

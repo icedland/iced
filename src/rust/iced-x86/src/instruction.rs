@@ -835,7 +835,7 @@ impl Instruction {
 		};
 	}
 
-	/// `true` if the data is broadcasted (EVEX instructions only)
+	/// `true` if the data is broadcast (EVEX instructions only)
 	#[must_use]
 	#[inline]
 	pub fn is_broadcast(&self) -> bool {
