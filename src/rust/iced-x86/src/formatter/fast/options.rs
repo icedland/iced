@@ -33,7 +33,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov rax, rcx`
+	/// _ | `true` | `mov rax, rcx`
 	/// 👍 | `false` | `mov rax,rcx`
 	#[must_use]
 	#[inline]
@@ -45,7 +45,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov rax, rcx`
+	/// _ | `true` | `mov rax, rcx`
 	/// 👍 | `false` | `mov rax,rcx`
 	///
 	/// # Arguments
@@ -64,7 +64,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rip+12345678h]`
+	/// _ | `true` | `mov eax,[rip+12345678h]`
 	/// 👍 | `false` | `mov eax,[1029384756AFBECDh]`
 	#[must_use]
 	#[inline]
@@ -76,7 +76,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rip+12345678h]`
+	/// _ | `true` | `mov eax,[rip+12345678h]`
 	/// 👍 | `false` | `mov eax,[1029384756AFBECDh]`
 	///
 	/// # Arguments
@@ -96,7 +96,7 @@ impl FastFormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5h`
+	/// _ | `false` | `vcmpsd xmm2,xmm6,xmm3,5h`
 	#[must_use]
 	#[inline]
 	pub fn use_pseudo_ops(&self) -> bool {
@@ -108,7 +108,7 @@ impl FastFormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5h`
+	/// _ | `false` | `vcmpsd xmm2,xmm6,xmm3,5h`
 	///
 	/// # Arguments
 	///
@@ -126,7 +126,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
+	/// _ | `true` | `mov eax,[myfield (12345678)]`
 	/// 👍 | `false` | `mov eax,[myfield]`
 	#[must_use]
 	#[inline]
@@ -138,7 +138,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
+	/// _ | `true` | `mov eax,[myfield (12345678)]`
 	/// 👍 | `false` | `mov eax,[myfield]`
 	///
 	/// # Arguments
@@ -158,7 +158,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
+	/// _ | `true` | `mov eax,ds:[ecx]`
 	/// 👍 | `false` | `mov eax,[ecx]`
 	#[must_use]
 	#[inline]
@@ -171,7 +171,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
+	/// _ | `true` | `mov eax,ds:[ecx]`
 	/// 👍 | `false` | `mov eax,[ecx]`
 	///
 	/// # Arguments
@@ -190,7 +190,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example | Example
 	/// --------|-------|---------|--------
-	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
+	/// _ | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
 	/// 👍 | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
 	#[must_use]
 	#[inline]
@@ -202,7 +202,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example | Example
 	/// --------|-------|---------|--------
-	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
+	/// _ | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
 	/// 👍 | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
 	///
 	/// # Arguments
@@ -222,7 +222,7 @@ impl FastFormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `0xFF`
-	/// &nbsp; | `false` | `0xff`
+	/// _ | `false` | `0xff`
 	#[must_use]
 	#[inline]
 	pub fn uppercase_hex(&self) -> bool {
@@ -234,7 +234,7 @@ impl FastFormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `0xFF`
-	/// &nbsp; | `false` | `0xff`
+	/// _ | `false` | `0xff`
 	///
 	/// # Arguments
 	///
@@ -252,7 +252,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `0x5A`
+	/// _ | `true` | `0x5A`
 	/// 👍 | `false` | `5Ah`
 	#[must_use]
 	#[inline]
@@ -264,7 +264,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `0x5A`
+	/// _ | `true` | `0x5A`
 	/// 👍 | `false` | `5Ah`
 	///
 	/// # Arguments

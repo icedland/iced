@@ -379,7 +379,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `REP stosd`
+	/// _ | `true` | `REP stosd`
 	/// 👍 | `false` | `rep stosd`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "uppercasePrefixes")]
@@ -391,7 +391,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `REP stosd`
+	/// _ | `true` | `REP stosd`
 	/// 👍 | `false` | `rep stosd`
 	///
 	/// # Arguments
@@ -407,7 +407,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `MOV rcx,rax`
+	/// _ | `true` | `MOV rcx,rax`
 	/// 👍 | `false` | `mov rcx,rax`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "uppercaseMnemonics")]
@@ -419,7 +419,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `MOV rcx,rax`
+	/// _ | `true` | `MOV rcx,rax`
 	/// 👍 | `false` | `mov rcx,rax`
 	///
 	/// # Arguments
@@ -435,7 +435,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov RCX,[RAX+RDX*8]`
+	/// _ | `true` | `mov RCX,[RAX+RDX*8]`
 	/// 👍 | `false` | `mov rcx,[rax+rdx*8]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "uppercaseRegisters")]
@@ -447,7 +447,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov RCX,[RAX+RDX*8]`
+	/// _ | `true` | `mov RCX,[RAX+RDX*8]`
 	/// 👍 | `false` | `mov rcx,[rax+rdx*8]`
 	///
 	/// # Arguments
@@ -463,7 +463,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov BYTE PTR [rcx],12h`
+	/// _ | `true` | `mov BYTE PTR [rcx],12h`
 	/// 👍 | `false` | `mov byte ptr [rcx],12h`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "uppercaseKeywords")]
@@ -475,7 +475,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov BYTE PTR [rcx],12h`
+	/// _ | `true` | `mov BYTE PTR [rcx],12h`
 	/// 👍 | `false` | `mov byte ptr [rcx],12h`
 	///
 	/// # Arguments
@@ -491,7 +491,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
+	/// _ | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
 	/// 👍 | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "uppercaseDecorators")]
@@ -503,7 +503,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
+	/// _ | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
 	/// 👍 | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
 	///
 	/// # Arguments
@@ -519,7 +519,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
+	/// _ | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
 	/// 👍 | `false` | `mov eax,gs:[rcx*4+0ffh]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "uppercaseAll")]
@@ -531,7 +531,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
+	/// _ | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
 	/// 👍 | `false` | `mov eax,gs:[rcx*4+0ffh]`
 	///
 	/// # Arguments
@@ -549,7 +549,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `0` | `mov•rcx,rbp`
-	/// &nbsp; | `8` | `mov•••••rcx,rbp`
+	/// _ | `8` | `mov•••••rcx,rbp`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "firstOperandCharIndex")]
 	pub fn first_operand_char_index(&self) -> u32 {
@@ -562,7 +562,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `0` | `mov•rcx,rbp`
-	/// &nbsp; | `8` | `mov•••••rcx,rbp`
+	/// _ | `8` | `mov•••••rcx,rbp`
 	///
 	/// # Arguments
 	///
@@ -599,7 +599,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov rax, rcx`
+	/// _ | `true` | `mov rax, rcx`
 	/// 👍 | `false` | `mov rax,rcx`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "spaceAfterOperandSeparator")]
@@ -611,7 +611,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov rax, rcx`
+	/// _ | `true` | `mov rax, rcx`
 	/// 👍 | `false` | `mov rax,rcx`
 	///
 	/// # Arguments
@@ -627,7 +627,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[ rcx+rdx ]`
+	/// _ | `true` | `mov eax,[ rcx+rdx ]`
 	/// 👍 | `false` | `mov eax,[rcx+rdx]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "spaceAfterMemoryBracket")]
@@ -639,7 +639,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[ rcx+rdx ]`
+	/// _ | `true` | `mov eax,[ rcx+rdx ]`
 	/// 👍 | `false` | `mov eax,[rcx+rdx]`
 	///
 	/// # Arguments
@@ -655,7 +655,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rcx + rdx*8 - 80h]`
+	/// _ | `true` | `mov eax,[rcx + rdx*8 - 80h]`
 	/// 👍 | `false` | `mov eax,[rcx+rdx*8-80h]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "spaceBetweenMemoryAddOperators")]
@@ -667,7 +667,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rcx + rdx*8 - 80h]`
+	/// _ | `true` | `mov eax,[rcx + rdx*8 - 80h]`
 	/// 👍 | `false` | `mov eax,[rcx+rdx*8-80h]`
 	///
 	/// # Arguments
@@ -683,7 +683,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rcx+rdx * 8-80h]`
+	/// _ | `true` | `mov eax,[rcx+rdx * 8-80h]`
 	/// 👍 | `false` | `mov eax,[rcx+rdx*8-80h]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "spaceBetweenMemoryMulOperators")]
@@ -695,7 +695,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rcx+rdx * 8-80h]`
+	/// _ | `true` | `mov eax,[rcx+rdx * 8-80h]`
 	/// 👍 | `false` | `mov eax,[rcx+rdx*8-80h]`
 	///
 	/// # Arguments
@@ -711,7 +711,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[8*rdx]`
+	/// _ | `true` | `mov eax,[8*rdx]`
 	/// 👍 | `false` | `mov eax,[rdx*8]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "scaleBeforeIndex")]
@@ -723,7 +723,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[8*rdx]`
+	/// _ | `true` | `mov eax,[8*rdx]`
 	/// 👍 | `false` | `mov eax,[rdx*8]`
 	///
 	/// # Arguments
@@ -739,7 +739,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rbx+rcx*1]`
+	/// _ | `true` | `mov eax,[rbx+rcx*1]`
 	/// 👍 | `false` | `mov eax,[rbx+rcx]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "alwaysShowScale")]
@@ -751,7 +751,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rbx+rcx*1]`
+	/// _ | `true` | `mov eax,[rbx+rcx*1]`
 	/// 👍 | `false` | `mov eax,[rbx+rcx]`
 	///
 	/// # Arguments
@@ -768,7 +768,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
+	/// _ | `true` | `mov eax,ds:[ecx]`
 	/// 👍 | `false` | `mov eax,[ecx]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "alwaysShowSegmentRegister")]
@@ -781,7 +781,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
+	/// _ | `true` | `mov eax,ds:[ecx]`
 	/// 👍 | `false` | `mov eax,[ecx]`
 	///
 	/// # Arguments
@@ -797,7 +797,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rcx*2+0]`
+	/// _ | `true` | `mov eax,[rcx*2+0]`
 	/// 👍 | `false` | `mov eax,[rcx*2]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "showZeroDisplacements")]
@@ -809,7 +809,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rcx*2+0]`
+	/// _ | `true` | `mov eax,[rcx*2+0]`
 	/// 👍 | `false` | `mov eax,[rcx*2]`
 	///
 	/// # Arguments
@@ -871,7 +871,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `0` | `0x12345678`
+	/// _ | `0` | `0x12345678`
 	/// 👍 | `4` | `0x1234_5678`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "hexDigitGroupSize")]
@@ -885,7 +885,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `0` | `0x12345678`
+	/// _ | `0` | `0x12345678`
 	/// 👍 | `4` | `0x1234_5678`
 	///
 	/// # Arguments
@@ -947,7 +947,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `0` | `12345678`
+	/// _ | `0` | `12345678`
 	/// 👍 | `3` | `12_345_678`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "decimalDigitGroupSize")]
@@ -961,7 +961,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `0` | `12345678`
+	/// _ | `0` | `12345678`
 	/// 👍 | `3` | `12_345_678`
 	///
 	/// # Arguments
@@ -1023,7 +1023,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `0` | `12345670`
+	/// _ | `0` | `12345670`
 	/// 👍 | `4` | `1234_5670`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "octalDigitGroupSize")]
@@ -1037,7 +1037,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `0` | `12345670`
+	/// _ | `0` | `12345670`
 	/// 👍 | `4` | `1234_5670`
 	///
 	/// # Arguments
@@ -1099,7 +1099,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `0` | `11010111`
+	/// _ | `0` | `11010111`
 	/// 👍 | `4` | `1101_0111`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "binaryDigitGroupSize")]
@@ -1113,7 +1113,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `0` | `11010111`
+	/// _ | `0` | `11010111`
 	/// 👍 | `4` | `1101_0111`
 	///
 	/// # Arguments
@@ -1132,7 +1132,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `""` | `0x12345678`
-	/// &nbsp; | `"_"` | `0x1234_5678`
+	/// _ | `"_"` | `0x1234_5678`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "digitSeparator")]
 	pub fn digit_separator(&self) -> String {
@@ -1146,7 +1146,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `""` | `0x12345678`
-	/// &nbsp; | `"_"` | `0x1234_5678`
+	/// _ | `"_"` | `0x1234_5678`
 	///
 	/// # Arguments
 	///
@@ -1163,7 +1163,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `0x0000000A`/`0000000Ah`
+	/// _ | `true` | `0x0000000A`/`0000000Ah`
 	/// 👍 | `false` | `0xA`/`0Ah`
 	///
 	/// [`branchLeadingZeros`]: #method.branch_leading_zeros
@@ -1180,7 +1180,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `0x0000000A`/`0000000Ah`
+	/// _ | `true` | `0x0000000A`/`0000000Ah`
 	/// 👍 | `false` | `0xA`/`0Ah`
 	///
 	/// [`branchLeadingZeros`]: #method.branch_leading_zeros
@@ -1200,7 +1200,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `0xFF`
-	/// &nbsp; | `false` | `0xff`
+	/// _ | `false` | `0xff`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "uppercaseHex")]
 	pub fn uppercase_hex(&self) -> bool {
@@ -1212,7 +1212,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `0xFF`
-	/// &nbsp; | `false` | `0xff`
+	/// _ | `false` | `0xff`
 	///
 	/// # Arguments
 	///
@@ -1228,7 +1228,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `9`
-	/// &nbsp; | `false` | `0x9`
+	/// _ | `false` | `0x9`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "smallHexNumbersInDecimal")]
 	pub fn small_hex_numbers_in_decimal(&self) -> bool {
@@ -1240,7 +1240,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `9`
-	/// &nbsp; | `false` | `0x9`
+	/// _ | `false` | `0x9`
 	///
 	/// # Arguments
 	///
@@ -1256,7 +1256,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `0FFh`
-	/// &nbsp; | `false` | `FFh`
+	/// _ | `false` | `FFh`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "addLeadingZeroToHexNumbers")]
 	pub fn add_leading_zero_to_hex_numbers(&self) -> bool {
@@ -1268,7 +1268,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `0FFh`
-	/// &nbsp; | `false` | `FFh`
+	/// _ | `false` | `FFh`
 	///
 	/// # Arguments
 	///
@@ -1323,7 +1323,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `je 00000123h`
-	/// &nbsp; | `false` | `je 123h`
+	/// _ | `false` | `je 123h`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "branchLeadingZeros")]
 	pub fn branch_leading_zeros(&self) -> bool {
@@ -1335,7 +1335,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `je 00000123h`
-	/// &nbsp; | `false` | `je 123h`
+	/// _ | `false` | `je 123h`
 	///
 	/// # Arguments
 	///
@@ -1350,7 +1350,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,-1`
+	/// _ | `true` | `mov eax,-1`
 	/// 👍 | `false` | `mov eax,FFFFFFFF`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "signedImmediateOperands")]
@@ -1362,7 +1362,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,-1`
+	/// _ | `true` | `mov eax,-1`
 	/// 👍 | `false` | `mov eax,FFFFFFFF`
 	///
 	/// # Arguments
@@ -1379,7 +1379,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `mov al,[eax-2000h]`
-	/// &nbsp; | `false` | `mov al,[eax+0FFFFE000h]`
+	/// _ | `false` | `mov al,[eax+0FFFFE000h]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "signedMemoryDisplacements")]
 	pub fn signed_memory_displacements(&self) -> bool {
@@ -1391,7 +1391,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `mov al,[eax-2000h]`
-	/// &nbsp; | `false` | `mov al,[eax+0FFFFE000h]`
+	/// _ | `false` | `mov al,[eax+0FFFFE000h]`
 	///
 	/// # Arguments
 	///
@@ -1406,7 +1406,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov al,[eax+00000012h]`
+	/// _ | `true` | `mov al,[eax+00000012h]`
 	/// 👍 | `false` | `mov al,[eax+12h]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "displacementLeadingZeros")]
@@ -1418,7 +1418,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov al,[eax+00000012h]`
+	/// _ | `true` | `mov al,[eax+00000012h]`
 	/// 👍 | `false` | `mov al,[eax+12h]`
 	///
 	/// # Arguments
@@ -1464,7 +1464,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rip+12345678h]`
+	/// _ | `true` | `mov eax,[rip+12345678h]`
 	/// 👍 | `false` | `mov eax,[1029384756AFBECDh]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ripRelativeAddresses")]
@@ -1476,7 +1476,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[rip+12345678h]`
+	/// _ | `true` | `mov eax,[rip+12345678h]`
 	/// 👍 | `false` | `mov eax,[1029384756AFBECDh]`
 	///
 	/// # Arguments
@@ -1493,7 +1493,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `je short 1234h`
-	/// &nbsp; | `false` | `je 1234h`
+	/// _ | `false` | `je 1234h`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "showBranchSize")]
 	pub fn show_branch_size(&self) -> bool {
@@ -1505,7 +1505,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `je short 1234h`
-	/// &nbsp; | `false` | `je 1234h`
+	/// _ | `false` | `je 1234h`
 	///
 	/// # Arguments
 	///
@@ -1521,7 +1521,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
+	/// _ | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "usePseudoOps")]
 	pub fn use_pseudo_ops(&self) -> bool {
@@ -1533,7 +1533,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
+	/// _ | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	///
 	/// # Arguments
 	///
@@ -1548,7 +1548,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
+	/// _ | `true` | `mov eax,[myfield (12345678)]`
 	/// 👍 | `false` | `mov eax,[myfield]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "showSymbolAddress")]
@@ -1560,7 +1560,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
+	/// _ | `true` | `mov eax,[myfield (12345678)]`
 	/// 👍 | `false` | `mov eax,[myfield]`
 	///
 	/// # Arguments
@@ -1576,7 +1576,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,ecx`
+	/// _ | `true` | `mov eax,ecx`
 	/// 👍 | `false` | `mov %eax,%ecx`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "gasNakedRegisters")]
@@ -1588,7 +1588,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,ecx`
+	/// _ | `true` | `mov eax,ecx`
 	/// 👍 | `false` | `mov %eax,%ecx`
 	///
 	/// # Arguments
@@ -1604,7 +1604,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `movl %eax,%ecx`
+	/// _ | `true` | `movl %eax,%ecx`
 	/// 👍 | `false` | `mov %eax,%ecx`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "gasShowMnemonicSizeSuffix")]
@@ -1616,7 +1616,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `movl %eax,%ecx`
+	/// _ | `true` | `movl %eax,%ecx`
 	/// 👍 | `false` | `mov %eax,%ecx`
 	///
 	/// # Arguments
@@ -1632,7 +1632,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `(%eax, %ecx, 2)`
+	/// _ | `true` | `(%eax, %ecx, 2)`
 	/// 👍 | `false` | `(%eax,%ecx,2)`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "gasSpaceAfterMemoryOperandComma")]
@@ -1644,7 +1644,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `(%eax, %ecx, 2)`
+	/// _ | `true` | `(%eax, %ecx, 2)`
 	/// 👍 | `false` | `(%eax,%ecx,2)`
 	///
 	/// # Arguments
@@ -1661,7 +1661,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `mov eax,ds:[12345678]`
-	/// &nbsp; | `false` | `mov eax,[12345678]`
+	/// _ | `false` | `mov eax,[12345678]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "masmAddDsPrefix32")]
 	pub fn masm_add_ds_prefix32(&self) -> bool {
@@ -1673,7 +1673,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `mov eax,ds:[12345678]`
-	/// &nbsp; | `false` | `mov eax,[12345678]`
+	/// _ | `false` | `mov eax,[12345678]`
 	///
 	/// # Arguments
 	///
@@ -1689,7 +1689,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `[ecx+symbol]` / `[symbol]`
-	/// &nbsp; | `false` | `symbol[ecx]` / `symbol`
+	/// _ | `false` | `symbol[ecx]` / `symbol`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "masmSymbolDisplInBrackets")]
 	pub fn masm_symbol_displ_in_brackets(&self) -> bool {
@@ -1701,7 +1701,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `[ecx+symbol]` / `[symbol]`
-	/// &nbsp; | `false` | `symbol[ecx]` / `symbol`
+	/// _ | `false` | `symbol[ecx]` / `symbol`
 	///
 	/// # Arguments
 	///
@@ -1717,7 +1717,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `[ecx+1234h]`
-	/// &nbsp; | `false` | `1234h[ecx]`
+	/// _ | `false` | `1234h[ecx]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "masmDisplInBrackets")]
 	pub fn masm_displ_in_brackets(&self) -> bool {
@@ -1729,7 +1729,7 @@ impl Formatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// 👍 | `true` | `[ecx+1234h]`
-	/// &nbsp; | `false` | `1234h[ecx]`
+	/// _ | `false` | `1234h[ecx]`
 	///
 	/// # Arguments
 	///
@@ -1744,7 +1744,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `or rcx,byte -1`
+	/// _ | `true` | `or rcx,byte -1`
 	/// 👍 | `false` | `or rcx,-1`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "nasmShowSignExtendedImmediateSize")]
@@ -1756,7 +1756,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `or rcx,byte -1`
+	/// _ | `true` | `or rcx,byte -1`
 	/// 👍 | `false` | `or rcx,-1`
 	///
 	/// # Arguments
@@ -1772,7 +1772,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `fadd st(0),st(3)`
+	/// _ | `true` | `fadd st(0),st(3)`
 	/// 👍 | `false` | `fadd st,st(3)`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "preferSt0")]
@@ -1784,7 +1784,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `fadd st(0),st(3)`
+	/// _ | `true` | `fadd st(0),st(3)`
 	/// 👍 | `false` | `fadd st,st(3)`
 	///
 	/// # Arguments
@@ -1800,7 +1800,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `es rep add eax,ecx`
+	/// _ | `true` | `es rep add eax,ecx`
 	/// 👍 | `false` | `add eax,ecx`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "showUselessPrefixes")]
@@ -1812,7 +1812,7 @@ impl Formatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// &nbsp; | `true` | `es rep add eax,ecx`
+	/// _ | `true` | `es rep add eax,ecx`
 	/// 👍 | `false` | `add eax,ecx`
 	///
 	/// # Arguments
