@@ -300,27 +300,13 @@ namespace Iced.Intel {
 				}
 			}
 
-			info.rflagsInfo = (byte)((flags1 >> (int)InfoFlags1.RflagsInfoShift) & (uint)InfoFlags1.RflagsInfoMask);
 			var impliedAccess = (ImpliedAccess)((flags1 >> (int)InfoFlags1.ImpliedAccessShift) & (uint)InfoFlags1.ImpliedAccessMask);
 			if (impliedAccess != ImpliedAccess.None)
 				AddImpliedAccesses(impliedAccess, instruction, flags);
-			Debug.Assert((uint)info.rflagsInfo < (uint)InstrInfoConstants.RflagsInfo_Count);
 
 			if (instruction.HasOpMask && (flags & Flags.NoRegisterUsage) == 0)
 				AddRegister(flags, instruction.OpMask, (flags1 & (uint)InfoFlags1.OpMaskReadWrite) != 0 ? OpAccess.ReadWrite : OpAccess.Read);
 
-			Debug.Assert(((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask) <= byte.MaxValue);
-			info.cpuidFeatureInternal = (byte)((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask);
-			Debug.Assert(((flags2 >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask) <= byte.MaxValue);
-			info.flowControl = (byte)((flags2 >> (int)InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask);
-			Debug.Assert(((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask) <= byte.MaxValue);
-			info.encoding = (byte)((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask);
-
-			const int FlagsShift = 12;
-			Static.Assert((uint)InfoFlags2.SaveRestore >> FlagsShift == (uint)InstructionInfo.Flags1.SaveRestore ? 0 : -1);
-			Static.Assert((uint)InfoFlags2.StackInstruction >> FlagsShift == (uint)InstructionInfo.Flags1.StackInstruction ? 0 : -1);
-			Static.Assert((uint)InfoFlags2.Privileged >> FlagsShift == (uint)InstructionInfo.Flags1.Privileged ? 0 : -1);
-			info.flags = (byte)(flags2 >> FlagsShift);
 			return ref info;
 		}
 
@@ -349,16 +335,12 @@ namespace Iced.Intel {
 			case ImpliedAccess.None:
 				break;
 			case ImpliedAccess.Shift_Ib_MASK1FMOD9:
-				CommandShiftMaskMod(instruction, 9);
 				break;
 			case ImpliedAccess.Shift_Ib_MASK1FMOD11:
-				CommandShiftMaskMod(instruction, 17);
 				break;
 			case ImpliedAccess.Shift_Ib_MASK1F:
-				CommandShiftMask(instruction, 0x1F);
 				break;
 			case ImpliedAccess.Shift_Ib_MASK3F:
-				CommandShiftMask(instruction, 0x3F);
 				break;
 			case ImpliedAccess.Clear_rflags:
 				CommandClearRflags(instruction, flags);
@@ -2240,35 +2222,6 @@ namespace Iced.Intel {
 			}
 		}
 
-		void CommandShiftMaskMod(in Instruction instruction, uint modulus) {
-			switch ((instruction.Immediate8 & 0x1F) % modulus) {
-			case 0:
-				info.rflagsInfo = (byte)RflagsInfo.None;
-				break;
-			case 1:
-				info.rflagsInfo = (byte)RflagsInfo.R_c_W_co;
-				break;
-			}
-		}
-
-		void CommandShiftMask(in Instruction instruction, uint mask) {
-			switch (instruction.Immediate8 & mask) {
-			case 0:
-				info.rflagsInfo = (byte)RflagsInfo.None;
-				break;
-			case 1:
-				if (info.rflagsInfo == (byte)RflagsInfo.W_c_U_o)
-					info.rflagsInfo = (byte)RflagsInfo.W_co;
-				else if (info.rflagsInfo == (byte)RflagsInfo.R_c_W_c_U_o)
-					info.rflagsInfo = (byte)RflagsInfo.R_c_W_co;
-				else {
-					Debug.Assert(info.rflagsInfo == (byte)RflagsInfo.W_cpsz_U_ao);
-					info.rflagsInfo = (byte)RflagsInfo.W_copsz_U_a;
-				}
-				break;
-			}
-		}
-
 		void CommandClearRflags(in Instruction instruction, Flags flags) {
 			if (instruction.Op0Register != instruction.Op1Register)
 				return;
@@ -2276,10 +2229,6 @@ namespace Iced.Intel {
 				return;
 			unsafe { info.opAccesses[0] = (byte)OpAccess.Write; }
 			unsafe { info.opAccesses[1] = (byte)OpAccess.None; }
-			if (instruction.Mnemonic == Mnemonic.Xor)
-				info.rflagsInfo = (byte)RflagsInfo.C_cos_S_pz_U_a;
-			else
-				info.rflagsInfo = (byte)RflagsInfo.C_acos_S_pz;
 			if ((flags & Flags.NoRegisterUsage) == 0) {
 				Debug.Assert(info.usedRegisters.ValidLength == 2 || info.usedRegisters.ValidLength == 3);
 				info.usedRegisters.ValidLength = 0;

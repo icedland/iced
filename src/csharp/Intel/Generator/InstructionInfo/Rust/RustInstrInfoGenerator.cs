@@ -211,11 +211,10 @@ namespace Generator.InstructionInfo.Rust {
 					break;
 				case ImplAccStatementKind.ShiftMask:
 					arg1 = (IntArgImplAccStatement)stmt;
-					writer.WriteLine($"Self::command_shift_mask(instruction, info, 0x{arg1.Arg:X});");
 					break;
 				case ImplAccStatementKind.ShiftMask1FMod:
 					arg1 = (IntArgImplAccStatement)stmt;
-					writer.WriteLine($"Self::command_shift_mask_mod(instruction, info, {Verify_9_or_17(arg1.Arg)});");
+					Verify_9_or_17(arg1.Arg);
 					break;
 				case ImplAccStatementKind.ZeroRegRflags:
 					writer.WriteLine("Self::command_clear_rflags(instruction, info, flags);");

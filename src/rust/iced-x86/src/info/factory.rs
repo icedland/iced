@@ -177,13 +177,6 @@ impl InstructionInfoFactory {
 
 		// SAFETY: the transmutes on the generated data (flags1,flags2) are safe since we only generate valid enum variants
 
-		info.cpuid_feature_internal =
-			unsafe { mem::transmute(((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as u8) };
-		info.flow_control =
-			unsafe { mem::transmute(((flags2 >> InfoFlags2::FLOW_CONTROL_SHIFT) & InfoFlags2::FLOW_CONTROL_MASK) as FlowControlUnderlyingType) };
-		info.encoding = unsafe { mem::transmute(((flags2 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK) as EncodingKindUnderlyingType) };
-		info.rflags_info = unsafe { mem::transmute(((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as u8) };
-
 		let code_size = instruction.code_size();
 		const_assert_eq!(InstructionInfoOptions::NO_MEMORY_USAGE, Flags::NO_MEMORY_USAGE);
 		const_assert_eq!(InstructionInfoOptions::NO_REGISTER_USAGE, Flags::NO_REGISTER_USAGE);
@@ -191,7 +184,8 @@ impl InstructionInfoFactory {
 		if code_size == CodeSize::Code64 || code_size == CodeSize::Unknown {
 			flags |= Flags::IS_64BIT;
 		}
-		if info.encoding != EncodingKind::Legacy {
+		let encoding = (flags2 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK;
+		if encoding != EncodingKind::Legacy as u32 {
 			flags |= Flags::ZERO_EXT_VEC_REGS;
 		}
 
@@ -481,16 +475,12 @@ impl InstructionInfoFactory {
 			ImpliedAccess::None => {
 			}
 			ImpliedAccess::Shift_Ib_MASK1FMOD9 => {
-				Self::command_shift_mask_mod(instruction, info, 9);
 			}
 			ImpliedAccess::Shift_Ib_MASK1FMOD11 => {
-				Self::command_shift_mask_mod(instruction, info, 17);
 			}
 			ImpliedAccess::Shift_Ib_MASK1F => {
-				Self::command_shift_mask(instruction, info, 0x1F);
 			}
 			ImpliedAccess::Shift_Ib_MASK3F => {
-				Self::command_shift_mask(instruction, info, 0x3F);
 			}
 			ImpliedAccess::Clear_rflags => {
 				Self::command_clear_rflags(instruction, info, flags);
@@ -2585,31 +2575,6 @@ impl InstructionInfoFactory {
 		}
 	}
 
-	fn command_shift_mask_mod(instruction: &Instruction, info: &mut InstructionInfo, modulus: u32) {
-		match ((instruction.immediate8() as u32) & 0x1F) % modulus {
-			0 => info.rflags_info = RflagsInfo::None,
-			1 => info.rflags_info = RflagsInfo::R_c_W_co,
-			_ => {}
-		}
-	}
-
-	fn command_shift_mask(instruction: &Instruction, info: &mut InstructionInfo, mask: u32) {
-		match (instruction.immediate8() as u32) & mask {
-			0 => info.rflags_info = RflagsInfo::None,
-			1 => {
-				if info.rflags_info == RflagsInfo::W_c_U_o {
-					info.rflags_info = RflagsInfo::W_co;
-				} else if info.rflags_info == RflagsInfo::R_c_W_c_U_o {
-					info.rflags_info = RflagsInfo::R_c_W_co;
-				} else {
-					debug_assert_eq!(info.rflags_info, RflagsInfo::W_cpsz_U_ao);
-					info.rflags_info = RflagsInfo::W_copsz_U_a;
-				}
-			}
-			_ => {}
-		}
-	}
-
 	fn command_clear_rflags(instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
 		if instruction.op0_register() == instruction.op1_register()
 			&& instruction.op0_kind() == OpKind::Register
@@ -2617,11 +2582,6 @@ impl InstructionInfoFactory {
 		{
 			info.op_accesses[0] = OpAccess::Write;
 			info.op_accesses[1] = OpAccess::None;
-			if instruction.mnemonic() == Mnemonic::Xor {
-				info.rflags_info = RflagsInfo::C_cos_S_pz_U_a;
-			} else {
-				info.rflags_info = RflagsInfo::C_acos_S_pz;
-			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				debug_assert!(info.used_registers.len() == 2 || info.used_registers.len() == 3);
 				info.used_registers.clear();

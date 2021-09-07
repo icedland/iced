@@ -10,7 +10,6 @@ pub(crate) mod rflags_table;
 mod tests;
 
 use crate::iced_constants::IcedConstants;
-use crate::info::enums::{CpuidFeatureInternal, RflagsInfo};
 pub use crate::info::factory::*;
 use crate::*;
 use alloc::vec::Vec;
@@ -296,11 +295,7 @@ impl fmt::Debug for UsedMemory {
 pub struct InstructionInfo {
 	used_registers: Vec<UsedRegister>,
 	used_memory_locations: Vec<UsedMemory>,
-	rflags_info: RflagsInfo,
-	cpuid_feature_internal: CpuidFeatureInternal,
-	flow_control: FlowControl,
 	op_accesses: [OpAccess; IcedConstants::MAX_OP_COUNT],
-	encoding: EncodingKind,
 }
 
 impl InstructionInfo {
@@ -319,11 +314,7 @@ impl InstructionInfo {
 			} else {
 				Vec::new()
 			},
-			cpuid_feature_internal: CpuidFeatureInternal::default(),
-			rflags_info: RflagsInfo::default(),
-			flow_control: FlowControl::default(),
 			op_accesses: [OpAccess::default(); IcedConstants::MAX_OP_COUNT],
-			encoding: EncodingKind::default(),
 		}
 	}
 

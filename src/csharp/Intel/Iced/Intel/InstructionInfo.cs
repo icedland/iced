@@ -15,18 +15,6 @@ namespace Iced.Intel {
 		internal SimpleList<UsedRegister> usedRegisters;
 		internal SimpleList<UsedMemory> usedMemoryLocations;
 		internal unsafe fixed byte opAccesses[IcedConstants.MaxOpCount];
-		internal byte cpuidFeatureInternal;
-		internal byte flowControl;
-		internal byte encoding;
-		internal byte rflagsInfo;
-		internal byte flags;
-
-		[Flags]
-		internal enum Flags1 : byte {
-			SaveRestore				= 0x20,
-			StackInstruction		= 0x40,
-			Privileged				= 0x80,
-		}
 
 		internal InstructionInfo(bool dummy) {
 			usedRegisters = new SimpleList<UsedRegister>(new UsedRegister[InstrInfoConstants.DefaultUsedRegisterCollCapacity]);
@@ -39,11 +27,6 @@ namespace Iced.Intel {
 				opAccesses[4] = 0;
 				Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			}
-			cpuidFeatureInternal = 0;
-			flowControl = 0;
-			encoding = 0;
-			rflagsInfo = 0;
-			flags = 0;
 		}
 
 		/// <summary>

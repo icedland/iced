@@ -255,11 +255,10 @@ namespace Generator.InstructionInfo.CSharp {
 					break;
 				case ImplAccStatementKind.ShiftMask:
 					arg1 = (IntArgImplAccStatement)stmt;
-					writer.WriteLine($"CommandShiftMask(instruction, 0x{arg1.Arg:X});");
 					break;
 				case ImplAccStatementKind.ShiftMask1FMod:
 					arg1 = (IntArgImplAccStatement)stmt;
-					writer.WriteLine($"CommandShiftMaskMod(instruction, {Verify_9_or_17(arg1.Arg)});");
+					Verify_9_or_17(arg1.Arg);
 					break;
 				case ImplAccStatementKind.ZeroRegRflags:
 					writer.WriteLine("CommandClearRflags(instruction, flags);");
