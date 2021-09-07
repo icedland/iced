@@ -74,6 +74,6 @@ if python --version 2>&1 | grep "Python 3\.6"; then
 fi
 
 echo "Testing it"
-python -m pip install iced-x86 --no-index -f /tmp/py-dist --only-binary :all:
+python -m pip install iced-x86 --no-index -f /tmp/py-dist --only-binary iced-x86
 python -m pytest --color=yes --code-highlight=yes
 python -m pip uninstall -y iced-x86

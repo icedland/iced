@@ -33,7 +33,7 @@ rm -rf orig-dist
 
 for PYBIN in /opt/python/cp{36,37,38,39}*/bin; do
 	"$PYBIN/python" -m pip install -U pytest
-	"$PYBIN/python" -m pip install iced-x86 --no-index -f dist/ --only-binary :all:
+	"$PYBIN/python" -m pip install iced-x86 --no-index -f dist/ --only-binary iced-x86
 	"$PYBIN/python" -m pytest --color=yes --code-highlight=yes
 	"$PYBIN/python" -m pip uninstall -y iced-x86
 done
