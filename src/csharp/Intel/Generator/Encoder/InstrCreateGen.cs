@@ -63,11 +63,6 @@ namespace Generator.Encoder {
 		protected abstract void GenCreateBranch(FileWriter writer, CreateMethod method);
 		protected abstract void GenCreateFarBranch(FileWriter writer, CreateMethod method);
 		protected abstract void GenCreateXbegin(FileWriter writer, CreateMethod method);
-		protected virtual bool CallGenCreateMemory64 => false;	// The methods are deprecated
-		protected virtual void GenCreateMemory64(FileWriter writer, CreateMethod method) {
-			if (CallGenCreateMemory64)
-				throw new InvalidOperationException();
-		}
 		protected abstract void GenCreateString_Reg_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register);
 		protected abstract void GenCreateString_Reg_ESRDI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register);
 		protected abstract void GenCreateString_ESRDI_Reg(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register);
@@ -110,7 +105,6 @@ namespace Generator.Encoder {
 			GenCreateBranch(writer);
 			GenCreateFarBranch(writer);
 			GenCreateXbegin(writer);
-			GenCreateMemory64(writer);
 			GenCreateStringInstructions(writer);
 			GenCreateDeclareXxx(writer);
 		}
@@ -233,29 +227,6 @@ namespace Generator.Encoder {
 			AddTargetArg(method);
 			if (TryGetCode(nameof(Code.Xbegin_rel16), out _) && TryGetCode(nameof(Code.Xbegin_rel32), out _))
 				GenCreateXbegin(writer, method);
-		}
-
-		void GenCreateMemory64(FileWriter writer) {
-			if (!CallGenCreateMemory64)
-				return;
-			WriteItemSeparator(writer);
-			{
-				var method = new CreateMethod("Creates an instruction with a 64-bit memory offset as the second operand, eg. #(c:mov al,[123456789ABCDEF0])#");
-				AddCodeArg(method);
-				method.Args.Add(new MethodArg("Register (#(c:AL)#, #(c:AX)#, #(c:EAX)#, #(c:RAX)#)", MethodArgType.Register, "register"));
-				method.Args.Add(new MethodArg("64-bit address", MethodArgType.UInt64, "address"));
-				AddSegmentPrefixArg(method);
-				GenCreateMemory64(writer, method);
-			}
-			WriteItemSeparator(writer);
-			{
-				var method = new CreateMethod("Creates an instruction with a 64-bit memory offset as the first operand, eg. #(c:mov [123456789ABCDEF0],al)#");
-				AddCodeArg(method);
-				method.Args.Add(new MethodArg("64-bit address", MethodArgType.UInt64, "address"));
-				method.Args.Add(new MethodArg("Register (#(c:AL)#, #(c:AX)#, #(c:EAX)#, #(c:RAX)#)", MethodArgType.Register, "register"));
-				AddSegmentPrefixArg(method);
-				GenCreateMemory64(writer, method);
-			}
 		}
 
 		void GenCreateStringInstructions(FileWriter writer) {

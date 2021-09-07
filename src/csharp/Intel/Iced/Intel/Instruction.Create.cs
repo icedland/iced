@@ -1558,32 +1558,6 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Creates an instruction with a 64-bit memory offset as the second operand, eg. <c>mov al,[123456789ABCDEF0]</c>
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <param name="register">Register (<c>AL</c>, <c>AX</c>, <c>EAX</c>, <c>RAX</c>)</param>
-		/// <param name="address">64-bit address</param>
-		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
-		[System.Obsolete("Use Create() with a MemoryOperand arg instead", false)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public static Instruction CreateMemory64(Code code, Register register, ulong address, Register segmentPrefix = Register.None) {
-			return Create(code, register, new MemoryOperand(Register.None, (long)address, 8, false, segmentPrefix));
-		}
-
-		/// <summary>
-		/// Creates an instruction with a 64-bit memory offset as the first operand, eg. <c>mov [123456789ABCDEF0],al</c>
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <param name="address">64-bit address</param>
-		/// <param name="register">Register (<c>AL</c>, <c>AX</c>, <c>EAX</c>, <c>RAX</c>)</param>
-		/// <param name="segmentPrefix">Segment override or <see cref="Register.None"/></param>
-		[System.Obsolete("Use Create() with a MemoryOperand arg instead", false)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public static Instruction CreateMemory64(Code code, ulong address, Register register, Register segmentPrefix = Register.None) {
-			return Create(code, new MemoryOperand(Register.None, (long)address, 8, false, segmentPrefix), register);
-		}
-
-		/// <summary>
 		/// Creates a <c>OUTSB</c> instruction
 		/// </summary>
 		/// <param name="addressSize">16, 32, or 64</param>

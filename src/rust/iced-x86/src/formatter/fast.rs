@@ -1443,7 +1443,6 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				| OpKind::MemoryESEDI
 				| OpKind::MemoryESRDI => {}
 
-				#[allow(deprecated)]
 				OpKind::MemorySegSI
 				| OpKind::MemorySegESI
 				| OpKind::MemorySegRSI

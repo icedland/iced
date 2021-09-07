@@ -13,13 +13,11 @@ namespace Generator.Encoder.CSharp {
 	sealed class CSharpInstrCreateGen : InstrCreateGen {
 		readonly IdentifierConverter idConverter;
 		readonly CSharpDocCommentWriter docWriter;
-		readonly CSharpDeprecatedWriter deprecatedWriter;
 
 		public CSharpInstrCreateGen(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
 			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
-			deprecatedWriter = new CSharpDeprecatedWriter(idConverter);
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
@@ -292,42 +290,6 @@ namespace Generator.Encoder.CSharp {
 					writer.WriteLine($"throw new ArgumentOutOfRangeException(nameof({bitnessName}));");
 				writer.WriteLine($"}}");
 				WriteMethodFooter(writer, 1);
-			}
-			writer.WriteLine("}");
-		}
-
-		protected override bool CallGenCreateMemory64 => true;
-		protected override void GenCreateMemory64(FileWriter writer, CreateMethod method) {
-			if (method.Args.Count != 4)
-				throw new InvalidOperationException();
-
-			int memOp, regOp;
-			if (method.Args[1].Type == MethodArgType.UInt64) {
-				memOp = 0;
-				regOp = 1;
-			}
-			else {
-				memOp = 1;
-				regOp = 0;
-			}
-
-			WriteDocs(writer, method);
-			deprecatedWriter.WriteDeprecated(writer, "Create() with a MemoryOperand arg", null, false, false);
-			writer.Write("public static Instruction CreateMemory64(");
-			WriteMethodDeclArgs(writer, method);
-			writer.WriteLine(") {");
-			using (writer.Indent()) {
-				var regStr = idConverter.ToDeclTypeAndValue(genTypes[TypeIds.Register][nameof(Register.None)]);
-				var addrStr = idConverter.Argument(method.Args[1 + memOp].Name);
-				var segPrefStr = idConverter.Argument(method.Args[3].Name);
-				var memOpStr = $"new MemoryOperand({regStr}, (long){addrStr}, 8, false, {segPrefStr})";
-				var regOpStr = idConverter.Argument(method.Args[1 + regOp].Name);
-				var codeStr = idConverter.Argument(method.Args[0].Name);
-
-				if (memOp == 0)
-					writer.WriteLine($"return Create({codeStr}, {memOpStr}, {regOpStr});");
-				else
-					writer.WriteLine($"return Create({codeStr}, {regOpStr}, {memOpStr});");
 			}
 			writer.WriteLine("}");
 		}

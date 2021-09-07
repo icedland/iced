@@ -412,44 +412,6 @@ namespace Generator.Encoder.Rust {
 			ctx.Writer.WriteLine($"}}");
 		}
 
-		protected override bool CallGenCreateMemory64 => true;
-		protected override void GenCreateMemory64(FileWriter writer, CreateMethod method) {
-			if (method.Args.Count != 4)
-				throw new InvalidOperationException();
-
-			int memOp, regOp;
-			string name;
-			if (method.Args[1].Type == MethodArgType.UInt64) {
-				memOp = 0;
-				regOp = 1;
-				name = RustInstrCreateGenNames.with_mem64_reg;
-			}
-			else {
-				memOp = 1;
-				regOp = 0;
-				name = RustInstrCreateGenNames.with_reg_mem64;
-			}
-
-			var deprec = new RustDeprecatedInfo("1.11.0", $"Use with2() with a MemoryOperand arg instead");
-			var flags = GenTryFlags.NoFooter | GenTryFlags.AllowUnwrapUsed;
-			var ctx = new GenerateTryMethodContext(writer, method, 2, name, "try_" + name);
-			GenerateMethodAndBody(ctx, flags, (ctx, _) => GenCreateMemory64(ctx, memOp, regOp), null, deprec, TryMethodKind.Normal);
-		}
-
-		void GenCreateMemory64(GenerateTryMethodContext ctx, int memOp, int regOp) {
-			var regStr = idConverter.ToDeclTypeAndValue(genTypes[TypeIds.Register][nameof(Register.None)]);
-			var addrStr = idConverter.Argument(ctx.Method.Args[1 + memOp].Name);
-			var segPrefStr = idConverter.Argument(ctx.Method.Args[3].Name);
-			var memOpStr = $"MemoryOperand::with_base_displ_size_bcst_seg({regStr}, {addrStr} as i64, 8, false, {segPrefStr})";
-			var regOpStr = idConverter.Argument(ctx.Method.Args[1 + regOp].Name);
-			var codeStr = idConverter.Argument(ctx.Method.Args[0].Name);
-
-			if (memOp == 0)
-				ctx.Writer.WriteLine($"Instruction::with2({codeStr}, {memOpStr}, {regOpStr}).unwrap()");
-			else
-				ctx.Writer.WriteLine($"Instruction::with2({codeStr}, {regOpStr}, {memOpStr}).unwrap()");
-		}
-
 		static void WriteComma(FileWriter writer) => writer.Write(", ");
 		void Write(FileWriter writer, EnumValue value) => writer.Write(idConverter.ToDeclTypeAndValue(value));
 		void Write(FileWriter writer, MethodArg arg) => writer.Write(idConverter.Argument(arg.Name));

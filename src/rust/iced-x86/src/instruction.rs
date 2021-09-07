@@ -637,7 +637,6 @@ impl Instruction {
 	/// # Examples
 	///
 	/// ```
-	/// # #![allow(deprecated)]
 	/// use iced_x86::*;
 	///
 	/// // add [rax],ebx
@@ -1633,7 +1632,6 @@ impl Instruction {
 	/// # Examples
 	///
 	/// ```
-	/// # #![allow(deprecated)]
 	/// use iced_x86::*;
 	///
 	/// // add [rax],ebx

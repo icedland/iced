@@ -821,9 +821,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "4883C15A", DecoderOptions.None, Instruction.Create(Code.Add_rm64_imm8, Register.RCX, 0x5A) };
 				yield return new object[] { 64, "4881C15AA51234", DecoderOptions.None, Instruction.Create(Code.Add_rm64_imm32, Register.RCX, 0x3412A55A) };
 				yield return new object[] { 64, "64A0123456789ABCDEF0", DecoderOptions.None, Instruction.Create(Code.Mov_AL_moffs8, Register.AL, new MemoryOperand(Register.None, unchecked((long)0xF0DEBC9A78563412), 8, false, Register.FS)) };
-#pragma warning disable CS0618 // Type or member is obsolete
-				yield return new object[] { 64, "64A0123456789ABCDEF0", DecoderOptions.None, Instruction.CreateMemory64(Code.Mov_AL_moffs8, Register.AL, 0xF0DEBC9A78563412, Register.FS) };
-#pragma warning restore CS0618 // Type or member is obsolete
 				yield return new object[] { 64, "6400947501EFCDAB", DecoderOptions.None, Instruction.Create(Code.Add_rm8_r8, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.DL) };
 				yield return new object[] { 64, "6480847501EFCDAB5A", DecoderOptions.None, Instruction.Create(Code.Add_rm8_imm8, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x5A) };
 				yield return new object[] { 64, "646681847501EFCDAB5AA5", DecoderOptions.None, Instruction.Create(Code.Add_rm16_imm16, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA55AU) };
@@ -837,9 +834,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "66C85AA5A6", DecoderOptions.None, Instruction.Create(Code.Enterw_imm16_imm8, 0xA55A, 0xA6) };
 				yield return new object[] { 64, "66C85AA5A6", DecoderOptions.None, Instruction.Create(Code.Enterw_imm16_imm8, 0xA55AU, 0xA6U) };
 				yield return new object[] { 64, "64A2123456789ABCDEF0", DecoderOptions.None, Instruction.Create(Code.Mov_moffs8_AL, new MemoryOperand(Register.None, unchecked((long)0xF0DEBC9A78563412), 8, false, Register.FS), Register.AL) };
-#pragma warning disable CS0618 // Type or member is obsolete
-				yield return new object[] { 64, "64A2123456789ABCDEF0", DecoderOptions.None, Instruction.CreateMemory64(Code.Mov_moffs8_AL, 0xF0DEBC9A78563412, Register.AL, Register.FS) };
-#pragma warning restore CS0618 // Type or member is obsolete
 				yield return new object[] { 64, "6669CAA55A", DecoderOptions.None, Instruction.Create(Code.Imul_r16_rm16_imm16, Register.CX, Register.DX, 0x5AA5U) };
 				yield return new object[] { 64, "69CA5AA51234", DecoderOptions.None, Instruction.Create(Code.Imul_r32_rm32_imm32, Register.ECX, Register.EDX, 0x3412A55A) };
 				yield return new object[] { 64, "666BCA5A", DecoderOptions.None, Instruction.Create(Code.Imul_r16_rm16_imm8, Register.CX, Register.DX, 0x5A) };

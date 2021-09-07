@@ -2042,26 +2042,6 @@ impl Instruction {
 		Instruction::with_xbegin(bitness, target)
 	}
 
-	#[deprecated(since = "1.11.0", note = "Use with2() with a MemoryOperand arg instead")]
-	#[doc(hidden)]
-	#[must_use]
-	#[inline]
-	#[rustfmt::skip]
-	#[allow(clippy::unwrap_used)]
-	pub fn with_reg_mem64(code: Code, register: Register, address: u64, segment_prefix: Register) -> Self {
-		Instruction::with2(code, register, MemoryOperand::with_base_displ_size_bcst_seg(Register::None, address as i64, 8, false, segment_prefix)).unwrap()
-	}
-
-	#[deprecated(since = "1.11.0", note = "Use with2() with a MemoryOperand arg instead")]
-	#[doc(hidden)]
-	#[must_use]
-	#[inline]
-	#[rustfmt::skip]
-	#[allow(clippy::unwrap_used)]
-	pub fn with_mem64_reg(code: Code, address: u64, register: Register, segment_prefix: Register) -> Self {
-		Instruction::with2(code, MemoryOperand::with_base_displ_size_bcst_seg(Register::None, address as i64, 8, false, segment_prefix), register).unwrap()
-	}
-
 	/// Creates a `OUTSB` instruction
 	///
 	/// # Errors

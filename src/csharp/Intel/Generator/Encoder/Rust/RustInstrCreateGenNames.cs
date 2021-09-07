@@ -6,8 +6,6 @@ namespace Generator.Encoder.Rust {
 		public const string with_branch = nameof(with_branch);
 		public const string with_far_branch = nameof(with_far_branch);
 		public const string with_xbegin = nameof(with_xbegin);
-		public const string with_mem64_reg = nameof(with_mem64_reg);
-		public const string with_reg_mem64 = nameof(with_reg_mem64);
 		public const string with_declare_byte = nameof(with_declare_byte);
 		public const string with_declare_word = nameof(with_declare_word);
 		public const string with_declare_dword = nameof(with_declare_dword);
