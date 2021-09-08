@@ -43,7 +43,7 @@ impl PartialEq<FormatterOptionString> for FormatterOptionString {
 impl Hash for FormatterOptionString {
 	#[inline]
 	fn hash<H: Hasher>(&self, state: &mut H) {
-		state.write(self.as_str().as_bytes());
+		self.as_str().hash(state);
 	}
 }
 

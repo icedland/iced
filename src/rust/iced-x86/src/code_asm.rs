@@ -175,7 +175,7 @@ impl PartialEq for CodeLabel {
 impl Hash for CodeLabel {
 	#[inline]
 	fn hash<H: Hasher>(&self, state: &mut H) {
-		state.write_u64(self.id);
+		self.id.hash(state);
 	}
 }
 

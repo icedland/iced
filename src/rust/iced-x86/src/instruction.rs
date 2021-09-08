@@ -3555,21 +3555,17 @@ impl PartialEq<Instruction> for Instruction {
 impl Hash for Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	fn hash<H: Hasher>(&self, state: &mut H) {
-		state.write_u64(self.mem_displ);
-		state.write_u32(self.flags1 & !InstrFlags1::EQUALS_IGNORE_MASK);
-		state.write_u32(self.immediate);
-		state.write_u16(self.code as CodeUnderlyingType);
-		state.write_u8(self.mem_base_reg as RegisterUnderlyingType);
-		state.write_u8(self.mem_index_reg as RegisterUnderlyingType);
-		for &reg in &self.regs {
-			state.write_u8(reg as RegisterUnderlyingType);
-		}
-		for &op_kind in &self.op_kinds {
-			state.write_u8(op_kind as OpKindUnderlyingType);
-		}
-		state.write_u8(self.scale as u8);
-		state.write_u8(self.displ_size);
-		state.write_u8(self.pad);
+		self.mem_displ.hash(state);
+		(self.flags1 & !InstrFlags1::EQUALS_IGNORE_MASK).hash(state);
+		self.immediate.hash(state);
+		self.code.hash(state);
+		self.mem_base_reg.hash(state);
+		self.mem_index_reg.hash(state);
+		self.regs.hash(state);
+		self.op_kinds.hash(state);
+		self.scale.hash(state);
+		self.displ_size.hash(state);
+		self.pad.hash(state);
 	}
 }
 
