@@ -30159,7 +30159,7 @@ INSTRUCTION: EVEX.128.66.MAP5.W0 79 /r | VCVTPH2UQQ xmm1 {k1}{z}, xmm2/m32/m16bc
 END
 
 # Code: EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16
-INSTRUCTION: EVEX.256.66.MAP5.W0 79 /r | VCVTPH2UQQ ymm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16| N8b2
+INSTRUCTION: EVEX.256.66.MAP5.W0 79 /r | VCVTPH2UQQ ymm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16 | N8b2
 	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
 	masm: flags=force-size=default
 END
