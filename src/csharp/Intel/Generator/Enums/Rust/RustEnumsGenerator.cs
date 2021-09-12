@@ -177,6 +177,7 @@ namespace Generator.Enums.Rust {
 		void WriteEnumCore(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
 			// Some private enums are known by the serializer/deserializer so they need extra code generated that all public enums also get
 			bool isSerializePublic = enumType.TypeId == TypeIds.InstrScale;
+			bool serializeType = enumType.IsPublic || isSerializePublic;
 			docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
 			var enumTypeName = enumType.Name(idConverter);
 			foreach (var attr in info.Attributes)
@@ -203,32 +204,49 @@ namespace Generator.Enums.Rust {
 			}
 			writer.WriteLine("}");
 
+			static bool IsNormalEnum(EnumType enumType) {
+				uint expectedValue = 0;
+				foreach (var value in enumType.Values) {
+					if (value.Value != expectedValue)
+						return false;
+					expectedValue++;
+				}
+				return true;
+			}
+			bool needsStringsTable = serializeType || IsNormalEnum(enumType);
+			if (needsStringsTable && !IsNormalEnum(enumType))
+				throw new InvalidOperationException();
+
 			var arrayName = idConverter.Constant("GenDebug" + enumType.RawName);
 			var feature = info.Attributes.FirstOrDefault(a => a.StartsWith(RustConstants.FeaturePrefix, StringComparison.Ordinal) && a.Contains("(feature", StringComparison.Ordinal));
-			if (feature is not null)
-				writer.WriteLine(feature);
-			writer.WriteLine(RustConstants.AttributeNoRustFmt);
-			writer.WriteLine($"static {arrayName}: [&str; {enumValues.Length}] = [");
-			using (writer.Indent()) {
-				foreach (var value in enumValues)
-					writer.WriteLine($"\"{value.Name(idConverter)}\",");
+			if (needsStringsTable) {
+				if (feature is not null)
+					writer.WriteLine(feature);
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				writer.WriteLine($"static {arrayName}: [&str; {enumValues.Length}] = [");
+				using (writer.Indent()) {
+					foreach (var value in enumValues)
+						writer.WriteLine($"\"{value.Name(idConverter)}\",");
+				}
+				writer.WriteLine("];");
 			}
-			writer.WriteLine("];");
 
-			// #[derive(Debug)] isn't used since it generates a big switch statement. This code
-			// uses a simple array lookup which has very little code. For small enums the default
-			// implementation might be better though.
-			if (feature is not null)
-				writer.WriteLine(feature);
-			writer.WriteLine($"impl fmt::Debug for {enumTypeName} {{");
-			using (writer.Indent()) {
-				writer.WriteLine(RustConstants.AttributeInline);
-				writer.WriteLine($"fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{");
-				using (writer.Indent())
-					writer.WriteLine($"write!(f, \"{{}}\", {arrayName}[*self as usize])");
+			if (needsStringsTable) {
+				// #[derive(Debug)] isn't used since it generates a big switch statement. This code
+				// uses a simple array lookup which has very little code. For small enums the default
+				// implementation might be better though.
+				if (feature is not null)
+					writer.WriteLine(feature);
+				writer.WriteLine($"impl fmt::Debug for {enumTypeName} {{");
+				using (writer.Indent()) {
+					writer.WriteLine(RustConstants.AttributeInline);
+					writer.WriteLine($"fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{");
+					using (writer.Indent())
+						writer.WriteLine($"write!(f, \"{{}}\", {arrayName}[*self as usize])");
+					writer.WriteLine("}");
+				}
 				writer.WriteLine("}");
 			}
-			writer.WriteLine("}");
 
 			if (feature is not null)
 				writer.WriteLine(feature);
@@ -249,7 +267,7 @@ namespace Generator.Enums.Rust {
 			}
 			writer.WriteLine("}");
 
-			if (enumType.IsPublic || isSerializePublic) {
+			if (serializeType) {
 				// Verify what we assume in the following code (base 0, no holes)
 				for (int i = 0; i < enumType.Values.Length; i++) {
 					if ((uint)i != enumType.Values[i].Value)

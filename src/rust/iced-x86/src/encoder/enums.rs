@@ -186,20 +186,6 @@ pub(crate) enum VexOpCodeTable {
 	MAP0F3A,
 }
 #[cfg(not(feature = "no_vex"))]
-#[rustfmt::skip]
-static GEN_DEBUG_VEX_OP_CODE_TABLE: [&str; 3] = [
-	"MAP0F",
-	"MAP0F38",
-	"MAP0F3A",
-];
-#[cfg(not(feature = "no_vex"))]
-impl fmt::Debug for VexOpCodeTable {
-	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_VEX_OP_CODE_TABLE[*self as usize])
-	}
-}
-#[cfg(not(feature = "no_vex"))]
 impl Default for VexOpCodeTable {
 	#[must_use]
 	#[inline]
@@ -256,22 +242,6 @@ pub(crate) enum EvexOpCodeTable {
 	MAP0F3A,
 	MAP5 = 5,
 	MAP6,
-}
-#[cfg(not(feature = "no_evex"))]
-#[rustfmt::skip]
-static GEN_DEBUG_EVEX_OP_CODE_TABLE: [&str; 5] = [
-	"MAP0F",
-	"MAP0F38",
-	"MAP0F3A",
-	"MAP5",
-	"MAP6",
-];
-#[cfg(not(feature = "no_evex"))]
-impl fmt::Debug for EvexOpCodeTable {
-	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_EVEX_OP_CODE_TABLE[*self as usize])
-	}
 }
 #[cfg(not(feature = "no_evex"))]
 impl Default for EvexOpCodeTable {
