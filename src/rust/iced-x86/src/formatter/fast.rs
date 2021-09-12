@@ -790,6 +790,16 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				let mut index = instruction.immediate8() as usize;
 				// SAFETY: the generator generates only valid values (1-based)
 				let pseudo_ops_kind: PseudoOpsKind = unsafe { mem::transmute(pseudo_ops_num - 1) };
+				// Not enough bits to store all values so some are mapped to the same value. Fix that here.
+				let pseudo_ops_kind = if pseudo_ops_kind == PseudoOpsKind::vpcmpd6 {
+					match code {
+						#[cfg(feature = "mvex")]
+						Code::MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8 => PseudoOpsKind::vpcmpud6,
+						_ => pseudo_ops_kind,
+					}
+				} else {
+					pseudo_ops_kind
+				};
 				let pseudo_ops = get_pseudo_ops(pseudo_ops_kind);
 				if pseudo_ops_kind == PseudoOpsKind::pclmulqdq || pseudo_ops_kind == PseudoOpsKind::vpclmulqdq {
 					if index <= 1 {

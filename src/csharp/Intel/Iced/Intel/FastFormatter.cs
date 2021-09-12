@@ -80,6 +80,17 @@ namespace Iced.Intel {
 			if (pseudoOpsNum != 0 && options.UsePseudoOps && instruction.GetOpKind(opCount - 1) == OpKind.Immediate8) {
 				int index = instruction.Immediate8;
 				var pseudoOpKind = (PseudoOpsKind)(pseudoOpsNum - 1);
+				if (pseudoOpKind == PseudoOpsKind.vpcmpd6) {
+					switch (code) {
+#if MVEX
+					case Code.MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8:
+						pseudoOpKind = PseudoOpsKind.vpcmpud6;
+						break;
+#endif
+					default:
+						break;
+					}
+				}
 				var pseudoOps = FormatterConstants.GetPseudoOps(pseudoOpKind);
 				if (pseudoOpKind == PseudoOpsKind.pclmulqdq || pseudoOpKind == PseudoOpsKind.vpclmulqdq) {
 					if (index <= 1) {
