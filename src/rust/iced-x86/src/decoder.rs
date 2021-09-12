@@ -359,6 +359,8 @@ impl DecoderOptions {
 	pub const CYRIX_DMI: u32 = 0x0040_0000;
 	/// Decode Centaur `ALTINST`
 	pub const ALTINST: u32 = 0x0080_0000;
+	/// Decode Intel Knights Corner instructions (requires the `mvex` feature)
+	pub const KNC: u32 = 0x0100_0000;
 }
 // GENERATOR-END: DecoderOptions
 

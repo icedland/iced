@@ -769,6 +769,7 @@ namespace Iced.Intel {
 			DecoderOptions.Umov,
 			DecoderOptions.Xbts,
 			DecoderOptions.Udbg,
+			DecoderOptions.KNC,
 			// GENERATOR-END: ToDecoderOptionsTable
 		};
 

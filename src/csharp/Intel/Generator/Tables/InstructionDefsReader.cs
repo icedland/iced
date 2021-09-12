@@ -1466,6 +1466,11 @@ namespace Generator.Tables {
 				}
 				state.Flags1 |= InstructionDefFlags1.Bit64;
 				state.Flags3 |= InstructionDefFlags3.AsmIgnore;
+				if (state.DecoderOption != decoderOptionNone) {
+					Error(lineIndex, "The parser adds KNC decoder option");
+					return false;
+				}
+				state.DecoderOption = toDecOptionValue[nameof(DecOptionValue.KNC)];
 			}
 
 			if ((state.Flags1 & CpuModeBits) == 0)

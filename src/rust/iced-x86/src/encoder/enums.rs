@@ -468,10 +468,11 @@ pub(crate) enum DecOptionValue {
 	Umov,
 	Xbts,
 	Udbg,
+	KNC,
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
-static GEN_DEBUG_DEC_OPTION_VALUE: [&str; 17] = [
+static GEN_DEBUG_DEC_OPTION_VALUE: [&str; 18] = [
 	"None",
 	"ALTINST",
 	"Cl1invmb",
@@ -489,6 +490,7 @@ static GEN_DEBUG_DEC_OPTION_VALUE: [&str; 17] = [
 	"Umov",
 	"Xbts",
 	"Udbg",
+	"KNC",
 ];
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl fmt::Debug for DecOptionValue {

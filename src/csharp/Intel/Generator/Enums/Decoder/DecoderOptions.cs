@@ -54,5 +54,7 @@ namespace Generator.Enums.Decoder {
 		Cyrix_DMI				= 0x00400000,
 		[Comment("Decode Centaur #(c:ALTINST)#")]
 		ALTINST					= 0x00800000,
+		[Comment("Decode Intel Knights Corner instructions (requires the #(c:mvex)# feature)")]
+		KNC						= 0x01000000,
 	}
 }
