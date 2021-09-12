@@ -516,6 +516,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			case EncodingKind.VEX:
 			case EncodingKind.EVEX:
 			case EncodingKind.XOP:
+			case EncodingKind.MVEX:
 				if (!gotVectorLength)
 					throw new InvalidOperationException("Missing vector length: L0/L1/L128/L256/L512/LIG");
 				if (!gotW)

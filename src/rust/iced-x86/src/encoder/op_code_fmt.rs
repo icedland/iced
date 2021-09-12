@@ -73,13 +73,15 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 			match self.op_code.encoding() {
 				EncodingKind::Legacy => self.format_legacy(),
 				#[cfg(not(feature = "no_vex"))]
-				EncodingKind::VEX => self.format_vex_xop_evex("VEX"),
+				EncodingKind::VEX => self.format_vec_encoding("VEX"),
 				#[cfg(not(feature = "no_evex"))]
-				EncodingKind::EVEX => self.format_vex_xop_evex("EVEX"),
+				EncodingKind::EVEX => self.format_vec_encoding("EVEX"),
 				#[cfg(not(feature = "no_xop"))]
-				EncodingKind::XOP => self.format_vex_xop_evex("XOP"),
+				EncodingKind::XOP => self.format_vec_encoding("XOP"),
 				#[cfg(not(feature = "no_d3now"))]
 				EncodingKind::D3NOW => self.format_3dnow(),
+				#[cfg(feature = "mvex")]
+				EncodingKind::MVEX => self.format_vec_encoding("MVEX"),
 				#[cfg(feature = "no_vex")]
 				EncodingKind::VEX => String::new(),
 				#[cfg(feature = "no_evex")]
@@ -88,6 +90,8 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				EncodingKind::XOP => String::new(),
 				#[cfg(feature = "no_d3now")]
 				EncodingKind::D3NOW => String::new(),
+				#[cfg(not(feature = "mvex"))]
+				EncodingKind::MVEX => String::new(),
 			}
 		}
 	}
@@ -131,7 +135,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 
 		match self.op_code.encoding() {
 			EncodingKind::Legacy => {}
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::D3NOW => return true,
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::D3NOW | EncodingKind::MVEX => return true,
 		}
 
 		for &op_kind in self.op_code.op_kinds() {
@@ -405,8 +409,8 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		self.sb.clone()
 	}
 
-	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
-	fn format_vex_xop_evex(&mut self, encoding_name: &str) -> String {
+	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
+	fn format_vec_encoding(&mut self, encoding_name: &str) -> String {
 		self.sb.clear();
 
 		self.sb.push_str(encoding_name);

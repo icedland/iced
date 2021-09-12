@@ -68,7 +68,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		}
 
 		[Fact]
-		void Verify_invalid_REX_mandatory_prefixes_VEX_EVEX_XOP() {
+		void Verify_invalid_REX_mandatory_prefixes_VEX_EVEX_XOP_MVEX() {
 			var prefixes1632 = new string[] { "66", "F3", "F2" };
 			var prefixes64   = new string[] { "66", "F3", "F2",
 											  "40", "41", "42", "43", "44", "45", "46", "47",
@@ -85,6 +85,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				case EncodingKind.VEX:
 				case EncodingKind.EVEX:
 				case EncodingKind.XOP:
+				case EncodingKind.MVEX:
 					break;
 
 				default:
@@ -757,6 +758,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				case EncodingKind.VEX:
 				case EncodingKind.EVEX:
 				case EncodingKind.XOP:
+				case EncodingKind.MVEX:
 					break;
 
 				default:
@@ -900,6 +902,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						Assert.NotEqual(DecoderError.None, decoder.LastError);
 					}
 				}
+				else if (opCode.Encoding == EncodingKind.MVEX) {
+					//TODO: MVEX
+				}
 				else
 					throw new InvalidOperationException();
 			}
@@ -910,6 +915,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			isVsib = false;
 			switch (opCode.Encoding) {
 			case EncodingKind.EVEX:
+			case EncodingKind.MVEX:
 				vvvv_mask = 0x1F;
 				break;
 			case EncodingKind.VEX:
@@ -965,6 +971,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				case EncodingKind.VEX:
 				case EncodingKind.EVEX:
 				case EncodingKind.XOP:
+				case EncodingKind.MVEX:
 					break;
 
 				default:
@@ -1146,6 +1153,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						}
 					}
 				}
+				else if (opCode.Encoding == EncodingKind.MVEX) {
+					//TODO: MVEX
+				}
 				else
 					throw new InvalidOperationException();
 			}
@@ -1167,6 +1177,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				case EncodingKind.VEX:
 				case EncodingKind.EVEX:
 				case EncodingKind.XOP:
+				case EncodingKind.MVEX:
 					break;
 
 				default:
@@ -1369,6 +1380,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							}
 						}
 					}
+				}
+				else if (opCode.Encoding == EncodingKind.MVEX) {
+					//TODO: MVEX
 				}
 				else
 					throw new InvalidOperationException();
@@ -1687,6 +1701,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case EncodingKind.VEX:
 					case EncodingKind.EVEX:
 					case EncodingKind.XOP:
+					case EncodingKind.MVEX:
 						break;
 
 					default:
@@ -2069,6 +2084,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 						case EncodingKind.Legacy:
 						case EncodingKind.D3NOW:
+						case EncodingKind.MVEX:
 						default:
 							throw new InvalidOperationException();
 						}
@@ -2094,6 +2110,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case EncodingKind.D3NOW:
 						break;
 					case EncodingKind.EVEX:
+					case EncodingKind.MVEX:
 						if (!tested.MemDisp8 && CanUseModRM_rm_mem(opCode))
 							GetList(bitness, disp8_16, disp8_32, disp8_64).Add(code);
 						break;
@@ -2122,6 +2139,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					}
 					switch (opCode.Encoding) {
 					case EncodingKind.EVEX:
+					case EncodingKind.MVEX:
 						if (CanUseR2(opCode)) {
 							if (tested.R2Bits != 3)
 								GetList(bitness, r2_16, r2_32, r2_64).Add(code);
@@ -2163,6 +2181,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						}
 						switch (opCode.Encoding) {
 						case EncodingKind.EVEX:
+						case EncodingKind.MVEX:
 							if (IsVsib(opCode)) {
 								// The memory tests test vsib memory operands
 							}

@@ -49,6 +49,10 @@ lazy_static! {
 				EncodingKind::D3NOW => Box::into_raw(Box::new(D3nowHandler::new(enc_flags2, enc_flags3))) as *const OpCodeHandler,
 				#[cfg(feature = "no_d3now")]
 				EncodingKind::D3NOW => invalid_handler,
+				#[cfg(feature = "mvex")]
+				EncodingKind::MVEX => invalid_handler, //TODO:
+				#[cfg(not(feature = "mvex"))]
+				EncodingKind::MVEX => invalid_handler,
 			};
 			v.push(unsafe { &*handler });
 		}

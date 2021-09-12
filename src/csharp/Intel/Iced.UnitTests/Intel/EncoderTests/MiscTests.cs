@@ -93,8 +93,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				yield return new object[] { 64, "0F0F 8E 78563412 0C", rip, Instruction.Create(Code.D3NOW_Pi2fw_mm_mmm64, Register.MM1, memory64) };
 #endif
 
+#if MVEX
+				//TODO: MVEX tests here
+#endif
+
 				// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
-				Static.Assert(IcedConstants.EncodingKindEnumCount == 5 ? 0 : -1);
+				Static.Assert(IcedConstants.EncodingKindEnumCount == 6 ? 0 : -1);
 			}
 		}
 

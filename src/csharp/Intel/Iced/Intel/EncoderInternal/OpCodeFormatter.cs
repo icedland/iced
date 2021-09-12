@@ -51,17 +51,17 @@ namespace Iced.Intel.EncoderInternal {
 			return opCode.Encoding switch {
 				EncodingKind.Legacy => Format_Legacy(),
 #if !NO_VEX
-				EncodingKind.VEX => Format_VEX_XOP_EVEX("VEX"),
+				EncodingKind.VEX => FormatVecEncoding("VEX"),
 #else
 				EncodingKind.VEX => string.Empty,
 #endif
 #if !NO_EVEX
-				EncodingKind.EVEX => Format_VEX_XOP_EVEX("EVEX"),
+				EncodingKind.EVEX => FormatVecEncoding("EVEX"),
 #else
 				EncodingKind.EVEX => string.Empty,
 #endif
 #if !NO_XOP
-				EncodingKind.XOP => Format_VEX_XOP_EVEX("XOP"),
+				EncodingKind.XOP => FormatVecEncoding("XOP"),
 #else
 				EncodingKind.XOP => string.Empty,
 #endif
@@ -69,6 +69,11 @@ namespace Iced.Intel.EncoderInternal {
 				EncodingKind.D3NOW => Format_3DNow(),
 #else
 				EncodingKind.D3NOW => string.Empty,
+#endif
+#if MVEX
+				EncodingKind.MVEX => FormatVecEncoding("MVEX"),
+#else
+				EncodingKind.MVEX => string.Empty,
 #endif
 				_ => throw new InvalidOperationException(),
 			};
@@ -142,6 +147,7 @@ namespace Iced.Intel.EncoderInternal {
 			case EncodingKind.EVEX:
 			case EncodingKind.XOP:
 			case EncodingKind.D3NOW:
+			case EncodingKind.MVEX:
 				return true;
 			default:
 				throw new InvalidOperationException();
@@ -499,8 +505,8 @@ namespace Iced.Intel.EncoderInternal {
 		}
 #endif
 
-#if !NO_VEX || !NO_XOP || !NO_EVEX
-		string Format_VEX_XOP_EVEX(string encodingName) {
+#if !NO_VEX || !NO_XOP || !NO_EVEX || MVEX
+		string FormatVecEncoding(string encodingName) {
 			sb.Length = 0;
 
 			sb.Append(encodingName);

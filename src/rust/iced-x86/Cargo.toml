@@ -37,6 +37,7 @@ no_vex = []
 no_evex = []
 no_xop = []
 no_d3now = []
+mvex = []
 serde = ["serde_crate"]
 code_asm = ["block_encoder"]
 # Don't use

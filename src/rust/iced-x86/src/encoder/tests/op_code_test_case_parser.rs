@@ -582,7 +582,7 @@ impl IntoIter {
 		}
 		match tc.encoding {
 			EncodingKind::Legacy | EncodingKind::D3NOW => {}
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {
 				if !got_vector_length {
 					return Err(String::from("Missing vector length: L0/L1/L128/L256/L512/LIG"));
 				}

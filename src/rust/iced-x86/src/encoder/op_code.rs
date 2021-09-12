@@ -226,6 +226,7 @@ impl OpCodeInfo {
 				op4_kind = VEX_OP_KINDS[((enc_flags1 >> EncFlags1::VEX_OP4_SHIFT) & EncFlags1::VEX_OP_MASK) as usize];
 
 				table = match unsafe { mem::transmute(((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK) as u8) } {
+					VexOpCodeTable::MAP0 => OpCodeTableKind::Normal,
 					VexOpCodeTable::MAP0F => OpCodeTableKind::T0F,
 					VexOpCodeTable::MAP0F38 => OpCodeTableKind::T0F38,
 					VexOpCodeTable::MAP0F3A => OpCodeTableKind::T0F3A,
@@ -305,6 +306,29 @@ impl OpCodeInfo {
 				op3_kind = OpCodeOperandKind::None;
 				op4_kind = OpCodeOperandKind::None;
 				table = OpCodeTableKind::T0F;
+			}
+
+			#[cfg(not(feature = "mvex"))]
+			EncodingKind::MVEX => {
+				op0_kind = OpCodeOperandKind::None;
+				op1_kind = OpCodeOperandKind::None;
+				op2_kind = OpCodeOperandKind::None;
+				op3_kind = OpCodeOperandKind::None;
+				op4_kind = OpCodeOperandKind::None;
+				table = OpCodeTableKind::Normal;
+				string_format = false;
+			}
+
+			#[cfg(feature = "mvex")]
+			EncodingKind::MVEX => {
+				//TODO: MVEX
+				op0_kind = OpCodeOperandKind::None;
+				op1_kind = OpCodeOperandKind::None;
+				op2_kind = OpCodeOperandKind::None;
+				op3_kind = OpCodeOperandKind::None;
+				op4_kind = OpCodeOperandKind::None;
+				table = OpCodeTableKind::Normal;
+				string_format = false;
 			}
 		}
 

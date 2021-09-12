@@ -188,6 +188,7 @@ namespace Iced.Intel {
 				op4Kind = opKinds[(int)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op4Shift) & (uint)EncFlags1.VEX_OpMask)];
 
 				table = (VexOpCodeTable)(((uint)encFlags2 >> (int)EncFlags2.TableShift) & (uint)EncFlags2.TableMask) switch {
+					VexOpCodeTable.MAP0 => (byte)OpCodeTableKind.Normal,
 					VexOpCodeTable.MAP0F => (byte)OpCodeTableKind.T0F,
 					VexOpCodeTable.MAP0F38 => (byte)OpCodeTableKind.T0F38,
 					VexOpCodeTable.MAP0F3A => (byte)OpCodeTableKind.T0F3A,
@@ -250,6 +251,18 @@ namespace Iced.Intel {
 				op0Kind = (byte)OpCodeOperandKind.mm_reg;
 				op1Kind = (byte)OpCodeOperandKind.mm_or_mem;
 				table = (byte)OpCodeTableKind.T0F;
+				break;
+#else
+				toOpCodeStringValue = string.Empty;
+				toInstructionStringValue = string.Empty;
+				break;
+#endif
+
+			case EncodingKind.MVEX:
+#if MVEX
+				//TODO: MVEX
+				toOpCodeStringValue = string.Empty;
+				toInstructionStringValue = string.Empty;
 				break;
 #else
 				toOpCodeStringValue = string.Empty;

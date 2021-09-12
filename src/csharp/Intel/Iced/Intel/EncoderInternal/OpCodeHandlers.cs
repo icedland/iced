@@ -61,6 +61,14 @@ namespace Iced.Intel.EncoderInternal {
 #endif
 					break;
 
+				case EncodingKind.MVEX:
+#if MVEX
+					handler = invalidHandler;//TODO:
+#else
+					handler = invalidHandler;
+#endif
+					break;
+
 				default:
 					throw new InvalidOperationException();
 				}

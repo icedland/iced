@@ -334,8 +334,14 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 		tests.push((64, "0F0F 8E 78563412 0C", RIP, Instruction::with2(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory64).unwrap()));
 	}
 
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "mvex")]
+	{
+		//TODO: MVEX tests here
+	}
+
 	// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
-	const_assert_eq!(IcedConstants::ENCODING_KIND_ENUM_COUNT, 5);
+	const_assert_eq!(IcedConstants::ENCODING_KIND_ENUM_COUNT, 6);
 
 	for &(bitness, hex_bytes, rip, instruction) in &tests {
 		let expected_bytes = to_vec_u8(hex_bytes).unwrap();

@@ -81,7 +81,7 @@ fn verify_invalid_and_valid_lock_prefix() {
 }
 
 #[test]
-fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
+fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop_mvex() {
 	let prefixes1632 = vec!["66", "F3", "F2"];
 	let prefixes64 = vec!["66", "F3", "F2", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "4A", "4B", "4C", "4D", "4E", "4F"];
 	for info in decoder_tests(false, false) {
@@ -91,7 +91,7 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
 
 		match info.code().op_code().encoding() {
 			EncodingKind::Legacy | EncodingKind::D3NOW => continue,
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {}
 		}
 
 		let prefixes: &[&str] = match info.bitness() {
@@ -718,7 +718,7 @@ fn verify_invalid_vvvv() {
 
 		match op_code.encoding() {
 			EncodingKind::Legacy | EncodingKind::D3NOW => continue,
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {}
 		}
 
 		let (uses_vvvv, is_vsib, vvvv_mask) = get_vvvvv_info(op_code);
@@ -855,6 +855,8 @@ fn verify_invalid_vvvv() {
 				assert_eq!(instruction.code(), Code::INVALID);
 				assert_ne!(decoder.last_error(), DecoderError::None);
 			}
+		} else if op_code.encoding() == EncodingKind::MVEX {
+			//TODO: MVEX
 		} else {
 			panic!();
 		}
@@ -865,7 +867,7 @@ fn get_vvvvv_info(op_code: &OpCodeInfo) -> (bool, bool, u8) {
 	let mut uses_vvvv = false;
 	let mut is_vsib = false;
 	let mut vvvv_mask = match op_code.encoding() {
-		EncodingKind::EVEX => 0x1F,
+		EncodingKind::EVEX | EncodingKind::MVEX => 0x1F,
 		EncodingKind::VEX | EncodingKind::XOP => 0xF,
 		EncodingKind::Legacy | EncodingKind::D3NOW => panic!(),
 	};
@@ -905,7 +907,7 @@ fn verify_gpr_rrxb_bits() {
 
 		match op_code.encoding() {
 			EncodingKind::Legacy | EncodingKind::D3NOW => continue,
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {}
 		}
 
 		let mut uses_rm = false;
@@ -1078,6 +1080,8 @@ fn verify_gpr_rrxb_bits() {
 					}
 				}
 			}
+		} else if op_code.encoding() == EncodingKind::MVEX {
+			//TODO: MVEX
 		} else {
 			panic!();
 		}
@@ -1095,7 +1099,7 @@ fn verify_k_reg_rrxb_bits() {
 
 		match op_code.encoding() {
 			EncodingKind::Legacy | EncodingKind::D3NOW => continue,
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {}
 		}
 
 		let mut uses_rm = false;
@@ -1287,6 +1291,8 @@ fn verify_k_reg_rrxb_bits() {
 					}
 				}
 			}
+		} else if op_code.encoding() == EncodingKind::MVEX {
+			//TODO: MVEX
 		} else {
 			panic!();
 		}
@@ -1602,7 +1608,7 @@ fn verify_that_test_cases_test_enough_bits() {
 			let op_code = code.op_code();
 			match op_code.encoding() {
 				EncodingKind::Legacy | EncodingKind::D3NOW => can_use_w[code as usize] = !uses_w.contains(&(op_code.table(), op_code.op_code())),
-				EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
+				EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {}
 			}
 		}
 	}
@@ -2001,7 +2007,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				match op_code.encoding() {
 					EncodingKind::VEX | EncodingKind::XOP => all_l_bits = 3, // 1 bit = 2 values
 					EncodingKind::EVEX => all_l_bits = 0xF,                  // 2 bits = 4 values
-					EncodingKind::Legacy | EncodingKind::D3NOW => panic!(),
+					EncodingKind::Legacy | EncodingKind::D3NOW | EncodingKind::MVEX => panic!(),
 				}
 				if tested.l_bits != all_l_bits {
 					get_vec(bitness, &mut lig_16, &mut lig_32, &mut lig_64).push(code);
@@ -2024,7 +2030,7 @@ fn verify_that_test_cases_test_enough_bits() {
 			}
 			match op_code.encoding() {
 				EncodingKind::Legacy | EncodingKind::VEX | EncodingKind::XOP | EncodingKind::D3NOW => {}
-				EncodingKind::EVEX => {
+				EncodingKind::EVEX | EncodingKind::MVEX => {
 					if !tested.mem_disp8 && can_use_modrm_rm_mem(op_code) {
 						get_vec(bitness, &mut disp8_16, &mut disp8_32, &mut disp8_64).push(code);
 					}
@@ -2056,7 +2062,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				}
 			}
 			match op_code.encoding() {
-				EncodingKind::EVEX => {
+				EncodingKind::EVEX | EncodingKind::MVEX => {
 					if can_use_r2(op_code) {
 						if tested.r2_bits != 3 {
 							get_vec(bitness, &mut r2_16, &mut r2_32, &mut r2_64).push(code);
@@ -2094,7 +2100,7 @@ fn verify_that_test_cases_test_enough_bits() {
 					}
 				}
 				match op_code.encoding() {
-					EncodingKind::EVEX => {
+					EncodingKind::EVEX | EncodingKind::MVEX => {
 						if is_vsib(op_code) {
 							// The memory tests test vsib memory operands
 						} else if can_use_v2(op_code) {
