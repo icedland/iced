@@ -1420,18 +1420,18 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000037, 0x2D000002,// EVEX_Vcvttps2dq_xmm_k1z_xmmm128b32
 			0x00000037, 0x2D000002,// EVEX_Vcvttps2dq_ymm_k1z_ymmm256b32
 			0x00000038, 0x1E000002,// EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae
-			0x07300036, 0x79000000,// Subps_xmm_xmmm128
-			0x074000B7, 0x0F000001,// VEX_Vsubps_xmm_xmm_xmmm128
-			0x074000B7, 0x0F000001,// VEX_Vsubps_ymm_ymm_ymmm256
-			0x074000B7, 0x2D000002,// EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32
-			0x074000B7, 0x2D000002,// EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32
-			0x074000B8, 0x1E000002,// EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er
-			0x07300036, 0x7A000000,// Subpd_xmm_xmmm128
-			0x074000B7, 0x0F000001,// VEX_Vsubpd_xmm_xmm_xmmm128
-			0x074000B7, 0x0F000001,// VEX_Vsubpd_ymm_ymm_ymmm256
-			0x074000B7, 0x2D000002,// EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64
-			0x074000B7, 0x2D000002,// EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64
-			0x074000B8, 0x1E000002,// EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er
+			0x00000036, 0x79000000,// Subps_xmm_xmmm128
+			0x000000B7, 0x0F000001,// VEX_Vsubps_xmm_xmm_xmmm128
+			0x000000B7, 0x0F000001,// VEX_Vsubps_ymm_ymm_ymmm256
+			0x000000B7, 0x2D000002,// EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32
+			0x000000B7, 0x2D000002,// EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32
+			0x000000B8, 0x1E000002,// EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er
+			0x00000036, 0x7A000000,// Subpd_xmm_xmmm128
+			0x000000B7, 0x0F000001,// VEX_Vsubpd_xmm_xmm_xmmm128
+			0x000000B7, 0x0F000001,// VEX_Vsubpd_ymm_ymm_ymmm256
+			0x000000B7, 0x2D000002,// EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64
+			0x000000B7, 0x2D000002,// EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64
+			0x000000B8, 0x1E000002,// EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er
 			0x00000036, 0x79000000,// Subss_xmm_xmmm32
 			0x000000B7, 0x0F000001,// VEX_Vsubss_xmm_xmm_xmmm32
 			0x000000B7, 0x1E000002,// EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er
@@ -4565,9 +4565,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000037, 0xB3000002,// EVEX_Vsqrtph_ymm_k1z_ymmm256b16
 			0x00000038, 0xB2000002,// EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er
 			0x000000B7, 0xB2000002,// EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er
-			0x074000B7, 0xB3000002,// EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
-			0x074000B7, 0xB3000002,// EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
-			0x074000B8, 0xB2000002,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
+			0x000000B7, 0xB3000002,// EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
+			0x000000B7, 0xB3000002,// EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
+			0x000000B8, 0xB2000002,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 			0x000000B7, 0xB2000002,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 			0x00084034, 0xB2000002,// EVEX_Vucomish_xmm_xmmm16_sae
 			0x0BF00000, 0xB4080000,// Rdudbg

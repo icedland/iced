@@ -18735,54 +18735,6 @@ C5ED 57 CA, VEX_Vxorpd_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=n op2=n w=vmm1
 62 F1ED4B 57 CA, EVEX_Vxorpd_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512DQ, op0=rcw op1=n op2=n r=zmm1 cw=vmm1 r=k3
 # vxorpd zmm1{k3}{z},zmm2,zmm2
 62 F1EDCB 57 CA, EVEX_Vxorpd_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512DQ, op0=w op1=n op2=n w=vmm1 r=k3
-# subps xmm1,xmm1
-0F 5C C9, Subps_xmm_xmmm128, Legacy, SSE, op0=w op1=n w=xmm1
-# vsubps xmm1,xmm2,xmm2
-C5E8 5C CA, VEX_Vsubps_xmm_xmm_xmmm128, VEX, AVX, op0=w op1=n op2=n w=vmm1
-# vsubps ymm1,ymm2,ymm2
-C5EC 5C CA, VEX_Vsubps_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=n op2=n w=vmm1
-# vsubps xmm1{k3}{z},xmm2,xmm2
-62 F16C8B 5C CA, EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32, EVEX, AVX512VL;AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
-# vsubps xmm1,xmm2,xmm2
-62 F16C08 5C CA, EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32, EVEX, AVX512VL;AVX512F, op0=w op1=n op2=n w=vmm1
-# vsubps xmm1{k3},xmm2,xmm2
-62 F16C0B 5C CA, EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32, EVEX, AVX512VL;AVX512F, op0=rw op1=n op2=n r=xmm1 w=vmm1 r=k3
-# vsubps ymm1{k3}{z},ymm2,ymm2
-62 F16CAB 5C CA, EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
-# vsubps ymm1{k3},ymm2,ymm2
-62 F16C2B 5C CA, EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=n op2=n r=ymm1 w=vmm1 r=k3
-# vsubps ymm1,ymm2,ymm2
-62 F16C28 5C CA, EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=w op1=n op2=n w=vmm1
-# vsubps zmm1{k3}{z},zmm2,zmm2
-62 F16CCB 5C CA, EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
-# vsubps zmm1{k3},zmm2,zmm2
-62 F16C4B 5C CA, EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=n op2=n r=zmm1 cw=vmm1 r=k3
-# vsubps zmm1,zmm2,zmm2
-62 F16C48 5C CA, EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=n op2=n w=vmm1
-# subpd xmm1,xmm1
-66 0F 5C C9, Subpd_xmm_xmmm128, Legacy, SSE2, op0=w op1=n w=xmm1
-# vsubpd xmm1,xmm2,xmm2
-C5E9 5C CA, VEX_Vsubpd_xmm_xmm_xmmm128, VEX, AVX, op0=w op1=n op2=n w=vmm1
-# vsubpd ymm1,ymm2,ymm2
-C5ED 5C CA, VEX_Vsubpd_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=n op2=n w=vmm1
-# vsubpd xmm1,xmm2,xmm2
-62 F1ED08 5C CA, EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=w op1=n op2=n w=vmm1
-# vsubpd xmm1{k3}{z},xmm2,xmm2
-62 F1ED8B 5C CA, EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
-# vsubpd xmm1{k3},xmm2,xmm2
-62 F1ED0B 5C CA, EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=n op2=n r=xmm1 w=vmm1 r=k3
-# vsubpd ymm1{k3},ymm2,ymm2
-62 F1ED2B 5C CA, EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=n op2=n r=ymm1 w=vmm1 r=k3
-# vsubpd ymm1,ymm2,ymm2
-62 F1ED28 5C CA, EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=w op1=n op2=n w=vmm1
-# vsubpd ymm1{k3}{z},ymm2,ymm2
-62 F1EDAB 5C CA, EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
-# vsubpd zmm1,zmm2,zmm2
-62 F1ED48 5C CA, EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=n op2=n w=vmm1
-# vsubpd zmm1{k3},zmm2,zmm2
-62 F1ED4B 5C CA, EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=n op2=n r=zmm1 cw=vmm1 r=k3
-# vsubpd zmm1{k3}{z},zmm2,zmm2
-62 F1EDCB 5C CA, EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
 # psubusb mm1,mm1
 0F D8 C9, Psubusb_mm_mmm64, Legacy, MMX, op0=w op1=n w=mm1
 # psubusb xmm1,xmm1
@@ -19035,24 +18987,6 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 62 F1ED4B FB CA, EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512F, op0=rcw op1=n op2=n r=zmm1 cw=vmm1 r=k3
 # vpsubq zmm1{k3}{z},zmm2,zmm2
 62 F1EDCB FB CA, EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
-# vsubph xmm1{k3}{z},xmm2,xmm2
-62 F56C8B 5C CA, EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=n op2=n w=vmm1 r=k3
-# vsubph xmm1,xmm2,xmm2
-62 F56C08 5C CA, EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=n op2=n w=vmm1
-# vsubph xmm1{k3},xmm2,xmm2
-62 F56C0B 5C CA, EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=n op2=n r=xmm1 w=vmm1 r=k3
-# vsubph ymm1{k3}{z},ymm2,ymm2
-62 F56CAB 5C CA, EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=n op2=n w=vmm1 r=k3
-# vsubph ymm1{k3},ymm2,ymm2
-62 F56C2B 5C CA, EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=n op2=n r=ymm1 w=vmm1 r=k3
-# vsubph ymm1,ymm2,ymm2
-62 F56C28 5C CA, EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=n op2=n w=vmm1
-# vsubph zmm1{k3}{z},zmm2,zmm2
-62 F56CCB 5C CA, EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=n op2=n w=vmm1 r=k3
-# vsubph zmm1{k3},zmm2,zmm2
-62 F56C4B 5C CA, EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=n op2=n r=zmm1 cw=vmm1 r=k3
-# vsubph zmm1,zmm2,zmm2
-62 F56C48 5C CA, EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=n op2=n w=vmm1
 # fs monitor eax,rcx,rdx
 64 67 0F01 C8, Monitord, Legacy, MONITOR, r=eax;ecx;edx;fs
 # fs monitor rax,rcx,rdx

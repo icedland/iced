@@ -12518,73 +12518,61 @@ END
 # Code: Subps_xmm_xmmm128
 INSTRUCTION: NP 0F 5C /r | SUBPS xmm1, xmm2/m128 | SSE
 	ops: rw=reg r=rm | Packed128_Float32
-	implied: zero-reg-regmem
 END
 
 # Code: VEX_Vsubps_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.0F.WIG 5C /r | VSUBPS xmm1, xmm2, xmm3/m128 | AVX
 	ops: w=reg r=vvvv r=rm | Packed128_Float32
-	implied: zero-reg-reg-regmem
 END
 
 # Code: VEX_Vsubps_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.0F.WIG 5C /r | VSUBPS ymm1, ymm2, ymm3/m256 | AVX
 	ops: w=reg r=vvvv r=rm | Packed256_Float32
-	implied: zero-reg-reg-regmem
 END
 
 # Code: EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32
 INSTRUCTION: EVEX.128.0F.W0 5C /r | VSUBPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst | AVX512VL AVX512F | N16b4
 	ops: w=reg r=vvvv r=rm | Packed128_Float32 Broadcast128_Float32
-	implied: zero-reg-reg-regmem
 END
 
 # Code: EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32
 INSTRUCTION: EVEX.256.0F.W0 5C /r | VSUBPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst | AVX512VL AVX512F | N32b4
 	ops: w=reg r=vvvv r=rm | Packed256_Float32 Broadcast256_Float32
-	implied: zero-reg-reg-regmem
 END
 
 # Code: EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er
 INSTRUCTION: EVEX.512.0F.W0 5C /r | VSUBPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er} | AVX512F | N64b4
 	ops: wvmm=reg r=vvvv r=rm | Packed512_Float32 Broadcast512_Float32
-	implied: zero-reg-reg-regmem
 END
 
 # Code: Subpd_xmm_xmmm128
 INSTRUCTION: 66 0F 5C /r | SUBPD xmm1, xmm2/m128 | SSE2
 	ops: rw=reg r=rm | Packed128_Float64
-	implied: zero-reg-regmem
 END
 
 # Code: VEX_Vsubpd_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.66.0F.WIG 5C /r | VSUBPD xmm1, xmm2, xmm3/m128 | AVX
 	ops: w=reg r=vvvv r=rm | Packed128_Float64
-	implied: zero-reg-reg-regmem
 END
 
 # Code: VEX_Vsubpd_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.66.0F.WIG 5C /r | VSUBPD ymm1, ymm2, ymm3/m256 | AVX
 	ops: w=reg r=vvvv r=rm | Packed256_Float64
-	implied: zero-reg-reg-regmem
 END
 
 # Code: EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64
 INSTRUCTION: EVEX.128.66.0F.W1 5C /r | VSUBPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst | AVX512VL AVX512F | N16b8
 	ops: w=reg r=vvvv r=rm | Packed128_Float64 Broadcast128_Float64
-	implied: zero-reg-reg-regmem
 END
 
 # Code: EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64
 INSTRUCTION: EVEX.256.66.0F.W1 5C /r | VSUBPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst | AVX512VL AVX512F | N32b8
 	ops: w=reg r=vvvv r=rm | Packed256_Float64 Broadcast256_Float64
-	implied: zero-reg-reg-regmem
 END
 
 # Code: EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er
 INSTRUCTION: EVEX.512.66.0F.W1 5C /r | VSUBPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er} | AVX512F | N64b8
 	ops: wvmm=reg r=vvvv r=rm | Packed512_Float64 Broadcast512_Float64
-	implied: zero-reg-reg-regmem
 END
 
 # Code: Subss_xmm_xmmm32
@@ -31370,19 +31358,16 @@ END
 # Code: EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
 INSTRUCTION: EVEX.128.MAP5.W0 5C /r | VSUBPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
 	ops: w=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
-	implied: zero-reg-reg-regmem
 END
 
 # Code: EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
 INSTRUCTION: EVEX.256.MAP5.W0 5C /r | VSUBPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
 	ops: w=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
-	implied: zero-reg-reg-regmem
 END
 
 # Code: EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 INSTRUCTION: EVEX.512.MAP5.W0 5C /r | VSUBPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
 	ops: wvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
-	implied: zero-reg-reg-regmem
 END
 
 # Code: EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
