@@ -51,6 +51,10 @@ pub(super) fn get_pseudo_ops(kind: PseudoOpsKind) -> &'static Vec<FastStringMnem
 		PseudoOpsKind::vpcmpuq => &pseudo_ops.vpcmpuq,
 		PseudoOpsKind::vcmpph => &pseudo_ops.vcmpph,
 		PseudoOpsKind::vcmpsh => &pseudo_ops.vcmpsh,
+		PseudoOpsKind::vcmpps8 => &pseudo_ops.vcmpps8,
+		PseudoOpsKind::vcmppd8 => &pseudo_ops.vcmppd8,
+		PseudoOpsKind::vpcmpd6 => &pseudo_ops.vpcmpd6,
+		PseudoOpsKind::vpcmpud6 => &pseudo_ops.vpcmpud6,
 	}
 }
 
@@ -83,6 +87,10 @@ struct PseudoOps {
 	vpcmpuq: Vec<FastStringMnemonic>,
 	vcmpph: Vec<FastStringMnemonic>,
 	vcmpsh: Vec<FastStringMnemonic>,
+	vcmpps8: Vec<FastStringMnemonic>,
+	vcmppd8: Vec<FastStringMnemonic>,
+	vpcmpd6: Vec<FastStringMnemonic>,
+	vpcmpud6: Vec<FastStringMnemonic>,
 }
 
 lazy_static! {
@@ -132,6 +140,22 @@ lazy_static! {
 		let vcmpsd = create(&cc, 32, "vcmp", "sd");
 		let vcmpph = create(&cc, 32, "vcmp", "ph");
 		let vcmpsh = create(&cc, 32, "vcmp", "sh");
+		let vcmpps8 = create(&cc, 8, "vcmp", "ps");
+		let vcmppd8 = create(&cc, 8, "vcmp", "pd");
+
+		#[rustfmt::skip]
+		let cc6: [&'static str; 8] = [
+			"eq",
+			"lt",
+			"le",
+			"??",
+			"neq",
+			"nlt",
+			"nle",
+			"???",
+		];
+		let vpcmpd6 = create(&cc6, 8, "vpcmp", "d");
+		let vpcmpud6 = create(&cc6, 8, "vpcmp", "ud");
 
 		#[rustfmt::skip]
 		let xopcc: [&'static str; 8] = [
@@ -217,6 +241,10 @@ lazy_static! {
 			vpcmpuq,
 			vcmpph,
 			vcmpsh,
+			vcmpps8,
+			vcmppd8,
+			vpcmpd6,
+			vpcmpud6,
 		}
 	};
 }

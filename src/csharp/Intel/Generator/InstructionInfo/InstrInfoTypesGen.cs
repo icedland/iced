@@ -250,11 +250,10 @@ namespace Generator.InstructionInfo {
 			for (int i = 0; i < opInfoHashes.Length; i++)
 				opInfoHashes[i] = new HashSet<OpInfo>();
 			foreach (var def in defs) {
-				var info = def;
 				bool foundNone = false;
 				int i;
-				for (i = 0; i < info.OpInfo.Length; i++) {
-					var opInfo = info.OpInfo[i];
+				for (i = 0; i < def.OpInfo.Length; i++) {
+					var opInfo = def.OpInfo[i];
 					if (opInfo == OpInfo.None)
 						foundNone = true;
 					else if (foundNone)

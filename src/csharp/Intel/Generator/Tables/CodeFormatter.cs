@@ -16,11 +16,15 @@ namespace Generator.Tables {
 		readonly string? codeMemorySizeSuffix;
 		readonly EnumValue memSize;
 		readonly EnumValue memSizeBcst;
-		readonly InstructionDefFlags1 flags;
+		readonly InstructionDefFlags1 flags1;
+		readonly InstructionDefFlags3 flags3;
 		readonly EncodingKind encoding;
 		readonly OpCodeOperandKindDef[] opKinds;
+		readonly bool isKnc;
 
-		public CodeFormatter(StringBuilder sb, RegisterDef[] regDefs, MemorySizeDefs memSizeTbl, string codeMnemonic, string? codeSuffix, string? codeMemorySize, string? codeMemorySizeSuffix, EnumValue memSize, EnumValue memSizeBcst, InstructionDefFlags1 flags, EncodingKind encoding, OpCodeOperandKindDef[] opKinds) {
+		public CodeFormatter(StringBuilder sb, RegisterDef[] regDefs, MemorySizeDefs memSizeTbl, string codeMnemonic, string? codeSuffix,
+			string? codeMemorySize, string? codeMemorySizeSuffix, EnumValue memSize, EnumValue memSizeBcst, InstructionDefFlags1 flags1,
+			InstructionDefFlags3 flags3, EncodingKind encoding, OpCodeOperandKindDef[] opKinds, bool isKnc) {
 			if (codeMnemonic == string.Empty)
 				throw new ArgumentOutOfRangeException(nameof(codeMnemonic));
 			this.sb = sb;
@@ -32,9 +36,11 @@ namespace Generator.Tables {
 			this.codeMemorySizeSuffix = codeMemorySizeSuffix;
 			this.memSize = memSize;
 			this.memSizeBcst = memSizeBcst;
-			this.flags = flags;
+			this.flags1 = flags1;
+			this.flags3 = flags3;
 			this.encoding = encoding;
 			this.opKinds = opKinds;
+			this.isKnc = isKnc;
 		}
 
 		MemorySize GetMemorySize(bool isBroadcast) => (MemorySize)(isBroadcast ? memSizeBcst.Value : memSize.Value);
@@ -48,6 +54,8 @@ namespace Generator.Tables {
 				break;
 			case EncodingKind.VEX:
 				sb.Append("VEX_");
+				if (isKnc)
+					sb.Append("KNC_");
 				break;
 			case EncodingKind.EVEX:
 				sb.Append("EVEX_");
@@ -57,6 +65,9 @@ namespace Generator.Tables {
 				break;
 			case EncodingKind.D3NOW:
 				sb.Append("D3NOW_");
+				break;
+			case EncodingKind.MVEX:
+				sb.Append("MVEX_");
 				break;
 			default:
 				throw new InvalidOperationException();
@@ -137,10 +148,14 @@ namespace Generator.Tables {
 						else if (def.MIB)
 							sb.Append("mib");
 						else if (def.Vsib) {
-							var sz = def.Vsib32 ? "32" : "64";
-							// x, y, z
-							var reg = regDefs[(int)def.Register].Name.ToLowerInvariant()[0..1];
-							sb.Append($"vm{sz}{reg}");
+							if (encoding == EncodingKind.MVEX)
+								sb.Append("mvt");
+							else {
+								var sz = def.Vsib32 ? "32" : "64";
+								// x, y, z
+								var reg = regDefs[(int)def.Register].Name.ToLowerInvariant()[0..1];
+								sb.Append($"vm{sz}{reg}");
+							}
 						}
 						else
 							WriteMemory();
@@ -157,16 +172,16 @@ namespace Generator.Tables {
 					}
 
 					if (i == 0) {
-						if ((flags & InstructionDefFlags1.OpMaskRegister) != 0) {
+						if ((flags1 & InstructionDefFlags1.OpMaskRegister) != 0) {
 							sb.Append("_k1");
-							if ((flags & InstructionDefFlags1.ZeroingMasking) != 0)
+							if ((flags1 & InstructionDefFlags1.ZeroingMasking) != 0)
 								sb.Append('z');
 						}
 					}
-					if (i == opKinds.Length - 1) {
-						if ((flags & InstructionDefFlags1.SuppressAllExceptions) != 0)
+					if (i == opKinds.Length - 1 && encoding != EncodingKind.MVEX) {
+						if ((flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0)
 							sb.Append("_sae");
-						if ((flags & InstructionDefFlags1.RoundingControl) != 0)
+						if ((flags1 & InstructionDefFlags1.RoundingControl) != 0)
 							sb.Append("_er");
 					}
 				}
@@ -225,13 +240,16 @@ namespace Generator.Tables {
 
 		void WriteMemory() {
 			WriteMemory(isBroadcast: false);
-			if ((flags & InstructionDefFlags1.Broadcast) != 0)
+			if ((flags1 & InstructionDefFlags1.Broadcast) != 0)
 				WriteMemory(isBroadcast: true);
 		}
 
 		void WriteMemory(bool isBroadcast) {
 			var memorySize = GetMemorySize(isBroadcast);
-			sb.Append(isBroadcast ? 'b' : 'm');
+			if (encoding == EncodingKind.MVEX)
+				sb.Append((flags3 & InstructionDefFlags3.EvictionHint) != 0 ? "mt" : "m");
+			else
+				sb.Append(isBroadcast ? 'b' : 'm');
 			WriteMemorySize(memorySize);
 		}
 

@@ -386,6 +386,14 @@ namespace Generator.Tables {
 		/// Code assembler ignores it when generating memory operand methods
 		/// </summary>
 		AsmIgnoreMemory			= 0x02000000,
+		/// <summary>
+		/// Eviction hint is supported (MVEX)
+		/// </summary>
+		EvictionHint			= 0x04000000,//TODO: Add to OpCodeInfo
+		/// <summary>
+		/// imm8 rounding control is supported (MVEX)
+		/// </summary>
+		ImmRoundingControl		= 0x08000000,//TODO: Add to OpCodeInfo
 	}
 
 	enum VmxMode {
@@ -464,6 +472,8 @@ namespace Generator.Tables {
 		Loop,
 		Jrcxz,
 		Xbegin,
+		JkccShort,
+		JkccNear,
 	}
 
 	readonly struct InstrStrImpliedOp {
@@ -500,6 +510,75 @@ namespace Generator.Tables {
 		}
 	}
 
+	enum OpCodeW : byte {
+		None,
+		W0,
+		W1,
+		WIG,
+		WIG32,
+	}
+
+	enum OpCodeL : byte {
+		None,
+		L0,
+		L1,
+		LIG,
+		LZ,
+		L128,
+		L256,
+		L512,
+	}
+
+	enum NonDestructiveOpKind : byte {
+		None,
+		// non-destructive dst
+		NDD,
+		// non-destructive src
+		NDS,
+	}
+
+	enum EvictionHintKind : byte {
+		None,
+		EH0,
+		EH1,
+	}
+
+	enum MvexConvFn {
+		None,
+		Sf32,
+		Sf64,
+		Si32,
+		Si64,
+		Uf32,
+		Uf64,
+		Ui32,
+		Ui64,
+		Df32,
+		Df64,
+		Di32,
+		Di64,
+	}
+	
+	struct MvexInstructionInfo {
+		// Base tuple size (fn=000b). The other ones are functions of this size.
+		public uint TupleTypeSize;
+		// Base memory size (fn=000b)
+		public uint MemorySize;
+		public uint ElementSize;
+		public MvexConvFn ConvFn;
+		public byte ValidConvFns;
+		public byte ValidSwizzleFns;
+
+		public MvexInstructionInfo(uint tupleTypeSize, uint memorySize, uint elementSize, MvexConvFn convFn, byte validConvFns, byte validSwizzleFns) {
+			TupleTypeSize = tupleTypeSize;
+			MemorySize = memorySize;
+			ElementSize = elementSize;
+			ConvFn = convFn;
+			ValidConvFns = validConvFns;
+			ValidSwizzleFns = validSwizzleFns;
+		}
+	}
+
 	[DebuggerDisplay("{OpCodeString,nq} | {InstructionString,nq}")]
 	sealed class InstructionDef {
 		public readonly string OpCodeString;
@@ -518,6 +597,7 @@ namespace Generator.Tables {
 		public readonly InstrStrFmtOption InstrStrFmtOption;
 		public readonly InstructionStringFlags InstrStrFlags;
 		public readonly InstrStrImpliedOp[] InstrStrImpliedOps;
+		public readonly MvexInstructionInfo Mvex;
 
 		public readonly CodeSize OperandSize;
 		public readonly CodeSize AddressSize;
@@ -525,6 +605,8 @@ namespace Generator.Tables {
 		public readonly OpCodeTableKind Table;
 		public readonly OpCodeL LBit;
 		public readonly OpCodeW WBit;
+		public readonly NonDestructiveOpKind NDKind;
+		public readonly EvictionHintKind EHBit;
 		public readonly uint OpCode;
 		public readonly int OpCodeLength;
 		public readonly int GroupIndex;
@@ -563,8 +645,9 @@ namespace Generator.Tables {
 		public InstructionDef(EnumValue code, string opCodeString, string instructionString, EnumValue mnemonic,
 			EnumValue mem, EnumValue bcst, EnumValue decoderOption, InstructionDefFlags1 flags1, InstructionDefFlags2 flags2,
 			InstructionDefFlags3 flags3, InstrStrFmtOption instrStrFmtOption, InstructionStringFlags instrStrFlags,
-			InstrStrImpliedOp[] instrStrImpliedOps,
-			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, uint opCode, int opCodeLength,
+			InstrStrImpliedOp[] instrStrImpliedOps, MvexInstructionInfo mvex,
+			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, NonDestructiveOpKind ndKind,
+			EvictionHintKind ehBit, uint opCode, int opCodeLength,
 			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKindDef[] opKinds,
 			PseudoOpsKind? pseudoOp, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
 			BranchKind branchKind, StackInfo stackInfo, int fpuStackIncrement,
@@ -586,11 +669,14 @@ namespace Generator.Tables {
 			InstrStrFmtOption = instrStrFmtOption;
 			InstrStrFlags = instrStrFlags;
 			InstrStrImpliedOps = instrStrImpliedOps;
+			Mvex = mvex;
 
 			MandatoryPrefix = mandatoryPrefix;
 			Table = table;
 			LBit = lBit;
 			WBit = wBit;
+			NDKind = ndKind;
+			EHBit = ehBit;
 			OpCode = opCode;
 			OpCodeLength = opCodeLength;
 			GroupIndex = groupIndex;

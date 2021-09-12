@@ -99,10 +99,12 @@ namespace Generator {
 		public static readonly TypeId VexOpCodeTable = new(nameof(VexOpCodeTable));
 		public static readonly TypeId XopOpCodeTable = new(nameof(XopOpCodeTable));
 		public static readonly TypeId EvexOpCodeTable = new(nameof(EvexOpCodeTable));
+		public static readonly TypeId MvexOpCodeTable = new(nameof(MvexOpCodeTable));
 		public static readonly TypeId LegacyOpKind = new(nameof(LegacyOpKind));
 		public static readonly TypeId VexOpKind = new(nameof(VexOpKind));
 		public static readonly TypeId XopOpKind = new(nameof(XopOpKind));
 		public static readonly TypeId EvexOpKind = new(nameof(EvexOpKind));
+		public static readonly TypeId MvexOpKind = new(nameof(MvexOpKind));
 		public static readonly TypeId MandatoryPrefix = new(nameof(MandatoryPrefix));
 		public static readonly TypeId OpCodeTableKind = new(nameof(OpCodeTableKind));
 		public static readonly TypeId DisplSize = new(nameof(DisplSize));

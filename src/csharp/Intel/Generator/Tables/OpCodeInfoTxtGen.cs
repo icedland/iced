@@ -45,6 +45,7 @@ namespace Generator.Tables {
 				EncodingKind.EVEX => OpCodeInfoConstants.Encoding_EVEX,
 				EncodingKind.XOP => OpCodeInfoConstants.Encoding_XOP,
 				EncodingKind.D3NOW => OpCodeInfoConstants.Encoding_3DNOW,
+				EncodingKind.MVEX => OpCodeInfoConstants.Encoding_MVEX,
 				_ => throw new InvalidOperationException(),
 			};
 			writer.Write(sep);

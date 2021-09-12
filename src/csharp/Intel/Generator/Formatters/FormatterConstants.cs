@@ -36,6 +36,10 @@ namespace Generator.Formatters {
 				PseudoOpsKind.vpcmpuq => vpcmpuq_pseudo_ops,
 				PseudoOpsKind.vcmpph => vcmpph_pseudo_ops,
 				PseudoOpsKind.vcmpsh => vcmpsh_pseudo_ops,
+				PseudoOpsKind.vcmpps8 => vcmpps8_pseudo_ops,
+				PseudoOpsKind.vcmppd8 => vcmppd8_pseudo_ops,
+				PseudoOpsKind.vpcmpd6 => vpcmpd6_pseudo_ops,
+				PseudoOpsKind.vpcmpud6 => vpcmpud6_pseudo_ops,
 				_ => throw new ArgumentOutOfRangeException(nameof(kind)),
 			};
 
@@ -84,6 +88,21 @@ namespace Generator.Formatters {
 			vcmpsd_pseudo_ops = Create(cc, 32, "vcmp", "sd");
 			vcmpph_pseudo_ops = Create(cc, 32, "vcmp", "ph");
 			vcmpsh_pseudo_ops = Create(cc, 32, "vcmp", "sh");
+			vcmpps8_pseudo_ops = Create(cc, 8, "vcmp", "ps");
+			vcmppd8_pseudo_ops = Create(cc, 8, "vcmp", "pd");
+
+			var cc6 = new string[8] {
+				"eq",
+				"lt",
+				"le",
+				"??",
+				"neq",
+				"nlt",
+				"nle",
+				"???",
+			};
+			vpcmpd6_pseudo_ops = Create(cc6, 8, "vpcmp", "d");
+			vpcmpud6_pseudo_ops = Create(cc6, 8, "vpcmp", "ud");
 
 			var xopcc = new string[8] {
 				"lt",
@@ -141,6 +160,10 @@ namespace Generator.Formatters {
 		static readonly (string mnemonic, int imm)[] vcmpsd_pseudo_ops;
 		static readonly (string mnemonic, int imm)[] vcmpph_pseudo_ops;
 		static readonly (string mnemonic, int imm)[] vcmpsh_pseudo_ops;
+		static readonly (string mnemonic, int imm)[] vcmpps8_pseudo_ops;
+		static readonly (string mnemonic, int imm)[] vcmppd8_pseudo_ops;
+		static readonly (string mnemonic, int imm)[] vpcmpd6_pseudo_ops;
+		static readonly (string mnemonic, int imm)[] vpcmpud6_pseudo_ops;
 
 		static readonly (string mnemonic, int imm)[] pclmulqdq_pseudo_ops = new (string mnemonic, int imm)[4] {
 			("pclmullqlqdq", 0x00),

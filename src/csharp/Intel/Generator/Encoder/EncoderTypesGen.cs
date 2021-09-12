@@ -16,6 +16,7 @@ namespace Generator.Encoder {
 		public EnumType? VexOpKind;
 		public EnumType? XopOpKind;
 		public EnumType? EvexOpKind;
+		public EnumType? MvexOpKind;
 
 		readonly GenTypes genTypes;
 
@@ -27,6 +28,7 @@ namespace Generator.Encoder {
 			GenerateVexOpKind();
 			GenerateXopOpKind();
 			GenerateEvexOpKind();
+			GenerateMvexOpKind();
 			GenerateEncFlags1();
 		}
 
@@ -34,6 +36,7 @@ namespace Generator.Encoder {
 		void GenerateVexOpKind() => VexOpKind = GenerateOpKind(TypeIds.VexOpKind, EncodingKind.VEX);
 		void GenerateXopOpKind() => XopOpKind = GenerateOpKind(TypeIds.XopOpKind, EncodingKind.XOP);
 		void GenerateEvexOpKind() => EvexOpKind = GenerateOpKind(TypeIds.EvexOpKind, EncodingKind.EVEX);
+		void GenerateMvexOpKind() => MvexOpKind = GenerateOpKind(TypeIds.MvexOpKind, EncodingKind.MVEX);
 
 		internal static OpCodeOperandKindDef[] GetDefs(GenTypes genTypes, EncodingKind encoding) {
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
@@ -108,6 +111,7 @@ namespace Generator.Encoder {
 			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, VexOpKind, "VEX_", 5));
 			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, XopOpKind, "XOP_", 4));
 			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, EvexOpKind, "EVEX_", 4));
+			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, MvexOpKind, "MVEX_", 4));
 
 			if (maxBits > 30)
 				throw new InvalidOperationException();

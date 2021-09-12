@@ -27,6 +27,7 @@ namespace Generator {
 		public const string VexDefine = "!NO_VEX";
 		public const string XopDefine = "!NO_XOP";
 		public const string EvexDefine = "!NO_EVEX";
+		public const string MvexDefine = "MVEX";
 		public const string D3nowDefine = "!NO_D3NOW";
 		public const string DecoderVexDefine = "DECODER && !NO_VEX";
 		public const string DecoderXopDefine = "DECODER && !NO_XOP";
@@ -59,6 +60,7 @@ namespace Generator {
 				EncodingKind.EVEX => EvexDefine,
 				EncodingKind.XOP => XopDefine,
 				EncodingKind.D3NOW => D3nowDefine,
+				EncodingKind.MVEX => MvexDefine,
 				_ => throw new InvalidOperationException(),
 			};
 	}

@@ -22,12 +22,12 @@ namespace Generator.Encoder.CSharp {
 
 		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
 
-		protected override void Generate((EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
-			GenerateOpCodeOperandKindTables(legacy, vex, xop, evex);
-			GenerateOpTables(legacy, vex, xop, evex);
+		protected override void Generate(OpCodeHandlers handlers) {
+			GenerateOpCodeOperandKindTables(handlers);
+			GenerateOpTables(handlers);
 		}
 
-		void GenerateOpCodeOperandKindTables((EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+		void GenerateOpCodeOperandKindTables(OpCodeHandlers handlers) {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "OpCodeOperandKinds.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
@@ -37,10 +37,11 @@ namespace Generator.Encoder.CSharp {
 				using (writer.Indent()) {
 					writer.WriteLine("static class OpCodeOperandKinds {");
 					using (writer.Indent()) {
-						Generate(writer, "LegacyOpKinds", null, legacy);
-						Generate(writer, "VexOpKinds", CSharpConstants.VexDefine, vex);
-						Generate(writer, "XopOpKinds", CSharpConstants.XopDefine, xop);
-						Generate(writer, "EvexOpKinds", CSharpConstants.EvexDefine, evex);
+						Generate(writer, "LegacyOpKinds", null, handlers.Legacy);
+						Generate(writer, "VexOpKinds", CSharpConstants.VexDefine, handlers.Vex);
+						Generate(writer, "XopOpKinds", CSharpConstants.XopDefine, handlers.Xop);
+						Generate(writer, "EvexOpKinds", CSharpConstants.EvexDefine, handlers.Evex);
+						Generate(writer, "MvexOpKinds", CSharpConstants.MvexDefine, handlers.Mvex);
 					}
 					writer.WriteLine("}");
 				}
@@ -66,7 +67,7 @@ namespace Generator.Encoder.CSharp {
 			}
 		}
 
-		void GenerateOpTables((EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+		void GenerateOpTables(OpCodeHandlers handlers) {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "OpTables.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
@@ -76,10 +77,11 @@ namespace Generator.Encoder.CSharp {
 				using (writer.Indent()) {
 					writer.WriteLine("static class OpHandlerData {");
 					using (writer.Indent()) {
-						Generate(writer, "LegacyOps", null, legacy);
-						Generate(writer, "VexOps", CSharpConstants.VexDefine, vex);
-						Generate(writer, "XopOps", CSharpConstants.XopDefine, xop);
-						Generate(writer, "EvexOps", CSharpConstants.EvexDefine, evex);
+						Generate(writer, "LegacyOps", null, handlers.Legacy);
+						Generate(writer, "VexOps", CSharpConstants.VexDefine, handlers.Vex);
+						Generate(writer, "XopOps", CSharpConstants.XopDefine, handlers.Xop);
+						Generate(writer, "EvexOps", CSharpConstants.EvexDefine, handlers.Evex);
+						Generate(writer, "MvexOps", CSharpConstants.MvexDefine, handlers.Mvex);
 					}
 					writer.WriteLine("}");
 				}

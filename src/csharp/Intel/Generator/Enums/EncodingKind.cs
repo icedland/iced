@@ -14,5 +14,7 @@ namespace Generator.Enums {
 		XOP,
 		[Comment("3DNow! encoding")]
 		D3NOW,
+		[Comment("MVEX encoding")]
+		MVEX,
 	}
 }

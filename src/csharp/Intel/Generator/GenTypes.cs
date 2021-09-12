@@ -200,6 +200,10 @@ namespace Generator {
 				if (!Options.Include3DNow)
 					return false;
 				break;
+			case EncodingKind.MVEX:
+				if (!Options.IncludeMVEX)
+					return false;
+				break;
 			default:
 				throw new InvalidOperationException();
 			}

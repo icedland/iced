@@ -295,6 +295,10 @@ pub(crate) enum PseudoOpsKind {
 	vpcmpuq,
 	vcmpph,
 	vcmpsh,
+	vcmpps8,
+	vcmppd8,
+	vpcmpd6,
+	vpcmpud6,
 }
 #[rustfmt::skip]
 static GEN_DEBUG_PSEUDO_OPS_KIND: [&str; 28] = [
