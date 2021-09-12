@@ -19,6 +19,8 @@ namespace Iced.Intel {
 		XOP = 3,
 		/// <summary>3DNow! encoding</summary>
 		D3NOW = 4,
+		/// <summary>MVEX encoding</summary>
+		MVEX = 5,
 	}
 }
 #endif

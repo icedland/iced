@@ -24,7 +24,7 @@ static OP_HX_EAX_R15_D: OpHx = OpHx {
 	reg_lo: Register::EAX,
 	reg_hi: Register::R15D,
 };
-#[cfg(not(feature = "no_vex"))]
+#[cfg(any(not(feature = "no_vex"), feature = "mvex"))]
 #[rustfmt::skip]
 static OP_HX_K0_K7: OpHx = OpHx {
 	reg_lo: Register::K0,
@@ -66,7 +66,7 @@ static OP_HX_YMM0_YMM31: OpHx = OpHx {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM31,
 };
-#[cfg(not(feature = "no_evex"))]
+#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 #[rustfmt::skip]
 static OP_HX_ZMM0_ZMM31: OpHx = OpHx {
 	reg_lo: Register::ZMM0,
@@ -200,7 +200,7 @@ static OP_MOD_RM_REG_F0_CR0_CR15: OpModRM_regF0 = OpModRM_regF0 {
 	reg_lo: Register::CR0,
 	reg_hi: Register::CR15,
 };
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_evex"), feature = "mvex"))]
 #[rustfmt::skip]
 static OP_MOD_RM_REG_K0_K7: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::K0,
@@ -265,7 +265,7 @@ static OP_MOD_RM_REG_YMM0_YMM31: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM31,
 };
-#[cfg(not(feature = "no_evex"))]
+#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 #[rustfmt::skip]
 static OP_MOD_RM_REG_ZMM0_ZMM31: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::ZMM0,
@@ -400,7 +400,7 @@ static OP_MOD_RM_RM_YMM0_YMM31: OpModRM_rm = OpModRM_rm {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM31,
 };
-#[cfg(not(feature = "no_evex"))]
+#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 #[rustfmt::skip]
 static OP_MOD_RM_RM_ZMM0_ZMM31: OpModRM_rm = OpModRM_rm {
 	reg_lo: Register::ZMM0,
@@ -508,7 +508,7 @@ static OP_VSIB_YMM0_YMM31: OpVsib = OpVsib {
 	vsib_index_reg_lo: Register::YMM0,
 	vsib_index_reg_hi: Register::YMM31,
 };
-#[cfg(not(feature = "no_evex"))]
+#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 #[rustfmt::skip]
 static OP_VSIB_ZMM0_ZMM31: OpVsib = OpVsib {
 	vsib_index_reg_lo: Register::ZMM0,
@@ -600,7 +600,7 @@ pub(super) static LEGACY_TABLE: [&(dyn Op + Sync); 76] = [
 ];
 #[cfg(not(feature = "no_vex"))]
 #[rustfmt::skip]
-pub(super) static VEX_TABLE: [&(dyn Op + Sync); 37] = [
+pub(super) static VEX_TABLE: [&(dyn Op + Sync); 39] = [
 	&NONE,// None
 	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// mem
 	&OP_VSIB_XMM0_XMM15,// mem_vsib32x
@@ -634,6 +634,8 @@ pub(super) static VEX_TABLE: [&(dyn Op + Sync); 37] = [
 	&OP_I4,// imm4_m2z
 	&OP_IB_IMMEDIATE8,// imm8
 	&OPR_DI,// seg_rDI
+	&OP_J_NEAR_BRANCH64_1,// br64_1
+	&OP_J_NEAR_BRANCH64_4,// br64_4
 	&OP_MOD_RM_RM_MEM_ONLY_TRUE,// sibmem
 	&OP_MOD_RM_REG_TMM0_TMM7,// tmm_reg
 	&OP_MOD_RM_RM_REG_ONLY_TMM0_TMM7,// tmm_rm
@@ -696,5 +698,18 @@ pub(super) static EVEX_TABLE: [&(dyn Op + Sync); 32] = [
 	&OP_MOD_RM_RM_REG_ONLY_ZMM0_ZMM31,// zmm_rm
 	&OP_HX_ZMM0_ZMM31,// zmm_vvvv
 	&OP_HX_ZMM0_ZMM31,// zmmp3_vvvv
+	&OP_IB_IMMEDIATE8,// imm8
+];
+#[cfg(feature = "mvex")]
+#[rustfmt::skip]
+pub(super) static MVEX_TABLE: [&(dyn Op + Sync); 9] = [
+	&NONE,// None
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// mem
+	&OP_VSIB_ZMM0_ZMM31,// mem_vsib32z
+	&OP_MOD_RM_RM_ZMM0_ZMM31,// zmm_or_mem
+	&OP_MOD_RM_REG_K0_K7,// k_reg
+	&OP_HX_K0_K7,// k_vvvv
+	&OP_MOD_RM_REG_ZMM0_ZMM31,// zmm_reg
+	&OP_HX_ZMM0_ZMM31,// zmm_vvvv
 	&OP_IB_IMMEDIATE8,// imm8
 ];

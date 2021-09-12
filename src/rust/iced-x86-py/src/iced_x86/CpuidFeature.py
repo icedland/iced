@@ -657,3 +657,7 @@ UDBG: CpuidFeature = 159 # type: ignore
 """
 Undocumented Intel ``RDUDBG`` and ``WRUDBG`` instructions
 """
+KNC: CpuidFeature = 160 # type: ignore
+"""
+Intel Knights Corner
+"""

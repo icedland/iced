@@ -848,15 +848,18 @@ pub enum EncodingKind {
 	XOP = 3,
 	/// 3DNow! encoding
 	D3NOW = 4,
+	/// MVEX encoding
+	MVEX = 5,
 }
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 #[rustfmt::skip]
-static GEN_DEBUG_ENCODING_KIND: [&str; 5] = [
+static GEN_DEBUG_ENCODING_KIND: [&str; 6] = [
 	"Legacy",
 	"VEX",
 	"EVEX",
 	"XOP",
 	"D3NOW",
+	"MVEX",
 ];
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 impl fmt::Debug for EncodingKind {
@@ -2412,10 +2415,12 @@ pub enum CpuidFeature {
 	AVX512_FP16 = 158,
 	/// Undocumented Intel `RDUDBG` and `WRUDBG` instructions
 	UDBG = 159,
+	/// Intel Knights Corner
+	KNC = 160,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 160] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 161] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -2576,6 +2581,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 160] = [
 	"LKGS",
 	"AVX512_FP16",
 	"UDBG",
+	"KNC",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

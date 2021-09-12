@@ -36482,5 +36482,2045 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Wrudbg = 4562,
+		/// <summary><c>JKZD k1, rel8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.W0 74 cb</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Jkzd_kr_rel8_64 = 4563,
+		/// <summary><c>JKNZD k1, rel8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.W0 75 cb</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Jknzd_kr_rel8_64 = 4564,
+		/// <summary><c>VPREFETCHNTA m8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.WIG 18 /0</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Vprefetchnta_m8 = 4565,
+		/// <summary><c>VPREFETCH0 m8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.WIG 18 /1</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Vprefetch0_m8 = 4566,
+		/// <summary><c>VPREFETCH1 m8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.WIG 18 /2</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Vprefetch1_m8 = 4567,
+		/// <summary><c>VPREFETCH2 m8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.WIG 18 /3</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Vprefetch2_m8 = 4568,
+		/// <summary><c>VPREFETCHENTA m8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.WIG 18 /4</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Vprefetchenta_m8 = 4569,
+		/// <summary><c>VPREFETCHE0 m8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.WIG 18 /5</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Vprefetche0_m8 = 4570,
+		/// <summary><c>VPREFETCHE1 m8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.WIG 18 /6</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Vprefetche1_m8 = 4571,
+		/// <summary><c>VPREFETCHE2 m8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.WIG 18 /7</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Vprefetche2_m8 = 4572,
+		/// <summary><c>KAND k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 41 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kand_kr_kr = 4573,
+		/// <summary><c>KANDN k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 42 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kandn_kr_kr = 4574,
+		/// <summary><c>KANDNR k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 43 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kandnr_kr_kr = 4575,
+		/// <summary><c>KNOT k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 44 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Knot_kr_kr = 4576,
+		/// <summary><c>KOR k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 45 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kor_kr_kr = 4577,
+		/// <summary><c>KXNOR k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 46 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kxnor_kr_kr = 4578,
+		/// <summary><c>KXOR k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 47 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kxor_kr_kr = 4579,
+		/// <summary><c>KMERGE2L1H k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 48 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kmerge2l1h_kr_kr = 4580,
+		/// <summary><c>KMERGE2L1L k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 49 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kmerge2l1l_kr_kr = 4581,
+		/// <summary><c>JKZD k1, rel32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 84 cd</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Jkzd_kr_rel32_64 = 4582,
+		/// <summary><c>JKNZD k1, rel32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 85 cd</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Jknzd_kr_rel32_64 = 4583,
+		/// <summary><c>KMOV k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 90 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kmov_kr_kr = 4584,
+		/// <summary><c>KMOV k1, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 92 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kmov_kr_r32 = 4585,
+		/// <summary><c>KMOV r32, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 93 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kmov_r32_kr = 4586,
+		/// <summary><c>KCONCATH r64, k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 95 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kconcath_r64_kr_kr = 4587,
+		/// <summary><c>KCONCATL r64, k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 97 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kconcatl_r64_kr_kr = 4588,
+		/// <summary><c>KORTEST k1, k2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kortest_kr_kr = 4589,
+		/// <summary><c>DELAY r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F.W0 AE /6</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Delay_r32 = 4590,
+		/// <summary><c>DELAY r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F.W1 AE /6</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Delay_r64 = 4591,
+		/// <summary><c>SPFLT r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F.W0 AE /6</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Spflt_r32 = 4592,
+		/// <summary><c>SPFLT r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F.W1 AE /6</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Spflt_r64 = 4593,
+		/// <summary><c>CLEVICT1 m8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F.WIG AE /7</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Clevict1_m8 = 4594,
+		/// <summary><c>CLEVICT0 m8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F.WIG AE /7</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Clevict0_m8 = 4595,
+		/// <summary><c>POPCNT r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F.W0 B8 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Popcnt_r32_r32 = 4596,
+		/// <summary><c>POPCNT r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F.W1 B8 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Popcnt_r64_r64 = 4597,
+		/// <summary><c>TZCNT r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Tzcnt_r32_r32 = 4598,
+		/// <summary><c>TZCNT r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F.W1 BC /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Tzcnt_r64_r64 = 4599,
+		/// <summary><c>TZCNTI r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Tzcnti_r32_r32 = 4600,
+		/// <summary><c>TZCNTI r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F.W1 BC /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Tzcnti_r64_r64 = 4601,
+		/// <summary><c>LZCNT r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F.W0 BD /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Lzcnt_r32_r32 = 4602,
+		/// <summary><c>LZCNT r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F.W1 BD /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Lzcnt_r64_r64 = 4603,
+		/// <summary><c>UNDOC r32, r/m32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 F0 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Undoc_r32_rm32_128_F3_0F38_W0_F0 = 4604,
+		/// <summary><c>UNDOC r64, r/m64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W1 F0 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Undoc_r64_rm64_128_F3_0F38_W1_F0 = 4605,
+		/// <summary><c>UNDOC r32, r/m32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 F0 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F0 = 4606,
+		/// <summary><c>UNDOC r64, r/m64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W1 F0 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F0 = 4607,
+		/// <summary><c>UNDOC r32, r/m32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 F1 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1 = 4608,
+		/// <summary><c>UNDOC r64, r/m64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W1 F1 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1 = 4609,
+		/// <summary><c>KEXTRACT k1, r64, imm8</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F3A.W0 3E /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_KNC_Kextract_kr_r64_imm8 = 4610,
+		/// <summary><c>VPREFETCHNTA mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.WIG 18 /0</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vprefetchnta_mt = 4611,
+		/// <summary><c>VPREFETCH0 mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.WIG 18 /1</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vprefetch0_mt = 4612,
+		/// <summary><c>VPREFETCH1 mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.WIG 18 /2</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vprefetch1_mt = 4613,
+		/// <summary><c>VPREFETCH2 mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.WIG 18 /3</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vprefetch2_mt = 4614,
+		/// <summary><c>VPREFETCHENTA mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.WIG 18 /4</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vprefetchenta_mt = 4615,
+		/// <summary><c>VPREFETCHE0 mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.WIG 18 /5</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vprefetche0_mt = 4616,
+		/// <summary><c>VPREFETCHE1 mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.WIG 18 /6</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vprefetche1_mt = 4617,
+		/// <summary><c>VPREFETCHE2 mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.WIG 18 /7</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vprefetche2_mt = 4618,
+		/// <summary><c>VMOVAPS zmm1 {k1}, Sf32(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.W0 28 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovaps_zmm_k1_zmmmt = 4619,
+		/// <summary><c>VMOVAPD zmm1 {k1}, Sf64(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F.W1 28 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovapd_zmm_k1_zmmmt = 4620,
+		/// <summary><c>VMOVAPS mt {k1}, Df32(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.W0 29 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovaps_mt_k1_zmm = 4621,
+		/// <summary><c>VMOVAPD mt {k1}, Df64(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F.W1 29 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovapd_mt_k1_zmm = 4622,
+		/// <summary><c>VMOVNRAPD m {k1}, Df64(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.F3.0F.W1.EH0 29 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovnrapd_m_k1_zmm = 4623,
+		/// <summary><c>VMOVNRNGOAPD m {k1}, Df64(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.F3.0F.W1.EH1 29 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovnrngoapd_m_k1_zmm = 4624,
+		/// <summary><c>VMOVNRAPS m {k1}, Df32(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.F2.0F.W0.EH0 29 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovnraps_m_k1_zmm = 4625,
+		/// <summary><c>VMOVNRNGOAPS m {k1}, Df32(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.F2.0F.W0.EH1 29 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovnrngoaps_m_k1_zmm = 4626,
+		/// <summary><c>VADDPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.0F.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vaddps_zmm_k1_zmm_zmmmt = 4627,
+		/// <summary><c>VADDPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W1 58 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vaddpd_zmm_k1_zmm_zmmmt = 4628,
+		/// <summary><c>VMULPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.0F.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmulps_zmm_k1_zmm_zmmmt = 4629,
+		/// <summary><c>VMULPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W1 59 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmulpd_zmm_k1_zmm_zmmmt = 4630,
+		/// <summary><c>VCVTPS2PD zmm1 {k1}, Sf32(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcvtps2pd_zmm_k1_zmmmt = 4631,
+		/// <summary><c>VCVTPD2PS zmm1 {k1}, Sf64(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcvtpd2ps_zmm_k1_zmmmt = 4632,
+		/// <summary><c>VSUBPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.0F.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vsubps_zmm_k1_zmm_zmmmt = 4633,
+		/// <summary><c>VSUBPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W1 5C /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vsubpd_zmm_k1_zmm_zmmmt = 4634,
+		/// <summary><c>VPCMPGTD k2 {k1}, zmm1, Si32(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W0 66 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpcmpgtd_kr_k1_zmm_zmmmt = 4635,
+		/// <summary><c>VMOVDQA32 zmm1 {k1}, Si32(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovdqa32_zmm_k1_zmmmt = 4636,
+		/// <summary><c>VMOVDQA64 zmm1 {k1}, Si64(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F.W1 6F /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovdqa64_zmm_k1_zmmmt = 4637,
+		/// <summary><c>VPSHUFD zmm1 {k1}, zmm2/mt, imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F.W0 70 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpshufd_zmm_k1_zmmmt_imm8 = 4638,
+		/// <summary><c>VPSRLD zmm1 {k1}, Si32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDD.512.66.0F.W0 72 /2 ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsrld_zmm_k1_zmmmt_imm8 = 4639,
+		/// <summary><c>VPSRAD zmm1 {k1}, Si32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDD.512.66.0F.W0 72 /4 ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsrad_zmm_k1_zmmmt_imm8 = 4640,
+		/// <summary><c>VPSLLD zmm1 {k1}, Si32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDD.512.66.0F.W0 72 /6 ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpslld_zmm_k1_zmmmt_imm8 = 4641,
+		/// <summary><c>VPCMPEQD k2 {k1}, zmm1, Si32(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W0 76 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpcmpeqd_kr_k1_zmm_zmmmt = 4642,
+		/// <summary><c>VCVTUDQ2PD zmm1 {k1}, Si32(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.F3.0F.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcvtudq2pd_zmm_k1_zmmmt = 4643,
+		/// <summary><c>VMOVDQA32 mt {k1}, Di32(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F.W0 7F /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovdqa32_mt_k1_zmm = 4644,
+		/// <summary><c>VMOVDQA64 mt {k1}, Di64(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F.W1 7F /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vmovdqa64_mt_k1_zmm = 4645,
+		/// <summary><c>CLEVICT1 mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.F3.0F.WIG AE /7</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Clevict1_mt = 4646,
+		/// <summary><c>CLEVICT0 mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.F2.0F.WIG AE /7</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Clevict0_mt = 4647,
+		/// <summary><c>VCMPPS k2 {k1}, zmm1, Sf32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.0F.W0 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8 = 4648,
+		/// <summary><c>VCMPPD k2 {k1}, zmm1, Sf64(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W1 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8 = 4649,
+		/// <summary><c>VPANDD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W0 DB /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpandd_zmm_k1_zmm_zmmmt = 4650,
+		/// <summary><c>VPANDQ zmm1 {k1}, zmm2, Si64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W1 DB /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpandq_zmm_k1_zmm_zmmmt = 4651,
+		/// <summary><c>VPANDND zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W0 DF /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpandnd_zmm_k1_zmm_zmmmt = 4652,
+		/// <summary><c>VPANDNQ zmm1 {k1}, zmm2, Si64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W1 DF /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpandnq_zmm_k1_zmm_zmmmt = 4653,
+		/// <summary><c>VCVTDQ2PD zmm1 {k1}, Si32(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.F3.0F.W0 E6 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcvtdq2pd_zmm_k1_zmmmt = 4654,
+		/// <summary><c>VPORD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W0 EB /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpord_zmm_k1_zmm_zmmmt = 4655,
+		/// <summary><c>VPORQ zmm1 {k1}, zmm2, Si64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W1 EB /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vporq_zmm_k1_zmm_zmmmt = 4656,
+		/// <summary><c>VPXORD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W0 EF /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpxord_zmm_k1_zmm_zmmmt = 4657,
+		/// <summary><c>VPXORQ zmm1 {k1}, zmm2, Si64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W1 EF /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpxorq_zmm_k1_zmm_zmmmt = 4658,
+		/// <summary><c>VPSUBD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W0 FA /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsubd_zmm_k1_zmm_zmmmt = 4659,
+		/// <summary><c>VPADDD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F.W0 FE /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpaddd_zmm_k1_zmm_zmmmt = 4660,
+		/// <summary><c>VBROADCASTSS zmm1 {k1}, Uf32(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 18 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vbroadcastss_zmm_k1_mt = 4661,
+		/// <summary><c>VBROADCASTSD zmm1 {k1}, Uf64(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 19 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vbroadcastsd_zmm_k1_mt = 4662,
+		/// <summary><c>VBROADCASTF32X4 zmm1 {k1}, Uf32(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 1A /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vbroadcastf32x4_zmm_k1_mt = 4663,
+		/// <summary><c>VBROADCASTF64X4 zmm1 {k1}, Uf64(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 1B /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vbroadcastf64x4_zmm_k1_mt = 4664,
+		/// <summary><c>VPTESTMD k2 {k1}, zmm1, Si32(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 27 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vptestmd_kr_k1_zmm_zmmmt = 4665,
+		/// <summary><c>VPERMD zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 36 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpermd_zmm_k1_zmm_zmmmt = 4666,
+		/// <summary><c>VPMINSD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 39 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpminsd_zmm_k1_zmm_zmmmt = 4667,
+		/// <summary><c>VPMINUD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 3B /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpminud_zmm_k1_zmm_zmmmt = 4668,
+		/// <summary><c>VPMAXSD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 3D /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpmaxsd_zmm_k1_zmm_zmmmt = 4669,
+		/// <summary><c>VPMAXUD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 3F /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpmaxud_zmm_k1_zmm_zmmmt = 4670,
+		/// <summary><c>VPMULLD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 40 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpmulld_zmm_k1_zmm_zmmmt = 4671,
+		/// <summary><c>VGETEXPPS zmm1 {k1}, Sf32(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 42 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgetexpps_zmm_k1_zmmmt = 4672,
+		/// <summary><c>VGETEXPPD zmm1 {k1}, Sf64(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 42 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgetexppd_zmm_k1_zmmmt = 4673,
+		/// <summary><c>VPSRLVD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 45 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsrlvd_zmm_k1_zmm_zmmmt = 4674,
+		/// <summary><c>VPSRAVD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 46 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsravd_zmm_k1_zmm_zmmmt = 4675,
+		/// <summary><c>VPSLLVD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 47 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsllvd_zmm_k1_zmm_zmmmt = 4676,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 48 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_48 = 4677,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 49 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_49 = 4678,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 4A /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4A = 4679,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 4B /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4B = 4680,
+		/// <summary><c>VADDNPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vaddnps_zmm_k1_zmm_zmmmt = 4681,
+		/// <summary><c>VADDNPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 50 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vaddnpd_zmm_k1_zmm_zmmmt = 4682,
+		/// <summary><c>VGMAXABSPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgmaxabsps_zmm_k1_zmm_zmmmt = 4683,
+		/// <summary><c>VGMINPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgminps_zmm_k1_zmm_zmmmt = 4684,
+		/// <summary><c>VGMINPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 52 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgminpd_zmm_k1_zmm_zmmmt = 4685,
+		/// <summary><c>VGMAXPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgmaxps_zmm_k1_zmm_zmmmt = 4686,
+		/// <summary><c>VGMAXPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 53 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgmaxpd_zmm_k1_zmm_zmmmt = 4687,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 54 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_54 = 4688,
+		/// <summary><c>VFIXUPNANPS zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 55 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfixupnanps_zmm_k1_zmm_zmmmt = 4689,
+		/// <summary><c>VFIXUPNANPD zmm1 {k1}, zmm2, Si64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 55 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfixupnanpd_zmm_k1_zmm_zmmmt = 4690,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 56 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_56 = 4691,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 57 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_57 = 4692,
+		/// <summary><c>VPBROADCASTD zmm1 {k1}, Ui32(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpbroadcastd_zmm_k1_mt = 4693,
+		/// <summary><c>VPBROADCASTQ zmm1 {k1}, Ui64(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 59 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpbroadcastq_zmm_k1_mt = 4694,
+		/// <summary><c>VBROADCASTI32X4 zmm1 {k1}, Ui32(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vbroadcasti32x4_zmm_k1_mt = 4695,
+		/// <summary><c>VBROADCASTI64X4 zmm1 {k1}, Ui64(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 5B /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vbroadcasti64x4_zmm_k1_mt = 4696,
+		/// <summary><c>VPADCD zmm1 {k1}, k2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpadcd_zmm_k1_kr_zmmmt = 4697,
+		/// <summary><c>VPADDSETCD zmm1 {k1}, k2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 5D /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt = 4698,
+		/// <summary><c>VPSBBD zmm1 {k1}, k2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 5E /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsbbd_zmm_k1_kr_zmmmt = 4699,
+		/// <summary><c>VPSUBSETBD zmm1 {k1}, k2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 5F /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt = 4700,
+		/// <summary><c>VPBLENDMD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 64 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpblendmd_zmm_k1_zmm_zmmmt = 4701,
+		/// <summary><c>VPBLENDMQ zmm1 {k1}, zmm2, Si64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 64 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpblendmq_zmm_k1_zmm_zmmmt = 4702,
+		/// <summary><c>VBLENDMPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 65 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vblendmps_zmm_k1_zmm_zmmmt = 4703,
+		/// <summary><c>VBLENDMPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 65 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vblendmpd_zmm_k1_zmm_zmmmt = 4704,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 67 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_67 = 4705,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 68 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_68 = 4706,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 69 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_69 = 4707,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 6A /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6A = 4708,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 6B /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6B = 4709,
+		/// <summary><c>VPSUBRD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 6C /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsubrd_zmm_k1_zmm_zmmmt = 4710,
+		/// <summary><c>VSUBRPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 6D /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vsubrps_zmm_k1_zmm_zmmmt = 4711,
+		/// <summary><c>VSUBRPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 6D /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vsubrpd_zmm_k1_zmm_zmmmt = 4712,
+		/// <summary><c>VPSBBRD zmm1 {k1}, k2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 6E /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsbbrd_zmm_k1_kr_zmmmt = 4713,
+		/// <summary><c>VPSUBRSETBD zmm1 {k1}, k2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 6F /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt = 4714,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 70 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_70 = 4715,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 71 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_71 = 4716,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 72 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_72 = 4717,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 73 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_73 = 4718,
+		/// <summary><c>VPCMPLTD k2 {k1}, zmm1, Si32(zmm2/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 74 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpcmpltd_kr_k1_zmm_zmmmt = 4719,
+		/// <summary><c>VSCALEPS zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 84 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vscaleps_zmm_k1_zmm_zmmmt = 4720,
+		/// <summary><c>VPMULHUD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 86 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpmulhud_zmm_k1_zmm_zmmmt = 4721,
+		/// <summary><c>VPMULHD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 87 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpmulhd_zmm_k1_zmm_zmmmt = 4722,
+		/// <summary><c>VPGATHERDD zmm1 {k1}, Ui32(mvt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 90 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpgatherdd_zmm_k1_mvt = 4723,
+		/// <summary><c>VPGATHERDQ zmm1 {k1}, Ui64(mvt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 90 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpgatherdq_zmm_k1_mvt = 4724,
+		/// <summary><c>VGATHERDPS zmm1 {k1}, Uf32(mvt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 92 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgatherdps_zmm_k1_mvt = 4725,
+		/// <summary><c>VGATHERDPD zmm1 {k1}, Uf64(mvt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 92 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgatherdpd_zmm_k1_mvt = 4726,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 94 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_94 = 4727,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 94 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_94 = 4728,
+		/// <summary><c>VFMADD132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmadd132ps_zmm_k1_zmm_zmmmt = 4729,
+		/// <summary><c>VFMADD132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 98 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmadd132pd_zmm_k1_zmm_zmmmt = 4730,
+		/// <summary><c>VFMSUB132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmsub132ps_zmm_k1_zmm_zmmmt = 4731,
+		/// <summary><c>VFMSUB132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 9A /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmsub132pd_zmm_k1_zmm_zmmmt = 4732,
+		/// <summary><c>VFNMADD132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 9C /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmadd132ps_zmm_k1_zmm_zmmmt = 4733,
+		/// <summary><c>VFNMADD132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 9C /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmadd132pd_zmm_k1_zmm_zmmmt = 4734,
+		/// <summary><c>VFNMSUB132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 9E /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmsub132ps_zmm_k1_zmm_zmmmt = 4735,
+		/// <summary><c>VFNMSUB132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 9E /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmsub132pd_zmm_k1_zmm_zmmmt = 4736,
+		/// <summary><c>VPSCATTERDD mvt {k1}, Di32(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 A0 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpscatterdd_mvt_k1_zmm = 4737,
+		/// <summary><c>VPSCATTERDQ mvt {k1}, Di64(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 A0 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpscatterdq_mvt_k1_zmm = 4738,
+		/// <summary><c>VSCATTERDPS mvt {k1}, Df32(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 A2 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vscatterdps_mvt_k1_zmm = 4739,
+		/// <summary><c>VSCATTERDPD mvt {k1}, Df64(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 A2 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vscatterdpd_mvt_k1_zmm = 4740,
+		/// <summary><c>VFMADD233PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 A4 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt = 4741,
+		/// <summary><c>VFMADD213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 A8 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt = 4742,
+		/// <summary><c>VFMADD213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 A8 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt = 4743,
+		/// <summary><c>VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 AE /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt = 4744,
+		/// <summary><c>VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 AE /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt = 4745,
+		/// <summary><c>VFMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt = 4746,
+		/// <summary><c>VFMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 AA /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt = 4747,
+		/// <summary><c>VFNMADD213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 AC /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt = 4748,
+		/// <summary><c>VFNMADD213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 AC /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt = 4749,
+		/// <summary><c>UNDOC zmm1 {k1}, mvt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 B0 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0 = 4750,
+		/// <summary><c>UNDOC zmm1 {k1}, mvt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 B2 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2 = 4751,
+		/// <summary><c>VPMADD233D zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 B4 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt = 4752,
+		/// <summary><c>VPMADD231D zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 B5 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpmadd231d_zmm_k1_zmm_zmmmt = 4753,
+		/// <summary><c>VFMADD231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 B8 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmadd231ps_zmm_k1_zmm_zmmmt = 4754,
+		/// <summary><c>VFMADD231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 B8 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmadd231pd_zmm_k1_zmm_zmmmt = 4755,
+		/// <summary><c>VFMSUB231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 BA /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmsub231ps_zmm_k1_zmm_zmmmt = 4756,
+		/// <summary><c>VFMSUB231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 BA /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfmsub231pd_zmm_k1_zmm_zmmmt = 4757,
+		/// <summary><c>VFNMADD231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmadd231ps_zmm_k1_zmm_zmmmt = 4758,
+		/// <summary><c>VFNMADD231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 BC /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmadd231pd_zmm_k1_zmm_zmmmt = 4759,
+		/// <summary><c>VFNMSUB231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 BE /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmsub231ps_zmm_k1_zmm_zmmmt = 4760,
+		/// <summary><c>VFNMSUB231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 BE /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmsub231pd_zmm_k1_zmm_zmmmt = 4761,
+		/// <summary><c>UNDOC zmm1 {k1}, mvt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 C0 /r /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_C0 = 4762,
+		/// <summary><c>VGATHERPF0HINTDPS Uf32(mvt) {k1}</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 C6 /0 /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgatherpf0hintdps_mvt_k1 = 4763,
+		/// <summary><c>VGATHERPF0HINTDPD Uf64(mvt) {k1}</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 C6 /0 /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgatherpf0hintdpd_mvt_k1 = 4764,
+		/// <summary><c>VGATHERPF0DPS Uf32(mvt) {k1}</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 C6 /1 /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgatherpf0dps_mvt_k1 = 4765,
+		/// <summary><c>VGATHERPF1DPS Uf32(mvt) {k1}</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 C6 /2 /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgatherpf1dps_mvt_k1 = 4766,
+		/// <summary><c>VSCATTERPF0HINTDPS Uf32(mvt) {k1}</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 C6 /4 /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vscatterpf0hintdps_mvt_k1 = 4767,
+		/// <summary><c>VSCATTERPF0HINTDPD Uf64(mvt) {k1}</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 C6 /4 /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vscatterpf0hintdpd_mvt_k1 = 4768,
+		/// <summary><c>VSCATTERPF0DPS Uf32(mvt) {k1}</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 C6 /5 /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vscatterpf0dps_mvt_k1 = 4769,
+		/// <summary><c>VSCATTERPF1DPS Uf32(mvt) {k1}</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 C6 /6 /vsib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vscatterpf1dps_mvt_k1 = 4770,
+		/// <summary><c>VEXP223PS zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 C8 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vexp223ps_zmm_k1_zmmmt = 4771,
+		/// <summary><c>VLOG2PS zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 C9 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vlog2ps_zmm_k1_zmmmt = 4772,
+		/// <summary><c>VRCP23PS zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 CA /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vrcp23ps_zmm_k1_zmmmt = 4773,
+		/// <summary><c>VRSQRT23PS zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 CB /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vrsqrt23ps_zmm_k1_zmmmt = 4774,
+		/// <summary><c>VADDSETSPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 CC /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vaddsetsps_zmm_k1_zmm_zmmmt = 4775,
+		/// <summary><c>VPADDSETSD zmm1 {k1}, zmm2, Si32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 CD /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpaddsetsd_zmm_k1_zmm_zmmmt = 4776,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 CE /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CE = 4777,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 CE /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_CE = 4778,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2, zmm3/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 CF /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CF = 4779,
+		/// <summary><c>VLOADUNPACKLD zmm1 {k1}, Ui32(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W0 D0 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vloadunpackld_zmm_k1_mt = 4780,
+		/// <summary><c>VLOADUNPACKLQ zmm1 {k1}, Ui64(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W1 D0 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vloadunpacklq_zmm_k1_mt = 4781,
+		/// <summary><c>VPACKSTORELD mt {k1}, Di32(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 D0 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpackstoreld_mt_k1_zmm = 4782,
+		/// <summary><c>VPACKSTORELQ mt {k1}, Di64(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 D0 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpackstorelq_mt_k1_zmm = 4783,
+		/// <summary><c>VLOADUNPACKLPS zmm1 {k1}, Uf32(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W0 D1 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vloadunpacklps_zmm_k1_mt = 4784,
+		/// <summary><c>VLOADUNPACKLPD zmm1 {k1}, Uf64(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W1 D1 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vloadunpacklpd_zmm_k1_mt = 4785,
+		/// <summary><c>VPACKSTORELPS mt {k1}, Df32(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 D1 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpackstorelps_mt_k1_zmm = 4786,
+		/// <summary><c>VPACKSTORELPD mt {k1}, Df64(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 D1 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpackstorelpd_mt_k1_zmm = 4787,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W0 D2 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D2 = 4788,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 D2 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D2 = 4789,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W0 D3 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D3 = 4790,
+		/// <summary><c>VLOADUNPACKHD zmm1 {k1}, Ui32(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W0 D4 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vloadunpackhd_zmm_k1_mt = 4791,
+		/// <summary><c>VLOADUNPACKHQ zmm1 {k1}, Ui64(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W1 D4 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vloadunpackhq_zmm_k1_mt = 4792,
+		/// <summary><c>VPACKSTOREHD mt {k1}, Di32(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 D4 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpackstorehd_mt_k1_zmm = 4793,
+		/// <summary><c>VPACKSTOREHQ mt {k1}, Di64(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 D4 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpackstorehq_mt_k1_zmm = 4794,
+		/// <summary><c>VLOADUNPACKHPS zmm1 {k1}, Uf32(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W0 D5 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vloadunpackhps_zmm_k1_mt = 4795,
+		/// <summary><c>VLOADUNPACKHPD zmm1 {k1}, Uf64(mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W1 D5 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vloadunpackhpd_zmm_k1_mt = 4796,
+		/// <summary><c>VPACKSTOREHPS mt {k1}, Df32(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 D5 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpackstorehps_mt_k1_zmm = 4797,
+		/// <summary><c>VPACKSTOREHPD mt {k1}, Df64(zmm1)</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W1 D5 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpackstorehpd_mt_k1_zmm = 4798,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W0 D6 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D6 = 4799,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F38.W0 D6 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D6 = 4800,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F38.W0 D7 /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D7 = 4801,
+		/// <summary><c>VALIGND zmm1 {k1}, zmm2, zmm3/mt, imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F3A.W0 03 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Valignd_zmm_k1_zmm_zmmmt_imm8 = 4802,
+		/// <summary><c>VPERMF32X4 zmm1 {k1}, zmm2/mt, imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F3A.W0 07 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpermf32x4_zmm_k1_zmmmt_imm8 = 4803,
+		/// <summary><c>VPCMPUD k2 {k1}, zmm1, Si32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F3A.W0 1E /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8 = 4804,
+		/// <summary><c>VPCMPD k2 {k1}, zmm1, Si32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F3A.W0 1F /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vpcmpd_kr_k1_zmm_zmmmt_imm8 = 4805,
+		/// <summary><c>VGETMANTPS zmm1 {k1}, Sf32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F3A.W0 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgetmantps_zmm_k1_zmmmt_imm8 = 4806,
+		/// <summary><c>VGETMANTPD zmm1 {k1}, Sf64(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F3A.W1 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vgetmantpd_zmm_k1_zmmmt_imm8 = 4807,
+		/// <summary><c>VRNDFXPNTPS zmm1 {k1}, Sf32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F3A.W0 52 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vrndfxpntps_zmm_k1_zmmmt_imm8 = 4808,
+		/// <summary><c>VRNDFXPNTPD zmm1 {k1}, Sf64(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F3A.W1 52 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vrndfxpntpd_zmm_k1_zmmmt_imm8 = 4809,
+		/// <summary><c>VCVTFXPNTUDQ2PS zmm1 {k1}, Si32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F3A.W0 CA /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcvtfxpntudq2ps_zmm_k1_zmmmt_imm8 = 4810,
+		/// <summary><c>VCVTFXPNTPS2UDQ zmm1 {k1}, Sf32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F3A.W0 CA /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcvtfxpntps2udq_zmm_k1_zmmmt_imm8 = 4811,
+		/// <summary><c>VCVTFXPNTPD2UDQ zmm1 {k1}, Sf64(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.F2.0F3A.W1 CA /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcvtfxpntpd2udq_zmm_k1_zmmmt_imm8 = 4812,
+		/// <summary><c>VCVTFXPNTDQ2PS zmm1 {k1}, Si32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.0F3A.W0 CB /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcvtfxpntdq2ps_zmm_k1_zmmmt_imm8 = 4813,
+		/// <summary><c>VCVTFXPNTPS2DQ zmm1 {k1}, Sf32(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F3A.W0 CB /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcvtfxpntps2dq_zmm_k1_zmmmt_imm8 = 4814,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt, imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F3A.W0 D0 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0 = 4815,
+		/// <summary><c>UNDOC zmm1 {k1}, zmm2/mt, imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.66.0F3A.W0 D1 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1 = 4816,
+		/// <summary><c>VCVTFXPNTPD2DQ zmm1 {k1}, Sf64(zmm2/mt), imm8</c><br/>
+		/// <br/>
+		/// <c>MVEX.512.F2.0F3A.W1 E6 /r ib</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8 = 4817,
 	}
 }

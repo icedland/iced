@@ -86,7 +86,7 @@ namespace Iced.Intel.EncoderInternal {
 			new OpJdisp(4),
 		};
 #if !NO_VEX
-		public static readonly Op[] VexOps = new Op[36] {
+		public static readonly Op[] VexOps = new Op[38] {
 			new OpModRM_rm_mem_only(false),
 			new OpVsib(Register.XMM0, Register.XMM15),
 			new OpVsib(Register.XMM0, Register.XMM15),
@@ -119,6 +119,8 @@ namespace Iced.Intel.EncoderInternal {
 			new OpI4(),
 			new OpIb(OpKind.Immediate8),
 			new OprDI(),
+			new OpJ(OpKind.NearBranch64, 1),
+			new OpJ(OpKind.NearBranch64, 4),
 			new OpModRM_rm_mem_only(true),
 			new OpModRM_reg(Register.TMM0, Register.TMM7),
 			new OpModRM_rm_reg_only(Register.TMM0, Register.TMM7),
@@ -178,6 +180,18 @@ namespace Iced.Intel.EncoderInternal {
 			new OpModRM_reg(Register.ZMM0, Register.ZMM31),
 			new OpModRM_rm_reg_only(Register.ZMM0, Register.ZMM31),
 			new OpHx(Register.ZMM0, Register.ZMM31),
+			new OpHx(Register.ZMM0, Register.ZMM31),
+			new OpIb(OpKind.Immediate8),
+		};
+#endif
+#if MVEX
+		public static readonly Op[] MvexOps = new Op[8] {
+			new OpModRM_rm_mem_only(false),
+			new OpVsib(Register.ZMM0, Register.ZMM31),
+			new OpModRM_rm(Register.ZMM0, Register.ZMM31),
+			new OpModRM_reg(Register.K0, Register.K7),
+			new OpHx(Register.K0, Register.K7),
+			new OpModRM_reg(Register.ZMM0, Register.ZMM31),
 			new OpHx(Register.ZMM0, Register.ZMM31),
 			new OpIb(OpKind.Immediate8),
 		};

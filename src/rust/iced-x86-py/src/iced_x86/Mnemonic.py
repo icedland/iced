@@ -6981,3 +6981,375 @@ WRUDBG: Mnemonic = 1740 # type: ignore
 """
 <no docs>
 """
+CLEVICT0: Mnemonic = 1741 # type: ignore
+"""
+<no docs>
+"""
+CLEVICT1: Mnemonic = 1742 # type: ignore
+"""
+<no docs>
+"""
+DELAY: Mnemonic = 1743 # type: ignore
+"""
+<no docs>
+"""
+JKNZD: Mnemonic = 1744 # type: ignore
+"""
+<no docs>
+"""
+JKZD: Mnemonic = 1745 # type: ignore
+"""
+<no docs>
+"""
+KAND: Mnemonic = 1746 # type: ignore
+"""
+<no docs>
+"""
+KANDN: Mnemonic = 1747 # type: ignore
+"""
+<no docs>
+"""
+KANDNR: Mnemonic = 1748 # type: ignore
+"""
+<no docs>
+"""
+KCONCATH: Mnemonic = 1749 # type: ignore
+"""
+<no docs>
+"""
+KCONCATL: Mnemonic = 1750 # type: ignore
+"""
+<no docs>
+"""
+KEXTRACT: Mnemonic = 1751 # type: ignore
+"""
+<no docs>
+"""
+KMERGE2L1H: Mnemonic = 1752 # type: ignore
+"""
+<no docs>
+"""
+KMERGE2L1L: Mnemonic = 1753 # type: ignore
+"""
+<no docs>
+"""
+KMOV: Mnemonic = 1754 # type: ignore
+"""
+<no docs>
+"""
+KNOT: Mnemonic = 1755 # type: ignore
+"""
+<no docs>
+"""
+KOR: Mnemonic = 1756 # type: ignore
+"""
+<no docs>
+"""
+KORTEST: Mnemonic = 1757 # type: ignore
+"""
+<no docs>
+"""
+KXNOR: Mnemonic = 1758 # type: ignore
+"""
+<no docs>
+"""
+KXOR: Mnemonic = 1759 # type: ignore
+"""
+<no docs>
+"""
+SPFLT: Mnemonic = 1760 # type: ignore
+"""
+<no docs>
+"""
+TZCNTI: Mnemonic = 1761 # type: ignore
+"""
+<no docs>
+"""
+VADDNPD: Mnemonic = 1762 # type: ignore
+"""
+<no docs>
+"""
+VADDNPS: Mnemonic = 1763 # type: ignore
+"""
+<no docs>
+"""
+VADDSETSPS: Mnemonic = 1764 # type: ignore
+"""
+<no docs>
+"""
+VCVTFXPNTDQ2PS: Mnemonic = 1765 # type: ignore
+"""
+<no docs>
+"""
+VCVTFXPNTPD2DQ: Mnemonic = 1766 # type: ignore
+"""
+<no docs>
+"""
+VCVTFXPNTPD2UDQ: Mnemonic = 1767 # type: ignore
+"""
+<no docs>
+"""
+VCVTFXPNTPS2DQ: Mnemonic = 1768 # type: ignore
+"""
+<no docs>
+"""
+VCVTFXPNTPS2UDQ: Mnemonic = 1769 # type: ignore
+"""
+<no docs>
+"""
+VCVTFXPNTUDQ2PS: Mnemonic = 1770 # type: ignore
+"""
+<no docs>
+"""
+VEXP223PS: Mnemonic = 1771 # type: ignore
+"""
+<no docs>
+"""
+VFIXUPNANPD: Mnemonic = 1772 # type: ignore
+"""
+<no docs>
+"""
+VFIXUPNANPS: Mnemonic = 1773 # type: ignore
+"""
+<no docs>
+"""
+VFMADD233PS: Mnemonic = 1774 # type: ignore
+"""
+<no docs>
+"""
+VGATHERPF0HINTDPD: Mnemonic = 1775 # type: ignore
+"""
+<no docs>
+"""
+VGATHERPF0HINTDPS: Mnemonic = 1776 # type: ignore
+"""
+<no docs>
+"""
+VGMAXABSPS: Mnemonic = 1777 # type: ignore
+"""
+<no docs>
+"""
+VGMAXPD: Mnemonic = 1778 # type: ignore
+"""
+<no docs>
+"""
+VGMAXPS: Mnemonic = 1779 # type: ignore
+"""
+<no docs>
+"""
+VGMINPD: Mnemonic = 1780 # type: ignore
+"""
+<no docs>
+"""
+VGMINPS: Mnemonic = 1781 # type: ignore
+"""
+<no docs>
+"""
+VLOADUNPACKHD: Mnemonic = 1782 # type: ignore
+"""
+<no docs>
+"""
+VLOADUNPACKHPD: Mnemonic = 1783 # type: ignore
+"""
+<no docs>
+"""
+VLOADUNPACKHPS: Mnemonic = 1784 # type: ignore
+"""
+<no docs>
+"""
+VLOADUNPACKHQ: Mnemonic = 1785 # type: ignore
+"""
+<no docs>
+"""
+VLOADUNPACKLD: Mnemonic = 1786 # type: ignore
+"""
+<no docs>
+"""
+VLOADUNPACKLPD: Mnemonic = 1787 # type: ignore
+"""
+<no docs>
+"""
+VLOADUNPACKLPS: Mnemonic = 1788 # type: ignore
+"""
+<no docs>
+"""
+VLOADUNPACKLQ: Mnemonic = 1789 # type: ignore
+"""
+<no docs>
+"""
+VLOG2PS: Mnemonic = 1790 # type: ignore
+"""
+<no docs>
+"""
+VMOVNRAPD: Mnemonic = 1791 # type: ignore
+"""
+<no docs>
+"""
+VMOVNRAPS: Mnemonic = 1792 # type: ignore
+"""
+<no docs>
+"""
+VMOVNRNGOAPD: Mnemonic = 1793 # type: ignore
+"""
+<no docs>
+"""
+VMOVNRNGOAPS: Mnemonic = 1794 # type: ignore
+"""
+<no docs>
+"""
+VPACKSTOREHD: Mnemonic = 1795 # type: ignore
+"""
+<no docs>
+"""
+VPACKSTOREHPD: Mnemonic = 1796 # type: ignore
+"""
+<no docs>
+"""
+VPACKSTOREHPS: Mnemonic = 1797 # type: ignore
+"""
+<no docs>
+"""
+VPACKSTOREHQ: Mnemonic = 1798 # type: ignore
+"""
+<no docs>
+"""
+VPACKSTORELD: Mnemonic = 1799 # type: ignore
+"""
+<no docs>
+"""
+VPACKSTORELPD: Mnemonic = 1800 # type: ignore
+"""
+<no docs>
+"""
+VPACKSTORELPS: Mnemonic = 1801 # type: ignore
+"""
+<no docs>
+"""
+VPACKSTORELQ: Mnemonic = 1802 # type: ignore
+"""
+<no docs>
+"""
+VPADCD: Mnemonic = 1803 # type: ignore
+"""
+<no docs>
+"""
+VPADDSETCD: Mnemonic = 1804 # type: ignore
+"""
+<no docs>
+"""
+VPADDSETSD: Mnemonic = 1805 # type: ignore
+"""
+<no docs>
+"""
+VPCMPLTD: Mnemonic = 1806 # type: ignore
+"""
+<no docs>
+"""
+VPERMF32X4: Mnemonic = 1807 # type: ignore
+"""
+<no docs>
+"""
+VPMADD231D: Mnemonic = 1808 # type: ignore
+"""
+<no docs>
+"""
+VPMADD233D: Mnemonic = 1809 # type: ignore
+"""
+<no docs>
+"""
+VPMULHD: Mnemonic = 1810 # type: ignore
+"""
+<no docs>
+"""
+VPMULHUD: Mnemonic = 1811 # type: ignore
+"""
+<no docs>
+"""
+VPREFETCH0: Mnemonic = 1812 # type: ignore
+"""
+<no docs>
+"""
+VPREFETCH1: Mnemonic = 1813 # type: ignore
+"""
+<no docs>
+"""
+VPREFETCH2: Mnemonic = 1814 # type: ignore
+"""
+<no docs>
+"""
+VPREFETCHE0: Mnemonic = 1815 # type: ignore
+"""
+<no docs>
+"""
+VPREFETCHE1: Mnemonic = 1816 # type: ignore
+"""
+<no docs>
+"""
+VPREFETCHE2: Mnemonic = 1817 # type: ignore
+"""
+<no docs>
+"""
+VPREFETCHENTA: Mnemonic = 1818 # type: ignore
+"""
+<no docs>
+"""
+VPREFETCHNTA: Mnemonic = 1819 # type: ignore
+"""
+<no docs>
+"""
+VPSBBD: Mnemonic = 1820 # type: ignore
+"""
+<no docs>
+"""
+VPSBBRD: Mnemonic = 1821 # type: ignore
+"""
+<no docs>
+"""
+VPSUBRD: Mnemonic = 1822 # type: ignore
+"""
+<no docs>
+"""
+VPSUBRSETBD: Mnemonic = 1823 # type: ignore
+"""
+<no docs>
+"""
+VPSUBSETBD: Mnemonic = 1824 # type: ignore
+"""
+<no docs>
+"""
+VRCP23PS: Mnemonic = 1825 # type: ignore
+"""
+<no docs>
+"""
+VRNDFXPNTPD: Mnemonic = 1826 # type: ignore
+"""
+<no docs>
+"""
+VRNDFXPNTPS: Mnemonic = 1827 # type: ignore
+"""
+<no docs>
+"""
+VRSQRT23PS: Mnemonic = 1828 # type: ignore
+"""
+<no docs>
+"""
+VSCALEPS: Mnemonic = 1829 # type: ignore
+"""
+<no docs>
+"""
+VSCATTERPF0HINTDPD: Mnemonic = 1830 # type: ignore
+"""
+<no docs>
+"""
+VSCATTERPF0HINTDPS: Mnemonic = 1831 # type: ignore
+"""
+<no docs>
+"""
+VSUBRPD: Mnemonic = 1832 # type: ignore
+"""
+<no docs>
+"""
+VSUBRPS: Mnemonic = 1833 # type: ignore
+"""
+<no docs>
+"""

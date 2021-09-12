@@ -36494,9 +36494,2049 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Wrudbg = 4562,
+	/// `JKZD k1, rel8`
+	///
+	/// `VEX.128.W0 74 cb`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Jkzd_kr_rel8_64 = 4563,
+	/// `JKNZD k1, rel8`
+	///
+	/// `VEX.128.W0 75 cb`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Jknzd_kr_rel8_64 = 4564,
+	/// `VPREFETCHNTA m8`
+	///
+	/// `VEX.128.0F.WIG 18 /0`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Vprefetchnta_m8 = 4565,
+	/// `VPREFETCH0 m8`
+	///
+	/// `VEX.128.0F.WIG 18 /1`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Vprefetch0_m8 = 4566,
+	/// `VPREFETCH1 m8`
+	///
+	/// `VEX.128.0F.WIG 18 /2`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Vprefetch1_m8 = 4567,
+	/// `VPREFETCH2 m8`
+	///
+	/// `VEX.128.0F.WIG 18 /3`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Vprefetch2_m8 = 4568,
+	/// `VPREFETCHENTA m8`
+	///
+	/// `VEX.128.0F.WIG 18 /4`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Vprefetchenta_m8 = 4569,
+	/// `VPREFETCHE0 m8`
+	///
+	/// `VEX.128.0F.WIG 18 /5`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Vprefetche0_m8 = 4570,
+	/// `VPREFETCHE1 m8`
+	///
+	/// `VEX.128.0F.WIG 18 /6`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Vprefetche1_m8 = 4571,
+	/// `VPREFETCHE2 m8`
+	///
+	/// `VEX.128.0F.WIG 18 /7`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Vprefetche2_m8 = 4572,
+	/// `KAND k1, k2`
+	///
+	/// `VEX.128.0F.W0 41 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kand_kr_kr = 4573,
+	/// `KANDN k1, k2`
+	///
+	/// `VEX.128.0F.W0 42 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kandn_kr_kr = 4574,
+	/// `KANDNR k1, k2`
+	///
+	/// `VEX.128.0F.W0 43 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kandnr_kr_kr = 4575,
+	/// `KNOT k1, k2`
+	///
+	/// `VEX.128.0F.W0 44 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Knot_kr_kr = 4576,
+	/// `KOR k1, k2`
+	///
+	/// `VEX.128.0F.W0 45 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kor_kr_kr = 4577,
+	/// `KXNOR k1, k2`
+	///
+	/// `VEX.128.0F.W0 46 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kxnor_kr_kr = 4578,
+	/// `KXOR k1, k2`
+	///
+	/// `VEX.128.0F.W0 47 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kxor_kr_kr = 4579,
+	/// `KMERGE2L1H k1, k2`
+	///
+	/// `VEX.128.0F.W0 48 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kmerge2l1h_kr_kr = 4580,
+	/// `KMERGE2L1L k1, k2`
+	///
+	/// `VEX.128.0F.W0 49 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kmerge2l1l_kr_kr = 4581,
+	/// `JKZD k1, rel32`
+	///
+	/// `VEX.128.0F.W0 84 cd`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Jkzd_kr_rel32_64 = 4582,
+	/// `JKNZD k1, rel32`
+	///
+	/// `VEX.128.0F.W0 85 cd`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Jknzd_kr_rel32_64 = 4583,
+	/// `KMOV k1, k2`
+	///
+	/// `VEX.128.0F.W0 90 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kmov_kr_kr = 4584,
+	/// `KMOV k1, r32`
+	///
+	/// `VEX.128.0F.W0 92 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kmov_kr_r32 = 4585,
+	/// `KMOV r32, k2`
+	///
+	/// `VEX.128.0F.W0 93 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kmov_r32_kr = 4586,
+	/// `KCONCATH r64, k1, k2`
+	///
+	/// `VEX.128.0F.W0 95 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kconcath_r64_kr_kr = 4587,
+	/// `KCONCATL r64, k1, k2`
+	///
+	/// `VEX.128.0F.W0 97 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kconcatl_r64_kr_kr = 4588,
+	/// `KORTEST k1, k2`
+	///
+	/// `VEX.128.0F.W0 98 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kortest_kr_kr = 4589,
+	/// `DELAY r32`
+	///
+	/// `VEX.128.F3.0F.W0 AE /6`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Delay_r32 = 4590,
+	/// `DELAY r64`
+	///
+	/// `VEX.128.F3.0F.W1 AE /6`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Delay_r64 = 4591,
+	/// `SPFLT r32`
+	///
+	/// `VEX.128.F2.0F.W0 AE /6`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Spflt_r32 = 4592,
+	/// `SPFLT r64`
+	///
+	/// `VEX.128.F2.0F.W1 AE /6`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Spflt_r64 = 4593,
+	/// `CLEVICT1 m8`
+	///
+	/// `VEX.128.F3.0F.WIG AE /7`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Clevict1_m8 = 4594,
+	/// `CLEVICT0 m8`
+	///
+	/// `VEX.128.F2.0F.WIG AE /7`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Clevict0_m8 = 4595,
+	/// `POPCNT r32, r32`
+	///
+	/// `VEX.128.F3.0F.W0 B8 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Popcnt_r32_r32 = 4596,
+	/// `POPCNT r64, r64`
+	///
+	/// `VEX.128.F3.0F.W1 B8 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Popcnt_r64_r64 = 4597,
+	/// `TZCNT r32, r32`
+	///
+	/// `VEX.128.F3.0F.W0 BC /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Tzcnt_r32_r32 = 4598,
+	/// `TZCNT r64, r64`
+	///
+	/// `VEX.128.F3.0F.W1 BC /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Tzcnt_r64_r64 = 4599,
+	/// `TZCNTI r32, r32`
+	///
+	/// `VEX.128.F2.0F.W0 BC /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Tzcnti_r32_r32 = 4600,
+	/// `TZCNTI r64, r64`
+	///
+	/// `VEX.128.F2.0F.W1 BC /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Tzcnti_r64_r64 = 4601,
+	/// `LZCNT r32, r32`
+	///
+	/// `VEX.128.F3.0F.W0 BD /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Lzcnt_r32_r32 = 4602,
+	/// `LZCNT r64, r64`
+	///
+	/// `VEX.128.F3.0F.W1 BD /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Lzcnt_r64_r64 = 4603,
+	/// `UNDOC r32, r/m32`
+	///
+	/// `VEX.128.F3.0F38.W0 F0 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Undoc_r32_rm32_128_F3_0F38_W0_F0 = 4604,
+	/// `UNDOC r64, r/m64`
+	///
+	/// `VEX.128.F3.0F38.W1 F0 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Undoc_r64_rm64_128_F3_0F38_W1_F0 = 4605,
+	/// `UNDOC r32, r/m32`
+	///
+	/// `VEX.128.F2.0F38.W0 F0 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F0 = 4606,
+	/// `UNDOC r64, r/m64`
+	///
+	/// `VEX.128.F2.0F38.W1 F0 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F0 = 4607,
+	/// `UNDOC r32, r/m32`
+	///
+	/// `VEX.128.F2.0F38.W0 F1 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1 = 4608,
+	/// `UNDOC r64, r/m64`
+	///
+	/// `VEX.128.F2.0F38.W1 F1 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1 = 4609,
+	/// `KEXTRACT k1, r64, imm8`
+	///
+	/// `VEX.128.66.0F3A.W0 3E /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	VEX_KNC_Kextract_kr_r64_imm8 = 4610,
+	/// `VPREFETCHNTA mt`
+	///
+	/// `MVEX.512.0F.WIG 18 /0`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vprefetchnta_mt = 4611,
+	/// `VPREFETCH0 mt`
+	///
+	/// `MVEX.512.0F.WIG 18 /1`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vprefetch0_mt = 4612,
+	/// `VPREFETCH1 mt`
+	///
+	/// `MVEX.512.0F.WIG 18 /2`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vprefetch1_mt = 4613,
+	/// `VPREFETCH2 mt`
+	///
+	/// `MVEX.512.0F.WIG 18 /3`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vprefetch2_mt = 4614,
+	/// `VPREFETCHENTA mt`
+	///
+	/// `MVEX.512.0F.WIG 18 /4`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vprefetchenta_mt = 4615,
+	/// `VPREFETCHE0 mt`
+	///
+	/// `MVEX.512.0F.WIG 18 /5`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vprefetche0_mt = 4616,
+	/// `VPREFETCHE1 mt`
+	///
+	/// `MVEX.512.0F.WIG 18 /6`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vprefetche1_mt = 4617,
+	/// `VPREFETCHE2 mt`
+	///
+	/// `MVEX.512.0F.WIG 18 /7`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vprefetche2_mt = 4618,
+	/// `VMOVAPS zmm1 {k1}, Sf32(zmm2/mt)`
+	///
+	/// `MVEX.512.0F.W0 28 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovaps_zmm_k1_zmmmt = 4619,
+	/// `VMOVAPD zmm1 {k1}, Sf64(zmm2/mt)`
+	///
+	/// `MVEX.512.66.0F.W1 28 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovapd_zmm_k1_zmmmt = 4620,
+	/// `VMOVAPS mt {k1}, Df32(zmm1)`
+	///
+	/// `MVEX.512.0F.W0 29 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovaps_mt_k1_zmm = 4621,
+	/// `VMOVAPD mt {k1}, Df64(zmm1)`
+	///
+	/// `MVEX.512.66.0F.W1 29 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovapd_mt_k1_zmm = 4622,
+	/// `VMOVNRAPD m {k1}, Df64(zmm1)`
+	///
+	/// `MVEX.512.F3.0F.W1.EH0 29 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovnrapd_m_k1_zmm = 4623,
+	/// `VMOVNRNGOAPD m {k1}, Df64(zmm1)`
+	///
+	/// `MVEX.512.F3.0F.W1.EH1 29 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovnrngoapd_m_k1_zmm = 4624,
+	/// `VMOVNRAPS m {k1}, Df32(zmm1)`
+	///
+	/// `MVEX.512.F2.0F.W0.EH0 29 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovnraps_m_k1_zmm = 4625,
+	/// `VMOVNRNGOAPS m {k1}, Df32(zmm1)`
+	///
+	/// `MVEX.512.F2.0F.W0.EH1 29 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovnrngoaps_m_k1_zmm = 4626,
+	/// `VADDPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.0F.W0 58 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vaddps_zmm_k1_zmm_zmmmt = 4627,
+	/// `VADDPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W1 58 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vaddpd_zmm_k1_zmm_zmmmt = 4628,
+	/// `VMULPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.0F.W0 59 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmulps_zmm_k1_zmm_zmmmt = 4629,
+	/// `VMULPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W1 59 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmulpd_zmm_k1_zmm_zmmmt = 4630,
+	/// `VCVTPS2PD zmm1 {k1}, Sf32(zmm2/mt)`
+	///
+	/// `MVEX.512.0F.W0 5A /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcvtps2pd_zmm_k1_zmmmt = 4631,
+	/// `VCVTPD2PS zmm1 {k1}, Sf64(zmm2/mt)`
+	///
+	/// `MVEX.512.66.0F.W1 5A /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcvtpd2ps_zmm_k1_zmmmt = 4632,
+	/// `VSUBPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.0F.W0 5C /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vsubps_zmm_k1_zmm_zmmmt = 4633,
+	/// `VSUBPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W1 5C /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vsubpd_zmm_k1_zmm_zmmmt = 4634,
+	/// `VPCMPGTD k2 {k1}, zmm1, Si32(zmm2/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W0 66 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpcmpgtd_kr_k1_zmm_zmmmt = 4635,
+	/// `VMOVDQA32 zmm1 {k1}, Si32(zmm2/mt)`
+	///
+	/// `MVEX.512.66.0F.W0 6F /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovdqa32_zmm_k1_zmmmt = 4636,
+	/// `VMOVDQA64 zmm1 {k1}, Si64(zmm2/mt)`
+	///
+	/// `MVEX.512.66.0F.W1 6F /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovdqa64_zmm_k1_zmmmt = 4637,
+	/// `VPSHUFD zmm1 {k1}, zmm2/mt, imm8`
+	///
+	/// `MVEX.512.66.0F.W0 70 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpshufd_zmm_k1_zmmmt_imm8 = 4638,
+	/// `VPSRLD zmm1 {k1}, Si32(zmm2/mt), imm8`
+	///
+	/// `MVEX.NDD.512.66.0F.W0 72 /2 ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsrld_zmm_k1_zmmmt_imm8 = 4639,
+	/// `VPSRAD zmm1 {k1}, Si32(zmm2/mt), imm8`
+	///
+	/// `MVEX.NDD.512.66.0F.W0 72 /4 ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsrad_zmm_k1_zmmmt_imm8 = 4640,
+	/// `VPSLLD zmm1 {k1}, Si32(zmm2/mt), imm8`
+	///
+	/// `MVEX.NDD.512.66.0F.W0 72 /6 ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpslld_zmm_k1_zmmmt_imm8 = 4641,
+	/// `VPCMPEQD k2 {k1}, zmm1, Si32(zmm2/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W0 76 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpcmpeqd_kr_k1_zmm_zmmmt = 4642,
+	/// `VCVTUDQ2PD zmm1 {k1}, Si32(zmm2/mt)`
+	///
+	/// `MVEX.512.F3.0F.W0 7A /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcvtudq2pd_zmm_k1_zmmmt = 4643,
+	/// `VMOVDQA32 mt {k1}, Di32(zmm1)`
+	///
+	/// `MVEX.512.66.0F.W0 7F /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovdqa32_mt_k1_zmm = 4644,
+	/// `VMOVDQA64 mt {k1}, Di64(zmm1)`
+	///
+	/// `MVEX.512.66.0F.W1 7F /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vmovdqa64_mt_k1_zmm = 4645,
+	/// `CLEVICT1 mt`
+	///
+	/// `MVEX.512.F3.0F.WIG AE /7`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Clevict1_mt = 4646,
+	/// `CLEVICT0 mt`
+	///
+	/// `MVEX.512.F2.0F.WIG AE /7`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Clevict0_mt = 4647,
+	/// `VCMPPS k2 {k1}, zmm1, Sf32(zmm2/mt), imm8`
+	///
+	/// `MVEX.NDS.512.0F.W0 C2 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8 = 4648,
+	/// `VCMPPD k2 {k1}, zmm1, Sf64(zmm2/mt), imm8`
+	///
+	/// `MVEX.NDS.512.66.0F.W1 C2 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8 = 4649,
+	/// `VPANDD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W0 DB /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpandd_zmm_k1_zmm_zmmmt = 4650,
+	/// `VPANDQ zmm1 {k1}, zmm2, Si64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W1 DB /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpandq_zmm_k1_zmm_zmmmt = 4651,
+	/// `VPANDND zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W0 DF /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpandnd_zmm_k1_zmm_zmmmt = 4652,
+	/// `VPANDNQ zmm1 {k1}, zmm2, Si64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W1 DF /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpandnq_zmm_k1_zmm_zmmmt = 4653,
+	/// `VCVTDQ2PD zmm1 {k1}, Si32(zmm2/mt)`
+	///
+	/// `MVEX.512.F3.0F.W0 E6 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcvtdq2pd_zmm_k1_zmmmt = 4654,
+	/// `VPORD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W0 EB /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpord_zmm_k1_zmm_zmmmt = 4655,
+	/// `VPORQ zmm1 {k1}, zmm2, Si64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W1 EB /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vporq_zmm_k1_zmm_zmmmt = 4656,
+	/// `VPXORD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W0 EF /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpxord_zmm_k1_zmm_zmmmt = 4657,
+	/// `VPXORQ zmm1 {k1}, zmm2, Si64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W1 EF /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpxorq_zmm_k1_zmm_zmmmt = 4658,
+	/// `VPSUBD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W0 FA /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsubd_zmm_k1_zmm_zmmmt = 4659,
+	/// `VPADDD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F.W0 FE /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpaddd_zmm_k1_zmm_zmmmt = 4660,
+	/// `VBROADCASTSS zmm1 {k1}, Uf32(mt)`
+	///
+	/// `MVEX.512.66.0F38.W0 18 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vbroadcastss_zmm_k1_mt = 4661,
+	/// `VBROADCASTSD zmm1 {k1}, Uf64(mt)`
+	///
+	/// `MVEX.512.66.0F38.W1 19 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vbroadcastsd_zmm_k1_mt = 4662,
+	/// `VBROADCASTF32X4 zmm1 {k1}, Uf32(mt)`
+	///
+	/// `MVEX.512.66.0F38.W0 1A /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vbroadcastf32x4_zmm_k1_mt = 4663,
+	/// `VBROADCASTF64X4 zmm1 {k1}, Uf64(mt)`
+	///
+	/// `MVEX.512.66.0F38.W1 1B /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vbroadcastf64x4_zmm_k1_mt = 4664,
+	/// `VPTESTMD k2 {k1}, zmm1, Si32(zmm2/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 27 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vptestmd_kr_k1_zmm_zmmmt = 4665,
+	/// `VPERMD zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 36 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpermd_zmm_k1_zmm_zmmmt = 4666,
+	/// `VPMINSD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 39 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpminsd_zmm_k1_zmm_zmmmt = 4667,
+	/// `VPMINUD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 3B /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpminud_zmm_k1_zmm_zmmmt = 4668,
+	/// `VPMAXSD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 3D /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpmaxsd_zmm_k1_zmm_zmmmt = 4669,
+	/// `VPMAXUD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 3F /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpmaxud_zmm_k1_zmm_zmmmt = 4670,
+	/// `VPMULLD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 40 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpmulld_zmm_k1_zmm_zmmmt = 4671,
+	/// `VGETEXPPS zmm1 {k1}, Sf32(zmm2/mt)`
+	///
+	/// `MVEX.512.66.0F38.W0 42 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgetexpps_zmm_k1_zmmmt = 4672,
+	/// `VGETEXPPD zmm1 {k1}, Sf64(zmm2/mt)`
+	///
+	/// `MVEX.512.66.0F38.W1 42 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgetexppd_zmm_k1_zmmmt = 4673,
+	/// `VPSRLVD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 45 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsrlvd_zmm_k1_zmm_zmmmt = 4674,
+	/// `VPSRAVD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 46 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsravd_zmm_k1_zmm_zmmmt = 4675,
+	/// `VPSLLVD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 47 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsllvd_zmm_k1_zmm_zmmmt = 4676,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 48 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_48 = 4677,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 49 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_49 = 4678,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 4A /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4A = 4679,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 4B /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4B = 4680,
+	/// `VADDNPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 50 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vaddnps_zmm_k1_zmm_zmmmt = 4681,
+	/// `VADDNPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 50 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vaddnpd_zmm_k1_zmm_zmmmt = 4682,
+	/// `VGMAXABSPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 51 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgmaxabsps_zmm_k1_zmm_zmmmt = 4683,
+	/// `VGMINPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 52 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgminps_zmm_k1_zmm_zmmmt = 4684,
+	/// `VGMINPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 52 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgminpd_zmm_k1_zmm_zmmmt = 4685,
+	/// `VGMAXPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 53 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgmaxps_zmm_k1_zmm_zmmmt = 4686,
+	/// `VGMAXPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 53 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgmaxpd_zmm_k1_zmm_zmmmt = 4687,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 54 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_54 = 4688,
+	/// `VFIXUPNANPS zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 55 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfixupnanps_zmm_k1_zmm_zmmmt = 4689,
+	/// `VFIXUPNANPD zmm1 {k1}, zmm2, Si64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 55 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfixupnanpd_zmm_k1_zmm_zmmmt = 4690,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 56 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_56 = 4691,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 57 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_57 = 4692,
+	/// `VPBROADCASTD zmm1 {k1}, Ui32(mt)`
+	///
+	/// `MVEX.512.66.0F38.W0 58 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpbroadcastd_zmm_k1_mt = 4693,
+	/// `VPBROADCASTQ zmm1 {k1}, Ui64(mt)`
+	///
+	/// `MVEX.512.66.0F38.W1 59 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpbroadcastq_zmm_k1_mt = 4694,
+	/// `VBROADCASTI32X4 zmm1 {k1}, Ui32(mt)`
+	///
+	/// `MVEX.512.66.0F38.W0 5A /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vbroadcasti32x4_zmm_k1_mt = 4695,
+	/// `VBROADCASTI64X4 zmm1 {k1}, Ui64(mt)`
+	///
+	/// `MVEX.512.66.0F38.W1 5B /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vbroadcasti64x4_zmm_k1_mt = 4696,
+	/// `VPADCD zmm1 {k1}, k2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 5C /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpadcd_zmm_k1_kr_zmmmt = 4697,
+	/// `VPADDSETCD zmm1 {k1}, k2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 5D /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt = 4698,
+	/// `VPSBBD zmm1 {k1}, k2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 5E /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsbbd_zmm_k1_kr_zmmmt = 4699,
+	/// `VPSUBSETBD zmm1 {k1}, k2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 5F /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt = 4700,
+	/// `VPBLENDMD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 64 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpblendmd_zmm_k1_zmm_zmmmt = 4701,
+	/// `VPBLENDMQ zmm1 {k1}, zmm2, Si64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 64 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpblendmq_zmm_k1_zmm_zmmmt = 4702,
+	/// `VBLENDMPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 65 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vblendmps_zmm_k1_zmm_zmmmt = 4703,
+	/// `VBLENDMPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 65 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vblendmpd_zmm_k1_zmm_zmmmt = 4704,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 67 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_67 = 4705,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 68 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_68 = 4706,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 69 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_69 = 4707,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 6A /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6A = 4708,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 6B /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6B = 4709,
+	/// `VPSUBRD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 6C /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsubrd_zmm_k1_zmm_zmmmt = 4710,
+	/// `VSUBRPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 6D /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vsubrps_zmm_k1_zmm_zmmmt = 4711,
+	/// `VSUBRPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 6D /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vsubrpd_zmm_k1_zmm_zmmmt = 4712,
+	/// `VPSBBRD zmm1 {k1}, k2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 6E /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsbbrd_zmm_k1_kr_zmmmt = 4713,
+	/// `VPSUBRSETBD zmm1 {k1}, k2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 6F /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt = 4714,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 70 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_70 = 4715,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 71 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_71 = 4716,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 72 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_72 = 4717,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 73 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_73 = 4718,
+	/// `VPCMPLTD k2 {k1}, zmm1, Si32(zmm2/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 74 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpcmpltd_kr_k1_zmm_zmmmt = 4719,
+	/// `VSCALEPS zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 84 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vscaleps_zmm_k1_zmm_zmmmt = 4720,
+	/// `VPMULHUD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 86 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpmulhud_zmm_k1_zmm_zmmmt = 4721,
+	/// `VPMULHD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 87 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpmulhd_zmm_k1_zmm_zmmmt = 4722,
+	/// `VPGATHERDD zmm1 {k1}, Ui32(mvt)`
+	///
+	/// `MVEX.512.66.0F38.W0 90 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpgatherdd_zmm_k1_mvt = 4723,
+	/// `VPGATHERDQ zmm1 {k1}, Ui64(mvt)`
+	///
+	/// `MVEX.512.66.0F38.W1 90 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpgatherdq_zmm_k1_mvt = 4724,
+	/// `VGATHERDPS zmm1 {k1}, Uf32(mvt)`
+	///
+	/// `MVEX.512.66.0F38.W0 92 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgatherdps_zmm_k1_mvt = 4725,
+	/// `VGATHERDPD zmm1 {k1}, Uf64(mvt)`
+	///
+	/// `MVEX.512.66.0F38.W1 92 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgatherdpd_zmm_k1_mvt = 4726,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 94 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_94 = 4727,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 94 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_94 = 4728,
+	/// `VFMADD132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 98 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmadd132ps_zmm_k1_zmm_zmmmt = 4729,
+	/// `VFMADD132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 98 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmadd132pd_zmm_k1_zmm_zmmmt = 4730,
+	/// `VFMSUB132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 9A /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmsub132ps_zmm_k1_zmm_zmmmt = 4731,
+	/// `VFMSUB132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 9A /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmsub132pd_zmm_k1_zmm_zmmmt = 4732,
+	/// `VFNMADD132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 9C /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmadd132ps_zmm_k1_zmm_zmmmt = 4733,
+	/// `VFNMADD132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 9C /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmadd132pd_zmm_k1_zmm_zmmmt = 4734,
+	/// `VFNMSUB132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 9E /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmsub132ps_zmm_k1_zmm_zmmmt = 4735,
+	/// `VFNMSUB132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 9E /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmsub132pd_zmm_k1_zmm_zmmmt = 4736,
+	/// `VPSCATTERDD mvt {k1}, Di32(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W0 A0 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpscatterdd_mvt_k1_zmm = 4737,
+	/// `VPSCATTERDQ mvt {k1}, Di64(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W1 A0 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpscatterdq_mvt_k1_zmm = 4738,
+	/// `VSCATTERDPS mvt {k1}, Df32(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W0 A2 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vscatterdps_mvt_k1_zmm = 4739,
+	/// `VSCATTERDPD mvt {k1}, Df64(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W1 A2 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vscatterdpd_mvt_k1_zmm = 4740,
+	/// `VFMADD233PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 A4 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt = 4741,
+	/// `VFMADD213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 A8 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt = 4742,
+	/// `VFMADD213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 A8 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt = 4743,
+	/// `VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 AE /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt = 4744,
+	/// `VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 AE /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt = 4745,
+	/// `VFMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 AA /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt = 4746,
+	/// `VFMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 AA /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt = 4747,
+	/// `VFNMADD213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 AC /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt = 4748,
+	/// `VFNMADD213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 AC /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt = 4749,
+	/// `UNDOC zmm1 {k1}, mvt`
+	///
+	/// `MVEX.512.66.0F38.W0 B0 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0 = 4750,
+	/// `UNDOC zmm1 {k1}, mvt`
+	///
+	/// `MVEX.512.66.0F38.W0 B2 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2 = 4751,
+	/// `VPMADD233D zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 B4 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt = 4752,
+	/// `VPMADD231D zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 B5 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpmadd231d_zmm_k1_zmm_zmmmt = 4753,
+	/// `VFMADD231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 B8 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmadd231ps_zmm_k1_zmm_zmmmt = 4754,
+	/// `VFMADD231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 B8 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmadd231pd_zmm_k1_zmm_zmmmt = 4755,
+	/// `VFMSUB231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 BA /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmsub231ps_zmm_k1_zmm_zmmmt = 4756,
+	/// `VFMSUB231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 BA /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfmsub231pd_zmm_k1_zmm_zmmmt = 4757,
+	/// `VFNMADD231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 BC /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmadd231ps_zmm_k1_zmm_zmmmt = 4758,
+	/// `VFNMADD231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 BC /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmadd231pd_zmm_k1_zmm_zmmmt = 4759,
+	/// `VFNMSUB231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 BE /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmsub231ps_zmm_k1_zmm_zmmmt = 4760,
+	/// `VFNMSUB231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 BE /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmsub231pd_zmm_k1_zmm_zmmmt = 4761,
+	/// `UNDOC zmm1 {k1}, mvt`
+	///
+	/// `MVEX.512.66.0F38.W0 C0 /r /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_C0 = 4762,
+	/// `VGATHERPF0HINTDPS Uf32(mvt) {k1}`
+	///
+	/// `MVEX.512.66.0F38.W0 C6 /0 /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgatherpf0hintdps_mvt_k1 = 4763,
+	/// `VGATHERPF0HINTDPD Uf64(mvt) {k1}`
+	///
+	/// `MVEX.512.66.0F38.W1 C6 /0 /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgatherpf0hintdpd_mvt_k1 = 4764,
+	/// `VGATHERPF0DPS Uf32(mvt) {k1}`
+	///
+	/// `MVEX.512.66.0F38.W0 C6 /1 /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgatherpf0dps_mvt_k1 = 4765,
+	/// `VGATHERPF1DPS Uf32(mvt) {k1}`
+	///
+	/// `MVEX.512.66.0F38.W0 C6 /2 /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgatherpf1dps_mvt_k1 = 4766,
+	/// `VSCATTERPF0HINTDPS Uf32(mvt) {k1}`
+	///
+	/// `MVEX.512.66.0F38.W0 C6 /4 /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vscatterpf0hintdps_mvt_k1 = 4767,
+	/// `VSCATTERPF0HINTDPD Uf64(mvt) {k1}`
+	///
+	/// `MVEX.512.66.0F38.W1 C6 /4 /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vscatterpf0hintdpd_mvt_k1 = 4768,
+	/// `VSCATTERPF0DPS Uf32(mvt) {k1}`
+	///
+	/// `MVEX.512.66.0F38.W0 C6 /5 /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vscatterpf0dps_mvt_k1 = 4769,
+	/// `VSCATTERPF1DPS Uf32(mvt) {k1}`
+	///
+	/// `MVEX.512.66.0F38.W0 C6 /6 /vsib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vscatterpf1dps_mvt_k1 = 4770,
+	/// `VEXP223PS zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 C8 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vexp223ps_zmm_k1_zmmmt = 4771,
+	/// `VLOG2PS zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 C9 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vlog2ps_zmm_k1_zmmmt = 4772,
+	/// `VRCP23PS zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 CA /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vrcp23ps_zmm_k1_zmmmt = 4773,
+	/// `VRSQRT23PS zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 CB /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vrsqrt23ps_zmm_k1_zmmmt = 4774,
+	/// `VADDSETSPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 CC /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vaddsetsps_zmm_k1_zmm_zmmmt = 4775,
+	/// `VPADDSETSD zmm1 {k1}, zmm2, Si32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 CD /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpaddsetsd_zmm_k1_zmm_zmmmt = 4776,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 CE /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CE = 4777,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 CE /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_CE = 4778,
+	/// `UNDOC zmm1 {k1}, zmm2, zmm3/mt`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 CF /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CF = 4779,
+	/// `VLOADUNPACKLD zmm1 {k1}, Ui32(mt)`
+	///
+	/// `MVEX.512.0F38.W0 D0 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vloadunpackld_zmm_k1_mt = 4780,
+	/// `VLOADUNPACKLQ zmm1 {k1}, Ui64(mt)`
+	///
+	/// `MVEX.512.0F38.W1 D0 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vloadunpacklq_zmm_k1_mt = 4781,
+	/// `VPACKSTORELD mt {k1}, Di32(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W0 D0 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpackstoreld_mt_k1_zmm = 4782,
+	/// `VPACKSTORELQ mt {k1}, Di64(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W1 D0 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpackstorelq_mt_k1_zmm = 4783,
+	/// `VLOADUNPACKLPS zmm1 {k1}, Uf32(mt)`
+	///
+	/// `MVEX.512.0F38.W0 D1 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vloadunpacklps_zmm_k1_mt = 4784,
+	/// `VLOADUNPACKLPD zmm1 {k1}, Uf64(mt)`
+	///
+	/// `MVEX.512.0F38.W1 D1 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vloadunpacklpd_zmm_k1_mt = 4785,
+	/// `VPACKSTORELPS mt {k1}, Df32(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W0 D1 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpackstorelps_mt_k1_zmm = 4786,
+	/// `VPACKSTORELPD mt {k1}, Df64(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W1 D1 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpackstorelpd_mt_k1_zmm = 4787,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.0F38.W0 D2 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D2 = 4788,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 D2 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D2 = 4789,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.0F38.W0 D3 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D3 = 4790,
+	/// `VLOADUNPACKHD zmm1 {k1}, Ui32(mt)`
+	///
+	/// `MVEX.512.0F38.W0 D4 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vloadunpackhd_zmm_k1_mt = 4791,
+	/// `VLOADUNPACKHQ zmm1 {k1}, Ui64(mt)`
+	///
+	/// `MVEX.512.0F38.W1 D4 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vloadunpackhq_zmm_k1_mt = 4792,
+	/// `VPACKSTOREHD mt {k1}, Di32(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W0 D4 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpackstorehd_mt_k1_zmm = 4793,
+	/// `VPACKSTOREHQ mt {k1}, Di64(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W1 D4 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpackstorehq_mt_k1_zmm = 4794,
+	/// `VLOADUNPACKHPS zmm1 {k1}, Uf32(mt)`
+	///
+	/// `MVEX.512.0F38.W0 D5 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vloadunpackhps_zmm_k1_mt = 4795,
+	/// `VLOADUNPACKHPD zmm1 {k1}, Uf64(mt)`
+	///
+	/// `MVEX.512.0F38.W1 D5 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vloadunpackhpd_zmm_k1_mt = 4796,
+	/// `VPACKSTOREHPS mt {k1}, Df32(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W0 D5 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpackstorehps_mt_k1_zmm = 4797,
+	/// `VPACKSTOREHPD mt {k1}, Df64(zmm1)`
+	///
+	/// `MVEX.512.66.0F38.W1 D5 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpackstorehpd_mt_k1_zmm = 4798,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.0F38.W0 D6 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D6 = 4799,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.66.0F38.W0 D6 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D6 = 4800,
+	/// `UNDOC zmm1 {k1}, zmm2/mt`
+	///
+	/// `MVEX.512.0F38.W0 D7 /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D7 = 4801,
+	/// `VALIGND zmm1 {k1}, zmm2, zmm3/mt, imm8`
+	///
+	/// `MVEX.NDS.512.66.0F3A.W0 03 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Valignd_zmm_k1_zmm_zmmmt_imm8 = 4802,
+	/// `VPERMF32X4 zmm1 {k1}, zmm2/mt, imm8`
+	///
+	/// `MVEX.512.66.0F3A.W0 07 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpermf32x4_zmm_k1_zmmmt_imm8 = 4803,
+	/// `VPCMPUD k2 {k1}, zmm1, Si32(zmm2/mt), imm8`
+	///
+	/// `MVEX.NDS.512.66.0F3A.W0 1E /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8 = 4804,
+	/// `VPCMPD k2 {k1}, zmm1, Si32(zmm2/mt), imm8`
+	///
+	/// `MVEX.NDS.512.66.0F3A.W0 1F /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vpcmpd_kr_k1_zmm_zmmmt_imm8 = 4805,
+	/// `VGETMANTPS zmm1 {k1}, Sf32(zmm2/mt), imm8`
+	///
+	/// `MVEX.512.66.0F3A.W0 26 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgetmantps_zmm_k1_zmmmt_imm8 = 4806,
+	/// `VGETMANTPD zmm1 {k1}, Sf64(zmm2/mt), imm8`
+	///
+	/// `MVEX.512.66.0F3A.W1 26 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vgetmantpd_zmm_k1_zmmmt_imm8 = 4807,
+	/// `VRNDFXPNTPS zmm1 {k1}, Sf32(zmm2/mt), imm8`
+	///
+	/// `MVEX.512.66.0F3A.W0 52 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vrndfxpntps_zmm_k1_zmmmt_imm8 = 4808,
+	/// `VRNDFXPNTPD zmm1 {k1}, Sf64(zmm2/mt), imm8`
+	///
+	/// `MVEX.512.66.0F3A.W1 52 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vrndfxpntpd_zmm_k1_zmmmt_imm8 = 4809,
+	/// `VCVTFXPNTUDQ2PS zmm1 {k1}, Si32(zmm2/mt), imm8`
+	///
+	/// `MVEX.512.0F3A.W0 CA /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcvtfxpntudq2ps_zmm_k1_zmmmt_imm8 = 4810,
+	/// `VCVTFXPNTPS2UDQ zmm1 {k1}, Sf32(zmm2/mt), imm8`
+	///
+	/// `MVEX.512.66.0F3A.W0 CA /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcvtfxpntps2udq_zmm_k1_zmmmt_imm8 = 4811,
+	/// `VCVTFXPNTPD2UDQ zmm1 {k1}, Sf64(zmm2/mt), imm8`
+	///
+	/// `MVEX.512.F2.0F3A.W1 CA /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcvtfxpntpd2udq_zmm_k1_zmmmt_imm8 = 4812,
+	/// `VCVTFXPNTDQ2PS zmm1 {k1}, Si32(zmm2/mt), imm8`
+	///
+	/// `MVEX.512.0F3A.W0 CB /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcvtfxpntdq2ps_zmm_k1_zmmmt_imm8 = 4813,
+	/// `VCVTFXPNTPS2DQ zmm1 {k1}, Sf32(zmm2/mt), imm8`
+	///
+	/// `MVEX.512.66.0F3A.W0 CB /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcvtfxpntps2dq_zmm_k1_zmmmt_imm8 = 4814,
+	/// `UNDOC zmm1 {k1}, zmm2/mt, imm8`
+	///
+	/// `MVEX.512.66.0F3A.W0 D0 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0 = 4815,
+	/// `UNDOC zmm1 {k1}, zmm2/mt, imm8`
+	///
+	/// `MVEX.512.66.0F3A.W0 D1 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1 = 4816,
+	/// `VCVTFXPNTPD2DQ zmm1 {k1}, Sf64(zmm2/mt), imm8`
+	///
+	/// `MVEX.512.F2.0F3A.W1 E6 /r ib`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8 = 4817,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_CODE: [&str; 4563] = [
+static GEN_DEBUG_CODE: [&str; 4818] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -41060,6 +43100,261 @@ static GEN_DEBUG_CODE: [&str; 4563] = [
 	"EVEX_Vucomish_xmm_xmmm16_sae",
 	"Rdudbg",
 	"Wrudbg",
+	"VEX_KNC_Jkzd_kr_rel8_64",
+	"VEX_KNC_Jknzd_kr_rel8_64",
+	"VEX_KNC_Vprefetchnta_m8",
+	"VEX_KNC_Vprefetch0_m8",
+	"VEX_KNC_Vprefetch1_m8",
+	"VEX_KNC_Vprefetch2_m8",
+	"VEX_KNC_Vprefetchenta_m8",
+	"VEX_KNC_Vprefetche0_m8",
+	"VEX_KNC_Vprefetche1_m8",
+	"VEX_KNC_Vprefetche2_m8",
+	"VEX_KNC_Kand_kr_kr",
+	"VEX_KNC_Kandn_kr_kr",
+	"VEX_KNC_Kandnr_kr_kr",
+	"VEX_KNC_Knot_kr_kr",
+	"VEX_KNC_Kor_kr_kr",
+	"VEX_KNC_Kxnor_kr_kr",
+	"VEX_KNC_Kxor_kr_kr",
+	"VEX_KNC_Kmerge2l1h_kr_kr",
+	"VEX_KNC_Kmerge2l1l_kr_kr",
+	"VEX_KNC_Jkzd_kr_rel32_64",
+	"VEX_KNC_Jknzd_kr_rel32_64",
+	"VEX_KNC_Kmov_kr_kr",
+	"VEX_KNC_Kmov_kr_r32",
+	"VEX_KNC_Kmov_r32_kr",
+	"VEX_KNC_Kconcath_r64_kr_kr",
+	"VEX_KNC_Kconcatl_r64_kr_kr",
+	"VEX_KNC_Kortest_kr_kr",
+	"VEX_KNC_Delay_r32",
+	"VEX_KNC_Delay_r64",
+	"VEX_KNC_Spflt_r32",
+	"VEX_KNC_Spflt_r64",
+	"VEX_KNC_Clevict1_m8",
+	"VEX_KNC_Clevict0_m8",
+	"VEX_KNC_Popcnt_r32_r32",
+	"VEX_KNC_Popcnt_r64_r64",
+	"VEX_KNC_Tzcnt_r32_r32",
+	"VEX_KNC_Tzcnt_r64_r64",
+	"VEX_KNC_Tzcnti_r32_r32",
+	"VEX_KNC_Tzcnti_r64_r64",
+	"VEX_KNC_Lzcnt_r32_r32",
+	"VEX_KNC_Lzcnt_r64_r64",
+	"VEX_KNC_Undoc_r32_rm32_128_F3_0F38_W0_F0",
+	"VEX_KNC_Undoc_r64_rm64_128_F3_0F38_W1_F0",
+	"VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F0",
+	"VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F0",
+	"VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1",
+	"VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1",
+	"VEX_KNC_Kextract_kr_r64_imm8",
+	"MVEX_Vprefetchnta_mt",
+	"MVEX_Vprefetch0_mt",
+	"MVEX_Vprefetch1_mt",
+	"MVEX_Vprefetch2_mt",
+	"MVEX_Vprefetchenta_mt",
+	"MVEX_Vprefetche0_mt",
+	"MVEX_Vprefetche1_mt",
+	"MVEX_Vprefetche2_mt",
+	"MVEX_Vmovaps_zmm_k1_zmmmt",
+	"MVEX_Vmovapd_zmm_k1_zmmmt",
+	"MVEX_Vmovaps_mt_k1_zmm",
+	"MVEX_Vmovapd_mt_k1_zmm",
+	"MVEX_Vmovnrapd_m_k1_zmm",
+	"MVEX_Vmovnrngoapd_m_k1_zmm",
+	"MVEX_Vmovnraps_m_k1_zmm",
+	"MVEX_Vmovnrngoaps_m_k1_zmm",
+	"MVEX_Vaddps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vaddpd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vmulps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vmulpd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vcvtps2pd_zmm_k1_zmmmt",
+	"MVEX_Vcvtpd2ps_zmm_k1_zmmmt",
+	"MVEX_Vsubps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vsubpd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpcmpgtd_kr_k1_zmm_zmmmt",
+	"MVEX_Vmovdqa32_zmm_k1_zmmmt",
+	"MVEX_Vmovdqa64_zmm_k1_zmmmt",
+	"MVEX_Vpshufd_zmm_k1_zmmmt_imm8",
+	"MVEX_Vpsrld_zmm_k1_zmmmt_imm8",
+	"MVEX_Vpsrad_zmm_k1_zmmmt_imm8",
+	"MVEX_Vpslld_zmm_k1_zmmmt_imm8",
+	"MVEX_Vpcmpeqd_kr_k1_zmm_zmmmt",
+	"MVEX_Vcvtudq2pd_zmm_k1_zmmmt",
+	"MVEX_Vmovdqa32_mt_k1_zmm",
+	"MVEX_Vmovdqa64_mt_k1_zmm",
+	"MVEX_Clevict1_mt",
+	"MVEX_Clevict0_mt",
+	"MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8",
+	"MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8",
+	"MVEX_Vpandd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpandq_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpandnd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpandnq_zmm_k1_zmm_zmmmt",
+	"MVEX_Vcvtdq2pd_zmm_k1_zmmmt",
+	"MVEX_Vpord_zmm_k1_zmm_zmmmt",
+	"MVEX_Vporq_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpxord_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpxorq_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpsubd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpaddd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vbroadcastss_zmm_k1_mt",
+	"MVEX_Vbroadcastsd_zmm_k1_mt",
+	"MVEX_Vbroadcastf32x4_zmm_k1_mt",
+	"MVEX_Vbroadcastf64x4_zmm_k1_mt",
+	"MVEX_Vptestmd_kr_k1_zmm_zmmmt",
+	"MVEX_Vpermd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpminsd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpminud_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpmaxsd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpmaxud_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpmulld_zmm_k1_zmm_zmmmt",
+	"MVEX_Vgetexpps_zmm_k1_zmmmt",
+	"MVEX_Vgetexppd_zmm_k1_zmmmt",
+	"MVEX_Vpsrlvd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpsravd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpsllvd_zmm_k1_zmm_zmmmt",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_48",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_49",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4A",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4B",
+	"MVEX_Vaddnps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vaddnpd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vgmaxabsps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vgminps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vgminpd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vgmaxps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vgmaxpd_zmm_k1_zmm_zmmmt",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_54",
+	"MVEX_Vfixupnanps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfixupnanpd_zmm_k1_zmm_zmmmt",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_56",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_57",
+	"MVEX_Vpbroadcastd_zmm_k1_mt",
+	"MVEX_Vpbroadcastq_zmm_k1_mt",
+	"MVEX_Vbroadcasti32x4_zmm_k1_mt",
+	"MVEX_Vbroadcasti64x4_zmm_k1_mt",
+	"MVEX_Vpadcd_zmm_k1_kr_zmmmt",
+	"MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt",
+	"MVEX_Vpsbbd_zmm_k1_kr_zmmmt",
+	"MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt",
+	"MVEX_Vpblendmd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpblendmq_zmm_k1_zmm_zmmmt",
+	"MVEX_Vblendmps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vblendmpd_zmm_k1_zmm_zmmmt",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_67",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_68",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_69",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6A",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6B",
+	"MVEX_Vpsubrd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vsubrps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vsubrpd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpsbbrd_zmm_k1_kr_zmmmt",
+	"MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_70",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_71",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_72",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_73",
+	"MVEX_Vpcmpltd_kr_k1_zmm_zmmmt",
+	"MVEX_Vscaleps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpmulhud_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpmulhd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpgatherdd_zmm_k1_mvt",
+	"MVEX_Vpgatherdq_zmm_k1_mvt",
+	"MVEX_Vgatherdps_zmm_k1_mvt",
+	"MVEX_Vgatherdpd_zmm_k1_mvt",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_94",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_94",
+	"MVEX_Vfmadd132ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmadd132pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmsub132ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmsub132pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmadd132ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmadd132pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmsub132ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmsub132pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpscatterdd_mvt_k1_zmm",
+	"MVEX_Vpscatterdq_mvt_k1_zmm",
+	"MVEX_Vscatterdps_mvt_k1_zmm",
+	"MVEX_Vscatterdpd_mvt_k1_zmm",
+	"MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0",
+	"MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2",
+	"MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpmadd231d_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmadd231ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmadd231pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmsub231ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfmsub231pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmadd231ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmadd231pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmsub231ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmsub231pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_C0",
+	"MVEX_Vgatherpf0hintdps_mvt_k1",
+	"MVEX_Vgatherpf0hintdpd_mvt_k1",
+	"MVEX_Vgatherpf0dps_mvt_k1",
+	"MVEX_Vgatherpf1dps_mvt_k1",
+	"MVEX_Vscatterpf0hintdps_mvt_k1",
+	"MVEX_Vscatterpf0hintdpd_mvt_k1",
+	"MVEX_Vscatterpf0dps_mvt_k1",
+	"MVEX_Vscatterpf1dps_mvt_k1",
+	"MVEX_Vexp223ps_zmm_k1_zmmmt",
+	"MVEX_Vlog2ps_zmm_k1_zmmmt",
+	"MVEX_Vrcp23ps_zmm_k1_zmmmt",
+	"MVEX_Vrsqrt23ps_zmm_k1_zmmmt",
+	"MVEX_Vaddsetsps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vpaddsetsd_zmm_k1_zmm_zmmmt",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CE",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_CE",
+	"MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CF",
+	"MVEX_Vloadunpackld_zmm_k1_mt",
+	"MVEX_Vloadunpacklq_zmm_k1_mt",
+	"MVEX_Vpackstoreld_mt_k1_zmm",
+	"MVEX_Vpackstorelq_mt_k1_zmm",
+	"MVEX_Vloadunpacklps_zmm_k1_mt",
+	"MVEX_Vloadunpacklpd_zmm_k1_mt",
+	"MVEX_Vpackstorelps_mt_k1_zmm",
+	"MVEX_Vpackstorelpd_mt_k1_zmm",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D2",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D2",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D3",
+	"MVEX_Vloadunpackhd_zmm_k1_mt",
+	"MVEX_Vloadunpackhq_zmm_k1_mt",
+	"MVEX_Vpackstorehd_mt_k1_zmm",
+	"MVEX_Vpackstorehq_mt_k1_zmm",
+	"MVEX_Vloadunpackhps_zmm_k1_mt",
+	"MVEX_Vloadunpackhpd_zmm_k1_mt",
+	"MVEX_Vpackstorehps_mt_k1_zmm",
+	"MVEX_Vpackstorehpd_mt_k1_zmm",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D6",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D6",
+	"MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D7",
+	"MVEX_Valignd_zmm_k1_zmm_zmmmt_imm8",
+	"MVEX_Vpermf32x4_zmm_k1_zmmmt_imm8",
+	"MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8",
+	"MVEX_Vpcmpd_kr_k1_zmm_zmmmt_imm8",
+	"MVEX_Vgetmantps_zmm_k1_zmmmt_imm8",
+	"MVEX_Vgetmantpd_zmm_k1_zmmmt_imm8",
+	"MVEX_Vrndfxpntps_zmm_k1_zmmmt_imm8",
+	"MVEX_Vrndfxpntpd_zmm_k1_zmmmt_imm8",
+	"MVEX_Vcvtfxpntudq2ps_zmm_k1_zmmmt_imm8",
+	"MVEX_Vcvtfxpntps2udq_zmm_k1_zmmmt_imm8",
+	"MVEX_Vcvtfxpntpd2udq_zmm_k1_zmmmt_imm8",
+	"MVEX_Vcvtfxpntdq2ps_zmm_k1_zmmmt_imm8",
+	"MVEX_Vcvtfxpntps2dq_zmm_k1_zmmmt_imm8",
+	"MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0",
+	"MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1",
+	"MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8",
 ];
 impl fmt::Debug for Code {
 	#[inline]

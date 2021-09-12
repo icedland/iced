@@ -19,6 +19,8 @@ pub enum EncodingKind {
 	XOP = 3,
 	/// 3DNow! encoding
 	D3NOW = 4,
+	/// MVEX encoding
+	MVEX = 5,
 }
 // GENERATOR-END: Enum
 

@@ -37,3 +37,7 @@ D3NOW: EncodingKind = 4 # type: ignore
 """
 3DNow! encoding
 """
+MVEX: EncodingKind = 5 # type: ignore
+"""
+MVEX encoding
+"""

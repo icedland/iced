@@ -336,5 +336,7 @@ pub enum CpuidFeature {
 	AVX512_FP16 = 158,
 	/// Undocumented Intel `RDUDBG` and `WRUDBG` instructions
 	UDBG = 159,
+	/// Intel Knights Corner
+	KNC = 160,
 }
 // GENERATOR-END: Enum

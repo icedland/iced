@@ -2386,6 +2386,25 @@ impl Instruction {
 			| Code::EVEX_Vscatterpf0dpd_vm32y_k1
 			| Code::EVEX_Vscatterpf1dps_vm32z_k1
 			| Code::EVEX_Vscatterpf1dpd_vm32y_k1
+			| Code::MVEX_Vpgatherdd_zmm_k1_mvt
+			| Code::MVEX_Vpgatherdq_zmm_k1_mvt
+			| Code::MVEX_Vgatherdps_zmm_k1_mvt
+			| Code::MVEX_Vgatherdpd_zmm_k1_mvt
+			| Code::MVEX_Vpscatterdd_mvt_k1_zmm
+			| Code::MVEX_Vpscatterdq_mvt_k1_zmm
+			| Code::MVEX_Vscatterdps_mvt_k1_zmm
+			| Code::MVEX_Vscatterdpd_mvt_k1_zmm
+			| Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
+			| Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
+			| Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_C0
+			| Code::MVEX_Vgatherpf0hintdps_mvt_k1
+			| Code::MVEX_Vgatherpf0hintdpd_mvt_k1
+			| Code::MVEX_Vgatherpf0dps_mvt_k1
+			| Code::MVEX_Vgatherpf1dps_mvt_k1
+			| Code::MVEX_Vscatterpf0hintdps_mvt_k1
+			| Code::MVEX_Vscatterpf0hintdpd_mvt_k1
+			| Code::MVEX_Vscatterpf0dps_mvt_k1
+			| Code::MVEX_Vscatterpf1dps_mvt_k1
 			=> Some(false),
 			// GENERATOR-END: Vsib32
 

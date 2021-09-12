@@ -87,7 +87,7 @@ pub(super) static LEGACY_OP_KINDS: [OpCodeOperandKind; 76] = [
 
 #[rustfmt::skip]
 #[cfg(not(feature = "no_vex"))]
-pub(super) static VEX_OP_KINDS: [OpCodeOperandKind; 37] = [
+pub(super) static VEX_OP_KINDS: [OpCodeOperandKind; 39] = [
 	OpCodeOperandKind::None,
 	OpCodeOperandKind::mem,
 	OpCodeOperandKind::mem_vsib32x,
@@ -121,6 +121,8 @@ pub(super) static VEX_OP_KINDS: [OpCodeOperandKind; 37] = [
 	OpCodeOperandKind::imm4_m2z,
 	OpCodeOperandKind::imm8,
 	OpCodeOperandKind::seg_rDI,
+	OpCodeOperandKind::br64_1,
+	OpCodeOperandKind::br64_4,
 	OpCodeOperandKind::sibmem,
 	OpCodeOperandKind::tmm_reg,
 	OpCodeOperandKind::tmm_rm,
@@ -185,5 +187,19 @@ pub(super) static EVEX_OP_KINDS: [OpCodeOperandKind; 32] = [
 	OpCodeOperandKind::zmm_rm,
 	OpCodeOperandKind::zmm_vvvv,
 	OpCodeOperandKind::zmmp3_vvvv,
+	OpCodeOperandKind::imm8,
+];
+
+#[rustfmt::skip]
+#[cfg(feature = "mvex")]
+pub(super) static MVEX_OP_KINDS: [OpCodeOperandKind; 9] = [
+	OpCodeOperandKind::None,
+	OpCodeOperandKind::mem,
+	OpCodeOperandKind::mem_vsib32z,
+	OpCodeOperandKind::zmm_or_mem,
+	OpCodeOperandKind::k_reg,
+	OpCodeOperandKind::k_vvvv,
+	OpCodeOperandKind::zmm_reg,
+	OpCodeOperandKind::zmm_vvvv,
 	OpCodeOperandKind::imm8,
 ];

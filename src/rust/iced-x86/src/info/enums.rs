@@ -1075,10 +1075,11 @@ pub(crate) enum CpuidFeatureInternal {
 	AVX512_FP16,
 	AVX512VL_and_AVX512_FP16,
 	UDBG,
+	KNC,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 181] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 182] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1260,6 +1261,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 181] = [
 	"AVX512_FP16",
 	"AVX512VL_and_AVX512_FP16",
 	"UDBG",
+	"KNC",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

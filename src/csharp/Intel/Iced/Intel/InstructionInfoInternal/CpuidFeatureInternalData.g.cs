@@ -220,6 +220,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x9E,// AVX512_FP16
 				0x21, 0x9E,// AVX512VL_and_AVX512_FP16
 				0x9F,// UDBG
+				0xA0,// KNC
 			};
 	}
 }
