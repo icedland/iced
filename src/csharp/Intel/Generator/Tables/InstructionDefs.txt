@@ -31399,14 +31399,14 @@ END
 
 # Code: VEX_KNC_Jkzd_kr_rel8_64
 INSTRUCTION: VEX.128.W0 74 cb | JKZD k1, rel8 | KNC
-	ops: r=vvvv r=br
+	ops: r=vvvv r=br64
 	code-suffix: 64
 	flags: cc=e br=jkcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: VEX_KNC_Jknzd_kr_rel8_64
 INSTRUCTION: VEX.128.W0 75 cb | JKNZD k1, rel8 | KNC
-	ops: r=vvvv r=br
+	ops: r=vvvv r=br64
 	code-suffix: 64
 	flags: cc=ne br=jkcc-short cflow=br-cond intel-fo64 do64
 END
@@ -31506,14 +31506,14 @@ END
 
 # Code: VEX_KNC_Jkzd_kr_rel32_64
 INSTRUCTION: VEX.128.0F.W0 84 cd | JKZD k1, rel32 | KNC
-	ops: r=vvvv r=br
+	ops: r=vvvv r=br64
 	code-suffix: 64
 	flags: cc=e br=jkcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: VEX_KNC_Jknzd_kr_rel32_64
 INSTRUCTION: VEX.128.0F.W0 85 cd | JKNZD k1, rel32 | KNC
-	ops: r=vvvv r=br
+	ops: r=vvvv r=br64
 	code-suffix: 64
 	flags: cc=ne br=jkcc-near cflow=br-cond intel-fo64 do64
 END

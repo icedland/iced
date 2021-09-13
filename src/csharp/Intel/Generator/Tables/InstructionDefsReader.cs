@@ -932,13 +932,20 @@ namespace Generator.Tables {
 							break;
 
 						case "br":
+						case "br64":
 							if ((parsedOpFlags & ParsedInstructionOperandFlags.DispBranch) != 0)
 								opEnc = OperandEncoding.AbsNearBranch;
 							else if ((parsedOpFlags & ParsedInstructionOperandFlags.RelBranch) != 0) {
 								opEnc = OperandEncoding.NearBranch;
 								var opSize = parsedOpCode.OperandSize;
-								if (parsedOpCode.Encoding == EncodingKind.VEX && opSize == CodeSize.Unknown)
-									opSize = CodeSize.Code64;
+								if (opSize == CodeSize.Unknown) {
+									switch (opKindStr) {
+									case "br64": opSize = CodeSize.Code64; break;
+									default:
+										Error(lineIndex, "Unknown operand size");
+										return false;
+									}
+								}
 								switch (opSize) {
 								case CodeSize.Code16: size2 = 16; break;
 								case CodeSize.Code32: size2 = 32; break;
