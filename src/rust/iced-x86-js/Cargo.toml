@@ -37,6 +37,7 @@ no_vex = ["iced-x86-rust/no_vex"]
 no_evex = ["iced-x86-rust/no_evex"]
 no_xop = ["iced-x86-rust/no_xop"]
 no_d3now = ["iced-x86-rust/no_d3now"]
+mvex = ["iced-x86-rust/mvex"]
 
 [dependencies]
 static_assertions = "1.1.0"
