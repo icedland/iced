@@ -208,6 +208,9 @@ pub(crate) fn is_ignored_code(value: &str) -> bool {
 	if cfg!(feature = "no_d3now") && value.starts_with("D3NOW_") {
 		return true;
 	}
+	if cfg!(not(feature = "mvex")) && value.starts_with("MVEX_") {
+		return true;
+	}
 	IGNORED_CODE_HASH.contains(value)
 }
 

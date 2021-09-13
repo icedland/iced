@@ -29,6 +29,10 @@ namespace Iced.UnitTests.Intel {
 			if (name.StartsWith("D3NOW_"))
 				return true;
 #endif
+#if !MVEX
+			if (name.StartsWith("MVEX_"))
+				return true;
+#endif
 
 			return ignored.Contains(name);
 		}
