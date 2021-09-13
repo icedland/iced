@@ -58,6 +58,7 @@ namespace IcedFuzzer.Core {
 		public bool IncludeXOP = true;
 		public bool IncludeEVEX = true;
 		public bool Include3DNow = true;
+		public bool IncludeMVEX = false;
 		public readonly FilterOptions Filter = new FilterOptions();
 	}
 
@@ -96,6 +97,10 @@ namespace IcedFuzzer.Core {
 					break;
 				case EncodingKind.D3NOW:
 					if (!options.Include3DNow)
+						continue;
+					break;
+				case EncodingKind.MVEX:
+					if (!options.IncludeMVEX)
 						continue;
 					break;
 				default:

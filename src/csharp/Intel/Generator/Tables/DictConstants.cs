@@ -61,6 +61,7 @@ namespace Generator.Tables {
 				(OpCodeInfoConstants.Encoding_EVEX, genTypes[TypeIds.EncodingKind][nameof(EncodingKind.EVEX)]),
 				(OpCodeInfoConstants.Encoding_XOP, genTypes[TypeIds.EncodingKind][nameof(EncodingKind.XOP)]),
 				(OpCodeInfoConstants.Encoding_3DNOW, genTypes[TypeIds.EncodingKind][nameof(EncodingKind.D3NOW)]),
+				(OpCodeInfoConstants.Encoding_MVEX, genTypes[TypeIds.EncodingKind][nameof(EncodingKind.MVEX)]),
 			};
 		public static (string value, EnumValue flags)[] MandatoryPrefixTable(GenTypes genTypes) =>
 			new (string value, EnumValue flags)[] {

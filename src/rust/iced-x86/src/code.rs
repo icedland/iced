@@ -43584,6 +43584,7 @@ impl Code {
 	/// assert_eq!(Code::EVEX_Vmovups_xmm_k1z_xmmm128.encoding(), EncodingKind::EVEX);
 	/// assert_eq!(Code::XOP_Vpmacssww_xmm_xmm_xmmm128_xmm.encoding(), EncodingKind::XOP);
 	/// assert_eq!(Code::D3NOW_Pi2fw_mm_mmm64.encoding(), EncodingKind::D3NOW);
+	/// assert_eq!(Code::MVEX_Vpackstoreld_mt_k1_zmm.encoding(), EncodingKind::MVEX);
 	/// ```
 	#[must_use]
 	#[inline]

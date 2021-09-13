@@ -132,7 +132,8 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(
 				decoder.state.Encoding == EncodingKind.VEX ||
 				decoder.state.Encoding == EncodingKind.EVEX ||
-				decoder.state.Encoding == EncodingKind.XOP);
+				decoder.state.Encoding == EncodingKind.XOP ||
+				decoder.state.Encoding == EncodingKind.MVEX);
 			handlers[(int)decoder.state.mandatoryPrefix].Decode(decoder, ref instruction);
 		}
 	}
@@ -161,7 +162,8 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(
 				decoder.state.Encoding == EncodingKind.VEX ||
 				decoder.state.Encoding == EncodingKind.EVEX ||
-				decoder.state.Encoding == EncodingKind.XOP);
+				decoder.state.Encoding == EncodingKind.XOP ||
+				decoder.state.Encoding == EncodingKind.MVEX);
 			handlers[(int)decoder.state.mandatoryPrefix].Decode(decoder, ref instruction);
 		}
 	}

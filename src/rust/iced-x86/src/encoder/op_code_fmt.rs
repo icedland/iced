@@ -281,7 +281,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 			self.sb.push(':');
 			self.append_bits("bbb", bbb, 3);
 		} else {
-			let is_vsib = self.op_code.encoding() == EncodingKind::EVEX && self.has_vsib();
+			let is_vsib = (self.op_code.encoding() == EncodingKind::EVEX || self.op_code.encoding() == EncodingKind::MVEX) && self.has_vsib();
 			if self.op_code.is_group() {
 				self.sb.push_str(" /");
 				write!(self.sb, "{}", self.op_code.group_index()).unwrap();

@@ -307,7 +307,7 @@ namespace Iced.Intel.EncoderInternal {
 				AppendBits("bbb", bbb, 3);
 			}
 			else {
-				bool isVsib = opCode.Encoding == EncodingKind.EVEX && HasVsib();
+				bool isVsib = (opCode.Encoding == EncodingKind.EVEX || opCode.Encoding == EncodingKind.MVEX) && HasVsib();
 				if (opCode.IsGroup) {
 					sb.Append(" /");
 					sb.Append(opCode.GroupIndex);

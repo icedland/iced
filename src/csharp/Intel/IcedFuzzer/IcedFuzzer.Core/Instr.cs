@@ -366,6 +366,12 @@ namespace IcedFuzzer.Core {
 					OpCodeTableKind.T0F => new FuzzerOpCodeTable(encoding, OpCodeTableIndexes.D3nowTable),
 					_ => throw ThrowHelpers.Unreachable,
 				},
+				EncodingKind.MVEX => table switch {
+					OpCodeTableKind.T0F => new FuzzerOpCodeTable(encoding, 1),
+					OpCodeTableKind.T0F38 => new FuzzerOpCodeTable(encoding, 2),
+					OpCodeTableKind.T0F3A => new FuzzerOpCodeTable(encoding, 3),
+					_ => throw ThrowHelpers.Unreachable,
+				},
 				_ => throw ThrowHelpers.Unreachable,
 			};
 

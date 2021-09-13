@@ -897,6 +897,7 @@ function encodingKindToString(value) {
         case EncodingKind.EVEX: return "EVEX";
         case EncodingKind.XOP: return "XOP";
         case EncodingKind.D3NOW: return "D3NOW";
+        case EncodingKind.MVEX: return "MVEX";
         default: return value + " /*EncodingKind enum*/";
     }
 }

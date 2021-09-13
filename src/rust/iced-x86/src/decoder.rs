@@ -1854,7 +1854,7 @@ impl<'a> Decoder<'a> {
 
 	#[inline(always)]
 	fn read_op_mem(&mut self, instruction: &mut Instruction) {
-		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX as u32);
+		debug_assert!(self.state.encoding() != EncodingKind::EVEX as u32 && self.state.encoding() != EncodingKind::MVEX as u32);
 		if self.state.address_size != OpSize::Size16 {
 			let _ = self.read_op_mem_32_or_64(instruction);
 		} else {
@@ -1865,7 +1865,7 @@ impl<'a> Decoder<'a> {
 	#[inline(always)]
 	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 	fn read_op_mem_sib(&mut self, instruction: &mut Instruction) {
-		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX as u32);
+		debug_assert!(self.state.encoding() != EncodingKind::EVEX as u32 && self.state.encoding() != EncodingKind::MVEX as u32);
 		let is_valid = if self.state.address_size != OpSize::Size16 {
 			self.read_op_mem_32_or_64(instruction)
 		} else {
@@ -1882,7 +1882,7 @@ impl<'a> Decoder<'a> {
 	// (see SDM Vol 1, 17.5.1 Intel MPX and Operating Modes)
 	#[inline(always)]
 	fn read_op_mem_mpx(&mut self, instruction: &mut Instruction) {
-		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX as u32);
+		debug_assert!(self.state.encoding() != EncodingKind::EVEX as u32 && self.state.encoding() != EncodingKind::MVEX as u32);
 		if self.is64b_mode {
 			self.state.address_size = OpSize::Size64;
 			let _ = self.read_op_mem_32_or_64(instruction);
@@ -1899,7 +1899,7 @@ impl<'a> Decoder<'a> {
 	#[inline(always)]
 	#[cfg(not(feature = "no_evex"))]
 	fn read_op_mem_tuple_type(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
-		debug_assert_eq!(self.state.encoding(), EncodingKind::EVEX as u32);
+		debug_assert!(self.state.encoding() == EncodingKind::EVEX as u32 || self.state.encoding() == EncodingKind::MVEX as u32);
 		if self.state.address_size != OpSize::Size16 {
 			let index_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 			let _ = decoder_read_op_mem_32_or_64_vsib(self, instruction, index_reg, tuple_type, false);

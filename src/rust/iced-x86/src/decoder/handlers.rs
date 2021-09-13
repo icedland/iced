@@ -252,8 +252,9 @@ impl OpCodeHandler_MandatoryPrefix2 {
 			decoder.state.encoding() == EncodingKind::VEX as u32
 				|| decoder.state.encoding() == EncodingKind::EVEX as u32
 				|| decoder.state.encoding() == EncodingKind::XOP as u32
+				|| decoder.state.encoding() == EncodingKind::MVEX as u32
 		);
-		let (decode, handler) = unsafe { *this.handlers.get_unchecked(decoder.state.mandatory_prefix as usize) };
+		let (decode, handler) = this.handlers[decoder.state.mandatory_prefix as usize];
 		(decode)(handler, decoder, instruction);
 	}
 }
@@ -283,6 +284,7 @@ impl OpCodeHandler_W {
 			decoder.state.encoding() == EncodingKind::VEX as u32
 				|| decoder.state.encoding() == EncodingKind::EVEX as u32
 				|| decoder.state.encoding() == EncodingKind::XOP as u32
+				|| decoder.state.encoding() == EncodingKind::MVEX as u32
 		);
 		const_assert_eq!(StateFlags::W, 0x80);
 		let index = (decoder.state.flags >> 7) & 1;

@@ -694,7 +694,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal bool ReadOpMem(ref Instruction instruction) {
-			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			Debug.Assert(state.Encoding != EncodingKind.EVEX && state.Encoding != EncodingKind.MVEX);
 			if (state.addressSize == OpSize.Size64)
 				return ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.N1, false);
 			else if (state.addressSize == OpSize.Size32)
@@ -707,7 +707,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMemSib(ref Instruction instruction) {
-			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			Debug.Assert(state.Encoding != EncodingKind.EVEX && state.Encoding != EncodingKind.MVEX);
 			bool isValid;
 			if (state.addressSize == OpSize.Size64)
 				isValid = ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.N1, false);
@@ -726,7 +726,7 @@ namespace Iced.Intel {
 		// (see SDM Vol 1, 17.5.1 Intel MPX and Operating Modes)
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMem_MPX(ref Instruction instruction) {
-			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			Debug.Assert(state.Encoding != EncodingKind.EVEX && state.Encoding != EncodingKind.MVEX);
 			if (is64bMode) {
 				state.addressSize = OpSize.Size64;
 				ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.N1, false);
@@ -742,7 +742,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMem(ref Instruction instruction, TupleType tupleType) {
-			Debug.Assert(state.Encoding == EncodingKind.EVEX);
+			Debug.Assert(state.Encoding != EncodingKind.EVEX && state.Encoding != EncodingKind.MVEX);
 			if (state.addressSize == OpSize.Size64)
 				ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, tupleType, false);
 			else if (state.addressSize == OpSize.Size32)
