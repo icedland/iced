@@ -26,6 +26,6 @@ pub enum EncodingKind {
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_encoding_kind(value: iced_x86_rust::EncodingKind) -> EncodingKind {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

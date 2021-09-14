@@ -123,6 +123,10 @@ mod memory_size_ext;
 mod memory_size_options;
 #[cfg(any(feature = "instr_api", all(feature = "encoder", feature = "op_code_info")))]
 mod mnemonic;
+#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+mod mvex_cvt_fn;
+#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+mod mvex_eh_bit;
 #[cfg(feature = "instr_info")]
 mod op_access;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -198,6 +202,10 @@ pub use memory_size_ext::*;
 pub use memory_size_options::*;
 #[cfg(any(feature = "instr_api", all(feature = "encoder", feature = "op_code_info")))]
 pub use mnemonic::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+pub use mvex_cvt_fn::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+pub use mvex_eh_bit::*;
 #[cfg(feature = "instr_info")]
 pub use op_access::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -230,6 +238,7 @@ use wasm_bindgen::prelude::*;
 /// 0x02 | `EVEX`
 /// 0x04 | `XOP`
 /// 0x08 | `3DNow!`
+/// 0x10 | `MVEX`
 #[wasm_bindgen(js_name = "getIcedFeatures")]
 pub fn get_iced_features() -> u32 {
 	#[allow(unused_mut)]
@@ -249,6 +258,10 @@ pub fn get_iced_features() -> u32 {
 	#[cfg(not(feature = "no_d3now"))]
 	{
 		flags |= 8;
+	}
+	#[cfg(feature = "mvex")]
+	{
+		flags |= 0x10;
 	}
 	flags
 }

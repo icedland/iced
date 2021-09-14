@@ -556,7 +556,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the size of the memory displacement in bytes. Valid values are <c>0</c>, <c>1</c> (16/32/64-bit), <c>2</c> (16-bit), <c>4</c> (32-bit), <c>8</c> (64-bit).
 		/// Note that the return value can be 1 and <see cref="MemoryDisplacement64"/> may still not fit in
-		/// a signed byte if it's an EVEX encoded instruction.
+		/// a signed byte if it's an EVEX/MVEX encoded instruction.
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>
 		/// </summary>
 		public int MemoryDisplSize {
@@ -1539,7 +1539,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Suppress all exceptions (EVEX encoded instructions). Note that if <see cref="RoundingControl"/> is
+		/// Suppress all exceptions (EVEX/MVEX encoded instructions). Note that if <see cref="RoundingControl"/> is
 		/// not <see cref="RoundingControl.None"/>, SAE is implied but this property will still return <see langword="false"/>.
 		/// </summary>
 		public bool SuppressAllExceptions {

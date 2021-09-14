@@ -958,6 +958,18 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 		assert_eq!(info.op_kind(i), OpCodeOperandKind::None);
 		assert_eq!(info.try_op_kind(i).unwrap(), OpCodeOperandKind::None);
 	}
+	#[cfg(feature = "mvex")]
+	{
+		assert_eq!(info.mvex_eh_bit(), tc.mvex.eh_bit);
+		assert_eq!(info.mvex_can_use_eviction_hint(), tc.mvex.can_use_eviction_hint);
+		assert_eq!(info.mvex_can_use_imm_rounding_control(), tc.mvex.can_use_imm_rounding_control);
+		assert_eq!(info.mvex_base_tuple_size(), tc.mvex.base_tuple_size);
+		assert_eq!(info.mvex_base_memory_size(), tc.mvex.base_memory_size);
+		assert_eq!(info.mvex_base_element_size(), tc.mvex.base_element_size);
+		assert_eq!(info.mvex_conversion_func(), tc.mvex.conversion_func);
+		assert_eq!(info.mvex_valid_conversion_funcs_mask(), tc.mvex.valid_conversion_funcs_mask);
+		assert_eq!(info.mvex_valid_swizzle_funcs_mask(), tc.mvex.valid_swizzle_funcs_mask);
+	}
 }
 
 #[cfg(feature = "op_code_info")]

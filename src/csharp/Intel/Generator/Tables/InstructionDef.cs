@@ -9,6 +9,7 @@ using Generator.Enums.Encoder;
 using System.Diagnostics;
 using Generator.Formatters;
 using Generator.Enums.Formatter;
+using Generator.Enums.Decoder;
 
 namespace Generator.Tables {
 	[Flags]
@@ -386,14 +387,6 @@ namespace Generator.Tables {
 		/// Code assembler ignores it when generating memory operand methods
 		/// </summary>
 		AsmIgnoreMemory			= 0x02000000,
-		/// <summary>
-		/// Eviction hint is supported (MVEX)
-		/// </summary>
-		EvictionHint			= 0x04000000,//TODO: Add to OpCodeInfo
-		/// <summary>
-		/// imm8 rounding control is supported (MVEX)
-		/// </summary>
-		ImmRoundingControl		= 0x08000000,//TODO: Add to OpCodeInfo
 	}
 
 	enum VmxMode {
@@ -443,6 +436,10 @@ namespace Generator.Tables {
 		/// Don't print the first operand
 		/// </summary>
 		SkipOp0,
+		/// <summary>
+		/// Vector index is the same as the op index (1 based), eg. `zmm1, k2, zmm3`
+		/// </summary>
+		VecIndexSameAsOpIndex,
 	}
 
 	[Flags]
@@ -529,53 +526,27 @@ namespace Generator.Tables {
 		L512,
 	}
 
-	enum NonDestructiveOpKind : byte {
-		None,
-		// non-destructive dst
-		NDD,
-		// non-destructive src
-		NDS,
-	}
-
-	enum EvictionHintKind : byte {
-		None,
-		EH0,
-		EH1,
-	}
-
-	enum MvexConvFn {
-		None,
-		Sf32,
-		Sf64,
-		Si32,
-		Si64,
-		Uf32,
-		Uf64,
-		Ui32,
-		Ui64,
-		Df32,
-		Df64,
-		Di32,
-		Di64,
-	}
-	
 	struct MvexInstructionInfo {
 		// Base tuple size (fn=000b). The other ones are functions of this size.
 		public uint TupleTypeSize;
 		// Base memory size (fn=000b)
 		public uint MemorySize;
 		public uint ElementSize;
+		public MvexEHBit EHBit;
 		public MvexConvFn ConvFn;
 		public byte ValidConvFns;
 		public byte ValidSwizzleFns;
+		public MvexInfoFlags Flags;
 
-		public MvexInstructionInfo(uint tupleTypeSize, uint memorySize, uint elementSize, MvexConvFn convFn, byte validConvFns, byte validSwizzleFns) {
+		public MvexInstructionInfo(uint tupleTypeSize, uint memorySize, uint elementSize, MvexEHBit ehBit, MvexConvFn convFn, byte validConvFns, byte validSwizzleFns) {
 			TupleTypeSize = tupleTypeSize;
 			MemorySize = memorySize;
 			ElementSize = elementSize;
+			EHBit = ehBit;
 			ConvFn = convFn;
 			ValidConvFns = validConvFns;
 			ValidSwizzleFns = validSwizzleFns;
+			Flags = MvexInfoFlags.None;
 		}
 	}
 
@@ -606,7 +577,6 @@ namespace Generator.Tables {
 		public readonly OpCodeL LBit;
 		public readonly OpCodeW WBit;
 		public readonly NonDestructiveOpKind NDKind;
-		public readonly EvictionHintKind EHBit;
 		public readonly uint OpCode;
 		public readonly int OpCodeLength;
 		public readonly int GroupIndex;
@@ -647,7 +617,7 @@ namespace Generator.Tables {
 			InstructionDefFlags3 flags3, InstrStrFmtOption instrStrFmtOption, InstructionStringFlags instrStrFlags,
 			InstrStrImpliedOp[] instrStrImpliedOps, MvexInstructionInfo mvex,
 			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, NonDestructiveOpKind ndKind,
-			EvictionHintKind ehBit, uint opCode, int opCodeLength,
+			uint opCode, int opCodeLength,
 			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKindDef[] opKinds,
 			PseudoOpsKind? pseudoOp, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
 			BranchKind branchKind, StackInfo stackInfo, int fpuStackIncrement,
@@ -676,7 +646,6 @@ namespace Generator.Tables {
 			LBit = lBit;
 			WBit = wBit;
 			NDKind = ndKind;
-			EHBit = ehBit;
 			OpCode = opCode;
 			OpCodeLength = opCodeLength;
 			GroupIndex = groupIndex;

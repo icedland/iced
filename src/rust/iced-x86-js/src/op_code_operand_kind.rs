@@ -108,7 +108,7 @@ pub enum OpCodeOperandKind {
 	kp1_reg = 43,
 	/// `K` register encoded in the `mod + r/m` fields of the modrm byte
 	k_rm = 44,
-	/// `K` register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	/// `K` register encoded in the the `V'vvvv` field (VEX/EVEX/MVEX/XOP)
 	k_vvvv = 45,
 	/// `MM` register encoded in the `reg` field of the modrm byte
 	mm_reg = 46,
@@ -140,7 +140,7 @@ pub enum OpCodeOperandKind {
 	zmm_reg = 59,
 	/// `ZMM` register encoded in the `mod + r/m` fields of the modrm byte
 	zmm_rm = 60,
-	/// `ZMM` register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	/// `ZMM` register encoded in the the `V'vvvv` field (VEX/EVEX/MVEX/XOP)
 	zmm_vvvv = 61,
 	/// `ZMM` register (+3) encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
 	zmmp3_vvvv = 62,
@@ -241,6 +241,6 @@ pub enum OpCodeOperandKind {
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_op_code_operand_kind(value: iced_x86_rust::OpCodeOperandKind) -> OpCodeOperandKind {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

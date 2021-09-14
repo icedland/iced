@@ -126,7 +126,18 @@ namespace Generator.Encoder {
 			GenerateDecoderOptionsTable(decOptValues);
 		}
 
-		protected IEnumerable<(InstructionDef def, uint encFlags1, uint encFlags2, uint encFlags3, uint opcFlags1, uint opcFlags2)> GetData(InstructionDef[] defs) {
+		protected struct MvexEncInfo {
+			public byte TupleTypeSize;
+			public byte MemorySize;
+			public byte ElementSize;
+			public EnumValue EHBit;
+			public EnumValue ConvFn;
+			public byte ValidConvFns;
+			public byte ValidSwizzleFns;
+			public MvexInfoFlags Flags;
+		}
+
+		protected IEnumerable<(InstructionDef def, uint encFlags1, uint encFlags2, uint encFlags3, uint opcFlags1, uint opcFlags2, MvexEncInfo mvex)> GetData(InstructionDef[] defs) {
 			var encFlags1Type = genTypes[TypeIds.EncFlags1];
 			var ignoreRoundingControl = encFlags1Type[nameof(InstructionDefFlags3.IgnoresRoundingControl)];
 			var amdLockRegBit = encFlags1Type[nameof(InstructionDefFlags3.AmdLockRegBit)];
@@ -163,6 +174,8 @@ namespace Generator.Encoder {
 				(int)encFlags1Type["MVEX_Op3Shift"].Value,
 			};
 
+			var mvexConvFnType = genTypes[TypeIds.MvexConvFn];
+			var ehBitType = genTypes[TypeIds.MvexEHBit];
 			foreach (var def in defs) {
 				uint encFlags1 = 0;
 
@@ -371,7 +384,31 @@ namespace Generator.Encoder {
 					throw new InvalidOperationException();
 				encFlags2 |= (EncFlags2)(tableIndex << (int)EncFlags2.TableShift);
 
-				yield return (def, encFlags1, (uint)encFlags2, (uint)encFlags3, (uint)opcFlags1, (uint)opcFlags2);
+				var mvexFlags = def.Mvex.Flags;
+				switch (def.NDKind) {
+				case NonDestructiveOpKind.None: break;
+				case NonDestructiveOpKind.NDD: mvexFlags |= MvexInfoFlags.NDD; break;
+				case NonDestructiveOpKind.NDS: mvexFlags |= MvexInfoFlags.NDS; break;
+				default: throw new InvalidOperationException();
+				}
+				if (def.Mvex.TupleTypeSize > byte.MaxValue) throw new InvalidOperationException();
+				if (def.Mvex.MemorySize > byte.MaxValue) throw new InvalidOperationException();
+				if (def.Mvex.ElementSize > byte.MaxValue) throw new InvalidOperationException();
+				if ((uint)def.Mvex.EHBit > byte.MaxValue) throw new InvalidOperationException();
+				if ((uint)def.Mvex.ConvFn > byte.MaxValue) throw new InvalidOperationException();
+				if ((uint)mvexFlags > byte.MaxValue) throw new InvalidOperationException();
+				var mvex = new MvexEncInfo {
+					TupleTypeSize = (byte)def.Mvex.TupleTypeSize,
+					MemorySize = (byte)def.Mvex.MemorySize,
+					ElementSize = (byte)def.Mvex.ElementSize,
+					EHBit = ehBitType[def.Mvex.EHBit.ToString()],
+					ConvFn = mvexConvFnType[def.Mvex.ConvFn.ToString()],
+					ValidConvFns = def.Mvex.ValidConvFns,
+					ValidSwizzleFns = def.Mvex.ValidSwizzleFns,
+					Flags = mvexFlags,
+				};
+
+				yield return (def, encFlags1, (uint)encFlags2, (uint)encFlags3, (uint)opcFlags1, (uint)opcFlags2, mvex);
 			}
 		}
 
@@ -396,7 +433,7 @@ namespace Generator.Encoder {
 
 		static VexOpCodeTable GetVexTable(OpCodeTableKind table) =>
 			table switch {
-				OpCodeTableKind.Normal => VexOpCodeTable.MAP0F,
+				OpCodeTableKind.Normal => VexOpCodeTable.MAP0,
 				OpCodeTableKind.T0F => VexOpCodeTable.MAP0F,
 				OpCodeTableKind.T0F38 => VexOpCodeTable.MAP0F38,
 				OpCodeTableKind.T0F3A => VexOpCodeTable.MAP0F3A,

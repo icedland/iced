@@ -9399,8 +9399,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x420A002E,// EVEX_Vucomish_xmm_xmmm16_sae
 				0x0002000E,// Rdudbg
 				0x0002000F,// Wrudbg
-				0x44020074,// VEX_KNC_Jkzd_kr_rel8_64
-				0x44020075,// VEX_KNC_Jknzd_kr_rel8_64
+				0x44000074,// VEX_KNC_Jkzd_kr_rel8_64
+				0x44000075,// VEX_KNC_Jknzd_kr_rel8_64
 				0xC4820018,// VEX_KNC_Vprefetchnta_m8
 				0xCC820018,// VEX_KNC_Vprefetch0_m8
 				0xD4820018,// VEX_KNC_Vprefetch1_m8

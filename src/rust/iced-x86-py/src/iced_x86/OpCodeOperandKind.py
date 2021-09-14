@@ -207,7 +207,7 @@ K_RM: OpCodeOperandKind = 44 # type: ignore
 """
 K_VVVV: OpCodeOperandKind = 45 # type: ignore
 """
-``K`` register encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
+``K`` register encoded in the the ``V'vvvv`` field (VEX/EVEX/MVEX/XOP)
 """
 MM_REG: OpCodeOperandKind = 46 # type: ignore
 """
@@ -271,7 +271,7 @@ ZMM_RM: OpCodeOperandKind = 60 # type: ignore
 """
 ZMM_VVVV: OpCodeOperandKind = 61 # type: ignore
 """
-``ZMM`` register encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
+``ZMM`` register encoded in the the ``V'vvvv`` field (VEX/EVEX/MVEX/XOP)
 """
 ZMMP3_VVVV: OpCodeOperandKind = 62 # type: ignore
 """

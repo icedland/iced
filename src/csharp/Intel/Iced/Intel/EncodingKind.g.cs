@@ -5,7 +5,7 @@
 
 #nullable enable
 
-#if DECODER || ENCODER || INSTR_INFO
+#if DECODER || ENCODER || INSTR_INFO || (ENCODER && OPCODE_INFO)
 namespace Iced.Intel {
 	/// <summary>Instruction encoding</summary>
 	public enum EncodingKind {

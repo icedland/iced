@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+#[cfg(feature = "mvex")]
+use crate::encoder::get_mvex_info;
 use crate::encoder::op_code::OpCodeInfo;
 use crate::*;
 use alloc::string::String;
@@ -134,8 +136,8 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		}
 
 		match self.op_code.encoding() {
-			EncodingKind::Legacy => {}
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::D3NOW | EncodingKind::MVEX => return true,
+			EncodingKind::Legacy | EncodingKind::VEX => {}
+			EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::D3NOW | EncodingKind::MVEX => return true,
 		}
 
 		for &op_kind in self.op_code.op_kinds() {
@@ -414,6 +416,17 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		self.sb.clear();
 
 		self.sb.push_str(encoding_name);
+		#[cfg(feature = "mvex")]
+		{
+			if self.op_code.encoding() == EncodingKind::MVEX {
+				let mvex = get_mvex_info(self.op_code.code());
+				if mvex.is_ndd() {
+					self.sb.push_str(".NDD");
+				} else if mvex.is_nds() {
+					self.sb.push_str(".NDS");
+				}
+			}
+		}
 		self.sb.push('.');
 		if self.op_code.is_lig() {
 			self.sb.push_str("LIG");
@@ -448,13 +461,25 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				self.append_hex_byte(0xF2);
 			}
 		}
-		self.sb.push('.');
+		if self.op_code.table() != OpCodeTableKind::Normal {
+			self.sb.push('.');
+		}
 		self.append_table(false);
 		if self.op_code.is_wig() {
 			self.sb.push_str(".WIG");
 		} else {
 			self.sb.push_str(".W");
 			write!(self.sb, "{}", self.op_code.w()).unwrap();
+		}
+		#[cfg(feature = "mvex")]
+		{
+			if self.op_code.encoding() == EncodingKind::MVEX {
+				match get_mvex_info(self.op_code.code()).eh_bit {
+					MvexEHBit::None => {}
+					MvexEHBit::EH0 => self.sb.push_str(".EH0"),
+					MvexEHBit::EH1 => self.sb.push_str(".EH1"),
+				}
+			}
 		}
 		self.sb.push(' ');
 		self.append_op_code(self.op_code.op_code(), self.op_code.op_code_len(), true);

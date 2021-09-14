@@ -122,6 +122,10 @@ namespace Generator.Constants.Encoder {
 		public const string AmdDecoder32 = "amd32";
 		public const string AmdDecoder64 = "amd64";
 		public const string RequiresUniqueDestRegNum = "unique-dest-reg-num";
+		public const string EH0 = "EH0";
+		public const string EH1 = "EH1";
+		public const string EvictionHint = "eh";
+		public const string ImmRoundingControl = "er-imm";
 	}
 
 	static class OpCodeInfoKeywordKeys {
@@ -130,5 +134,6 @@ namespace Generator.Constants.Encoder {
 		public const string OpCodeOperandKind = "op";
 		public const string TupleType = "tt";
 		public const string DecoderOption = "dec-opt";
+		public const string MVEX = "mvex";
 	}
 }

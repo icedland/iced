@@ -47,6 +47,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		internal const string OpCodeOperandKind = "op";
 		internal const string TupleType = "tt";
 		internal const string DecoderOption = "dec-opt";
+		internal const string MVEX = "mvex";
 	}
 	// GENERATOR-END: OpCodeInfoKeys
 
@@ -149,6 +150,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		internal const string AmdDecoder32 = "amd32";
 		internal const string AmdDecoder64 = "amd64";
 		internal const string RequiresUniqueDestRegNum = "unique-dest-reg-num";
+		internal const string EH0 = "EH0";
+		internal const string EH1 = "EH1";
+		internal const string EvictionHint = "eh";
+		internal const string ImmRoundingControl = "er-imm";
 	}
 	// GENERATOR-END: OpCodeInfoFlags
 }

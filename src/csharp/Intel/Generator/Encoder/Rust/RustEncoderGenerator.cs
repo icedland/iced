@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Generator.Enums;
+using Generator.Enums.Encoder;
 using Generator.Enums.Rust;
 using Generator.IO;
 using Generator.Tables;
@@ -358,6 +359,7 @@ namespace Generator.Encoder.Rust {
 			var encFlags3 = allData.Select(a => (a.def, a.encFlags3)).ToArray();
 			var opcFlags1 = allData.Select(a => (a.def, a.opcFlags1)).ToArray();
 			var opcFlags2 = allData.Select(a => (a.def, a.opcFlags2)).ToArray();
+			var mvexInfos = allData.Select(a => (a.def, a.mvex)).ToArray();
 			var encoderInfo = new (string name, (InstructionDef def, uint value)[] values)[] {
 				("ENC_FLAGS1", encFlags1),
 				("ENC_FLAGS2", encFlags2),
@@ -370,6 +372,7 @@ namespace Generator.Encoder.Rust {
 
 			GenerateTables(defs, encoderInfo, "encoder_data.rs");
 			GenerateTables(defs, opCodeInfo, "op_code_data.rs");
+			GenerateTables(mvexInfos, "mvex_data.rs");
 		}
 
 		void GenerateTables(InstructionDef[] defs, (string name, (InstructionDef def, uint value)[] values)[] encoderInfo, string filename) {
@@ -388,6 +391,24 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
+		void GenerateTables((InstructionDef def, MvexEncInfo mvex)[] mvexInfos, string filename) {
+			var infos = mvexInfos.Where(x => x.def.Encoding == EncodingKind.MVEX).ToArray();
+			var fullFilename = generatorContext.Types.Dirs.GetRustFilename("encoder", filename);
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(fullFilename))) {
+				writer.WriteFileHeader();
+				writer.WriteLine("use crate::encoder::mvex_info::MvexInfo;");
+				writer.WriteLine("use crate::{MvexConvFn, MvexEHBit};");
+				writer.WriteLine();
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				writer.WriteLine($"pub(super) static MVEX_INFO: [MvexInfo; {infos.Length}] = [");
+				using (writer.Indent()) {
+					foreach (var (def, mvex) in infos)
+						writer.WriteLine($"MvexInfo::new({mvex.TupleTypeSize}, {mvex.MemorySize}, {mvex.ElementSize}, {idConverter.ToDeclTypeAndValue(mvex.EHBit)}, {idConverter.ToDeclTypeAndValue(mvex.ConvFn)}, 0x{mvex.ValidConvFns:X02}, 0x{mvex.ValidSwizzleFns:X02}, 0x{(uint)mvex.Flags:X02}),// {idConverter.ToDeclTypeAndValue(def.Code)}");
+				}
+				writer.WriteLine("];");
+			}
+		}
+
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("encoder.rs");
 			new FileUpdater(TargetLanguage.Rust, "ImmSizes", filename).Generate(writer => {
@@ -401,7 +422,7 @@ namespace Generator.Encoder.Rust {
 			});
 		}
 
-		void GenerateCases(string filename, string id, EnumValue[] codeValues, string statement) {
+		void GenerateCases(string filename, string id, EnumValue[] codeValues, string statement) =>
 			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
 				if (codeValues.Length == 0)
 					return;
@@ -412,15 +433,13 @@ namespace Generator.Encoder.Rust {
 				}
 				writer.WriteLine($"=> {statement},");
 			});
-		}
 
-		void GenerateNotInstrCases(string filename, string id, (EnumValue code, string result)[] notInstrStrings, bool useReturn) {
+		void GenerateNotInstrCases(string filename, string id, (EnumValue code, string result)[] notInstrStrings, bool useReturn) =>
 			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
 				string @return = useReturn ? "return " : string.Empty;
 				foreach (var info in notInstrStrings)
 					writer.WriteLine($"{idConverter.ToDeclTypeAndValue(info.code)} => {@return}String::from(\"{info.result}\"),");
 			});
-		}
 
 		protected override void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings) {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("encoder", "instruction_fmt.rs");

@@ -6,6 +6,20 @@ use crate::*;
 use alloc::string::String;
 
 #[derive(Default)]
+#[cfg(feature = "mvex")]
+pub(super) struct MvexTestCase {
+	pub(super) eh_bit: MvexEHBit,
+	pub(super) can_use_eviction_hint: bool,
+	pub(super) can_use_imm_rounding_control: bool,
+	pub(super) base_tuple_size: u32,
+	pub(super) base_memory_size: u32,
+	pub(super) base_element_size: u32,
+	pub(super) conversion_func: MvexConvFn,
+	pub(super) valid_conversion_funcs_mask: u8,
+	pub(super) valid_swizzle_funcs_mask: u8,
+}
+
+#[derive(Default)]
 pub(super) struct OpCodeInfoTestCase {
 	#[allow(dead_code)]
 	pub(super) line_number: u32,
@@ -114,4 +128,6 @@ pub(super) struct OpCodeInfoTestCase {
 	pub(super) rm_group_index: i32,
 	pub(super) op_count: u32,
 	pub(super) op_kinds: [OpCodeOperandKind; IcedConstants::MAX_OP_COUNT],
+	#[cfg(feature = "mvex")]
+	pub(super) mvex: MvexTestCase,
 }

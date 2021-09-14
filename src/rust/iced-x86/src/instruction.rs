@@ -794,7 +794,7 @@ impl Instruction {
 
 	/// Gets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
 	/// Note that the return value can be 1 and [`memory_displacement64()`] may still not fit in
-	/// a signed byte if it's an EVEX encoded instruction.
+	/// a signed byte if it's an EVEX/MVEX encoded instruction.
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`memory_displacement64()`]: #method.memory_displacement64
@@ -814,7 +814,7 @@ impl Instruction {
 
 	/// Sets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
 	/// Note that the return value can be 1 and [`memory_displacement64()`] may still not fit in
-	/// a signed byte if it's an EVEX encoded instruction.
+	/// a signed byte if it's an EVEX/MVEX encoded instruction.
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`memory_displacement64()`]: #method.memory_displacement64
@@ -2457,7 +2457,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`rounding_control()`] is
+	/// Gets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if [`rounding_control()`] is
 	/// not [`RoundingControl::None`], SAE is implied but this method will still return `false`.
 	///
 	/// [`rounding_control()`]: #method.rounding_control
@@ -2468,7 +2468,7 @@ impl Instruction {
 		(self.flags1 & InstrFlags1::SUPPRESS_ALL_EXCEPTIONS) != 0
 	}
 
-	/// Sets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`rounding_control()`] is
+	/// Sets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if [`rounding_control()`] is
 	/// not [`RoundingControl::None`], SAE is implied but this method will still return `false`.
 	///
 	/// [`rounding_control()`]: #method.rounding_control
@@ -3102,7 +3102,7 @@ impl Instruction {
 	}
 
 	/// All flags that are read by the CPU when executing the instruction.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
@@ -3142,7 +3142,7 @@ impl Instruction {
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
@@ -3182,7 +3182,7 @@ impl Instruction {
 	}
 
 	/// All flags that are always cleared by the CPU.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
@@ -3222,7 +3222,7 @@ impl Instruction {
 	}
 
 	/// All flags that are always set by the CPU.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
@@ -3262,7 +3262,7 @@ impl Instruction {
 	}
 
 	/// All flags that are undefined after executing the instruction.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
@@ -3301,7 +3301,7 @@ impl Instruction {
 		crate::info::rflags_table::FLAGS_UNDEFINED[self.rflags_info() as usize] as u32
 	}
 
-	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a [`RflagsBits`] value.
+	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns an [`RflagsBits`] value.
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	///

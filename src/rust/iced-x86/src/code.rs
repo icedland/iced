@@ -36678,7 +36678,7 @@ pub enum Code {
 	///
 	/// `64-bit`
 	VEX_KNC_Kmov_kr_r32 = 4585,
-	/// `KMOV r32, k2`
+	/// `KMOV r32, k1`
 	///
 	/// `VEX.128.0F.W0 93 /r`
 	///
@@ -37776,7 +37776,7 @@ pub enum Code {
 	MVEX_Vpmulhd_zmm_k1_zmm_zmmmt = 4722,
 	/// `VPGATHERDD zmm1 {k1}, Ui32(mvt)`
 	///
-	/// `MVEX.512.66.0F38.W0 90 /r /vsib`
+	/// `MVEX.512.66.0F38.W0 90 /vsib`
 	///
 	/// `KNC`
 	///
@@ -37784,7 +37784,7 @@ pub enum Code {
 	MVEX_Vpgatherdd_zmm_k1_mvt = 4723,
 	/// `VPGATHERDQ zmm1 {k1}, Ui64(mvt)`
 	///
-	/// `MVEX.512.66.0F38.W1 90 /r /vsib`
+	/// `MVEX.512.66.0F38.W1 90 /vsib`
 	///
 	/// `KNC`
 	///
@@ -37792,7 +37792,7 @@ pub enum Code {
 	MVEX_Vpgatherdq_zmm_k1_mvt = 4724,
 	/// `VGATHERDPS zmm1 {k1}, Uf32(mvt)`
 	///
-	/// `MVEX.512.66.0F38.W0 92 /r /vsib`
+	/// `MVEX.512.66.0F38.W0 92 /vsib`
 	///
 	/// `KNC`
 	///
@@ -37800,7 +37800,7 @@ pub enum Code {
 	MVEX_Vgatherdps_zmm_k1_mvt = 4725,
 	/// `VGATHERDPD zmm1 {k1}, Uf64(mvt)`
 	///
-	/// `MVEX.512.66.0F38.W1 92 /r /vsib`
+	/// `MVEX.512.66.0F38.W1 92 /vsib`
 	///
 	/// `KNC`
 	///
@@ -37888,7 +37888,7 @@ pub enum Code {
 	MVEX_Vfnmsub132pd_zmm_k1_zmm_zmmmt = 4736,
 	/// `VPSCATTERDD mvt {k1}, Di32(zmm1)`
 	///
-	/// `MVEX.512.66.0F38.W0 A0 /r /vsib`
+	/// `MVEX.512.66.0F38.W0 A0 /vsib`
 	///
 	/// `KNC`
 	///
@@ -37896,7 +37896,7 @@ pub enum Code {
 	MVEX_Vpscatterdd_mvt_k1_zmm = 4737,
 	/// `VPSCATTERDQ mvt {k1}, Di64(zmm1)`
 	///
-	/// `MVEX.512.66.0F38.W1 A0 /r /vsib`
+	/// `MVEX.512.66.0F38.W1 A0 /vsib`
 	///
 	/// `KNC`
 	///
@@ -37904,7 +37904,7 @@ pub enum Code {
 	MVEX_Vpscatterdq_mvt_k1_zmm = 4738,
 	/// `VSCATTERDPS mvt {k1}, Df32(zmm1)`
 	///
-	/// `MVEX.512.66.0F38.W0 A2 /r /vsib`
+	/// `MVEX.512.66.0F38.W0 A2 /vsib`
 	///
 	/// `KNC`
 	///
@@ -37912,7 +37912,7 @@ pub enum Code {
 	MVEX_Vscatterdps_mvt_k1_zmm = 4739,
 	/// `VSCATTERDPD mvt {k1}, Df64(zmm1)`
 	///
-	/// `MVEX.512.66.0F38.W1 A2 /r /vsib`
+	/// `MVEX.512.66.0F38.W1 A2 /vsib`
 	///
 	/// `KNC`
 	///
@@ -37992,7 +37992,7 @@ pub enum Code {
 	MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt = 4749,
 	/// `UNDOC zmm1 {k1}, mvt`
 	///
-	/// `MVEX.512.66.0F38.W0 B0 /r /vsib`
+	/// `MVEX.512.66.0F38.W0 B0 /vsib`
 	///
 	/// `KNC`
 	///
@@ -38000,7 +38000,7 @@ pub enum Code {
 	MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0 = 4750,
 	/// `UNDOC zmm1 {k1}, mvt`
 	///
-	/// `MVEX.512.66.0F38.W0 B2 /r /vsib`
+	/// `MVEX.512.66.0F38.W0 B2 /vsib`
 	///
 	/// `KNC`
 	///
@@ -38088,7 +38088,7 @@ pub enum Code {
 	MVEX_Vfnmsub231pd_zmm_k1_zmm_zmmmt = 4761,
 	/// `UNDOC zmm1 {k1}, mvt`
 	///
-	/// `MVEX.512.66.0F38.W0 C0 /r /vsib`
+	/// `MVEX.512.66.0F38.W0 C0 /vsib`
 	///
 	/// `KNC`
 	///

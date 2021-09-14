@@ -45849,7 +45849,7 @@ VEX_KNC_KMOV_KR_R32: Code = 4585 # type: ignore
 """
 VEX_KNC_KMOV_R32_KR: Code = 4586 # type: ignore
 """
-``KMOV r32, k2``
+``KMOV r32, k1``
 
 ``VEX.128.0F.W0 93 /r``
 
@@ -47221,7 +47221,7 @@ MVEX_VPGATHERDD_ZMM_K1_MVT: Code = 4723 # type: ignore
 """
 ``VPGATHERDD zmm1 {k1}, Ui32(mvt)``
 
-``MVEX.512.66.0F38.W0 90 /r /vsib``
+``MVEX.512.66.0F38.W0 90 /vsib``
 
 ``KNC``
 
@@ -47231,7 +47231,7 @@ MVEX_VPGATHERDQ_ZMM_K1_MVT: Code = 4724 # type: ignore
 """
 ``VPGATHERDQ zmm1 {k1}, Ui64(mvt)``
 
-``MVEX.512.66.0F38.W1 90 /r /vsib``
+``MVEX.512.66.0F38.W1 90 /vsib``
 
 ``KNC``
 
@@ -47241,7 +47241,7 @@ MVEX_VGATHERDPS_ZMM_K1_MVT: Code = 4725 # type: ignore
 """
 ``VGATHERDPS zmm1 {k1}, Uf32(mvt)``
 
-``MVEX.512.66.0F38.W0 92 /r /vsib``
+``MVEX.512.66.0F38.W0 92 /vsib``
 
 ``KNC``
 
@@ -47251,7 +47251,7 @@ MVEX_VGATHERDPD_ZMM_K1_MVT: Code = 4726 # type: ignore
 """
 ``VGATHERDPD zmm1 {k1}, Uf64(mvt)``
 
-``MVEX.512.66.0F38.W1 92 /r /vsib``
+``MVEX.512.66.0F38.W1 92 /vsib``
 
 ``KNC``
 
@@ -47361,7 +47361,7 @@ MVEX_VPSCATTERDD_MVT_K1_ZMM: Code = 4737 # type: ignore
 """
 ``VPSCATTERDD mvt {k1}, Di32(zmm1)``
 
-``MVEX.512.66.0F38.W0 A0 /r /vsib``
+``MVEX.512.66.0F38.W0 A0 /vsib``
 
 ``KNC``
 
@@ -47371,7 +47371,7 @@ MVEX_VPSCATTERDQ_MVT_K1_ZMM: Code = 4738 # type: ignore
 """
 ``VPSCATTERDQ mvt {k1}, Di64(zmm1)``
 
-``MVEX.512.66.0F38.W1 A0 /r /vsib``
+``MVEX.512.66.0F38.W1 A0 /vsib``
 
 ``KNC``
 
@@ -47381,7 +47381,7 @@ MVEX_VSCATTERDPS_MVT_K1_ZMM: Code = 4739 # type: ignore
 """
 ``VSCATTERDPS mvt {k1}, Df32(zmm1)``
 
-``MVEX.512.66.0F38.W0 A2 /r /vsib``
+``MVEX.512.66.0F38.W0 A2 /vsib``
 
 ``KNC``
 
@@ -47391,7 +47391,7 @@ MVEX_VSCATTERDPD_MVT_K1_ZMM: Code = 4740 # type: ignore
 """
 ``VSCATTERDPD mvt {k1}, Df64(zmm1)``
 
-``MVEX.512.66.0F38.W1 A2 /r /vsib``
+``MVEX.512.66.0F38.W1 A2 /vsib``
 
 ``KNC``
 
@@ -47491,7 +47491,7 @@ MVEX_UNDOC_ZMM_K1_MVT_512_66_0F38_W0_B0: Code = 4750 # type: ignore
 """
 ``UNDOC zmm1 {k1}, mvt``
 
-``MVEX.512.66.0F38.W0 B0 /r /vsib``
+``MVEX.512.66.0F38.W0 B0 /vsib``
 
 ``KNC``
 
@@ -47501,7 +47501,7 @@ MVEX_UNDOC_ZMM_K1_MVT_512_66_0F38_W0_B2: Code = 4751 # type: ignore
 """
 ``UNDOC zmm1 {k1}, mvt``
 
-``MVEX.512.66.0F38.W0 B2 /r /vsib``
+``MVEX.512.66.0F38.W0 B2 /vsib``
 
 ``KNC``
 
@@ -47611,7 +47611,7 @@ MVEX_UNDOC_ZMM_K1_MVT_512_66_0F38_W0_C0: Code = 4762 # type: ignore
 """
 ``UNDOC zmm1 {k1}, mvt``
 
-``MVEX.512.66.0F38.W0 C0 /r /vsib``
+``MVEX.512.66.0F38.W0 C0 /vsib``
 
 ``KNC``
 

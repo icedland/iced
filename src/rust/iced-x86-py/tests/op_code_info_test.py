@@ -23,6 +23,15 @@ def test_props() -> None:
 	assert not idef.is_wig
 	assert not idef.is_wig32
 	assert idef.tuple_type == TupleType.N32
+	assert idef.mvex_eh_bit == MvexEHBit.NONE
+	assert not idef.mvex_can_use_eviction_hint
+	assert not idef.mvex_can_use_imm_rounding_control
+	assert idef.mvex_base_tuple_size == 0
+	assert idef.mvex_base_memory_size == 0
+	assert idef.mvex_base_element_size == 0
+	assert idef.mvex_conversion_func == MvexConvFn.NONE
+	assert idef.mvex_valid_conversion_funcs_mask == 0
+	assert idef.mvex_valid_swizzle_funcs_mask == 0
 	assert idef.memory_size == MemorySize.PACKED256_FLOAT64
 	assert idef.broadcast_memory_size == MemorySize.UNKNOWN
 	assert not idef.can_broadcast

@@ -56,6 +56,8 @@ from . import MandatoryPrefix
 from . import MemorySize
 from . import MemorySizeOptions
 from . import Mnemonic
+from . import MvexConvFn
+from . import MvexEHBit
 from . import OpAccess
 from . import OpCodeOperandKind
 from . import OpCodeTableKind
@@ -94,6 +96,8 @@ if typing.TYPE_CHECKING:
 	MemorySize_ = _iced_x86_py.MemorySize
 	MemorySizeOptions_ = _iced_x86_py.MemorySizeOptions
 	Mnemonic_ = _iced_x86_py.Mnemonic
+	MvexConvFn_ = _iced_x86_py.MvexConvFn
+	MvexEHBit_ = _iced_x86_py.MvexEHBit
 	OpAccess_ = _iced_x86_py.OpAccess
 	OpCodeOperandKind_ = _iced_x86_py.OpCodeOperandKind
 	OpCodeTableKind_ = _iced_x86_py.OpCodeTableKind
@@ -130,6 +134,8 @@ else:
 	MemorySize_ = int
 	MemorySizeOptions_ = int
 	Mnemonic_ = int
+	MvexConvFn_ = int
+	MvexEHBit_ = int
 	OpAccess_ = int
 	OpCodeOperandKind_ = int
 	OpCodeTableKind_ = int
@@ -180,6 +186,8 @@ __all__ = [
 	"MemorySizeInfo",
 	"MemorySizeOptions",
 	"Mnemonic",
+	"MvexConvFn",
+	"MvexEHBit",
 	"OpAccess",
 	"OpCodeInfo",
 	"OpCodeOperandKind",
@@ -220,6 +228,8 @@ __all__ = [
 	"MemorySize_",
 	"MemorySizeOptions_",
 	"Mnemonic_",
+	"MvexConvFn_",
+	"MvexEHBit_",
 	"OpAccess_",
 	"OpCodeOperandKind_",
 	"OpCodeTableKind_",

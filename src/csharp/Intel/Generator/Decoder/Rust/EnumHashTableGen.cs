@@ -46,6 +46,7 @@ namespace Generator.Decoder.Rust {
 				("CC_ge_hash", genTypes[TypeIds.CC_ge], false, "test_utils/from_str_conv/cc_table.rs"),
 				("CC_le_hash", genTypes[TypeIds.CC_le], false, "test_utils/from_str_conv/cc_table.rs"),
 				("CC_g_hash", genTypes[TypeIds.CC_g], false, "test_utils/from_str_conv/cc_table.rs"),
+				("MvexConvFnHash", genTypes[TypeIds.MvexConvFn], false, "test_utils/from_str_conv/mvex_conv_fn_table.rs"),
 			};
 			foreach (var info in infos) {
 				var filename = generatorContext.Types.Dirs.GetRustFilename(info.filename.Split('/'));

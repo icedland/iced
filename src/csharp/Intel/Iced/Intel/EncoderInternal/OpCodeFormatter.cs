@@ -142,8 +142,8 @@ namespace Iced.Intel.EncoderInternal {
 
 			switch (opCode.Encoding) {
 			case EncodingKind.Legacy:
-				break;
 			case EncodingKind.VEX:
+				break;
 			case EncodingKind.EVEX:
 			case EncodingKind.XOP:
 			case EncodingKind.D3NOW:
@@ -510,6 +510,15 @@ namespace Iced.Intel.EncoderInternal {
 			sb.Length = 0;
 
 			sb.Append(encodingName);
+#if MVEX
+			if (opCode.Encoding == EncodingKind.MVEX) {
+				var mvexInfo = new MvexInfo(opCode.Code);
+				if (mvexInfo.IsNDD)
+					sb.Append(".NDD");
+				else if (mvexInfo.IsNDS)
+					sb.Append(".NDS");
+			}
+#endif
 			sb.Append('.');
 			if (opCode.IsLIG)
 				sb.Append("LIG");
@@ -551,7 +560,8 @@ namespace Iced.Intel.EncoderInternal {
 			default:
 				throw new InvalidOperationException();
 			}
-			sb.Append('.');
+			if (opCode.Table != OpCodeTableKind.Normal)
+				sb.Append('.');
 			AppendTable(false);
 			if (opCode.IsWIG)
 				sb.Append(".WIG");
@@ -559,6 +569,17 @@ namespace Iced.Intel.EncoderInternal {
 				sb.Append(".W");
 				sb.Append(opCode.W);
 			}
+#if MVEX
+			if (opCode.Encoding == EncodingKind.MVEX) {
+				var mvexInfo = new MvexInfo(opCode.Code);
+				switch (mvexInfo.EHBit) {
+				case MvexEHBit.None: break;
+				case MvexEHBit.EH0: sb.Append(".EH0"); break;
+				case MvexEHBit.EH1: sb.Append(".EH1"); break;
+				default: throw new InvalidOperationException();
+				}
+			}
+#endif
 			sb.Append(' ');
 			AppendOpCode(opCode.OpCode, opCode.OpCodeLength, true);
 			AppendRest();

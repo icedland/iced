@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+#[cfg(feature = "mvex")]
+use crate::encoder::get_mvex_info;
 use crate::encoder::iced_constants::IcedConstants;
 use crate::encoder::instruction_fmt::*;
 use crate::encoder::op_code_fmt::*;
@@ -322,14 +324,17 @@ impl OpCodeInfo {
 
 			#[cfg(feature = "mvex")]
 			EncodingKind::MVEX => {
-				//TODO: MVEX
-				op0_kind = OpCodeOperandKind::None;
-				op1_kind = OpCodeOperandKind::None;
-				op2_kind = OpCodeOperandKind::None;
-				op3_kind = OpCodeOperandKind::None;
+				op0_kind = MVEX_OP_KINDS[((enc_flags1 >> EncFlags1::MVEX_OP0_SHIFT) & EncFlags1::MVEX_OP_MASK) as usize];
+				op1_kind = MVEX_OP_KINDS[((enc_flags1 >> EncFlags1::MVEX_OP1_SHIFT) & EncFlags1::MVEX_OP_MASK) as usize];
+				op2_kind = MVEX_OP_KINDS[((enc_flags1 >> EncFlags1::MVEX_OP2_SHIFT) & EncFlags1::MVEX_OP_MASK) as usize];
+				op3_kind = MVEX_OP_KINDS[((enc_flags1 >> EncFlags1::MVEX_OP3_SHIFT) & EncFlags1::MVEX_OP_MASK) as usize];
 				op4_kind = OpCodeOperandKind::None;
-				table = OpCodeTableKind::Normal;
-				string_format = false;
+
+				table = match unsafe { mem::transmute(((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK) as u8) } {
+					MvexOpCodeTable::MAP0F => OpCodeTableKind::T0F,
+					MvexOpCodeTable::MAP0F38 => OpCodeTableKind::T0F38,
+					MvexOpCodeTable::MAP0F3A => OpCodeTableKind::T0F3A,
+				};
 			}
 		}
 
@@ -490,7 +495,7 @@ impl OpCodeInfo {
 		self.l as u32
 	}
 
-	/// (VEX/XOP/EVEX) `W` value or default value if [`is_wig()`] or [`is_wig32()`] is `true`
+	/// (VEX/XOP/EVEX/MVEX) `W` value or default value if [`is_wig()`] or [`is_wig32()`] is `true`
 	///
 	/// [`is_wig()`]: #method.is_wig
 	/// [`is_wig32()`]: #method.is_wig32
@@ -513,25 +518,133 @@ impl OpCodeInfo {
 		(self.flags & Flags::LIG) != 0
 	}
 
-	/// (VEX/XOP/EVEX) `true` if the `W` field is ignored in 16/32/64-bit modes
+	/// (VEX/XOP/EVEX/MVEX) `true` if the `W` field is ignored in 16/32/64-bit modes
 	#[must_use]
 	#[inline]
 	pub fn is_wig(&self) -> bool {
 		(self.flags & Flags::WIG) != 0
 	}
 
-	/// (VEX/XOP/EVEX) `true` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)
+	/// (VEX/XOP/EVEX/MVEX) `true` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)
 	#[must_use]
 	#[inline]
 	pub fn is_wig32(&self) -> bool {
 		(self.flags & Flags::WIG32) != 0
 	}
 
-	/// (EVEX) Gets the tuple type
+	/// (EVEX/MVEX) Gets the tuple type
 	#[must_use]
 	#[inline]
 	pub fn tuple_type(&self) -> TupleType {
 		self.tuple_type
+	}
+
+	/// (MVEX) Gets the `EH` bit that's required to encode this instruction
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	pub fn mvex_eh_bit(&self) -> MvexEHBit {
+		if self.encoding() == EncodingKind::MVEX {
+			get_mvex_info(self.code()).eh_bit
+		} else {
+			MvexEHBit::None
+		}
+	}
+
+	/// (MVEX) `true` if the instruction supports eviction hint (if it has a memory operand)
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	pub fn mvex_can_use_eviction_hint(&self) -> bool {
+		if self.encoding() == EncodingKind::MVEX {
+			get_mvex_info(self.code()).can_use_eviction_hint()
+		} else {
+			false
+		}
+	}
+
+	/// (MVEX) `true` if the instruction's rounding control bits are stored in `imm8[1:0]`
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	pub fn mvex_can_use_imm_rounding_control(&self) -> bool {
+		if self.encoding() == EncodingKind::MVEX {
+			get_mvex_info(self.code()).can_use_imm_rounding_control()
+		} else {
+			false
+		}
+	}
+
+	/// (MVEX) Gets the base tuple type size (conv fn = `000b`)
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	pub fn mvex_base_tuple_size(&self) -> u32 {
+		if self.encoding() == EncodingKind::MVEX {
+			get_mvex_info(self.code()).tuple_type_size as u32
+		} else {
+			0
+		}
+	}
+
+	/// (MVEX) Gets the base memory size (conv fn = `000b`)
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	pub fn mvex_base_memory_size(&self) -> u32 {
+		if self.encoding() == EncodingKind::MVEX {
+			get_mvex_info(self.code()).mem_size as u32
+		} else {
+			0
+		}
+	}
+
+	/// (MVEX) Gets the base memory element size (conv fn = `000b`)
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	pub fn mvex_base_element_size(&self) -> u32 {
+		if self.encoding() == EncodingKind::MVEX {
+			get_mvex_info(self.code()).elem_size as u32
+		} else {
+			0
+		}
+	}
+
+	/// (MVEX) Gets the conversion function, eg. `Sf32`
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	pub fn mvex_conversion_func(&self) -> MvexConvFn {
+		if self.encoding() == EncodingKind::MVEX {
+			get_mvex_info(self.code()).conv_fn
+		} else {
+			MvexConvFn::None
+		}
+	}
+
+	/// (MVEX) Gets flags indicating which conversion functions are valid (bit 0 == func 0)
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	pub fn mvex_valid_conversion_funcs_mask(&self) -> u8 {
+		if self.encoding() == EncodingKind::MVEX {
+			get_mvex_info(self.code()).valid_conv_fn
+		} else {
+			0
+		}
+	}
+
+	/// (MVEX) Gets flags indicating which swizzle functions are valid (bit 0 == func 0)
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	pub fn mvex_valid_swizzle_funcs_mask(&self) -> u8 {
+		if self.encoding() == EncodingKind::MVEX {
+			get_mvex_info(self.code()).valid_swizzle_fn
+		} else {
+			0
+		}
 	}
 
 	/// If it has a memory operand, gets the [`MemorySize`] (non-broadcast memory type)
@@ -559,28 +672,28 @@ impl OpCodeInfo {
 		(self.enc_flags3 & EncFlags3::BROADCAST) != 0
 	}
 
-	/// (EVEX) `true` if the instruction supports rounding control
+	/// (EVEX/MVEX) `true` if the instruction supports rounding control
 	#[must_use]
 	#[inline]
 	pub fn can_use_rounding_control(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::ROUNDING_CONTROL) != 0
 	}
 
-	/// (EVEX) `true` if the instruction supports suppress all exceptions
+	/// (EVEX/MVEX) `true` if the instruction supports suppress all exceptions
 	#[must_use]
 	#[inline]
 	pub fn can_suppress_all_exceptions(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::SUPPRESS_ALL_EXCEPTIONS) != 0
 	}
 
-	/// (EVEX) `true` if an opmask register can be used
+	/// (EVEX/MVEX) `true` if an opmask register can be used
 	#[must_use]
 	#[inline]
 	pub fn can_use_op_mask_register(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::OP_MASK_REGISTER) != 0
 	}
 
-	/// (EVEX) `true` if a non-zero opmask register must be used
+	/// (EVEX/MVEX) `true` if a non-zero opmask register must be used
 	#[must_use]
 	#[inline]
 	pub fn require_op_mask_register(&self) -> bool {

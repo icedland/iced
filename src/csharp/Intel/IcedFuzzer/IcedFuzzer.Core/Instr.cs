@@ -147,9 +147,9 @@ namespace IcedFuzzer.Core {
 
 		public readonly Code Code;
 		internal FuzzerInstructionFlags Flags;
-		// VEX/XOP/EVEX: 0-1
+		// VEX/XOP/EVEX/MVEX: 0-1
 		public readonly uint W;
-		// VEX/XOP/EVEX: 0-1 (VEX/XOP) or 0-3 (EVEX)
+		// VEX/XOP/EVEX/MVEX: 0 (MVEX) 0-1 (VEX/XOP) or 0-3 (EVEX)
 		public readonly uint L;
 		public readonly MandatoryPrefix MandatoryPrefix;
 		public readonly FuzzerOpCodeTable Table;

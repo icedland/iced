@@ -589,7 +589,7 @@ impl Instruction {
 	/// Valid values are ``0``, ``1`` (16/32/64-bit), ``2`` (16-bit), ``4`` (32-bit), ``8`` (64-bit).
 	///
 	/// Note that the return value can be 1 and :class:`Instruction.memory_displacement` may still not fit in
-	/// a signed byte if it's an EVEX encoded instruction.
+	/// a signed byte if it's an EVEX/MVEX encoded instruction.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.MEMORY`
 	#[getter]
@@ -1431,7 +1431,7 @@ impl Instruction {
 		self.instr.vsib()
 	}
 
-	/// bool: Gets the suppress all exceptions flag (EVEX encoded instructions). Note that if :class:`Instruction.rounding_control` is not :class:`RoundingControl.NONE`, SAE is implied but this method will still return ``False``.
+	/// bool: Gets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if :class:`Instruction.rounding_control` is not :class:`RoundingControl.NONE`, SAE is implied but this method will still return ``False``.
 	#[getter]
 	fn suppress_all_exceptions(&self) -> bool {
 		self.instr.suppress_all_exceptions()
@@ -1635,7 +1635,7 @@ impl Instruction {
 
 	/// :class:`RflagsBits`: All flags that are read by the CPU when executing the instruction.
 	///
-	/// This method returns a :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
+	/// This method returns an :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
 	///
 	/// Examples:
 	///
@@ -1672,7 +1672,7 @@ impl Instruction {
 
 	/// :class:`RflagsBits`: All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
 	///
-	/// This method returns a :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
+	/// This method returns an :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
 	///
 	/// Examples:
 	///
@@ -1709,7 +1709,7 @@ impl Instruction {
 
 	/// :class:`RflagsBits`: All flags that are always cleared by the CPU.
 	///
-	/// This method returns a :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
+	/// This method returns an :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
 	///
 	/// Examples:
 	///
@@ -1746,7 +1746,7 @@ impl Instruction {
 
 	/// :class:`RflagsBits`: All flags that are always set by the CPU.
 	///
-	/// This method returns a :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
+	/// This method returns an :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
 	///
 	/// Examples:
 	///
@@ -1783,7 +1783,7 @@ impl Instruction {
 
 	/// :class:`RflagsBits`: All flags that are undefined after executing the instruction.
 	///
-	/// This method returns a :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
+	/// This method returns an :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
 	///
 	/// Examples:
 	///
@@ -1820,7 +1820,7 @@ impl Instruction {
 
 	/// :class:`RflagsBits`: All flags that are modified by the CPU. This is ``rflags_written + rflags_cleared + rflags_set + rflags_undefined``.
 	///
-	/// This method returns a :class:`RflagsBits` value.
+	/// This method returns an :class:`RflagsBits` value.
 	///
 	/// Examples:
 	///

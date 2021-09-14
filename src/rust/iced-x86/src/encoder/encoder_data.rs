@@ -9389,8 +9389,8 @@ pub(super) static ENC_FLAGS2: [u32; 4818] = [
 	0x420A_002E,// EVEX_Vucomish_xmm_xmmm16_sae
 	0x0002_000E,// Rdudbg
 	0x0002_000F,// Wrudbg
-	0x4402_0074,// VEX_KNC_Jkzd_kr_rel8_64
-	0x4402_0075,// VEX_KNC_Jknzd_kr_rel8_64
+	0x4400_0074,// VEX_KNC_Jkzd_kr_rel8_64
+	0x4400_0075,// VEX_KNC_Jknzd_kr_rel8_64
 	0xC482_0018,// VEX_KNC_Vprefetchnta_m8
 	0xCC82_0018,// VEX_KNC_Vprefetch0_m8
 	0xD482_0018,// VEX_KNC_Vprefetch1_m8

@@ -156,5 +156,9 @@ namespace Generator {
 		public static readonly TypeId CC_g = new(nameof(CC_g));
 		public static readonly TypeId CodeAsmMemoryOperandSize = new(nameof(CodeAsmMemoryOperandSize));
 		public static readonly TypeId TestInstrFlags = new(nameof(TestInstrFlags));
+		public static readonly TypeId MvexConvFn = new(nameof(MvexConvFn));
+		public static readonly TypeId MvexEHBit = new(nameof(MvexEHBit));
+		public static readonly TypeId NonDestructiveOpKind = new(nameof(NonDestructiveOpKind));
+		public static readonly TypeId MvexInfoFlags = new(nameof(MvexInfoFlags));
 	}
 }

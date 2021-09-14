@@ -335,12 +335,12 @@ pub enum MemorySize {
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_memory_size(value: iced_x86_rust::MemorySize) -> MemorySize {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn memory_size_to_iced(value: MemorySize) -> iced_x86_rust::MemorySize {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

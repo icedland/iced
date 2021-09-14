@@ -23,15 +23,15 @@ Legacy/``MAP0`` table
 """
 T0F: OpCodeTableKind = 1 # type: ignore
 """
-``0F``/``MAP1`` table (legacy, VEX, EVEX)
+``0F``/``MAP1`` table (legacy, VEX, EVEX, MVEX)
 """
 T0F38: OpCodeTableKind = 2 # type: ignore
 """
-``0F38``/``MAP2`` table (legacy, VEX, EVEX)
+``0F38``/``MAP2`` table (legacy, VEX, EVEX, MVEX)
 """
 T0F3A: OpCodeTableKind = 3 # type: ignore
 """
-``0F3A``/``MAP3`` table (legacy, VEX, EVEX)
+``0F3A``/``MAP3`` table (legacy, VEX, EVEX, MVEX)
 """
 MAP5: OpCodeTableKind = 4 # type: ignore
 """

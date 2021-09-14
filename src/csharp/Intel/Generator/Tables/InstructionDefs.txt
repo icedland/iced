@@ -31529,7 +31529,7 @@ INSTRUCTION: VEX.128.0F.W0 92 /r | KMOV k1, r32 | KNC
 END
 
 # Code: VEX_KNC_Kmov_r32_kr
-INSTRUCTION: VEX.128.0F.W0 93 /r | KMOV r32, k2 | KNC
+INSTRUCTION: VEX.128.0F.W0 93 /r | KMOV r32, k1 | KNC
 	ops: w=reg r=rm
 END
 
@@ -32342,28 +32342,28 @@ INSTRUCTION: MVEX.NDS.512.66.0F38.W0 87 /r | VPMULHD zmm1 {k1}, zmm2, Si32(zmm3/
 END
 
 # Code: MVEX_Vpgatherdd_zmm_k1_mvt
-INSTRUCTION: MVEX.512.66.0F38.W0 90 /r /vsib | VPGATHERDD zmm1 {k1}, Ui32(mvt) | KNC
+INSTRUCTION: MVEX.512.66.0F38.W0 90 /vsib | VPGATHERDD zmm1 {k1}, Ui32(mvt) | KNC
 	ops: rwvmm=reg r=rm | mem=1001_1111;4
 	flags: krw knz unique-reg-num
 	intel: kmask-op
 END
 
 # Code: MVEX_Vpgatherdq_zmm_k1_mvt
-INSTRUCTION: MVEX.512.66.0F38.W1 90 /r /vsib | VPGATHERDQ zmm1 {k1}, Ui64(mvt) | KNC
+INSTRUCTION: MVEX.512.66.0F38.W1 90 /vsib | VPGATHERDQ zmm1 {k1}, Ui64(mvt) | KNC
 	ops: rwvmm=reg r=rm | mem=1000_0000;8
 	flags: krw knz unique-reg-num
 	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherdps_zmm_k1_mvt
-INSTRUCTION: MVEX.512.66.0F38.W0 92 /r /vsib | VGATHERDPS zmm1 {k1}, Uf32(mvt) | KNC
+INSTRUCTION: MVEX.512.66.0F38.W0 92 /vsib | VGATHERDPS zmm1 {k1}, Uf32(mvt) | KNC
 	ops: rwvmm=reg r=rm | mem=1001_1111;4
 	flags: krw knz unique-reg-num
 	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherdpd_zmm_k1_mvt
-INSTRUCTION: MVEX.512.66.0F38.W1 92 /r /vsib | VGATHERDPD zmm1 {k1}, Uf64(mvt) | KNC
+INSTRUCTION: MVEX.512.66.0F38.W1 92 /vsib | VGATHERDPD zmm1 {k1}, Uf64(mvt) | KNC
 	ops: rwvmm=reg r=rm | mem=1000_0000;8
 	flags: krw knz unique-reg-num
 	intel: kmask-op
@@ -32430,28 +32430,28 @@ INSTRUCTION: MVEX.NDS.512.66.0F38.W1 9E /r | VFNMSUB132PD zmm1 {k1}, zmm2, Sf64(
 END
 
 # Code: MVEX_Vpscatterdd_mvt_k1_zmm
-INSTRUCTION: MVEX.512.66.0F38.W0 A0 /r /vsib | VPSCATTERDD mvt {k1}, Di32(zmm1) | KNC
+INSTRUCTION: MVEX.512.66.0F38.W0 A0 /vsib | VPSCATTERDD mvt {k1}, Di32(zmm1) | KNC
 	ops: w=rm r=reg | mem=1000_1111;4
 	flags: krw knz
 	intel: kmask-op
 END
 
 # Code: MVEX_Vpscatterdq_mvt_k1_zmm
-INSTRUCTION: MVEX.512.66.0F38.W1 A0 /r /vsib | VPSCATTERDQ mvt {k1}, Di64(zmm1) | KNC
+INSTRUCTION: MVEX.512.66.0F38.W1 A0 /vsib | VPSCATTERDQ mvt {k1}, Di64(zmm1) | KNC
 	ops: w=rm r=reg | mem=1000_0000;8
 	flags: krw knz
 	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterdps_mvt_k1_zmm
-INSTRUCTION: MVEX.512.66.0F38.W0 A2 /r /vsib | VSCATTERDPS mvt {k1}, Df32(zmm1) | KNC
+INSTRUCTION: MVEX.512.66.0F38.W0 A2 /vsib | VSCATTERDPS mvt {k1}, Df32(zmm1) | KNC
 	ops: w=rm r=reg | mem=1001_1111;4
 	flags: krw knz
 	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterdpd_mvt_k1_zmm
-INSTRUCTION: MVEX.512.66.0F38.W1 A2 /r /vsib | VSCATTERDPD mvt {k1}, Df64(zmm1) | KNC
+INSTRUCTION: MVEX.512.66.0F38.W1 A2 /vsib | VSCATTERDPD mvt {k1}, Df64(zmm1) | KNC
 	ops: w=rm r=reg | mem=1000_0000;8
 	flags: krw knz
 	intel: kmask-op
@@ -32507,7 +32507,7 @@ INSTRUCTION: MVEX.NDS.512.66.0F38.W1 AC /r | VFNMADD213PD zmm1 {k1}, zmm2, Sf64(
 END
 
 # Code: MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
-INSTRUCTION: MVEX.512.66.0F38.W0 B0 /r /vsib | UNDOC zmm1 {k1}, mvt | KNC
+INSTRUCTION: MVEX.512.66.0F38.W0 B0 /vsib | UNDOC zmm1 {k1}, mvt | KNC
 	# Undocumented instruction. We need ops to decode/encode it so we chose these ops but they could be wrong!
 	code-suffix: 512_66_0F38_W0_B0
 	ops: n=reg n=rm | sae er mem=1111_1111;64;f32
@@ -32515,7 +32515,7 @@ INSTRUCTION: MVEX.512.66.0F38.W0 B0 /r /vsib | UNDOC zmm1 {k1}, mvt | KNC
 END
 
 # Code: MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
-INSTRUCTION: MVEX.512.66.0F38.W0 B2 /r /vsib | UNDOC zmm1 {k1}, mvt | KNC
+INSTRUCTION: MVEX.512.66.0F38.W0 B2 /vsib | UNDOC zmm1 {k1}, mvt | KNC
 	# Undocumented instruction. We need ops to decode/encode it so we chose these ops but they could be wrong!
 	code-suffix: 512_66_0F38_W0_B2
 	ops: n=reg n=rm | sae er mem=1111_1111;64;f32
@@ -32577,7 +32577,7 @@ INSTRUCTION: MVEX.NDS.512.66.0F38.W1 BE /r | VFNMSUB231PD zmm1 {k1}, zmm2, Sf64(
 END
 
 # Code: MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_C0
-INSTRUCTION: MVEX.512.66.0F38.W0 C0 /r /vsib | UNDOC zmm1 {k1}, mvt | KNC
+INSTRUCTION: MVEX.512.66.0F38.W0 C0 /vsib | UNDOC zmm1 {k1}, mvt | KNC
 	# Undocumented instruction. We need ops to decode/encode it so we chose these ops but they could be wrong!
 	code-suffix: 512_66_0F38_W0_C0
 	ops: n=reg n=rm | sae er mem=1111_1111;64;f32

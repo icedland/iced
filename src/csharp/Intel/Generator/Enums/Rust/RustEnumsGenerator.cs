@@ -57,7 +57,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.MemorySize, new PartialEnumFileInfo("MemorySize", dirs.GetRustFilename("memory_size.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.PseudoOpsKind, new PartialEnumFileInfo("PseudoOpsKind", dirs.GetRustFilename("formatter", "enums_shared.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.Register, new PartialEnumFileInfo("Register", dirs.GetRustFilename("register.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive }));
-			toPartialFileInfo.Add(TypeIds.TupleType, new PartialEnumFileInfo("TupleType", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureDecoderOrEncoder, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.TupleType, new PartialEnumFileInfo("TupleType", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureDecoderOrEncoderOrOpCodeInfo, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.Mnemonic, new PartialEnumFileInfo("Mnemonic", dirs.GetRustFilename("mnemonic.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.FormatterFlowControl, new PartialEnumFileInfo("FormatterFlowControl", dirs.GetRustFilename("formatter", "enums.rs"), RustConstants.AttributeCopyEq));
 			toPartialFileInfo.Add(TypeIds.GasCtorKind, new PartialEnumFileInfo("CtorKind", dirs.GetRustFilename("formatter", "gas", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
@@ -92,9 +92,11 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.MandatoryPrefixByte, new PartialEnumFileInfo("MandatoryPrefixByte", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureEncoder }));
 			toPartialFileInfo.Add(TypeIds.OpSize, new PartialEnumFileInfo("OpSize", dirs.GetRustFilename("decoder.rs"), RustConstants.AttributeCopyEq));
 			toPartialFileInfo.Add(TypeIds.StateFlags, new PartialEnumFileInfo("StateFlags", dirs.GetRustFilename("decoder.rs")));
-			toPartialFileInfo.Add(TypeIds.EncodingKind, new PartialEnumFileInfo("EncodingKind", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureDecoderOrEncoderOrInstrInfo }));
+			toPartialFileInfo.Add(TypeIds.EncodingKind, new PartialEnumFileInfo("EncodingKind", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureDecoderOrEncoderOrInstrInfoOrOpCodeInfo }));
 			toPartialFileInfo.Add(TypeIds.FlowControl, new PartialEnumFileInfo("FlowControl", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.FeatureInstrInfo }));
 			toPartialFileInfo.Add(TypeIds.OpCodeOperandKind, new PartialEnumFileInfo("OpCodeOperandKind", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureOpCodeInfo, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.MvexEHBit, new PartialEnumFileInfo("MvexEHBit", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureEncoderOrOpCodeInfo_And_Mvex, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.MvexInfoFlags, new PartialEnumFileInfo("MvexInfoFlags", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureEncoder, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.RflagsBits, new PartialEnumFileInfo("RflagsBits", dirs.GetRustFilename("enums.rs"), RustConstants.FeatureInstrInfo));
 			toPartialFileInfo.Add(TypeIds.ImpliedAccess, new PartialEnumFileInfo("ImpliedAccess", dirs.GetRustFilename("info", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureInstrInfo, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.RflagsInfo, new PartialEnumFileInfo("RflagsInfo", dirs.GetRustFilename("info", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureInstrInfo, RustConstants.AttributeAllowNonCamelCaseTypes }));
@@ -112,6 +114,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.VexOpCodeTable, new PartialEnumFileInfo("VexOpCodeTable", dirs.GetRustFilename("encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes, RustConstants.FeatureVex }));
 			toPartialFileInfo.Add(TypeIds.XopOpCodeTable, new PartialEnumFileInfo("XopOpCodeTable", dirs.GetRustFilename("encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes, RustConstants.FeatureXop }));
 			toPartialFileInfo.Add(TypeIds.EvexOpCodeTable, new PartialEnumFileInfo("EvexOpCodeTable", dirs.GetRustFilename("encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes, RustConstants.FeatureEvex }));
+			toPartialFileInfo.Add(TypeIds.MvexOpCodeTable, new PartialEnumFileInfo("MvexOpCodeTable", dirs.GetRustFilename("encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes, RustConstants.FeatureMvex }));
 			toPartialFileInfo.Add(TypeIds.DisplSize, new PartialEnumFileInfo("DisplSize", dirs.GetRustFilename("encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.ImmSize, new PartialEnumFileInfo("ImmSize", dirs.GetRustFilename("encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.EncoderFlags, new PartialEnumFileInfo("EncoderFlags", dirs.GetRustFilename("encoder", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
@@ -151,6 +154,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.OptionsProps, new PartialEnumFileInfo("OptionsProps", dirs.GetRustFilename("formatter", "tests", "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.CodeAsmMemoryOperandSize, new PartialEnumFileInfo("MemoryOperandSize", dirs.GetRustFilename("code_asm", "op_state.rs"), new[] { RustConstants.AttributeCopyEqOrdHash }));
 			toPartialFileInfo.Add(TypeIds.TestInstrFlags, new PartialEnumFileInfo("TestInstrFlags", dirs.GetRustFilename("code_asm", "tests", "mod.rs"), new[] { RustConstants.AttributeCopyEqOrdHash }));
+			toPartialFileInfo.Add(TypeIds.MvexConvFn, new PartialEnumFileInfo("MvexConvFn", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureEncoderOrOpCodeInfo_And_Mvex, RustConstants.AttributeAllowNonCamelCaseTypes }));
 		}
 
 		public override void Generate(EnumType enumType) {

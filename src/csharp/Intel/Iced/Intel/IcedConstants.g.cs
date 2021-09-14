@@ -19,6 +19,8 @@ namespace Iced.Intel {
 		internal const Register TMM_last = Register.TMM7;
 		internal const int MaxCpuidFeatureInternalValues = 182;
 		internal const MemorySize FirstBroadcastMemorySize = MemorySize.Broadcast32_Float16;
+		internal const uint MvexStart = 4611;
+		internal const uint MvexLength = 207;
 		internal const int CC_a_EnumCount = 2;
 		internal const int CC_ae_EnumCount = 3;
 		internal const int CC_b_EnumCount = 3;
@@ -45,6 +47,8 @@ namespace Iced.Intel {
 		internal const int MemorySizeEnumCount = 160;
 		internal const int MemorySizeOptionsEnumCount = 4;
 		internal const int MnemonicEnumCount = 1834;
+		internal const int MvexConvFnEnumCount = 13;
+		internal const int MvexEHBitEnumCount = 3;
 		internal const int NumberBaseEnumCount = 4;
 		internal const int NumberKindEnumCount = 8;
 		internal const int OpAccessEnumCount = 8;

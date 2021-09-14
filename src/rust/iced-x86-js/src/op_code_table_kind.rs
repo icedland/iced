@@ -11,11 +11,11 @@ use wasm_bindgen::prelude::*;
 pub enum OpCodeTableKind {
 	/// Legacy/`MAP0` table
 	Normal = 0,
-	/// `0F`/`MAP1` table (legacy, VEX, EVEX)
+	/// `0F`/`MAP1` table (legacy, VEX, EVEX, MVEX)
 	T0F = 1,
-	/// `0F38`/`MAP2` table (legacy, VEX, EVEX)
+	/// `0F38`/`MAP2` table (legacy, VEX, EVEX, MVEX)
 	T0F38 = 2,
-	/// `0F3A`/`MAP3` table (legacy, VEX, EVEX)
+	/// `0F3A`/`MAP3` table (legacy, VEX, EVEX, MVEX)
 	T0F3A = 3,
 	/// `MAP5` table (EVEX)
 	MAP5 = 4,
@@ -32,6 +32,6 @@ pub enum OpCodeTableKind {
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_op_code_table_kind(value: iced_x86_rust::OpCodeTableKind) -> OpCodeTableKind {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

@@ -20,6 +20,8 @@ impl IcedConstants {
 	pub(crate) const TMM_LAST: Register = Register::TMM7;
 	pub(crate) const MAX_CPUID_FEATURE_INTERNAL_VALUES: usize = 182;
 	pub(crate) const FIRST_BROADCAST_MEMORY_SIZE: MemorySize = MemorySize::Broadcast32_Float16;
+	pub(crate) const MVEX_START: u32 = 4611;
+	pub(crate) const MVEX_LENGTH: u32 = 207;
 	pub(crate) const CC_A_ENUM_COUNT: usize = 2;
 	pub(crate) const CC_AE_ENUM_COUNT: usize = 3;
 	pub(crate) const CC_B_ENUM_COUNT: usize = 3;
@@ -46,6 +48,8 @@ impl IcedConstants {
 	pub(crate) const MEMORY_SIZE_ENUM_COUNT: usize = 160;
 	pub(crate) const MEMORY_SIZE_OPTIONS_ENUM_COUNT: usize = 4;
 	pub(crate) const MNEMONIC_ENUM_COUNT: usize = 1834;
+	pub(crate) const MVEX_CONV_FN_ENUM_COUNT: usize = 13;
+	pub(crate) const MVEX_EHBIT_ENUM_COUNT: usize = 3;
 	pub(crate) const NUMBER_BASE_ENUM_COUNT: usize = 4;
 	pub(crate) const NUMBER_KIND_ENUM_COUNT: usize = 8;
 	pub(crate) const OP_ACCESS_ENUM_COUNT: usize = 8;

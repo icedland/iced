@@ -24,6 +24,24 @@ namespace Iced.Intel.EncoderInternal {
 		readonly bool noVecIndex;
 		readonly bool swapVecIndex12;
 		readonly bool noGprSuffix;
+		readonly bool vecIndexSameAsOpIndex;
+
+#if MVEX
+		static readonly string[] ConvFnNames = new string[] {
+			"Sf32",
+			"Sf64",
+			"Si32",
+			"Si64",
+			"Uf32",
+			"Uf64",
+			"Ui32",
+			"Ui64",
+			"Df32",
+			"Df64",
+			"Di32",
+			"Di64",
+		};
+#endif
 
 		int GetKIndex() {
 			k_index++;
@@ -43,9 +61,11 @@ namespace Iced.Intel.EncoderInternal {
 			return bnd_index;
 		}
 
-		int GetVecIndex() {
+		int GetVecIndex(int opIndex) {
 			if (noVecIndex)
 				return 0;
+			if (vecIndexSameAsOpIndex)
+				return opIndex + 1;
 			vec_index++;
 			if (swapVecIndex12) {
 				if (vec_index == 1)
@@ -67,6 +87,7 @@ namespace Iced.Intel.EncoderInternal {
 			noVecIndex = false;
 			swapVecIndex12 = false;
 			noGprSuffix = false;
+			vecIndexSameAsOpIndex = false;
 			startOpIndex = 0;
 			bnd_count = 0;
 			r32_count = 0;
@@ -98,11 +119,16 @@ namespace Iced.Intel.EncoderInternal {
 			case InstrStrFmtOption.SkipOp0:
 				startOpIndex = 1;
 				break;
+			case InstrStrFmtOption.VecIndexSameAsOpIndex:
+				vecIndexSameAsOpIndex = true;
+				break;
 			default:
 				throw new InvalidOperationException();
 			}
-			if ((opCode.Op0Kind == OpCodeOperandKind.k_reg || opCode.Op0Kind == OpCodeOperandKind.kp1_reg) && opCode.OpCount > 2)
-				vec_index++;
+			if ((opCode.Op0Kind == OpCodeOperandKind.k_reg || opCode.Op0Kind == OpCodeOperandKind.kp1_reg) && opCode.OpCount > 2 &&
+				opCode.Encoding != EncodingKind.MVEX) {
+				vecIndexSameAsOpIndex = true;
+			}
 			for (int i = 0; i < opCode.OpCount; i++) {
 				switch (opCode.GetOpKind(i)) {
 				case OpCodeOperandKind.r32_reg:
@@ -272,6 +298,16 @@ namespace Iced.Intel.EncoderInternal {
 						WriteOpSeparator();
 					addComma = true;
 
+#if MVEX
+					if (i == saeErIndex && opCode.Encoding == EncodingKind.MVEX) {
+						var mvexInfo = new MvexInfo(opCode.Code);
+						var convFn = mvexInfo.ConvFn;
+						if (convFn != MvexConvFn.None) {
+							sb.Append(ConvFnNames[(int)convFn - 1]);
+							sb.Append('(');
+						}
+					}
+#endif
 					var opKind = opCode.GetOpKind(i);
 					switch (opKind) {
 					case OpCodeOperandKind.farbr2_2:
@@ -317,7 +353,10 @@ namespace Iced.Intel.EncoderInternal {
 						break;
 
 					case OpCodeOperandKind.mem_vsib32z:
-						sb.Append("vm32z");
+						if (opCode.Encoding == EncodingKind.MVEX)
+							sb.Append("mvt");
+						else
+							sb.Append("vm32z");
 						break;
 
 					case OpCodeOperandKind.mem_vsib64z:
@@ -343,19 +382,19 @@ namespace Iced.Intel.EncoderInternal {
 						break;
 
 					case OpCodeOperandKind.mm_or_mem:
-						WriteRegMem("mm", GetVecIndex());
+						WriteRegMem("mm", GetVecIndex(i));
 						break;
 
 					case OpCodeOperandKind.xmm_or_mem:
-						WriteRegMem("xmm", GetVecIndex());
+						WriteRegMem("xmm", GetVecIndex(i));
 						break;
 
 					case OpCodeOperandKind.ymm_or_mem:
-						WriteRegMem("ymm", GetVecIndex());
+						WriteRegMem("ymm", GetVecIndex(i));
 						break;
 
 					case OpCodeOperandKind.zmm_or_mem:
-						WriteRegMem("zmm", GetVecIndex());
+						WriteRegMem("zmm", GetVecIndex(i));
 						break;
 
 					case OpCodeOperandKind.tmm_reg:
@@ -421,7 +460,7 @@ namespace Iced.Intel.EncoderInternal {
 
 					case OpCodeOperandKind.mm_reg:
 					case OpCodeOperandKind.mm_rm:
-						WriteRegOp("mm", GetVecIndex());
+						WriteRegOp("mm", GetVecIndex(i));
 						break;
 
 					case OpCodeOperandKind.xmm_reg:
@@ -429,11 +468,11 @@ namespace Iced.Intel.EncoderInternal {
 					case OpCodeOperandKind.xmm_vvvv:
 					case OpCodeOperandKind.xmm_is4:
 					case OpCodeOperandKind.xmm_is5:
-						WriteRegOp("xmm", GetVecIndex());
+						WriteRegOp("xmm", GetVecIndex(i));
 						break;
 
 					case OpCodeOperandKind.xmmp3_vvvv:
-						WriteRegOp("xmm", GetVecIndex());
+						WriteRegOp("xmm", GetVecIndex(i));
 						sb.Append("+3");
 						break;
 
@@ -442,17 +481,17 @@ namespace Iced.Intel.EncoderInternal {
 					case OpCodeOperandKind.ymm_vvvv:
 					case OpCodeOperandKind.ymm_is4:
 					case OpCodeOperandKind.ymm_is5:
-						WriteRegOp("ymm", GetVecIndex());
+						WriteRegOp("ymm", GetVecIndex(i));
 						break;
 
 					case OpCodeOperandKind.zmm_reg:
 					case OpCodeOperandKind.zmm_rm:
 					case OpCodeOperandKind.zmm_vvvv:
-						WriteRegOp("zmm", GetVecIndex());
+						WriteRegOp("zmm", GetVecIndex(i));
 						break;
 
 					case OpCodeOperandKind.zmmp3_vvvv:
-						WriteRegOp("zmm", GetVecIndex());
+						WriteRegOp("zmm", GetVecIndex(i));
 						sb.Append("+3");
 						break;
 
@@ -606,6 +645,13 @@ namespace Iced.Intel.EncoderInternal {
 						throw new InvalidOperationException();
 					}
 
+#if MVEX
+					if (i == saeErIndex && opCode.Encoding == EncodingKind.MVEX) {
+						var mvexInfo = new MvexInfo(opCode.Code);
+						if (mvexInfo.ConvFn != MvexConvFn.None)
+							sb.Append(')');
+					}
+#endif
 					if (i == 0) {
 						if (opCode.CanUseOpMaskRegister) {
 							sb.Append(' ');
@@ -614,7 +660,7 @@ namespace Iced.Intel.EncoderInternal {
 								WriteDecorator("z");
 						}
 					}
-					if (i == saeErIndex) {
+					if (i == saeErIndex && opCode.Encoding != EncodingKind.MVEX) {
 						if (opCode.CanSuppressAllExceptions)
 							WriteDecorator("sae");
 						if (opCode.CanUseRoundingControl)
@@ -844,6 +890,13 @@ namespace Iced.Intel.EncoderInternal {
 		void WriteMemory(bool isBroadcast) {
 			var memorySize = GetMemorySize(isBroadcast);
 			sb.Append('m');
+#if MVEX
+			if (opCode.Encoding == EncodingKind.MVEX) {
+				var mvexInfo = new MvexInfo(opCode.Code);
+				if (mvexInfo.EHBit == MvexEHBit.None)
+					sb.Append('t');
+			}
+#endif
 			WriteMemorySize(memorySize);
 			if (isBroadcast)
 				sb.Append("bcst");

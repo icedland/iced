@@ -7,13 +7,13 @@ namespace Generator.Enums.Encoder {
 		[Comment("Legacy/#(c:MAP0)# table")]
 		Normal,
 
-		[Comment("#(c:0F)#/#(c:MAP1)# table (legacy, VEX, EVEX)")]
+		[Comment("#(c:0F)#/#(c:MAP1)# table (legacy, VEX, EVEX, MVEX)")]
 		T0F,
 
-		[Comment("#(c:0F38)#/#(c:MAP2)# table (legacy, VEX, EVEX)")]
+		[Comment("#(c:0F38)#/#(c:MAP2)# table (legacy, VEX, EVEX, MVEX)")]
 		T0F38,
 
-		[Comment("#(c:0F3A)#/#(c:MAP3)# table (legacy, VEX, EVEX)")]
+		[Comment("#(c:0F3A)#/#(c:MAP3)# table (legacy, VEX, EVEX, MVEX)")]
 		T0F3A,
 
 		[Comment("#(c:MAP5)# table (EVEX)")]

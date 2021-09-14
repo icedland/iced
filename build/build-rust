@@ -70,7 +70,7 @@ build_no_std() {
 	cd "$root_dir/src/rust/iced-x86"
 
 	echo "==== BUILD DEBUG ===="
-	cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm fast_fmt serde code_asm"
+	cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm fast_fmt serde code_asm mvex"
 
 	cd "$curr_dir"
 }
@@ -82,6 +82,7 @@ build_features() {
 
 	set -- \
 		"std decoder" \
+		"std decoder mvex" \
 		"std encoder" \
 		"std encoder block_encoder" \
 		"std encoder op_code_info" \
@@ -111,6 +112,7 @@ build_features() {
 
 	set -- \
 		"no_std decoder" \
+		"no_std decoder mvex" \
 		"no_std encoder" \
 		"no_std encoder block_encoder" \
 		"no_std encoder op_code_info" \
@@ -129,6 +131,7 @@ build_features() {
 
 	set -- \
 		"std decoder" \
+		"std decoder mvex" \
 		"std decoder encoder" \
 		"std decoder encoder block_encoder" \
 		"std decoder encoder op_code_info" \
@@ -168,23 +171,23 @@ build_test_current_version() {
 	rustc --version
 
 	echo "==== CLIPPY RELEASE --tests ===="
-	cargo clippy --color always --release --features "serde code_asm" --tests
+	cargo clippy --color always --release --features "serde code_asm mvex" --tests
 
 	echo "==== FORMAT CHECK ===="
 	cargo fmt -- --color always --check
 
 	echo "==== DOC ===="
-	cargo doc --color always --features "serde code_asm"
+	cargo doc --color always --features "serde code_asm mvex"
 
 	echo "==== BUILD RELEASE ===="
-	cargo check --color always --release --features "serde code_asm"
+	cargo check --color always --release --features "serde code_asm mvex"
 
 	echo "==== TEST RELEASE ===="
 	extra_args=""
 	if [ "$test_code_asm" != "y" ]; then
 		extra_args="-- --skip lib.rs"
 	fi
-	cargo test --color always --release --features "serde $test_code_asm_feat" $extra_args
+	cargo test --color always --release --features "serde $test_code_asm_feat mvex" $extra_args
 
 	# Make sure the two read-mem methods behave the same
 	# Also test serde code. It needs encoder to also test 'db x,y,z', see serde tests
@@ -192,17 +195,17 @@ build_test_current_version() {
 	cargo test --color always --tests --no-default-features --features "std decoder encoder serde __internal_flip"
 
 	echo "==== TEST DEBUG ===="
-	cargo test --color always --tests --features "serde $test_code_asm_feat"
+	cargo test --color always --tests --features "serde $test_code_asm_feat mvex"
 
 	echo "==== BUILD RELEASE wasm32-unknown-unknown ===="
-	cargo check --color always --target wasm32-unknown-unknown --release --features "serde code_asm"
+	cargo check --color always --target wasm32-unknown-unknown --release --features "serde code_asm mvex"
 
 	echo "==== PUBLISH DRY-RUN ===="
 	# It fails on Windows (GitHub CI) without this, claiming that some random number of Rust files are dirty.
 	# Redirect to /dev/null so it won't hang (waiting for us to scroll) if it finds modified lines
 	git status > /dev/null
 	git diff > /dev/null
-	cargo publish --color always --features "serde code_asm" --dry-run
+	cargo publish --color always --features "serde code_asm mvex" --dry-run
 
 	cd "$curr_dir"
 }
@@ -216,7 +219,7 @@ build_test_msrv() {
 	echo "*** If this fails, install Rust $msrv"
 
 	echo "==== BUILD DEBUG ===="
-	cargo +$msrv check --color always --features "serde code_asm"
+	cargo +$msrv check --color always --features "serde code_asm mvex"
 
 	# We don't test it since we only guarantee that the crate can be built. Testing is for iced devs.
 	# We test it when using the latest rustc, but not rustc MSRV.

@@ -65,7 +65,7 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.PseudoOpsKind, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.FormatterNamespace, nameof(TypeIds.PseudoOpsKind) + ".g.cs"), CSharpConstants.FormatterNamespace, CSharpConstants.AnyFormatterDefine));
 			toFullFileInfo.Add(TypeIds.Register, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.Register) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(TypeIds.SerializedDataKind, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.DecoderNamespace, nameof(TypeIds.SerializedDataKind) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderDefine, baseType: "byte"));
-			toFullFileInfo.Add(TypeIds.TupleType, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.TupleType) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderDefine));
+			toFullFileInfo.Add(TypeIds.TupleType, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.TupleType) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderOrOpCodeInfoDefine));
 			toFullFileInfo.Add(TypeIds.VexOpCodeHandlerKind, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.DecoderNamespace, nameof(TypeIds.VexOpCodeHandlerKind) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderVexOrXopDefine, baseType: "byte"));
 			toFullFileInfo.Add(TypeIds.Mnemonic, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.Mnemonic) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(TypeIds.GasCtorKind, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.GasFormatterNamespace, "CtorKind.g.cs"), CSharpConstants.GasFormatterNamespace, CSharpConstants.GasFormatterDefine));
@@ -88,9 +88,11 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.InstrScale, null);
 			toFullFileInfo.Add(TypeIds.VectorLength, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.VectorLength) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderDefine));
 			toFullFileInfo.Add(TypeIds.MandatoryPrefixByte, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.MandatoryPrefixByte) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderDefine, "uint"));// 'uint' not 'byte' since it gets zx to uint when OR'ing values
-			toFullFileInfo.Add(TypeIds.EncodingKind, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.EncodingKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderOrInstrInfoDefine));
+			toFullFileInfo.Add(TypeIds.EncodingKind, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.EncodingKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderOrInstrInfoOrOpCodeInfoDefine));
 			toFullFileInfo.Add(TypeIds.FlowControl, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.FlowControl) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.InstructionInfoDefine));
 			toFullFileInfo.Add(TypeIds.OpCodeOperandKind, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.OpCodeOperandKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.OpCodeInfoDefine));
+			toFullFileInfo.Add(TypeIds.MvexEHBit, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.MvexEHBit) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.EncoderOrOpCodeInfo_And_MvexDefine));
+			toFullFileInfo.Add(TypeIds.MvexInfoFlags, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.MvexInfoFlags) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.EncoderOrOpCodeInfo_And_MvexDefine));
 			toFullFileInfo.Add(TypeIds.RflagsBits, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.RflagsBits) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.InstructionInfoDefine));
 			toFullFileInfo.Add(TypeIds.OpAccess, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.OpAccess) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.InstructionInfoDefine));
 			toFullFileInfo.Add(TypeIds.MandatoryPrefix, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.MandatoryPrefix) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.OpCodeInfoDefine));
@@ -98,6 +100,7 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.FormatterTextKind, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.FormatterTextKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.AnyFormatterDefine));
 			toFullFileInfo.Add(TypeIds.MemorySizeOptions, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.MemorySizeOptions) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.AnyFormatterDefine));
 			toFullFileInfo.Add(TypeIds.CodeAsmMemoryOperandSize, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Assembler", "MemoryOperandSize.g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.CodeAssemblerDefine));
+			toFullFileInfo.Add(TypeIds.MvexConvFn, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.MvexConvFn) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.EncoderOrOpCodeInfo_And_MvexDefine));
 
 			toPartialFileInfo = new();
 			toPartialFileInfo.Add(TypeIds.InstrFlags1, new PartialEnumFileInfo("InstrFlags1", CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Instruction.cs"), "uint"));
@@ -119,6 +122,7 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.VexOpCodeTable, new PartialEnumFileInfo("VexOpCodeTable", CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "Enums.cs"), null));
 			toPartialFileInfo.Add(TypeIds.XopOpCodeTable, new PartialEnumFileInfo("XopOpCodeTable", CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "Enums.cs"), null));
 			toPartialFileInfo.Add(TypeIds.EvexOpCodeTable, new PartialEnumFileInfo("EvexOpCodeTable", CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "Enums.cs"), null));
+			toPartialFileInfo.Add(TypeIds.MvexOpCodeTable, new PartialEnumFileInfo("MvexOpCodeTable", CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "Enums.cs"), null));
 
 			toPartialFileInfo.Add(TypeIds.FormatterFlowControl, new PartialEnumFileInfo("FormatterFlowControl", CSharpConstants.GetFilename(genTypes, CSharpConstants.FormatterNamespace, "FormatterUtils.cs"), null));
 			toPartialFileInfo.Add(TypeIds.GasInstrOpKind, new PartialEnumFileInfo("InstrOpKind", CSharpConstants.GetFilename(genTypes, CSharpConstants.GasFormatterNamespace, "InstrInfo.cs"), "byte"));

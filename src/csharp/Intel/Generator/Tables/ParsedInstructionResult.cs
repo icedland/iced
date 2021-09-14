@@ -4,6 +4,7 @@
 using System;
 using System.Diagnostics;
 using Generator.Enums;
+using Generator.Enums.Decoder;
 
 namespace Generator.Tables {
 	[Flags]

@@ -525,7 +525,7 @@ namespace IcedFuzzer.Core {
 			Assert.True(flags.Length == 0x40);
 
 			bool xopCheck = false;
-			// Check if it's a prefix or a disabled VEX/XOP/EVEX/3DNow instruction
+			// Check if it's a prefix or a disabled VEX/XOP/EVEX/MVEX/3DNow instruction
 			if (table.TableIndex == 0) {
 				switch (opCode) {
 				case 0x0F:

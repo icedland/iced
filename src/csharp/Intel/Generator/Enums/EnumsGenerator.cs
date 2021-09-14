@@ -96,6 +96,7 @@ namespace Generator.Enums {
 				genTypes[TypeIds.VexOpCodeTable],
 				genTypes[TypeIds.XopOpCodeTable],
 				genTypes[TypeIds.EvexOpCodeTable],
+				genTypes[TypeIds.MvexOpCodeTable],
 				genTypes[TypeIds.MandatoryPrefix],
 				genTypes[TypeIds.OpCodeTableKind],
 				genTypes[TypeIds.DisplSize],
@@ -115,6 +116,9 @@ namespace Generator.Enums {
 				genTypes[TypeIds.InstrStrFmtOption],
 				genTypes[TypeIds.CodeAsmMemoryOperandSize],
 				genTypes[TypeIds.TestInstrFlags],
+				genTypes[TypeIds.MvexConvFn],
+				genTypes[TypeIds.MvexEHBit],
+				genTypes[TypeIds.MvexInfoFlags],
 			};
 
 			GenerateBegin();

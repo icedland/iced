@@ -783,7 +783,7 @@ impl Instruction {
 
 	/// Gets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
 	/// Note that the return value can be 1 and [`memoryDisplacement`] may still not fit in
-	/// a signed byte if it's an EVEX encoded instruction.
+	/// a signed byte if it's an EVEX/MVEX encoded instruction.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
 	/// [`memoryDisplacement`]: #method.memory_displacement
@@ -796,7 +796,7 @@ impl Instruction {
 
 	/// Sets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
 	/// Note that the return value can be 1 and [`memoryDisplacement`] may still not fit in
-	/// a signed byte if it's an EVEX encoded instruction.
+	/// a signed byte if it's an EVEX/MVEX encoded instruction.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
 	/// [`memoryDisplacement`]: #method.memory_displacement
@@ -2081,7 +2081,7 @@ impl Instruction {
 		self.0.vsib()
 	}
 
-	/// Gets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`roundingControl`] is
+	/// Gets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if [`roundingControl`] is
 	/// not [`RoundingControl.None`], SAE is implied but this method will still return `false`.
 	///
 	/// [`roundingControl`]: #method.rounding_control
@@ -2092,7 +2092,7 @@ impl Instruction {
 		self.0.suppress_all_exceptions()
 	}
 
-	/// Sets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`roundingControl`] is
+	/// Sets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if [`roundingControl`] is
 	/// not [`RoundingControl.None`], SAE is implied but this method will still return `false`.
 	///
 	/// [`roundingControl`]: #method.rounding_control

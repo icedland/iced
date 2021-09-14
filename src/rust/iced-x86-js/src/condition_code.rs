@@ -49,6 +49,6 @@ pub enum ConditionCode {
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_condition_code(value: iced_x86_rust::ConditionCode) -> ConditionCode {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

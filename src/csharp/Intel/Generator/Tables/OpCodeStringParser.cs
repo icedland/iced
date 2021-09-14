@@ -378,13 +378,13 @@ namespace Generator.Tables {
 
 				case "EH0":
 				case "EH1":
-					if (result.EHBit != EvictionHintKind.None) {
+					if (result.MvexEHBit != MvexEHBit.None) {
 						error = $"Duplicate EH bit: `{encPart}`";
 						return false;
 					}
-					result.EHBit = encPart switch {
-						"EH0" => EvictionHintKind.EH0,
-						"EH1" => EvictionHintKind.EH1,
+					result.MvexEHBit = encPart switch {
+						"EH0" => MvexEHBit.EH0,
+						"EH1" => MvexEHBit.EH1,
 						_ => throw new InvalidOperationException(),
 					};
 					break;
@@ -442,7 +442,7 @@ namespace Generator.Tables {
 				error = "Can't use NDD/NDS";
 				return false;
 			}
-			if (result.EHBit != EvictionHintKind.None && vecEnc != VecEncoding.MVEX) {
+			if (result.MvexEHBit != MvexEHBit.None && vecEnc != VecEncoding.MVEX) {
 				error = "Can't use EH0/EH1";
 				return false;
 			}

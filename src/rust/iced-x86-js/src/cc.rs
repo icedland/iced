@@ -177,144 +177,144 @@ pub enum CC_g {
 
 #[allow(dead_code)]
 pub(crate) fn cc_b_to_iced(value: CC_b) -> iced_x86_rust::CC_b {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_b(value: iced_x86_rust::CC_b) -> CC_b {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_ae_to_iced(value: CC_ae) -> iced_x86_rust::CC_ae {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_ae(value: iced_x86_rust::CC_ae) -> CC_ae {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_e_to_iced(value: CC_e) -> iced_x86_rust::CC_e {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_e(value: iced_x86_rust::CC_e) -> CC_e {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_ne_to_iced(value: CC_ne) -> iced_x86_rust::CC_ne {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_ne(value: iced_x86_rust::CC_ne) -> CC_ne {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_be_to_iced(value: CC_be) -> iced_x86_rust::CC_be {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_be(value: iced_x86_rust::CC_be) -> CC_be {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_a_to_iced(value: CC_a) -> iced_x86_rust::CC_a {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_a(value: iced_x86_rust::CC_a) -> CC_a {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_p_to_iced(value: CC_p) -> iced_x86_rust::CC_p {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_p(value: iced_x86_rust::CC_p) -> CC_p {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_np_to_iced(value: CC_np) -> iced_x86_rust::CC_np {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_np(value: iced_x86_rust::CC_np) -> CC_np {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_l_to_iced(value: CC_l) -> iced_x86_rust::CC_l {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_l(value: iced_x86_rust::CC_l) -> CC_l {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_ge_to_iced(value: CC_ge) -> iced_x86_rust::CC_ge {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_ge(value: iced_x86_rust::CC_ge) -> CC_ge {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_le_to_iced(value: CC_le) -> iced_x86_rust::CC_le {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_le(value: iced_x86_rust::CC_le) -> CC_le {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn cc_g_to_iced(value: CC_g) -> iced_x86_rust::CC_g {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_cc_g(value: iced_x86_rust::CC_g) -> CC_g {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

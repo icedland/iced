@@ -36666,7 +36666,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		VEX_KNC_Kmov_kr_r32 = 4585,
-		/// <summary><c>KMOV r32, k2</c><br/>
+		/// <summary><c>KMOV r32, k1</c><br/>
 		/// <br/>
 		/// <c>VEX.128.0F.W0 93 /r</c><br/>
 		/// <br/>
@@ -37764,7 +37764,7 @@ namespace Iced.Intel {
 		MVEX_Vpmulhd_zmm_k1_zmm_zmmmt = 4722,
 		/// <summary><c>VPGATHERDD zmm1 {k1}, Ui32(mvt)</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W0 90 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W0 90 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
@@ -37772,7 +37772,7 @@ namespace Iced.Intel {
 		MVEX_Vpgatherdd_zmm_k1_mvt = 4723,
 		/// <summary><c>VPGATHERDQ zmm1 {k1}, Ui64(mvt)</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W1 90 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W1 90 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
@@ -37780,7 +37780,7 @@ namespace Iced.Intel {
 		MVEX_Vpgatherdq_zmm_k1_mvt = 4724,
 		/// <summary><c>VGATHERDPS zmm1 {k1}, Uf32(mvt)</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W0 92 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W0 92 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
@@ -37788,7 +37788,7 @@ namespace Iced.Intel {
 		MVEX_Vgatherdps_zmm_k1_mvt = 4725,
 		/// <summary><c>VGATHERDPD zmm1 {k1}, Uf64(mvt)</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W1 92 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W1 92 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
@@ -37876,7 +37876,7 @@ namespace Iced.Intel {
 		MVEX_Vfnmsub132pd_zmm_k1_zmm_zmmmt = 4736,
 		/// <summary><c>VPSCATTERDD mvt {k1}, Di32(zmm1)</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W0 A0 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W0 A0 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
@@ -37884,7 +37884,7 @@ namespace Iced.Intel {
 		MVEX_Vpscatterdd_mvt_k1_zmm = 4737,
 		/// <summary><c>VPSCATTERDQ mvt {k1}, Di64(zmm1)</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W1 A0 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W1 A0 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
@@ -37892,7 +37892,7 @@ namespace Iced.Intel {
 		MVEX_Vpscatterdq_mvt_k1_zmm = 4738,
 		/// <summary><c>VSCATTERDPS mvt {k1}, Df32(zmm1)</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W0 A2 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W0 A2 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
@@ -37900,7 +37900,7 @@ namespace Iced.Intel {
 		MVEX_Vscatterdps_mvt_k1_zmm = 4739,
 		/// <summary><c>VSCATTERDPD mvt {k1}, Df64(zmm1)</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W1 A2 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W1 A2 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
@@ -37980,7 +37980,7 @@ namespace Iced.Intel {
 		MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt = 4749,
 		/// <summary><c>UNDOC zmm1 {k1}, mvt</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W0 B0 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W0 B0 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
@@ -37988,7 +37988,7 @@ namespace Iced.Intel {
 		MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0 = 4750,
 		/// <summary><c>UNDOC zmm1 {k1}, mvt</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W0 B2 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W0 B2 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
@@ -38076,7 +38076,7 @@ namespace Iced.Intel {
 		MVEX_Vfnmsub231pd_zmm_k1_zmm_zmmmt = 4761,
 		/// <summary><c>UNDOC zmm1 {k1}, mvt</c><br/>
 		/// <br/>
-		/// <c>MVEX.512.66.0F38.W0 C0 /r /vsib</c><br/>
+		/// <c>MVEX.512.66.0F38.W0 C0 /vsib</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>

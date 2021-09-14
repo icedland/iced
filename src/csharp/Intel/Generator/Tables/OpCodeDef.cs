@@ -23,7 +23,7 @@ namespace Generator.Tables {
 		public OpCodeL LBit;
 		public OpCodeTableKind Table;
 		public NonDestructiveOpKind NDKind;
-		public EvictionHintKind EHBit;
+		public MvexEHBit MvexEHBit;
 		public uint OpCode;
 		public int OpCodeLength;
 		public sbyte GroupIndex;
@@ -40,7 +40,7 @@ namespace Generator.Tables {
 				LBit = OpCodeL.None,
 				Table = OpCodeTableKind.Normal,
 				NDKind = NonDestructiveOpKind.None,
-				EHBit = EvictionHintKind.None,
+				MvexEHBit = MvexEHBit.None,
 				OpCode = 0,
 				GroupIndex = -1,
 				RmGroupIndex = -1,

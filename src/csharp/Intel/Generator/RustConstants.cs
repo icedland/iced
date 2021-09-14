@@ -34,6 +34,7 @@ namespace Generator {
 		public const string FeatureInstrInfo = "#[cfg(feature = \"instr_info\")]";
 		public const string FeatureEncoder = "#[cfg(feature = \"encoder\")]";
 		public const string FeatureOpCodeInfo = "#[cfg(all(feature = \"encoder\", feature = \"op_code_info\"))]";
+		public const string FeatureEncoderOrOpCodeInfo_And_Mvex = "#[cfg(all(any(feature = \"encoder\", feature = \"op_code_info\"), feature = \"mvex\"))]";
 		public const string Vex = "not(feature = \"no_vex\")";
 		public const string Evex = "not(feature = \"no_evex\")";
 		public const string Xop = "not(feature = \"no_xop\")";
@@ -49,7 +50,8 @@ namespace Generator {
 		public const string FeatureEncodingMany = "#[cfg(any({0}))]";
 		public const string FeatureDecoder = "#[cfg(feature = \"decoder\")]";
 		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"decoder\", feature = \"encoder\"))]";
-		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"instr_info\"))]";
+		public const string FeatureDecoderOrEncoderOrOpCodeInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"op_code_info\"))]";
+		public const string FeatureDecoderOrEncoderOrInstrInfoOrOpCodeInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"instr_info\", feature = \"op_code_info\"))]";
 		public const string FeatureBigInt = "#[cfg(feature = \"bigint\")]";
 		public const string FeatureNotBigInt = "#[cfg(not(feature = \"bigint\"))]";
 		public const string FeatureGasIntelNasm = "#[cfg(any(feature = \"gas\", feature = \"intel\", feature = \"nasm\"))]";

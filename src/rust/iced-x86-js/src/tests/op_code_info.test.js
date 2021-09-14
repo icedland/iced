@@ -2,8 +2,8 @@
 // Copyright (C) 2018-present iced project and contributors
 
 const {
-	Code, CodeExt, Decoder, DecoderOptions, EncodingKind, MandatoryPrefix, MemorySize,
-	Mnemonic, OpCodeOperandKind, OpCodeTableKind, TupleType
+	Code, CodeExt, Decoder, DecoderOptions, EncodingKind, getIcedFeatures, MandatoryPrefix, MemorySize,
+	Mnemonic, MvexConvFn, MvexEHBit, OpCodeOperandKind, OpCodeTableKind, TupleType
 } = require("iced-x86");
 
 test("OpCodeInfo", () => {
@@ -31,6 +31,18 @@ test("OpCodeInfo", () => {
 	expect(info1.isWIG).toBe(false);
 	expect(info1.isWIG32).toBe(false);
 	expect(info1.tupleType).toBe(TupleType.N1);
+	// Check if MVEX support
+	if ((getIcedFeatures() & 0x10) != 0) {
+		expect(info1.mvexEHBit).toBe(MvexEHBit.None);
+		expect(info1.mvexCanUseEvictionHint).toBe(false);
+		expect(info1.mvexCanUseImmRoundingControl).toBe(false);
+		expect(info1.mvexBaseTupleSize).toBe(0);
+		expect(info1.mvexBaseMemorySize).toBe(0);
+		expect(info1.mvexBaseElementSize).toBe(0);
+		expect(info1.mvexConversionFunc).toBe(MvexConvFn.None);
+		expect(info1.mvexValidConversionFuncsMask).toBe(0);
+		expect(info1.mvexValidSwizzleFuncsMask).toBe(0);
+	}
 	expect(info1.memorySize).toBe(MemorySize.UInt64);
 	expect(info1.broadcastMemorySize).toBe(MemorySize.Unknown);
 	expect(info1.canBroadcast).toBe(false);

@@ -91,16 +91,16 @@ namespace IcedFuzzer.Core {
 	}
 
 	enum FuzzerOperandRegLocation {
-		// [4] = EVEX.R'
-		// [3] = REX/VEX/EVEX/XOP.R
+		// [4] = EVEX/MVEX.R'
+		// [3] = REX/VEX/EVEX/MVEX/XOP.R
 		// [2:0] = modrm.reg
 		ModrmRegBits,
-		// [4] = EVEX.X
-		// [3] = REX/VEX/EVEX/XOP.B
+		// [4] = EVEX/MVEX.X
+		// [3] = REX/VEX/EVEX/MVEX/XOP.B
 		// [2:0] = modrm.rm
 		ModrmRmBits,
-		// [4] = EVEX.V'
-		// [3:0] = VEX/EVEX/XOP.vvvv
+		// [4] = EVEX/MVEX.V'
+		// [3:0] = VEX/EVEX/MVEX/XOP.vvvv
 		VvvvBits,
 		// [3] = REX.B
 		// [2:0] = opcode[2:0]

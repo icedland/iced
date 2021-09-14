@@ -4,6 +4,7 @@
 using System;
 using System.Text;
 using Generator.Enums;
+using Generator.Enums.Encoder;
 
 namespace Generator.Tables {
 	readonly struct CodeFormatter {
@@ -17,14 +18,14 @@ namespace Generator.Tables {
 		readonly EnumValue memSize;
 		readonly EnumValue memSizeBcst;
 		readonly InstructionDefFlags1 flags1;
-		readonly InstructionDefFlags3 flags3;
+		readonly MvexInfoFlags mvexFlags;
 		readonly EncodingKind encoding;
 		readonly OpCodeOperandKindDef[] opKinds;
 		readonly bool isKnc;
 
 		public CodeFormatter(StringBuilder sb, RegisterDef[] regDefs, MemorySizeDefs memSizeTbl, string codeMnemonic, string? codeSuffix,
 			string? codeMemorySize, string? codeMemorySizeSuffix, EnumValue memSize, EnumValue memSizeBcst, InstructionDefFlags1 flags1,
-			InstructionDefFlags3 flags3, EncodingKind encoding, OpCodeOperandKindDef[] opKinds, bool isKnc) {
+			MvexInfoFlags mvexFlags, EncodingKind encoding, OpCodeOperandKindDef[] opKinds, bool isKnc) {
 			if (codeMnemonic == string.Empty)
 				throw new ArgumentOutOfRangeException(nameof(codeMnemonic));
 			this.sb = sb;
@@ -37,7 +38,7 @@ namespace Generator.Tables {
 			this.memSize = memSize;
 			this.memSizeBcst = memSizeBcst;
 			this.flags1 = flags1;
-			this.flags3 = flags3;
+			this.mvexFlags = mvexFlags;
 			this.encoding = encoding;
 			this.opKinds = opKinds;
 			this.isKnc = isKnc;
@@ -247,7 +248,7 @@ namespace Generator.Tables {
 		void WriteMemory(bool isBroadcast) {
 			var memorySize = GetMemorySize(isBroadcast);
 			if (encoding == EncodingKind.MVEX)
-				sb.Append((flags3 & InstructionDefFlags3.EvictionHint) != 0 ? "mt" : "m");
+				sb.Append((mvexFlags & MvexInfoFlags.EvictionHint) != 0 ? "mt" : "m");
 			else
 				sb.Append(isBroadcast ? 'b' : 'm');
 			WriteMemorySize(memorySize);

@@ -260,9 +260,18 @@ namespace Iced.Intel {
 
 			case EncodingKind.MVEX:
 #if MVEX
-				//TODO: MVEX
-				toOpCodeStringValue = string.Empty;
-				toInstructionStringValue = string.Empty;
+				opKinds = OpCodeOperandKinds.MvexOpKinds;
+				op0Kind = opKinds[(int)(((uint)encFlags1 >> (int)EncFlags1.MVEX_Op0Shift) & (uint)EncFlags1.MVEX_OpMask)];
+				op1Kind = opKinds[(int)(((uint)encFlags1 >> (int)EncFlags1.MVEX_Op1Shift) & (uint)EncFlags1.MVEX_OpMask)];
+				op2Kind = opKinds[(int)(((uint)encFlags1 >> (int)EncFlags1.MVEX_Op2Shift) & (uint)EncFlags1.MVEX_OpMask)];
+				op3Kind = opKinds[(int)(((uint)encFlags1 >> (int)EncFlags1.MVEX_Op3Shift) & (uint)EncFlags1.MVEX_OpMask)];
+
+				table = (MvexOpCodeTable)(((uint)encFlags2 >> (int)EncFlags2.TableShift) & (uint)EncFlags2.TableMask) switch {
+					MvexOpCodeTable.MAP0F => (byte)OpCodeTableKind.T0F,
+					MvexOpCodeTable.MAP0F38 => (byte)OpCodeTableKind.T0F38,
+					MvexOpCodeTable.MAP0F3A => (byte)OpCodeTableKind.T0F3A,
+					_ => throw new InvalidOperationException(),
+				};
 				break;
 #else
 				toOpCodeStringValue = string.Empty;
@@ -335,7 +344,7 @@ namespace Iced.Intel {
 		public uint L => l;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) <c>W</c> value or default value if <see cref="IsWIG"/> or <see cref="IsWIG32"/> is <see langword="true"/>
+		/// (VEX/XOP/EVEX/MVEX) <c>W</c> value or default value if <see cref="IsWIG"/> or <see cref="IsWIG32"/> is <see langword="true"/>
 		/// </summary>
 		public uint W => (flags & Flags.W) != 0 ? 1U : 0;
 
@@ -347,19 +356,66 @@ namespace Iced.Intel {
 		public bool IsLIG => (flags & Flags.LIG) != 0;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) <see langword="true"/> if the <c>W</c> field is ignored in 16/32/64-bit modes
+		/// (VEX/XOP/EVEX/MVEX) <see langword="true"/> if the <c>W</c> field is ignored in 16/32/64-bit modes
 		/// </summary>
 		public bool IsWIG => (flags & Flags.WIG) != 0;
 
 		/// <summary>
-		/// (VEX/XOP/EVEX) <see langword="true"/> if the <c>W</c> field is ignored in 16/32-bit modes (but not 64-bit mode)
+		/// (VEX/XOP/EVEX/MVEX) <see langword="true"/> if the <c>W</c> field is ignored in 16/32-bit modes (but not 64-bit mode)
 		/// </summary>
 		public bool IsWIG32 => (flags & Flags.WIG32) != 0;
 
 		/// <summary>
-		/// (EVEX) Gets the tuple type
+		/// (EVEX/MVEX) Gets the tuple type
 		/// </summary>
 		public TupleType TupleType => (TupleType)tupleType;
+
+#if MVEX
+		/// <summary>
+		/// (MVEX) Gets the <c>EH</c> bit that's required to encode this instruction
+		/// </summary>
+		public MvexEHBit MvexEHBit => Encoding == EncodingKind.MVEX ? new MvexInfo(Code).EHBit : MvexEHBit.None;
+
+		/// <summary>
+		/// (MVEX) <see langword="true"/> if the instruction supports eviction hint (if it has a memory operand)
+		/// </summary>
+		public bool MvexCanUseEvictionHint => Encoding == EncodingKind.MVEX && new MvexInfo(Code).CanUseEvictionHint;
+
+		/// <summary>
+		/// (MVEX) <see langword="true"/> if the instruction's rounding control bits are stored in <c>imm8[1:0]</c>
+		/// </summary>
+		public bool MvexCanUseImmRoundingControl => Encoding == EncodingKind.MVEX && new MvexInfo(Code).CanUseImmRoundingControl;
+
+		/// <summary>
+		/// (MVEX) Gets the base tuple type size (conv fn = <c>000b</c>)
+		/// </summary>
+		public int MvexBaseTupleSize => Encoding == EncodingKind.MVEX ? new MvexInfo(Code).TupleTypeSize : 0;
+
+		/// <summary>
+		/// (MVEX) Gets the base memory size (conv fn = <c>000b</c>)
+		/// </summary>
+		public int MvexBaseMemorySize => Encoding == EncodingKind.MVEX ? new MvexInfo(Code).MemorySize : 0;
+
+		/// <summary>
+		/// (MVEX) Gets the base memory element size (conv fn = <c>000b</c>)
+		/// </summary>
+		public int MvexBaseElementSize => Encoding == EncodingKind.MVEX ? new MvexInfo(Code).ElementSize : 0;
+
+		/// <summary>
+		/// (MVEX) Gets the conversion function, eg. <c>Sf32</c>
+		/// </summary>
+		public MvexConvFn MvexConversionFunc => Encoding == EncodingKind.MVEX ? new MvexInfo(Code).ConvFn : MvexConvFn.None;
+
+		/// <summary>
+		/// (MVEX) Gets flags indicating which conversion functions are valid (bit 0 == func 0)
+		/// </summary>
+		public byte MvexValidConversionFuncsMask => (byte)(Encoding == EncodingKind.MVEX ? new MvexInfo(Code).ValidConvFns : 0);
+
+		/// <summary>
+		/// (MVEX) Gets flags indicating which swizzle functions are valid (bit 0 == func 0)
+		/// </summary>
+		public byte MvexValidSwizzleFuncsMask => (byte)(Encoding == EncodingKind.MVEX ? new MvexInfo(Code).ValidSwizzleFns : 0);
+#endif
 
 		/// <summary>
 		/// If it has a memory operand, gets the <see cref="MemorySize"/> (non-broadcast memory type)
@@ -377,22 +433,22 @@ namespace Iced.Intel {
 		public bool CanBroadcast => (encFlags3 & EncFlags3.Broadcast) != 0;
 
 		/// <summary>
-		/// (EVEX) <see langword="true"/> if the instruction supports rounding control
+		/// (EVEX/MVEX) <see langword="true"/> if the instruction supports rounding control
 		/// </summary>
 		public bool CanUseRoundingControl => (encFlags3 & EncFlags3.RoundingControl) != 0;
 
 		/// <summary>
-		/// (EVEX) <see langword="true"/> if the instruction supports suppress all exceptions
+		/// (EVEX/MVEX) <see langword="true"/> if the instruction supports suppress all exceptions
 		/// </summary>
 		public bool CanSuppressAllExceptions => (encFlags3 & EncFlags3.SuppressAllExceptions) != 0;
 
 		/// <summary>
-		/// (EVEX) <see langword="true"/> if an opmask register can be used
+		/// (EVEX/MVEX) <see langword="true"/> if an opmask register can be used
 		/// </summary>
 		public bool CanUseOpMaskRegister => (encFlags3 & EncFlags3.OpMaskRegister) != 0;
 
 		/// <summary>
-		/// (EVEX) <see langword="true"/> if a non-zero opmask register must be used
+		/// (EVEX/MVEX) <see langword="true"/> if a non-zero opmask register must be used
 		/// </summary>
 		public bool RequireOpMaskRegister => (encFlags3 & EncFlags3.RequireOpMaskRegister) != 0;
 

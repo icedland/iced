@@ -139,6 +139,7 @@ namespace Generator.Encoder.CSharp {
 			var encFlags3 = allData.Select(a => (a.def, a.encFlags3)).ToArray();
 			var opcFlags1 = allData.Select(a => (a.def, a.opcFlags1)).ToArray();
 			var opcFlags2 = allData.Select(a => (a.def, a.opcFlags2)).ToArray();
+			var mvexInfos = allData.Select(a => (a.def, a.mvex)).ToArray();
 			var encoderInfo = new (string name, (InstructionDef def, uint value)[] values)[] {
 				("EncFlags1", encFlags1),
 				("EncFlags2", encFlags2),
@@ -151,6 +152,7 @@ namespace Generator.Encoder.CSharp {
 
 			GenerateTables(defs, encoderInfo, CSharpConstants.EncoderDefine, "EncoderData", "EncoderData.g.cs");
 			GenerateTables(defs, opCodeInfo, CSharpConstants.OpCodeInfoDefine, "OpCodeInfoData", "OpCodeInfoData.g.cs");
+			GenerateTables(mvexInfos, CSharpConstants.EncoderOrOpCodeInfo_And_MvexDefine, "MvexInfoData", "MvexInfoData.g.cs");
 		}
 
 		void GenerateTables(InstructionDef[] defs, (string name, (InstructionDef def, uint value)[] values)[] tableData, string define, string className, string filename) {
@@ -184,6 +186,65 @@ namespace Generator.Encoder.CSharp {
 			}
 		}
 
+		void GenerateTables((InstructionDef def, MvexEncInfo mvex)[] mvexInfos, string define, string className, string filename) {
+			var infos = mvexInfos.Where(x => x.def.Encoding == EncodingKind.MVEX).ToArray();
+			var fullFilename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, filename);
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(fullFilename))) {
+				writer.WriteFileHeader();
+				writer.WriteLineNoIndent($"#if {define}");
+				writer.WriteLine($"namespace {CSharpConstants.EncoderNamespace} {{");
+				using (writer.Indent()) {
+					writer.WriteLine($"static class {className} {{");
+					using (writer.Indent()) {
+						const int StructSize = 8;
+						const int TupleTypeSizeIndex = 0;
+						const int MemorySizeIndex = 1;
+						const int ElementSizeIndex = 2;
+						const int EHBitIndex = 3;
+						const int ConvFnIndex = 4;
+						const int ValidConvFnsIndex = 5;
+						const int ValidSwizzleFnsIndex = 6;
+						const int FlagsIndex = 7;
+
+						writer.WriteLine($"public const int StructSize = {StructSize};");
+						writer.WriteLine($"public const int TupleTypeSizeIndex = {TupleTypeSizeIndex};");
+						writer.WriteLine($"public const int MemorySizeIndex = {MemorySizeIndex};");
+						writer.WriteLine($"public const int ElementSizeIndex = {ElementSizeIndex};");
+						writer.WriteLine($"public const int EHBitIndex = {EHBitIndex};");
+						writer.WriteLine($"public const int ConvFnIndex = {ConvFnIndex};");
+						writer.WriteLine($"public const int ValidConvFnsIndex = {ValidConvFnsIndex};");
+						writer.WriteLine($"public const int ValidSwizzleFnsIndex = {ValidSwizzleFnsIndex};");
+						writer.WriteLine($"public const int FlagsIndex = {FlagsIndex};");
+
+						writer.WriteLine("internal static readonly byte[] Data = new byte[] {");
+						using (writer.Indent()) {
+							var data = new byte[StructSize];
+							foreach (var (def, mvex) in infos) {
+								data[TupleTypeSizeIndex] = mvex.TupleTypeSize;
+								data[MemorySizeIndex] = mvex.MemorySize;
+								data[ElementSizeIndex] = mvex.ElementSize;
+								data[EHBitIndex] = (byte)mvex.EHBit.Value;
+								data[ConvFnIndex] = (byte)mvex.ConvFn.Value;
+								data[ValidConvFnsIndex] = mvex.ValidConvFns;
+								data[ValidSwizzleFnsIndex] = mvex.ValidSwizzleFns;
+								data[FlagsIndex] = (byte)mvex.Flags;
+								for (int i = 0; i < data.Length; i++) {
+									if (i != 0)
+										writer.Write(" ");
+									writer.Write($"0x{data[i]:X02},");
+								}
+								writer.WriteLine($"// {idConverter.ToDeclTypeAndValue(def.Code)}");
+							}
+						}
+						writer.WriteLine("};");
+					}
+					writer.WriteLine("}");
+				}
+				writer.WriteLine("}");
+				writer.WriteLineNoIndent("#endif");
+			}
+		}
+
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Encoder.cs");
 			new FileUpdater(TargetLanguage.CSharp, "ImmSizes", filename).Generate(writer => {
@@ -196,7 +257,7 @@ namespace Generator.Encoder.CSharp {
 			});
 		}
 
-		void GenerateCases(string filename, string id, EnumValue[] codeValues, params string[] statements) {
+		void GenerateCases(string filename, string id, EnumValue[] codeValues, params string[] statements) =>
 			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {
 				if (codeValues.Length == 0)
 					return;
@@ -209,14 +270,12 @@ namespace Generator.Encoder.CSharp {
 						writer.WriteLine("break;");
 				}
 			});
-		}
 
-		void GenerateNotInstrCases(string filename, string id, (EnumValue code, string result)[] notInstrStrings) {
+		void GenerateNotInstrCases(string filename, string id, (EnumValue code, string result)[] notInstrStrings) =>
 			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {
 				foreach (var info in notInstrStrings)
 					writer.WriteLine($"{idConverter.ToDeclTypeAndValue(info.code)} => \"{info.result}\",");
 			});
-		}
 
 		protected override void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings) {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "InstructionFormatter.cs");

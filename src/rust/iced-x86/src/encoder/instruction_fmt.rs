@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+#[cfg(feature = "mvex")]
+use crate::encoder::get_mvex_info;
 use crate::encoder::mnemonic_str_tbl::TO_MNEMONIC_STR;
 use crate::encoder::op_code::OpCodeInfo;
 use crate::*;
@@ -27,7 +29,26 @@ pub(super) struct InstructionFormatter<'a, 'b> {
 	no_vec_index: bool,
 	swap_vec_index_12: bool,
 	no_gpr_suffix: bool,
+	vec_index_same_as_op_index: bool,
 }
+
+#[cfg(feature = "mvex")]
+#[rustfmt::skip]
+static CONV_FN_NAMES: [&str; 13] = [
+	"",
+	"Sf32",
+	"Sf64",
+	"Si32",
+	"Si64",
+	"Uf32",
+	"Uf64",
+	"Ui32",
+	"Ui64",
+	"Df32",
+	"Df64",
+	"Di32",
+	"Di64",
+];
 
 impl<'a, 'b> InstructionFormatter<'a, 'b> {
 	#[allow(unused_mut)]
@@ -35,6 +56,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		let mut no_vec_index = false;
 		let mut swap_vec_index_12 = false;
 		let mut no_gpr_suffix = false;
+		let mut vec_index_same_as_op_index = false;
 		let mut start_op_index = 0;
 		let mut bnd_count = 0;
 		let mut r32_count = 0;
@@ -57,9 +79,13 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 			InstrStrFmtOption::NoVecIndex => no_vec_index = true,
 			InstrStrFmtOption::SwapVecIndex12 => swap_vec_index_12 = true,
 			InstrStrFmtOption::SkipOp0 => start_op_index = 1,
+			InstrStrFmtOption::VecIndexSameAsOpIndex => vec_index_same_as_op_index = true,
 		}
-		if (op_code.op0_kind() == OpCodeOperandKind::k_reg || op_code.op0_kind() == OpCodeOperandKind::kp1_reg) && op_code.op_count() > 2 {
-			vec_index += 1;
+		if (op_code.op0_kind() == OpCodeOperandKind::k_reg || op_code.op0_kind() == OpCodeOperandKind::kp1_reg)
+			&& op_code.op_count() > 2
+			&& op_code.encoding() != EncodingKind::MVEX
+		{
+			vec_index_same_as_op_index = true;
 		}
 		for &op_kind in op_code.op_kinds().iter() {
 			match op_kind {
@@ -197,6 +223,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 			no_vec_index,
 			swap_vec_index_12,
 			no_gpr_suffix,
+			vec_index_same_as_op_index,
 		}
 	}
 
@@ -222,9 +249,12 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		}
 	}
 
-	fn get_vec_index(&mut self) -> u32 {
+	fn get_vec_index(&mut self, op_index: u32) -> u32 {
 		if self.no_vec_index {
 			return 0;
+		}
+		if self.vec_index_same_as_op_index {
+			return op_index + 1;
 		}
 		self.vec_index += 1;
 		if self.swap_vec_index_12 {
@@ -273,9 +303,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		if self.start_op_index < self.op_count {
 			self.sb.push(' ');
 			let mut sae_er_index = self.op_count - 1;
-			if self.op_code.encoding() != EncodingKind::Legacy
-				&& self.op_code.try_op_kind(sae_er_index).unwrap_or(OpCodeOperandKind::None) == OpCodeOperandKind::imm8
-			{
+			if self.op_code.encoding() != EncodingKind::Legacy && self.op_code.op_kind(sae_er_index) == OpCodeOperandKind::imm8 {
 				sae_er_index -= 1;
 			}
 			let mut add_comma = false;
@@ -286,7 +314,15 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 				}
 				add_comma = true;
 
-				let op_kind = self.op_code.try_op_kind(i).unwrap_or(OpCodeOperandKind::None);
+				#[cfg(feature = "mvex")]
+				if i == sae_er_index && self.op_code.encoding() == EncodingKind::MVEX {
+					let conv_fn = get_mvex_info(self.op_code.code()).conv_fn;
+					if conv_fn != MvexConvFn::None {
+						self.sb.push_str(CONV_FN_NAMES[conv_fn as usize]);
+						self.sb.push('(');
+					}
+				}
+				let op_kind = self.op_code.op_kind(i);
 				match op_kind {
 					OpCodeOperandKind::farbr2_2 => self.sb.push_str("ptr16:16"),
 					OpCodeOperandKind::farbr4_2 => self.sb.push_str("ptr16:32"),
@@ -304,7 +340,13 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					OpCodeOperandKind::mem_vsib64x => self.sb.push_str("vm64x"),
 					OpCodeOperandKind::mem_vsib32y => self.sb.push_str("vm32y"),
 					OpCodeOperandKind::mem_vsib64y => self.sb.push_str("vm64y"),
-					OpCodeOperandKind::mem_vsib32z => self.sb.push_str("vm32z"),
+					OpCodeOperandKind::mem_vsib32z => {
+						if self.op_code.encoding() == EncodingKind::MVEX {
+							self.sb.push_str("mvt")
+						} else {
+							self.sb.push_str("vm32z")
+						}
+					}
 					OpCodeOperandKind::mem_vsib64z => self.sb.push_str("vm64z"),
 					OpCodeOperandKind::r8_or_mem => self.write_gpr_mem(8),
 					OpCodeOperandKind::r16_or_mem => self.write_gpr_mem(16),
@@ -312,22 +354,22 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					OpCodeOperandKind::r64_or_mem | OpCodeOperandKind::r64_or_mem_mpx => self.write_gpr_mem(64),
 
 					OpCodeOperandKind::mm_or_mem => {
-						tmp = self.get_vec_index();
+						tmp = self.get_vec_index(i);
 						self.write_reg_mem("mm", tmp);
 					}
 
 					OpCodeOperandKind::xmm_or_mem => {
-						tmp = self.get_vec_index();
+						tmp = self.get_vec_index(i);
 						self.write_reg_mem("xmm", tmp);
 					}
 
 					OpCodeOperandKind::ymm_or_mem => {
-						tmp = self.get_vec_index();
+						tmp = self.get_vec_index(i);
 						self.write_reg_mem("ymm", tmp);
 					}
 
 					OpCodeOperandKind::zmm_or_mem => {
-						tmp = self.get_vec_index();
+						tmp = self.get_vec_index(i);
 						self.write_reg_mem("zmm", tmp);
 					}
 
@@ -383,7 +425,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					}
 
 					OpCodeOperandKind::mm_reg | OpCodeOperandKind::mm_rm => {
-						tmp = self.get_vec_index();
+						tmp = self.get_vec_index(i);
 						self.write_reg_op2("mm", tmp);
 					}
 
@@ -392,12 +434,12 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					| OpCodeOperandKind::xmm_vvvv
 					| OpCodeOperandKind::xmm_is4
 					| OpCodeOperandKind::xmm_is5 => {
-						tmp = self.get_vec_index();
+						tmp = self.get_vec_index(i);
 						self.write_reg_op2("xmm", tmp);
 					}
 
 					OpCodeOperandKind::xmmp3_vvvv => {
-						tmp = self.get_vec_index();
+						tmp = self.get_vec_index(i);
 						self.write_reg_op2("xmm", tmp);
 						self.sb.push_str("+3");
 					}
@@ -407,17 +449,17 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					| OpCodeOperandKind::ymm_vvvv
 					| OpCodeOperandKind::ymm_is4
 					| OpCodeOperandKind::ymm_is5 => {
-						tmp = self.get_vec_index();
+						tmp = self.get_vec_index(i);
 						self.write_reg_op2("ymm", tmp);
 					}
 
 					OpCodeOperandKind::zmm_reg | OpCodeOperandKind::zmm_rm | OpCodeOperandKind::zmm_vvvv => {
-						tmp = self.get_vec_index();
+						tmp = self.get_vec_index(i);
 						self.write_reg_op2("zmm", tmp);
 					}
 
 					OpCodeOperandKind::zmmp3_vvvv => {
-						tmp = self.get_vec_index();
+						tmp = self.get_vec_index(i);
 						self.write_reg_op2("zmm", tmp);
 						self.sb.push_str("+3");
 					}
@@ -483,6 +525,13 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					OpCodeOperandKind::None => unreachable!(),
 				}
 
+				#[cfg(feature = "mvex")]
+				if i == sae_er_index && self.op_code.encoding() == EncodingKind::MVEX {
+					let conv_fn = get_mvex_info(self.op_code.code()).conv_fn;
+					if conv_fn != MvexConvFn::None {
+						self.sb.push(')');
+					}
+				}
 				if i == 0 {
 					if self.op_code.can_use_op_mask_register() {
 						self.sb.push(' ');
@@ -493,7 +542,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 						}
 					}
 				}
-				if i == sae_er_index {
+				if i == sae_er_index && self.op_code.encoding() != EncodingKind::MVEX {
 					if self.op_code.can_suppress_all_exceptions() {
 						self.write_decorator("sae");
 					}
@@ -694,6 +743,10 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 	fn write_memory1(&mut self, is_broadcast: bool) {
 		let memory_size = self.get_memory_size(is_broadcast);
 		self.sb.push('m');
+		#[cfg(feature = "mvex")]
+		if self.op_code.encoding() == EncodingKind::MVEX && get_mvex_info(self.op_code.code()).eh_bit == MvexEHBit::None {
+			self.sb.push('t');
+		}
 		self.write_memory_size(memory_size);
 		if is_broadcast {
 			self.sb.push_str("bcst");

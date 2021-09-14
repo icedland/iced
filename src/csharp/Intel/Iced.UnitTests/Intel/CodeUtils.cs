@@ -14,23 +14,23 @@ namespace Iced.UnitTests.Intel {
 
 		public static bool IsIgnored(string name) {
 #if NO_VEX
-			if (name.StartsWith("VEX_"))
+			if (name.StartsWith("VEX_", StringComparison.Ordinal))
 				return true;
 #endif
 #if NO_EVEX
-			if (name.StartsWith("EVEX_"))
+			if (name.StartsWith("EVEX_", StringComparison.Ordinal))
 				return true;
 #endif
 #if NO_XOP
-			if (name.StartsWith("XOP_"))
+			if (name.StartsWith("XOP_", StringComparison.Ordinal))
 				return true;
 #endif
 #if NO_D3NOW
-			if (name.StartsWith("D3NOW_"))
+			if (name.StartsWith("D3NOW_", StringComparison.Ordinal))
 				return true;
 #endif
 #if !MVEX
-			if (name.StartsWith("MVEX_"))
+			if (name.StartsWith("MVEX_", StringComparison.Ordinal))
 				return true;
 #endif
 

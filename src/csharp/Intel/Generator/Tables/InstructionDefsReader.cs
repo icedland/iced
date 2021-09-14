@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using Generator.Constants.InstructionInfo;
 using Generator.Enums;
+using Generator.Enums.Decoder;
 using Generator.Enums.Encoder;
 using Generator.Enums.Formatter;
 using Generator.Enums.InstructionInfo;
@@ -451,6 +452,9 @@ namespace Generator.Tables {
 						break;
 					case "fpu-skip-op0":
 						state.InstrStrFmtOption = InstrStrFmtOption.SkipOp0;
+						break;
+					case "vec-index-same-as-op-index":
+						state.InstrStrFmtOption = InstrStrFmtOption.VecIndexSameAsOpIndex;
 						break;
 					default:
 						Error(lineIndex, $"Unknown value `{lineValue}`");
@@ -1171,7 +1175,7 @@ namespace Generator.Tables {
 							return false;
 						}
 
-						state.Mvex = new(64, 64, 0, MvexConvFn.None, 0, 0);
+						state.Mvex = new(64, 64, 0, state.OpCode.MvexEHBit, MvexConvFn.None, 0, 0);
 						foreach (var op in parsedInstr.Operands) {
 							if (op.MvexConvFn != MvexConvFn.None) {
 								state.Mvex.ConvFn = op.MvexConvFn;
@@ -1198,7 +1202,7 @@ namespace Generator.Tables {
 
 							case "er-imm":
 								state.Flags1 |= InstructionDefFlags1.RoundingControl;
-								state.Flags3 |= InstructionDefFlags3.ImmRoundingControl;
+								state.Mvex.Flags |= MvexInfoFlags.ImmRoundingControl;
 								break;
 
 							case "swizz":
@@ -1432,6 +1436,8 @@ namespace Generator.Tables {
 					instrStr.EndsWith("r32, r32", StringComparison.Ordinal) || instrStr.EndsWith("r64, r64", StringComparison.Ordinal)) {
 					state.InstrStrFmtOption = InstrStrFmtOption.OpMaskIsK1_or_NoGprSuffix;
 				}
+				else if (instrStr.Contains("zmm1 {k1}, k2, ", StringComparison.Ordinal) && instrStr.Contains("zmm3", StringComparison.Ordinal))
+					state.InstrStrFmtOption = InstrStrFmtOption.VecIndexSameAsOpIndex;
 			}
 
 			state.Cflow ??= flowControlNext;
@@ -1479,6 +1485,19 @@ namespace Generator.Tables {
 				}
 				state.DecoderOption = toDecOptionValue[nameof(DecOptionValue.KNC)];
 			}
+			switch (state.OpCode.MvexEHBit) {
+			case MvexEHBit.None:
+				break;
+			case MvexEHBit.EH0:
+			case MvexEHBit.EH1:
+				if ((state.Mvex.Flags & MvexInfoFlags.EvictionHint) != 0) {
+					Error(state.LineIndex, "{eh} can't be used when the instruction requires EH0 or EH1");
+					return false;
+				}
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
 
 			if ((state.Flags1 & CpuModeBits) == 0)
 				state.Flags1 |= CpuModeBits;
@@ -1505,7 +1524,7 @@ namespace Generator.Tables {
 			if ((parsedInstr.Flags & ParsedInstructionFlags.ZeroingMasking) != 0)
 				state.Flags1 |= InstructionDefFlags1.ZeroingMasking;
 			if ((parsedInstr.Flags & ParsedInstructionFlags.EvictionHint) != 0)
-				state.Flags3 |= InstructionDefFlags3.EvictionHint;
+				state.Mvex.Flags |= MvexInfoFlags.EvictionHint;
 			switch (state.VmxMode) {
 			case VmxMode.None:
 				break;
@@ -1603,7 +1622,7 @@ namespace Generator.Tables {
 			}
 
 			var codeFormatter = new CodeFormatter(sb, regDefs, memSizeTbl, state.CodeMnemonic, state.CodeSuffix, state.CodeMemorySize,
-				state.CodeMemorySizeSuffix, state.MemorySize, state.MemorySize_Broadcast, state.Flags1, state.Flags3, parsedOpCode.Encoding,
+				state.CodeMemorySizeSuffix, state.MemorySize, state.MemorySize_Broadcast, state.Flags1, state.Mvex.Flags, parsedOpCode.Encoding,
 				state.OpKinds, isKnc);
 			var codeValue = codeFormatter.Format();
 			if (usedCodeValues.TryGetValue(codeValue, out var otherLineIndex)) {
@@ -1663,7 +1682,7 @@ namespace Generator.Tables {
 				state.MemorySize_Broadcast, state.DecoderOption, state.Flags1, state.Flags2, state.Flags3, state.InstrStrFmtOption,
 				state.InstrStrFlags, parsedInstr.ImpliedOps, state.Mvex,
 				state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.NDKind,
-				state.OpCode.EHBit, state.OpCode.OpCode,
+				state.OpCode.OpCode,
 				state.OpCode.OpCodeLength, state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
 				pseudoOp, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.StackInfo, state.FpuStackIncrement,
@@ -3664,6 +3683,8 @@ namespace Generator.Tables {
 				case '_':
 					break;
 				case '0':
+					bit++;
+					break;
 				case '1':
 					validBits |= (byte)(1 << bit);
 					bit++;

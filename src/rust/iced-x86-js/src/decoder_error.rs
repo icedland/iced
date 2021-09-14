@@ -21,6 +21,6 @@ pub enum DecoderError {
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_decoder_error(value: iced_x86_rust::DecoderError) -> DecoderError {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

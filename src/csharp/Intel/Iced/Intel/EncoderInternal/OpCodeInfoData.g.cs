@@ -9532,10 +9532,10 @@ namespace Iced.Intel.EncoderInternal {
 				0x14003FF0,// MVEX_Vpbroadcastq_zmm_k1_mt
 				0x14003FF0,// MVEX_Vbroadcasti32x4_zmm_k1_mt
 				0x14003FF0,// MVEX_Vbroadcasti64x4_zmm_k1_mt
-				0x14003FF0,// MVEX_Vpadcd_zmm_k1_kr_zmmmt
-				0x14003FF0,// MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt
-				0x14003FF0,// MVEX_Vpsbbd_zmm_k1_kr_zmmmt
-				0x14003FF0,// MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt
+				0xD4003FF0,// MVEX_Vpadcd_zmm_k1_kr_zmmmt
+				0xD4003FF0,// MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt
+				0xD4003FF0,// MVEX_Vpsbbd_zmm_k1_kr_zmmmt
+				0xD4003FF0,// MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt
 				0x14003FF0,// MVEX_Vpblendmd_zmm_k1_zmm_zmmmt
 				0x14003FF0,// MVEX_Vpblendmq_zmm_k1_zmm_zmmmt
 				0x14003FF0,// MVEX_Vblendmps_zmm_k1_zmm_zmmmt
@@ -9548,8 +9548,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x14003FF0,// MVEX_Vpsubrd_zmm_k1_zmm_zmmmt
 				0x14003FF0,// MVEX_Vsubrps_zmm_k1_zmm_zmmmt
 				0x14003FF0,// MVEX_Vsubrpd_zmm_k1_zmm_zmmmt
-				0x14003FF0,// MVEX_Vpsbbrd_zmm_k1_kr_zmmmt
-				0x14003FF0,// MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt
+				0xD4003FF0,// MVEX_Vpsbbrd_zmm_k1_kr_zmmmt
+				0xD4003FF0,// MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt
 				0x14003FF0,// MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_70
 				0x14003FF0,// MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_71
 				0x14003FF0,// MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_72
