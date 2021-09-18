@@ -1246,39 +1246,39 @@ namespace Generator.Tables {
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_Half)];
 								break;
 
-							case "i32-bcst1-4":
-							case "i32-elem-4":
+							case "i32-bcst1":
+							case "i32-elem":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_1to16_or_elem)];
 								break;
 
-							case "f32-bcst1-4":
-							case "f32-elem-4":
+							case "f32-bcst1":
+							case "f32-elem":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_1to16_or_elem)];
 								break;
 
-							case "i64-bcst1-8":
-							case "i64-elem-8":
+							case "i64-bcst1":
+							case "i64-elem":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int64_1to8_or_elem)];
 								break;
 
-							case "f64-bcst1-8":
-							case "f64-elem-8":
+							case "f64-bcst1":
+							case "f64-elem":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float64_1to8_or_elem)];
 								break;
 
-							case "i32-bcst4-4":
+							case "i32-bcst4":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_4to16)];
 								break;
 
-							case "f32-bcst4-4":
+							case "f32-bcst4":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_4to16)];
 								break;
 
-							case "i64-bcst4-8":
+							case "i64-bcst4":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int64_4to8)];
 								break;
 
-							case "f64-bcst4-8":
+							case "f64-bcst4":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float64_4to8)];
 								break;
 

@@ -31971,22 +31971,22 @@ END
 
 # Code: MVEX_Vbroadcastss_zmm_k1_mt
 INSTRUCTION: MVEX.512.66.0F38.W0 18 /r | VBROADCASTSS zmm1 {k1}, Uf32(mt) | KNC
-	ops: wvmm=reg r=rm | mem=1001_1111 f32-bcst1-4
+	ops: wvmm=reg r=rm | mem=1001_1111 f32-bcst1
 END
 
 # Code: MVEX_Vbroadcastsd_zmm_k1_mt
 INSTRUCTION: MVEX.512.66.0F38.W1 19 /r | VBROADCASTSD zmm1 {k1}, Uf64(mt) | KNC
-	ops: wvmm=reg r=rm | mem=1000_0000 f64-bcst1-8
+	ops: wvmm=reg r=rm | mem=1000_0000 f64-bcst1
 END
 
 # Code: MVEX_Vbroadcastf32x4_zmm_k1_mt
 INSTRUCTION: MVEX.512.66.0F38.W0 1A /r | VBROADCASTF32X4 zmm1 {k1}, Uf32(mt) | KNC
-	ops: wvmm=reg r=rm | mem=1001_1111 f32-bcst4-4
+	ops: wvmm=reg r=rm | mem=1001_1111 f32-bcst4
 END
 
 # Code: MVEX_Vbroadcastf64x4_zmm_k1_mt
 INSTRUCTION: MVEX.512.66.0F38.W1 1B /r | VBROADCASTF64X4 zmm1 {k1}, Uf64(mt) | KNC
-	ops: wvmm=reg r=rm | mem=1000_0000 f64-bcst4-8
+	ops: wvmm=reg r=rm | mem=1000_0000 f64-bcst4
 END
 
 # Code: MVEX_Vptestmd_kr_k1_zmm_zmmmt
@@ -32158,22 +32158,22 @@ END
 
 # Code: MVEX_Vpbroadcastd_zmm_k1_mt
 INSTRUCTION: MVEX.512.66.0F38.W0 58 /r | VPBROADCASTD zmm1 {k1}, Ui32(mt) | KNC
-	ops: wvmm=reg r=rm | mem=1000_1111 i32-bcst1-4
+	ops: wvmm=reg r=rm | mem=1000_1111 i32-bcst1
 END
 
 # Code: MVEX_Vpbroadcastq_zmm_k1_mt
 INSTRUCTION: MVEX.512.66.0F38.W1 59 /r | VPBROADCASTQ zmm1 {k1}, Ui64(mt) | KNC
-	ops: wvmm=reg r=rm | mem=1000_0000 i64-bcst1-8
+	ops: wvmm=reg r=rm | mem=1000_0000 i64-bcst1
 END
 
 # Code: MVEX_Vbroadcasti32x4_zmm_k1_mt
 INSTRUCTION: MVEX.512.66.0F38.W0 5A /r | VBROADCASTI32X4 zmm1 {k1}, Ui32(mt) | KNC
-	ops: wvmm=reg r=rm | mem=1000_1111 i32-bcst4-4
+	ops: wvmm=reg r=rm | mem=1000_1111 i32-bcst4
 END
 
 # Code: MVEX_Vbroadcasti64x4_zmm_k1_mt
 INSTRUCTION: MVEX.512.66.0F38.W1 5B /r | VBROADCASTI64X4 zmm1 {k1}, Ui64(mt) | KNC
-	ops: wvmm=reg r=rm | mem=1000_0000 i64-bcst4-8
+	ops: wvmm=reg r=rm | mem=1000_0000 i64-bcst4
 END
 
 # Code: MVEX_Vpadcd_zmm_k1_kr_zmmmt
@@ -32343,28 +32343,28 @@ END
 
 # Code: MVEX_Vpgatherdd_zmm_k1_mvt
 INSTRUCTION: MVEX.512.66.0F38.W0 90 /vsib | VPGATHERDD zmm1 {k1}, Ui32(mvt) | KNC
-	ops: rwvmm=reg r=rm | mem=1001_1111 i32-elem-4
+	ops: rwvmm=reg r=rm | mem=1001_1111 i32-elem
 	flags: krw knz unique-reg-num
 	intel: kmask-op
 END
 
 # Code: MVEX_Vpgatherdq_zmm_k1_mvt
 INSTRUCTION: MVEX.512.66.0F38.W1 90 /vsib | VPGATHERDQ zmm1 {k1}, Ui64(mvt) | KNC
-	ops: rwvmm=reg r=rm | mem=1000_0000 i64-elem-8
+	ops: rwvmm=reg r=rm | mem=1000_0000 i64-elem
 	flags: krw knz unique-reg-num
 	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherdps_zmm_k1_mvt
 INSTRUCTION: MVEX.512.66.0F38.W0 92 /vsib | VGATHERDPS zmm1 {k1}, Uf32(mvt) | KNC
-	ops: rwvmm=reg r=rm | mem=1001_1111 f32-elem-4
+	ops: rwvmm=reg r=rm | mem=1001_1111 f32-elem
 	flags: krw knz unique-reg-num
 	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherdpd_zmm_k1_mvt
 INSTRUCTION: MVEX.512.66.0F38.W1 92 /vsib | VGATHERDPD zmm1 {k1}, Uf64(mvt) | KNC
-	ops: rwvmm=reg r=rm | mem=1000_0000 f64-elem-8
+	ops: rwvmm=reg r=rm | mem=1000_0000 f64-elem
 	flags: krw knz unique-reg-num
 	intel: kmask-op
 END
@@ -32431,28 +32431,28 @@ END
 
 # Code: MVEX_Vpscatterdd_mvt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W0 A0 /vsib | VPSCATTERDD mvt {k1}, Di32(zmm1) | KNC
-	ops: w=rm r=reg | mem=1000_1111 i32-elem-4
+	ops: w=rm r=reg | mem=1000_1111 i32-elem
 	flags: krw knz
 	intel: kmask-op
 END
 
 # Code: MVEX_Vpscatterdq_mvt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W1 A0 /vsib | VPSCATTERDQ mvt {k1}, Di64(zmm1) | KNC
-	ops: w=rm r=reg | mem=1000_0000 i64-elem-8
+	ops: w=rm r=reg | mem=1000_0000 i64-elem
 	flags: krw knz
 	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterdps_mvt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W0 A2 /vsib | VSCATTERDPS mvt {k1}, Df32(zmm1) | KNC
-	ops: w=rm r=reg | mem=1001_1111 f32-elem-4
+	ops: w=rm r=reg | mem=1001_1111 f32-elem
 	flags: krw knz
 	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterdpd_mvt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W1 A2 /vsib | VSCATTERDPD mvt {k1}, Df64(zmm1) | KNC
-	ops: w=rm r=reg | mem=1000_0000 f64-elem-8
+	ops: w=rm r=reg | mem=1000_0000 f64-elem
 	flags: krw knz
 	intel: kmask-op
 END
@@ -32586,56 +32586,56 @@ END
 
 # Code: MVEX_Vgatherpf0hintdps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /0 /vsib | VGATHERPF0HINTDPS Uf32(mvt) {k1} | KNC
-	ops: nma=rm | mem=1001_1111 f32-elem-4
+	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherpf0hintdpd_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W1 C6 /0 /vsib | VGATHERPF0HINTDPD Uf64(mvt) {k1} | KNC
-	ops: nma=rm | mem=1000_0000 f64-elem-8
+	ops: nma=rm | mem=1000_0000 f64-elem
 	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherpf0dps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /1 /vsib | VGATHERPF0DPS Uf32(mvt) {k1} | KNC
-	ops: nma=rm | mem=1001_1111 f32-elem-4
+	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: krw knz prefetch
 	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherpf1dps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /2 /vsib | VGATHERPF1DPS Uf32(mvt) {k1} | KNC
-	ops: nma=rm | mem=1001_1111 f32-elem-4
+	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: krw knz prefetch
 	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterpf0hintdps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /4 /vsib | VSCATTERPF0HINTDPS Uf32(mvt) {k1} | KNC
-	ops: nma=rm | mem=1001_1111 f32-elem-4
+	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterpf0hintdpd_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W1 C6 /4 /vsib | VSCATTERPF0HINTDPD Uf64(mvt) {k1} | KNC
-	ops: nma=rm | mem=1000_0000 f64-elem-8
+	ops: nma=rm | mem=1000_0000 f64-elem
 	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterpf0dps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /5 /vsib | VSCATTERPF0DPS Uf32(mvt) {k1} | KNC
-	ops: nma=rm | mem=1001_1111 f32-elem-4
+	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: krw knz prefetch
 	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterpf1dps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /6 /vsib | VSCATTERPF1DPS Uf32(mvt) {k1} | KNC
-	ops: nma=rm | mem=1001_1111 f32-elem-4
+	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: krw knz prefetch
 	intel: kmask-op
 END
@@ -32699,45 +32699,45 @@ END
 
 # Code: MVEX_Vloadunpackld_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W0 D0 /r | VLOADUNPACKLD zmm1 {k1}, Ui32(mt) | KNC
-	ops: rwvmm=reg r=rm | mem=1000_1111 i32-elem-4
+	ops: rwvmm=reg r=rm | mem=1000_1111 i32-elem
 END
 
 # Code: MVEX_Vloadunpacklq_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W1 D0 /r | VLOADUNPACKLQ zmm1 {k1}, Ui64(mt) | KNC
-	ops: rwvmm=reg r=rm | mem=1000_0000 i64-elem-8
+	ops: rwvmm=reg r=rm | mem=1000_0000 i64-elem
 END
 
 # Code: MVEX_Vpackstoreld_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W0 D0 /r | VPACKSTORELD mt {k1}, Di32(zmm1) | KNC
-	ops: w=rm r=reg | mem=1000_1111 i32-elem-4
+	ops: w=rm r=reg | mem=1000_1111 i32-elem
 	flags: k-elem-selector
 END
 
 # Code: MVEX_Vpackstorelq_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W1 D0 /r | VPACKSTORELQ mt {k1}, Di64(zmm1) | KNC
-	ops: w=rm r=reg | mem=1000_0000 i64-elem-8
+	ops: w=rm r=reg | mem=1000_0000 i64-elem
 	flags: k-elem-selector
 END
 
 # Code: MVEX_Vloadunpacklps_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W0 D1 /r | VLOADUNPACKLPS zmm1 {k1}, Uf32(mt) | KNC
-	ops: rwvmm=reg r=rm | mem=1001_1111 f32-elem-4
+	ops: rwvmm=reg r=rm | mem=1001_1111 f32-elem
 END
 
 # Code: MVEX_Vloadunpacklpd_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W1 D1 /r | VLOADUNPACKLPD zmm1 {k1}, Uf64(mt) | KNC
-	ops: rwvmm=reg r=rm | mem=1000_0000 f64-elem-8
+	ops: rwvmm=reg r=rm | mem=1000_0000 f64-elem
 END
 
 # Code: MVEX_Vpackstorelps_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W0 D1 /r | VPACKSTORELPS mt {k1}, Df32(zmm1) | KNC
-	ops: w=rm r=reg | mem=1001_1111 f32-elem-4
+	ops: w=rm r=reg | mem=1001_1111 f32-elem
 	flags: k-elem-selector
 END
 
 # Code: MVEX_Vpackstorelpd_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W1 D1 /r | VPACKSTORELPD mt {k1}, Df64(zmm1) | KNC
-	ops: w=rm r=reg | mem=1000_0000 f64-elem-8
+	ops: w=rm r=reg | mem=1000_0000 f64-elem
 	flags: k-elem-selector
 END
 
@@ -32767,45 +32767,45 @@ END
 
 # Code: MVEX_Vloadunpackhd_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W0 D4 /r | VLOADUNPACKHD zmm1 {k1}, Ui32(mt) | KNC
-	ops: rwvmm=reg r=rm | mem=1000_1111 i32-elem-4
+	ops: rwvmm=reg r=rm | mem=1000_1111 i32-elem
 END
 
 # Code: MVEX_Vloadunpackhq_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W1 D4 /r | VLOADUNPACKHQ zmm1 {k1}, Ui64(mt) | KNC
-	ops: rwvmm=reg r=rm | mem=1000_0000 i64-elem-8
+	ops: rwvmm=reg r=rm | mem=1000_0000 i64-elem
 END
 
 # Code: MVEX_Vpackstorehd_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W0 D4 /r | VPACKSTOREHD mt {k1}, Di32(zmm1) | KNC
-	ops: w=rm r=reg | mem=1000_1111 i32-elem-4
+	ops: w=rm r=reg | mem=1000_1111 i32-elem
 	flags: k-elem-selector
 END
 
 # Code: MVEX_Vpackstorehq_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W1 D4 /r | VPACKSTOREHQ mt {k1}, Di64(zmm1) | KNC
-	ops: w=rm r=reg | mem=1000_0000 i64-elem-8
+	ops: w=rm r=reg | mem=1000_0000 i64-elem
 	flags: k-elem-selector
 END
 
 # Code: MVEX_Vloadunpackhps_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W0 D5 /r | VLOADUNPACKHPS zmm1 {k1}, Uf32(mt) | KNC
-	ops: rwvmm=reg r=rm | mem=1001_1111 f32-elem-4
+	ops: rwvmm=reg r=rm | mem=1001_1111 f32-elem
 END
 
 # Code: MVEX_Vloadunpackhpd_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W1 D5 /r | VLOADUNPACKHPD zmm1 {k1}, Uf64(mt) | KNC
-	ops: rwvmm=reg r=rm | mem=1000_0000 f64-elem-8
+	ops: rwvmm=reg r=rm | mem=1000_0000 f64-elem
 END
 
 # Code: MVEX_Vpackstorehps_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W0 D5 /r | VPACKSTOREHPS mt {k1}, Df32(zmm1) | KNC
-	ops: w=rm r=reg | mem=1001_1111 f32-elem-4
+	ops: w=rm r=reg | mem=1001_1111 f32-elem
 	flags: k-elem-selector
 END
 
 # Code: MVEX_Vpackstorehpd_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W1 D5 /r | VPACKSTOREHPD mt {k1}, Df64(zmm1) | KNC
-	ops: w=rm r=reg | mem=1000_0000 f64-elem-8
+	ops: w=rm r=reg | mem=1000_0000 f64-elem
 	flags: k-elem-selector
 END
 
