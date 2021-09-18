@@ -26,7 +26,7 @@ namespace Generator.Enums {
 				genTypes[TypeIds.HandlerFlags],
 				genTypes[TypeIds.LegacyHandlerFlags],
 				genTypes[TypeIds.MemorySize],
-				genTypes[TypeIds.OpCodeHandlerKind],
+				genTypes[TypeIds.LegacyOpCodeHandlerKind],
 				genTypes[TypeIds.PseudoOpsKind],
 				genTypes[TypeIds.Register],
 				genTypes[TypeIds.SerializedDataKind],

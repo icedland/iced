@@ -41,7 +41,7 @@ namespace Generator {
 		public static readonly TypeId IntelMemoryKeywords = new(nameof(IntelMemoryKeywords));
 		public static readonly TypeId MasmMemoryKeywords = new(nameof(MasmMemoryKeywords));
 		public static readonly TypeId NasmMemoryKeywords = new(nameof(NasmMemoryKeywords));
-		public static readonly TypeId OpCodeHandlerKind = new(nameof(OpCodeHandlerKind));
+		public static readonly TypeId LegacyOpCodeHandlerKind = new(nameof(LegacyOpCodeHandlerKind));
 		public static readonly TypeId PseudoOpsKind = new(nameof(PseudoOpsKind));
 		public static readonly TypeId Register = new(nameof(Register));
 		public static readonly TypeId RegisterKind = new(nameof(RegisterKind));

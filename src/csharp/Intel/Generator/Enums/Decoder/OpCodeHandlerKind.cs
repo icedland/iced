@@ -2,8 +2,8 @@
 // Copyright (C) 2018-present iced project and contributors
 
 namespace Generator.Enums.Decoder {
-	[Enum("OpCodeHandlerKind")]
-	enum OpCodeHandlerKind : byte {
+	[Enum("LegacyOpCodeHandlerKind")]
+	enum LegacyOpCodeHandlerKind : byte {
 		Bitness,
 		Bitness_DontReadModRM,
 		Invalid,

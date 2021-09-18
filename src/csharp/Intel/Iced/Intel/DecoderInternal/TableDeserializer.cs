@@ -66,7 +66,7 @@ namespace Iced.Intel.DecoderInternal {
 				throw new InvalidOperationException();
 		}
 
-		public OpCodeHandlerKind ReadOpCodeHandlerKind() => (OpCodeHandlerKind)reader.ReadByte();
+		public LegacyOpCodeHandlerKind ReadLegacyOpCodeHandlerKind() => (LegacyOpCodeHandlerKind)reader.ReadByte();
 #if !NO_VEX || !NO_XOP
 		public VexOpCodeHandlerKind ReadVexOpCodeHandlerKind() => (VexOpCodeHandlerKind)reader.ReadByte();
 #endif

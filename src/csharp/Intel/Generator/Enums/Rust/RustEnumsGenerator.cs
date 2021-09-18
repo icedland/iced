@@ -49,7 +49,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.DecoderOptions, new PartialEnumFileInfo("DecoderOptions", dirs.GetRustFilename("decoder.rs")));
 			toPartialFileInfo.Add(TypeIds.DecoderTestOptions, new PartialEnumFileInfo("DecoderTestOptions", dirs.GetRustFilename("decoder", "tests", "enums.rs")));
 			toPartialFileInfo.Add(TypeIds.SerializedDataKind, new PartialEnumFileInfo("SerializedDataKind", dirs.GetRustFilename("decoder", "table_de", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
-			toPartialFileInfo.Add(TypeIds.OpCodeHandlerKind, new PartialEnumFileInfo("OpCodeHandlerKind", dirs.GetRustFilename("decoder", "table_de", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.LegacyOpCodeHandlerKind, new PartialEnumFileInfo("LegacyOpCodeHandlerKind", dirs.GetRustFilename("decoder", "table_de", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.LegacyHandlerFlags, new PartialEnumFileInfo("LegacyHandlerFlags", dirs.GetRustFilename("decoder", "enums.rs")));
 			toPartialFileInfo.Add(TypeIds.EvexOpCodeHandlerKind, new PartialEnumFileInfo("EvexOpCodeHandlerKind", dirs.GetRustFilename("decoder", "table_de", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes, RustConstants.FeatureEvex }));
 			toPartialFileInfo.Add(TypeIds.MvexOpCodeHandlerKind, new PartialEnumFileInfo("MvexOpCodeHandlerKind", dirs.GetRustFilename("decoder", "table_de", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes, RustConstants.FeatureMvex }));

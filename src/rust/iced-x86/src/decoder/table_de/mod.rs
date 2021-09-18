@@ -81,7 +81,7 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[inline]
-	fn read_op_code_handler_kind(&mut self) -> OpCodeHandlerKind {
+	fn read_legacy_op_code_handler_kind(&mut self) -> LegacyOpCodeHandlerKind {
 		// SAFETY: generated (and also immutable) data is valid
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
