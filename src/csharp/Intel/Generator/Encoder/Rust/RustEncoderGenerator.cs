@@ -349,17 +349,19 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
-		protected override void GenerateOpCodeInfo(InstructionDef[] defs) =>
-			GenerateTable(defs);
+		protected override void GenerateOpCodeInfo(InstructionDef[] defs, (MvexTupleTypeLutKind ttLutKind, EnumValue[] tupleTypes)[] mvexTupleTypeData,
+			(MvexTupleTypeLutKind ttLutKind, EnumValue[] tupleTypes)[] mvexMemorySizeData) =>
+			GenerateTable(defs, mvexTupleTypeData, mvexMemorySizeData);
 
-		void GenerateTable(InstructionDef[] defs) {
+		void GenerateTable(InstructionDef[] defs, (MvexTupleTypeLutKind ttLutKind, EnumValue[] tupleTypes)[] mvexTupleTypeData,
+			(MvexTupleTypeLutKind ttLutKind, EnumValue[] tupleTypes)[] mvexMemorySizeData) {
 			var allData = GetData(defs).ToArray();
 			var encFlags1 = allData.Select(a => (a.def, a.encFlags1)).ToArray();
 			var encFlags2 = allData.Select(a => (a.def, a.encFlags2)).ToArray();
 			var encFlags3 = allData.Select(a => (a.def, a.encFlags3)).ToArray();
 			var opcFlags1 = allData.Select(a => (a.def, a.opcFlags1)).ToArray();
 			var opcFlags2 = allData.Select(a => (a.def, a.opcFlags2)).ToArray();
-			var mvexInfos = allData.Select(a => (a.def, a.mvex)).ToArray();
+			var mvexInfos = allData.Where(a => a.mvex is not null).Select(a => (a.def, a.mvex.GetValueOrDefault())).ToArray();
 			var encoderInfo = new (string name, (InstructionDef def, uint value)[] values)[] {
 				("ENC_FLAGS1", encFlags1),
 				("ENC_FLAGS2", encFlags2),
@@ -373,6 +375,8 @@ namespace Generator.Encoder.Rust {
 			GenerateTables(defs, encoderInfo, "encoder_data.rs");
 			GenerateTables(defs, opCodeInfo, "op_code_data.rs");
 			GenerateTables(mvexInfos, "mvex_data.rs");
+			GenerateTables(mvexTupleTypeData, "mvex_tt_lut.rs", "MVEX_TUPLE_TYPE_LUT");
+			GenerateTables(mvexMemorySizeData, "mvex_memsz_lut.rs", "MVEX_MEMSZ_LUT");
 		}
 
 		void GenerateTables(InstructionDef[] defs, (string name, (InstructionDef def, uint value)[] values)[] encoderInfo, string filename) {
@@ -393,17 +397,41 @@ namespace Generator.Encoder.Rust {
 
 		void GenerateTables((InstructionDef def, MvexEncInfo mvex)[] mvexInfos, string filename) {
 			var infos = mvexInfos.Where(x => x.def.Encoding == EncodingKind.MVEX).ToArray();
-			var fullFilename = generatorContext.Types.Dirs.GetRustFilename("encoder", filename);
+			var fullFilename = generatorContext.Types.Dirs.GetRustFilename("mvex", filename);
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(fullFilename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine("use crate::encoder::mvex_info::MvexInfo;");
-				writer.WriteLine("use crate::{MvexConvFn, MvexEHBit};");
+				writer.WriteLine("use crate::mvex::mvex_info::MvexInfo;");
+				writer.WriteLine("use crate::{MvexConvFn, MvexEHBit, MvexTupleTypeLutKind};");
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(super) static MVEX_INFO: [MvexInfo; {infos.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var (def, mvex) in infos)
-						writer.WriteLine($"MvexInfo::new({mvex.TupleTypeSize}, {mvex.MemorySize}, {mvex.ElementSize}, {idConverter.ToDeclTypeAndValue(mvex.EHBit)}, {idConverter.ToDeclTypeAndValue(mvex.ConvFn)}, 0x{mvex.ValidConvFns:X02}, 0x{mvex.ValidSwizzleFns:X02}, 0x{(uint)mvex.Flags:X02}),// {idConverter.ToDeclTypeAndValue(def.Code)}");
+						writer.WriteLine($"MvexInfo::new({idConverter.ToDeclTypeAndValue(mvex.TupleTypeLutKind)}, {idConverter.ToDeclTypeAndValue(mvex.EHBit)}, {idConverter.ToDeclTypeAndValue(mvex.ConvFn)}, 0x{mvex.InvalidConvFns:X02}, 0x{mvex.InvalidSwizzleFns:X02}, 0x{(uint)mvex.Flags:X02}),// {idConverter.ToDeclTypeAndValue(def.Code)}");
+				}
+				writer.WriteLine("];");
+			}
+		}
+
+		void GenerateTables((MvexTupleTypeLutKind ttLutKind, EnumValue[] enumValues)[] mvexData, string filename, string tableName) {
+			var fullFilename = generatorContext.Types.Dirs.GetRustFilename("mvex", filename);
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(fullFilename))) {
+				writer.WriteFileHeader();
+				var declTypeStr = mvexData[0].enumValues[0].DeclaringType.Name(idConverter);
+				writer.WriteLine($"use crate::{declTypeStr};");
+				writer.WriteLine();
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				var totalSize = mvexData.Select(x => x.enumValues.Length).Sum();
+				writer.WriteLine($"pub(crate) static {tableName}: [{declTypeStr}; {totalSize}] = [");
+				using (writer.Indent()) {
+					foreach (var (ttLutKind, enumValues) in mvexData) {
+						var ttLutKindValue = genTypes[TypeIds.MvexTupleTypeLutKind][ttLutKind.ToString()];
+						writer.WriteLine($"// {idConverter.ToDeclTypeAndValue(ttLutKindValue)}");
+						for (int i = 0; i < enumValues.Length; i++) {
+							var enumValue = enumValues[i];
+							writer.WriteLine($"{idConverter.ToDeclTypeAndValue(enumValue)},// {i}");
+						}
+					}
 				}
 				writer.WriteLine("];");
 			}

@@ -4,6 +4,8 @@
 #[cfg(not(feature = "no_evex"))]
 mod data_evex;
 mod data_legacy;
+#[cfg(feature = "mvex")]
+mod data_mvex;
 #[cfg(not(feature = "no_vex"))]
 mod data_vex;
 #[cfg(not(feature = "no_xop"))]
@@ -12,6 +14,8 @@ mod enums;
 #[cfg(not(feature = "no_evex"))]
 mod evex_reader;
 mod legacy_reader;
+#[cfg(feature = "mvex")]
+mod mvex_reader;
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 mod vex_reader;
 
@@ -94,6 +98,14 @@ impl<'a> TableDeserializer<'a> {
 	#[must_use]
 	#[inline]
 	fn read_evex_op_code_handler_kind(&mut self) -> EvexOpCodeHandlerKind {
+		// SAFETY: generated (and also immutable) data is valid
+		unsafe { mem::transmute(self.reader.read_u8() as u8) }
+	}
+
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	fn read_mvex_op_code_handler_kind(&mut self) -> MvexOpCodeHandlerKind {
 		// SAFETY: generated (and also immutable) data is valid
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
@@ -294,9 +306,15 @@ pub(super) fn read_evex() -> (
 	)
 }
 
+#[cfg(all(not(feature = "no_vex"), feature = "mvex"))]
+type VexMap0Type = Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>;
+#[cfg(not(all(not(feature = "no_vex"), feature = "mvex")))]
+type VexMap0Type = ();
+
 #[cfg(not(feature = "no_vex"))]
 #[must_use]
 pub(super) fn read_vex() -> (
+	VexMap0Type,
 	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
@@ -304,7 +322,14 @@ pub(super) fn read_vex() -> (
 	let handler_reader = self::vex_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_vex::TBL_DATA, data_vex::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
+
+	#[cfg(feature = "mvex")]
+	let map0 = deserializer.table(data_vex::HANDLERS_MAP0_INDEX);
+	#[cfg(not(feature = "mvex"))]
+	let map0 = ();
+
 	(
+		map0,
 		deserializer.table(data_vex::HANDLERS_0F_INDEX),
 		deserializer.table(data_vex::HANDLERS_0F38_INDEX),
 		deserializer.table(data_vex::HANDLERS_0F3A_INDEX),
@@ -325,5 +350,22 @@ pub(super) fn read_xop() -> (
 		deserializer.table(data_xop::HANDLERS_MAP8_INDEX),
 		deserializer.table(data_xop::HANDLERS_MAP9_INDEX),
 		deserializer.table(data_xop::HANDLERS_MAP10_INDEX),
+	)
+}
+
+#[cfg(feature = "mvex")]
+#[must_use]
+pub(super) fn read_mvex() -> (
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+) {
+	let handler_reader = self::mvex_reader::read_handlers;
+	let mut deserializer = TableDeserializer::new(data_mvex::TBL_DATA, data_mvex::MAX_ID_NAMES, handler_reader);
+	deserializer.deserialize();
+	(
+		deserializer.table(data_mvex::HANDLERS_0F_INDEX),
+		deserializer.table(data_mvex::HANDLERS_0F38_INDEX),
+		deserializer.table(data_mvex::HANDLERS_0F3A_INDEX),
 	)
 }

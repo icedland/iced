@@ -50,6 +50,8 @@ impl IcedConstants {
 	pub(crate) const MNEMONIC_ENUM_COUNT: usize = 1834;
 	pub(crate) const MVEX_CONV_FN_ENUM_COUNT: usize = 13;
 	pub(crate) const MVEX_EHBIT_ENUM_COUNT: usize = 3;
+	pub(crate) const MVEX_REG_MEM_CONV_ENUM_COUNT: usize = 17;
+	pub(crate) const MVEX_TUPLE_TYPE_LUT_KIND_ENUM_COUNT: usize = 14;
 	pub(crate) const NUMBER_BASE_ENUM_COUNT: usize = 4;
 	pub(crate) const NUMBER_KIND_ENUM_COUNT: usize = 8;
 	pub(crate) const OP_ACCESS_ENUM_COUNT: usize = 8;
@@ -64,3 +66,10 @@ impl IcedConstants {
 	pub(crate) const TUPLE_TYPE_ENUM_COUNT: usize = 19;
 }
 // GENERATOR-END: IcedConstants
+
+#[cfg(feature = "mvex")]
+impl IcedConstants {
+	pub(crate) fn is_mvex(code: crate::Code) -> bool {
+		(code as u32).wrapping_sub(Self::MVEX_START) < Self::MVEX_LENGTH
+	}
+}

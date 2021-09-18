@@ -79,6 +79,13 @@ namespace Iced.Intel.DecoderInternal {
 		Group8x64,
 		Bitness,
 		Null,
+		Options_DontReadModRM,
+		Gq_HK_RK,
+		VK_R_Ib,
+		Gv_Ev,
+		Ev,
+		K_Jb,
+		K_Jz,
 	}
 }
 #endif

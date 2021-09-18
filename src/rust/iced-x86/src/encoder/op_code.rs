@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-#[cfg(feature = "mvex")]
-use crate::encoder::get_mvex_info;
 use crate::encoder::iced_constants::IcedConstants;
 use crate::encoder::instruction_fmt::*;
 use crate::encoder::op_code_fmt::*;
 use crate::encoder::op_kind_tables::*;
+#[cfg(feature = "mvex")]
+use crate::mvex::get_mvex_info;
 use crate::*;
 use alloc::string::String;
 use core::{fmt, mem};
@@ -575,39 +575,15 @@ impl OpCodeInfo {
 		}
 	}
 
-	/// (MVEX) Gets the base tuple type size (conv fn = `000b`)
+	/// (MVEX) Gets the tuple type / conv lut kind
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub fn mvex_base_tuple_size(&self) -> u32 {
+	pub fn mvex_tuple_type_lut_kind(&self) -> MvexTupleTypeLutKind {
 		if self.encoding() == EncodingKind::MVEX {
-			get_mvex_info(self.code()).tuple_type_size as u32
+			get_mvex_info(self.code()).tuple_type_lut_kind
 		} else {
-			0
-		}
-	}
-
-	/// (MVEX) Gets the base memory size (conv fn = `000b`)
-	#[cfg(feature = "mvex")]
-	#[must_use]
-	#[inline]
-	pub fn mvex_base_memory_size(&self) -> u32 {
-		if self.encoding() == EncodingKind::MVEX {
-			get_mvex_info(self.code()).mem_size as u32
-		} else {
-			0
-		}
-	}
-
-	/// (MVEX) Gets the base memory element size (conv fn = `000b`)
-	#[cfg(feature = "mvex")]
-	#[must_use]
-	#[inline]
-	pub fn mvex_base_element_size(&self) -> u32 {
-		if self.encoding() == EncodingKind::MVEX {
-			get_mvex_info(self.code()).elem_size as u32
-		} else {
-			0
+			MvexTupleTypeLutKind::default()
 		}
 	}
 
@@ -629,7 +605,7 @@ impl OpCodeInfo {
 	#[inline]
 	pub fn mvex_valid_conversion_funcs_mask(&self) -> u8 {
 		if self.encoding() == EncodingKind::MVEX {
-			get_mvex_info(self.code()).valid_conv_fn
+			!get_mvex_info(self.code()).invalid_conv_fns
 		} else {
 			0
 		}
@@ -641,7 +617,7 @@ impl OpCodeInfo {
 	#[inline]
 	pub fn mvex_valid_swizzle_funcs_mask(&self) -> u8 {
 		if self.encoding() == EncodingKind::MVEX {
-			get_mvex_info(self.code()).valid_swizzle_fn
+			!get_mvex_info(self.code()).invalid_swizzle_fns
 		} else {
 			0
 		}

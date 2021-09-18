@@ -286,6 +286,23 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		VexOpCodeHandlerKind::SIBMEM_VT => box_opcode_handler(OpCodeHandler_VEX_SIBMEM_VT::new(deserializer.read_code())),
 		VexOpCodeHandlerKind::VT => box_opcode_handler(OpCodeHandler_VEX_VT::new(deserializer.read_code())),
 		VexOpCodeHandlerKind::VT_RT_HT => box_opcode_handler(OpCodeHandler_VEX_VT_RT_HT::new(deserializer.read_code())),
+		VexOpCodeHandlerKind::Options_DontReadModRM => box_opcode_handler(OpCodeHandler_Options_DontReadModRM::new(
+			deserializer.read_handler(),
+			deserializer.read_handler(),
+			deserializer.read_decoder_options(),
+		)),
+		VexOpCodeHandlerKind::Gq_HK_RK => box_opcode_handler(OpCodeHandler_VEX_Gq_HK_RK::new(deserializer.read_code())),
+		VexOpCodeHandlerKind::VK_R_Ib => box_opcode_handler(OpCodeHandler_VEX_VK_R_Ib::new(deserializer.read_code(), deserializer.read_register())),
+		VexOpCodeHandlerKind::Gv_Ev => {
+			let (code1, code2) = deserializer.read_code2();
+			box_opcode_handler(OpCodeHandler_VEX_Gv_Ev::new(code1, code2))
+		}
+		VexOpCodeHandlerKind::Ev => {
+			let (code1, code2) = deserializer.read_code2();
+			box_opcode_handler(OpCodeHandler_VEX_Ev::new(code1, code2))
+		}
+		VexOpCodeHandlerKind::K_Jb => box_opcode_handler(OpCodeHandler_VEX_K_Jb::new(deserializer.read_code())),
+		VexOpCodeHandlerKind::K_Jz => box_opcode_handler(OpCodeHandler_VEX_K_Jz::new(deserializer.read_code())),
 	};
 	let handler = unsafe { &*handler_ptr };
 	result.push((decode, handler));

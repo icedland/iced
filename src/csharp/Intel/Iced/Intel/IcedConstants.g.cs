@@ -6,7 +6,7 @@
 #nullable enable
 
 namespace Iced.Intel {
-	static class IcedConstants {
+	static partial class IcedConstants {
 		internal const int MaxOpCount = 5;
 		internal const int MaxInstructionLength = 15;
 		internal const int RegisterBits = 8;
@@ -49,6 +49,8 @@ namespace Iced.Intel {
 		internal const int MnemonicEnumCount = 1834;
 		internal const int MvexConvFnEnumCount = 13;
 		internal const int MvexEHBitEnumCount = 3;
+		internal const int MvexRegMemConvEnumCount = 17;
+		internal const int MvexTupleTypeLutKindEnumCount = 14;
 		internal const int NumberBaseEnumCount = 4;
 		internal const int NumberKindEnumCount = 8;
 		internal const int OpAccessEnumCount = 8;

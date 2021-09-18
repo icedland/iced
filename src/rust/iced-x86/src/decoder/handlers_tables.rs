@@ -14,6 +14,8 @@ pub(super) struct Tables {
 	invalid_map: (),
 
 	pub(super) handlers_map0: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	#[cfg(all(not(feature = "no_vex"), feature = "mvex"))]
+	pub(super) handlers_vex_map0: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_vex"))]
 	pub(super) handlers_vex_0f: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_vex"))]
@@ -36,6 +38,15 @@ pub(super) struct Tables {
 	pub(super) handlers_xop_map9: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_xop"))]
 	pub(super) handlers_xop_map10: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	#[cfg(feature = "mvex")]
+	pub(super) handlers_mvex_0f: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	#[cfg(feature = "mvex")]
+	pub(super) handlers_mvex_0f38: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	#[cfg(feature = "mvex")]
+	pub(super) handlers_mvex_0f3a: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	#[cfg(not(all(not(feature = "no_vex"), feature = "mvex")))]
+	#[allow(dead_code)]
+	handlers_vex_map0: (),
 	#[cfg(feature = "no_vex")]
 	#[allow(dead_code)]
 	handlers_vex_0f: (),
@@ -69,23 +80,36 @@ pub(super) struct Tables {
 	#[cfg(feature = "no_xop")]
 	#[allow(dead_code)]
 	handlers_xop_map10: (),
+	#[cfg(not(feature = "mvex"))]
+	#[allow(dead_code)]
+	handlers_mvex_0f: (),
+	#[cfg(not(feature = "mvex"))]
+	#[allow(dead_code)]
+	handlers_mvex_0f38: (),
+	#[cfg(not(feature = "mvex"))]
+	#[allow(dead_code)]
+	handlers_mvex_0f3a: (),
 }
 
 lazy_static! {
 	pub(super) static ref TABLES: Tables = {
 		let handlers_map0 = read_legacy();
 		#[cfg(not(feature = "no_vex"))]
-		let (handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a) = read_vex();
+		let (handlers_vex_map0, handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a) = read_vex();
 		#[cfg(not(feature = "no_evex"))]
 		let (handlers_evex_0f, handlers_evex_0f38, handlers_evex_0f3a, handlers_evex_map5, handlers_evex_map6) = read_evex();
 		#[cfg(not(feature = "no_xop"))]
 		let (handlers_xop_map8, handlers_xop_map9, handlers_xop_map10) = read_xop();
+		#[cfg(feature = "mvex")]
+		let (handlers_mvex_0f, handlers_mvex_0f38, handlers_mvex_0f3a) = read_mvex();
 		#[cfg(feature = "no_vex")]
-		let (handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a) = ((), (), ());
+		let (handlers_vex_map0, handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a) = ((), (), (), ());
 		#[cfg(feature = "no_evex")]
 		let (handlers_evex_0f, handlers_evex_0f38, handlers_evex_0f3a, handlers_evex_map5, handlers_evex_map6) = ((), (), (), (), ());
 		#[cfg(feature = "no_xop")]
 		let (handlers_xop_map8, handlers_xop_map9, handlers_xop_map10) = ((), (), ());
+		#[cfg(not(feature = "mvex"))]
+		let (handlers_mvex_0f, handlers_mvex_0f38, handlers_mvex_0f3a) = ((), (), ());
 
 		#[cfg(not(feature = "no_evex"))]
 		let invalid_map = core::iter::repeat(super::handlers::get_invalid_handler()).take(0x100).collect();
@@ -94,6 +118,7 @@ lazy_static! {
 		Tables {
 			invalid_map,
 			handlers_map0,
+			handlers_vex_map0,
 			handlers_vex_0f,
 			handlers_vex_0f38,
 			handlers_vex_0f3a,
@@ -105,6 +130,9 @@ lazy_static! {
 			handlers_xop_map8,
 			handlers_xop_map9,
 			handlers_xop_map10,
+			handlers_mvex_0f,
+			handlers_mvex_0f38,
+			handlers_mvex_0f3a,
 		}
 	};
 }

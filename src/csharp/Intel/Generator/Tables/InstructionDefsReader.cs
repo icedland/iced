@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using Generator.Constants.InstructionInfo;
 using Generator.Enums;
-using Generator.Enums.Decoder;
 using Generator.Enums.Encoder;
 using Generator.Enums.Formatter;
 using Generator.Enums.InstructionInfo;
@@ -34,6 +33,7 @@ namespace Generator.Tables {
 		readonly Dictionary<string, EnumValue> toEncoding;
 		readonly Dictionary<string, EnumValue> toCpuid;
 		readonly Dictionary<string, EnumValue> toTupleType;
+		readonly Dictionary<string, EnumValue> toMvexTupleTypeLutKind;
 		readonly Dictionary<string, EnumValue> toConditionCode;
 		readonly Dictionary<string, EnumValue> toPseudoOpsKind;
 		readonly Dictionary<string, EnumValue> toDecOptionValue;
@@ -144,6 +144,7 @@ namespace Generator.Tables {
 			toEncoding = CreateEnumDict(genTypes[TypeIds.EncodingKind]);
 			toCpuid = CreateEnumDict(genTypes[TypeIds.CpuidFeature]);
 			toTupleType = CreateEnumDict(genTypes[TypeIds.TupleType]);
+			toMvexTupleTypeLutKind = CreateEnumDict(genTypes[TypeIds.MvexTupleTypeLutKind]);
 			toConditionCode = CreateEnumDict(genTypes[TypeIds.ConditionCode]);
 			toPseudoOpsKind = CreateEnumDict(genTypes[TypeIds.PseudoOpsKind]);
 			toDecOptionValue = CreateEnumDict(genTypes[TypeIds.DecOptionValue]);
@@ -1175,15 +1176,13 @@ namespace Generator.Tables {
 							return false;
 						}
 
-						state.Mvex = new(64, 64, 0, state.OpCode.MvexEHBit, MvexConvFn.None, 0, 0);
-						foreach (var op in parsedInstr.Operands) {
-							if (op.MvexConvFn != MvexConvFn.None) {
-								state.Mvex.ConvFn = op.MvexConvFn;
-								break;
-							}
-						}
-						tupleType = null;
+						state.Mvex = new(toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)], state.OpCode.MvexEHBit, MvexConvFn.None, 0, 0);
+						if ((parsedInstr.Flags & ParsedInstructionFlags.OpMask) != 0)
+							state.Mvex.Flags |= MvexInfoFlags.OpMaskRegister;
+						if ((state.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0)
+							state.Mvex.Flags |= MvexInfoFlags.RequireOpMaskRegister;
 						bool seenN = false;
+						EnumValue? ttLutKind = null;
 						foreach (var (key, value) in GetKeyValues(opsParts[1].Trim())) {
 							if (key != "swizz" && key != "mem" && key != "N") {
 								if (value != string.Empty) {
@@ -1194,10 +1193,12 @@ namespace Generator.Tables {
 							switch (key) {
 							case "sae":
 								state.Flags1 |= InstructionDefFlags1.SuppressAllExceptions;
+								state.Mvex.Flags |= MvexInfoFlags.SuppressAllExceptions;
 								break;
 
 							case "er":
 								state.Flags1 |= InstructionDefFlags1.RoundingControl;
+								state.Mvex.Flags |= MvexInfoFlags.RoundingControl;
 								break;
 
 							case "er-imm":
@@ -1223,46 +1224,62 @@ namespace Generator.Tables {
 									Error(lineIndex, "Expected mem conv fn bits");
 									return false;
 								}
-								var memParts = value.Split(';');
-								if (!ParseMvexValidFns(memParts[0], out state.Mvex.ValidConvFns, out error)) {
+								if (!ParseMvexValidFns(value, out state.Mvex.ValidConvFns, out error)) {
 									Error(lineIndex, $"Invalid mem-conv-fn bits: {error}");
-									return false;
-								}
-								if (memParts.Length >= 2) {
-									if (!uint.TryParse(memParts[1], out var mvexMemSize) || mvexMemSize > 64 || mvexMemSize <= 0 ||
-										(mvexMemSize & (mvexMemSize - 1)) != 0) {
-										Error(lineIndex, $"Invalid memory size `{memParts[1]}`. Must be 1-64 and power of 2.");
-										return false;
-									}
-									state.Mvex.MemorySize = mvexMemSize;
-									state.Mvex.TupleTypeSize = mvexMemSize;
-								}
-								if (memParts.Length >= 3) {
-									uint elemSize;
-									switch (memParts[2]) {
-									case "u8": elemSize = 1; break;
-									case "i32": elemSize = 4; break;
-									case "f32": elemSize = 4; break;
-									case "i64": elemSize = 8; break;
-									case "f64": elemSize = 8; break;
-									default:
-										Error(lineIndex, $"Invalid element type: `{memParts[2]}`");
-										return false;
-									}
-									state.Mvex.ElementSize = elemSize;
-								}
-								if (memParts.Length >= 4) {
-									Error(lineIndex, $"Too many semicolons: {value}");
 									return false;
 								}
 								break;
 
-							case "N":
-								seenN = true;
-								if (!uint.TryParse(value, out state.Mvex.TupleTypeSize)) {
-									Error(lineIndex, $"Invalid tuple type size: `{value}`");
-									return false;
-								}
+							case "i32":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)];
+								break;
+
+							case "f32":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32)];
+								break;
+
+							case "i32-half":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_Half)];
+								break;
+
+							case "f32-half":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_Half)];
+								break;
+
+							case "i32-bcst1-4":
+							case "i32-elem-4":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_1to16_or_elem)];
+								break;
+
+							case "f32-bcst1-4":
+							case "f32-elem-4":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_1to16_or_elem)];
+								break;
+
+							case "i64-bcst1-8":
+							case "i64-elem-8":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int64_1to8_or_elem)];
+								break;
+
+							case "f64-bcst1-8":
+							case "f64-elem-8":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float64_1to8_or_elem)];
+								break;
+
+							case "i32-bcst4-4":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_4to16)];
+								break;
+
+							case "f32-bcst4-4":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_4to16)];
+								break;
+
+							case "i64-bcst4-8":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int64_4to8)];
+								break;
+
+							case "f64-bcst4-8":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float64_4to8)];
 								break;
 
 							default:
@@ -1270,27 +1287,25 @@ namespace Generator.Tables {
 								return false;
 							}
 						}
-						if (state.Mvex.ElementSize == 0) {
-							state.Mvex.ElementSize = state.Mvex.ConvFn switch {
-								MvexConvFn.Sf32 or MvexConvFn.Si32 or MvexConvFn.Uf32 or MvexConvFn.Ui32 or MvexConvFn.Df32 or MvexConvFn.Di32 => 4,
-								MvexConvFn.Sf64 or MvexConvFn.Si64 or MvexConvFn.Uf64 or MvexConvFn.Ui64 or MvexConvFn.Df64 or MvexConvFn.Di64 => 8,
-								MvexConvFn.None => 0,
-								_ => throw new InvalidOperationException(),
-							};
-							if (state.Mvex.ElementSize == 0) {
-								Error(lineIndex, "Unknown element size");
-								return false;
+						foreach (var op in parsedInstr.Operands) {
+							if (op.MvexConvFn != MvexConvFn.None) {
+								state.Mvex.ConvFn = op.MvexConvFn;
+								break;
 							}
 						}
-						if (state.Mvex.ElementSize > state.Mvex.MemorySize) {
-							Error(lineIndex, $"Invalid element size `{state.Mvex.ElementSize}` > memory size `{state.Mvex.MemorySize}`");
+						ttLutKind ??= state.Mvex.ConvFn switch {
+							MvexConvFn.Si32 or MvexConvFn.Ui32 or MvexConvFn.Di32 => toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)],
+							MvexConvFn.Sf32 or MvexConvFn.Uf32 or MvexConvFn.Df32 => toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32)],
+							MvexConvFn.Si64 or MvexConvFn.Ui64 or MvexConvFn.Di64 => toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int64)],
+							MvexConvFn.Sf64 or MvexConvFn.Uf64 or MvexConvFn.Df64 => toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float64)],
+							MvexConvFn.None => null,
+							_ => throw new InvalidOperationException(),
+						};
+						if (ttLutKind is null) {
+							Error(lineIndex, $"Unknown {nameof(MvexTupleTypeLutKind)} value");
 							return false;
 						}
-						if (!toTupleType.TryGetValue("N" + state.Mvex.TupleTypeSize, out tupleType)) {
-							Error(lineIndex, $"Invalid tuple type size `{state.Mvex.TupleTypeSize}`");
-							return false;
-						}
-						state.TupleType = tupleType;
+						state.Mvex.TupleTypeLutKind = ttLutKind;
 					}
 					else if (opsParts.Length > 1) {
 						var memParts = opsParts[1].Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -1449,8 +1464,8 @@ namespace Generator.Tables {
 				return false;
 			}
 
-			bool canHaveTupleType = state.OpCode.Encoding == EncodingKind.EVEX || state.OpCode.Encoding == EncodingKind.MVEX;
-			bool needTupleType = (canHaveTupleType && state.MemorySize != memorySizeUnknown) || state.OpCode.Encoding == EncodingKind.MVEX;
+			bool canHaveTupleType = state.OpCode.Encoding == EncodingKind.EVEX;
+			bool needTupleType = canHaveTupleType && state.MemorySize != memorySizeUnknown;
 			if (tupleType is null) {
 				if (needTupleType) {
 					Error(state.LineIndex, "Missing tuple type");

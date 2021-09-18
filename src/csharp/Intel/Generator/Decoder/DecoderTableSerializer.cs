@@ -45,7 +45,7 @@ namespace Generator.Decoder {
 		public static DecoderTableSerializerInfo Vex(GenTypes genTypes) {
 			var enumType = genTypes[TypeIds.VexOpCodeHandlerKind];
 			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).VEX,
-				new string[] { DecoderTable_VEX.Handlers_0F, DecoderTable_VEX.Handlers_0F38, DecoderTable_VEX.Handlers_0F3A },
+				new string[] { DecoderTable_VEX.Handlers_MAP0, DecoderTable_VEX.Handlers_0F, DecoderTable_VEX.Handlers_0F38, DecoderTable_VEX.Handlers_0F3A },
 				CSharpConstants.DecoderVexDefine,
 				enumType[nameof(VexOpCodeHandlerKind.Null)],
 				enumType[nameof(VexOpCodeHandlerKind.HandlerReference)],
@@ -82,6 +82,22 @@ namespace Generator.Decoder {
 				enumType[nameof(EvexOpCodeHandlerKind.ArrayReference)],
 				enumType[nameof(EvexOpCodeHandlerKind.Invalid2)],
 				enumType[nameof(EvexOpCodeHandlerKind.Dup)]);
+		}
+
+		public static DecoderTableSerializerInfo Mvex(GenTypes genTypes) {
+			var enumType = genTypes[TypeIds.MvexOpCodeHandlerKind];
+			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).MVEX,
+				new string[] {
+					DecoderTable_MVEX.Handlers_0F,
+					DecoderTable_MVEX.Handlers_0F38,
+					DecoderTable_MVEX.Handlers_0F3A,
+				},
+				CSharpConstants.DecoderMvexDefine,
+				null,
+				enumType[nameof(MvexOpCodeHandlerKind.HandlerReference)],
+				enumType[nameof(MvexOpCodeHandlerKind.ArrayReference)],
+				enumType[nameof(MvexOpCodeHandlerKind.Invalid2)],
+				enumType[nameof(MvexOpCodeHandlerKind.Dup)]);
 		}
 	}
 
@@ -351,6 +367,8 @@ namespace Generator.Decoder {
 				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Hv_Ev)], (1, 2) },
 				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.RdRq)], (1, 2) },
 				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.VX_Ev)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_Ev)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Ev)], (1, 2) },
 
 				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Ed_V_Ib)], (2, 2) },
 				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_GPR_Ib)], (2, 2) },
@@ -458,6 +476,12 @@ namespace Generator.Decoder {
 					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 				}
 				else if (typeId == TypeIds.EvexOpCodeHandlerKind) {
+					if ((uint)enumValue.Value > byte.MaxValue)
+						throw new InvalidOperationException();
+					writer.WriteByte((byte)enumValue.Value);
+					writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
+				}
+				else if (typeId == TypeIds.MvexOpCodeHandlerKind) {
 					if ((uint)enumValue.Value > byte.MaxValue)
 						throw new InvalidOperationException();
 					writer.WriteByte((byte)enumValue.Value);

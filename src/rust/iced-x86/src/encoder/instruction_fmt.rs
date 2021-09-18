@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-#[cfg(feature = "mvex")]
-use crate::encoder::get_mvex_info;
 use crate::encoder::mnemonic_str_tbl::TO_MNEMONIC_STR;
 use crate::encoder::op_code::OpCodeInfo;
+#[cfg(feature = "mvex")]
+use crate::mvex::get_mvex_info;
 use crate::*;
 use alloc::string::String;
 use core::char;

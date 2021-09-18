@@ -108,7 +108,7 @@ namespace Iced.Intel.DecoderInternal {
 					Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-					instruction.InternalRoundingControl = state.vectorLength + 1;
+					instruction.InternalRoundingControl = state.vectorLength + (uint)RoundingControl.RoundToNearest;
 				}
 			}
 			else {
@@ -260,7 +260,7 @@ namespace Iced.Intel.DecoderInternal {
 						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = state.vectorLength + 1;
+						instruction.InternalRoundingControl = state.vectorLength + (uint)RoundingControl.RoundToNearest;
 					}
 				}
 			}
@@ -315,7 +315,7 @@ namespace Iced.Intel.DecoderInternal {
 					Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-					instruction.InternalRoundingControl = state.vectorLength + 1;
+					instruction.InternalRoundingControl = state.vectorLength + (uint)RoundingControl.RoundToNearest;
 				}
 			}
 			else {
@@ -391,7 +391,7 @@ namespace Iced.Intel.DecoderInternal {
 						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = state.vectorLength + 1;
+						instruction.InternalRoundingControl = state.vectorLength + (uint)RoundingControl.RoundToNearest;
 					}
 				}
 			}
@@ -1581,7 +1581,7 @@ namespace Iced.Intel.DecoderInternal {
 						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = state.vectorLength + 1;
+						instruction.InternalRoundingControl = state.vectorLength + (uint)RoundingControl.RoundToNearest;
 					}
 				}
 			}

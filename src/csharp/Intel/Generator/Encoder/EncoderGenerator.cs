@@ -14,7 +14,7 @@ namespace Generator.Encoder {
 	abstract class EncoderGenerator {
 		protected abstract void Generate(EnumType enumType);
 		protected abstract void Generate(OpCodeHandlers handlers);
-		protected abstract void GenerateOpCodeInfo(InstructionDef[] defs);
+		protected abstract void GenerateOpCodeInfo(InstructionDef[] defs, (MvexTupleTypeLutKind ttLutKind, EnumValue[] tupleTypes)[] mvexTupleTypeData, (MvexTupleTypeLutKind ttLutKind, EnumValue[] tupleTypes)[] mvexMemorySizeData);
 		protected abstract void Generate((EnumValue value, uint size)[] immSizes);
 		protected abstract void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings);
 		protected abstract void GenerateOpCodeFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] hasModRM, EnumValue[] hasVsib);
@@ -99,7 +99,12 @@ namespace Generator.Encoder {
 			var impliedOpsInfo = defs.Where(a => a.InstrStrImpliedOps.Length > 0).
 				GroupBy(a => new ImpliedOpsKey(a), (a, b) => (a.Encoding, a.Ops, b.OrderBy(a => a.Code.Value).ToArray())).ToArray();
 			GenerateImpliedOps(impliedOpsInfo);
-			GenerateOpCodeInfo(defs);
+			var tupleTypeType = genTypes[TypeIds.TupleType];
+			var memorySizeType = genTypes[TypeIds.MemorySize];
+			var mvexLutData = MvexLutData.GetLutData();
+			var mvexTupleTypeData = mvexLutData.Select(x => (x.ttLutKind, x.data.Select(x => tupleTypeType[x.TupleType.ToString()]).ToArray())).ToArray();
+			var mvexMemorySizeData = mvexLutData.Select(x => (x.ttLutKind, x.data.Select(x => memorySizeType[x.MemorySize.ToString()]).ToArray())).ToArray();
+			GenerateOpCodeInfo(defs, mvexTupleTypeData, mvexMemorySizeData);
 			Generate(encoderTypes.ImmSizes);
 			var notInstrOpCodeStrs = defs.Where(a => (a.Flags1 & InstructionDefFlags1.NoInstruction) != 0).Select(a => (a.Code, a.OpCodeString)).ToArray();
 			var notInstrInstrStrs = defs.Where(a => (a.Flags1 & InstructionDefFlags1.NoInstruction) != 0).Select(a => (a.Code, a.InstructionString)).ToArray();
@@ -127,17 +132,15 @@ namespace Generator.Encoder {
 		}
 
 		protected struct MvexEncInfo {
-			public byte TupleTypeSize;
-			public byte MemorySize;
-			public byte ElementSize;
+			public EnumValue TupleTypeLutKind;
 			public EnumValue EHBit;
 			public EnumValue ConvFn;
-			public byte ValidConvFns;
-			public byte ValidSwizzleFns;
+			public byte InvalidConvFns;
+			public byte InvalidSwizzleFns;
 			public MvexInfoFlags Flags;
 		}
 
-		protected IEnumerable<(InstructionDef def, uint encFlags1, uint encFlags2, uint encFlags3, uint opcFlags1, uint opcFlags2, MvexEncInfo mvex)> GetData(InstructionDef[] defs) {
+		protected IEnumerable<(InstructionDef def, uint encFlags1, uint encFlags2, uint encFlags3, uint opcFlags1, uint opcFlags2, MvexEncInfo? mvex)> GetData(InstructionDef[] defs) {
 			var encFlags1Type = genTypes[TypeIds.EncFlags1];
 			var ignoreRoundingControl = encFlags1Type[nameof(InstructionDefFlags3.IgnoresRoundingControl)];
 			var amdLockRegBit = encFlags1Type[nameof(InstructionDefFlags3.AmdLockRegBit)];
@@ -384,29 +387,28 @@ namespace Generator.Encoder {
 					throw new InvalidOperationException();
 				encFlags2 |= (EncFlags2)(tableIndex << (int)EncFlags2.TableShift);
 
-				var mvexFlags = def.Mvex.Flags;
-				switch (def.NDKind) {
-				case NonDestructiveOpKind.None: break;
-				case NonDestructiveOpKind.NDD: mvexFlags |= MvexInfoFlags.NDD; break;
-				case NonDestructiveOpKind.NDS: mvexFlags |= MvexInfoFlags.NDS; break;
-				default: throw new InvalidOperationException();
+				MvexEncInfo? mvex = null;
+				if (def.Encoding == EncodingKind.MVEX) {
+					var mvexFlags = def.Mvex.Flags;
+					switch (def.NDKind) {
+					case NonDestructiveOpKind.None: break;
+					case NonDestructiveOpKind.NDD: mvexFlags |= MvexInfoFlags.NDD; break;
+					case NonDestructiveOpKind.NDS: mvexFlags |= MvexInfoFlags.NDS; break;
+					default: throw new InvalidOperationException();
+					}
+					if (def.Mvex.TupleTypeLutKind.Value > byte.MaxValue) throw new InvalidOperationException();
+					if ((uint)def.Mvex.EHBit > byte.MaxValue) throw new InvalidOperationException();
+					if ((uint)def.Mvex.ConvFn > byte.MaxValue) throw new InvalidOperationException();
+					if ((uint)mvexFlags > byte.MaxValue) throw new InvalidOperationException();
+					mvex = new MvexEncInfo {
+						TupleTypeLutKind = def.Mvex.TupleTypeLutKind,
+						EHBit = ehBitType[def.Mvex.EHBit.ToString()],
+						ConvFn = mvexConvFnType[def.Mvex.ConvFn.ToString()],
+						InvalidConvFns = (byte)~def.Mvex.ValidConvFns,
+						InvalidSwizzleFns = (byte)~def.Mvex.ValidSwizzleFns,
+						Flags = mvexFlags,
+					};
 				}
-				if (def.Mvex.TupleTypeSize > byte.MaxValue) throw new InvalidOperationException();
-				if (def.Mvex.MemorySize > byte.MaxValue) throw new InvalidOperationException();
-				if (def.Mvex.ElementSize > byte.MaxValue) throw new InvalidOperationException();
-				if ((uint)def.Mvex.EHBit > byte.MaxValue) throw new InvalidOperationException();
-				if ((uint)def.Mvex.ConvFn > byte.MaxValue) throw new InvalidOperationException();
-				if ((uint)mvexFlags > byte.MaxValue) throw new InvalidOperationException();
-				var mvex = new MvexEncInfo {
-					TupleTypeSize = (byte)def.Mvex.TupleTypeSize,
-					MemorySize = (byte)def.Mvex.MemorySize,
-					ElementSize = (byte)def.Mvex.ElementSize,
-					EHBit = ehBitType[def.Mvex.EHBit.ToString()],
-					ConvFn = mvexConvFnType[def.Mvex.ConvFn.ToString()],
-					ValidConvFns = def.Mvex.ValidConvFns,
-					ValidSwizzleFns = def.Mvex.ValidSwizzleFns,
-					Flags = mvexFlags,
-				};
 
 				yield return (def, encFlags1, (uint)encFlags2, (uint)encFlags3, (uint)opcFlags1, (uint)opcFlags2, mvex);
 			}

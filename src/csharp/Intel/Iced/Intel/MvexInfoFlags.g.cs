@@ -5,7 +5,7 @@
 
 #nullable enable
 
-#if ENCODER && MVEX
+#if MVEX
 using System;
 
 namespace Iced.Intel {
@@ -16,6 +16,10 @@ namespace Iced.Intel {
 		NDS = 0x00000002,
 		EvictionHint = 0x00000004,
 		ImmRoundingControl = 0x00000008,
+		RoundingControl = 0x00000010,
+		SuppressAllExceptions = 0x00000020,
+		OpMaskRegister = 0x00000040,
+		RequireOpMaskRegister = 0x00000080,
 	}
 }
 #endif

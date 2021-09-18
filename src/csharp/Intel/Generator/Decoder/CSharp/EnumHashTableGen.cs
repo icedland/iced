@@ -47,6 +47,7 @@ namespace Generator.Decoder.CSharp {
 				("CC_le_hash", genTypes[TypeIds.CC_le], false, "Intel/ToEnumConverter.CC.cs"),
 				("CC_g_hash", genTypes[TypeIds.CC_g], false, "Intel/ToEnumConverter.CC.cs"),
 				("MvexConvFnHash", genTypes[TypeIds.MvexConvFn], false, "Intel/ToEnumConverter.MvexConvFn.cs"),
+				("MvexTupleTypeLutKindHash", genTypes[TypeIds.MvexTupleTypeLutKind], false, "Intel/ToEnumConverter.MvexTupleTypeLutKind.cs"),
 			};
 			foreach (var info in infos) {
 				var filename = generatorContext.Types.Dirs.GetCSharpTestFilename(info.filename.Split('/'));

@@ -108,14 +108,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeInfoKeys.MVEX:
 #if MVEX
 						var mvexParts = value.Split(opseps);
-						if (mvexParts.Length != 6)
-							throw new InvalidOperationException($"Invalid number of semicolons. Expected 6, found {mvexParts.Length - 1}");
-						tc.Mvex.BaseTupleSize = NumberConverter.ToInt32(mvexParts[0].Trim());
-						tc.Mvex.BaseMemorySize = NumberConverter.ToInt32(mvexParts[1].Trim());
-						tc.Mvex.BaseElementSize = NumberConverter.ToInt32(mvexParts[2].Trim());
-						tc.Mvex.ConversionFunc = ToMvexConvFn(mvexParts[3].Trim());
-						tc.Mvex.ValidConversionFuncsMask = NumberConverter.ToUInt8(mvexParts[4].Trim());
-						tc.Mvex.ValidSwizzleFuncsMask = NumberConverter.ToUInt8(mvexParts[5].Trim());
+						if (mvexParts.Length != 4)
+							throw new InvalidOperationException($"Invalid number of semicolons. Expected 3, found {mvexParts.Length - 1}");
+						tc.Mvex.TupleTypeLutKind = ToMvexTupleTypeLutKind(mvexParts[0].Trim());
+						tc.Mvex.ConversionFunc = ToMvexConvFn(mvexParts[1].Trim());
+						tc.Mvex.ValidConversionFuncsMask = NumberConverter.ToUInt8(mvexParts[2].Trim());
+						tc.Mvex.ValidSwizzleFuncsMask = NumberConverter.ToUInt8(mvexParts[3].Trim());
 						break;
 #else
 						throw new InvalidOperationException();
@@ -612,6 +610,14 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				throw new InvalidOperationException($"Invalid OpCodeOperandKind value: '{value}'");
 			return code;
 		}
+
+#if MVEX
+		static MvexTupleTypeLutKind ToMvexTupleTypeLutKind(string value) {
+			if (!ToEnumConverter.TryMvexTupleTypeLutKind(value, out var result))
+				throw new InvalidOperationException($"Invalid MvexTupleTypeLutKind value: '{value}'");
+			return result;
+		}
+#endif
 
 #if MVEX
 		static MvexConvFn ToMvexConvFn(string value) {

@@ -168,7 +168,10 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 				const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 				const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 				const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-				instruction_internal::internal_set_rounding_control(instruction, (decoder.state.vector_length as u32) + 1);
+				instruction_internal::internal_set_rounding_control(
+					instruction,
+					(decoder.state.vector_length as u32) + RoundingControl::RoundToNearest as u32,
+				);
 			}
 		} else {
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
@@ -326,7 +329,10 @@ impl OpCodeHandler_EVEX_VkHW_er {
 					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-					instruction_internal::internal_set_rounding_control(instruction, (decoder.state.vector_length as u32) + 1);
+					instruction_internal::internal_set_rounding_control(
+						instruction,
+						(decoder.state.vector_length as u32) + RoundingControl::RoundToNearest as u32,
+					);
 				}
 			}
 		} else {
@@ -379,7 +385,10 @@ impl OpCodeHandler_EVEX_VkHW_er_ur {
 				const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 				const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 				const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-				instruction_internal::internal_set_rounding_control(instruction, (decoder.state.vector_length as u32) + 1);
+				instruction_internal::internal_set_rounding_control(
+					instruction,
+					(decoder.state.vector_length as u32) + RoundingControl::RoundToNearest as u32,
+				);
 			}
 		} else {
 			if decoder.invalid_check_mask != 0 && reg_num0 == decoder.state.vvvv {
@@ -454,7 +463,10 @@ impl OpCodeHandler_EVEX_VkW_er {
 					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-					instruction_internal::internal_set_rounding_control(instruction, (decoder.state.vector_length as u32) + 1);
+					instruction_internal::internal_set_rounding_control(
+						instruction,
+						(decoder.state.vector_length as u32) + RoundingControl::RoundToNearest as u32,
+					);
 				}
 			}
 		} else {
@@ -1736,7 +1748,10 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-					instruction_internal::internal_set_rounding_control(instruction, (decoder.state.vector_length as u32) + 1);
+					instruction_internal::internal_set_rounding_control(
+						instruction,
+						(decoder.state.vector_length as u32) + RoundingControl::RoundToNearest as u32,
+					);
 				}
 			}
 		} else {

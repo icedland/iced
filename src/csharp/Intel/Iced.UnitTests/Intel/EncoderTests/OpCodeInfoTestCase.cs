@@ -10,9 +10,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		public MvexEHBit EHBit;
 		public bool CanUseEvictionHint;
 		public bool CanUseImmRoundingControl;
-		public int BaseTupleSize;
-		public int BaseMemorySize;
-		public int BaseElementSize;
+		public MvexTupleTypeLutKind TupleTypeLutKind;
 		public MvexConvFn ConversionFunc;
 		public byte ValidConversionFuncsMask;
 		public byte ValidSwizzleFuncsMask;

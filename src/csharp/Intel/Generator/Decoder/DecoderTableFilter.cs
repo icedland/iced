@@ -85,6 +85,19 @@ namespace Generator.Decoder {
 				prefixes = Array.Empty<EnumValue>();
 				break;
 
+			case EncodingKind.MVEX:
+				handlerKindType = genTypes[TypeIds.MvexOpCodeHandlerKind];
+				invalid = handlerKindType[nameof(MvexOpCodeHandlerKind.Invalid)];
+				invalid_NoModRM = invalid;
+				handlerKind_d3now = null;
+				handlerKind_wbinvd = null;
+				groupKind = handlerKindType[nameof(MvexOpCodeHandlerKind.Group)];
+				group8x64Kind = null;
+				group8x8Kind = null;
+				noModrmHandlers = Array.Empty<EnumValue>();
+				prefixes = Array.Empty<EnumValue>();
+				break;
+
 			case EncodingKind.D3NOW:
 			default:
 				throw new InvalidOperationException();

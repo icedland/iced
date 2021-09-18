@@ -5,7 +5,7 @@
 
 #nullable enable
 
-#if ENCODER && MVEX
+#if MVEX
 namespace Iced.Intel {
 	/// <summary>(MVEX) EH bit value</summary>
 	public enum MvexEHBit {

@@ -123,10 +123,14 @@ mod memory_size_ext;
 mod memory_size_options;
 #[cfg(any(feature = "instr_api", all(feature = "encoder", feature = "op_code_info")))]
 mod mnemonic;
-#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+#[cfg(feature = "mvex")]
 mod mvex_cvt_fn;
-#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+#[cfg(feature = "mvex")]
 mod mvex_eh_bit;
+#[cfg(feature = "mvex")]
+mod mvex_rm_conv;
+#[cfg(feature = "mvex")]
+mod mvex_tt_lut;
 #[cfg(feature = "instr_info")]
 mod op_access;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -202,10 +206,14 @@ pub use memory_size_ext::*;
 pub use memory_size_options::*;
 #[cfg(any(feature = "instr_api", all(feature = "encoder", feature = "op_code_info")))]
 pub use mnemonic::*;
-#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+#[cfg(feature = "mvex")]
 pub use mvex_cvt_fn::*;
-#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+#[cfg(feature = "mvex")]
 pub use mvex_eh_bit::*;
+#[cfg(feature = "mvex")]
+pub use mvex_rm_conv::*;
+#[cfg(feature = "mvex")]
+pub use mvex_tt_lut::*;
 #[cfg(feature = "instr_info")]
 pub use op_access::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]

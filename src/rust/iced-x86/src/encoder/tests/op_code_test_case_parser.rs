@@ -443,15 +443,13 @@ impl IntoIter {
 						#[cfg(feature = "mvex")]
 						{
 							let parts: Vec<_> = value.trim().split(';').collect();
-							if parts.len() != 6 {
-								return Err(format!("Invalid number of semicolons. Expected 6, found {}", parts.len() - 1));
+							if parts.len() != 4 {
+								return Err(format!("Invalid number of semicolons. Expected 3, found {}", parts.len() - 1));
 							}
-							tc.mvex.base_tuple_size = to_u32(parts[0])?;
-							tc.mvex.base_memory_size = to_u32(parts[1])?;
-							tc.mvex.base_element_size = to_u32(parts[2])?;
-							tc.mvex.conversion_func = to_mvex_conv_fn(parts[3])?;
-							tc.mvex.valid_conversion_funcs_mask = to_u8(parts[4])?;
-							tc.mvex.valid_swizzle_funcs_mask = to_u8(parts[5])?;
+							tc.mvex.tuple_type_lut_kind = to_mvex_tuple_type_lut_kind(parts[0])?;
+							tc.mvex.conversion_func = to_mvex_conv_fn(parts[1])?;
+							tc.mvex.valid_conversion_funcs_mask = to_u8(parts[2])?;
+							tc.mvex.valid_swizzle_funcs_mask = to_u8(parts[3])?;
 						}
 						#[cfg(not(feature = "mvex"))]
 						unreachable!();

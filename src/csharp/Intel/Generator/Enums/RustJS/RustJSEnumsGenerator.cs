@@ -73,6 +73,8 @@ namespace Generator.Enums.RustJS {
 			toPartialFileInfo.Add(TypeIds.TupleType, new PartialEnumFileInfo("Enum", dirs.GetRustJSFilename("tuple_type.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.FormatterSyntax, new PartialEnumFileInfo("FormatterSyntax", dirs.GetRustJSFilename("formatter.rs")));
 			toPartialFileInfo.Add(TypeIds.MvexConvFn, new PartialEnumFileInfo("Enum", dirs.GetRustJSFilename("mvex_cvt_fn.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.MvexRegMemConv, new PartialEnumFileInfo("Enum", dirs.GetRustJSFilename("mvex_rm_conv.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.MvexTupleTypeLutKind, new PartialEnumFileInfo("Enum", dirs.GetRustJSFilename("mvex_tt_lut.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
 		}
 
 		public override void Generate(EnumType enumType) {

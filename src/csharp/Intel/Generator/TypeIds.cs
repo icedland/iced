@@ -32,6 +32,7 @@ namespace Generator {
 		public static readonly TypeId DecoderOptions = new(nameof(DecoderOptions));
 		public static readonly TypeId DecoderTestOptions = new(nameof(DecoderTestOptions));
 		public static readonly TypeId EvexOpCodeHandlerKind = new(nameof(EvexOpCodeHandlerKind));
+		public static readonly TypeId MvexOpCodeHandlerKind = new(nameof(MvexOpCodeHandlerKind));
 		public static readonly TypeId HandlerFlags = new(nameof(HandlerFlags));
 		public static readonly TypeId LegacyHandlerFlags = new(nameof(LegacyHandlerFlags));
 		public static readonly TypeId MemorySize = new(nameof(MemorySize));
@@ -70,6 +71,7 @@ namespace Generator {
 		public static readonly TypeId OpKind = new(nameof(OpKind));
 		public static readonly TypeId InstrScale = new(nameof(InstrScale));
 		public static readonly TypeId InstrFlags1 = new(nameof(InstrFlags1));
+		public static readonly TypeId MvexInstrFlags = new(nameof(MvexInstrFlags));
 		public static readonly TypeId VectorLength = new(nameof(VectorLength));
 		public static readonly TypeId MandatoryPrefixByte = new(nameof(MandatoryPrefixByte));
 		public static readonly TypeId StateFlags = new(nameof(StateFlags));
@@ -160,5 +162,7 @@ namespace Generator {
 		public static readonly TypeId MvexEHBit = new(nameof(MvexEHBit));
 		public static readonly TypeId NonDestructiveOpKind = new(nameof(NonDestructiveOpKind));
 		public static readonly TypeId MvexInfoFlags = new(nameof(MvexInfoFlags));
+		public static readonly TypeId MvexRegMemConv = new(nameof(MvexRegMemConv));
+		public static readonly TypeId MvexTupleTypeLutKind = new(nameof(MvexTupleTypeLutKind));
 	}
 }

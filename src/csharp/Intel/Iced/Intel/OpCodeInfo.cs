@@ -387,19 +387,9 @@ namespace Iced.Intel {
 		public bool MvexCanUseImmRoundingControl => Encoding == EncodingKind.MVEX && new MvexInfo(Code).CanUseImmRoundingControl;
 
 		/// <summary>
-		/// (MVEX) Gets the base tuple type size (conv fn = <c>000b</c>)
+		/// (MVEX) Gets the tuple type / conv lut kind
 		/// </summary>
-		public int MvexBaseTupleSize => Encoding == EncodingKind.MVEX ? new MvexInfo(Code).TupleTypeSize : 0;
-
-		/// <summary>
-		/// (MVEX) Gets the base memory size (conv fn = <c>000b</c>)
-		/// </summary>
-		public int MvexBaseMemorySize => Encoding == EncodingKind.MVEX ? new MvexInfo(Code).MemorySize : 0;
-
-		/// <summary>
-		/// (MVEX) Gets the base memory element size (conv fn = <c>000b</c>)
-		/// </summary>
-		public int MvexBaseElementSize => Encoding == EncodingKind.MVEX ? new MvexInfo(Code).ElementSize : 0;
+		public MvexTupleTypeLutKind MvexTupleTypeLutKind => Encoding == EncodingKind.MVEX ? new MvexInfo(Code).TupleTypeLutKind : MvexTupleTypeLutKind.Int32;
 
 		/// <summary>
 		/// (MVEX) Gets the conversion function, eg. <c>Sf32</c>
@@ -409,12 +399,12 @@ namespace Iced.Intel {
 		/// <summary>
 		/// (MVEX) Gets flags indicating which conversion functions are valid (bit 0 == func 0)
 		/// </summary>
-		public byte MvexValidConversionFuncsMask => (byte)(Encoding == EncodingKind.MVEX ? new MvexInfo(Code).ValidConvFns : 0);
+		public byte MvexValidConversionFuncsMask => (byte)(Encoding == EncodingKind.MVEX ? ~new MvexInfo(Code).InvalidConvFns : 0);
 
 		/// <summary>
 		/// (MVEX) Gets flags indicating which swizzle functions are valid (bit 0 == func 0)
 		/// </summary>
-		public byte MvexValidSwizzleFuncsMask => (byte)(Encoding == EncodingKind.MVEX ? new MvexInfo(Code).ValidSwizzleFns : 0);
+		public byte MvexValidSwizzleFuncsMask => (byte)(Encoding == EncodingKind.MVEX ? ~new MvexInfo(Code).InvalidSwizzleFns : 0);
 #endif
 
 		/// <summary>

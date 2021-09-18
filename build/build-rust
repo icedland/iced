@@ -42,9 +42,11 @@ test_valid_invalid_instructions() {
 	valid_file=$(mktemp)
 	invalid_file=$(mktemp)
 
+	# The C# code needs a formatter so add masm feature
+	dotnet build -c:$configuration -p:IcedFeatureFlags="DECODER ENCODER OPCODE_INFO INSTR_INFO MASM" "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj"
 	for bitness in 16 32 64; do
 		echo "==== ${bitness}-bit: Generating valid/invalid files ===="
-		dotnet run -c:$configuration -p "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file"
+		dotnet run -c:$configuration --no-build -p "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file"
 		echo "==== ${bitness}-bit: Testing valid instructions ===="
 		cargo run --color always --release --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml" -- -b $bitness -f "$valid_file"
 		echo "==== ${bitness}-bit: Testing invalid instructions ===="
@@ -53,7 +55,7 @@ test_valid_invalid_instructions() {
 
 	for bitness in 16 32 64; do
 		echo "==== ${bitness}-bit (AMD): Generating valid/invalid files ===="
-		dotnet run -c:$configuration -p "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file" --amd
+		dotnet run -c:$configuration --no-build -p "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file" --amd
 		echo "==== ${bitness}-bit (AMD): Testing valid instructions ===="
 		cargo run --color always --release --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml" -- -b $bitness -f "$valid_file" --amd
 		echo "==== ${bitness}-bit (AMD): Testing invalid instructions ===="

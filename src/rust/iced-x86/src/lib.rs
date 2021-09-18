@@ -155,6 +155,8 @@ mod instruction_op_counts;
 mod memory_size;
 mod mnemonic;
 mod mnemonics;
+#[cfg(feature = "mvex")]
+mod mvex;
 mod register;
 #[cfg(test)]
 pub(crate) mod test;

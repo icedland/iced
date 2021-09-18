@@ -34,7 +34,6 @@ namespace Generator {
 		public const string FeatureInstrInfo = "#[cfg(feature = \"instr_info\")]";
 		public const string FeatureEncoder = "#[cfg(feature = \"encoder\")]";
 		public const string FeatureOpCodeInfo = "#[cfg(all(feature = \"encoder\", feature = \"op_code_info\"))]";
-		public const string FeatureEncoderOrOpCodeInfo_And_Mvex = "#[cfg(all(any(feature = \"encoder\", feature = \"op_code_info\"), feature = \"mvex\"))]";
 		public const string Vex = "not(feature = \"no_vex\")";
 		public const string Evex = "not(feature = \"no_evex\")";
 		public const string Xop = "not(feature = \"no_xop\")";

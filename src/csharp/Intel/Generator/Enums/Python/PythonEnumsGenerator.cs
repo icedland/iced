@@ -85,6 +85,8 @@ namespace Generator.Enums.Python {
 			toFullFileInfo.Add(TypeIds.TupleType, new FullEnumFileInfo(dirs.GetPythonPyFilename("TupleType.py")));
 			toFullFileInfo.Add(TypeIds.FormatterSyntax, new FullEnumFileInfo(dirs.GetPythonPyFilename("FormatterSyntax.py")));
 			toFullFileInfo.Add(TypeIds.MvexConvFn, new FullEnumFileInfo(dirs.GetPythonPyFilename("MvexConvFn.py")));
+			toFullFileInfo.Add(TypeIds.MvexRegMemConv, new FullEnumFileInfo(dirs.GetPythonPyFilename("MvexRegMemConv.py")));
+			toFullFileInfo.Add(TypeIds.MvexTupleTypeLutKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("MvexTupleTypeLutKind.py")));
 
 			toPartialFileInfo = new();
 			toPartialFileInfo.Add(TypeIds.FormatterSyntax, new PartialEnumFileInfo("FormatterSyntax", TargetLanguage.Rust, dirs.GetPythonRustFilename("formatter.rs")));

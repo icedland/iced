@@ -1,0 +1,88 @@
+// SPDX-License-Identifier: MIT
+// Copyright (C) 2018-present iced project and contributors
+
+use crate::{MvexConvFn, MvexEHBit, MvexInfoFlags, MvexTupleTypeLutKind};
+use core::mem;
+use static_assertions::const_assert_eq;
+
+#[allow(dead_code)]
+pub(crate) struct MvexInfo {
+	pub(crate) tuple_type_lut_kind: MvexTupleTypeLutKind,
+	pub(crate) eh_bit: MvexEHBit,
+	pub(crate) conv_fn: MvexConvFn,
+	pub(crate) invalid_conv_fns: u8,
+	pub(crate) invalid_swizzle_fns: u8,
+	pub(crate) flags: u8,
+	pub(crate) pad0: u8,
+	pub(crate) pad1: u8,
+}
+
+const_assert_eq!(mem::size_of::<MvexInfo>(), 8);
+
+impl MvexInfo {
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "op_code_info")]
+	pub(crate) fn is_ndd(&self) -> bool {
+		(self.flags & (MvexInfoFlags::NDD as u8)) != 0
+	}
+
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "op_code_info")]
+	pub(crate) fn is_nds(&self) -> bool {
+		(self.flags & (MvexInfoFlags::NDS as u8)) != 0
+	}
+
+	#[must_use]
+	#[inline]
+	#[cfg(any(feature = "decoder", feature = "op_code_info"))]
+	pub(crate) fn can_use_eviction_hint(&self) -> bool {
+		(self.flags & (MvexInfoFlags::EVICTION_HINT as u8)) != 0
+	}
+
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "op_code_info")]
+	pub(crate) fn can_use_imm_rounding_control(&self) -> bool {
+		(self.flags & (MvexInfoFlags::IMM_ROUNDING_CONTROL as u8)) != 0
+	}
+
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "decoder")]
+	pub(crate) fn can_use_rounding_control(&self) -> bool {
+		(self.flags & (MvexInfoFlags::ROUNDING_CONTROL as u8)) != 0
+	}
+
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "decoder")]
+	pub(crate) fn can_use_suppress_all_exceptions(&self) -> bool {
+		(self.flags & (MvexInfoFlags::SUPPRESS_ALL_EXCEPTIONS as u8)) != 0
+	}
+
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "decoder")]
+	pub(crate) fn can_use_op_mask_register(&self) -> bool {
+		(self.flags & (MvexInfoFlags::OP_MASK_REGISTER as u8)) != 0
+	}
+
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "decoder")]
+	pub(crate) fn require_op_mask_register(&self) -> bool {
+		(self.flags & (MvexInfoFlags::REQUIRE_OP_MASK_REGISTER as u8)) != 0
+	}
+}
+
+impl MvexInfo {
+	#[inline]
+	#[must_use]
+	pub(super) const fn new(
+		tuple_type_lut_kind: MvexTupleTypeLutKind, eh_bit: MvexEHBit, conv_fn: MvexConvFn, invalid_conv_fns: u8, invalid_swizzle_fns: u8, flags: u8,
+	) -> Self {
+		Self { tuple_type_lut_kind, eh_bit, conv_fn, invalid_conv_fns, invalid_swizzle_fns, flags, pad0: 0, pad1: 0 }
+	}
+}

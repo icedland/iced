@@ -11,6 +11,8 @@ use crate::mnemonic::{iced_to_mnemonic, Mnemonic};
 use crate::mvex_cvt_fn::{iced_to_mvex_conv_fn, MvexConvFn};
 #[cfg(feature = "mvex")]
 use crate::mvex_eh_bit::{iced_to_mvex_eh_bit, MvexEHBit};
+#[cfg(feature = "mvex")]
+use crate::mvex_tt_lut::{iced_to_mvex_tuple_type_lut_kind, MvexTupleTypeLutKind};
 use crate::op_code_operand_kind::{iced_to_op_code_operand_kind, OpCodeOperandKind};
 use crate::op_code_table_kind::{iced_to_op_code_table_kind, OpCodeTableKind};
 use crate::tuple_type::{iced_to_tuple_type, TupleType};
@@ -234,28 +236,14 @@ impl OpCodeInfo {
 		self.0.mvex_can_use_imm_rounding_control()
 	}
 
-	/// (MVEX) Gets the base tuple type size (conv fn = `000b`)
+	/// (MVEX) Gets the tuple type / conv lut kind Gets the base tuple type (conv fn = `000b`) (a [`MvexTupleTypeLutKind`] enum value)
+	///
+	/// [`MvexTupleTypeLutKind`]: enum.MvexTupleTypeLutKind.html
 	#[cfg(feature = "mvex")]
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "mvexBaseTupleSize")]
-	pub fn mvex_base_tuple_size(&self) -> u32 {
-		self.0.mvex_base_tuple_size()
-	}
-
-	/// (MVEX) Gets the base memory size (conv fn = `000b`)
-	#[cfg(feature = "mvex")]
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "mvexBaseMemorySize")]
-	pub fn mvex_base_memory_size(&self) -> u32 {
-		self.0.mvex_base_memory_size()
-	}
-
-	/// (MVEX) Gets the base memory element size (conv fn = `000b`)
-	#[cfg(feature = "mvex")]
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "mvexBaseElementSize")]
-	pub fn mvex_base_element_size(&self) -> u32 {
-		self.0.mvex_base_element_size()
+	#[wasm_bindgen(js_name = "mvexTupleTypeLutKind")]
+	pub fn mvex_tuple_type_lut_kind(&self) -> MvexTupleTypeLutKind {
+		iced_to_mvex_tuple_type_lut_kind(self.0.mvex_tuple_type_lut_kind())
 	}
 
 	/// (MVEX) Gets the conversion function, eg. `Sf32` (a [`MvexConvFn`] enum value)

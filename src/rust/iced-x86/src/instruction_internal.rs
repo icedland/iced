@@ -174,7 +174,7 @@ pub(crate) fn internal_set_op_mask(this: &mut Instruction, new_value: u32) {
 }
 
 #[cfg(feature = "decoder")]
-#[cfg(not(feature = "no_evex"))]
+#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 #[inline]
 pub(crate) fn internal_set_rounding_control(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value < IcedConstants::ROUNDING_CONTROL_ENUM_COUNT as u32);
@@ -192,6 +192,12 @@ pub(crate) fn internal_has_rounding_control_or_sae(this: &Instruction) -> bool {
 pub(crate) fn internal_set_declare_data_len(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value <= 0x10);
 	this.flags1 |= (new_value - 1) << InstrFlags1::DATA_LENGTH_SHIFT;
+}
+
+#[cfg(all(feature = "decoder", feature = "mvex"))]
+#[inline]
+pub(crate) fn internal_set_mvex_reg_mem_conv(this: &mut Instruction, new_value: MvexRegMemConv) {
+	this.immediate |= (new_value as u32) << MvexInstrFlags::MVEX_REG_MEM_CONV_SHIFT;
 }
 
 // GENERATOR-BEGIN: RegToAddrSize

@@ -33,3 +33,4 @@ mk_to_enum! {to_cc_le, iced_x86::CC_le, "CC_le"}
 mk_to_enum! {to_cc_g, iced_x86::CC_g, "CC_g"}
 mk_to_enum! {to_memory_size, iced_x86::MemorySize, "MemorySize"}
 mk_to_enum! {to_rep_prefix_kind, iced_x86::RepPrefixKind, "RepPrefixKind"}
+mk_to_enum! {to_mvex_reg_mem_conv, iced_x86::MvexRegMemConv, "MvexRegMemConvRegister"}

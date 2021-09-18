@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-namespace Generator.Enums.Decoder {
+namespace Generator.Enums {
 	[Enum("MvexConvFn", Documentation = "MVEX conversion function", Public = true)]
 	enum MvexConvFn {
 		[Comment("No conversion function")]

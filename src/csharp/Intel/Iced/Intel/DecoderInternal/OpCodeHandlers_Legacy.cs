@@ -4184,7 +4184,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				var flags = (state.flags & StateFlags.W) != 0 ? flags64 : flags32;
 				if ((flags & (HandlerFlags.Xacquire | HandlerFlags.Xrelease)) != 0)
-					decoder.SetXacquireXrelease(ref instruction, flags);
+					decoder.SetXacquireXrelease(ref instruction);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));

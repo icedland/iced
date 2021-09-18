@@ -47,8 +47,8 @@ namespace Generator.Enums.Instruction {
 	}
 
 	[TypeGen(TypeGenOrders.NoDeps)]
-	sealed class CodeFlagsEnum {
-		CodeFlagsEnum(GenTypes genTypes) {
+	sealed class InstrFlags1Enum {
+		InstrFlags1Enum(GenTypes genTypes) {
 			ConstantUtils.VerifyMask<RoundingControl>((uint)InstrFlags1.RoundingControlMask);
 			ConstantUtils.VerifyMask<CodeSize>((uint)InstrFlags1.CodeSizeMask);
 		}

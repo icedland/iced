@@ -56,6 +56,8 @@ Welcome to iced-x86's documentation!
 	src/Mnemonic
 	src/MvexConvFn
 	src/MvexEHBit
+	src/MvexRegMemConv
+	src/MvexTupleTypeLutKind
 	src/OpAccess
 	src/OpCodeOperandKind
 	src/OpCodeTableKind

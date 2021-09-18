@@ -8,7 +8,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using Generator.Enums;
-using Generator.Enums.Decoder;
 
 namespace Generator.Tables {
 	struct InstructionStringParser {

@@ -22,6 +22,8 @@ mod memory_size_table;
 mod mnemonic_table;
 #[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
 mod mvex_conv_fn_table;
+#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+mod mvex_tt_lut_kind_table;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod number_base_table;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -55,6 +57,8 @@ use crate::test_utils::from_str_conv::memory_size_table::*;
 use crate::test_utils::from_str_conv::mnemonic_table::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
 use crate::test_utils::from_str_conv::mvex_conv_fn_table::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+use crate::test_utils::from_str_conv::mvex_tt_lut_kind_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use crate::test_utils::from_str_conv::number_base_table::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -298,6 +302,15 @@ pub(crate) fn to_mvex_conv_fn(value: &str) -> Result<MvexConvFn, String> {
 	match TO_MVEX_CONV_FN_HASH.get(value) {
 		Some(mvex_conv_fn) => Ok(*mvex_conv_fn),
 		None => Err(format!("Invalid MvexConvFn value: {}", value)),
+	}
+}
+
+#[cfg(all(feature = "encoder", feature = "op_code_info", feature = "mvex"))]
+pub(crate) fn to_mvex_tuple_type_lut_kind(value: &str) -> Result<MvexTupleTypeLutKind, String> {
+	let value = value.trim();
+	match TO_MVEX_TT_LUT_KIND_HASH.get(value) {
+		Some(tt_lut_kind) => Ok(*tt_lut_kind),
+		None => Err(format!("Invalid MvexTupleTypeLutKind value: {}", value)),
 	}
 }
 

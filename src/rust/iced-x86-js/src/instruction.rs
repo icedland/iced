@@ -31,6 +31,10 @@ use crate::memory_operand::MemoryOperand;
 use crate::memory_size::{iced_to_memory_size, MemorySize};
 #[cfg(feature = "instr_api")]
 use crate::mnemonic::{iced_to_mnemonic, Mnemonic};
+#[cfg(all(feature = "encoder", feature = "mvex"))]
+use crate::mvex_rm_conv::mvex_reg_mem_conv_to_iced;
+#[cfg(feature = "mvex")]
+use crate::mvex_rm_conv::{iced_to_mvex_reg_mem_conv, MvexRegMemConv};
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg(feature = "instr_api")]
 use crate::op_code_info::OpCodeInfo;
@@ -829,6 +833,46 @@ impl Instruction {
 	#[cfg(feature = "encoder")]
 	pub fn set_is_broadcast(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_is_broadcast(newValue)
+	}
+
+	/// `true` if eviction hint bit is set (`{eh}`) (MVEX instructions only)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isMvexEvictionHint")]
+	#[cfg(feature = "mvex")]
+	pub fn is_mvex_eviction_hint(&self) -> bool {
+		self.0.is_mvex_eviction_hint()
+	}
+
+	/// `true` if eviction hint bit is set (`{eh}`) (MVEX instructions only)
+	///
+	/// # Arguments
+	///
+	/// * `newValue`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "isMvexEvictionHint")]
+	#[cfg(all(feature = "encoder", feature = "mvex"))]
+	pub fn set_is_mvex_eviction_hint(&mut self, #[allow(non_snake_case)] newValue: bool) {
+		self.0.set_is_mvex_eviction_hint(newValue)
+	}
+
+	/// (MVEX) Register/memory operand conversion function
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexRegMemconv")]
+	#[cfg(feature = "mvex")]
+	pub fn mvex_reg_mem_conv(&self) -> MvexRegMemConv {
+		iced_to_mvex_reg_mem_conv(self.0.mvex_reg_mem_conv())
+	}
+
+	/// (MVEX) Register/memory operand conversion function
+	///
+	/// # Arguments
+	///
+	/// * `newValue`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "mvexRegMemConv")]
+	#[cfg(all(feature = "encoder", feature = "mvex"))]
+	pub fn set_mvex_reg_mem_conv(&mut self, #[allow(non_snake_case)] newValue: MvexRegMemConv) {
+		self.0.set_mvex_reg_mem_conv(mvex_reg_mem_conv_to_iced(newValue))
 	}
 
 	/// Gets the size of the memory location (a [`MemorySize`] enum value) that is referenced by the operand. See also [`isBroadcast`].

@@ -33,10 +33,10 @@ namespace Generator {
 		public const string DecoderXopDefine = "DECODER && !NO_XOP";
 		public const string DecoderVexOrXopDefine = "DECODER && (!NO_VEX || !NO_XOP)";
 		public const string DecoderEvexDefine = "DECODER && !NO_EVEX";
+		public const string DecoderMvexDefine = "DECODER && MVEX";
 		public const string EncoderDefine = "ENCODER";
 		public const string CodeAssemblerDefine = "ENCODER && BLOCK_ENCODER && CODE_ASSEMBLER";
 		public const string OpCodeInfoDefine = "ENCODER && OPCODE_INFO";
-		public const string EncoderOrOpCodeInfo_And_MvexDefine = "ENCODER && MVEX";// (ENCODER || (ENCODER && OPCODE_INFO)) && MVEX
 		public const string InstructionInfoDefine = "INSTR_INFO";
 		public const string DecoderOrEncoderDefine = "DECODER || ENCODER";
 		public const string DecoderOrEncoderOrOpCodeInfoDefine = "DECODER || ENCODER || (ENCODER && OPCODE_INFO)";

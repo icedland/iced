@@ -8,6 +8,8 @@ mod handlers_3dnow;
 mod handlers_evex;
 mod handlers_fpu;
 mod handlers_legacy;
+#[cfg(feature = "mvex")]
+mod handlers_mvex;
 mod handlers_tables;
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 mod handlers_vex;
@@ -28,7 +30,7 @@ use core::{cmp, fmt, mem, ptr};
 use static_assertions::{const_assert, const_assert_eq};
 
 #[rustfmt::skip]
-#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
 static READ_OP_MEM_VSIB_FNS: [fn(&mut Decoder<'_>, &mut Instruction, Register, TupleType, bool) -> bool; 0x18] = [
 	decoder_read_op_mem_vsib_0,
 	decoder_read_op_mem_vsib_0,
@@ -397,6 +399,9 @@ impl StateFlags {
 	pub(crate) const ALLOW_LOCK: u32 = 0x0000_2000;
 	pub(crate) const NO_MORE_BYTES: u32 = 0x0000_4000;
 	pub(crate) const HAS66: u32 = 0x0000_8000;
+	pub(crate) const MVEX_SSS_MASK: u32 = 0x0000_0007;
+	pub(crate) const MVEX_SSS_SHIFT: u32 = 0x0000_0010;
+	pub(crate) const MVEX_EH: u32 = 0x0008_0000;
 	pub(crate) const ENCODING_MASK: u32 = 0x0000_0007;
 	pub(crate) const ENCODING_SHIFT: u32 = 0x0000_001D;
 }
@@ -493,8 +498,8 @@ struct State {
 	mem_index: u32, // (mod << 3 | rm) and an index into the mem handler tables if mod <= 2
 	vector_length: VectorLength,
 	aaa: u32,
-	extra_register_base_evex: u32,      // EVEX.R' << 4
-	extra_base_register_base_evex: u32, // EVEX.XB << 3
+	extra_register_base_evex: u32,      // EVEX/MVEX.R' << 4
+	extra_base_register_base_evex: u32, // EVEX/MVEX.XB << 3
 	// The order of these 4 fields are important. They're accessed as a u32 (decode_out_ptr()) by the compiler so should be 4 byte aligned.
 	address_size: OpSize,
 	operand_size: OpSize,
@@ -510,12 +515,20 @@ impl State {
 	fn encoding(&self) -> u32 {
 		(self.flags >> StateFlags::ENCODING_SHIFT) & StateFlags::ENCODING_MASK
 	}
+
 	#[must_use]
 	#[inline(always)]
 	#[cfg(not(debug_assertions))]
 	#[allow(clippy::unused_self)]
 	fn encoding(&self) -> u32 {
 		EncodingKind::Legacy as u32
+	}
+
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "mvex")]
+	fn sss(&self) -> u32 {
+		(self.flags >> StateFlags::MVEX_SSS_SHIFT) & StateFlags::MVEX_SSS_MASK
 	}
 }
 
@@ -550,19 +563,28 @@ where
 	instr_start_data_ptr: usize,
 
 	handlers_map0: &'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100],
+	// MAP0 is only used by MVEX. Don't allocate an extra array element if mvex feature is disabled (common case)
+	#[cfg(all(not(feature = "no_vex"), feature = "mvex"))]
+	handlers_vex_map0: &'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100],
 	#[cfg(not(feature = "no_vex"))]
 	handlers_vex: [&'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100]; 3],
 	#[cfg(not(feature = "no_evex"))]
 	handlers_evex: [&'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100]; 6],
 	#[cfg(not(feature = "no_xop"))]
 	handlers_xop: [&'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100]; 3],
+	#[cfg(feature = "mvex")]
+	handlers_mvex: [&'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100]; 3],
 
+	#[cfg(not(all(not(feature = "no_vex"), feature = "mvex")))]
+	handlers_vex_map0: (),
 	#[cfg(feature = "no_vex")]
 	handlers_vex: [(); 3],
 	#[cfg(feature = "no_evex")]
 	handlers_evex: [(); 6],
 	#[cfg(feature = "no_xop")]
 	handlers_xop: [(); 3],
+	#[cfg(not(feature = "mvex"))]
+	handlers_mvex: [(); 3],
 
 	#[cfg(not(feature = "__internal_flip"))]
 	read_op_mem_fns: [fn(&mut Decoder<'a>, &mut Instruction) -> bool; 0x18],
@@ -951,7 +973,20 @@ impl<'a> Decoder<'a> {
 				#[cfg(feature = $feature)]
 				let $name = ();
 			};
+			($name:ident ; $feature:literal) => {
+				mk_handlers_local!($name, $name ; $feature);
+			};
+			($name:ident, $field_name:ident ; $feature:literal) => {
+				#[cfg(feature = $feature)]
+				let $name = get_handlers(&tables.$field_name);
+				#[cfg(not(feature = $feature))]
+				let $name = ();
+			};
 		}
+		#[cfg(all(not(feature = "no_vex"), feature = "mvex"))]
+		let handlers_vex_map0 = get_handlers(&tables.handlers_vex_map0);
+		#[cfg(not(all(not(feature = "no_vex"), feature = "mvex")))]
+		let handlers_vex_map0 = ();
 		mk_handlers_local!(handlers_vex_0f, "no_vex");
 		mk_handlers_local!(handlers_vex_0f38, "no_vex");
 		mk_handlers_local!(handlers_vex_0f3a, "no_vex");
@@ -964,6 +999,9 @@ impl<'a> Decoder<'a> {
 		mk_handlers_local!(handlers_xop_map8, "no_xop");
 		mk_handlers_local!(handlers_xop_map9, "no_xop");
 		mk_handlers_local!(handlers_xop_map10, "no_xop");
+		mk_handlers_local!(handlers_mvex_0f ; "mvex");
+		mk_handlers_local!(handlers_mvex_0f38 ; "mvex");
+		mk_handlers_local!(handlers_mvex_0f3a ; "mvex");
 
 		#[rustfmt::skip]
 		#[cfg(not(feature = "__internal_flip"))]
@@ -1005,9 +1043,11 @@ impl<'a> Decoder<'a> {
 			max_data_ptr: data.as_ptr() as usize,
 			instr_start_data_ptr: data.as_ptr() as usize,
 			handlers_map0: get_handlers(&tables.handlers_map0),
+			handlers_vex_map0,
 			handlers_vex: [handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a],
 			handlers_evex: [handlers_evex_0f, handlers_evex_0f38, handlers_evex_0f3a, handlers_evex_map4, handlers_evex_map5, handlers_evex_map6],
 			handlers_xop: [handlers_xop_map8, handlers_xop_map9, handlers_xop_map10],
+			handlers_mvex: [handlers_mvex_0f, handlers_mvex_0f38, handlers_mvex_0f3a],
 			read_op_mem_fns,
 			state: State::default(),
 			options,
@@ -1677,6 +1717,11 @@ impl<'a> Decoder<'a> {
 		if let Some(&table) = self.handlers_vex.get(((b1 & 0x1F) as usize).wrapping_sub(1)) {
 			self.decode_table2(table[(b2 >> 8) as usize], instruction);
 		} else {
+			#[cfg(feature = "mvex")]
+			if (b1 & 0x1F) == 0 {
+				self.decode_table2(self.handlers_vex_map0[(b2 >> 8) as usize], instruction);
+				return;
+			}
 			self.set_invalid_instruction();
 		}
 	}
@@ -1732,12 +1777,12 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	#[cfg(feature = "no_evex")]
+	#[cfg(not(any(not(feature = "no_evex"), feature = "mvex")))]
 	fn evex_mvex(&mut self, _instruction: &mut Instruction) {
 		self.set_invalid_instruction();
 	}
 
-	#[cfg(not(feature = "no_evex"))]
+	#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 	fn evex_mvex(&mut self, instruction: &mut Instruction) {
 		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
 		if (((self.state.flags & StateFlags::HAS_REX) | (self.state.mandatory_prefix as u32)) & self.invalid_check_mask) != 0 {
@@ -1748,47 +1793,127 @@ impl<'a> Decoder<'a> {
 
 		let d = self.read_u32() as u32;
 		if (d & 4) != 0 {
-			let p0 = self.state.modrm;
-			if (p0 & 8) == 0 {
-				if cfg!(debug_assertions) {
-					self.state.flags |= (EncodingKind::EVEX as u32) << StateFlags::ENCODING_SHIFT;
-				}
+			#[cfg(feature = "no_evex")]
+			self.set_invalid_instruction();
+			#[cfg(not(feature = "no_evex"))]
+			{
+				let p0 = self.state.modrm;
+				if (p0 & 8) == 0 {
+					if cfg!(debug_assertions) {
+						self.state.flags |= (EncodingKind::EVEX as u32) << StateFlags::ENCODING_SHIFT;
+					}
 
-				const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
-				const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
-				const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
-				const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
-				// SAFETY: 0<=(d&3)<=3 and those are valid enum variants, see const_assert_eq!() above
-				self.state.mandatory_prefix = unsafe { mem::transmute(d & 3) };
+					const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+					const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
+					const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
+					const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
+					// SAFETY: 0<=(d&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+					self.state.mandatory_prefix = unsafe { mem::transmute(d & 3) };
 
-				const_assert_eq!(StateFlags::W, 0x80);
-				self.state.flags |= d & 0x80;
+					const_assert_eq!(StateFlags::W, 0x80);
+					self.state.flags |= d & 0x80;
 
-				let p2 = d >> 8;
-				let aaa = p2 & 7;
-				self.state.aaa = aaa;
-				instruction_internal::internal_set_op_mask(instruction, aaa);
-				if (p2 & 0x80) != 0 {
-					// invalid if aaa == 0 and if we check for invalid instructions (it's all 1s)
-					if (aaa ^ self.invalid_check_mask) == u32::MAX {
+					let p2 = d >> 8;
+					let aaa = p2 & 7;
+					self.state.aaa = aaa;
+					instruction_internal::internal_set_op_mask(instruction, aaa);
+					if (p2 & 0x80) != 0 {
+						// invalid if aaa == 0 and if we check for invalid instructions (it's all 1s)
+						if (aaa ^ self.invalid_check_mask) == u32::MAX {
+							self.set_invalid_instruction();
+						}
+						self.state.flags |= StateFlags::Z;
+						instruction.set_zeroing_masking(true);
+					}
+
+					const_assert_eq!(StateFlags::B, 0x10);
+					self.state.flags |= p2 & 0x10;
+
+					const_assert_eq!(VectorLength::L128 as u32, 0);
+					const_assert_eq!(VectorLength::L256 as u32, 1);
+					const_assert_eq!(VectorLength::L512 as u32, 2);
+					const_assert_eq!(VectorLength::Unknown as u32, 3);
+					// SAFETY: 0<=(n&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+					self.state.vector_length = unsafe { mem::transmute((p2 >> 5) & 3) };
+
+					let p1 = (!d >> 3) & 0x0F;
+					if self.is64b_mode {
+						let mut tmp = (!p2 & 8) << 1;
+						self.state.extra_index_register_base_vsib = tmp;
+						tmp += p1;
+						self.state.vvvv = tmp;
+						self.state.vvvv_invalid_check = tmp;
+						let mut p0x = !p0;
+						self.state.extra_register_base = (p0x >> 4) & 8;
+						self.state.extra_index_register_base = (p0x >> 3) & 8;
+						self.state.extra_register_base_evex = p0x & 0x10;
+						p0x >>= 2;
+						self.state.extra_base_register_base_evex = p0x & 0x18;
+						self.state.extra_base_register_base = p0x & 8;
+					} else {
+						self.state.vvvv_invalid_check = p1;
+						self.state.vvvv = p1 & 0x07;
+						const_assert_eq!(StateFlags::IS_INVALID, 0x40);
+						self.state.flags |= (!p2 & 8) << 3;
+					}
+
+					if let Some(&table) = self.handlers_evex.get(((p0 & 7) as usize).wrapping_sub(1)) {
+						let (decode, handler) = table[(d >> 16) as u8 as usize];
+						debug_assert!(handler.has_modrm);
+						let m = d >> 24;
+						self.state.modrm = m;
+						self.state.reg = (m >> 3) & 7;
+						self.state.mod_ = m >> 6;
+						self.state.rm = m & 7;
+						self.state.mem_index = (self.state.mod_ << 3) | self.state.rm;
+						// Invalid if LL=3 and no rc
+						const_assert!(StateFlags::B > 3);
+						debug_assert!(self.state.vector_length as u32 <= 3);
+						if (((self.state.flags & StateFlags::B) | (self.state.vector_length as u32)) & self.invalid_check_mask) == 3 {
+							self.set_invalid_instruction();
+						}
+						(decode)(handler, self, instruction);
+					} else {
 						self.set_invalid_instruction();
 					}
-					self.state.flags |= StateFlags::Z;
-					instruction.set_zeroing_masking(true);
+				} else {
+					self.set_invalid_instruction();
 				}
+			}
+		} else {
+			#[cfg(not(feature = "mvex"))]
+			self.set_invalid_instruction();
+			#[cfg(feature = "mvex")]
+			{
+				if (self.options & DecoderOptions::KNC) == 0 || !self.is64b_mode {
+					self.set_invalid_instruction();
+				} else {
+					let p0 = self.state.modrm;
+					if cfg!(debug_assertions) {
+						self.state.flags |= (EncodingKind::MVEX as u32) << StateFlags::ENCODING_SHIFT;
+					}
 
-				const_assert_eq!(StateFlags::B, 0x10);
-				self.state.flags |= p2 & 0x10;
+					const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+					const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
+					const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
+					const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
+					// SAFETY: 0<=(d&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+					self.state.mandatory_prefix = unsafe { mem::transmute(d & 3) };
 
-				const_assert_eq!(VectorLength::L128 as u32, 0);
-				const_assert_eq!(VectorLength::L256 as u32, 1);
-				const_assert_eq!(VectorLength::L512 as u32, 2);
-				const_assert_eq!(VectorLength::Unknown as u32, 3);
-				// SAFETY: 0<=(n&3)<=3 and those are valid enum variants, see const_assert_eq!() above
-				self.state.vector_length = unsafe { mem::transmute((p2 >> 5) & 3) };
+					const_assert_eq!(StateFlags::W, 0x80);
+					self.state.flags |= d & 0x80;
 
-				let p1 = (!d >> 3) & 0x0F;
-				if self.is64b_mode {
+					let p2 = d >> 8;
+					let aaa = p2 & 7;
+					self.state.aaa = aaa;
+					instruction_internal::internal_set_op_mask(instruction, aaa);
+
+					const_assert_eq!(StateFlags::MVEX_SSS_SHIFT, 16);
+					const_assert_eq!(StateFlags::MVEX_SSS_MASK, 7);
+					const_assert_eq!(StateFlags::MVEX_EH, 1 << (StateFlags::MVEX_SSS_SHIFT + 3));
+					self.state.flags |= (p2 & 0xF0) << (StateFlags::MVEX_SSS_SHIFT - 4);
+
+					let p1 = (!d >> 3) & 0x0F;
 					let mut tmp = (!p2 & 8) << 1;
 					self.state.extra_index_register_base_vsib = tmp;
 					tmp += p1;
@@ -1801,37 +1926,22 @@ impl<'a> Decoder<'a> {
 					p0x >>= 2;
 					self.state.extra_base_register_base_evex = p0x & 0x18;
 					self.state.extra_base_register_base = p0x & 8;
-				} else {
-					self.state.vvvv_invalid_check = p1;
-					self.state.vvvv = p1 & 0x07;
-					const_assert_eq!(StateFlags::IS_INVALID, 0x40);
-					self.state.flags |= (!p2 & 8) << 3;
-				}
 
-				if let Some(&table) = self.handlers_evex.get(((p0 & 7) as usize).wrapping_sub(1)) {
-					let (decode, handler) = table[(d >> 16) as u8 as usize];
-					debug_assert!(handler.has_modrm);
-					let m = d >> 24;
-					self.state.modrm = m;
-					self.state.reg = (m >> 3) & 7;
-					self.state.mod_ = m >> 6;
-					self.state.rm = m & 7;
-					self.state.mem_index = (self.state.mod_ << 3) | self.state.rm;
-					// Invalid if LL=3 and no rc
-					const_assert!(StateFlags::B > 3);
-					debug_assert!(self.state.vector_length as u32 <= 3);
-					if (((self.state.flags & StateFlags::B) | (self.state.vector_length as u32)) & self.invalid_check_mask) == 3 {
+					if let Some(&table) = self.handlers_mvex.get(((p0 & 0xF) as usize).wrapping_sub(1)) {
+						let (decode, handler) = table[(d >> 16) as u8 as usize];
+						debug_assert!(handler.has_modrm);
+						let m = d >> 24;
+						self.state.modrm = m;
+						self.state.reg = (m >> 3) & 7;
+						self.state.mod_ = m >> 6;
+						self.state.rm = m & 7;
+						self.state.mem_index = (self.state.mod_ << 3) | self.state.rm;
+						(decode)(handler, self, instruction);
+					} else {
 						self.set_invalid_instruction();
 					}
-					(decode)(handler, self, instruction);
-				} else {
-					self.set_invalid_instruction();
 				}
-			} else {
-				self.set_invalid_instruction();
 			}
-		} else {
-			self.set_invalid_instruction();
 		}
 	}
 
@@ -1897,7 +2007,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	#[cfg(not(feature = "no_evex"))]
+	#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 	fn read_op_mem_tuple_type(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
 		debug_assert!(self.state.encoding() == EncodingKind::EVEX as u32 || self.state.encoding() == EncodingKind::MVEX as u32);
 		if self.state.address_size != OpSize::Size16 {
@@ -1909,7 +2019,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	#[cfg(any(not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+	#[cfg(any(not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
 	fn read_op_mem_vsib(&mut self, instruction: &mut Instruction, vsib_index: Register, tuple_type: TupleType) {
 		let is_valid = if self.state.address_size != OpSize::Size16 {
 			decoder_read_op_mem_32_or_64_vsib(self, instruction, vsib_index, tuple_type, true)
@@ -2340,7 +2450,7 @@ impl<'a> Decoder<'a> {
 // Returns `true` if the SIB byte was read
 // Same as read_op_mem_32_or_64() except it works with vsib memory operands. Keep them in sync.
 #[must_use]
-#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
 #[inline(always)]
 fn decoder_read_op_mem_32_or_64_vsib(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, tuple_type: TupleType, is_vsib: bool,
@@ -2353,7 +2463,7 @@ fn decoder_read_op_mem_32_or_64_vsib(
 	unsafe { (READ_OP_MEM_VSIB_FNS.get_unchecked(index))(this, instruction, index_reg, tuple_type, is_vsib) }
 }
 
-#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
 fn decoder_read_op_mem_vsib_1(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, _index_reg: Register, tuple_type: TupleType, _is_vsib: bool,
 ) -> bool {
@@ -2371,7 +2481,7 @@ fn decoder_read_op_mem_vsib_1(
 	false
 }
 
-#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
 fn decoder_read_op_mem_vsib_1_4(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, tuple_type: TupleType, is_vsib: bool,
 ) -> bool {
@@ -2408,7 +2518,7 @@ fn decoder_read_op_mem_vsib_1_4(
 	true
 }
 
-#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
 fn decoder_read_op_mem_vsib_0(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, _index_reg: Register, _tuple_type: TupleType, _is_vsib: bool,
 ) -> bool {
@@ -2418,7 +2528,7 @@ fn decoder_read_op_mem_vsib_0(
 	false
 }
 
-#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
 fn decoder_read_op_mem_vsib_0_5(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, _index_reg: Register, _tuple_type: TupleType, _is_vsib: bool,
 ) -> bool {
@@ -2444,7 +2554,7 @@ fn decoder_read_op_mem_vsib_0_5(
 	false
 }
 
-#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
 fn decoder_read_op_mem_vsib_2_4(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, _tuple_type: TupleType, is_vsib: bool,
 ) -> bool {
@@ -2481,7 +2591,7 @@ fn decoder_read_op_mem_vsib_2_4(
 	true
 }
 
-#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
 fn decoder_read_op_mem_vsib_2(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, _index_reg: Register, _tuple_type: TupleType, _is_vsib: bool,
 ) -> bool {
@@ -2500,7 +2610,7 @@ fn decoder_read_op_mem_vsib_2(
 	false
 }
 
-#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
 fn decoder_read_op_mem_vsib_0_4(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, _tuple_type: TupleType, is_vsib: bool,
 ) -> bool {

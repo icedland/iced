@@ -16,6 +16,7 @@ namespace Generator.Decoder.CSharp {
 				new CSharpDecoderTableSerializer(genTypes, "OpCodeHandlersTables_VEX", DecoderTableSerializerInfo.Vex(genTypes)),
 				new CSharpDecoderTableSerializer(genTypes, "OpCodeHandlersTables_EVEX", DecoderTableSerializerInfo.Evex(genTypes)),
 				new CSharpDecoderTableSerializer(genTypes, "OpCodeHandlersTables_XOP", DecoderTableSerializerInfo.Xop(genTypes)),
+				new CSharpDecoderTableSerializer(genTypes, "OpCodeHandlersTables_MVEX", DecoderTableSerializerInfo.Mvex(genTypes)),
 			};
 
 			foreach (var serializer in serializers) {

@@ -226,7 +226,7 @@ namespace Generator.Tables {
 			if (def.Encoding == EncodingKind.MVEX) {
 				WK(OpCodeInfoKeywordKeys.MVEX);
 				ref readonly var mvex = ref def.Mvex;
-				var value = $"{mvex.TupleTypeSize};{mvex.MemorySize};{mvex.ElementSize};{mvex.ConvFn};0x{mvex.ValidConvFns:X};0x{mvex.ValidSwizzleFns:X}";
+				var value = $"{mvex.TupleTypeLutKind.RawName};{mvex.ConvFn};0x{mvex.ValidConvFns:X};0x{mvex.ValidSwizzleFns:X}";
 				writer.Write(value);
 			}
 

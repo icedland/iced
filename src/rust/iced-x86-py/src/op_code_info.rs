@@ -192,22 +192,10 @@ impl OpCodeInfo {
 		self.info.mvex_can_use_imm_rounding_control()
 	}
 
-	/// int: (``u32``) (MVEX) Gets the base tuple type size (conv fn = ``000b``)
+	/// :class:`MvexTupleTypeLutKind`: (MVEX) Gets the tuple type / conv lut kind
 	#[getter]
-	pub fn mvex_base_tuple_size(&self) -> u32 {
-		self.info.mvex_base_tuple_size()
-	}
-
-	/// int: (``u32``) (MVEX) Gets the base memory size (conv fn = ``000b``)
-	#[getter]
-	pub fn mvex_base_memory_size(&self) -> u32 {
-		self.info.mvex_base_memory_size()
-	}
-
-	/// int: (``u32``) (MVEX) Gets the base memory element size (conv fn = ``000b``)
-	#[getter]
-	pub fn mvex_base_element_size(&self) -> u32 {
-		self.info.mvex_base_element_size()
+	pub fn mvex_tuple_type_lut_kind(&self) -> u32 {
+		self.info.mvex_tuple_type_lut_kind() as u32
 	}
 
 	/// :class:`MvexConvFn`: (MVEX) Gets the conversion function, eg. ``Sf32`` (an :class:`MvexConvFn` enum value)

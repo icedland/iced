@@ -396,6 +396,16 @@ def test_mem() -> None:
 	instr.memory_index = Register.XMM13
 	assert instr.memory_index == Register.XMM13
 
+	instr.code = Code.MVEX_VMOVAPD_ZMM_K1_ZMMMT
+
+	assert not instr.is_mvex_eviction_hint
+	instr.is_mvex_eviction_hint = True
+	assert instr.is_mvex_eviction_hint
+
+	assert instr.mvex_reg_mem_conv == MvexRegMemConv.NONE
+	instr.mvex_reg_mem_conv = MvexRegMemConv.REG_SWIZZLE_CDAB
+	assert instr.mvex_reg_mem_conv == MvexRegMemConv.REG_SWIZZLE_CDAB
+
 def test_imm8() -> None:
 	instr = Instruction()
 	instr.op0_kind = OpKind.IMMEDIATE8

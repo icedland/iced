@@ -242,6 +242,8 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(instr.code().is_save_restore_instruction(), tc.is_save_restore_instruction);
 
 	assert_eq!(instr.encoding(), tc.encoding);
+	#[cfg(feature = "mvex")]
+	assert_eq!(instr.encoding() == EncodingKind::MVEX, IcedConstants::is_mvex(instr.code()));
 	assert_eq!(instr.cpuid_features(), tc.cpuid_features);
 	assert_eq!(instr.flow_control(), tc.flow_control);
 	assert_eq!(instr.is_privileged(), tc.is_privileged);

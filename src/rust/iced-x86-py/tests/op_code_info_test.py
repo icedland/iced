@@ -26,9 +26,7 @@ def test_props() -> None:
 	assert idef.mvex_eh_bit == MvexEHBit.NONE
 	assert not idef.mvex_can_use_eviction_hint
 	assert not idef.mvex_can_use_imm_rounding_control
-	assert idef.mvex_base_tuple_size == 0
-	assert idef.mvex_base_memory_size == 0
-	assert idef.mvex_base_element_size == 0
+	assert idef.mvex_tuple_type_lut_kind == MvexTupleTypeLutKind.INT32
 	assert idef.mvex_conversion_func == MvexConvFn.NONE
 	assert idef.mvex_valid_conversion_funcs_mask == 0
 	assert idef.mvex_valid_swizzle_funcs_mask == 0

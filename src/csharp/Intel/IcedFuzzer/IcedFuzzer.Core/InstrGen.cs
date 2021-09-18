@@ -118,9 +118,7 @@ namespace IcedFuzzer.Core {
 				for (int i = 0; i < 2; i++) {
 					bool isModrmMemory = i != 0;
 					for (int table = 0; table < 0x20; table++) {
-						if ((genFlags & InstrGenFlags.NoMVEX) == 0)
-							throw new InvalidOperationException("MAP0 is valid now, see below");
-						bool usedTable = table == 1 || table == 2 || table == 3;
+						bool usedTable = table == 1 || table == 2 || table == 3 || (table == 0 && (genFlags & InstrGenFlags.NoMVEX) == 0);
 						if (usedTable || (genFlags & InstrGenFlags.UnusedTables) != 0)
 							vex.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.VEX, table), isModrmMemory), CreateOpCodes(isModrmMemory));
 					}

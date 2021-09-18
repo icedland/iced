@@ -2,14 +2,13 @@
 // Copyright (C) 2018-present iced project and contributors
 
 using System;
-using Generator.InstructionInfo;
-using Generator.Enums;
-using Generator.Enums.InstructionInfo;
-using Generator.Enums.Encoder;
 using System.Diagnostics;
-using Generator.Formatters;
+using Generator.Enums;
+using Generator.Enums.Encoder;
 using Generator.Enums.Formatter;
-using Generator.Enums.Decoder;
+using Generator.Enums.InstructionInfo;
+using Generator.Formatters;
+using Generator.InstructionInfo;
 
 namespace Generator.Tables {
 	[Flags]
@@ -527,21 +526,15 @@ namespace Generator.Tables {
 	}
 
 	struct MvexInstructionInfo {
-		// Base tuple size (fn=000b). The other ones are functions of this size.
-		public uint TupleTypeSize;
-		// Base memory size (fn=000b)
-		public uint MemorySize;
-		public uint ElementSize;
+		public EnumValue TupleTypeLutKind;
 		public MvexEHBit EHBit;
 		public MvexConvFn ConvFn;
 		public byte ValidConvFns;
 		public byte ValidSwizzleFns;
 		public MvexInfoFlags Flags;
 
-		public MvexInstructionInfo(uint tupleTypeSize, uint memorySize, uint elementSize, MvexEHBit ehBit, MvexConvFn convFn, byte validConvFns, byte validSwizzleFns) {
-			TupleTypeSize = tupleTypeSize;
-			MemorySize = memorySize;
-			ElementSize = elementSize;
+		public MvexInstructionInfo(EnumValue tupleType, MvexEHBit ehBit, MvexConvFn convFn, byte validConvFns, byte validSwizzleFns) {
+			TupleTypeLutKind = tupleType;
 			EHBit = ehBit;
 			ConvFn = convFn;
 			ValidConvFns = validConvFns;

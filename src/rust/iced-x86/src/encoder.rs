@@ -9,10 +9,6 @@ mod instruction_fmt;
 mod mem_op;
 #[cfg(feature = "op_code_info")]
 mod mnemonic_str_tbl;
-#[cfg(feature = "mvex")]
-mod mvex_data;
-#[cfg(feature = "mvex")]
-mod mvex_info;
 #[cfg(feature = "op_code_info")]
 mod op_code;
 #[cfg(feature = "op_code_info")]
@@ -1650,9 +1646,4 @@ impl Encoder {
 	pub fn bitness(&self) -> u32 {
 		self.bitness
 	}
-}
-
-#[cfg(feature = "mvex")]
-fn get_mvex_info(code: Code) -> &'static self::mvex_info::MvexInfo {
-	&self::mvex_data::MVEX_INFO[code as usize - IcedConstants::MVEX_START as usize]
 }

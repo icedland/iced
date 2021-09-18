@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::enum_utils::{to_code, to_code_size, to_op_kind, to_register, to_rep_prefix_kind, to_rounding_control};
+use crate::enum_utils::{to_code, to_code_size, to_mvex_reg_mem_conv, to_op_kind, to_register, to_rep_prefix_kind, to_rounding_control};
 use crate::memory_operand::MemoryOperand;
 use crate::op_code_info::OpCodeInfo;
 use crate::utils::{get_temporary_byte_array_ref, to_value_error};
@@ -611,6 +611,29 @@ impl Instruction {
 	#[setter]
 	fn set_is_broadcast(&mut self, new_value: bool) {
 		self.instr.set_is_broadcast(new_value)
+	}
+
+	/// bool: ``True`` if eviction hint bit is set (``{eh}``) (MVEX instructions only)
+	#[getter]
+	fn is_mvex_eviction_hint(&self) -> bool {
+		self.instr.is_mvex_eviction_hint()
+	}
+
+	#[setter]
+	fn set_is_mvex_eviction_hint(&mut self, new_value: bool) {
+		self.instr.set_is_mvex_eviction_hint(new_value)
+	}
+
+	/// :class:`MvexRegMemConv`: (MVEX) Register/memory operand conversion function (a :class:`MvexRegMemConv` enum value)
+	#[getter]
+	fn mvex_reg_mem_conv(&self) -> u32 {
+		self.instr.mvex_reg_mem_conv() as u32
+	}
+
+	#[setter]
+	fn set_mvex_reg_mem_conv(&mut self, new_value: u32) -> PyResult<()> {
+		self.instr.set_mvex_reg_mem_conv(to_mvex_reg_mem_conv(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`MemorySize`: Gets the size of the memory location (a :class:`MemorySize` enum value) that is referenced by the operand.

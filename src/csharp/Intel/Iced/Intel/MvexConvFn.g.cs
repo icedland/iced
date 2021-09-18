@@ -5,7 +5,7 @@
 
 #nullable enable
 
-#if ENCODER && MVEX
+#if MVEX
 namespace Iced.Intel {
 	/// <summary>MVEX conversion function</summary>
 	public enum MvexConvFn {

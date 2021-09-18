@@ -286,9 +286,7 @@ impl OpCodeHandler_W {
 				|| decoder.state.encoding() == EncodingKind::XOP as u32
 				|| decoder.state.encoding() == EncodingKind::MVEX as u32
 		);
-		const_assert_eq!(StateFlags::W, 0x80);
-		let index = (decoder.state.flags >> 7) & 1;
-		let (decode, handler) = unsafe { *this.handlers.get_unchecked(index as usize) };
+		let (decode, handler) = this.handlers[((decoder.state.flags & StateFlags::W) != 0) as usize];
 		(decode)(handler, decoder, instruction);
 	}
 }

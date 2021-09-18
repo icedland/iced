@@ -11,5 +11,13 @@ namespace Generator.Enums.Encoder {
 		EvictionHint			= 0x04,
 		// imm8 rounding control is supported
 		ImmRoundingControl		= 0x08,
+		// {er} is supported
+		RoundingControl			= 0x10,
+		// {sae} is supported
+		SuppressAllExceptions	= 0x20,
+		// {k1} opmask is allowed
+		OpMaskRegister			= 0x40,
+		// Opmask register is required or #UD
+		RequireOpMaskRegister	= 0x80,
 	}
 }
