@@ -52,7 +52,7 @@ macro_rules! write_eviction_hint {
 
 macro_rules! write_mem_conv {
 	($decoder:ident, $instruction:ident, $mvex:ident, $sss:ident) => {
-		if ($mvex.invalid_conv_fns & (1 << $sss) & ($decoder.invalid_check_mask as u8)) != 0 {
+		if (($mvex.invalid_conv_fns as u32) & (1 << $sss) & $decoder.invalid_check_mask) != 0 {
 			$decoder.set_invalid_instruction();
 		}
 		const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 1, MvexRegMemConv::MemConvBroadcast1 as u32);

@@ -857,7 +857,7 @@ impl Instruction {
 
 	/// (MVEX) Register/memory operand conversion function
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "mvexRegMemconv")]
+	#[wasm_bindgen(js_name = "mvexRegMemConv")]
 	#[cfg(feature = "mvex")]
 	pub fn mvex_reg_mem_conv(&self) -> MvexRegMemConv {
 		iced_to_mvex_reg_mem_conv(self.0.mvex_reg_mem_conv())
