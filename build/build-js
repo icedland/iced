@@ -100,7 +100,7 @@ gen_release() {
 	cd "$root_dir/src/rust/iced-x86-js"
 
 	rm -rf pkg/
-	wasm-pack build --mode force --target nodejs
+	wasm-pack build --mode force --target nodejs -- --features "mvex"
 	mkdir pkg/tests
 	cp ../../../LICENSE.txt pkg
 	cp src/tests/*.js pkg/tests
