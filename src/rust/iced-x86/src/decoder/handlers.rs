@@ -1,6 +1,17 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+pub(super) mod d3now;
+#[cfg(not(feature = "no_evex"))]
+pub(super) mod evex;
+pub(super) mod fpu;
+pub(super) mod legacy;
+#[cfg(feature = "mvex")]
+pub(super) mod mvex;
+pub(super) mod tables;
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
+pub(super) mod vex;
+
 use crate::decoder::*;
 use crate::*;
 use alloc::boxed::Box;

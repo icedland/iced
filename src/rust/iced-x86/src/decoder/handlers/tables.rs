@@ -6,44 +6,44 @@ use crate::decoder::table_de::*;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
 
-pub(super) struct Tables {
+pub(in crate::decoder) struct Tables {
 	#[cfg(not(feature = "no_evex"))]
-	pub(super) invalid_map: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) invalid_map: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(feature = "no_evex")]
 	#[allow(dead_code)]
 	invalid_map: (),
 
-	pub(super) handlers_map0: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_map0: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(all(not(feature = "no_vex"), feature = "mvex"))]
-	pub(super) handlers_vex_map0: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_vex_map0: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_vex"))]
-	pub(super) handlers_vex_0f: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_vex_0f: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_vex"))]
-	pub(super) handlers_vex_0f38: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_vex_0f38: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_vex"))]
-	pub(super) handlers_vex_0f3a: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_vex_0f3a: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_evex"))]
-	pub(super) handlers_evex_0f: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_evex_0f: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_evex"))]
-	pub(super) handlers_evex_0f38: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_evex_0f38: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_evex"))]
-	pub(super) handlers_evex_0f3a: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_evex_0f3a: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_evex"))]
-	pub(super) handlers_evex_map5: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_evex_map5: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_evex"))]
-	pub(super) handlers_evex_map6: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_evex_map6: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_xop"))]
-	pub(super) handlers_xop_map8: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_xop_map8: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_xop"))]
-	pub(super) handlers_xop_map9: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_xop_map9: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_xop"))]
-	pub(super) handlers_xop_map10: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_xop_map10: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(feature = "mvex")]
-	pub(super) handlers_mvex_0f: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_mvex_0f: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(feature = "mvex")]
-	pub(super) handlers_mvex_0f38: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_mvex_0f38: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(feature = "mvex")]
-	pub(super) handlers_mvex_0f3a: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	pub(in crate::decoder) handlers_mvex_0f3a: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(all(not(feature = "no_vex"), feature = "mvex")))]
 	#[allow(dead_code)]
 	handlers_vex_map0: (),
@@ -92,7 +92,7 @@ pub(super) struct Tables {
 }
 
 lazy_static! {
-	pub(super) static ref TABLES: Tables = {
+	pub(in crate::decoder) static ref TABLES: Tables = {
 		let handlers_map0 = read_legacy();
 		#[cfg(not(feature = "no_vex"))]
 		let (handlers_vex_map0, handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a) = read_vex();

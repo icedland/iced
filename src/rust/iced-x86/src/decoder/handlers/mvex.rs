@@ -117,14 +117,14 @@ fn get_tuple_type(lut: MvexTupleTypeLutKind, sss: u32) -> TupleType {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_EH {
+pub(in crate::decoder) struct OpCodeHandler_EH {
 	has_modrm: bool,
 	handlers: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 2],
 }
 
 impl OpCodeHandler_EH {
 	#[inline]
-	pub(super) fn new(
+	pub(in crate::decoder) fn new(
 		handler_eh0: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_eh1: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(handler_eh0.1));
@@ -142,14 +142,14 @@ impl OpCodeHandler_EH {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_M {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_M {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_M {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_M::decode, Self { has_modrm: true, code })
@@ -177,14 +177,14 @@ impl OpCodeHandler_MVEX_M {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_MV {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_MV {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_MV {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		(OpCodeHandler_MVEX_MV::decode, Self { has_modrm: true, code })
 	}
@@ -217,14 +217,14 @@ impl OpCodeHandler_MVEX_MV {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_VW {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_VW {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_VW {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_VW::decode, Self { has_modrm: true, code })
@@ -258,14 +258,14 @@ impl OpCodeHandler_MVEX_VW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_HWIb {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_HWIb {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_HWIb {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_HWIb::decode, Self { has_modrm: true, code })
@@ -295,14 +295,14 @@ impl OpCodeHandler_MVEX_HWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_VWIb {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_VWIb {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_VWIb {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_VWIb::decode, Self { has_modrm: true, code })
@@ -338,14 +338,14 @@ impl OpCodeHandler_MVEX_VWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_VHW {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_VHW {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_VHW {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_VHW::decode, Self { has_modrm: true, code })
@@ -380,14 +380,14 @@ impl OpCodeHandler_MVEX_VHW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_VHWIb {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_VHWIb {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_VHWIb {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_VHWIb::decode, Self { has_modrm: true, code })
@@ -421,14 +421,14 @@ impl OpCodeHandler_MVEX_VHWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_VKW {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_VKW {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_VKW {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_VKW::decode, Self { has_modrm: true, code })
@@ -463,14 +463,14 @@ impl OpCodeHandler_MVEX_VKW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_KHW {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_KHW {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_KHW {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_KHW::decode, Self { has_modrm: true, code })
@@ -502,14 +502,14 @@ impl OpCodeHandler_MVEX_KHW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_KHWIb {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_KHWIb {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_KHWIb {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_KHWIb::decode, Self { has_modrm: true, code })
@@ -543,14 +543,14 @@ impl OpCodeHandler_MVEX_KHWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_VSIB {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_VSIB {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_VSIB {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_VSIB::decode, Self { has_modrm: true, code })
@@ -579,14 +579,14 @@ impl OpCodeHandler_MVEX_VSIB {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_VSIB_V {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_VSIB_V {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_VSIB_V {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_VSIB_V::decode, Self { has_modrm: true, code })
@@ -619,14 +619,14 @@ impl OpCodeHandler_MVEX_VSIB_V {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MVEX_V_VSIB {
+pub(in crate::decoder) struct OpCodeHandler_MVEX_V_VSIB {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MVEX_V_VSIB {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).can_use_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
 		(OpCodeHandler_MVEX_V_VSIB::decode, Self { has_modrm: true, code })

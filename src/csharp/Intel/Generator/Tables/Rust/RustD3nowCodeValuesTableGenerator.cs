@@ -18,7 +18,7 @@ namespace Generator.Tables.Rust {
 		}
 
 		protected override void Generate((int index, EnumValue enumValue)[] infos) {
-			var filename = generatorContext.Types.Dirs.GetRustFilename("decoder", "handlers_3dnow.rs");
+			var filename = generatorContext.Types.Dirs.GetRustFilename("decoder", "handlers", "d3now.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "D3nowCodeValues", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

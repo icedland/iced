@@ -44,14 +44,14 @@ macro_rules! write_op2_reg {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_VEX2 {
+pub(in crate::decoder) struct OpCodeHandler_VEX2 {
 	has_modrm: bool,
 	handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 }
 
 impl OpCodeHandler_VEX2 {
 	#[inline]
-	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(handler_mem.1));
 		(OpCodeHandler_VEX2::decode, Self { has_modrm: true, handler_mem })
 	}
@@ -69,14 +69,14 @@ impl OpCodeHandler_VEX2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_VEX3 {
+pub(in crate::decoder) struct OpCodeHandler_VEX3 {
 	has_modrm: bool,
 	handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 }
 
 impl OpCodeHandler_VEX3 {
 	#[inline]
-	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(handler_mem.1));
 		(OpCodeHandler_VEX3::decode, Self { has_modrm: true, handler_mem })
 	}
@@ -94,14 +94,14 @@ impl OpCodeHandler_VEX3 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_XOP {
+pub(in crate::decoder) struct OpCodeHandler_XOP {
 	has_modrm: bool,
 	handler_reg0: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 }
 
 impl OpCodeHandler_XOP {
 	#[inline]
-	pub(super) fn new(handler_reg0: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(handler_reg0: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(handler_reg0.1));
 		(OpCodeHandler_XOP::decode, Self { has_modrm: true, handler_reg0 })
 	}
@@ -119,14 +119,14 @@ impl OpCodeHandler_XOP {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_EVEX {
+pub(in crate::decoder) struct OpCodeHandler_EVEX {
 	has_modrm: bool,
 	handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 }
 
 impl OpCodeHandler_EVEX {
 	#[inline]
-	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(handler_mem.1));
 		(OpCodeHandler_EVEX::decode, Self { has_modrm: true, handler_mem })
 	}
@@ -144,14 +144,14 @@ impl OpCodeHandler_EVEX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PrefixEsCsSsDs {
+pub(in crate::decoder) struct OpCodeHandler_PrefixEsCsSsDs {
 	has_modrm: bool,
 	seg: Register,
 }
 
 impl OpCodeHandler_PrefixEsCsSsDs {
 	#[inline]
-	pub(super) fn new(seg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(seg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(seg == Register::ES || seg == Register::CS || seg == Register::SS || seg == Register::DS);
 		(OpCodeHandler_PrefixEsCsSsDs::decode, Self { has_modrm: false, seg })
 	}
@@ -171,14 +171,14 @@ impl OpCodeHandler_PrefixEsCsSsDs {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PrefixFsGs {
+pub(in crate::decoder) struct OpCodeHandler_PrefixFsGs {
 	has_modrm: bool,
 	seg: Register,
 }
 
 impl OpCodeHandler_PrefixFsGs {
 	#[inline]
-	pub(super) fn new(seg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(seg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(seg == Register::FS || seg == Register::GS);
 		(OpCodeHandler_PrefixFsGs::decode, Self { has_modrm: false, seg })
 	}
@@ -197,13 +197,13 @@ impl OpCodeHandler_PrefixFsGs {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Prefix66 {
+pub(in crate::decoder) struct OpCodeHandler_Prefix66 {
 	has_modrm: bool,
 }
 
 impl OpCodeHandler_Prefix66 {
 	#[inline]
-	pub(super) fn new() -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new() -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Prefix66::decode, Self { has_modrm: false })
 	}
 
@@ -223,13 +223,13 @@ impl OpCodeHandler_Prefix66 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Prefix67 {
+pub(in crate::decoder) struct OpCodeHandler_Prefix67 {
 	has_modrm: bool,
 }
 
 impl OpCodeHandler_Prefix67 {
 	#[inline]
-	pub(super) fn new() -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new() -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Prefix67::decode, Self { has_modrm: false })
 	}
 
@@ -245,13 +245,13 @@ impl OpCodeHandler_Prefix67 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PrefixF0 {
+pub(in crate::decoder) struct OpCodeHandler_PrefixF0 {
 	has_modrm: bool,
 }
 
 impl OpCodeHandler_PrefixF0 {
 	#[inline]
-	pub(super) fn new() -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new() -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_PrefixF0::decode, Self { has_modrm: false })
 	}
 
@@ -268,13 +268,13 @@ impl OpCodeHandler_PrefixF0 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PrefixF2 {
+pub(in crate::decoder) struct OpCodeHandler_PrefixF2 {
 	has_modrm: bool,
 }
 
 impl OpCodeHandler_PrefixF2 {
 	#[inline]
-	pub(super) fn new() -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new() -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_PrefixF2::decode, Self { has_modrm: false })
 	}
 
@@ -291,13 +291,13 @@ impl OpCodeHandler_PrefixF2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PrefixF3 {
+pub(in crate::decoder) struct OpCodeHandler_PrefixF3 {
 	has_modrm: bool,
 }
 
 impl OpCodeHandler_PrefixF3 {
 	#[inline]
-	pub(super) fn new() -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new() -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_PrefixF3::decode, Self { has_modrm: false })
 	}
 
@@ -314,7 +314,7 @@ impl OpCodeHandler_PrefixF3 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PrefixREX {
+pub(in crate::decoder) struct OpCodeHandler_PrefixREX {
 	has_modrm: bool,
 	handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	rex: u32,
@@ -322,7 +322,7 @@ pub(super) struct OpCodeHandler_PrefixREX {
 
 impl OpCodeHandler_PrefixREX {
 	#[inline]
-	pub(super) fn new(handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), rex: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), rex: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(rex <= 0x0F);
 		(OpCodeHandler_PrefixREX::decode, Self { has_modrm: false, handler, rex })
 	}
@@ -359,7 +359,7 @@ impl OpCodeHandler_PrefixREX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reg {
+pub(in crate::decoder) struct OpCodeHandler_Reg {
 	has_modrm: bool,
 	code: Code,
 	reg: Register,
@@ -367,7 +367,7 @@ pub(super) struct OpCodeHandler_Reg {
 
 impl OpCodeHandler_Reg {
 	#[inline]
-	pub(super) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Reg::decode, Self { has_modrm: false, code, reg })
 	}
 
@@ -381,7 +381,7 @@ impl OpCodeHandler_Reg {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_RegIb {
+pub(in crate::decoder) struct OpCodeHandler_RegIb {
 	has_modrm: bool,
 	code: Code,
 	reg: Register,
@@ -389,7 +389,7 @@ pub(super) struct OpCodeHandler_RegIb {
 
 impl OpCodeHandler_RegIb {
 	#[inline]
-	pub(super) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_RegIb::decode, Self { has_modrm: false, code, reg })
 	}
 
@@ -405,7 +405,7 @@ impl OpCodeHandler_RegIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_IbReg {
+pub(in crate::decoder) struct OpCodeHandler_IbReg {
 	has_modrm: bool,
 	code: Code,
 	reg: Register,
@@ -413,7 +413,7 @@ pub(super) struct OpCodeHandler_IbReg {
 
 impl OpCodeHandler_IbReg {
 	#[inline]
-	pub(super) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_IbReg::decode, Self { has_modrm: false, code, reg })
 	}
 
@@ -429,14 +429,14 @@ impl OpCodeHandler_IbReg {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_AL_DX {
+pub(in crate::decoder) struct OpCodeHandler_AL_DX {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_AL_DX {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_AL_DX::decode, Self { has_modrm: false, code })
 	}
 
@@ -451,14 +451,14 @@ impl OpCodeHandler_AL_DX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_DX_AL {
+pub(in crate::decoder) struct OpCodeHandler_DX_AL {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_DX_AL {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_DX_AL::decode, Self { has_modrm: false, code })
 	}
 
@@ -473,14 +473,14 @@ impl OpCodeHandler_DX_AL {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ib {
+pub(in crate::decoder) struct OpCodeHandler_Ib {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Ib {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ib::decode, Self { has_modrm: false, code })
 	}
 
@@ -495,14 +495,14 @@ impl OpCodeHandler_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ib3 {
+pub(in crate::decoder) struct OpCodeHandler_Ib3 {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Ib3 {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ib3::decode, Self { has_modrm: true, code })
 	}
 
@@ -517,14 +517,14 @@ impl OpCodeHandler_Ib3 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MandatoryPrefix {
+pub(in crate::decoder) struct OpCodeHandler_MandatoryPrefix {
 	has_modrm: bool,
 	handlers: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 4],
 }
 
 impl OpCodeHandler_MandatoryPrefix {
 	#[inline]
-	pub(super) fn new(
+	pub(in crate::decoder) fn new(
 		has_modrm: bool, handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> (OpCodeHandlerDecodeFn, Self) {
@@ -555,7 +555,7 @@ impl OpCodeHandler_MandatoryPrefix {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MandatoryPrefix3 {
+pub(in crate::decoder) struct OpCodeHandler_MandatoryPrefix3 {
 	has_modrm: bool,
 	handlers_reg: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler, bool); 4],
 	handlers_mem: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler, bool); 4],
@@ -564,7 +564,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix3 {
 impl OpCodeHandler_MandatoryPrefix3 {
 	#[allow(clippy::too_many_arguments)]
 	#[inline]
-	pub(super) fn new(
+	pub(in crate::decoder) fn new(
 		handler_reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler66_reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler66_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handlerf3_reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handlerf3_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
@@ -618,7 +618,7 @@ impl OpCodeHandler_MandatoryPrefix3 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MandatoryPrefix4 {
+pub(in crate::decoder) struct OpCodeHandler_MandatoryPrefix4 {
 	has_modrm: bool,
 	handler_np: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
@@ -629,7 +629,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix4 {
 
 impl OpCodeHandler_MandatoryPrefix4 {
 	#[inline]
-	pub(super) fn new(
+	pub(in crate::decoder) fn new(
 		handler_np: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), flags: u32,
 	) -> (OpCodeHandlerDecodeFn, Self) {
@@ -674,14 +674,14 @@ impl OpCodeHandler_MandatoryPrefix4 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_NIb {
+pub(in crate::decoder) struct OpCodeHandler_NIb {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_NIb {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_NIb::decode, Self { has_modrm: true, code })
 	}
 
@@ -701,7 +701,7 @@ impl OpCodeHandler_NIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reservednop {
+pub(in crate::decoder) struct OpCodeHandler_Reservednop {
 	has_modrm: bool,
 	reserved_nop_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	other_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
@@ -709,7 +709,7 @@ pub(super) struct OpCodeHandler_Reservednop {
 
 impl OpCodeHandler_Reservednop {
 	#[inline]
-	pub(super) fn new(
+	pub(in crate::decoder) fn new(
 		reserved_nop_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), other_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!is_null_instance_handler(reserved_nop_handler.1));
@@ -728,7 +728,7 @@ impl OpCodeHandler_Reservednop {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_Iz {
+pub(in crate::decoder) struct OpCodeHandler_Ev_Iz {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -737,7 +737,7 @@ pub(super) struct OpCodeHandler_Ev_Iz {
 
 impl OpCodeHandler_Ev_Iz {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
@@ -781,7 +781,7 @@ impl OpCodeHandler_Ev_Iz {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_Ib {
+pub(in crate::decoder) struct OpCodeHandler_Ev_Ib {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -790,7 +790,7 @@ pub(super) struct OpCodeHandler_Ev_Ib {
 
 impl OpCodeHandler_Ev_Ib {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
@@ -832,7 +832,7 @@ impl OpCodeHandler_Ev_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_Ib2 {
+pub(in crate::decoder) struct OpCodeHandler_Ev_Ib2 {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -841,7 +841,7 @@ pub(super) struct OpCodeHandler_Ev_Ib2 {
 
 impl OpCodeHandler_Ev_Ib2 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
@@ -877,7 +877,7 @@ impl OpCodeHandler_Ev_Ib2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_1 {
+pub(in crate::decoder) struct OpCodeHandler_Ev_1 {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -885,7 +885,7 @@ pub(super) struct OpCodeHandler_Ev_1 {
 
 impl OpCodeHandler_Ev_1 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Ev_1::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -912,7 +912,7 @@ impl OpCodeHandler_Ev_1 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_CL {
+pub(in crate::decoder) struct OpCodeHandler_Ev_CL {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -920,7 +920,7 @@ pub(super) struct OpCodeHandler_Ev_CL {
 
 impl OpCodeHandler_Ev_CL {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Ev_CL::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -945,7 +945,7 @@ impl OpCodeHandler_Ev_CL {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev {
+pub(in crate::decoder) struct OpCodeHandler_Ev {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -954,7 +954,7 @@ pub(super) struct OpCodeHandler_Ev {
 
 impl OpCodeHandler_Ev {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
@@ -988,7 +988,7 @@ impl OpCodeHandler_Ev {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Rv {
+pub(in crate::decoder) struct OpCodeHandler_Rv {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -996,7 +996,7 @@ pub(super) struct OpCodeHandler_Rv {
 
 impl OpCodeHandler_Rv {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Rv::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -1016,7 +1016,7 @@ impl OpCodeHandler_Rv {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Rv_32_64 {
+pub(in crate::decoder) struct OpCodeHandler_Rv_32_64 {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -1024,7 +1024,7 @@ pub(super) struct OpCodeHandler_Rv_32_64 {
 
 impl OpCodeHandler_Rv_32_64 {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Rv_32_64::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -1045,14 +1045,14 @@ impl OpCodeHandler_Rv_32_64 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Rq {
+pub(in crate::decoder) struct OpCodeHandler_Rq {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Rq {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Rq::decode, Self { has_modrm: true, code })
 	}
 
@@ -1067,7 +1067,7 @@ impl OpCodeHandler_Rq {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_REXW {
+pub(in crate::decoder) struct OpCodeHandler_Ev_REXW {
 	has_modrm: bool,
 	flags: u32,
 	disallow_reg: u32,
@@ -1078,7 +1078,7 @@ pub(super) struct OpCodeHandler_Ev_REXW {
 
 impl OpCodeHandler_Ev_REXW {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Ev_REXW::decode,
 			Self {
@@ -1125,7 +1125,7 @@ impl OpCodeHandler_Ev_REXW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Evj {
+pub(in crate::decoder) struct OpCodeHandler_Evj {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code16: Code,
@@ -1135,7 +1135,7 @@ pub(super) struct OpCodeHandler_Evj {
 
 impl OpCodeHandler_Evj {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Evj::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code16, code32, code64 },
@@ -1181,7 +1181,7 @@ impl OpCodeHandler_Evj {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ep {
+pub(in crate::decoder) struct OpCodeHandler_Ep {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -1190,7 +1190,7 @@ pub(super) struct OpCodeHandler_Ep {
 
 impl OpCodeHandler_Ep {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ep::decode, Self { has_modrm: true, code16, code32, code64 })
 	}
 
@@ -1215,7 +1215,7 @@ impl OpCodeHandler_Ep {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Evw {
+pub(in crate::decoder) struct OpCodeHandler_Evw {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -1223,7 +1223,7 @@ pub(super) struct OpCodeHandler_Evw {
 
 impl OpCodeHandler_Evw {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Evw::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -1247,7 +1247,7 @@ impl OpCodeHandler_Evw {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ew {
+pub(in crate::decoder) struct OpCodeHandler_Ew {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -1255,7 +1255,7 @@ pub(super) struct OpCodeHandler_Ew {
 
 impl OpCodeHandler_Ew {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Ew::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -1279,7 +1279,7 @@ impl OpCodeHandler_Ew {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ms {
+pub(in crate::decoder) struct OpCodeHandler_Ms {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -1288,7 +1288,7 @@ pub(super) struct OpCodeHandler_Ms {
 
 impl OpCodeHandler_Ms {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ms::decode, Self { has_modrm: true, code16, code32, code64 })
 	}
 
@@ -1310,7 +1310,7 @@ impl OpCodeHandler_Ms {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Ev {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Ev {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -1318,7 +1318,7 @@ pub(super) struct OpCodeHandler_Gv_Ev {
 
 impl OpCodeHandler_Gv_Ev {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_Ev::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -1343,14 +1343,14 @@ impl OpCodeHandler_Gv_Ev {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gd_Rd {
+pub(in crate::decoder) struct OpCodeHandler_Gd_Rd {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Gd_Rd {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gd_Rd::decode, Self { has_modrm: true, code })
 	}
 
@@ -1369,7 +1369,7 @@ impl OpCodeHandler_Gd_Rd {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_M_as {
+pub(in crate::decoder) struct OpCodeHandler_Gv_M_as {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -1377,7 +1377,7 @@ pub(super) struct OpCodeHandler_Gv_M_as {
 
 impl OpCodeHandler_Gv_M_as {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_M_as::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -1402,7 +1402,7 @@ impl OpCodeHandler_Gv_M_as {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gdq_Ev {
+pub(in crate::decoder) struct OpCodeHandler_Gdq_Ev {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -1410,7 +1410,7 @@ pub(super) struct OpCodeHandler_Gdq_Ev {
 
 impl OpCodeHandler_Gdq_Ev {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gdq_Ev::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -1439,7 +1439,7 @@ impl OpCodeHandler_Gdq_Ev {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Ev3 {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Ev3 {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -1447,7 +1447,7 @@ pub(super) struct OpCodeHandler_Gv_Ev3 {
 
 impl OpCodeHandler_Gv_Ev3 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_Ev3::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -1472,7 +1472,7 @@ impl OpCodeHandler_Gv_Ev3 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Ev2 {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Ev2 {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -1480,7 +1480,7 @@ pub(super) struct OpCodeHandler_Gv_Ev2 {
 
 impl OpCodeHandler_Gv_Ev2 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_Ev2::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -1510,7 +1510,7 @@ impl OpCodeHandler_Gv_Ev2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_R_C {
+pub(in crate::decoder) struct OpCodeHandler_R_C {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -1519,7 +1519,7 @@ pub(super) struct OpCodeHandler_R_C {
 
 impl OpCodeHandler_R_C {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code, base_reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code, base_reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_R_C::decode, Self { has_modrm: true, code32, code64, base_reg })
 	}
 
@@ -1561,7 +1561,7 @@ impl OpCodeHandler_R_C {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_C_R {
+pub(in crate::decoder) struct OpCodeHandler_C_R {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -1570,7 +1570,7 @@ pub(super) struct OpCodeHandler_C_R {
 
 impl OpCodeHandler_C_R {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code, base_reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code, base_reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_C_R::decode, Self { has_modrm: true, code32, code64, base_reg })
 	}
 
@@ -1612,7 +1612,7 @@ impl OpCodeHandler_C_R {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Jb {
+pub(in crate::decoder) struct OpCodeHandler_Jb {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -1621,7 +1621,7 @@ pub(super) struct OpCodeHandler_Jb {
 
 impl OpCodeHandler_Jb {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Jb::decode, Self { has_modrm: false, code16, code32, code64 })
 	}
 
@@ -1656,7 +1656,7 @@ impl OpCodeHandler_Jb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Jx {
+pub(in crate::decoder) struct OpCodeHandler_Jx {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -1665,7 +1665,7 @@ pub(super) struct OpCodeHandler_Jx {
 
 impl OpCodeHandler_Jx {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Jx::decode, Self { has_modrm: false, code16, code32, code64 })
 	}
 
@@ -1705,7 +1705,7 @@ impl OpCodeHandler_Jx {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Jz {
+pub(in crate::decoder) struct OpCodeHandler_Jz {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -1714,7 +1714,7 @@ pub(super) struct OpCodeHandler_Jz {
 
 impl OpCodeHandler_Jz {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Jz::decode, Self { has_modrm: false, code16, code32, code64 })
 	}
 
@@ -1753,7 +1753,7 @@ impl OpCodeHandler_Jz {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Jb2 {
+pub(in crate::decoder) struct OpCodeHandler_Jb2 {
 	has_modrm: bool,
 	code16_16: Code,
 	code16_32: Code,
@@ -1766,7 +1766,7 @@ pub(super) struct OpCodeHandler_Jb2 {
 
 impl OpCodeHandler_Jb2 {
 	#[inline]
-	pub(super) fn new(
+	pub(in crate::decoder) fn new(
 		code16_16: Code, code16_32: Code, code16_64: Code, code32_16: Code, code32_32: Code, code64_32: Code, code64_64: Code,
 	) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Jb2::decode, Self { has_modrm: false, code16_16, code16_32, code16_64, code32_16, code32_32, code64_32, code64_64 })
@@ -1819,7 +1819,7 @@ impl OpCodeHandler_Jb2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Jdisp {
+pub(in crate::decoder) struct OpCodeHandler_Jdisp {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -1827,7 +1827,7 @@ pub(super) struct OpCodeHandler_Jdisp {
 
 impl OpCodeHandler_Jdisp {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Jdisp::decode, Self { has_modrm: false, code16, code32 })
 	}
 
@@ -1849,7 +1849,7 @@ impl OpCodeHandler_Jdisp {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PushOpSizeReg {
+pub(in crate::decoder) struct OpCodeHandler_PushOpSizeReg {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -1859,7 +1859,7 @@ pub(super) struct OpCodeHandler_PushOpSizeReg {
 
 impl OpCodeHandler_PushOpSizeReg {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_PushOpSizeReg::decode, Self { has_modrm: false, code16, code32, code64, reg })
 	}
 
@@ -1885,7 +1885,7 @@ impl OpCodeHandler_PushOpSizeReg {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PushEv {
+pub(in crate::decoder) struct OpCodeHandler_PushEv {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -1894,7 +1894,7 @@ pub(super) struct OpCodeHandler_PushEv {
 
 impl OpCodeHandler_PushEv {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_PushEv::decode, Self { has_modrm: true, code16, code32, code64 })
 	}
 
@@ -1938,7 +1938,7 @@ impl OpCodeHandler_PushEv {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_Gv {
+pub(in crate::decoder) struct OpCodeHandler_Ev_Gv {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -1946,7 +1946,7 @@ pub(super) struct OpCodeHandler_Ev_Gv {
 
 impl OpCodeHandler_Ev_Gv {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Ev_Gv::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -1971,7 +1971,7 @@ impl OpCodeHandler_Ev_Gv {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_Gv_flags {
+pub(in crate::decoder) struct OpCodeHandler_Ev_Gv_flags {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -1980,7 +1980,7 @@ pub(super) struct OpCodeHandler_Ev_Gv_flags {
 
 impl OpCodeHandler_Ev_Gv_flags {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!((flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0);
 
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
@@ -2017,7 +2017,7 @@ impl OpCodeHandler_Ev_Gv_flags {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_Gv_32_64 {
+pub(in crate::decoder) struct OpCodeHandler_Ev_Gv_32_64 {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -2025,7 +2025,7 @@ pub(super) struct OpCodeHandler_Ev_Gv_32_64 {
 
 impl OpCodeHandler_Ev_Gv_32_64 {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ev_Gv_32_64::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -2052,7 +2052,7 @@ impl OpCodeHandler_Ev_Gv_32_64 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_Gv_Ib {
+pub(in crate::decoder) struct OpCodeHandler_Ev_Gv_Ib {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -2060,7 +2060,7 @@ pub(super) struct OpCodeHandler_Ev_Gv_Ib {
 
 impl OpCodeHandler_Ev_Gv_Ib {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Ev_Gv_Ib::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -2087,7 +2087,7 @@ impl OpCodeHandler_Ev_Gv_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_Gv_CL {
+pub(in crate::decoder) struct OpCodeHandler_Ev_Gv_CL {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -2095,7 +2095,7 @@ pub(super) struct OpCodeHandler_Ev_Gv_CL {
 
 impl OpCodeHandler_Ev_Gv_CL {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Ev_Gv_CL::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -2121,7 +2121,7 @@ impl OpCodeHandler_Ev_Gv_CL {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Mp {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Mp {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -2130,7 +2130,7 @@ pub(super) struct OpCodeHandler_Gv_Mp {
 
 impl OpCodeHandler_Gv_Mp {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gv_Mp::decode, Self { has_modrm: true, code16, code32, code64 })
 	}
 
@@ -2158,7 +2158,7 @@ impl OpCodeHandler_Gv_Mp {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Eb {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Eb {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -2166,7 +2166,7 @@ pub(super) struct OpCodeHandler_Gv_Eb {
 
 impl OpCodeHandler_Gv_Eb {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_Eb::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -2195,7 +2195,7 @@ impl OpCodeHandler_Gv_Eb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Ew {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Ew {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -2203,7 +2203,7 @@ pub(super) struct OpCodeHandler_Gv_Ew {
 
 impl OpCodeHandler_Gv_Ew {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_Ew::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -2228,7 +2228,7 @@ impl OpCodeHandler_Gv_Ew {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PushSimple2 {
+pub(in crate::decoder) struct OpCodeHandler_PushSimple2 {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -2237,7 +2237,7 @@ pub(super) struct OpCodeHandler_PushSimple2 {
 
 impl OpCodeHandler_PushSimple2 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_PushSimple2::decode, Self { has_modrm: false, code16, code32, code64 })
 	}
 
@@ -2262,14 +2262,14 @@ impl OpCodeHandler_PushSimple2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Simple2 {
+pub(in crate::decoder) struct OpCodeHandler_Simple2 {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Simple2 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Simple2::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -2282,14 +2282,14 @@ impl OpCodeHandler_Simple2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Simple2Iw {
+pub(in crate::decoder) struct OpCodeHandler_Simple2Iw {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Simple2Iw {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Simple2Iw::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -2304,7 +2304,7 @@ impl OpCodeHandler_Simple2Iw {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Simple3 {
+pub(in crate::decoder) struct OpCodeHandler_Simple3 {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -2313,7 +2313,7 @@ pub(super) struct OpCodeHandler_Simple3 {
 
 impl OpCodeHandler_Simple3 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Simple3::decode, Self { has_modrm: false, code16, code32, code64 })
 	}
 
@@ -2338,14 +2338,14 @@ impl OpCodeHandler_Simple3 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Simple5 {
+pub(in crate::decoder) struct OpCodeHandler_Simple5 {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Simple5 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Simple5::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -2358,7 +2358,7 @@ impl OpCodeHandler_Simple5 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Simple5_ModRM_as {
+pub(in crate::decoder) struct OpCodeHandler_Simple5_ModRM_as {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -2366,7 +2366,7 @@ pub(super) struct OpCodeHandler_Simple5_ModRM_as {
 
 impl OpCodeHandler_Simple5_ModRM_as {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Simple5_ModRM_as::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -2385,7 +2385,7 @@ impl OpCodeHandler_Simple5_ModRM_as {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Simple4 {
+pub(in crate::decoder) struct OpCodeHandler_Simple4 {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -2393,7 +2393,7 @@ pub(super) struct OpCodeHandler_Simple4 {
 
 impl OpCodeHandler_Simple4 {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Simple4::decode, Self { has_modrm: false, code32, code64 })
 	}
 
@@ -2410,7 +2410,7 @@ impl OpCodeHandler_Simple4 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PushSimpleReg {
+pub(in crate::decoder) struct OpCodeHandler_PushSimpleReg {
 	has_modrm: bool,
 	index: u32,
 	code16: Code,
@@ -2420,7 +2420,7 @@ pub(super) struct OpCodeHandler_PushSimpleReg {
 
 impl OpCodeHandler_PushSimpleReg {
 	#[inline]
-	pub(super) fn new(index: u32, code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(index: u32, code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_PushSimpleReg::decode, Self { has_modrm: false, index, code16, code32, code64 })
 	}
 
@@ -2449,7 +2449,7 @@ impl OpCodeHandler_PushSimpleReg {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_SimpleReg {
+pub(in crate::decoder) struct OpCodeHandler_SimpleReg {
 	has_modrm: bool,
 	index: u32,
 	code: Code,
@@ -2457,7 +2457,7 @@ pub(super) struct OpCodeHandler_SimpleReg {
 
 impl OpCodeHandler_SimpleReg {
 	#[inline]
-	pub(super) fn new(code: Code, index: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, index: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		const_assert_eq!(OpSize::Size16 as u32, 0);
 		const_assert_eq!(OpSize::Size32 as u32, 1);
 		const_assert_eq!(OpSize::Size64 as u32, 2);
@@ -2535,14 +2535,14 @@ static XCHG_REG_RAX_CODES: [Code; 3 * 16] = [
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Xchg_Reg_rAX {
+pub(in crate::decoder) struct OpCodeHandler_Xchg_Reg_rAX {
 	has_modrm: bool,
 	index: u32,
 }
 
 impl OpCodeHandler_Xchg_Reg_rAX {
 	#[inline]
-	pub(super) fn new(index: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(index: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Xchg_Reg_rAX::decode, Self { has_modrm: false, index })
 	}
 
@@ -2574,14 +2574,14 @@ impl OpCodeHandler_Xchg_Reg_rAX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reg_Iz {
+pub(in crate::decoder) struct OpCodeHandler_Reg_Iz {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Reg_Iz {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Reg_Iz::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -2627,14 +2627,14 @@ static WITH_REX_PREFIX_MOV_REGISTERS: [Register; 16] = [
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_RegIb3 {
+pub(in crate::decoder) struct OpCodeHandler_RegIb3 {
 	has_modrm: bool,
 	index: u32,
 }
 
 impl OpCodeHandler_RegIb3 {
 	#[inline]
-	pub(super) fn new(index: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(index: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(index <= 7);
 		(OpCodeHandler_RegIb3::decode, Self { has_modrm: false, index })
 	}
@@ -2658,14 +2658,14 @@ impl OpCodeHandler_RegIb3 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_RegIz2 {
+pub(in crate::decoder) struct OpCodeHandler_RegIz2 {
 	has_modrm: bool,
 	index: u32,
 }
 
 impl OpCodeHandler_RegIz2 {
 	#[inline]
-	pub(super) fn new(index: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(index: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_RegIz2::decode, Self { has_modrm: false, index })
 	}
 
@@ -2695,7 +2695,7 @@ impl OpCodeHandler_RegIz2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PushIb2 {
+pub(in crate::decoder) struct OpCodeHandler_PushIb2 {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -2704,7 +2704,7 @@ pub(super) struct OpCodeHandler_PushIb2 {
 
 impl OpCodeHandler_PushIb2 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_PushIb2::decode, Self { has_modrm: false, code16, code32, code64 })
 	}
 
@@ -2734,7 +2734,7 @@ impl OpCodeHandler_PushIb2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_PushIz {
+pub(in crate::decoder) struct OpCodeHandler_PushIz {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -2743,7 +2743,7 @@ pub(super) struct OpCodeHandler_PushIz {
 
 impl OpCodeHandler_PushIz {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_PushIz::decode, Self { has_modrm: false, code16, code32, code64 })
 	}
 
@@ -2776,7 +2776,7 @@ impl OpCodeHandler_PushIz {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Ma {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Ma {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -2784,7 +2784,7 @@ pub(super) struct OpCodeHandler_Gv_Ma {
 
 impl OpCodeHandler_Gv_Ma {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gv_Ma::decode, Self { has_modrm: true, code16, code32 })
 	}
 
@@ -2806,7 +2806,7 @@ impl OpCodeHandler_Gv_Ma {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_RvMw_Gw {
+pub(in crate::decoder) struct OpCodeHandler_RvMw_Gw {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -2814,7 +2814,7 @@ pub(super) struct OpCodeHandler_RvMw_Gw {
 
 impl OpCodeHandler_RvMw_Gw {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_RvMw_Gw::decode, Self { has_modrm: true, code16, code32 })
 	}
 
@@ -2842,7 +2842,7 @@ impl OpCodeHandler_RvMw_Gw {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Ev_Ib {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Ev_Ib {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -2850,7 +2850,7 @@ pub(super) struct OpCodeHandler_Gv_Ev_Ib {
 
 impl OpCodeHandler_Gv_Ev_Ib {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_Ev_Ib::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -2883,7 +2883,7 @@ impl OpCodeHandler_Gv_Ev_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Ev_Ib_REX {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Ev_Ib_REX {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -2892,7 +2892,7 @@ pub(super) struct OpCodeHandler_Gv_Ev_Ib_REX {
 
 impl OpCodeHandler_Gv_Ev_Ib_REX {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gv_Ev_Ib_REX::decode, Self { has_modrm: true, base_reg, code32, code64 })
 	}
 
@@ -2915,7 +2915,7 @@ impl OpCodeHandler_Gv_Ev_Ib_REX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Ev_32_64 {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Ev_32_64 {
 	has_modrm: bool,
 	disallow_reg: u32,
 	disallow_mem: u32,
@@ -2925,7 +2925,7 @@ pub(super) struct OpCodeHandler_Gv_Ev_32_64 {
 
 impl OpCodeHandler_Gv_Ev_32_64 {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code, allow_reg: bool, allow_mem: bool) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code, allow_reg: bool, allow_mem: bool) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_Ev_32_64::decode,
 			Self {
@@ -2967,7 +2967,7 @@ impl OpCodeHandler_Gv_Ev_32_64 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Ev_Iz {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Ev_Iz {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -2975,7 +2975,7 @@ pub(super) struct OpCodeHandler_Gv_Ev_Iz {
 
 impl OpCodeHandler_Gv_Ev_Iz {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_Ev_Iz::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -3010,7 +3010,7 @@ impl OpCodeHandler_Gv_Ev_Iz {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Yb_Reg {
+pub(in crate::decoder) struct OpCodeHandler_Yb_Reg {
 	has_modrm: bool,
 	code: Code,
 	reg: Register,
@@ -3018,7 +3018,7 @@ pub(super) struct OpCodeHandler_Yb_Reg {
 
 impl OpCodeHandler_Yb_Reg {
 	#[inline]
-	pub(super) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Yb_Reg::decode, Self { has_modrm: false, code, reg })
 	}
 
@@ -3039,14 +3039,14 @@ impl OpCodeHandler_Yb_Reg {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Yv_Reg {
+pub(in crate::decoder) struct OpCodeHandler_Yv_Reg {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Yv_Reg {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Yv_Reg::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -3073,7 +3073,7 @@ impl OpCodeHandler_Yv_Reg {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Yv_Reg2 {
+pub(in crate::decoder) struct OpCodeHandler_Yv_Reg2 {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -3081,7 +3081,7 @@ pub(super) struct OpCodeHandler_Yv_Reg2 {
 
 impl OpCodeHandler_Yv_Reg2 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Yv_Reg2::decode, Self { has_modrm: false, code16, code32 })
 	}
 
@@ -3106,7 +3106,7 @@ impl OpCodeHandler_Yv_Reg2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reg_Xb {
+pub(in crate::decoder) struct OpCodeHandler_Reg_Xb {
 	has_modrm: bool,
 	code: Code,
 	reg: Register,
@@ -3114,7 +3114,7 @@ pub(super) struct OpCodeHandler_Reg_Xb {
 
 impl OpCodeHandler_Reg_Xb {
 	#[inline]
-	pub(super) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Reg_Xb::decode, Self { has_modrm: false, code, reg })
 	}
 
@@ -3135,14 +3135,14 @@ impl OpCodeHandler_Reg_Xb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reg_Xv {
+pub(in crate::decoder) struct OpCodeHandler_Reg_Xv {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Reg_Xv {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Reg_Xv::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -3169,7 +3169,7 @@ impl OpCodeHandler_Reg_Xv {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reg_Xv2 {
+pub(in crate::decoder) struct OpCodeHandler_Reg_Xv2 {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -3177,7 +3177,7 @@ pub(super) struct OpCodeHandler_Reg_Xv2 {
 
 impl OpCodeHandler_Reg_Xv2 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Reg_Xv2::decode, Self { has_modrm: false, code16, code32 })
 	}
 
@@ -3202,7 +3202,7 @@ impl OpCodeHandler_Reg_Xv2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reg_Yb {
+pub(in crate::decoder) struct OpCodeHandler_Reg_Yb {
 	has_modrm: bool,
 	code: Code,
 	reg: Register,
@@ -3210,7 +3210,7 @@ pub(super) struct OpCodeHandler_Reg_Yb {
 
 impl OpCodeHandler_Reg_Yb {
 	#[inline]
-	pub(super) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Reg_Yb::decode, Self { has_modrm: false, code, reg })
 	}
 
@@ -3231,14 +3231,14 @@ impl OpCodeHandler_Reg_Yb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reg_Yv {
+pub(in crate::decoder) struct OpCodeHandler_Reg_Yv {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Reg_Yv {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Reg_Yv::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -3265,14 +3265,14 @@ impl OpCodeHandler_Reg_Yv {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Yb_Xb {
+pub(in crate::decoder) struct OpCodeHandler_Yb_Xb {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Yb_Xb {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Yb_Xb::decode, Self { has_modrm: false, code })
 	}
 
@@ -3295,14 +3295,14 @@ impl OpCodeHandler_Yb_Xb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Yv_Xv {
+pub(in crate::decoder) struct OpCodeHandler_Yv_Xv {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Yv_Xv {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Yv_Xv::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -3325,14 +3325,14 @@ impl OpCodeHandler_Yv_Xv {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Xb_Yb {
+pub(in crate::decoder) struct OpCodeHandler_Xb_Yb {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Xb_Yb {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Xb_Yb::decode, Self { has_modrm: false, code })
 	}
 
@@ -3355,14 +3355,14 @@ impl OpCodeHandler_Xb_Yb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Xv_Yv {
+pub(in crate::decoder) struct OpCodeHandler_Xv_Yv {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Xv_Yv {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Xv_Yv::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -3385,7 +3385,7 @@ impl OpCodeHandler_Xv_Yv {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_Sw {
+pub(in crate::decoder) struct OpCodeHandler_Ev_Sw {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -3393,7 +3393,7 @@ pub(super) struct OpCodeHandler_Ev_Sw {
 
 impl OpCodeHandler_Ev_Sw {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Ev_Sw::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -3419,14 +3419,14 @@ impl OpCodeHandler_Ev_Sw {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_M_Sw {
+pub(in crate::decoder) struct OpCodeHandler_M_Sw {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_M_Sw {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_M_Sw::decode, Self { has_modrm: true, code })
 	}
 
@@ -3447,7 +3447,7 @@ impl OpCodeHandler_M_Sw {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_M {
+pub(in crate::decoder) struct OpCodeHandler_Gv_M {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -3455,7 +3455,7 @@ pub(super) struct OpCodeHandler_Gv_M {
 
 impl OpCodeHandler_Gv_M {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_M::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -3480,7 +3480,7 @@ impl OpCodeHandler_Gv_M {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Sw_Ev {
+pub(in crate::decoder) struct OpCodeHandler_Sw_Ev {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -3488,7 +3488,7 @@ pub(super) struct OpCodeHandler_Sw_Ev {
 
 impl OpCodeHandler_Sw_Ev {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Sw_Ev::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -3517,14 +3517,14 @@ impl OpCodeHandler_Sw_Ev {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Sw_M {
+pub(in crate::decoder) struct OpCodeHandler_Sw_M {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Sw_M {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Sw_M::decode, Self { has_modrm: true, code })
 	}
 
@@ -3545,7 +3545,7 @@ impl OpCodeHandler_Sw_M {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ap {
+pub(in crate::decoder) struct OpCodeHandler_Ap {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -3553,7 +3553,7 @@ pub(super) struct OpCodeHandler_Ap {
 
 impl OpCodeHandler_Ap {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ap::decode, Self { has_modrm: false, code16, code32 })
 	}
 
@@ -3577,7 +3577,7 @@ impl OpCodeHandler_Ap {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reg_Ob {
+pub(in crate::decoder) struct OpCodeHandler_Reg_Ob {
 	has_modrm: bool,
 	code: Code,
 	reg: Register,
@@ -3585,7 +3585,7 @@ pub(super) struct OpCodeHandler_Reg_Ob {
 
 impl OpCodeHandler_Reg_Ob {
 	#[inline]
-	pub(super) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Reg_Ob::decode, Self { has_modrm: false, code, reg })
 	}
 
@@ -3615,7 +3615,7 @@ impl OpCodeHandler_Reg_Ob {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ob_Reg {
+pub(in crate::decoder) struct OpCodeHandler_Ob_Reg {
 	has_modrm: bool,
 	code: Code,
 	reg: Register,
@@ -3623,7 +3623,7 @@ pub(super) struct OpCodeHandler_Ob_Reg {
 
 impl OpCodeHandler_Ob_Reg {
 	#[inline]
-	pub(super) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, reg: Register) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ob_Reg::decode, Self { has_modrm: false, code, reg })
 	}
 
@@ -3653,14 +3653,14 @@ impl OpCodeHandler_Ob_Reg {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reg_Ov {
+pub(in crate::decoder) struct OpCodeHandler_Reg_Ov {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Reg_Ov {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Reg_Ov::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -3696,14 +3696,14 @@ impl OpCodeHandler_Reg_Ov {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ov_Reg {
+pub(in crate::decoder) struct OpCodeHandler_Ov_Reg {
 	has_modrm: bool,
 	code: [Code; 3],
 }
 
 impl OpCodeHandler_Ov_Reg {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ov_Reg::decode, Self { has_modrm: false, code: [code16, code32, code64] })
 	}
 
@@ -3739,7 +3739,7 @@ impl OpCodeHandler_Ov_Reg {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_BranchIw {
+pub(in crate::decoder) struct OpCodeHandler_BranchIw {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -3748,7 +3748,7 @@ pub(super) struct OpCodeHandler_BranchIw {
 
 impl OpCodeHandler_BranchIw {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_BranchIw::decode, Self { has_modrm: false, code16, code32, code64 })
 	}
 
@@ -3775,7 +3775,7 @@ impl OpCodeHandler_BranchIw {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_BranchSimple {
+pub(in crate::decoder) struct OpCodeHandler_BranchSimple {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -3784,7 +3784,7 @@ pub(super) struct OpCodeHandler_BranchSimple {
 
 impl OpCodeHandler_BranchSimple {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_BranchSimple::decode, Self { has_modrm: false, code16, code32, code64 })
 	}
 
@@ -3809,7 +3809,7 @@ impl OpCodeHandler_BranchSimple {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Iw_Ib {
+pub(in crate::decoder) struct OpCodeHandler_Iw_Ib {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -3818,7 +3818,7 @@ pub(super) struct OpCodeHandler_Iw_Ib {
 
 impl OpCodeHandler_Iw_Ib {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Iw_Ib::decode, Self { has_modrm: false, code16, code32, code64 })
 	}
 
@@ -3847,7 +3847,7 @@ impl OpCodeHandler_Iw_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Reg_Ib2 {
+pub(in crate::decoder) struct OpCodeHandler_Reg_Ib2 {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -3855,7 +3855,7 @@ pub(super) struct OpCodeHandler_Reg_Ib2 {
 
 impl OpCodeHandler_Reg_Ib2 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Reg_Ib2::decode, Self { has_modrm: false, code16, code32 })
 	}
 
@@ -3876,7 +3876,7 @@ impl OpCodeHandler_Reg_Ib2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_IbReg2 {
+pub(in crate::decoder) struct OpCodeHandler_IbReg2 {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -3884,7 +3884,7 @@ pub(super) struct OpCodeHandler_IbReg2 {
 
 impl OpCodeHandler_IbReg2 {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_IbReg2::decode, Self { has_modrm: false, code16, code32 })
 	}
 
@@ -3905,7 +3905,7 @@ impl OpCodeHandler_IbReg2 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_eAX_DX {
+pub(in crate::decoder) struct OpCodeHandler_eAX_DX {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -3913,7 +3913,7 @@ pub(super) struct OpCodeHandler_eAX_DX {
 
 impl OpCodeHandler_eAX_DX {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_eAX_DX::decode, Self { has_modrm: false, code16, code32 })
 	}
 
@@ -3933,7 +3933,7 @@ impl OpCodeHandler_eAX_DX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_DX_eAX {
+pub(in crate::decoder) struct OpCodeHandler_DX_eAX {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -3941,7 +3941,7 @@ pub(super) struct OpCodeHandler_DX_eAX {
 
 impl OpCodeHandler_DX_eAX {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_DX_eAX::decode, Self { has_modrm: false, code16, code32 })
 	}
 
@@ -3961,7 +3961,7 @@ impl OpCodeHandler_DX_eAX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Eb_Ib {
+pub(in crate::decoder) struct OpCodeHandler_Eb_Ib {
 	has_modrm: bool,
 	code: Code,
 	state_flags_or_value: u32,
@@ -3969,7 +3969,7 @@ pub(super) struct OpCodeHandler_Eb_Ib {
 
 impl OpCodeHandler_Eb_Ib {
 	#[inline]
-	pub(super) fn new(code: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
@@ -3999,14 +3999,14 @@ impl OpCodeHandler_Eb_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Eb_1 {
+pub(in crate::decoder) struct OpCodeHandler_Eb_1 {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Eb_1 {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Eb_1::decode, Self { has_modrm: true, code })
 	}
 
@@ -4032,14 +4032,14 @@ impl OpCodeHandler_Eb_1 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Eb_CL {
+pub(in crate::decoder) struct OpCodeHandler_Eb_CL {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Eb_CL {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Eb_CL::decode, Self { has_modrm: true, code })
 	}
 
@@ -4063,7 +4063,7 @@ impl OpCodeHandler_Eb_CL {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Eb {
+pub(in crate::decoder) struct OpCodeHandler_Eb {
 	has_modrm: bool,
 	code: Code,
 	state_flags_or_value: u32,
@@ -4071,7 +4071,7 @@ pub(super) struct OpCodeHandler_Eb {
 
 impl OpCodeHandler_Eb {
 	#[inline]
-	pub(super) fn new(code: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
@@ -4099,7 +4099,7 @@ impl OpCodeHandler_Eb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Eb_Gb {
+pub(in crate::decoder) struct OpCodeHandler_Eb_Gb {
 	has_modrm: bool,
 	code: Code,
 	state_flags_or_value: u32,
@@ -4107,7 +4107,7 @@ pub(super) struct OpCodeHandler_Eb_Gb {
 
 impl OpCodeHandler_Eb_Gb {
 	#[inline]
-	pub(super) fn new(code: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
 		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
@@ -4140,14 +4140,14 @@ impl OpCodeHandler_Eb_Gb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gb_Eb {
+pub(in crate::decoder) struct OpCodeHandler_Gb_Eb {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Gb_Eb {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gb_Eb::decode, Self { has_modrm: true, code })
 	}
 
@@ -4176,7 +4176,7 @@ impl OpCodeHandler_Gb_Eb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_M {
+pub(in crate::decoder) struct OpCodeHandler_M {
 	has_modrm: bool,
 	code_w0: Code,
 	code_w1: Code,
@@ -4184,12 +4184,12 @@ pub(super) struct OpCodeHandler_M {
 
 impl OpCodeHandler_M {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_M::decode, Self { has_modrm: true, code_w0: code, code_w1: code })
 	}
 
 	#[inline]
-	pub(super) fn new1(code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new1(code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_M::decode, Self { has_modrm: true, code_w0, code_w1 })
 	}
 
@@ -4212,7 +4212,7 @@ impl OpCodeHandler_M {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_M_REXW {
+pub(in crate::decoder) struct OpCodeHandler_M_REXW {
 	has_modrm: bool,
 	flags32: u32,
 	flags64: u32,
@@ -4223,7 +4223,7 @@ pub(super) struct OpCodeHandler_M_REXW {
 
 impl OpCodeHandler_M_REXW {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code, flags32: u32, flags64: u32) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code, flags32: u32, flags64: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert_eq!(flags32 & HandlerFlags::LOCK, flags64 & HandlerFlags::LOCK);
 
 		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
@@ -4257,14 +4257,14 @@ impl OpCodeHandler_M_REXW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MemBx {
+pub(in crate::decoder) struct OpCodeHandler_MemBx {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MemBx {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_MemBx::decode, Self { has_modrm: false, code })
 	}
 
@@ -4285,7 +4285,7 @@ impl OpCodeHandler_MemBx {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_VW {
+pub(in crate::decoder) struct OpCodeHandler_VW {
 	has_modrm: bool,
 	code_r: Code,
 	code_m: Code,
@@ -4294,12 +4294,12 @@ pub(super) struct OpCodeHandler_VW {
 
 impl OpCodeHandler_VW {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_VW::decode, Self { has_modrm: true, base_reg, code_r: code, code_m: code })
 	}
 
 	#[inline]
-	pub(super) fn new1(base_reg: Register, code_r: Code, code_m: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new1(base_reg: Register, code_r: Code, code_m: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_VW::decode, Self { has_modrm: true, base_reg, code_r, code_m })
 	}
 
@@ -4323,7 +4323,7 @@ impl OpCodeHandler_VW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_WV {
+pub(in crate::decoder) struct OpCodeHandler_WV {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -4331,7 +4331,7 @@ pub(super) struct OpCodeHandler_WV {
 
 impl OpCodeHandler_WV {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_WV::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -4351,7 +4351,7 @@ impl OpCodeHandler_WV {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_rDI_VX_RX {
+pub(in crate::decoder) struct OpCodeHandler_rDI_VX_RX {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -4359,7 +4359,7 @@ pub(super) struct OpCodeHandler_rDI_VX_RX {
 
 impl OpCodeHandler_rDI_VX_RX {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_rDI_VX_RX::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -4385,14 +4385,14 @@ impl OpCodeHandler_rDI_VX_RX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_rDI_P_N {
+pub(in crate::decoder) struct OpCodeHandler_rDI_P_N {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_rDI_P_N {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_rDI_P_N::decode, Self { has_modrm: true, code })
 	}
 
@@ -4418,7 +4418,7 @@ impl OpCodeHandler_rDI_P_N {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_VM {
+pub(in crate::decoder) struct OpCodeHandler_VM {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -4426,7 +4426,7 @@ pub(super) struct OpCodeHandler_VM {
 
 impl OpCodeHandler_VM {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_VM::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -4446,7 +4446,7 @@ impl OpCodeHandler_VM {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MV {
+pub(in crate::decoder) struct OpCodeHandler_MV {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -4454,7 +4454,7 @@ pub(super) struct OpCodeHandler_MV {
 
 impl OpCodeHandler_MV {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_MV::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -4474,7 +4474,7 @@ impl OpCodeHandler_MV {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_VQ {
+pub(in crate::decoder) struct OpCodeHandler_VQ {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -4482,7 +4482,7 @@ pub(super) struct OpCodeHandler_VQ {
 
 impl OpCodeHandler_VQ {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_VQ::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -4502,14 +4502,14 @@ impl OpCodeHandler_VQ {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_P_Q {
+pub(in crate::decoder) struct OpCodeHandler_P_Q {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_P_Q {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_P_Q::decode, Self { has_modrm: true, code })
 	}
 
@@ -4529,14 +4529,14 @@ impl OpCodeHandler_P_Q {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Q_P {
+pub(in crate::decoder) struct OpCodeHandler_Q_P {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_Q_P {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Q_P::decode, Self { has_modrm: true, code })
 	}
 
@@ -4556,14 +4556,14 @@ impl OpCodeHandler_Q_P {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MP {
+pub(in crate::decoder) struct OpCodeHandler_MP {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MP {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_MP::decode, Self { has_modrm: true, code })
 	}
 
@@ -4583,14 +4583,14 @@ impl OpCodeHandler_MP {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_P_Q_Ib {
+pub(in crate::decoder) struct OpCodeHandler_P_Q_Ib {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_P_Q_Ib {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_P_Q_Ib::decode, Self { has_modrm: true, code })
 	}
 
@@ -4612,7 +4612,7 @@ impl OpCodeHandler_P_Q_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_P_W {
+pub(in crate::decoder) struct OpCodeHandler_P_W {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -4620,7 +4620,7 @@ pub(super) struct OpCodeHandler_P_W {
 
 impl OpCodeHandler_P_W {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_P_W::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -4640,7 +4640,7 @@ impl OpCodeHandler_P_W {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_P_R {
+pub(in crate::decoder) struct OpCodeHandler_P_R {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -4648,7 +4648,7 @@ pub(super) struct OpCodeHandler_P_R {
 
 impl OpCodeHandler_P_R {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_P_R::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -4667,7 +4667,7 @@ impl OpCodeHandler_P_R {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_P_Ev {
+pub(in crate::decoder) struct OpCodeHandler_P_Ev {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -4675,7 +4675,7 @@ pub(super) struct OpCodeHandler_P_Ev {
 
 impl OpCodeHandler_P_Ev {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_P_Ev::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -4702,7 +4702,7 @@ impl OpCodeHandler_P_Ev {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_P_Ev_Ib {
+pub(in crate::decoder) struct OpCodeHandler_P_Ev_Ib {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -4710,7 +4710,7 @@ pub(super) struct OpCodeHandler_P_Ev_Ib {
 
 impl OpCodeHandler_P_Ev_Ib {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_P_Ev_Ib::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -4739,7 +4739,7 @@ impl OpCodeHandler_P_Ev_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_P {
+pub(in crate::decoder) struct OpCodeHandler_Ev_P {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -4747,7 +4747,7 @@ pub(super) struct OpCodeHandler_Ev_P {
 
 impl OpCodeHandler_Ev_P {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ev_P::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -4774,7 +4774,7 @@ impl OpCodeHandler_Ev_P {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_W {
+pub(in crate::decoder) struct OpCodeHandler_Gv_W {
 	has_modrm: bool,
 	code_w0: Code,
 	code_w1: Code,
@@ -4783,7 +4783,7 @@ pub(super) struct OpCodeHandler_Gv_W {
 
 impl OpCodeHandler_Gv_W {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gv_W::decode, Self { has_modrm: true, base_reg, code_w0, code_w1 })
 	}
 
@@ -4808,7 +4808,7 @@ impl OpCodeHandler_Gv_W {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_V_Ev {
+pub(in crate::decoder) struct OpCodeHandler_V_Ev {
 	has_modrm: bool,
 	code_w0: Code,
 	code_w1: Code,
@@ -4817,7 +4817,7 @@ pub(super) struct OpCodeHandler_V_Ev {
 
 impl OpCodeHandler_V_Ev {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_V_Ev::decode, Self { has_modrm: true, base_reg, code_w0, code_w1 })
 	}
 
@@ -4844,7 +4844,7 @@ impl OpCodeHandler_V_Ev {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_VWIb {
+pub(in crate::decoder) struct OpCodeHandler_VWIb {
 	has_modrm: bool,
 	code_w0: Code,
 	code_w1: Code,
@@ -4853,12 +4853,12 @@ pub(super) struct OpCodeHandler_VWIb {
 
 impl OpCodeHandler_VWIb {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_VWIb::decode, Self { has_modrm: true, base_reg, code_w0: code, code_w1: code })
 	}
 
 	#[inline]
-	pub(super) fn new1(base_reg: Register, code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new1(base_reg: Register, code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_VWIb::decode, Self { has_modrm: true, base_reg, code_w0, code_w1 })
 	}
 
@@ -4884,7 +4884,7 @@ impl OpCodeHandler_VWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_VRIbIb {
+pub(in crate::decoder) struct OpCodeHandler_VRIbIb {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -4892,7 +4892,7 @@ pub(super) struct OpCodeHandler_VRIbIb {
 
 impl OpCodeHandler_VRIbIb {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_VRIbIb::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -4916,7 +4916,7 @@ impl OpCodeHandler_VRIbIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_RIbIb {
+pub(in crate::decoder) struct OpCodeHandler_RIbIb {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -4924,7 +4924,7 @@ pub(super) struct OpCodeHandler_RIbIb {
 
 impl OpCodeHandler_RIbIb {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_RIbIb::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -4947,7 +4947,7 @@ impl OpCodeHandler_RIbIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_RIb {
+pub(in crate::decoder) struct OpCodeHandler_RIb {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -4955,7 +4955,7 @@ pub(super) struct OpCodeHandler_RIb {
 
 impl OpCodeHandler_RIb {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_RIb::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -4975,7 +4975,7 @@ impl OpCodeHandler_RIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ed_V_Ib {
+pub(in crate::decoder) struct OpCodeHandler_Ed_V_Ib {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -4984,7 +4984,7 @@ pub(super) struct OpCodeHandler_Ed_V_Ib {
 
 impl OpCodeHandler_Ed_V_Ib {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ed_V_Ib::decode, Self { has_modrm: true, base_reg, code32, code64 })
 	}
 
@@ -5013,7 +5013,7 @@ impl OpCodeHandler_Ed_V_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_VX_Ev {
+pub(in crate::decoder) struct OpCodeHandler_VX_Ev {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5021,7 +5021,7 @@ pub(super) struct OpCodeHandler_VX_Ev {
 
 impl OpCodeHandler_VX_Ev {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_VX_Ev::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -5048,7 +5048,7 @@ impl OpCodeHandler_VX_Ev {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_VX {
+pub(in crate::decoder) struct OpCodeHandler_Ev_VX {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5056,7 +5056,7 @@ pub(super) struct OpCodeHandler_Ev_VX {
 
 impl OpCodeHandler_Ev_VX {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ev_VX::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -5083,7 +5083,7 @@ impl OpCodeHandler_Ev_VX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_VX_E_Ib {
+pub(in crate::decoder) struct OpCodeHandler_VX_E_Ib {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5092,7 +5092,7 @@ pub(super) struct OpCodeHandler_VX_E_Ib {
 
 impl OpCodeHandler_VX_E_Ib {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_VX_E_Ib::decode, Self { has_modrm: true, base_reg, code32, code64 })
 	}
 
@@ -5121,7 +5121,7 @@ impl OpCodeHandler_VX_E_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_RX {
+pub(in crate::decoder) struct OpCodeHandler_Gv_RX {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5130,7 +5130,7 @@ pub(super) struct OpCodeHandler_Gv_RX {
 
 impl OpCodeHandler_Gv_RX {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gv_RX::decode, Self { has_modrm: true, base_reg, code32, code64 })
 	}
 
@@ -5157,14 +5157,14 @@ impl OpCodeHandler_Gv_RX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_B_MIB {
+pub(in crate::decoder) struct OpCodeHandler_B_MIB {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_B_MIB {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_B_MIB::decode, Self { has_modrm: true, code })
 	}
 
@@ -5188,14 +5188,14 @@ impl OpCodeHandler_B_MIB {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MIB_B {
+pub(in crate::decoder) struct OpCodeHandler_MIB_B {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_MIB_B {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_MIB_B::decode, Self { has_modrm: true, code })
 	}
 
@@ -5219,7 +5219,7 @@ impl OpCodeHandler_MIB_B {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_B_BM {
+pub(in crate::decoder) struct OpCodeHandler_B_BM {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5227,7 +5227,7 @@ pub(super) struct OpCodeHandler_B_BM {
 
 impl OpCodeHandler_B_BM {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_B_BM::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -5257,7 +5257,7 @@ impl OpCodeHandler_B_BM {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_BM_B {
+pub(in crate::decoder) struct OpCodeHandler_BM_B {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5265,7 +5265,7 @@ pub(super) struct OpCodeHandler_BM_B {
 
 impl OpCodeHandler_BM_B {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_BM_B::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -5295,7 +5295,7 @@ impl OpCodeHandler_BM_B {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_B_Ev {
+pub(in crate::decoder) struct OpCodeHandler_B_Ev {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5304,7 +5304,7 @@ pub(super) struct OpCodeHandler_B_Ev {
 
 impl OpCodeHandler_B_Ev {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code, supports_rip_rel: bool) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code, supports_rip_rel: bool) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_B_Ev::decode, Self { has_modrm: true, code32, code64, rip_rel_mask: if supports_rip_rel { 0 } else { u32::MAX } })
 	}
 
@@ -5338,7 +5338,7 @@ impl OpCodeHandler_B_Ev {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Mv_Gv_REXW {
+pub(in crate::decoder) struct OpCodeHandler_Mv_Gv_REXW {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5346,7 +5346,7 @@ pub(super) struct OpCodeHandler_Mv_Gv_REXW {
 
 impl OpCodeHandler_Mv_Gv_REXW {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Mv_Gv_REXW::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -5371,7 +5371,7 @@ impl OpCodeHandler_Mv_Gv_REXW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_N_Ib_REX {
+pub(in crate::decoder) struct OpCodeHandler_Gv_N_Ib_REX {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5379,7 +5379,7 @@ pub(super) struct OpCodeHandler_Gv_N_Ib_REX {
 
 impl OpCodeHandler_Gv_N_Ib_REX {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gv_N_Ib_REX::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -5408,7 +5408,7 @@ impl OpCodeHandler_Gv_N_Ib_REX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_N {
+pub(in crate::decoder) struct OpCodeHandler_Gv_N {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5416,7 +5416,7 @@ pub(super) struct OpCodeHandler_Gv_N {
 
 impl OpCodeHandler_Gv_N {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gv_N::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -5443,7 +5443,7 @@ impl OpCodeHandler_Gv_N {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_VN {
+pub(in crate::decoder) struct OpCodeHandler_VN {
 	has_modrm: bool,
 	code: Code,
 	base_reg: Register,
@@ -5451,7 +5451,7 @@ pub(super) struct OpCodeHandler_VN {
 
 impl OpCodeHandler_VN {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_VN::decode, Self { has_modrm: true, base_reg, code })
 	}
 
@@ -5470,7 +5470,7 @@ impl OpCodeHandler_VN {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Mv {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Mv {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -5478,7 +5478,7 @@ pub(super) struct OpCodeHandler_Gv_Mv {
 
 impl OpCodeHandler_Gv_Mv {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Gv_Mv::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -5503,7 +5503,7 @@ impl OpCodeHandler_Gv_Mv {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Mv_Gv {
+pub(in crate::decoder) struct OpCodeHandler_Mv_Gv {
 	has_modrm: bool,
 	reg_base: [u32; 3],
 	code: [Code; 3],
@@ -5511,7 +5511,7 @@ pub(super) struct OpCodeHandler_Mv_Gv {
 
 impl OpCodeHandler_Mv_Gv {
 	#[inline]
-	pub(super) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(
 			OpCodeHandler_Mv_Gv::decode,
 			Self { has_modrm: true, reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32], code: [code16, code32, code64] },
@@ -5536,7 +5536,7 @@ impl OpCodeHandler_Mv_Gv {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Eb_REX {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Eb_REX {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5544,7 +5544,7 @@ pub(super) struct OpCodeHandler_Gv_Eb_REX {
 
 impl OpCodeHandler_Gv_Eb_REX {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gv_Eb_REX::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -5573,7 +5573,7 @@ impl OpCodeHandler_Gv_Eb_REX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gv_Ev_REX {
+pub(in crate::decoder) struct OpCodeHandler_Gv_Ev_REX {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5581,7 +5581,7 @@ pub(super) struct OpCodeHandler_Gv_Ev_REX {
 
 impl OpCodeHandler_Gv_Ev_REX {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Gv_Ev_REX::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -5610,7 +5610,7 @@ impl OpCodeHandler_Gv_Ev_REX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Ev_Gv_REX {
+pub(in crate::decoder) struct OpCodeHandler_Ev_Gv_REX {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5618,7 +5618,7 @@ pub(super) struct OpCodeHandler_Ev_Gv_REX {
 
 impl OpCodeHandler_Ev_Gv_REX {
 	#[inline]
-	pub(super) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Ev_Gv_REX::decode, Self { has_modrm: true, code32, code64 })
 	}
 
@@ -5640,7 +5640,7 @@ impl OpCodeHandler_Ev_Gv_REX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_GvM_VX_Ib {
+pub(in crate::decoder) struct OpCodeHandler_GvM_VX_Ib {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
@@ -5649,7 +5649,7 @@ pub(super) struct OpCodeHandler_GvM_VX_Ib {
 
 impl OpCodeHandler_GvM_VX_Ib {
 	#[inline]
-	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_GvM_VX_Ib::decode, Self { has_modrm: true, base_reg, code32, code64 })
 	}
 
@@ -5678,13 +5678,13 @@ impl OpCodeHandler_GvM_VX_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Wbinvd {
+pub(in crate::decoder) struct OpCodeHandler_Wbinvd {
 	has_modrm: bool,
 }
 
 impl OpCodeHandler_Wbinvd {
 	#[inline]
-	pub(super) fn new() -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new() -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Wbinvd::decode, Self { has_modrm: false })
 	}
 

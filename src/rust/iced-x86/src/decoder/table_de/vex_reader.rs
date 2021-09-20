@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::decoder::handlers::OpCodeHandler;
-use crate::decoder::handlers::*;
-use crate::decoder::handlers_vex::*;
+use crate::decoder::handlers::vex::*;
+use crate::decoder::handlers::{
+	get_invalid_handler, get_invalid_no_modrm_handler, get_null_handler, OpCodeHandler, OpCodeHandlerDecodeFn, OpCodeHandler_Bitness,
+	OpCodeHandler_Bitness_DontReadModRM, OpCodeHandler_Group, OpCodeHandler_Group8x64, OpCodeHandler_MandatoryPrefix2,
+	OpCodeHandler_Options_DontReadModRM, OpCodeHandler_RM, OpCodeHandler_W,
+};
 use crate::decoder::table_de::enums::*;
 use crate::decoder::table_de::{box_opcode_handler, TableDeserializer};
 use alloc::vec::Vec;

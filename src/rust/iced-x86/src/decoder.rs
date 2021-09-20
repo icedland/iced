@@ -3,22 +3,12 @@
 
 mod enums;
 mod handlers;
-mod handlers_3dnow;
-#[cfg(not(feature = "no_evex"))]
-mod handlers_evex;
-mod handlers_fpu;
-mod handlers_legacy;
-#[cfg(feature = "mvex")]
-mod handlers_mvex;
-mod handlers_tables;
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
-mod handlers_vex;
 mod table_de;
 #[cfg(test)]
 pub(crate) mod tests;
 
+use crate::decoder::handlers::tables::TABLES;
 use crate::decoder::handlers::{OpCodeHandler, OpCodeHandlerDecodeFn};
-use crate::decoder::handlers_tables::TABLES;
 use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
 use crate::instruction_internal;

@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::decoder::handlers::OpCodeHandler;
-use crate::decoder::handlers::*;
-use crate::decoder::handlers_3dnow::*;
-use crate::decoder::handlers_fpu::*;
-use crate::decoder::handlers_legacy::*;
+use crate::decoder::handlers::d3now::*;
+use crate::decoder::handlers::fpu::*;
+use crate::decoder::handlers::legacy::*;
+use crate::decoder::handlers::{
+	get_invalid_handler, get_invalid_no_modrm_handler, get_null_handler, OpCodeHandler, OpCodeHandlerDecodeFn, OpCodeHandler_AnotherTable,
+	OpCodeHandler_Bitness, OpCodeHandler_Bitness_DontReadModRM, OpCodeHandler_Group, OpCodeHandler_Group8x64, OpCodeHandler_Group8x8,
+	OpCodeHandler_Options, OpCodeHandler_Options1632, OpCodeHandler_Options_DontReadModRM, OpCodeHandler_RM, OpCodeHandler_Simple,
+};
 use crate::decoder::table_de::enums::*;
 use crate::decoder::table_de::{box_opcode_handler, TableDeserializer};
 use crate::decoder::Code;
@@ -94,9 +97,9 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			deserializer.read_decoder_options(),
 		)),
 
-		LegacyOpCodeHandlerKind::AnotherTable => {
-			box_opcode_handler(OpCodeHandler_AnotherTable::new(deserializer.read_array_reference_no_clone(LegacyOpCodeHandlerKind::ArrayReference as u32)))
-		}
+		LegacyOpCodeHandlerKind::AnotherTable => box_opcode_handler(OpCodeHandler_AnotherTable::new(
+			deserializer.read_array_reference_no_clone(LegacyOpCodeHandlerKind::ArrayReference as u32),
+		)),
 
 		LegacyOpCodeHandlerKind::Group => {
 			box_opcode_handler(OpCodeHandler_Group::new(deserializer.read_array_reference(LegacyOpCodeHandlerKind::ArrayReference as u32)))
@@ -645,7 +648,9 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		LegacyOpCodeHandlerKind::rDI_P_N => box_opcode_handler(OpCodeHandler_rDI_P_N::new(deserializer.read_code())),
-		LegacyOpCodeHandlerKind::rDI_VX_RX => box_opcode_handler(OpCodeHandler_rDI_VX_RX::new(deserializer.read_register(), deserializer.read_code())),
+		LegacyOpCodeHandlerKind::rDI_VX_RX => {
+			box_opcode_handler(OpCodeHandler_rDI_VX_RX::new(deserializer.read_register(), deserializer.read_code()))
+		}
 		LegacyOpCodeHandlerKind::Reg => box_opcode_handler(OpCodeHandler_Reg::new(deserializer.read_code(), deserializer.read_register())),
 
 		LegacyOpCodeHandlerKind::Reg_Ib2 => {

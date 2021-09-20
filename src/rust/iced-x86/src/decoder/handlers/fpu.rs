@@ -30,14 +30,14 @@ macro_rules! write_op1_reg {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_ST_STi {
+pub(in crate::decoder) struct OpCodeHandler_ST_STi {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_ST_STi {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_ST_STi::decode, Self { has_modrm: true, code })
 	}
 
@@ -52,14 +52,14 @@ impl OpCodeHandler_ST_STi {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_STi_ST {
+pub(in crate::decoder) struct OpCodeHandler_STi_ST {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_STi_ST {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_STi_ST::decode, Self { has_modrm: true, code })
 	}
 
@@ -74,14 +74,14 @@ impl OpCodeHandler_STi_ST {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_STi {
+pub(in crate::decoder) struct OpCodeHandler_STi {
 	has_modrm: bool,
 	code: Code,
 }
 
 impl OpCodeHandler_STi {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_STi::decode, Self { has_modrm: true, code })
 	}
 
@@ -95,7 +95,7 @@ impl OpCodeHandler_STi {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Mf {
+pub(in crate::decoder) struct OpCodeHandler_Mf {
 	has_modrm: bool,
 	code16: Code,
 	code32: Code,
@@ -103,12 +103,12 @@ pub(super) struct OpCodeHandler_Mf {
 
 impl OpCodeHandler_Mf {
 	#[inline]
-	pub(super) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Mf::decode, Self { has_modrm: true, code16: code, code32: code })
 	}
 
 	#[inline]
-	pub(super) fn new1(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
+	pub(in crate::decoder) fn new1(code16: Code, code32: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		(OpCodeHandler_Mf::decode, Self { has_modrm: true, code16, code32 })
 	}
 
