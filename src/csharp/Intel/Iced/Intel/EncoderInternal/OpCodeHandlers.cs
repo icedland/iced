@@ -63,7 +63,7 @@ namespace Iced.Intel.EncoderInternal {
 
 				case EncodingKind.MVEX:
 #if MVEX
-					handler = invalidHandler;//TODO:
+					handler = new MvexHandler((EncFlags1)encFlags1[i], (EncFlags2)encFlags2[i], encFlags3);
 #else
 					handler = invalidHandler;
 #endif

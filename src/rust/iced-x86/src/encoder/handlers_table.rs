@@ -50,7 +50,7 @@ lazy_static! {
 				#[cfg(feature = "no_d3now")]
 				EncodingKind::D3NOW => invalid_handler,
 				#[cfg(feature = "mvex")]
-				EncodingKind::MVEX => invalid_handler, //TODO:
+				EncodingKind::MVEX => Box::into_raw(Box::new(MvexHandler::new(enc_flags1, enc_flags2, enc_flags3))) as *const OpCodeHandler,
 				#[cfg(not(feature = "mvex"))]
 				EncodingKind::MVEX => invalid_handler,
 			};

@@ -221,6 +221,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(0U, encoder.VEX_LIG);
 			Assert.Equal(0U, encoder.EVEX_WIG);
 			Assert.Equal(0U, encoder.EVEX_LIG);
+#if MVEX
+			Assert.Equal(0U, encoder.MVEX_WIG);
+#endif
 		}
 
 		[Theory]
@@ -301,6 +304,18 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			encoder.EVEX_LIG = 0xFFFFFFFF;
 			Assert.Equal(3U, encoder.EVEX_LIG);
 			Assert.Equal(1U, encoder.EVEX_WIG);
+
+#if MVEX
+			encoder.MVEX_WIG = 0;
+			Assert.Equal(0U, encoder.MVEX_WIG);
+			encoder.MVEX_WIG = 1;
+			Assert.Equal(1U, encoder.MVEX_WIG);
+
+			encoder.MVEX_WIG = 0xFFFFFFFE;
+			Assert.Equal(0U, encoder.MVEX_WIG);
+			encoder.MVEX_WIG = 0xFFFFFFFF;
+			Assert.Equal(1U, encoder.MVEX_WIG);
+#endif
 		}
 
 #if !NO_VEX

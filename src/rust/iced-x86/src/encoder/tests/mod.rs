@@ -460,6 +460,8 @@ fn verify_encoder_options() {
 		assert_eq!(encoder.vex_lig(), 0);
 		assert_eq!(encoder.evex_wig(), 0);
 		assert_eq!(encoder.evex_lig(), 0);
+		#[cfg(feature = "mvex")]
+		assert_eq!(encoder.mvex_wig(), 0);
 	}
 }
 
@@ -539,6 +541,19 @@ fn get_set_wig_lig_options() {
 		encoder.set_evex_lig(0xFFFF_FFFF);
 		assert_eq!(encoder.evex_lig(), 3);
 		assert_eq!(encoder.evex_wig(), 1);
+
+		#[cfg(feature = "mvex")]
+		{
+			encoder.set_mvex_wig(0);
+			assert_eq!(encoder.mvex_wig(), 0);
+			encoder.set_mvex_wig(1);
+			assert_eq!(encoder.mvex_wig(), 1);
+
+			encoder.set_mvex_wig(0xFFFF_FFFE);
+			assert_eq!(encoder.mvex_wig(), 0);
+			encoder.set_mvex_wig(0xFFFF_FFFF);
+			assert_eq!(encoder.mvex_wig(), 1);
+		}
 	}
 }
 

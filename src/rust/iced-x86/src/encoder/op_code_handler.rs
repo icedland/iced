@@ -5,7 +5,9 @@ use crate::encoder::enums::*;
 use crate::encoder::ops::*;
 use crate::encoder::ops_tables::*;
 use crate::encoder::*;
-#[cfg(not(feature = "no_evex"))]
+#[cfg(feature = "mvex")]
+use crate::mvex::get_mvex_info;
+#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 use crate::tuple_type_tbl::get_disp8n;
 use crate::*;
 use alloc::boxed::Box;
@@ -20,7 +22,8 @@ use core::mem;
 #[repr(C)]
 pub(crate) struct OpCodeHandler {
 	pub(super) encode: fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction),
-	pub(super) try_convert_to_disp8n: Option<fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, displ: i32) -> Option<i8>>,
+	pub(super) try_convert_to_disp8n:
+		Option<fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction, displ: i32) -> Option<i8>>,
 	pub(crate) operands: Box<[&'static (dyn Op + Sync)]>,
 	pub(super) op_code: u32,
 	pub(super) group_index: i32,
@@ -557,7 +560,7 @@ impl EvexHandler {
 		}
 	}
 
-	fn try_convert_to_disp8n(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, displ: i32) -> Option<i8> {
+	fn try_convert_to_disp8n(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, _instruction: &Instruction, displ: i32) -> Option<i8> {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let n = get_disp8n(this.tuple_type, (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0) as i32;
 		let res = displ / n;
@@ -639,6 +642,202 @@ impl EvexHandler {
 		}
 		b ^= 8;
 		b |= this.mask_ll & encoder.internal_evex_lig;
+		encoder.write_byte_internal(b);
+	}
+}
+
+#[cfg(feature = "mvex")]
+#[repr(C)]
+pub(super) struct MvexHandler {
+	base: OpCodeHandler,
+	table: u32,
+	p1_bits: u32,
+	mask_w: u32,
+	wbit: WBit,
+}
+
+#[cfg(feature = "mvex")]
+impl MvexHandler {
+	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
+		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		let rm_group_index =
+			if (enc_flags3 & EncFlags3::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
+		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
+		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
+		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
+		let mut p1_bits = (enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK;
+		// SAFETY: generated data is valid
+		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
+		if wbit == WBit::W1 {
+			p1_bits |= 0x80
+		}
+		let mask_w = if wbit == WBit::WIG { 0x80 } else { 0 };
+
+		let op0 = ((enc_flags1 >> EncFlags1::MVEX_OP0_SHIFT) & EncFlags1::MVEX_OP_MASK) as usize;
+		let op1 = ((enc_flags1 >> EncFlags1::MVEX_OP1_SHIFT) & EncFlags1::MVEX_OP_MASK) as usize;
+		let op2 = ((enc_flags1 >> EncFlags1::MVEX_OP2_SHIFT) & EncFlags1::MVEX_OP_MASK) as usize;
+		let op3 = ((enc_flags1 >> EncFlags1::MVEX_OP3_SHIFT) & EncFlags1::MVEX_OP_MASK) as usize;
+		let operands = if op3 != 0 {
+			vec![MVEX_TABLE[op0], MVEX_TABLE[op1], MVEX_TABLE[op2], MVEX_TABLE[op3]]
+		} else if op2 != 0 {
+			debug_assert_eq!(op3, 0);
+			vec![MVEX_TABLE[op0], MVEX_TABLE[op1], MVEX_TABLE[op2]]
+		} else if op1 != 0 {
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
+			vec![MVEX_TABLE[op0], MVEX_TABLE[op1]]
+		} else if op0 != 0 {
+			debug_assert_eq!(op1, 0);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
+			vec![MVEX_TABLE[op0]]
+		} else {
+			debug_assert_eq!(op0, 0);
+			debug_assert_eq!(op1, 0);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
+			Vec::new()
+		};
+
+		Self {
+			base: OpCodeHandler {
+				encode: Self::encode,
+				try_convert_to_disp8n: Some(Self::try_convert_to_disp8n),
+				operands: operands.into_boxed_slice(),
+				op_code: get_op_code(enc_flags2),
+				group_index,
+				rm_group_index,
+				enc_flags3,
+				op_size: CodeSize::Unknown,
+				addr_size: CodeSize::Unknown,
+				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
+				is_declare_data: false,
+			},
+			table: (enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK,
+			p1_bits,
+			mask_w,
+			wbit,
+		}
+	}
+
+	fn try_convert_to_disp8n(_self_ptr: *const OpCodeHandler, _encoder: &mut Encoder, instruction: &Instruction, displ: i32) -> Option<i8> {
+		let mvex = get_mvex_info(instruction.code());
+		let conv = instruction.mvex_reg_mem_conv();
+		let sss = (conv as usize).wrapping_sub(MvexRegMemConv::MemConvNone as usize) & 7;
+		let tuple_type = crate::mvex::mvex_tt_lut::MVEX_TUPLE_TYPE_LUT[(mvex.tuple_type_lut_kind as usize) * 8 + sss];
+
+		let n = get_disp8n(tuple_type, false) as i32;
+		let res = displ / n;
+		if res.wrapping_mul(n) == displ && i8::MIN as i32 <= res && res <= i8::MAX as i32 {
+			Some(res as i8)
+		} else {
+			None
+		}
+	}
+
+	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		encoder.write_prefixes(instruction, true);
+		let encoder_flags = encoder.encoder_flags;
+
+		encoder.write_byte_internal(0x62);
+
+		const_assert_eq!(MvexOpCodeTable::MAP0F as u32, 1);
+		const_assert_eq!(MvexOpCodeTable::MAP0F38 as u32, 2);
+		const_assert_eq!(MvexOpCodeTable::MAP0F3A as u32, 3);
+		let mut b = this.table;
+		const_assert_eq!(EncoderFlags::B, 1);
+		const_assert_eq!(EncoderFlags::X, 2);
+		const_assert_eq!(EncoderFlags::R, 4);
+		b |= (encoder_flags & 7) << 5;
+		const_assert_eq!(EncoderFlags::R2, 0x0000_0200);
+		b |= (encoder_flags >> (9 - 4)) & 0x10;
+		b ^= !0xF;
+		encoder.write_byte_internal(b);
+
+		b = this.p1_bits;
+		b |= (!encoder_flags >> (EncoderFlags::VVVVV_SHIFT - 3)) & 0x78;
+		b |= this.mask_w & encoder.internal_mvex_wig;
+		encoder.write_byte_internal(b);
+
+		b = crate::instruction_internal::internal_op_mask(instruction);
+		if b != 0 {
+			if (this.base.enc_flags3 & EncFlags3::OP_MASK_REGISTER) == 0 {
+				encoder.set_error_message_str("The instruction doesn't support opmask registers");
+			}
+		} else {
+			if (this.base.enc_flags3 & EncFlags3::REQUIRE_OP_MASK_REGISTER) != 0 {
+				encoder.set_error_message_str("The instruction must use an opmask register");
+			}
+		}
+		b |= (encoder_flags >> (EncoderFlags::VVVVV_SHIFT + 4 - 3)) & 8;
+		let mvex = get_mvex_info(instruction.code());
+		let conv = instruction.mvex_reg_mem_conv();
+		// Memory ops can only be op0-op2, never op3 (imm8)
+		if instruction.op0_kind() == OpKind::Memory || instruction.op1_kind() == OpKind::Memory || instruction.op2_kind() == OpKind::Memory {
+			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 1, MvexRegMemConv::MemConvBroadcast1 as u32);
+			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 2, MvexRegMemConv::MemConvBroadcast4 as u32);
+			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 3, MvexRegMemConv::MemConvFloat16 as u32);
+			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 4, MvexRegMemConv::MemConvUint8 as u32);
+			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 5, MvexRegMemConv::MemConvSint8 as u32);
+			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 6, MvexRegMemConv::MemConvUint16 as u32);
+			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 7, MvexRegMemConv::MemConvSint16 as u32);
+			if conv >= MvexRegMemConv::MemConvNone && conv <= MvexRegMemConv::MemConvSint16 {
+				b |= (conv as u32 - MvexRegMemConv::MemConvNone as u32) << 4;
+			} else if conv == MvexRegMemConv::None {
+				// Nothing, treat it as MvexRegMemConv::MemConvNone
+			} else {
+				encoder.set_error_message_str("Memory operands must use a valid MvexRegMemConv variant, eg. MvexRegMemConv::MemConvNone");
+			}
+			if instruction.is_mvex_eviction_hint() {
+				if mvex.can_use_eviction_hint() {
+					b |= 0x80;
+				} else {
+					encoder.set_error_message_str("This instruction doesn't support eviction hint (`{eh}`)");
+				}
+			}
+		} else {
+			if instruction.is_mvex_eviction_hint() {
+				encoder.set_error_message_str("Only memory operands can enable eviction hint (`{eh}`)");
+			}
+			if conv == MvexRegMemConv::None {
+				b |= 0x80;
+				if instruction.suppress_all_exceptions() {
+					b |= 0x40;
+					if (this.base.enc_flags3 & EncFlags3::SUPPRESS_ALL_EXCEPTIONS) == 0 {
+						encoder.set_error_message_str("The instruction doesn't support suppress-all-exceptions");
+					}
+				}
+				let rc = instruction.rounding_control();
+				if rc == RoundingControl::None {
+					// Nothing
+				} else {
+					if (this.base.enc_flags3 & EncFlags3::ROUNDING_CONTROL) == 0 {
+						encoder.set_error_message_str("The instruction doesn't support rounding control");
+					} else {
+						const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+						const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+						const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+						const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+						b |= (rc as u32 - RoundingControl::RoundToNearest as u32) << 4;
+					}
+				}
+			} else if conv >= MvexRegMemConv::RegSwizzleNone && conv <= MvexRegMemConv::RegSwizzleDddd {
+				if instruction.suppress_all_exceptions() {
+					encoder.set_error_message_str("Can't use {sae} with register swizzles");
+				} else if instruction.rounding_control() != RoundingControl::None {
+					encoder.set_error_message_str("Can't use rounding control with register swizzles");
+				}
+				b |= ((conv as u32).wrapping_sub(MvexRegMemConv::RegSwizzleNone as u32) & 7) << 4;
+			} else {
+				encoder.set_error_message_str("Register operands can't use memory up/down conversions");
+			}
+		}
+		if mvex.eh_bit == MvexEHBit::EH1 {
+			b |= 0x80;
+		}
+		b ^= 8;
 		encoder.write_byte_internal(b);
 	}
 }

@@ -59,7 +59,7 @@ test("Instruction props", () => {
 	if ((getIcedFeatures() & 0x10) != 0) {
 		const { MvexRegMemConv } = require("iced-x86");
 		expect(instr.isMvexEvictionHint).toBe(false);
-		expect(instr.mvexRegMemconv).toBe(MvexRegMemConv.None);
+		expect(instr.mvexRegMemConv).toBe(MvexRegMemConv.None);
 	}
 	expect(instr.memoryIndexScale).toBe(1);
 	expect(instr.memoryDisplacement).toBe(0x16);

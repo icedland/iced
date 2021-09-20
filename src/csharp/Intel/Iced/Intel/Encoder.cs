@@ -87,6 +87,17 @@ namespace Iced.Intel {
 		}
 		internal uint Internal_EVEX_LIG;
 
+#if MVEX
+		/// <summary>
+		/// Value of the <c>MVEX.W</c> bit to use if it's an instruction that ignores the bit. Default is 0.
+		/// </summary>
+		public uint MVEX_WIG {
+			get => Internal_MVEX_WIG >> 7;
+			set => Internal_MVEX_WIG = (value & 1) << 7;
+		}
+		internal uint Internal_MVEX_WIG;
+#endif
+
 		internal const string ERROR_ONLY_1632_BIT_MODE = "The instruction can only be used in 16/32-bit mode";
 		internal const string ERROR_ONLY_64_BIT_MODE = "The instruction can only be used in 64-bit mode";
 
@@ -710,10 +721,10 @@ namespace Iced.Intel {
 			return 0;
 		}
 
-		bool TryConvertToDisp8N(int displ, out sbyte compressedValue) {
+		bool TryConvertToDisp8N(in Instruction instruction, int displ, out sbyte compressedValue) {
 			var tryConvertToDisp8N = handler.TryConvertToDisp8N;
 			if (tryConvertToDisp8N is not null)
-				return tryConvertToDisp8N(this, handler, displ, out compressedValue);
+				return tryConvertToDisp8N(this, handler, instruction, displ, out compressedValue);
 			if (sbyte.MinValue <= displ && displ <= sbyte.MaxValue) {
 				compressedValue = (sbyte)displ;
 				return true;
@@ -776,7 +787,7 @@ namespace Iced.Intel {
 					}
 				}
 				if (displSize == 1) {
-					if (TryConvertToDisp8N((short)Displ, out sbyte compressedValue))
+					if (TryConvertToDisp8N(instruction, (short)Displ, out sbyte compressedValue))
 						Displ = (uint)compressedValue;
 					else
 						displSize = 2;
@@ -927,7 +938,7 @@ namespace Iced.Intel {
 			}
 
 			if (displSize == 1) {
-				if (TryConvertToDisp8N((int)Displ, out sbyte compressedValue))
+				if (TryConvertToDisp8N(instruction, (int)Displ, out sbyte compressedValue))
 					Displ = (uint)compressedValue;
 				else
 					displSize = addrSize / 8;

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-const { Decoder, DecoderOptions, Encoder } = require("iced-x86");
+const { Decoder, DecoderOptions, Encoder, getIcedFeatures } = require("iced-x86");
 
 test("Creating an Encoder with an invalid bitness throws", () => {
 	expect(() => new Encoder(63)).toThrow();
@@ -34,6 +34,13 @@ test("Encoder options", () => {
 	expect(encoder.EVEX_LIG).toBe(2);
 	encoder.EVEX_LIG = 3;
 	expect(encoder.EVEX_LIG).toBe(3);
+
+	// Check if MVEX support
+	if ((getIcedFeatures() & 0x10) != 0) {
+		expect(encoder.MVEX_WIG).toBe(0);
+		encoder.MVEX_WIG = 1;
+		expect(encoder.MVEX_WIG).toBe(1);
+	}
 
 	encoder.free();
 });
