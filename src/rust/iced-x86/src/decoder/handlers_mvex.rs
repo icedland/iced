@@ -64,10 +64,7 @@ macro_rules! write_mem_conv {
 		const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 7, MvexRegMemConv::MemConvSint16 as u32);
 		const_assert_eq!(StateFlags::MVEX_SSS_MASK, 7);
 		debug_assert!($sss <= 7);
-		// SAFETY: 0<=sss<=7 and all 8 enum variants exist, see const_assert_eq!() above
-		instruction_internal::internal_set_mvex_reg_mem_conv($instruction, unsafe {
-			mem::transmute((MvexRegMemConv::MemConvNone as u32 + $sss) as MvexRegMemConvUnderlyingType)
-		});
+		instruction_internal::internal_set_mvex_reg_mem_conv($instruction, MvexRegMemConv::MemConvNone as u32 + $sss);
 	};
 }
 
@@ -103,10 +100,7 @@ macro_rules! write_reg_conv_and_er_sae {
 			const_assert_eq!(MvexRegMemConv::RegSwizzleNone as u32 + 7, MvexRegMemConv::RegSwizzleDddd as u32);
 			const_assert_eq!(StateFlags::MVEX_SSS_MASK, 7);
 			debug_assert!($sss <= 7);
-			// SAFETY: 0<=$sss<=7 and all 8 enum variants exist, see const_assert_eq!() above
-			instruction_internal::internal_set_mvex_reg_mem_conv($instruction, unsafe {
-				mem::transmute((MvexRegMemConv::RegSwizzleNone as u32 + $sss) as MvexRegMemConvUnderlyingType)
-			});
+			instruction_internal::internal_set_mvex_reg_mem_conv($instruction, MvexRegMemConv::RegSwizzleNone as u32 + $sss);
 		}
 	};
 }

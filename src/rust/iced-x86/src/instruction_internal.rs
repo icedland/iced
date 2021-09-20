@@ -196,8 +196,9 @@ pub(crate) fn internal_set_declare_data_len(this: &mut Instruction, new_value: u
 
 #[cfg(all(feature = "decoder", feature = "mvex"))]
 #[inline]
-pub(crate) fn internal_set_mvex_reg_mem_conv(this: &mut Instruction, new_value: MvexRegMemConv) {
-	this.immediate |= (new_value as u32) << MvexInstrFlags::MVEX_REG_MEM_CONV_SHIFT;
+pub(crate) fn internal_set_mvex_reg_mem_conv(this: &mut Instruction, new_value: u32) {
+	debug_assert!(new_value < IcedConstants::MVEX_REG_MEM_CONV_ENUM_COUNT as u32);
+	this.immediate |= new_value << MvexInstrFlags::MVEX_REG_MEM_CONV_SHIFT;
 }
 
 // GENERATOR-BEGIN: RegToAddrSize
