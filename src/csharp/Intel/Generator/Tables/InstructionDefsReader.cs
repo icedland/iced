@@ -1179,8 +1179,6 @@ namespace Generator.Tables {
 						state.Mvex = new(toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)], state.OpCode.MvexEHBit, MvexConvFn.None, 0, 0);
 						if ((parsedInstr.Flags & ParsedInstructionFlags.OpMask) != 0)
 							state.Mvex.Flags1 |= MvexInfoFlags1.OpMaskRegister;
-						if ((state.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0)
-							state.Mvex.Flags1 |= MvexInfoFlags1.RequireOpMaskRegister;
 						bool seenN = false;
 						EnumValue? ttLutKind = null;
 						foreach (var (key, value) in GetKeyValues(opsParts[1].Trim())) {
@@ -1350,6 +1348,9 @@ namespace Generator.Tables {
 				Error(lineIndex, $"Missing `{DefEnd}`");
 				return false;
 			}
+
+			if ((state.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0)
+				state.Mvex.Flags1 |= MvexInfoFlags1.RequireOpMaskRegister;
 
 			if ((state.Flags3 & (InstructionDefFlags3.ImpliedZeroingMasking | InstructionDefFlags3.OpMaskIsElementSelector)) != 0) {
 				if (state.OpAccess.Length == 0 || state.OpAccess[0] != OpInfo.Write) {
