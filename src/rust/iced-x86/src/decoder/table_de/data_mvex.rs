@@ -1015,9 +1015,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x00,// Invalid
 		0x07,// W
 			0x0F,// VHW
-				0x8A, 0x25,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
+				0x88, 0x25,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 			0x0F,// VHW
-				0x8B, 0x25,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
+				0x89, 0x25,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 		0x00,// Invalid
 		0x00,// Invalid
 
@@ -1029,9 +1029,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x00,// Invalid
 		0x07,// W
 			0x0F,// VHW
-				0x8C, 0x25,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
+				0x8A, 0x25,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 			0x0F,// VHW
-				0x8D, 0x25,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+				0x8B, 0x25,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
 		0x00,// Invalid
 		0x00,// Invalid
 
@@ -1043,9 +1043,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x00,// Invalid
 		0x07,// W
 			0x0F,// VHW
-				0x88, 0x25,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+				0x8C, 0x25,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
 			0x0F,// VHW
-				0x89, 0x25,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
+				0x8D, 0x25,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 		0x00,// Invalid
 		0x00,// Invalid
 

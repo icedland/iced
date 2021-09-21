@@ -4758,12 +4758,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000376,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 				0x00000376,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 				0x00000376,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-				0x00000376,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-				0x00000376,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 				0x00000376,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 				0x00000376,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 				0x00000376,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 				0x00000376,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+				0x00000376,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+				0x00000376,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 				0x00000026,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 				0x00000026,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 				0x00000376,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt
@@ -9580,12 +9580,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x461400A4,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 				0x461400A8,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 				0x465400A8,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-				0x461400AE,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-				0x465400AE,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 				0x461400AA,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 				0x465400AA,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 				0x461400AC,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 				0x465400AC,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+				0x461400AE,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+				0x465400AE,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 				0x461400B0,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 				0x461400B2,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 				0x461400B4,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt
@@ -14402,12 +14402,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x38020005,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 				0x38020005,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 				0x38020005,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-				0x38020005,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-				0x38020005,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 				0x38020005,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 				0x38020005,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 				0x38020005,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 				0x38020005,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+				0x38020005,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+				0x38020005,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 				0xB8020005,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 				0xB8020005,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 				0x20020005,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt

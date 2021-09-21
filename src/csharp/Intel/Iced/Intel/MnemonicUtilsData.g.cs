@@ -4752,12 +4752,12 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vfmadd233ps,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 			(ushort)Mnemonic.Vfmadd213ps,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 			(ushort)Mnemonic.Vfmadd213pd,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-			(ushort)Mnemonic.Vfnmsub213ps,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-			(ushort)Mnemonic.Vfnmsub213pd,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 			(ushort)Mnemonic.Vfmsub213ps,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 			(ushort)Mnemonic.Vfmsub213pd,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 			(ushort)Mnemonic.Vfnmadd213ps,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 			(ushort)Mnemonic.Vfnmadd213pd,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+			(ushort)Mnemonic.Vfnmsub213ps,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+			(ushort)Mnemonic.Vfnmsub213pd,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 			(ushort)Mnemonic.Undoc,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 			(ushort)Mnemonic.Undoc,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 			(ushort)Mnemonic.Vpmadd233d,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt

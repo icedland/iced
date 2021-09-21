@@ -4749,12 +4749,12 @@ pub(super) static OPC_FLAGS1: [u32; 4818] = [
 	0x0220_0000,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 	0x0220_0000,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 	0x0220_0000,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-	0x0220_0000,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-	0x0220_0000,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	0x0220_0000,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 	0x0220_0000,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 	0x0220_0000,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 	0x0220_0000,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+	0x0220_0000,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+	0x0220_0000,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	0x0221_0000,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 	0x0221_0000,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 	0x0220_0000,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt
@@ -9570,12 +9570,12 @@ pub(super) static OPC_FLAGS2: [u32; 4818] = [
 	0x1400_3FF0,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 	0x1400_3FF0,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 	0x1400_3FF0,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-	0x1400_3FF0,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-	0x1400_3FF0,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	0x1400_3FF0,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 	0x1400_3FF0,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 	0x1400_3FF0,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 	0x1400_3FF0,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+	0x1400_3FF0,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+	0x1400_3FF0,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	0x1400_3FF0,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 	0x1400_3FF0,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 	0x1400_3FF0,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt

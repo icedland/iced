@@ -19798,16 +19798,6 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xB3, 0x08,// 1075 = "vfmadd213pd"
 	0x00,// 0x0
 
-	// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-	0x17,// sae
-	0xC0, 0x08,// 1088 = "vfnmsub213ps"
-	0x00,// 0x0
-
-	// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
-	0x17,// sae
-	0xC1, 0x08,// 1089 = "vfnmsub213pd"
-	0x00,// 0x0
-
 	// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 	0x17,// sae
 	0xB6, 0x08,// 1078 = "vfmsub213ps"
@@ -19826,6 +19816,16 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
 	0x17,// sae
 	0xBD, 0x08,// 1085 = "vfnmadd213pd"
+	0x00,// 0x0
+
+	// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+	0x17,// sae
+	0xC0, 0x08,// 1088 = "vfnmsub213ps"
+	0x00,// 0x0
+
+	// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
+	0x17,// sae
+	0xC1, 0x08,// 1089 = "vfnmsub213pd"
 	0x00,// 0x0
 
 	// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0

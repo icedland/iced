@@ -4749,12 +4749,12 @@ pub(crate) static TABLE: [(u32, u32); 4818] = [
 	(0x0000_00B8, 0xB500_0005),// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 	(0x0000_00B9, 0xB500_0005),// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 	(0x0000_00B9, 0xB500_0005),// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-	(0x0000_00B9, 0xB500_0005),// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-	(0x0000_00B9, 0xB500_0005),// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	(0x0000_00B9, 0xB500_0005),// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 	(0x0000_00B9, 0xB500_0005),// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 	(0x0000_00B9, 0xB500_0005),// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 	(0x0000_00B9, 0xB500_0005),// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+	(0x0000_00B9, 0xB500_0005),// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+	(0x0000_00B9, 0xB500_0005),// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	(0x0000_0000, 0xB502_0005),// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 	(0x0000_0000, 0xB502_0005),// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 	(0x0000_00B8, 0xB500_0005),// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt

@@ -141,12 +141,12 @@ pub(super) static MVEX_INFO: [MvexInfo; 207] = [
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0xFA, 0xFE, 0x76, 0x00),// Code::MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x76, 0x00),// Code::MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x76, 0x00),// Code::MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x76, 0x00),// Code::MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x76, 0x00),// Code::MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x76, 0x00),// Code::MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x76, 0x00),// Code::MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x76, 0x00),// Code::MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x76, 0x00),// Code::MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x76, 0x00),// Code::MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x76, 0x00),// Code::MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0xFF, 0x74, 0x00),// Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0xFF, 0x74, 0x00),// Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0xFA, 0xFE, 0x46, 0x00),// Code::MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt

@@ -37930,22 +37930,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt = 4743,
-		/// <summary><c>VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
-		/// <br/>
-		/// <c>MVEX.NDS.512.66.0F38.W0 AE /r</c><br/>
-		/// <br/>
-		/// <c>KNC</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt = 4744,
-		/// <summary><c>VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
-		/// <br/>
-		/// <c>MVEX.NDS.512.66.0F38.W1 AE /r</c><br/>
-		/// <br/>
-		/// <c>KNC</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt = 4745,
 		/// <summary><c>VFMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
 		/// <br/>
 		/// <c>MVEX.NDS.512.66.0F38.W0 AA /r</c><br/>
@@ -37953,7 +37937,7 @@ namespace Iced.Intel {
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt = 4746,
+		MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt = 4744,
 		/// <summary><c>VFMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
 		/// <br/>
 		/// <c>MVEX.NDS.512.66.0F38.W1 AA /r</c><br/>
@@ -37961,7 +37945,7 @@ namespace Iced.Intel {
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt = 4747,
+		MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt = 4745,
 		/// <summary><c>VFNMADD213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
 		/// <br/>
 		/// <c>MVEX.NDS.512.66.0F38.W0 AC /r</c><br/>
@@ -37969,7 +37953,7 @@ namespace Iced.Intel {
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt = 4748,
+		MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt = 4746,
 		/// <summary><c>VFNMADD213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
 		/// <br/>
 		/// <c>MVEX.NDS.512.66.0F38.W1 AC /r</c><br/>
@@ -37977,7 +37961,23 @@ namespace Iced.Intel {
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt = 4749,
+		MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt = 4747,
+		/// <summary><c>VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W0 AE /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt = 4748,
+		/// <summary><c>VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)</c><br/>
+		/// <br/>
+		/// <c>MVEX.NDS.512.66.0F38.W1 AE /r</c><br/>
+		/// <br/>
+		/// <c>KNC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt = 4749,
 		/// <summary><c>UNDOC zmm1 {k1}, mvt</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.66.0F38.W0 B0 /vsib</c><br/>

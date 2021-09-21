@@ -47427,27 +47427,7 @@ MVEX_VFMADD213PD_ZMM_K1_ZMM_ZMMMT: Code = 4743 # type: ignore
 
 ``64-bit``
 """
-MVEX_VFNMSUB213PS_ZMM_K1_ZMM_ZMMMT: Code = 4744 # type: ignore
-"""
-``VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
-
-``MVEX.NDS.512.66.0F38.W0 AE /r``
-
-``KNC``
-
-``64-bit``
-"""
-MVEX_VFNMSUB213PD_ZMM_K1_ZMM_ZMMMT: Code = 4745 # type: ignore
-"""
-``VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
-
-``MVEX.NDS.512.66.0F38.W1 AE /r``
-
-``KNC``
-
-``64-bit``
-"""
-MVEX_VFMSUB213PS_ZMM_K1_ZMM_ZMMMT: Code = 4746 # type: ignore
+MVEX_VFMSUB213PS_ZMM_K1_ZMM_ZMMMT: Code = 4744 # type: ignore
 """
 ``VFMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
 
@@ -47457,7 +47437,7 @@ MVEX_VFMSUB213PS_ZMM_K1_ZMM_ZMMMT: Code = 4746 # type: ignore
 
 ``64-bit``
 """
-MVEX_VFMSUB213PD_ZMM_K1_ZMM_ZMMMT: Code = 4747 # type: ignore
+MVEX_VFMSUB213PD_ZMM_K1_ZMM_ZMMMT: Code = 4745 # type: ignore
 """
 ``VFMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
 
@@ -47467,7 +47447,7 @@ MVEX_VFMSUB213PD_ZMM_K1_ZMM_ZMMMT: Code = 4747 # type: ignore
 
 ``64-bit``
 """
-MVEX_VFNMADD213PS_ZMM_K1_ZMM_ZMMMT: Code = 4748 # type: ignore
+MVEX_VFNMADD213PS_ZMM_K1_ZMM_ZMMMT: Code = 4746 # type: ignore
 """
 ``VFNMADD213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
 
@@ -47477,11 +47457,31 @@ MVEX_VFNMADD213PS_ZMM_K1_ZMM_ZMMMT: Code = 4748 # type: ignore
 
 ``64-bit``
 """
-MVEX_VFNMADD213PD_ZMM_K1_ZMM_ZMMMT: Code = 4749 # type: ignore
+MVEX_VFNMADD213PD_ZMM_K1_ZMM_ZMMMT: Code = 4747 # type: ignore
 """
 ``VFNMADD213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
 
 ``MVEX.NDS.512.66.0F38.W1 AC /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMSUB213PS_ZMM_K1_ZMM_ZMMMT: Code = 4748 # type: ignore
+"""
+``VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 AE /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMSUB213PD_ZMM_K1_ZMM_ZMMMT: Code = 4749 # type: ignore
+"""
+``VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 AE /r``
 
 ``KNC``
 

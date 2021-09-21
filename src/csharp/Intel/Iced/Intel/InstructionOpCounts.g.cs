@@ -4756,12 +4756,12 @@ namespace Iced.Intel {
 			3,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 			3,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 			3,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-			3,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-			3,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 			3,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 			3,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 			3,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 			3,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+			3,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+			3,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 			2,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 			2,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 			3,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt

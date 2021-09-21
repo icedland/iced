@@ -4749,12 +4749,12 @@ pub(super) static ENC_FLAGS1: [u32; 4818] = [
 	0x0000_0376,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 	0x0000_0376,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 	0x0000_0376,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-	0x0000_0376,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-	0x0000_0376,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	0x0000_0376,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 	0x0000_0376,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 	0x0000_0376,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 	0x0000_0376,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+	0x0000_0376,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+	0x0000_0376,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	0x0000_0026,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 	0x0000_0026,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 	0x0000_0376,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt
@@ -9570,12 +9570,12 @@ pub(super) static ENC_FLAGS2: [u32; 4818] = [
 	0x4614_00A4,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 	0x4614_00A8,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 	0x4654_00A8,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-	0x4614_00AE,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-	0x4654_00AE,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	0x4614_00AA,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 	0x4654_00AA,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 	0x4614_00AC,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 	0x4654_00AC,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+	0x4614_00AE,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+	0x4654_00AE,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	0x4614_00B0,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 	0x4614_00B2,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 	0x4614_00B4,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt
@@ -14391,12 +14391,12 @@ pub(super) static ENC_FLAGS3: [u32; 4818] = [
 	0x3802_0005,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 	0x3802_0005,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 	0x3802_0005,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-	0x3802_0005,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-	0x3802_0005,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	0x3802_0005,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 	0x3802_0005,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 	0x3802_0005,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 	0x3802_0005,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+	0x3802_0005,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+	0x3802_0005,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	0xB802_0005,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 	0xB802_0005,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 	0x2002_0005,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt

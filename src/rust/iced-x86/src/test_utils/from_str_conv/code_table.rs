@@ -4754,12 +4754,12 @@ lazy_static! {
 		let _ = h.insert("MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt", Code::MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt);
 		let _ = h.insert("MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt", Code::MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt);
 		let _ = h.insert("MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt", Code::MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt);
-		let _ = h.insert("MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt", Code::MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt);
-		let _ = h.insert("MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt", Code::MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt);
 		let _ = h.insert("MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt", Code::MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt);
 		let _ = h.insert("MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt", Code::MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt);
 		let _ = h.insert("MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt", Code::MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt);
 		let _ = h.insert("MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt", Code::MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt);
+		let _ = h.insert("MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt", Code::MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt);
+		let _ = h.insert("MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt", Code::MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt);
 		let _ = h.insert("MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0", Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0);
 		let _ = h.insert("MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2", Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2);
 		let _ = h.insert("MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt", Code::MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt);

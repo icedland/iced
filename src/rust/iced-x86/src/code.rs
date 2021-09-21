@@ -37942,22 +37942,6 @@ pub enum Code {
 	///
 	/// `64-bit`
 	MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt = 4743,
-	/// `VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
-	///
-	/// `MVEX.NDS.512.66.0F38.W0 AE /r`
-	///
-	/// `KNC`
-	///
-	/// `64-bit`
-	MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt = 4744,
-	/// `VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
-	///
-	/// `MVEX.NDS.512.66.0F38.W1 AE /r`
-	///
-	/// `KNC`
-	///
-	/// `64-bit`
-	MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt = 4745,
 	/// `VFMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
 	///
 	/// `MVEX.NDS.512.66.0F38.W0 AA /r`
@@ -37965,7 +37949,7 @@ pub enum Code {
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt = 4746,
+	MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt = 4744,
 	/// `VFMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
 	///
 	/// `MVEX.NDS.512.66.0F38.W1 AA /r`
@@ -37973,7 +37957,7 @@ pub enum Code {
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt = 4747,
+	MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt = 4745,
 	/// `VFNMADD213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
 	///
 	/// `MVEX.NDS.512.66.0F38.W0 AC /r`
@@ -37981,7 +37965,7 @@ pub enum Code {
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt = 4748,
+	MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt = 4746,
 	/// `VFNMADD213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
 	///
 	/// `MVEX.NDS.512.66.0F38.W1 AC /r`
@@ -37989,7 +37973,23 @@ pub enum Code {
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt = 4749,
+	MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt = 4747,
+	/// `VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W0 AE /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt = 4748,
+	/// `VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)`
+	///
+	/// `MVEX.NDS.512.66.0F38.W1 AE /r`
+	///
+	/// `KNC`
+	///
+	/// `64-bit`
+	MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt = 4749,
 	/// `UNDOC zmm1 {k1}, mvt`
 	///
 	/// `MVEX.512.66.0F38.W0 B0 /vsib`
@@ -43281,12 +43281,12 @@ static GEN_DEBUG_CODE: [&str; 4818] = [
 	"MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt",
 	"MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt",
 	"MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt",
-	"MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt",
-	"MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt",
 	"MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt",
 	"MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt",
 	"MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt",
 	"MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt",
+	"MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt",
 	"MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0",
 	"MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2",
 	"MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt",

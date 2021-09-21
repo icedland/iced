@@ -32473,17 +32473,6 @@ INSTRUCTION: MVEX.NDS.512.66.0F38.W1 A8 /r | VFMADD213PD zmm1 {k1}, zmm2, Sf64(z
 	ops: rwvmm=reg r=vvvv r=rm | sae er swizz mem=1110_0000
 END
 
-# Code: MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-INSTRUCTION: MVEX.NDS.512.66.0F38.W0 AE /r | VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt) | KNC
-	# For the reason why {sint8} (101b) is valid, see MVEX_Vaddps_zmm_k1_zmm_zmmmt
-	ops: rwvmm=reg r=vvvv r=rm | sae er swizz mem=1111_1111
-END
-
-# Code: MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
-INSTRUCTION: MVEX.NDS.512.66.0F38.W1 AE /r | VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt) | KNC
-	ops: rwvmm=reg r=vvvv r=rm | sae er swizz mem=1110_0000
-END
-
 # Code: MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W0 AA /r | VFMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt) | KNC
 	# For the reason why {sint8} (101b) is valid, see MVEX_Vaddps_zmm_k1_zmm_zmmmt
@@ -32503,6 +32492,17 @@ END
 
 # Code: MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W1 AC /r | VFNMADD213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt) | KNC
+	ops: rwvmm=reg r=vvvv r=rm | sae er swizz mem=1110_0000
+END
+
+# Code: MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+INSTRUCTION: MVEX.NDS.512.66.0F38.W0 AE /r | VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt) | KNC
+	# For the reason why {sint8} (101b) is valid, see MVEX_Vaddps_zmm_k1_zmm_zmmmt
+	ops: rwvmm=reg r=vvvv r=rm | sae er swizz mem=1111_1111
+END
+
+# Code: MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
+INSTRUCTION: MVEX.NDS.512.66.0F38.W1 AE /r | VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt) | KNC
 	ops: rwvmm=reg r=vvvv r=rm | sae er swizz mem=1110_0000
 END
 

@@ -4752,12 +4752,12 @@ pub(super) static SIZES_NORMAL: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-	MemorySize::Unknown,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-	MemorySize::Unknown,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+	MemorySize::Unknown,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+	MemorySize::Unknown,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 	MemorySize::Unknown,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 	MemorySize::Unknown,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt
@@ -9574,12 +9574,12 @@ pub(super) static SIZES_BCST: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt
-	MemorySize::Unknown,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
-	MemorySize::Unknown,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
+	MemorySize::Unknown,// MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
+	MemorySize::Unknown,// MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
 	MemorySize::Unknown,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
 	MemorySize::Unknown,// MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 	MemorySize::Unknown,// MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt
