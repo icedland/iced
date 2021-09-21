@@ -174,7 +174,7 @@ impl OpCodeInfo {
 		self.info.tuple_type() as u32
 	}
 
-	/// :class:`MvexEHBit`: (MVEX) Gets the `EH` bit that's required to encode this instruction (an :class:`MvexEHBit` enum value)
+	/// :class:`MvexEHBit`: (MVEX) Gets the ``EH`` bit that's required to encode this instruction (an :class:`MvexEHBit` enum value)
 	#[getter]
 	pub fn mvex_eh_bit(&self) -> u32 {
 		self.info.mvex_eh_bit() as u32
@@ -186,10 +186,16 @@ impl OpCodeInfo {
 		self.info.mvex_can_use_eviction_hint()
 	}
 
-	/// bool: (MVEX) ``True`` if the instruction's rounding control bits are stored in `imm8[1:0]`
+	/// bool: (MVEX) ``True`` if the instruction's rounding control bits are stored in ``imm8[1:0]``
 	#[getter]
 	pub fn mvex_can_use_imm_rounding_control(&self) -> bool {
 		self.info.mvex_can_use_imm_rounding_control()
+	}
+
+	/// bool: (MVEX) ``True`` if the instruction must have ``MVEX.SSS=000`` if ``MVEX.EH=1``
+	#[getter]
+	pub fn mvex_no_sae_rc(&self) -> bool {
+		self.info.mvex_no_sae_rc()
 	}
 
 	/// :class:`MvexTupleTypeLutKind`: (MVEX) Gets the tuple type / conv lut kind

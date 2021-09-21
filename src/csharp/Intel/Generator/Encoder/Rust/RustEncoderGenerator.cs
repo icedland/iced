@@ -407,7 +407,7 @@ namespace Generator.Encoder.Rust {
 				writer.WriteLine($"pub(super) static MVEX_INFO: [MvexInfo; {infos.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var (def, mvex) in infos)
-						writer.WriteLine($"MvexInfo::new({idConverter.ToDeclTypeAndValue(mvex.TupleTypeLutKind)}, {idConverter.ToDeclTypeAndValue(mvex.EHBit)}, {idConverter.ToDeclTypeAndValue(mvex.ConvFn)}, 0x{mvex.InvalidConvFns:X02}, 0x{mvex.InvalidSwizzleFns:X02}, 0x{(uint)mvex.Flags:X02}),// {idConverter.ToDeclTypeAndValue(def.Code)}");
+						writer.WriteLine($"MvexInfo::new({idConverter.ToDeclTypeAndValue(mvex.TupleTypeLutKind)}, {idConverter.ToDeclTypeAndValue(mvex.EHBit)}, {idConverter.ToDeclTypeAndValue(mvex.ConvFn)}, 0x{mvex.InvalidConvFns:X02}, 0x{mvex.InvalidSwizzleFns:X02}, 0x{(uint)mvex.Flags1:X02}, 0x{(uint)mvex.Flags2:X02}),// {idConverter.ToDeclTypeAndValue(def.Code)}");
 				}
 				writer.WriteLine("];");
 			}

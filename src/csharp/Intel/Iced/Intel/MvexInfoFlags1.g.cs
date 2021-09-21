@@ -10,7 +10,7 @@ using System;
 
 namespace Iced.Intel {
 	[Flags]
-	enum MvexInfoFlags {
+	enum MvexInfoFlags1 {
 		None = 0x00000000,
 		NDD = 0x00000001,
 		NDS = 0x00000002,

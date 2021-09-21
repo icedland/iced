@@ -137,7 +137,8 @@ namespace Generator.Encoder {
 			public EnumValue ConvFn;
 			public byte InvalidConvFns;
 			public byte InvalidSwizzleFns;
-			public MvexInfoFlags Flags;
+			public MvexInfoFlags1 Flags1;
+			public MvexInfoFlags2 Flags2;
 		}
 
 		protected IEnumerable<(InstructionDef def, uint encFlags1, uint encFlags2, uint encFlags3, uint opcFlags1, uint opcFlags2, MvexEncInfo? mvex)> GetData(InstructionDef[] defs) {
@@ -389,24 +390,27 @@ namespace Generator.Encoder {
 
 				MvexEncInfo? mvex = null;
 				if (def.Encoding == EncodingKind.MVEX) {
-					var mvexFlags = def.Mvex.Flags;
+					var mvexFlags1 = def.Mvex.Flags1;
+					var mvexFlags2 = def.Mvex.Flags2;
 					switch (def.NDKind) {
 					case NonDestructiveOpKind.None: break;
-					case NonDestructiveOpKind.NDD: mvexFlags |= MvexInfoFlags.NDD; break;
-					case NonDestructiveOpKind.NDS: mvexFlags |= MvexInfoFlags.NDS; break;
+					case NonDestructiveOpKind.NDD: mvexFlags1 |= MvexInfoFlags1.NDD; break;
+					case NonDestructiveOpKind.NDS: mvexFlags1 |= MvexInfoFlags1.NDS; break;
 					default: throw new InvalidOperationException();
 					}
 					if (def.Mvex.TupleTypeLutKind.Value > byte.MaxValue) throw new InvalidOperationException();
 					if ((uint)def.Mvex.EHBit > byte.MaxValue) throw new InvalidOperationException();
 					if ((uint)def.Mvex.ConvFn > byte.MaxValue) throw new InvalidOperationException();
-					if ((uint)mvexFlags > byte.MaxValue) throw new InvalidOperationException();
+					if ((uint)mvexFlags1 > byte.MaxValue) throw new InvalidOperationException();
+					if ((uint)mvexFlags2 > byte.MaxValue) throw new InvalidOperationException();
 					mvex = new MvexEncInfo {
 						TupleTypeLutKind = def.Mvex.TupleTypeLutKind,
 						EHBit = ehBitType[def.Mvex.EHBit.ToString()],
 						ConvFn = mvexConvFnType[def.Mvex.ConvFn.ToString()],
 						InvalidConvFns = (byte)~def.Mvex.ValidConvFns,
 						InvalidSwizzleFns = (byte)~def.Mvex.ValidSwizzleFns,
-						Flags = mvexFlags,
+						Flags1 = mvexFlags1,
+						Flags2 = mvexFlags2,
 					};
 				}
 

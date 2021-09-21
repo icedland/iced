@@ -207,7 +207,8 @@ namespace Generator.Encoder.CSharp {
 						const int ConvFnIndex = 2;
 						const int InvalidConvFnsIndex = 3;
 						const int InvalidSwizzleFnsIndex = 4;
-						const int FlagsIndex = 5;
+						const int Flags1Index = 5;
+						const int Flags2Index = 6;
 
 						writer.WriteLine($"public const int StructSize = {StructSize};");
 						writer.WriteLine($"public const int TupleTypeLutKindIndex = {TupleTypeLutKindIndex};");
@@ -215,7 +216,8 @@ namespace Generator.Encoder.CSharp {
 						writer.WriteLine($"public const int ConvFnIndex = {ConvFnIndex};");
 						writer.WriteLine($"public const int InvalidConvFnsIndex = {InvalidConvFnsIndex};");
 						writer.WriteLine($"public const int InvalidSwizzleFnsIndex = {InvalidSwizzleFnsIndex};");
-						writer.WriteLine($"public const int FlagsIndex = {FlagsIndex};");
+						writer.WriteLine($"public const int Flags1Index = {Flags1Index};");
+						writer.WriteLine($"public const int Flags2Index = {Flags2Index};");
 
 						writer.WriteLine("internal static readonly byte[] Data = new byte[] {");
 						using (writer.Indent()) {
@@ -226,7 +228,8 @@ namespace Generator.Encoder.CSharp {
 								data[ConvFnIndex] = (byte)mvex.ConvFn.Value;
 								data[InvalidConvFnsIndex] = mvex.InvalidConvFns;
 								data[InvalidSwizzleFnsIndex] = mvex.InvalidSwizzleFns;
-								data[FlagsIndex] = (byte)mvex.Flags;
+								data[Flags1Index] = (byte)mvex.Flags1;
+								data[Flags2Index] = (byte)mvex.Flags2;
 								for (int i = 0; i < data.Length; i++) {
 									if (i != 0)
 										writer.Write(" ");

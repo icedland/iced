@@ -1178,9 +1178,9 @@ namespace Generator.Tables {
 
 						state.Mvex = new(toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)], state.OpCode.MvexEHBit, MvexConvFn.None, 0, 0);
 						if ((parsedInstr.Flags & ParsedInstructionFlags.OpMask) != 0)
-							state.Mvex.Flags |= MvexInfoFlags.OpMaskRegister;
+							state.Mvex.Flags1 |= MvexInfoFlags1.OpMaskRegister;
 						if ((state.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0)
-							state.Mvex.Flags |= MvexInfoFlags.RequireOpMaskRegister;
+							state.Mvex.Flags1 |= MvexInfoFlags1.RequireOpMaskRegister;
 						bool seenN = false;
 						EnumValue? ttLutKind = null;
 						foreach (var (key, value) in GetKeyValues(opsParts[1].Trim())) {
@@ -1193,17 +1193,21 @@ namespace Generator.Tables {
 							switch (key) {
 							case "sae":
 								state.Flags1 |= InstructionDefFlags1.SuppressAllExceptions;
-								state.Mvex.Flags |= MvexInfoFlags.SuppressAllExceptions;
+								state.Mvex.Flags1 |= MvexInfoFlags1.SuppressAllExceptions;
 								break;
 
 							case "er":
 								state.Flags1 |= InstructionDefFlags1.RoundingControl;
-								state.Mvex.Flags |= MvexInfoFlags.RoundingControl;
+								state.Mvex.Flags1 |= MvexInfoFlags1.RoundingControl;
 								break;
 
 							case "er-imm":
 								state.Flags1 |= InstructionDefFlags1.RoundingControl;
-								state.Mvex.Flags |= MvexInfoFlags.ImmRoundingControl;
+								state.Mvex.Flags1 |= MvexInfoFlags1.ImmRoundingControl;
+								break;
+								
+							case "no-er-sae":
+								state.Mvex.Flags2 |= MvexInfoFlags2.NoSaeRoundingControl;
 								break;
 
 							case "swizz":
@@ -1505,7 +1509,7 @@ namespace Generator.Tables {
 				break;
 			case MvexEHBit.EH0:
 			case MvexEHBit.EH1:
-				if ((state.Mvex.Flags & MvexInfoFlags.EvictionHint) != 0) {
+				if ((state.Mvex.Flags1 & MvexInfoFlags1.EvictionHint) != 0) {
 					Error(state.LineIndex, "{eh} can't be used when the instruction requires EH0 or EH1");
 					return false;
 				}
@@ -1539,7 +1543,7 @@ namespace Generator.Tables {
 			if ((parsedInstr.Flags & ParsedInstructionFlags.ZeroingMasking) != 0)
 				state.Flags1 |= InstructionDefFlags1.ZeroingMasking;
 			if ((parsedInstr.Flags & ParsedInstructionFlags.EvictionHint) != 0)
-				state.Mvex.Flags |= MvexInfoFlags.EvictionHint;
+				state.Mvex.Flags1 |= MvexInfoFlags1.EvictionHint;
 			switch (state.VmxMode) {
 			case VmxMode.None:
 				break;
@@ -1637,7 +1641,7 @@ namespace Generator.Tables {
 			}
 
 			var codeFormatter = new CodeFormatter(sb, regDefs, memSizeTbl, state.CodeMnemonic, state.CodeSuffix, state.CodeMemorySize,
-				state.CodeMemorySizeSuffix, state.MemorySize, state.MemorySize_Broadcast, state.Flags1, state.Mvex.Flags, parsedOpCode.Encoding,
+				state.CodeMemorySizeSuffix, state.MemorySize, state.MemorySize_Broadcast, state.Flags1, state.Mvex.Flags1, parsedOpCode.Encoding,
 				state.OpKinds, isKnc);
 			var codeValue = codeFormatter.Format();
 			if (usedCodeValues.TryGetValue(codeValue, out var otherLineIndex)) {

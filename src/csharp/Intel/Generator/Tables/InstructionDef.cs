@@ -531,7 +531,8 @@ namespace Generator.Tables {
 		public MvexConvFn ConvFn;
 		public byte ValidConvFns;
 		public byte ValidSwizzleFns;
-		public MvexInfoFlags Flags;
+		public MvexInfoFlags1 Flags1;
+		public MvexInfoFlags2 Flags2;
 
 		public MvexInstructionInfo(EnumValue tupleType, MvexEHBit ehBit, MvexConvFn convFn, byte validConvFns, byte validSwizzleFns) {
 			TupleTypeLutKind = tupleType;
@@ -539,7 +540,8 @@ namespace Generator.Tables {
 			ConvFn = convFn;
 			ValidConvFns = validConvFns;
 			ValidSwizzleFns = validSwizzleFns;
-			Flags = MvexInfoFlags.None;
+			Flags1 = MvexInfoFlags1.None;
+			Flags2 = MvexInfoFlags2.None;
 		}
 	}
 

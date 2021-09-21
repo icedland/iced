@@ -14,7 +14,8 @@ namespace Iced.Intel {
 		public const int ConvFnIndex = 2;
 		public const int InvalidConvFnsIndex = 3;
 		public const int InvalidSwizzleFnsIndex = 4;
-		public const int FlagsIndex = 5;
+		public const int Flags1Index = 5;
+		public const int Flags2Index = 6;
 		internal static readonly byte[] Data = new byte[] {
 			0x00, 0x00, 0x00, 0xFE, 0xFF, 0x04, 0x00, 0x00,// Code.MVEX_Vprefetchnta_mt
 			0x00, 0x00, 0x00, 0xFE, 0xFF, 0x04, 0x00, 0x00,// Code.MVEX_Vprefetch0_mt

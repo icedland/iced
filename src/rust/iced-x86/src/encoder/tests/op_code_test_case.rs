@@ -11,6 +11,7 @@ pub(super) struct MvexTestCase {
 	pub(super) eh_bit: MvexEHBit,
 	pub(super) can_use_eviction_hint: bool,
 	pub(super) can_use_imm_rounding_control: bool,
+	pub(super) no_sae_rc: bool,
 	pub(super) tuple_type_lut_kind: MvexTupleTypeLutKind,
 	pub(super) conversion_func: MvexConvFn,
 	pub(super) valid_conversion_funcs_mask: u8,

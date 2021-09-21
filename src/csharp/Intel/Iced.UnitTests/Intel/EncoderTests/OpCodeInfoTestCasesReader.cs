@@ -550,6 +550,14 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						throw new InvalidOperationException();
 #endif
 
+					case OpCodeInfoFlags.NoSaeRoundingControl:
+#if MVEX
+						tc.Mvex.NoSaeRc = true;
+						break;
+#else
+						throw new InvalidOperationException();
+#endif
+
 					default:
 						throw new InvalidOperationException($"Invalid key: '{key}'");
 					}

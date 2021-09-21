@@ -7450,6 +7450,10 @@ class OpCodeInfo:
 		"""bool: (MVEX) `True` if the instruction's rounding control bits are stored in `imm8[1:0]`"""
 		...
 	@property
+	def mvex_no_sae_rc(self) -> bool:
+		"""bool: (MVEX) `True` if the instruction must have `MVEX.SSS=000` if `MVEX.EH=1`"""
+		...
+	@property
 	def mvex_tuple_type_lut_kind(self) -> MvexTupleTypeLutKind:
 		"""`MvexTupleTypeLutKind`: (MVEX) Gets the tuple type / conv lut kind"""
 		...

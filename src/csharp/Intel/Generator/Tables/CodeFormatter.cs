@@ -18,14 +18,14 @@ namespace Generator.Tables {
 		readonly EnumValue memSize;
 		readonly EnumValue memSizeBcst;
 		readonly InstructionDefFlags1 flags1;
-		readonly MvexInfoFlags mvexFlags;
+		readonly MvexInfoFlags1 mvexFlags;
 		readonly EncodingKind encoding;
 		readonly OpCodeOperandKindDef[] opKinds;
 		readonly bool isKnc;
 
 		public CodeFormatter(StringBuilder sb, RegisterDef[] regDefs, MemorySizeDefs memSizeTbl, string codeMnemonic, string? codeSuffix,
 			string? codeMemorySize, string? codeMemorySizeSuffix, EnumValue memSize, EnumValue memSizeBcst, InstructionDefFlags1 flags1,
-			MvexInfoFlags mvexFlags, EncodingKind encoding, OpCodeOperandKindDef[] opKinds, bool isKnc) {
+			MvexInfoFlags1 mvexFlags, EncodingKind encoding, OpCodeOperandKindDef[] opKinds, bool isKnc) {
 			if (codeMnemonic == string.Empty)
 				throw new ArgumentOutOfRangeException(nameof(codeMnemonic));
 			this.sb = sb;
@@ -248,7 +248,7 @@ namespace Generator.Tables {
 		void WriteMemory(bool isBroadcast) {
 			var memorySize = GetMemorySize(isBroadcast);
 			if (encoding == EncodingKind.MVEX)
-				sb.Append((mvexFlags & MvexInfoFlags.EvictionHint) != 0 ? "mt" : "m");
+				sb.Append((mvexFlags & MvexInfoFlags1.EvictionHint) != 0 ? "mt" : "m");
 			else
 				sb.Append(isBroadcast ? 'b' : 'm');
 			WriteMemorySize(memorySize);

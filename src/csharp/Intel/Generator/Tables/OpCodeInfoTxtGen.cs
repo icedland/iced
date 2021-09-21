@@ -291,8 +291,9 @@ namespace Generator.Tables {
 			if ((def.Flags3 & InstructionDefFlags3.Privileged) != 0) W(OpCodeInfoKeywords.Privileged);
 			if ((def.Flags3 & InstructionDefFlags3.RequiresUniqueDestRegNum) != 0) W(OpCodeInfoKeywords.RequiresUniqueDestRegNum);
 
-			if ((def.Mvex.Flags & MvexInfoFlags.EvictionHint) != 0) W(OpCodeInfoKeywords.EvictionHint);
-			if ((def.Mvex.Flags & MvexInfoFlags.ImmRoundingControl) != 0) W(OpCodeInfoKeywords.ImmRoundingControl);
+			if ((def.Mvex.Flags1 & MvexInfoFlags1.EvictionHint) != 0) W(OpCodeInfoKeywords.EvictionHint);
+			if ((def.Mvex.Flags1 & MvexInfoFlags1.ImmRoundingControl) != 0) W(OpCodeInfoKeywords.ImmRoundingControl);
+			if ((def.Mvex.Flags2 & MvexInfoFlags2.NoSaeRoundingControl) != 0) W(OpCodeInfoKeywords.NoSaeRoundingControl);
 
 			writer.WriteLine();
 		}

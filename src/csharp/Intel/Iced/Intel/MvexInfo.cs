@@ -13,14 +13,15 @@ namespace Iced.Intel {
 		public MvexConvFn ConvFn => (MvexConvFn)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.ConvFnIndex];
 		public uint InvalidConvFns => MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.InvalidConvFnsIndex];
 		public uint InvalidSwizzleFns => MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.InvalidSwizzleFnsIndex];
-		public bool IsNDD => ((MvexInfoFlags)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.FlagsIndex] & MvexInfoFlags.NDD) != 0;
-		public bool IsNDS => ((MvexInfoFlags)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.FlagsIndex] & MvexInfoFlags.NDS) != 0;
-		public bool CanUseEvictionHint => ((MvexInfoFlags)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.FlagsIndex] & MvexInfoFlags.EvictionHint) != 0;
-		public bool CanUseImmRoundingControl => ((MvexInfoFlags)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.FlagsIndex] & MvexInfoFlags.ImmRoundingControl) != 0;
-		public bool CanUseRoundingControl => ((MvexInfoFlags)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.FlagsIndex] & MvexInfoFlags.RoundingControl) != 0;
-		public bool CanUseSuppressAllExceptions => ((MvexInfoFlags)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.FlagsIndex] & MvexInfoFlags.SuppressAllExceptions) != 0;
-		public bool CanUseOpMaskRegister => ((MvexInfoFlags)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.FlagsIndex] & MvexInfoFlags.OpMaskRegister) != 0;
-		public bool RequireOpMaskRegister => ((MvexInfoFlags)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.FlagsIndex] & MvexInfoFlags.RequireOpMaskRegister) != 0;
+		public bool IsNDD => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.NDD) != 0;
+		public bool IsNDS => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.NDS) != 0;
+		public bool CanUseEvictionHint => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.EvictionHint) != 0;
+		public bool CanUseImmRoundingControl => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.ImmRoundingControl) != 0;
+		public bool CanUseRoundingControl => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.RoundingControl) != 0;
+		public bool CanUseSuppressAllExceptions => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.SuppressAllExceptions) != 0;
+		public bool CanUseOpMaskRegister => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.OpMaskRegister) != 0;
+		public bool RequireOpMaskRegister => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.RequireOpMaskRegister) != 0;
+		public bool NoSaeRc => ((MvexInfoFlags2)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags2Index] & MvexInfoFlags2.NoSaeRoundingControl) != 0;
 
 		public MvexInfo(Code code) {
 			index = (int)code - (int)IcedConstants.MvexStart;

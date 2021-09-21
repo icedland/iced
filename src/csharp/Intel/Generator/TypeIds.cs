@@ -161,7 +161,8 @@ namespace Generator {
 		public static readonly TypeId MvexConvFn = new(nameof(MvexConvFn));
 		public static readonly TypeId MvexEHBit = new(nameof(MvexEHBit));
 		public static readonly TypeId NonDestructiveOpKind = new(nameof(NonDestructiveOpKind));
-		public static readonly TypeId MvexInfoFlags = new(nameof(MvexInfoFlags));
+		public static readonly TypeId MvexInfoFlags1 = new(nameof(MvexInfoFlags1));
+		public static readonly TypeId MvexInfoFlags2 = new(nameof(MvexInfoFlags2));
 		public static readonly TypeId MvexRegMemConv = new(nameof(MvexRegMemConv));
 		public static readonly TypeId MvexTupleTypeLutKind = new(nameof(MvexTupleTypeLutKind));
 	}

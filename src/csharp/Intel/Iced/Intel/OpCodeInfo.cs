@@ -387,6 +387,11 @@ namespace Iced.Intel {
 		public bool MvexCanUseImmRoundingControl => Encoding == EncodingKind.MVEX && new MvexInfo(Code).CanUseImmRoundingControl;
 
 		/// <summary>
+		/// (MVEX) <see langword="true"/> if the instruction must have <c>MVEX.SSS=000</c> if <c>MVEX.EH=1</c>
+		/// </summary>
+		public bool MvexNoSaeRc => Encoding == EncodingKind.MVEX && new MvexInfo(Code).NoSaeRc;
+
+		/// <summary>
 		/// (MVEX) Gets the tuple type / conv lut kind
 		/// </summary>
 		public MvexTupleTypeLutKind MvexTupleTypeLutKind => Encoding == EncodingKind.MVEX ? new MvexInfo(Code).TupleTypeLutKind : MvexTupleTypeLutKind.Int32;

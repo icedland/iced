@@ -120,7 +120,8 @@ namespace Generator.Enums {
 				genTypes[TypeIds.TestInstrFlags],
 				genTypes[TypeIds.MvexConvFn],
 				genTypes[TypeIds.MvexEHBit],
-				genTypes[TypeIds.MvexInfoFlags],
+				genTypes[TypeIds.MvexInfoFlags1],
+				genTypes[TypeIds.MvexInfoFlags2],
 				genTypes[TypeIds.MvexRegMemConv],
 				genTypes[TypeIds.MvexTupleTypeLutKind],
 			};

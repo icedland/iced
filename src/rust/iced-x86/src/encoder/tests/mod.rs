@@ -978,6 +978,7 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 		assert_eq!(info.mvex_eh_bit(), tc.mvex.eh_bit);
 		assert_eq!(info.mvex_can_use_eviction_hint(), tc.mvex.can_use_eviction_hint);
 		assert_eq!(info.mvex_can_use_imm_rounding_control(), tc.mvex.can_use_imm_rounding_control);
+		assert_eq!(info.mvex_no_sae_rc(), tc.mvex.no_sae_rc);
 		assert_eq!(info.mvex_tuple_type_lut_kind(), tc.mvex.tuple_type_lut_kind);
 		assert_eq!(info.mvex_conversion_func(), tc.mvex.conversion_func);
 		assert_eq!(info.mvex_valid_conversion_funcs_mask(), tc.mvex.valid_conversion_funcs_mask);
