@@ -192,6 +192,12 @@ impl OpCodeInfo {
 		self.info.mvex_can_use_imm_rounding_control()
 	}
 
+	/// bool: (MVEX) ``True`` if the instruction ignores op mask registers (eg. ``{k1}``)
+	#[getter]
+	pub fn mvex_ignores_op_mask_register(&self) -> bool {
+		self.info.mvex_ignores_op_mask_register()
+	}
+
 	/// bool: (MVEX) ``True`` if the instruction must have ``MVEX.SSS=000`` if ``MVEX.EH=1``
 	#[getter]
 	pub fn mvex_no_sae_rc(&self) -> bool {

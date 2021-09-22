@@ -2305,7 +2305,7 @@ impl MvexInfoFlags1 {
 	pub(crate) const IMM_ROUNDING_CONTROL: u32 = 0x0000_0008;
 	pub(crate) const ROUNDING_CONTROL: u32 = 0x0000_0010;
 	pub(crate) const SUPPRESS_ALL_EXCEPTIONS: u32 = 0x0000_0020;
-	pub(crate) const OP_MASK_REGISTER: u32 = 0x0000_0040;
+	pub(crate) const IGNORES_OP_MASK_REGISTER: u32 = 0x0000_0040;
 	pub(crate) const REQUIRE_OP_MASK_REGISTER: u32 = 0x0000_0080;
 }
 // GENERATOR-END: MvexInfoFlags1

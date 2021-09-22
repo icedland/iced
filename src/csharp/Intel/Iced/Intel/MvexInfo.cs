@@ -19,7 +19,7 @@ namespace Iced.Intel {
 		public bool CanUseImmRoundingControl => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.ImmRoundingControl) != 0;
 		public bool CanUseRoundingControl => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.RoundingControl) != 0;
 		public bool CanUseSuppressAllExceptions => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.SuppressAllExceptions) != 0;
-		public bool CanUseOpMaskRegister => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.OpMaskRegister) != 0;
+		public bool IgnoresOpMaskRegister => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.IgnoresOpMaskRegister) != 0;
 		public bool RequireOpMaskRegister => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.RequireOpMaskRegister) != 0;
 		public bool NoSaeRc => ((MvexInfoFlags2)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags2Index] & MvexInfoFlags2.NoSaeRoundingControl) != 0;
 

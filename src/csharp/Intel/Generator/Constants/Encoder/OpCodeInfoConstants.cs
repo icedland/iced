@@ -126,6 +126,7 @@ namespace Generator.Constants.Encoder {
 		public const string EH1 = "EH1";
 		public const string EvictionHint = "eh";
 		public const string ImmRoundingControl = "er-imm";
+		public const string IgnoresOpMaskRegister = "ig-opmask";
 		public const string NoSaeRoundingControl = "no-er-sae";
 	}
 

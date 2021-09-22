@@ -65,8 +65,8 @@ impl MvexInfo {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "decoder")]
-	pub(crate) fn can_use_op_mask_register(&self) -> bool {
-		(self.flags1 & (MvexInfoFlags1::OP_MASK_REGISTER as u8)) != 0
+	pub(crate) fn ignores_op_mask_register(&self) -> bool {
+		(self.flags1 & (MvexInfoFlags1::IGNORES_OP_MASK_REGISTER as u8)) != 0
 	}
 
 	#[must_use]

@@ -150,6 +150,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(tc.Mvex.EHBit, info.MvexEHBit);
 			Assert.Equal(tc.Mvex.CanUseEvictionHint, info.MvexCanUseEvictionHint);
 			Assert.Equal(tc.Mvex.CanUseImmRoundingControl, info.MvexCanUseImmRoundingControl);
+			Assert.Equal(tc.Mvex.IgnoresOpMaskRegister, info.MvexIgnoresOpMaskRegister);
 			Assert.Equal(tc.Mvex.NoSaeRc, info.MvexNoSaeRc);
 			Assert.Equal(tc.Mvex.TupleTypeLutKind, info.MvexTupleTypeLutKind);
 			Assert.Equal(tc.Mvex.ConversionFunc, info.MvexConversionFunc);

@@ -15,8 +15,8 @@ namespace Generator.Enums.Encoder {
 		RoundingControl			= 0x10,
 		// {sae} is supported
 		SuppressAllExceptions	= 0x20,
-		// {k1} opmask is allowed
-		OpMaskRegister			= 0x40,
+		// {k1} is ignored (no #UD)
+		IgnoresOpMaskRegister	= 0x40,
 		// Opmask register is required or #UD
 		RequireOpMaskRegister	= 0x80,
 	}

@@ -27,7 +27,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_M(Code code) {
-			Debug.Assert(!new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -35,8 +35,9 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.MVEX);
-			if (((state.vvvv_invalidCheck | state.aaa) & decoder.invalidCheckMask) != 0)
+			if ((state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
+			instruction.OpMask = Register.None; // It's ignored (see ctor)
 			instruction.Code = code;
 			var mvex = new MvexInfo(code);
 			var sss = state.Sss;
@@ -58,7 +59,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_MV(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			this.code = code;
 		}
 
@@ -91,7 +92,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_VW(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -152,7 +153,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_HWIb(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -213,7 +214,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_VWIb(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -276,7 +277,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_VHW(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -340,7 +341,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_VHWIb(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -404,7 +405,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_VKW(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -468,7 +469,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_KHW(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -532,7 +533,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_KHWIb(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -598,7 +599,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_VSIB(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -630,7 +631,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_VSIB_V(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}
@@ -665,7 +666,7 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code code;
 
 		public OpCodeHandler_MVEX_V_VSIB(Code code) {
-			Debug.Assert(new MvexInfo(code).CanUseOpMaskRegister);
+			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
 			this.code = code;
 		}

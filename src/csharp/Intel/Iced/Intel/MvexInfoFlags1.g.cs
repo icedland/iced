@@ -18,7 +18,7 @@ namespace Iced.Intel {
 		ImmRoundingControl = 0x00000008,
 		RoundingControl = 0x00000010,
 		SuppressAllExceptions = 0x00000020,
-		OpMaskRegister = 0x00000040,
+		IgnoresOpMaskRegister = 0x00000040,
 		RequireOpMaskRegister = 0x00000080,
 	}
 }

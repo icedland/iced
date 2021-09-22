@@ -387,6 +387,11 @@ namespace Iced.Intel {
 		public bool MvexCanUseImmRoundingControl => Encoding == EncodingKind.MVEX && new MvexInfo(Code).CanUseImmRoundingControl;
 
 		/// <summary>
+		/// (MVEX) <see langword="true"/> if the instruction ignores op mask registers (eg. <c>{k1}</c>)
+		/// </summary>
+		public bool MvexIgnoresOpMaskRegister => Encoding == EncodingKind.MVEX && new MvexInfo(Code).IgnoresOpMaskRegister;
+
+		/// <summary>
 		/// (MVEX) <see langword="true"/> if the instruction must have <c>MVEX.SSS=000</c> if <c>MVEX.EH=1</c>
 		/// </summary>
 		public bool MvexNoSaeRc => Encoding == EncodingKind.MVEX && new MvexInfo(Code).NoSaeRc;

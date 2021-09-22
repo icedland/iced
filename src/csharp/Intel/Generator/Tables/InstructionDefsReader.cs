@@ -1177,8 +1177,6 @@ namespace Generator.Tables {
 						}
 
 						state.Mvex = new(toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)], state.OpCode.MvexEHBit, MvexConvFn.None, 0, 0);
-						if ((parsedInstr.Flags & ParsedInstructionFlags.OpMask) != 0)
-							state.Mvex.Flags1 |= MvexInfoFlags1.OpMaskRegister;
 						bool seenN = false;
 						EnumValue? ttLutKind = null;
 						foreach (var (key, value) in GetKeyValues(opsParts[1].Trim())) {
@@ -1206,6 +1204,10 @@ namespace Generator.Tables {
 								
 							case "no-er-sae":
 								state.Mvex.Flags2 |= MvexInfoFlags2.NoSaeRoundingControl;
+								break;
+								
+							case "ignore-opmask":
+								state.Mvex.Flags1 |= MvexInfoFlags1.IgnoresOpMaskRegister;
 								break;
 
 							case "swizz":

@@ -154,6 +154,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		internal const string EH1 = "EH1";
 		internal const string EvictionHint = "eh";
 		internal const string ImmRoundingControl = "er-imm";
+		internal const string IgnoresOpMaskRegister = "ig-opmask";
 		internal const string NoSaeRoundingControl = "no-er-sae";
 	}
 	// GENERATOR-END: OpCodeInfoFlags

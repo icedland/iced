@@ -550,6 +550,14 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						throw new InvalidOperationException();
 #endif
 
+					case OpCodeInfoFlags.IgnoresOpMaskRegister:
+#if MVEX
+						tc.Mvex.IgnoresOpMaskRegister = true;
+						break;
+#else
+						throw new InvalidOperationException();
+#endif
+
 					case OpCodeInfoFlags.NoSaeRoundingControl:
 #if MVEX
 						tc.Mvex.NoSaeRc = true;

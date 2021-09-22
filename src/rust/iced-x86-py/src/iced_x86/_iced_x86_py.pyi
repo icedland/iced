@@ -7450,6 +7450,10 @@ class OpCodeInfo:
 		"""bool: (MVEX) `True` if the instruction's rounding control bits are stored in `imm8[1:0]`"""
 		...
 	@property
+	def mvex_ignores_op_mask_register(self) -> bool:
+		"""bool: (MVEX) `True` if the instruction ignores op mask registers (eg. `{k1}`)"""
+		...
+	@property
 	def mvex_no_sae_rc(self) -> bool:
 		"""bool: (MVEX) `True` if the instruction must have `MVEX.SSS=000` if `MVEX.EH=1`"""
 		...

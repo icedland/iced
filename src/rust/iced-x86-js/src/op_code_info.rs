@@ -236,6 +236,14 @@ impl OpCodeInfo {
 		self.0.mvex_can_use_imm_rounding_control()
 	}
 
+	/// (MVEX) `true` if the instruction ignores op mask registers (eg. `{k1}`)
+	#[cfg(feature = "mvex")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexIgnoresOpMaskRegister")]
+	pub fn mvex_ignores_op_mask_register(&self) -> bool {
+		self.0.mvex_ignores_op_mask_register()
+	}
+
 	/// (MVEX) `true` if the instruction must have `MVEX.SSS=000` if `MVEX.EH=1`
 	#[cfg(feature = "mvex")]
 	#[wasm_bindgen(getter)]

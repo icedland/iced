@@ -575,6 +575,18 @@ impl OpCodeInfo {
 		}
 	}
 
+	/// (MVEX) `true` if the instruction ignores op mask registers (eg. `{k1}`)
+	#[cfg(feature = "mvex")]
+	#[must_use]
+	#[inline]
+	pub fn mvex_ignores_op_mask_register(&self) -> bool {
+		if self.encoding() == EncodingKind::MVEX {
+			get_mvex_info(self.code()).ignores_op_mask_register()
+		} else {
+			false
+		}
+	}
+
 	/// (MVEX) `true` if the instruction must have `MVEX.SSS=000` if `MVEX.EH=1`
 	#[cfg(feature = "mvex")]
 	#[must_use]
