@@ -335,6 +335,7 @@ impl Encoder {
 	/// Value of the `MVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "MVEX_WIG")]
+	#[cfg(feature = "mvex")]
 	pub fn mvex_wig(&self) -> u32 {
 		self.0.mvex_wig()
 	}
@@ -346,6 +347,7 @@ impl Encoder {
 	/// * `new_value`: new value (0 or 1)
 	#[wasm_bindgen(setter)]
 	#[wasm_bindgen(js_name = "MVEX_WIG")]
+	#[cfg(feature = "mvex")]
 	pub fn set_mvex_wig(&mut self, new_value: u32) {
 		self.0.set_mvex_wig(new_value)
 	}
