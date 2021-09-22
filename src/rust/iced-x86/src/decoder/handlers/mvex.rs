@@ -15,33 +15,6 @@ use static_assertions::const_assert_eq;
 // The first arg (`self_ptr`) to decode() is always the handler itself, cast to a `*const OpCodeHandler`.
 // All handlers are `#[repr(C)]` structs so the OpCodeHandler fields are always at the same offsets.
 
-macro_rules! write_op0_reg {
-	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op0_kind(OpKind::Register);
-		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
-		$instruction.set_op0_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
-	};
-}
-
-macro_rules! write_op1_reg {
-	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op1_kind(OpKind::Register);
-		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
-		$instruction.set_op1_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
-	};
-}
-
-macro_rules! write_op2_reg {
-	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op2_kind(OpKind::Register);
-		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
-		$instruction.set_op2_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
-	};
-}
-
 macro_rules! write_eviction_hint {
 	($decoder:ident, $instruction:ident) => {
 		if ($decoder.state.flags & StateFlags::MVEX_EH) != 0 {
@@ -71,20 +44,19 @@ macro_rules! write_mem_conv {
 macro_rules! write_reg_conv_and_er_sae {
 	($decoder:ident, $instruction:ident, $mvex:ident, $sss:ident) => {
 		if ($decoder.state.flags & StateFlags::MVEX_EH) != 0 {
-			if ($sss & 4) != 0 {
-				if ((!$mvex.can_use_suppress_all_exceptions() as u32) & $decoder.invalid_check_mask) != 0 {
-					$decoder.set_invalid_instruction();
+			if $mvex.can_use_suppress_all_exceptions() {
+				if ($sss & 4) != 0 {
+					$instruction.set_suppress_all_exceptions(true);
 				}
-				$instruction.set_suppress_all_exceptions(true);
-			}
-			if $mvex.can_use_rounding_control() {
-				const_assert_eq!(RoundingControl::None as u32, 0);
-				const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-				const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-				const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-				const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-				instruction_internal::internal_set_rounding_control($instruction, ($sss & 3) + RoundingControl::RoundToNearest as u32);
-			} else if (($sss & 3) & $decoder.invalid_check_mask) != 0 {
+				if $mvex.can_use_rounding_control() {
+					const_assert_eq!(RoundingControl::None as u32, 0);
+					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+					instruction_internal::internal_set_rounding_control($instruction, ($sss & 3) + RoundingControl::RoundToNearest as u32);
+				}
+			} else if $mvex.no_sae_rc() && ($sss & $decoder.invalid_check_mask) != 0 {
 				$decoder.set_invalid_instruction();
 			}
 		} else {
@@ -404,7 +376,7 @@ impl OpCodeHandler_MVEX_VHWIb {
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + Register::ZMM0 as u32
 		);
 		write_op1_reg!(instruction, decoder.state.vvvv + Register::ZMM0 as u32);
-		instruction.set_op2_kind(OpKind::Immediate8);
+		instruction.set_op3_kind(OpKind::Immediate8);
 		let mvex = get_mvex_info(this.code);
 		let sss = decoder.state.sss();
 		if decoder.state.mod_ == 3 {

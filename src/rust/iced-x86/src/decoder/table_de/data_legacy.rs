@@ -7661,4 +7661,5 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x1E,// 0x1E = handlers_Grp_FF
 ];
 pub(super) const MAX_ID_NAMES: usize = 84;
+#[allow(dead_code)]
 pub(super) const HANDLERS_MAP0_INDEX: usize = 83;

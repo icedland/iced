@@ -308,7 +308,7 @@ pub(super) fn read_evex() -> (
 
 #[cfg(all(not(feature = "no_vex"), feature = "mvex"))]
 type VexMap0Type = Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>;
-#[cfg(not(all(not(feature = "no_vex"), feature = "mvex")))]
+#[cfg(all(not(feature = "no_vex"), not(feature = "mvex")))]
 type VexMap0Type = ();
 
 #[cfg(not(feature = "no_vex"))]

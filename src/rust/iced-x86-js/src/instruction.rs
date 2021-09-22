@@ -33,7 +33,7 @@ use crate::memory_size::{iced_to_memory_size, MemorySize};
 use crate::mnemonic::{iced_to_mnemonic, Mnemonic};
 #[cfg(all(feature = "encoder", feature = "mvex"))]
 use crate::mvex_rm_conv::mvex_reg_mem_conv_to_iced;
-#[cfg(feature = "mvex")]
+#[cfg(all(feature = "instr_api", feature = "mvex"))]
 use crate::mvex_rm_conv::{iced_to_mvex_reg_mem_conv, MvexRegMemConv};
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg(feature = "instr_api")]

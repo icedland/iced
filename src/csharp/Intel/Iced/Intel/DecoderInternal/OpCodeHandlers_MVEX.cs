@@ -114,20 +114,19 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op1Kind = OpKind.Register;
 				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
 				if ((state.flags & StateFlags.MvexEH) != 0) {
-					if ((sss & 4) != 0) {
-						if (!mvex.CanUseSuppressAllExceptions && decoder.invalidCheckMask != 0)
-							decoder.SetInvalidInstruction();
-						instruction.InternalSetSuppressAllExceptions();
+					if (mvex.CanUseSuppressAllExceptions) {
+						if ((sss & 4) != 0)
+							instruction.InternalSetSuppressAllExceptions();
+						if (mvex.CanUseRoundingControl) {
+							Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
+							instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
+						}
 					}
-					if (mvex.CanUseRoundingControl) {
-						Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
-					}
-					else if (((uint)sss & 3 & decoder.invalidCheckMask) != 0)
+					else if (mvex.NoSaeRc && ((uint)sss & decoder.invalidCheckMask) != 0)
 						decoder.SetInvalidInstruction();
 				}
 				else {
@@ -173,20 +172,19 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op1Kind = OpKind.Register;
 				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
 				if ((state.flags & StateFlags.MvexEH) != 0) {
-					if ((sss & 4) != 0) {
-						if (!mvex.CanUseSuppressAllExceptions && decoder.invalidCheckMask != 0)
-							decoder.SetInvalidInstruction();
-						instruction.InternalSetSuppressAllExceptions();
+					if (mvex.CanUseSuppressAllExceptions) {
+						if ((sss & 4) != 0)
+							instruction.InternalSetSuppressAllExceptions();
+						if (mvex.CanUseRoundingControl) {
+							Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
+							instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
+						}
 					}
-					if (mvex.CanUseRoundingControl) {
-						Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
-					}
-					else if (((uint)sss & 3 & decoder.invalidCheckMask) != 0)
+					else if (mvex.NoSaeRc && ((uint)sss & decoder.invalidCheckMask) != 0)
 						decoder.SetInvalidInstruction();
 				}
 				else {
@@ -236,20 +234,19 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op1Kind = OpKind.Register;
 				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
 				if ((state.flags & StateFlags.MvexEH) != 0) {
-					if ((sss & 4) != 0) {
-						if (!mvex.CanUseSuppressAllExceptions && decoder.invalidCheckMask != 0)
-							decoder.SetInvalidInstruction();
-						instruction.InternalSetSuppressAllExceptions();
+					if (mvex.CanUseSuppressAllExceptions) {
+						if ((sss & 4) != 0)
+							instruction.InternalSetSuppressAllExceptions();
+						if (mvex.CanUseRoundingControl) {
+							Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
+							instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
+						}
 					}
-					if (mvex.CanUseRoundingControl) {
-						Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
-					}
-					else if (((uint)sss & 3 & decoder.invalidCheckMask) != 0)
+					else if (mvex.NoSaeRc && ((uint)sss & decoder.invalidCheckMask) != 0)
 						decoder.SetInvalidInstruction();
 				}
 				else {
@@ -302,20 +299,19 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op2Kind = OpKind.Register;
 				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
 				if ((state.flags & StateFlags.MvexEH) != 0) {
-					if ((sss & 4) != 0) {
-						if (!mvex.CanUseSuppressAllExceptions && decoder.invalidCheckMask != 0)
-							decoder.SetInvalidInstruction();
-						instruction.InternalSetSuppressAllExceptions();
+					if (mvex.CanUseSuppressAllExceptions) {
+						if ((sss & 4) != 0)
+							instruction.InternalSetSuppressAllExceptions();
+						if (mvex.CanUseRoundingControl) {
+							Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
+							instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
+						}
 					}
-					if (mvex.CanUseRoundingControl) {
-						Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
-					}
-					else if (((uint)sss & 3 & decoder.invalidCheckMask) != 0)
+					else if (mvex.NoSaeRc && ((uint)sss & decoder.invalidCheckMask) != 0)
 						decoder.SetInvalidInstruction();
 				}
 				else {
@@ -364,20 +360,19 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op2Kind = OpKind.Register;
 				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
 				if ((state.flags & StateFlags.MvexEH) != 0) {
-					if ((sss & 4) != 0) {
-						if (!mvex.CanUseSuppressAllExceptions && decoder.invalidCheckMask != 0)
-							decoder.SetInvalidInstruction();
-						instruction.InternalSetSuppressAllExceptions();
+					if (mvex.CanUseSuppressAllExceptions) {
+						if ((sss & 4) != 0)
+							instruction.InternalSetSuppressAllExceptions();
+						if (mvex.CanUseRoundingControl) {
+							Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
+							instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
+						}
 					}
-					if (mvex.CanUseRoundingControl) {
-						Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
-					}
-					else if (((uint)sss & 3 & decoder.invalidCheckMask) != 0)
+					else if (mvex.NoSaeRc && ((uint)sss & decoder.invalidCheckMask) != 0)
 						decoder.SetInvalidInstruction();
 				}
 				else {
@@ -396,7 +391,7 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalSetMvexRegMemConv(MvexRegMemConv.MemConvNone + sss);
 				decoder.ReadOpMem(ref instruction, mvex.GetTupleType(sss));
 			}
-			instruction.Op2Kind = OpKind.Immediate8;
+			instruction.Op3Kind = OpKind.Immediate8;
 			instruction.Immediate8 = (byte)decoder.ReadByte();
 		}
 	}
@@ -430,20 +425,19 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op2Kind = OpKind.Register;
 				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
 				if ((state.flags & StateFlags.MvexEH) != 0) {
-					if ((sss & 4) != 0) {
-						if (!mvex.CanUseSuppressAllExceptions && decoder.invalidCheckMask != 0)
-							decoder.SetInvalidInstruction();
-						instruction.InternalSetSuppressAllExceptions();
+					if (mvex.CanUseSuppressAllExceptions) {
+						if ((sss & 4) != 0)
+							instruction.InternalSetSuppressAllExceptions();
+						if (mvex.CanUseRoundingControl) {
+							Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
+							instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
+						}
 					}
-					if (mvex.CanUseRoundingControl) {
-						Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
-					}
-					else if (((uint)sss & 3 & decoder.invalidCheckMask) != 0)
+					else if (mvex.NoSaeRc && ((uint)sss & decoder.invalidCheckMask) != 0)
 						decoder.SetInvalidInstruction();
 				}
 				else {
@@ -492,20 +486,19 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op2Kind = OpKind.Register;
 				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
 				if ((state.flags & StateFlags.MvexEH) != 0) {
-					if ((sss & 4) != 0) {
-						if (!mvex.CanUseSuppressAllExceptions && decoder.invalidCheckMask != 0)
-							decoder.SetInvalidInstruction();
-						instruction.InternalSetSuppressAllExceptions();
+					if (mvex.CanUseSuppressAllExceptions) {
+						if ((sss & 4) != 0)
+							instruction.InternalSetSuppressAllExceptions();
+						if (mvex.CanUseRoundingControl) {
+							Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
+							instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
+						}
 					}
-					if (mvex.CanUseRoundingControl) {
-						Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
-					}
-					else if (((uint)sss & 3 & decoder.invalidCheckMask) != 0)
+					else if (mvex.NoSaeRc && ((uint)sss & decoder.invalidCheckMask) != 0)
 						decoder.SetInvalidInstruction();
 				}
 				else {
@@ -556,20 +549,19 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op2Kind = OpKind.Register;
 				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
 				if ((state.flags & StateFlags.MvexEH) != 0) {
-					if ((sss & 4) != 0) {
-						if (!mvex.CanUseSuppressAllExceptions && decoder.invalidCheckMask != 0)
-							decoder.SetInvalidInstruction();
-						instruction.InternalSetSuppressAllExceptions();
+					if (mvex.CanUseSuppressAllExceptions) {
+						if ((sss & 4) != 0)
+							instruction.InternalSetSuppressAllExceptions();
+						if (mvex.CanUseRoundingControl) {
+							Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+							Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
+							instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
+						}
 					}
-					if (mvex.CanUseRoundingControl) {
-						Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
-						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						instruction.InternalRoundingControl = ((uint)sss & 3) + (uint)RoundingControl.RoundToNearest;
-					}
-					else if (((uint)sss & 3 & decoder.invalidCheckMask) != 0)
+					else if (mvex.NoSaeRc && ((uint)sss & decoder.invalidCheckMask) != 0)
 						decoder.SetInvalidInstruction();
 				}
 				else {

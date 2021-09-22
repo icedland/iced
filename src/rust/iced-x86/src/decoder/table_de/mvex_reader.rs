@@ -41,7 +41,7 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		MvexOpCodeHandlerKind::RM => box_opcode_handler(OpCodeHandler_RM::new(deserializer.read_handler(), deserializer.read_handler())),
 
 		MvexOpCodeHandlerKind::Group => {
-			box_opcode_handler(OpCodeHandler_Group::new(deserializer.read_array_reference(EvexOpCodeHandlerKind::ArrayReference as u32)))
+			box_opcode_handler(OpCodeHandler_Group::new(deserializer.read_array_reference(MvexOpCodeHandlerKind::ArrayReference as u32)))
 		}
 
 		MvexOpCodeHandlerKind::W => box_opcode_handler(OpCodeHandler_W::new(deserializer.read_handler(), deserializer.read_handler())),

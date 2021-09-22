@@ -14,42 +14,6 @@ use crate::*;
 // The first arg (`self_ptr`) to decode() is always the handler itself, cast to a `*const OpCodeHandler`.
 // All handlers are `#[repr(C)]` structs so the OpCodeHandler fields are always at the same offsets.
 
-macro_rules! write_op0_reg {
-	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op0_kind(OpKind::Register);
-		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
-		$instruction.set_op0_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
-	};
-}
-
-macro_rules! write_op1_reg {
-	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op1_kind(OpKind::Register);
-		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
-		$instruction.set_op1_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
-	};
-}
-
-macro_rules! write_op2_reg {
-	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op2_kind(OpKind::Register);
-		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
-		$instruction.set_op2_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
-	};
-}
-
-macro_rules! write_op3_reg {
-	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op3_kind(OpKind::Register);
-		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
-		$instruction.set_op3_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
-	};
-}
-
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_VectorLength_VEX {
@@ -1740,7 +1704,7 @@ impl OpCodeHandler_VEX_VK_R_Ib {
 		}
 		instruction.set_code(this.code);
 		write_op0_reg!(instruction, decoder.state.reg + Register::K0 as u32);
-		instruction.set_op3_kind(OpKind::Immediate8);
+		instruction.set_op2_kind(OpKind::Immediate8);
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.gpr as u32);
 		} else {
@@ -1770,9 +1734,10 @@ impl OpCodeHandler_VEX_K_Jb {
 		if decoder.invalid_check_mask != 0 && decoder.state.vvvv > 7 {
 			decoder.set_invalid_instruction();
 		}
-		write_op1_reg!(instruction, (decoder.state.vvvv & 7) + Register::K0 as u32);
+		write_op0_reg!(instruction, (decoder.state.vvvv & 7) + Register::K0 as u32);
 		debug_assert!(decoder.is64b_mode);
-		instruction.set_near_branch64((decoder.read_u8() as i8 as u64).wrapping_add(decoder.current_ip64()));
+		// The modrm byte has the imm8 value
+		instruction.set_near_branch64((decoder.state.modrm as i8 as u64).wrapping_add(decoder.current_ip64()));
 		instruction.set_code(this.code);
 		instruction.set_op1_kind(OpKind::NearBranch64);
 	}
@@ -1797,11 +1762,13 @@ impl OpCodeHandler_VEX_K_Jz {
 		if decoder.invalid_check_mask != 0 && decoder.state.vvvv > 7 {
 			decoder.set_invalid_instruction();
 		}
-		write_op1_reg!(instruction, (decoder.state.vvvv & 7) + Register::K0 as u32);
+		write_op0_reg!(instruction, (decoder.state.vvvv & 7) + Register::K0 as u32);
 		debug_assert!(decoder.is64b_mode);
 		instruction.set_code(this.code);
-		instruction.set_op0_kind(OpKind::NearBranch64);
-		instruction.set_near_branch64((decoder.read_u32() as i32 as u64).wrapping_add(decoder.current_ip64()));
+		instruction.set_op1_kind(OpKind::NearBranch64);
+		// The modrm byte has the low 8 bits of imm32
+		let imm = decoder.state.modrm | ((decoder.read_u8() as u32) << 8) | ((decoder.read_u16() as u32) << 16);
+		instruction.set_near_branch64((imm as i32 as u64).wrapping_add(decoder.current_ip64()));
 	}
 }
 

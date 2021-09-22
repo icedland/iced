@@ -1,6 +1,43 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+macro_rules! write_op0_reg {
+	($instruction:ident, $expr:expr) => {
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op0_kind(OpKind::Register);
+		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
+		$instruction.set_op0_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
+	};
+}
+
+macro_rules! write_op1_reg {
+	($instruction:ident, $expr:expr) => {
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op1_kind(OpKind::Register);
+		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
+		$instruction.set_op1_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
+	};
+}
+
+macro_rules! write_op2_reg {
+	($instruction:ident, $expr:expr) => {
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op2_kind(OpKind::Register);
+		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
+		$instruction.set_op2_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
+	};
+}
+
+#[cfg(not(feature = "no_vex"))]
+macro_rules! write_op3_reg {
+	($instruction:ident, $expr:expr) => {
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op3_kind(OpKind::Register);
+		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
+		$instruction.set_op3_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
+	};
+}
+
 pub(super) mod d3now;
 #[cfg(not(feature = "no_evex"))]
 pub(super) mod evex;
@@ -226,7 +263,7 @@ impl OpCodeHandler_AnotherTable {
 	}
 }
 
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_MandatoryPrefix2 {
@@ -234,7 +271,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix2 {
 	handlers: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 4],
 }
 
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
 impl OpCodeHandler_MandatoryPrefix2 {
 	#[inline]
 	pub(super) fn new(
@@ -270,7 +307,7 @@ impl OpCodeHandler_MandatoryPrefix2 {
 	}
 }
 
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_W {
@@ -278,7 +315,7 @@ pub(super) struct OpCodeHandler_W {
 	handlers: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 2],
 }
 
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
 impl OpCodeHandler_W {
 	#[inline]
 	pub(super) fn new(

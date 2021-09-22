@@ -833,7 +833,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					}
 				}
 				else if (opCode.Encoding == EncodingKind.EVEX || opCode.Encoding == EncodingKind.MVEX) {
-					Debug.Assert(vvvv_mask == 0x1F);
 					var bytes = HexUtils.ToByteArray(info.HexBytes);
 					int evexIndex = GetEvexIndex(bytes);
 					var b2 = bytes[evexIndex + 2];
@@ -856,8 +855,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							Assert.Equal(Code.INVALID, instruction.Code);
 							Assert.NotEqual(DecoderError.None, decoder.LastError);
 						}
-						else if (uses_vvvv)
-							Assert.Equal(info.Code, instruction.Code);
+						else if (uses_vvvv) {
+							if (vvvv_mask != 0x1F)
+								Assert.Equal(Code.INVALID, instruction.Code);
+							else
+								Assert.Equal(info.Code, instruction.Code);
+						}
 						else {
 							Assert.Equal(Code.INVALID, instruction.Code);
 							Assert.NotEqual(DecoderError.None, decoder.LastError);
@@ -879,8 +882,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					{
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 						decoder.Decode(out var instruction);
-						if (uses_vvvv)
-							Assert.Equal(info.Code, instruction.Code);
+						if (uses_vvvv) {
+							if (vvvv_mask != 0x1F)
+								Assert.Equal(Code.INVALID, instruction.Code);
+							else
+								Assert.Equal(info.Code, instruction.Code);
+						}
 						else {
 							Assert.Equal(Code.INVALID, instruction.Code);
 							Assert.NotEqual(DecoderError.None, decoder.LastError);

@@ -4595,8 +4595,8 @@ pub(super) static ENC_FLAGS1: [u32; 4818] = [
 	0x0001_24CE,// VEX_KNC_Kconcath_r64_kr_kr
 	0x0001_24CE,// VEX_KNC_Kconcatl_r64_kr_kr
 	0x0000_0491,// VEX_KNC_Kortest_kr_kr
-	0x0000_000B,// VEX_KNC_Delay_r32
-	0x0000_000E,// VEX_KNC_Delay_r64
+	0x0000_000C,// VEX_KNC_Delay_r32
+	0x0000_000F,// VEX_KNC_Delay_r64
 	0x0000_000C,// VEX_KNC_Spflt_r32
 	0x0000_000F,// VEX_KNC_Spflt_r64
 	0x0000_0001,// VEX_KNC_Clevict1_m8

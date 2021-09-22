@@ -487,9 +487,7 @@ fn test_lig_instructions_ignore_l() {
 					assert_ne!(instruction.code(), info.code());
 				}
 			}
-		} else if encoding == EncodingKind::Legacy || encoding == EncodingKind::D3NOW {
-			continue;
-		} else if encoding == EncodingKind::MVEX {
+		} else if encoding == EncodingKind::Legacy || encoding == EncodingKind::D3NOW || encoding == EncodingKind::MVEX {
 			continue;
 		} else {
 			panic!();
@@ -789,7 +787,6 @@ fn verify_invalid_vvvv() {
 				}
 			}
 		} else if matches!(op_code.encoding(), EncodingKind::EVEX | EncodingKind::MVEX) {
-			debug_assert_eq!(vvvv_mask, 0x1F);
 			let mut bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let evex_index = get_evex_index(&bytes);
 			let b2 = bytes[evex_index + 2];
@@ -812,7 +809,11 @@ fn verify_invalid_vvvv() {
 					assert_eq!(instruction.code(), Code::INVALID);
 					assert_ne!(decoder.last_error(), DecoderError::None);
 				} else if uses_vvvv {
-					assert_eq!(instruction.code(), info.code());
+					if vvvv_mask != 0x1F {
+						assert_eq!(instruction.code(), Code::INVALID);
+					} else {
+						assert_eq!(instruction.code(), info.code());
+					}
 				} else {
 					assert_eq!(instruction.code(), Code::INVALID);
 					assert_ne!(decoder.last_error(), DecoderError::None);
@@ -835,7 +836,11 @@ fn verify_invalid_vvvv() {
 				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 				let instruction = decoder.decode();
 				if uses_vvvv {
-					assert_eq!(instruction.code(), info.code());
+					if vvvv_mask != 0x1F {
+						assert_eq!(instruction.code(), Code::INVALID);
+					} else {
+						assert_eq!(instruction.code(), info.code());
+					}
 				} else {
 					assert_eq!(instruction.code(), Code::INVALID);
 					assert_ne!(decoder.last_error(), DecoderError::None);

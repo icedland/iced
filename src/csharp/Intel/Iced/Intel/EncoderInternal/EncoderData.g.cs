@@ -4604,8 +4604,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x000124CE,// VEX_KNC_Kconcath_r64_kr_kr
 				0x000124CE,// VEX_KNC_Kconcatl_r64_kr_kr
 				0x00000491,// VEX_KNC_Kortest_kr_kr
-				0x0000000B,// VEX_KNC_Delay_r32
-				0x0000000E,// VEX_KNC_Delay_r64
+				0x0000000C,// VEX_KNC_Delay_r32
+				0x0000000F,// VEX_KNC_Delay_r64
 				0x0000000C,// VEX_KNC_Spflt_r32
 				0x0000000F,// VEX_KNC_Spflt_r64
 				0x00000001,// VEX_KNC_Clevict1_m8

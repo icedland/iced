@@ -14,33 +14,6 @@ use crate::*;
 // The first arg (`self_ptr`) to decode() is always the handler itself, cast to a `*const OpCodeHandler`.
 // All handlers are `#[repr(C)]` structs so the OpCodeHandler fields are always at the same offsets.
 
-macro_rules! write_op0_reg {
-	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op0_kind(OpKind::Register);
-		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
-		$instruction.set_op0_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
-	};
-}
-
-macro_rules! write_op1_reg {
-	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op1_kind(OpKind::Register);
-		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
-		$instruction.set_op1_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
-	};
-}
-
-macro_rules! write_op2_reg {
-	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction.set_op2_kind(OpKind::Register);
-		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
-		$instruction.set_op2_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
-	};
-}
-
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_VectorLength_EVEX {

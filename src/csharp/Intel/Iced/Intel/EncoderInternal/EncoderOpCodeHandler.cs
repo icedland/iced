@@ -616,15 +616,15 @@ namespace Iced.Intel.EncoderInternal {
 						// Nothing
 					}
 					else {
-						if ((EncFlags3 & EncFlags3.RoundingControl) == 0) {
+						if ((EncFlags3 & EncFlags3.RoundingControl) == 0)
+							encoder.ErrorMessage = "The instruction doesn't support rounding control";
+						else {
 							Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
 							Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 							Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 							Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-							encoder.ErrorMessage = "The instruction doesn't support rounding control";
-						}
-						else
 							b |= ((uint)rc - (uint)RoundingControl.RoundToNearest) << 4;
+						}
 					}
 				}
 				else if (conv >= MvexRegMemConv.RegSwizzleNone && conv <= MvexRegMemConv.RegSwizzleDddd) {

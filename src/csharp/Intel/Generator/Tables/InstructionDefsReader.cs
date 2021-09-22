@@ -1180,7 +1180,7 @@ namespace Generator.Tables {
 						bool seenN = false;
 						EnumValue? ttLutKind = null;
 						foreach (var (key, value) in GetKeyValues(opsParts[1].Trim())) {
-							if (key != "swizz" && key != "mem" && key != "N") {
+							if (key is not "swizz" and not "mem" and not "N") {
 								if (value != string.Empty) {
 									Error(lineIndex, $"Unexpected value `{key}={value}`");
 									return false;
@@ -1201,7 +1201,7 @@ namespace Generator.Tables {
 								state.Flags1 |= InstructionDefFlags1.RoundingControl;
 								state.Mvex.Flags1 |= MvexInfoFlags1.ImmRoundingControl;
 								break;
-								
+
 							case "no-er-sae":
 								state.Mvex.Flags2 |= MvexInfoFlags2.NoSaeRoundingControl;
 								break;

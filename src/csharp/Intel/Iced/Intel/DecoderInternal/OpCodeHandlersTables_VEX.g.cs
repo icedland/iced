@@ -3073,6 +3073,7 @@ namespace Iced.Intel.DecoderInternal {
 									0x00,// Invalid
 									0x49,// VK_R_Ib
 										0x82, 0x24,// VEX_KNC_Kextract_kr_r64_imm8
+										0x35,// RAX
 								0x80, 0x80, 0x80, 0x08,// KNC
 							0x00,// Invalid
 						0x00,// Invalid
@@ -4188,16 +4189,18 @@ namespace Iced.Intel.DecoderInternal {
 				// 69 = 0x45
 				0x0B,// MandatoryPrefix2_4
 					0x0E,// VectorLength
-						0x00,// Invalid
 						0x09,// W
 							0x47,// Options_DontReadModRM
-								0x30,// VK_HK_RK
-									0xCD, 0x09,// VEX_Korw_kr_kr_kr
+								0x00,// Invalid
 								0x04,// Bitness_DontReadModRM
 									0x00,// Invalid
 									0x32,// VK_RK
 										0xE1, 0x23,// VEX_KNC_Kor_kr_kr
 								0x80, 0x80, 0x80, 0x08,// KNC
+							0x00,// Invalid
+						0x09,// W
+							0x30,// VK_HK_RK
+								0xCD, 0x09,// VEX_Korw_kr_kr_kr
 							0x30,// VK_HK_RK
 								0xCE, 0x09,// VEX_Korq_kr_kr_kr
 					0x0E,// VectorLength
@@ -4213,16 +4216,18 @@ namespace Iced.Intel.DecoderInternal {
 				// 70 = 0x46
 				0x0B,// MandatoryPrefix2_4
 					0x0E,// VectorLength
-						0x00,// Invalid
 						0x09,// W
 							0x47,// Options_DontReadModRM
-								0x30,// VK_HK_RK
-									0xD1, 0x09,// VEX_Kxnorw_kr_kr_kr
+								0x00,// Invalid
 								0x04,// Bitness_DontReadModRM
 									0x00,// Invalid
 									0x32,// VK_RK
 										0xE2, 0x23,// VEX_KNC_Kxnor_kr_kr
 								0x80, 0x80, 0x80, 0x08,// KNC
+							0x00,// Invalid
+						0x09,// W
+							0x30,// VK_HK_RK
+								0xD1, 0x09,// VEX_Kxnorw_kr_kr_kr
 							0x30,// VK_HK_RK
 								0xD2, 0x09,// VEX_Kxnorq_kr_kr_kr
 					0x0E,// VectorLength
@@ -4238,16 +4243,18 @@ namespace Iced.Intel.DecoderInternal {
 				// 71 = 0x47
 				0x0B,// MandatoryPrefix2_4
 					0x0E,// VectorLength
-						0x00,// Invalid
 						0x09,// W
 							0x47,// Options_DontReadModRM
-								0x30,// VK_HK_RK
-									0xD5, 0x09,// VEX_Kxorw_kr_kr_kr
+								0x00,// Invalid
 								0x04,// Bitness_DontReadModRM
 									0x00,// Invalid
 									0x32,// VK_RK
 										0xE3, 0x23,// VEX_KNC_Kxor_kr_kr
 								0x80, 0x80, 0x80, 0x08,// KNC
+							0x00,// Invalid
+						0x09,// W
+							0x30,// VK_HK_RK
+								0xD5, 0x09,// VEX_Kxorw_kr_kr_kr
 							0x30,// VK_HK_RK
 								0xD6, 0x09,// VEX_Kxorq_kr_kr_kr
 					0x0E,// VectorLength

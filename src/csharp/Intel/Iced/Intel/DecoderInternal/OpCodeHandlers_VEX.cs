@@ -1717,7 +1717,8 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.is64bMode);
 			instruction.Code = code;
 			instruction.Op1Kind = OpKind.NearBranch64;
-			instruction.NearBranch64 = (ulong)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer64();
+			// The modrm byte has the imm8 value
+			instruction.NearBranch64 = (ulong)(sbyte)state.modrm + decoder.GetCurrentInstructionPointer64();
 		}
 	}
 
@@ -1736,8 +1737,10 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.Op0Register = (int)(state.vvvv & 7) + Register.K0;
 			Debug.Assert(decoder.is64bMode);
 			instruction.Code = code;
-			instruction.Op0Kind = OpKind.NearBranch64;
-			instruction.NearBranch64 = (ulong)(int)decoder.ReadUInt32() + decoder.GetCurrentInstructionPointer64();
+			instruction.Op1Kind = OpKind.NearBranch64;
+			// The modrm byte has the low 8 bits of imm32
+			uint imm = state.modrm | (decoder.ReadByte() << 8) | (decoder.ReadByte() << 16) | (decoder.ReadByte() << 24);
+			instruction.NearBranch64 = (ulong)(int)imm + decoder.GetCurrentInstructionPointer64();
 		}
 	}
 

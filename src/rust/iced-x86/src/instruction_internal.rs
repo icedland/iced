@@ -158,7 +158,7 @@ pub(crate) fn internal_op_register(this: &Instruction, operand: u32) -> Register
 }
 
 #[cfg(feature = "encoder")]
-#[cfg(not(feature = "no_evex"))]
+#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 #[must_use]
 #[inline]
 pub(crate) fn internal_op_mask(this: &Instruction) -> u32 {
@@ -166,7 +166,7 @@ pub(crate) fn internal_op_mask(this: &Instruction) -> u32 {
 }
 
 #[cfg(feature = "decoder")]
-#[cfg(not(feature = "no_evex"))]
+#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 #[inline]
 pub(crate) fn internal_set_op_mask(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value <= 7);

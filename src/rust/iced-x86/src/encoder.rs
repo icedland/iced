@@ -115,6 +115,7 @@ pub struct Encoder {
 	#[cfg(feature = "mvex")]
 	internal_mvex_wig: u32,
 	#[cfg(not(feature = "mvex"))]
+	#[allow(dead_code)]
 	internal_mvex_wig: (),
 	prevent_vex2: u32,
 	opsize16_flags: u32,

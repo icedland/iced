@@ -1179,21 +1179,8 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Invalid
 
 				// 193 = 0xC1
-				0x00,// Invalid
-
-				// 194 = 0xC2
-				0x08,// MandatoryPrefix2
-					0x00,// Invalid
-					0x07,// W
-						0x0C,// VW
-							0xA3, 0x25,// MVEX_Vexp223ps_zmm_k1_zmmmt
-						0x00,// Invalid
-					0x00,// Invalid
-					0x00,// Invalid
-
-				// 195 = 0xC3
 				0x02,// Dup
-					0x03,// 3
+					0x05,// 5
 					0x00,// Invalid
 
 				// 198 = 0xC6
@@ -1202,8 +1189,16 @@ namespace Iced.Intel.DecoderInternal {
 						0x03,// 0x3 = handlers_Grp_0F38C6
 
 				// 199 = 0xC7
-				0x02,// Dup
-					0x02,// 2
+				0x00,// Invalid
+
+				// 200 = 0xC8
+				0x08,// MandatoryPrefix2
+					0x00,// Invalid
+					0x07,// W
+						0x0C,// VW
+							0xA3, 0x25,// MVEX_Vexp223ps_zmm_k1_zmmmt
+						0x00,// Invalid
+					0x00,// Invalid
 					0x00,// Invalid
 
 				// 201 = 0xC9

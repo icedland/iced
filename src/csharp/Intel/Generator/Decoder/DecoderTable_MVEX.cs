@@ -1110,6 +1110,14 @@ namespace Generator.Decoder {
 						invalid,
 					},
 					invalid,
+					invalid,
+					invalid,
+					invalid,
+					invalid,
+					new object[] { Group, "handlers_Grp_0F38C6" },
+					invalid,
+
+					// C8
 					new object[] { MandatoryPrefix2,
 						invalid,
 						new object[] { W,
@@ -1119,14 +1127,6 @@ namespace Generator.Decoder {
 						invalid,
 						invalid,
 					},
-					invalid,
-					invalid,
-					invalid,
-					new object[] { Group, "handlers_Grp_0F38C6" },
-					invalid,
-
-					// C8
-					invalid,
 					new object[] { MandatoryPrefix2,
 						invalid,
 						new object[] { W,

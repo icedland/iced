@@ -8,16 +8,16 @@ use crate::{MvexConvFn, MvexEHBit, MvexTupleTypeLutKind};
 
 #[rustfmt::skip]
 pub(super) static MVEX_INFO: [MvexInfo; 207] = [
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vprefetchnta_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vprefetch0_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vprefetch1_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vprefetch2_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vprefetchenta_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vprefetche0_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vprefetche1_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vprefetche2_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x06, 0x00, 0x04, 0x00),// Code::MVEX_Vmovaps_zmm_k1_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xFE, 0x00, 0x04, 0x00),// Code::MVEX_Vmovapd_zmm_k1_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x00),// Code::MVEX_Vprefetchnta_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x00),// Code::MVEX_Vprefetch0_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x00),// Code::MVEX_Vprefetch1_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x00),// Code::MVEX_Vprefetch2_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x00),// Code::MVEX_Vprefetchenta_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x00),// Code::MVEX_Vprefetche0_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x00),// Code::MVEX_Vprefetche1_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x00),// Code::MVEX_Vprefetche2_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x06, 0x00, 0x04, 0x01),// Code::MVEX_Vmovaps_zmm_k1_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xFE, 0x00, 0x04, 0x01),// Code::MVEX_Vmovapd_zmm_k1_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Df32, 0x06, 0xFF, 0x04, 0x00),// Code::MVEX_Vmovaps_mt_k1_zmm
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Df64, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vmovapd_mt_k1_zmm
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::EH0, MvexConvFn::Df64, 0xFE, 0xFF, 0x00, 0x00),// Code::MVEX_Vmovnrapd_m_k1_zmm
@@ -32,19 +32,19 @@ pub(super) static MVEX_INFO: [MvexInfo; 207] = [
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x34, 0x00),// Code::MVEX_Vcvtpd2ps_zmm_k1_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x36, 0x00),// Code::MVEX_Vsubps_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x36, 0x00),// Code::MVEX_Vsubpd_zmm_k1_zmm_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpcmpgtd_kr_k1_zmm_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x0E, 0x00, 0x04, 0x00),// Code::MVEX_Vmovdqa32_zmm_k1_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int64, MvexEHBit::None, MvexConvFn::Si64, 0xFE, 0x00, 0x04, 0x00),// Code::MVEX_Vmovdqa64_zmm_k1_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vpshufd_zmm_k1_zmmmt_imm8
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x05, 0x00),// Code::MVEX_Vpsrld_zmm_k1_zmmmt_imm8
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x05, 0x00),// Code::MVEX_Vpsrad_zmm_k1_zmmmt_imm8
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x05, 0x00),// Code::MVEX_Vpslld_zmm_k1_zmmmt_imm8
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpcmpeqd_kr_k1_zmm_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpcmpgtd_kr_k1_zmm_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x0E, 0x00, 0x04, 0x01),// Code::MVEX_Vmovdqa32_zmm_k1_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int64, MvexEHBit::None, MvexConvFn::Si64, 0xFE, 0x00, 0x04, 0x01),// Code::MVEX_Vmovdqa64_zmm_k1_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFE, 0x04, 0x01),// Code::MVEX_Vpshufd_zmm_k1_zmmmt_imm8
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x05, 0x01),// Code::MVEX_Vpsrld_zmm_k1_zmmmt_imm8
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x05, 0x01),// Code::MVEX_Vpsrad_zmm_k1_zmmmt_imm8
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x05, 0x01),// Code::MVEX_Vpslld_zmm_k1_zmmmt_imm8
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpcmpeqd_kr_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32_Half, MvexEHBit::None, MvexConvFn::Si32, 0xF8, 0x00, 0x04, 0x00),// Code::MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Di32, 0x0E, 0xFF, 0x04, 0x00),// Code::MVEX_Vmovdqa32_mt_k1_zmm
 	MvexInfo::new(MvexTupleTypeLutKind::Int64, MvexEHBit::None, MvexConvFn::Di64, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vmovdqa64_mt_k1_zmm
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Clevict1_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Clevict0_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x00),// Code::MVEX_Clevict1_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x00),// Code::MVEX_Clevict0_mt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x26, 0x00),// Code::MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x26, 0x00),// Code::MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpandd_zmm_k1_zmm_zmmmt
@@ -62,8 +62,8 @@ pub(super) static MVEX_INFO: [MvexInfo; 207] = [
 	MvexInfo::new(MvexTupleTypeLutKind::Float64_1to8_or_elem, MvexEHBit::None, MvexConvFn::Uf64, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vbroadcastsd_zmm_k1_mt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32_4to16, MvexEHBit::None, MvexConvFn::Uf32, 0x06, 0xFF, 0x04, 0x00),// Code::MVEX_Vbroadcastf32x4_zmm_k1_mt
 	MvexInfo::new(MvexTupleTypeLutKind::Float64_4to8, MvexEHBit::None, MvexConvFn::Uf64, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vbroadcastf64x4_zmm_k1_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vptestmd_kr_k1_zmm_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x06, 0x00),// Code::MVEX_Vpermd_zmm_k1_zmm_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vptestmd_kr_k1_zmm_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFE, 0x06, 0x01),// Code::MVEX_Vpermd_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpminsd_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpminud_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpmaxsd_zmm_k1_zmm_zmmmt
@@ -94,10 +94,10 @@ pub(super) static MVEX_INFO: [MvexInfo; 207] = [
 	MvexInfo::new(MvexTupleTypeLutKind::Int64_1to8_or_elem, MvexEHBit::None, MvexConvFn::Ui64, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vpbroadcastq_zmm_k1_mt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32_4to16, MvexEHBit::None, MvexConvFn::Ui32, 0x0E, 0xFF, 0x04, 0x00),// Code::MVEX_Vbroadcasti32x4_zmm_k1_mt
 	MvexInfo::new(MvexTupleTypeLutKind::Int64_4to8, MvexEHBit::None, MvexConvFn::Ui64, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vbroadcasti64x4_zmm_k1_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpadcd_zmm_k1_kr_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpsbbd_zmm_k1_kr_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpadcd_zmm_k1_kr_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpsbbd_zmm_k1_kr_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpblendmd_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int64, MvexEHBit::None, MvexConvFn::Si64, 0xF8, 0x00, 0x06, 0x00),// Code::MVEX_Vpblendmq_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x06, 0x00),// Code::MVEX_Vblendmps_zmm_k1_zmm_zmmmt
@@ -110,17 +110,17 @@ pub(super) static MVEX_INFO: [MvexInfo; 207] = [
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpsubrd_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x36, 0x00),// Code::MVEX_Vsubrps_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x36, 0x00),// Code::MVEX_Vsubrpd_zmm_k1_zmm_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpsbbrd_zmm_k1_kr_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpsbbrd_zmm_k1_kr_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0x00, 0x36, 0x00),// Code::MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_70
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0x00, 0x36, 0x00),// Code::MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_71
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0x00, 0x36, 0x00),// Code::MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_72
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0x00, 0x36, 0x00),// Code::MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_73
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpcmpltd_kr_k1_zmm_zmmmt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpcmpltd_kr_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x36, 0x00),// Code::MVEX_Vscaleps_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpmulhud_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpmulhd_zmm_k1_zmm_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32_1to16_or_elem, MvexEHBit::None, MvexConvFn::Ui32, 0x06, 0xFF, 0x84, 0x00),// Code::MVEX_Vpgatherdd_zmm_k1_mvt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32_1to16_or_elem, MvexEHBit::None, MvexConvFn::Ui32, 0x0E, 0xFF, 0x84, 0x00),// Code::MVEX_Vpgatherdd_zmm_k1_mvt
 	MvexInfo::new(MvexTupleTypeLutKind::Int64_1to8_or_elem, MvexEHBit::None, MvexConvFn::Ui64, 0xFE, 0xFF, 0x84, 0x00),// Code::MVEX_Vpgatherdq_zmm_k1_mvt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32_1to16_or_elem, MvexEHBit::None, MvexConvFn::Uf32, 0x06, 0xFF, 0x84, 0x00),// Code::MVEX_Vgatherdps_zmm_k1_mvt
 	MvexInfo::new(MvexTupleTypeLutKind::Float64_1to8_or_elem, MvexEHBit::None, MvexConvFn::Uf64, 0xFE, 0xFF, 0x84, 0x00),// Code::MVEX_Vgatherdpd_zmm_k1_mvt
@@ -147,8 +147,8 @@ pub(super) static MVEX_INFO: [MvexInfo; 207] = [
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x36, 0x00),// Code::MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x36, 0x00),// Code::MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x36, 0x00),// Code::MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0xFF, 0xB4, 0x00),// Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
-	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0xFF, 0xB4, 0x00),// Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
+	MvexInfo::new(MvexTupleTypeLutKind::Float32_1to16_or_elem, MvexEHBit::None, MvexConvFn::None, 0x00, 0xFF, 0xB4, 0x00),// Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0
+	MvexInfo::new(MvexTupleTypeLutKind::Float32_1to16_or_elem, MvexEHBit::None, MvexConvFn::None, 0x00, 0xFF, 0xB4, 0x00),// Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0xFA, 0xFE, 0x06, 0x00),// Code::MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpmadd231d_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x36, 0x00),// Code::MVEX_Vfmadd231ps_zmm_k1_zmm_zmmmt
@@ -159,7 +159,7 @@ pub(super) static MVEX_INFO: [MvexInfo; 207] = [
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x36, 0x00),// Code::MVEX_Vfnmadd231pd_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x36, 0x00),// Code::MVEX_Vfnmsub231ps_zmm_k1_zmm_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x36, 0x00),// Code::MVEX_Vfnmsub231pd_zmm_k1_zmm_zmmmt
-	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0xFF, 0xB4, 0x00),// Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_C0
+	MvexInfo::new(MvexTupleTypeLutKind::Float32_1to16_or_elem, MvexEHBit::None, MvexConvFn::None, 0x00, 0xFF, 0xB4, 0x00),// Code::MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_C0
 	MvexInfo::new(MvexTupleTypeLutKind::Float32_1to16_or_elem, MvexEHBit::None, MvexConvFn::Uf32, 0x06, 0xFF, 0x84, 0x00),// Code::MVEX_Vgatherpf0hintdps_mvt_k1
 	MvexInfo::new(MvexTupleTypeLutKind::Float64_1to8_or_elem, MvexEHBit::None, MvexConvFn::Uf64, 0xFE, 0xFF, 0x84, 0x00),// Code::MVEX_Vgatherpf0hintdpd_mvt_k1
 	MvexInfo::new(MvexTupleTypeLutKind::Float32_1to16_or_elem, MvexEHBit::None, MvexConvFn::Uf32, 0x06, 0xFF, 0x84, 0x00),// Code::MVEX_Vgatherpf0dps_mvt_k1
@@ -199,10 +199,10 @@ pub(super) static MVEX_INFO: [MvexInfo; 207] = [
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0x00, 0x34, 0x00),// Code::MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D6
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0x00, 0x34, 0x00),// Code::MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D6
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0x00, 0x00, 0x34, 0x00),// Code::MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D7
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x06, 0x00),// Code::MVEX_Valignd_zmm_k1_zmm_zmmmt_imm8
-	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vpermf32x4_zmm_k1_zmmmt_imm8
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x00),// Code::MVEX_Vpcmpd_kr_k1_zmm_zmmmt_imm8
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFE, 0x06, 0x01),// Code::MVEX_Valignd_zmm_k1_zmm_zmmmt_imm8
+	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFE, 0x04, 0x01),// Code::MVEX_Vpermf32x4_zmm_k1_zmmmt_imm8
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x01),// Code::MVEX_Vpcmpd_kr_k1_zmm_zmmmt_imm8
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x24, 0x00),// Code::MVEX_Vgetmantps_zmm_k1_zmmmt_imm8
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x24, 0x00),// Code::MVEX_Vgetmantpd_zmm_k1_zmmmt_imm8
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x2C, 0x00),// Code::MVEX_Vrndfxpntps_zmm_k1_zmmmt_imm8

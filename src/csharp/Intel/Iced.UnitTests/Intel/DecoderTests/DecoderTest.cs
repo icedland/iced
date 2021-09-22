@@ -110,6 +110,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(tc.HasRepePrefix, instruction.HasRepePrefix);
 			Assert.Equal(tc.HasRepnePrefix, instruction.HasRepnePrefix);
 			Assert.Equal(tc.HasLockPrefix, instruction.HasLockPrefix);
+#if MVEX
+			Assert.Equal(tc.Mvex.EvictionHint, instruction.IsMvexEvictionHint);
+			Assert.Equal(tc.Mvex.RegMemConv, instruction.MvexRegMemConv);
+#endif
 			switch (tc.VsibBitness) {
 			case 0:
 				Assert.False(instruction.IsVsib);

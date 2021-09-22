@@ -31551,14 +31551,14 @@ END
 
 # Code: VEX_KNC_Delay_r32
 INSTRUCTION: VEX.128.F3.0F.W0 AE /6 | DELAY r32 | KNC
-	ops: r=reg
+	ops: r=rm
 	flags: wig32
 	gas: suffix=l
 END
 
 # Code: VEX_KNC_Delay_r64
 INSTRUCTION: VEX.128.F3.0F.W1 AE /6 | DELAY r64 | KNC
-	ops: r=reg
+	ops: r=rm
 	gas: suffix=q
 END
 
@@ -31700,60 +31700,61 @@ END
 
 # Code: MVEX_Vprefetchnta_mt
 INSTRUCTION: MVEX.512.0F.WIG 18 /0 | VPREFETCHNTA mt | KNC
-	ops: nma=rm | mem=1000_0000 i32
+	# v9 template (page 722) shows {k1} is allowed but it seems to be ignored
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
 	flags: prefetch non-temporal
 END
 
 # Code: MVEX_Vprefetch0_mt
 INSTRUCTION: MVEX.512.0F.WIG 18 /1 | VPREFETCH0 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
 	flags: prefetch
 END
 
 # Code: MVEX_Vprefetch1_mt
 INSTRUCTION: MVEX.512.0F.WIG 18 /2 | VPREFETCH1 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
 	flags: prefetch
 END
 
 # Code: MVEX_Vprefetch2_mt
 INSTRUCTION: MVEX.512.0F.WIG 18 /3 | VPREFETCH2 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
 	flags: prefetch
 END
 
 # Code: MVEX_Vprefetchenta_mt
 INSTRUCTION: MVEX.512.0F.WIG 18 /4 | VPREFETCHENTA mt | KNC
-	ops: nma=rm | mem=1000_0000 i32
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
 	flags: prefetch non-temporal
 END
 
 # Code: MVEX_Vprefetche0_mt
 INSTRUCTION: MVEX.512.0F.WIG 18 /5 | VPREFETCHE0 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
 	flags: prefetch
 END
 
 # Code: MVEX_Vprefetche1_mt
 INSTRUCTION: MVEX.512.0F.WIG 18 /6 | VPREFETCHE1 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
 	flags: prefetch
 END
 
 # Code: MVEX_Vprefetche2_mt
 INSTRUCTION: MVEX.512.0F.WIG 18 /7 | VPREFETCHE2 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
 	flags: prefetch
 END
 
 # Code: MVEX_Vmovaps_zmm_k1_zmmmt
 INSTRUCTION: MVEX.512.0F.W0 28 /r | VMOVAPS zmm1 {k1}, Sf32(zmm2/mt) | KNC
-	ops: wvmm=reg r=rm | swizz mem=1001_1111
+	ops: wvmm=reg r=rm | no-er-sae swizz mem=1001_1111
 END
 
 # Code: MVEX_Vmovapd_zmm_k1_zmmmt
 INSTRUCTION: MVEX.512.66.0F.W1 28 /r | VMOVAPD zmm1 {k1}, Sf64(zmm2/mt) | KNC
-	ops: wvmm=reg r=rm | swizz mem=1000_0000
+	ops: wvmm=reg r=rm | no-er-sae swizz mem=1000_0000
 END
 
 # Code: MVEX_Vmovaps_mt_k1_zmm
@@ -31833,43 +31834,43 @@ END
 
 # Code: MVEX_Vpcmpgtd_kr_k1_zmm_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F.W0 66 /r | VPCMPGTD k2 {k1}, zmm1, Si32(zmm2/mt) | KNC
-	ops: w=reg r=vvvv r=rm | swizz mem=1110_1111
+	ops: w=reg r=vvvv r=rm | no-er-sae swizz mem=1110_1111
 	flags: implied-z
 END
 
 # Code: MVEX_Vmovdqa32_zmm_k1_zmmmt
 INSTRUCTION: MVEX.512.66.0F.W0 6F /r | VMOVDQA32 zmm1 {k1}, Si32(zmm2/mt) | KNC
-	ops: wvmm=reg r=rm | swizz mem=1000_1111
+	ops: wvmm=reg r=rm | no-er-sae swizz mem=1000_1111
 END
 
 # Code: MVEX_Vmovdqa64_zmm_k1_zmmmt
 INSTRUCTION: MVEX.512.66.0F.W1 6F /r | VMOVDQA64 zmm1 {k1}, Si64(zmm2/mt) | KNC
-	ops: wvmm=reg r=rm | swizz mem=1000_0000
+	ops: wvmm=reg r=rm | no-er-sae swizz mem=1000_0000
 END
 
 # Code: MVEX_Vpshufd_zmm_k1_zmmmt_imm8
 INSTRUCTION: MVEX.512.66.0F.W0 70 /r ib | VPSHUFD zmm1 {k1}, zmm2/mt, imm8 | KNC
-	ops: wvmm=reg r=rm r=imm | mem=1000_0000 i32
+	ops: wvmm=reg r=rm r=imm | no-er-sae swizz=1000_0000 mem=1000_0000 i32
 END
 
 # Code: MVEX_Vpsrld_zmm_k1_zmmmt_imm8
 INSTRUCTION: MVEX.NDD.512.66.0F.W0 72 /2 ib | VPSRLD zmm1 {k1}, Si32(zmm2/mt), imm8 | KNC
-	ops: wvmm=vvvv r=rm r=imm | swizz mem=1110_1111
+	ops: wvmm=vvvv r=rm r=imm | no-er-sae swizz mem=1110_1111
 END
 
 # Code: MVEX_Vpsrad_zmm_k1_zmmmt_imm8
 INSTRUCTION: MVEX.NDD.512.66.0F.W0 72 /4 ib | VPSRAD zmm1 {k1}, Si32(zmm2/mt), imm8 | KNC
-	ops: wvmm=vvvv r=rm r=imm | swizz mem=1110_1111
+	ops: wvmm=vvvv r=rm r=imm | no-er-sae swizz mem=1110_1111
 END
 
 # Code: MVEX_Vpslld_zmm_k1_zmmmt_imm8
 INSTRUCTION: MVEX.NDD.512.66.0F.W0 72 /6 ib | VPSLLD zmm1 {k1}, Si32(zmm2/mt), imm8 | KNC
-	ops: wvmm=vvvv r=rm r=imm | swizz mem=1110_1111
+	ops: wvmm=vvvv r=rm r=imm | no-er-sae swizz mem=1110_1111
 END
 
 # Code: MVEX_Vpcmpeqd_kr_k1_zmm_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F.W0 76 /r | VPCMPEQD k2 {k1}, zmm1, Si32(zmm2/mt) | KNC
-	ops: w=reg r=vvvv r=rm | swizz mem=1110_1111
+	ops: w=reg r=vvvv r=rm | no-er-sae swizz mem=1110_1111
 	flags: implied-z
 END
 
@@ -31890,12 +31891,12 @@ END
 
 # Code: MVEX_Clevict1_mt
 INSTRUCTION: MVEX.512.F3.0F.WIG AE /7 | CLEVICT1 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
 END
 
 # Code: MVEX_Clevict0_mt
 INSTRUCTION: MVEX.512.F2.0F.WIG AE /7 | CLEVICT0 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
 END
 
 # Code: MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
@@ -31991,13 +31992,13 @@ END
 
 # Code: MVEX_Vptestmd_kr_k1_zmm_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W0 27 /r | VPTESTMD k2 {k1}, zmm1, Si32(zmm2/mt) | KNC
-	ops: w=reg r=vvvv r=rm | swizz mem=1110_1111
+	ops: w=reg r=vvvv r=rm | no-er-sae swizz mem=1110_1111
 	flags: implied-z
 END
 
 # Code: MVEX_Vpermd_zmm_k1_zmm_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W0 36 /r | VPERMD zmm1 {k1}, zmm2, zmm3/mt | KNC
-	ops: wvmm=reg r=vvvv r=rm | mem=1000_0000 i32
+	ops: wvmm=reg r=vvvv r=rm | no-er-sae swizz=1000_0000 mem=1000_0000 i32
 END
 
 # Code: MVEX_Vpminsd_zmm_k1_zmm_zmmmt
@@ -32178,22 +32179,22 @@ END
 
 # Code: MVEX_Vpadcd_zmm_k1_kr_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W0 5C /r | VPADCD zmm1 {k1}, k2, Si32(zmm3/mt) | KNC
-	ops: rwvmm=reg rw=vvvv r=rm | swizz mem=1110_1111
+	ops: rwvmm=reg rw=vvvv r=rm | no-er-sae swizz mem=1110_1111
 END
 
 # Code: MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W0 5D /r | VPADDSETCD zmm1 {k1}, k2, Si32(zmm3/mt) | KNC
-	ops: rwvmm=reg rw=vvvv r=rm | swizz mem=1110_1111
+	ops: rwvmm=reg rw=vvvv r=rm | no-er-sae swizz mem=1110_1111
 END
 
 # Code: MVEX_Vpsbbd_zmm_k1_kr_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W0 5E /r | VPSBBD zmm1 {k1}, k2, Si32(zmm3/mt) | KNC
-	ops: rwvmm=reg rw=vvvv r=rm | swizz mem=1110_1111
+	ops: rwvmm=reg rw=vvvv r=rm | no-er-sae swizz mem=1110_1111
 END
 
 # Code: MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W0 5F /r | VPSUBSETBD zmm1 {k1}, k2, Si32(zmm3/mt) | KNC
-	ops: rwvmm=reg rw=vvvv r=rm | swizz mem=1110_1111
+	ops: rwvmm=reg rw=vvvv r=rm | no-er-sae swizz mem=1110_1111
 END
 
 # Code: MVEX_Vpblendmd_zmm_k1_zmm_zmmmt
@@ -32280,12 +32281,12 @@ END
 
 # Code: MVEX_Vpsbbrd_zmm_k1_kr_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W0 6E /r | VPSBBRD zmm1 {k1}, k2, Si32(zmm3/mt) | KNC
-	ops: rwvmm=reg rw=vvvv r=rm | swizz mem=1110_1111
+	ops: rwvmm=reg rw=vvvv r=rm | no-er-sae swizz mem=1110_1111
 END
 
 # Code: MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W0 6F /r | VPSUBRSETBD zmm1 {k1}, k2, Si32(zmm3/mt) | KNC
-	ops: rwvmm=reg rw=vvvv r=rm | swizz mem=1110_1111
+	ops: rwvmm=reg rw=vvvv r=rm | no-er-sae swizz mem=1110_1111
 END
 
 # Code: MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_70
@@ -32322,7 +32323,7 @@ END
 
 # Code: MVEX_Vpcmpltd_kr_k1_zmm_zmmmt
 INSTRUCTION: MVEX.NDS.512.66.0F38.W0 74 /r | VPCMPLTD k2 {k1}, zmm1, Si32(zmm2/mt) | KNC
-	ops: w=reg r=vvvv r=rm | swizz mem=1110_1111
+	ops: w=reg r=vvvv r=rm | no-er-sae swizz mem=1110_1111
 	flags: implied-z
 END
 
@@ -32343,7 +32344,7 @@ END
 
 # Code: MVEX_Vpgatherdd_zmm_k1_mvt
 INSTRUCTION: MVEX.512.66.0F38.W0 90 /vsib | VPGATHERDD zmm1 {k1}, Ui32(mvt) | KNC
-	ops: rwvmm=reg r=rm | mem=1001_1111 i32-elem
+	ops: rwvmm=reg r=rm | mem=1000_1111 i32-elem
 	flags: krw knz unique-reg-num
 	intel: kmask-op
 END
@@ -32510,7 +32511,7 @@ END
 INSTRUCTION: MVEX.512.66.0F38.W0 B0 /vsib | UNDOC zmm1 {k1}, mvt | KNC
 	# Undocumented instruction. We need ops to decode/encode it so we chose these ops but they could be wrong!
 	code-suffix: 512_66_0F38_W0_B0
-	ops: n=reg n=rm | sae er mem=1111_1111 f32
+	ops: n=reg n=rm | sae er mem=1111_1111 f32-elem
 	flags: knz save-restore asm-ig
 END
 
@@ -32518,7 +32519,7 @@ END
 INSTRUCTION: MVEX.512.66.0F38.W0 B2 /vsib | UNDOC zmm1 {k1}, mvt | KNC
 	# Undocumented instruction. We need ops to decode/encode it so we chose these ops but they could be wrong!
 	code-suffix: 512_66_0F38_W0_B2
-	ops: n=reg n=rm | sae er mem=1111_1111 f32
+	ops: n=reg n=rm | sae er mem=1111_1111 f32-elem
 	flags: knz save-restore asm-ig
 END
 
@@ -32580,7 +32581,7 @@ END
 INSTRUCTION: MVEX.512.66.0F38.W0 C0 /vsib | UNDOC zmm1 {k1}, mvt | KNC
 	# Undocumented instruction. We need ops to decode/encode it so we chose these ops but they could be wrong!
 	code-suffix: 512_66_0F38_W0_C0
-	ops: n=reg n=rm | sae er mem=1111_1111 f32
+	ops: n=reg n=rm | sae er mem=1111_1111 f32-elem
 	flags: knz save-restore asm-ig
 END
 
@@ -32835,23 +32836,23 @@ END
 
 # Code: MVEX_Valignd_zmm_k1_zmm_zmmmt_imm8
 INSTRUCTION: MVEX.NDS.512.66.0F3A.W0 03 /r ib | VALIGND zmm1 {k1}, zmm2, zmm3/mt, imm8 | KNC
-	ops: wvmm=reg r=vvvv r=rm r=imm | mem=1000_0000 i32
+	ops: wvmm=reg r=vvvv r=rm r=imm | no-er-sae swizz=1000_0000 mem=1000_0000 i32
 END
 
 # Code: MVEX_Vpermf32x4_zmm_k1_zmmmt_imm8
 INSTRUCTION: MVEX.512.66.0F3A.W0 07 /r ib | VPERMF32X4 zmm1 {k1}, zmm2/mt, imm8 | KNC
-	ops: wvmm=reg r=rm r=imm | mem=1000_0000 f32
+	ops: wvmm=reg r=rm r=imm | no-er-sae swizz=1000_0000 mem=1000_0000 f32
 END
 
 # Code: MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8
 INSTRUCTION: MVEX.NDS.512.66.0F3A.W0 1E /r ib | VPCMPUD k2 {k1}, zmm1, Si32(zmm2/mt), imm8 | KNC
-	ops: w=reg r=vvvv r=rm r=imm | swizz mem=1110_1111
+	ops: w=reg r=vvvv r=rm r=imm | no-er-sae swizz mem=1110_1111
 	flags: pseudo=vpcmpud6 implied-z
 END
 
 # Code: MVEX_Vpcmpd_kr_k1_zmm_zmmmt_imm8
 INSTRUCTION: MVEX.NDS.512.66.0F3A.W0 1F /r ib | VPCMPD k2 {k1}, zmm1, Si32(zmm2/mt), imm8 | KNC
-	ops: w=reg r=vvvv r=rm r=imm | swizz mem=1110_1111
+	ops: w=reg r=vvvv r=rm r=imm | no-er-sae swizz mem=1110_1111
 	flags: pseudo=vpcmpd6 implied-z
 END
 

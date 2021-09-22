@@ -21,6 +21,7 @@ namespace Generator.Decoder.Rust {
 			writer.WriteLine($"pub(super) const MAX_ID_NAMES: usize = {info.TablesToSerialize.Length};");
 			foreach (var name in info.TableIndexNames) {
 				var constName = idConverter.Constant($"{name}Index");
+				writer.WriteLine(RustConstants.AttributeAllowDeadCode);
 				writer.WriteLine($"pub(super) const {constName}: usize = {GetInfo(name).Index};");
 			}
 		}

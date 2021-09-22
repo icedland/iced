@@ -901,6 +901,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x00,// Invalid
 ];
 pub(super) const MAX_ID_NAMES: usize = 7;
+#[allow(dead_code)]
 pub(super) const HANDLERS_MAP8_INDEX: usize = 4;
+#[allow(dead_code)]
 pub(super) const HANDLERS_MAP9_INDEX: usize = 5;
+#[allow(dead_code)]
 pub(super) const HANDLERS_MAP10_INDEX: usize = 6;

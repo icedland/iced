@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Generator.Enums;
-using Generator.Enums.Encoder;
 using Generator.Enums.Rust;
 using Generator.IO;
 using Generator.Tables;

@@ -223,6 +223,10 @@ build_test_msrv() {
 	echo "==== BUILD DEBUG ===="
 	cargo +$msrv check --color always --features "serde code_asm mvex"
 
+	echo "==== BUILD DEBUG default features ===="
+	# Build with default features since that's what most people probably use
+	cargo +$msrv check --color always
+
 	# We don't test it since we only guarantee that the crate can be built. Testing is for iced devs.
 	# We test it when using the latest rustc, but not rustc MSRV.
 	# This also speeds up CI since code_asm feature's tests take a very long time to compile.
