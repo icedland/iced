@@ -8,6 +8,18 @@ use crate::instruction_internal;
 use core::mem;
 use static_assertions::const_assert_eq;
 
+static XSP_TABLE: [(Register, CodeSize, u64); 4] = [
+	(Register::RSP, CodeSize::Code64, u64::MAX),
+	(Register::SP, CodeSize::Code16, u16::MAX as u64),
+	(Register::ESP, CodeSize::Code32, u32::MAX as u64),
+	(Register::RSP, CodeSize::Code64, u64::MAX),
+];
+const_assert_eq!(CodeSize::Unknown as u32, 0);
+const_assert_eq!(CodeSize::Code16 as u32, 1);
+const_assert_eq!(CodeSize::Code32 as u32, 2);
+const_assert_eq!(CodeSize::Code64 as u32, 3);
+const_assert_eq!(IcedConstants::CODE_SIZE_ENUM_COUNT, 4);
+
 /// Instruction info options used by [`InstructionInfoFactory`]
 ///
 /// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
@@ -457,12 +469,9 @@ impl InstructionInfoFactory {
 		info
 	}
 
+	#[inline]
 	fn get_xsp(code_size: CodeSize) -> (Register, CodeSize, u64) {
-		match code_size {
-			CodeSize::Code64 | CodeSize::Unknown => (Register::RSP, CodeSize::Code64, u64::MAX),
-			CodeSize::Code32 => (Register::ESP, code_size, u32::MAX as u64),
-			CodeSize::Code16 => (Register::SP, code_size, u16::MAX as u64),
-		}
+		XSP_TABLE[code_size as usize]
 	}
 
 	#[rustfmt::skip]
