@@ -78,7 +78,7 @@ impl MvexInfo {
 
 	#[must_use]
 	#[inline]
-	#[cfg(feature = "decoder")]
+	#[cfg(any(feature = "decoder", feature = "op_code_info"))]
 	pub(crate) fn no_sae_rc(&self) -> bool {
 		(self.flags2 & (MvexInfoFlags2::NO_SAE_ROUNDING_CONTROL as u8)) != 0
 	}

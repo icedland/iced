@@ -204,7 +204,7 @@ impl OpCodeInfo {
 		self.info.mvex_no_sae_rc()
 	}
 
-	/// :class:`MvexTupleTypeLutKind`: (MVEX) Gets the tuple type / conv lut kind
+	/// :class:`MvexTupleTypeLutKind`: (MVEX) Gets the tuple type / conv lut kind (an :class:`MvexTupleTypeLutKind` enum value)
 	#[getter]
 	pub fn mvex_tuple_type_lut_kind(&self) -> u32 {
 		self.info.mvex_tuple_type_lut_kind() as u32

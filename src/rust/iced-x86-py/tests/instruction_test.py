@@ -823,15 +823,16 @@ def test_sp_inc() -> None:
 	assert instr.is_stack_instruction
 	assert instr.stack_pointer_increment == 8
 
-@pytest.mark.parametrize("bitness, data, encoding", [
-	(64, b"\x56", EncodingKind.LEGACY),
-	(64, b"\xC5\xF8\x10\x10", EncodingKind.VEX),
-	(64, b"\x62\xF1\x7C\x08\x10\x50\x01", EncodingKind.EVEX),
-	(64, b"\x8F\xE8\x48\x85\x10\x40", EncodingKind.XOP),
-	(64, b"\x0F\x0F\x88\x34\x12\x5A\xA5\x0C", EncodingKind.D3NOW),
+@pytest.mark.parametrize("bitness, data, encoding, options", [
+	(64, b"\x56", EncodingKind.LEGACY, DecoderOptions.NONE),
+	(64, b"\xC5\xF8\x10\x10", EncodingKind.VEX, DecoderOptions.NONE),
+	(64, b"\x62\xF1\x7C\x08\x10\x50\x01", EncodingKind.EVEX, DecoderOptions.NONE),
+	(64, b"\x8F\xE8\x48\x85\x10\x40", EncodingKind.XOP, DecoderOptions.NONE),
+	(64, b"\x0F\x0F\x88\x34\x12\x5A\xA5\x0C", EncodingKind.D3NOW, DecoderOptions.NONE),
+	(64, b"\x62\xF2\x49\x0D\x6F\x50\x01", EncodingKind.MVEX, DecoderOptions.KNC),
 ])
-def test_encoding(bitness: int, data: bytes, encoding: EncodingKind_) -> None:
-	instr = Decoder(bitness, data).decode()
+def test_encoding(bitness: int, data: bytes, encoding: EncodingKind_, options: DecoderOptions_) -> None:
+	instr = Decoder(bitness, data, options).decode()
 	assert instr.encoding == encoding
 
 def test_cpuid_features() -> None:

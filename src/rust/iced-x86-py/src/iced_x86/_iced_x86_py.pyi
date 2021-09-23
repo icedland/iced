@@ -7459,7 +7459,7 @@ class OpCodeInfo:
 		...
 	@property
 	def mvex_tuple_type_lut_kind(self) -> MvexTupleTypeLutKind:
-		"""`MvexTupleTypeLutKind`: (MVEX) Gets the tuple type / conv lut kind"""
+		"""`MvexTupleTypeLutKind`: (MVEX) Gets the tuple type / conv lut kind (an `MvexTupleTypeLutKind` enum value)"""
 		...
 	@property
 	def mvex_conversion_func(self) -> MvexConvFn:
