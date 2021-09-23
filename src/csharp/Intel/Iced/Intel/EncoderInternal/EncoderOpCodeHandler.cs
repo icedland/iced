@@ -589,7 +589,7 @@ namespace Iced.Intel.EncoderInternal {
 			if (instruction.Op0Kind == OpKind.Memory || instruction.Op1Kind == OpKind.Memory || instruction.Op2Kind == OpKind.Memory) {
 				if (conv >= MvexRegMemConv.MemConvNone && conv <= MvexRegMemConv.MemConvSint16)
 					b |= ((uint)conv - (uint)MvexRegMemConv.MemConvNone) << 4;
-				else if (conv == MvexRegMemConv.MemConvNone) {
+				else if (conv == MvexRegMemConv.None) {
 					// Nothing, treat it as MvexRegMemConv.MemConvNone
 				}
 				else

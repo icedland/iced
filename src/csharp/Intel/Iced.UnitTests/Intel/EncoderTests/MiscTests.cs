@@ -94,7 +94,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 #endif
 
 #if MVEX
-				//TODO: MVEX tests here
+				yield return new object[] { 64, "62 D17808 28 8E 78563412", rip, Instruction.Create(Code.MVEX_Vmovaps_zmm_k1_zmmmt, Register.ZMM1, memory64) };
 #endif
 
 				// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)

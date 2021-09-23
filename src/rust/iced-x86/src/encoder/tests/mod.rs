@@ -337,7 +337,7 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	#[cfg(feature = "mvex")]
 	{
-		//TODO: MVEX tests here
+		tests.push((64, "62 D17808 28 8E 78563412", RIP, Instruction::with2(Code::MVEX_Vmovaps_zmm_k1_zmmmt, Register::ZMM1, memory64).unwrap()));
 	}
 
 	// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
