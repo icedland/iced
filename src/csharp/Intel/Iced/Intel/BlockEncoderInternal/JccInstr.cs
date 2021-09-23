@@ -17,11 +17,20 @@ namespace Iced.Intel.BlockEncoderInternal {
 		InstrKind instrKind;
 		readonly uint shortInstructionSize;
 		readonly uint nearInstructionSize;
-		// Code:
-		//		!jcc short skip		; negated jcc opcode
-		//		jmp qword ptr [rip+mem]
-		//	skip:
-		const uint longInstructionSize64 = 2 + CallOrJmpPointerDataInstructionSize64;
+		readonly uint longInstructionSize64;
+
+		static uint GetLongInstructionSize64(in Instruction instruction) {
+#if MVEX
+			// Check if JKZD/JKNZD
+			if (instruction.OpCount == 2)
+				return 5 + CallOrJmpPointerDataInstructionSize64;
+#endif
+			// Code:
+			//		!jcc short skip		; negated jcc opcode
+			//		jmp qword ptr [rip+mem]
+			//	skip:
+			return 2 + CallOrJmpPointerDataInstructionSize64;
+		}
 
 		enum InstrKind {
 			Unchanged,
@@ -36,6 +45,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
+			longInstructionSize64 = GetLongInstructionSize64(instruction);
 
 			Instruction instrCopy;
 
@@ -141,8 +151,19 @@ namespace Iced.Intel.BlockEncoderInternal {
 				constantOffsets = default;
 				pointerData.Data = targetInstr.GetAddress();
 				var instr = new Instruction();
-				instr.InternalSetCodeNoCheck(ShortJccToNativeJcc(instruction.Code.NegateConditionCode().ToShortBranch(), encoder.Bitness));
-				instr.Op0Kind = OpKind.NearBranch64;
+				instr.InternalSetCodeNoCheck(ShortBrToNativeBr(instruction.Code.NegateConditionCode().ToShortBranch(), encoder.Bitness));
+				if (instruction.OpCount == 1)
+					instr.Op0Kind = OpKind.NearBranch64;
+				else {
+#if MVEX
+					Debug.Assert(instruction.OpCount == 2);
+					instr.Op0Kind = OpKind.Register;
+					instr.Op0Register = instruction.Op0Register;
+					instr.Op1Kind = OpKind.NearBranch64;
+#else
+					throw new InvalidOperationException();
+#endif
+				}
 				Debug.Assert(encoder.Bitness == 64);
 				Debug.Assert(longInstructionSize64 <= sbyte.MaxValue);
 				instr.NearBranch64 = IP + longInstructionSize64;
@@ -159,7 +180,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			}
 		}
 
-		static Code ShortJccToNativeJcc(Code code, int bitness) {
+		static Code ShortBrToNativeBr(Code code, int bitness) {
 			Code c16, c32, c64;
 			switch (code) {
 			case Code.Jo_rel8_16:
@@ -290,6 +311,13 @@ namespace Iced.Intel.BlockEncoderInternal {
 				c64 = Code.Jg_rel8_64;
 				break;
 
+#if MVEX
+			case Code.VEX_KNC_Jkzd_kr_rel8_64:
+			case Code.VEX_KNC_Jknzd_kr_rel8_64:
+				if (bitness == 64)
+					return code;
+				throw new InvalidOperationException();
+#endif
 
 			default:
 				throw new ArgumentOutOfRangeException(nameof(code));

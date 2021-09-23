@@ -115,7 +115,9 @@ namespace Generator.Encoder {
 			var hasVsib = opDefs.Where(a => a.Vsib).Select(a => a.EnumValue).ToArray();
 			GenerateOpCodeFormatter(notInstrOpCodeStrs, hasModRM, hasVsib);
 			GenerateCore();
-			var jccInstr = defs.Where(a => a.BranchKind == BranchKind.JccShort || a.BranchKind == BranchKind.JccNear).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
+			var jccInstr = defs.Where(a =>
+				a.BranchKind == BranchKind.JccShort || a.BranchKind == BranchKind.JccNear ||
+				a.BranchKind == BranchKind.JkccShort || a.BranchKind == BranchKind.JkccNear).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
 			var simpleBranchInstr = defs.Where(a => a.BranchKind == BranchKind.Loop || a.BranchKind == BranchKind.Jrcxz).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
 			var callInstr = defs.Where(a => a.BranchKind == BranchKind.CallNear).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
 			var jmpInstr = defs.Where(a => a.BranchKind == BranchKind.JmpShort || a.BranchKind == BranchKind.JmpNear).Select(a => a.Code).OrderBy(a => a.Value).ToArray();

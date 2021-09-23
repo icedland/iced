@@ -214,6 +214,10 @@ impl InstrUtils {
 			| Code::Jg_rel16
 			| Code::Jg_rel32_32
 			| Code::Jg_rel32_64
+			| Code::VEX_KNC_Jkzd_kr_rel8_64
+			| Code::VEX_KNC_Jknzd_kr_rel8_64
+			| Code::VEX_KNC_Jkzd_kr_rel32_64
+			| Code::VEX_KNC_Jknzd_kr_rel32_64
 			=> return Rc::new(RefCell::new(JccInstr::new(block_encoder, block, instruction))),
 			// GENERATOR-END: JccInstr
 
