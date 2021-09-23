@@ -196,9 +196,18 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 				assert_eq!(instr.op_register(i), tc.op_registers[i as usize]);
 				assert_eq!(instr.try_op_register(i).unwrap(), tc.op_registers[i as usize]);
 			}
-			OpKind::NearBranch16 => assert_eq!(tc.near_branch, instr.near_branch16() as u64),
-			OpKind::NearBranch32 => assert_eq!(tc.near_branch, instr.near_branch32() as u64),
-			OpKind::NearBranch64 => assert_eq!(tc.near_branch, instr.near_branch64()),
+			OpKind::NearBranch16 => {
+				assert_eq!(tc.near_branch, instr.near_branch16() as u64);
+				assert_eq!(tc.near_branch, instr.near_branch_target());
+			}
+			OpKind::NearBranch32 => {
+				assert_eq!(tc.near_branch, instr.near_branch32() as u64);
+				assert_eq!(tc.near_branch, instr.near_branch_target());
+			}
+			OpKind::NearBranch64 => {
+				assert_eq!(tc.near_branch, instr.near_branch64());
+				assert_eq!(tc.near_branch, instr.near_branch_target());
+			}
 			OpKind::FarBranch16 => {
 				assert_eq!(instr.far_branch16() as u32, tc.far_branch);
 				assert_eq!(instr.far_branch_selector(), tc.far_branch_selector);

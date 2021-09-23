@@ -1427,8 +1427,17 @@ impl Instruction {
 	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[allow(unused_mut)]
 	pub fn near_branch_target(&self) -> u64 {
-		match self.op0_kind() {
+		let mut op_kind = self.op0_kind();
+		#[cfg(feature = "mvex")]
+		{
+			// Check if JKZD/JKNZD
+			if self.op_count() == 2 {
+				op_kind = self.op1_kind();
+			}
+		}
+		match op_kind {
 			OpKind::NearBranch16 => self.near_branch16() as u64,
 			OpKind::NearBranch32 => self.near_branch32() as u64,
 			OpKind::NearBranch64 => self.near_branch64(),

@@ -929,13 +929,22 @@ namespace Iced.Intel {
 		/// Gets the near branch target if it's a <c>CALL</c>/<c>JMP</c>/<c>Jcc</c> near branch instruction
 		/// (i.e., if <see cref="Op0Kind"/> is <see cref="OpKind.NearBranch16"/>, <see cref="OpKind.NearBranch32"/> or <see cref="OpKind.NearBranch64"/>)
 		/// </summary>
-		public readonly ulong NearBranchTarget =>
-			Op0Kind switch {
-				OpKind.NearBranch16 => NearBranch16,
-				OpKind.NearBranch32 => NearBranch32,
-				OpKind.NearBranch64 => NearBranch64,
-				_ => 0,
-			};
+		public readonly ulong NearBranchTarget {
+			get {
+				var opKind = Op0Kind;
+#if MVEX
+				// Check if JKZD/JKNZD
+				if (OpCount == 2)
+					opKind = Op1Kind;
+#endif
+				return opKind switch {
+					OpKind.NearBranch16 => NearBranch16,
+					OpKind.NearBranch32 => NearBranch32,
+					OpKind.NearBranch64 => NearBranch64,
+					_ => 0,
+				};
+			}
+		}
 
 		/// <summary>
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.FarBranch16"/>
