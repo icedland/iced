@@ -3,7 +3,6 @@
 
 using System;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Generator.Enums;
 using Generator.Enums.CSharp;
 using Generator.IO;
