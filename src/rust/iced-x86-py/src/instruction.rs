@@ -1956,6 +1956,24 @@ impl Instruction {
 		self.instr.is_call_far_indirect()
 	}
 
+	/// bool: Checks if it's a ``JKccD SHORT`` or ``JKccD NEAR`` instruction
+	#[getter]
+	fn is_jkcc_short_or_near(&self) -> bool {
+		self.instr.is_jkcc_short_or_near()
+	}
+
+	/// bool: Checks if it's a ``JKccD NEAR`` instruction
+	#[getter]
+	fn is_jkcc_near(&self) -> bool {
+		self.instr.is_jkcc_near()
+	}
+
+	/// bool: Checks if it's a ``JKccD SHORT`` instruction
+	#[getter]
+	fn is_jkcc_short(&self) -> bool {
+		self.instr.is_jkcc_short()
+	}
+
 	/// Negates the condition code, eg. ``JE`` -> ``JNE``.
 	///
 	/// Can be used if it's ``Jcc``, ``SETcc``, ``CMOVcc``, ``LOOPcc`` and does nothing if the instruction doesn't have a condition code.

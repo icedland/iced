@@ -3755,6 +3755,18 @@ class Instruction:
 	def is_call_far_indirect(self) -> bool:
 		"""bool: Checks if it's a `CALL FAR [mem]` instruction"""
 		...
+	@property
+	def is_jkcc_short_or_near(self) -> bool:
+		"""bool: Checks if it's a `JKccD SHORT` or `JKccD NEAR` instruction"""
+		...
+	@property
+	def is_jkcc_near(self) -> bool:
+		"""bool: Checks if it's a `JKccD NEAR` instruction"""
+		...
+	@property
+	def is_jkcc_short(self) -> bool:
+		"""bool: Checks if it's a `JKccD SHORT` instruction"""
+		...
 	def negate_condition_code(self) -> None:
 		"""
 		Negates the condition code, eg. `JE` -> `JNE`.

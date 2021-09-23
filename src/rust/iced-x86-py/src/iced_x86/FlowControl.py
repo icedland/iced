@@ -31,7 +31,7 @@ INDIRECT_BRANCH: FlowControl = 2 # type: ignore
 """
 CONDITIONAL_BRANCH: FlowControl = 3 # type: ignore
 """
-: It's a conditional branch instruction: ``Jcc SHORT``, ``Jcc NEAR``, ``LOOP``, ``LOOPcc``, ``JRCXZ``
+: It's a conditional branch instruction: ``Jcc SHORT``, ``Jcc NEAR``, ``LOOP``, ``LOOPcc``, ``JRCXZ``, ``JkccD SHORT``, ``JkccD NEAR``
 """
 RETURN: FlowControl = 4 # type: ignore
 """

@@ -538,6 +538,10 @@ fn is_branch_call() {
 	let call_near = &data.call_near;
 	let call_near_indirect = &data.call_near_indirect;
 	let call_far_indirect = &data.call_far_indirect;
+	#[cfg(feature = "mvex")]
+	let jkcc_short = &data.jkcc_short;
+	#[cfg(feature = "mvex")]
+	let jkcc_near = &data.jkcc_near;
 
 	for code in Code::values() {
 		let mut instr = Instruction::default();
@@ -581,6 +585,18 @@ fn is_branch_call() {
 
 		assert_eq!(code.is_call_far_indirect(), call_far_indirect.contains(&code));
 		assert_eq!(instr.is_call_far_indirect(), code.is_call_far_indirect());
+
+		#[cfg(feature = "mvex")]
+		{
+			assert_eq!(code.is_jkcc_short_or_near(), jkcc_short.contains(&code) || jkcc_near.contains(&code));
+			assert_eq!(instr.is_jkcc_short_or_near(), code.is_jkcc_short_or_near());
+
+			assert_eq!(code.is_jkcc_near(), jkcc_near.contains(&code));
+			assert_eq!(instr.is_jkcc_near(), code.is_jkcc_near());
+
+			assert_eq!(code.is_jkcc_short(), jkcc_short.contains(&code));
+			assert_eq!(instr.is_jkcc_short(), code.is_jkcc_short());
+		}
 	}
 }
 
@@ -594,6 +610,8 @@ fn verify_negate_condition_code() {
 	to_negated_code_value.extend(data.setcc_infos.iter().map(|a| ((*a).0, (*a).1)));
 	to_negated_code_value.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).1)));
 	to_negated_code_value.extend(data.loopcc_infos.iter().map(|a| ((*a).0, (*a).1)));
+	to_negated_code_value.extend(data.jkcc_short_infos.iter().map(|a| ((*a).0, (*a).1)));
+	to_negated_code_value.extend(data.jkcc_near_infos.iter().map(|a| ((*a).0, (*a).1)));
 
 	for code in Code::values() {
 		let mut instr = Instruction::default();
@@ -614,6 +632,7 @@ fn verify_to_short_branch() {
 	let mut as_short_branch: HashMap<Code, Code> = HashMap::new();
 	as_short_branch.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).2)));
 	as_short_branch.extend(data.jmp_infos.iter().map(|a| ((*a).1, (*a).0)));
+	as_short_branch.extend(data.jkcc_near_infos.iter().map(|a| ((*a).0, (*a).2)));
 
 	for code in Code::values() {
 		let mut instr = Instruction::default();
@@ -634,6 +653,7 @@ fn verify_to_near_branch() {
 	let mut as_near_branch: HashMap<Code, Code> = HashMap::new();
 	as_near_branch.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).2)));
 	as_near_branch.extend(data.jmp_infos.iter().map(|a| ((*a).0, (*a).1)));
+	as_near_branch.extend(data.jkcc_short_infos.iter().map(|a| ((*a).0, (*a).2)));
 
 	for code in Code::values() {
 		let mut instr = Instruction::default();
@@ -657,6 +677,8 @@ fn verify_condition_code() {
 	to_condition_code.extend(data.setcc_infos.iter().map(|a| ((*a).0, (*a).2)));
 	to_condition_code.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).2)));
 	to_condition_code.extend(data.loopcc_infos.iter().map(|a| ((*a).0, (*a).2)));
+	to_condition_code.extend(data.jkcc_short_infos.iter().map(|a| ((*a).0, (*a).3)));
+	to_condition_code.extend(data.jkcc_near_infos.iter().map(|a| ((*a).0, (*a).3)));
 
 	for code in Code::values() {
 		let mut instr = Instruction::default();

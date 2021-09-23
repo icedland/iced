@@ -26,12 +26,16 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const string Loop = "loop";
 		internal const string Jrcxz = "jrcxz";
 		internal const string Xbegin = "xbegin";
+		internal const string JkccShort = "jkcc-short";
+		internal const string JkccNear = "jkcc-near";
 		internal const string JmpInfo = "jmp-info";
 		internal const string JccShortInfo = "jcc-short-info";
 		internal const string JccNearInfo = "jcc-near-info";
 		internal const string SetccInfo = "setcc-info";
 		internal const string CmovccInfo = "cmovcc-info";
 		internal const string LoopccInfo = "loopcc-info";
+		internal const string JkccShortInfo = "jkcc-short-info";
+		internal const string JkccNearInfo = "jkcc-near-info";
 		internal const string StringInstruction = "string";
 	}
 	// GENERATOR-END: MiscSectionNames
@@ -54,9 +58,13 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public static readonly HashSet<Code> Jrcxz;
 		public static readonly HashSet<Code> Xbegin;
 		public static readonly HashSet<Code> StringInstr;
+		public static readonly HashSet<Code> JkccShort;
+		public static readonly HashSet<Code> JkccNear;
 		public static readonly (Code jmpShort, Code jmpNear)[] JmpInfos;
 		public static readonly (Code jcc, Code negated, Code jccNear, ConditionCode cc)[] JccShortInfos;
 		public static readonly (Code jcc, Code negated, Code jccShort, ConditionCode cc)[] JccNearInfos;
+		public static readonly (Code jkcc, Code negated, Code jkccNear, ConditionCode cc)[] JkccShortInfos;
+		public static readonly (Code jkcc, Code negated, Code jkccShort, ConditionCode cc)[] JkccNearInfos;
 		public static readonly (Code setcc, Code negated, ConditionCode cc)[] SetccInfos;
 		public static readonly (Code cmovcc, Code negated, ConditionCode cc)[] CmovccInfos;
 		public static readonly (Code loopcc, Code negated, ConditionCode cc)[] LoopccInfos;
@@ -79,9 +87,13 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var jrcxz = new HashSet<Code>();
 			var xbegin = new HashSet<Code>();
 			var stringInstr = new HashSet<Code>();
+			var jkccShort = new HashSet<Code>();
+			var jkccNear = new HashSet<Code>();
 			var jmpInfos = new List<(Code jmpShort, Code jmpNear)>();
 			var jccShortInfos = new List<(Code jcc, Code negated, Code jccNear, ConditionCode cc)>();
 			var jccNearInfos = new List<(Code jcc, Code negated, Code jccShort, ConditionCode cc)>();
+			var jkccShortInfos = new List<(Code jkcc, Code negated, Code jkccNear, ConditionCode cc)>();
+			var jkccNearInfos = new List<(Code jkcc, Code negated, Code jkccShort, ConditionCode cc)>();
 			var setccInfos = new List<(Code setcc, Code negated, ConditionCode cc)>();
 			var cmovccInfos = new List<(Code cmovcc, Code negated, ConditionCode cc)>();
 			var loopccInfos = new List<(Code loopcc, Code negated, ConditionCode cc)>();
@@ -104,9 +116,13 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				(MiscSectionNames.Jrcxz, (_, line) => AddCode(jrcxz, line)),
 				(MiscSectionNames.Xbegin, (_, line) => AddCode(xbegin, line)),
 				(MiscSectionNames.StringInstruction, (_, line) => AddCode(stringInstr, line)),
+				(MiscSectionNames.JkccShort, (_, line) => AddCode(jkccShort, line)),
+				(MiscSectionNames.JkccNear, (_, line) => AddCode(jkccNear, line)),
 				(MiscSectionNames.JmpInfo, (_, line) => AddJmpInfo(jmpInfos, line)),
 				(MiscSectionNames.JccShortInfo, (_, line) => AddJccInfo(jccShortInfos, line)),
 				(MiscSectionNames.JccNearInfo, (_, line) => AddJccInfo(jccNearInfos, line)),
+				(MiscSectionNames.JkccShortInfo, (_, line) => AddJccInfo(jkccShortInfos, line)),
+				(MiscSectionNames.JkccNearInfo, (_, line) => AddJccInfo(jkccNearInfos, line)),
 				(MiscSectionNames.SetccInfo, (_, line) => AddInstrCcInfo(setccInfos, line)),
 				(MiscSectionNames.CmovccInfo, (_, line) => AddInstrCcInfo(cmovccInfos, line)),
 				(MiscSectionNames.LoopccInfo, (_, line) => AddInstrCcInfo(loopccInfos, line)),
@@ -131,9 +147,13 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Jrcxz = jrcxz;
 			Xbegin = xbegin;
 			StringInstr = stringInstr;
+			JkccShort = jkccShort;
+			JkccNear = jkccNear;
 			JmpInfos = jmpInfos.ToArray();
 			JccShortInfos = jccShortInfos.ToArray();
 			JccNearInfos = jccNearInfos.ToArray();
+			JkccShortInfos = jkccShortInfos.ToArray();
+			JkccNearInfos = jkccNearInfos.ToArray();
 			SetccInfos = setccInfos.ToArray();
 			CmovccInfos = cmovccInfos.ToArray();
 			LoopccInfos = loopccInfos.ToArray();

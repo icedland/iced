@@ -920,6 +920,16 @@ def test_br_checks() -> None:
 	assert not instr.is_jmp_near_indirect
 	assert instr.is_call_near_indirect
 
+	instr = Decoder(64, b"\xC4\xE0\x78\x74\x5A", DecoderOptions.KNC).decode()
+	assert instr.is_jkcc_short_or_near
+	assert instr.is_jkcc_short
+	assert not instr.is_jkcc_near
+
+	instr = Decoder(64, b"\xC5\xF8\x84\x5A\xA5\x12\x34", DecoderOptions.KNC).decode()
+	assert instr.is_jkcc_short_or_near
+	assert not instr.is_jkcc_short
+	assert instr.is_jkcc_near
+
 def test_condition_code() -> None:
 	instr = Decoder(64, b"\x70\x00").decode()
 

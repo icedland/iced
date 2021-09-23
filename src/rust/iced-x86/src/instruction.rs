@@ -3514,6 +3514,30 @@ impl Instruction {
 		self.code().is_call_far_indirect()
 	}
 
+	/// Checks if it's a `JKccD SHORT` or `JKccD NEAR` instruction
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_short_or_near(&self) -> bool {
+		self.code().is_jkcc_short_or_near()
+	}
+
+	/// Checks if it's a `JKccD NEAR` instruction
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_near(&self) -> bool {
+		self.code().is_jkcc_near()
+	}
+
+	/// Checks if it's a `JKccD SHORT` instruction
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_short(&self) -> bool {
+		self.code().is_jkcc_short()
+	}
+
 	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc`
 	/// and does nothing if the instruction doesn't have a condition code.
 	///

@@ -15,7 +15,7 @@ namespace Iced.Intel {
 		UnconditionalBranch = 1,
 		/// <summary>It&apos;s an unconditional indirect branch: <c>JMP NEAR reg</c>, <c>JMP NEAR [mem]</c>, <c>JMP FAR [mem]</c></summary>
 		IndirectBranch = 2,
-		/// <summary>It&apos;s a conditional branch instruction: <c>Jcc SHORT</c>, <c>Jcc NEAR</c>, <c>LOOP</c>, <c>LOOPcc</c>, <c>JRCXZ</c></summary>
+		/// <summary>It&apos;s a conditional branch instruction: <c>Jcc SHORT</c>, <c>Jcc NEAR</c>, <c>LOOP</c>, <c>LOOPcc</c>, <c>JRCXZ</c>, <c>JkccD SHORT</c>, <c>JkccD NEAR</c></summary>
 		ConditionalBranch = 3,
 		/// <summary>It&apos;s a return instruction: <c>RET NEAR</c>, <c>RET FAR</c>, <c>IRET</c>, <c>SYSRET</c>, <c>SYSEXIT</c>, <c>RSM</c>, <c>SKINIT</c>, <c>RDM</c>, <c>UIRET</c></summary>
 		Return = 4,

@@ -105,6 +105,12 @@ test("Instruction props", () => {
 	expect(instr.isJmpFarIndirect).toBe(false);
 	expect(instr.isCallNearIndirect).toBe(false);
 	expect(instr.isCallFarIndirect).toBe(false);
+	// Check if MVEX support
+	if ((getIcedFeatures() & 0x10) != 0) {
+		expect(instr.isJkccShortOrNear).toBe(false);
+		expect(instr.isJkccNear).toBe(false);
+		expect(instr.isJkccShort).toBe(false);
+	}
 	expect(instr.conditionCode).toBe(ConditionCode.None);
 	expect(instr.isStringInstruction).toBe(false);
 

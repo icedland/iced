@@ -37,6 +37,16 @@ namespace Iced.Intel {
 				return Code.Loopne_rel8_16_CX + (int)((t + 7) % 14);
 			}
 
+#if MVEX
+			switch (code) {
+			case Code.VEX_KNC_Jkzd_kr_rel8_64: return Code.VEX_KNC_Jknzd_kr_rel8_64;
+			case Code.VEX_KNC_Jknzd_kr_rel8_64: return Code.VEX_KNC_Jkzd_kr_rel8_64;
+			case Code.VEX_KNC_Jkzd_kr_rel32_64: return Code.VEX_KNC_Jknzd_kr_rel32_64;
+			case Code.VEX_KNC_Jknzd_kr_rel32_64: return Code.VEX_KNC_Jkzd_kr_rel32_64;
+			default: break;
+			}
+#endif
+
 			return code;
 		}
 
@@ -56,6 +66,14 @@ namespace Iced.Intel {
 			if (t <= (uint)(Code.Jmp_rel32_64 - Code.Jmp_rel16))
 				return (int)t + Code.Jmp_rel8_16;
 
+#if MVEX
+			switch (code) {
+			case Code.VEX_KNC_Jkzd_kr_rel32_64: return Code.VEX_KNC_Jkzd_kr_rel8_64;
+			case Code.VEX_KNC_Jknzd_kr_rel32_64: return Code.VEX_KNC_Jknzd_kr_rel8_64;
+			default: break;
+			}
+#endif
+
 			return code;
 		}
 
@@ -74,6 +92,14 @@ namespace Iced.Intel {
 			t = (uint)(code - Code.Jmp_rel8_16);
 			if (t <= (uint)(Code.Jmp_rel8_64 - Code.Jmp_rel8_16))
 				return (int)t + Code.Jmp_rel16;
+
+#if MVEX
+			switch (code) {
+			case Code.VEX_KNC_Jkzd_kr_rel8_64: return Code.VEX_KNC_Jkzd_kr_rel32_64;
+			case Code.VEX_KNC_Jknzd_kr_rel8_64: return Code.VEX_KNC_Jknzd_kr_rel32_64;
+			default: break;
+			}
+#endif
 
 			return code;
 		}

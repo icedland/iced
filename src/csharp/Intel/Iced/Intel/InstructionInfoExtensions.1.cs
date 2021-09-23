@@ -205,6 +205,36 @@ namespace Iced.Intel {
 		public static bool IsCallFarIndirect(this Code code) =>
 			(uint)(code - Code.Call_m1616) <= (uint)(Code.Call_m1664 - Code.Call_m1616);
 
+#if MVEX
+		/// <summary>
+		/// Checks if it's a <c>JKccD SHORT</c> or <c>JKccD NEAR</c> instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJkccShortOrNear(this Code code) =>
+			code == Code.VEX_KNC_Jkzd_kr_rel32_64 || code == Code.VEX_KNC_Jknzd_kr_rel32_64 ||
+			code == Code.VEX_KNC_Jkzd_kr_rel8_64 || code == Code.VEX_KNC_Jknzd_kr_rel8_64;
+
+		/// <summary>
+		/// Checks if it's a <c>JKccD NEAR</c> instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJkccNear(this Code code) =>
+			code == Code.VEX_KNC_Jkzd_kr_rel32_64 || code == Code.VEX_KNC_Jknzd_kr_rel32_64;
+
+		/// <summary>
+		/// Checks if it's a <c>JKccD SHORT</c> instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsJkccShort(this Code code) =>
+			code == Code.VEX_KNC_Jkzd_kr_rel8_64 || code == Code.VEX_KNC_Jknzd_kr_rel8_64;
+#endif
+
 		/// <summary>
 		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c> else
 		/// <see cref="ConditionCode.None"/> is returned
@@ -233,6 +263,19 @@ namespace Iced.Intel {
 			if (t <= (uint)(Code.Loope_rel8_64_RCX - Code.Loope_rel8_16_CX)) {
 				return Intel.ConditionCode.e;
 			}
+
+#if MVEX
+			switch (code) {
+			case Code.VEX_KNC_Jkzd_kr_rel8_64:
+			case Code.VEX_KNC_Jkzd_kr_rel32_64:
+				return Intel.ConditionCode.e;
+			case Code.VEX_KNC_Jknzd_kr_rel8_64:
+			case Code.VEX_KNC_Jknzd_kr_rel32_64:
+				return Intel.ConditionCode.ne;
+			default:
+				break;
+			}
+#endif
 
 			return Intel.ConditionCode.None;
 		}

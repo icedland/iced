@@ -43767,6 +43767,33 @@ impl Code {
 		(self as u32).wrapping_sub(Code::Call_m1616 as u32) <= (Code::Call_m1664 as u32 - Code::Call_m1616 as u32)
 	}
 
+	/// Checks if it's a `JKccD SHORT` or `JKccD NEAR` instruction
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_short_or_near(self) -> bool {
+		matches!(
+			self,
+			Code::VEX_KNC_Jkzd_kr_rel8_64 | Code::VEX_KNC_Jknzd_kr_rel8_64 | Code::VEX_KNC_Jkzd_kr_rel32_64 | Code::VEX_KNC_Jknzd_kr_rel32_64
+		)
+	}
+
+	/// Checks if it's a `JKccD NEAR` instruction
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_near(self) -> bool {
+		matches!(self, Code::VEX_KNC_Jkzd_kr_rel32_64 | Code::VEX_KNC_Jknzd_kr_rel32_64)
+	}
+
+	/// Checks if it's a `JKccD SHORT` instruction
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_short(self) -> bool {
+		matches!(self, Code::VEX_KNC_Jkzd_kr_rel8_64 | Code::VEX_KNC_Jknzd_kr_rel8_64)
+	}
+
 	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc` else [`ConditionCode::None`] is returned
 	///
 	/// [`ConditionCode::None`]: enum.ConditionCode.html#variant.None
@@ -43815,6 +43842,15 @@ impl Code {
 		t = (self as u32).wrapping_sub(Code::Loope_rel8_16_CX as u32);
 		if t <= (Code::Loope_rel8_64_RCX as u32 - Code::Loope_rel8_16_CX as u32) {
 			return ConditionCode::e;
+		}
+
+		#[cfg(feature = "mvex")]
+		{
+			match self {
+				Code::VEX_KNC_Jkzd_kr_rel8_64 | Code::VEX_KNC_Jkzd_kr_rel32_64 => return ConditionCode::e,
+				Code::VEX_KNC_Jknzd_kr_rel8_64 | Code::VEX_KNC_Jknzd_kr_rel32_64 => return ConditionCode::ne,
+				_ => {}
+			}
 		}
 
 		ConditionCode::None
@@ -43930,6 +43966,17 @@ impl Code {
 			return unsafe { mem::transmute((Code::Loopne_rel8_16_CX as u32 + (t + 7) % 14) as CodeUnderlyingType) };
 		}
 
+		#[cfg(feature = "mvex")]
+		{
+			match self {
+				Code::VEX_KNC_Jkzd_kr_rel8_64 => return Code::VEX_KNC_Jknzd_kr_rel8_64,
+				Code::VEX_KNC_Jknzd_kr_rel8_64 => return Code::VEX_KNC_Jkzd_kr_rel8_64,
+				Code::VEX_KNC_Jkzd_kr_rel32_64 => return Code::VEX_KNC_Jknzd_kr_rel32_64,
+				Code::VEX_KNC_Jknzd_kr_rel32_64 => return Code::VEX_KNC_Jkzd_kr_rel32_64,
+				_ => {}
+			}
+		}
+
 		self
 	}
 
@@ -43960,6 +44007,15 @@ impl Code {
 			return unsafe { mem::transmute((t + Code::Jmp_rel8_16 as u32) as CodeUnderlyingType) };
 		}
 
+		#[cfg(feature = "mvex")]
+		{
+			match self {
+				Code::VEX_KNC_Jkzd_kr_rel32_64 => return Code::VEX_KNC_Jkzd_kr_rel8_64,
+				Code::VEX_KNC_Jknzd_kr_rel32_64 => return Code::VEX_KNC_Jknzd_kr_rel8_64,
+				_ => {}
+			}
+		}
+
 		self
 	}
 
@@ -43988,6 +44044,15 @@ impl Code {
 		t = (self as u32).wrapping_sub(Code::Jmp_rel8_16 as u32);
 		if t <= (Code::Jmp_rel8_64 as u32 - Code::Jmp_rel8_16 as u32) {
 			return unsafe { mem::transmute((t + Code::Jmp_rel16 as u32) as CodeUnderlyingType) };
+		}
+
+		#[cfg(feature = "mvex")]
+		{
+			match self {
+				Code::VEX_KNC_Jkzd_kr_rel8_64 => return Code::VEX_KNC_Jkzd_kr_rel32_64,
+				Code::VEX_KNC_Jknzd_kr_rel8_64 => return Code::VEX_KNC_Jknzd_kr_rel32_64,
+				_ => {}
+			}
 		}
 
 		self

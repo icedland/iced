@@ -2780,6 +2780,30 @@ impl Instruction {
 		self.0.is_call_far_indirect()
 	}
 
+	/// Checks if it's a `JKccD SHORT` or `JKccD NEAR` instruction
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isJkccShortOrNear")]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_short_or_near(&self) -> bool {
+		self.0.is_jkcc_short_or_near()
+	}
+
+	/// Checks if it's a `JKccD NEAR` instruction
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isJkccNear")]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_near(&self) -> bool {
+		self.0.is_jkcc_near()
+	}
+
+	/// Checks if it's a `JKccD SHORT` instruction
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isJkccShort")]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_short(&self) -> bool {
+		self.0.is_jkcc_short()
+	}
+
 	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc` and does
 	/// nothing if the instruction doesn't have a condition code.
 	///

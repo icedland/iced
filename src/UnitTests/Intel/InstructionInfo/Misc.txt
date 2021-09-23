@@ -188,6 +188,14 @@ Jrcxz_rel8_64
 Xbegin_rel16
 Xbegin_rel32
 
+[jkcc-short]
+VEX_KNC_Jkzd_kr_rel8_64
+VEX_KNC_Jknzd_kr_rel8_64
+
+[jkcc-near]
+VEX_KNC_Jkzd_kr_rel32_64
+VEX_KNC_Jknzd_kr_rel32_64
+
 [jmp-info]
 # short, near
 Jmp_rel8_16, Jmp_rel16
@@ -382,6 +390,16 @@ Loope_rel8_32_ECX, Loopne_rel8_32_ECX, e
 Loope_rel8_64_ECX, Loopne_rel8_64_ECX, e
 Loope_rel8_16_RCX, Loopne_rel8_16_RCX, e
 Loope_rel8_64_RCX, Loopne_rel8_64_RCX, e
+
+[jkcc-short-info]
+# jkcc, negated, jkcc-near, cc
+VEX_KNC_Jkzd_kr_rel8_64, VEX_KNC_Jknzd_kr_rel8_64, VEX_KNC_Jkzd_kr_rel32_64, e
+VEX_KNC_Jknzd_kr_rel8_64, VEX_KNC_Jkzd_kr_rel8_64, VEX_KNC_Jknzd_kr_rel32_64, ne
+
+[jkcc-near-info]
+# jkcc, negated, jkcc-short, cc
+VEX_KNC_Jkzd_kr_rel32_64, VEX_KNC_Jknzd_kr_rel32_64, VEX_KNC_Jkzd_kr_rel8_64, e
+VEX_KNC_Jknzd_kr_rel32_64, VEX_KNC_Jkzd_kr_rel32_64, VEX_KNC_Jknzd_kr_rel8_64, ne
 
 [string]
 Insb_m8_DX
