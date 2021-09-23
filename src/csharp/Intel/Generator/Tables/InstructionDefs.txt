@@ -31432,7 +31432,7 @@ END
 # Code: VEX_KNC_Vprefetch2_m8
 INSTRUCTION: VEX.128.0F.WIG 18 /3 | VPREFETCH2 m8 | KNC
 	ops: nma=rm | UInt8
-	flags: prefetch
+	flags: prefetch non-temporal
 END
 
 # Code: VEX_KNC_Vprefetchenta_m8
@@ -31456,7 +31456,7 @@ END
 # Code: VEX_KNC_Vprefetche2_m8
 INSTRUCTION: VEX.128.0F.WIG 18 /7 | VPREFETCHE2 m8 | KNC
 	ops: nma=rm | UInt8
-	flags: prefetch
+	flags: prefetch non-temporal
 END
 
 # Code: VEX_KNC_Kand_kr_kr
@@ -31720,7 +31720,7 @@ END
 # Code: MVEX_Vprefetch2_mt
 INSTRUCTION: MVEX.512.0F.WIG 18 /3 | VPREFETCH2 mt | KNC
 	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
-	flags: prefetch
+	flags: prefetch non-temporal
 END
 
 # Code: MVEX_Vprefetchenta_mt
@@ -31744,7 +31744,7 @@ END
 # Code: MVEX_Vprefetche2_mt
 INSTRUCTION: MVEX.512.0F.WIG 18 /7 | VPREFETCHE2 mt | KNC
 	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
-	flags: prefetch
+	flags: prefetch non-temporal
 END
 
 # Code: MVEX_Vmovaps_zmm_k1_zmmmt

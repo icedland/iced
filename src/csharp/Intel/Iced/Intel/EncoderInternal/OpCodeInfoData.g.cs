@@ -4581,11 +4581,11 @@ namespace Iced.Intel.EncoderInternal {
 				0x02200200,// VEX_KNC_Vprefetchnta_m8
 				0x02200000,// VEX_KNC_Vprefetch0_m8
 				0x02200000,// VEX_KNC_Vprefetch1_m8
-				0x02200000,// VEX_KNC_Vprefetch2_m8
+				0x02200200,// VEX_KNC_Vprefetch2_m8
 				0x02200200,// VEX_KNC_Vprefetchenta_m8
 				0x02200000,// VEX_KNC_Vprefetche0_m8
 				0x02200000,// VEX_KNC_Vprefetche1_m8
-				0x02200000,// VEX_KNC_Vprefetche2_m8
+				0x02200200,// VEX_KNC_Vprefetche2_m8
 				0x02200000,// VEX_KNC_Kand_kr_kr
 				0x02200000,// VEX_KNC_Kandn_kr_kr
 				0x02200000,// VEX_KNC_Kandnr_kr_kr
@@ -4627,11 +4627,11 @@ namespace Iced.Intel.EncoderInternal {
 				0x02200200,// MVEX_Vprefetchnta_mt
 				0x02200000,// MVEX_Vprefetch0_mt
 				0x02200000,// MVEX_Vprefetch1_mt
-				0x02200000,// MVEX_Vprefetch2_mt
+				0x02200200,// MVEX_Vprefetch2_mt
 				0x02200200,// MVEX_Vprefetchenta_mt
 				0x02200000,// MVEX_Vprefetche0_mt
 				0x02200000,// MVEX_Vprefetche1_mt
-				0x02200000,// MVEX_Vprefetche2_mt
+				0x02200200,// MVEX_Vprefetche2_mt
 				0x02200000,// MVEX_Vmovaps_zmm_k1_zmmmt
 				0x02200000,// MVEX_Vmovapd_zmm_k1_zmmmt
 				0x02200000,// MVEX_Vmovaps_mt_k1_zmm
