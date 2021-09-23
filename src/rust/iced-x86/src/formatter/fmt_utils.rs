@@ -128,6 +128,8 @@ pub(super) fn get_flow_control(instruction: &Instruction) -> FormatterFlowContro
 		| Code::Jmp_rel8_16
 		| Code::Jmp_rel8_32
 		| Code::Jmp_rel8_64
+		| Code::VEX_KNC_Jkzd_kr_rel8_64
+		| Code::VEX_KNC_Jknzd_kr_rel8_64
 		=> FormatterFlowControl::ShortBranch,
 		Code::Loopne_rel8_16_CX
 		| Code::Loopne_rel8_32_CX
@@ -215,6 +217,8 @@ pub(super) fn get_flow_control(instruction: &Instruction) -> FormatterFlowContro
 		| Code::Jg_rel32_64
 		| Code::Jmpe_disp16
 		| Code::Jmpe_disp32
+		| Code::VEX_KNC_Jkzd_kr_rel32_64
+		| Code::VEX_KNC_Jknzd_kr_rel32_64
 		=> FormatterFlowControl::NearBranch,
 		Code::Call_ptr1616
 		| Code::Call_ptr1632
