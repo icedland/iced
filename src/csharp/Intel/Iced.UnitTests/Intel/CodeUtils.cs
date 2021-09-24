@@ -30,7 +30,7 @@ namespace Iced.UnitTests.Intel {
 				return true;
 #endif
 #if !MVEX
-			if (name.StartsWith("MVEX_", StringComparison.Ordinal))
+			if (name.StartsWith("MVEX_", StringComparison.Ordinal) || name.StartsWith("VEX_KNC_", StringComparison.Ordinal))
 				return true;
 #endif
 
