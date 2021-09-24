@@ -2236,10 +2236,27 @@ namespace Iced.Intel {
 			}
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static bool IsClearInstr(in Instruction instruction) {
+#if MVEX
+			switch (instruction.MvexRegMemConv) {
+			case MvexRegMemConv.None:
+			case MvexRegMemConv.RegSwizzleNone:
+				return true;
+			default:
+				return false;
+			}
+#else
+			return true;
+#endif
+		}
+
 		void CommandClearRegRegmem(in Instruction instruction, Flags flags) {
 			if (instruction.Op0Register != instruction.Op1Register)
 				return;
 			if (instruction.Op1Kind != OpKind.Register)
+				return;
+			if (!IsClearInstr(instruction))
 				return;
 			unsafe { info.opAccesses[0] = (byte)OpAccess.Write; }
 			unsafe { info.opAccesses[1] = (byte)OpAccess.None; }
@@ -2254,6 +2271,8 @@ namespace Iced.Intel {
 			if (instruction.Op1Register != instruction.Op2Register)
 				return;
 			if (instruction.Op2Kind != OpKind.Register)
+				return;
+			if (!IsClearInstr(instruction))
 				return;
 			unsafe { info.opAccesses[1] = (byte)OpAccess.None; }
 			unsafe { info.opAccesses[2] = (byte)OpAccess.None; }

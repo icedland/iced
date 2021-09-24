@@ -2599,8 +2599,20 @@ impl InstructionInfoFactory {
 		}
 	}
 
+	#[inline(always)]
+	#[allow(unused_variables)]
+	fn is_clear_instr(instruction: &Instruction) -> bool {
+		#[cfg(features = "mvex")]
+		{
+			matches!(instruction.mvex_reg_mem_conv(), MvexRegMemConv::None | MvexRegMemConv::RegSwizzleNone)
+		}
+		#[cfg(not(features = "mvex"))]
+		true
+	}
+
 	fn command_clear_reg_regmem(instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
-		if instruction.op0_register() == instruction.op1_register() && instruction.op1_kind() == OpKind::Register {
+		if instruction.op0_register() == instruction.op1_register() && instruction.op1_kind() == OpKind::Register && Self::is_clear_instr(instruction)
+		{
 			info.op_accesses[0] = OpAccess::Write;
 			info.op_accesses[1] = OpAccess::None;
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
@@ -2612,7 +2624,8 @@ impl InstructionInfoFactory {
 	}
 
 	fn command_clear_reg_reg_regmem(instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
-		if instruction.op1_register() == instruction.op2_register() && instruction.op2_kind() == OpKind::Register {
+		if instruction.op1_register() == instruction.op2_register() && instruction.op2_kind() == OpKind::Register && Self::is_clear_instr(instruction)
+		{
 			info.op_accesses[1] = OpAccess::None;
 			info.op_accesses[2] = OpAccess::None;
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
