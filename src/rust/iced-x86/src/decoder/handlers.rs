@@ -28,7 +28,7 @@ macro_rules! write_op2_reg {
 	};
 }
 
-#[cfg(not(feature = "no_vex"))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 macro_rules! write_op3_reg {
 	($instruction:ident, $expr:expr) => {
 		const_assert_eq!(OpKind::Register as u32, 0);
