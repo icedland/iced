@@ -1305,6 +1305,14 @@ namespace Generator.Tables {
 							MvexConvFn.None => null,
 							_ => throw new InvalidOperationException(),
 						};
+						state.Mvex.Flags2 |= state.Mvex.ConvFn switch {
+							MvexConvFn.Si32 or MvexConvFn.Ui32 or MvexConvFn.Di32 or
+							MvexConvFn.Sf32 or MvexConvFn.Uf32 or MvexConvFn.Df32 => MvexInfoFlags2.ConvFn32,
+							MvexConvFn.Si64 or MvexConvFn.Ui64 or MvexConvFn.Di64 or
+							MvexConvFn.Sf64 or MvexConvFn.Uf64 or MvexConvFn.Df64 => MvexInfoFlags2.None,
+							MvexConvFn.None => MvexInfoFlags2.None,
+							_ => throw new InvalidOperationException(),
+						};
 						if (ttLutKind is null) {
 							Error(lineIndex, $"Unknown {nameof(MvexTupleTypeLutKind)} value");
 							return false;

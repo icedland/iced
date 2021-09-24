@@ -2319,6 +2319,7 @@ pub(crate) struct MvexInfoFlags2;
 impl MvexInfoFlags2 {
 	pub(crate) const NONE: u32 = 0x0000_0000;
 	pub(crate) const NO_SAE_ROUNDING_CONTROL: u32 = 0x0000_0001;
+	pub(crate) const CONV_FN32: u32 = 0x0000_0002;
 }
 // GENERATOR-END: MvexInfoFlags2
 
