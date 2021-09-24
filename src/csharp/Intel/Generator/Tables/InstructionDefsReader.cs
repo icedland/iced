@@ -2294,15 +2294,6 @@ namespace Generator.Tables {
 						state.Args.Add((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0);
 					}
 				}
-				else if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0) {
-					if (def.OpKinds.Length == 0) {
-						error = "Instruction has no operands";
-						return false;
-					}
-					ctorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.sae)];
-					var saeIndex = def.OpKinds[^1].OperandEncoding == OperandEncoding.Immediate ? 1 : 0;
-					state.Args.Add(saeIndex);
-				}
 				else if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0) {
 					if (def.OpKinds.Length == 0) {
 						error = "Instruction has no operands";
@@ -2320,6 +2311,15 @@ namespace Generator.Tables {
 						ctorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.er_2)];
 						state.Args.Add(erIndex);
 					}
+				}
+				else if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0) {
+					if (def.OpKinds.Length == 0) {
+						error = "Instruction has no operands";
+						return false;
+					}
+					ctorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.sae)];
+					var saeIndex = def.OpKinds[^1].OperandEncoding == OperandEncoding.Immediate ? 1 : 0;
+					state.Args.Add(saeIndex);
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
 					int ccIndex = (int)(def.OpCode.OpCode & 0x0F);
@@ -3522,15 +3522,6 @@ namespace Generator.Tables {
 					else
 						ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.pops)];
 				}
-				else if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0) {
-					if (def.OpKinds.Length == 0) {
-						error = "Instruction has no operands";
-						return false;
-					}
-					ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.sae)];
-					var saeIndex = def.OpKinds[^1].OperandEncoding == OperandEncoding.Immediate ? def.OpKinds.Length - 1 : def.OpKinds.Length;
-					state.Args.Add(saeIndex);
-				}
 				else if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0) {
 					if (def.OpKinds.Length == 0) {
 						error = "Instruction has no operands";
@@ -3545,6 +3536,15 @@ namespace Generator.Tables {
 					}
 					else
 						ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.er_2)];
+				}
+				else if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0) {
+					if (def.OpKinds.Length == 0) {
+						error = "Instruction has no operands";
+						return false;
+					}
+					ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.sae)];
+					var saeIndex = def.OpKinds[^1].OperandEncoding == OperandEncoding.Immediate ? def.OpKinds.Length - 1 : def.OpKinds.Length;
+					state.Args.Add(saeIndex);
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
 					int ccIndex = (int)(def.OpCode.OpCode & 0x0F);
