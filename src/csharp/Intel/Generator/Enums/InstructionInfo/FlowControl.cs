@@ -10,7 +10,7 @@ namespace Generator.Enums.InstructionInfo {
 		UnconditionalBranch,
 		[Comment("It's an unconditional indirect branch: #(c:JMP NEAR reg)#, #(c:JMP NEAR [mem])#, #(c:JMP FAR [mem])#")]
 		IndirectBranch,
-		[Comment("It's a conditional branch instruction: #(c:Jcc SHORT)#, #(c:Jcc NEAR)#, #(c:LOOP)#, #(c:LOOPcc)#, #(c:JRCXZ)#, #(c:JkccD SHORT)#, #(c:JkccD NEAR)#")]
+		[Comment("It's a conditional branch instruction: #(c:Jcc SHORT)#, #(c:Jcc NEAR)#, #(c:LOOP)#, #(c:LOOPcc)#, #(c:JRCXZ)#, #(c:JKccD SHORT)#, #(c:JKccD NEAR)#")]
 		ConditionalBranch,
 		[Comment("It's a return instruction: #(c:RET NEAR)#, #(c:RET FAR)#, #(c:IRET)#, #(c:SYSRET)#, #(c:SYSEXIT)#, #(c:RSM)#, #(c:SKINIT)#, #(c:RDM)#, #(c:UIRET)#")]
 		Return,

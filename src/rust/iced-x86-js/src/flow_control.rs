@@ -15,7 +15,7 @@ pub enum FlowControl {
 	UnconditionalBranch = 1,
 	/// It's an unconditional indirect branch: `JMP NEAR reg`, `JMP NEAR [mem]`, `JMP FAR [mem]`
 	IndirectBranch = 2,
-	/// It's a conditional branch instruction: `Jcc SHORT`, `Jcc NEAR`, `LOOP`, `LOOPcc`, `JRCXZ`, `JkccD SHORT`, `JkccD NEAR`
+	/// It's a conditional branch instruction: `Jcc SHORT`, `Jcc NEAR`, `LOOP`, `LOOPcc`, `JRCXZ`, `JKccD SHORT`, `JKccD NEAR`
 	ConditionalBranch = 3,
 	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `SKINIT`, `RDM`, `UIRET`
 	Return = 4,
