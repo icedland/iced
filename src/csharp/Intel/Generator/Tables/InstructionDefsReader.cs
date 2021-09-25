@@ -1179,6 +1179,7 @@ namespace Generator.Tables {
 						state.Mvex = new(toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)], state.OpCode.MvexEHBit, MvexConvFn.None, 0, 0);
 						bool seenN = false;
 						EnumValue? ttLutKind = null;
+						int elemSize = 0;
 						foreach (var (key, value) in GetKeyValues(opsParts[1].Trim())) {
 							if (key is not "swizz" and not "mem" and not "N") {
 								if (value != string.Empty) {
@@ -1236,54 +1237,66 @@ namespace Generator.Tables {
 
 							case "i32":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)];
+								elemSize = 32;
 								break;
 
 							case "f32":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32)];
+								elemSize = 32;
 								break;
 
 							case "i32-half":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_Half)];
+								elemSize = 32;
 								break;
 
 							case "f32-half":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_Half)];
+								elemSize = 32;
 								break;
 
 							case "i32-bcst1":
 							case "i32-elem":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_1to16_or_elem)];
+								elemSize = 32;
 								break;
 
 							case "f32-bcst1":
 							case "f32-elem":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_1to16_or_elem)];
+								elemSize = 32;
 								break;
 
 							case "i64-bcst1":
 							case "i64-elem":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int64_1to8_or_elem)];
+								elemSize = 64;
 								break;
 
 							case "f64-bcst1":
 							case "f64-elem":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float64_1to8_or_elem)];
+								elemSize = 64;
 								break;
 
 							case "i32-bcst4":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_4to16)];
+								elemSize = 32;
 								break;
 
 							case "f32-bcst4":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_4to16)];
+								elemSize = 32;
 								break;
 
 							case "i64-bcst4":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int64_4to8)];
+								elemSize = 64;
 								break;
 
 							case "f64-bcst4":
 								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float64_4to8)];
+								elemSize = 64;
 								break;
 
 							default:
@@ -1310,7 +1323,7 @@ namespace Generator.Tables {
 							MvexConvFn.Sf32 or MvexConvFn.Uf32 or MvexConvFn.Df32 => MvexInfoFlags2.ConvFn32,
 							MvexConvFn.Si64 or MvexConvFn.Ui64 or MvexConvFn.Di64 or
 							MvexConvFn.Sf64 or MvexConvFn.Uf64 or MvexConvFn.Df64 => MvexInfoFlags2.None,
-							MvexConvFn.None => MvexInfoFlags2.None,
+							MvexConvFn.None => elemSize == 32 ? MvexInfoFlags2.ConvFn32 : MvexInfoFlags2.None,
 							_ => throw new InvalidOperationException(),
 						};
 						if (ttLutKind is null) {
