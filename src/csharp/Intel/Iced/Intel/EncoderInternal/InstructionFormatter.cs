@@ -893,7 +893,7 @@ namespace Iced.Intel.EncoderInternal {
 #if MVEX
 			if (opCode.Encoding == EncodingKind.MVEX) {
 				var mvexInfo = new MvexInfo(opCode.Code);
-				if (mvexInfo.EHBit == MvexEHBit.None)
+				if (mvexInfo.EHBit == MvexEHBit.None && !mvexInfo.IgnoresEvictionHint)
 					sb.Append('t');
 			}
 #endif

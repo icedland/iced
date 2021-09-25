@@ -23,6 +23,7 @@ namespace Iced.Intel {
 		public bool RequireOpMaskRegister => ((MvexInfoFlags1)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags1Index] & MvexInfoFlags1.RequireOpMaskRegister) != 0;
 		public bool NoSaeRc => ((MvexInfoFlags2)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags2Index] & MvexInfoFlags2.NoSaeRoundingControl) != 0;
 		public bool IsConvFn32 => ((MvexInfoFlags2)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags2Index] & MvexInfoFlags2.ConvFn32) != 0;
+		public bool IgnoresEvictionHint => ((MvexInfoFlags2)MvexInfoData.Data[index * MvexInfoData.StructSize + MvexInfoData.Flags2Index] & MvexInfoFlags2.IgnoresEvictionHint) != 0;
 
 		public MvexInfo(Code code) {
 			index = (int)code - (int)IcedConstants.MvexStart;

@@ -17834,35 +17834,35 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x01,// Normal_1
 				0xD6, 0x0C,// 1622 = "kextract"
 
-				// MVEX_Vprefetchnta_mt
+				// MVEX_Vprefetchnta_m
 				0x81,// 'v', Normal_1
 				0xE4, 0x03,// 484 = "vprefetchnta"
 
-				// MVEX_Vprefetch0_mt
+				// MVEX_Vprefetch0_m
 				0x01,// Normal_1
 				0xBD, 0x0C,// 1597 = "vprefetch0"
 
-				// MVEX_Vprefetch1_mt
+				// MVEX_Vprefetch1_m
 				0x01,// Normal_1
 				0xBE, 0x0C,// 1598 = "vprefetch1"
 
-				// MVEX_Vprefetch2_mt
+				// MVEX_Vprefetch2_m
 				0x01,// Normal_1
 				0xBF, 0x0C,// 1599 = "vprefetch2"
 
-				// MVEX_Vprefetchenta_mt
+				// MVEX_Vprefetchenta_m
 				0x01,// Normal_1
 				0xC0, 0x0C,// 1600 = "vprefetchenta"
 
-				// MVEX_Vprefetche0_mt
+				// MVEX_Vprefetche0_m
 				0x01,// Normal_1
 				0xC1, 0x0C,// 1601 = "vprefetche0"
 
-				// MVEX_Vprefetche1_mt
+				// MVEX_Vprefetche1_m
 				0x01,// Normal_1
 				0xC2, 0x0C,// 1602 = "vprefetche1"
 
-				// MVEX_Vprefetche2_mt
+				// MVEX_Vprefetche2_m
 				0x01,// Normal_1
 				0xC3, 0x0C,// 1603 = "vprefetche2"
 
@@ -17982,11 +17982,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x01,// Normal_1
 				0x31,// 49 = "vmovdqa64"
 
-				// MVEX_Clevict1_mt
+				// MVEX_Clevict1_m
 				0x01,// Normal_1
 				0xD3, 0x0C,// 1619 = "clevict1"
 
-				// MVEX_Clevict0_mt
+				// MVEX_Clevict0_m
 				0x01,// Normal_1
 				0xD4, 0x0C,// 1620 = "clevict0"
 

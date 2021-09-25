@@ -4619,14 +4619,14 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::CODE_ENUM_COUNT] = [
 	Mnemonic::Undoc,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 	Mnemonic::Undoc,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 	Mnemonic::Kextract,// VEX_KNC_Kextract_kr_r64_imm8
-	Mnemonic::Vprefetchnta,// MVEX_Vprefetchnta_mt
-	Mnemonic::Vprefetch0,// MVEX_Vprefetch0_mt
-	Mnemonic::Vprefetch1,// MVEX_Vprefetch1_mt
-	Mnemonic::Vprefetch2,// MVEX_Vprefetch2_mt
-	Mnemonic::Vprefetchenta,// MVEX_Vprefetchenta_mt
-	Mnemonic::Vprefetche0,// MVEX_Vprefetche0_mt
-	Mnemonic::Vprefetche1,// MVEX_Vprefetche1_mt
-	Mnemonic::Vprefetche2,// MVEX_Vprefetche2_mt
+	Mnemonic::Vprefetchnta,// MVEX_Vprefetchnta_m
+	Mnemonic::Vprefetch0,// MVEX_Vprefetch0_m
+	Mnemonic::Vprefetch1,// MVEX_Vprefetch1_m
+	Mnemonic::Vprefetch2,// MVEX_Vprefetch2_m
+	Mnemonic::Vprefetchenta,// MVEX_Vprefetchenta_m
+	Mnemonic::Vprefetche0,// MVEX_Vprefetche0_m
+	Mnemonic::Vprefetche1,// MVEX_Vprefetche1_m
+	Mnemonic::Vprefetche2,// MVEX_Vprefetche2_m
 	Mnemonic::Vmovaps,// MVEX_Vmovaps_zmm_k1_zmmmt
 	Mnemonic::Vmovapd,// MVEX_Vmovapd_zmm_k1_zmmmt
 	Mnemonic::Vmovaps,// MVEX_Vmovaps_mt_k1_zmm
@@ -4654,8 +4654,8 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::CODE_ENUM_COUNT] = [
 	Mnemonic::Vcvtudq2pd,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 	Mnemonic::Vmovdqa32,// MVEX_Vmovdqa32_mt_k1_zmm
 	Mnemonic::Vmovdqa64,// MVEX_Vmovdqa64_mt_k1_zmm
-	Mnemonic::Clevict1,// MVEX_Clevict1_mt
-	Mnemonic::Clevict0,// MVEX_Clevict0_mt
+	Mnemonic::Clevict1,// MVEX_Clevict1_m
+	Mnemonic::Clevict0,// MVEX_Clevict0_m
 	Mnemonic::Vcmpps,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 	Mnemonic::Vcmppd,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 	Mnemonic::Vpandd,// MVEX_Vpandd_zmm_k1_zmm_zmmmt

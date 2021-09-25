@@ -31698,52 +31698,53 @@ INSTRUCTION: VEX.128.66.0F3A.W0 3E /r ib | KEXTRACT k1, r64, imm8 | KNC
 	ops: w=reg r=rm r=imm
 END
 
-# Code: MVEX_Vprefetchnta_mt
-INSTRUCTION: MVEX.512.0F.WIG 18 /0 | VPREFETCHNTA mt | KNC
+# Code: MVEX_Vprefetchnta_m
+INSTRUCTION: MVEX.512.0F.WIG 18 /0 | VPREFETCHNTA m | KNC
 	# v9 template (page 722) shows {k1} is allowed but it seems to be ignored
-	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
+	# Embedded {eh} is ignored, see page 51
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask ignore-eh
 	flags: prefetch non-temporal
 END
 
-# Code: MVEX_Vprefetch0_mt
-INSTRUCTION: MVEX.512.0F.WIG 18 /1 | VPREFETCH0 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
+# Code: MVEX_Vprefetch0_m
+INSTRUCTION: MVEX.512.0F.WIG 18 /1 | VPREFETCH0 m | KNC
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask ignore-eh
 	flags: prefetch
 END
 
-# Code: MVEX_Vprefetch1_mt
-INSTRUCTION: MVEX.512.0F.WIG 18 /2 | VPREFETCH1 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
+# Code: MVEX_Vprefetch1_m
+INSTRUCTION: MVEX.512.0F.WIG 18 /2 | VPREFETCH1 m | KNC
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask ignore-eh
 	flags: prefetch
 END
 
-# Code: MVEX_Vprefetch2_mt
-INSTRUCTION: MVEX.512.0F.WIG 18 /3 | VPREFETCH2 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
+# Code: MVEX_Vprefetch2_m
+INSTRUCTION: MVEX.512.0F.WIG 18 /3 | VPREFETCH2 m | KNC
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask ignore-eh
 	flags: prefetch non-temporal
 END
 
-# Code: MVEX_Vprefetchenta_mt
-INSTRUCTION: MVEX.512.0F.WIG 18 /4 | VPREFETCHENTA mt | KNC
-	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
+# Code: MVEX_Vprefetchenta_m
+INSTRUCTION: MVEX.512.0F.WIG 18 /4 | VPREFETCHENTA m | KNC
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask ignore-eh
 	flags: prefetch non-temporal
 END
 
-# Code: MVEX_Vprefetche0_mt
-INSTRUCTION: MVEX.512.0F.WIG 18 /5 | VPREFETCHE0 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
+# Code: MVEX_Vprefetche0_m
+INSTRUCTION: MVEX.512.0F.WIG 18 /5 | VPREFETCHE0 m | KNC
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask ignore-eh
 	flags: prefetch
 END
 
-# Code: MVEX_Vprefetche1_mt
-INSTRUCTION: MVEX.512.0F.WIG 18 /6 | VPREFETCHE1 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
+# Code: MVEX_Vprefetche1_m
+INSTRUCTION: MVEX.512.0F.WIG 18 /6 | VPREFETCHE1 m | KNC
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask ignore-eh
 	flags: prefetch
 END
 
-# Code: MVEX_Vprefetche2_mt
-INSTRUCTION: MVEX.512.0F.WIG 18 /7 | VPREFETCHE2 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
+# Code: MVEX_Vprefetche2_m
+INSTRUCTION: MVEX.512.0F.WIG 18 /7 | VPREFETCHE2 m | KNC
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask ignore-eh
 	flags: prefetch non-temporal
 END
 
@@ -31889,14 +31890,14 @@ INSTRUCTION: MVEX.512.66.0F.W1 7F /r | VMOVDQA64 mt {k1}, Di64(zmm1) | KNC
 	ops: wvmm=rm r=reg | mem=1000_0000
 END
 
-# Code: MVEX_Clevict1_mt
-INSTRUCTION: MVEX.512.F3.0F.WIG AE /7 | CLEVICT1 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
+# Code: MVEX_Clevict1_m
+INSTRUCTION: MVEX.512.F3.0F.WIG AE /7 | CLEVICT1 m | KNC
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask ignore-eh
 END
 
-# Code: MVEX_Clevict0_mt
-INSTRUCTION: MVEX.512.F2.0F.WIG AE /7 | CLEVICT0 mt | KNC
-	ops: nma=rm | mem=1000_0000 i32 ignore-opmask
+# Code: MVEX_Clevict0_m
+INSTRUCTION: MVEX.512.F2.0F.WIG AE /7 | CLEVICT0 m | KNC
+	ops: nma=rm | mem=1000_0000 i32 ignore-opmask ignore-eh
 END
 
 # Code: MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8

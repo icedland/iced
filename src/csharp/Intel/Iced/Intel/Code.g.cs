@@ -36866,70 +36866,70 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		VEX_KNC_Kextract_kr_r64_imm8 = 4610,
-		/// <summary><c>VPREFETCHNTA mt</c><br/>
+		/// <summary><c>VPREFETCHNTA m</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.0F.WIG 18 /0</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vprefetchnta_mt = 4611,
-		/// <summary><c>VPREFETCH0 mt</c><br/>
+		MVEX_Vprefetchnta_m = 4611,
+		/// <summary><c>VPREFETCH0 m</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.0F.WIG 18 /1</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vprefetch0_mt = 4612,
-		/// <summary><c>VPREFETCH1 mt</c><br/>
+		MVEX_Vprefetch0_m = 4612,
+		/// <summary><c>VPREFETCH1 m</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.0F.WIG 18 /2</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vprefetch1_mt = 4613,
-		/// <summary><c>VPREFETCH2 mt</c><br/>
+		MVEX_Vprefetch1_m = 4613,
+		/// <summary><c>VPREFETCH2 m</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.0F.WIG 18 /3</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vprefetch2_mt = 4614,
-		/// <summary><c>VPREFETCHENTA mt</c><br/>
+		MVEX_Vprefetch2_m = 4614,
+		/// <summary><c>VPREFETCHENTA m</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.0F.WIG 18 /4</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vprefetchenta_mt = 4615,
-		/// <summary><c>VPREFETCHE0 mt</c><br/>
+		MVEX_Vprefetchenta_m = 4615,
+		/// <summary><c>VPREFETCHE0 m</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.0F.WIG 18 /5</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vprefetche0_mt = 4616,
-		/// <summary><c>VPREFETCHE1 mt</c><br/>
+		MVEX_Vprefetche0_m = 4616,
+		/// <summary><c>VPREFETCHE1 m</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.0F.WIG 18 /6</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vprefetche1_mt = 4617,
-		/// <summary><c>VPREFETCHE2 mt</c><br/>
+		MVEX_Vprefetche1_m = 4617,
+		/// <summary><c>VPREFETCHE2 m</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.0F.WIG 18 /7</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Vprefetche2_mt = 4618,
+		MVEX_Vprefetche2_m = 4618,
 		/// <summary><c>VMOVAPS zmm1 {k1}, Sf32(zmm2/mt)</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.0F.W0 28 /r</c><br/>
@@ -37146,22 +37146,22 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		MVEX_Vmovdqa64_mt_k1_zmm = 4645,
-		/// <summary><c>CLEVICT1 mt</c><br/>
+		/// <summary><c>CLEVICT1 m</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.F3.0F.WIG AE /7</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Clevict1_mt = 4646,
-		/// <summary><c>CLEVICT0 mt</c><br/>
+		MVEX_Clevict1_m = 4646,
+		/// <summary><c>CLEVICT0 m</c><br/>
 		/// <br/>
 		/// <c>MVEX.512.F2.0F.WIG AE /7</c><br/>
 		/// <br/>
 		/// <c>KNC</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		MVEX_Clevict0_mt = 4647,
+		MVEX_Clevict0_m = 4647,
 		/// <summary><c>VCMPPS k2 {k1}, zmm1, Sf32(zmm2/mt), imm8</c><br/>
 		/// <br/>
 		/// <c>MVEX.NDS.512.0F.W0 C2 /r ib</c><br/>

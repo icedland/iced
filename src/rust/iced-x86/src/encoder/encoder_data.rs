@@ -4616,14 +4616,14 @@ pub(super) static ENC_FLAGS1: [u32; 4818] = [
 	0x0000_018B,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 	0x0000_01CE,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 	0x0001_F3D1,// VEX_KNC_Kextract_kr_r64_imm8
-	0x0000_0001,// MVEX_Vprefetchnta_mt
-	0x0000_0001,// MVEX_Vprefetch0_mt
-	0x0000_0001,// MVEX_Vprefetch1_mt
-	0x0000_0001,// MVEX_Vprefetch2_mt
-	0x0000_0001,// MVEX_Vprefetchenta_mt
-	0x0000_0001,// MVEX_Vprefetche0_mt
-	0x0000_0001,// MVEX_Vprefetche1_mt
-	0x0000_0001,// MVEX_Vprefetche2_mt
+	0x0000_0001,// MVEX_Vprefetchnta_m
+	0x0000_0001,// MVEX_Vprefetch0_m
+	0x0000_0001,// MVEX_Vprefetch1_m
+	0x0000_0001,// MVEX_Vprefetch2_m
+	0x0000_0001,// MVEX_Vprefetchenta_m
+	0x0000_0001,// MVEX_Vprefetche0_m
+	0x0000_0001,// MVEX_Vprefetche1_m
+	0x0000_0001,// MVEX_Vprefetche2_m
 	0x0000_0036,// MVEX_Vmovaps_zmm_k1_zmmmt
 	0x0000_0036,// MVEX_Vmovapd_zmm_k1_zmmmt
 	0x0000_0061,// MVEX_Vmovaps_mt_k1_zmm
@@ -4651,8 +4651,8 @@ pub(super) static ENC_FLAGS1: [u32; 4818] = [
 	0x0000_0036,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 	0x0000_0061,// MVEX_Vmovdqa32_mt_k1_zmm
 	0x0000_0061,// MVEX_Vmovdqa64_mt_k1_zmm
-	0x0000_0001,// MVEX_Clevict1_mt
-	0x0000_0001,// MVEX_Clevict0_mt
+	0x0000_0001,// MVEX_Clevict1_m
+	0x0000_0001,// MVEX_Clevict0_m
 	0x0000_8374,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 	0x0000_8374,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 	0x0000_0376,// MVEX_Vpandd_zmm_k1_zmm_zmmmt
@@ -9437,14 +9437,14 @@ pub(super) static ENC_FLAGS2: [u32; 4818] = [
 	0x4434_00F1,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 	0x4474_00F1,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 	0x4416_003E,// VEX_KNC_Kextract_kr_r64_imm8
-	0xC682_0018,// MVEX_Vprefetchnta_mt
-	0xCE82_0018,// MVEX_Vprefetch0_mt
-	0xD682_0018,// MVEX_Vprefetch1_mt
-	0xDE82_0018,// MVEX_Vprefetch2_mt
-	0xE682_0018,// MVEX_Vprefetchenta_mt
-	0xEE82_0018,// MVEX_Vprefetche0_mt
-	0xF682_0018,// MVEX_Vprefetche1_mt
-	0xFE82_0018,// MVEX_Vprefetche2_mt
+	0xC682_0018,// MVEX_Vprefetchnta_m
+	0xCE82_0018,// MVEX_Vprefetch0_m
+	0xD682_0018,// MVEX_Vprefetch1_m
+	0xDE82_0018,// MVEX_Vprefetch2_m
+	0xE682_0018,// MVEX_Vprefetchenta_m
+	0xEE82_0018,// MVEX_Vprefetche0_m
+	0xF682_0018,// MVEX_Vprefetche1_m
+	0xFE82_0018,// MVEX_Vprefetche2_m
 	0x4602_0028,// MVEX_Vmovaps_zmm_k1_zmmmt
 	0x4652_0028,// MVEX_Vmovapd_zmm_k1_zmmmt
 	0x4602_0029,// MVEX_Vmovaps_mt_k1_zmm
@@ -9472,8 +9472,8 @@ pub(super) static ENC_FLAGS2: [u32; 4818] = [
 	0x4622_007A,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 	0x4612_007F,// MVEX_Vmovdqa32_mt_k1_zmm
 	0x4652_007F,// MVEX_Vmovdqa64_mt_k1_zmm
-	0xFEA2_00AE,// MVEX_Clevict1_mt
-	0xFEB2_00AE,// MVEX_Clevict0_mt
+	0xFEA2_00AE,// MVEX_Clevict1_m
+	0xFEB2_00AE,// MVEX_Clevict0_m
 	0x4602_00C2,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 	0x4652_00C2,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 	0x4612_00DB,// MVEX_Vpandd_zmm_k1_zmm_zmmmt
@@ -14258,14 +14258,14 @@ pub(super) static ENC_FLAGS3: [u32; 4818] = [
 	0x0002_0001,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 	0x0002_0001,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 	0x0002_0001,// VEX_KNC_Kextract_kr_r64_imm8
-	0x0002_0005,// MVEX_Vprefetchnta_mt
-	0x0002_0005,// MVEX_Vprefetch0_mt
-	0x0002_0005,// MVEX_Vprefetch1_mt
-	0x0002_0005,// MVEX_Vprefetch2_mt
-	0x0002_0005,// MVEX_Vprefetchenta_mt
-	0x0002_0005,// MVEX_Vprefetche0_mt
-	0x0002_0005,// MVEX_Vprefetche1_mt
-	0x0002_0005,// MVEX_Vprefetche2_mt
+	0x0002_0005,// MVEX_Vprefetchnta_m
+	0x0002_0005,// MVEX_Vprefetch0_m
+	0x0002_0005,// MVEX_Vprefetch1_m
+	0x0002_0005,// MVEX_Vprefetch2_m
+	0x0002_0005,// MVEX_Vprefetchenta_m
+	0x0002_0005,// MVEX_Vprefetche0_m
+	0x0002_0005,// MVEX_Vprefetche1_m
+	0x0002_0005,// MVEX_Vprefetche2_m
 	0x2002_0005,// MVEX_Vmovaps_zmm_k1_zmmmt
 	0x2002_0005,// MVEX_Vmovapd_zmm_k1_zmmmt
 	0x2002_0005,// MVEX_Vmovaps_mt_k1_zmm
@@ -14293,8 +14293,8 @@ pub(super) static ENC_FLAGS3: [u32; 4818] = [
 	0x2002_0005,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 	0x2002_0005,// MVEX_Vmovdqa32_mt_k1_zmm
 	0x2002_0005,// MVEX_Vmovdqa64_mt_k1_zmm
-	0x0002_0005,// MVEX_Clevict1_mt
-	0x0002_0005,// MVEX_Clevict0_mt
+	0x0002_0005,// MVEX_Clevict1_m
+	0x0002_0005,// MVEX_Clevict0_m
 	0x3002_0005,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 	0x3002_0005,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 	0x2002_0005,// MVEX_Vpandd_zmm_k1_zmm_zmmmt

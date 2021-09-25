@@ -36878,70 +36878,70 @@ pub enum Code {
 	///
 	/// `64-bit`
 	VEX_KNC_Kextract_kr_r64_imm8 = 4610,
-	/// `VPREFETCHNTA mt`
+	/// `VPREFETCHNTA m`
 	///
 	/// `MVEX.512.0F.WIG 18 /0`
 	///
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vprefetchnta_mt = 4611,
-	/// `VPREFETCH0 mt`
+	MVEX_Vprefetchnta_m = 4611,
+	/// `VPREFETCH0 m`
 	///
 	/// `MVEX.512.0F.WIG 18 /1`
 	///
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vprefetch0_mt = 4612,
-	/// `VPREFETCH1 mt`
+	MVEX_Vprefetch0_m = 4612,
+	/// `VPREFETCH1 m`
 	///
 	/// `MVEX.512.0F.WIG 18 /2`
 	///
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vprefetch1_mt = 4613,
-	/// `VPREFETCH2 mt`
+	MVEX_Vprefetch1_m = 4613,
+	/// `VPREFETCH2 m`
 	///
 	/// `MVEX.512.0F.WIG 18 /3`
 	///
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vprefetch2_mt = 4614,
-	/// `VPREFETCHENTA mt`
+	MVEX_Vprefetch2_m = 4614,
+	/// `VPREFETCHENTA m`
 	///
 	/// `MVEX.512.0F.WIG 18 /4`
 	///
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vprefetchenta_mt = 4615,
-	/// `VPREFETCHE0 mt`
+	MVEX_Vprefetchenta_m = 4615,
+	/// `VPREFETCHE0 m`
 	///
 	/// `MVEX.512.0F.WIG 18 /5`
 	///
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vprefetche0_mt = 4616,
-	/// `VPREFETCHE1 mt`
+	MVEX_Vprefetche0_m = 4616,
+	/// `VPREFETCHE1 m`
 	///
 	/// `MVEX.512.0F.WIG 18 /6`
 	///
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vprefetche1_mt = 4617,
-	/// `VPREFETCHE2 mt`
+	MVEX_Vprefetche1_m = 4617,
+	/// `VPREFETCHE2 m`
 	///
 	/// `MVEX.512.0F.WIG 18 /7`
 	///
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Vprefetche2_mt = 4618,
+	MVEX_Vprefetche2_m = 4618,
 	/// `VMOVAPS zmm1 {k1}, Sf32(zmm2/mt)`
 	///
 	/// `MVEX.512.0F.W0 28 /r`
@@ -37158,22 +37158,22 @@ pub enum Code {
 	///
 	/// `64-bit`
 	MVEX_Vmovdqa64_mt_k1_zmm = 4645,
-	/// `CLEVICT1 mt`
+	/// `CLEVICT1 m`
 	///
 	/// `MVEX.512.F3.0F.WIG AE /7`
 	///
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Clevict1_mt = 4646,
-	/// `CLEVICT0 mt`
+	MVEX_Clevict1_m = 4646,
+	/// `CLEVICT0 m`
 	///
 	/// `MVEX.512.F2.0F.WIG AE /7`
 	///
 	/// `KNC`
 	///
 	/// `64-bit`
-	MVEX_Clevict0_mt = 4647,
+	MVEX_Clevict0_m = 4647,
 	/// `VCMPPS k2 {k1}, zmm1, Sf32(zmm2/mt), imm8`
 	///
 	/// `MVEX.NDS.512.0F.W0 C2 /r ib`
@@ -43148,14 +43148,14 @@ static GEN_DEBUG_CODE: [&str; 4818] = [
 	"VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1",
 	"VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1",
 	"VEX_KNC_Kextract_kr_r64_imm8",
-	"MVEX_Vprefetchnta_mt",
-	"MVEX_Vprefetch0_mt",
-	"MVEX_Vprefetch1_mt",
-	"MVEX_Vprefetch2_mt",
-	"MVEX_Vprefetchenta_mt",
-	"MVEX_Vprefetche0_mt",
-	"MVEX_Vprefetche1_mt",
-	"MVEX_Vprefetche2_mt",
+	"MVEX_Vprefetchnta_m",
+	"MVEX_Vprefetch0_m",
+	"MVEX_Vprefetch1_m",
+	"MVEX_Vprefetch2_m",
+	"MVEX_Vprefetchenta_m",
+	"MVEX_Vprefetche0_m",
+	"MVEX_Vprefetche1_m",
+	"MVEX_Vprefetche2_m",
 	"MVEX_Vmovaps_zmm_k1_zmmmt",
 	"MVEX_Vmovapd_zmm_k1_zmmmt",
 	"MVEX_Vmovaps_mt_k1_zmm",
@@ -43183,8 +43183,8 @@ static GEN_DEBUG_CODE: [&str; 4818] = [
 	"MVEX_Vcvtudq2pd_zmm_k1_zmmmt",
 	"MVEX_Vmovdqa32_mt_k1_zmm",
 	"MVEX_Vmovdqa64_mt_k1_zmm",
-	"MVEX_Clevict1_mt",
-	"MVEX_Clevict0_mt",
+	"MVEX_Clevict1_m",
+	"MVEX_Clevict0_m",
 	"MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8",
 	"MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8",
 	"MVEX_Vpandd_zmm_k1_zmm_zmmmt",

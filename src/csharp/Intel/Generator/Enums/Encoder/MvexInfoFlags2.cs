@@ -9,5 +9,7 @@ namespace Generator.Enums.Encoder {
 		NoSaeRoundingControl	= 0x01,
 		// Set if it's Si32/Sf32/etc
 		ConvFn32				= 0x02,
+		// Ignores {eh} bit, eg. VPREFETCH* and CLEVICT*
+		IgnoresEvictionHint		= 0x04,
 	}
 }

@@ -744,8 +744,11 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		let memory_size = self.get_memory_size(is_broadcast);
 		self.sb.push('m');
 		#[cfg(feature = "mvex")]
-		if self.op_code.encoding() == EncodingKind::MVEX && get_mvex_info(self.op_code.code()).eh_bit == MvexEHBit::None {
-			self.sb.push('t');
+		if self.op_code.encoding() == EncodingKind::MVEX {
+			let mvex = get_mvex_info(self.op_code.code());
+			if mvex.eh_bit == MvexEHBit::None && !mvex.ignores_eviction_hint() {
+				self.sb.push('t');
+			}
 		}
 		self.write_memory_size(memory_size);
 		if is_broadcast {

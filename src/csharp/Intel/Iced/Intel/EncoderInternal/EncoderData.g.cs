@@ -4625,14 +4625,14 @@ namespace Iced.Intel.EncoderInternal {
 				0x0000018B,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 				0x000001CE,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 				0x0001F3D1,// VEX_KNC_Kextract_kr_r64_imm8
-				0x00000001,// MVEX_Vprefetchnta_mt
-				0x00000001,// MVEX_Vprefetch0_mt
-				0x00000001,// MVEX_Vprefetch1_mt
-				0x00000001,// MVEX_Vprefetch2_mt
-				0x00000001,// MVEX_Vprefetchenta_mt
-				0x00000001,// MVEX_Vprefetche0_mt
-				0x00000001,// MVEX_Vprefetche1_mt
-				0x00000001,// MVEX_Vprefetche2_mt
+				0x00000001,// MVEX_Vprefetchnta_m
+				0x00000001,// MVEX_Vprefetch0_m
+				0x00000001,// MVEX_Vprefetch1_m
+				0x00000001,// MVEX_Vprefetch2_m
+				0x00000001,// MVEX_Vprefetchenta_m
+				0x00000001,// MVEX_Vprefetche0_m
+				0x00000001,// MVEX_Vprefetche1_m
+				0x00000001,// MVEX_Vprefetche2_m
 				0x00000036,// MVEX_Vmovaps_zmm_k1_zmmmt
 				0x00000036,// MVEX_Vmovapd_zmm_k1_zmmmt
 				0x00000061,// MVEX_Vmovaps_mt_k1_zmm
@@ -4660,8 +4660,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000036,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 				0x00000061,// MVEX_Vmovdqa32_mt_k1_zmm
 				0x00000061,// MVEX_Vmovdqa64_mt_k1_zmm
-				0x00000001,// MVEX_Clevict1_mt
-				0x00000001,// MVEX_Clevict0_mt
+				0x00000001,// MVEX_Clevict1_m
+				0x00000001,// MVEX_Clevict0_m
 				0x00008374,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 				0x00008374,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 				0x00000376,// MVEX_Vpandd_zmm_k1_zmm_zmmmt
@@ -9447,14 +9447,14 @@ namespace Iced.Intel.EncoderInternal {
 				0x443400F1,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 				0x447400F1,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 				0x4416003E,// VEX_KNC_Kextract_kr_r64_imm8
-				0xC6820018,// MVEX_Vprefetchnta_mt
-				0xCE820018,// MVEX_Vprefetch0_mt
-				0xD6820018,// MVEX_Vprefetch1_mt
-				0xDE820018,// MVEX_Vprefetch2_mt
-				0xE6820018,// MVEX_Vprefetchenta_mt
-				0xEE820018,// MVEX_Vprefetche0_mt
-				0xF6820018,// MVEX_Vprefetche1_mt
-				0xFE820018,// MVEX_Vprefetche2_mt
+				0xC6820018,// MVEX_Vprefetchnta_m
+				0xCE820018,// MVEX_Vprefetch0_m
+				0xD6820018,// MVEX_Vprefetch1_m
+				0xDE820018,// MVEX_Vprefetch2_m
+				0xE6820018,// MVEX_Vprefetchenta_m
+				0xEE820018,// MVEX_Vprefetche0_m
+				0xF6820018,// MVEX_Vprefetche1_m
+				0xFE820018,// MVEX_Vprefetche2_m
 				0x46020028,// MVEX_Vmovaps_zmm_k1_zmmmt
 				0x46520028,// MVEX_Vmovapd_zmm_k1_zmmmt
 				0x46020029,// MVEX_Vmovaps_mt_k1_zmm
@@ -9482,8 +9482,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x4622007A,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 				0x4612007F,// MVEX_Vmovdqa32_mt_k1_zmm
 				0x4652007F,// MVEX_Vmovdqa64_mt_k1_zmm
-				0xFEA200AE,// MVEX_Clevict1_mt
-				0xFEB200AE,// MVEX_Clevict0_mt
+				0xFEA200AE,// MVEX_Clevict1_m
+				0xFEB200AE,// MVEX_Clevict0_m
 				0x460200C2,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 				0x465200C2,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 				0x461200DB,// MVEX_Vpandd_zmm_k1_zmm_zmmmt
@@ -14269,14 +14269,14 @@ namespace Iced.Intel.EncoderInternal {
 				0x00020001,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 				0x00020001,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 				0x00020001,// VEX_KNC_Kextract_kr_r64_imm8
-				0x00020005,// MVEX_Vprefetchnta_mt
-				0x00020005,// MVEX_Vprefetch0_mt
-				0x00020005,// MVEX_Vprefetch1_mt
-				0x00020005,// MVEX_Vprefetch2_mt
-				0x00020005,// MVEX_Vprefetchenta_mt
-				0x00020005,// MVEX_Vprefetche0_mt
-				0x00020005,// MVEX_Vprefetche1_mt
-				0x00020005,// MVEX_Vprefetche2_mt
+				0x00020005,// MVEX_Vprefetchnta_m
+				0x00020005,// MVEX_Vprefetch0_m
+				0x00020005,// MVEX_Vprefetch1_m
+				0x00020005,// MVEX_Vprefetch2_m
+				0x00020005,// MVEX_Vprefetchenta_m
+				0x00020005,// MVEX_Vprefetche0_m
+				0x00020005,// MVEX_Vprefetche1_m
+				0x00020005,// MVEX_Vprefetche2_m
 				0x20020005,// MVEX_Vmovaps_zmm_k1_zmmmt
 				0x20020005,// MVEX_Vmovapd_zmm_k1_zmmmt
 				0x20020005,// MVEX_Vmovaps_mt_k1_zmm
@@ -14304,8 +14304,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x20020005,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 				0x20020005,// MVEX_Vmovdqa32_mt_k1_zmm
 				0x20020005,// MVEX_Vmovdqa64_mt_k1_zmm
-				0x00020005,// MVEX_Clevict1_mt
-				0x00020005,// MVEX_Clevict0_mt
+				0x00020005,// MVEX_Clevict1_m
+				0x00020005,// MVEX_Clevict0_m
 				0x30020005,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 				0x30020005,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 				0x20020005,// MVEX_Vpandd_zmm_k1_zmm_zmmmt

@@ -9152,25 +9152,25 @@ undoc r14, rcx
 kextract $0x5a, r11, k2
 kextract $-0x5b, rbx, k2
 vprefetchnta 0x40(rax)
-vprefetchnta 0x40(rax){eh}
+vprefetchnta 0x40(rax)
 vprefetch0 0x40(rax)
-vprefetch0 0x40(rax){eh}
+vprefetch0 0x40(rax)
 vprefetch1 0x40(rax)
-vprefetch1 0x40(rax){eh}
+vprefetch1 0x40(rax)
 vprefetch2 0x40(rax)
-vprefetch2 0x40(rax){eh}
+vprefetch2 0x40(rax)
 vprefetchenta 0x40(rax)
-vprefetchenta 0x40(rax){eh}
+vprefetchenta 0x40(rax)
 vprefetche0 0x40(rax)
-vprefetche0 0x40(rax){eh}
+vprefetche0 0x40(rax)
 vprefetche1 0x40(rax)
-vprefetche1 0x40(rax){eh}
+vprefetche1 0x40(rax)
 vprefetche2 0x40(rax)
-vprefetche2 0x40(rax){eh}
+vprefetche2 0x40(rax)
 clevict1 0x40(rax)
-clevict1 0x40(rax){eh}
+clevict1 0x40(rax)
 clevict0 0x40(rax)
-clevict0 0x40(rax){eh}
+clevict0 0x40(rax)
 vgatherpf0hintdps 4(rcx,zmm4,4){k3}
 vgatherpf0hintdps 2(rcx,zmm4,4){k3}{float16}
 vgatherpf0hintdps 1(rcx,zmm4,4){k3}{uint8}

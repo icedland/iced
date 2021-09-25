@@ -35352,345 +35352,345 @@ C4C379 3E D3 5A, VEX_KNC_Kextract_kr_r64_imm8, Kextract, 3, op0=r;k2 op1=r;r11 o
 C4E379 3E D3 A5, VEX_KNC_Kextract_kr_r64_imm8, Kextract, 3, op0=r;k2 op1=r;rbx op2=i8;0xA5 co=5;1;0;0;0;0 decopt=KNC
 C48379 3E D3 5A, VEX_KNC_Kextract_kr_r64_imm8, Kextract, 3, op0=r;k2 op1=r;r11 op2=i8;0x5A co=5;1;0;0;0;0 enc=C4C3793ED35A decopt=KNC
 
-62 F17808 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
-62 F17818 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17818 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F17828 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17828 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F17838 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17838 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F17848 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17848 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F17858 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17858 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F17868 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17868 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F17878 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17878 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F17888 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 eh mvex-mident decopt=KNC
-62 F17898 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 eh mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17898 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F178A8 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 eh mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F178A8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F178B8 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 eh mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F178B8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F178C8 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 eh mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F178C8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F178D8 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 eh mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F178D8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F178E8 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 eh mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F178E8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 F178F8 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 eh mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F178F8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_mt decopt=KNC
-62 617808 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184001
-62 F1F808 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184001
-62 F1780B 18 40 01, MVEX_Vprefetchnta_mt, Vprefetchnta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184001
+62 F17808 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
+62 F17818 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
+62 F17818 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F17828 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
+62 F17828 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F17838 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
+62 F17838 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F17848 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
+62 F17848 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F17858 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
+62 F17858 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F17868 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
+62 F17868 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F17878 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
+62 F17878 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F17888 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184001
+62 F17898 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck enc=62F17818184001
+62 F17898 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F178A8 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck enc=62F17828184001
+62 F178A8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F178B8 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck enc=62F17838184001
+62 F178B8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F178C8 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck enc=62F17848184001
+62 F178C8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F178D8 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck enc=62F17858184001
+62 F178D8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F178E8 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck enc=62F17868184001
+62 F178E8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 F178F8 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck enc=62F17878184001
+62 F178F8 18 40 01, INVALID, INVALID, 0, code=MVEX_Vprefetchnta_m decopt=KNC
+62 617808 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184001
+62 F1F808 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184001
+62 F1780B 18 40 01, MVEX_Vprefetchnta_m, Vprefetchnta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184001
 
-62 F17808 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
-62 F17818 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17818 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F17828 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17828 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F17838 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17838 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F17848 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17848 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F17858 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17858 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F17868 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17868 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F17878 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17878 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F17888 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 eh mvex-mident decopt=KNC
-62 F17898 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 eh mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17898 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F178A8 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 eh mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F178A8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F178B8 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 eh mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F178B8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F178C8 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 eh mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F178C8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F178D8 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 eh mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F178D8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F178E8 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 eh mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F178E8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 F178F8 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 eh mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F178F8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_mt decopt=KNC
-62 617808 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184801
-62 F1F808 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184801
-62 F1780B 18 48 01, MVEX_Vprefetch0_mt, Vprefetch0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184801
+62 F17808 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
+62 F17818 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
+62 F17818 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F17828 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
+62 F17828 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F17838 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
+62 F17838 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F17848 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
+62 F17848 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F17858 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
+62 F17858 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F17868 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
+62 F17868 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F17878 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
+62 F17878 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F17888 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184801
+62 F17898 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck enc=62F17818184801
+62 F17898 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F178A8 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck enc=62F17828184801
+62 F178A8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F178B8 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck enc=62F17838184801
+62 F178B8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F178C8 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck enc=62F17848184801
+62 F178C8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F178D8 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck enc=62F17858184801
+62 F178D8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F178E8 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck enc=62F17868184801
+62 F178E8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 F178F8 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck enc=62F17878184801
+62 F178F8 18 48 01, INVALID, INVALID, 0, code=MVEX_Vprefetch0_m decopt=KNC
+62 617808 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184801
+62 F1F808 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184801
+62 F1780B 18 48 01, MVEX_Vprefetch0_m, Vprefetch0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808184801
 
-62 F17808 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
-62 F17818 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17818 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F17828 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17828 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F17838 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17838 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F17848 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17848 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F17858 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17858 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F17868 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17868 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F17878 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17878 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F17888 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 eh mvex-mident decopt=KNC
-62 F17898 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 eh mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17898 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F178A8 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 eh mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F178A8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F178B8 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 eh mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F178B8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F178C8 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 eh mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F178C8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F178D8 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 eh mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F178D8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F178E8 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 eh mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F178E8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 F178F8 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 eh mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F178F8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_mt decopt=KNC
-62 617808 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185001
-62 F1F808 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185001
-62 F1780B 18 50 01, MVEX_Vprefetch1_mt, Vprefetch1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185001
+62 F17808 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
+62 F17818 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
+62 F17818 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F17828 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
+62 F17828 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F17838 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
+62 F17838 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F17848 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
+62 F17848 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F17858 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
+62 F17858 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F17868 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
+62 F17868 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F17878 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
+62 F17878 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F17888 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185001
+62 F17898 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck enc=62F17818185001
+62 F17898 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F178A8 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck enc=62F17828185001
+62 F178A8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F178B8 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck enc=62F17838185001
+62 F178B8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F178C8 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck enc=62F17848185001
+62 F178C8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F178D8 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck enc=62F17858185001
+62 F178D8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F178E8 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck enc=62F17868185001
+62 F178E8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 F178F8 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck enc=62F17878185001
+62 F178F8 18 50 01, INVALID, INVALID, 0, code=MVEX_Vprefetch1_m decopt=KNC
+62 617808 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185001
+62 F1F808 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185001
+62 F1780B 18 50 01, MVEX_Vprefetch1_m, Vprefetch1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185001
 
-62 F17808 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
-62 F17818 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17818 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F17828 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17828 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F17838 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17838 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F17848 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17848 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F17858 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17858 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F17868 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17868 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F17878 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17878 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F17888 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 eh mvex-mident decopt=KNC
-62 F17898 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 eh mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17898 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F178A8 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 eh mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F178A8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F178B8 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 eh mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F178B8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F178C8 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 eh mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F178C8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F178D8 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 eh mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F178D8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F178E8 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 eh mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F178E8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 F178F8 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 eh mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F178F8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_mt decopt=KNC
-62 617808 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185801
-62 F1F808 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185801
-62 F1780B 18 58 01, MVEX_Vprefetch2_mt, Vprefetch2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185801
+62 F17808 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
+62 F17818 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
+62 F17818 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F17828 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
+62 F17828 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F17838 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
+62 F17838 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F17848 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
+62 F17848 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F17858 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
+62 F17858 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F17868 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
+62 F17868 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F17878 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
+62 F17878 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F17888 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185801
+62 F17898 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck enc=62F17818185801
+62 F17898 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F178A8 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck enc=62F17828185801
+62 F178A8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F178B8 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck enc=62F17838185801
+62 F178B8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F178C8 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck enc=62F17848185801
+62 F178C8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F178D8 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck enc=62F17858185801
+62 F178D8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F178E8 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck enc=62F17868185801
+62 F178E8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 F178F8 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck enc=62F17878185801
+62 F178F8 18 58 01, INVALID, INVALID, 0, code=MVEX_Vprefetch2_m decopt=KNC
+62 617808 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185801
+62 F1F808 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185801
+62 F1780B 18 58 01, MVEX_Vprefetch2_m, Vprefetch2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808185801
 
-62 F17808 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
-62 F17818 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17818 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F17828 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17828 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F17838 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17838 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F17848 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17848 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F17858 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17858 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F17868 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17868 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F17878 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17878 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F17888 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 eh mvex-mident decopt=KNC
-62 F17898 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 eh mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17898 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F178A8 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 eh mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F178A8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F178B8 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 eh mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F178B8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F178C8 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 eh mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F178C8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F178D8 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 eh mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F178D8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F178E8 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 eh mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F178E8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 F178F8 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 eh mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F178F8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_mt decopt=KNC
-62 617808 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186001
-62 F1F808 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186001
-62 F1780B 18 60 01, MVEX_Vprefetchenta_mt, Vprefetchenta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186001
+62 F17808 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
+62 F17818 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
+62 F17818 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F17828 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
+62 F17828 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F17838 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
+62 F17838 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F17848 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
+62 F17848 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F17858 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
+62 F17858 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F17868 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
+62 F17868 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F17878 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
+62 F17878 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F17888 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186001
+62 F17898 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck enc=62F17818186001
+62 F17898 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F178A8 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck enc=62F17828186001
+62 F178A8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F178B8 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck enc=62F17838186001
+62 F178B8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F178C8 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck enc=62F17848186001
+62 F178C8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F178D8 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck enc=62F17858186001
+62 F178D8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F178E8 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck enc=62F17868186001
+62 F178E8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 F178F8 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck enc=62F17878186001
+62 F178F8 18 60 01, INVALID, INVALID, 0, code=MVEX_Vprefetchenta_m decopt=KNC
+62 617808 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186001
+62 F1F808 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186001
+62 F1780B 18 60 01, MVEX_Vprefetchenta_m, Vprefetchenta, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186001
 
-62 F17808 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
-62 F17818 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17818 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F17828 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17828 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F17838 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17838 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F17848 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17848 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F17858 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17858 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F17868 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17868 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F17878 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17878 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F17888 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 eh mvex-mident decopt=KNC
-62 F17898 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 eh mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17898 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F178A8 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 eh mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F178A8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F178B8 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 eh mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F178B8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F178C8 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 eh mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F178C8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F178D8 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 eh mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F178D8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F178E8 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 eh mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F178E8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 F178F8 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 eh mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F178F8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_mt decopt=KNC
-62 617808 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186801
-62 F1F808 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186801
-62 F1780B 18 68 01, MVEX_Vprefetche0_mt, Vprefetche0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186801
+62 F17808 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
+62 F17818 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
+62 F17818 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F17828 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
+62 F17828 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F17838 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
+62 F17838 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F17848 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
+62 F17848 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F17858 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
+62 F17858 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F17868 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
+62 F17868 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F17878 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
+62 F17878 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F17888 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186801
+62 F17898 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck enc=62F17818186801
+62 F17898 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F178A8 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck enc=62F17828186801
+62 F178A8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F178B8 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck enc=62F17838186801
+62 F178B8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F178C8 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck enc=62F17848186801
+62 F178C8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F178D8 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck enc=62F17858186801
+62 F178D8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F178E8 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck enc=62F17868186801
+62 F178E8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 F178F8 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck enc=62F17878186801
+62 F178F8 18 68 01, INVALID, INVALID, 0, code=MVEX_Vprefetche0_m decopt=KNC
+62 617808 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186801
+62 F1F808 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186801
+62 F1780B 18 68 01, MVEX_Vprefetche0_m, Vprefetche0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808186801
 
-62 F17808 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
-62 F17818 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17818 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F17828 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17828 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F17838 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17838 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F17848 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17848 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F17858 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17858 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F17868 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17868 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F17878 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17878 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F17888 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 eh mvex-mident decopt=KNC
-62 F17898 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 eh mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17898 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F178A8 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 eh mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F178A8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F178B8 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 eh mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F178B8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F178C8 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 eh mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F178C8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F178D8 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 eh mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F178D8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F178E8 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 eh mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F178E8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 F178F8 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 eh mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F178F8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_mt decopt=KNC
-62 617808 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187001
-62 F1F808 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187001
-62 F1780B 18 70 01, MVEX_Vprefetche1_mt, Vprefetche1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187001
+62 F17808 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
+62 F17818 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
+62 F17818 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F17828 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
+62 F17828 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F17838 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
+62 F17838 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F17848 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
+62 F17848 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F17858 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
+62 F17858 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F17868 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
+62 F17868 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F17878 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
+62 F17878 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F17888 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187001
+62 F17898 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck enc=62F17818187001
+62 F17898 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F178A8 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck enc=62F17828187001
+62 F178A8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F178B8 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck enc=62F17838187001
+62 F178B8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F178C8 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck enc=62F17848187001
+62 F178C8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F178D8 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck enc=62F17858187001
+62 F178D8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F178E8 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck enc=62F17868187001
+62 F178E8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 F178F8 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck enc=62F17878187001
+62 F178F8 18 70 01, INVALID, INVALID, 0, code=MVEX_Vprefetche1_m decopt=KNC
+62 617808 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187001
+62 F1F808 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187001
+62 F1780B 18 70 01, MVEX_Vprefetche1_m, Vprefetche1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187001
 
-62 F17808 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
-62 F17818 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17818 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F17828 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17828 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F17838 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17838 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F17848 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17848 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F17858 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17858 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F17868 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17868 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F17878 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17878 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F17888 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 eh mvex-mident decopt=KNC
-62 F17898 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 eh mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17898 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F178A8 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 eh mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F178A8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F178B8 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 eh mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F178B8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F178C8 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 eh mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F178C8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F178D8 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 eh mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F178D8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F178E8 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 eh mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F178E8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 F178F8 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 eh mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F178F8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_mt decopt=KNC
-62 617808 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187801
-62 F1F808 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187801
-62 F1780B 18 78 01, MVEX_Vprefetche2_mt, Vprefetche2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187801
+62 F17808 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
+62 F17818 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
+62 F17818 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F17828 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
+62 F17828 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F17838 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
+62 F17838 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F17848 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
+62 F17848 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F17858 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
+62 F17858 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F17868 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
+62 F17868 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F17878 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
+62 F17878 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F17888 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187801
+62 F17898 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck enc=62F17818187801
+62 F17898 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F178A8 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck enc=62F17828187801
+62 F178A8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F178B8 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck enc=62F17838187801
+62 F178B8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F178C8 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck enc=62F17848187801
+62 F178C8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F178D8 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck enc=62F17858187801
+62 F178D8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F178E8 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck enc=62F17868187801
+62 F178E8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 F178F8 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck enc=62F17878187801
+62 F178F8 18 78 01, INVALID, INVALID, 0, code=MVEX_Vprefetche2_m decopt=KNC
+62 617808 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187801
+62 F1F808 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187801
+62 F1780B 18 78 01, MVEX_Vprefetche2_m, Vprefetche2, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17808187801
 
-62 F17A08 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
-62 F17A18 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17A18 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17A28 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17A28 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17A38 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17A38 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17A48 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17A48 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17A58 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17A58 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17A68 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17A68 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17A78 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17A78 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17A88 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 eh mvex-mident decopt=KNC
-62 F17A98 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 eh mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17A98 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17AA8 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 eh mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17AA8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17AB8 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 eh mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17AB8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17AC8 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 eh mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17AC8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17AD8 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 eh mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17AD8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17AE8 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 eh mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17AE8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 F17AF8 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 eh mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17AF8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_mt decopt=KNC
-62 617A08 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17A08AE7801
-62 F1FA08 AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17A08AE7801
-62 F17A0B AE 78 01, MVEX_Clevict1_mt, Clevict1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17A08AE7801
+62 F17A08 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
+62 F17A18 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
+62 F17A18 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17A28 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
+62 F17A28 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17A38 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
+62 F17A38 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17A48 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
+62 F17A48 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17A58 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
+62 F17A58 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17A68 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
+62 F17A68 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17A78 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
+62 F17A78 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17A88 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17A08AE7801
+62 F17A98 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck enc=62F17A18AE7801
+62 F17A98 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17AA8 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck enc=62F17A28AE7801
+62 F17AA8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17AB8 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck enc=62F17A38AE7801
+62 F17AB8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17AC8 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck enc=62F17A48AE7801
+62 F17AC8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17AD8 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck enc=62F17A58AE7801
+62 F17AD8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17AE8 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck enc=62F17A68AE7801
+62 F17AE8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 F17AF8 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck enc=62F17A78AE7801
+62 F17AF8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict1_m decopt=KNC
+62 617A08 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17A08AE7801
+62 F1FA08 AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17A08AE7801
+62 F17A0B AE 78 01, MVEX_Clevict1_m, Clevict1, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17A08AE7801
 
-62 F17B08 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
-62 F17B18 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17B18 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17B28 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17B28 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17B38 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17B38 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17B48 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17B48 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17B58 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17B58 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17B68 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17B68 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17B78 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17B78 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17B88 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 eh mvex-mident decopt=KNC
-62 F17B98 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 eh mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
-62 F17B98 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17BA8 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 eh mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
-62 F17BA8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17BB8 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 eh mvex-f16 decopt=KNC decopt=NoInvalidCheck
-62 F17BB8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17BC8 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 eh mvex-u8 decopt=KNC decopt=NoInvalidCheck
-62 F17BC8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17BD8 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 eh mvex-s8 decopt=KNC decopt=NoInvalidCheck
-62 F17BD8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17BE8 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 eh mvex-u16 decopt=KNC decopt=NoInvalidCheck
-62 F17BE8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 F17BF8 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 eh mvex-s16 decopt=KNC decopt=NoInvalidCheck
-62 F17BF8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_mt decopt=KNC
-62 617B08 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17B08AE7801
-62 F1FB08 AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17B08AE7801
-62 F17B0B AE 78 01, MVEX_Clevict0_mt, Clevict0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17B08AE7801
+62 F17B08 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC
+62 F17B18 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck
+62 F17B18 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17B28 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck
+62 F17B28 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17B38 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck
+62 F17B38 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17B48 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck
+62 F17B48 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17B58 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck
+62 F17B58 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17B68 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck
+62 F17B68 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17B78 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck
+62 F17B78 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17B88 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17B08AE7801
+62 F17B98 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;4;1;Int32 co=0;0;0;0;6;1 mvex-bcst1 decopt=KNC decopt=NoInvalidCheck enc=62F17B18AE7801
+62 F17B98 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17BA8 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int32 co=0;0;0;0;6;1 mvex-bcst4 decopt=KNC decopt=NoInvalidCheck enc=62F17B28AE7801
+62 F17BA8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17BB8 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_Float16 co=0;0;0;0;6;1 mvex-f16 decopt=KNC decopt=NoInvalidCheck enc=62F17B38AE7801
+62 F17BB8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17BC8 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_UInt8 co=0;0;0;0;6;1 mvex-u8 decopt=KNC decopt=NoInvalidCheck enc=62F17B48AE7801
+62 F17BC8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17BD8 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;16;1;Packed128_Int8 co=0;0;0;0;6;1 mvex-s8 decopt=KNC decopt=NoInvalidCheck enc=62F17B58AE7801
+62 F17BD8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17BE8 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_UInt16 co=0;0;0;0;6;1 mvex-u16 decopt=KNC decopt=NoInvalidCheck enc=62F17B68AE7801
+62 F17BE8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 F17BF8 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;32;1;Packed256_Int16 co=0;0;0;0;6;1 mvex-s16 decopt=KNC decopt=NoInvalidCheck enc=62F17B78AE7801
+62 F17BF8 AE 78 01, INVALID, INVALID, 0, code=MVEX_Clevict0_m decopt=KNC
+62 617B08 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17B08AE7801
+62 F1FB08 AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17B08AE7801
+62 F17B0B AE 78 01, MVEX_Clevict0_m, Clevict0, 1, op0=m;ds;rax;;1;64;1;Packed512_Int32 co=0;0;0;0;6;1 mvex-mident decopt=KNC enc=62F17B08AE7801
 
 62 F2790B C6 44 A1 01, MVEX_Vgatherpf0hintdps_mvt_k1, Vgatherpf0hintdps, 1, op0=m;ds;rcx;zmm4;4;4;1;Float32 mvex-mident k3 vsib32 co=0;0;0;0;7;1 decopt=KNC
 62 F2791B C6 44 A1 01, MVEX_Vgatherpf0hintdps_mvt_k1, Vgatherpf0hintdps, 1, op0=m;ds;rcx;zmm4;4;1;1;Unknown mvex-bcst1 k3 vsib32 co=0;0;0;0;7;1 decopt=KNC decopt=NoInvalidCheck

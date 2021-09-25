@@ -20,7 +20,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 0 = 0x00
 				0x08,// MandatoryPrefix2
 					0x0A,// M
-						0x83, 0x24,// MVEX_Vprefetchnta_mt
+						0x83, 0x24,// MVEX_Vprefetchnta_m
 					0x00,// Invalid
 					0x00,// Invalid
 					0x00,// Invalid
@@ -28,7 +28,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 1 = 0x01
 				0x08,// MandatoryPrefix2
 					0x0A,// M
-						0x84, 0x24,// MVEX_Vprefetch0_mt
+						0x84, 0x24,// MVEX_Vprefetch0_m
 					0x00,// Invalid
 					0x00,// Invalid
 					0x00,// Invalid
@@ -36,7 +36,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 2 = 0x02
 				0x08,// MandatoryPrefix2
 					0x0A,// M
-						0x85, 0x24,// MVEX_Vprefetch1_mt
+						0x85, 0x24,// MVEX_Vprefetch1_m
 					0x00,// Invalid
 					0x00,// Invalid
 					0x00,// Invalid
@@ -44,7 +44,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 3 = 0x03
 				0x08,// MandatoryPrefix2
 					0x0A,// M
-						0x86, 0x24,// MVEX_Vprefetch2_mt
+						0x86, 0x24,// MVEX_Vprefetch2_m
 					0x00,// Invalid
 					0x00,// Invalid
 					0x00,// Invalid
@@ -52,7 +52,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 4 = 0x04
 				0x08,// MandatoryPrefix2
 					0x0A,// M
-						0x87, 0x24,// MVEX_Vprefetchenta_mt
+						0x87, 0x24,// MVEX_Vprefetchenta_m
 					0x00,// Invalid
 					0x00,// Invalid
 					0x00,// Invalid
@@ -60,7 +60,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 5 = 0x05
 				0x08,// MandatoryPrefix2
 					0x0A,// M
-						0x88, 0x24,// MVEX_Vprefetche0_mt
+						0x88, 0x24,// MVEX_Vprefetche0_m
 					0x00,// Invalid
 					0x00,// Invalid
 					0x00,// Invalid
@@ -68,7 +68,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 6 = 0x06
 				0x08,// MandatoryPrefix2
 					0x0A,// M
-						0x89, 0x24,// MVEX_Vprefetche1_mt
+						0x89, 0x24,// MVEX_Vprefetche1_m
 					0x00,// Invalid
 					0x00,// Invalid
 					0x00,// Invalid
@@ -76,7 +76,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 7 = 0x07
 				0x08,// MandatoryPrefix2
 					0x0A,// M
-						0x8A, 0x24,// MVEX_Vprefetche2_mt
+						0x8A, 0x24,// MVEX_Vprefetche2_m
 					0x00,// Invalid
 					0x00,// Invalid
 					0x00,// Invalid
@@ -141,9 +141,9 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Invalid
 					0x00,// Invalid
 					0x0A,// M
-						0xA6, 0x24,// MVEX_Clevict1_mt
+						0xA6, 0x24,// MVEX_Clevict1_m
 					0x0A,// M
-						0xA7, 0x24,// MVEX_Clevict0_mt
+						0xA7, 0x24,// MVEX_Clevict0_m
 
 				// handlers_Grp_0F38C6
 				0x01,// ArrayReference

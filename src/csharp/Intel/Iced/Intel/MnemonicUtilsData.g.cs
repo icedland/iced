@@ -4619,14 +4619,14 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Undoc,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 			(ushort)Mnemonic.Undoc,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 			(ushort)Mnemonic.Kextract,// VEX_KNC_Kextract_kr_r64_imm8
-			(ushort)Mnemonic.Vprefetchnta,// MVEX_Vprefetchnta_mt
-			(ushort)Mnemonic.Vprefetch0,// MVEX_Vprefetch0_mt
-			(ushort)Mnemonic.Vprefetch1,// MVEX_Vprefetch1_mt
-			(ushort)Mnemonic.Vprefetch2,// MVEX_Vprefetch2_mt
-			(ushort)Mnemonic.Vprefetchenta,// MVEX_Vprefetchenta_mt
-			(ushort)Mnemonic.Vprefetche0,// MVEX_Vprefetche0_mt
-			(ushort)Mnemonic.Vprefetche1,// MVEX_Vprefetche1_mt
-			(ushort)Mnemonic.Vprefetche2,// MVEX_Vprefetche2_mt
+			(ushort)Mnemonic.Vprefetchnta,// MVEX_Vprefetchnta_m
+			(ushort)Mnemonic.Vprefetch0,// MVEX_Vprefetch0_m
+			(ushort)Mnemonic.Vprefetch1,// MVEX_Vprefetch1_m
+			(ushort)Mnemonic.Vprefetch2,// MVEX_Vprefetch2_m
+			(ushort)Mnemonic.Vprefetchenta,// MVEX_Vprefetchenta_m
+			(ushort)Mnemonic.Vprefetche0,// MVEX_Vprefetche0_m
+			(ushort)Mnemonic.Vprefetche1,// MVEX_Vprefetche1_m
+			(ushort)Mnemonic.Vprefetche2,// MVEX_Vprefetche2_m
 			(ushort)Mnemonic.Vmovaps,// MVEX_Vmovaps_zmm_k1_zmmmt
 			(ushort)Mnemonic.Vmovapd,// MVEX_Vmovapd_zmm_k1_zmmmt
 			(ushort)Mnemonic.Vmovaps,// MVEX_Vmovaps_mt_k1_zmm
@@ -4654,8 +4654,8 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vcvtudq2pd,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 			(ushort)Mnemonic.Vmovdqa32,// MVEX_Vmovdqa32_mt_k1_zmm
 			(ushort)Mnemonic.Vmovdqa64,// MVEX_Vmovdqa64_mt_k1_zmm
-			(ushort)Mnemonic.Clevict1,// MVEX_Clevict1_mt
-			(ushort)Mnemonic.Clevict0,// MVEX_Clevict0_mt
+			(ushort)Mnemonic.Clevict1,// MVEX_Clevict1_m
+			(ushort)Mnemonic.Clevict0,// MVEX_Clevict0_m
 			(ushort)Mnemonic.Vcmpps,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 			(ushort)Mnemonic.Vcmppd,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 			(ushort)Mnemonic.Vpandd,// MVEX_Vpandd_zmm_k1_zmm_zmmmt

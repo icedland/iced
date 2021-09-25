@@ -46097,9 +46097,9 @@ VEX_KNC_KEXTRACT_KR_R64_IMM8: Code = 4610 # type: ignore
 
 ``64-bit``
 """
-MVEX_VPREFETCHNTA_MT: Code = 4611 # type: ignore
+MVEX_VPREFETCHNTA_M: Code = 4611 # type: ignore
 """
-``VPREFETCHNTA mt``
+``VPREFETCHNTA m``
 
 ``MVEX.512.0F.WIG 18 /0``
 
@@ -46107,9 +46107,9 @@ MVEX_VPREFETCHNTA_MT: Code = 4611 # type: ignore
 
 ``64-bit``
 """
-MVEX_VPREFETCH0_MT: Code = 4612 # type: ignore
+MVEX_VPREFETCH0_M: Code = 4612 # type: ignore
 """
-``VPREFETCH0 mt``
+``VPREFETCH0 m``
 
 ``MVEX.512.0F.WIG 18 /1``
 
@@ -46117,9 +46117,9 @@ MVEX_VPREFETCH0_MT: Code = 4612 # type: ignore
 
 ``64-bit``
 """
-MVEX_VPREFETCH1_MT: Code = 4613 # type: ignore
+MVEX_VPREFETCH1_M: Code = 4613 # type: ignore
 """
-``VPREFETCH1 mt``
+``VPREFETCH1 m``
 
 ``MVEX.512.0F.WIG 18 /2``
 
@@ -46127,9 +46127,9 @@ MVEX_VPREFETCH1_MT: Code = 4613 # type: ignore
 
 ``64-bit``
 """
-MVEX_VPREFETCH2_MT: Code = 4614 # type: ignore
+MVEX_VPREFETCH2_M: Code = 4614 # type: ignore
 """
-``VPREFETCH2 mt``
+``VPREFETCH2 m``
 
 ``MVEX.512.0F.WIG 18 /3``
 
@@ -46137,9 +46137,9 @@ MVEX_VPREFETCH2_MT: Code = 4614 # type: ignore
 
 ``64-bit``
 """
-MVEX_VPREFETCHENTA_MT: Code = 4615 # type: ignore
+MVEX_VPREFETCHENTA_M: Code = 4615 # type: ignore
 """
-``VPREFETCHENTA mt``
+``VPREFETCHENTA m``
 
 ``MVEX.512.0F.WIG 18 /4``
 
@@ -46147,9 +46147,9 @@ MVEX_VPREFETCHENTA_MT: Code = 4615 # type: ignore
 
 ``64-bit``
 """
-MVEX_VPREFETCHE0_MT: Code = 4616 # type: ignore
+MVEX_VPREFETCHE0_M: Code = 4616 # type: ignore
 """
-``VPREFETCHE0 mt``
+``VPREFETCHE0 m``
 
 ``MVEX.512.0F.WIG 18 /5``
 
@@ -46157,9 +46157,9 @@ MVEX_VPREFETCHE0_MT: Code = 4616 # type: ignore
 
 ``64-bit``
 """
-MVEX_VPREFETCHE1_MT: Code = 4617 # type: ignore
+MVEX_VPREFETCHE1_M: Code = 4617 # type: ignore
 """
-``VPREFETCHE1 mt``
+``VPREFETCHE1 m``
 
 ``MVEX.512.0F.WIG 18 /6``
 
@@ -46167,9 +46167,9 @@ MVEX_VPREFETCHE1_MT: Code = 4617 # type: ignore
 
 ``64-bit``
 """
-MVEX_VPREFETCHE2_MT: Code = 4618 # type: ignore
+MVEX_VPREFETCHE2_M: Code = 4618 # type: ignore
 """
-``VPREFETCHE2 mt``
+``VPREFETCHE2 m``
 
 ``MVEX.512.0F.WIG 18 /7``
 
@@ -46447,9 +46447,9 @@ MVEX_VMOVDQA64_MT_K1_ZMM: Code = 4645 # type: ignore
 
 ``64-bit``
 """
-MVEX_CLEVICT1_MT: Code = 4646 # type: ignore
+MVEX_CLEVICT1_M: Code = 4646 # type: ignore
 """
-``CLEVICT1 mt``
+``CLEVICT1 m``
 
 ``MVEX.512.F3.0F.WIG AE /7``
 
@@ -46457,9 +46457,9 @@ MVEX_CLEVICT1_MT: Code = 4646 # type: ignore
 
 ``64-bit``
 """
-MVEX_CLEVICT0_MT: Code = 4647 # type: ignore
+MVEX_CLEVICT0_M: Code = 4647 # type: ignore
 """
-``CLEVICT0 mt``
+``CLEVICT0 m``
 
 ``MVEX.512.F2.0F.WIG AE /7``
 

@@ -123,7 +123,8 @@ impl OpCodeHandler_MVEX_M {
 	#[inline]
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(get_mvex_info(code).ignores_op_mask_register());
-		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_M::decode, Self { has_modrm: true, code })
 	}
 
@@ -141,7 +142,6 @@ impl OpCodeHandler_MVEX_M {
 			decoder.set_invalid_instruction();
 		} else {
 			instruction.set_op0_kind(OpKind::Memory);
-			write_eviction_hint!(decoder, instruction);
 			write_mem_conv!(decoder, instruction, mvex, sss);
 			decoder.read_op_mem_tuple_type(instruction, get_tuple_type(mvex.tuple_type_lut_kind, sss));
 		}
@@ -200,6 +200,7 @@ impl OpCodeHandler_MVEX_VW {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_VW::decode, Self { has_modrm: true, code })
 	}
 
@@ -241,6 +242,7 @@ impl OpCodeHandler_MVEX_HWIb {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_HWIb::decode, Self { has_modrm: true, code })
 	}
 
@@ -278,6 +280,7 @@ impl OpCodeHandler_MVEX_VWIb {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_VWIb::decode, Self { has_modrm: true, code })
 	}
 
@@ -321,6 +324,7 @@ impl OpCodeHandler_MVEX_VHW {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_VHW::decode, Self { has_modrm: true, code })
 	}
 
@@ -363,6 +367,7 @@ impl OpCodeHandler_MVEX_VHWIb {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_VHWIb::decode, Self { has_modrm: true, code })
 	}
 
@@ -404,6 +409,7 @@ impl OpCodeHandler_MVEX_VKW {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_VKW::decode, Self { has_modrm: true, code })
 	}
 
@@ -446,6 +452,7 @@ impl OpCodeHandler_MVEX_KHW {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_KHW::decode, Self { has_modrm: true, code })
 	}
 
@@ -485,6 +492,7 @@ impl OpCodeHandler_MVEX_KHWIb {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_KHWIb::decode, Self { has_modrm: true, code })
 	}
 
@@ -526,6 +534,7 @@ impl OpCodeHandler_MVEX_VSIB {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_VSIB::decode, Self { has_modrm: true, code })
 	}
 
@@ -562,6 +571,7 @@ impl OpCodeHandler_MVEX_VSIB_V {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_VSIB_V::decode, Self { has_modrm: true, code })
 	}
 
@@ -602,6 +612,7 @@ impl OpCodeHandler_MVEX_V_VSIB {
 	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!(!get_mvex_info(code).ignores_op_mask_register());
 		debug_assert!(get_mvex_info(code).can_use_eviction_hint());
+		debug_assert!(!get_mvex_info(code).ignores_eviction_hint());
 		(OpCodeHandler_MVEX_V_VSIB::decode, Self { has_modrm: true, code })
 	}
 

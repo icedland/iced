@@ -9152,25 +9152,25 @@ undoc rcx, r14
 kextract k2, r11, 0x5a
 kextract k2, rbx, -0x5b
 vprefetchnta zword [rax+0x40]
-vprefetchnta zword [rax+0x40]{eh}
+vprefetchnta zword [rax+0x40]
 vprefetch0 zword [rax+0x40]
-vprefetch0 zword [rax+0x40]{eh}
+vprefetch0 zword [rax+0x40]
 vprefetch1 zword [rax+0x40]
-vprefetch1 zword [rax+0x40]{eh}
+vprefetch1 zword [rax+0x40]
 vprefetch2 zword [rax+0x40]
-vprefetch2 zword [rax+0x40]{eh}
+vprefetch2 zword [rax+0x40]
 vprefetchenta zword [rax+0x40]
-vprefetchenta zword [rax+0x40]{eh}
+vprefetchenta zword [rax+0x40]
 vprefetche0 zword [rax+0x40]
-vprefetche0 zword [rax+0x40]{eh}
+vprefetche0 zword [rax+0x40]
 vprefetche1 zword [rax+0x40]
-vprefetche1 zword [rax+0x40]{eh}
+vprefetche1 zword [rax+0x40]
 vprefetche2 zword [rax+0x40]
-vprefetche2 zword [rax+0x40]{eh}
+vprefetche2 zword [rax+0x40]
 clevict1 zword [rax+0x40]
-clevict1 zword [rax+0x40]{eh}
+clevict1 zword [rax+0x40]
 clevict0 zword [rax+0x40]
-clevict0 zword [rax+0x40]{eh}
+clevict0 zword [rax+0x40]
 vgatherpf0hintdps dword [rcx+zmm4*4+4]{k3}
 vgatherpf0hintdps word [rcx+zmm4*4+2]{k3}{float16}
 vgatherpf0hintdps byte [rcx+zmm4*4+1]{k3}{uint8}

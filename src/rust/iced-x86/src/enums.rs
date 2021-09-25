@@ -2320,6 +2320,7 @@ impl MvexInfoFlags2 {
 	pub(crate) const NONE: u32 = 0x0000_0000;
 	pub(crate) const NO_SAE_ROUNDING_CONTROL: u32 = 0x0000_0001;
 	pub(crate) const CONV_FN32: u32 = 0x0000_0002;
+	pub(crate) const IGNORES_EVICTION_HINT: u32 = 0x0000_0004;
 }
 // GENERATOR-END: MvexInfoFlags2
 

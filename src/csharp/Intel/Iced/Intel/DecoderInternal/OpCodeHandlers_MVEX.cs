@@ -28,7 +28,8 @@ namespace Iced.Intel.DecoderInternal {
 
 		public OpCodeHandler_MVEX_M(Code code) {
 			Debug.Assert(new MvexInfo(code).IgnoresOpMaskRegister);
-			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -45,8 +46,6 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
-					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
 				instruction.InternalSetMvexRegMemConv(MvexRegMemConv.MemConvNone + sss);
@@ -94,6 +93,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_VW(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -154,6 +154,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_HWIb(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -214,6 +215,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_VWIb(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -276,6 +278,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_VHW(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -339,6 +342,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_VHWIb(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -402,6 +406,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_VKW(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -465,6 +470,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_KHW(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -528,6 +534,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_KHWIb(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -593,6 +600,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_VSIB(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -625,6 +633,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_VSIB_V(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 
@@ -660,6 +669,7 @@ namespace Iced.Intel.DecoderInternal {
 		public OpCodeHandler_MVEX_V_VSIB(Code code) {
 			Debug.Assert(!new MvexInfo(code).IgnoresOpMaskRegister);
 			Debug.Assert(new MvexInfo(code).CanUseEvictionHint);
+			Debug.Assert(!new MvexInfo(code).IgnoresEvictionHint);
 			this.code = code;
 		}
 

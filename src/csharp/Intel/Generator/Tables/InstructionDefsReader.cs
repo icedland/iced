@@ -1206,9 +1206,13 @@ namespace Generator.Tables {
 							case "no-er-sae":
 								state.Mvex.Flags2 |= MvexInfoFlags2.NoSaeRoundingControl;
 								break;
-								
+
 							case "ignore-opmask":
 								state.Mvex.Flags1 |= MvexInfoFlags1.IgnoresOpMaskRegister;
+								break;
+
+							case "ignore-eh":
+								state.Mvex.Flags2 |= MvexInfoFlags2.IgnoresEvictionHint;
 								break;
 
 							case "swizz":

@@ -89,6 +89,13 @@ impl MvexInfo {
 	pub(crate) fn is_conv_fn_32(&self) -> bool {
 		(self.flags2 & (MvexInfoFlags2::CONV_FN32 as u8)) != 0
 	}
+
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "decoder")]
+	pub(crate) fn ignores_eviction_hint(&self) -> bool {
+		(self.flags2 & (MvexInfoFlags2::IGNORES_EVICTION_HINT as u8)) != 0
+	}
 }
 
 impl MvexInfo {

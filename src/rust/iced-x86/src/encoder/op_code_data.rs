@@ -4616,14 +4616,14 @@ pub(super) static OPC_FLAGS1: [u32; 4818] = [
 	0x0221_0000,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 	0x0221_0000,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 	0x0220_0000,// VEX_KNC_Kextract_kr_r64_imm8
-	0x0220_0200,// MVEX_Vprefetchnta_mt
-	0x0220_0000,// MVEX_Vprefetch0_mt
-	0x0220_0000,// MVEX_Vprefetch1_mt
-	0x0220_0200,// MVEX_Vprefetch2_mt
-	0x0220_0200,// MVEX_Vprefetchenta_mt
-	0x0220_0000,// MVEX_Vprefetche0_mt
-	0x0220_0000,// MVEX_Vprefetche1_mt
-	0x0220_0200,// MVEX_Vprefetche2_mt
+	0x0220_0200,// MVEX_Vprefetchnta_m
+	0x0220_0000,// MVEX_Vprefetch0_m
+	0x0220_0000,// MVEX_Vprefetch1_m
+	0x0220_0200,// MVEX_Vprefetch2_m
+	0x0220_0200,// MVEX_Vprefetchenta_m
+	0x0220_0000,// MVEX_Vprefetche0_m
+	0x0220_0000,// MVEX_Vprefetche1_m
+	0x0220_0200,// MVEX_Vprefetche2_m
 	0x0220_0000,// MVEX_Vmovaps_zmm_k1_zmmmt
 	0x0220_0000,// MVEX_Vmovapd_zmm_k1_zmmmt
 	0x0220_0000,// MVEX_Vmovaps_mt_k1_zmm
@@ -4651,8 +4651,8 @@ pub(super) static OPC_FLAGS1: [u32; 4818] = [
 	0x0220_0000,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 	0x0220_0000,// MVEX_Vmovdqa32_mt_k1_zmm
 	0x0220_0000,// MVEX_Vmovdqa64_mt_k1_zmm
-	0x0220_0000,// MVEX_Clevict1_mt
-	0x0220_0000,// MVEX_Clevict0_mt
+	0x0220_0000,// MVEX_Clevict1_m
+	0x0220_0000,// MVEX_Clevict0_m
 	0x0220_0000,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 	0x0220_0000,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 	0x0220_0000,// MVEX_Vpandd_zmm_k1_zmm_zmmmt
@@ -9437,14 +9437,14 @@ pub(super) static OPC_FLAGS2: [u32; 4818] = [
 	0x1400_3FF0,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 	0x1400_3FF0,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 	0x1400_3FF0,// VEX_KNC_Kextract_kr_r64_imm8
-	0x1400_3FF0,// MVEX_Vprefetchnta_mt
-	0x1400_3FF0,// MVEX_Vprefetch0_mt
-	0x1400_3FF0,// MVEX_Vprefetch1_mt
-	0x1400_3FF0,// MVEX_Vprefetch2_mt
-	0x1400_3FF0,// MVEX_Vprefetchenta_mt
-	0x1400_3FF0,// MVEX_Vprefetche0_mt
-	0x1400_3FF0,// MVEX_Vprefetche1_mt
-	0x1400_3FF0,// MVEX_Vprefetche2_mt
+	0x1400_3FF0,// MVEX_Vprefetchnta_m
+	0x1400_3FF0,// MVEX_Vprefetch0_m
+	0x1400_3FF0,// MVEX_Vprefetch1_m
+	0x1400_3FF0,// MVEX_Vprefetch2_m
+	0x1400_3FF0,// MVEX_Vprefetchenta_m
+	0x1400_3FF0,// MVEX_Vprefetche0_m
+	0x1400_3FF0,// MVEX_Vprefetche1_m
+	0x1400_3FF0,// MVEX_Vprefetche2_m
 	0x1400_3FF0,// MVEX_Vmovaps_zmm_k1_zmmmt
 	0x1400_3FF0,// MVEX_Vmovapd_zmm_k1_zmmmt
 	0x1400_3FF0,// MVEX_Vmovaps_mt_k1_zmm
@@ -9472,8 +9472,8 @@ pub(super) static OPC_FLAGS2: [u32; 4818] = [
 	0x1400_3FF0,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 	0x1400_3FF0,// MVEX_Vmovdqa32_mt_k1_zmm
 	0x1400_3FF0,// MVEX_Vmovdqa64_mt_k1_zmm
-	0x1400_3FF0,// MVEX_Clevict1_mt
-	0x1400_3FF0,// MVEX_Clevict0_mt
+	0x1400_3FF0,// MVEX_Clevict1_m
+	0x1400_3FF0,// MVEX_Clevict0_m
 	0x3400_3FF0,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 	0x3400_3FF0,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 	0x1400_3FF0,// MVEX_Vpandd_zmm_k1_zmm_zmmmt

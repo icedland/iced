@@ -14,6 +14,7 @@ namespace Iced.Intel {
 		None = 0x00000000,
 		NoSaeRoundingControl = 0x00000001,
 		ConvFn32 = 0x00000002,
+		IgnoresEvictionHint = 0x00000004,
 	}
 }
 #endif

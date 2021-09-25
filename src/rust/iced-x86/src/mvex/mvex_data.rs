@@ -8,14 +8,14 @@ use crate::{MvexConvFn, MvexEHBit, MvexTupleTypeLutKind};
 
 #[rustfmt::skip]
 pub(super) static MVEX_INFO: [MvexInfo; 207] = [
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x02),// Code::MVEX_Vprefetchnta_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x02),// Code::MVEX_Vprefetch0_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x02),// Code::MVEX_Vprefetch1_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x02),// Code::MVEX_Vprefetch2_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x02),// Code::MVEX_Vprefetchenta_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x02),// Code::MVEX_Vprefetche0_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x02),// Code::MVEX_Vprefetche1_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x02),// Code::MVEX_Vprefetche2_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x40, 0x06),// Code::MVEX_Vprefetchnta_m
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x40, 0x06),// Code::MVEX_Vprefetch0_m
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x40, 0x06),// Code::MVEX_Vprefetch1_m
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x40, 0x06),// Code::MVEX_Vprefetch2_m
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x40, 0x06),// Code::MVEX_Vprefetchenta_m
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x40, 0x06),// Code::MVEX_Vprefetche0_m
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x40, 0x06),// Code::MVEX_Vprefetche1_m
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x40, 0x06),// Code::MVEX_Vprefetche2_m
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x06, 0x00, 0x04, 0x03),// Code::MVEX_Vmovaps_zmm_k1_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xFE, 0x00, 0x04, 0x01),// Code::MVEX_Vmovapd_zmm_k1_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Df32, 0x06, 0xFF, 0x04, 0x02),// Code::MVEX_Vmovaps_mt_k1_zmm
@@ -43,8 +43,8 @@ pub(super) static MVEX_INFO: [MvexInfo; 207] = [
 	MvexInfo::new(MvexTupleTypeLutKind::Int32_Half, MvexEHBit::None, MvexConvFn::Si32, 0xF8, 0x00, 0x04, 0x02),// Code::MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Di32, 0x0E, 0xFF, 0x04, 0x02),// Code::MVEX_Vmovdqa32_mt_k1_zmm
 	MvexInfo::new(MvexTupleTypeLutKind::Int64, MvexEHBit::None, MvexConvFn::Di64, 0xFE, 0xFF, 0x04, 0x00),// Code::MVEX_Vmovdqa64_mt_k1_zmm
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x02),// Code::MVEX_Clevict1_mt
-	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x44, 0x02),// Code::MVEX_Clevict0_mt
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x40, 0x06),// Code::MVEX_Clevict1_m
+	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::None, 0xFE, 0xFF, 0x40, 0x06),// Code::MVEX_Clevict0_m
 	MvexInfo::new(MvexTupleTypeLutKind::Float32, MvexEHBit::None, MvexConvFn::Sf32, 0x00, 0x00, 0x26, 0x02),// Code::MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 	MvexInfo::new(MvexTupleTypeLutKind::Float64, MvexEHBit::None, MvexConvFn::Sf64, 0xF8, 0x00, 0x26, 0x00),// Code::MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 	MvexInfo::new(MvexTupleTypeLutKind::Int32, MvexEHBit::None, MvexConvFn::Si32, 0x08, 0x00, 0x06, 0x02),// Code::MVEX_Vpandd_zmm_k1_zmm_zmmmt

@@ -4619,14 +4619,14 @@ pub(super) static SIZES_NORMAL: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::UInt32,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 	MemorySize::UInt64,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 	MemorySize::Unknown,// VEX_KNC_Kextract_kr_r64_imm8
-	MemorySize::Unknown,// MVEX_Vprefetchnta_mt
-	MemorySize::Unknown,// MVEX_Vprefetch0_mt
-	MemorySize::Unknown,// MVEX_Vprefetch1_mt
-	MemorySize::Unknown,// MVEX_Vprefetch2_mt
-	MemorySize::Unknown,// MVEX_Vprefetchenta_mt
-	MemorySize::Unknown,// MVEX_Vprefetche0_mt
-	MemorySize::Unknown,// MVEX_Vprefetche1_mt
-	MemorySize::Unknown,// MVEX_Vprefetche2_mt
+	MemorySize::Unknown,// MVEX_Vprefetchnta_m
+	MemorySize::Unknown,// MVEX_Vprefetch0_m
+	MemorySize::Unknown,// MVEX_Vprefetch1_m
+	MemorySize::Unknown,// MVEX_Vprefetch2_m
+	MemorySize::Unknown,// MVEX_Vprefetchenta_m
+	MemorySize::Unknown,// MVEX_Vprefetche0_m
+	MemorySize::Unknown,// MVEX_Vprefetche1_m
+	MemorySize::Unknown,// MVEX_Vprefetche2_m
 	MemorySize::Unknown,// MVEX_Vmovaps_zmm_k1_zmmmt
 	MemorySize::Unknown,// MVEX_Vmovapd_zmm_k1_zmmmt
 	MemorySize::Unknown,// MVEX_Vmovaps_mt_k1_zmm
@@ -4654,8 +4654,8 @@ pub(super) static SIZES_NORMAL: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 	MemorySize::Unknown,// MVEX_Vmovdqa32_mt_k1_zmm
 	MemorySize::Unknown,// MVEX_Vmovdqa64_mt_k1_zmm
-	MemorySize::Unknown,// MVEX_Clevict1_mt
-	MemorySize::Unknown,// MVEX_Clevict0_mt
+	MemorySize::Unknown,// MVEX_Clevict1_m
+	MemorySize::Unknown,// MVEX_Clevict0_m
 	MemorySize::Unknown,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 	MemorySize::Unknown,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 	MemorySize::Unknown,// MVEX_Vpandd_zmm_k1_zmm_zmmmt
@@ -9441,14 +9441,14 @@ pub(super) static SIZES_BCST: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 	MemorySize::Unknown,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 	MemorySize::Unknown,// VEX_KNC_Kextract_kr_r64_imm8
-	MemorySize::Unknown,// MVEX_Vprefetchnta_mt
-	MemorySize::Unknown,// MVEX_Vprefetch0_mt
-	MemorySize::Unknown,// MVEX_Vprefetch1_mt
-	MemorySize::Unknown,// MVEX_Vprefetch2_mt
-	MemorySize::Unknown,// MVEX_Vprefetchenta_mt
-	MemorySize::Unknown,// MVEX_Vprefetche0_mt
-	MemorySize::Unknown,// MVEX_Vprefetche1_mt
-	MemorySize::Unknown,// MVEX_Vprefetche2_mt
+	MemorySize::Unknown,// MVEX_Vprefetchnta_m
+	MemorySize::Unknown,// MVEX_Vprefetch0_m
+	MemorySize::Unknown,// MVEX_Vprefetch1_m
+	MemorySize::Unknown,// MVEX_Vprefetch2_m
+	MemorySize::Unknown,// MVEX_Vprefetchenta_m
+	MemorySize::Unknown,// MVEX_Vprefetche0_m
+	MemorySize::Unknown,// MVEX_Vprefetche1_m
+	MemorySize::Unknown,// MVEX_Vprefetche2_m
 	MemorySize::Unknown,// MVEX_Vmovaps_zmm_k1_zmmmt
 	MemorySize::Unknown,// MVEX_Vmovapd_zmm_k1_zmmmt
 	MemorySize::Unknown,// MVEX_Vmovaps_mt_k1_zmm
@@ -9476,8 +9476,8 @@ pub(super) static SIZES_BCST: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 	MemorySize::Unknown,// MVEX_Vmovdqa32_mt_k1_zmm
 	MemorySize::Unknown,// MVEX_Vmovdqa64_mt_k1_zmm
-	MemorySize::Unknown,// MVEX_Clevict1_mt
-	MemorySize::Unknown,// MVEX_Clevict0_mt
+	MemorySize::Unknown,// MVEX_Clevict1_m
+	MemorySize::Unknown,// MVEX_Clevict0_m
 	MemorySize::Unknown,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 	MemorySize::Unknown,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 	MemorySize::Unknown,// MVEX_Vpandd_zmm_k1_zmm_zmmmt

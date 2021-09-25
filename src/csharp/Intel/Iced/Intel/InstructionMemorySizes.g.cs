@@ -4623,14 +4623,14 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt32,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 			(byte)MemorySize.UInt64,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 			0,// VEX_KNC_Kextract_kr_r64_imm8
-			0,// MVEX_Vprefetchnta_mt
-			0,// MVEX_Vprefetch0_mt
-			0,// MVEX_Vprefetch1_mt
-			0,// MVEX_Vprefetch2_mt
-			0,// MVEX_Vprefetchenta_mt
-			0,// MVEX_Vprefetche0_mt
-			0,// MVEX_Vprefetche1_mt
-			0,// MVEX_Vprefetche2_mt
+			0,// MVEX_Vprefetchnta_m
+			0,// MVEX_Vprefetch0_m
+			0,// MVEX_Vprefetch1_m
+			0,// MVEX_Vprefetch2_m
+			0,// MVEX_Vprefetchenta_m
+			0,// MVEX_Vprefetche0_m
+			0,// MVEX_Vprefetche1_m
+			0,// MVEX_Vprefetche2_m
 			0,// MVEX_Vmovaps_zmm_k1_zmmmt
 			0,// MVEX_Vmovapd_zmm_k1_zmmmt
 			0,// MVEX_Vmovaps_mt_k1_zmm
@@ -4658,8 +4658,8 @@ namespace Iced.Intel {
 			0,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 			0,// MVEX_Vmovdqa32_mt_k1_zmm
 			0,// MVEX_Vmovdqa64_mt_k1_zmm
-			0,// MVEX_Clevict1_mt
-			0,// MVEX_Clevict0_mt
+			0,// MVEX_Clevict1_m
+			0,// MVEX_Clevict0_m
 			0,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 			0,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 			0,// MVEX_Vpandd_zmm_k1_zmm_zmmmt
@@ -9448,14 +9448,14 @@ namespace Iced.Intel {
 			0,// VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1
 			0,// VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1
 			0,// VEX_KNC_Kextract_kr_r64_imm8
-			0,// MVEX_Vprefetchnta_mt
-			0,// MVEX_Vprefetch0_mt
-			0,// MVEX_Vprefetch1_mt
-			0,// MVEX_Vprefetch2_mt
-			0,// MVEX_Vprefetchenta_mt
-			0,// MVEX_Vprefetche0_mt
-			0,// MVEX_Vprefetche1_mt
-			0,// MVEX_Vprefetche2_mt
+			0,// MVEX_Vprefetchnta_m
+			0,// MVEX_Vprefetch0_m
+			0,// MVEX_Vprefetch1_m
+			0,// MVEX_Vprefetch2_m
+			0,// MVEX_Vprefetchenta_m
+			0,// MVEX_Vprefetche0_m
+			0,// MVEX_Vprefetche1_m
+			0,// MVEX_Vprefetche2_m
 			0,// MVEX_Vmovaps_zmm_k1_zmmmt
 			0,// MVEX_Vmovapd_zmm_k1_zmmmt
 			0,// MVEX_Vmovaps_mt_k1_zmm
@@ -9483,8 +9483,8 @@ namespace Iced.Intel {
 			0,// MVEX_Vcvtudq2pd_zmm_k1_zmmmt
 			0,// MVEX_Vmovdqa32_mt_k1_zmm
 			0,// MVEX_Vmovdqa64_mt_k1_zmm
-			0,// MVEX_Clevict1_mt
-			0,// MVEX_Clevict0_mt
+			0,// MVEX_Clevict1_m
+			0,// MVEX_Clevict0_m
 			0,// MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8
 			0,// MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8
 			0,// MVEX_Vpandd_zmm_k1_zmm_zmmmt
