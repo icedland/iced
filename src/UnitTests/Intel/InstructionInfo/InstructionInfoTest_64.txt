@@ -4263,9 +4263,9 @@ C5FC 51 10, VEX_Vsqrtps_ymm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:ra
 62 F17CBD 51 50 01, EVEX_Vsqrtps_ymm_k1z_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=w op1=r w=vmm2 r=k5 r=rax rm=ds:rax+4;Broadcast256_Float32
 # vsqrtps zmm2,[rax+40h]
 62 F17C48 51 50 01, EVEX_Vsqrtps_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vsqrtps zmm2{k3},zmm3 {rn-sae}
+# vsqrtps zmm2{k3},zmm3{rn-sae}
 62 F17C1B 51 D3, EVEX_Vsqrtps_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vsqrtps zmm2{k3}{z},zmm3 {ru-sae}
+# vsqrtps zmm2{k3}{z},zmm3{ru-sae}
 62 F17CDB 51 D3, EVEX_Vsqrtps_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # sqrtpd xmm1,xmm5
 66 0F51 CD, Sqrtpd_xmm_xmmm128, Legacy, SSE2, op0=w op1=r w=xmm1 r=xmm5
@@ -4293,9 +4293,9 @@ C5FD 51 10, VEX_Vsqrtpd_ymm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:ra
 62 F1FDAB 51 D3, EVEX_Vsqrtpd_ymm_k1z_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vsqrtpd zmm2,[rax+40h]
 62 F1FD48 51 50 01, EVEX_Vsqrtpd_zmm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vsqrtpd zmm2{k3},zmm3 {rn-sae}
+# vsqrtpd zmm2{k3},zmm3{rn-sae}
 62 F1FD1B 51 D3, EVEX_Vsqrtpd_zmm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vsqrtpd zmm2{k3}{z},zmm3 {ru-sae}
+# vsqrtpd zmm2{k3}{z},zmm3{ru-sae}
 62 F1FDDB 51 D3, EVEX_Vsqrtpd_zmm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # sqrtss xmm1,xmm5
 F3 0F51 CD, Sqrtss_xmm_xmmm32, Legacy, SSE, op0=rw op1=r rw=xmm1 r=xmm5
@@ -4309,7 +4309,7 @@ C5CA 51 10, VEX_Vsqrtss_xmm_xmm_xmmm32, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=xmm
 62 F14E08 51 50 01, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vsqrtss xmm2{k3},xmm6,xmm3
 62 F14E0B 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vsqrtss xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vsqrtss xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F14EDB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # sqrtsd xmm1,xmm5
 F2 0F51 CD, Sqrtsd_xmm_xmmm64, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -4631,9 +4631,9 @@ C5CC 58 10, VEX_Vaddps_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F14CBD 58 50 01, EVEX_Vaddps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+4;Broadcast256_Float32
 # vaddps zmm2,zmm6,[rax+40h]
 62 F14C48 58 50 01, EVEX_Vaddps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vaddps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vaddps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F14C1B 58 D3, EVEX_Vaddps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vaddps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vaddps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F14CDB 58 D3, EVEX_Vaddps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # addpd xmm1,xmm5
 66 0F58 CD, Addpd_xmm_xmmm128, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -4661,9 +4661,9 @@ C5CD 58 10, VEX_Vaddpd_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F1CDAB 58 D3, EVEX_Vaddpd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=ymm6 r=ymm3
 # vaddpd zmm2,zmm6,[rax+40h]
 62 F1CD48 58 50 01, EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vaddpd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vaddpd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F1CD1B 58 D3, EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vaddpd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vaddpd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F1CDDB 58 D3, EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # addss xmm1,xmm5
 F3 0F58 CD, Addss_xmm_xmmm32, Legacy, SSE, op0=rw op1=r rw=xmm1 r=xmm5
@@ -4677,7 +4677,7 @@ C5CA 58 10, VEX_Vaddss_xmm_xmm_xmmm32, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=xmm6
 62 F14E08 58 50 01, EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vaddss xmm2{k3},xmm6,xmm3
 62 F14E0B 58 D3, EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vaddss xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vaddss xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F14EDB 58 D3, EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # addsd xmm1,xmm5
 F2 0F58 CD, Addsd_xmm_xmmm64, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -4719,9 +4719,9 @@ C5CC 59 10, VEX_Vmulps_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F14CBD 59 50 01, EVEX_Vmulps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+4;Broadcast256_Float32
 # vmulps zmm2,zmm6,[rax+40h]
 62 F14C48 59 50 01, EVEX_Vmulps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vmulps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vmulps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F14C1B 59 D3, EVEX_Vmulps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vmulps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vmulps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F14CDB 59 D3, EVEX_Vmulps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # mulpd xmm1,xmm5
 66 0F59 CD, Mulpd_xmm_xmmm128, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -4749,9 +4749,9 @@ C5CD 59 10, VEX_Vmulpd_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F1CDAB 59 D3, EVEX_Vmulpd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=ymm6 r=ymm3
 # vmulpd zmm2,zmm6,[rax+40h]
 62 F1CD48 59 50 01, EVEX_Vmulpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vmulpd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vmulpd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F1CD1B 59 D3, EVEX_Vmulpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vmulpd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vmulpd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F1CDDB 59 D3, EVEX_Vmulpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # mulss xmm1,xmm5
 F3 0F59 CD, Mulss_xmm_xmmm32, Legacy, SSE, op0=rw op1=r rw=xmm1 r=xmm5
@@ -4765,7 +4765,7 @@ C5CA 59 10, VEX_Vmulss_xmm_xmm_xmmm32, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=xmm6
 62 F14E08 59 50 01, EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vmulss xmm2{k3},xmm6,xmm3
 62 F14E0B 59 D3, EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vmulss xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vmulss xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F14EDB 59 D3, EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # mulsd xmm1,xmm5
 F2 0F59 CD, Mulsd_xmm_xmmm64, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -4809,7 +4809,7 @@ C5FC 5A 10, VEX_Vcvtps2pd_ymm_xmmm128, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:
 62 F17C48 5A 50 01, EVEX_Vcvtps2pd_zmm_k1z_ymmm256b32_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float32
 # vcvtps2pd zmm2{k3},ymm3
 62 F17C4B 5A D3, EVEX_Vcvtps2pd_zmm_k1z_ymmm256b32_sae, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvtps2pd zmm2{k3}{z},ymm3 {sae}
+# vcvtps2pd zmm2{k3}{z},ymm3{sae}
 62 F17CDB 5A D3, EVEX_Vcvtps2pd_zmm_k1z_ymmm256b32_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # cvtpd2ps xmm1,xmm5
 66 0F5A CD, Cvtpd2ps_xmm_xmmm128, Legacy, SSE2, op0=w op1=r w=xmm1 r=xmm5
@@ -4839,7 +4839,7 @@ C5FD 5A 10, VEX_Vcvtpd2ps_xmm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:
 62 F1FD48 5A 50 01, EVEX_Vcvtpd2ps_ymm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vcvtpd2ps ymm2{k3},zmm3
 62 F1FD4B 5A D3, EVEX_Vcvtpd2ps_ymm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=zmm3
-# vcvtpd2ps ymm2{k3}{z},zmm3 {rn-sae}
+# vcvtpd2ps ymm2{k3}{z},zmm3{rn-sae}
 62 F1FD9B 5A D3, EVEX_Vcvtpd2ps_ymm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # cvtss2sd xmm1,xmm5
 F3 0F5A CD, Cvtss2sd_xmm_xmmm32, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -4853,9 +4853,9 @@ C5CA 5A 10, VEX_Vcvtss2sd_xmm_xmm_xmmm32, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=x
 62 F14E08 5A D3, EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=xmm3
 # vcvtss2sd xmm2,xmm6,dword ptr [rax+4]
 62 F14E08 5A 50 01, EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
-# vcvtss2sd xmm10{k3},xmm22,xmm3 {sae}
+# vcvtss2sd xmm10{k3},xmm22,xmm3{sae}
 62 714E33 5A D3, EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm10 r=xmm10 r=k3 r=xmm22 r=xmm3
-# vcvtss2sd xmm18{k3}{z},xmm14,xmm3 {sae}
+# vcvtss2sd xmm18{k3}{z},xmm14,xmm3{sae}
 62 E10E9B 5A D3, EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm18 r=k3 r=xmm14 r=xmm3
 # cvtsd2ss xmm1,xmm5
 F2 0F5A CD, Cvtsd2ss_xmm_xmmm64, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -4869,9 +4869,9 @@ C5CB 5A 10, VEX_Vcvtsd2ss_xmm_xmm_xmmm64, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=x
 62 F1CF08 5A D3, EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=xmm3
 # vcvtsd2ss xmm2,xmm6,qword ptr [rax+8]
 62 F1CF08 5A 50 01, EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+8;Float64
-# vcvtsd2ss xmm10{k3},xmm22,xmm3 {rd-sae}
+# vcvtsd2ss xmm10{k3},xmm22,xmm3{rd-sae}
 62 71CF33 5A D3, EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm10 r=xmm10 r=k3 r=xmm22 r=xmm3
-# vcvtsd2ss xmm18{k3}{z},xmm14,xmm3 {rn-sae}
+# vcvtsd2ss xmm18{k3}{z},xmm14,xmm3{rn-sae}
 62 E18F9B 5A D3, EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm18 r=k3 r=xmm14 r=xmm3
 # cvtdq2ps xmm1,xmm5
 0F5B CD, Cvtdq2ps_xmm_xmmm128, Legacy, SSE2, op0=w op1=r w=xmm1 r=xmm5
@@ -4901,7 +4901,7 @@ C5FC 5B 10, VEX_Vcvtdq2ps_ymm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:
 62 F17C48 5B 50 01, EVEX_Vcvtdq2ps_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Int32
 # vcvtdq2ps zmm2{k3},zmm3
 62 F17C4B 5B D3, EVEX_Vcvtdq2ps_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvtdq2ps zmm2{k3}{z},zmm3 {rn-sae}
+# vcvtdq2ps zmm2{k3}{z},zmm3{rn-sae}
 62 F17C9B 5B D3, EVEX_Vcvtdq2ps_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtqq2ps xmm2,xmmword ptr [rax+10h]
 62 F1FC08 5B 50 01, EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Int64
@@ -4919,7 +4919,7 @@ C5FC 5B 10, VEX_Vcvtdq2ps_ymm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:
 62 F1FC48 5B 50 01, EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Int64
 # vcvtqq2ps ymm2{k3},zmm3
 62 F1FC4B 5B D3, EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=zmm3
-# vcvtqq2ps ymm2{k3}{z},zmm3 {rn-sae}
+# vcvtqq2ps ymm2{k3}{z},zmm3{rn-sae}
 62 F1FC9B 5B D3, EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # cvtps2dq xmm1,xmm5
 66 0F5B CD, Cvtps2dq_xmm_xmmm128, Legacy, SSE2, op0=w op1=r w=xmm1 r=xmm5
@@ -4949,7 +4949,7 @@ C5FD 5B 10, VEX_Vcvtps2dq_ymm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:
 62 F17D48 5B 50 01, EVEX_Vcvtps2dq_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vcvtps2dq zmm2{k3},zmm3
 62 F17D4B 5B D3, EVEX_Vcvtps2dq_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvtps2dq zmm2{k3}{z},zmm3 {rn-sae}
+# vcvtps2dq zmm2{k3}{z},zmm3{rn-sae}
 62 F17D9B 5B D3, EVEX_Vcvtps2dq_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # cvttps2dq xmm1,xmm5
 F3 0F5B CD, Cvttps2dq_xmm_xmmm128, Legacy, SSE2, op0=w op1=r w=xmm1 r=xmm5
@@ -4979,7 +4979,7 @@ C5FE 5B 10, VEX_Vcvttps2dq_ymm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds
 62 F17E48 5B 50 01, EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vcvttps2dq zmm2{k3},zmm3
 62 F17E4B 5B D3, EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvttps2dq zmm2{k3}{z},zmm3 {sae}
+# vcvttps2dq zmm2{k3}{z},zmm3{sae}
 62 F17E9B 5B D3, EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # subps xmm1,xmm5
 0F5C CD, Subps_xmm_xmmm128, Legacy, SSE, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5007,9 +5007,9 @@ C5CC 5C 10, VEX_Vsubps_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F14CBD 5C 50 01, EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+4;Broadcast256_Float32
 # vsubps zmm2,zmm6,[rax+40h]
 62 F14C48 5C 50 01, EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vsubps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vsubps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F14C1B 5C D3, EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vsubps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vsubps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F14CDB 5C D3, EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # subpd xmm1,xmm5
 66 0F5C CD, Subpd_xmm_xmmm128, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5037,9 +5037,9 @@ C5CD 5C 10, VEX_Vsubpd_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F1CDAB 5C D3, EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=ymm6 r=ymm3
 # vsubpd zmm2,zmm6,[rax+40h]
 62 F1CD48 5C 50 01, EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vsubpd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vsubpd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F1CD1B 5C D3, EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vsubpd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vsubpd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F1CDDB 5C D3, EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # subss xmm1,xmm5
 F3 0F5C CD, Subss_xmm_xmmm32, Legacy, SSE, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5053,7 +5053,7 @@ C5CA 5C 10, VEX_Vsubss_xmm_xmm_xmmm32, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=xmm6
 62 F14E08 5C 50 01, EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vsubss xmm2{k3},xmm6,xmm3
 62 F14E0B 5C D3, EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vsubss xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vsubss xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F14EDB 5C D3, EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # subsd xmm1,xmm5
 F2 0F5C CD, Subsd_xmm_xmmm64, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5095,9 +5095,9 @@ C5CC 5D 10, VEX_Vminps_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F14CBD 5D 50 01, EVEX_Vminps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+4;Broadcast256_Float32
 # vminps zmm2,zmm6,[rax+40h]
 62 F14C48 5D 50 01, EVEX_Vminps_zmm_k1z_zmm_zmmm512b32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vminps zmm2{k3},zmm6,zmm3 {sae}
+# vminps zmm2{k3},zmm6,zmm3{sae}
 62 F14C1B 5D D3, EVEX_Vminps_zmm_k1z_zmm_zmmm512b32_sae, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vminps zmm2{k3}{z},zmm6,zmm3 {sae}
+# vminps zmm2{k3}{z},zmm6,zmm3{sae}
 62 F14CDB 5D D3, EVEX_Vminps_zmm_k1z_zmm_zmmm512b32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # minpd xmm1,xmm5
 66 0F5D CD, Minpd_xmm_xmmm128, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5125,9 +5125,9 @@ C5CD 5D 10, VEX_Vminpd_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F1CDAB 5D D3, EVEX_Vminpd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=ymm6 r=ymm3
 # vminpd zmm2,zmm6,[rax+40h]
 62 F1CD48 5D 50 01, EVEX_Vminpd_zmm_k1z_zmm_zmmm512b64_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vminpd zmm2{k3},zmm6,zmm3 {sae}
+# vminpd zmm2{k3},zmm6,zmm3{sae}
 62 F1CD1B 5D D3, EVEX_Vminpd_zmm_k1z_zmm_zmmm512b64_sae, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vminpd zmm2{k3}{z},zmm6,zmm3 {sae}
+# vminpd zmm2{k3}{z},zmm6,zmm3{sae}
 62 F1CDDB 5D D3, EVEX_Vminpd_zmm_k1z_zmm_zmmm512b64_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # minss xmm1,xmm5
 F3 0F5D CD, Minss_xmm_xmmm32, Legacy, SSE, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5141,7 +5141,7 @@ C5CA 5D 10, VEX_Vminss_xmm_xmm_xmmm32, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=xmm6
 62 F14E08 5D 50 01, EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vminss xmm2{k3},xmm6,xmm3
 62 F14E0B 5D D3, EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vminss xmm2{k3}{z},xmm6,xmm3 {sae}
+# vminss xmm2{k3}{z},xmm6,xmm3{sae}
 62 F14EDB 5D D3, EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # minsd xmm1,xmm5
 F2 0F5D CD, Minsd_xmm_xmmm64, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5183,9 +5183,9 @@ C5CC 5E 10, VEX_Vdivps_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F14CBD 5E 50 01, EVEX_Vdivps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+4;Broadcast256_Float32
 # vdivps zmm2,zmm6,[rax+40h]
 62 F14C48 5E 50 01, EVEX_Vdivps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vdivps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vdivps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F14C1B 5E D3, EVEX_Vdivps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vdivps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vdivps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F14CDB 5E D3, EVEX_Vdivps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # divpd xmm1,xmm5
 66 0F5E CD, Divpd_xmm_xmmm128, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5213,9 +5213,9 @@ C5CD 5E 10, VEX_Vdivpd_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F1CDAB 5E D3, EVEX_Vdivpd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=ymm6 r=ymm3
 # vdivpd zmm2,zmm6,[rax+40h]
 62 F1CD48 5E 50 01, EVEX_Vdivpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vdivpd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vdivpd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F1CD1B 5E D3, EVEX_Vdivpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vdivpd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vdivpd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F1CDDB 5E D3, EVEX_Vdivpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # divss xmm1,xmm5
 F3 0F5E CD, Divss_xmm_xmmm32, Legacy, SSE, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5229,7 +5229,7 @@ C5CA 5E 10, VEX_Vdivss_xmm_xmm_xmmm32, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=xmm6
 62 F14E08 5E 50 01, EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vdivss xmm2{k3},xmm6,xmm3
 62 F14E0B 5E D3, EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vdivss xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vdivss xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F14EDB 5E D3, EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # divsd xmm1,xmm5
 F2 0F5E CD, Divsd_xmm_xmmm64, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5271,9 +5271,9 @@ C5CC 5F 10, VEX_Vmaxps_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F14CBD 5F 50 01, EVEX_Vmaxps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+4;Broadcast256_Float32
 # vmaxps zmm2,zmm6,[rax+40h]
 62 F14C48 5F 50 01, EVEX_Vmaxps_zmm_k1z_zmm_zmmm512b32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vmaxps zmm2{k3},zmm6,zmm3 {sae}
+# vmaxps zmm2{k3},zmm6,zmm3{sae}
 62 F14C1B 5F D3, EVEX_Vmaxps_zmm_k1z_zmm_zmmm512b32_sae, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vmaxps zmm2{k3}{z},zmm6,zmm3 {sae}
+# vmaxps zmm2{k3}{z},zmm6,zmm3{sae}
 62 F14CDB 5F D3, EVEX_Vmaxps_zmm_k1z_zmm_zmmm512b32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # maxpd xmm1,xmm5
 66 0F5F CD, Maxpd_xmm_xmmm128, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5301,9 +5301,9 @@ C5CD 5F 10, VEX_Vmaxpd_ymm_ymm_ymmm256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=ymm
 62 F1CDAB 5F D3, EVEX_Vmaxpd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=ymm6 r=ymm3
 # vmaxpd zmm2,zmm6,[rax+40h]
 62 F1CD48 5F 50 01, EVEX_Vmaxpd_zmm_k1z_zmm_zmmm512b64_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vmaxpd zmm2{k3},zmm6,zmm3 {sae}
+# vmaxpd zmm2{k3},zmm6,zmm3{sae}
 62 F1CD1B 5F D3, EVEX_Vmaxpd_zmm_k1z_zmm_zmmm512b64_sae, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vmaxpd zmm2{k3}{z},zmm6,zmm3 {sae}
+# vmaxpd zmm2{k3}{z},zmm6,zmm3{sae}
 62 F1CDDB 5F D3, EVEX_Vmaxpd_zmm_k1z_zmm_zmmm512b64_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # maxss xmm1,xmm5
 F3 0F5F CD, Maxss_xmm_xmmm32, Legacy, SSE, op0=rw op1=r rw=xmm1 r=xmm5
@@ -5317,7 +5317,7 @@ C5CA 5F 10, VEX_Vmaxss_xmm_xmm_xmmm32, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=xmm6
 62 F14E08 5F 50 01, EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vmaxss xmm2{k3},xmm6,xmm3
 62 F14E0B 5F D3, EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vmaxss xmm2{k3}{z},xmm6,xmm3 {sae}
+# vmaxss xmm2{k3}{z},xmm6,xmm3{sae}
 62 F14EDB 5F D3, EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # maxsd xmm1,xmm5
 F2 0F5F CD, Maxsd_xmm_xmmm64, Legacy, SSE2, op0=rw op1=r rw=xmm1 r=xmm5
@@ -6625,7 +6625,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F17C48 78 50 01, EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vcvttps2udq zmm2{k3},zmm3
 62 F17C4B 78 D3, EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvttps2udq zmm2{k3}{z},zmm3 {sae}
+# vcvttps2udq zmm2{k3}{z},zmm3{sae}
 62 F17C9B 78 D3, EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvttpd2udq xmm2,xmmword ptr [rax+10h]
 62 F1FC08 78 50 01, EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -6643,7 +6643,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F1FC48 78 50 01, EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vcvttpd2udq ymm2{k3},zmm3
 62 F1FC4B 78 D3, EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae, EVEX, AVX512F, op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=zmm3
-# vcvttpd2udq ymm2{k3}{z},zmm3 {sae}
+# vcvttpd2udq ymm2{k3}{z},zmm3{sae}
 62 F1FC9B 78 D3, EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvttps2uqq xmm2,qword ptr [rax+8]
 62 F17D08 78 50 01, EVEX_Vcvttps2uqq_xmm_k1z_xmmm64b32, EVEX, AVX512VL;AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+8;Packed64_Float32
@@ -6661,7 +6661,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F17D48 78 50 01, EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float32
 # vcvttps2uqq zmm2{k3},ymm3
 62 F17D4B 78 D3, EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae, EVEX, AVX512DQ, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvttps2uqq zmm2{k3}{z},ymm3 {sae}
+# vcvttps2uqq zmm2{k3}{z},ymm3{sae}
 62 F17D9B 78 D3, EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vcvttpd2uqq xmm2,[rax+10h]
 62 F1FD08 78 50 01, EVEX_Vcvttpd2uqq_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -6679,7 +6679,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F1FD48 78 50 01, EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vcvttpd2uqq zmm2{k3},zmm3
 62 F1FD4B 78 D3, EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae, EVEX, AVX512DQ, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvttpd2uqq zmm2{k3}{z},zmm3 {sae}
+# vcvttpd2uqq zmm2{k3}{z},zmm3{sae}
 62 F1FD9B 78 D3, EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvttss2usi edx,xmm3
 62 F17E08 78 D3, EVEX_Vcvttss2usi_r32_xmmm32_sae, EVEX, AVX512F, op0=w op1=r w=rdx r=xmm3
@@ -6713,7 +6713,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F17C48 79 50 01, EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vcvtps2udq zmm2{k3},zmm3
 62 F17C4B 79 D3, EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvtps2udq zmm2{k3}{z},zmm3 {rn-sae}
+# vcvtps2udq zmm2{k3}{z},zmm3{rn-sae}
 62 F17C9B 79 D3, EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtpd2udq xmm2,xmmword ptr [rax+10h]
 62 F1FC08 79 50 01, EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -6731,7 +6731,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F1FC48 79 50 01, EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vcvtpd2udq ymm2{k3},zmm3
 62 F1FC4B 79 D3, EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=zmm3
-# vcvtpd2udq ymm2{k3}{z},zmm3 {rn-sae}
+# vcvtpd2udq ymm2{k3}{z},zmm3{rn-sae}
 62 F1FC9B 79 D3, EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtps2uqq xmm2,qword ptr [rax+8]
 62 F17D08 79 50 01, EVEX_Vcvtps2uqq_xmm_k1z_xmmm64b32, EVEX, AVX512VL;AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+8;Packed64_Float32
@@ -6749,7 +6749,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F17D48 79 50 01, EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float32
 # vcvtps2uqq zmm2{k3},ymm3
 62 F17D4B 79 D3, EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er, EVEX, AVX512DQ, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvtps2uqq zmm2{k3}{z},ymm3 {rn-sae}
+# vcvtps2uqq zmm2{k3}{z},ymm3{rn-sae}
 62 F17D9B 79 D3, EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vcvtpd2uqq xmm2,[rax+10h]
 62 F1FD08 79 50 01, EVEX_Vcvtpd2uqq_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -6767,7 +6767,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F1FD48 79 50 01, EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vcvtpd2uqq zmm2{k3},zmm3
 62 F1FD4B 79 D3, EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvtpd2uqq zmm2{k3}{z},zmm3 {rn-sae}
+# vcvtpd2uqq zmm2{k3}{z},zmm3{rn-sae}
 62 F1FD9B 79 D3, EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtss2usi edx,xmm3
 62 F17E08 79 D3, EVEX_Vcvtss2usi_r32_xmmm32_er, EVEX, AVX512F, op0=w op1=r w=rdx r=xmm3
@@ -6801,7 +6801,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F17D48 7A 50 01, EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float32
 # vcvttps2qq zmm2{k3},ymm3
 62 F17D4B 7A D3, EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae, EVEX, AVX512DQ, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvttps2qq zmm2{k3}{z},ymm3 {sae}
+# vcvttps2qq zmm2{k3}{z},ymm3{sae}
 62 F17D9B 7A D3, EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vcvttpd2qq xmm2,[rax+10h]
 62 F1FD08 7A 50 01, EVEX_Vcvttpd2qq_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -6819,7 +6819,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F1FD48 7A 50 01, EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vcvttpd2qq zmm2{k3},zmm3
 62 F1FD4B 7A D3, EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae, EVEX, AVX512DQ, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvttpd2qq zmm2{k3}{z},zmm3 {sae}
+# vcvttpd2qq zmm2{k3}{z},zmm3{sae}
 62 F1FD9B 7A D3, EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtudq2pd xmm2,qword ptr [rax+8]
 62 F17E08 7A 50 01, EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32, EVEX, AVX512VL;AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+8;Packed64_UInt32
@@ -6855,7 +6855,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F1FE48 7A 50 01, EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_UInt64
 # vcvtuqq2pd zmm2{k3},zmm3
 62 F1FE4B 7A D3, EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvtuqq2pd zmm2{k3}{z},zmm3 {rn-sae}
+# vcvtuqq2pd zmm2{k3}{z},zmm3{rn-sae}
 62 F1FE9B 7A D3, EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtudq2ps xmm2,xmmword ptr [rax+10h]
 62 F17F08 7A 50 01, EVEX_Vcvtudq2ps_xmm_k1z_xmmm128b32, EVEX, AVX512VL;AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_UInt32
@@ -6873,7 +6873,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F17F48 7A 50 01, EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_UInt32
 # vcvtudq2ps zmm2{k3},zmm3
 62 F17F4B 7A D3, EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvtudq2ps zmm2{k3}{z},zmm3 {rn-sae}
+# vcvtudq2ps zmm2{k3}{z},zmm3{rn-sae}
 62 F17F9B 7A D3, EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtuqq2ps xmm2,xmmword ptr [rax+10h]
 62 F1FF08 7A 50 01, EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_UInt64
@@ -6891,7 +6891,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F1FF48 7A 50 01, EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_UInt64
 # vcvtuqq2ps ymm2{k3},zmm3
 62 F1FF4B 7A D3, EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=zmm3
-# vcvtuqq2ps ymm2{k3}{z},zmm3 {rn-sae}
+# vcvtuqq2ps ymm2{k3}{z},zmm3{rn-sae}
 62 F1FF9B 7A D3, EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtps2qq xmm2,qword ptr [rax+8]
 62 F17D08 7B 50 01, EVEX_Vcvtps2qq_xmm_k1z_xmmm64b32, EVEX, AVX512VL;AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+8;Packed64_Float32
@@ -6909,7 +6909,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F17D48 7B 50 01, EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float32
 # vcvtps2qq zmm2{k3},ymm3
 62 F17D4B 7B D3, EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er, EVEX, AVX512DQ, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvtps2qq zmm2{k3}{z},ymm3 {rn-sae}
+# vcvtps2qq zmm2{k3}{z},ymm3{rn-sae}
 62 F17D9B 7B D3, EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vcvtpd2qq xmm2,[rax+10h]
 62 F1FD08 7B 50 01, EVEX_Vcvtpd2qq_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -6927,7 +6927,7 @@ C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm15
 62 F1FD48 7B 50 01, EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vcvtpd2qq zmm2{k3},zmm3
 62 F1FD4B 7B D3, EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvtpd2qq zmm2{k3}{z},zmm3 {rn-sae}
+# vcvtpd2qq zmm2{k3}{z},zmm3{rn-sae}
 62 F1FD9B 7B D3, EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtusi2ss xmm2,xmm6,ebx
 62 F14E08 7B D3, EVEX_Vcvtusi2ss_xmm_xmm_rm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=ebx
@@ -7951,7 +7951,7 @@ C5CC C2 10 A5, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, VEX, AVX, op0=w op1=r op2=r op3=
 62 F14C2B C2 D3 A5, EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r op3=r w=k2 r=k3 r=ymm6 r=ymm3
 # vcmpps k2,zmm6,[rax+40h],0A5h
 62 F14C48 C2 50 01 A5, EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vcmpps k2{k3},zmm6,zmm3,0A5h {sae}
+# vcmpps k2{k3},zmm6,zmm3,0A5h{sae}
 62 F14C5B C2 D3 A5, EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=k2 r=k3 r=zmm6 r=zmm3
 # cmppd xmm1,xmm5,0A5h
 66 0FC2 CD A5, Cmppd_xmm_xmmm128_imm8, Legacy, SSE2, op0=rw op1=r op2=r rw=xmm1 r=xmm5
@@ -7975,7 +7975,7 @@ C5CD C2 10 A5, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, VEX, AVX, op0=w op1=r op2=r op3=
 62 F1CD2B C2 D3 A5, EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r op3=r w=k2 r=k3 r=ymm6 r=ymm3
 # vcmppd k2,zmm6,[rax+40h],0A5h
 62 F1CD48 C2 50 01 A5, EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vcmppd k2{k3},zmm6,zmm3,0A5h {sae}
+# vcmppd k2{k3},zmm6,zmm3,0A5h{sae}
 62 F1CD5B C2 D3 A5, EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=k2 r=k3 r=zmm6 r=zmm3
 # cmpss xmm1,xmm5,0A5h
 F3 0FC2 CD A5, Cmpss_xmm_xmmm32_imm8, Legacy, SSE, op0=rw op1=r op2=r rw=xmm1 r=xmm5
@@ -9047,7 +9047,7 @@ C5FD E6 10, VEX_Vcvttpd2dq_xmm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds
 62 F1FD48 E6 50 01, EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vcvttpd2dq ymm2{k3},zmm3
 62 F1FD4B E6 D3, EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae, EVEX, AVX512F, op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=zmm3
-# vcvttpd2dq ymm2{k3}{z},zmm3 {sae}
+# vcvttpd2dq ymm2{k3}{z},zmm3{sae}
 62 F1FDDB E6 D3, EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # cvtdq2pd xmm1,xmm5
 F3 0FE6 CD, Cvtdq2pd_xmm_xmmm64, Legacy, SSE2, op0=w op1=r w=xmm1 r=xmm5
@@ -9095,7 +9095,7 @@ C5FE E6 10, VEX_Vcvtdq2pd_ymm_xmmm128, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:
 62 F1FE48 E6 50 01, EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Int64
 # vcvtqq2pd zmm2{k3},zmm3
 62 F1FE4B E6 D3, EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvtqq2pd zmm2{k3}{z},zmm3 {rn-sae}
+# vcvtqq2pd zmm2{k3}{z},zmm3{rn-sae}
 62 F1FE9B E6 D3, EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er, EVEX, AVX512DQ, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # cvtpd2dq xmm1,xmm5
 F2 0FE6 CD, Cvtpd2dq_xmm_xmmm128, Legacy, SSE2, op0=w op1=r w=xmm1 r=xmm5
@@ -9125,7 +9125,7 @@ C5FF E6 10, VEX_Vcvtpd2dq_xmm_ymmm256, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm=ds:
 62 F1FF48 E6 50 01, EVEX_Vcvtpd2dq_ymm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vcvtpd2dq ymm2{k3},zmm3
 62 F1FF4B E6 D3, EVEX_Vcvtpd2dq_ymm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=zmm3
-# vcvtpd2dq ymm2{k3}{z},zmm3 {rn-sae}
+# vcvtpd2dq ymm2{k3}{z},zmm3{rn-sae}
 62 F1FF9B E6 D3, EVEX_Vcvtpd2dq_ymm_k1z_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # movntq [rax],mm1
 0FE7 08, Movntq_m64_mm, Legacy, SSE, op0=w op1=r r=rax r=mm1 wm=ds:rax;Packed64_UInt32
@@ -10399,9 +10399,9 @@ C4E27D 13 10, VEX_Vcvtph2ps_ymm_xmmm128, VEX, F16C, op0=w op1=r w=vmm2 r=rax rm=
 62 F27DAB 13 D3, EVEX_Vcvtph2ps_ymm_k1z_xmmm128, EVEX, AVX512VL;AVX512F, op0=w op1=r w=vmm2 r=k3 r=xmm3
 # vcvtph2ps zmm2,ymmword ptr [rax+20h]
 62 F27D48 13 50 01, EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float16
-# vcvtph2ps zmm2{k3},ymm3 {sae}
+# vcvtph2ps zmm2{k3},ymm3{sae}
 62 F27D1B 13 D3, EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvtph2ps zmm2{k3}{z},ymm3 {sae}
+# vcvtph2ps zmm2{k3}{z},ymm3{sae}
 62 F27DDB 13 D3, EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vpmovusdw xmm3,xmm2
 62 F27E08 13 D3, EVEX_Vpmovusdw_xmmm64_k1z_xmm, EVEX, AVX512VL;AVX512F, op0=w op1=r w=vmm3 r=xmm2
@@ -11481,9 +11481,9 @@ C4E24D 2C 10, VEX_Vmaskmovps_ymm_ymm_m256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=
 62 F24DAB 2C D3, EVEX_Vscalefps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=ymm6 r=ymm3
 # vscalefps zmm2,zmm6,[rax+40h]
 62 F24D48 2C 50 01, EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vscalefps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vscalefps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B 2C D3, EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vscalefps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vscalefps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB 2C D3, EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vscalefpd xmm2,xmm6,[rax+10h]
 62 F2CD08 2C 50 01, EVEX_Vscalefpd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -11499,9 +11499,9 @@ C4E24D 2C 10, VEX_Vmaskmovps_ymm_ymm_m256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=
 62 F2CDAB 2C D3, EVEX_Vscalefpd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=ymm6 r=ymm3
 # vscalefpd zmm2,zmm6,[rax+40h]
 62 F2CD48 2C 50 01, EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vscalefpd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vscalefpd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B 2C D3, EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vscalefpd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vscalefpd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB 2C D3, EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vmaskmovpd xmm2,xmm6,[rax]
 C4E249 2D 10, VEX_Vmaskmovpd_xmm_xmm_m128, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax;Packed128_Float64
@@ -11511,7 +11511,7 @@ C4E24D 2D 10, VEX_Vmaskmovpd_ymm_ymm_m256, VEX, AVX, op0=w op1=r op2=r w=vmm2 r=
 62 F24D08 2D 50 01, EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vscalefss xmm2{k3},xmm6,xmm3
 62 F24D0B 2D D3, EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vscalefss xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vscalefss xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F24DDB 2D D3, EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vscalefsd xmm2,xmm6,qword ptr [rax+8]
 62 F2CD08 2D 50 01, EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+8;Float64
@@ -12395,7 +12395,7 @@ C4E279 41 10, VEX_Vphminposuw_xmm_xmmm128, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm
 62 F27D48 42 50 01, EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vgetexpps zmm2{k3},zmm3
 62 F27D4B 42 D3, EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vgetexpps zmm2{k3}{z},zmm3 {sae}
+# vgetexpps zmm2{k3}{z},zmm3{sae}
 62 F27D9B 42 D3, EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vgetexppd xmm2,[rax+10h]
 62 F2FD08 42 50 01, EVEX_Vgetexppd_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -12413,13 +12413,13 @@ C4E279 41 10, VEX_Vphminposuw_xmm_xmmm128, VEX, AVX, op0=w op1=r w=vmm2 r=rax rm
 62 F2FD48 42 50 01, EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vgetexppd zmm2{k3},zmm3
 62 F2FD4B 42 D3, EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512F, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vgetexppd zmm2{k3}{z},zmm3 {sae}
+# vgetexppd zmm2{k3}{z},zmm3{sae}
 62 F2FD9B 42 D3, EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512F, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vgetexpss xmm2,xmm6,[rax+4]
 62 F24D08 43 50 01, EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vgetexpss xmm2{k3},xmm6,xmm3
 62 F24D0B 43 D3, EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vgetexpss xmm2{k3}{z},xmm6,xmm3 {sae}
+# vgetexpss xmm2{k3}{z},xmm6,xmm3{sae}
 62 F24DDB 43 D3, EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vgetexpsd xmm2,xmm6,[rax+8]
 62 F2CD08 43 50 01, EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+8;Float64
@@ -13737,9 +13737,9 @@ C4E2CD 96 10, VEX_Vfmaddsub132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F24DAB 96 D3, EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmaddsub132ps zmm2,zmm6,[rax+40h]
 62 F24D48 96 50 01, EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmaddsub132ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmaddsub132ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B 96 D3, EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmaddsub132ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmaddsub132ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB 96 D3, EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmaddsub132pd xmm2,xmm6,[rax+10h]
 62 F2CD08 96 50 01, EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -13755,9 +13755,9 @@ C4E2CD 96 10, VEX_Vfmaddsub132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F2CDAB 96 D3, EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmaddsub132pd zmm2,zmm6,[rax+40h]
 62 F2CD48 96 50 01, EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmaddsub132pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmaddsub132pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B 96 D3, EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmaddsub132pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmaddsub132pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB 96 D3, EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsubadd132ps xmm2,xmm6,xmm3
 C4E249 97 D3, VEX_Vfmsubadd132ps_xmm_xmm_xmmm128, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -13789,9 +13789,9 @@ C4E2CD 97 10, VEX_Vfmsubadd132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F24DAB 97 D3, EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsubadd132ps zmm2,zmm6,[rax+40h]
 62 F24D48 97 50 01, EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmsubadd132ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsubadd132ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B 97 D3, EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsubadd132ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsubadd132ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB 97 D3, EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsubadd132pd xmm2,xmm6,[rax+10h]
 62 F2CD08 97 50 01, EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -13807,9 +13807,9 @@ C4E2CD 97 10, VEX_Vfmsubadd132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F2CDAB 97 D3, EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsubadd132pd zmm2,zmm6,[rax+40h]
 62 F2CD48 97 50 01, EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmsubadd132pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsubadd132pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B 97 D3, EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsubadd132pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsubadd132pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB 97 D3, EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd132ps xmm2,xmm6,xmm3
 C4E249 98 D3, VEX_Vfmadd132ps_xmm_xmm_xmmm128, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -13841,9 +13841,9 @@ C4E2CD 98 10, VEX_Vfmadd132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F24DAB 98 D3, EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmadd132ps zmm2,zmm6,[rax+40h]
 62 F24D48 98 50 01, EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmadd132ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmadd132ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B 98 D3, EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmadd132ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmadd132ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB 98 D3, EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd132pd xmm2,xmm6,[rax+10h]
 62 F2CD08 98 50 01, EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -13859,9 +13859,9 @@ C4E2CD 98 10, VEX_Vfmadd132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F2CDAB 98 D3, EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmadd132pd zmm2,zmm6,[rax+40h]
 62 F2CD48 98 50 01, EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmadd132pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmadd132pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B 98 D3, EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmadd132pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmadd132pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB 98 D3, EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd132ss xmm2,xmm6,xmm3
 C4E249 99 D3, VEX_Vfmadd132ss_xmm_xmm_xmmm32, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -13913,9 +13913,9 @@ C4E2CD 9A 10, VEX_Vfmsub132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F24DAB 9A D3, EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsub132ps zmm2,zmm6,[rax+40h]
 62 F24D48 9A 50 01, EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmsub132ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsub132ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B 9A D3, EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsub132ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsub132ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB 9A D3, EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsub132pd xmm2,xmm6,[rax+10h]
 62 F2CD08 9A 50 01, EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -13931,9 +13931,9 @@ C4E2CD 9A 10, VEX_Vfmsub132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F2CDAB 9A D3, EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsub132pd zmm2,zmm6,[rax+40h]
 62 F2CD48 9A 50 01, EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmsub132pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsub132pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B 9A D3, EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsub132pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsub132pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB 9A D3, EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # v4fmaddps zmm10,zmm22,xmmword ptr [rax+10h]
 62 724F40 9A 50 01, EVEX_V4fmaddps_zmm_k1z_zmmp3_m128, EVEX, AVX512_4FMAPS, op0=rw op1=r op2=r w=vmm10 r=zmm10 r=zmm20 r=zmm21 r=zmm22 r=zmm23 r=rax rm=ds:rax+0x10;Packed128_Float32
@@ -13997,9 +13997,9 @@ C4E2CD 9C 10, VEX_Vfnmadd132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F24DAB 9C D3, EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmadd132ps zmm2,zmm6,[rax+40h]
 62 F24D48 9C 50 01, EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfnmadd132ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmadd132ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B 9C D3, EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmadd132ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmadd132ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB 9C D3, EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmadd132pd xmm2,xmm6,[rax+10h]
 62 F2CD08 9C 50 01, EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14015,9 +14015,9 @@ C4E2CD 9C 10, VEX_Vfnmadd132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F2CDAB 9C D3, EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmadd132pd zmm2,zmm6,[rax+40h]
 62 F2CD48 9C 50 01, EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfnmadd132pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmadd132pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B 9C D3, EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmadd132pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmadd132pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB 9C D3, EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmadd132ss xmm2,xmm6,xmm3
 C4E249 9D D3, VEX_Vfnmadd132ss_xmm_xmm_xmmm32, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14069,9 +14069,9 @@ C4E2CD 9E 10, VEX_Vfnmsub132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F24DAB 9E D3, EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmsub132ps zmm2,zmm6,[rax+40h]
 62 F24D48 9E 50 01, EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfnmsub132ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmsub132ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B 9E D3, EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmsub132ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmsub132ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB 9E D3, EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmsub132pd xmm2,xmm6,[rax+10h]
 62 F2CD08 9E 50 01, EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14087,9 +14087,9 @@ C4E2CD 9E 10, VEX_Vfnmsub132pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F2CDAB 9E D3, EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmsub132pd zmm2,zmm6,[rax+40h]
 62 F2CD48 9E 50 01, EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfnmsub132pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmsub132pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B 9E D3, EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmsub132pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmsub132pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB 9E D3, EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmsub132ss xmm2,xmm6,xmm3
 C4E249 9F D3, VEX_Vfnmsub132ss_xmm_xmm_xmmm32, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14189,9 +14189,9 @@ C4E2CD A6 10, VEX_Vfmaddsub213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F24DAB A6 D3, EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmaddsub213ps zmm2,zmm6,[rax+40h]
 62 F24D48 A6 50 01, EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmaddsub213ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmaddsub213ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B A6 D3, EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmaddsub213ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmaddsub213ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB A6 D3, EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmaddsub213pd xmm2,xmm6,[rax+10h]
 62 F2CD08 A6 50 01, EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14207,9 +14207,9 @@ C4E2CD A6 10, VEX_Vfmaddsub213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F2CDAB A6 D3, EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmaddsub213pd zmm2,zmm6,[rax+40h]
 62 F2CD48 A6 50 01, EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmaddsub213pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmaddsub213pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B A6 D3, EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmaddsub213pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmaddsub213pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB A6 D3, EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsubadd213ps xmm2,xmm6,xmm3
 C4E249 A7 D3, VEX_Vfmsubadd213ps_xmm_xmm_xmmm128, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14241,9 +14241,9 @@ C4E2CD A7 10, VEX_Vfmsubadd213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F24DAB A7 D3, EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsubadd213ps zmm2,zmm6,[rax+40h]
 62 F24D48 A7 50 01, EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmsubadd213ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsubadd213ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B A7 D3, EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsubadd213ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsubadd213ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB A7 D3, EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsubadd213pd xmm2,xmm6,[rax+10h]
 62 F2CD08 A7 50 01, EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14259,9 +14259,9 @@ C4E2CD A7 10, VEX_Vfmsubadd213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F2CDAB A7 D3, EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsubadd213pd zmm2,zmm6,[rax+40h]
 62 F2CD48 A7 50 01, EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmsubadd213pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsubadd213pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B A7 D3, EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsubadd213pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsubadd213pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB A7 D3, EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd213ps xmm2,xmm6,xmm3
 C4E249 A8 D3, VEX_Vfmadd213ps_xmm_xmm_xmmm128, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14293,9 +14293,9 @@ C4E2CD A8 10, VEX_Vfmadd213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F24DAB A8 D3, EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmadd213ps zmm2,zmm6,[rax+40h]
 62 F24D48 A8 50 01, EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmadd213ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmadd213ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B A8 D3, EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmadd213ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmadd213ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB A8 D3, EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd213pd xmm2,xmm6,[rax+10h]
 62 F2CD08 A8 50 01, EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14311,9 +14311,9 @@ C4E2CD A8 10, VEX_Vfmadd213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F2CDAB A8 D3, EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmadd213pd zmm2,zmm6,[rax+40h]
 62 F2CD48 A8 50 01, EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmadd213pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmadd213pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B A8 D3, EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmadd213pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmadd213pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB A8 D3, EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd213ss xmm2,xmm6,xmm3
 C4E249 A9 D3, VEX_Vfmadd213ss_xmm_xmm_xmmm32, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14365,9 +14365,9 @@ C4E2CD AA 10, VEX_Vfmsub213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F24DAB AA D3, EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsub213ps zmm2,zmm6,[rax+40h]
 62 F24D48 AA 50 01, EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmsub213ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsub213ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B AA D3, EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsub213ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsub213ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB AA D3, EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsub213pd xmm2,xmm6,[rax+10h]
 62 F2CD08 AA 50 01, EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14383,9 +14383,9 @@ C4E2CD AA 10, VEX_Vfmsub213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F2CDAB AA D3, EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsub213pd zmm2,zmm6,[rax+40h]
 62 F2CD48 AA 50 01, EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmsub213pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsub213pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B AA D3, EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsub213pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsub213pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB AA D3, EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # v4fnmaddps zmm10,zmm22,[rax+10h]
 62 724F40 AA 50 01, EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128, EVEX, AVX512_4FMAPS, op0=rw op1=r op2=r w=vmm10 r=zmm10 r=zmm20 r=zmm21 r=zmm22 r=zmm23 r=rax rm=ds:rax+0x10;Packed128_Float32
@@ -14449,9 +14449,9 @@ C4E2CD AC 10, VEX_Vfnmadd213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F24DAB AC D3, EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmadd213ps zmm2,zmm6,[rax+40h]
 62 F24D48 AC 50 01, EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfnmadd213ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmadd213ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B AC D3, EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmadd213ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmadd213ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB AC D3, EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmadd213pd xmm2,xmm6,[rax+10h]
 62 F2CD08 AC 50 01, EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14467,9 +14467,9 @@ C4E2CD AC 10, VEX_Vfnmadd213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F2CDAB AC D3, EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmadd213pd zmm2,zmm6,[rax+40h]
 62 F2CD48 AC 50 01, EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfnmadd213pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmadd213pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B AC D3, EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmadd213pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmadd213pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB AC D3, EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmadd213ss xmm2,xmm6,xmm3
 C4E249 AD D3, VEX_Vfnmadd213ss_xmm_xmm_xmmm32, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14521,9 +14521,9 @@ C4E2CD AE 10, VEX_Vfnmsub213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F24DAB AE D3, EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmsub213ps zmm2,zmm6,[rax+40h]
 62 F24D48 AE 50 01, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfnmsub213ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmsub213ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmsub213ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmsub213ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmsub213pd xmm2,xmm6,[rax+10h]
 62 F2CD08 AE 50 01, EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14539,9 +14539,9 @@ C4E2CD AE 10, VEX_Vfnmsub213pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F2CDAB AE D3, EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmsub213pd zmm2,zmm6,[rax+40h]
 62 F2CD48 AE 50 01, EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfnmsub213pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmsub213pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B AE D3, EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmsub213pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmsub213pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB AE D3, EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmsub213ss xmm2,xmm6,xmm3
 C4E249 AF D3, VEX_Vfnmsub213ss_xmm_xmm_xmmm32, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14629,9 +14629,9 @@ C4E2CD B6 10, VEX_Vfmaddsub231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F24DAB B6 D3, EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmaddsub231ps zmm2,zmm6,[rax+40h]
 62 F24D48 B6 50 01, EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm6 r=zmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmaddsub231ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmaddsub231ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B B6 D3, EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmaddsub231ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmaddsub231ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB B6 D3, EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmaddsub231pd xmm2,xmm6,[rax+10h]
 62 F2CD08 B6 50 01, EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14647,9 +14647,9 @@ C4E2CD B6 10, VEX_Vfmaddsub231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F2CDAB B6 D3, EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmaddsub231pd zmm2,zmm6,[rax+40h]
 62 F2CD48 B6 50 01, EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmaddsub231pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmaddsub231pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B B6 D3, EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmaddsub231pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmaddsub231pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB B6 D3, EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsubadd231ps xmm2,xmm6,xmm3
 C4E249 B7 D3, VEX_Vfmsubadd231ps_xmm_xmm_xmmm128, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14681,9 +14681,9 @@ C4E2CD B7 10, VEX_Vfmsubadd231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F24DAB B7 D3, EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsubadd231ps zmm2,zmm6,[rax+40h]
 62 F24D48 B7 50 01, EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmsubadd231ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsubadd231ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B B7 D3, EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsubadd231ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsubadd231ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB B7 D3, EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsubadd231pd xmm2,xmm6,[rax+10h]
 62 F2CD08 B7 50 01, EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14699,9 +14699,9 @@ C4E2CD B7 10, VEX_Vfmsubadd231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w
 62 F2CDAB B7 D3, EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsubadd231pd zmm2,zmm6,[rax+40h]
 62 F2CD48 B7 50 01, EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmsubadd231pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsubadd231pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B B7 D3, EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsubadd231pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsubadd231pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB B7 D3, EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd231ps xmm2,xmm6,xmm3
 C4E249 B8 D3, VEX_Vfmadd231ps_xmm_xmm_xmmm128, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14733,9 +14733,9 @@ C4E2CD B8 10, VEX_Vfmadd231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F24DAB B8 D3, EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmadd231ps zmm2,zmm6,[rax+40h]
 62 F24D48 B8 50 01, EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmadd231ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmadd231ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B B8 D3, EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmadd231ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmadd231ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB B8 D3, EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd231pd xmm2,xmm6,[rax+10h]
 62 F2CD08 B8 50 01, EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14751,9 +14751,9 @@ C4E2CD B8 10, VEX_Vfmadd231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F2CDAB B8 D3, EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmadd231pd zmm2,zmm6,[rax+40h]
 62 F2CD48 B8 50 01, EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmadd231pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmadd231pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B B8 D3, EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmadd231pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmadd231pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB B8 D3, EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd231ss xmm2,xmm6,xmm3
 C4E249 B9 D3, VEX_Vfmadd231ss_xmm_xmm_xmmm32, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14805,9 +14805,9 @@ C4E2CD BA 10, VEX_Vfmsub231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F24DAB BA D3, EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsub231ps zmm2,zmm6,[rax+40h]
 62 F24D48 BA 50 01, EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfmsub231ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsub231ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B BA D3, EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsub231ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsub231ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB BA D3, EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsub231pd xmm2,xmm6,[rax+10h]
 62 F2CD08 BA 50 01, EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14823,9 +14823,9 @@ C4E2CD BA 10, VEX_Vfmsub231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F2CDAB BA D3, EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsub231pd zmm2,zmm6,[rax+40h]
 62 F2CD48 BA 50 01, EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfmsub231pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsub231pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B BA D3, EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsub231pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsub231pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB BA D3, EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsub231ss xmm2,xmm6,xmm3
 C4E249 BB D3, VEX_Vfmsub231ss_xmm_xmm_xmmm32, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14877,9 +14877,9 @@ C4E2CD BC 10, VEX_Vfnmadd231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F24DAB BC D3, EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmadd231ps zmm2,zmm6,[rax+40h]
 62 F24D48 BC 50 01, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfnmadd231ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmadd231ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B BC D3, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmadd231ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmadd231ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB BC D3, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmadd231pd xmm2,xmm6,[rax+10h]
 62 F2CD08 BC 50 01, EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14895,9 +14895,9 @@ C4E2CD BC 10, VEX_Vfnmadd231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F2CDAB BC D3, EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmadd231pd zmm2,zmm6,[rax+40h]
 62 F2CD48 BC 50 01, EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfnmadd231pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmadd231pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B BC D3, EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmadd231pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmadd231pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB BC D3, EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmadd231ss xmm2,xmm6,xmm3
 C4E249 BD D3, VEX_Vfnmadd231ss_xmm_xmm_xmmm32, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -14949,9 +14949,9 @@ C4E2CD BE 10, VEX_Vfnmsub231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F24DAB BE D3, EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmsub231ps zmm2,zmm6,[rax+40h]
 62 F24D48 BE 50 01, EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfnmsub231ps zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmsub231ps zmm2{k3},zmm6,zmm3{rn-sae}
 62 F24D1B BE D3, EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmsub231ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmsub231ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F24DDB BE D3, EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmsub231pd xmm2,xmm6,[rax+10h]
 62 F2CD08 BE 50 01, EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -14967,9 +14967,9 @@ C4E2CD BE 10, VEX_Vfnmsub231pd_ymm_ymm_ymmm256, VEX, FMA, op0=rw op1=r op2=r w=v
 62 F2CDAB BE D3, EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmsub231pd zmm2,zmm6,[rax+40h]
 62 F2CD48 BE 50 01, EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfnmsub231pd zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmsub231pd zmm2{k3},zmm6,zmm3{rn-sae}
 62 F2CD1B BE D3, EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmsub231pd zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmsub231pd zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F2CDDB BE D3, EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmsub231ss xmm2,xmm6,xmm3
 C4E249 BF D3, VEX_Vfnmsub231ss_xmm_xmm_xmmm32, VEX, FMA, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=xmm3
@@ -15087,31 +15087,31 @@ C4E2C9 BF 10, VEX_Vfnmsub231sd_xmm_xmm_xmmm64, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F27D48 C8 50 01, EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vexp2ps zmm2{k3},zmm3
 62 F27D4B C8 D3, EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512ER, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vexp2ps zmm2{k3}{z},zmm3 {sae}
+# vexp2ps zmm2{k3}{z},zmm3{sae}
 62 F27D9B C8 D3, EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vexp2pd zmm2,[rax+40h]
 62 F2FD48 C8 50 01, EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vexp2pd zmm2{k3},zmm3
 62 F2FD4B C8 D3, EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512ER, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vexp2pd zmm2{k3}{z},zmm3 {sae}
+# vexp2pd zmm2{k3}{z},zmm3{sae}
 62 F2FD9B C8 D3, EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vrcp28ps zmm2,[rax+40h]
 62 F27D48 CA 50 01, EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vrcp28ps zmm2{k3},zmm3
 62 F27D4B CA D3, EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512ER, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vrcp28ps zmm2{k3}{z},zmm3 {sae}
+# vrcp28ps zmm2{k3}{z},zmm3{sae}
 62 F27D9B CA D3, EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vrcp28pd zmm2,[rax+40h]
 62 F2FD48 CA 50 01, EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vrcp28pd zmm2{k3},zmm3
 62 F2FD4B CA D3, EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512ER, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vrcp28pd zmm2{k3}{z},zmm3 {sae}
+# vrcp28pd zmm2{k3}{z},zmm3{sae}
 62 F2FD9B CA D3, EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vrcp28ss xmm2,xmm6,dword ptr [rax+4]
 62 F24D08 CB 50 01, EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512ER, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vrcp28ss xmm2{k3},xmm6,xmm3
 62 F24D0B CB D3, EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512ER, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vrcp28ss xmm2{k3}{z},xmm6,xmm3 {sae}
+# vrcp28ss xmm2{k3}{z},xmm6,xmm3{sae}
 62 F24DDB CB D3, EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512ER, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vrcp28sd xmm2,xmm6,qword ptr [rax+8]
 62 F2CD08 CB 50 01, EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae, EVEX, AVX512ER, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+8;Float64
@@ -15123,19 +15123,19 @@ C4E2C9 BF 10, VEX_Vfnmsub231sd_xmm_xmm_xmmm64, VEX, FMA, op0=rw op1=r op2=r w=vm
 62 F27D48 CC 50 01, EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vrsqrt28ps zmm2{k3},zmm3
 62 F27D4B CC D3, EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512ER, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vrsqrt28ps zmm2{k3}{z},zmm3 {sae}
+# vrsqrt28ps zmm2{k3}{z},zmm3{sae}
 62 F27D9B CC D3, EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vrsqrt28pd zmm2,[rax+40h]
 62 F2FD48 CC 50 01, EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vrsqrt28pd zmm2{k3},zmm3
 62 F2FD4B CC D3, EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512ER, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vrsqrt28pd zmm2{k3}{z},zmm3 {sae}
+# vrsqrt28pd zmm2{k3}{z},zmm3{sae}
 62 F2FD9B CC D3, EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae, EVEX, AVX512ER, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vrsqrt28ss xmm2,xmm6,dword ptr [rax+4]
 62 F24D08 CD 50 01, EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512ER, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vrsqrt28ss xmm2{k3},xmm6,xmm3
 62 F24D0B CD D3, EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512ER, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vrsqrt28ss xmm2{k3}{z},xmm6,xmm3 {sae}
+# vrsqrt28ss xmm2{k3}{z},xmm6,xmm3{sae}
 62 F24DDB CD D3, EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae, EVEX, AVX512ER, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vrsqrt28sd xmm2,xmm6,qword ptr [rax+8]
 62 F2CD08 CD 50 01, EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae, EVEX, AVX512ER, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+8;Float64
@@ -15523,7 +15523,7 @@ C4E37D 08 10 A5, VEX_Vroundps_ymm_ymmm256_imm8, VEX, AVX, op0=w op1=r op2=r w=vm
 62 F37D48 08 50 01 A5, EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vrndscaleps zmm2{k3},zmm3,0A5h
 62 F37D4B 08 D3 A5, EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vrndscaleps zmm2{k3}{z},zmm3,0A5h {sae}
+# vrndscaleps zmm2{k3}{z},zmm3,0A5h{sae}
 62 F37D9B 08 D3 A5, EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm3
 # roundpd xmm1,xmm5,0A5h
 66 0F3A09 CD A5, Roundpd_xmm_xmmm128_imm8, Legacy, SSE4_1, op0=w op1=r op2=r w=xmm1 r=xmm5
@@ -15553,7 +15553,7 @@ C4E37D 09 10 A5, VEX_Vroundpd_ymm_ymmm256_imm8, VEX, AVX, op0=w op1=r op2=r w=vm
 62 F3FD48 09 50 01 A5, EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vrndscalepd zmm2{k3},zmm3,0A5h
 62 F3FD4B 09 D3 A5, EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vrndscalepd zmm2{k3}{z},zmm3,0A5h {sae}
+# vrndscalepd zmm2{k3}{z},zmm3,0A5h{sae}
 62 F3FD9B 09 D3 A5, EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm3
 # roundss xmm1,xmm5,0A5h
 66 0F3A0A CD A5, Roundss_xmm_xmmm32_imm8, Legacy, SSE4_1, op0=rw op1=r op2=r rw=xmm1 r=xmm5
@@ -15567,7 +15567,7 @@ C4E349 0A 10 A5, VEX_Vroundss_xmm_xmm_xmmm32_imm8, VEX, AVX, op0=w op1=r op2=r o
 62 F34D08 0A D3 A5, EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=xmm3
 # vrndscaless xmm2,xmm6,[rax+4],0A5h
 62 F34D08 0A 50 01 A5, EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
-# vrndscaless xmm18{k3},xmm14,xmm3,0A5h {sae}
+# vrndscaless xmm18{k3},xmm14,xmm3,0A5h{sae}
 62 E30D1B 0A D3 A5, EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm18 r=xmm18 r=k3 r=xmm14 r=xmm3
 # vrndscaless xmm2{k3}{z},xmm6,xmm3,0A5h
 62 F34D8B 0A D3 A5, EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=xmm6 r=xmm3
@@ -15583,7 +15583,7 @@ C4E349 0B 10 A5, VEX_Vroundsd_xmm_xmm_xmmm64_imm8, VEX, AVX, op0=w op1=r op2=r o
 62 F3CD08 0B D3 A5, EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=xmm3
 # vrndscalesd xmm2,xmm6,[rax+8],0A5h
 62 F3CD08 0B 50 01 A5, EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+8;Float64
-# vrndscalesd xmm18{k3},xmm14,xmm3,0A5h {sae}
+# vrndscalesd xmm18{k3},xmm14,xmm3,0A5h{sae}
 62 E38D1B 0B D3 A5, EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm18 r=xmm18 r=k3 r=xmm14 r=xmm3
 # vrndscalesd xmm2{k3}{z},xmm6,xmm3,0A5h
 62 F3CD8B 0B D3 A5, EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=xmm6 r=xmm3
@@ -15885,15 +15885,15 @@ C4E37D 1D 10 A5, VEX_Vcvtps2ph_xmmm128_ymm_imm8, VEX, F16C, op0=w op1=r op2=r r=
 62 E37D2B 1D D3 A5, EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r w=vmm3 r=xmm3 r=k3 r=ymm18
 # vcvtps2ph xmm3{k3}{z},ymm2,0A5h
 62 F37DAB 1D D3 A5, EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm3 r=k3 r=ymm2
-# vcvtps2ph ymm3,zmm2,0A5h {sae}
+# vcvtps2ph ymm3,zmm2,0A5h{sae}
 62 F37D18 1D D3 A5, EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm3 r=zmm2
 # vcvtps2ph ymmword ptr [rax+20h],zmm2,0A5h
 62 F37D48 1D 50 01 A5, EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r r=rax r=zmm2 wm=ds:rax+0x20;Packed256_Float16
 # vcvtps2ph ymmword ptr [rax+20h]{k3},zmm2,0A5h
 62 F37D4B 1D 50 01 A5, EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae, EVEX, AVX512F, op0=cw op1=r op2=r r=rax r=zmm2 r=k3 cwm=ds:rax+0x20;Packed256_Float16
-# vcvtps2ph ymm3{k3},zmm2,0A5h {sae}
+# vcvtps2ph ymm3{k3},zmm2,0A5h{sae}
 62 F37D1B 1D D3 A5, EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r w=vmm3 r=ymm3 r=k3 r=zmm2
-# vcvtps2ph ymm3{k3}{z},zmm2,0A5h {sae}
+# vcvtps2ph ymm3{k3}{z},zmm2,0A5h{sae}
 62 F37DDB 1D D3 A5, EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm3 r=k3 r=zmm2
 # vpcmpud k2,xmm6,[rax+10h],0A5h
 62 F34D08 1E 50 01 A5, EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r op3=r w=k2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_UInt32
@@ -16103,7 +16103,7 @@ C4E3C9 22 10 A5, VEX_Vpinsrq_xmm_xmm_rm64_imm8, VEX, AVX, op0=w op1=r op2=r op3=
 62 F37D48 26 50 01 A5, EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vgetmantps zmm2{k3},zmm3,0A5h
 62 F37D4B 26 D3 A5, EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vgetmantps zmm2{k3}{z},zmm3,0A5h {sae}
+# vgetmantps zmm2{k3}{z},zmm3,0A5h{sae}
 62 F37D9B 26 D3 A5, EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm3
 # vgetmantpd xmm2,[rax+10h],0A5h
 62 F3FD08 26 50 01 A5, EVEX_Vgetmantpd_xmm_k1z_xmmm128b64_imm8, EVEX, AVX512VL;AVX512F, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -16121,13 +16121,13 @@ C4E3C9 22 10 A5, VEX_Vpinsrq_xmm_xmm_rm64_imm8, VEX, AVX, op0=w op1=r op2=r op3=
 62 F3FD48 26 50 01 A5, EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vgetmantpd zmm2{k3},zmm3,0A5h
 62 F3FD4B 26 D3 A5, EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vgetmantpd zmm2{k3}{z},zmm3,0A5h {sae}
+# vgetmantpd zmm2{k3}{z},zmm3,0A5h{sae}
 62 F3FD9B 26 D3 A5, EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm3
 # vgetmantss xmm2,xmm6,xmm3,0A5h
 62 F34D08 27 D3 A5, EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=xmm3
 # vgetmantss xmm2,xmm6,[rax+4],0A5h
 62 F34D08 27 50 01 A5, EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
-# vgetmantss xmm18{k3},xmm14,xmm3,0A5h {sae}
+# vgetmantss xmm18{k3},xmm14,xmm3,0A5h{sae}
 62 E30D1B 27 D3 A5, EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm18 r=xmm18 r=k3 r=xmm14 r=xmm3
 # vgetmantss xmm2{k3}{z},xmm6,xmm3,0A5h
 62 F34D8B 27 D3 A5, EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=xmm6 r=xmm3
@@ -16135,7 +16135,7 @@ C4E3C9 22 10 A5, VEX_Vpinsrq_xmm_xmm_rm64_imm8, VEX, AVX, op0=w op1=r op2=r op3=
 62 F3CD08 27 D3 A5, EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=xmm3
 # vgetmantsd xmm2,xmm6,[rax+8],0A5h
 62 F3CD08 27 50 01 A5, EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+8;Float64
-# vgetmantsd xmm18{k3},xmm14,xmm3,0A5h {sae}
+# vgetmantsd xmm18{k3},xmm14,xmm3,0A5h{sae}
 62 E38D1B 27 D3 A5, EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm18 r=xmm18 r=k3 r=xmm14 r=xmm3
 # vgetmantsd xmm2{k3}{z},xmm6,xmm3,0A5h
 62 F3CD8B 27 D3 A5, EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512F, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=xmm6 r=xmm3
@@ -16431,9 +16431,9 @@ C4E34D 4C 10 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, VEX, AVX2, op0=w op1=r op2=r
 62 F34DBD 50 50 01 A5, EVEX_Vrangeps_ymm_k1z_ymm_ymmm256b32_imm8, EVEX, AVX512VL;AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+4;Broadcast256_Float32
 # vrangeps zmm2,zmm6,[rax+40h],0A5h
 62 F34D48 50 50 01 A5, EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vrangeps zmm2{k3},zmm6,zmm3,0A5h {sae}
+# vrangeps zmm2{k3},zmm6,zmm3,0A5h{sae}
 62 F34D1B 50 D3 A5, EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae, EVEX, AVX512DQ, op0=rcw op1=r op2=r op3=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vrangeps zmm2{k3}{z},zmm6,zmm3,0A5h {sae}
+# vrangeps zmm2{k3}{z},zmm6,zmm3,0A5h{sae}
 62 F34DDB 50 D3 A5, EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vrangepd xmm2,xmm6,[rax+10h],0A5h
 62 F3CD08 50 50 01 A5, EVEX_Vrangepd_xmm_k1z_xmm_xmmm128b64_imm8, EVEX, AVX512VL;AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -16449,15 +16449,15 @@ C4E34D 4C 10 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, VEX, AVX2, op0=w op1=r op2=r
 62 F3CDAB 50 D3 A5, EVEX_Vrangepd_ymm_k1z_ymm_ymmm256b64_imm8, EVEX, AVX512VL;AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=ymm6 r=ymm3
 # vrangepd zmm2,zmm6,[rax+40h],0A5h
 62 F3CD48 50 50 01 A5, EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vrangepd zmm2{k3},zmm6,zmm3,0A5h {sae}
+# vrangepd zmm2{k3},zmm6,zmm3,0A5h{sae}
 62 F3CD1B 50 D3 A5, EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae, EVEX, AVX512DQ, op0=rcw op1=r op2=r op3=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vrangepd zmm2{k3}{z},zmm6,zmm3,0A5h {sae}
+# vrangepd zmm2{k3}{z},zmm6,zmm3,0A5h{sae}
 62 F3CDDB 50 D3 A5, EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vrangess xmm2,xmm6,[rax+4],0A5h
 62 F34D08 51 50 01 A5, EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vrangess xmm2{k3},xmm6,xmm3,0A5h
 62 F34D0B 51 D3 A5, EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512DQ, op0=rw op1=r op2=r op3=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vrangess xmm2{k3}{z},xmm6,xmm3,0A5h {sae}
+# vrangess xmm2{k3}{z},xmm6,xmm3,0A5h{sae}
 62 F34DDB 51 D3 A5, EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vrangesd xmm2,xmm6,[rax+8],0A5h
 62 F3CD08 51 50 01 A5, EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+8;Float64
@@ -16479,9 +16479,9 @@ C4E34D 4C 10 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, VEX, AVX2, op0=w op1=r op2=r
 62 F34DBD 54 50 01 A5, EVEX_Vfixupimmps_ymm_k1z_ymm_ymmm256b32_imm8, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=ymm2 r=k5 r=ymm6 r=rax rm=ds:rax+4;Broadcast256_Float32
 # vfixupimmps zmm2,zmm6,[rax+40h],0A5h
 62 F34D48 54 50 01 A5, EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32
-# vfixupimmps zmm2{k3},zmm6,zmm3,0A5h {sae}
+# vfixupimmps zmm2{k3},zmm6,zmm3,0A5h{sae}
 62 F34D1B 54 D3 A5, EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=rcw op1=r op2=r op3=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfixupimmps zmm2{k3}{z},zmm6,zmm3,0A5h {sae}
+# vfixupimmps zmm2{k3}{z},zmm6,zmm3,0A5h{sae}
 62 F34DDB 54 D3 A5, EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfixupimmpd xmm2,xmm6,[rax+10h],0A5h
 62 F3CD08 54 50 01 A5, EVEX_Vfixupimmpd_xmm_k1z_xmm_xmmm128b64_imm8, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -16497,15 +16497,15 @@ C4E34D 4C 10 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, VEX, AVX2, op0=w op1=r op2=r
 62 F3CDAB 54 D3 A5, EVEX_Vfixupimmpd_ymm_k1z_ymm_ymmm256b64_imm8, EVEX, AVX512VL;AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfixupimmpd zmm2,zmm6,[rax+40h],0A5h
 62 F3CD48 54 50 01 A5, EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64
-# vfixupimmpd zmm2{k3},zmm6,zmm3,0A5h {sae}
+# vfixupimmpd zmm2{k3},zmm6,zmm3,0A5h{sae}
 62 F3CD1B 54 D3 A5, EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=rcw op1=r op2=r op3=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfixupimmpd zmm2{k3}{z},zmm6,zmm3,0A5h {sae}
+# vfixupimmpd zmm2{k3}{z},zmm6,zmm3,0A5h{sae}
 62 F3CDDB 54 D3 A5, EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfixupimmss xmm2,xmm6,[rax+4],0A5h
 62 F34D08 55 50 01 A5, EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
 # vfixupimmss xmm2{k3},xmm6,xmm3,0A5h
 62 F34D0B 55 D3 A5, EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vfixupimmss xmm2{k3}{z},xmm6,xmm3,0A5h {sae}
+# vfixupimmss xmm2{k3}{z},xmm6,xmm3,0A5h{sae}
 62 F34DDB 55 D3 A5, EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
 # vfixupimmsd xmm2,xmm6,[rax+8],0A5h
 62 F3CD08 55 50 01 A5, EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512F, op0=rw op1=r op2=r op3=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+8;Float64
@@ -16529,7 +16529,7 @@ C4E34D 4C 10 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, VEX, AVX2, op0=w op1=r op2=r
 62 F37D48 56 50 01 A5, EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32
 # vreduceps zmm2{k3},zmm3,0A5h
 62 F37D4B 56 D3 A5, EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae, EVEX, AVX512DQ, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vreduceps zmm2{k3}{z},zmm3,0A5h {sae}
+# vreduceps zmm2{k3}{z},zmm3,0A5h{sae}
 62 F37D9B 56 D3 A5, EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm3
 # vreducepd xmm2,[rax+10h],0A5h
 62 F3FD08 56 50 01 A5, EVEX_Vreducepd_xmm_k1z_xmmm128b64_imm8, EVEX, AVX512VL;AVX512DQ, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -16547,13 +16547,13 @@ C4E34D 4C 10 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, VEX, AVX2, op0=w op1=r op2=r
 62 F3FD48 56 50 01 A5, EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vreducepd zmm2{k3},zmm3,0A5h
 62 F3FD4B 56 D3 A5, EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae, EVEX, AVX512DQ, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vreducepd zmm2{k3}{z},zmm3,0A5h {sae}
+# vreducepd zmm2{k3}{z},zmm3,0A5h{sae}
 62 F3FD9B 56 D3 A5, EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm3
 # vreducess xmm2,xmm6,xmm3,0A5h
 62 F34D08 57 D3 A5, EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=xmm3
 # vreducess xmm2,xmm6,[rax+4],0A5h
 62 F34D08 57 50 01 A5, EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+4;Float32
-# vreducess xmm18{k3},xmm14,xmm3,0A5h {sae}
+# vreducess xmm18{k3},xmm14,xmm3,0A5h{sae}
 62 E30D1B 57 D3 A5, EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512DQ, op0=rw op1=r op2=r op3=r w=vmm18 r=xmm18 r=k3 r=xmm14 r=xmm3
 # vreducess xmm2{k3}{z},xmm6,xmm3,0A5h
 62 F34D8B 57 D3 A5, EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=xmm6 r=xmm3
@@ -16561,7 +16561,7 @@ C4E34D 4C 10 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, VEX, AVX2, op0=w op1=r op2=r
 62 F3CD08 57 D3 A5, EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=xmm3
 # vreducesd xmm2,xmm6,[rax+8],0A5h
 62 F3CD08 57 50 01 A5, EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+8;Float64
-# vreducesd xmm18{k3},xmm14,xmm3,0A5h {sae}
+# vreducesd xmm18{k3},xmm14,xmm3,0A5h{sae}
 62 E38D1B 57 D3 A5, EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512DQ, op0=rw op1=r op2=r op3=r w=vmm18 r=xmm18 r=k3 r=xmm14 r=xmm3
 # vreducesd xmm2{k3}{z},xmm6,xmm3,0A5h
 62 F3CD8B 57 D3 A5, EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae, EVEX, AVX512DQ, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=xmm6 r=xmm3
@@ -19227,15 +19227,15 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F54CBD 58 50 01, EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+0x2;Broadcast256_Float16
 # vaddph zmm2,zmm6,[rax+40h]
 62 F54C48 58 50 01, EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vaddph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vaddph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F54C1B 58 D3, EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vaddph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vaddph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F54CDB 58 D3, EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vaddsh xmm2,xmm6,word ptr [rax+2]
 62 F54E08 58 50 01, EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
 # vaddsh xmm2{k3},xmm6,xmm3
 62 F54E0B 58 D3, EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vaddsh xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vaddsh xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F54EDB 58 D3, EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vcmpph k2,xmm6,[rax+10h],0A5h
 62 F34C08 C2 50 01 A5, EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r op3=r w=k2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19247,7 +19247,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F34C2B C2 D3 A5, EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r op3=r w=k2 r=k3 r=ymm6 r=ymm3
 # vcmpph k2,zmm6,[rax+40h],0A5h
 62 F34C48 C2 50 01 A5, EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vcmpph k2{k3},zmm6,zmm3,0A5h {sae}
+# vcmpph k2{k3},zmm6,zmm3,0A5h{sae}
 62 F34C5B C2 D3 A5, EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=k2 r=k3 r=zmm6 r=zmm3
 # vcmpsh k2,xmm6,word ptr [rax+2],0A5h
 62 F34E08 C2 50 01 A5, EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=k2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
@@ -19273,7 +19273,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57C48 5B 50 01, EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Int32
 # vcvtdq2ph ymm2{k3},zmm3
 62 F57C4B 5B D3, EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er, EVEX, AVX512_FP16, op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=zmm3
-# vcvtdq2ph ymm2{k3}{z},zmm3 {rn-sae}
+# vcvtdq2ph ymm2{k3}{z},zmm3{rn-sae}
 62 F57C9B 5B D3, EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtpd2ph xmm2,xmmword ptr [rax+10h]
 62 F5FD08 5A 50 01, EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float64
@@ -19291,7 +19291,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F5FD48 5A 50 01, EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64
 # vcvtpd2ph xmm2{k3},zmm3
 62 F5FD4B 5A D3, EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er, EVEX, AVX512_FP16, op0=rw op1=r w=vmm2 r=xmm2 r=k3 r=zmm3
-# vcvtpd2ph xmm2{k3}{z},zmm3 {rn-sae}
+# vcvtpd2ph xmm2{k3}{z},zmm3{rn-sae}
 62 F5FD9B 5A D3, EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtph2dq xmm2,qword ptr [rax+8]
 62 F57D08 5B 50 01, EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x8;Packed64_Float16
@@ -19309,7 +19309,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57D48 5B 50 01, EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float16
 # vcvtph2dq zmm2{k3},ymm3
 62 F57D4B 5B D3, EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvtph2dq zmm2{k3}{z},ymm3 {rn-sae}
+# vcvtph2dq zmm2{k3}{z},ymm3{rn-sae}
 62 F57D9B 5B D3, EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vcvtph2pd xmm2,dword ptr [rax+4]
 62 F57C08 5A 50 01, EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x4;Packed32_Float16
@@ -19327,7 +19327,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57C48 5A 50 01, EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
 # vcvtph2pd zmm2{k3},xmm3
 62 F57C4B 5A D3, EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=xmm3
-# vcvtph2pd zmm2{k3}{z},xmm3 {sae}
+# vcvtph2pd zmm2{k3}{z},xmm3{sae}
 62 F57CDB 5A D3, EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=xmm3
 # vcvtph2psx xmm2,qword ptr [rax+8]
 62 F67D08 13 50 01, EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x8;Packed64_Float16
@@ -19345,7 +19345,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F67D48 13 50 01, EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float16
 # vcvtph2psx zmm2{k3},ymm3
 62 F67D4B 13 D3, EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvtph2psx zmm2{k3}{z},ymm3 {sae}
+# vcvtph2psx zmm2{k3}{z},ymm3{sae}
 62 F67DDB 13 D3, EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vcvtph2qq xmm2,dword ptr [rax+4]
 62 F57D08 7B 50 01, EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x4;Packed32_Float16
@@ -19363,7 +19363,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57D48 7B 50 01, EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
 # vcvtph2qq zmm2{k3},xmm3
 62 F57D4B 7B D3, EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=xmm3
-# vcvtph2qq zmm2{k3}{z},xmm3 {rn-sae}
+# vcvtph2qq zmm2{k3}{z},xmm3{rn-sae}
 62 F57D9B 7B D3, EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=xmm3
 # vcvtph2udq xmm2,qword ptr [rax+8]
 62 F57C08 79 50 01, EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x8;Packed64_Float16
@@ -19381,7 +19381,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57C48 79 50 01, EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float16
 # vcvtph2udq zmm2{k3},ymm3
 62 F57C4B 79 D3, EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvtph2udq zmm2{k3}{z},ymm3 {rn-sae}
+# vcvtph2udq zmm2{k3}{z},ymm3{rn-sae}
 62 F57C9B 79 D3, EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vcvtph2uqq xmm2,dword ptr [rax+4]
 62 F57D08 79 50 01, EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x4;Packed32_Float16
@@ -19399,7 +19399,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57D48 79 50 01, EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
 # vcvtph2uqq zmm2{k3},xmm3
 62 F57D4B 79 D3, EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=xmm3
-# vcvtph2uqq zmm2{k3}{z},xmm3 {rn-sae}
+# vcvtph2uqq zmm2{k3}{z},xmm3{rn-sae}
 62 F57D9B 79 D3, EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=xmm3
 # vcvtph2uw xmm2,xmmword ptr [rax+10h]
 62 F57C08 7D 50 01, EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19471,23 +19471,23 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F5FC48 5B 50 01, EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Int64
 # vcvtqq2ph xmm2{k3},zmm3
 62 F5FC4B 5B D3, EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er, EVEX, AVX512_FP16, op0=rw op1=r w=vmm2 r=xmm2 r=k3 r=zmm3
-# vcvtqq2ph xmm2{k3}{z},zmm3 {rn-sae}
+# vcvtqq2ph xmm2{k3}{z},zmm3{rn-sae}
 62 F5FC9B 5B D3, EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtsd2sh xmm2,xmm6,xmm3
 62 F5CF08 5A D3, EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=xmm3
 # vcvtsd2sh xmm2,xmm6,qword ptr [rax+8]
 62 F5CF08 5A 50 01, EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x8;Float64
-# vcvtsd2sh xmm10{k3},xmm22,xmm3 {rd-sae}
+# vcvtsd2sh xmm10{k3},xmm22,xmm3{rd-sae}
 62 75CF33 5A D3, EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm10 r=xmm10 r=k3 r=xmm22 r=xmm3
-# vcvtsd2sh xmm18{k3}{z},xmm14,xmm3 {rn-sae}
+# vcvtsd2sh xmm18{k3}{z},xmm14,xmm3{rn-sae}
 62 E58F9B 5A D3, EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm18 r=k3 r=xmm14 r=xmm3
 # vcvtsh2sd xmm2,xmm6,xmm3
 62 F54E08 5A D3, EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=xmm3
 # vcvtsh2sd xmm2,xmm6,word ptr [rax+2]
 62 F54E08 5A 50 01, EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
-# vcvtsh2sd xmm10{k3},xmm22,xmm3 {sae}
+# vcvtsh2sd xmm10{k3},xmm22,xmm3{sae}
 62 754E33 5A D3, EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm10 r=xmm10 r=k3 r=xmm22 r=xmm3
-# vcvtsh2sd xmm18{k3}{z},xmm14,xmm3 {sae}
+# vcvtsh2sd xmm18{k3}{z},xmm14,xmm3{sae}
 62 E50E9B 5A D3, EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm18 r=k3 r=xmm14 r=xmm3
 # vcvtsh2si edx,xmm3
 62 F57E08 2D D3, EVEX_Vcvtsh2si_r32_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r w=rdx r=xmm3
@@ -19501,9 +19501,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64C08 13 D3, EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=xmm3
 # vcvtsh2ss xmm2,xmm6,word ptr [rax+2]
 62 F64C08 13 50 01, EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
-# vcvtsh2ss xmm10{k3},xmm22,xmm3 {sae}
+# vcvtsh2ss xmm10{k3},xmm22,xmm3{sae}
 62 764C33 13 D3, EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm10 r=xmm10 r=k3 r=xmm22 r=xmm3
-# vcvtsh2ss xmm18{k3}{z},xmm14,xmm3 {sae}
+# vcvtsh2ss xmm18{k3}{z},xmm14,xmm3{sae}
 62 E60C9B 13 D3, EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm18 r=k3 r=xmm14 r=xmm3
 # vcvtsh2usi edx,xmm3
 62 F57E08 79 D3, EVEX_Vcvtsh2usi_r32_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r w=rdx r=xmm3
@@ -19525,9 +19525,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F54C08 1D D3, EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=xmm3
 # vcvtss2sh xmm2,xmm6,dword ptr [rax+4]
 62 F54C08 1D 50 01, EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x4;Float32
-# vcvtss2sh xmm10{k3},xmm22,xmm3 {rd-sae}
+# vcvtss2sh xmm10{k3},xmm22,xmm3{rd-sae}
 62 754C33 1D D3, EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm10 r=xmm10 r=k3 r=xmm22 r=xmm3
-# vcvtss2sh xmm18{k3}{z},xmm14,xmm3 {rn-sae}
+# vcvtss2sh xmm18{k3}{z},xmm14,xmm3{rn-sae}
 62 E50C9B 1D D3, EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm18 r=k3 r=xmm14 r=xmm3
 # vcvttph2dq xmm2,qword ptr [rax+8]
 62 F57E08 5B 50 01, EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x8;Packed64_Float16
@@ -19545,7 +19545,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57E48 5B 50 01, EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float16
 # vcvttph2dq zmm2{k3},ymm3
 62 F57E4B 5B D3, EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvttph2dq zmm2{k3}{z},ymm3 {sae}
+# vcvttph2dq zmm2{k3}{z},ymm3{sae}
 62 F57E9B 5B D3, EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vcvttph2qq xmm2,dword ptr [rax+4]
 62 F57D08 7A 50 01, EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x4;Packed32_Float16
@@ -19563,7 +19563,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57D48 7A 50 01, EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
 # vcvttph2qq zmm2{k3},xmm3
 62 F57D4B 7A D3, EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=xmm3
-# vcvttph2qq zmm2{k3}{z},xmm3 {sae}
+# vcvttph2qq zmm2{k3}{z},xmm3{sae}
 62 F57D9B 7A D3, EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=xmm3
 # vcvttph2udq xmm2,qword ptr [rax+8]
 62 F57C08 78 50 01, EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x8;Packed64_Float16
@@ -19581,7 +19581,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57C48 78 50 01, EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float16
 # vcvttph2udq zmm2{k3},ymm3
 62 F57C4B 78 D3, EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=ymm3
-# vcvttph2udq zmm2{k3}{z},ymm3 {sae}
+# vcvttph2udq zmm2{k3}{z},ymm3{sae}
 62 F57C9B 78 D3, EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=ymm3
 # vcvttph2uqq xmm2,dword ptr [rax+4]
 62 F57D08 78 50 01, EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x4;Packed32_Float16
@@ -19599,7 +19599,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57D48 78 50 01, EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
 # vcvttph2uqq zmm2{k3},xmm3
 62 F57D4B 78 D3, EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=xmm3
-# vcvttph2uqq zmm2{k3}{z},xmm3 {sae}
+# vcvttph2uqq zmm2{k3}{z},xmm3{sae}
 62 F57D9B 78 D3, EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=xmm3
 # vcvttph2uw xmm2,[rax+10h]
 62 F57C08 7C 50 01, EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19617,7 +19617,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57C48 7C 50 01, EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float16
 # vcvttph2uw zmm2{k3},zmm3
 62 F57C4B 7C D3, EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvttph2uw zmm2{k3}{z},zmm3 {sae}
+# vcvttph2uw zmm2{k3}{z},zmm3{sae}
 62 F57C9B 7C D3, EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvttph2w xmm2,[rax+10h]
 62 F57D08 7C 50 01, EVEX_Vcvttph2w_xmm_k1z_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19635,7 +19635,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57D48 7C 50 01, EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float16
 # vcvttph2w zmm2{k3},zmm3
 62 F57D4B 7C D3, EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vcvttph2w zmm2{k3}{z},zmm3 {sae}
+# vcvttph2w zmm2{k3}{z},zmm3{sae}
 62 F57D9B 7C D3, EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvttsh2si edx,xmm3
 62 F57E08 2C D3, EVEX_Vcvttsh2si_r32_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r w=rdx r=xmm3
@@ -19669,7 +19669,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57F48 7A 50 01, EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_UInt32
 # vcvtudq2ph ymm2{k3},zmm3
 62 F57F4B 7A D3, EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er, EVEX, AVX512_FP16, op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=zmm3
-# vcvtudq2ph ymm2{k3}{z},zmm3 {rn-sae}
+# vcvtudq2ph ymm2{k3}{z},zmm3{rn-sae}
 62 F57F9B 7A D3, EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtuqq2ph xmm2,xmmword ptr [rax+10h]
 62 F5FF08 7A 50 01, EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_UInt64
@@ -19687,7 +19687,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F5FF48 7A 50 01, EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_UInt64
 # vcvtuqq2ph xmm2{k3},zmm3
 62 F5FF4B 7A D3, EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er, EVEX, AVX512_FP16, op0=rw op1=r w=vmm2 r=xmm2 r=k3 r=zmm3
-# vcvtuqq2ph xmm2{k3}{z},zmm3 {rn-sae}
+# vcvtuqq2ph xmm2{k3}{z},zmm3{rn-sae}
 62 F5FF9B 7A D3, EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vcvtusi2sh xmm2,xmm6,ebx
 62 F54E08 7B D3, EVEX_Vcvtusi2sh_xmm_xmm_rm32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=ebx
@@ -19747,15 +19747,15 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F54CBD 5E 50 01, EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+0x2;Broadcast256_Float16
 # vdivph zmm2,zmm6,[rax+40h]
 62 F54C48 5E 50 01, EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vdivph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vdivph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F54C1B 5E D3, EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vdivph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vdivph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F54CDB 5E D3, EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vdivsh xmm2,xmm6,word ptr [rax+2]
 62 F54E08 5E 50 01, EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
 # vdivsh xmm2{k3},xmm6,xmm3
 62 F54E0B 5E D3, EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vdivsh xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vdivsh xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F54EDB 5E D3, EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vfcmaddcph xmm2,xmm6,[rax+10h]
 62 F64F08 56 50 01, EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_2xFloat16
@@ -19771,9 +19771,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64FBD 56 50 01, EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k5 r=ymm6 r=rax rm=ds:rax+0x4;Broadcast256_2xFloat16
 # vfcmaddcph zmm2,zmm6,[rax+40h]
 62 F64F48 56 50 01, EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_2xFloat16
-# vfcmaddcph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfcmaddcph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64F1B 56 D3, EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfcmaddcph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfcmaddcph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64FDB 56 D3, EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmaddcph xmm2,xmm6,[rax+10h]
 62 F64E08 56 50 01, EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_2xFloat16
@@ -19789,21 +19789,21 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64EBD 56 50 01, EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k5 r=ymm6 r=rax rm=ds:rax+0x4;Broadcast256_2xFloat16
 # vfmaddcph zmm2,zmm6,[rax+40h]
 62 F64E48 56 50 01, EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_2xFloat16
-# vfmaddcph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmaddcph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64E1B 56 D3, EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmaddcph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmaddcph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64EDB 56 D3, EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfcmaddcsh xmm2,xmm6,[rax+4]
 62 F64F08 57 50 01, EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x4;Packed32_Float16
 # vfcmaddcsh xmm2{k3},xmm6,xmm3
 62 F64F0B 57 D3, EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vfcmaddcsh xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vfcmaddcsh xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F64FDB 57 D3, EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
 # vfmaddcsh xmm2,xmm6,[rax+4]
 62 F64E08 57 50 01, EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x4;Packed32_Float16
 # vfmaddcsh xmm2{k3},xmm6,xmm3
 62 F64E0B 57 D3, EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vfmaddcsh xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vfmaddcsh xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F64EDB 57 D3, EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
 # vfcmulcph xmm2,xmm6,[rax+10h]
 62 F64F08 D6 50 01, EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_2xFloat16
@@ -19819,9 +19819,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64FBD D6 50 01, EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+0x4;Broadcast256_2xFloat16
 # vfcmulcph zmm2,zmm6,[rax+40h]
 62 F64F48 D6 50 01, EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_2xFloat16
-# vfcmulcph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfcmulcph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64F1B D6 D3, EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfcmulcph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfcmulcph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64FDB D6 D3, EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vfmulcph xmm2,xmm6,[rax+10h]
 62 F64E08 D6 50 01, EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_2xFloat16
@@ -19837,21 +19837,21 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64EBD D6 50 01, EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+0x4;Broadcast256_2xFloat16
 # vfmulcph zmm2,zmm6,[rax+40h]
 62 F64E48 D6 50 01, EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_2xFloat16
-# vfmulcph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmulcph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64E1B D6 D3, EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmulcph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmulcph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64EDB D6 D3, EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vfcmulcsh xmm2,xmm6,[rax+4]
 62 F64F08 D7 50 01, EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x4;Packed32_Float16
 # vfcmulcsh xmm2{k3},xmm6,xmm3
 62 F64F0B D7 D3, EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vfcmulcsh xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vfcmulcsh xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F64FDB D7 D3, EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vfmulcsh xmm2,xmm6,[rax+4]
 62 F64E08 D7 50 01, EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x4;Packed32_Float16
 # vfmulcsh xmm2{k3},xmm6,xmm3
 62 F64E0B D7 D3, EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vfmulcsh xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vfmulcsh xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F64EDB D7 D3, EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vfmaddsub132ph xmm2,xmm6,[rax+10h]
 62 F64D08 96 50 01, EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19867,9 +19867,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB 96 D3, EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmaddsub132ph zmm2,zmm6,[rax+40h]
 62 F64D48 96 50 01, EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmaddsub132ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmaddsub132ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B 96 D3, EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmaddsub132ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmaddsub132ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB 96 D3, EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmaddsub213ph xmm2,xmm6,[rax+10h]
 62 F64D08 A6 50 01, EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19885,9 +19885,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB A6 D3, EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmaddsub213ph zmm2,zmm6,[rax+40h]
 62 F64D48 A6 50 01, EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmaddsub213ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmaddsub213ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B A6 D3, EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmaddsub213ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmaddsub213ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB A6 D3, EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmaddsub231ph xmm2,xmm6,[rax+10h]
 62 F64D08 B6 50 01, EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19903,9 +19903,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB B6 D3, EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmaddsub231ph zmm2,zmm6,[rax+40h]
 62 F64D48 B6 50 01, EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm6 r=zmm2 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmaddsub231ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmaddsub231ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B B6 D3, EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmaddsub231ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmaddsub231ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB B6 D3, EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsubadd132ph xmm2,xmm6,[rax+10h]
 62 F64D08 97 50 01, EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19921,9 +19921,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB 97 D3, EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsubadd132ph zmm2,zmm6,[rax+40h]
 62 F64D48 97 50 01, EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmsubadd132ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsubadd132ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B 97 D3, EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsubadd132ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsubadd132ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB 97 D3, EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsubadd213ph xmm2,xmm6,[rax+10h]
 62 F64D08 A7 50 01, EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19939,9 +19939,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB A7 D3, EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsubadd213ph zmm2,zmm6,[rax+40h]
 62 F64D48 A7 50 01, EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmsubadd213ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsubadd213ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B A7 D3, EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsubadd213ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsubadd213ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB A7 D3, EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsubadd231ph xmm2,xmm6,[rax+10h]
 62 F64D08 B7 50 01, EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19957,9 +19957,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB B7 D3, EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsubadd231ph zmm2,zmm6,[rax+40h]
 62 F64D48 B7 50 01, EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmsubadd231ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsubadd231ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B B7 D3, EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsubadd231ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsubadd231ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB B7 D3, EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd132ph xmm2,xmm6,[rax+10h]
 62 F64D08 98 50 01, EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19975,9 +19975,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB 98 D3, EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmadd132ph zmm2,zmm6,[rax+40h]
 62 F64D48 98 50 01, EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmadd132ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmadd132ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B 98 D3, EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmadd132ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmadd132ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB 98 D3, EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd213ph xmm2,xmm6,[rax+10h]
 62 F64D08 A8 50 01, EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -19993,9 +19993,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB A8 D3, EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmadd213ph zmm2,zmm6,[rax+40h]
 62 F64D48 A8 50 01, EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmadd213ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmadd213ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B A8 D3, EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmadd213ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmadd213ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB A8 D3, EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd231ph xmm2,xmm6,[rax+10h]
 62 F64D08 B8 50 01, EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20011,9 +20011,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB B8 D3, EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmadd231ph zmm2,zmm6,[rax+40h]
 62 F64D48 B8 50 01, EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmadd231ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmadd231ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B B8 D3, EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmadd231ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmadd231ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB B8 D3, EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmadd132ph xmm2,xmm6,[rax+10h]
 62 F64D08 9C 50 01, EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20029,9 +20029,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB 9C D3, EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmadd132ph zmm2,zmm6,[rax+40h]
 62 F64D48 9C 50 01, EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfnmadd132ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmadd132ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B 9C D3, EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmadd132ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmadd132ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB 9C D3, EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmadd213ph xmm2,xmm6,[rax+10h]
 62 F64D08 AC 50 01, EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20047,9 +20047,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB AC D3, EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmadd213ph zmm2,zmm6,[rax+40h]
 62 F64D48 AC 50 01, EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfnmadd213ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmadd213ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B AC D3, EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmadd213ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmadd213ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB AC D3, EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmadd231ph xmm2,xmm6,[rax+10h]
 62 F64D08 BC 50 01, EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20065,9 +20065,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB BC D3, EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmadd231ph zmm2,zmm6,[rax+40h]
 62 F64D48 BC 50 01, EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfnmadd231ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmadd231ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B BC D3, EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmadd231ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmadd231ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB BC D3, EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmadd132sh xmm2,xmm6,[rax+2]
 62 F64D08 99 50 01, EVEX_Vfmadd132sh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
@@ -20119,9 +20119,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB 9A D3, EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsub132ph zmm2,zmm6,[rax+40h]
 62 F64D48 9A 50 01, EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmsub132ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsub132ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B 9A D3, EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsub132ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsub132ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB 9A D3, EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsub213ph xmm2,xmm6,[rax+10h]
 62 F64D08 AA 50 01, EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20137,9 +20137,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB AA D3, EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsub213ph zmm2,zmm6,[rax+40h]
 62 F64D48 AA 50 01, EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmsub213ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsub213ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B AA D3, EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsub213ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsub213ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB AA D3, EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsub231ph xmm2,xmm6,[rax+10h]
 62 F64D08 BA 50 01, EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20155,9 +20155,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB BA D3, EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfmsub231ph zmm2,zmm6,[rax+40h]
 62 F64D48 BA 50 01, EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfmsub231ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfmsub231ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B BA D3, EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfmsub231ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfmsub231ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB BA D3, EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmsub132ph xmm2,xmm6,[rax+10h]
 62 F64D08 9E 50 01, EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20173,9 +20173,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB 9E D3, EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmsub132ph zmm2,zmm6,[rax+40h]
 62 F64D48 9E 50 01, EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfnmsub132ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmsub132ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B 9E D3, EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmsub132ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmsub132ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB 9E D3, EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmsub213ph xmm2,xmm6,[rax+10h]
 62 F64D08 AE 50 01, EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20191,9 +20191,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB AE D3, EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmsub213ph zmm2,zmm6,[rax+40h]
 62 F64D48 AE 50 01, EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfnmsub213ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmsub213ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B AE D3, EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmsub213ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmsub213ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB AE D3, EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfnmsub231ph xmm2,xmm6,[rax+10h]
 62 F64D08 BE 50 01, EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20209,9 +20209,9 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB BE D3, EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=ymm2 r=k3 r=ymm6 r=ymm3
 # vfnmsub231ph zmm2,zmm6,[rax+40h]
 62 F64D48 BE 50 01, EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vfnmsub231ph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vfnmsub231ph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B BE D3, EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vfnmsub231ph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vfnmsub231ph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB BE D3, EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
 # vfmsub132sh xmm2,xmm6,[rax+2]
 62 F64D08 9B 50 01, EVEX_Vfmsub132sh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
@@ -20281,13 +20281,13 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F67D48 42 50 01, EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float16
 # vgetexpph zmm2{k3},zmm3
 62 F67D4B 42 D3, EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vgetexpph zmm2{k3}{z},zmm3 {sae}
+# vgetexpph zmm2{k3}{z},zmm3{sae}
 62 F67D9B 42 D3, EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vgetexpsh xmm2,xmm6,[rax+2]
 62 F64D08 43 50 01, EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
 # vgetexpsh xmm2{k3},xmm6,xmm3
 62 F64D0B 43 D3, EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vgetexpsh xmm2{k3}{z},xmm6,xmm3 {sae}
+# vgetexpsh xmm2{k3}{z},xmm6,xmm3{sae}
 62 F64DDB 43 D3, EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vgetmantph xmm2,[rax+10h],0A5h
 62 F37C08 26 50 01 A5, EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20305,13 +20305,13 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F37C48 26 50 01 A5, EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float16
 # vgetmantph zmm2{k3},zmm3,0A5h
 62 F37C4B 26 D3 A5, EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vgetmantph zmm2{k3}{z},zmm3,0A5h {sae}
+# vgetmantph zmm2{k3}{z},zmm3,0A5h{sae}
 62 F37C9B 26 D3 A5, EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm3
 # vgetmantsh xmm2,xmm6,xmm3,0A5h
 62 F34C08 27 D3 A5, EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=xmm3
 # vgetmantsh xmm2,xmm6,[rax+2],0A5h
 62 F34C08 27 50 01 A5, EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
-# vgetmantsh xmm18{k3},xmm14,xmm3,0A5h {sae}
+# vgetmantsh xmm18{k3},xmm14,xmm3,0A5h{sae}
 62 E30C1B 27 D3 A5, EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=rw op1=r op2=r op3=r w=vmm18 r=xmm18 r=k3 r=xmm14 r=xmm3
 # vgetmantsh xmm2{k3}{z},xmm6,xmm3,0A5h
 62 F34C8B 27 D3 A5, EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=xmm6 r=xmm3
@@ -20329,15 +20329,15 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F54CBD 5F 50 01, EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+0x2;Broadcast256_Float16
 # vmaxph zmm2,zmm6,[rax+40h]
 62 F54C48 5F 50 01, EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vmaxph zmm2{k3},zmm6,zmm3 {sae}
+# vmaxph zmm2{k3},zmm6,zmm3{sae}
 62 F54C1B 5F D3, EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vmaxph zmm2{k3}{z},zmm6,zmm3 {sae}
+# vmaxph zmm2{k3}{z},zmm6,zmm3{sae}
 62 F54CDB 5F D3, EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vmaxsh xmm2,xmm6,word ptr [rax+2]
 62 F54E08 5F 50 01, EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
 # vmaxsh xmm2{k3},xmm6,xmm3
 62 F54E0B 5F D3, EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vmaxsh xmm2{k3}{z},xmm6,xmm3 {sae}
+# vmaxsh xmm2{k3}{z},xmm6,xmm3{sae}
 62 F54EDB 5F D3, EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vminph xmm2,xmm6,[rax+10h]
 62 F54C08 5D 50 01, EVEX_Vminph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20353,15 +20353,15 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F54CBD 5D 50 01, EVEX_Vminph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+0x2;Broadcast256_Float16
 # vminph zmm2,zmm6,[rax+40h]
 62 F54C48 5D 50 01, EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vminph zmm2{k3},zmm6,zmm3 {sae}
+# vminph zmm2{k3},zmm6,zmm3{sae}
 62 F54C1B 5D D3, EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vminph zmm2{k3}{z},zmm6,zmm3 {sae}
+# vminph zmm2{k3}{z},zmm6,zmm3{sae}
 62 F54CDB 5D D3, EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vminsh xmm2,xmm6,word ptr [rax+2]
 62 F54E08 5D 50 01, EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
 # vminsh xmm2{k3},xmm6,xmm3
 62 F54E0B 5D D3, EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vminsh xmm2{k3}{z},xmm6,xmm3 {sae}
+# vminsh xmm2{k3}{z},xmm6,xmm3{sae}
 62 F54EDB 5D D3, EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vmovsh xmm2,word ptr [rax+2]
 62 F57E08 10 50 01, EVEX_Vmovsh_xmm_k1z_m16, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x2;Float16
@@ -20413,15 +20413,15 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F54CBD 59 50 01, EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+0x2;Broadcast256_Float16
 # vmulph zmm2,zmm6,[rax+40h]
 62 F54C48 59 50 01, EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vmulph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vmulph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F54C1B 59 D3, EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vmulph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vmulph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F54CDB 59 D3, EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vmulsh xmm2,xmm6,word ptr [rax+2]
 62 F54E08 59 50 01, EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
 # vmulsh xmm2{k3},xmm6,xmm3
 62 F54E0B 59 D3, EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vmulsh xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vmulsh xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F54EDB 59 D3, EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vrcpph xmm2,xmmword ptr [rax+10h]
 62 F67D08 4C 50 01, EVEX_Vrcpph_xmm_k1z_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20463,13 +20463,13 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F37C48 56 50 01 A5, EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float16
 # vreduceph zmm2{k3},zmm3,0A5h
 62 F37C4B 56 D3 A5, EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vreduceph zmm2{k3}{z},zmm3,0A5h {sae}
+# vreduceph zmm2{k3}{z},zmm3,0A5h{sae}
 62 F37C9B 56 D3 A5, EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm3
 # vreducesh xmm2,xmm6,xmm3,0A5h
 62 F34C08 57 D3 A5, EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=xmm3
 # vreducesh xmm2,xmm6,[rax+2],0A5h
 62 F34C08 57 50 01 A5, EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
-# vreducesh xmm18{k3},xmm14,xmm3,0A5h {sae}
+# vreducesh xmm18{k3},xmm14,xmm3,0A5h{sae}
 62 E30C1B 57 D3 A5, EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=rw op1=r op2=r op3=r w=vmm18 r=xmm18 r=k3 r=xmm14 r=xmm3
 # vreducesh xmm2{k3}{z},xmm6,xmm3,0A5h
 62 F34C8B 57 D3 A5, EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=xmm6 r=xmm3
@@ -20489,13 +20489,13 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F37C48 08 50 01 A5, EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float16
 # vrndscaleph zmm2{k3},zmm3,0A5h
 62 F37C4B 08 D3 A5, EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vrndscaleph zmm2{k3}{z},zmm3,0A5h {sae}
+# vrndscaleph zmm2{k3}{z},zmm3,0A5h{sae}
 62 F37C9B 08 D3 A5, EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm3
 # vrndscalesh xmm2,xmm6,xmm3,0A5h
 62 F34C08 0A D3 A5, EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=xmm3
 # vrndscalesh xmm2,xmm6,[rax+2],0A5h
 62 F34C08 0A 50 01 A5, EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
-# vrndscalesh xmm18{k3},xmm14,xmm3,0A5h {sae}
+# vrndscalesh xmm18{k3},xmm14,xmm3,0A5h{sae}
 62 E30C1B 0A D3 A5, EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=rw op1=r op2=r op3=r w=vmm18 r=xmm18 r=k3 r=xmm14 r=xmm3
 # vrndscalesh xmm2{k3}{z},xmm6,xmm3,0A5h
 62 F34C8B 0A D3 A5, EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae, EVEX, AVX512_FP16, op0=w op1=r op2=r op3=r w=vmm2 r=k3 r=xmm6 r=xmm3
@@ -20537,15 +20537,15 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F64DAB 2C D3, EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=ymm6 r=ymm3
 # vscalefph zmm2,zmm6,[rax+40h]
 62 F64D48 2C 50 01, EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vscalefph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vscalefph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F64D1B 2C D3, EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vscalefph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vscalefph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F64DDB 2C D3, EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vscalefsh xmm2,xmm6,word ptr [rax+2]
 62 F64D08 2D 50 01, EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
 # vscalefsh xmm2{k3},xmm6,xmm3
 62 F64D0B 2D D3, EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vscalefsh xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vscalefsh xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F64DDB 2D D3, EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vsqrtph xmm2,[rax+10h]
 62 F57C08 51 50 01, EVEX_Vsqrtph_xmm_k1z_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20561,15 +20561,15 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57CBD 51 50 01, EVEX_Vsqrtph_ymm_k1z_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r w=vmm2 r=k5 r=rax rm=ds:rax+0x2;Broadcast256_Float16
 # vsqrtph zmm2,[rax+40h]
 62 F57C48 51 50 01, EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vsqrtph zmm2{k3},zmm3 {rn-sae}
+# vsqrtph zmm2{k3},zmm3{rn-sae}
 62 F57C1B 51 D3, EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r cw=vmm2 r=zmm2 r=k3 r=zmm3
-# vsqrtph zmm2{k3}{z},zmm3 {ru-sae}
+# vsqrtph zmm2{k3}{z},zmm3{ru-sae}
 62 F57CDB 51 D3, EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r w=vmm2 r=k3 r=zmm3
 # vsqrtsh xmm2,xmm6,word ptr [rax+2]
 62 F54E08 51 50 01, EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
 # vsqrtsh xmm2{k3},xmm6,xmm3
 62 F54E0B 51 D3, EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vsqrtsh xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vsqrtsh xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F54EDB 51 D3, EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vsubph xmm2,xmm6,[rax+10h]
 62 F54C08 5C 50 01, EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
@@ -20585,15 +20585,15 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F54CBD 5C 50 01, EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k5 r=ymm6 r=rax rm=ds:rax+0x2;Broadcast256_Float16
 # vsubph zmm2,zmm6,[rax+40h]
 62 F54C48 5C 50 01, EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float16
-# vsubph zmm2{k3},zmm6,zmm3 {rn-sae}
+# vsubph zmm2{k3},zmm6,zmm3{rn-sae}
 62 F54C1B 5C D3, EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=rcw op1=r op2=r cw=vmm2 r=zmm2 r=k3 r=zmm6 r=zmm3
-# vsubph zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+# vsubph zmm2{k3}{z},zmm6,zmm3{ru-sae}
 62 F54CDB 5C D3, EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=zmm6 r=zmm3
 # vsubsh xmm2,xmm6,word ptr [rax+2]
 62 F54E08 5C 50 01, EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x2;Float16
 # vsubsh xmm2{k3},xmm6,xmm3
 62 F54E0B 5C D3, EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=rw op1=r op2=r w=vmm2 r=xmm2 r=k3 r=xmm6 r=xmm3
-# vsubsh xmm2{k3}{z},xmm6,xmm3 {ru-sae}
+# vsubsh xmm2{k3}{z},xmm6,xmm3{ru-sae}
 62 F54EDB 5C D3, EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er, EVEX, AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=k3 r=xmm6 r=xmm3
 # vucomish xmm2,xmm3
 62 F57C08 2E D3, EVEX_Vucomish_xmm_xmmm16_sae, EVEX, AVX512_FP16, fw=zpc fc=oas op0=r op1=r r=xmm2 r=xmm3

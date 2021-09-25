@@ -773,7 +773,6 @@ namespace Iced.Intel {
 					Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-					output.Write(" ", FormatterTextKind.Text);
 					FormatterString decStr;
 					if (IcedConstants.IsMvex(instruction.Code))
 						decStr = instruction.SuppressAllExceptions ? rcSaeStrings[(int)rc - 1] : rcStrings[(int)rc - 1];
@@ -781,10 +780,8 @@ namespace Iced.Intel {
 						decStr = rcSaeStrings[(int)rc - 1];
 					FormatDecorator(output, instruction, operand, instructionOperand, decStr, DecoratorKind.RoundingControl);
 				}
-				else if (instruction.SuppressAllExceptions) {
-					output.Write(" ", FormatterTextKind.Text);
+				else if (instruction.SuppressAllExceptions)
 					FormatDecorator(output, instruction, operand, instructionOperand, str_sae, DecoratorKind.SuppressAllExceptions);
-				}
 			}
 #if MVEX
 			if (mvexRmOperand == operand) {

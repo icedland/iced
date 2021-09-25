@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: MIT
 # Copyright (C) 2018-present iced project and contributors
 
-vfnmsub213ps zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
-vfnmsub213ps zmm2{k3}{z},zmm6,zmm3 {ru-sae}
+vfnmsub213ps zmm2{k3}{z}, zmm6, zmm3{ru-sae}
+vfnmsub213ps zmm2{k3}{z},zmm6,zmm3{ru-sae}
 
 mov ecx,ds:[rax+rdx]
 mov ecx,[rax+rdx]
@@ -173,39 +173,39 @@ vcmpps k2{k3},ymm6,ymm3,1Eh
 vcmpps k2{k3},ymm6,ymm3,1Fh
 vcmpps k2{k3},ymm6,ymm3,20h
 
-vcmpps k2{k3},zmm6,zmm3,0 {sae}
-vcmpps k2{k3},zmm6,zmm3,1 {sae}
-vcmpps k2{k3},zmm6,zmm3,2 {sae}
-vcmpps k2{k3},zmm6,zmm3,3 {sae}
-vcmpps k2{k3},zmm6,zmm3,4 {sae}
-vcmpps k2{k3},zmm6,zmm3,5 {sae}
-vcmpps k2{k3},zmm6,zmm3,6 {sae}
-vcmpps k2{k3},zmm6,zmm3,7 {sae}
-vcmpps k2{k3},zmm6,zmm3,8 {sae}
-vcmpps k2{k3},zmm6,zmm3,9 {sae}
-vcmpps k2{k3},zmm6,zmm3,0Ah {sae}
-vcmpps k2{k3},zmm6,zmm3,0Bh {sae}
-vcmpps k2{k3},zmm6,zmm3,0Ch {sae}
-vcmpps k2{k3},zmm6,zmm3,0Dh {sae}
-vcmpps k2{k3},zmm6,zmm3,0Eh {sae}
-vcmpps k2{k3},zmm6,zmm3,0Fh {sae}
-vcmpps k2{k3},zmm6,zmm3,10h {sae}
-vcmpps k2{k3},zmm6,zmm3,11h {sae}
-vcmpps k2{k3},zmm6,zmm3,12h {sae}
-vcmpps k2{k3},zmm6,zmm3,13h {sae}
-vcmpps k2{k3},zmm6,zmm3,14h {sae}
-vcmpps k2{k3},zmm6,zmm3,15h {sae}
-vcmpps k2{k3},zmm6,zmm3,16h {sae}
-vcmpps k2{k3},zmm6,zmm3,17h {sae}
-vcmpps k2{k3},zmm6,zmm3,18h {sae}
-vcmpps k2{k3},zmm6,zmm3,19h {sae}
-vcmpps k2{k3},zmm6,zmm3,1Ah {sae}
-vcmpps k2{k3},zmm6,zmm3,1Bh {sae}
-vcmpps k2{k3},zmm6,zmm3,1Ch {sae}
-vcmpps k2{k3},zmm6,zmm3,1Dh {sae}
-vcmpps k2{k3},zmm6,zmm3,1Eh {sae}
-vcmpps k2{k3},zmm6,zmm3,1Fh {sae}
-vcmpps k2{k3},zmm6,zmm3,20h {sae}
+vcmpps k2{k3},zmm6,zmm3,0{sae}
+vcmpps k2{k3},zmm6,zmm3,1{sae}
+vcmpps k2{k3},zmm6,zmm3,2{sae}
+vcmpps k2{k3},zmm6,zmm3,3{sae}
+vcmpps k2{k3},zmm6,zmm3,4{sae}
+vcmpps k2{k3},zmm6,zmm3,5{sae}
+vcmpps k2{k3},zmm6,zmm3,6{sae}
+vcmpps k2{k3},zmm6,zmm3,7{sae}
+vcmpps k2{k3},zmm6,zmm3,8{sae}
+vcmpps k2{k3},zmm6,zmm3,9{sae}
+vcmpps k2{k3},zmm6,zmm3,0Ah{sae}
+vcmpps k2{k3},zmm6,zmm3,0Bh{sae}
+vcmpps k2{k3},zmm6,zmm3,0Ch{sae}
+vcmpps k2{k3},zmm6,zmm3,0Dh{sae}
+vcmpps k2{k3},zmm6,zmm3,0Eh{sae}
+vcmpps k2{k3},zmm6,zmm3,0Fh{sae}
+vcmpps k2{k3},zmm6,zmm3,10h{sae}
+vcmpps k2{k3},zmm6,zmm3,11h{sae}
+vcmpps k2{k3},zmm6,zmm3,12h{sae}
+vcmpps k2{k3},zmm6,zmm3,13h{sae}
+vcmpps k2{k3},zmm6,zmm3,14h{sae}
+vcmpps k2{k3},zmm6,zmm3,15h{sae}
+vcmpps k2{k3},zmm6,zmm3,16h{sae}
+vcmpps k2{k3},zmm6,zmm3,17h{sae}
+vcmpps k2{k3},zmm6,zmm3,18h{sae}
+vcmpps k2{k3},zmm6,zmm3,19h{sae}
+vcmpps k2{k3},zmm6,zmm3,1Ah{sae}
+vcmpps k2{k3},zmm6,zmm3,1Bh{sae}
+vcmpps k2{k3},zmm6,zmm3,1Ch{sae}
+vcmpps k2{k3},zmm6,zmm3,1Dh{sae}
+vcmpps k2{k3},zmm6,zmm3,1Eh{sae}
+vcmpps k2{k3},zmm6,zmm3,1Fh{sae}
+vcmpps k2{k3},zmm6,zmm3,20h{sae}
 
 cmppd xmm1,xmm5,0
 cmppd xmm1,xmm5,1
@@ -353,39 +353,39 @@ vcmppd k2{k3},ymm6,ymm3,1Eh
 vcmppd k2{k3},ymm6,ymm3,1Fh
 vcmppd k2{k3},ymm6,ymm3,20h
 
-vcmppd k2{k3},zmm6,zmm3,0 {sae}
-vcmppd k2{k3},zmm6,zmm3,1 {sae}
-vcmppd k2{k3},zmm6,zmm3,2 {sae}
-vcmppd k2{k3},zmm6,zmm3,3 {sae}
-vcmppd k2{k3},zmm6,zmm3,4 {sae}
-vcmppd k2{k3},zmm6,zmm3,5 {sae}
-vcmppd k2{k3},zmm6,zmm3,6 {sae}
-vcmppd k2{k3},zmm6,zmm3,7 {sae}
-vcmppd k2{k3},zmm6,zmm3,8 {sae}
-vcmppd k2{k3},zmm6,zmm3,9 {sae}
-vcmppd k2{k3},zmm6,zmm3,0Ah {sae}
-vcmppd k2{k3},zmm6,zmm3,0Bh {sae}
-vcmppd k2{k3},zmm6,zmm3,0Ch {sae}
-vcmppd k2{k3},zmm6,zmm3,0Dh {sae}
-vcmppd k2{k3},zmm6,zmm3,0Eh {sae}
-vcmppd k2{k3},zmm6,zmm3,0Fh {sae}
-vcmppd k2{k3},zmm6,zmm3,10h {sae}
-vcmppd k2{k3},zmm6,zmm3,11h {sae}
-vcmppd k2{k3},zmm6,zmm3,12h {sae}
-vcmppd k2{k3},zmm6,zmm3,13h {sae}
-vcmppd k2{k3},zmm6,zmm3,14h {sae}
-vcmppd k2{k3},zmm6,zmm3,15h {sae}
-vcmppd k2{k3},zmm6,zmm3,16h {sae}
-vcmppd k2{k3},zmm6,zmm3,17h {sae}
-vcmppd k2{k3},zmm6,zmm3,18h {sae}
-vcmppd k2{k3},zmm6,zmm3,19h {sae}
-vcmppd k2{k3},zmm6,zmm3,1Ah {sae}
-vcmppd k2{k3},zmm6,zmm3,1Bh {sae}
-vcmppd k2{k3},zmm6,zmm3,1Ch {sae}
-vcmppd k2{k3},zmm6,zmm3,1Dh {sae}
-vcmppd k2{k3},zmm6,zmm3,1Eh {sae}
-vcmppd k2{k3},zmm6,zmm3,1Fh {sae}
-vcmppd k2{k3},zmm6,zmm3,20h {sae}
+vcmppd k2{k3},zmm6,zmm3,0{sae}
+vcmppd k2{k3},zmm6,zmm3,1{sae}
+vcmppd k2{k3},zmm6,zmm3,2{sae}
+vcmppd k2{k3},zmm6,zmm3,3{sae}
+vcmppd k2{k3},zmm6,zmm3,4{sae}
+vcmppd k2{k3},zmm6,zmm3,5{sae}
+vcmppd k2{k3},zmm6,zmm3,6{sae}
+vcmppd k2{k3},zmm6,zmm3,7{sae}
+vcmppd k2{k3},zmm6,zmm3,8{sae}
+vcmppd k2{k3},zmm6,zmm3,9{sae}
+vcmppd k2{k3},zmm6,zmm3,0Ah{sae}
+vcmppd k2{k3},zmm6,zmm3,0Bh{sae}
+vcmppd k2{k3},zmm6,zmm3,0Ch{sae}
+vcmppd k2{k3},zmm6,zmm3,0Dh{sae}
+vcmppd k2{k3},zmm6,zmm3,0Eh{sae}
+vcmppd k2{k3},zmm6,zmm3,0Fh{sae}
+vcmppd k2{k3},zmm6,zmm3,10h{sae}
+vcmppd k2{k3},zmm6,zmm3,11h{sae}
+vcmppd k2{k3},zmm6,zmm3,12h{sae}
+vcmppd k2{k3},zmm6,zmm3,13h{sae}
+vcmppd k2{k3},zmm6,zmm3,14h{sae}
+vcmppd k2{k3},zmm6,zmm3,15h{sae}
+vcmppd k2{k3},zmm6,zmm3,16h{sae}
+vcmppd k2{k3},zmm6,zmm3,17h{sae}
+vcmppd k2{k3},zmm6,zmm3,18h{sae}
+vcmppd k2{k3},zmm6,zmm3,19h{sae}
+vcmppd k2{k3},zmm6,zmm3,1Ah{sae}
+vcmppd k2{k3},zmm6,zmm3,1Bh{sae}
+vcmppd k2{k3},zmm6,zmm3,1Ch{sae}
+vcmppd k2{k3},zmm6,zmm3,1Dh{sae}
+vcmppd k2{k3},zmm6,zmm3,1Eh{sae}
+vcmppd k2{k3},zmm6,zmm3,1Fh{sae}
+vcmppd k2{k3},zmm6,zmm3,20h{sae}
 
 cmpss xmm1,xmm5,0
 cmpss xmm1,xmm5,1
@@ -931,39 +931,39 @@ vcmpph k2{k3},ymm6,ymm3,1Eh
 vcmpph k2{k3},ymm6,ymm3,1Fh
 vcmpph k2{k3},ymm6,ymm3,20h
 
-vcmpph k2{k3},zmm6,zmm3,0 {sae}
-vcmpph k2{k3},zmm6,zmm3,1 {sae}
-vcmpph k2{k3},zmm6,zmm3,2 {sae}
-vcmpph k2{k3},zmm6,zmm3,3 {sae}
-vcmpph k2{k3},zmm6,zmm3,4 {sae}
-vcmpph k2{k3},zmm6,zmm3,5 {sae}
-vcmpph k2{k3},zmm6,zmm3,6 {sae}
-vcmpph k2{k3},zmm6,zmm3,7 {sae}
-vcmpph k2{k3},zmm6,zmm3,8 {sae}
-vcmpph k2{k3},zmm6,zmm3,9 {sae}
-vcmpph k2{k3},zmm6,zmm3,0Ah {sae}
-vcmpph k2{k3},zmm6,zmm3,0Bh {sae}
-vcmpph k2{k3},zmm6,zmm3,0Ch {sae}
-vcmpph k2{k3},zmm6,zmm3,0Dh {sae}
-vcmpph k2{k3},zmm6,zmm3,0Eh {sae}
-vcmpph k2{k3},zmm6,zmm3,0Fh {sae}
-vcmpph k2{k3},zmm6,zmm3,10h {sae}
-vcmpph k2{k3},zmm6,zmm3,11h {sae}
-vcmpph k2{k3},zmm6,zmm3,12h {sae}
-vcmpph k2{k3},zmm6,zmm3,13h {sae}
-vcmpph k2{k3},zmm6,zmm3,14h {sae}
-vcmpph k2{k3},zmm6,zmm3,15h {sae}
-vcmpph k2{k3},zmm6,zmm3,16h {sae}
-vcmpph k2{k3},zmm6,zmm3,17h {sae}
-vcmpph k2{k3},zmm6,zmm3,18h {sae}
-vcmpph k2{k3},zmm6,zmm3,19h {sae}
-vcmpph k2{k3},zmm6,zmm3,1Ah {sae}
-vcmpph k2{k3},zmm6,zmm3,1Bh {sae}
-vcmpph k2{k3},zmm6,zmm3,1Ch {sae}
-vcmpph k2{k3},zmm6,zmm3,1Dh {sae}
-vcmpph k2{k3},zmm6,zmm3,1Eh {sae}
-vcmpph k2{k3},zmm6,zmm3,1Fh {sae}
-vcmpph k2{k3},zmm6,zmm3,20h {sae}
+vcmpph k2{k3},zmm6,zmm3,0{sae}
+vcmpph k2{k3},zmm6,zmm3,1{sae}
+vcmpph k2{k3},zmm6,zmm3,2{sae}
+vcmpph k2{k3},zmm6,zmm3,3{sae}
+vcmpph k2{k3},zmm6,zmm3,4{sae}
+vcmpph k2{k3},zmm6,zmm3,5{sae}
+vcmpph k2{k3},zmm6,zmm3,6{sae}
+vcmpph k2{k3},zmm6,zmm3,7{sae}
+vcmpph k2{k3},zmm6,zmm3,8{sae}
+vcmpph k2{k3},zmm6,zmm3,9{sae}
+vcmpph k2{k3},zmm6,zmm3,0Ah{sae}
+vcmpph k2{k3},zmm6,zmm3,0Bh{sae}
+vcmpph k2{k3},zmm6,zmm3,0Ch{sae}
+vcmpph k2{k3},zmm6,zmm3,0Dh{sae}
+vcmpph k2{k3},zmm6,zmm3,0Eh{sae}
+vcmpph k2{k3},zmm6,zmm3,0Fh{sae}
+vcmpph k2{k3},zmm6,zmm3,10h{sae}
+vcmpph k2{k3},zmm6,zmm3,11h{sae}
+vcmpph k2{k3},zmm6,zmm3,12h{sae}
+vcmpph k2{k3},zmm6,zmm3,13h{sae}
+vcmpph k2{k3},zmm6,zmm3,14h{sae}
+vcmpph k2{k3},zmm6,zmm3,15h{sae}
+vcmpph k2{k3},zmm6,zmm3,16h{sae}
+vcmpph k2{k3},zmm6,zmm3,17h{sae}
+vcmpph k2{k3},zmm6,zmm3,18h{sae}
+vcmpph k2{k3},zmm6,zmm3,19h{sae}
+vcmpph k2{k3},zmm6,zmm3,1Ah{sae}
+vcmpph k2{k3},zmm6,zmm3,1Bh{sae}
+vcmpph k2{k3},zmm6,zmm3,1Ch{sae}
+vcmpph k2{k3},zmm6,zmm3,1Dh{sae}
+vcmpph k2{k3},zmm6,zmm3,1Eh{sae}
+vcmpph k2{k3},zmm6,zmm3,1Fh{sae}
+vcmpph k2{k3},zmm6,zmm3,20h{sae}
 
 vcmpsh k2{k3},xmm6,xmm3,0
 vcmpsh k2{k3},xmm6,xmm3,1
@@ -1197,39 +1197,39 @@ vcmpgt_oqps k2{k3},ymm6,ymm3
 vcmptrue_usps k2{k3},ymm6,ymm3
 vcmpps k2{k3},ymm6,ymm3,20h
 
-vcmpeqps k2{k3},zmm6,zmm3 {sae}
-vcmpltps k2{k3},zmm6,zmm3 {sae}
-vcmpleps k2{k3},zmm6,zmm3 {sae}
-vcmpunordps k2{k3},zmm6,zmm3 {sae}
-vcmpneqps k2{k3},zmm6,zmm3 {sae}
-vcmpnltps k2{k3},zmm6,zmm3 {sae}
-vcmpnleps k2{k3},zmm6,zmm3 {sae}
-vcmpordps k2{k3},zmm6,zmm3 {sae}
-vcmpeq_uqps k2{k3},zmm6,zmm3 {sae}
-vcmpngeps k2{k3},zmm6,zmm3 {sae}
-vcmpngtps k2{k3},zmm6,zmm3 {sae}
-vcmpfalseps k2{k3},zmm6,zmm3 {sae}
-vcmpneq_oqps k2{k3},zmm6,zmm3 {sae}
-vcmpgeps k2{k3},zmm6,zmm3 {sae}
-vcmpgtps k2{k3},zmm6,zmm3 {sae}
-vcmptrueps k2{k3},zmm6,zmm3 {sae}
-vcmpeq_osps k2{k3},zmm6,zmm3 {sae}
-vcmplt_oqps k2{k3},zmm6,zmm3 {sae}
-vcmple_oqps k2{k3},zmm6,zmm3 {sae}
-vcmpunord_sps k2{k3},zmm6,zmm3 {sae}
-vcmpneq_usps k2{k3},zmm6,zmm3 {sae}
-vcmpnlt_uqps k2{k3},zmm6,zmm3 {sae}
-vcmpnle_uqps k2{k3},zmm6,zmm3 {sae}
-vcmpord_sps k2{k3},zmm6,zmm3 {sae}
-vcmpeq_usps k2{k3},zmm6,zmm3 {sae}
-vcmpnge_uqps k2{k3},zmm6,zmm3 {sae}
-vcmpngt_uqps k2{k3},zmm6,zmm3 {sae}
-vcmpfalse_osps k2{k3},zmm6,zmm3 {sae}
-vcmpneq_osps k2{k3},zmm6,zmm3 {sae}
-vcmpge_oqps k2{k3},zmm6,zmm3 {sae}
-vcmpgt_oqps k2{k3},zmm6,zmm3 {sae}
-vcmptrue_usps k2{k3},zmm6,zmm3 {sae}
-vcmpps k2{k3},zmm6,zmm3,20h {sae}
+vcmpeqps k2{k3},zmm6,zmm3{sae}
+vcmpltps k2{k3},zmm6,zmm3{sae}
+vcmpleps k2{k3},zmm6,zmm3{sae}
+vcmpunordps k2{k3},zmm6,zmm3{sae}
+vcmpneqps k2{k3},zmm6,zmm3{sae}
+vcmpnltps k2{k3},zmm6,zmm3{sae}
+vcmpnleps k2{k3},zmm6,zmm3{sae}
+vcmpordps k2{k3},zmm6,zmm3{sae}
+vcmpeq_uqps k2{k3},zmm6,zmm3{sae}
+vcmpngeps k2{k3},zmm6,zmm3{sae}
+vcmpngtps k2{k3},zmm6,zmm3{sae}
+vcmpfalseps k2{k3},zmm6,zmm3{sae}
+vcmpneq_oqps k2{k3},zmm6,zmm3{sae}
+vcmpgeps k2{k3},zmm6,zmm3{sae}
+vcmpgtps k2{k3},zmm6,zmm3{sae}
+vcmptrueps k2{k3},zmm6,zmm3{sae}
+vcmpeq_osps k2{k3},zmm6,zmm3{sae}
+vcmplt_oqps k2{k3},zmm6,zmm3{sae}
+vcmple_oqps k2{k3},zmm6,zmm3{sae}
+vcmpunord_sps k2{k3},zmm6,zmm3{sae}
+vcmpneq_usps k2{k3},zmm6,zmm3{sae}
+vcmpnlt_uqps k2{k3},zmm6,zmm3{sae}
+vcmpnle_uqps k2{k3},zmm6,zmm3{sae}
+vcmpord_sps k2{k3},zmm6,zmm3{sae}
+vcmpeq_usps k2{k3},zmm6,zmm3{sae}
+vcmpnge_uqps k2{k3},zmm6,zmm3{sae}
+vcmpngt_uqps k2{k3},zmm6,zmm3{sae}
+vcmpfalse_osps k2{k3},zmm6,zmm3{sae}
+vcmpneq_osps k2{k3},zmm6,zmm3{sae}
+vcmpge_oqps k2{k3},zmm6,zmm3{sae}
+vcmpgt_oqps k2{k3},zmm6,zmm3{sae}
+vcmptrue_usps k2{k3},zmm6,zmm3{sae}
+vcmpps k2{k3},zmm6,zmm3,20h{sae}
 
 cmpeqpd xmm1,xmm5
 cmpltpd xmm1,xmm5
@@ -1377,39 +1377,39 @@ vcmpgt_oqpd k2{k3},ymm6,ymm3
 vcmptrue_uspd k2{k3},ymm6,ymm3
 vcmppd k2{k3},ymm6,ymm3,20h
 
-vcmpeqpd k2{k3},zmm6,zmm3 {sae}
-vcmpltpd k2{k3},zmm6,zmm3 {sae}
-vcmplepd k2{k3},zmm6,zmm3 {sae}
-vcmpunordpd k2{k3},zmm6,zmm3 {sae}
-vcmpneqpd k2{k3},zmm6,zmm3 {sae}
-vcmpnltpd k2{k3},zmm6,zmm3 {sae}
-vcmpnlepd k2{k3},zmm6,zmm3 {sae}
-vcmpordpd k2{k3},zmm6,zmm3 {sae}
-vcmpeq_uqpd k2{k3},zmm6,zmm3 {sae}
-vcmpngepd k2{k3},zmm6,zmm3 {sae}
-vcmpngtpd k2{k3},zmm6,zmm3 {sae}
-vcmpfalsepd k2{k3},zmm6,zmm3 {sae}
-vcmpneq_oqpd k2{k3},zmm6,zmm3 {sae}
-vcmpgepd k2{k3},zmm6,zmm3 {sae}
-vcmpgtpd k2{k3},zmm6,zmm3 {sae}
-vcmptruepd k2{k3},zmm6,zmm3 {sae}
-vcmpeq_ospd k2{k3},zmm6,zmm3 {sae}
-vcmplt_oqpd k2{k3},zmm6,zmm3 {sae}
-vcmple_oqpd k2{k3},zmm6,zmm3 {sae}
-vcmpunord_spd k2{k3},zmm6,zmm3 {sae}
-vcmpneq_uspd k2{k3},zmm6,zmm3 {sae}
-vcmpnlt_uqpd k2{k3},zmm6,zmm3 {sae}
-vcmpnle_uqpd k2{k3},zmm6,zmm3 {sae}
-vcmpord_spd k2{k3},zmm6,zmm3 {sae}
-vcmpeq_uspd k2{k3},zmm6,zmm3 {sae}
-vcmpnge_uqpd k2{k3},zmm6,zmm3 {sae}
-vcmpngt_uqpd k2{k3},zmm6,zmm3 {sae}
-vcmpfalse_ospd k2{k3},zmm6,zmm3 {sae}
-vcmpneq_ospd k2{k3},zmm6,zmm3 {sae}
-vcmpge_oqpd k2{k3},zmm6,zmm3 {sae}
-vcmpgt_oqpd k2{k3},zmm6,zmm3 {sae}
-vcmptrue_uspd k2{k3},zmm6,zmm3 {sae}
-vcmppd k2{k3},zmm6,zmm3,20h {sae}
+vcmpeqpd k2{k3},zmm6,zmm3{sae}
+vcmpltpd k2{k3},zmm6,zmm3{sae}
+vcmplepd k2{k3},zmm6,zmm3{sae}
+vcmpunordpd k2{k3},zmm6,zmm3{sae}
+vcmpneqpd k2{k3},zmm6,zmm3{sae}
+vcmpnltpd k2{k3},zmm6,zmm3{sae}
+vcmpnlepd k2{k3},zmm6,zmm3{sae}
+vcmpordpd k2{k3},zmm6,zmm3{sae}
+vcmpeq_uqpd k2{k3},zmm6,zmm3{sae}
+vcmpngepd k2{k3},zmm6,zmm3{sae}
+vcmpngtpd k2{k3},zmm6,zmm3{sae}
+vcmpfalsepd k2{k3},zmm6,zmm3{sae}
+vcmpneq_oqpd k2{k3},zmm6,zmm3{sae}
+vcmpgepd k2{k3},zmm6,zmm3{sae}
+vcmpgtpd k2{k3},zmm6,zmm3{sae}
+vcmptruepd k2{k3},zmm6,zmm3{sae}
+vcmpeq_ospd k2{k3},zmm6,zmm3{sae}
+vcmplt_oqpd k2{k3},zmm6,zmm3{sae}
+vcmple_oqpd k2{k3},zmm6,zmm3{sae}
+vcmpunord_spd k2{k3},zmm6,zmm3{sae}
+vcmpneq_uspd k2{k3},zmm6,zmm3{sae}
+vcmpnlt_uqpd k2{k3},zmm6,zmm3{sae}
+vcmpnle_uqpd k2{k3},zmm6,zmm3{sae}
+vcmpord_spd k2{k3},zmm6,zmm3{sae}
+vcmpeq_uspd k2{k3},zmm6,zmm3{sae}
+vcmpnge_uqpd k2{k3},zmm6,zmm3{sae}
+vcmpngt_uqpd k2{k3},zmm6,zmm3{sae}
+vcmpfalse_ospd k2{k3},zmm6,zmm3{sae}
+vcmpneq_ospd k2{k3},zmm6,zmm3{sae}
+vcmpge_oqpd k2{k3},zmm6,zmm3{sae}
+vcmpgt_oqpd k2{k3},zmm6,zmm3{sae}
+vcmptrue_uspd k2{k3},zmm6,zmm3{sae}
+vcmppd k2{k3},zmm6,zmm3,20h{sae}
 
 cmpeqss xmm1,xmm5
 cmpltss xmm1,xmm5
@@ -1955,39 +1955,39 @@ vcmpgt_oqph k2{k3},ymm6,ymm3
 vcmptrue_usph k2{k3},ymm6,ymm3
 vcmpph k2{k3},ymm6,ymm3,20h
 
-vcmpeqph k2{k3},zmm6,zmm3 {sae}
-vcmpltph k2{k3},zmm6,zmm3 {sae}
-vcmpleph k2{k3},zmm6,zmm3 {sae}
-vcmpunordph k2{k3},zmm6,zmm3 {sae}
-vcmpneqph k2{k3},zmm6,zmm3 {sae}
-vcmpnltph k2{k3},zmm6,zmm3 {sae}
-vcmpnleph k2{k3},zmm6,zmm3 {sae}
-vcmpordph k2{k3},zmm6,zmm3 {sae}
-vcmpeq_uqph k2{k3},zmm6,zmm3 {sae}
-vcmpngeph k2{k3},zmm6,zmm3 {sae}
-vcmpngtph k2{k3},zmm6,zmm3 {sae}
-vcmpfalseph k2{k3},zmm6,zmm3 {sae}
-vcmpneq_oqph k2{k3},zmm6,zmm3 {sae}
-vcmpgeph k2{k3},zmm6,zmm3 {sae}
-vcmpgtph k2{k3},zmm6,zmm3 {sae}
-vcmptrueph k2{k3},zmm6,zmm3 {sae}
-vcmpeq_osph k2{k3},zmm6,zmm3 {sae}
-vcmplt_oqph k2{k3},zmm6,zmm3 {sae}
-vcmple_oqph k2{k3},zmm6,zmm3 {sae}
-vcmpunord_sph k2{k3},zmm6,zmm3 {sae}
-vcmpneq_usph k2{k3},zmm6,zmm3 {sae}
-vcmpnlt_uqph k2{k3},zmm6,zmm3 {sae}
-vcmpnle_uqph k2{k3},zmm6,zmm3 {sae}
-vcmpord_sph k2{k3},zmm6,zmm3 {sae}
-vcmpeq_usph k2{k3},zmm6,zmm3 {sae}
-vcmpnge_uqph k2{k3},zmm6,zmm3 {sae}
-vcmpngt_uqph k2{k3},zmm6,zmm3 {sae}
-vcmpfalse_osph k2{k3},zmm6,zmm3 {sae}
-vcmpneq_osph k2{k3},zmm6,zmm3 {sae}
-vcmpge_oqph k2{k3},zmm6,zmm3 {sae}
-vcmpgt_oqph k2{k3},zmm6,zmm3 {sae}
-vcmptrue_usph k2{k3},zmm6,zmm3 {sae}
-vcmpph k2{k3},zmm6,zmm3,20h {sae}
+vcmpeqph k2{k3},zmm6,zmm3{sae}
+vcmpltph k2{k3},zmm6,zmm3{sae}
+vcmpleph k2{k3},zmm6,zmm3{sae}
+vcmpunordph k2{k3},zmm6,zmm3{sae}
+vcmpneqph k2{k3},zmm6,zmm3{sae}
+vcmpnltph k2{k3},zmm6,zmm3{sae}
+vcmpnleph k2{k3},zmm6,zmm3{sae}
+vcmpordph k2{k3},zmm6,zmm3{sae}
+vcmpeq_uqph k2{k3},zmm6,zmm3{sae}
+vcmpngeph k2{k3},zmm6,zmm3{sae}
+vcmpngtph k2{k3},zmm6,zmm3{sae}
+vcmpfalseph k2{k3},zmm6,zmm3{sae}
+vcmpneq_oqph k2{k3},zmm6,zmm3{sae}
+vcmpgeph k2{k3},zmm6,zmm3{sae}
+vcmpgtph k2{k3},zmm6,zmm3{sae}
+vcmptrueph k2{k3},zmm6,zmm3{sae}
+vcmpeq_osph k2{k3},zmm6,zmm3{sae}
+vcmplt_oqph k2{k3},zmm6,zmm3{sae}
+vcmple_oqph k2{k3},zmm6,zmm3{sae}
+vcmpunord_sph k2{k3},zmm6,zmm3{sae}
+vcmpneq_usph k2{k3},zmm6,zmm3{sae}
+vcmpnlt_uqph k2{k3},zmm6,zmm3{sae}
+vcmpnle_uqph k2{k3},zmm6,zmm3{sae}
+vcmpord_sph k2{k3},zmm6,zmm3{sae}
+vcmpeq_usph k2{k3},zmm6,zmm3{sae}
+vcmpnge_uqph k2{k3},zmm6,zmm3{sae}
+vcmpngt_uqph k2{k3},zmm6,zmm3{sae}
+vcmpfalse_osph k2{k3},zmm6,zmm3{sae}
+vcmpneq_osph k2{k3},zmm6,zmm3{sae}
+vcmpge_oqph k2{k3},zmm6,zmm3{sae}
+vcmpgt_oqph k2{k3},zmm6,zmm3{sae}
+vcmptrue_usph k2{k3},zmm6,zmm3{sae}
+vcmpph k2{k3},zmm6,zmm3,20h{sae}
 
 vcmpeqsh k2{k3},xmm6,xmm3
 vcmpltsh k2{k3},xmm6,xmm3

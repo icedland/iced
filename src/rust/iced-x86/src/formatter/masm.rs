@@ -1003,7 +1003,6 @@ impl MasmFormatter {
 		if operand + 1 == op_info.op_count as u32 && instruction_internal::internal_has_rounding_control_or_sae(instruction) {
 			let rc = instruction.rounding_control();
 			if rc != RoundingControl::None && can_show_rounding_control(instruction, &self.d.options) {
-				output.write(" ", FormatterTextKind::Text);
 				let dec_str = if IcedConstants::is_mvex(instruction.code()) {
 					if instruction.suppress_all_exceptions() {
 						self.d.vec_.masm_rc_sae_strings[rc as usize]
@@ -1023,7 +1022,6 @@ impl MasmFormatter {
 					DecoratorKind::RoundingControl,
 				);
 			} else if instruction.suppress_all_exceptions() {
-				output.write(" ", FormatterTextKind::Text);
 				MasmFormatter::format_decorator(
 					&self.d.options,
 					output,
