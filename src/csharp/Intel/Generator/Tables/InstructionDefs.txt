@@ -32346,28 +32346,24 @@ END
 INSTRUCTION: MVEX.512.66.0F38.W0 90 /vsib | VPGATHERDD zmm1 {k1}, Ui32(mvt) | KNC
 	ops: rwvmm=reg r=rm | mem=1000_1111 i32-elem
 	flags: krw knz unique-reg-num
-	intel: kmask-op
 END
 
 # Code: MVEX_Vpgatherdq_zmm_k1_mvt
 INSTRUCTION: MVEX.512.66.0F38.W1 90 /vsib | VPGATHERDQ zmm1 {k1}, Ui64(mvt) | KNC
 	ops: rwvmm=reg r=rm | mem=1000_0000 i64-elem
 	flags: krw knz unique-reg-num
-	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherdps_zmm_k1_mvt
 INSTRUCTION: MVEX.512.66.0F38.W0 92 /vsib | VGATHERDPS zmm1 {k1}, Uf32(mvt) | KNC
 	ops: rwvmm=reg r=rm | mem=1001_1111 f32-elem
 	flags: krw knz unique-reg-num
-	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherdpd_zmm_k1_mvt
 INSTRUCTION: MVEX.512.66.0F38.W1 92 /vsib | VGATHERDPD zmm1 {k1}, Uf64(mvt) | KNC
 	ops: rwvmm=reg r=rm | mem=1000_0000 f64-elem
 	flags: krw knz unique-reg-num
-	intel: kmask-op
 END
 
 # Code: MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_94
@@ -32434,28 +32430,24 @@ END
 INSTRUCTION: MVEX.512.66.0F38.W0 A0 /vsib | VPSCATTERDD mvt {k1}, Di32(zmm1) | KNC
 	ops: w=rm r=reg | mem=1000_1111 i32-elem
 	flags: krw knz
-	intel: kmask-op
 END
 
 # Code: MVEX_Vpscatterdq_mvt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W1 A0 /vsib | VPSCATTERDQ mvt {k1}, Di64(zmm1) | KNC
 	ops: w=rm r=reg | mem=1000_0000 i64-elem
 	flags: krw knz
-	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterdps_mvt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W0 A2 /vsib | VSCATTERDPS mvt {k1}, Df32(zmm1) | KNC
 	ops: w=rm r=reg | mem=1001_1111 f32-elem
 	flags: krw knz
-	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterdpd_mvt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W1 A2 /vsib | VSCATTERDPD mvt {k1}, Df64(zmm1) | KNC
 	ops: w=rm r=reg | mem=1000_0000 f64-elem
 	flags: krw knz
-	intel: kmask-op
 END
 
 # Code: MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
@@ -32589,56 +32581,48 @@ END
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /0 /vsib | VGATHERPF0HINTDPS Uf32(mvt) {k1} | KNC
 	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: knz prefetch
-	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherpf0hintdpd_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W1 C6 /0 /vsib | VGATHERPF0HINTDPD Uf64(mvt) {k1} | KNC
 	ops: nma=rm | mem=1000_0000 f64-elem
 	flags: knz prefetch
-	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherpf0dps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /1 /vsib | VGATHERPF0DPS Uf32(mvt) {k1} | KNC
 	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: krw knz prefetch
-	intel: kmask-op
 END
 
 # Code: MVEX_Vgatherpf1dps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /2 /vsib | VGATHERPF1DPS Uf32(mvt) {k1} | KNC
 	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: krw knz prefetch
-	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterpf0hintdps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /4 /vsib | VSCATTERPF0HINTDPS Uf32(mvt) {k1} | KNC
 	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: knz prefetch
-	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterpf0hintdpd_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W1 C6 /4 /vsib | VSCATTERPF0HINTDPD Uf64(mvt) {k1} | KNC
 	ops: nma=rm | mem=1000_0000 f64-elem
 	flags: knz prefetch
-	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterpf0dps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /5 /vsib | VSCATTERPF0DPS Uf32(mvt) {k1} | KNC
 	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: krw knz prefetch
-	intel: kmask-op
 END
 
 # Code: MVEX_Vscatterpf1dps_mvt_k1
 INSTRUCTION: MVEX.512.66.0F38.W0 C6 /6 /vsib | VSCATTERPF1DPS Uf32(mvt) {k1} | KNC
 	ops: nma=rm | mem=1001_1111 f32-elem
 	flags: krw knz prefetch
-	intel: kmask-op
 END
 
 # Code: MVEX_Vexp223ps_zmm_k1_zmmmt

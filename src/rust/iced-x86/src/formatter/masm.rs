@@ -27,7 +27,6 @@ use crate::instruction_internal;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
-use static_assertions::const_assert_eq;
 
 /// Masm formatter
 ///
@@ -367,6 +366,21 @@ impl MasmFormatter {
 
 	fn format_operand(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo<'_>, operand: u32) {
 		debug_assert!(operand < op_info.op_count as u32);
+
+		#[cfg(feature = "mvex")]
+		let mvex_rm_operand = {
+			if IcedConstants::is_mvex(instruction.code()) {
+				let op_count = instruction.op_count();
+				debug_assert_ne!(op_count, 0);
+				if instruction.op_kind(op_count.wrapping_sub(1)) == OpKind::Immediate8 {
+					op_count.wrapping_sub(2)
+				} else {
+					op_count.wrapping_sub(1)
+				}
+			} else {
+				u32::MAX
+			}
+		};
 
 		let instruction_operand = op_info.instruction_index(operand);
 
@@ -989,19 +1003,23 @@ impl MasmFormatter {
 		if operand + 1 == op_info.op_count as u32 && instruction_internal::internal_has_rounding_control_or_sae(instruction) {
 			let rc = instruction.rounding_control();
 			if rc != RoundingControl::None && can_show_rounding_control(instruction, &self.d.options) {
-				const_assert_eq!(RoundingControl::None as u32, 0);
-				const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-				const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-				const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-				const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
 				output.write(" ", FormatterTextKind::Text);
+				let dec_str = if IcedConstants::is_mvex(instruction.code()) {
+					if instruction.suppress_all_exceptions() {
+						self.d.vec_.masm_rc_sae_strings[rc as usize]
+					} else {
+						self.d.vec_.masm_rc_strings[rc as usize]
+					}
+				} else {
+					self.d.vec_.masm_rc_sae_strings[rc as usize]
+				};
 				MasmFormatter::format_decorator(
 					&self.d.options,
 					output,
 					instruction,
 					operand,
 					instruction_operand,
-					self.d.vec_.masm_rc_strings[rc as usize - 1],
+					dec_str,
 					DecoratorKind::RoundingControl,
 				);
 			} else if instruction.suppress_all_exceptions() {
@@ -1015,6 +1033,20 @@ impl MasmFormatter {
 					&self.d.str_.sae,
 					DecoratorKind::SuppressAllExceptions,
 				);
+			}
+		}
+		#[cfg(feature = "mvex")]
+		if mvex_rm_operand == operand {
+			let conv = instruction.mvex_reg_mem_conv();
+			if conv != MvexRegMemConv::None {
+				let mvex = crate::mvex::get_mvex_info(instruction.code());
+				if mvex.conv_fn != MvexConvFn::None {
+					let tbl = if mvex.is_conv_fn_32() { &self.d.vec_.mvex_reg_mem_consts_32 } else { &self.d.vec_.mvex_reg_mem_consts_64 };
+					let s = tbl[conv as usize];
+					if s.len() != 0 {
+						Self::format_decorator(&self.d.options, output, instruction, operand, instruction_operand, s, DecoratorKind::SwizzleMemConv);
+					}
+				}
 			}
 		}
 	}
@@ -1244,6 +1276,18 @@ impl MasmFormatter {
 				output.write(" ", FormatterTextKind::Text);
 			}
 			output.write("]", FormatterTextKind::Punctuation);
+		}
+		#[cfg(feature = "mvex")]
+		if instruction.is_mvex_eviction_hint() {
+			Self::format_decorator(
+				&self.d.options,
+				output,
+				instruction,
+				operand,
+				instruction_operand,
+				&self.d.str_.mvex.eh,
+				DecoratorKind::EvictionHint,
+			);
 		}
 	}
 

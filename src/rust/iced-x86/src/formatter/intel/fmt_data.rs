@@ -17595,19 +17595,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF0, 0x0C,// 1648 = "vpmulhd"
 
 	// MVEX_Vpgatherdd_zmm_k1_mvt
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0x88, 0x08,// 1032 = "vpgatherdd"
 
 	// MVEX_Vpgatherdq_zmm_k1_mvt
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0x89, 0x08,// 1033 = "vpgatherdq"
 
 	// MVEX_Vgatherdps_zmm_k1_mvt
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0x8C, 0x08,// 1036 = "vgatherdps"
 
 	// MVEX_Vgatherdpd_zmm_k1_mvt
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0x8D, 0x08,// 1037 = "vgatherdpd"
 
 	// MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_94
@@ -17650,19 +17650,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xA3, 0x08,// 1059 = "vfnmsub132pd"
 
 	// MVEX_Vpscatterdd_mvt_k1_zmm
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xA6, 0x08,// 1062 = "vpscatterdd"
 
 	// MVEX_Vpscatterdq_mvt_k1_zmm
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xA7, 0x08,// 1063 = "vpscatterdq"
 
 	// MVEX_Vscatterdps_mvt_k1_zmm
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xAA, 0x08,// 1066 = "vscatterdps"
 
 	// MVEX_Vscatterdpd_mvt_k1_zmm
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xAB, 0x08,// 1067 = "vscatterdpd"
 
 	// MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt
@@ -17753,35 +17753,35 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// 0 = "undoc"
 
 	// MVEX_Vgatherpf0hintdps_mvt_k1
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xF4, 0x0C,// 1652 = "vgatherpf0hintdps"
 
 	// MVEX_Vgatherpf0hintdpd_mvt_k1
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xF5, 0x0C,// 1653 = "vgatherpf0hintdpd"
 
 	// MVEX_Vgatherpf0dps_mvt_k1
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xDC, 0x08,// 1116 = "vgatherpf0dps"
 
 	// MVEX_Vgatherpf1dps_mvt_k1
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xDE, 0x08,// 1118 = "vgatherpf1dps"
 
 	// MVEX_Vscatterpf0hintdps_mvt_k1
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xF6, 0x0C,// 1654 = "vscatterpf0hintdps"
 
 	// MVEX_Vscatterpf0hintdpd_mvt_k1
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xF7, 0x0C,// 1655 = "vscatterpf0hintdpd"
 
 	// MVEX_Vscatterpf0dps_mvt_k1
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xE0, 0x08,// 1120 = "vscatterpf0dps"
 
 	// MVEX_Vscatterpf1dps_mvt_k1
-	0x0D,// opmask_op
+	0x01,// Normal_1
 	0xE2, 0x08,// 1122 = "vscatterpf1dps"
 
 	// MVEX_Vexp223ps_zmm_k1_zmmmt

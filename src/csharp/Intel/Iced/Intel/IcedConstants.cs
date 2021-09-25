@@ -8,6 +8,9 @@ namespace Iced.Intel {
 #if MVEX
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsMvex(Code code) => ((uint)code - MvexStart) < MvexLength;
+#else
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsMvex(Code code) => false;
 #endif
 	}
 }

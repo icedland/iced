@@ -39,7 +39,7 @@ impl IcedConstants {
 	pub(crate) const CONDITION_CODE_ENUM_COUNT: usize = 17;
 	pub(crate) const CPUID_FEATURE_ENUM_COUNT: usize = 161;
 	pub(crate) const DECODER_ERROR_ENUM_COUNT: usize = 3;
-	pub(crate) const DECORATOR_KIND_ENUM_COUNT: usize = 4;
+	pub(crate) const DECORATOR_KIND_ENUM_COUNT: usize = 6;
 	pub(crate) const ENCODING_KIND_ENUM_COUNT: usize = 6;
 	pub(crate) const FLOW_CONTROL_ENUM_COUNT: usize = 10;
 	pub(crate) const FORMATTER_SYNTAX_ENUM_COUNT: usize = 4;
@@ -67,9 +67,14 @@ impl IcedConstants {
 }
 // GENERATOR-END: IcedConstants
 
-#[cfg(feature = "mvex")]
 impl IcedConstants {
+	#[allow(dead_code)]
 	pub(crate) fn is_mvex(code: crate::Code) -> bool {
-		(code as u32).wrapping_sub(Self::MVEX_START) < Self::MVEX_LENGTH
+		#[cfg(feature = "mvex")]
+		{
+			(code as u32).wrapping_sub(Self::MVEX_START) < Self::MVEX_LENGTH
+		}
+		#[cfg(not(feature = "mvex"))]
+		false
 	}
 }

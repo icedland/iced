@@ -53,8 +53,8 @@ use static_assertions::{const_assert, const_assert_eq};
 const MAX_FMT_INSTR_LEN: usize = {
 	const MAX_PREFIXES_LEN: usize = "es xacquire xrelease lock notrack repe repne ".len();
 	const MAX_OPERAND_LEN: usize = "fpustate108 ptr fs:[rax+zmm31*8+0x12345678]".len();
-	const MAX_DECORATOR1_LEN: usize = "{k3}{z}".len();
-	const MAX_DECORATOR2_LEN: usize = "{rn-sae}".len();
+	const MAX_DECORATOR1_LEN: usize = "{k3}{z}{eh}".len();
+	const MAX_DECORATOR2_LEN: usize = "{rn-sae}{float16}".len();
 
 	MAX_PREFIXES_LEN
 	+ crate::formatter::strings_data::MAX_STRING_LEN
@@ -67,11 +67,11 @@ const_assert_eq!(
 	// Max mnemonic len
 	crate::formatter::strings_data::MAX_STRING_LEN
 		+ "es xacquire xrelease lock notrack repe repne  \
-			fpustate108 ptr fs:[rax+zmm31*8+0x12345678]{k3}{z}, \
+			fpustate108 ptr fs:[rax+zmm31*8+0x12345678]{k3}{z}{eh}, \
 			fpustate108 ptr fs:[rax+zmm31*8+0x12345678], \
 			fpustate108 ptr fs:[rax+zmm31*8+0x12345678], \
 			fpustate108 ptr fs:[rax+zmm31*8+0x12345678], \
-			fpustate108 ptr fs:[rax+zmm31*8+0x12345678]{rn-sae}"
+			fpustate108 ptr fs:[rax+zmm31*8+0x12345678]{rn-sae}{float16}"
 			.len()
 );
 // Make sure it doesn't grow too much without us knowing about it (eg. if more operands are added)
@@ -521,12 +521,59 @@ const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
 const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-static RC_STRINGS: [FastString8; 5] = [
+static RC_SAE_STRINGS: [FastString8; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT] = [
 	mk_const_fast_str!(FastString8, "\x00        "),
 	mk_const_fast_str!(FastString8, "\x08{rn-sae}"),
 	mk_const_fast_str!(FastString8, "\x08{rd-sae}"),
 	mk_const_fast_str!(FastString8, "\x08{ru-sae}"),
 	mk_const_fast_str!(FastString8, "\x08{rz-sae}"),
+];
+static RC_STRINGS: [FastString4; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT] = [
+	mk_const_fast_str!(FastString4, "\x00    "),
+	mk_const_fast_str!(FastString4, "\x04{rn}"),
+	mk_const_fast_str!(FastString4, "\x04{rd}"),
+	mk_const_fast_str!(FastString4, "\x04{ru}"),
+	mk_const_fast_str!(FastString4, "\x04{rz}"),
+];
+#[cfg(feature = "mvex")]
+static MVEX_REG_MEM_CONSTS_32: [FastString12; IcedConstants::MVEX_REG_MEM_CONV_ENUM_COUNT] = [
+	mk_const_fast_str!(FastString12, "\x00            "),
+	mk_const_fast_str!(FastString12, "\x00            "),
+	mk_const_fast_str!(FastString12, "\x06{cdab}      "),
+	mk_const_fast_str!(FastString12, "\x06{badc}      "),
+	mk_const_fast_str!(FastString12, "\x06{dacb}      "),
+	mk_const_fast_str!(FastString12, "\x06{aaaa}      "),
+	mk_const_fast_str!(FastString12, "\x06{bbbb}      "),
+	mk_const_fast_str!(FastString12, "\x06{cccc}      "),
+	mk_const_fast_str!(FastString12, "\x06{dddd}      "),
+	mk_const_fast_str!(FastString12, "\x00            "),
+	mk_const_fast_str!(FastString12, "\x07{1to16}     "),
+	mk_const_fast_str!(FastString12, "\x07{4to16}     "),
+	mk_const_fast_str!(FastString12, "\x09{float16}   "),
+	mk_const_fast_str!(FastString12, "\x07{uint8}     "),
+	mk_const_fast_str!(FastString12, "\x07{sint8}     "),
+	mk_const_fast_str!(FastString12, "\x08{uint16}    "),
+	mk_const_fast_str!(FastString12, "\x08{sint16}    "),
+];
+#[cfg(feature = "mvex")]
+static MVEX_REG_MEM_CONSTS_64: [FastString12; IcedConstants::MVEX_REG_MEM_CONV_ENUM_COUNT] = [
+	mk_const_fast_str!(FastString12, "\x00            "),
+	mk_const_fast_str!(FastString12, "\x00            "),
+	mk_const_fast_str!(FastString12, "\x06{cdab}      "),
+	mk_const_fast_str!(FastString12, "\x06{badc}      "),
+	mk_const_fast_str!(FastString12, "\x06{dacb}      "),
+	mk_const_fast_str!(FastString12, "\x06{aaaa}      "),
+	mk_const_fast_str!(FastString12, "\x06{bbbb}      "),
+	mk_const_fast_str!(FastString12, "\x06{cccc}      "),
+	mk_const_fast_str!(FastString12, "\x06{dddd}      "),
+	mk_const_fast_str!(FastString12, "\x00            "),
+	mk_const_fast_str!(FastString12, "\x06{1to8}      "),
+	mk_const_fast_str!(FastString12, "\x06{4to8}      "),
+	mk_const_fast_str!(FastString12, "\x09{float16}   "),
+	mk_const_fast_str!(FastString12, "\x07{uint8}     "),
+	mk_const_fast_str!(FastString12, "\x07{sint8}     "),
+	mk_const_fast_str!(FastString12, "\x08{uint16}    "),
+	mk_const_fast_str!(FastString12, "\x08{sint16}    "),
 ];
 
 struct FmtTableData {
@@ -907,6 +954,20 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		if op_count > 0 {
 			write_fast_ascii_char_lit!(dst, dst_next_p, ' ', true);
 
+			#[cfg(feature = "mvex")]
+			let mvex_rm_operand = {
+				if IcedConstants::is_mvex(instruction.code()) {
+					debug_assert_ne!(op_count, 0);
+					if instruction.op_kind(op_count.wrapping_sub(1)) == OpKind::Immediate8 {
+						op_count.wrapping_sub(2)
+					} else {
+						op_count.wrapping_sub(1)
+					}
+				} else {
+					u32::MAX
+				}
+			};
+
 			let mut operand = 0;
 			loop {
 				let imm8;
@@ -1205,6 +1266,11 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 							displ,
 							addr_size,
 						);
+						#[cfg(feature = "mvex")]
+						if instruction.is_mvex_eviction_hint() {
+							const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04{eh}");
+							write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
+						}
 					}};
 				}
 
@@ -1399,6 +1465,18 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 					}
 				}
+				#[cfg(feature = "mvex")]
+				if mvex_rm_operand == operand {
+					let conv = instruction.mvex_reg_mem_conv();
+					if conv != MvexRegMemConv::None {
+						let mvex = crate::mvex::get_mvex_info(instruction.code());
+						if mvex.conv_fn != MvexConvFn::None {
+							let tbl = if mvex.is_conv_fn_32() { &MVEX_REG_MEM_CONSTS_32 } else { &MVEX_REG_MEM_CONSTS_64 };
+							let s = tbl[conv as usize];
+							write_fast_str!(dst, dst_next_p, FastString12, s);
+						}
+					}
+				}
 
 				operand += 1;
 				if operand >= op_count {
@@ -1415,8 +1493,13 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 			if instruction_internal::internal_has_rounding_control_or_sae(instruction) {
 				let rc = instruction.rounding_control();
 				if rc != RoundingControl::None {
-					let fast_str = RC_STRINGS[rc as usize];
-					write_fast_str!(dst, dst_next_p, FastString8, fast_str);
+					if IcedConstants::is_mvex(instruction.code()) && !instruction.suppress_all_exceptions() {
+						let fast_str = RC_STRINGS[rc as usize];
+						write_fast_str!(dst, dst_next_p, FastString4, fast_str);
+					} else {
+						let fast_str = RC_SAE_STRINGS[rc as usize];
+						write_fast_str!(dst, dst_next_p, FastString8, fast_str);
+					}
 				} else {
 					debug_assert!(instruction.suppress_all_exceptions());
 					const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05{sae}   ");

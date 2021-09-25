@@ -38,7 +38,7 @@ namespace Iced.Intel {
 		internal const int ConditionCodeEnumCount = 17;
 		internal const int CpuidFeatureEnumCount = 161;
 		internal const int DecoderErrorEnumCount = 3;
-		internal const int DecoratorKindEnumCount = 4;
+		internal const int DecoratorKindEnumCount = 6;
 		internal const int EncodingKindEnumCount = 6;
 		internal const int FlowControlEnumCount = 10;
 		internal const int FormatterSyntaxEnumCount = 4;

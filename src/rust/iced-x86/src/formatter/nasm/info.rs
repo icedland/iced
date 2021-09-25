@@ -226,12 +226,12 @@ pub(super) trait InstrInfo {
 }
 
 fn get_bitness(code_size: CodeSize) -> u32 {
-	match code_size {
-		CodeSize::Code16 => 16,
-		CodeSize::Code32 => 32,
-		CodeSize::Code64 => 64,
-		_ => 0,
-	}
+	static CODESIZE_TO_BITNESS: [u32; 4] = [0, 16, 32, 64];
+	const_assert_eq!(CodeSize::Unknown as u32, 0);
+	const_assert_eq!(CodeSize::Code16 as u32, 1);
+	const_assert_eq!(CodeSize::Code32 as u32, 2);
+	const_assert_eq!(CodeSize::Code64 as u32, 3);
+	CODESIZE_TO_BITNESS[code_size as usize]
 }
 
 pub(super) struct SimpleInstrInfo {
@@ -1249,16 +1249,42 @@ impl SimpleInstrInfo_er {
 impl InstrInfo for SimpleInstrInfo_er {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, self.flags);
-		let rc = instruction.rounding_control();
-		if rc != RoundingControl::None && can_show_rounding_control(instruction, options) {
-			let rc_op_kind = match rc {
-				RoundingControl::RoundToNearest => InstrOpKind::RnSae,
-				RoundingControl::RoundDown => InstrOpKind::RdSae,
-				RoundingControl::RoundUp => InstrOpKind::RuSae,
-				RoundingControl::RoundTowardZero => InstrOpKind::RzSae,
-				_ => return info,
-			};
-			SimpleInstrInfo_er::move_operands(&mut info, self.er_index, rc_op_kind);
+		if IcedConstants::is_mvex(instruction.code()) {
+			let rc = instruction.rounding_control();
+			if rc != RoundingControl::None {
+				let rc_op_kind = if instruction.suppress_all_exceptions() {
+					match rc {
+						RoundingControl::None => return info,
+						RoundingControl::RoundToNearest => InstrOpKind::RnSae,
+						RoundingControl::RoundDown => InstrOpKind::RdSae,
+						RoundingControl::RoundUp => InstrOpKind::RuSae,
+						RoundingControl::RoundTowardZero => InstrOpKind::RzSae,
+					}
+				} else {
+					match rc {
+						RoundingControl::None => return info,
+						RoundingControl::RoundToNearest => InstrOpKind::Rn,
+						RoundingControl::RoundDown => InstrOpKind::Rd,
+						RoundingControl::RoundUp => InstrOpKind::Ru,
+						RoundingControl::RoundTowardZero => InstrOpKind::Rz,
+					}
+				};
+				SimpleInstrInfo_er::move_operands(&mut info, self.er_index, rc_op_kind);
+			} else if instruction.suppress_all_exceptions() {
+				SimpleInstrInfo_er::move_operands(&mut info, self.er_index, InstrOpKind::Sae);
+			}
+		} else {
+			let rc = instruction.rounding_control();
+			if rc != RoundingControl::None && can_show_rounding_control(instruction, options) {
+				let rc_op_kind = match rc {
+					RoundingControl::None => return info,
+					RoundingControl::RoundToNearest => InstrOpKind::RnSae,
+					RoundingControl::RoundDown => InstrOpKind::RdSae,
+					RoundingControl::RoundUp => InstrOpKind::RuSae,
+					RoundingControl::RoundTowardZero => InstrOpKind::RzSae,
+				};
+				SimpleInstrInfo_er::move_operands(&mut info, self.er_index, rc_op_kind);
+			}
 		}
 		info
 	}

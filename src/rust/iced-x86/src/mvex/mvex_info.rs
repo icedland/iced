@@ -82,6 +82,13 @@ impl MvexInfo {
 	pub(crate) fn no_sae_rc(&self) -> bool {
 		(self.flags2 & (MvexInfoFlags2::NO_SAE_ROUNDING_CONTROL as u8)) != 0
 	}
+
+	#[must_use]
+	#[inline]
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+	pub(crate) fn is_conv_fn_32(&self) -> bool {
+		(self.flags2 & (MvexInfoFlags2::CONV_FN32 as u8)) != 0
+	}
 }
 
 impl MvexInfo {

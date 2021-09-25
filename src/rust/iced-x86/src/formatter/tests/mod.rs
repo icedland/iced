@@ -29,6 +29,7 @@ use crate::formatter::tests::instr_infos::*;
 use crate::formatter::Formatter;
 #[cfg(feature = "fast_fmt")]
 use crate::formatter::{SpecializedFormatter, SpecializedFormatterTraitOptions};
+use crate::iced_constants::IcedConstants;
 use crate::test_utils::create_decoder;
 use crate::test_utils::from_str_conv::to_vec_u8;
 use crate::{Code, Decoder, Instruction};
@@ -273,6 +274,8 @@ fn filter_removed_code_tests(strings: Vec<String>, ignored: &HashSet<u32>) -> Ve
 #[cfg(any(feature = "fast_fmt", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 #[test]
 fn verify_sae_er() {
+	use crate::RoundingControl;
+
 	#[cfg(feature = "fast_fmt")]
 	let (mut fast, mut fast_output) = {
 		let fast = crate::FastFormatter::new();
@@ -312,11 +315,15 @@ fn verify_sae_er() {
 		(nasm, nasm_output)
 	};
 
-	const FL_SAE: u8 = 0x01;
-	const FL_RN_SAE: u8 = 0x02;
-	const FL_RD_SAE: u8 = 0x04;
-	const FL_RU_SAE: u8 = 0x08;
-	const FL_RZ_SAE: u8 = 0x10;
+	const FL_SAE: u16 = 0x01;
+	const FL_RN: u16 = 0x02;
+	const FL_RD: u16 = 0x04;
+	const FL_RU: u16 = 0x08;
+	const FL_RZ: u16 = 0x10;
+	const FL_RN_SAE: u16 = 0x20;
+	const FL_RD_SAE: u16 = 0x40;
+	const FL_RU_SAE: u16 = 0x80;
+	const FL_RZ_SAE: u16 = 0x100;
 
 	let mut instr = Instruction::default();
 	let mut flags_result = Vec::with_capacity(5);
@@ -329,16 +336,32 @@ fn verify_sae_er() {
 		let mut decoder = create_decoder(tc.bitness(), &bytes, tc.ip(), tc.decoder_options()).0;
 		decoder.decode_out(&mut instr);
 
-		let mut expected_flags = if instr.suppress_all_exceptions() { FL_SAE } else { 0 };
-		expected_flags |= match instr.rounding_control() {
-			crate::RoundingControl::None => 0,
-			crate::RoundingControl::RoundToNearest => FL_RN_SAE,
-			crate::RoundingControl::RoundDown => FL_RD_SAE,
-			crate::RoundingControl::RoundUp => FL_RU_SAE,
-			crate::RoundingControl::RoundTowardZero => FL_RZ_SAE,
+		let mut expected_flags = 0;
+		expected_flags |= if IcedConstants::is_mvex(tc.code()) && !instr.suppress_all_exceptions() {
+			match instr.rounding_control() {
+				RoundingControl::None => 0,
+				RoundingControl::RoundToNearest => FL_RN,
+				RoundingControl::RoundDown => FL_RD,
+				RoundingControl::RoundUp => FL_RU,
+				RoundingControl::RoundTowardZero => FL_RZ,
+			}
+		} else {
+			match instr.rounding_control() {
+				RoundingControl::None => {
+					if instr.suppress_all_exceptions() {
+						FL_SAE
+					} else {
+						0
+					}
+				}
+				RoundingControl::RoundToNearest => FL_RN_SAE,
+				RoundingControl::RoundDown => FL_RD_SAE,
+				RoundingControl::RoundUp => FL_RU_SAE,
+				RoundingControl::RoundTowardZero => FL_RZ_SAE,
+			}
 		};
 
-		fn get_flags(disasm: &str, values: &[(&str, u8)]) -> u8 {
+		fn get_flags(disasm: &str, values: &[(&str, u16)]) -> u16 {
 			let mut result = 0;
 			for &(s, f) in values {
 				if disasm.contains(s) {
@@ -354,10 +377,20 @@ fn verify_sae_er() {
 			fast.format(&instr, &mut fast_output);
 			let flags = get_flags(
 				&fast_output,
-				&[("{sae}", FL_SAE), ("{rn-sae}", FL_RN_SAE), ("{rd-sae}", FL_RD_SAE), ("{ru-sae}", FL_RU_SAE), ("{rz-sae}", FL_RZ_SAE)],
+				&[
+					("{sae}", FL_SAE),
+					("{rn}", FL_RN),
+					("{rd}", FL_RD),
+					("{ru}", FL_RU),
+					("{rz}", FL_RZ),
+					("{rn-sae}", FL_RN_SAE),
+					("{rd-sae}", FL_RD_SAE),
+					("{ru-sae}", FL_RU_SAE),
+					("{rz-sae}", FL_RZ_SAE),
+				],
 			);
 			flags_result.push(flags);
-			all_output.push(format!(" fast: {} {}", flags, fast_output));
+			all_output.push(format!(" fast: 0x{:X} {}", flags, fast_output));
 		}
 
 		#[cfg(feature = "gas")]
@@ -366,10 +399,20 @@ fn verify_sae_er() {
 			gas.format(&instr, &mut gas_output);
 			let flags = get_flags(
 				&gas_output,
-				&[("{sae}", FL_SAE), ("{rn-sae}", FL_RN_SAE), ("{rd-sae}", FL_RD_SAE), ("{ru-sae}", FL_RU_SAE), ("{rz-sae}", FL_RZ_SAE)],
+				&[
+					("{sae}", FL_SAE),
+					("{rn}", FL_RN),
+					("{rd}", FL_RD),
+					("{ru}", FL_RU),
+					("{rz}", FL_RZ),
+					("{rn-sae}", FL_RN_SAE),
+					("{rd-sae}", FL_RD_SAE),
+					("{ru-sae}", FL_RU_SAE),
+					("{rz-sae}", FL_RZ_SAE),
+				],
 			);
 			flags_result.push(flags);
-			all_output.push(format!("  gas: {} {}", flags, gas_output));
+			all_output.push(format!("  gas: 0x{:X} {}", flags, gas_output));
 		}
 
 		#[cfg(feature = "intel")]
@@ -378,10 +421,20 @@ fn verify_sae_er() {
 			intel.format(&instr, &mut intel_output);
 			let flags = get_flags(
 				&intel_output,
-				&[("{sae}", FL_SAE), ("{rne-sae}", FL_RN_SAE), ("{rd-sae}", FL_RD_SAE), ("{ru-sae}", FL_RU_SAE), ("{rz-sae}", FL_RZ_SAE)],
+				&[
+					("{sae}", FL_SAE),
+					("{rne}", FL_RN),
+					("{rd}", FL_RD),
+					("{ru}", FL_RU),
+					("{rz}", FL_RZ),
+					("{rne-sae}", FL_RN_SAE),
+					("{rd-sae}", FL_RD_SAE),
+					("{ru-sae}", FL_RU_SAE),
+					("{rz-sae}", FL_RZ_SAE),
+				],
 			);
 			flags_result.push(flags);
-			all_output.push(format!("intel: {} {}", flags, intel_output));
+			all_output.push(format!("intel: 0x{:X} {}", flags, intel_output));
 		}
 
 		#[cfg(feature = "masm")]
@@ -390,10 +443,20 @@ fn verify_sae_er() {
 			masm.format(&instr, &mut masm_output);
 			let flags = get_flags(
 				&masm_output,
-				&[("{sae}", FL_SAE), ("{rn-sae}", FL_RN_SAE), ("{rd-sae}", FL_RD_SAE), ("{ru-sae}", FL_RU_SAE), ("{rz-sae}", FL_RZ_SAE)],
+				&[
+					("{sae}", FL_SAE),
+					("{rn}", FL_RN),
+					("{rd}", FL_RD),
+					("{ru}", FL_RU),
+					("{rz}", FL_RZ),
+					("{rn-sae}", FL_RN_SAE),
+					("{rd-sae}", FL_RD_SAE),
+					("{ru-sae}", FL_RU_SAE),
+					("{rz-sae}", FL_RZ_SAE),
+				],
 			);
 			flags_result.push(flags);
-			all_output.push(format!(" masm: {} {}", flags, masm_output));
+			all_output.push(format!(" masm: 0x{:X} {}", flags, masm_output));
 		}
 
 		#[cfg(feature = "nasm")]
@@ -402,14 +465,31 @@ fn verify_sae_er() {
 			nasm.format(&instr, &mut nasm_output);
 			let flags = get_flags(
 				&nasm_output,
-				&[("{sae}", FL_SAE), ("{rn-sae}", FL_RN_SAE), ("{rd-sae}", FL_RD_SAE), ("{ru-sae}", FL_RU_SAE), ("{rz-sae}", FL_RZ_SAE)],
+				&[
+					("{sae}", FL_SAE),
+					("{rn}", FL_RN),
+					("{rd}", FL_RD),
+					("{ru}", FL_RU),
+					("{rz}", FL_RZ),
+					("{rn-sae}", FL_RN_SAE),
+					("{rd-sae}", FL_RD_SAE),
+					("{ru-sae}", FL_RU_SAE),
+					("{rz-sae}", FL_RZ_SAE),
+				],
 			);
 			flags_result.push(flags);
-			all_output.push(format!(" nasm: {} {}", flags, nasm_output));
+			all_output.push(format!(" nasm: 0x{:X} {}", flags, nasm_output));
 		}
 
 		if !flags_result.iter().all(|&f| f == expected_flags) {
-			panic!("\nMissing/extra {{sae}} and/or {{er}}\nexpected: {}\n{}\n", expected_flags, all_output.join("\n"));
+			panic!(
+				"\nMissing/extra {{sae}} and/or {{er}}\nexpected: 0x{:X}\n{}\n{}-bit, hex {} Code = {:?}\n",
+				expected_flags,
+				all_output.join("\n"),
+				tc.bitness(),
+				tc.hex_bytes(),
+				tc.code(),
+			);
 		}
 	}
 }

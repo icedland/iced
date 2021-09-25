@@ -12,5 +12,9 @@ namespace Generator.Enums.Formatter {
 		SuppressAllExceptions,
 		[Comment("Zeroing masking: #(c:{z})#")]
 		ZeroingMasking,
+		[Comment("MVEX swizzle or memory up/down conversion: #(c:{dacb})# or #(c:{sint16})#")]
+		SwizzleMemConv,
+		[Comment("MVEX eviction hint: #(c:{eh})#")]
+		EvictionHint,
 	}
 }
