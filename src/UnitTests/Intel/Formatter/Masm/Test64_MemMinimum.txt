@@ -9048,3 +9048,3960 @@ vucomish xmm2, xmm3
 vucomish xmm2, [rax+2]
 rdudbg
 wrudbg
+jkzd k0, short 800000000000004Fh
+jkzd k5, short 7FFFFFFFFFFFFF9Ah
+jkzd k5, short 7FFFFFFFFFFFFF9Bh
+jkzd k5, short 7FFFFFFFFFFFFF9Bh
+jknzd k0, short 800000000000004Fh
+jknzd k5, short 7FFFFFFFFFFFFF9Ah
+jknzd k5, short 7FFFFFFFFFFFFF9Bh
+jknzd k5, short 7FFFFFFFFFFFFF9Bh
+vprefetchnta [rax]
+vprefetch0 [rax]
+vprefetch1 [rax]
+vprefetch2 [rax]
+vprefetchenta [rax]
+vprefetche0 [rax]
+vprefetche1 [rax]
+vprefetche2 [rax]
+kand k2, k3
+kandn k2, k3
+kandnr k2, k3
+knot k2, k3
+kor k2, k3
+kxnor k2, k3
+kxor k2, k3
+kmerge2l1h k2, k3
+kmerge2l1l k2, k3
+jkzd k0, near ptr 800000003412A551h
+jkzd k5, near ptr 7FFFFFFFAB89679Ch
+jkzd k0, near ptr 800000003412A552h
+jkzd k5, near ptr 7FFFFFFFAB89679Dh
+jknzd k0, near ptr 800000003412A551h
+jknzd k5, near ptr 7FFFFFFFAB89679Ch
+jknzd k0, near ptr 800000003412A552h
+jknzd k5, near ptr 7FFFFFFFAB89679Dh
+kmov k2, k3
+kmov k2, ebx
+kmov k2, r11d
+kmov edx, k3
+kmov r10d, k3
+kconcath rdx, k5, k3
+kconcath r10, k6, k3
+kconcatl rdx, k5, k3
+kconcatl r10, k6, k3
+kortest k2, k3
+delay ebx
+delay r11d
+delay rbx
+delay r11
+spflt ebx
+spflt r11d
+spflt rbx
+spflt r11
+clevict1 [rax]
+clevict0 [rax]
+popcnt ecx, esi
+popcnt r9d, esi
+popcnt ecx, r14d
+popcnt rcx, rsi
+popcnt r9, rsi
+popcnt rcx, r14
+tzcnt ecx, esi
+tzcnt r9d, esi
+tzcnt ecx, r14d
+tzcnt rcx, rsi
+tzcnt r9, rsi
+tzcnt rcx, r14
+tzcnti ecx, esi
+tzcnti r9d, esi
+tzcnti ecx, r14d
+tzcnti rcx, rsi
+tzcnti r9, rsi
+tzcnti rcx, r14
+lzcnt ecx, esi
+lzcnt r9d, esi
+lzcnt ecx, r14d
+lzcnt rcx, rsi
+lzcnt r9, rsi
+lzcnt rcx, r14
+undoc ebx, [rax]
+undoc ecx, esi
+undoc r9d, esi
+undoc ecx, r14d
+undoc rbx, [rax]
+undoc rcx, rsi
+undoc r9, rsi
+undoc rcx, r14
+undoc ebx, [rax]
+undoc ecx, esi
+undoc r9d, esi
+undoc ecx, r14d
+undoc rbx, [rax]
+undoc rcx, rsi
+undoc r9, rsi
+undoc rcx, r14
+undoc ebx, [rax]
+undoc ecx, esi
+undoc r9d, esi
+undoc ecx, r14d
+undoc rbx, [rax]
+undoc rcx, rsi
+undoc r9, rsi
+undoc rcx, r14
+kextract k2, r11, 5Ah
+kextract k2, rbx, -5Bh
+vprefetchnta [rax+40h]
+vprefetchnta [rax+40h]{eh}
+vprefetch0 [rax+40h]
+vprefetch0 [rax+40h]{eh}
+vprefetch1 [rax+40h]
+vprefetch1 [rax+40h]{eh}
+vprefetch2 [rax+40h]
+vprefetch2 [rax+40h]{eh}
+vprefetchenta [rax+40h]
+vprefetchenta [rax+40h]{eh}
+vprefetche0 [rax+40h]
+vprefetche0 [rax+40h]{eh}
+vprefetche1 [rax+40h]
+vprefetche1 [rax+40h]{eh}
+vprefetche2 [rax+40h]
+vprefetche2 [rax+40h]{eh}
+clevict1 [rax+40h]
+clevict1 [rax+40h]{eh}
+clevict0 [rax+40h]
+clevict0 [rax+40h]{eh}
+vgatherpf0hintdps [rcx+zmm4*4+4]{k3}
+vgatherpf0hintdps [rcx+zmm4*4+2]{k3}{float16}
+vgatherpf0hintdps [rcx+zmm4*4+1]{k3}{uint8}
+vgatherpf0hintdps [rcx+zmm4*4+1]{k3}{sint8}
+vgatherpf0hintdps [rcx+zmm4*4+2]{k3}{uint16}
+vgatherpf0hintdps [rcx+zmm4*4+2]{k3}{sint16}
+vgatherpf0hintdps [rcx+zmm4*4+4]{eh}{k3}
+vgatherpf0hintdps [rcx+zmm4*4+2]{eh}{k3}{float16}
+vgatherpf0hintdps [rcx+zmm4*4+1]{eh}{k3}{uint8}
+vgatherpf0hintdps [rcx+zmm4*4+1]{eh}{k3}{sint8}
+vgatherpf0hintdps [rcx+zmm4*4+2]{eh}{k3}{uint16}
+vgatherpf0hintdps [rcx+zmm4*4+2]{eh}{k3}{sint16}
+vgatherpf0hintdpd [rcx+zmm4*4+8]{k3}
+vgatherpf0hintdpd [rcx+zmm4*4+8]{eh}{k3}
+vgatherpf0dps [rcx+zmm4*4+4]{k3}
+vgatherpf0dps [rcx+zmm4*4+2]{k3}{float16}
+vgatherpf0dps [rcx+zmm4*4+1]{k3}{uint8}
+vgatherpf0dps [rcx+zmm4*4+1]{k3}{sint8}
+vgatherpf0dps [rcx+zmm4*4+2]{k3}{uint16}
+vgatherpf0dps [rcx+zmm4*4+2]{k3}{sint16}
+vgatherpf0dps [rcx+zmm4*4+4]{eh}{k3}
+vgatherpf0dps [rcx+zmm4*4+2]{eh}{k3}{float16}
+vgatherpf0dps [rcx+zmm4*4+1]{eh}{k3}{uint8}
+vgatherpf0dps [rcx+zmm4*4+1]{eh}{k3}{sint8}
+vgatherpf0dps [rcx+zmm4*4+2]{eh}{k3}{uint16}
+vgatherpf0dps [rcx+zmm4*4+2]{eh}{k3}{sint16}
+vgatherpf1dps [rcx+zmm4*4+4]{k3}
+vgatherpf1dps [rcx+zmm4*4+2]{k3}{float16}
+vgatherpf1dps [rcx+zmm4*4+1]{k3}{uint8}
+vgatherpf1dps [rcx+zmm4*4+1]{k3}{sint8}
+vgatherpf1dps [rcx+zmm4*4+2]{k3}{uint16}
+vgatherpf1dps [rcx+zmm4*4+2]{k3}{sint16}
+vgatherpf1dps [rcx+zmm4*4+4]{eh}{k3}
+vgatherpf1dps [rcx+zmm4*4+2]{eh}{k3}{float16}
+vgatherpf1dps [rcx+zmm4*4+1]{eh}{k3}{uint8}
+vgatherpf1dps [rcx+zmm4*4+1]{eh}{k3}{sint8}
+vgatherpf1dps [rcx+zmm4*4+2]{eh}{k3}{uint16}
+vgatherpf1dps [rcx+zmm4*4+2]{eh}{k3}{sint16}
+vscatterpf0hintdps [rcx+zmm4*4+4]{k3}
+vscatterpf0hintdps [rcx+zmm4*4+2]{k3}{float16}
+vscatterpf0hintdps [rcx+zmm4*4+1]{k3}{uint8}
+vscatterpf0hintdps [rcx+zmm4*4+1]{k3}{sint8}
+vscatterpf0hintdps [rcx+zmm4*4+2]{k3}{uint16}
+vscatterpf0hintdps [rcx+zmm4*4+2]{k3}{sint16}
+vscatterpf0hintdps [rcx+zmm4*4+4]{eh}{k3}
+vscatterpf0hintdps [rcx+zmm4*4+2]{eh}{k3}{float16}
+vscatterpf0hintdps [rcx+zmm4*4+1]{eh}{k3}{uint8}
+vscatterpf0hintdps [rcx+zmm4*4+1]{eh}{k3}{sint8}
+vscatterpf0hintdps [rcx+zmm4*4+2]{eh}{k3}{uint16}
+vscatterpf0hintdps [rcx+zmm4*4+2]{eh}{k3}{sint16}
+vscatterpf0hintdpd [rcx+zmm4*4+8]{k3}
+vscatterpf0hintdpd [rcx+zmm4*4+8]{eh}{k3}
+vscatterpf0dps [rcx+zmm4*4+4]{k3}
+vscatterpf0dps [rcx+zmm4*4+2]{k3}{float16}
+vscatterpf0dps [rcx+zmm4*4+1]{k3}{uint8}
+vscatterpf0dps [rcx+zmm4*4+1]{k3}{sint8}
+vscatterpf0dps [rcx+zmm4*4+2]{k3}{uint16}
+vscatterpf0dps [rcx+zmm4*4+2]{k3}{sint16}
+vscatterpf0dps [rcx+zmm4*4+4]{eh}{k3}
+vscatterpf0dps [rcx+zmm4*4+2]{eh}{k3}{float16}
+vscatterpf0dps [rcx+zmm4*4+1]{eh}{k3}{uint8}
+vscatterpf0dps [rcx+zmm4*4+1]{eh}{k3}{sint8}
+vscatterpf0dps [rcx+zmm4*4+2]{eh}{k3}{uint16}
+vscatterpf0dps [rcx+zmm4*4+2]{eh}{k3}{sint16}
+vscatterpf1dps [rcx+zmm4*4+4]{k3}
+vscatterpf1dps [rcx+zmm4*4+2]{k3}{float16}
+vscatterpf1dps [rcx+zmm4*4+1]{k3}{uint8}
+vscatterpf1dps [rcx+zmm4*4+1]{k3}{sint8}
+vscatterpf1dps [rcx+zmm4*4+2]{k3}{uint16}
+vscatterpf1dps [rcx+zmm4*4+2]{k3}{sint16}
+vscatterpf1dps [rcx+zmm4*4+4]{eh}{k3}
+vscatterpf1dps [rcx+zmm4*4+2]{eh}{k3}{float16}
+vscatterpf1dps [rcx+zmm4*4+1]{eh}{k3}{uint8}
+vscatterpf1dps [rcx+zmm4*4+1]{eh}{k3}{sint8}
+vscatterpf1dps [rcx+zmm4*4+2]{eh}{k3}{uint16}
+vscatterpf1dps [rcx+zmm4*4+2]{eh}{k3}{sint16}
+vpgatherdd zmm2{k3}, [rcx+zmm4*4+4]
+vpgatherdd zmm2{k3}, [rcx+zmm4*4+1]{uint8}
+vpgatherdd zmm2{k3}, [rcx+zmm4*4+1]{sint8}
+vpgatherdd zmm2{k3}, [rcx+zmm4*4+2]{uint16}
+vpgatherdd zmm2{k3}, [rcx+zmm4*4+2]{sint16}
+vpgatherdd zmm26{k3}, [rcx+zmm4*4+4]{eh}
+vpgatherdd zmm2{k3}, [rcx+zmm4*4+1]{eh}{uint8}
+vpgatherdd zmm2{k3}, [rcx+zmm4*4+1]{eh}{sint8}
+vpgatherdd zmm2{k3}, [rcx+zmm4*4+2]{eh}{uint16}
+vpgatherdd zmm2{k3}, [rcx+zmm4*4+2]{eh}{sint16}
+vpgatherdq zmm2{k3}, [rcx+zmm4*4+8]
+vpgatherdq zmm26{k3}, [rcx+zmm4*4+8]{eh}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+4]
+vgatherdps zmm26{k3}, [rcx+zmm4*4+2]{float16}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+1]{uint8}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+1]{sint8}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+2]{uint16}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+2]{sint16}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+4]{eh}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+2]{eh}{float16}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+1]{eh}{uint8}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+1]{eh}{sint8}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+2]{eh}{uint16}
+vgatherdps zmm2{k3}, [rcx+zmm4*4+2]{eh}{sint16}
+vgatherdpd zmm2{k3}, [rcx+zmm4*4+8]
+vgatherdpd zmm26{k3}, [rcx+zmm4*4+8]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+4]
+undoc zmm10{k3}, [rcx+zmm4*4+1]
+undoc zmm18{k3}, [rcx+zmm4*4+1]
+undoc zmm26{k3}, [rcx+zmm4*4+2]
+undoc zmm2{k3}, [rcx+zmm4*4+1]
+undoc zmm2{k3}, [rcx+zmm4*4+1]
+undoc zmm2{k3}, [rcx+zmm4*4+2]
+undoc zmm2{k3}, [rcx+zmm4*4+2]
+undoc zmm2{k3}, [rcx+zmm4*4+4]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+2]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+2]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+2]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+4]
+undoc zmm10{k3}, [rcx+zmm4*4+1]
+undoc zmm18{k3}, [rcx+zmm4*4+1]
+undoc zmm26{k3}, [rcx+zmm4*4+2]
+undoc zmm2{k3}, [rcx+zmm4*4+1]
+undoc zmm2{k3}, [rcx+zmm4*4+1]
+undoc zmm2{k3}, [rcx+zmm4*4+2]
+undoc zmm2{k3}, [rcx+zmm4*4+2]
+undoc zmm2{k3}, [rcx+zmm4*4+4]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+2]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+2]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+2]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+4]
+undoc zmm10{k3}, [rcx+zmm4*4+1]
+undoc zmm18{k3}, [rcx+zmm4*4+1]
+undoc zmm26{k3}, [rcx+zmm4*4+2]
+undoc zmm2{k3}, [rcx+zmm4*4+1]
+undoc zmm2{k3}, [rcx+zmm4*4+1]
+undoc zmm2{k3}, [rcx+zmm4*4+2]
+undoc zmm2{k3}, [rcx+zmm4*4+2]
+undoc zmm2{k3}, [rcx+zmm4*4+4]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+2]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+1]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+2]{eh}
+undoc zmm2{k3}, [rcx+zmm4*4+2]{eh}
+vpscatterdd [rcx+zmm4*4+4]{k3}, zmm2
+vpscatterdd [rcx+zmm4*4+1]{k3}, zmm2{uint8}
+vpscatterdd [rcx+zmm4*4+1]{k3}, zmm2{sint8}
+vpscatterdd [rcx+zmm4*4+2]{k3}, zmm2{uint16}
+vpscatterdd [rcx+zmm4*4+2]{k3}, zmm2{sint16}
+vpscatterdd [rcx+zmm4*4+4]{eh}{k3}, zmm26
+vpscatterdd [rcx+zmm4*4+1]{eh}{k3}, zmm2{uint8}
+vpscatterdd [rcx+zmm4*4+1]{eh}{k3}, zmm2{sint8}
+vpscatterdd [rcx+zmm4*4+2]{eh}{k3}, zmm2{uint16}
+vpscatterdd [rcx+zmm4*4+2]{eh}{k3}, zmm2{sint16}
+vpscatterdq [rcx+zmm4*4+8]{k3}, zmm2
+vpscatterdq [rcx+zmm4*4+8]{eh}{k3}, zmm26
+vscatterdps [rcx+zmm4*4+4]{k3}, zmm2
+vscatterdps [rcx+zmm4*4+2]{k3}, zmm26{float16}
+vscatterdps [rcx+zmm4*4+1]{k3}, zmm2{uint8}
+vscatterdps [rcx+zmm4*4+1]{k3}, zmm2{sint8}
+vscatterdps [rcx+zmm4*4+2]{k3}, zmm2{uint16}
+vscatterdps [rcx+zmm4*4+2]{k3}, zmm2{sint16}
+vscatterdps [rcx+zmm4*4+4]{eh}{k3}, zmm2
+vscatterdps [rcx+zmm4*4+2]{eh}{k3}, zmm2{float16}
+vscatterdps [rcx+zmm4*4+1]{eh}{k3}, zmm2{uint8}
+vscatterdps [rcx+zmm4*4+1]{eh}{k3}, zmm2{sint8}
+vscatterdps [rcx+zmm4*4+2]{eh}{k3}, zmm2{uint16}
+vscatterdps [rcx+zmm4*4+2]{eh}{k3}, zmm2{sint16}
+vscatterdpd [rcx+zmm4*4+8]{k3}, zmm2
+vscatterdpd [rcx+zmm4*4+8]{eh}{k3}, zmm26
+vmovaps zmm2, [rax+40h]
+vmovaps zmm26, [rax+20h]{float16}
+vmovaps zmm2{k3}, [rax+10h]{uint8}
+vmovaps zmm2, [rax+10h]{sint8}
+vmovaps zmm2, [rax+20h]{uint16}
+vmovaps zmm2, [rax+20h]{sint16}
+vmovaps zmm2, [rax+40h]{eh}
+vmovaps zmm2, [rax+20h]{eh}{float16}
+vmovaps zmm2, [rax+10h]{eh}{uint8}
+vmovaps zmm2, [rax+10h]{eh}{sint8}
+vmovaps zmm2, [rax+20h]{eh}{uint16}
+vmovaps zmm2, [rax+20h]{eh}{sint16}
+vmovaps zmm2, zmm3
+vmovaps zmm10{k3}, zmm3{cdab}
+vmovaps zmm18, zmm3{badc}
+vmovaps zmm26, zmm3{dacb}
+vmovaps zmm2, zmm11{aaaa}
+vmovaps zmm2, zmm19{bbbb}
+vmovaps zmm2, zmm27{cccc}
+vmovaps zmm2, zmm3{dddd}
+vmovaps zmm2, zmm3
+vmovapd zmm2, [rax+40h]
+vmovapd zmm2, [rax+40h]{eh}
+vmovapd zmm2, zmm3
+vmovapd zmm10{k3}, zmm3{cdab}
+vmovapd zmm18, zmm3{badc}
+vmovapd zmm26, zmm3{dacb}
+vmovapd zmm2, zmm11{aaaa}
+vmovapd zmm2, zmm19{bbbb}
+vmovapd zmm2, zmm27{cccc}
+vmovapd zmm2, zmm3{dddd}
+vmovapd zmm2, zmm3
+vcvtps2pd zmm2, [rax+20h]
+vcvtps2pd zmm10, [rax+4]{1to16}
+vcvtps2pd zmm18, [rax+10h]{4to16}
+vcvtps2pd zmm2, [rax+20h]{eh}
+vcvtps2pd zmm2, [rax+4]{eh}{1to16}
+vcvtps2pd zmm2, [rax+10h]{eh}{4to16}
+vcvtps2pd zmm2, zmm3
+vcvtps2pd zmm10{k3}, zmm3{cdab}
+vcvtps2pd zmm18, zmm3{badc}
+vcvtps2pd zmm26, zmm3{dacb}
+vcvtps2pd zmm2, zmm11{aaaa}
+vcvtps2pd zmm2, zmm19{bbbb}
+vcvtps2pd zmm2, zmm27{cccc}
+vcvtps2pd zmm2, zmm3{dddd}
+vcvtps2pd zmm2, zmm3
+vcvtps2pd zmm2, zmm11 {sae}
+vcvtpd2ps zmm2, [rax+40h]
+vcvtpd2ps zmm10, [rax+8]{1to8}
+vcvtpd2ps zmm18, [rax+20h]{4to8}
+vcvtpd2ps zmm2, [rax+40h]{eh}
+vcvtpd2ps zmm2, [rax+8]{eh}{1to8}
+vcvtpd2ps zmm2, [rax+20h]{eh}{4to8}
+vcvtpd2ps zmm2, zmm3
+vcvtpd2ps zmm10{k3}, zmm3{cdab}
+vcvtpd2ps zmm18, zmm3{badc}
+vcvtpd2ps zmm26, zmm3{dacb}
+vcvtpd2ps zmm2, zmm11{aaaa}
+vcvtpd2ps zmm2, zmm19{bbbb}
+vcvtpd2ps zmm2, zmm27{cccc}
+vcvtpd2ps zmm2, zmm3{dddd}
+vcvtpd2ps zmm2, zmm3 {rn}
+vcvtpd2ps zmm10, zmm3 {rd}
+vcvtpd2ps zmm18, zmm3 {ru}
+vcvtpd2ps zmm26, zmm3 {rz}
+vcvtpd2ps zmm2, zmm11 {rn-sae}
+vcvtpd2ps zmm2, zmm19 {rd-sae}
+vcvtpd2ps zmm2, zmm27 {ru-sae}
+vcvtpd2ps zmm2, zmm3 {rz-sae}
+vmovdqa32 zmm2, [rax+40h]
+vmovdqa32 zmm2{k3}, [rax+10h]{uint8}
+vmovdqa32 zmm2, [rax+10h]{sint8}
+vmovdqa32 zmm2, [rax+20h]{uint16}
+vmovdqa32 zmm2, [rax+20h]{sint16}
+vmovdqa32 zmm2, [rax+40h]{eh}
+vmovdqa32 zmm2, [rax+10h]{eh}{uint8}
+vmovdqa32 zmm2, [rax+10h]{eh}{sint8}
+vmovdqa32 zmm2, [rax+20h]{eh}{uint16}
+vmovdqa32 zmm2, [rax+20h]{eh}{sint16}
+vmovdqa32 zmm2, zmm3
+vmovdqa32 zmm10{k3}, zmm3{cdab}
+vmovdqa32 zmm18, zmm3{badc}
+vmovdqa32 zmm26, zmm3{dacb}
+vmovdqa32 zmm2, zmm11{aaaa}
+vmovdqa32 zmm2, zmm19{bbbb}
+vmovdqa32 zmm2, zmm27{cccc}
+vmovdqa32 zmm2, zmm3{dddd}
+vmovdqa32 zmm2, zmm3
+vmovdqa64 zmm2, [rax+40h]
+vmovdqa64 zmm2, [rax+40h]{eh}
+vmovdqa64 zmm2, zmm3
+vmovdqa64 zmm10{k3}, zmm3{cdab}
+vmovdqa64 zmm18, zmm3{badc}
+vmovdqa64 zmm26, zmm3{dacb}
+vmovdqa64 zmm2, zmm11{aaaa}
+vmovdqa64 zmm2, zmm19{bbbb}
+vmovdqa64 zmm2, zmm27{cccc}
+vmovdqa64 zmm2, zmm3{dddd}
+vmovdqa64 zmm2, zmm3
+vcvtudq2pd zmm2, [rax+20h]
+vcvtudq2pd zmm10, [rax+4]{1to16}
+vcvtudq2pd zmm18, [rax+10h]{4to16}
+vcvtudq2pd zmm2, [rax+20h]{eh}
+vcvtudq2pd zmm2, [rax+4]{eh}{1to16}
+vcvtudq2pd zmm2, [rax+10h]{eh}{4to16}
+vcvtudq2pd zmm2, zmm3
+vcvtudq2pd zmm10{k3}, zmm3{cdab}
+vcvtudq2pd zmm18, zmm3{badc}
+vcvtudq2pd zmm26, zmm3{dacb}
+vcvtudq2pd zmm2, zmm11{aaaa}
+vcvtudq2pd zmm2, zmm19{bbbb}
+vcvtudq2pd zmm2, zmm27{cccc}
+vcvtudq2pd zmm2, zmm3{dddd}
+vcvtudq2pd zmm2, zmm3
+vcvtdq2pd zmm2, [rax+20h]
+vcvtdq2pd zmm10, [rax+4]{1to16}
+vcvtdq2pd zmm18, [rax+10h]{4to16}
+vcvtdq2pd zmm2, [rax+20h]{eh}
+vcvtdq2pd zmm2, [rax+4]{eh}{1to16}
+vcvtdq2pd zmm2, [rax+10h]{eh}{4to16}
+vcvtdq2pd zmm2, zmm3
+vcvtdq2pd zmm10{k3}, zmm3{cdab}
+vcvtdq2pd zmm18, zmm3{badc}
+vcvtdq2pd zmm26, zmm3{dacb}
+vcvtdq2pd zmm2, zmm11{aaaa}
+vcvtdq2pd zmm2, zmm19{bbbb}
+vcvtdq2pd zmm2, zmm27{cccc}
+vcvtdq2pd zmm2, zmm3{dddd}
+vcvtdq2pd zmm2, zmm3
+vgetexpps zmm2, [rax+40h]
+vgetexpps zmm10, [rax+4]{1to16}
+vgetexpps zmm18, [rax+10h]{4to16}
+vgetexpps zmm26, [rax+20h]{float16}
+vgetexpps zmm2{k3}, [rax+10h]{uint8}
+vgetexpps zmm2, [rax+10h]{sint8}
+vgetexpps zmm2, [rax+20h]{uint16}
+vgetexpps zmm2, [rax+20h]{sint16}
+vgetexpps zmm2, [rax+40h]{eh}
+vgetexpps zmm2, [rax+4]{eh}{1to16}
+vgetexpps zmm2, [rax+10h]{eh}{4to16}
+vgetexpps zmm2, [rax+20h]{eh}{float16}
+vgetexpps zmm2, [rax+10h]{eh}{uint8}
+vgetexpps zmm2, [rax+10h]{eh}{sint8}
+vgetexpps zmm2, [rax+20h]{eh}{uint16}
+vgetexpps zmm2, [rax+20h]{eh}{sint16}
+vgetexpps zmm2, zmm3
+vgetexpps zmm10{k3}, zmm3{cdab}
+vgetexpps zmm18, zmm3{badc}
+vgetexpps zmm26, zmm3{dacb}
+vgetexpps zmm2, zmm11{aaaa}
+vgetexpps zmm2, zmm19{bbbb}
+vgetexpps zmm2, zmm27{cccc}
+vgetexpps zmm2, zmm3{dddd}
+vgetexpps zmm2, zmm3
+vgetexpps zmm2, zmm11 {sae}
+vgetexppd zmm2, [rax+40h]
+vgetexppd zmm10, [rax+8]{1to8}
+vgetexppd zmm18, [rax+20h]{4to8}
+vgetexppd zmm2, [rax+40h]{eh}
+vgetexppd zmm2, [rax+8]{eh}{1to8}
+vgetexppd zmm2, [rax+20h]{eh}{4to8}
+vgetexppd zmm2, zmm3
+vgetexppd zmm10{k3}, zmm3{cdab}
+vgetexppd zmm18, zmm3{badc}
+vgetexppd zmm26, zmm3{dacb}
+vgetexppd zmm2, zmm11{aaaa}
+vgetexppd zmm2, zmm19{bbbb}
+vgetexppd zmm2, zmm27{cccc}
+vgetexppd zmm2, zmm3{dddd}
+vgetexppd zmm2, zmm3
+vgetexppd zmm2, zmm11 {sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+vexp223ps zmm2{k5}, [rax+40h]
+vexp223ps zmm2, [rax+40h]{eh}
+vexp223ps zmm2, zmm3
+vexp223ps zmm2, zmm3
+vexp223ps zmm2, zmm11 {sae}
+vlog2ps zmm2{k5}, [rax+40h]
+vlog2ps zmm2, [rax+40h]{eh}
+vlog2ps zmm2, zmm3
+vlog2ps zmm2, zmm3
+vlog2ps zmm2, zmm11 {sae}
+vrcp23ps zmm2{k5}, [rax+40h]
+vrcp23ps zmm2, [rax+40h]{eh}
+vrcp23ps zmm2, zmm3
+vrcp23ps zmm2, zmm3
+vrcp23ps zmm2, zmm11 {sae}
+vrsqrt23ps zmm2{k5}, [rax+40h]
+vrsqrt23ps zmm2, [rax+40h]{eh}
+vrsqrt23ps zmm2, zmm3
+vrsqrt23ps zmm2, zmm3
+vrsqrt23ps zmm2, zmm11 {sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+undoc zmm2, [rax+40h]
+undoc zmm10, [rax+4]
+undoc zmm18, [rax+10h]
+undoc zmm26, [rax+20h]
+undoc zmm2{k3}, [rax+10h]
+undoc zmm2, [rax+10h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+20h]
+undoc zmm2, [rax+40h]{eh}
+undoc zmm2, [rax+4]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+10h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, [rax+20h]{eh}
+undoc zmm2, zmm3
+undoc zmm10{k3}, zmm3
+undoc zmm18, zmm3
+undoc zmm26, zmm3
+undoc zmm2, zmm11
+undoc zmm2, zmm19
+undoc zmm2, zmm27
+undoc zmm2, zmm3
+undoc zmm2, zmm3 {rn}
+undoc zmm10, zmm3 {rd}
+undoc zmm18, zmm3 {ru}
+undoc zmm26, zmm3 {rz}
+undoc zmm2, zmm11 {rn-sae}
+undoc zmm2, zmm19 {rd-sae}
+undoc zmm2, zmm27 {ru-sae}
+undoc zmm2, zmm3 {rz-sae}
+vbroadcastss zmm2, [rax+4]
+vbroadcastss zmm26, [rax+2]{float16}
+vbroadcastss zmm2{k3}, [rax+1]{uint8}
+vbroadcastss zmm2, [rax+1]{sint8}
+vbroadcastss zmm2, [rax+2]{uint16}
+vbroadcastss zmm2, [rax+2]{sint16}
+vbroadcastss zmm2, [rax+4]{eh}
+vbroadcastss zmm2, [rax+2]{eh}{float16}
+vbroadcastss zmm2, [rax+1]{eh}{uint8}
+vbroadcastss zmm2, [rax+1]{eh}{sint8}
+vbroadcastss zmm2, [rax+2]{eh}{uint16}
+vbroadcastss zmm2, [rax+2]{eh}{sint16}
+vbroadcastsd zmm2{k5}, [rax+8]
+vbroadcastsd zmm26, [rax+8]{eh}
+vbroadcastf32x4 zmm2, [rax+10h]
+vbroadcastf32x4 zmm26, [rax+8]{float16}
+vbroadcastf32x4 zmm2{k3}, [rax+4]{uint8}
+vbroadcastf32x4 zmm2, [rax+4]{sint8}
+vbroadcastf32x4 zmm2, [rax+8]{uint16}
+vbroadcastf32x4 zmm2, [rax+8]{sint16}
+vbroadcastf32x4 zmm2, [rax+10h]{eh}
+vbroadcastf32x4 zmm2, [rax+8]{eh}{float16}
+vbroadcastf32x4 zmm2, [rax+4]{eh}{uint8}
+vbroadcastf32x4 zmm2, [rax+4]{eh}{sint8}
+vbroadcastf32x4 zmm2, [rax+8]{eh}{uint16}
+vbroadcastf32x4 zmm2, [rax+8]{eh}{sint16}
+vbroadcastf64x4 zmm2{k5}, [rax+20h]
+vbroadcastf64x4 zmm26, [rax+20h]{eh}
+vpbroadcastd zmm2, [rax+4]
+vpbroadcastd zmm2{k3}, [rax+1]{uint8}
+vpbroadcastd zmm2, [rax+1]{sint8}
+vpbroadcastd zmm2, [rax+2]{uint16}
+vpbroadcastd zmm2, [rax+2]{sint16}
+vpbroadcastd zmm26, [rax+4]{eh}
+vpbroadcastd zmm2, [rax+1]{eh}{uint8}
+vpbroadcastd zmm2, [rax+1]{eh}{sint8}
+vpbroadcastd zmm2, [rax+2]{eh}{uint16}
+vpbroadcastd zmm2, [rax+2]{eh}{sint16}
+vpbroadcastq zmm2{k5}, [rax+8]
+vpbroadcastq zmm26, [rax+8]{eh}
+vbroadcasti32x4 zmm2, [rax+10h]
+vbroadcasti32x4 zmm2{k3}, [rax+4]{uint8}
+vbroadcasti32x4 zmm2, [rax+4]{sint8}
+vbroadcasti32x4 zmm2, [rax+8]{uint16}
+vbroadcasti32x4 zmm2, [rax+8]{sint16}
+vbroadcasti32x4 zmm26, [rax+10h]{eh}
+vbroadcasti32x4 zmm2, [rax+4]{eh}{uint8}
+vbroadcasti32x4 zmm2, [rax+4]{eh}{sint8}
+vbroadcasti32x4 zmm2, [rax+8]{eh}{uint16}
+vbroadcasti32x4 zmm2, [rax+8]{eh}{sint16}
+vbroadcasti64x4 zmm2{k5}, [rax+20h]
+vbroadcasti64x4 zmm26, [rax+20h]{eh}
+vloadunpackld zmm2, [rax+4]
+vloadunpackld zmm2{k3}, [rax+1]{uint8}
+vloadunpackld zmm2, [rax+1]{sint8}
+vloadunpackld zmm2, [rax+2]{uint16}
+vloadunpackld zmm2, [rax+2]{sint16}
+vloadunpackld zmm26, [rax+4]{eh}
+vloadunpackld zmm2, [rax+1]{eh}{uint8}
+vloadunpackld zmm2, [rax+1]{eh}{sint8}
+vloadunpackld zmm2, [rax+2]{eh}{uint16}
+vloadunpackld zmm2, [rax+2]{eh}{sint16}
+vloadunpacklq zmm2{k5}, [rax+8]
+vloadunpacklq zmm26, [rax+8]{eh}
+vloadunpacklps zmm2, [rax+4]
+vloadunpacklps zmm26, [rax+2]{float16}
+vloadunpacklps zmm2{k3}, [rax+1]{uint8}
+vloadunpacklps zmm2, [rax+1]{sint8}
+vloadunpacklps zmm2, [rax+2]{uint16}
+vloadunpacklps zmm2, [rax+2]{sint16}
+vloadunpacklps zmm2, [rax+4]{eh}
+vloadunpacklps zmm2, [rax+2]{eh}{float16}
+vloadunpacklps zmm2, [rax+1]{eh}{uint8}
+vloadunpacklps zmm2, [rax+1]{eh}{sint8}
+vloadunpacklps zmm2, [rax+2]{eh}{uint16}
+vloadunpacklps zmm2, [rax+2]{eh}{sint16}
+vloadunpacklpd zmm2{k5}, [rax+8]
+vloadunpacklpd zmm26, [rax+8]{eh}
+vloadunpackhd zmm2, [rax+4]
+vloadunpackhd zmm2{k3}, [rax+1]{uint8}
+vloadunpackhd zmm2, [rax+1]{sint8}
+vloadunpackhd zmm2, [rax+2]{uint16}
+vloadunpackhd zmm2, [rax+2]{sint16}
+vloadunpackhd zmm26, [rax+4]{eh}
+vloadunpackhd zmm2, [rax+1]{eh}{uint8}
+vloadunpackhd zmm2, [rax+1]{eh}{sint8}
+vloadunpackhd zmm2, [rax+2]{eh}{uint16}
+vloadunpackhd zmm2, [rax+2]{eh}{sint16}
+vloadunpackhq zmm2{k5}, [rax+8]
+vloadunpackhq zmm26, [rax+8]{eh}
+vloadunpackhps zmm2, [rax+4]
+vloadunpackhps zmm26, [rax+2]{float16}
+vloadunpackhps zmm2{k3}, [rax+1]{uint8}
+vloadunpackhps zmm2, [rax+1]{sint8}
+vloadunpackhps zmm2, [rax+2]{uint16}
+vloadunpackhps zmm2, [rax+2]{sint16}
+vloadunpackhps zmm2, [rax+4]{eh}
+vloadunpackhps zmm2, [rax+2]{eh}{float16}
+vloadunpackhps zmm2, [rax+1]{eh}{uint8}
+vloadunpackhps zmm2, [rax+1]{eh}{sint8}
+vloadunpackhps zmm2, [rax+2]{eh}{uint16}
+vloadunpackhps zmm2, [rax+2]{eh}{sint16}
+vloadunpackhpd zmm2{k5}, [rax+8]
+vloadunpackhpd zmm26, [rax+8]{eh}
+vpshufd zmm2{k5}, [rax+40h], 5Ah
+vpshufd zmm26, [rax+40h]{eh}, 5Ah
+vpshufd zmm2, zmm3, 5Ah
+vpshufd zmm2, zmm27, 5Ah
+vpermf32x4 zmm2{k5}, [rax+40h], 5Ah
+vpermf32x4 zmm26, [rax+40h]{eh}, 5Ah
+vpermf32x4 zmm2, zmm3, 5Ah
+vpermf32x4 zmm2, zmm27, 5Ah
+vgetmantps zmm2, [rax+40h], 5Ah
+vgetmantps zmm10, [rax+4]{1to16}, -5Bh
+vgetmantps zmm18, [rax+10h]{4to16}, 5Ah
+vgetmantps zmm26, [rax+20h]{float16}, -5Bh
+vgetmantps zmm2{k3}, [rax+10h]{uint8}, 5Ah
+vgetmantps zmm2, [rax+10h]{sint8}, -5Bh
+vgetmantps zmm2, [rax+20h]{uint16}, 5Ah
+vgetmantps zmm2, [rax+20h]{sint16}, -5Bh
+vgetmantps zmm2, [rax+40h]{eh}, 5Ah
+vgetmantps zmm2, [rax+4]{eh}{1to16}, -5Bh
+vgetmantps zmm2, [rax+10h]{eh}{4to16}, 5Ah
+vgetmantps zmm2, [rax+20h]{eh}{float16}, -5Bh
+vgetmantps zmm2, [rax+10h]{eh}{uint8}, 5Ah
+vgetmantps zmm2, [rax+10h]{eh}{sint8}, -5Bh
+vgetmantps zmm2, [rax+20h]{eh}{uint16}, 5Ah
+vgetmantps zmm2, [rax+20h]{eh}{sint16}, -5Bh
+vgetmantps zmm2, zmm3, 5Ah
+vgetmantps zmm10{k3}, zmm3{cdab}, -5Bh
+vgetmantps zmm18, zmm3{badc}, 5Ah
+vgetmantps zmm26, zmm3{dacb}, -5Bh
+vgetmantps zmm2, zmm11{aaaa}, 5Ah
+vgetmantps zmm2, zmm19{bbbb}, -5Bh
+vgetmantps zmm2, zmm27{cccc}, 5Ah
+vgetmantps zmm2, zmm3{dddd}, -5Bh
+vgetmantps zmm2, zmm3, 5Ah
+vgetmantps zmm2, zmm11, 5Ah {sae}
+vgetmantpd zmm2, [rax+40h], 5Ah
+vgetmantpd zmm10, [rax+8]{1to8}, -5Bh
+vgetmantpd zmm18, [rax+20h]{4to8}, 5Ah
+vgetmantpd zmm2, [rax+40h]{eh}, 5Ah
+vgetmantpd zmm2, [rax+8]{eh}{1to8}, -5Bh
+vgetmantpd zmm2, [rax+20h]{eh}{4to8}, 5Ah
+vgetmantpd zmm2, zmm3, 5Ah
+vgetmantpd zmm10{k3}, zmm3{cdab}, -5Bh
+vgetmantpd zmm18, zmm3{badc}, 5Ah
+vgetmantpd zmm26, zmm3{dacb}, -5Bh
+vgetmantpd zmm2, zmm11{aaaa}, 5Ah
+vgetmantpd zmm2, zmm19{bbbb}, -5Bh
+vgetmantpd zmm2, zmm27{cccc}, 5Ah
+vgetmantpd zmm2, zmm3{dddd}, -5Bh
+vgetmantpd zmm2, zmm3, 5Ah
+vgetmantpd zmm2, zmm11, 5Ah {sae}
+vrndfxpntps zmm2, [rax+40h], 5Ah
+vrndfxpntps zmm10, [rax+4]{1to16}, -5Bh
+vrndfxpntps zmm18, [rax+10h]{4to16}, 5Ah
+vrndfxpntps zmm26, [rax+20h]{float16}, -5Bh
+vrndfxpntps zmm2{k3}, [rax+10h]{uint8}, 5Ah
+vrndfxpntps zmm2, [rax+10h]{sint8}, -5Bh
+vrndfxpntps zmm2, [rax+20h]{uint16}, 5Ah
+vrndfxpntps zmm2, [rax+20h]{sint16}, -5Bh
+vrndfxpntps zmm2, [rax+40h]{eh}, 5Ah
+vrndfxpntps zmm2, [rax+4]{eh}{1to16}, -5Bh
+vrndfxpntps zmm2, [rax+10h]{eh}{4to16}, 5Ah
+vrndfxpntps zmm2, [rax+20h]{eh}{float16}, -5Bh
+vrndfxpntps zmm2, [rax+10h]{eh}{uint8}, 5Ah
+vrndfxpntps zmm2, [rax+10h]{eh}{sint8}, -5Bh
+vrndfxpntps zmm2, [rax+20h]{eh}{uint16}, 5Ah
+vrndfxpntps zmm2, [rax+20h]{eh}{sint16}, -5Bh
+vrndfxpntps zmm2, zmm3, 5Ah
+vrndfxpntps zmm10{k3}, zmm3{cdab}, -5Bh
+vrndfxpntps zmm18, zmm3{badc}, 5Ah
+vrndfxpntps zmm26, zmm3{dacb}, -5Bh
+vrndfxpntps zmm2, zmm11{aaaa}, 5Ah
+vrndfxpntps zmm2, zmm19{bbbb}, -5Bh
+vrndfxpntps zmm2, zmm27{cccc}, 5Ah
+vrndfxpntps zmm2, zmm3{dddd}, -5Bh
+vrndfxpntps zmm2, zmm3, 5Ah
+vrndfxpntps zmm2, zmm11, 5Ah {sae}
+vrndfxpntpd zmm2, [rax+40h], 5Ah
+vrndfxpntpd zmm10, [rax+8]{1to8}, -5Bh
+vrndfxpntpd zmm18, [rax+20h]{4to8}, 5Ah
+vrndfxpntpd zmm2, [rax+40h]{eh}, 5Ah
+vrndfxpntpd zmm2, [rax+8]{eh}{1to8}, -5Bh
+vrndfxpntpd zmm2, [rax+20h]{eh}{4to8}, 5Ah
+vrndfxpntpd zmm2, zmm3, 5Ah
+vrndfxpntpd zmm10{k3}, zmm3{cdab}, -5Bh
+vrndfxpntpd zmm18, zmm3{badc}, 5Ah
+vrndfxpntpd zmm26, zmm3{dacb}, -5Bh
+vrndfxpntpd zmm2, zmm11{aaaa}, 5Ah
+vrndfxpntpd zmm2, zmm19{bbbb}, -5Bh
+vrndfxpntpd zmm2, zmm27{cccc}, 5Ah
+vrndfxpntpd zmm2, zmm3{dddd}, -5Bh
+vrndfxpntpd zmm2, zmm3, 5Ah
+vrndfxpntpd zmm2, zmm11, 5Ah {sae}
+vcvtfxpntudq2ps zmm2, [rax+40h], 5Ah
+vcvtfxpntudq2ps zmm10, [rax+4]{1to16}, -5Bh
+vcvtfxpntudq2ps zmm18, [rax+10h]{4to16}, 5Ah
+vcvtfxpntudq2ps zmm2{k3}, [rax+10h]{uint8}, 5Ah
+vcvtfxpntudq2ps zmm2, [rax+10h]{sint8}, -5Bh
+vcvtfxpntudq2ps zmm2, [rax+20h]{uint16}, 5Ah
+vcvtfxpntudq2ps zmm2, [rax+20h]{sint16}, -5Bh
+vcvtfxpntudq2ps zmm2, [rax+40h]{eh}, 5Ah
+vcvtfxpntudq2ps zmm2, [rax+4]{eh}{1to16}, -5Bh
+vcvtfxpntudq2ps zmm2, [rax+10h]{eh}{4to16}, 5Ah
+vcvtfxpntudq2ps zmm2, [rax+10h]{eh}{uint8}, 5Ah
+vcvtfxpntudq2ps zmm2, [rax+10h]{eh}{sint8}, -5Bh
+vcvtfxpntudq2ps zmm2, [rax+20h]{eh}{uint16}, 5Ah
+vcvtfxpntudq2ps zmm2, [rax+20h]{eh}{sint16}, -5Bh
+vcvtfxpntudq2ps zmm2, zmm3, 5Ah
+vcvtfxpntudq2ps zmm10{k3}, zmm3{cdab}, -5Bh
+vcvtfxpntudq2ps zmm18, zmm3{badc}, 5Ah
+vcvtfxpntudq2ps zmm26, zmm3{dacb}, -5Bh
+vcvtfxpntudq2ps zmm2, zmm11{aaaa}, 5Ah
+vcvtfxpntudq2ps zmm2, zmm19{bbbb}, -5Bh
+vcvtfxpntudq2ps zmm2, zmm27{cccc}, 5Ah
+vcvtfxpntudq2ps zmm2, zmm3{dddd}, -5Bh
+vcvtfxpntudq2ps zmm2, zmm3, 5Ah
+vcvtfxpntudq2ps zmm2, zmm11, 5Ah {sae}
+vcvtfxpntps2udq zmm2, [rax+40h], 5Ah
+vcvtfxpntps2udq zmm10, [rax+4]{1to16}, -5Bh
+vcvtfxpntps2udq zmm18, [rax+10h]{4to16}, 5Ah
+vcvtfxpntps2udq zmm26, [rax+20h]{float16}, -5Bh
+vcvtfxpntps2udq zmm2{k3}, [rax+10h]{uint8}, 5Ah
+vcvtfxpntps2udq zmm2, [rax+10h]{sint8}, -5Bh
+vcvtfxpntps2udq zmm2, [rax+20h]{uint16}, 5Ah
+vcvtfxpntps2udq zmm2, [rax+20h]{sint16}, -5Bh
+vcvtfxpntps2udq zmm2, [rax+40h]{eh}, 5Ah
+vcvtfxpntps2udq zmm2, [rax+4]{eh}{1to16}, -5Bh
+vcvtfxpntps2udq zmm2, [rax+10h]{eh}{4to16}, 5Ah
+vcvtfxpntps2udq zmm2, [rax+20h]{eh}{float16}, -5Bh
+vcvtfxpntps2udq zmm2, [rax+10h]{eh}{uint8}, 5Ah
+vcvtfxpntps2udq zmm2, [rax+10h]{eh}{sint8}, -5Bh
+vcvtfxpntps2udq zmm2, [rax+20h]{eh}{uint16}, 5Ah
+vcvtfxpntps2udq zmm2, [rax+20h]{eh}{sint16}, -5Bh
+vcvtfxpntps2udq zmm2, zmm3, 5Ah
+vcvtfxpntps2udq zmm10{k3}, zmm3{cdab}, -5Bh
+vcvtfxpntps2udq zmm18, zmm3{badc}, 5Ah
+vcvtfxpntps2udq zmm26, zmm3{dacb}, -5Bh
+vcvtfxpntps2udq zmm2, zmm11{aaaa}, 5Ah
+vcvtfxpntps2udq zmm2, zmm19{bbbb}, -5Bh
+vcvtfxpntps2udq zmm2, zmm27{cccc}, 5Ah
+vcvtfxpntps2udq zmm2, zmm3{dddd}, -5Bh
+vcvtfxpntps2udq zmm2, zmm3, 5Ah
+vcvtfxpntps2udq zmm2, zmm11, 5Ah {sae}
+vcvtfxpntpd2udq zmm2, [rax+40h], 5Ah
+vcvtfxpntpd2udq zmm10, [rax+8]{1to8}, -5Bh
+vcvtfxpntpd2udq zmm18, [rax+20h]{4to8}, 5Ah
+vcvtfxpntpd2udq zmm2, [rax+40h]{eh}, 5Ah
+vcvtfxpntpd2udq zmm2, [rax+8]{eh}{1to8}, -5Bh
+vcvtfxpntpd2udq zmm2, [rax+20h]{eh}{4to8}, 5Ah
+vcvtfxpntpd2udq zmm2, zmm3, 5Ah
+vcvtfxpntpd2udq zmm10{k3}, zmm3{cdab}, -5Bh
+vcvtfxpntpd2udq zmm18, zmm3{badc}, 5Ah
+vcvtfxpntpd2udq zmm26, zmm3{dacb}, -5Bh
+vcvtfxpntpd2udq zmm2, zmm11{aaaa}, 5Ah
+vcvtfxpntpd2udq zmm2, zmm19{bbbb}, -5Bh
+vcvtfxpntpd2udq zmm2, zmm27{cccc}, 5Ah
+vcvtfxpntpd2udq zmm2, zmm3{dddd}, -5Bh
+vcvtfxpntpd2udq zmm2, zmm3, 5Ah
+vcvtfxpntpd2udq zmm2, zmm11, 5Ah {sae}
+vcvtfxpntdq2ps zmm2, [rax+40h], 5Ah
+vcvtfxpntdq2ps zmm10, [rax+4]{1to16}, -5Bh
+vcvtfxpntdq2ps zmm18, [rax+10h]{4to16}, 5Ah
+vcvtfxpntdq2ps zmm2{k3}, [rax+10h]{uint8}, 5Ah
+vcvtfxpntdq2ps zmm2, [rax+10h]{sint8}, -5Bh
+vcvtfxpntdq2ps zmm2, [rax+20h]{uint16}, 5Ah
+vcvtfxpntdq2ps zmm2, [rax+20h]{sint16}, -5Bh
+vcvtfxpntdq2ps zmm2, [rax+40h]{eh}, 5Ah
+vcvtfxpntdq2ps zmm2, [rax+4]{eh}{1to16}, -5Bh
+vcvtfxpntdq2ps zmm2, [rax+10h]{eh}{4to16}, 5Ah
+vcvtfxpntdq2ps zmm2, [rax+10h]{eh}{uint8}, 5Ah
+vcvtfxpntdq2ps zmm2, [rax+10h]{eh}{sint8}, -5Bh
+vcvtfxpntdq2ps zmm2, [rax+20h]{eh}{uint16}, 5Ah
+vcvtfxpntdq2ps zmm2, [rax+20h]{eh}{sint16}, -5Bh
+vcvtfxpntdq2ps zmm2, zmm3, 5Ah
+vcvtfxpntdq2ps zmm10{k3}, zmm3{cdab}, -5Bh
+vcvtfxpntdq2ps zmm18, zmm3{badc}, 5Ah
+vcvtfxpntdq2ps zmm26, zmm3{dacb}, -5Bh
+vcvtfxpntdq2ps zmm2, zmm11{aaaa}, 5Ah
+vcvtfxpntdq2ps zmm2, zmm19{bbbb}, -5Bh
+vcvtfxpntdq2ps zmm2, zmm27{cccc}, 5Ah
+vcvtfxpntdq2ps zmm2, zmm3{dddd}, -5Bh
+vcvtfxpntdq2ps zmm2, zmm3, 5Ah
+vcvtfxpntdq2ps zmm2, zmm11, 5Ah {sae}
+vcvtfxpntps2dq zmm2, [rax+40h], 5Ah
+vcvtfxpntps2dq zmm10, [rax+4]{1to16}, -5Bh
+vcvtfxpntps2dq zmm18, [rax+10h]{4to16}, 5Ah
+vcvtfxpntps2dq zmm26, [rax+20h]{float16}, -5Bh
+vcvtfxpntps2dq zmm2{k3}, [rax+10h]{uint8}, 5Ah
+vcvtfxpntps2dq zmm2, [rax+10h]{sint8}, -5Bh
+vcvtfxpntps2dq zmm2, [rax+20h]{uint16}, 5Ah
+vcvtfxpntps2dq zmm2, [rax+20h]{sint16}, -5Bh
+vcvtfxpntps2dq zmm2, [rax+40h]{eh}, 5Ah
+vcvtfxpntps2dq zmm2, [rax+4]{eh}{1to16}, -5Bh
+vcvtfxpntps2dq zmm2, [rax+10h]{eh}{4to16}, 5Ah
+vcvtfxpntps2dq zmm2, [rax+20h]{eh}{float16}, -5Bh
+vcvtfxpntps2dq zmm2, [rax+10h]{eh}{uint8}, 5Ah
+vcvtfxpntps2dq zmm2, [rax+10h]{eh}{sint8}, -5Bh
+vcvtfxpntps2dq zmm2, [rax+20h]{eh}{uint16}, 5Ah
+vcvtfxpntps2dq zmm2, [rax+20h]{eh}{sint16}, -5Bh
+vcvtfxpntps2dq zmm2, zmm3, 5Ah
+vcvtfxpntps2dq zmm10{k3}, zmm3{cdab}, -5Bh
+vcvtfxpntps2dq zmm18, zmm3{badc}, 5Ah
+vcvtfxpntps2dq zmm26, zmm3{dacb}, -5Bh
+vcvtfxpntps2dq zmm2, zmm11{aaaa}, 5Ah
+vcvtfxpntps2dq zmm2, zmm19{bbbb}, -5Bh
+vcvtfxpntps2dq zmm2, zmm27{cccc}, 5Ah
+vcvtfxpntps2dq zmm2, zmm3{dddd}, -5Bh
+vcvtfxpntps2dq zmm2, zmm3, 5Ah
+vcvtfxpntps2dq zmm2, zmm11, 5Ah {sae}
+undoc zmm2, [rax+40h], 5Ah
+undoc zmm10, [rax+4], -5Bh
+undoc zmm18, [rax+10h], 5Ah
+undoc zmm26, [rax+20h], -5Bh
+undoc zmm2{k3}, [rax+10h], 5Ah
+undoc zmm2, [rax+10h], -5Bh
+undoc zmm2, [rax+20h], 5Ah
+undoc zmm2, [rax+20h], -5Bh
+undoc zmm2, [rax+40h]{eh}, 5Ah
+undoc zmm2, [rax+4]{eh}, -5Bh
+undoc zmm2, [rax+10h]{eh}, 5Ah
+undoc zmm2, [rax+20h]{eh}, -5Bh
+undoc zmm2, [rax+10h]{eh}, 5Ah
+undoc zmm2, [rax+10h]{eh}, -5Bh
+undoc zmm2, [rax+20h]{eh}, 5Ah
+undoc zmm2, [rax+20h]{eh}, -5Bh
+undoc zmm2, zmm3, 5Ah
+undoc zmm10{k3}, zmm3, -5Bh
+undoc zmm18, zmm3, 5Ah
+undoc zmm26, zmm3, -5Bh
+undoc zmm2, zmm11, 5Ah
+undoc zmm2, zmm19, -5Bh
+undoc zmm2, zmm27, 5Ah
+undoc zmm2, zmm3, -5Bh
+undoc zmm2, zmm3, 5Ah {rn}
+undoc zmm10, zmm3, -5Bh {rd}
+undoc zmm18, zmm3, 5Ah {ru}
+undoc zmm26, zmm3, -5Bh {rz}
+undoc zmm2, zmm11, 5Ah {rn-sae}
+undoc zmm2, zmm19, -5Bh {rd-sae}
+undoc zmm2, zmm27, 5Ah {ru-sae}
+undoc zmm2, zmm3, -5Bh {rz-sae}
+undoc zmm2, [rax+40h], 5Ah
+undoc zmm10, [rax+4], -5Bh
+undoc zmm18, [rax+10h], 5Ah
+undoc zmm26, [rax+20h], -5Bh
+undoc zmm2{k3}, [rax+10h], 5Ah
+undoc zmm2, [rax+10h], -5Bh
+undoc zmm2, [rax+20h], 5Ah
+undoc zmm2, [rax+20h], -5Bh
+undoc zmm2, [rax+40h]{eh}, 5Ah
+undoc zmm2, [rax+4]{eh}, -5Bh
+undoc zmm2, [rax+10h]{eh}, 5Ah
+undoc zmm2, [rax+20h]{eh}, -5Bh
+undoc zmm2, [rax+10h]{eh}, 5Ah
+undoc zmm2, [rax+10h]{eh}, -5Bh
+undoc zmm2, [rax+20h]{eh}, 5Ah
+undoc zmm2, [rax+20h]{eh}, -5Bh
+undoc zmm2, zmm3, 5Ah
+undoc zmm10{k3}, zmm3, -5Bh
+undoc zmm18, zmm3, 5Ah
+undoc zmm26, zmm3, -5Bh
+undoc zmm2, zmm11, 5Ah
+undoc zmm2, zmm19, -5Bh
+undoc zmm2, zmm27, 5Ah
+undoc zmm2, zmm3, -5Bh
+undoc zmm2, zmm3, 5Ah {rn}
+undoc zmm10, zmm3, -5Bh {rd}
+undoc zmm18, zmm3, 5Ah {ru}
+undoc zmm26, zmm3, -5Bh {rz}
+undoc zmm2, zmm11, 5Ah {rn-sae}
+undoc zmm2, zmm19, -5Bh {rd-sae}
+undoc zmm2, zmm27, 5Ah {ru-sae}
+undoc zmm2, zmm3, -5Bh {rz-sae}
+vcvtfxpntpd2dq zmm2, [rax+40h], 5Ah
+vcvtfxpntpd2dq zmm10, [rax+8]{1to8}, -5Bh
+vcvtfxpntpd2dq zmm18, [rax+20h]{4to8}, 5Ah
+vcvtfxpntpd2dq zmm2, [rax+40h]{eh}, 5Ah
+vcvtfxpntpd2dq zmm2, [rax+8]{eh}{1to8}, -5Bh
+vcvtfxpntpd2dq zmm2, [rax+20h]{eh}{4to8}, 5Ah
+vcvtfxpntpd2dq zmm2, zmm3, 5Ah
+vcvtfxpntpd2dq zmm10{k3}, zmm3{cdab}, -5Bh
+vcvtfxpntpd2dq zmm18, zmm3{badc}, 5Ah
+vcvtfxpntpd2dq zmm26, zmm3{dacb}, -5Bh
+vcvtfxpntpd2dq zmm2, zmm11{aaaa}, 5Ah
+vcvtfxpntpd2dq zmm2, zmm19{bbbb}, -5Bh
+vcvtfxpntpd2dq zmm2, zmm27{cccc}, 5Ah
+vcvtfxpntpd2dq zmm2, zmm3{dddd}, -5Bh
+vcvtfxpntpd2dq zmm2, zmm3, 5Ah
+vcvtfxpntpd2dq zmm2, zmm11, 5Ah {sae}
+vmovaps [rax+40h], zmm2
+vmovaps [rax+20h], zmm26{float16}
+vmovaps [rax+10h]{k3}, zmm2{uint8}
+vmovaps [rax+10h], zmm2{sint8}
+vmovaps [rax+20h], zmm2{uint16}
+vmovaps [rax+20h], zmm2{sint16}
+vmovaps [rax+40h]{eh}, zmm2
+vmovaps [rax+20h]{eh}, zmm2{float16}
+vmovaps [rax+10h]{eh}, zmm2{uint8}
+vmovaps [rax+10h]{eh}, zmm2{sint8}
+vmovaps [rax+20h]{eh}, zmm2{uint16}
+vmovaps [rax+20h]{eh}, zmm2{sint16}
+vmovapd [rax+40h]{k5}, zmm2
+vmovapd [rax+40h]{eh}, zmm26
+vmovdqa32 [rax+40h], zmm2
+vmovdqa32 [rax+10h]{k3}, zmm18{uint8}
+vmovdqa32 [rax+10h], zmm10{sint8}
+vmovdqa32 [rax+20h], zmm2{uint16}
+vmovdqa32 [rax+20h], zmm2{sint16}
+vmovdqa32 [rax+40h]{eh}, zmm2
+vmovdqa32 [rax+10h]{eh}, zmm2{uint8}
+vmovdqa32 [rax+10h]{eh}, zmm2{sint8}
+vmovdqa32 [rax+20h]{eh}, zmm2{uint16}
+vmovdqa32 [rax+20h]{eh}, zmm2{sint16}
+vmovdqa64 [rax+40h]{k5}, zmm2
+vmovdqa64 [rax+40h]{eh}, zmm26
+vpackstoreld [rax+4], zmm2
+vpackstoreld [rax+1]{k3}, zmm2{uint8}
+vpackstoreld [rax+1], zmm2{sint8}
+vpackstoreld [rax+2], zmm2{uint16}
+vpackstoreld [rax+2], zmm2{sint16}
+vpackstoreld [rax+4]{eh}, zmm26
+vpackstoreld [rax+1]{eh}, zmm2{uint8}
+vpackstoreld [rax+1]{eh}, zmm2{sint8}
+vpackstoreld [rax+2]{eh}, zmm2{uint16}
+vpackstoreld [rax+2]{eh}, zmm2{sint16}
+vpackstorelq [rax+8]{k5}, zmm2
+vpackstorelq [rax+8]{eh}, zmm26
+vpackstorelps [rax+4], zmm2
+vpackstorelps [rax+2], zmm26{float16}
+vpackstorelps [rax+1]{k3}, zmm2{uint8}
+vpackstorelps [rax+1], zmm2{sint8}
+vpackstorelps [rax+2], zmm2{uint16}
+vpackstorelps [rax+2], zmm2{sint16}
+vpackstorelps [rax+4]{eh}, zmm2
+vpackstorelps [rax+2]{eh}, zmm2{float16}
+vpackstorelps [rax+1]{eh}, zmm2{uint8}
+vpackstorelps [rax+1]{eh}, zmm2{sint8}
+vpackstorelps [rax+2]{eh}, zmm2{uint16}
+vpackstorelps [rax+2]{eh}, zmm2{sint16}
+vpackstorelpd [rax+8]{k5}, zmm2
+vpackstorelpd [rax+8]{eh}, zmm26
+vpackstorehd [rax+4], zmm2
+vpackstorehd [rax+1]{k3}, zmm2{uint8}
+vpackstorehd [rax+1], zmm2{sint8}
+vpackstorehd [rax+2], zmm2{uint16}
+vpackstorehd [rax+2], zmm2{sint16}
+vpackstorehd [rax+4]{eh}, zmm26
+vpackstorehd [rax+1]{eh}, zmm2{uint8}
+vpackstorehd [rax+1]{eh}, zmm2{sint8}
+vpackstorehd [rax+2]{eh}, zmm2{uint16}
+vpackstorehd [rax+2]{eh}, zmm2{sint16}
+vpackstorehq [rax+8]{k5}, zmm2
+vpackstorehq [rax+8]{eh}, zmm26
+vpackstorehps [rax+4], zmm2
+vpackstorehps [rax+2], zmm26{float16}
+vpackstorehps [rax+1]{k3}, zmm2{uint8}
+vpackstorehps [rax+1], zmm2{sint8}
+vpackstorehps [rax+2], zmm2{uint16}
+vpackstorehps [rax+2], zmm2{sint16}
+vpackstorehps [rax+4]{eh}, zmm2
+vpackstorehps [rax+2]{eh}, zmm2{float16}
+vpackstorehps [rax+1]{eh}, zmm2{uint8}
+vpackstorehps [rax+1]{eh}, zmm2{sint8}
+vpackstorehps [rax+2]{eh}, zmm2{uint16}
+vpackstorehps [rax+2]{eh}, zmm2{sint16}
+vpackstorehpd [rax+8]{k5}, zmm2
+vpackstorehpd [rax+8]{eh}, zmm26
+vmovnrapd [rax+40h], zmm2
+vmovnrapd [rax+40h]{k5}, zmm26
+vmovnrngoapd [rax+40h], zmm2
+vmovnrngoapd [rax+40h]{k5}, zmm26
+vmovnraps [rax+40h], zmm2
+vmovnraps [rax+20h], zmm26{float16}
+vmovnraps [rax+10h]{k3}, zmm2{uint8}
+vmovnraps [rax+10h], zmm2{sint8}
+vmovnraps [rax+20h], zmm2{uint16}
+vmovnraps [rax+20h], zmm2{sint16}
+vmovnrngoaps [rax+40h], zmm2
+vmovnrngoaps [rax+20h], zmm26{float16}
+vmovnrngoaps [rax+10h]{k3}, zmm2{uint8}
+vmovnrngoaps [rax+10h], zmm2{sint8}
+vmovnrngoaps [rax+20h], zmm2{uint16}
+vmovnrngoaps [rax+20h], zmm2{sint16}
+vaddps zmm2, zmm6, [rax+40h]
+vaddps zmm10, zmm6, [rax+4]{1to16}
+vaddps zmm18, zmm6, [rax+10h]{4to16}
+vaddps zmm26, zmm6, [rax+20h]{float16}
+vaddps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vaddps zmm2, zmm6, [rax+10h]{sint8}
+vaddps zmm2, zmm6, [rax+20h]{uint16}
+vaddps zmm2, zmm6, [rax+20h]{sint16}
+vaddps zmm2, zmm6, [rax+40h]{eh}
+vaddps zmm2, zmm6, [rax+4]{eh}{1to16}
+vaddps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vaddps zmm2, zmm6, [rax+20h]{eh}{float16}
+vaddps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vaddps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vaddps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vaddps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vaddps zmm2, zmm6, zmm3
+vaddps zmm10{k3}, zmm6, zmm3{cdab}
+vaddps zmm18, zmm6, zmm3{badc}
+vaddps zmm26, zmm6, zmm3{dacb}
+vaddps zmm2, zmm6, zmm11{aaaa}
+vaddps zmm2, zmm6, zmm19{bbbb}
+vaddps zmm2, zmm6, zmm27{cccc}
+vaddps zmm2, zmm6, zmm3{dddd}
+vaddps zmm2, zmm6, zmm3 {rn}
+vaddps zmm10, zmm6, zmm3 {rd}
+vaddps zmm18, zmm6, zmm3 {ru}
+vaddps zmm26, zmm6, zmm3 {rz}
+vaddps zmm2, zmm6, zmm11 {rn-sae}
+vaddps zmm2, zmm14, zmm19 {rd-sae}
+vaddps zmm2, zmm22, zmm27 {ru-sae}
+vaddps zmm2, zmm30, zmm3 {rz-sae}
+vaddpd zmm2, zmm6, [rax+40h]
+vaddpd zmm10, zmm6, [rax+8]{1to8}
+vaddpd zmm18, zmm6, [rax+20h]{4to8}
+vaddpd zmm2, zmm6, [rax+40h]{eh}
+vaddpd zmm2, zmm6, [rax+8]{eh}{1to8}
+vaddpd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vaddpd zmm2, zmm6, zmm3
+vaddpd zmm10{k3}, zmm6, zmm3{cdab}
+vaddpd zmm18, zmm6, zmm3{badc}
+vaddpd zmm26, zmm6, zmm3{dacb}
+vaddpd zmm2, zmm6, zmm11{aaaa}
+vaddpd zmm2, zmm6, zmm19{bbbb}
+vaddpd zmm2, zmm6, zmm27{cccc}
+vaddpd zmm2, zmm6, zmm3{dddd}
+vaddpd zmm2, zmm6, zmm3 {rn}
+vaddpd zmm10, zmm6, zmm3 {rd}
+vaddpd zmm18, zmm6, zmm3 {ru}
+vaddpd zmm26, zmm6, zmm3 {rz}
+vaddpd zmm2, zmm6, zmm11 {rn-sae}
+vaddpd zmm2, zmm14, zmm19 {rd-sae}
+vaddpd zmm2, zmm22, zmm27 {ru-sae}
+vaddpd zmm2, zmm30, zmm3 {rz-sae}
+vmulps zmm2, zmm6, [rax+40h]
+vmulps zmm10, zmm6, [rax+4]{1to16}
+vmulps zmm18, zmm6, [rax+10h]{4to16}
+vmulps zmm26, zmm6, [rax+20h]{float16}
+vmulps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vmulps zmm2, zmm6, [rax+10h]{sint8}
+vmulps zmm2, zmm6, [rax+20h]{uint16}
+vmulps zmm2, zmm6, [rax+20h]{sint16}
+vmulps zmm2, zmm6, [rax+40h]{eh}
+vmulps zmm2, zmm6, [rax+4]{eh}{1to16}
+vmulps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vmulps zmm2, zmm6, [rax+20h]{eh}{float16}
+vmulps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vmulps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vmulps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vmulps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vmulps zmm2, zmm6, zmm3
+vmulps zmm10{k3}, zmm6, zmm3{cdab}
+vmulps zmm18, zmm6, zmm3{badc}
+vmulps zmm26, zmm6, zmm3{dacb}
+vmulps zmm2, zmm6, zmm11{aaaa}
+vmulps zmm2, zmm6, zmm19{bbbb}
+vmulps zmm2, zmm6, zmm27{cccc}
+vmulps zmm2, zmm6, zmm3{dddd}
+vmulps zmm2, zmm6, zmm3 {rn}
+vmulps zmm10, zmm6, zmm3 {rd}
+vmulps zmm18, zmm6, zmm3 {ru}
+vmulps zmm26, zmm6, zmm3 {rz}
+vmulps zmm2, zmm6, zmm11 {rn-sae}
+vmulps zmm2, zmm14, zmm19 {rd-sae}
+vmulps zmm2, zmm22, zmm27 {ru-sae}
+vmulps zmm2, zmm30, zmm3 {rz-sae}
+vmulpd zmm2, zmm6, [rax+40h]
+vmulpd zmm10, zmm6, [rax+8]{1to8}
+vmulpd zmm18, zmm6, [rax+20h]{4to8}
+vmulpd zmm2, zmm6, [rax+40h]{eh}
+vmulpd zmm2, zmm6, [rax+8]{eh}{1to8}
+vmulpd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vmulpd zmm2, zmm6, zmm3
+vmulpd zmm10{k3}, zmm6, zmm3{cdab}
+vmulpd zmm18, zmm6, zmm3{badc}
+vmulpd zmm26, zmm6, zmm3{dacb}
+vmulpd zmm2, zmm6, zmm11{aaaa}
+vmulpd zmm2, zmm6, zmm19{bbbb}
+vmulpd zmm2, zmm6, zmm27{cccc}
+vmulpd zmm2, zmm6, zmm3{dddd}
+vmulpd zmm2, zmm6, zmm3 {rn}
+vmulpd zmm10, zmm6, zmm3 {rd}
+vmulpd zmm18, zmm6, zmm3 {ru}
+vmulpd zmm26, zmm6, zmm3 {rz}
+vmulpd zmm2, zmm6, zmm11 {rn-sae}
+vmulpd zmm2, zmm14, zmm19 {rd-sae}
+vmulpd zmm2, zmm22, zmm27 {ru-sae}
+vmulpd zmm2, zmm30, zmm3 {rz-sae}
+vsubps zmm2, zmm6, [rax+40h]
+vsubps zmm10, zmm6, [rax+4]{1to16}
+vsubps zmm18, zmm6, [rax+10h]{4to16}
+vsubps zmm26, zmm6, [rax+20h]{float16}
+vsubps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vsubps zmm2, zmm6, [rax+10h]{sint8}
+vsubps zmm2, zmm6, [rax+20h]{uint16}
+vsubps zmm2, zmm6, [rax+20h]{sint16}
+vsubps zmm2, zmm6, [rax+40h]{eh}
+vsubps zmm2, zmm6, [rax+4]{eh}{1to16}
+vsubps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vsubps zmm2, zmm6, [rax+20h]{eh}{float16}
+vsubps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vsubps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vsubps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vsubps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vsubps zmm2, zmm6, zmm3
+vsubps zmm10{k3}, zmm6, zmm3{cdab}
+vsubps zmm18, zmm6, zmm3{badc}
+vsubps zmm26, zmm6, zmm3{dacb}
+vsubps zmm2, zmm6, zmm11{aaaa}
+vsubps zmm2, zmm6, zmm19{bbbb}
+vsubps zmm2, zmm6, zmm27{cccc}
+vsubps zmm2, zmm6, zmm3{dddd}
+vsubps zmm2, zmm6, zmm3 {rn}
+vsubps zmm10, zmm6, zmm3 {rd}
+vsubps zmm18, zmm6, zmm3 {ru}
+vsubps zmm26, zmm6, zmm3 {rz}
+vsubps zmm2, zmm6, zmm11 {rn-sae}
+vsubps zmm2, zmm14, zmm19 {rd-sae}
+vsubps zmm2, zmm22, zmm27 {ru-sae}
+vsubps zmm2, zmm30, zmm3 {rz-sae}
+vsubpd zmm2, zmm6, [rax+40h]
+vsubpd zmm10, zmm6, [rax+8]{1to8}
+vsubpd zmm18, zmm6, [rax+20h]{4to8}
+vsubpd zmm2, zmm6, [rax+40h]{eh}
+vsubpd zmm2, zmm6, [rax+8]{eh}{1to8}
+vsubpd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vsubpd zmm2, zmm6, zmm3
+vsubpd zmm10{k3}, zmm6, zmm3{cdab}
+vsubpd zmm18, zmm6, zmm3{badc}
+vsubpd zmm26, zmm6, zmm3{dacb}
+vsubpd zmm2, zmm6, zmm11{aaaa}
+vsubpd zmm2, zmm6, zmm19{bbbb}
+vsubpd zmm2, zmm6, zmm27{cccc}
+vsubpd zmm2, zmm6, zmm3{dddd}
+vsubpd zmm2, zmm6, zmm3 {rn}
+vsubpd zmm10, zmm6, zmm3 {rd}
+vsubpd zmm18, zmm6, zmm3 {ru}
+vsubpd zmm26, zmm6, zmm3 {rz}
+vsubpd zmm2, zmm6, zmm11 {rn-sae}
+vsubpd zmm2, zmm14, zmm19 {rd-sae}
+vsubpd zmm2, zmm22, zmm27 {ru-sae}
+vsubpd zmm2, zmm30, zmm3 {rz-sae}
+vpandd zmm2, zmm6, [rax+40h]
+vpandd zmm10, zmm6, [rax+4]{1to16}
+vpandd zmm18, zmm6, [rax+10h]{4to16}
+vpandd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpandd zmm2, zmm6, [rax+10h]{sint8}
+vpandd zmm2, zmm6, [rax+20h]{uint16}
+vpandd zmm2, zmm6, [rax+20h]{sint16}
+vpandd zmm2, zmm6, [rax+40h]{eh}
+vpandd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpandd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpandd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpandd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpandd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpandd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpandd zmm2, zmm6, zmm3
+vpandd zmm10{k3}, zmm6, zmm3{cdab}
+vpandd zmm18, zmm6, zmm3{badc}
+vpandd zmm26, zmm6, zmm3{dacb}
+vpandd zmm2, zmm6, zmm11{aaaa}
+vpandd zmm2, zmm6, zmm19{bbbb}
+vpandd zmm2, zmm6, zmm27{cccc}
+vpandd zmm2, zmm6, zmm3{dddd}
+vpandd zmm2, zmm6, zmm3
+vpandq zmm2, zmm6, [rax+40h]
+vpandq zmm10, zmm6, [rax+8]{1to8}
+vpandq zmm18, zmm6, [rax+20h]{4to8}
+vpandq zmm2, zmm6, [rax+40h]{eh}
+vpandq zmm2, zmm6, [rax+8]{eh}{1to8}
+vpandq zmm2, zmm6, [rax+20h]{eh}{4to8}
+vpandq zmm2, zmm6, zmm3
+vpandq zmm10{k3}, zmm6, zmm3{cdab}
+vpandq zmm18, zmm6, zmm3{badc}
+vpandq zmm26, zmm6, zmm3{dacb}
+vpandq zmm2, zmm6, zmm11{aaaa}
+vpandq zmm2, zmm6, zmm19{bbbb}
+vpandq zmm2, zmm6, zmm27{cccc}
+vpandq zmm2, zmm6, zmm3{dddd}
+vpandq zmm2, zmm6, zmm3
+vpandnd zmm2, zmm6, [rax+40h]
+vpandnd zmm10, zmm6, [rax+4]{1to16}
+vpandnd zmm18, zmm6, [rax+10h]{4to16}
+vpandnd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpandnd zmm2, zmm6, [rax+10h]{sint8}
+vpandnd zmm2, zmm6, [rax+20h]{uint16}
+vpandnd zmm2, zmm6, [rax+20h]{sint16}
+vpandnd zmm2, zmm6, [rax+40h]{eh}
+vpandnd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpandnd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpandnd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpandnd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpandnd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpandnd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpandnd zmm2, zmm6, zmm3
+vpandnd zmm10{k3}, zmm6, zmm3{cdab}
+vpandnd zmm18, zmm6, zmm3{badc}
+vpandnd zmm26, zmm6, zmm3{dacb}
+vpandnd zmm2, zmm6, zmm11{aaaa}
+vpandnd zmm2, zmm6, zmm19{bbbb}
+vpandnd zmm2, zmm6, zmm27{cccc}
+vpandnd zmm2, zmm6, zmm3{dddd}
+vpandnd zmm2, zmm6, zmm3
+vpandnq zmm2, zmm6, [rax+40h]
+vpandnq zmm10, zmm6, [rax+8]{1to8}
+vpandnq zmm18, zmm6, [rax+20h]{4to8}
+vpandnq zmm2, zmm6, [rax+40h]{eh}
+vpandnq zmm2, zmm6, [rax+8]{eh}{1to8}
+vpandnq zmm2, zmm6, [rax+20h]{eh}{4to8}
+vpandnq zmm2, zmm6, zmm3
+vpandnq zmm10{k3}, zmm6, zmm3{cdab}
+vpandnq zmm18, zmm6, zmm3{badc}
+vpandnq zmm26, zmm6, zmm3{dacb}
+vpandnq zmm2, zmm6, zmm11{aaaa}
+vpandnq zmm2, zmm6, zmm19{bbbb}
+vpandnq zmm2, zmm6, zmm27{cccc}
+vpandnq zmm2, zmm6, zmm3{dddd}
+vpandnq zmm2, zmm6, zmm3
+vpord zmm2, zmm6, [rax+40h]
+vpord zmm10, zmm6, [rax+4]{1to16}
+vpord zmm18, zmm6, [rax+10h]{4to16}
+vpord zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpord zmm2, zmm6, [rax+10h]{sint8}
+vpord zmm2, zmm6, [rax+20h]{uint16}
+vpord zmm2, zmm6, [rax+20h]{sint16}
+vpord zmm2, zmm6, [rax+40h]{eh}
+vpord zmm2, zmm6, [rax+4]{eh}{1to16}
+vpord zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpord zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpord zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpord zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpord zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpord zmm2, zmm6, zmm3
+vpord zmm10{k3}, zmm6, zmm3{cdab}
+vpord zmm18, zmm6, zmm3{badc}
+vpord zmm26, zmm6, zmm3{dacb}
+vpord zmm2, zmm6, zmm11{aaaa}
+vpord zmm2, zmm6, zmm19{bbbb}
+vpord zmm2, zmm6, zmm27{cccc}
+vpord zmm2, zmm6, zmm3{dddd}
+vpord zmm2, zmm6, zmm3
+vporq zmm2, zmm6, [rax+40h]
+vporq zmm10, zmm6, [rax+8]{1to8}
+vporq zmm18, zmm6, [rax+20h]{4to8}
+vporq zmm2, zmm6, [rax+40h]{eh}
+vporq zmm2, zmm6, [rax+8]{eh}{1to8}
+vporq zmm2, zmm6, [rax+20h]{eh}{4to8}
+vporq zmm2, zmm6, zmm3
+vporq zmm10{k3}, zmm6, zmm3{cdab}
+vporq zmm18, zmm6, zmm3{badc}
+vporq zmm26, zmm6, zmm3{dacb}
+vporq zmm2, zmm6, zmm11{aaaa}
+vporq zmm2, zmm6, zmm19{bbbb}
+vporq zmm2, zmm6, zmm27{cccc}
+vporq zmm2, zmm6, zmm3{dddd}
+vporq zmm2, zmm6, zmm3
+vpxord zmm2, zmm6, [rax+40h]
+vpxord zmm10, zmm6, [rax+4]{1to16}
+vpxord zmm18, zmm6, [rax+10h]{4to16}
+vpxord zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpxord zmm2, zmm6, [rax+10h]{sint8}
+vpxord zmm2, zmm6, [rax+20h]{uint16}
+vpxord zmm2, zmm6, [rax+20h]{sint16}
+vpxord zmm2, zmm6, [rax+40h]{eh}
+vpxord zmm2, zmm6, [rax+4]{eh}{1to16}
+vpxord zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpxord zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpxord zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpxord zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpxord zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpxord zmm2, zmm6, zmm3
+vpxord zmm10{k3}, zmm6, zmm3{cdab}
+vpxord zmm18, zmm6, zmm3{badc}
+vpxord zmm26, zmm6, zmm3{dacb}
+vpxord zmm2, zmm6, zmm11{aaaa}
+vpxord zmm2, zmm6, zmm19{bbbb}
+vpxord zmm2, zmm6, zmm27{cccc}
+vpxord zmm2, zmm6, zmm3{dddd}
+vpxord zmm2, zmm6, zmm3
+vpxorq zmm2, zmm6, [rax+40h]
+vpxorq zmm10, zmm6, [rax+8]{1to8}
+vpxorq zmm18, zmm6, [rax+20h]{4to8}
+vpxorq zmm2, zmm6, [rax+40h]{eh}
+vpxorq zmm2, zmm6, [rax+8]{eh}{1to8}
+vpxorq zmm2, zmm6, [rax+20h]{eh}{4to8}
+vpxorq zmm2, zmm6, zmm3
+vpxorq zmm10{k3}, zmm6, zmm3{cdab}
+vpxorq zmm18, zmm6, zmm3{badc}
+vpxorq zmm26, zmm6, zmm3{dacb}
+vpxorq zmm2, zmm6, zmm11{aaaa}
+vpxorq zmm2, zmm6, zmm19{bbbb}
+vpxorq zmm2, zmm6, zmm27{cccc}
+vpxorq zmm2, zmm6, zmm3{dddd}
+vpxorq zmm2, zmm6, zmm3
+vpsubd zmm2, zmm6, [rax+40h]
+vpsubd zmm10, zmm6, [rax+4]{1to16}
+vpsubd zmm18, zmm6, [rax+10h]{4to16}
+vpsubd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpsubd zmm2, zmm6, [rax+10h]{sint8}
+vpsubd zmm2, zmm6, [rax+20h]{uint16}
+vpsubd zmm2, zmm6, [rax+20h]{sint16}
+vpsubd zmm2, zmm6, [rax+40h]{eh}
+vpsubd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpsubd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpsubd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpsubd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpsubd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpsubd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpsubd zmm2, zmm6, zmm3
+vpsubd zmm10{k3}, zmm6, zmm3{cdab}
+vpsubd zmm18, zmm6, zmm3{badc}
+vpsubd zmm26, zmm6, zmm3{dacb}
+vpsubd zmm2, zmm6, zmm11{aaaa}
+vpsubd zmm2, zmm6, zmm19{bbbb}
+vpsubd zmm2, zmm6, zmm27{cccc}
+vpsubd zmm2, zmm6, zmm3{dddd}
+vpsubd zmm2, zmm6, zmm3
+vpaddd zmm2, zmm6, [rax+40h]
+vpaddd zmm10, zmm6, [rax+4]{1to16}
+vpaddd zmm18, zmm6, [rax+10h]{4to16}
+vpaddd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpaddd zmm2, zmm6, [rax+10h]{sint8}
+vpaddd zmm2, zmm6, [rax+20h]{uint16}
+vpaddd zmm2, zmm6, [rax+20h]{sint16}
+vpaddd zmm2, zmm6, [rax+40h]{eh}
+vpaddd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpaddd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpaddd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpaddd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpaddd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpaddd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpaddd zmm2, zmm6, zmm3
+vpaddd zmm10{k3}, zmm6, zmm3{cdab}
+vpaddd zmm18, zmm6, zmm3{badc}
+vpaddd zmm26, zmm6, zmm3{dacb}
+vpaddd zmm2, zmm6, zmm11{aaaa}
+vpaddd zmm2, zmm6, zmm19{bbbb}
+vpaddd zmm2, zmm6, zmm27{cccc}
+vpaddd zmm2, zmm6, zmm3{dddd}
+vpaddd zmm2, zmm6, zmm3
+vpermd zmm2{k5}, zmm6, [rax+40h]
+vpermd zmm26, zmm6, [rax+40h]{eh}
+vpermd zmm2, zmm6, zmm3
+vpermd zmm2, zmm22, zmm27
+vpminsd zmm2, zmm6, [rax+40h]
+vpminsd zmm10, zmm6, [rax+4]{1to16}
+vpminsd zmm18, zmm6, [rax+10h]{4to16}
+vpminsd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpminsd zmm2, zmm6, [rax+10h]{sint8}
+vpminsd zmm2, zmm6, [rax+20h]{uint16}
+vpminsd zmm2, zmm6, [rax+20h]{sint16}
+vpminsd zmm2, zmm6, [rax+40h]{eh}
+vpminsd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpminsd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpminsd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpminsd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpminsd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpminsd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpminsd zmm2, zmm6, zmm3
+vpminsd zmm10{k3}, zmm6, zmm3{cdab}
+vpminsd zmm18, zmm6, zmm3{badc}
+vpminsd zmm26, zmm6, zmm3{dacb}
+vpminsd zmm2, zmm6, zmm11{aaaa}
+vpminsd zmm2, zmm6, zmm19{bbbb}
+vpminsd zmm2, zmm6, zmm27{cccc}
+vpminsd zmm2, zmm6, zmm3{dddd}
+vpminsd zmm2, zmm6, zmm3
+vpminud zmm2, zmm6, [rax+40h]
+vpminud zmm10, zmm6, [rax+4]{1to16}
+vpminud zmm18, zmm6, [rax+10h]{4to16}
+vpminud zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpminud zmm2, zmm6, [rax+10h]{sint8}
+vpminud zmm2, zmm6, [rax+20h]{uint16}
+vpminud zmm2, zmm6, [rax+20h]{sint16}
+vpminud zmm2, zmm6, [rax+40h]{eh}
+vpminud zmm2, zmm6, [rax+4]{eh}{1to16}
+vpminud zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpminud zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpminud zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpminud zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpminud zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpminud zmm2, zmm6, zmm3
+vpminud zmm10{k3}, zmm6, zmm3{cdab}
+vpminud zmm18, zmm6, zmm3{badc}
+vpminud zmm26, zmm6, zmm3{dacb}
+vpminud zmm2, zmm6, zmm11{aaaa}
+vpminud zmm2, zmm6, zmm19{bbbb}
+vpminud zmm2, zmm6, zmm27{cccc}
+vpminud zmm2, zmm6, zmm3{dddd}
+vpminud zmm2, zmm6, zmm3
+vpmaxsd zmm2, zmm6, [rax+40h]
+vpmaxsd zmm10, zmm6, [rax+4]{1to16}
+vpmaxsd zmm18, zmm6, [rax+10h]{4to16}
+vpmaxsd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpmaxsd zmm2, zmm6, [rax+10h]{sint8}
+vpmaxsd zmm2, zmm6, [rax+20h]{uint16}
+vpmaxsd zmm2, zmm6, [rax+20h]{sint16}
+vpmaxsd zmm2, zmm6, [rax+40h]{eh}
+vpmaxsd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpmaxsd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpmaxsd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpmaxsd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpmaxsd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpmaxsd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpmaxsd zmm2, zmm6, zmm3
+vpmaxsd zmm10{k3}, zmm6, zmm3{cdab}
+vpmaxsd zmm18, zmm6, zmm3{badc}
+vpmaxsd zmm26, zmm6, zmm3{dacb}
+vpmaxsd zmm2, zmm6, zmm11{aaaa}
+vpmaxsd zmm2, zmm6, zmm19{bbbb}
+vpmaxsd zmm2, zmm6, zmm27{cccc}
+vpmaxsd zmm2, zmm6, zmm3{dddd}
+vpmaxsd zmm2, zmm6, zmm3
+vpmaxud zmm2, zmm6, [rax+40h]
+vpmaxud zmm10, zmm6, [rax+4]{1to16}
+vpmaxud zmm18, zmm6, [rax+10h]{4to16}
+vpmaxud zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpmaxud zmm2, zmm6, [rax+10h]{sint8}
+vpmaxud zmm2, zmm6, [rax+20h]{uint16}
+vpmaxud zmm2, zmm6, [rax+20h]{sint16}
+vpmaxud zmm2, zmm6, [rax+40h]{eh}
+vpmaxud zmm2, zmm6, [rax+4]{eh}{1to16}
+vpmaxud zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpmaxud zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpmaxud zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpmaxud zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpmaxud zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpmaxud zmm2, zmm6, zmm3
+vpmaxud zmm10{k3}, zmm6, zmm3{cdab}
+vpmaxud zmm18, zmm6, zmm3{badc}
+vpmaxud zmm26, zmm6, zmm3{dacb}
+vpmaxud zmm2, zmm6, zmm11{aaaa}
+vpmaxud zmm2, zmm6, zmm19{bbbb}
+vpmaxud zmm2, zmm6, zmm27{cccc}
+vpmaxud zmm2, zmm6, zmm3{dddd}
+vpmaxud zmm2, zmm6, zmm3
+vpmulld zmm2, zmm6, [rax+40h]
+vpmulld zmm10, zmm6, [rax+4]{1to16}
+vpmulld zmm18, zmm6, [rax+10h]{4to16}
+vpmulld zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpmulld zmm2, zmm6, [rax+10h]{sint8}
+vpmulld zmm2, zmm6, [rax+20h]{uint16}
+vpmulld zmm2, zmm6, [rax+20h]{sint16}
+vpmulld zmm2, zmm6, [rax+40h]{eh}
+vpmulld zmm2, zmm6, [rax+4]{eh}{1to16}
+vpmulld zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpmulld zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpmulld zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpmulld zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpmulld zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpmulld zmm2, zmm6, zmm3
+vpmulld zmm10{k3}, zmm6, zmm3{cdab}
+vpmulld zmm18, zmm6, zmm3{badc}
+vpmulld zmm26, zmm6, zmm3{dacb}
+vpmulld zmm2, zmm6, zmm11{aaaa}
+vpmulld zmm2, zmm6, zmm19{bbbb}
+vpmulld zmm2, zmm6, zmm27{cccc}
+vpmulld zmm2, zmm6, zmm3{dddd}
+vpmulld zmm2, zmm6, zmm3
+vpsrlvd zmm2, zmm6, [rax+40h]
+vpsrlvd zmm10, zmm6, [rax+4]{1to16}
+vpsrlvd zmm18, zmm6, [rax+10h]{4to16}
+vpsrlvd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpsrlvd zmm2, zmm6, [rax+10h]{sint8}
+vpsrlvd zmm2, zmm6, [rax+20h]{uint16}
+vpsrlvd zmm2, zmm6, [rax+20h]{sint16}
+vpsrlvd zmm2, zmm6, [rax+40h]{eh}
+vpsrlvd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpsrlvd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpsrlvd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpsrlvd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpsrlvd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpsrlvd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpsrlvd zmm2, zmm6, zmm3
+vpsrlvd zmm10{k3}, zmm6, zmm3{cdab}
+vpsrlvd zmm18, zmm6, zmm3{badc}
+vpsrlvd zmm26, zmm6, zmm3{dacb}
+vpsrlvd zmm2, zmm6, zmm11{aaaa}
+vpsrlvd zmm2, zmm6, zmm19{bbbb}
+vpsrlvd zmm2, zmm6, zmm27{cccc}
+vpsrlvd zmm2, zmm6, zmm3{dddd}
+vpsrlvd zmm2, zmm6, zmm3
+vpsravd zmm2, zmm6, [rax+40h]
+vpsravd zmm10, zmm6, [rax+4]{1to16}
+vpsravd zmm18, zmm6, [rax+10h]{4to16}
+vpsravd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpsravd zmm2, zmm6, [rax+10h]{sint8}
+vpsravd zmm2, zmm6, [rax+20h]{uint16}
+vpsravd zmm2, zmm6, [rax+20h]{sint16}
+vpsravd zmm2, zmm6, [rax+40h]{eh}
+vpsravd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpsravd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpsravd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpsravd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpsravd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpsravd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpsravd zmm2, zmm6, zmm3
+vpsravd zmm10{k3}, zmm6, zmm3{cdab}
+vpsravd zmm18, zmm6, zmm3{badc}
+vpsravd zmm26, zmm6, zmm3{dacb}
+vpsravd zmm2, zmm6, zmm11{aaaa}
+vpsravd zmm2, zmm6, zmm19{bbbb}
+vpsravd zmm2, zmm6, zmm27{cccc}
+vpsravd zmm2, zmm6, zmm3{dddd}
+vpsravd zmm2, zmm6, zmm3
+vpsllvd zmm2, zmm6, [rax+40h]
+vpsllvd zmm10, zmm6, [rax+4]{1to16}
+vpsllvd zmm18, zmm6, [rax+10h]{4to16}
+vpsllvd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpsllvd zmm2, zmm6, [rax+10h]{sint8}
+vpsllvd zmm2, zmm6, [rax+20h]{uint16}
+vpsllvd zmm2, zmm6, [rax+20h]{sint16}
+vpsllvd zmm2, zmm6, [rax+40h]{eh}
+vpsllvd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpsllvd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpsllvd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpsllvd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpsllvd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpsllvd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpsllvd zmm2, zmm6, zmm3
+vpsllvd zmm10{k3}, zmm6, zmm3{cdab}
+vpsllvd zmm18, zmm6, zmm3{badc}
+vpsllvd zmm26, zmm6, zmm3{dacb}
+vpsllvd zmm2, zmm6, zmm11{aaaa}
+vpsllvd zmm2, zmm6, zmm19{bbbb}
+vpsllvd zmm2, zmm6, zmm27{cccc}
+vpsllvd zmm2, zmm6, zmm3{dddd}
+vpsllvd zmm2, zmm6, zmm3
+vaddnps zmm2, zmm6, [rax+40h]
+vaddnps zmm10, zmm6, [rax+4]{1to16}
+vaddnps zmm18, zmm6, [rax+10h]{4to16}
+vaddnps zmm26, zmm6, [rax+20h]{float16}
+vaddnps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vaddnps zmm2, zmm6, [rax+10h]{sint8}
+vaddnps zmm2, zmm6, [rax+20h]{uint16}
+vaddnps zmm2, zmm6, [rax+20h]{sint16}
+vaddnps zmm2, zmm6, [rax+40h]{eh}
+vaddnps zmm2, zmm6, [rax+4]{eh}{1to16}
+vaddnps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vaddnps zmm2, zmm6, [rax+20h]{eh}{float16}
+vaddnps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vaddnps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vaddnps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vaddnps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vaddnps zmm2, zmm6, zmm3
+vaddnps zmm10{k3}, zmm6, zmm3{cdab}
+vaddnps zmm18, zmm6, zmm3{badc}
+vaddnps zmm26, zmm6, zmm3{dacb}
+vaddnps zmm2, zmm6, zmm11{aaaa}
+vaddnps zmm2, zmm6, zmm19{bbbb}
+vaddnps zmm2, zmm6, zmm27{cccc}
+vaddnps zmm2, zmm6, zmm3{dddd}
+vaddnps zmm2, zmm6, zmm3 {rn}
+vaddnps zmm10, zmm6, zmm3 {rd}
+vaddnps zmm18, zmm6, zmm3 {ru}
+vaddnps zmm26, zmm6, zmm3 {rz}
+vaddnps zmm2, zmm6, zmm11 {rn-sae}
+vaddnps zmm2, zmm14, zmm19 {rd-sae}
+vaddnps zmm2, zmm22, zmm27 {ru-sae}
+vaddnps zmm2, zmm30, zmm3 {rz-sae}
+vaddnpd zmm2, zmm6, [rax+40h]
+vaddnpd zmm10, zmm6, [rax+8]{1to8}
+vaddnpd zmm18, zmm6, [rax+20h]{4to8}
+vaddnpd zmm2, zmm6, [rax+40h]{eh}
+vaddnpd zmm2, zmm6, [rax+8]{eh}{1to8}
+vaddnpd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vaddnpd zmm2, zmm6, zmm3
+vaddnpd zmm10{k3}, zmm6, zmm3{cdab}
+vaddnpd zmm18, zmm6, zmm3{badc}
+vaddnpd zmm26, zmm6, zmm3{dacb}
+vaddnpd zmm2, zmm6, zmm11{aaaa}
+vaddnpd zmm2, zmm6, zmm19{bbbb}
+vaddnpd zmm2, zmm6, zmm27{cccc}
+vaddnpd zmm2, zmm6, zmm3{dddd}
+vaddnpd zmm2, zmm6, zmm3 {rn}
+vaddnpd zmm10, zmm6, zmm3 {rd}
+vaddnpd zmm18, zmm6, zmm3 {ru}
+vaddnpd zmm26, zmm6, zmm3 {rz}
+vaddnpd zmm2, zmm6, zmm11 {rn-sae}
+vaddnpd zmm2, zmm14, zmm19 {rd-sae}
+vaddnpd zmm2, zmm22, zmm27 {ru-sae}
+vaddnpd zmm2, zmm30, zmm3 {rz-sae}
+vgmaxabsps zmm2, zmm6, [rax+40h]
+vgmaxabsps zmm10, zmm6, [rax+4]{1to16}
+vgmaxabsps zmm18, zmm6, [rax+10h]{4to16}
+vgmaxabsps zmm26, zmm6, [rax+20h]{float16}
+vgmaxabsps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vgmaxabsps zmm2, zmm6, [rax+10h]{sint8}
+vgmaxabsps zmm2, zmm6, [rax+20h]{uint16}
+vgmaxabsps zmm2, zmm6, [rax+20h]{sint16}
+vgmaxabsps zmm2, zmm6, [rax+40h]{eh}
+vgmaxabsps zmm2, zmm6, [rax+4]{eh}{1to16}
+vgmaxabsps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vgmaxabsps zmm2, zmm6, [rax+20h]{eh}{float16}
+vgmaxabsps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vgmaxabsps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vgmaxabsps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vgmaxabsps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vgmaxabsps zmm2, zmm6, zmm3
+vgmaxabsps zmm10{k3}, zmm6, zmm3{cdab}
+vgmaxabsps zmm18, zmm6, zmm3{badc}
+vgmaxabsps zmm26, zmm6, zmm3{dacb}
+vgmaxabsps zmm2, zmm6, zmm11{aaaa}
+vgmaxabsps zmm2, zmm6, zmm19{bbbb}
+vgmaxabsps zmm2, zmm6, zmm27{cccc}
+vgmaxabsps zmm2, zmm6, zmm3{dddd}
+vgmaxabsps zmm2, zmm6, zmm3
+vgmaxabsps zmm2, zmm6, zmm11 {sae}
+vgminps zmm2, zmm6, [rax+40h]
+vgminps zmm10, zmm6, [rax+4]{1to16}
+vgminps zmm18, zmm6, [rax+10h]{4to16}
+vgminps zmm26, zmm6, [rax+20h]{float16}
+vgminps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vgminps zmm2, zmm6, [rax+10h]{sint8}
+vgminps zmm2, zmm6, [rax+20h]{uint16}
+vgminps zmm2, zmm6, [rax+20h]{sint16}
+vgminps zmm2, zmm6, [rax+40h]{eh}
+vgminps zmm2, zmm6, [rax+4]{eh}{1to16}
+vgminps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vgminps zmm2, zmm6, [rax+20h]{eh}{float16}
+vgminps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vgminps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vgminps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vgminps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vgminps zmm2, zmm6, zmm3
+vgminps zmm10{k3}, zmm6, zmm3{cdab}
+vgminps zmm18, zmm6, zmm3{badc}
+vgminps zmm26, zmm6, zmm3{dacb}
+vgminps zmm2, zmm6, zmm11{aaaa}
+vgminps zmm2, zmm6, zmm19{bbbb}
+vgminps zmm2, zmm6, zmm27{cccc}
+vgminps zmm2, zmm6, zmm3{dddd}
+vgminps zmm2, zmm6, zmm3
+vgminps zmm2, zmm6, zmm11 {sae}
+vgminpd zmm2, zmm6, [rax+40h]
+vgminpd zmm10, zmm6, [rax+8]{1to8}
+vgminpd zmm18, zmm6, [rax+20h]{4to8}
+vgminpd zmm2, zmm6, [rax+40h]{eh}
+vgminpd zmm2, zmm6, [rax+8]{eh}{1to8}
+vgminpd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vgminpd zmm2, zmm6, zmm3
+vgminpd zmm10{k3}, zmm6, zmm3{cdab}
+vgminpd zmm18, zmm6, zmm3{badc}
+vgminpd zmm26, zmm6, zmm3{dacb}
+vgminpd zmm2, zmm6, zmm11{aaaa}
+vgminpd zmm2, zmm6, zmm19{bbbb}
+vgminpd zmm2, zmm6, zmm27{cccc}
+vgminpd zmm2, zmm6, zmm3{dddd}
+vgminpd zmm2, zmm6, zmm3
+vgminpd zmm2, zmm6, zmm11 {sae}
+vgmaxps zmm2, zmm6, [rax+40h]
+vgmaxps zmm10, zmm6, [rax+4]{1to16}
+vgmaxps zmm18, zmm6, [rax+10h]{4to16}
+vgmaxps zmm26, zmm6, [rax+20h]{float16}
+vgmaxps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vgmaxps zmm2, zmm6, [rax+10h]{sint8}
+vgmaxps zmm2, zmm6, [rax+20h]{uint16}
+vgmaxps zmm2, zmm6, [rax+20h]{sint16}
+vgmaxps zmm2, zmm6, [rax+40h]{eh}
+vgmaxps zmm2, zmm6, [rax+4]{eh}{1to16}
+vgmaxps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vgmaxps zmm2, zmm6, [rax+20h]{eh}{float16}
+vgmaxps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vgmaxps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vgmaxps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vgmaxps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vgmaxps zmm2, zmm6, zmm3
+vgmaxps zmm10{k3}, zmm6, zmm3{cdab}
+vgmaxps zmm18, zmm6, zmm3{badc}
+vgmaxps zmm26, zmm6, zmm3{dacb}
+vgmaxps zmm2, zmm6, zmm11{aaaa}
+vgmaxps zmm2, zmm6, zmm19{bbbb}
+vgmaxps zmm2, zmm6, zmm27{cccc}
+vgmaxps zmm2, zmm6, zmm3{dddd}
+vgmaxps zmm2, zmm6, zmm3
+vgmaxps zmm2, zmm6, zmm11 {sae}
+vgmaxpd zmm2, zmm6, [rax+40h]
+vgmaxpd zmm10, zmm6, [rax+8]{1to8}
+vgmaxpd zmm18, zmm6, [rax+20h]{4to8}
+vgmaxpd zmm2, zmm6, [rax+40h]{eh}
+vgmaxpd zmm2, zmm6, [rax+8]{eh}{1to8}
+vgmaxpd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vgmaxpd zmm2, zmm6, zmm3
+vgmaxpd zmm10{k3}, zmm6, zmm3{cdab}
+vgmaxpd zmm18, zmm6, zmm3{badc}
+vgmaxpd zmm26, zmm6, zmm3{dacb}
+vgmaxpd zmm2, zmm6, zmm11{aaaa}
+vgmaxpd zmm2, zmm6, zmm19{bbbb}
+vgmaxpd zmm2, zmm6, zmm27{cccc}
+vgmaxpd zmm2, zmm6, zmm3{dddd}
+vgmaxpd zmm2, zmm6, zmm3
+vgmaxpd zmm2, zmm6, zmm11 {sae}
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+vfixupnanps zmm2, zmm6, [rax+40h]
+vfixupnanps zmm10, zmm6, [rax+4]{1to16}
+vfixupnanps zmm18, zmm6, [rax+10h]{4to16}
+vfixupnanps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfixupnanps zmm2, zmm6, [rax+10h]{sint8}
+vfixupnanps zmm2, zmm6, [rax+20h]{uint16}
+vfixupnanps zmm2, zmm6, [rax+20h]{sint16}
+vfixupnanps zmm2, zmm6, [rax+40h]{eh}
+vfixupnanps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfixupnanps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfixupnanps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfixupnanps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfixupnanps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfixupnanps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfixupnanps zmm2, zmm6, zmm3
+vfixupnanps zmm10{k3}, zmm6, zmm3{cdab}
+vfixupnanps zmm18, zmm6, zmm3{badc}
+vfixupnanps zmm26, zmm6, zmm3{dacb}
+vfixupnanps zmm2, zmm6, zmm11{aaaa}
+vfixupnanps zmm2, zmm6, zmm19{bbbb}
+vfixupnanps zmm2, zmm6, zmm27{cccc}
+vfixupnanps zmm2, zmm6, zmm3{dddd}
+vfixupnanps zmm2, zmm6, zmm3
+vfixupnanps zmm2, zmm6, zmm11 {sae}
+vfixupnanpd zmm2, zmm6, [rax+40h]
+vfixupnanpd zmm10, zmm6, [rax+8]{1to8}
+vfixupnanpd zmm18, zmm6, [rax+20h]{4to8}
+vfixupnanpd zmm2, zmm6, [rax+40h]{eh}
+vfixupnanpd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfixupnanpd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfixupnanpd zmm2, zmm6, zmm3
+vfixupnanpd zmm10{k3}, zmm6, zmm3{cdab}
+vfixupnanpd zmm18, zmm6, zmm3{badc}
+vfixupnanpd zmm26, zmm6, zmm3{dacb}
+vfixupnanpd zmm2, zmm6, zmm11{aaaa}
+vfixupnanpd zmm2, zmm6, zmm19{bbbb}
+vfixupnanpd zmm2, zmm6, zmm27{cccc}
+vfixupnanpd zmm2, zmm6, zmm3{dddd}
+vfixupnanpd zmm2, zmm6, zmm3
+vfixupnanpd zmm2, zmm6, zmm11 {sae}
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+vpblendmd zmm2, zmm6, [rax+40h]
+vpblendmd zmm10, zmm6, [rax+4]{1to16}
+vpblendmd zmm18, zmm6, [rax+10h]{4to16}
+vpblendmd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpblendmd zmm2, zmm6, [rax+10h]{sint8}
+vpblendmd zmm2, zmm6, [rax+20h]{uint16}
+vpblendmd zmm2, zmm6, [rax+20h]{sint16}
+vpblendmd zmm2, zmm6, [rax+40h]{eh}
+vpblendmd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpblendmd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpblendmd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpblendmd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpblendmd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpblendmd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpblendmd zmm2, zmm6, zmm3
+vpblendmd zmm10{k3}, zmm6, zmm3{cdab}
+vpblendmd zmm18, zmm6, zmm3{badc}
+vpblendmd zmm26, zmm6, zmm3{dacb}
+vpblendmd zmm2, zmm6, zmm11{aaaa}
+vpblendmd zmm2, zmm6, zmm19{bbbb}
+vpblendmd zmm2, zmm6, zmm27{cccc}
+vpblendmd zmm2, zmm6, zmm3{dddd}
+vpblendmd zmm2, zmm6, zmm3
+vpblendmq zmm2, zmm6, [rax+40h]
+vpblendmq zmm10, zmm6, [rax+8]{1to8}
+vpblendmq zmm18, zmm6, [rax+20h]{4to8}
+vpblendmq zmm2, zmm6, [rax+40h]{eh}
+vpblendmq zmm2, zmm6, [rax+8]{eh}{1to8}
+vpblendmq zmm2, zmm6, [rax+20h]{eh}{4to8}
+vpblendmq zmm2, zmm6, zmm3
+vpblendmq zmm10{k3}, zmm6, zmm3{cdab}
+vpblendmq zmm18, zmm6, zmm3{badc}
+vpblendmq zmm26, zmm6, zmm3{dacb}
+vpblendmq zmm2, zmm6, zmm11{aaaa}
+vpblendmq zmm2, zmm6, zmm19{bbbb}
+vpblendmq zmm2, zmm6, zmm27{cccc}
+vpblendmq zmm2, zmm6, zmm3{dddd}
+vpblendmq zmm2, zmm6, zmm3
+vblendmps zmm2, zmm6, [rax+40h]
+vblendmps zmm10, zmm6, [rax+4]{1to16}
+vblendmps zmm18, zmm6, [rax+10h]{4to16}
+vblendmps zmm26, zmm6, [rax+20h]{float16}
+vblendmps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vblendmps zmm2, zmm6, [rax+10h]{sint8}
+vblendmps zmm2, zmm6, [rax+20h]{uint16}
+vblendmps zmm2, zmm6, [rax+20h]{sint16}
+vblendmps zmm2, zmm6, [rax+40h]{eh}
+vblendmps zmm2, zmm6, [rax+4]{eh}{1to16}
+vblendmps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vblendmps zmm2, zmm6, [rax+20h]{eh}{float16}
+vblendmps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vblendmps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vblendmps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vblendmps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vblendmps zmm2, zmm6, zmm3
+vblendmps zmm10{k3}, zmm6, zmm3{cdab}
+vblendmps zmm18, zmm6, zmm3{badc}
+vblendmps zmm26, zmm6, zmm3{dacb}
+vblendmps zmm2, zmm6, zmm11{aaaa}
+vblendmps zmm2, zmm6, zmm19{bbbb}
+vblendmps zmm2, zmm6, zmm27{cccc}
+vblendmps zmm2, zmm6, zmm3{dddd}
+vblendmps zmm2, zmm6, zmm3
+vblendmpd zmm2, zmm6, [rax+40h]
+vblendmpd zmm10, zmm6, [rax+8]{1to8}
+vblendmpd zmm18, zmm6, [rax+20h]{4to8}
+vblendmpd zmm2, zmm6, [rax+40h]{eh}
+vblendmpd zmm2, zmm6, [rax+8]{eh}{1to8}
+vblendmpd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vblendmpd zmm2, zmm6, zmm3
+vblendmpd zmm10{k3}, zmm6, zmm3{cdab}
+vblendmpd zmm18, zmm6, zmm3{badc}
+vblendmpd zmm26, zmm6, zmm3{dacb}
+vblendmpd zmm2, zmm6, zmm11{aaaa}
+vblendmpd zmm2, zmm6, zmm19{bbbb}
+vblendmpd zmm2, zmm6, zmm27{cccc}
+vblendmpd zmm2, zmm6, zmm3{dddd}
+vblendmpd zmm2, zmm6, zmm3
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+vpsubrd zmm2, zmm6, [rax+40h]
+vpsubrd zmm10, zmm6, [rax+4]{1to16}
+vpsubrd zmm18, zmm6, [rax+10h]{4to16}
+vpsubrd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpsubrd zmm2, zmm6, [rax+10h]{sint8}
+vpsubrd zmm2, zmm6, [rax+20h]{uint16}
+vpsubrd zmm2, zmm6, [rax+20h]{sint16}
+vpsubrd zmm2, zmm6, [rax+40h]{eh}
+vpsubrd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpsubrd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpsubrd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpsubrd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpsubrd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpsubrd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpsubrd zmm2, zmm6, zmm3
+vpsubrd zmm10{k3}, zmm6, zmm3{cdab}
+vpsubrd zmm18, zmm6, zmm3{badc}
+vpsubrd zmm26, zmm6, zmm3{dacb}
+vpsubrd zmm2, zmm6, zmm11{aaaa}
+vpsubrd zmm2, zmm6, zmm19{bbbb}
+vpsubrd zmm2, zmm6, zmm27{cccc}
+vpsubrd zmm2, zmm6, zmm3{dddd}
+vpsubrd zmm2, zmm6, zmm3
+vsubrps zmm2, zmm6, [rax+40h]
+vsubrps zmm10, zmm6, [rax+4]{1to16}
+vsubrps zmm18, zmm6, [rax+10h]{4to16}
+vsubrps zmm26, zmm6, [rax+20h]{float16}
+vsubrps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vsubrps zmm2, zmm6, [rax+10h]{sint8}
+vsubrps zmm2, zmm6, [rax+20h]{uint16}
+vsubrps zmm2, zmm6, [rax+20h]{sint16}
+vsubrps zmm2, zmm6, [rax+40h]{eh}
+vsubrps zmm2, zmm6, [rax+4]{eh}{1to16}
+vsubrps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vsubrps zmm2, zmm6, [rax+20h]{eh}{float16}
+vsubrps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vsubrps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vsubrps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vsubrps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vsubrps zmm2, zmm6, zmm3
+vsubrps zmm10{k3}, zmm6, zmm3{cdab}
+vsubrps zmm18, zmm6, zmm3{badc}
+vsubrps zmm26, zmm6, zmm3{dacb}
+vsubrps zmm2, zmm6, zmm11{aaaa}
+vsubrps zmm2, zmm6, zmm19{bbbb}
+vsubrps zmm2, zmm6, zmm27{cccc}
+vsubrps zmm2, zmm6, zmm3{dddd}
+vsubrps zmm2, zmm6, zmm3 {rn}
+vsubrps zmm10, zmm6, zmm3 {rd}
+vsubrps zmm18, zmm6, zmm3 {ru}
+vsubrps zmm26, zmm6, zmm3 {rz}
+vsubrps zmm2, zmm6, zmm11 {rn-sae}
+vsubrps zmm2, zmm14, zmm19 {rd-sae}
+vsubrps zmm2, zmm22, zmm27 {ru-sae}
+vsubrps zmm2, zmm30, zmm3 {rz-sae}
+vsubrpd zmm2, zmm6, [rax+40h]
+vsubrpd zmm10, zmm6, [rax+8]{1to8}
+vsubrpd zmm18, zmm6, [rax+20h]{4to8}
+vsubrpd zmm2, zmm6, [rax+40h]{eh}
+vsubrpd zmm2, zmm6, [rax+8]{eh}{1to8}
+vsubrpd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vsubrpd zmm2, zmm6, zmm3
+vsubrpd zmm10{k3}, zmm6, zmm3{cdab}
+vsubrpd zmm18, zmm6, zmm3{badc}
+vsubrpd zmm26, zmm6, zmm3{dacb}
+vsubrpd zmm2, zmm6, zmm11{aaaa}
+vsubrpd zmm2, zmm6, zmm19{bbbb}
+vsubrpd zmm2, zmm6, zmm27{cccc}
+vsubrpd zmm2, zmm6, zmm3{dddd}
+vsubrpd zmm2, zmm6, zmm3 {rn}
+vsubrpd zmm10, zmm6, zmm3 {rd}
+vsubrpd zmm18, zmm6, zmm3 {ru}
+vsubrpd zmm26, zmm6, zmm3 {rz}
+vsubrpd zmm2, zmm6, zmm11 {rn-sae}
+vsubrpd zmm2, zmm14, zmm19 {rd-sae}
+vsubrpd zmm2, zmm22, zmm27 {ru-sae}
+vsubrpd zmm2, zmm30, zmm3 {rz-sae}
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+vscaleps zmm2, zmm6, [rax+40h]
+vscaleps zmm10, zmm6, [rax+4]{1to16}
+vscaleps zmm18, zmm6, [rax+10h]{4to16}
+vscaleps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vscaleps zmm2, zmm6, [rax+10h]{sint8}
+vscaleps zmm2, zmm6, [rax+20h]{uint16}
+vscaleps zmm2, zmm6, [rax+20h]{sint16}
+vscaleps zmm2, zmm6, [rax+40h]{eh}
+vscaleps zmm2, zmm6, [rax+4]{eh}{1to16}
+vscaleps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vscaleps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vscaleps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vscaleps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vscaleps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vscaleps zmm2, zmm6, zmm3
+vscaleps zmm10{k3}, zmm6, zmm3{cdab}
+vscaleps zmm18, zmm6, zmm3{badc}
+vscaleps zmm26, zmm6, zmm3{dacb}
+vscaleps zmm2, zmm6, zmm11{aaaa}
+vscaleps zmm2, zmm6, zmm19{bbbb}
+vscaleps zmm2, zmm6, zmm27{cccc}
+vscaleps zmm2, zmm6, zmm3{dddd}
+vscaleps zmm2, zmm6, zmm3 {rn}
+vscaleps zmm10, zmm6, zmm3 {rd}
+vscaleps zmm18, zmm6, zmm3 {ru}
+vscaleps zmm26, zmm6, zmm3 {rz}
+vscaleps zmm2, zmm6, zmm11 {rn-sae}
+vscaleps zmm2, zmm14, zmm19 {rd-sae}
+vscaleps zmm2, zmm22, zmm27 {ru-sae}
+vscaleps zmm2, zmm30, zmm3 {rz-sae}
+vpmulhud zmm2, zmm6, [rax+40h]
+vpmulhud zmm10, zmm6, [rax+4]{1to16}
+vpmulhud zmm18, zmm6, [rax+10h]{4to16}
+vpmulhud zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpmulhud zmm2, zmm6, [rax+10h]{sint8}
+vpmulhud zmm2, zmm6, [rax+20h]{uint16}
+vpmulhud zmm2, zmm6, [rax+20h]{sint16}
+vpmulhud zmm2, zmm6, [rax+40h]{eh}
+vpmulhud zmm2, zmm6, [rax+4]{eh}{1to16}
+vpmulhud zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpmulhud zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpmulhud zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpmulhud zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpmulhud zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpmulhud zmm2, zmm6, zmm3
+vpmulhud zmm10{k3}, zmm6, zmm3{cdab}
+vpmulhud zmm18, zmm6, zmm3{badc}
+vpmulhud zmm26, zmm6, zmm3{dacb}
+vpmulhud zmm2, zmm6, zmm11{aaaa}
+vpmulhud zmm2, zmm6, zmm19{bbbb}
+vpmulhud zmm2, zmm6, zmm27{cccc}
+vpmulhud zmm2, zmm6, zmm3{dddd}
+vpmulhud zmm2, zmm6, zmm3
+vpmulhd zmm2, zmm6, [rax+40h]
+vpmulhd zmm10, zmm6, [rax+4]{1to16}
+vpmulhd zmm18, zmm6, [rax+10h]{4to16}
+vpmulhd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpmulhd zmm2, zmm6, [rax+10h]{sint8}
+vpmulhd zmm2, zmm6, [rax+20h]{uint16}
+vpmulhd zmm2, zmm6, [rax+20h]{sint16}
+vpmulhd zmm2, zmm6, [rax+40h]{eh}
+vpmulhd zmm2, zmm6, [rax+4]{eh}{1to16}
+vpmulhd zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpmulhd zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpmulhd zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpmulhd zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpmulhd zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpmulhd zmm2, zmm6, zmm3
+vpmulhd zmm10{k3}, zmm6, zmm3{cdab}
+vpmulhd zmm18, zmm6, zmm3{badc}
+vpmulhd zmm26, zmm6, zmm3{dacb}
+vpmulhd zmm2, zmm6, zmm11{aaaa}
+vpmulhd zmm2, zmm6, zmm19{bbbb}
+vpmulhd zmm2, zmm6, zmm27{cccc}
+vpmulhd zmm2, zmm6, zmm3{dddd}
+vpmulhd zmm2, zmm6, zmm3
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+vfmadd132ps zmm2, zmm6, [rax+40h]
+vfmadd132ps zmm10, zmm6, [rax+4]{1to16}
+vfmadd132ps zmm18, zmm6, [rax+10h]{4to16}
+vfmadd132ps zmm26, zmm6, [rax+20h]{float16}
+vfmadd132ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfmadd132ps zmm2, zmm6, [rax+10h]{sint8}
+vfmadd132ps zmm2, zmm6, [rax+20h]{uint16}
+vfmadd132ps zmm2, zmm6, [rax+20h]{sint16}
+vfmadd132ps zmm2, zmm6, [rax+40h]{eh}
+vfmadd132ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfmadd132ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfmadd132ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfmadd132ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfmadd132ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfmadd132ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfmadd132ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfmadd132ps zmm2, zmm6, zmm3
+vfmadd132ps zmm10{k3}, zmm6, zmm3{cdab}
+vfmadd132ps zmm18, zmm6, zmm3{badc}
+vfmadd132ps zmm26, zmm6, zmm3{dacb}
+vfmadd132ps zmm2, zmm6, zmm11{aaaa}
+vfmadd132ps zmm2, zmm6, zmm19{bbbb}
+vfmadd132ps zmm2, zmm6, zmm27{cccc}
+vfmadd132ps zmm2, zmm6, zmm3{dddd}
+vfmadd132ps zmm2, zmm6, zmm3 {rn}
+vfmadd132ps zmm10, zmm6, zmm3 {rd}
+vfmadd132ps zmm18, zmm6, zmm3 {ru}
+vfmadd132ps zmm26, zmm6, zmm3 {rz}
+vfmadd132ps zmm2, zmm6, zmm11 {rn-sae}
+vfmadd132ps zmm2, zmm14, zmm19 {rd-sae}
+vfmadd132ps zmm2, zmm22, zmm27 {ru-sae}
+vfmadd132ps zmm2, zmm30, zmm3 {rz-sae}
+vfmadd132pd zmm2, zmm6, [rax+40h]
+vfmadd132pd zmm10, zmm6, [rax+8]{1to8}
+vfmadd132pd zmm18, zmm6, [rax+20h]{4to8}
+vfmadd132pd zmm2, zmm6, [rax+40h]{eh}
+vfmadd132pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfmadd132pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfmadd132pd zmm2, zmm6, zmm3
+vfmadd132pd zmm10{k3}, zmm6, zmm3{cdab}
+vfmadd132pd zmm18, zmm6, zmm3{badc}
+vfmadd132pd zmm26, zmm6, zmm3{dacb}
+vfmadd132pd zmm2, zmm6, zmm11{aaaa}
+vfmadd132pd zmm2, zmm6, zmm19{bbbb}
+vfmadd132pd zmm2, zmm6, zmm27{cccc}
+vfmadd132pd zmm2, zmm6, zmm3{dddd}
+vfmadd132pd zmm2, zmm6, zmm3 {rn}
+vfmadd132pd zmm10, zmm6, zmm3 {rd}
+vfmadd132pd zmm18, zmm6, zmm3 {ru}
+vfmadd132pd zmm26, zmm6, zmm3 {rz}
+vfmadd132pd zmm2, zmm6, zmm11 {rn-sae}
+vfmadd132pd zmm2, zmm14, zmm19 {rd-sae}
+vfmadd132pd zmm2, zmm22, zmm27 {ru-sae}
+vfmadd132pd zmm2, zmm30, zmm3 {rz-sae}
+vfmsub132ps zmm2, zmm6, [rax+40h]
+vfmsub132ps zmm10, zmm6, [rax+4]{1to16}
+vfmsub132ps zmm18, zmm6, [rax+10h]{4to16}
+vfmsub132ps zmm26, zmm6, [rax+20h]{float16}
+vfmsub132ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfmsub132ps zmm2, zmm6, [rax+10h]{sint8}
+vfmsub132ps zmm2, zmm6, [rax+20h]{uint16}
+vfmsub132ps zmm2, zmm6, [rax+20h]{sint16}
+vfmsub132ps zmm2, zmm6, [rax+40h]{eh}
+vfmsub132ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfmsub132ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfmsub132ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfmsub132ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfmsub132ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfmsub132ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfmsub132ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfmsub132ps zmm2, zmm6, zmm3
+vfmsub132ps zmm10{k3}, zmm6, zmm3{cdab}
+vfmsub132ps zmm18, zmm6, zmm3{badc}
+vfmsub132ps zmm26, zmm6, zmm3{dacb}
+vfmsub132ps zmm2, zmm6, zmm11{aaaa}
+vfmsub132ps zmm2, zmm6, zmm19{bbbb}
+vfmsub132ps zmm2, zmm6, zmm27{cccc}
+vfmsub132ps zmm2, zmm6, zmm3{dddd}
+vfmsub132ps zmm2, zmm6, zmm3 {rn}
+vfmsub132ps zmm10, zmm6, zmm3 {rd}
+vfmsub132ps zmm18, zmm6, zmm3 {ru}
+vfmsub132ps zmm26, zmm6, zmm3 {rz}
+vfmsub132ps zmm2, zmm6, zmm11 {rn-sae}
+vfmsub132ps zmm2, zmm14, zmm19 {rd-sae}
+vfmsub132ps zmm2, zmm22, zmm27 {ru-sae}
+vfmsub132ps zmm2, zmm30, zmm3 {rz-sae}
+vfmsub132pd zmm2, zmm6, [rax+40h]
+vfmsub132pd zmm10, zmm6, [rax+8]{1to8}
+vfmsub132pd zmm18, zmm6, [rax+20h]{4to8}
+vfmsub132pd zmm2, zmm6, [rax+40h]{eh}
+vfmsub132pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfmsub132pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfmsub132pd zmm2, zmm6, zmm3
+vfmsub132pd zmm10{k3}, zmm6, zmm3{cdab}
+vfmsub132pd zmm18, zmm6, zmm3{badc}
+vfmsub132pd zmm26, zmm6, zmm3{dacb}
+vfmsub132pd zmm2, zmm6, zmm11{aaaa}
+vfmsub132pd zmm2, zmm6, zmm19{bbbb}
+vfmsub132pd zmm2, zmm6, zmm27{cccc}
+vfmsub132pd zmm2, zmm6, zmm3{dddd}
+vfmsub132pd zmm2, zmm6, zmm3 {rn}
+vfmsub132pd zmm10, zmm6, zmm3 {rd}
+vfmsub132pd zmm18, zmm6, zmm3 {ru}
+vfmsub132pd zmm26, zmm6, zmm3 {rz}
+vfmsub132pd zmm2, zmm6, zmm11 {rn-sae}
+vfmsub132pd zmm2, zmm14, zmm19 {rd-sae}
+vfmsub132pd zmm2, zmm22, zmm27 {ru-sae}
+vfmsub132pd zmm2, zmm30, zmm3 {rz-sae}
+vfnmadd132ps zmm2, zmm6, [rax+40h]
+vfnmadd132ps zmm10, zmm6, [rax+4]{1to16}
+vfnmadd132ps zmm18, zmm6, [rax+10h]{4to16}
+vfnmadd132ps zmm26, zmm6, [rax+20h]{float16}
+vfnmadd132ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfnmadd132ps zmm2, zmm6, [rax+10h]{sint8}
+vfnmadd132ps zmm2, zmm6, [rax+20h]{uint16}
+vfnmadd132ps zmm2, zmm6, [rax+20h]{sint16}
+vfnmadd132ps zmm2, zmm6, [rax+40h]{eh}
+vfnmadd132ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfnmadd132ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfnmadd132ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfnmadd132ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfnmadd132ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfnmadd132ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfnmadd132ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfnmadd132ps zmm2, zmm6, zmm3
+vfnmadd132ps zmm10{k3}, zmm6, zmm3{cdab}
+vfnmadd132ps zmm18, zmm6, zmm3{badc}
+vfnmadd132ps zmm26, zmm6, zmm3{dacb}
+vfnmadd132ps zmm2, zmm6, zmm11{aaaa}
+vfnmadd132ps zmm2, zmm6, zmm19{bbbb}
+vfnmadd132ps zmm2, zmm6, zmm27{cccc}
+vfnmadd132ps zmm2, zmm6, zmm3{dddd}
+vfnmadd132ps zmm2, zmm6, zmm3 {rn}
+vfnmadd132ps zmm10, zmm6, zmm3 {rd}
+vfnmadd132ps zmm18, zmm6, zmm3 {ru}
+vfnmadd132ps zmm26, zmm6, zmm3 {rz}
+vfnmadd132ps zmm2, zmm6, zmm11 {rn-sae}
+vfnmadd132ps zmm2, zmm14, zmm19 {rd-sae}
+vfnmadd132ps zmm2, zmm22, zmm27 {ru-sae}
+vfnmadd132ps zmm2, zmm30, zmm3 {rz-sae}
+vfnmadd132pd zmm2, zmm6, [rax+40h]
+vfnmadd132pd zmm10, zmm6, [rax+8]{1to8}
+vfnmadd132pd zmm18, zmm6, [rax+20h]{4to8}
+vfnmadd132pd zmm2, zmm6, [rax+40h]{eh}
+vfnmadd132pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfnmadd132pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfnmadd132pd zmm2, zmm6, zmm3
+vfnmadd132pd zmm10{k3}, zmm6, zmm3{cdab}
+vfnmadd132pd zmm18, zmm6, zmm3{badc}
+vfnmadd132pd zmm26, zmm6, zmm3{dacb}
+vfnmadd132pd zmm2, zmm6, zmm11{aaaa}
+vfnmadd132pd zmm2, zmm6, zmm19{bbbb}
+vfnmadd132pd zmm2, zmm6, zmm27{cccc}
+vfnmadd132pd zmm2, zmm6, zmm3{dddd}
+vfnmadd132pd zmm2, zmm6, zmm3 {rn}
+vfnmadd132pd zmm10, zmm6, zmm3 {rd}
+vfnmadd132pd zmm18, zmm6, zmm3 {ru}
+vfnmadd132pd zmm26, zmm6, zmm3 {rz}
+vfnmadd132pd zmm2, zmm6, zmm11 {rn-sae}
+vfnmadd132pd zmm2, zmm14, zmm19 {rd-sae}
+vfnmadd132pd zmm2, zmm22, zmm27 {ru-sae}
+vfnmadd132pd zmm2, zmm30, zmm3 {rz-sae}
+vfnmsub132ps zmm2, zmm6, [rax+40h]
+vfnmsub132ps zmm10, zmm6, [rax+4]{1to16}
+vfnmsub132ps zmm18, zmm6, [rax+10h]{4to16}
+vfnmsub132ps zmm26, zmm6, [rax+20h]{float16}
+vfnmsub132ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfnmsub132ps zmm2, zmm6, [rax+10h]{sint8}
+vfnmsub132ps zmm2, zmm6, [rax+20h]{uint16}
+vfnmsub132ps zmm2, zmm6, [rax+20h]{sint16}
+vfnmsub132ps zmm2, zmm6, [rax+40h]{eh}
+vfnmsub132ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfnmsub132ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfnmsub132ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfnmsub132ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfnmsub132ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfnmsub132ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfnmsub132ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfnmsub132ps zmm2, zmm6, zmm3
+vfnmsub132ps zmm10{k3}, zmm6, zmm3{cdab}
+vfnmsub132ps zmm18, zmm6, zmm3{badc}
+vfnmsub132ps zmm26, zmm6, zmm3{dacb}
+vfnmsub132ps zmm2, zmm6, zmm11{aaaa}
+vfnmsub132ps zmm2, zmm6, zmm19{bbbb}
+vfnmsub132ps zmm2, zmm6, zmm27{cccc}
+vfnmsub132ps zmm2, zmm6, zmm3{dddd}
+vfnmsub132ps zmm2, zmm6, zmm3 {rn}
+vfnmsub132ps zmm10, zmm6, zmm3 {rd}
+vfnmsub132ps zmm18, zmm6, zmm3 {ru}
+vfnmsub132ps zmm26, zmm6, zmm3 {rz}
+vfnmsub132ps zmm2, zmm6, zmm11 {rn-sae}
+vfnmsub132ps zmm2, zmm14, zmm19 {rd-sae}
+vfnmsub132ps zmm2, zmm22, zmm27 {ru-sae}
+vfnmsub132ps zmm2, zmm30, zmm3 {rz-sae}
+vfnmsub132pd zmm2, zmm6, [rax+40h]
+vfnmsub132pd zmm10, zmm6, [rax+8]{1to8}
+vfnmsub132pd zmm18, zmm6, [rax+20h]{4to8}
+vfnmsub132pd zmm2, zmm6, [rax+40h]{eh}
+vfnmsub132pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfnmsub132pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfnmsub132pd zmm2, zmm6, zmm3
+vfnmsub132pd zmm10{k3}, zmm6, zmm3{cdab}
+vfnmsub132pd zmm18, zmm6, zmm3{badc}
+vfnmsub132pd zmm26, zmm6, zmm3{dacb}
+vfnmsub132pd zmm2, zmm6, zmm11{aaaa}
+vfnmsub132pd zmm2, zmm6, zmm19{bbbb}
+vfnmsub132pd zmm2, zmm6, zmm27{cccc}
+vfnmsub132pd zmm2, zmm6, zmm3{dddd}
+vfnmsub132pd zmm2, zmm6, zmm3 {rn}
+vfnmsub132pd zmm10, zmm6, zmm3 {rd}
+vfnmsub132pd zmm18, zmm6, zmm3 {ru}
+vfnmsub132pd zmm26, zmm6, zmm3 {rz}
+vfnmsub132pd zmm2, zmm6, zmm11 {rn-sae}
+vfnmsub132pd zmm2, zmm14, zmm19 {rd-sae}
+vfnmsub132pd zmm2, zmm22, zmm27 {ru-sae}
+vfnmsub132pd zmm2, zmm30, zmm3 {rz-sae}
+vfmadd233ps zmm2{k5}, zmm6, [rax+40h]
+vfmadd233ps zmm18, zmm6, [rax+10h]{4to16}
+vfmadd233ps zmm2, zmm6, [rax+40h]{eh}
+vfmadd233ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfmadd233ps zmm2, zmm6, zmm3
+vfmadd233ps zmm2, zmm6, zmm3 {rn}
+vfmadd233ps zmm10, zmm6, zmm3 {rd}
+vfmadd233ps zmm18, zmm6, zmm3 {ru}
+vfmadd233ps zmm26, zmm6, zmm3 {rz}
+vfmadd233ps zmm2, zmm6, zmm11 {rn-sae}
+vfmadd233ps zmm2, zmm14, zmm19 {rd-sae}
+vfmadd233ps zmm2, zmm22, zmm27 {ru-sae}
+vfmadd233ps zmm2, zmm30, zmm3 {rz-sae}
+vfmadd213ps zmm2, zmm6, [rax+40h]
+vfmadd213ps zmm10, zmm6, [rax+4]{1to16}
+vfmadd213ps zmm18, zmm6, [rax+10h]{4to16}
+vfmadd213ps zmm26, zmm6, [rax+20h]{float16}
+vfmadd213ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfmadd213ps zmm2, zmm6, [rax+10h]{sint8}
+vfmadd213ps zmm2, zmm6, [rax+20h]{uint16}
+vfmadd213ps zmm2, zmm6, [rax+20h]{sint16}
+vfmadd213ps zmm2, zmm6, [rax+40h]{eh}
+vfmadd213ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfmadd213ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfmadd213ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfmadd213ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfmadd213ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfmadd213ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfmadd213ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfmadd213ps zmm2, zmm6, zmm3
+vfmadd213ps zmm10{k3}, zmm6, zmm3{cdab}
+vfmadd213ps zmm18, zmm6, zmm3{badc}
+vfmadd213ps zmm26, zmm6, zmm3{dacb}
+vfmadd213ps zmm2, zmm6, zmm11{aaaa}
+vfmadd213ps zmm2, zmm6, zmm19{bbbb}
+vfmadd213ps zmm2, zmm6, zmm27{cccc}
+vfmadd213ps zmm2, zmm6, zmm3{dddd}
+vfmadd213ps zmm2, zmm6, zmm3 {rn}
+vfmadd213ps zmm10, zmm6, zmm3 {rd}
+vfmadd213ps zmm18, zmm6, zmm3 {ru}
+vfmadd213ps zmm26, zmm6, zmm3 {rz}
+vfmadd213ps zmm2, zmm6, zmm11 {rn-sae}
+vfmadd213ps zmm2, zmm14, zmm19 {rd-sae}
+vfmadd213ps zmm2, zmm22, zmm27 {ru-sae}
+vfmadd213ps zmm2, zmm30, zmm3 {rz-sae}
+vfmadd213pd zmm2, zmm6, [rax+40h]
+vfmadd213pd zmm10, zmm6, [rax+8]{1to8}
+vfmadd213pd zmm18, zmm6, [rax+20h]{4to8}
+vfmadd213pd zmm2, zmm6, [rax+40h]{eh}
+vfmadd213pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfmadd213pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfmadd213pd zmm2, zmm6, zmm3
+vfmadd213pd zmm10{k3}, zmm6, zmm3{cdab}
+vfmadd213pd zmm18, zmm6, zmm3{badc}
+vfmadd213pd zmm26, zmm6, zmm3{dacb}
+vfmadd213pd zmm2, zmm6, zmm11{aaaa}
+vfmadd213pd zmm2, zmm6, zmm19{bbbb}
+vfmadd213pd zmm2, zmm6, zmm27{cccc}
+vfmadd213pd zmm2, zmm6, zmm3{dddd}
+vfmadd213pd zmm2, zmm6, zmm3 {rn}
+vfmadd213pd zmm10, zmm6, zmm3 {rd}
+vfmadd213pd zmm18, zmm6, zmm3 {ru}
+vfmadd213pd zmm26, zmm6, zmm3 {rz}
+vfmadd213pd zmm2, zmm6, zmm11 {rn-sae}
+vfmadd213pd zmm2, zmm14, zmm19 {rd-sae}
+vfmadd213pd zmm2, zmm22, zmm27 {ru-sae}
+vfmadd213pd zmm2, zmm30, zmm3 {rz-sae}
+vfmsub213ps zmm2, zmm6, [rax+40h]
+vfmsub213ps zmm10, zmm6, [rax+4]{1to16}
+vfmsub213ps zmm18, zmm6, [rax+10h]{4to16}
+vfmsub213ps zmm26, zmm6, [rax+20h]{float16}
+vfmsub213ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfmsub213ps zmm2, zmm6, [rax+10h]{sint8}
+vfmsub213ps zmm2, zmm6, [rax+20h]{uint16}
+vfmsub213ps zmm2, zmm6, [rax+20h]{sint16}
+vfmsub213ps zmm2, zmm6, [rax+40h]{eh}
+vfmsub213ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfmsub213ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfmsub213ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfmsub213ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfmsub213ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfmsub213ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfmsub213ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfmsub213ps zmm2, zmm6, zmm3
+vfmsub213ps zmm10{k3}, zmm6, zmm3{cdab}
+vfmsub213ps zmm18, zmm6, zmm3{badc}
+vfmsub213ps zmm26, zmm6, zmm3{dacb}
+vfmsub213ps zmm2, zmm6, zmm11{aaaa}
+vfmsub213ps zmm2, zmm6, zmm19{bbbb}
+vfmsub213ps zmm2, zmm6, zmm27{cccc}
+vfmsub213ps zmm2, zmm6, zmm3{dddd}
+vfmsub213ps zmm2, zmm6, zmm3 {rn}
+vfmsub213ps zmm10, zmm6, zmm3 {rd}
+vfmsub213ps zmm18, zmm6, zmm3 {ru}
+vfmsub213ps zmm26, zmm6, zmm3 {rz}
+vfmsub213ps zmm2, zmm6, zmm11 {rn-sae}
+vfmsub213ps zmm2, zmm14, zmm19 {rd-sae}
+vfmsub213ps zmm2, zmm22, zmm27 {ru-sae}
+vfmsub213ps zmm2, zmm30, zmm3 {rz-sae}
+vfmsub213pd zmm2, zmm6, [rax+40h]
+vfmsub213pd zmm10, zmm6, [rax+8]{1to8}
+vfmsub213pd zmm18, zmm6, [rax+20h]{4to8}
+vfmsub213pd zmm2, zmm6, [rax+40h]{eh}
+vfmsub213pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfmsub213pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfmsub213pd zmm2, zmm6, zmm3
+vfmsub213pd zmm10{k3}, zmm6, zmm3{cdab}
+vfmsub213pd zmm18, zmm6, zmm3{badc}
+vfmsub213pd zmm26, zmm6, zmm3{dacb}
+vfmsub213pd zmm2, zmm6, zmm11{aaaa}
+vfmsub213pd zmm2, zmm6, zmm19{bbbb}
+vfmsub213pd zmm2, zmm6, zmm27{cccc}
+vfmsub213pd zmm2, zmm6, zmm3{dddd}
+vfmsub213pd zmm2, zmm6, zmm3 {rn}
+vfmsub213pd zmm10, zmm6, zmm3 {rd}
+vfmsub213pd zmm18, zmm6, zmm3 {ru}
+vfmsub213pd zmm26, zmm6, zmm3 {rz}
+vfmsub213pd zmm2, zmm6, zmm11 {rn-sae}
+vfmsub213pd zmm2, zmm14, zmm19 {rd-sae}
+vfmsub213pd zmm2, zmm22, zmm27 {ru-sae}
+vfmsub213pd zmm2, zmm30, zmm3 {rz-sae}
+vfnmadd213ps zmm2, zmm6, [rax+40h]
+vfnmadd213ps zmm10, zmm6, [rax+4]{1to16}
+vfnmadd213ps zmm18, zmm6, [rax+10h]{4to16}
+vfnmadd213ps zmm26, zmm6, [rax+20h]{float16}
+vfnmadd213ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfnmadd213ps zmm2, zmm6, [rax+10h]{sint8}
+vfnmadd213ps zmm2, zmm6, [rax+20h]{uint16}
+vfnmadd213ps zmm2, zmm6, [rax+20h]{sint16}
+vfnmadd213ps zmm2, zmm6, [rax+40h]{eh}
+vfnmadd213ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfnmadd213ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfnmadd213ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfnmadd213ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfnmadd213ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfnmadd213ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfnmadd213ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfnmadd213ps zmm2, zmm6, zmm3
+vfnmadd213ps zmm10{k3}, zmm6, zmm3{cdab}
+vfnmadd213ps zmm18, zmm6, zmm3{badc}
+vfnmadd213ps zmm26, zmm6, zmm3{dacb}
+vfnmadd213ps zmm2, zmm6, zmm11{aaaa}
+vfnmadd213ps zmm2, zmm6, zmm19{bbbb}
+vfnmadd213ps zmm2, zmm6, zmm27{cccc}
+vfnmadd213ps zmm2, zmm6, zmm3{dddd}
+vfnmadd213ps zmm2, zmm6, zmm3 {rn}
+vfnmadd213ps zmm10, zmm6, zmm3 {rd}
+vfnmadd213ps zmm18, zmm6, zmm3 {ru}
+vfnmadd213ps zmm26, zmm6, zmm3 {rz}
+vfnmadd213ps zmm2, zmm6, zmm11 {rn-sae}
+vfnmadd213ps zmm2, zmm14, zmm19 {rd-sae}
+vfnmadd213ps zmm2, zmm22, zmm27 {ru-sae}
+vfnmadd213ps zmm2, zmm30, zmm3 {rz-sae}
+vfnmadd213pd zmm2, zmm6, [rax+40h]
+vfnmadd213pd zmm10, zmm6, [rax+8]{1to8}
+vfnmadd213pd zmm18, zmm6, [rax+20h]{4to8}
+vfnmadd213pd zmm2, zmm6, [rax+40h]{eh}
+vfnmadd213pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfnmadd213pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfnmadd213pd zmm2, zmm6, zmm3
+vfnmadd213pd zmm10{k3}, zmm6, zmm3{cdab}
+vfnmadd213pd zmm18, zmm6, zmm3{badc}
+vfnmadd213pd zmm26, zmm6, zmm3{dacb}
+vfnmadd213pd zmm2, zmm6, zmm11{aaaa}
+vfnmadd213pd zmm2, zmm6, zmm19{bbbb}
+vfnmadd213pd zmm2, zmm6, zmm27{cccc}
+vfnmadd213pd zmm2, zmm6, zmm3{dddd}
+vfnmadd213pd zmm2, zmm6, zmm3 {rn}
+vfnmadd213pd zmm10, zmm6, zmm3 {rd}
+vfnmadd213pd zmm18, zmm6, zmm3 {ru}
+vfnmadd213pd zmm26, zmm6, zmm3 {rz}
+vfnmadd213pd zmm2, zmm6, zmm11 {rn-sae}
+vfnmadd213pd zmm2, zmm14, zmm19 {rd-sae}
+vfnmadd213pd zmm2, zmm22, zmm27 {ru-sae}
+vfnmadd213pd zmm2, zmm30, zmm3 {rz-sae}
+vfnmsub213ps zmm2, zmm6, [rax+40h]
+vfnmsub213ps zmm10, zmm6, [rax+4]{1to16}
+vfnmsub213ps zmm18, zmm6, [rax+10h]{4to16}
+vfnmsub213ps zmm26, zmm6, [rax+20h]{float16}
+vfnmsub213ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfnmsub213ps zmm2, zmm6, [rax+10h]{sint8}
+vfnmsub213ps zmm2, zmm6, [rax+20h]{uint16}
+vfnmsub213ps zmm2, zmm6, [rax+20h]{sint16}
+vfnmsub213ps zmm2, zmm6, [rax+40h]{eh}
+vfnmsub213ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfnmsub213ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfnmsub213ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfnmsub213ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfnmsub213ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfnmsub213ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfnmsub213ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfnmsub213ps zmm2, zmm6, zmm3
+vfnmsub213ps zmm10{k3}, zmm6, zmm3{cdab}
+vfnmsub213ps zmm18, zmm6, zmm3{badc}
+vfnmsub213ps zmm26, zmm6, zmm3{dacb}
+vfnmsub213ps zmm2, zmm6, zmm11{aaaa}
+vfnmsub213ps zmm2, zmm6, zmm19{bbbb}
+vfnmsub213ps zmm2, zmm6, zmm27{cccc}
+vfnmsub213ps zmm2, zmm6, zmm3{dddd}
+vfnmsub213ps zmm2, zmm6, zmm3 {rn}
+vfnmsub213ps zmm10, zmm6, zmm3 {rd}
+vfnmsub213ps zmm18, zmm6, zmm3 {ru}
+vfnmsub213ps zmm26, zmm6, zmm3 {rz}
+vfnmsub213ps zmm2, zmm6, zmm11 {rn-sae}
+vfnmsub213ps zmm2, zmm14, zmm19 {rd-sae}
+vfnmsub213ps zmm2, zmm22, zmm27 {ru-sae}
+vfnmsub213ps zmm2, zmm30, zmm3 {rz-sae}
+vfnmsub213pd zmm2, zmm6, [rax+40h]
+vfnmsub213pd zmm10, zmm6, [rax+8]{1to8}
+vfnmsub213pd zmm18, zmm6, [rax+20h]{4to8}
+vfnmsub213pd zmm2, zmm6, [rax+40h]{eh}
+vfnmsub213pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfnmsub213pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfnmsub213pd zmm2, zmm6, zmm3
+vfnmsub213pd zmm10{k3}, zmm6, zmm3{cdab}
+vfnmsub213pd zmm18, zmm6, zmm3{badc}
+vfnmsub213pd zmm26, zmm6, zmm3{dacb}
+vfnmsub213pd zmm2, zmm6, zmm11{aaaa}
+vfnmsub213pd zmm2, zmm6, zmm19{bbbb}
+vfnmsub213pd zmm2, zmm6, zmm27{cccc}
+vfnmsub213pd zmm2, zmm6, zmm3{dddd}
+vfnmsub213pd zmm2, zmm6, zmm3 {rn}
+vfnmsub213pd zmm10, zmm6, zmm3 {rd}
+vfnmsub213pd zmm18, zmm6, zmm3 {ru}
+vfnmsub213pd zmm26, zmm6, zmm3 {rz}
+vfnmsub213pd zmm2, zmm6, zmm11 {rn-sae}
+vfnmsub213pd zmm2, zmm14, zmm19 {rd-sae}
+vfnmsub213pd zmm2, zmm22, zmm27 {ru-sae}
+vfnmsub213pd zmm2, zmm30, zmm3 {rz-sae}
+vpmadd233d zmm2{k5}, zmm6, [rax+40h]
+vpmadd233d zmm18, zmm6, [rax+10h]{4to16}
+vpmadd233d zmm2, zmm6, [rax+40h]{eh}
+vpmadd233d zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpmadd233d zmm2, zmm6, zmm3
+vpmadd233d zmm2, zmm6, zmm3
+vpmadd231d zmm2, zmm6, [rax+40h]
+vpmadd231d zmm10, zmm6, [rax+4]{1to16}
+vpmadd231d zmm18, zmm6, [rax+10h]{4to16}
+vpmadd231d zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpmadd231d zmm2, zmm6, [rax+10h]{sint8}
+vpmadd231d zmm2, zmm6, [rax+20h]{uint16}
+vpmadd231d zmm2, zmm6, [rax+20h]{sint16}
+vpmadd231d zmm2, zmm6, [rax+40h]{eh}
+vpmadd231d zmm2, zmm6, [rax+4]{eh}{1to16}
+vpmadd231d zmm2, zmm6, [rax+10h]{eh}{4to16}
+vpmadd231d zmm2, zmm6, [rax+10h]{eh}{uint8}
+vpmadd231d zmm2, zmm14, [rax+10h]{eh}{sint8}
+vpmadd231d zmm2, zmm22, [rax+20h]{eh}{uint16}
+vpmadd231d zmm2, zmm30, [rax+20h]{eh}{sint16}
+vpmadd231d zmm2, zmm6, zmm3
+vpmadd231d zmm10{k3}, zmm6, zmm3{cdab}
+vpmadd231d zmm18, zmm6, zmm3{badc}
+vpmadd231d zmm26, zmm6, zmm3{dacb}
+vpmadd231d zmm2, zmm6, zmm11{aaaa}
+vpmadd231d zmm2, zmm6, zmm19{bbbb}
+vpmadd231d zmm2, zmm6, zmm27{cccc}
+vpmadd231d zmm2, zmm6, zmm3{dddd}
+vpmadd231d zmm2, zmm6, zmm3
+vfmadd231ps zmm2, zmm6, [rax+40h]
+vfmadd231ps zmm10, zmm6, [rax+4]{1to16}
+vfmadd231ps zmm18, zmm6, [rax+10h]{4to16}
+vfmadd231ps zmm26, zmm6, [rax+20h]{float16}
+vfmadd231ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfmadd231ps zmm2, zmm6, [rax+10h]{sint8}
+vfmadd231ps zmm2, zmm6, [rax+20h]{uint16}
+vfmadd231ps zmm2, zmm6, [rax+20h]{sint16}
+vfmadd231ps zmm2, zmm6, [rax+40h]{eh}
+vfmadd231ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfmadd231ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfmadd231ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfmadd231ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfmadd231ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfmadd231ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfmadd231ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfmadd231ps zmm2, zmm6, zmm3
+vfmadd231ps zmm10{k3}, zmm6, zmm3{cdab}
+vfmadd231ps zmm18, zmm6, zmm3{badc}
+vfmadd231ps zmm26, zmm6, zmm3{dacb}
+vfmadd231ps zmm2, zmm6, zmm11{aaaa}
+vfmadd231ps zmm2, zmm6, zmm19{bbbb}
+vfmadd231ps zmm2, zmm6, zmm27{cccc}
+vfmadd231ps zmm2, zmm6, zmm3{dddd}
+vfmadd231ps zmm2, zmm6, zmm3 {rn}
+vfmadd231ps zmm10, zmm6, zmm3 {rd}
+vfmadd231ps zmm18, zmm6, zmm3 {ru}
+vfmadd231ps zmm26, zmm6, zmm3 {rz}
+vfmadd231ps zmm2, zmm6, zmm11 {rn-sae}
+vfmadd231ps zmm2, zmm14, zmm19 {rd-sae}
+vfmadd231ps zmm2, zmm22, zmm27 {ru-sae}
+vfmadd231ps zmm2, zmm30, zmm3 {rz-sae}
+vfmadd231pd zmm2, zmm6, [rax+40h]
+vfmadd231pd zmm10, zmm6, [rax+8]{1to8}
+vfmadd231pd zmm18, zmm6, [rax+20h]{4to8}
+vfmadd231pd zmm2, zmm6, [rax+40h]{eh}
+vfmadd231pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfmadd231pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfmadd231pd zmm2, zmm6, zmm3
+vfmadd231pd zmm10{k3}, zmm6, zmm3{cdab}
+vfmadd231pd zmm18, zmm6, zmm3{badc}
+vfmadd231pd zmm26, zmm6, zmm3{dacb}
+vfmadd231pd zmm2, zmm6, zmm11{aaaa}
+vfmadd231pd zmm2, zmm6, zmm19{bbbb}
+vfmadd231pd zmm2, zmm6, zmm27{cccc}
+vfmadd231pd zmm2, zmm6, zmm3{dddd}
+vfmadd231pd zmm2, zmm6, zmm3 {rn}
+vfmadd231pd zmm10, zmm6, zmm3 {rd}
+vfmadd231pd zmm18, zmm6, zmm3 {ru}
+vfmadd231pd zmm26, zmm6, zmm3 {rz}
+vfmadd231pd zmm2, zmm6, zmm11 {rn-sae}
+vfmadd231pd zmm2, zmm14, zmm19 {rd-sae}
+vfmadd231pd zmm2, zmm22, zmm27 {ru-sae}
+vfmadd231pd zmm2, zmm30, zmm3 {rz-sae}
+vfmsub231ps zmm2, zmm6, [rax+40h]
+vfmsub231ps zmm10, zmm6, [rax+4]{1to16}
+vfmsub231ps zmm18, zmm6, [rax+10h]{4to16}
+vfmsub231ps zmm26, zmm6, [rax+20h]{float16}
+vfmsub231ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfmsub231ps zmm2, zmm6, [rax+10h]{sint8}
+vfmsub231ps zmm2, zmm6, [rax+20h]{uint16}
+vfmsub231ps zmm2, zmm6, [rax+20h]{sint16}
+vfmsub231ps zmm2, zmm6, [rax+40h]{eh}
+vfmsub231ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfmsub231ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfmsub231ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfmsub231ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfmsub231ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfmsub231ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfmsub231ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfmsub231ps zmm2, zmm6, zmm3
+vfmsub231ps zmm10{k3}, zmm6, zmm3{cdab}
+vfmsub231ps zmm18, zmm6, zmm3{badc}
+vfmsub231ps zmm26, zmm6, zmm3{dacb}
+vfmsub231ps zmm2, zmm6, zmm11{aaaa}
+vfmsub231ps zmm2, zmm6, zmm19{bbbb}
+vfmsub231ps zmm2, zmm6, zmm27{cccc}
+vfmsub231ps zmm2, zmm6, zmm3{dddd}
+vfmsub231ps zmm2, zmm6, zmm3 {rn}
+vfmsub231ps zmm10, zmm6, zmm3 {rd}
+vfmsub231ps zmm18, zmm6, zmm3 {ru}
+vfmsub231ps zmm26, zmm6, zmm3 {rz}
+vfmsub231ps zmm2, zmm6, zmm11 {rn-sae}
+vfmsub231ps zmm2, zmm14, zmm19 {rd-sae}
+vfmsub231ps zmm2, zmm22, zmm27 {ru-sae}
+vfmsub231ps zmm2, zmm30, zmm3 {rz-sae}
+vfmsub231pd zmm2, zmm6, [rax+40h]
+vfmsub231pd zmm10, zmm6, [rax+8]{1to8}
+vfmsub231pd zmm18, zmm6, [rax+20h]{4to8}
+vfmsub231pd zmm2, zmm6, [rax+40h]{eh}
+vfmsub231pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfmsub231pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfmsub231pd zmm2, zmm6, zmm3
+vfmsub231pd zmm10{k3}, zmm6, zmm3{cdab}
+vfmsub231pd zmm18, zmm6, zmm3{badc}
+vfmsub231pd zmm26, zmm6, zmm3{dacb}
+vfmsub231pd zmm2, zmm6, zmm11{aaaa}
+vfmsub231pd zmm2, zmm6, zmm19{bbbb}
+vfmsub231pd zmm2, zmm6, zmm27{cccc}
+vfmsub231pd zmm2, zmm6, zmm3{dddd}
+vfmsub231pd zmm2, zmm6, zmm3 {rn}
+vfmsub231pd zmm10, zmm6, zmm3 {rd}
+vfmsub231pd zmm18, zmm6, zmm3 {ru}
+vfmsub231pd zmm26, zmm6, zmm3 {rz}
+vfmsub231pd zmm2, zmm6, zmm11 {rn-sae}
+vfmsub231pd zmm2, zmm14, zmm19 {rd-sae}
+vfmsub231pd zmm2, zmm22, zmm27 {ru-sae}
+vfmsub231pd zmm2, zmm30, zmm3 {rz-sae}
+vfnmadd231ps zmm2, zmm6, [rax+40h]
+vfnmadd231ps zmm10, zmm6, [rax+4]{1to16}
+vfnmadd231ps zmm18, zmm6, [rax+10h]{4to16}
+vfnmadd231ps zmm26, zmm6, [rax+20h]{float16}
+vfnmadd231ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfnmadd231ps zmm2, zmm6, [rax+10h]{sint8}
+vfnmadd231ps zmm2, zmm6, [rax+20h]{uint16}
+vfnmadd231ps zmm2, zmm6, [rax+20h]{sint16}
+vfnmadd231ps zmm2, zmm6, [rax+40h]{eh}
+vfnmadd231ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfnmadd231ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfnmadd231ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfnmadd231ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfnmadd231ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfnmadd231ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfnmadd231ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfnmadd231ps zmm2, zmm6, zmm3
+vfnmadd231ps zmm10{k3}, zmm6, zmm3{cdab}
+vfnmadd231ps zmm18, zmm6, zmm3{badc}
+vfnmadd231ps zmm26, zmm6, zmm3{dacb}
+vfnmadd231ps zmm2, zmm6, zmm11{aaaa}
+vfnmadd231ps zmm2, zmm6, zmm19{bbbb}
+vfnmadd231ps zmm2, zmm6, zmm27{cccc}
+vfnmadd231ps zmm2, zmm6, zmm3{dddd}
+vfnmadd231ps zmm2, zmm6, zmm3 {rn}
+vfnmadd231ps zmm10, zmm6, zmm3 {rd}
+vfnmadd231ps zmm18, zmm6, zmm3 {ru}
+vfnmadd231ps zmm26, zmm6, zmm3 {rz}
+vfnmadd231ps zmm2, zmm6, zmm11 {rn-sae}
+vfnmadd231ps zmm2, zmm14, zmm19 {rd-sae}
+vfnmadd231ps zmm2, zmm22, zmm27 {ru-sae}
+vfnmadd231ps zmm2, zmm30, zmm3 {rz-sae}
+vfnmadd231pd zmm2, zmm6, [rax+40h]
+vfnmadd231pd zmm10, zmm6, [rax+8]{1to8}
+vfnmadd231pd zmm18, zmm6, [rax+20h]{4to8}
+vfnmadd231pd zmm2, zmm6, [rax+40h]{eh}
+vfnmadd231pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfnmadd231pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfnmadd231pd zmm2, zmm6, zmm3
+vfnmadd231pd zmm10{k3}, zmm6, zmm3{cdab}
+vfnmadd231pd zmm18, zmm6, zmm3{badc}
+vfnmadd231pd zmm26, zmm6, zmm3{dacb}
+vfnmadd231pd zmm2, zmm6, zmm11{aaaa}
+vfnmadd231pd zmm2, zmm6, zmm19{bbbb}
+vfnmadd231pd zmm2, zmm6, zmm27{cccc}
+vfnmadd231pd zmm2, zmm6, zmm3{dddd}
+vfnmadd231pd zmm2, zmm6, zmm3 {rn}
+vfnmadd231pd zmm10, zmm6, zmm3 {rd}
+vfnmadd231pd zmm18, zmm6, zmm3 {ru}
+vfnmadd231pd zmm26, zmm6, zmm3 {rz}
+vfnmadd231pd zmm2, zmm6, zmm11 {rn-sae}
+vfnmadd231pd zmm2, zmm14, zmm19 {rd-sae}
+vfnmadd231pd zmm2, zmm22, zmm27 {ru-sae}
+vfnmadd231pd zmm2, zmm30, zmm3 {rz-sae}
+vfnmsub231ps zmm2, zmm6, [rax+40h]
+vfnmsub231ps zmm10, zmm6, [rax+4]{1to16}
+vfnmsub231ps zmm18, zmm6, [rax+10h]{4to16}
+vfnmsub231ps zmm26, zmm6, [rax+20h]{float16}
+vfnmsub231ps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vfnmsub231ps zmm2, zmm6, [rax+10h]{sint8}
+vfnmsub231ps zmm2, zmm6, [rax+20h]{uint16}
+vfnmsub231ps zmm2, zmm6, [rax+20h]{sint16}
+vfnmsub231ps zmm2, zmm6, [rax+40h]{eh}
+vfnmsub231ps zmm2, zmm6, [rax+4]{eh}{1to16}
+vfnmsub231ps zmm2, zmm6, [rax+10h]{eh}{4to16}
+vfnmsub231ps zmm2, zmm6, [rax+20h]{eh}{float16}
+vfnmsub231ps zmm2, zmm6, [rax+10h]{eh}{uint8}
+vfnmsub231ps zmm2, zmm14, [rax+10h]{eh}{sint8}
+vfnmsub231ps zmm2, zmm22, [rax+20h]{eh}{uint16}
+vfnmsub231ps zmm2, zmm30, [rax+20h]{eh}{sint16}
+vfnmsub231ps zmm2, zmm6, zmm3
+vfnmsub231ps zmm10{k3}, zmm6, zmm3{cdab}
+vfnmsub231ps zmm18, zmm6, zmm3{badc}
+vfnmsub231ps zmm26, zmm6, zmm3{dacb}
+vfnmsub231ps zmm2, zmm6, zmm11{aaaa}
+vfnmsub231ps zmm2, zmm6, zmm19{bbbb}
+vfnmsub231ps zmm2, zmm6, zmm27{cccc}
+vfnmsub231ps zmm2, zmm6, zmm3{dddd}
+vfnmsub231ps zmm2, zmm6, zmm3 {rn}
+vfnmsub231ps zmm10, zmm6, zmm3 {rd}
+vfnmsub231ps zmm18, zmm6, zmm3 {ru}
+vfnmsub231ps zmm26, zmm6, zmm3 {rz}
+vfnmsub231ps zmm2, zmm6, zmm11 {rn-sae}
+vfnmsub231ps zmm2, zmm14, zmm19 {rd-sae}
+vfnmsub231ps zmm2, zmm22, zmm27 {ru-sae}
+vfnmsub231ps zmm2, zmm30, zmm3 {rz-sae}
+vfnmsub231pd zmm2, zmm6, [rax+40h]
+vfnmsub231pd zmm10, zmm6, [rax+8]{1to8}
+vfnmsub231pd zmm18, zmm6, [rax+20h]{4to8}
+vfnmsub231pd zmm2, zmm6, [rax+40h]{eh}
+vfnmsub231pd zmm2, zmm6, [rax+8]{eh}{1to8}
+vfnmsub231pd zmm2, zmm6, [rax+20h]{eh}{4to8}
+vfnmsub231pd zmm2, zmm6, zmm3
+vfnmsub231pd zmm10{k3}, zmm6, zmm3{cdab}
+vfnmsub231pd zmm18, zmm6, zmm3{badc}
+vfnmsub231pd zmm26, zmm6, zmm3{dacb}
+vfnmsub231pd zmm2, zmm6, zmm11{aaaa}
+vfnmsub231pd zmm2, zmm6, zmm19{bbbb}
+vfnmsub231pd zmm2, zmm6, zmm27{cccc}
+vfnmsub231pd zmm2, zmm6, zmm3{dddd}
+vfnmsub231pd zmm2, zmm6, zmm3 {rn}
+vfnmsub231pd zmm10, zmm6, zmm3 {rd}
+vfnmsub231pd zmm18, zmm6, zmm3 {ru}
+vfnmsub231pd zmm26, zmm6, zmm3 {rz}
+vfnmsub231pd zmm2, zmm6, zmm11 {rn-sae}
+vfnmsub231pd zmm2, zmm14, zmm19 {rd-sae}
+vfnmsub231pd zmm2, zmm22, zmm27 {ru-sae}
+vfnmsub231pd zmm2, zmm30, zmm3 {rz-sae}
+vaddsetsps zmm2{k5}, zmm6, [rax+40h]
+vaddsetsps zmm10{k5}, zmm6, [rax+4]{1to16}
+vaddsetsps zmm18{k5}, zmm6, [rax+10h]{4to16}
+vaddsetsps zmm26{k5}, zmm6, [rax+20h]{float16}
+vaddsetsps zmm2{k3}, zmm6, [rax+10h]{uint8}
+vaddsetsps zmm2{k5}, zmm6, [rax+10h]{sint8}
+vaddsetsps zmm2{k5}, zmm6, [rax+20h]{uint16}
+vaddsetsps zmm2{k5}, zmm6, [rax+20h]{sint16}
+vaddsetsps zmm2{k5}, zmm6, [rax+40h]{eh}
+vaddsetsps zmm2{k5}, zmm6, [rax+4]{eh}{1to16}
+vaddsetsps zmm2{k5}, zmm6, [rax+10h]{eh}{4to16}
+vaddsetsps zmm2{k5}, zmm6, [rax+20h]{eh}{float16}
+vaddsetsps zmm2{k5}, zmm6, [rax+10h]{eh}{uint8}
+vaddsetsps zmm2{k5}, zmm14, [rax+10h]{eh}{sint8}
+vaddsetsps zmm2{k5}, zmm22, [rax+20h]{eh}{uint16}
+vaddsetsps zmm2{k5}, zmm30, [rax+20h]{eh}{sint16}
+vaddsetsps zmm2{k5}, zmm6, zmm3
+vaddsetsps zmm10{k3}, zmm6, zmm3{cdab}
+vaddsetsps zmm18{k5}, zmm6, zmm3{badc}
+vaddsetsps zmm26{k5}, zmm6, zmm3{dacb}
+vaddsetsps zmm2{k5}, zmm6, zmm11{aaaa}
+vaddsetsps zmm2{k5}, zmm6, zmm19{bbbb}
+vaddsetsps zmm2{k5}, zmm6, zmm27{cccc}
+vaddsetsps zmm2{k5}, zmm6, zmm3{dddd}
+vaddsetsps zmm2{k5}, zmm6, zmm3 {rn}
+vaddsetsps zmm10{k5}, zmm6, zmm3 {rd}
+vaddsetsps zmm18{k5}, zmm6, zmm3 {ru}
+vaddsetsps zmm26{k5}, zmm6, zmm3 {rz}
+vaddsetsps zmm2{k5}, zmm6, zmm11 {rn-sae}
+vaddsetsps zmm2{k5}, zmm14, zmm19 {rd-sae}
+vaddsetsps zmm2{k5}, zmm22, zmm27 {ru-sae}
+vaddsetsps zmm2{k5}, zmm30, zmm3 {rz-sae}
+vpaddsetsd zmm2{k5}, zmm6, [rax+40h]
+vpaddsetsd zmm10{k5}, zmm6, [rax+4]{1to16}
+vpaddsetsd zmm18{k5}, zmm6, [rax+10h]{4to16}
+vpaddsetsd zmm2{k3}, zmm6, [rax+10h]{uint8}
+vpaddsetsd zmm2{k5}, zmm6, [rax+10h]{sint8}
+vpaddsetsd zmm2{k5}, zmm6, [rax+20h]{uint16}
+vpaddsetsd zmm2{k5}, zmm6, [rax+20h]{sint16}
+vpaddsetsd zmm2{k5}, zmm6, [rax+40h]{eh}
+vpaddsetsd zmm2{k5}, zmm6, [rax+4]{eh}{1to16}
+vpaddsetsd zmm2{k5}, zmm6, [rax+10h]{eh}{4to16}
+vpaddsetsd zmm2{k5}, zmm6, [rax+10h]{eh}{uint8}
+vpaddsetsd zmm2{k5}, zmm14, [rax+10h]{eh}{sint8}
+vpaddsetsd zmm2{k5}, zmm22, [rax+20h]{eh}{uint16}
+vpaddsetsd zmm2{k5}, zmm30, [rax+20h]{eh}{sint16}
+vpaddsetsd zmm2{k5}, zmm6, zmm3
+vpaddsetsd zmm10{k3}, zmm6, zmm3{cdab}
+vpaddsetsd zmm18{k5}, zmm6, zmm3{badc}
+vpaddsetsd zmm26{k5}, zmm6, zmm3{dacb}
+vpaddsetsd zmm2{k5}, zmm6, zmm11{aaaa}
+vpaddsetsd zmm2{k5}, zmm6, zmm19{bbbb}
+vpaddsetsd zmm2{k5}, zmm6, zmm27{cccc}
+vpaddsetsd zmm2{k5}, zmm6, zmm3{dddd}
+vpaddsetsd zmm2{k5}, zmm6, zmm3
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+undoc zmm2, zmm6, [rax+40h]
+undoc zmm10, zmm6, [rax+4]
+undoc zmm18, zmm6, [rax+10h]
+undoc zmm26, zmm6, [rax+20h]
+undoc zmm2{k3}, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+10h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+20h]
+undoc zmm2, zmm6, [rax+40h]{eh}
+undoc zmm2, zmm6, [rax+4]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm6, [rax+20h]{eh}
+undoc zmm2, zmm6, [rax+10h]{eh}
+undoc zmm2, zmm14, [rax+10h]{eh}
+undoc zmm2, zmm22, [rax+20h]{eh}
+undoc zmm2, zmm30, [rax+20h]{eh}
+undoc zmm2, zmm6, zmm3
+undoc zmm10{k3}, zmm6, zmm3
+undoc zmm18, zmm6, zmm3
+undoc zmm26, zmm6, zmm3
+undoc zmm2, zmm6, zmm11
+undoc zmm2, zmm6, zmm19
+undoc zmm2, zmm6, zmm27
+undoc zmm2, zmm6, zmm3
+undoc zmm2, zmm6, zmm3 {rn}
+undoc zmm10, zmm6, zmm3 {rd}
+undoc zmm18, zmm6, zmm3 {ru}
+undoc zmm26, zmm6, zmm3 {rz}
+undoc zmm2, zmm6, zmm11 {rn-sae}
+undoc zmm2, zmm14, zmm19 {rd-sae}
+undoc zmm2, zmm22, zmm27 {ru-sae}
+undoc zmm2, zmm30, zmm3 {rz-sae}
+valignd zmm2{k5}, zmm6, [rax+40h], 5Ah
+valignd zmm26, zmm6, [rax+40h]{eh}, 5Ah
+valignd zmm2, zmm6, zmm3, 5Ah
+valignd zmm2, zmm22, zmm27, 5Ah
+vpsrld zmm6, [rax+40h], 5Ah
+vpsrld zmm6, [rax+4]{1to16}, -5Bh
+vpsrld zmm6, [rax+10h]{4to16}, 5Ah
+vpsrld zmm6{k3}, [rax+10h]{uint8}, 5Ah
+vpsrld zmm6, [rax+10h]{sint8}, -5Bh
+vpsrld zmm6, [rax+20h]{uint16}, 5Ah
+vpsrld zmm6, [rax+20h]{sint16}, -5Bh
+vpsrld zmm6, [rax+40h]{eh}, 5Ah
+vpsrld zmm6, [rax+4]{eh}{1to16}, -5Bh
+vpsrld zmm6, [rax+10h]{eh}{4to16}, 5Ah
+vpsrld zmm6, [rax+10h]{eh}{uint8}, 5Ah
+vpsrld zmm14, [rax+10h]{eh}{sint8}, -5Bh
+vpsrld zmm22, [rax+20h]{eh}{uint16}, 5Ah
+vpsrld zmm6, zmm3, 5Ah
+vpsrld zmm6{k3}, zmm3{cdab}, -5Bh
+vpsrld zmm6, zmm3{badc}, 5Ah
+vpsrld zmm6, zmm3{dacb}, -5Bh
+vpsrld zmm6, zmm11{aaaa}, 5Ah
+vpsrld zmm6, zmm19{bbbb}, -5Bh
+vpsrld zmm6, zmm27{cccc}, 5Ah
+vpsrld zmm6, zmm3{dddd}, -5Bh
+vpsrld zmm6, zmm3, 5Ah
+vpsrad zmm6, [rax+40h], 5Ah
+vpsrad zmm6, [rax+4]{1to16}, -5Bh
+vpsrad zmm6, [rax+10h]{4to16}, 5Ah
+vpsrad zmm6{k3}, [rax+10h]{uint8}, 5Ah
+vpsrad zmm6, [rax+10h]{sint8}, -5Bh
+vpsrad zmm6, [rax+20h]{uint16}, 5Ah
+vpsrad zmm6, [rax+20h]{sint16}, -5Bh
+vpsrad zmm6, [rax+40h]{eh}, 5Ah
+vpsrad zmm6, [rax+4]{eh}{1to16}, -5Bh
+vpsrad zmm6, [rax+10h]{eh}{4to16}, 5Ah
+vpsrad zmm6, [rax+10h]{eh}{uint8}, 5Ah
+vpsrad zmm14, [rax+10h]{eh}{sint8}, -5Bh
+vpsrad zmm22, [rax+20h]{eh}{uint16}, 5Ah
+vpsrad zmm6, zmm3, 5Ah
+vpsrad zmm6{k3}, zmm3{cdab}, -5Bh
+vpsrad zmm6, zmm3{badc}, 5Ah
+vpsrad zmm6, zmm3{dacb}, -5Bh
+vpsrad zmm6, zmm11{aaaa}, 5Ah
+vpsrad zmm6, zmm19{bbbb}, -5Bh
+vpsrad zmm6, zmm27{cccc}, 5Ah
+vpsrad zmm6, zmm3{dddd}, -5Bh
+vpsrad zmm6, zmm3, 5Ah
+vpslld zmm6, [rax+40h], 5Ah
+vpslld zmm6, [rax+4]{1to16}, -5Bh
+vpslld zmm6, [rax+10h]{4to16}, 5Ah
+vpslld zmm6{k3}, [rax+10h]{uint8}, 5Ah
+vpslld zmm6, [rax+10h]{sint8}, -5Bh
+vpslld zmm6, [rax+20h]{uint16}, 5Ah
+vpslld zmm6, [rax+20h]{sint16}, -5Bh
+vpslld zmm6, [rax+40h]{eh}, 5Ah
+vpslld zmm6, [rax+4]{eh}{1to16}, -5Bh
+vpslld zmm6, [rax+10h]{eh}{4to16}, 5Ah
+vpslld zmm6, [rax+10h]{eh}{uint8}, 5Ah
+vpslld zmm14, [rax+10h]{eh}{sint8}, -5Bh
+vpslld zmm22, [rax+20h]{eh}{uint16}, 5Ah
+vpslld zmm6, zmm3, 5Ah
+vpslld zmm6{k3}, zmm3{cdab}, -5Bh
+vpslld zmm6, zmm3{badc}, 5Ah
+vpslld zmm6, zmm3{dacb}, -5Bh
+vpslld zmm6, zmm11{aaaa}, 5Ah
+vpslld zmm6, zmm19{bbbb}, -5Bh
+vpslld zmm6, zmm27{cccc}, 5Ah
+vpslld zmm6, zmm3{dddd}, -5Bh
+vpslld zmm6, zmm3, 5Ah
+vpcmpgtd k2, zmm6, [rax+40h]
+vpcmpgtd k2, zmm6, [rax+4]{1to16}
+vpcmpgtd k2, zmm6, [rax+10h]{4to16}
+vpcmpgtd k2{k3}, zmm6, [rax+10h]{uint8}
+vpcmpgtd k2, zmm6, [rax+10h]{sint8}
+vpcmpgtd k2, zmm6, [rax+20h]{uint16}
+vpcmpgtd k2, zmm6, [rax+20h]{sint16}
+vpcmpgtd k2, zmm6, [rax+40h]{eh}
+vpcmpgtd k2, zmm6, [rax+4]{eh}{1to16}
+vpcmpgtd k2, zmm6, [rax+10h]{eh}{4to16}
+vpcmpgtd k2, zmm6, [rax+10h]{eh}{uint8}
+vpcmpgtd k2, zmm14, [rax+10h]{eh}{sint8}
+vpcmpgtd k2, zmm22, [rax+20h]{eh}{uint16}
+vpcmpgtd k2, zmm30, [rax+20h]{eh}{sint16}
+vpcmpgtd k2, zmm6, zmm3
+vpcmpgtd k2{k3}, zmm6, zmm3{cdab}
+vpcmpgtd k2, zmm6, zmm3{badc}
+vpcmpgtd k2, zmm6, zmm3{dacb}
+vpcmpgtd k2, zmm6, zmm11{aaaa}
+vpcmpgtd k2, zmm6, zmm19{bbbb}
+vpcmpgtd k2, zmm6, zmm27{cccc}
+vpcmpgtd k2, zmm6, zmm3{dddd}
+vpcmpgtd k2, zmm6, zmm3
+vpcmpeqd k2, zmm6, [rax+40h]
+vpcmpeqd k2, zmm6, [rax+4]{1to16}
+vpcmpeqd k2, zmm6, [rax+10h]{4to16}
+vpcmpeqd k2{k3}, zmm6, [rax+10h]{uint8}
+vpcmpeqd k2, zmm6, [rax+10h]{sint8}
+vpcmpeqd k2, zmm6, [rax+20h]{uint16}
+vpcmpeqd k2, zmm6, [rax+20h]{sint16}
+vpcmpeqd k2, zmm6, [rax+40h]{eh}
+vpcmpeqd k2, zmm6, [rax+4]{eh}{1to16}
+vpcmpeqd k2, zmm6, [rax+10h]{eh}{4to16}
+vpcmpeqd k2, zmm6, [rax+10h]{eh}{uint8}
+vpcmpeqd k2, zmm14, [rax+10h]{eh}{sint8}
+vpcmpeqd k2, zmm22, [rax+20h]{eh}{uint16}
+vpcmpeqd k2, zmm30, [rax+20h]{eh}{sint16}
+vpcmpeqd k2, zmm6, zmm3
+vpcmpeqd k2{k3}, zmm6, zmm3{cdab}
+vpcmpeqd k2, zmm6, zmm3{badc}
+vpcmpeqd k2, zmm6, zmm3{dacb}
+vpcmpeqd k2, zmm6, zmm11{aaaa}
+vpcmpeqd k2, zmm6, zmm19{bbbb}
+vpcmpeqd k2, zmm6, zmm27{cccc}
+vpcmpeqd k2, zmm6, zmm3{dddd}
+vpcmpeqd k2, zmm6, zmm3
+vptestmd k2, zmm6, [rax+40h]
+vptestmd k2, zmm6, [rax+4]{1to16}
+vptestmd k2, zmm6, [rax+10h]{4to16}
+vptestmd k2{k3}, zmm6, [rax+10h]{uint8}
+vptestmd k2, zmm6, [rax+10h]{sint8}
+vptestmd k2, zmm6, [rax+20h]{uint16}
+vptestmd k2, zmm6, [rax+20h]{sint16}
+vptestmd k2, zmm6, [rax+40h]{eh}
+vptestmd k2, zmm6, [rax+4]{eh}{1to16}
+vptestmd k2, zmm6, [rax+10h]{eh}{4to16}
+vptestmd k2, zmm6, [rax+10h]{eh}{uint8}
+vptestmd k2, zmm14, [rax+10h]{eh}{sint8}
+vptestmd k2, zmm22, [rax+20h]{eh}{uint16}
+vptestmd k2, zmm30, [rax+20h]{eh}{sint16}
+vptestmd k2, zmm6, zmm3
+vptestmd k2{k3}, zmm6, zmm3{cdab}
+vptestmd k2, zmm6, zmm3{badc}
+vptestmd k2, zmm6, zmm3{dacb}
+vptestmd k2, zmm6, zmm11{aaaa}
+vptestmd k2, zmm6, zmm19{bbbb}
+vptestmd k2, zmm6, zmm27{cccc}
+vptestmd k2, zmm6, zmm3{dddd}
+vptestmd k2, zmm6, zmm3
+vpcmpltd k2, zmm6, [rax+40h]
+vpcmpltd k2, zmm6, [rax+4]{1to16}
+vpcmpltd k2, zmm6, [rax+10h]{4to16}
+vpcmpltd k2{k3}, zmm6, [rax+10h]{uint8}
+vpcmpltd k2, zmm6, [rax+10h]{sint8}
+vpcmpltd k2, zmm6, [rax+20h]{uint16}
+vpcmpltd k2, zmm6, [rax+20h]{sint16}
+vpcmpltd k2, zmm6, [rax+40h]{eh}
+vpcmpltd k2, zmm6, [rax+4]{eh}{1to16}
+vpcmpltd k2, zmm6, [rax+10h]{eh}{4to16}
+vpcmpltd k2, zmm6, [rax+10h]{eh}{uint8}
+vpcmpltd k2, zmm14, [rax+10h]{eh}{sint8}
+vpcmpltd k2, zmm22, [rax+20h]{eh}{uint16}
+vpcmpltd k2, zmm30, [rax+20h]{eh}{sint16}
+vpcmpltd k2, zmm6, zmm3
+vpcmpltd k2{k3}, zmm6, zmm3{cdab}
+vpcmpltd k2, zmm6, zmm3{badc}
+vpcmpltd k2, zmm6, zmm3{dacb}
+vpcmpltd k2, zmm6, zmm11{aaaa}
+vpcmpltd k2, zmm6, zmm19{bbbb}
+vpcmpltd k2, zmm6, zmm27{cccc}
+vpcmpltd k2, zmm6, zmm3{dddd}
+vpcmpltd k2, zmm6, zmm3
+vcmpeqps k2, zmm6, [rax+40h]
+vcmpltps k2, zmm6, [rax+4]{1to16}
+vcmpleps k2, zmm6, [rax+10h]{4to16}
+vcmpunordps k2, zmm6, [rax+20h]{float16}
+vcmpneqps k2{k3}, zmm6, [rax+10h]{uint8}
+vcmpnltps k2, zmm6, [rax+10h]{sint8}
+vcmpnleps k2, zmm6, [rax+20h]{uint16}
+vcmpordps k2, zmm6, [rax+20h]{sint16}
+vcmpps k2, zmm6, [rax+40h]{eh}, 8
+vcmpps k2, zmm6, [rax+4]{eh}{1to16}, -80h
+vcmpps k2, zmm6, [rax+10h]{eh}{4to16}, -1
+vcmpps k2, zmm6, [rax+20h]{eh}{float16}, -2
+vcmpps k2, zmm6, [rax+10h]{eh}{uint8}, -3
+vcmpps k2, zmm14, [rax+10h]{eh}{sint8}, -4
+vcmpps k2, zmm22, [rax+20h]{eh}{uint16}, -5
+vcmpps k2, zmm30, [rax+20h]{eh}{sint16}, -6
+vcmpeqps k2, zmm6, zmm3
+vcmpltps k2{k3}, zmm6, zmm3{cdab}
+vcmpleps k2, zmm6, zmm3{badc}
+vcmpunordps k2, zmm6, zmm3{dacb}
+vcmpneqps k2, zmm6, zmm11{aaaa}
+vcmpnltps k2, zmm6, zmm19{bbbb}
+vcmpnleps k2, zmm6, zmm27{cccc}
+vcmpordps k2, zmm6, zmm3{dddd}
+vcmpps k2, zmm6, zmm3, 8
+vcmpps k2, zmm6, zmm11, -3 {sae}
+vcmpeqpd k2, zmm6, [rax+40h]
+vcmpltpd k2, zmm6, [rax+8]{1to8}
+vcmplepd k2, zmm6, [rax+20h]{4to8}
+vcmppd k2, zmm6, [rax+40h]{eh}, 8
+vcmppd k2, zmm6, [rax+8]{eh}{1to8}, -80h
+vcmppd k2, zmm6, [rax+20h]{eh}{4to8}, -1
+vcmpeqpd k2, zmm6, zmm3
+vcmpltpd k2{k3}, zmm6, zmm3{cdab}
+vcmplepd k2, zmm6, zmm3{badc}
+vcmpunordpd k2, zmm6, zmm3{dacb}
+vcmpneqpd k2, zmm6, zmm11{aaaa}
+vcmpnltpd k2, zmm6, zmm19{bbbb}
+vcmpnlepd k2, zmm6, zmm27{cccc}
+vcmpordpd k2, zmm6, zmm3{dddd}
+vcmppd k2, zmm6, zmm3, 8
+vcmppd k2, zmm6, zmm11, -3 {sae}
+vpcmpequd k2, zmm6, [rax+40h]
+vpcmpltud k2, zmm6, [rax+4]{1to16}
+vpcmpleud k2, zmm6, [rax+10h]{4to16}
+vpcmpnequd k2{k3}, zmm6, [rax+10h]{uint8}
+vpcmpnltud k2, zmm6, [rax+10h]{sint8}
+vpcmpnleud k2, zmm6, [rax+20h]{uint16}
+vpcmp???ud k2, zmm6, [rax+20h]{sint16}
+vpcmpud k2, zmm6, [rax+40h]{eh}, 8
+vpcmpud k2, zmm6, [rax+4]{eh}{1to16}, -80h
+vpcmpud k2, zmm6, [rax+10h]{eh}{4to16}, -1
+vpcmpud k2, zmm6, [rax+10h]{eh}{uint8}, -3
+vpcmpud k2, zmm14, [rax+10h]{eh}{sint8}, -4
+vpcmpud k2, zmm22, [rax+20h]{eh}{uint16}, -5
+vpcmpud k2, zmm30, [rax+20h]{eh}{sint16}, -6
+vpcmpequd k2, zmm6, zmm3
+vpcmpltud k2{k3}, zmm6, zmm3{cdab}
+vpcmpleud k2, zmm6, zmm3{badc}
+vpcmp??ud k2, zmm6, zmm3{dacb}
+vpcmpnequd k2, zmm6, zmm11{aaaa}
+vpcmpnltud k2, zmm6, zmm19{bbbb}
+vpcmpnleud k2, zmm6, zmm27{cccc}
+vpcmp???ud k2, zmm6, zmm3{dddd}
+vpcmpud k2, zmm6, zmm3, 8
+vpcmpeqd k2, zmm6, [rax+40h]
+vpcmpltd k2, zmm6, [rax+4]{1to16}
+vpcmpled k2, zmm6, [rax+10h]{4to16}
+vpcmpneqd k2{k3}, zmm6, [rax+10h]{uint8}
+vpcmpnltd k2, zmm6, [rax+10h]{sint8}
+vpcmpnled k2, zmm6, [rax+20h]{uint16}
+vpcmp???d k2, zmm6, [rax+20h]{sint16}
+vpcmpd k2, zmm6, [rax+40h]{eh}, 8
+vpcmpd k2, zmm6, [rax+4]{eh}{1to16}, -80h
+vpcmpd k2, zmm6, [rax+10h]{eh}{4to16}, -1
+vpcmpd k2, zmm6, [rax+10h]{eh}{uint8}, -3
+vpcmpd k2, zmm14, [rax+10h]{eh}{sint8}, -4
+vpcmpd k2, zmm22, [rax+20h]{eh}{uint16}, -5
+vpcmpd k2, zmm30, [rax+20h]{eh}{sint16}, -6
+vpcmpeqd k2, zmm6, zmm3
+vpcmpltd k2{k3}, zmm6, zmm3{cdab}
+vpcmpled k2, zmm6, zmm3{badc}
+vpcmp??d k2, zmm6, zmm3{dacb}
+vpcmpneqd k2, zmm6, zmm11{aaaa}
+vpcmpnltd k2, zmm6, zmm19{bbbb}
+vpcmpnled k2, zmm6, zmm27{cccc}
+vpcmp???d k2, zmm6, zmm3{dddd}
+vpcmpd k2, zmm6, zmm3, 8
+vpadcd zmm2{k5}, k6, [rax+40h]
+vpadcd zmm10, k6, [rax+4]{1to16}
+vpadcd zmm18, k6, [rax+10h]{4to16}
+vpadcd zmm2{k3}, k6, [rax+10h]{uint8}
+vpadcd zmm2, k6, [rax+10h]{sint8}
+vpadcd zmm2, k6, [rax+20h]{uint16}
+vpadcd zmm2, k6, [rax+20h]{sint16}
+vpadcd zmm2, k6, [rax+40h]{eh}
+vpadcd zmm2, k6, [rax+4]{eh}{1to16}
+vpadcd zmm2, k6, [rax+10h]{eh}{4to16}
+vpadcd zmm2, k6, [rax+10h]{eh}{uint8}
+vpadcd zmm2, k6, [rax+10h]{eh}{sint8}
+vpadcd zmm2, k6, [rax+20h]{eh}{uint16}
+vpadcd zmm2, k6, [rax+20h]{eh}{sint16}
+vpadcd zmm2, k6, zmm3
+vpadcd zmm10{k3}, k6, zmm3{cdab}
+vpadcd zmm18, k6, zmm3{badc}
+vpadcd zmm26, k6, zmm3{dacb}
+vpadcd zmm2, k6, zmm11{aaaa}
+vpadcd zmm2, k6, zmm19{bbbb}
+vpadcd zmm2, k6, zmm27{cccc}
+vpadcd zmm2, k6, zmm3{dddd}
+vpadcd zmm2, k6, zmm3
+vpaddsetcd zmm2{k5}, k6, [rax+40h]
+vpaddsetcd zmm10, k6, [rax+4]{1to16}
+vpaddsetcd zmm18, k6, [rax+10h]{4to16}
+vpaddsetcd zmm2{k3}, k6, [rax+10h]{uint8}
+vpaddsetcd zmm2, k6, [rax+10h]{sint8}
+vpaddsetcd zmm2, k6, [rax+20h]{uint16}
+vpaddsetcd zmm2, k6, [rax+20h]{sint16}
+vpaddsetcd zmm2, k6, [rax+40h]{eh}
+vpaddsetcd zmm2, k6, [rax+4]{eh}{1to16}
+vpaddsetcd zmm2, k6, [rax+10h]{eh}{4to16}
+vpaddsetcd zmm2, k6, [rax+10h]{eh}{uint8}
+vpaddsetcd zmm2, k6, [rax+10h]{eh}{sint8}
+vpaddsetcd zmm2, k6, [rax+20h]{eh}{uint16}
+vpaddsetcd zmm2, k6, [rax+20h]{eh}{sint16}
+vpaddsetcd zmm2, k6, zmm3
+vpaddsetcd zmm10{k3}, k6, zmm3{cdab}
+vpaddsetcd zmm18, k6, zmm3{badc}
+vpaddsetcd zmm26, k6, zmm3{dacb}
+vpaddsetcd zmm2, k6, zmm11{aaaa}
+vpaddsetcd zmm2, k6, zmm19{bbbb}
+vpaddsetcd zmm2, k6, zmm27{cccc}
+vpaddsetcd zmm2, k6, zmm3{dddd}
+vpaddsetcd zmm2, k6, zmm3
+vpsbbd zmm2{k5}, k6, [rax+40h]
+vpsbbd zmm10, k6, [rax+4]{1to16}
+vpsbbd zmm18, k6, [rax+10h]{4to16}
+vpsbbd zmm2{k3}, k6, [rax+10h]{uint8}
+vpsbbd zmm2, k6, [rax+10h]{sint8}
+vpsbbd zmm2, k6, [rax+20h]{uint16}
+vpsbbd zmm2, k6, [rax+20h]{sint16}
+vpsbbd zmm2, k6, [rax+40h]{eh}
+vpsbbd zmm2, k6, [rax+4]{eh}{1to16}
+vpsbbd zmm2, k6, [rax+10h]{eh}{4to16}
+vpsbbd zmm2, k6, [rax+10h]{eh}{uint8}
+vpsbbd zmm2, k6, [rax+10h]{eh}{sint8}
+vpsbbd zmm2, k6, [rax+20h]{eh}{uint16}
+vpsbbd zmm2, k6, [rax+20h]{eh}{sint16}
+vpsbbd zmm2, k6, zmm3
+vpsbbd zmm10{k3}, k6, zmm3{cdab}
+vpsbbd zmm18, k6, zmm3{badc}
+vpsbbd zmm26, k6, zmm3{dacb}
+vpsbbd zmm2, k6, zmm11{aaaa}
+vpsbbd zmm2, k6, zmm19{bbbb}
+vpsbbd zmm2, k6, zmm27{cccc}
+vpsbbd zmm2, k6, zmm3{dddd}
+vpsbbd zmm2, k6, zmm3
+vpsubsetbd zmm2{k5}, k6, [rax+40h]
+vpsubsetbd zmm10, k6, [rax+4]{1to16}
+vpsubsetbd zmm18, k6, [rax+10h]{4to16}
+vpsubsetbd zmm2{k3}, k6, [rax+10h]{uint8}
+vpsubsetbd zmm2, k6, [rax+10h]{sint8}
+vpsubsetbd zmm2, k6, [rax+20h]{uint16}
+vpsubsetbd zmm2, k6, [rax+20h]{sint16}
+vpsubsetbd zmm2, k6, [rax+40h]{eh}
+vpsubsetbd zmm2, k6, [rax+4]{eh}{1to16}
+vpsubsetbd zmm2, k6, [rax+10h]{eh}{4to16}
+vpsubsetbd zmm2, k6, [rax+10h]{eh}{uint8}
+vpsubsetbd zmm2, k6, [rax+10h]{eh}{sint8}
+vpsubsetbd zmm2, k6, [rax+20h]{eh}{uint16}
+vpsubsetbd zmm2, k6, [rax+20h]{eh}{sint16}
+vpsubsetbd zmm2, k6, zmm3
+vpsubsetbd zmm10{k3}, k6, zmm3{cdab}
+vpsubsetbd zmm18, k6, zmm3{badc}
+vpsubsetbd zmm26, k6, zmm3{dacb}
+vpsubsetbd zmm2, k6, zmm11{aaaa}
+vpsubsetbd zmm2, k6, zmm19{bbbb}
+vpsubsetbd zmm2, k6, zmm27{cccc}
+vpsubsetbd zmm2, k6, zmm3{dddd}
+vpsubsetbd zmm2, k6, zmm3
+vpsbbrd zmm2{k5}, k6, [rax+40h]
+vpsbbrd zmm10, k6, [rax+4]{1to16}
+vpsbbrd zmm18, k6, [rax+10h]{4to16}
+vpsbbrd zmm2{k3}, k6, [rax+10h]{uint8}
+vpsbbrd zmm2, k6, [rax+10h]{sint8}
+vpsbbrd zmm2, k6, [rax+20h]{uint16}
+vpsbbrd zmm2, k6, [rax+20h]{sint16}
+vpsbbrd zmm2, k6, [rax+40h]{eh}
+vpsbbrd zmm2, k6, [rax+4]{eh}{1to16}
+vpsbbrd zmm2, k6, [rax+10h]{eh}{4to16}
+vpsbbrd zmm2, k6, [rax+10h]{eh}{uint8}
+vpsbbrd zmm2, k6, [rax+10h]{eh}{sint8}
+vpsbbrd zmm2, k6, [rax+20h]{eh}{uint16}
+vpsbbrd zmm2, k6, [rax+20h]{eh}{sint16}
+vpsbbrd zmm2, k6, zmm3
+vpsbbrd zmm10{k3}, k6, zmm3{cdab}
+vpsbbrd zmm18, k6, zmm3{badc}
+vpsbbrd zmm26, k6, zmm3{dacb}
+vpsbbrd zmm2, k6, zmm11{aaaa}
+vpsbbrd zmm2, k6, zmm19{bbbb}
+vpsbbrd zmm2, k6, zmm27{cccc}
+vpsbbrd zmm2, k6, zmm3{dddd}
+vpsbbrd zmm2, k6, zmm3
+vpsubrsetbd zmm2{k5}, k6, [rax+40h]
+vpsubrsetbd zmm10, k6, [rax+4]{1to16}
+vpsubrsetbd zmm18, k6, [rax+10h]{4to16}
+vpsubrsetbd zmm2{k3}, k6, [rax+10h]{uint8}
+vpsubrsetbd zmm2, k6, [rax+10h]{sint8}
+vpsubrsetbd zmm2, k6, [rax+20h]{uint16}
+vpsubrsetbd zmm2, k6, [rax+20h]{sint16}
+vpsubrsetbd zmm2, k6, [rax+40h]{eh}
+vpsubrsetbd zmm2, k6, [rax+4]{eh}{1to16}
+vpsubrsetbd zmm2, k6, [rax+10h]{eh}{4to16}
+vpsubrsetbd zmm2, k6, [rax+10h]{eh}{uint8}
+vpsubrsetbd zmm2, k6, [rax+10h]{eh}{sint8}
+vpsubrsetbd zmm2, k6, [rax+20h]{eh}{uint16}
+vpsubrsetbd zmm2, k6, [rax+20h]{eh}{sint16}
+vpsubrsetbd zmm2, k6, zmm3
+vpsubrsetbd zmm10{k3}, k6, zmm3{cdab}
+vpsubrsetbd zmm18, k6, zmm3{badc}
+vpsubrsetbd zmm26, k6, zmm3{dacb}
+vpsubrsetbd zmm2, k6, zmm11{aaaa}
+vpsubrsetbd zmm2, k6, zmm19{bbbb}
+vpsubrsetbd zmm2, k6, zmm27{cccc}
+vpsubrsetbd zmm2, k6, zmm3{dddd}
+vpsubrsetbd zmm2, k6, zmm3

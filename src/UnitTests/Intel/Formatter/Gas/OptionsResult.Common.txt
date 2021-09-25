@@ -999,6 +999,46 @@ vcmpsh $0x1e,%xmm3,%xmm6,%k2{%k3}
 vcmpsh $0x1f,%xmm3,%xmm6,%k2{%k3}
 vcmpsh $0x20,%xmm3,%xmm6,%k2{%k3}
 
+vcmpps $0,%zmm3,%zmm6,%k2
+vcmpps $1,%zmm3,%zmm6,%k2
+vcmpps $2,%zmm3,%zmm6,%k2
+vcmpps $3,%zmm3,%zmm6,%k2
+vcmpps $4,%zmm3,%zmm6,%k2
+vcmpps $5,%zmm3,%zmm6,%k2
+vcmpps $6,%zmm3,%zmm6,%k2
+vcmpps $7,%zmm3,%zmm6,%k2
+vcmpps $8,%zmm3,%zmm6,%k2
+
+vcmppd $0,%zmm3,%zmm6,%k2
+vcmppd $1,%zmm3,%zmm6,%k2
+vcmppd $2,%zmm3,%zmm6,%k2
+vcmppd $3,%zmm3,%zmm6,%k2
+vcmppd $4,%zmm3,%zmm6,%k2
+vcmppd $5,%zmm3,%zmm6,%k2
+vcmppd $6,%zmm3,%zmm6,%k2
+vcmppd $7,%zmm3,%zmm6,%k2
+vcmppd $8,%zmm3,%zmm6,%k2
+
+vpcmpud $0,%zmm3,%zmm6,%k2
+vpcmpud $1,%zmm3,%zmm6,%k2
+vpcmpud $2,%zmm3,%zmm6,%k2
+vpcmpud $3,%zmm3,%zmm6,%k2
+vpcmpud $4,%zmm3,%zmm6,%k2
+vpcmpud $5,%zmm3,%zmm6,%k2
+vpcmpud $6,%zmm3,%zmm6,%k2
+vpcmpud $7,%zmm3,%zmm6,%k2
+vpcmpud $8,%zmm3,%zmm6,%k2
+
+vpcmpd $0,%zmm3,%zmm6,%k2
+vpcmpd $1,%zmm3,%zmm6,%k2
+vpcmpd $2,%zmm3,%zmm6,%k2
+vpcmpd $3,%zmm3,%zmm6,%k2
+vpcmpd $4,%zmm3,%zmm6,%k2
+vpcmpd $5,%zmm3,%zmm6,%k2
+vpcmpd $6,%zmm3,%zmm6,%k2
+vpcmpd $7,%zmm3,%zmm6,%k2
+vpcmpd $8,%zmm3,%zmm6,%k2
+
 faddp
 fcom
 fcomp
@@ -1982,6 +2022,46 @@ vcmpge_oqsh %xmm3,%xmm6,%k2{%k3}
 vcmpgt_oqsh %xmm3,%xmm6,%k2{%k3}
 vcmptrue_ussh %xmm3,%xmm6,%k2{%k3}
 vcmpsh $0x20,%xmm3,%xmm6,%k2{%k3}
+
+vcmpeqps %zmm3,%zmm6,%k2
+vcmpltps %zmm3,%zmm6,%k2
+vcmpleps %zmm3,%zmm6,%k2
+vcmpunordps %zmm3,%zmm6,%k2
+vcmpneqps %zmm3,%zmm6,%k2
+vcmpnltps %zmm3,%zmm6,%k2
+vcmpnleps %zmm3,%zmm6,%k2
+vcmpordps %zmm3,%zmm6,%k2
+vcmpps $8,%zmm3,%zmm6,%k2
+
+vcmpeqpd %zmm3,%zmm6,%k2
+vcmpltpd %zmm3,%zmm6,%k2
+vcmplepd %zmm3,%zmm6,%k2
+vcmpunordpd %zmm3,%zmm6,%k2
+vcmpneqpd %zmm3,%zmm6,%k2
+vcmpnltpd %zmm3,%zmm6,%k2
+vcmpnlepd %zmm3,%zmm6,%k2
+vcmpordpd %zmm3,%zmm6,%k2
+vcmppd $8,%zmm3,%zmm6,%k2
+
+vpcmpequd %zmm3,%zmm6,%k2
+vpcmpltud %zmm3,%zmm6,%k2
+vpcmpleud %zmm3,%zmm6,%k2
+vpcmp??ud %zmm3,%zmm6,%k2
+vpcmpnequd %zmm3,%zmm6,%k2
+vpcmpnltud %zmm3,%zmm6,%k2
+vpcmpnleud %zmm3,%zmm6,%k2
+vpcmp???ud %zmm3,%zmm6,%k2
+vpcmpud $8,%zmm3,%zmm6,%k2
+
+vpcmpeqd %zmm3,%zmm6,%k2
+vpcmpltd %zmm3,%zmm6,%k2
+vpcmpled %zmm3,%zmm6,%k2
+vpcmp??d %zmm3,%zmm6,%k2
+vpcmpneqd %zmm3,%zmm6,%k2
+vpcmpnltd %zmm3,%zmm6,%k2
+vpcmpnled %zmm3,%zmm6,%k2
+vpcmp???d %zmm3,%zmm6,%k2
+vpcmpd $8,%zmm3,%zmm6,%k2
 
 imul $0xffff,%cx,%cx
 imul $0xffffffff,%ecx,%ecx

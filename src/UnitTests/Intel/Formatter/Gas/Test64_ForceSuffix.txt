@@ -9048,3 +9048,3960 @@ vucomish xmm3, xmm2
 vucomish 2(rax), xmm2
 rdudbg
 wrudbg
+jkzd 0x800000000000004f, k0
+jkzd 0x7fffffffffffff9a, k5
+jkzd 0x7fffffffffffff9b, k5
+jkzd 0x7fffffffffffff9b, k5
+jknzd 0x800000000000004f, k0
+jknzd 0x7fffffffffffff9a, k5
+jknzd 0x7fffffffffffff9b, k5
+jknzd 0x7fffffffffffff9b, k5
+vprefetchnta (rax)
+vprefetch0 (rax)
+vprefetch1 (rax)
+vprefetch2 (rax)
+vprefetchenta (rax)
+vprefetche0 (rax)
+vprefetche1 (rax)
+vprefetche2 (rax)
+kand k3, k2
+kandn k3, k2
+kandnr k3, k2
+knot k3, k2
+kor k3, k2
+kxnor k3, k2
+kxor k3, k2
+kmerge2l1h k3, k2
+kmerge2l1l k3, k2
+jkzd 0x800000003412a551, k0
+jkzd 0x7fffffffab89679c, k5
+jkzd 0x800000003412a552, k0
+jkzd 0x7fffffffab89679d, k5
+jknzd 0x800000003412a551, k0
+jknzd 0x7fffffffab89679c, k5
+jknzd 0x800000003412a552, k0
+jknzd 0x7fffffffab89679d, k5
+kmov k3, k2
+kmov ebx, k2
+kmov r11d, k2
+kmov k3, edx
+kmov k3, r10d
+kconcath k3, k5, rdx
+kconcath k3, k6, r10
+kconcatl k3, k5, rdx
+kconcatl k3, k6, r10
+kortest k3, k2
+delayl ebx
+delayl r11d
+delayq rbx
+delayq r11
+spfltl ebx
+spfltl r11d
+spfltq rbx
+spfltq r11
+clevict1 (rax)
+clevict0 (rax)
+popcntl esi, ecx
+popcntl esi, r9d
+popcntl r14d, ecx
+popcntq rsi, rcx
+popcntq rsi, r9
+popcntq r14, rcx
+tzcntl esi, ecx
+tzcntl esi, r9d
+tzcntl r14d, ecx
+tzcntq rsi, rcx
+tzcntq rsi, r9
+tzcntq r14, rcx
+tzcntil esi, ecx
+tzcntil esi, r9d
+tzcntil r14d, ecx
+tzcntiq rsi, rcx
+tzcntiq rsi, r9
+tzcntiq r14, rcx
+lzcntl esi, ecx
+lzcntl esi, r9d
+lzcntl r14d, ecx
+lzcntq rsi, rcx
+lzcntq rsi, r9
+lzcntq r14, rcx
+undoc (rax), ebx
+undoc esi, ecx
+undoc esi, r9d
+undoc r14d, ecx
+undoc (rax), rbx
+undoc rsi, rcx
+undoc rsi, r9
+undoc r14, rcx
+undoc (rax), ebx
+undoc esi, ecx
+undoc esi, r9d
+undoc r14d, ecx
+undoc (rax), rbx
+undoc rsi, rcx
+undoc rsi, r9
+undoc r14, rcx
+undoc (rax), ebx
+undoc esi, ecx
+undoc esi, r9d
+undoc r14d, ecx
+undoc (rax), rbx
+undoc rsi, rcx
+undoc rsi, r9
+undoc r14, rcx
+kextract $0x5a, r11, k2
+kextract $-0x5b, rbx, k2
+vprefetchnta 0x40(rax)
+vprefetchnta 0x40(rax){eh}
+vprefetch0 0x40(rax)
+vprefetch0 0x40(rax){eh}
+vprefetch1 0x40(rax)
+vprefetch1 0x40(rax){eh}
+vprefetch2 0x40(rax)
+vprefetch2 0x40(rax){eh}
+vprefetchenta 0x40(rax)
+vprefetchenta 0x40(rax){eh}
+vprefetche0 0x40(rax)
+vprefetche0 0x40(rax){eh}
+vprefetche1 0x40(rax)
+vprefetche1 0x40(rax){eh}
+vprefetche2 0x40(rax)
+vprefetche2 0x40(rax){eh}
+clevict1 0x40(rax)
+clevict1 0x40(rax){eh}
+clevict0 0x40(rax)
+clevict0 0x40(rax){eh}
+vgatherpf0hintdps 4(rcx,zmm4,4){k3}
+vgatherpf0hintdps 2(rcx,zmm4,4){k3}{float16}
+vgatherpf0hintdps 1(rcx,zmm4,4){k3}{uint8}
+vgatherpf0hintdps 1(rcx,zmm4,4){k3}{sint8}
+vgatherpf0hintdps 2(rcx,zmm4,4){k3}{uint16}
+vgatherpf0hintdps 2(rcx,zmm4,4){k3}{sint16}
+vgatherpf0hintdps 4(rcx,zmm4,4){eh}{k3}
+vgatherpf0hintdps 2(rcx,zmm4,4){eh}{k3}{float16}
+vgatherpf0hintdps 1(rcx,zmm4,4){eh}{k3}{uint8}
+vgatherpf0hintdps 1(rcx,zmm4,4){eh}{k3}{sint8}
+vgatherpf0hintdps 2(rcx,zmm4,4){eh}{k3}{uint16}
+vgatherpf0hintdps 2(rcx,zmm4,4){eh}{k3}{sint16}
+vgatherpf0hintdpd 8(rcx,zmm4,4){k3}
+vgatherpf0hintdpd 8(rcx,zmm4,4){eh}{k3}
+vgatherpf0dps 4(rcx,zmm4,4){k3}
+vgatherpf0dps 2(rcx,zmm4,4){k3}{float16}
+vgatherpf0dps 1(rcx,zmm4,4){k3}{uint8}
+vgatherpf0dps 1(rcx,zmm4,4){k3}{sint8}
+vgatherpf0dps 2(rcx,zmm4,4){k3}{uint16}
+vgatherpf0dps 2(rcx,zmm4,4){k3}{sint16}
+vgatherpf0dps 4(rcx,zmm4,4){eh}{k3}
+vgatherpf0dps 2(rcx,zmm4,4){eh}{k3}{float16}
+vgatherpf0dps 1(rcx,zmm4,4){eh}{k3}{uint8}
+vgatherpf0dps 1(rcx,zmm4,4){eh}{k3}{sint8}
+vgatherpf0dps 2(rcx,zmm4,4){eh}{k3}{uint16}
+vgatherpf0dps 2(rcx,zmm4,4){eh}{k3}{sint16}
+vgatherpf1dps 4(rcx,zmm4,4){k3}
+vgatherpf1dps 2(rcx,zmm4,4){k3}{float16}
+vgatherpf1dps 1(rcx,zmm4,4){k3}{uint8}
+vgatherpf1dps 1(rcx,zmm4,4){k3}{sint8}
+vgatherpf1dps 2(rcx,zmm4,4){k3}{uint16}
+vgatherpf1dps 2(rcx,zmm4,4){k3}{sint16}
+vgatherpf1dps 4(rcx,zmm4,4){eh}{k3}
+vgatherpf1dps 2(rcx,zmm4,4){eh}{k3}{float16}
+vgatherpf1dps 1(rcx,zmm4,4){eh}{k3}{uint8}
+vgatherpf1dps 1(rcx,zmm4,4){eh}{k3}{sint8}
+vgatherpf1dps 2(rcx,zmm4,4){eh}{k3}{uint16}
+vgatherpf1dps 2(rcx,zmm4,4){eh}{k3}{sint16}
+vscatterpf0hintdps 4(rcx,zmm4,4){k3}
+vscatterpf0hintdps 2(rcx,zmm4,4){k3}{float16}
+vscatterpf0hintdps 1(rcx,zmm4,4){k3}{uint8}
+vscatterpf0hintdps 1(rcx,zmm4,4){k3}{sint8}
+vscatterpf0hintdps 2(rcx,zmm4,4){k3}{uint16}
+vscatterpf0hintdps 2(rcx,zmm4,4){k3}{sint16}
+vscatterpf0hintdps 4(rcx,zmm4,4){eh}{k3}
+vscatterpf0hintdps 2(rcx,zmm4,4){eh}{k3}{float16}
+vscatterpf0hintdps 1(rcx,zmm4,4){eh}{k3}{uint8}
+vscatterpf0hintdps 1(rcx,zmm4,4){eh}{k3}{sint8}
+vscatterpf0hintdps 2(rcx,zmm4,4){eh}{k3}{uint16}
+vscatterpf0hintdps 2(rcx,zmm4,4){eh}{k3}{sint16}
+vscatterpf0hintdpd 8(rcx,zmm4,4){k3}
+vscatterpf0hintdpd 8(rcx,zmm4,4){eh}{k3}
+vscatterpf0dps 4(rcx,zmm4,4){k3}
+vscatterpf0dps 2(rcx,zmm4,4){k3}{float16}
+vscatterpf0dps 1(rcx,zmm4,4){k3}{uint8}
+vscatterpf0dps 1(rcx,zmm4,4){k3}{sint8}
+vscatterpf0dps 2(rcx,zmm4,4){k3}{uint16}
+vscatterpf0dps 2(rcx,zmm4,4){k3}{sint16}
+vscatterpf0dps 4(rcx,zmm4,4){eh}{k3}
+vscatterpf0dps 2(rcx,zmm4,4){eh}{k3}{float16}
+vscatterpf0dps 1(rcx,zmm4,4){eh}{k3}{uint8}
+vscatterpf0dps 1(rcx,zmm4,4){eh}{k3}{sint8}
+vscatterpf0dps 2(rcx,zmm4,4){eh}{k3}{uint16}
+vscatterpf0dps 2(rcx,zmm4,4){eh}{k3}{sint16}
+vscatterpf1dps 4(rcx,zmm4,4){k3}
+vscatterpf1dps 2(rcx,zmm4,4){k3}{float16}
+vscatterpf1dps 1(rcx,zmm4,4){k3}{uint8}
+vscatterpf1dps 1(rcx,zmm4,4){k3}{sint8}
+vscatterpf1dps 2(rcx,zmm4,4){k3}{uint16}
+vscatterpf1dps 2(rcx,zmm4,4){k3}{sint16}
+vscatterpf1dps 4(rcx,zmm4,4){eh}{k3}
+vscatterpf1dps 2(rcx,zmm4,4){eh}{k3}{float16}
+vscatterpf1dps 1(rcx,zmm4,4){eh}{k3}{uint8}
+vscatterpf1dps 1(rcx,zmm4,4){eh}{k3}{sint8}
+vscatterpf1dps 2(rcx,zmm4,4){eh}{k3}{uint16}
+vscatterpf1dps 2(rcx,zmm4,4){eh}{k3}{sint16}
+vpgatherdd 4(rcx,zmm4,4), zmm2{k3}
+vpgatherdd 1(rcx,zmm4,4){uint8}, zmm2{k3}
+vpgatherdd 1(rcx,zmm4,4){sint8}, zmm2{k3}
+vpgatherdd 2(rcx,zmm4,4){uint16}, zmm2{k3}
+vpgatherdd 2(rcx,zmm4,4){sint16}, zmm2{k3}
+vpgatherdd 4(rcx,zmm4,4){eh}, zmm26{k3}
+vpgatherdd 1(rcx,zmm4,4){eh}{uint8}, zmm2{k3}
+vpgatherdd 1(rcx,zmm4,4){eh}{sint8}, zmm2{k3}
+vpgatherdd 2(rcx,zmm4,4){eh}{uint16}, zmm2{k3}
+vpgatherdd 2(rcx,zmm4,4){eh}{sint16}, zmm2{k3}
+vpgatherdq 8(rcx,zmm4,4), zmm2{k3}
+vpgatherdq 8(rcx,zmm4,4){eh}, zmm26{k3}
+vgatherdps 4(rcx,zmm4,4), zmm2{k3}
+vgatherdps 2(rcx,zmm4,4){float16}, zmm26{k3}
+vgatherdps 1(rcx,zmm4,4){uint8}, zmm2{k3}
+vgatherdps 1(rcx,zmm4,4){sint8}, zmm2{k3}
+vgatherdps 2(rcx,zmm4,4){uint16}, zmm2{k3}
+vgatherdps 2(rcx,zmm4,4){sint16}, zmm2{k3}
+vgatherdps 4(rcx,zmm4,4){eh}, zmm2{k3}
+vgatherdps 2(rcx,zmm4,4){eh}{float16}, zmm2{k3}
+vgatherdps 1(rcx,zmm4,4){eh}{uint8}, zmm2{k3}
+vgatherdps 1(rcx,zmm4,4){eh}{sint8}, zmm2{k3}
+vgatherdps 2(rcx,zmm4,4){eh}{uint16}, zmm2{k3}
+vgatherdps 2(rcx,zmm4,4){eh}{sint16}, zmm2{k3}
+vgatherdpd 8(rcx,zmm4,4), zmm2{k3}
+vgatherdpd 8(rcx,zmm4,4){eh}, zmm26{k3}
+undoc 4(rcx,zmm4,4), zmm2{k3}
+undoc 1(rcx,zmm4,4), zmm10{k3}
+undoc 1(rcx,zmm4,4), zmm18{k3}
+undoc 2(rcx,zmm4,4), zmm26{k3}
+undoc 1(rcx,zmm4,4), zmm2{k3}
+undoc 1(rcx,zmm4,4), zmm2{k3}
+undoc 2(rcx,zmm4,4), zmm2{k3}
+undoc 2(rcx,zmm4,4), zmm2{k3}
+undoc 4(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 2(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 2(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 2(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 4(rcx,zmm4,4), zmm2{k3}
+undoc 1(rcx,zmm4,4), zmm10{k3}
+undoc 1(rcx,zmm4,4), zmm18{k3}
+undoc 2(rcx,zmm4,4), zmm26{k3}
+undoc 1(rcx,zmm4,4), zmm2{k3}
+undoc 1(rcx,zmm4,4), zmm2{k3}
+undoc 2(rcx,zmm4,4), zmm2{k3}
+undoc 2(rcx,zmm4,4), zmm2{k3}
+undoc 4(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 2(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 2(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 2(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 4(rcx,zmm4,4), zmm2{k3}
+undoc 1(rcx,zmm4,4), zmm10{k3}
+undoc 1(rcx,zmm4,4), zmm18{k3}
+undoc 2(rcx,zmm4,4), zmm26{k3}
+undoc 1(rcx,zmm4,4), zmm2{k3}
+undoc 1(rcx,zmm4,4), zmm2{k3}
+undoc 2(rcx,zmm4,4), zmm2{k3}
+undoc 2(rcx,zmm4,4), zmm2{k3}
+undoc 4(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 2(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 1(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 2(rcx,zmm4,4){eh}, zmm2{k3}
+undoc 2(rcx,zmm4,4){eh}, zmm2{k3}
+vpscatterdd zmm2, 4(rcx,zmm4,4){k3}
+vpscatterdd zmm2{uint8}, 1(rcx,zmm4,4){k3}
+vpscatterdd zmm2{sint8}, 1(rcx,zmm4,4){k3}
+vpscatterdd zmm2{uint16}, 2(rcx,zmm4,4){k3}
+vpscatterdd zmm2{sint16}, 2(rcx,zmm4,4){k3}
+vpscatterdd zmm26, 4(rcx,zmm4,4){eh}{k3}
+vpscatterdd zmm2{uint8}, 1(rcx,zmm4,4){eh}{k3}
+vpscatterdd zmm2{sint8}, 1(rcx,zmm4,4){eh}{k3}
+vpscatterdd zmm2{uint16}, 2(rcx,zmm4,4){eh}{k3}
+vpscatterdd zmm2{sint16}, 2(rcx,zmm4,4){eh}{k3}
+vpscatterdq zmm2, 8(rcx,zmm4,4){k3}
+vpscatterdq zmm26, 8(rcx,zmm4,4){eh}{k3}
+vscatterdps zmm2, 4(rcx,zmm4,4){k3}
+vscatterdps zmm26{float16}, 2(rcx,zmm4,4){k3}
+vscatterdps zmm2{uint8}, 1(rcx,zmm4,4){k3}
+vscatterdps zmm2{sint8}, 1(rcx,zmm4,4){k3}
+vscatterdps zmm2{uint16}, 2(rcx,zmm4,4){k3}
+vscatterdps zmm2{sint16}, 2(rcx,zmm4,4){k3}
+vscatterdps zmm2, 4(rcx,zmm4,4){eh}{k3}
+vscatterdps zmm2{float16}, 2(rcx,zmm4,4){eh}{k3}
+vscatterdps zmm2{uint8}, 1(rcx,zmm4,4){eh}{k3}
+vscatterdps zmm2{sint8}, 1(rcx,zmm4,4){eh}{k3}
+vscatterdps zmm2{uint16}, 2(rcx,zmm4,4){eh}{k3}
+vscatterdps zmm2{sint16}, 2(rcx,zmm4,4){eh}{k3}
+vscatterdpd zmm2, 8(rcx,zmm4,4){k3}
+vscatterdpd zmm26, 8(rcx,zmm4,4){eh}{k3}
+vmovaps 0x40(rax), zmm2
+vmovaps 0x20(rax){float16}, zmm26
+vmovaps 0x10(rax){uint8}, zmm2{k3}
+vmovaps 0x10(rax){sint8}, zmm2
+vmovaps 0x20(rax){uint16}, zmm2
+vmovaps 0x20(rax){sint16}, zmm2
+vmovaps 0x40(rax){eh}, zmm2
+vmovaps 0x20(rax){eh}{float16}, zmm2
+vmovaps 0x10(rax){eh}{uint8}, zmm2
+vmovaps 0x10(rax){eh}{sint8}, zmm2
+vmovaps 0x20(rax){eh}{uint16}, zmm2
+vmovaps 0x20(rax){eh}{sint16}, zmm2
+vmovaps zmm3, zmm2
+vmovaps zmm3{cdab}, zmm10{k3}
+vmovaps zmm3{badc}, zmm18
+vmovaps zmm3{dacb}, zmm26
+vmovaps zmm11{aaaa}, zmm2
+vmovaps zmm19{bbbb}, zmm2
+vmovaps zmm27{cccc}, zmm2
+vmovaps zmm3{dddd}, zmm2
+vmovaps zmm3, zmm2
+vmovapd 0x40(rax), zmm2
+vmovapd 0x40(rax){eh}, zmm2
+vmovapd zmm3, zmm2
+vmovapd zmm3{cdab}, zmm10{k3}
+vmovapd zmm3{badc}, zmm18
+vmovapd zmm3{dacb}, zmm26
+vmovapd zmm11{aaaa}, zmm2
+vmovapd zmm19{bbbb}, zmm2
+vmovapd zmm27{cccc}, zmm2
+vmovapd zmm3{dddd}, zmm2
+vmovapd zmm3, zmm2
+vcvtps2pd 0x20(rax), zmm2
+vcvtps2pd 4(rax){1to16}, zmm10
+vcvtps2pd 0x10(rax){4to16}, zmm18
+vcvtps2pd 0x20(rax){eh}, zmm2
+vcvtps2pd 4(rax){eh}{1to16}, zmm2
+vcvtps2pd 0x10(rax){eh}{4to16}, zmm2
+vcvtps2pd zmm3, zmm2
+vcvtps2pd zmm3{cdab}, zmm10{k3}
+vcvtps2pd zmm3{badc}, zmm18
+vcvtps2pd zmm3{dacb}, zmm26
+vcvtps2pd zmm11{aaaa}, zmm2
+vcvtps2pd zmm19{bbbb}, zmm2
+vcvtps2pd zmm27{cccc}, zmm2
+vcvtps2pd zmm3{dddd}, zmm2
+vcvtps2pd zmm3, zmm2
+vcvtps2pd {sae}, zmm11, zmm2
+vcvtpd2ps 0x40(rax), zmm2
+vcvtpd2ps 8(rax){1to8}, zmm10
+vcvtpd2ps 0x20(rax){4to8}, zmm18
+vcvtpd2ps 0x40(rax){eh}, zmm2
+vcvtpd2ps 8(rax){eh}{1to8}, zmm2
+vcvtpd2ps 0x20(rax){eh}{4to8}, zmm2
+vcvtpd2ps zmm3, zmm2
+vcvtpd2ps zmm3{cdab}, zmm10{k3}
+vcvtpd2ps zmm3{badc}, zmm18
+vcvtpd2ps zmm3{dacb}, zmm26
+vcvtpd2ps zmm11{aaaa}, zmm2
+vcvtpd2ps zmm19{bbbb}, zmm2
+vcvtpd2ps zmm27{cccc}, zmm2
+vcvtpd2ps zmm3{dddd}, zmm2
+vcvtpd2ps {rn}, zmm3, zmm2
+vcvtpd2ps {rd}, zmm3, zmm10
+vcvtpd2ps {ru}, zmm3, zmm18
+vcvtpd2ps {rz}, zmm3, zmm26
+vcvtpd2ps {rn-sae}, zmm11, zmm2
+vcvtpd2ps {rd-sae}, zmm19, zmm2
+vcvtpd2ps {ru-sae}, zmm27, zmm2
+vcvtpd2ps {rz-sae}, zmm3, zmm2
+vmovdqa32 0x40(rax), zmm2
+vmovdqa32 0x10(rax){uint8}, zmm2{k3}
+vmovdqa32 0x10(rax){sint8}, zmm2
+vmovdqa32 0x20(rax){uint16}, zmm2
+vmovdqa32 0x20(rax){sint16}, zmm2
+vmovdqa32 0x40(rax){eh}, zmm2
+vmovdqa32 0x10(rax){eh}{uint8}, zmm2
+vmovdqa32 0x10(rax){eh}{sint8}, zmm2
+vmovdqa32 0x20(rax){eh}{uint16}, zmm2
+vmovdqa32 0x20(rax){eh}{sint16}, zmm2
+vmovdqa32 zmm3, zmm2
+vmovdqa32 zmm3{cdab}, zmm10{k3}
+vmovdqa32 zmm3{badc}, zmm18
+vmovdqa32 zmm3{dacb}, zmm26
+vmovdqa32 zmm11{aaaa}, zmm2
+vmovdqa32 zmm19{bbbb}, zmm2
+vmovdqa32 zmm27{cccc}, zmm2
+vmovdqa32 zmm3{dddd}, zmm2
+vmovdqa32 zmm3, zmm2
+vmovdqa64 0x40(rax), zmm2
+vmovdqa64 0x40(rax){eh}, zmm2
+vmovdqa64 zmm3, zmm2
+vmovdqa64 zmm3{cdab}, zmm10{k3}
+vmovdqa64 zmm3{badc}, zmm18
+vmovdqa64 zmm3{dacb}, zmm26
+vmovdqa64 zmm11{aaaa}, zmm2
+vmovdqa64 zmm19{bbbb}, zmm2
+vmovdqa64 zmm27{cccc}, zmm2
+vmovdqa64 zmm3{dddd}, zmm2
+vmovdqa64 zmm3, zmm2
+vcvtudq2pd 0x20(rax), zmm2
+vcvtudq2pd 4(rax){1to16}, zmm10
+vcvtudq2pd 0x10(rax){4to16}, zmm18
+vcvtudq2pd 0x20(rax){eh}, zmm2
+vcvtudq2pd 4(rax){eh}{1to16}, zmm2
+vcvtudq2pd 0x10(rax){eh}{4to16}, zmm2
+vcvtudq2pd zmm3, zmm2
+vcvtudq2pd zmm3{cdab}, zmm10{k3}
+vcvtudq2pd zmm3{badc}, zmm18
+vcvtudq2pd zmm3{dacb}, zmm26
+vcvtudq2pd zmm11{aaaa}, zmm2
+vcvtudq2pd zmm19{bbbb}, zmm2
+vcvtudq2pd zmm27{cccc}, zmm2
+vcvtudq2pd zmm3{dddd}, zmm2
+vcvtudq2pd zmm3, zmm2
+vcvtdq2pd 0x20(rax), zmm2
+vcvtdq2pd 4(rax){1to16}, zmm10
+vcvtdq2pd 0x10(rax){4to16}, zmm18
+vcvtdq2pd 0x20(rax){eh}, zmm2
+vcvtdq2pd 4(rax){eh}{1to16}, zmm2
+vcvtdq2pd 0x10(rax){eh}{4to16}, zmm2
+vcvtdq2pd zmm3, zmm2
+vcvtdq2pd zmm3{cdab}, zmm10{k3}
+vcvtdq2pd zmm3{badc}, zmm18
+vcvtdq2pd zmm3{dacb}, zmm26
+vcvtdq2pd zmm11{aaaa}, zmm2
+vcvtdq2pd zmm19{bbbb}, zmm2
+vcvtdq2pd zmm27{cccc}, zmm2
+vcvtdq2pd zmm3{dddd}, zmm2
+vcvtdq2pd zmm3, zmm2
+vgetexpps 0x40(rax), zmm2
+vgetexpps 4(rax){1to16}, zmm10
+vgetexpps 0x10(rax){4to16}, zmm18
+vgetexpps 0x20(rax){float16}, zmm26
+vgetexpps 0x10(rax){uint8}, zmm2{k3}
+vgetexpps 0x10(rax){sint8}, zmm2
+vgetexpps 0x20(rax){uint16}, zmm2
+vgetexpps 0x20(rax){sint16}, zmm2
+vgetexpps 0x40(rax){eh}, zmm2
+vgetexpps 4(rax){eh}{1to16}, zmm2
+vgetexpps 0x10(rax){eh}{4to16}, zmm2
+vgetexpps 0x20(rax){eh}{float16}, zmm2
+vgetexpps 0x10(rax){eh}{uint8}, zmm2
+vgetexpps 0x10(rax){eh}{sint8}, zmm2
+vgetexpps 0x20(rax){eh}{uint16}, zmm2
+vgetexpps 0x20(rax){eh}{sint16}, zmm2
+vgetexpps zmm3, zmm2
+vgetexpps zmm3{cdab}, zmm10{k3}
+vgetexpps zmm3{badc}, zmm18
+vgetexpps zmm3{dacb}, zmm26
+vgetexpps zmm11{aaaa}, zmm2
+vgetexpps zmm19{bbbb}, zmm2
+vgetexpps zmm27{cccc}, zmm2
+vgetexpps zmm3{dddd}, zmm2
+vgetexpps zmm3, zmm2
+vgetexpps {sae}, zmm11, zmm2
+vgetexppd 0x40(rax), zmm2
+vgetexppd 8(rax){1to8}, zmm10
+vgetexppd 0x20(rax){4to8}, zmm18
+vgetexppd 0x40(rax){eh}, zmm2
+vgetexppd 8(rax){eh}{1to8}, zmm2
+vgetexppd 0x20(rax){eh}{4to8}, zmm2
+vgetexppd zmm3, zmm2
+vgetexppd zmm3{cdab}, zmm10{k3}
+vgetexppd zmm3{badc}, zmm18
+vgetexppd zmm3{dacb}, zmm26
+vgetexppd zmm11{aaaa}, zmm2
+vgetexppd zmm19{bbbb}, zmm2
+vgetexppd zmm27{cccc}, zmm2
+vgetexppd zmm3{dddd}, zmm2
+vgetexppd zmm3, zmm2
+vgetexppd {sae}, zmm11, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+vexp223ps 0x40(rax), zmm2{k5}
+vexp223ps 0x40(rax){eh}, zmm2
+vexp223ps zmm3, zmm2
+vexp223ps zmm3, zmm2
+vexp223ps {sae}, zmm11, zmm2
+vlog2ps 0x40(rax), zmm2{k5}
+vlog2ps 0x40(rax){eh}, zmm2
+vlog2ps zmm3, zmm2
+vlog2ps zmm3, zmm2
+vlog2ps {sae}, zmm11, zmm2
+vrcp23ps 0x40(rax), zmm2{k5}
+vrcp23ps 0x40(rax){eh}, zmm2
+vrcp23ps zmm3, zmm2
+vrcp23ps zmm3, zmm2
+vrcp23ps {sae}, zmm11, zmm2
+vrsqrt23ps 0x40(rax), zmm2{k5}
+vrsqrt23ps 0x40(rax){eh}, zmm2
+vrsqrt23ps zmm3, zmm2
+vrsqrt23ps zmm3, zmm2
+vrsqrt23ps {sae}, zmm11, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+undoc 0x40(rax), zmm2
+undoc 4(rax), zmm10
+undoc 0x10(rax), zmm18
+undoc 0x20(rax), zmm26
+undoc 0x10(rax), zmm2{k3}
+undoc 0x10(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x20(rax), zmm2
+undoc 0x40(rax){eh}, zmm2
+undoc 4(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x10(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc 0x20(rax){eh}, zmm2
+undoc zmm3, zmm2
+undoc zmm3, zmm10{k3}
+undoc zmm3, zmm18
+undoc zmm3, zmm26
+undoc zmm11, zmm2
+undoc zmm19, zmm2
+undoc zmm27, zmm2
+undoc zmm3, zmm2
+undoc {rn}, zmm3, zmm2
+undoc {rd}, zmm3, zmm10
+undoc {ru}, zmm3, zmm18
+undoc {rz}, zmm3, zmm26
+undoc {rn-sae}, zmm11, zmm2
+undoc {rd-sae}, zmm19, zmm2
+undoc {ru-sae}, zmm27, zmm2
+undoc {rz-sae}, zmm3, zmm2
+vbroadcastss 4(rax), zmm2
+vbroadcastss 2(rax){float16}, zmm26
+vbroadcastss 1(rax){uint8}, zmm2{k3}
+vbroadcastss 1(rax){sint8}, zmm2
+vbroadcastss 2(rax){uint16}, zmm2
+vbroadcastss 2(rax){sint16}, zmm2
+vbroadcastss 4(rax){eh}, zmm2
+vbroadcastss 2(rax){eh}{float16}, zmm2
+vbroadcastss 1(rax){eh}{uint8}, zmm2
+vbroadcastss 1(rax){eh}{sint8}, zmm2
+vbroadcastss 2(rax){eh}{uint16}, zmm2
+vbroadcastss 2(rax){eh}{sint16}, zmm2
+vbroadcastsd 8(rax), zmm2{k5}
+vbroadcastsd 8(rax){eh}, zmm26
+vbroadcastf32x4 0x10(rax), zmm2
+vbroadcastf32x4 8(rax){float16}, zmm26
+vbroadcastf32x4 4(rax){uint8}, zmm2{k3}
+vbroadcastf32x4 4(rax){sint8}, zmm2
+vbroadcastf32x4 8(rax){uint16}, zmm2
+vbroadcastf32x4 8(rax){sint16}, zmm2
+vbroadcastf32x4 0x10(rax){eh}, zmm2
+vbroadcastf32x4 8(rax){eh}{float16}, zmm2
+vbroadcastf32x4 4(rax){eh}{uint8}, zmm2
+vbroadcastf32x4 4(rax){eh}{sint8}, zmm2
+vbroadcastf32x4 8(rax){eh}{uint16}, zmm2
+vbroadcastf32x4 8(rax){eh}{sint16}, zmm2
+vbroadcastf64x4 0x20(rax), zmm2{k5}
+vbroadcastf64x4 0x20(rax){eh}, zmm26
+vpbroadcastd 4(rax), zmm2
+vpbroadcastd 1(rax){uint8}, zmm2{k3}
+vpbroadcastd 1(rax){sint8}, zmm2
+vpbroadcastd 2(rax){uint16}, zmm2
+vpbroadcastd 2(rax){sint16}, zmm2
+vpbroadcastd 4(rax){eh}, zmm26
+vpbroadcastd 1(rax){eh}{uint8}, zmm2
+vpbroadcastd 1(rax){eh}{sint8}, zmm2
+vpbroadcastd 2(rax){eh}{uint16}, zmm2
+vpbroadcastd 2(rax){eh}{sint16}, zmm2
+vpbroadcastq 8(rax), zmm2{k5}
+vpbroadcastq 8(rax){eh}, zmm26
+vbroadcasti32x4 0x10(rax), zmm2
+vbroadcasti32x4 4(rax){uint8}, zmm2{k3}
+vbroadcasti32x4 4(rax){sint8}, zmm2
+vbroadcasti32x4 8(rax){uint16}, zmm2
+vbroadcasti32x4 8(rax){sint16}, zmm2
+vbroadcasti32x4 0x10(rax){eh}, zmm26
+vbroadcasti32x4 4(rax){eh}{uint8}, zmm2
+vbroadcasti32x4 4(rax){eh}{sint8}, zmm2
+vbroadcasti32x4 8(rax){eh}{uint16}, zmm2
+vbroadcasti32x4 8(rax){eh}{sint16}, zmm2
+vbroadcasti64x4 0x20(rax), zmm2{k5}
+vbroadcasti64x4 0x20(rax){eh}, zmm26
+vloadunpackld 4(rax), zmm2
+vloadunpackld 1(rax){uint8}, zmm2{k3}
+vloadunpackld 1(rax){sint8}, zmm2
+vloadunpackld 2(rax){uint16}, zmm2
+vloadunpackld 2(rax){sint16}, zmm2
+vloadunpackld 4(rax){eh}, zmm26
+vloadunpackld 1(rax){eh}{uint8}, zmm2
+vloadunpackld 1(rax){eh}{sint8}, zmm2
+vloadunpackld 2(rax){eh}{uint16}, zmm2
+vloadunpackld 2(rax){eh}{sint16}, zmm2
+vloadunpacklq 8(rax), zmm2{k5}
+vloadunpacklq 8(rax){eh}, zmm26
+vloadunpacklps 4(rax), zmm2
+vloadunpacklps 2(rax){float16}, zmm26
+vloadunpacklps 1(rax){uint8}, zmm2{k3}
+vloadunpacklps 1(rax){sint8}, zmm2
+vloadunpacklps 2(rax){uint16}, zmm2
+vloadunpacklps 2(rax){sint16}, zmm2
+vloadunpacklps 4(rax){eh}, zmm2
+vloadunpacklps 2(rax){eh}{float16}, zmm2
+vloadunpacklps 1(rax){eh}{uint8}, zmm2
+vloadunpacklps 1(rax){eh}{sint8}, zmm2
+vloadunpacklps 2(rax){eh}{uint16}, zmm2
+vloadunpacklps 2(rax){eh}{sint16}, zmm2
+vloadunpacklpd 8(rax), zmm2{k5}
+vloadunpacklpd 8(rax){eh}, zmm26
+vloadunpackhd 4(rax), zmm2
+vloadunpackhd 1(rax){uint8}, zmm2{k3}
+vloadunpackhd 1(rax){sint8}, zmm2
+vloadunpackhd 2(rax){uint16}, zmm2
+vloadunpackhd 2(rax){sint16}, zmm2
+vloadunpackhd 4(rax){eh}, zmm26
+vloadunpackhd 1(rax){eh}{uint8}, zmm2
+vloadunpackhd 1(rax){eh}{sint8}, zmm2
+vloadunpackhd 2(rax){eh}{uint16}, zmm2
+vloadunpackhd 2(rax){eh}{sint16}, zmm2
+vloadunpackhq 8(rax), zmm2{k5}
+vloadunpackhq 8(rax){eh}, zmm26
+vloadunpackhps 4(rax), zmm2
+vloadunpackhps 2(rax){float16}, zmm26
+vloadunpackhps 1(rax){uint8}, zmm2{k3}
+vloadunpackhps 1(rax){sint8}, zmm2
+vloadunpackhps 2(rax){uint16}, zmm2
+vloadunpackhps 2(rax){sint16}, zmm2
+vloadunpackhps 4(rax){eh}, zmm2
+vloadunpackhps 2(rax){eh}{float16}, zmm2
+vloadunpackhps 1(rax){eh}{uint8}, zmm2
+vloadunpackhps 1(rax){eh}{sint8}, zmm2
+vloadunpackhps 2(rax){eh}{uint16}, zmm2
+vloadunpackhps 2(rax){eh}{sint16}, zmm2
+vloadunpackhpd 8(rax), zmm2{k5}
+vloadunpackhpd 8(rax){eh}, zmm26
+vpshufd $0x5a, 0x40(rax), zmm2{k5}
+vpshufd $0x5a, 0x40(rax){eh}, zmm26
+vpshufd $0x5a, zmm3, zmm2
+vpshufd $0x5a, zmm27, zmm2
+vpermf32x4 $0x5a, 0x40(rax), zmm2{k5}
+vpermf32x4 $0x5a, 0x40(rax){eh}, zmm26
+vpermf32x4 $0x5a, zmm3, zmm2
+vpermf32x4 $0x5a, zmm27, zmm2
+vgetmantps $0x5a, 0x40(rax), zmm2
+vgetmantps $-0x5b, 4(rax){1to16}, zmm10
+vgetmantps $0x5a, 0x10(rax){4to16}, zmm18
+vgetmantps $-0x5b, 0x20(rax){float16}, zmm26
+vgetmantps $0x5a, 0x10(rax){uint8}, zmm2{k3}
+vgetmantps $-0x5b, 0x10(rax){sint8}, zmm2
+vgetmantps $0x5a, 0x20(rax){uint16}, zmm2
+vgetmantps $-0x5b, 0x20(rax){sint16}, zmm2
+vgetmantps $0x5a, 0x40(rax){eh}, zmm2
+vgetmantps $-0x5b, 4(rax){eh}{1to16}, zmm2
+vgetmantps $0x5a, 0x10(rax){eh}{4to16}, zmm2
+vgetmantps $-0x5b, 0x20(rax){eh}{float16}, zmm2
+vgetmantps $0x5a, 0x10(rax){eh}{uint8}, zmm2
+vgetmantps $-0x5b, 0x10(rax){eh}{sint8}, zmm2
+vgetmantps $0x5a, 0x20(rax){eh}{uint16}, zmm2
+vgetmantps $-0x5b, 0x20(rax){eh}{sint16}, zmm2
+vgetmantps $0x5a, zmm3, zmm2
+vgetmantps $-0x5b, zmm3{cdab}, zmm10{k3}
+vgetmantps $0x5a, zmm3{badc}, zmm18
+vgetmantps $-0x5b, zmm3{dacb}, zmm26
+vgetmantps $0x5a, zmm11{aaaa}, zmm2
+vgetmantps $-0x5b, zmm19{bbbb}, zmm2
+vgetmantps $0x5a, zmm27{cccc}, zmm2
+vgetmantps $-0x5b, zmm3{dddd}, zmm2
+vgetmantps $0x5a, zmm3, zmm2
+vgetmantps $0x5a, {sae}, zmm11, zmm2
+vgetmantpd $0x5a, 0x40(rax), zmm2
+vgetmantpd $-0x5b, 8(rax){1to8}, zmm10
+vgetmantpd $0x5a, 0x20(rax){4to8}, zmm18
+vgetmantpd $0x5a, 0x40(rax){eh}, zmm2
+vgetmantpd $-0x5b, 8(rax){eh}{1to8}, zmm2
+vgetmantpd $0x5a, 0x20(rax){eh}{4to8}, zmm2
+vgetmantpd $0x5a, zmm3, zmm2
+vgetmantpd $-0x5b, zmm3{cdab}, zmm10{k3}
+vgetmantpd $0x5a, zmm3{badc}, zmm18
+vgetmantpd $-0x5b, zmm3{dacb}, zmm26
+vgetmantpd $0x5a, zmm11{aaaa}, zmm2
+vgetmantpd $-0x5b, zmm19{bbbb}, zmm2
+vgetmantpd $0x5a, zmm27{cccc}, zmm2
+vgetmantpd $-0x5b, zmm3{dddd}, zmm2
+vgetmantpd $0x5a, zmm3, zmm2
+vgetmantpd $0x5a, {sae}, zmm11, zmm2
+vrndfxpntps $0x5a, 0x40(rax), zmm2
+vrndfxpntps $-0x5b, 4(rax){1to16}, zmm10
+vrndfxpntps $0x5a, 0x10(rax){4to16}, zmm18
+vrndfxpntps $-0x5b, 0x20(rax){float16}, zmm26
+vrndfxpntps $0x5a, 0x10(rax){uint8}, zmm2{k3}
+vrndfxpntps $-0x5b, 0x10(rax){sint8}, zmm2
+vrndfxpntps $0x5a, 0x20(rax){uint16}, zmm2
+vrndfxpntps $-0x5b, 0x20(rax){sint16}, zmm2
+vrndfxpntps $0x5a, 0x40(rax){eh}, zmm2
+vrndfxpntps $-0x5b, 4(rax){eh}{1to16}, zmm2
+vrndfxpntps $0x5a, 0x10(rax){eh}{4to16}, zmm2
+vrndfxpntps $-0x5b, 0x20(rax){eh}{float16}, zmm2
+vrndfxpntps $0x5a, 0x10(rax){eh}{uint8}, zmm2
+vrndfxpntps $-0x5b, 0x10(rax){eh}{sint8}, zmm2
+vrndfxpntps $0x5a, 0x20(rax){eh}{uint16}, zmm2
+vrndfxpntps $-0x5b, 0x20(rax){eh}{sint16}, zmm2
+vrndfxpntps $0x5a, zmm3, zmm2
+vrndfxpntps $-0x5b, zmm3{cdab}, zmm10{k3}
+vrndfxpntps $0x5a, zmm3{badc}, zmm18
+vrndfxpntps $-0x5b, zmm3{dacb}, zmm26
+vrndfxpntps $0x5a, zmm11{aaaa}, zmm2
+vrndfxpntps $-0x5b, zmm19{bbbb}, zmm2
+vrndfxpntps $0x5a, zmm27{cccc}, zmm2
+vrndfxpntps $-0x5b, zmm3{dddd}, zmm2
+vrndfxpntps $0x5a, zmm3, zmm2
+vrndfxpntps {sae}, $0x5a, zmm11, zmm2
+vrndfxpntpd $0x5a, 0x40(rax), zmm2
+vrndfxpntpd $-0x5b, 8(rax){1to8}, zmm10
+vrndfxpntpd $0x5a, 0x20(rax){4to8}, zmm18
+vrndfxpntpd $0x5a, 0x40(rax){eh}, zmm2
+vrndfxpntpd $-0x5b, 8(rax){eh}{1to8}, zmm2
+vrndfxpntpd $0x5a, 0x20(rax){eh}{4to8}, zmm2
+vrndfxpntpd $0x5a, zmm3, zmm2
+vrndfxpntpd $-0x5b, zmm3{cdab}, zmm10{k3}
+vrndfxpntpd $0x5a, zmm3{badc}, zmm18
+vrndfxpntpd $-0x5b, zmm3{dacb}, zmm26
+vrndfxpntpd $0x5a, zmm11{aaaa}, zmm2
+vrndfxpntpd $-0x5b, zmm19{bbbb}, zmm2
+vrndfxpntpd $0x5a, zmm27{cccc}, zmm2
+vrndfxpntpd $-0x5b, zmm3{dddd}, zmm2
+vrndfxpntpd $0x5a, zmm3, zmm2
+vrndfxpntpd {sae}, $0x5a, zmm11, zmm2
+vcvtfxpntudq2ps $0x5a, 0x40(rax), zmm2
+vcvtfxpntudq2ps $-0x5b, 4(rax){1to16}, zmm10
+vcvtfxpntudq2ps $0x5a, 0x10(rax){4to16}, zmm18
+vcvtfxpntudq2ps $0x5a, 0x10(rax){uint8}, zmm2{k3}
+vcvtfxpntudq2ps $-0x5b, 0x10(rax){sint8}, zmm2
+vcvtfxpntudq2ps $0x5a, 0x20(rax){uint16}, zmm2
+vcvtfxpntudq2ps $-0x5b, 0x20(rax){sint16}, zmm2
+vcvtfxpntudq2ps $0x5a, 0x40(rax){eh}, zmm2
+vcvtfxpntudq2ps $-0x5b, 4(rax){eh}{1to16}, zmm2
+vcvtfxpntudq2ps $0x5a, 0x10(rax){eh}{4to16}, zmm2
+vcvtfxpntudq2ps $0x5a, 0x10(rax){eh}{uint8}, zmm2
+vcvtfxpntudq2ps $-0x5b, 0x10(rax){eh}{sint8}, zmm2
+vcvtfxpntudq2ps $0x5a, 0x20(rax){eh}{uint16}, zmm2
+vcvtfxpntudq2ps $-0x5b, 0x20(rax){eh}{sint16}, zmm2
+vcvtfxpntudq2ps $0x5a, zmm3, zmm2
+vcvtfxpntudq2ps $-0x5b, zmm3{cdab}, zmm10{k3}
+vcvtfxpntudq2ps $0x5a, zmm3{badc}, zmm18
+vcvtfxpntudq2ps $-0x5b, zmm3{dacb}, zmm26
+vcvtfxpntudq2ps $0x5a, zmm11{aaaa}, zmm2
+vcvtfxpntudq2ps $-0x5b, zmm19{bbbb}, zmm2
+vcvtfxpntudq2ps $0x5a, zmm27{cccc}, zmm2
+vcvtfxpntudq2ps $-0x5b, zmm3{dddd}, zmm2
+vcvtfxpntudq2ps $0x5a, zmm3, zmm2
+vcvtfxpntudq2ps {sae}, $0x5a, zmm11, zmm2
+vcvtfxpntps2udq $0x5a, 0x40(rax), zmm2
+vcvtfxpntps2udq $-0x5b, 4(rax){1to16}, zmm10
+vcvtfxpntps2udq $0x5a, 0x10(rax){4to16}, zmm18
+vcvtfxpntps2udq $-0x5b, 0x20(rax){float16}, zmm26
+vcvtfxpntps2udq $0x5a, 0x10(rax){uint8}, zmm2{k3}
+vcvtfxpntps2udq $-0x5b, 0x10(rax){sint8}, zmm2
+vcvtfxpntps2udq $0x5a, 0x20(rax){uint16}, zmm2
+vcvtfxpntps2udq $-0x5b, 0x20(rax){sint16}, zmm2
+vcvtfxpntps2udq $0x5a, 0x40(rax){eh}, zmm2
+vcvtfxpntps2udq $-0x5b, 4(rax){eh}{1to16}, zmm2
+vcvtfxpntps2udq $0x5a, 0x10(rax){eh}{4to16}, zmm2
+vcvtfxpntps2udq $-0x5b, 0x20(rax){eh}{float16}, zmm2
+vcvtfxpntps2udq $0x5a, 0x10(rax){eh}{uint8}, zmm2
+vcvtfxpntps2udq $-0x5b, 0x10(rax){eh}{sint8}, zmm2
+vcvtfxpntps2udq $0x5a, 0x20(rax){eh}{uint16}, zmm2
+vcvtfxpntps2udq $-0x5b, 0x20(rax){eh}{sint16}, zmm2
+vcvtfxpntps2udq $0x5a, zmm3, zmm2
+vcvtfxpntps2udq $-0x5b, zmm3{cdab}, zmm10{k3}
+vcvtfxpntps2udq $0x5a, zmm3{badc}, zmm18
+vcvtfxpntps2udq $-0x5b, zmm3{dacb}, zmm26
+vcvtfxpntps2udq $0x5a, zmm11{aaaa}, zmm2
+vcvtfxpntps2udq $-0x5b, zmm19{bbbb}, zmm2
+vcvtfxpntps2udq $0x5a, zmm27{cccc}, zmm2
+vcvtfxpntps2udq $-0x5b, zmm3{dddd}, zmm2
+vcvtfxpntps2udq $0x5a, zmm3, zmm2
+vcvtfxpntps2udq {sae}, $0x5a, zmm11, zmm2
+vcvtfxpntpd2udq $0x5a, 0x40(rax), zmm2
+vcvtfxpntpd2udq $-0x5b, 8(rax){1to8}, zmm10
+vcvtfxpntpd2udq $0x5a, 0x20(rax){4to8}, zmm18
+vcvtfxpntpd2udq $0x5a, 0x40(rax){eh}, zmm2
+vcvtfxpntpd2udq $-0x5b, 8(rax){eh}{1to8}, zmm2
+vcvtfxpntpd2udq $0x5a, 0x20(rax){eh}{4to8}, zmm2
+vcvtfxpntpd2udq $0x5a, zmm3, zmm2
+vcvtfxpntpd2udq $-0x5b, zmm3{cdab}, zmm10{k3}
+vcvtfxpntpd2udq $0x5a, zmm3{badc}, zmm18
+vcvtfxpntpd2udq $-0x5b, zmm3{dacb}, zmm26
+vcvtfxpntpd2udq $0x5a, zmm11{aaaa}, zmm2
+vcvtfxpntpd2udq $-0x5b, zmm19{bbbb}, zmm2
+vcvtfxpntpd2udq $0x5a, zmm27{cccc}, zmm2
+vcvtfxpntpd2udq $-0x5b, zmm3{dddd}, zmm2
+vcvtfxpntpd2udq $0x5a, zmm3, zmm2
+vcvtfxpntpd2udq {sae}, $0x5a, zmm11, zmm2
+vcvtfxpntdq2ps $0x5a, 0x40(rax), zmm2
+vcvtfxpntdq2ps $-0x5b, 4(rax){1to16}, zmm10
+vcvtfxpntdq2ps $0x5a, 0x10(rax){4to16}, zmm18
+vcvtfxpntdq2ps $0x5a, 0x10(rax){uint8}, zmm2{k3}
+vcvtfxpntdq2ps $-0x5b, 0x10(rax){sint8}, zmm2
+vcvtfxpntdq2ps $0x5a, 0x20(rax){uint16}, zmm2
+vcvtfxpntdq2ps $-0x5b, 0x20(rax){sint16}, zmm2
+vcvtfxpntdq2ps $0x5a, 0x40(rax){eh}, zmm2
+vcvtfxpntdq2ps $-0x5b, 4(rax){eh}{1to16}, zmm2
+vcvtfxpntdq2ps $0x5a, 0x10(rax){eh}{4to16}, zmm2
+vcvtfxpntdq2ps $0x5a, 0x10(rax){eh}{uint8}, zmm2
+vcvtfxpntdq2ps $-0x5b, 0x10(rax){eh}{sint8}, zmm2
+vcvtfxpntdq2ps $0x5a, 0x20(rax){eh}{uint16}, zmm2
+vcvtfxpntdq2ps $-0x5b, 0x20(rax){eh}{sint16}, zmm2
+vcvtfxpntdq2ps $0x5a, zmm3, zmm2
+vcvtfxpntdq2ps $-0x5b, zmm3{cdab}, zmm10{k3}
+vcvtfxpntdq2ps $0x5a, zmm3{badc}, zmm18
+vcvtfxpntdq2ps $-0x5b, zmm3{dacb}, zmm26
+vcvtfxpntdq2ps $0x5a, zmm11{aaaa}, zmm2
+vcvtfxpntdq2ps $-0x5b, zmm19{bbbb}, zmm2
+vcvtfxpntdq2ps $0x5a, zmm27{cccc}, zmm2
+vcvtfxpntdq2ps $-0x5b, zmm3{dddd}, zmm2
+vcvtfxpntdq2ps $0x5a, zmm3, zmm2
+vcvtfxpntdq2ps {sae}, $0x5a, zmm11, zmm2
+vcvtfxpntps2dq $0x5a, 0x40(rax), zmm2
+vcvtfxpntps2dq $-0x5b, 4(rax){1to16}, zmm10
+vcvtfxpntps2dq $0x5a, 0x10(rax){4to16}, zmm18
+vcvtfxpntps2dq $-0x5b, 0x20(rax){float16}, zmm26
+vcvtfxpntps2dq $0x5a, 0x10(rax){uint8}, zmm2{k3}
+vcvtfxpntps2dq $-0x5b, 0x10(rax){sint8}, zmm2
+vcvtfxpntps2dq $0x5a, 0x20(rax){uint16}, zmm2
+vcvtfxpntps2dq $-0x5b, 0x20(rax){sint16}, zmm2
+vcvtfxpntps2dq $0x5a, 0x40(rax){eh}, zmm2
+vcvtfxpntps2dq $-0x5b, 4(rax){eh}{1to16}, zmm2
+vcvtfxpntps2dq $0x5a, 0x10(rax){eh}{4to16}, zmm2
+vcvtfxpntps2dq $-0x5b, 0x20(rax){eh}{float16}, zmm2
+vcvtfxpntps2dq $0x5a, 0x10(rax){eh}{uint8}, zmm2
+vcvtfxpntps2dq $-0x5b, 0x10(rax){eh}{sint8}, zmm2
+vcvtfxpntps2dq $0x5a, 0x20(rax){eh}{uint16}, zmm2
+vcvtfxpntps2dq $-0x5b, 0x20(rax){eh}{sint16}, zmm2
+vcvtfxpntps2dq $0x5a, zmm3, zmm2
+vcvtfxpntps2dq $-0x5b, zmm3{cdab}, zmm10{k3}
+vcvtfxpntps2dq $0x5a, zmm3{badc}, zmm18
+vcvtfxpntps2dq $-0x5b, zmm3{dacb}, zmm26
+vcvtfxpntps2dq $0x5a, zmm11{aaaa}, zmm2
+vcvtfxpntps2dq $-0x5b, zmm19{bbbb}, zmm2
+vcvtfxpntps2dq $0x5a, zmm27{cccc}, zmm2
+vcvtfxpntps2dq $-0x5b, zmm3{dddd}, zmm2
+vcvtfxpntps2dq $0x5a, zmm3, zmm2
+vcvtfxpntps2dq {sae}, $0x5a, zmm11, zmm2
+undoc $0x5a, 0x40(rax), zmm2
+undoc $-0x5b, 4(rax), zmm10
+undoc $0x5a, 0x10(rax), zmm18
+undoc $-0x5b, 0x20(rax), zmm26
+undoc $0x5a, 0x10(rax), zmm2{k3}
+undoc $-0x5b, 0x10(rax), zmm2
+undoc $0x5a, 0x20(rax), zmm2
+undoc $-0x5b, 0x20(rax), zmm2
+undoc $0x5a, 0x40(rax){eh}, zmm2
+undoc $-0x5b, 4(rax){eh}, zmm2
+undoc $0x5a, 0x10(rax){eh}, zmm2
+undoc $-0x5b, 0x20(rax){eh}, zmm2
+undoc $0x5a, 0x10(rax){eh}, zmm2
+undoc $-0x5b, 0x10(rax){eh}, zmm2
+undoc $0x5a, 0x20(rax){eh}, zmm2
+undoc $-0x5b, 0x20(rax){eh}, zmm2
+undoc $0x5a, zmm3, zmm2
+undoc $-0x5b, zmm3, zmm10{k3}
+undoc $0x5a, zmm3, zmm18
+undoc $-0x5b, zmm3, zmm26
+undoc $0x5a, zmm11, zmm2
+undoc $-0x5b, zmm19, zmm2
+undoc $0x5a, zmm27, zmm2
+undoc $-0x5b, zmm3, zmm2
+undoc {rn}, $0x5a, zmm3, zmm2
+undoc {rd}, $-0x5b, zmm3, zmm10
+undoc {ru}, $0x5a, zmm3, zmm18
+undoc {rz}, $-0x5b, zmm3, zmm26
+undoc {rn-sae}, $0x5a, zmm11, zmm2
+undoc {rd-sae}, $-0x5b, zmm19, zmm2
+undoc {ru-sae}, $0x5a, zmm27, zmm2
+undoc {rz-sae}, $-0x5b, zmm3, zmm2
+undoc $0x5a, 0x40(rax), zmm2
+undoc $-0x5b, 4(rax), zmm10
+undoc $0x5a, 0x10(rax), zmm18
+undoc $-0x5b, 0x20(rax), zmm26
+undoc $0x5a, 0x10(rax), zmm2{k3}
+undoc $-0x5b, 0x10(rax), zmm2
+undoc $0x5a, 0x20(rax), zmm2
+undoc $-0x5b, 0x20(rax), zmm2
+undoc $0x5a, 0x40(rax){eh}, zmm2
+undoc $-0x5b, 4(rax){eh}, zmm2
+undoc $0x5a, 0x10(rax){eh}, zmm2
+undoc $-0x5b, 0x20(rax){eh}, zmm2
+undoc $0x5a, 0x10(rax){eh}, zmm2
+undoc $-0x5b, 0x10(rax){eh}, zmm2
+undoc $0x5a, 0x20(rax){eh}, zmm2
+undoc $-0x5b, 0x20(rax){eh}, zmm2
+undoc $0x5a, zmm3, zmm2
+undoc $-0x5b, zmm3, zmm10{k3}
+undoc $0x5a, zmm3, zmm18
+undoc $-0x5b, zmm3, zmm26
+undoc $0x5a, zmm11, zmm2
+undoc $-0x5b, zmm19, zmm2
+undoc $0x5a, zmm27, zmm2
+undoc $-0x5b, zmm3, zmm2
+undoc {rn}, $0x5a, zmm3, zmm2
+undoc {rd}, $-0x5b, zmm3, zmm10
+undoc {ru}, $0x5a, zmm3, zmm18
+undoc {rz}, $-0x5b, zmm3, zmm26
+undoc {rn-sae}, $0x5a, zmm11, zmm2
+undoc {rd-sae}, $-0x5b, zmm19, zmm2
+undoc {ru-sae}, $0x5a, zmm27, zmm2
+undoc {rz-sae}, $-0x5b, zmm3, zmm2
+vcvtfxpntpd2dq $0x5a, 0x40(rax), zmm2
+vcvtfxpntpd2dq $-0x5b, 8(rax){1to8}, zmm10
+vcvtfxpntpd2dq $0x5a, 0x20(rax){4to8}, zmm18
+vcvtfxpntpd2dq $0x5a, 0x40(rax){eh}, zmm2
+vcvtfxpntpd2dq $-0x5b, 8(rax){eh}{1to8}, zmm2
+vcvtfxpntpd2dq $0x5a, 0x20(rax){eh}{4to8}, zmm2
+vcvtfxpntpd2dq $0x5a, zmm3, zmm2
+vcvtfxpntpd2dq $-0x5b, zmm3{cdab}, zmm10{k3}
+vcvtfxpntpd2dq $0x5a, zmm3{badc}, zmm18
+vcvtfxpntpd2dq $-0x5b, zmm3{dacb}, zmm26
+vcvtfxpntpd2dq $0x5a, zmm11{aaaa}, zmm2
+vcvtfxpntpd2dq $-0x5b, zmm19{bbbb}, zmm2
+vcvtfxpntpd2dq $0x5a, zmm27{cccc}, zmm2
+vcvtfxpntpd2dq $-0x5b, zmm3{dddd}, zmm2
+vcvtfxpntpd2dq $0x5a, zmm3, zmm2
+vcvtfxpntpd2dq {sae}, $0x5a, zmm11, zmm2
+vmovaps zmm2, 0x40(rax)
+vmovaps zmm26{float16}, 0x20(rax)
+vmovaps zmm2{uint8}, 0x10(rax){k3}
+vmovaps zmm2{sint8}, 0x10(rax)
+vmovaps zmm2{uint16}, 0x20(rax)
+vmovaps zmm2{sint16}, 0x20(rax)
+vmovaps zmm2, 0x40(rax){eh}
+vmovaps zmm2{float16}, 0x20(rax){eh}
+vmovaps zmm2{uint8}, 0x10(rax){eh}
+vmovaps zmm2{sint8}, 0x10(rax){eh}
+vmovaps zmm2{uint16}, 0x20(rax){eh}
+vmovaps zmm2{sint16}, 0x20(rax){eh}
+vmovapd zmm2, 0x40(rax){k5}
+vmovapd zmm26, 0x40(rax){eh}
+vmovdqa32 zmm2, 0x40(rax)
+vmovdqa32 zmm18{uint8}, 0x10(rax){k3}
+vmovdqa32 zmm10{sint8}, 0x10(rax)
+vmovdqa32 zmm2{uint16}, 0x20(rax)
+vmovdqa32 zmm2{sint16}, 0x20(rax)
+vmovdqa32 zmm2, 0x40(rax){eh}
+vmovdqa32 zmm2{uint8}, 0x10(rax){eh}
+vmovdqa32 zmm2{sint8}, 0x10(rax){eh}
+vmovdqa32 zmm2{uint16}, 0x20(rax){eh}
+vmovdqa32 zmm2{sint16}, 0x20(rax){eh}
+vmovdqa64 zmm2, 0x40(rax){k5}
+vmovdqa64 zmm26, 0x40(rax){eh}
+vpackstoreld zmm2, 4(rax)
+vpackstoreld zmm2{uint8}, 1(rax){k3}
+vpackstoreld zmm2{sint8}, 1(rax)
+vpackstoreld zmm2{uint16}, 2(rax)
+vpackstoreld zmm2{sint16}, 2(rax)
+vpackstoreld zmm26, 4(rax){eh}
+vpackstoreld zmm2{uint8}, 1(rax){eh}
+vpackstoreld zmm2{sint8}, 1(rax){eh}
+vpackstoreld zmm2{uint16}, 2(rax){eh}
+vpackstoreld zmm2{sint16}, 2(rax){eh}
+vpackstorelq zmm2, 8(rax){k5}
+vpackstorelq zmm26, 8(rax){eh}
+vpackstorelps zmm2, 4(rax)
+vpackstorelps zmm26{float16}, 2(rax)
+vpackstorelps zmm2{uint8}, 1(rax){k3}
+vpackstorelps zmm2{sint8}, 1(rax)
+vpackstorelps zmm2{uint16}, 2(rax)
+vpackstorelps zmm2{sint16}, 2(rax)
+vpackstorelps zmm2, 4(rax){eh}
+vpackstorelps zmm2{float16}, 2(rax){eh}
+vpackstorelps zmm2{uint8}, 1(rax){eh}
+vpackstorelps zmm2{sint8}, 1(rax){eh}
+vpackstorelps zmm2{uint16}, 2(rax){eh}
+vpackstorelps zmm2{sint16}, 2(rax){eh}
+vpackstorelpd zmm2, 8(rax){k5}
+vpackstorelpd zmm26, 8(rax){eh}
+vpackstorehd zmm2, 4(rax)
+vpackstorehd zmm2{uint8}, 1(rax){k3}
+vpackstorehd zmm2{sint8}, 1(rax)
+vpackstorehd zmm2{uint16}, 2(rax)
+vpackstorehd zmm2{sint16}, 2(rax)
+vpackstorehd zmm26, 4(rax){eh}
+vpackstorehd zmm2{uint8}, 1(rax){eh}
+vpackstorehd zmm2{sint8}, 1(rax){eh}
+vpackstorehd zmm2{uint16}, 2(rax){eh}
+vpackstorehd zmm2{sint16}, 2(rax){eh}
+vpackstorehq zmm2, 8(rax){k5}
+vpackstorehq zmm26, 8(rax){eh}
+vpackstorehps zmm2, 4(rax)
+vpackstorehps zmm26{float16}, 2(rax)
+vpackstorehps zmm2{uint8}, 1(rax){k3}
+vpackstorehps zmm2{sint8}, 1(rax)
+vpackstorehps zmm2{uint16}, 2(rax)
+vpackstorehps zmm2{sint16}, 2(rax)
+vpackstorehps zmm2, 4(rax){eh}
+vpackstorehps zmm2{float16}, 2(rax){eh}
+vpackstorehps zmm2{uint8}, 1(rax){eh}
+vpackstorehps zmm2{sint8}, 1(rax){eh}
+vpackstorehps zmm2{uint16}, 2(rax){eh}
+vpackstorehps zmm2{sint16}, 2(rax){eh}
+vpackstorehpd zmm2, 8(rax){k5}
+vpackstorehpd zmm26, 8(rax){eh}
+vmovnrapd zmm2, 0x40(rax)
+vmovnrapd zmm26, 0x40(rax){k5}
+vmovnrngoapd zmm2, 0x40(rax)
+vmovnrngoapd zmm26, 0x40(rax){k5}
+vmovnraps zmm2, 0x40(rax)
+vmovnraps zmm26{float16}, 0x20(rax)
+vmovnraps zmm2{uint8}, 0x10(rax){k3}
+vmovnraps zmm2{sint8}, 0x10(rax)
+vmovnraps zmm2{uint16}, 0x20(rax)
+vmovnraps zmm2{sint16}, 0x20(rax)
+vmovnrngoaps zmm2, 0x40(rax)
+vmovnrngoaps zmm26{float16}, 0x20(rax)
+vmovnrngoaps zmm2{uint8}, 0x10(rax){k3}
+vmovnrngoaps zmm2{sint8}, 0x10(rax)
+vmovnrngoaps zmm2{uint16}, 0x20(rax)
+vmovnrngoaps zmm2{sint16}, 0x20(rax)
+vaddps 0x40(rax), zmm6, zmm2
+vaddps 4(rax){1to16}, zmm6, zmm10
+vaddps 0x10(rax){4to16}, zmm6, zmm18
+vaddps 0x20(rax){float16}, zmm6, zmm26
+vaddps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vaddps 0x10(rax){sint8}, zmm6, zmm2
+vaddps 0x20(rax){uint16}, zmm6, zmm2
+vaddps 0x20(rax){sint16}, zmm6, zmm2
+vaddps 0x40(rax){eh}, zmm6, zmm2
+vaddps 4(rax){eh}{1to16}, zmm6, zmm2
+vaddps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vaddps 0x20(rax){eh}{float16}, zmm6, zmm2
+vaddps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vaddps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vaddps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vaddps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vaddps zmm3, zmm6, zmm2
+vaddps zmm3{cdab}, zmm6, zmm10{k3}
+vaddps zmm3{badc}, zmm6, zmm18
+vaddps zmm3{dacb}, zmm6, zmm26
+vaddps zmm11{aaaa}, zmm6, zmm2
+vaddps zmm19{bbbb}, zmm6, zmm2
+vaddps zmm27{cccc}, zmm6, zmm2
+vaddps zmm3{dddd}, zmm6, zmm2
+vaddps {rn}, zmm3, zmm6, zmm2
+vaddps {rd}, zmm3, zmm6, zmm10
+vaddps {ru}, zmm3, zmm6, zmm18
+vaddps {rz}, zmm3, zmm6, zmm26
+vaddps {rn-sae}, zmm11, zmm6, zmm2
+vaddps {rd-sae}, zmm19, zmm14, zmm2
+vaddps {ru-sae}, zmm27, zmm22, zmm2
+vaddps {rz-sae}, zmm3, zmm30, zmm2
+vaddpd 0x40(rax), zmm6, zmm2
+vaddpd 8(rax){1to8}, zmm6, zmm10
+vaddpd 0x20(rax){4to8}, zmm6, zmm18
+vaddpd 0x40(rax){eh}, zmm6, zmm2
+vaddpd 8(rax){eh}{1to8}, zmm6, zmm2
+vaddpd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vaddpd zmm3, zmm6, zmm2
+vaddpd zmm3{cdab}, zmm6, zmm10{k3}
+vaddpd zmm3{badc}, zmm6, zmm18
+vaddpd zmm3{dacb}, zmm6, zmm26
+vaddpd zmm11{aaaa}, zmm6, zmm2
+vaddpd zmm19{bbbb}, zmm6, zmm2
+vaddpd zmm27{cccc}, zmm6, zmm2
+vaddpd zmm3{dddd}, zmm6, zmm2
+vaddpd {rn}, zmm3, zmm6, zmm2
+vaddpd {rd}, zmm3, zmm6, zmm10
+vaddpd {ru}, zmm3, zmm6, zmm18
+vaddpd {rz}, zmm3, zmm6, zmm26
+vaddpd {rn-sae}, zmm11, zmm6, zmm2
+vaddpd {rd-sae}, zmm19, zmm14, zmm2
+vaddpd {ru-sae}, zmm27, zmm22, zmm2
+vaddpd {rz-sae}, zmm3, zmm30, zmm2
+vmulps 0x40(rax), zmm6, zmm2
+vmulps 4(rax){1to16}, zmm6, zmm10
+vmulps 0x10(rax){4to16}, zmm6, zmm18
+vmulps 0x20(rax){float16}, zmm6, zmm26
+vmulps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vmulps 0x10(rax){sint8}, zmm6, zmm2
+vmulps 0x20(rax){uint16}, zmm6, zmm2
+vmulps 0x20(rax){sint16}, zmm6, zmm2
+vmulps 0x40(rax){eh}, zmm6, zmm2
+vmulps 4(rax){eh}{1to16}, zmm6, zmm2
+vmulps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vmulps 0x20(rax){eh}{float16}, zmm6, zmm2
+vmulps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vmulps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vmulps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vmulps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vmulps zmm3, zmm6, zmm2
+vmulps zmm3{cdab}, zmm6, zmm10{k3}
+vmulps zmm3{badc}, zmm6, zmm18
+vmulps zmm3{dacb}, zmm6, zmm26
+vmulps zmm11{aaaa}, zmm6, zmm2
+vmulps zmm19{bbbb}, zmm6, zmm2
+vmulps zmm27{cccc}, zmm6, zmm2
+vmulps zmm3{dddd}, zmm6, zmm2
+vmulps {rn}, zmm3, zmm6, zmm2
+vmulps {rd}, zmm3, zmm6, zmm10
+vmulps {ru}, zmm3, zmm6, zmm18
+vmulps {rz}, zmm3, zmm6, zmm26
+vmulps {rn-sae}, zmm11, zmm6, zmm2
+vmulps {rd-sae}, zmm19, zmm14, zmm2
+vmulps {ru-sae}, zmm27, zmm22, zmm2
+vmulps {rz-sae}, zmm3, zmm30, zmm2
+vmulpd 0x40(rax), zmm6, zmm2
+vmulpd 8(rax){1to8}, zmm6, zmm10
+vmulpd 0x20(rax){4to8}, zmm6, zmm18
+vmulpd 0x40(rax){eh}, zmm6, zmm2
+vmulpd 8(rax){eh}{1to8}, zmm6, zmm2
+vmulpd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vmulpd zmm3, zmm6, zmm2
+vmulpd zmm3{cdab}, zmm6, zmm10{k3}
+vmulpd zmm3{badc}, zmm6, zmm18
+vmulpd zmm3{dacb}, zmm6, zmm26
+vmulpd zmm11{aaaa}, zmm6, zmm2
+vmulpd zmm19{bbbb}, zmm6, zmm2
+vmulpd zmm27{cccc}, zmm6, zmm2
+vmulpd zmm3{dddd}, zmm6, zmm2
+vmulpd {rn}, zmm3, zmm6, zmm2
+vmulpd {rd}, zmm3, zmm6, zmm10
+vmulpd {ru}, zmm3, zmm6, zmm18
+vmulpd {rz}, zmm3, zmm6, zmm26
+vmulpd {rn-sae}, zmm11, zmm6, zmm2
+vmulpd {rd-sae}, zmm19, zmm14, zmm2
+vmulpd {ru-sae}, zmm27, zmm22, zmm2
+vmulpd {rz-sae}, zmm3, zmm30, zmm2
+vsubps 0x40(rax), zmm6, zmm2
+vsubps 4(rax){1to16}, zmm6, zmm10
+vsubps 0x10(rax){4to16}, zmm6, zmm18
+vsubps 0x20(rax){float16}, zmm6, zmm26
+vsubps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vsubps 0x10(rax){sint8}, zmm6, zmm2
+vsubps 0x20(rax){uint16}, zmm6, zmm2
+vsubps 0x20(rax){sint16}, zmm6, zmm2
+vsubps 0x40(rax){eh}, zmm6, zmm2
+vsubps 4(rax){eh}{1to16}, zmm6, zmm2
+vsubps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vsubps 0x20(rax){eh}{float16}, zmm6, zmm2
+vsubps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vsubps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vsubps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vsubps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vsubps zmm3, zmm6, zmm2
+vsubps zmm3{cdab}, zmm6, zmm10{k3}
+vsubps zmm3{badc}, zmm6, zmm18
+vsubps zmm3{dacb}, zmm6, zmm26
+vsubps zmm11{aaaa}, zmm6, zmm2
+vsubps zmm19{bbbb}, zmm6, zmm2
+vsubps zmm27{cccc}, zmm6, zmm2
+vsubps zmm3{dddd}, zmm6, zmm2
+vsubps {rn}, zmm3, zmm6, zmm2
+vsubps {rd}, zmm3, zmm6, zmm10
+vsubps {ru}, zmm3, zmm6, zmm18
+vsubps {rz}, zmm3, zmm6, zmm26
+vsubps {rn-sae}, zmm11, zmm6, zmm2
+vsubps {rd-sae}, zmm19, zmm14, zmm2
+vsubps {ru-sae}, zmm27, zmm22, zmm2
+vsubps {rz-sae}, zmm3, zmm30, zmm2
+vsubpd 0x40(rax), zmm6, zmm2
+vsubpd 8(rax){1to8}, zmm6, zmm10
+vsubpd 0x20(rax){4to8}, zmm6, zmm18
+vsubpd 0x40(rax){eh}, zmm6, zmm2
+vsubpd 8(rax){eh}{1to8}, zmm6, zmm2
+vsubpd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vsubpd zmm3, zmm6, zmm2
+vsubpd zmm3{cdab}, zmm6, zmm10{k3}
+vsubpd zmm3{badc}, zmm6, zmm18
+vsubpd zmm3{dacb}, zmm6, zmm26
+vsubpd zmm11{aaaa}, zmm6, zmm2
+vsubpd zmm19{bbbb}, zmm6, zmm2
+vsubpd zmm27{cccc}, zmm6, zmm2
+vsubpd zmm3{dddd}, zmm6, zmm2
+vsubpd {rn}, zmm3, zmm6, zmm2
+vsubpd {rd}, zmm3, zmm6, zmm10
+vsubpd {ru}, zmm3, zmm6, zmm18
+vsubpd {rz}, zmm3, zmm6, zmm26
+vsubpd {rn-sae}, zmm11, zmm6, zmm2
+vsubpd {rd-sae}, zmm19, zmm14, zmm2
+vsubpd {ru-sae}, zmm27, zmm22, zmm2
+vsubpd {rz-sae}, zmm3, zmm30, zmm2
+vpandd 0x40(rax), zmm6, zmm2
+vpandd 4(rax){1to16}, zmm6, zmm10
+vpandd 0x10(rax){4to16}, zmm6, zmm18
+vpandd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpandd 0x10(rax){sint8}, zmm6, zmm2
+vpandd 0x20(rax){uint16}, zmm6, zmm2
+vpandd 0x20(rax){sint16}, zmm6, zmm2
+vpandd 0x40(rax){eh}, zmm6, zmm2
+vpandd 4(rax){eh}{1to16}, zmm6, zmm2
+vpandd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpandd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpandd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpandd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpandd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpandd zmm3, zmm6, zmm2
+vpandd zmm3{cdab}, zmm6, zmm10{k3}
+vpandd zmm3{badc}, zmm6, zmm18
+vpandd zmm3{dacb}, zmm6, zmm26
+vpandd zmm11{aaaa}, zmm6, zmm2
+vpandd zmm19{bbbb}, zmm6, zmm2
+vpandd zmm27{cccc}, zmm6, zmm2
+vpandd zmm3{dddd}, zmm6, zmm2
+vpandd zmm3, zmm6, zmm2
+vpandq 0x40(rax), zmm6, zmm2
+vpandq 8(rax){1to8}, zmm6, zmm10
+vpandq 0x20(rax){4to8}, zmm6, zmm18
+vpandq 0x40(rax){eh}, zmm6, zmm2
+vpandq 8(rax){eh}{1to8}, zmm6, zmm2
+vpandq 0x20(rax){eh}{4to8}, zmm6, zmm2
+vpandq zmm3, zmm6, zmm2
+vpandq zmm3{cdab}, zmm6, zmm10{k3}
+vpandq zmm3{badc}, zmm6, zmm18
+vpandq zmm3{dacb}, zmm6, zmm26
+vpandq zmm11{aaaa}, zmm6, zmm2
+vpandq zmm19{bbbb}, zmm6, zmm2
+vpandq zmm27{cccc}, zmm6, zmm2
+vpandq zmm3{dddd}, zmm6, zmm2
+vpandq zmm3, zmm6, zmm2
+vpandnd 0x40(rax), zmm6, zmm2
+vpandnd 4(rax){1to16}, zmm6, zmm10
+vpandnd 0x10(rax){4to16}, zmm6, zmm18
+vpandnd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpandnd 0x10(rax){sint8}, zmm6, zmm2
+vpandnd 0x20(rax){uint16}, zmm6, zmm2
+vpandnd 0x20(rax){sint16}, zmm6, zmm2
+vpandnd 0x40(rax){eh}, zmm6, zmm2
+vpandnd 4(rax){eh}{1to16}, zmm6, zmm2
+vpandnd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpandnd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpandnd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpandnd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpandnd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpandnd zmm3, zmm6, zmm2
+vpandnd zmm3{cdab}, zmm6, zmm10{k3}
+vpandnd zmm3{badc}, zmm6, zmm18
+vpandnd zmm3{dacb}, zmm6, zmm26
+vpandnd zmm11{aaaa}, zmm6, zmm2
+vpandnd zmm19{bbbb}, zmm6, zmm2
+vpandnd zmm27{cccc}, zmm6, zmm2
+vpandnd zmm3{dddd}, zmm6, zmm2
+vpandnd zmm3, zmm6, zmm2
+vpandnq 0x40(rax), zmm6, zmm2
+vpandnq 8(rax){1to8}, zmm6, zmm10
+vpandnq 0x20(rax){4to8}, zmm6, zmm18
+vpandnq 0x40(rax){eh}, zmm6, zmm2
+vpandnq 8(rax){eh}{1to8}, zmm6, zmm2
+vpandnq 0x20(rax){eh}{4to8}, zmm6, zmm2
+vpandnq zmm3, zmm6, zmm2
+vpandnq zmm3{cdab}, zmm6, zmm10{k3}
+vpandnq zmm3{badc}, zmm6, zmm18
+vpandnq zmm3{dacb}, zmm6, zmm26
+vpandnq zmm11{aaaa}, zmm6, zmm2
+vpandnq zmm19{bbbb}, zmm6, zmm2
+vpandnq zmm27{cccc}, zmm6, zmm2
+vpandnq zmm3{dddd}, zmm6, zmm2
+vpandnq zmm3, zmm6, zmm2
+vpord 0x40(rax), zmm6, zmm2
+vpord 4(rax){1to16}, zmm6, zmm10
+vpord 0x10(rax){4to16}, zmm6, zmm18
+vpord 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpord 0x10(rax){sint8}, zmm6, zmm2
+vpord 0x20(rax){uint16}, zmm6, zmm2
+vpord 0x20(rax){sint16}, zmm6, zmm2
+vpord 0x40(rax){eh}, zmm6, zmm2
+vpord 4(rax){eh}{1to16}, zmm6, zmm2
+vpord 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpord 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpord 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpord 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpord 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpord zmm3, zmm6, zmm2
+vpord zmm3{cdab}, zmm6, zmm10{k3}
+vpord zmm3{badc}, zmm6, zmm18
+vpord zmm3{dacb}, zmm6, zmm26
+vpord zmm11{aaaa}, zmm6, zmm2
+vpord zmm19{bbbb}, zmm6, zmm2
+vpord zmm27{cccc}, zmm6, zmm2
+vpord zmm3{dddd}, zmm6, zmm2
+vpord zmm3, zmm6, zmm2
+vporq 0x40(rax), zmm6, zmm2
+vporq 8(rax){1to8}, zmm6, zmm10
+vporq 0x20(rax){4to8}, zmm6, zmm18
+vporq 0x40(rax){eh}, zmm6, zmm2
+vporq 8(rax){eh}{1to8}, zmm6, zmm2
+vporq 0x20(rax){eh}{4to8}, zmm6, zmm2
+vporq zmm3, zmm6, zmm2
+vporq zmm3{cdab}, zmm6, zmm10{k3}
+vporq zmm3{badc}, zmm6, zmm18
+vporq zmm3{dacb}, zmm6, zmm26
+vporq zmm11{aaaa}, zmm6, zmm2
+vporq zmm19{bbbb}, zmm6, zmm2
+vporq zmm27{cccc}, zmm6, zmm2
+vporq zmm3{dddd}, zmm6, zmm2
+vporq zmm3, zmm6, zmm2
+vpxord 0x40(rax), zmm6, zmm2
+vpxord 4(rax){1to16}, zmm6, zmm10
+vpxord 0x10(rax){4to16}, zmm6, zmm18
+vpxord 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpxord 0x10(rax){sint8}, zmm6, zmm2
+vpxord 0x20(rax){uint16}, zmm6, zmm2
+vpxord 0x20(rax){sint16}, zmm6, zmm2
+vpxord 0x40(rax){eh}, zmm6, zmm2
+vpxord 4(rax){eh}{1to16}, zmm6, zmm2
+vpxord 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpxord 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpxord 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpxord 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpxord 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpxord zmm3, zmm6, zmm2
+vpxord zmm3{cdab}, zmm6, zmm10{k3}
+vpxord zmm3{badc}, zmm6, zmm18
+vpxord zmm3{dacb}, zmm6, zmm26
+vpxord zmm11{aaaa}, zmm6, zmm2
+vpxord zmm19{bbbb}, zmm6, zmm2
+vpxord zmm27{cccc}, zmm6, zmm2
+vpxord zmm3{dddd}, zmm6, zmm2
+vpxord zmm3, zmm6, zmm2
+vpxorq 0x40(rax), zmm6, zmm2
+vpxorq 8(rax){1to8}, zmm6, zmm10
+vpxorq 0x20(rax){4to8}, zmm6, zmm18
+vpxorq 0x40(rax){eh}, zmm6, zmm2
+vpxorq 8(rax){eh}{1to8}, zmm6, zmm2
+vpxorq 0x20(rax){eh}{4to8}, zmm6, zmm2
+vpxorq zmm3, zmm6, zmm2
+vpxorq zmm3{cdab}, zmm6, zmm10{k3}
+vpxorq zmm3{badc}, zmm6, zmm18
+vpxorq zmm3{dacb}, zmm6, zmm26
+vpxorq zmm11{aaaa}, zmm6, zmm2
+vpxorq zmm19{bbbb}, zmm6, zmm2
+vpxorq zmm27{cccc}, zmm6, zmm2
+vpxorq zmm3{dddd}, zmm6, zmm2
+vpxorq zmm3, zmm6, zmm2
+vpsubd 0x40(rax), zmm6, zmm2
+vpsubd 4(rax){1to16}, zmm6, zmm10
+vpsubd 0x10(rax){4to16}, zmm6, zmm18
+vpsubd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpsubd 0x10(rax){sint8}, zmm6, zmm2
+vpsubd 0x20(rax){uint16}, zmm6, zmm2
+vpsubd 0x20(rax){sint16}, zmm6, zmm2
+vpsubd 0x40(rax){eh}, zmm6, zmm2
+vpsubd 4(rax){eh}{1to16}, zmm6, zmm2
+vpsubd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpsubd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpsubd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpsubd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpsubd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpsubd zmm3, zmm6, zmm2
+vpsubd zmm3{cdab}, zmm6, zmm10{k3}
+vpsubd zmm3{badc}, zmm6, zmm18
+vpsubd zmm3{dacb}, zmm6, zmm26
+vpsubd zmm11{aaaa}, zmm6, zmm2
+vpsubd zmm19{bbbb}, zmm6, zmm2
+vpsubd zmm27{cccc}, zmm6, zmm2
+vpsubd zmm3{dddd}, zmm6, zmm2
+vpsubd zmm3, zmm6, zmm2
+vpaddd 0x40(rax), zmm6, zmm2
+vpaddd 4(rax){1to16}, zmm6, zmm10
+vpaddd 0x10(rax){4to16}, zmm6, zmm18
+vpaddd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpaddd 0x10(rax){sint8}, zmm6, zmm2
+vpaddd 0x20(rax){uint16}, zmm6, zmm2
+vpaddd 0x20(rax){sint16}, zmm6, zmm2
+vpaddd 0x40(rax){eh}, zmm6, zmm2
+vpaddd 4(rax){eh}{1to16}, zmm6, zmm2
+vpaddd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpaddd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpaddd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpaddd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpaddd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpaddd zmm3, zmm6, zmm2
+vpaddd zmm3{cdab}, zmm6, zmm10{k3}
+vpaddd zmm3{badc}, zmm6, zmm18
+vpaddd zmm3{dacb}, zmm6, zmm26
+vpaddd zmm11{aaaa}, zmm6, zmm2
+vpaddd zmm19{bbbb}, zmm6, zmm2
+vpaddd zmm27{cccc}, zmm6, zmm2
+vpaddd zmm3{dddd}, zmm6, zmm2
+vpaddd zmm3, zmm6, zmm2
+vpermd 0x40(rax), zmm6, zmm2{k5}
+vpermd 0x40(rax){eh}, zmm6, zmm26
+vpermd zmm3, zmm6, zmm2
+vpermd zmm27, zmm22, zmm2
+vpminsd 0x40(rax), zmm6, zmm2
+vpminsd 4(rax){1to16}, zmm6, zmm10
+vpminsd 0x10(rax){4to16}, zmm6, zmm18
+vpminsd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpminsd 0x10(rax){sint8}, zmm6, zmm2
+vpminsd 0x20(rax){uint16}, zmm6, zmm2
+vpminsd 0x20(rax){sint16}, zmm6, zmm2
+vpminsd 0x40(rax){eh}, zmm6, zmm2
+vpminsd 4(rax){eh}{1to16}, zmm6, zmm2
+vpminsd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpminsd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpminsd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpminsd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpminsd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpminsd zmm3, zmm6, zmm2
+vpminsd zmm3{cdab}, zmm6, zmm10{k3}
+vpminsd zmm3{badc}, zmm6, zmm18
+vpminsd zmm3{dacb}, zmm6, zmm26
+vpminsd zmm11{aaaa}, zmm6, zmm2
+vpminsd zmm19{bbbb}, zmm6, zmm2
+vpminsd zmm27{cccc}, zmm6, zmm2
+vpminsd zmm3{dddd}, zmm6, zmm2
+vpminsd zmm3, zmm6, zmm2
+vpminud 0x40(rax), zmm6, zmm2
+vpminud 4(rax){1to16}, zmm6, zmm10
+vpminud 0x10(rax){4to16}, zmm6, zmm18
+vpminud 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpminud 0x10(rax){sint8}, zmm6, zmm2
+vpminud 0x20(rax){uint16}, zmm6, zmm2
+vpminud 0x20(rax){sint16}, zmm6, zmm2
+vpminud 0x40(rax){eh}, zmm6, zmm2
+vpminud 4(rax){eh}{1to16}, zmm6, zmm2
+vpminud 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpminud 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpminud 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpminud 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpminud 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpminud zmm3, zmm6, zmm2
+vpminud zmm3{cdab}, zmm6, zmm10{k3}
+vpminud zmm3{badc}, zmm6, zmm18
+vpminud zmm3{dacb}, zmm6, zmm26
+vpminud zmm11{aaaa}, zmm6, zmm2
+vpminud zmm19{bbbb}, zmm6, zmm2
+vpminud zmm27{cccc}, zmm6, zmm2
+vpminud zmm3{dddd}, zmm6, zmm2
+vpminud zmm3, zmm6, zmm2
+vpmaxsd 0x40(rax), zmm6, zmm2
+vpmaxsd 4(rax){1to16}, zmm6, zmm10
+vpmaxsd 0x10(rax){4to16}, zmm6, zmm18
+vpmaxsd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpmaxsd 0x10(rax){sint8}, zmm6, zmm2
+vpmaxsd 0x20(rax){uint16}, zmm6, zmm2
+vpmaxsd 0x20(rax){sint16}, zmm6, zmm2
+vpmaxsd 0x40(rax){eh}, zmm6, zmm2
+vpmaxsd 4(rax){eh}{1to16}, zmm6, zmm2
+vpmaxsd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpmaxsd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpmaxsd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpmaxsd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpmaxsd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpmaxsd zmm3, zmm6, zmm2
+vpmaxsd zmm3{cdab}, zmm6, zmm10{k3}
+vpmaxsd zmm3{badc}, zmm6, zmm18
+vpmaxsd zmm3{dacb}, zmm6, zmm26
+vpmaxsd zmm11{aaaa}, zmm6, zmm2
+vpmaxsd zmm19{bbbb}, zmm6, zmm2
+vpmaxsd zmm27{cccc}, zmm6, zmm2
+vpmaxsd zmm3{dddd}, zmm6, zmm2
+vpmaxsd zmm3, zmm6, zmm2
+vpmaxud 0x40(rax), zmm6, zmm2
+vpmaxud 4(rax){1to16}, zmm6, zmm10
+vpmaxud 0x10(rax){4to16}, zmm6, zmm18
+vpmaxud 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpmaxud 0x10(rax){sint8}, zmm6, zmm2
+vpmaxud 0x20(rax){uint16}, zmm6, zmm2
+vpmaxud 0x20(rax){sint16}, zmm6, zmm2
+vpmaxud 0x40(rax){eh}, zmm6, zmm2
+vpmaxud 4(rax){eh}{1to16}, zmm6, zmm2
+vpmaxud 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpmaxud 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpmaxud 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpmaxud 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpmaxud 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpmaxud zmm3, zmm6, zmm2
+vpmaxud zmm3{cdab}, zmm6, zmm10{k3}
+vpmaxud zmm3{badc}, zmm6, zmm18
+vpmaxud zmm3{dacb}, zmm6, zmm26
+vpmaxud zmm11{aaaa}, zmm6, zmm2
+vpmaxud zmm19{bbbb}, zmm6, zmm2
+vpmaxud zmm27{cccc}, zmm6, zmm2
+vpmaxud zmm3{dddd}, zmm6, zmm2
+vpmaxud zmm3, zmm6, zmm2
+vpmulld 0x40(rax), zmm6, zmm2
+vpmulld 4(rax){1to16}, zmm6, zmm10
+vpmulld 0x10(rax){4to16}, zmm6, zmm18
+vpmulld 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpmulld 0x10(rax){sint8}, zmm6, zmm2
+vpmulld 0x20(rax){uint16}, zmm6, zmm2
+vpmulld 0x20(rax){sint16}, zmm6, zmm2
+vpmulld 0x40(rax){eh}, zmm6, zmm2
+vpmulld 4(rax){eh}{1to16}, zmm6, zmm2
+vpmulld 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpmulld 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpmulld 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpmulld 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpmulld 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpmulld zmm3, zmm6, zmm2
+vpmulld zmm3{cdab}, zmm6, zmm10{k3}
+vpmulld zmm3{badc}, zmm6, zmm18
+vpmulld zmm3{dacb}, zmm6, zmm26
+vpmulld zmm11{aaaa}, zmm6, zmm2
+vpmulld zmm19{bbbb}, zmm6, zmm2
+vpmulld zmm27{cccc}, zmm6, zmm2
+vpmulld zmm3{dddd}, zmm6, zmm2
+vpmulld zmm3, zmm6, zmm2
+vpsrlvd 0x40(rax), zmm6, zmm2
+vpsrlvd 4(rax){1to16}, zmm6, zmm10
+vpsrlvd 0x10(rax){4to16}, zmm6, zmm18
+vpsrlvd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpsrlvd 0x10(rax){sint8}, zmm6, zmm2
+vpsrlvd 0x20(rax){uint16}, zmm6, zmm2
+vpsrlvd 0x20(rax){sint16}, zmm6, zmm2
+vpsrlvd 0x40(rax){eh}, zmm6, zmm2
+vpsrlvd 4(rax){eh}{1to16}, zmm6, zmm2
+vpsrlvd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpsrlvd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpsrlvd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpsrlvd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpsrlvd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpsrlvd zmm3, zmm6, zmm2
+vpsrlvd zmm3{cdab}, zmm6, zmm10{k3}
+vpsrlvd zmm3{badc}, zmm6, zmm18
+vpsrlvd zmm3{dacb}, zmm6, zmm26
+vpsrlvd zmm11{aaaa}, zmm6, zmm2
+vpsrlvd zmm19{bbbb}, zmm6, zmm2
+vpsrlvd zmm27{cccc}, zmm6, zmm2
+vpsrlvd zmm3{dddd}, zmm6, zmm2
+vpsrlvd zmm3, zmm6, zmm2
+vpsravd 0x40(rax), zmm6, zmm2
+vpsravd 4(rax){1to16}, zmm6, zmm10
+vpsravd 0x10(rax){4to16}, zmm6, zmm18
+vpsravd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpsravd 0x10(rax){sint8}, zmm6, zmm2
+vpsravd 0x20(rax){uint16}, zmm6, zmm2
+vpsravd 0x20(rax){sint16}, zmm6, zmm2
+vpsravd 0x40(rax){eh}, zmm6, zmm2
+vpsravd 4(rax){eh}{1to16}, zmm6, zmm2
+vpsravd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpsravd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpsravd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpsravd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpsravd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpsravd zmm3, zmm6, zmm2
+vpsravd zmm3{cdab}, zmm6, zmm10{k3}
+vpsravd zmm3{badc}, zmm6, zmm18
+vpsravd zmm3{dacb}, zmm6, zmm26
+vpsravd zmm11{aaaa}, zmm6, zmm2
+vpsravd zmm19{bbbb}, zmm6, zmm2
+vpsravd zmm27{cccc}, zmm6, zmm2
+vpsravd zmm3{dddd}, zmm6, zmm2
+vpsravd zmm3, zmm6, zmm2
+vpsllvd 0x40(rax), zmm6, zmm2
+vpsllvd 4(rax){1to16}, zmm6, zmm10
+vpsllvd 0x10(rax){4to16}, zmm6, zmm18
+vpsllvd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpsllvd 0x10(rax){sint8}, zmm6, zmm2
+vpsllvd 0x20(rax){uint16}, zmm6, zmm2
+vpsllvd 0x20(rax){sint16}, zmm6, zmm2
+vpsllvd 0x40(rax){eh}, zmm6, zmm2
+vpsllvd 4(rax){eh}{1to16}, zmm6, zmm2
+vpsllvd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpsllvd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpsllvd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpsllvd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpsllvd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpsllvd zmm3, zmm6, zmm2
+vpsllvd zmm3{cdab}, zmm6, zmm10{k3}
+vpsllvd zmm3{badc}, zmm6, zmm18
+vpsllvd zmm3{dacb}, zmm6, zmm26
+vpsllvd zmm11{aaaa}, zmm6, zmm2
+vpsllvd zmm19{bbbb}, zmm6, zmm2
+vpsllvd zmm27{cccc}, zmm6, zmm2
+vpsllvd zmm3{dddd}, zmm6, zmm2
+vpsllvd zmm3, zmm6, zmm2
+vaddnps 0x40(rax), zmm6, zmm2
+vaddnps 4(rax){1to16}, zmm6, zmm10
+vaddnps 0x10(rax){4to16}, zmm6, zmm18
+vaddnps 0x20(rax){float16}, zmm6, zmm26
+vaddnps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vaddnps 0x10(rax){sint8}, zmm6, zmm2
+vaddnps 0x20(rax){uint16}, zmm6, zmm2
+vaddnps 0x20(rax){sint16}, zmm6, zmm2
+vaddnps 0x40(rax){eh}, zmm6, zmm2
+vaddnps 4(rax){eh}{1to16}, zmm6, zmm2
+vaddnps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vaddnps 0x20(rax){eh}{float16}, zmm6, zmm2
+vaddnps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vaddnps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vaddnps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vaddnps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vaddnps zmm3, zmm6, zmm2
+vaddnps zmm3{cdab}, zmm6, zmm10{k3}
+vaddnps zmm3{badc}, zmm6, zmm18
+vaddnps zmm3{dacb}, zmm6, zmm26
+vaddnps zmm11{aaaa}, zmm6, zmm2
+vaddnps zmm19{bbbb}, zmm6, zmm2
+vaddnps zmm27{cccc}, zmm6, zmm2
+vaddnps zmm3{dddd}, zmm6, zmm2
+vaddnps {rn}, zmm3, zmm6, zmm2
+vaddnps {rd}, zmm3, zmm6, zmm10
+vaddnps {ru}, zmm3, zmm6, zmm18
+vaddnps {rz}, zmm3, zmm6, zmm26
+vaddnps {rn-sae}, zmm11, zmm6, zmm2
+vaddnps {rd-sae}, zmm19, zmm14, zmm2
+vaddnps {ru-sae}, zmm27, zmm22, zmm2
+vaddnps {rz-sae}, zmm3, zmm30, zmm2
+vaddnpd 0x40(rax), zmm6, zmm2
+vaddnpd 8(rax){1to8}, zmm6, zmm10
+vaddnpd 0x20(rax){4to8}, zmm6, zmm18
+vaddnpd 0x40(rax){eh}, zmm6, zmm2
+vaddnpd 8(rax){eh}{1to8}, zmm6, zmm2
+vaddnpd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vaddnpd zmm3, zmm6, zmm2
+vaddnpd zmm3{cdab}, zmm6, zmm10{k3}
+vaddnpd zmm3{badc}, zmm6, zmm18
+vaddnpd zmm3{dacb}, zmm6, zmm26
+vaddnpd zmm11{aaaa}, zmm6, zmm2
+vaddnpd zmm19{bbbb}, zmm6, zmm2
+vaddnpd zmm27{cccc}, zmm6, zmm2
+vaddnpd zmm3{dddd}, zmm6, zmm2
+vaddnpd {rn}, zmm3, zmm6, zmm2
+vaddnpd {rd}, zmm3, zmm6, zmm10
+vaddnpd {ru}, zmm3, zmm6, zmm18
+vaddnpd {rz}, zmm3, zmm6, zmm26
+vaddnpd {rn-sae}, zmm11, zmm6, zmm2
+vaddnpd {rd-sae}, zmm19, zmm14, zmm2
+vaddnpd {ru-sae}, zmm27, zmm22, zmm2
+vaddnpd {rz-sae}, zmm3, zmm30, zmm2
+vgmaxabsps 0x40(rax), zmm6, zmm2
+vgmaxabsps 4(rax){1to16}, zmm6, zmm10
+vgmaxabsps 0x10(rax){4to16}, zmm6, zmm18
+vgmaxabsps 0x20(rax){float16}, zmm6, zmm26
+vgmaxabsps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vgmaxabsps 0x10(rax){sint8}, zmm6, zmm2
+vgmaxabsps 0x20(rax){uint16}, zmm6, zmm2
+vgmaxabsps 0x20(rax){sint16}, zmm6, zmm2
+vgmaxabsps 0x40(rax){eh}, zmm6, zmm2
+vgmaxabsps 4(rax){eh}{1to16}, zmm6, zmm2
+vgmaxabsps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vgmaxabsps 0x20(rax){eh}{float16}, zmm6, zmm2
+vgmaxabsps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vgmaxabsps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vgmaxabsps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vgmaxabsps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vgmaxabsps zmm3, zmm6, zmm2
+vgmaxabsps zmm3{cdab}, zmm6, zmm10{k3}
+vgmaxabsps zmm3{badc}, zmm6, zmm18
+vgmaxabsps zmm3{dacb}, zmm6, zmm26
+vgmaxabsps zmm11{aaaa}, zmm6, zmm2
+vgmaxabsps zmm19{bbbb}, zmm6, zmm2
+vgmaxabsps zmm27{cccc}, zmm6, zmm2
+vgmaxabsps zmm3{dddd}, zmm6, zmm2
+vgmaxabsps zmm3, zmm6, zmm2
+vgmaxabsps {sae}, zmm11, zmm6, zmm2
+vgminps 0x40(rax), zmm6, zmm2
+vgminps 4(rax){1to16}, zmm6, zmm10
+vgminps 0x10(rax){4to16}, zmm6, zmm18
+vgminps 0x20(rax){float16}, zmm6, zmm26
+vgminps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vgminps 0x10(rax){sint8}, zmm6, zmm2
+vgminps 0x20(rax){uint16}, zmm6, zmm2
+vgminps 0x20(rax){sint16}, zmm6, zmm2
+vgminps 0x40(rax){eh}, zmm6, zmm2
+vgminps 4(rax){eh}{1to16}, zmm6, zmm2
+vgminps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vgminps 0x20(rax){eh}{float16}, zmm6, zmm2
+vgminps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vgminps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vgminps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vgminps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vgminps zmm3, zmm6, zmm2
+vgminps zmm3{cdab}, zmm6, zmm10{k3}
+vgminps zmm3{badc}, zmm6, zmm18
+vgminps zmm3{dacb}, zmm6, zmm26
+vgminps zmm11{aaaa}, zmm6, zmm2
+vgminps zmm19{bbbb}, zmm6, zmm2
+vgminps zmm27{cccc}, zmm6, zmm2
+vgminps zmm3{dddd}, zmm6, zmm2
+vgminps zmm3, zmm6, zmm2
+vgminps {sae}, zmm11, zmm6, zmm2
+vgminpd 0x40(rax), zmm6, zmm2
+vgminpd 8(rax){1to8}, zmm6, zmm10
+vgminpd 0x20(rax){4to8}, zmm6, zmm18
+vgminpd 0x40(rax){eh}, zmm6, zmm2
+vgminpd 8(rax){eh}{1to8}, zmm6, zmm2
+vgminpd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vgminpd zmm3, zmm6, zmm2
+vgminpd zmm3{cdab}, zmm6, zmm10{k3}
+vgminpd zmm3{badc}, zmm6, zmm18
+vgminpd zmm3{dacb}, zmm6, zmm26
+vgminpd zmm11{aaaa}, zmm6, zmm2
+vgminpd zmm19{bbbb}, zmm6, zmm2
+vgminpd zmm27{cccc}, zmm6, zmm2
+vgminpd zmm3{dddd}, zmm6, zmm2
+vgminpd zmm3, zmm6, zmm2
+vgminpd {sae}, zmm11, zmm6, zmm2
+vgmaxps 0x40(rax), zmm6, zmm2
+vgmaxps 4(rax){1to16}, zmm6, zmm10
+vgmaxps 0x10(rax){4to16}, zmm6, zmm18
+vgmaxps 0x20(rax){float16}, zmm6, zmm26
+vgmaxps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vgmaxps 0x10(rax){sint8}, zmm6, zmm2
+vgmaxps 0x20(rax){uint16}, zmm6, zmm2
+vgmaxps 0x20(rax){sint16}, zmm6, zmm2
+vgmaxps 0x40(rax){eh}, zmm6, zmm2
+vgmaxps 4(rax){eh}{1to16}, zmm6, zmm2
+vgmaxps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vgmaxps 0x20(rax){eh}{float16}, zmm6, zmm2
+vgmaxps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vgmaxps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vgmaxps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vgmaxps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vgmaxps zmm3, zmm6, zmm2
+vgmaxps zmm3{cdab}, zmm6, zmm10{k3}
+vgmaxps zmm3{badc}, zmm6, zmm18
+vgmaxps zmm3{dacb}, zmm6, zmm26
+vgmaxps zmm11{aaaa}, zmm6, zmm2
+vgmaxps zmm19{bbbb}, zmm6, zmm2
+vgmaxps zmm27{cccc}, zmm6, zmm2
+vgmaxps zmm3{dddd}, zmm6, zmm2
+vgmaxps zmm3, zmm6, zmm2
+vgmaxps {sae}, zmm11, zmm6, zmm2
+vgmaxpd 0x40(rax), zmm6, zmm2
+vgmaxpd 8(rax){1to8}, zmm6, zmm10
+vgmaxpd 0x20(rax){4to8}, zmm6, zmm18
+vgmaxpd 0x40(rax){eh}, zmm6, zmm2
+vgmaxpd 8(rax){eh}{1to8}, zmm6, zmm2
+vgmaxpd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vgmaxpd zmm3, zmm6, zmm2
+vgmaxpd zmm3{cdab}, zmm6, zmm10{k3}
+vgmaxpd zmm3{badc}, zmm6, zmm18
+vgmaxpd zmm3{dacb}, zmm6, zmm26
+vgmaxpd zmm11{aaaa}, zmm6, zmm2
+vgmaxpd zmm19{bbbb}, zmm6, zmm2
+vgmaxpd zmm27{cccc}, zmm6, zmm2
+vgmaxpd zmm3{dddd}, zmm6, zmm2
+vgmaxpd zmm3, zmm6, zmm2
+vgmaxpd {sae}, zmm11, zmm6, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+vfixupnanps 0x40(rax), zmm6, zmm2
+vfixupnanps 4(rax){1to16}, zmm6, zmm10
+vfixupnanps 0x10(rax){4to16}, zmm6, zmm18
+vfixupnanps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfixupnanps 0x10(rax){sint8}, zmm6, zmm2
+vfixupnanps 0x20(rax){uint16}, zmm6, zmm2
+vfixupnanps 0x20(rax){sint16}, zmm6, zmm2
+vfixupnanps 0x40(rax){eh}, zmm6, zmm2
+vfixupnanps 4(rax){eh}{1to16}, zmm6, zmm2
+vfixupnanps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfixupnanps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfixupnanps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfixupnanps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfixupnanps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfixupnanps zmm3, zmm6, zmm2
+vfixupnanps zmm3{cdab}, zmm6, zmm10{k3}
+vfixupnanps zmm3{badc}, zmm6, zmm18
+vfixupnanps zmm3{dacb}, zmm6, zmm26
+vfixupnanps zmm11{aaaa}, zmm6, zmm2
+vfixupnanps zmm19{bbbb}, zmm6, zmm2
+vfixupnanps zmm27{cccc}, zmm6, zmm2
+vfixupnanps zmm3{dddd}, zmm6, zmm2
+vfixupnanps zmm3, zmm6, zmm2
+vfixupnanps {sae}, zmm11, zmm6, zmm2
+vfixupnanpd 0x40(rax), zmm6, zmm2
+vfixupnanpd 8(rax){1to8}, zmm6, zmm10
+vfixupnanpd 0x20(rax){4to8}, zmm6, zmm18
+vfixupnanpd 0x40(rax){eh}, zmm6, zmm2
+vfixupnanpd 8(rax){eh}{1to8}, zmm6, zmm2
+vfixupnanpd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfixupnanpd zmm3, zmm6, zmm2
+vfixupnanpd zmm3{cdab}, zmm6, zmm10{k3}
+vfixupnanpd zmm3{badc}, zmm6, zmm18
+vfixupnanpd zmm3{dacb}, zmm6, zmm26
+vfixupnanpd zmm11{aaaa}, zmm6, zmm2
+vfixupnanpd zmm19{bbbb}, zmm6, zmm2
+vfixupnanpd zmm27{cccc}, zmm6, zmm2
+vfixupnanpd zmm3{dddd}, zmm6, zmm2
+vfixupnanpd zmm3, zmm6, zmm2
+vfixupnanpd {sae}, zmm11, zmm6, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+vpblendmd 0x40(rax), zmm6, zmm2
+vpblendmd 4(rax){1to16}, zmm6, zmm10
+vpblendmd 0x10(rax){4to16}, zmm6, zmm18
+vpblendmd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpblendmd 0x10(rax){sint8}, zmm6, zmm2
+vpblendmd 0x20(rax){uint16}, zmm6, zmm2
+vpblendmd 0x20(rax){sint16}, zmm6, zmm2
+vpblendmd 0x40(rax){eh}, zmm6, zmm2
+vpblendmd 4(rax){eh}{1to16}, zmm6, zmm2
+vpblendmd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpblendmd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpblendmd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpblendmd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpblendmd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpblendmd zmm3, zmm6, zmm2
+vpblendmd zmm3{cdab}, zmm6, zmm10{k3}
+vpblendmd zmm3{badc}, zmm6, zmm18
+vpblendmd zmm3{dacb}, zmm6, zmm26
+vpblendmd zmm11{aaaa}, zmm6, zmm2
+vpblendmd zmm19{bbbb}, zmm6, zmm2
+vpblendmd zmm27{cccc}, zmm6, zmm2
+vpblendmd zmm3{dddd}, zmm6, zmm2
+vpblendmd zmm3, zmm6, zmm2
+vpblendmq 0x40(rax), zmm6, zmm2
+vpblendmq 8(rax){1to8}, zmm6, zmm10
+vpblendmq 0x20(rax){4to8}, zmm6, zmm18
+vpblendmq 0x40(rax){eh}, zmm6, zmm2
+vpblendmq 8(rax){eh}{1to8}, zmm6, zmm2
+vpblendmq 0x20(rax){eh}{4to8}, zmm6, zmm2
+vpblendmq zmm3, zmm6, zmm2
+vpblendmq zmm3{cdab}, zmm6, zmm10{k3}
+vpblendmq zmm3{badc}, zmm6, zmm18
+vpblendmq zmm3{dacb}, zmm6, zmm26
+vpblendmq zmm11{aaaa}, zmm6, zmm2
+vpblendmq zmm19{bbbb}, zmm6, zmm2
+vpblendmq zmm27{cccc}, zmm6, zmm2
+vpblendmq zmm3{dddd}, zmm6, zmm2
+vpblendmq zmm3, zmm6, zmm2
+vblendmps 0x40(rax), zmm6, zmm2
+vblendmps 4(rax){1to16}, zmm6, zmm10
+vblendmps 0x10(rax){4to16}, zmm6, zmm18
+vblendmps 0x20(rax){float16}, zmm6, zmm26
+vblendmps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vblendmps 0x10(rax){sint8}, zmm6, zmm2
+vblendmps 0x20(rax){uint16}, zmm6, zmm2
+vblendmps 0x20(rax){sint16}, zmm6, zmm2
+vblendmps 0x40(rax){eh}, zmm6, zmm2
+vblendmps 4(rax){eh}{1to16}, zmm6, zmm2
+vblendmps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vblendmps 0x20(rax){eh}{float16}, zmm6, zmm2
+vblendmps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vblendmps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vblendmps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vblendmps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vblendmps zmm3, zmm6, zmm2
+vblendmps zmm3{cdab}, zmm6, zmm10{k3}
+vblendmps zmm3{badc}, zmm6, zmm18
+vblendmps zmm3{dacb}, zmm6, zmm26
+vblendmps zmm11{aaaa}, zmm6, zmm2
+vblendmps zmm19{bbbb}, zmm6, zmm2
+vblendmps zmm27{cccc}, zmm6, zmm2
+vblendmps zmm3{dddd}, zmm6, zmm2
+vblendmps zmm3, zmm6, zmm2
+vblendmpd 0x40(rax), zmm6, zmm2
+vblendmpd 8(rax){1to8}, zmm6, zmm10
+vblendmpd 0x20(rax){4to8}, zmm6, zmm18
+vblendmpd 0x40(rax){eh}, zmm6, zmm2
+vblendmpd 8(rax){eh}{1to8}, zmm6, zmm2
+vblendmpd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vblendmpd zmm3, zmm6, zmm2
+vblendmpd zmm3{cdab}, zmm6, zmm10{k3}
+vblendmpd zmm3{badc}, zmm6, zmm18
+vblendmpd zmm3{dacb}, zmm6, zmm26
+vblendmpd zmm11{aaaa}, zmm6, zmm2
+vblendmpd zmm19{bbbb}, zmm6, zmm2
+vblendmpd zmm27{cccc}, zmm6, zmm2
+vblendmpd zmm3{dddd}, zmm6, zmm2
+vblendmpd zmm3, zmm6, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+vpsubrd 0x40(rax), zmm6, zmm2
+vpsubrd 4(rax){1to16}, zmm6, zmm10
+vpsubrd 0x10(rax){4to16}, zmm6, zmm18
+vpsubrd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpsubrd 0x10(rax){sint8}, zmm6, zmm2
+vpsubrd 0x20(rax){uint16}, zmm6, zmm2
+vpsubrd 0x20(rax){sint16}, zmm6, zmm2
+vpsubrd 0x40(rax){eh}, zmm6, zmm2
+vpsubrd 4(rax){eh}{1to16}, zmm6, zmm2
+vpsubrd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpsubrd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpsubrd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpsubrd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpsubrd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpsubrd zmm3, zmm6, zmm2
+vpsubrd zmm3{cdab}, zmm6, zmm10{k3}
+vpsubrd zmm3{badc}, zmm6, zmm18
+vpsubrd zmm3{dacb}, zmm6, zmm26
+vpsubrd zmm11{aaaa}, zmm6, zmm2
+vpsubrd zmm19{bbbb}, zmm6, zmm2
+vpsubrd zmm27{cccc}, zmm6, zmm2
+vpsubrd zmm3{dddd}, zmm6, zmm2
+vpsubrd zmm3, zmm6, zmm2
+vsubrps 0x40(rax), zmm6, zmm2
+vsubrps 4(rax){1to16}, zmm6, zmm10
+vsubrps 0x10(rax){4to16}, zmm6, zmm18
+vsubrps 0x20(rax){float16}, zmm6, zmm26
+vsubrps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vsubrps 0x10(rax){sint8}, zmm6, zmm2
+vsubrps 0x20(rax){uint16}, zmm6, zmm2
+vsubrps 0x20(rax){sint16}, zmm6, zmm2
+vsubrps 0x40(rax){eh}, zmm6, zmm2
+vsubrps 4(rax){eh}{1to16}, zmm6, zmm2
+vsubrps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vsubrps 0x20(rax){eh}{float16}, zmm6, zmm2
+vsubrps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vsubrps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vsubrps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vsubrps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vsubrps zmm3, zmm6, zmm2
+vsubrps zmm3{cdab}, zmm6, zmm10{k3}
+vsubrps zmm3{badc}, zmm6, zmm18
+vsubrps zmm3{dacb}, zmm6, zmm26
+vsubrps zmm11{aaaa}, zmm6, zmm2
+vsubrps zmm19{bbbb}, zmm6, zmm2
+vsubrps zmm27{cccc}, zmm6, zmm2
+vsubrps zmm3{dddd}, zmm6, zmm2
+vsubrps {rn}, zmm3, zmm6, zmm2
+vsubrps {rd}, zmm3, zmm6, zmm10
+vsubrps {ru}, zmm3, zmm6, zmm18
+vsubrps {rz}, zmm3, zmm6, zmm26
+vsubrps {rn-sae}, zmm11, zmm6, zmm2
+vsubrps {rd-sae}, zmm19, zmm14, zmm2
+vsubrps {ru-sae}, zmm27, zmm22, zmm2
+vsubrps {rz-sae}, zmm3, zmm30, zmm2
+vsubrpd 0x40(rax), zmm6, zmm2
+vsubrpd 8(rax){1to8}, zmm6, zmm10
+vsubrpd 0x20(rax){4to8}, zmm6, zmm18
+vsubrpd 0x40(rax){eh}, zmm6, zmm2
+vsubrpd 8(rax){eh}{1to8}, zmm6, zmm2
+vsubrpd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vsubrpd zmm3, zmm6, zmm2
+vsubrpd zmm3{cdab}, zmm6, zmm10{k3}
+vsubrpd zmm3{badc}, zmm6, zmm18
+vsubrpd zmm3{dacb}, zmm6, zmm26
+vsubrpd zmm11{aaaa}, zmm6, zmm2
+vsubrpd zmm19{bbbb}, zmm6, zmm2
+vsubrpd zmm27{cccc}, zmm6, zmm2
+vsubrpd zmm3{dddd}, zmm6, zmm2
+vsubrpd {rn}, zmm3, zmm6, zmm2
+vsubrpd {rd}, zmm3, zmm6, zmm10
+vsubrpd {ru}, zmm3, zmm6, zmm18
+vsubrpd {rz}, zmm3, zmm6, zmm26
+vsubrpd {rn-sae}, zmm11, zmm6, zmm2
+vsubrpd {rd-sae}, zmm19, zmm14, zmm2
+vsubrpd {ru-sae}, zmm27, zmm22, zmm2
+vsubrpd {rz-sae}, zmm3, zmm30, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+vscaleps 0x40(rax), zmm6, zmm2
+vscaleps 4(rax){1to16}, zmm6, zmm10
+vscaleps 0x10(rax){4to16}, zmm6, zmm18
+vscaleps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vscaleps 0x10(rax){sint8}, zmm6, zmm2
+vscaleps 0x20(rax){uint16}, zmm6, zmm2
+vscaleps 0x20(rax){sint16}, zmm6, zmm2
+vscaleps 0x40(rax){eh}, zmm6, zmm2
+vscaleps 4(rax){eh}{1to16}, zmm6, zmm2
+vscaleps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vscaleps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vscaleps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vscaleps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vscaleps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vscaleps zmm3, zmm6, zmm2
+vscaleps zmm3{cdab}, zmm6, zmm10{k3}
+vscaleps zmm3{badc}, zmm6, zmm18
+vscaleps zmm3{dacb}, zmm6, zmm26
+vscaleps zmm11{aaaa}, zmm6, zmm2
+vscaleps zmm19{bbbb}, zmm6, zmm2
+vscaleps zmm27{cccc}, zmm6, zmm2
+vscaleps zmm3{dddd}, zmm6, zmm2
+vscaleps {rn}, zmm3, zmm6, zmm2
+vscaleps {rd}, zmm3, zmm6, zmm10
+vscaleps {ru}, zmm3, zmm6, zmm18
+vscaleps {rz}, zmm3, zmm6, zmm26
+vscaleps {rn-sae}, zmm11, zmm6, zmm2
+vscaleps {rd-sae}, zmm19, zmm14, zmm2
+vscaleps {ru-sae}, zmm27, zmm22, zmm2
+vscaleps {rz-sae}, zmm3, zmm30, zmm2
+vpmulhud 0x40(rax), zmm6, zmm2
+vpmulhud 4(rax){1to16}, zmm6, zmm10
+vpmulhud 0x10(rax){4to16}, zmm6, zmm18
+vpmulhud 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpmulhud 0x10(rax){sint8}, zmm6, zmm2
+vpmulhud 0x20(rax){uint16}, zmm6, zmm2
+vpmulhud 0x20(rax){sint16}, zmm6, zmm2
+vpmulhud 0x40(rax){eh}, zmm6, zmm2
+vpmulhud 4(rax){eh}{1to16}, zmm6, zmm2
+vpmulhud 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpmulhud 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpmulhud 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpmulhud 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpmulhud 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpmulhud zmm3, zmm6, zmm2
+vpmulhud zmm3{cdab}, zmm6, zmm10{k3}
+vpmulhud zmm3{badc}, zmm6, zmm18
+vpmulhud zmm3{dacb}, zmm6, zmm26
+vpmulhud zmm11{aaaa}, zmm6, zmm2
+vpmulhud zmm19{bbbb}, zmm6, zmm2
+vpmulhud zmm27{cccc}, zmm6, zmm2
+vpmulhud zmm3{dddd}, zmm6, zmm2
+vpmulhud zmm3, zmm6, zmm2
+vpmulhd 0x40(rax), zmm6, zmm2
+vpmulhd 4(rax){1to16}, zmm6, zmm10
+vpmulhd 0x10(rax){4to16}, zmm6, zmm18
+vpmulhd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpmulhd 0x10(rax){sint8}, zmm6, zmm2
+vpmulhd 0x20(rax){uint16}, zmm6, zmm2
+vpmulhd 0x20(rax){sint16}, zmm6, zmm2
+vpmulhd 0x40(rax){eh}, zmm6, zmm2
+vpmulhd 4(rax){eh}{1to16}, zmm6, zmm2
+vpmulhd 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpmulhd 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpmulhd 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpmulhd 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpmulhd 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpmulhd zmm3, zmm6, zmm2
+vpmulhd zmm3{cdab}, zmm6, zmm10{k3}
+vpmulhd zmm3{badc}, zmm6, zmm18
+vpmulhd zmm3{dacb}, zmm6, zmm26
+vpmulhd zmm11{aaaa}, zmm6, zmm2
+vpmulhd zmm19{bbbb}, zmm6, zmm2
+vpmulhd zmm27{cccc}, zmm6, zmm2
+vpmulhd zmm3{dddd}, zmm6, zmm2
+vpmulhd zmm3, zmm6, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+vfmadd132ps 0x40(rax), zmm6, zmm2
+vfmadd132ps 4(rax){1to16}, zmm6, zmm10
+vfmadd132ps 0x10(rax){4to16}, zmm6, zmm18
+vfmadd132ps 0x20(rax){float16}, zmm6, zmm26
+vfmadd132ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfmadd132ps 0x10(rax){sint8}, zmm6, zmm2
+vfmadd132ps 0x20(rax){uint16}, zmm6, zmm2
+vfmadd132ps 0x20(rax){sint16}, zmm6, zmm2
+vfmadd132ps 0x40(rax){eh}, zmm6, zmm2
+vfmadd132ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfmadd132ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfmadd132ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfmadd132ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfmadd132ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfmadd132ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfmadd132ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfmadd132ps zmm3, zmm6, zmm2
+vfmadd132ps zmm3{cdab}, zmm6, zmm10{k3}
+vfmadd132ps zmm3{badc}, zmm6, zmm18
+vfmadd132ps zmm3{dacb}, zmm6, zmm26
+vfmadd132ps zmm11{aaaa}, zmm6, zmm2
+vfmadd132ps zmm19{bbbb}, zmm6, zmm2
+vfmadd132ps zmm27{cccc}, zmm6, zmm2
+vfmadd132ps zmm3{dddd}, zmm6, zmm2
+vfmadd132ps {rn}, zmm3, zmm6, zmm2
+vfmadd132ps {rd}, zmm3, zmm6, zmm10
+vfmadd132ps {ru}, zmm3, zmm6, zmm18
+vfmadd132ps {rz}, zmm3, zmm6, zmm26
+vfmadd132ps {rn-sae}, zmm11, zmm6, zmm2
+vfmadd132ps {rd-sae}, zmm19, zmm14, zmm2
+vfmadd132ps {ru-sae}, zmm27, zmm22, zmm2
+vfmadd132ps {rz-sae}, zmm3, zmm30, zmm2
+vfmadd132pd 0x40(rax), zmm6, zmm2
+vfmadd132pd 8(rax){1to8}, zmm6, zmm10
+vfmadd132pd 0x20(rax){4to8}, zmm6, zmm18
+vfmadd132pd 0x40(rax){eh}, zmm6, zmm2
+vfmadd132pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfmadd132pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfmadd132pd zmm3, zmm6, zmm2
+vfmadd132pd zmm3{cdab}, zmm6, zmm10{k3}
+vfmadd132pd zmm3{badc}, zmm6, zmm18
+vfmadd132pd zmm3{dacb}, zmm6, zmm26
+vfmadd132pd zmm11{aaaa}, zmm6, zmm2
+vfmadd132pd zmm19{bbbb}, zmm6, zmm2
+vfmadd132pd zmm27{cccc}, zmm6, zmm2
+vfmadd132pd zmm3{dddd}, zmm6, zmm2
+vfmadd132pd {rn}, zmm3, zmm6, zmm2
+vfmadd132pd {rd}, zmm3, zmm6, zmm10
+vfmadd132pd {ru}, zmm3, zmm6, zmm18
+vfmadd132pd {rz}, zmm3, zmm6, zmm26
+vfmadd132pd {rn-sae}, zmm11, zmm6, zmm2
+vfmadd132pd {rd-sae}, zmm19, zmm14, zmm2
+vfmadd132pd {ru-sae}, zmm27, zmm22, zmm2
+vfmadd132pd {rz-sae}, zmm3, zmm30, zmm2
+vfmsub132ps 0x40(rax), zmm6, zmm2
+vfmsub132ps 4(rax){1to16}, zmm6, zmm10
+vfmsub132ps 0x10(rax){4to16}, zmm6, zmm18
+vfmsub132ps 0x20(rax){float16}, zmm6, zmm26
+vfmsub132ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfmsub132ps 0x10(rax){sint8}, zmm6, zmm2
+vfmsub132ps 0x20(rax){uint16}, zmm6, zmm2
+vfmsub132ps 0x20(rax){sint16}, zmm6, zmm2
+vfmsub132ps 0x40(rax){eh}, zmm6, zmm2
+vfmsub132ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfmsub132ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfmsub132ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfmsub132ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfmsub132ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfmsub132ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfmsub132ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfmsub132ps zmm3, zmm6, zmm2
+vfmsub132ps zmm3{cdab}, zmm6, zmm10{k3}
+vfmsub132ps zmm3{badc}, zmm6, zmm18
+vfmsub132ps zmm3{dacb}, zmm6, zmm26
+vfmsub132ps zmm11{aaaa}, zmm6, zmm2
+vfmsub132ps zmm19{bbbb}, zmm6, zmm2
+vfmsub132ps zmm27{cccc}, zmm6, zmm2
+vfmsub132ps zmm3{dddd}, zmm6, zmm2
+vfmsub132ps {rn}, zmm3, zmm6, zmm2
+vfmsub132ps {rd}, zmm3, zmm6, zmm10
+vfmsub132ps {ru}, zmm3, zmm6, zmm18
+vfmsub132ps {rz}, zmm3, zmm6, zmm26
+vfmsub132ps {rn-sae}, zmm11, zmm6, zmm2
+vfmsub132ps {rd-sae}, zmm19, zmm14, zmm2
+vfmsub132ps {ru-sae}, zmm27, zmm22, zmm2
+vfmsub132ps {rz-sae}, zmm3, zmm30, zmm2
+vfmsub132pd 0x40(rax), zmm6, zmm2
+vfmsub132pd 8(rax){1to8}, zmm6, zmm10
+vfmsub132pd 0x20(rax){4to8}, zmm6, zmm18
+vfmsub132pd 0x40(rax){eh}, zmm6, zmm2
+vfmsub132pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfmsub132pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfmsub132pd zmm3, zmm6, zmm2
+vfmsub132pd zmm3{cdab}, zmm6, zmm10{k3}
+vfmsub132pd zmm3{badc}, zmm6, zmm18
+vfmsub132pd zmm3{dacb}, zmm6, zmm26
+vfmsub132pd zmm11{aaaa}, zmm6, zmm2
+vfmsub132pd zmm19{bbbb}, zmm6, zmm2
+vfmsub132pd zmm27{cccc}, zmm6, zmm2
+vfmsub132pd zmm3{dddd}, zmm6, zmm2
+vfmsub132pd {rn}, zmm3, zmm6, zmm2
+vfmsub132pd {rd}, zmm3, zmm6, zmm10
+vfmsub132pd {ru}, zmm3, zmm6, zmm18
+vfmsub132pd {rz}, zmm3, zmm6, zmm26
+vfmsub132pd {rn-sae}, zmm11, zmm6, zmm2
+vfmsub132pd {rd-sae}, zmm19, zmm14, zmm2
+vfmsub132pd {ru-sae}, zmm27, zmm22, zmm2
+vfmsub132pd {rz-sae}, zmm3, zmm30, zmm2
+vfnmadd132ps 0x40(rax), zmm6, zmm2
+vfnmadd132ps 4(rax){1to16}, zmm6, zmm10
+vfnmadd132ps 0x10(rax){4to16}, zmm6, zmm18
+vfnmadd132ps 0x20(rax){float16}, zmm6, zmm26
+vfnmadd132ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfnmadd132ps 0x10(rax){sint8}, zmm6, zmm2
+vfnmadd132ps 0x20(rax){uint16}, zmm6, zmm2
+vfnmadd132ps 0x20(rax){sint16}, zmm6, zmm2
+vfnmadd132ps 0x40(rax){eh}, zmm6, zmm2
+vfnmadd132ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfnmadd132ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfnmadd132ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfnmadd132ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfnmadd132ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfnmadd132ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfnmadd132ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfnmadd132ps zmm3, zmm6, zmm2
+vfnmadd132ps zmm3{cdab}, zmm6, zmm10{k3}
+vfnmadd132ps zmm3{badc}, zmm6, zmm18
+vfnmadd132ps zmm3{dacb}, zmm6, zmm26
+vfnmadd132ps zmm11{aaaa}, zmm6, zmm2
+vfnmadd132ps zmm19{bbbb}, zmm6, zmm2
+vfnmadd132ps zmm27{cccc}, zmm6, zmm2
+vfnmadd132ps zmm3{dddd}, zmm6, zmm2
+vfnmadd132ps {rn}, zmm3, zmm6, zmm2
+vfnmadd132ps {rd}, zmm3, zmm6, zmm10
+vfnmadd132ps {ru}, zmm3, zmm6, zmm18
+vfnmadd132ps {rz}, zmm3, zmm6, zmm26
+vfnmadd132ps {rn-sae}, zmm11, zmm6, zmm2
+vfnmadd132ps {rd-sae}, zmm19, zmm14, zmm2
+vfnmadd132ps {ru-sae}, zmm27, zmm22, zmm2
+vfnmadd132ps {rz-sae}, zmm3, zmm30, zmm2
+vfnmadd132pd 0x40(rax), zmm6, zmm2
+vfnmadd132pd 8(rax){1to8}, zmm6, zmm10
+vfnmadd132pd 0x20(rax){4to8}, zmm6, zmm18
+vfnmadd132pd 0x40(rax){eh}, zmm6, zmm2
+vfnmadd132pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfnmadd132pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfnmadd132pd zmm3, zmm6, zmm2
+vfnmadd132pd zmm3{cdab}, zmm6, zmm10{k3}
+vfnmadd132pd zmm3{badc}, zmm6, zmm18
+vfnmadd132pd zmm3{dacb}, zmm6, zmm26
+vfnmadd132pd zmm11{aaaa}, zmm6, zmm2
+vfnmadd132pd zmm19{bbbb}, zmm6, zmm2
+vfnmadd132pd zmm27{cccc}, zmm6, zmm2
+vfnmadd132pd zmm3{dddd}, zmm6, zmm2
+vfnmadd132pd {rn}, zmm3, zmm6, zmm2
+vfnmadd132pd {rd}, zmm3, zmm6, zmm10
+vfnmadd132pd {ru}, zmm3, zmm6, zmm18
+vfnmadd132pd {rz}, zmm3, zmm6, zmm26
+vfnmadd132pd {rn-sae}, zmm11, zmm6, zmm2
+vfnmadd132pd {rd-sae}, zmm19, zmm14, zmm2
+vfnmadd132pd {ru-sae}, zmm27, zmm22, zmm2
+vfnmadd132pd {rz-sae}, zmm3, zmm30, zmm2
+vfnmsub132ps 0x40(rax), zmm6, zmm2
+vfnmsub132ps 4(rax){1to16}, zmm6, zmm10
+vfnmsub132ps 0x10(rax){4to16}, zmm6, zmm18
+vfnmsub132ps 0x20(rax){float16}, zmm6, zmm26
+vfnmsub132ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfnmsub132ps 0x10(rax){sint8}, zmm6, zmm2
+vfnmsub132ps 0x20(rax){uint16}, zmm6, zmm2
+vfnmsub132ps 0x20(rax){sint16}, zmm6, zmm2
+vfnmsub132ps 0x40(rax){eh}, zmm6, zmm2
+vfnmsub132ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfnmsub132ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfnmsub132ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfnmsub132ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfnmsub132ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfnmsub132ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfnmsub132ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfnmsub132ps zmm3, zmm6, zmm2
+vfnmsub132ps zmm3{cdab}, zmm6, zmm10{k3}
+vfnmsub132ps zmm3{badc}, zmm6, zmm18
+vfnmsub132ps zmm3{dacb}, zmm6, zmm26
+vfnmsub132ps zmm11{aaaa}, zmm6, zmm2
+vfnmsub132ps zmm19{bbbb}, zmm6, zmm2
+vfnmsub132ps zmm27{cccc}, zmm6, zmm2
+vfnmsub132ps zmm3{dddd}, zmm6, zmm2
+vfnmsub132ps {rn}, zmm3, zmm6, zmm2
+vfnmsub132ps {rd}, zmm3, zmm6, zmm10
+vfnmsub132ps {ru}, zmm3, zmm6, zmm18
+vfnmsub132ps {rz}, zmm3, zmm6, zmm26
+vfnmsub132ps {rn-sae}, zmm11, zmm6, zmm2
+vfnmsub132ps {rd-sae}, zmm19, zmm14, zmm2
+vfnmsub132ps {ru-sae}, zmm27, zmm22, zmm2
+vfnmsub132ps {rz-sae}, zmm3, zmm30, zmm2
+vfnmsub132pd 0x40(rax), zmm6, zmm2
+vfnmsub132pd 8(rax){1to8}, zmm6, zmm10
+vfnmsub132pd 0x20(rax){4to8}, zmm6, zmm18
+vfnmsub132pd 0x40(rax){eh}, zmm6, zmm2
+vfnmsub132pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfnmsub132pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfnmsub132pd zmm3, zmm6, zmm2
+vfnmsub132pd zmm3{cdab}, zmm6, zmm10{k3}
+vfnmsub132pd zmm3{badc}, zmm6, zmm18
+vfnmsub132pd zmm3{dacb}, zmm6, zmm26
+vfnmsub132pd zmm11{aaaa}, zmm6, zmm2
+vfnmsub132pd zmm19{bbbb}, zmm6, zmm2
+vfnmsub132pd zmm27{cccc}, zmm6, zmm2
+vfnmsub132pd zmm3{dddd}, zmm6, zmm2
+vfnmsub132pd {rn}, zmm3, zmm6, zmm2
+vfnmsub132pd {rd}, zmm3, zmm6, zmm10
+vfnmsub132pd {ru}, zmm3, zmm6, zmm18
+vfnmsub132pd {rz}, zmm3, zmm6, zmm26
+vfnmsub132pd {rn-sae}, zmm11, zmm6, zmm2
+vfnmsub132pd {rd-sae}, zmm19, zmm14, zmm2
+vfnmsub132pd {ru-sae}, zmm27, zmm22, zmm2
+vfnmsub132pd {rz-sae}, zmm3, zmm30, zmm2
+vfmadd233ps 0x40(rax), zmm6, zmm2{k5}
+vfmadd233ps 0x10(rax){4to16}, zmm6, zmm18
+vfmadd233ps 0x40(rax){eh}, zmm6, zmm2
+vfmadd233ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfmadd233ps zmm3, zmm6, zmm2
+vfmadd233ps {rn}, zmm3, zmm6, zmm2
+vfmadd233ps {rd}, zmm3, zmm6, zmm10
+vfmadd233ps {ru}, zmm3, zmm6, zmm18
+vfmadd233ps {rz}, zmm3, zmm6, zmm26
+vfmadd233ps {rn-sae}, zmm11, zmm6, zmm2
+vfmadd233ps {rd-sae}, zmm19, zmm14, zmm2
+vfmadd233ps {ru-sae}, zmm27, zmm22, zmm2
+vfmadd233ps {rz-sae}, zmm3, zmm30, zmm2
+vfmadd213ps 0x40(rax), zmm6, zmm2
+vfmadd213ps 4(rax){1to16}, zmm6, zmm10
+vfmadd213ps 0x10(rax){4to16}, zmm6, zmm18
+vfmadd213ps 0x20(rax){float16}, zmm6, zmm26
+vfmadd213ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfmadd213ps 0x10(rax){sint8}, zmm6, zmm2
+vfmadd213ps 0x20(rax){uint16}, zmm6, zmm2
+vfmadd213ps 0x20(rax){sint16}, zmm6, zmm2
+vfmadd213ps 0x40(rax){eh}, zmm6, zmm2
+vfmadd213ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfmadd213ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfmadd213ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfmadd213ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfmadd213ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfmadd213ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfmadd213ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfmadd213ps zmm3, zmm6, zmm2
+vfmadd213ps zmm3{cdab}, zmm6, zmm10{k3}
+vfmadd213ps zmm3{badc}, zmm6, zmm18
+vfmadd213ps zmm3{dacb}, zmm6, zmm26
+vfmadd213ps zmm11{aaaa}, zmm6, zmm2
+vfmadd213ps zmm19{bbbb}, zmm6, zmm2
+vfmadd213ps zmm27{cccc}, zmm6, zmm2
+vfmadd213ps zmm3{dddd}, zmm6, zmm2
+vfmadd213ps {rn}, zmm3, zmm6, zmm2
+vfmadd213ps {rd}, zmm3, zmm6, zmm10
+vfmadd213ps {ru}, zmm3, zmm6, zmm18
+vfmadd213ps {rz}, zmm3, zmm6, zmm26
+vfmadd213ps {rn-sae}, zmm11, zmm6, zmm2
+vfmadd213ps {rd-sae}, zmm19, zmm14, zmm2
+vfmadd213ps {ru-sae}, zmm27, zmm22, zmm2
+vfmadd213ps {rz-sae}, zmm3, zmm30, zmm2
+vfmadd213pd 0x40(rax), zmm6, zmm2
+vfmadd213pd 8(rax){1to8}, zmm6, zmm10
+vfmadd213pd 0x20(rax){4to8}, zmm6, zmm18
+vfmadd213pd 0x40(rax){eh}, zmm6, zmm2
+vfmadd213pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfmadd213pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfmadd213pd zmm3, zmm6, zmm2
+vfmadd213pd zmm3{cdab}, zmm6, zmm10{k3}
+vfmadd213pd zmm3{badc}, zmm6, zmm18
+vfmadd213pd zmm3{dacb}, zmm6, zmm26
+vfmadd213pd zmm11{aaaa}, zmm6, zmm2
+vfmadd213pd zmm19{bbbb}, zmm6, zmm2
+vfmadd213pd zmm27{cccc}, zmm6, zmm2
+vfmadd213pd zmm3{dddd}, zmm6, zmm2
+vfmadd213pd {rn}, zmm3, zmm6, zmm2
+vfmadd213pd {rd}, zmm3, zmm6, zmm10
+vfmadd213pd {ru}, zmm3, zmm6, zmm18
+vfmadd213pd {rz}, zmm3, zmm6, zmm26
+vfmadd213pd {rn-sae}, zmm11, zmm6, zmm2
+vfmadd213pd {rd-sae}, zmm19, zmm14, zmm2
+vfmadd213pd {ru-sae}, zmm27, zmm22, zmm2
+vfmadd213pd {rz-sae}, zmm3, zmm30, zmm2
+vfmsub213ps 0x40(rax), zmm6, zmm2
+vfmsub213ps 4(rax){1to16}, zmm6, zmm10
+vfmsub213ps 0x10(rax){4to16}, zmm6, zmm18
+vfmsub213ps 0x20(rax){float16}, zmm6, zmm26
+vfmsub213ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfmsub213ps 0x10(rax){sint8}, zmm6, zmm2
+vfmsub213ps 0x20(rax){uint16}, zmm6, zmm2
+vfmsub213ps 0x20(rax){sint16}, zmm6, zmm2
+vfmsub213ps 0x40(rax){eh}, zmm6, zmm2
+vfmsub213ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfmsub213ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfmsub213ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfmsub213ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfmsub213ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfmsub213ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfmsub213ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfmsub213ps zmm3, zmm6, zmm2
+vfmsub213ps zmm3{cdab}, zmm6, zmm10{k3}
+vfmsub213ps zmm3{badc}, zmm6, zmm18
+vfmsub213ps zmm3{dacb}, zmm6, zmm26
+vfmsub213ps zmm11{aaaa}, zmm6, zmm2
+vfmsub213ps zmm19{bbbb}, zmm6, zmm2
+vfmsub213ps zmm27{cccc}, zmm6, zmm2
+vfmsub213ps zmm3{dddd}, zmm6, zmm2
+vfmsub213ps {rn}, zmm3, zmm6, zmm2
+vfmsub213ps {rd}, zmm3, zmm6, zmm10
+vfmsub213ps {ru}, zmm3, zmm6, zmm18
+vfmsub213ps {rz}, zmm3, zmm6, zmm26
+vfmsub213ps {rn-sae}, zmm11, zmm6, zmm2
+vfmsub213ps {rd-sae}, zmm19, zmm14, zmm2
+vfmsub213ps {ru-sae}, zmm27, zmm22, zmm2
+vfmsub213ps {rz-sae}, zmm3, zmm30, zmm2
+vfmsub213pd 0x40(rax), zmm6, zmm2
+vfmsub213pd 8(rax){1to8}, zmm6, zmm10
+vfmsub213pd 0x20(rax){4to8}, zmm6, zmm18
+vfmsub213pd 0x40(rax){eh}, zmm6, zmm2
+vfmsub213pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfmsub213pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfmsub213pd zmm3, zmm6, zmm2
+vfmsub213pd zmm3{cdab}, zmm6, zmm10{k3}
+vfmsub213pd zmm3{badc}, zmm6, zmm18
+vfmsub213pd zmm3{dacb}, zmm6, zmm26
+vfmsub213pd zmm11{aaaa}, zmm6, zmm2
+vfmsub213pd zmm19{bbbb}, zmm6, zmm2
+vfmsub213pd zmm27{cccc}, zmm6, zmm2
+vfmsub213pd zmm3{dddd}, zmm6, zmm2
+vfmsub213pd {rn}, zmm3, zmm6, zmm2
+vfmsub213pd {rd}, zmm3, zmm6, zmm10
+vfmsub213pd {ru}, zmm3, zmm6, zmm18
+vfmsub213pd {rz}, zmm3, zmm6, zmm26
+vfmsub213pd {rn-sae}, zmm11, zmm6, zmm2
+vfmsub213pd {rd-sae}, zmm19, zmm14, zmm2
+vfmsub213pd {ru-sae}, zmm27, zmm22, zmm2
+vfmsub213pd {rz-sae}, zmm3, zmm30, zmm2
+vfnmadd213ps 0x40(rax), zmm6, zmm2
+vfnmadd213ps 4(rax){1to16}, zmm6, zmm10
+vfnmadd213ps 0x10(rax){4to16}, zmm6, zmm18
+vfnmadd213ps 0x20(rax){float16}, zmm6, zmm26
+vfnmadd213ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfnmadd213ps 0x10(rax){sint8}, zmm6, zmm2
+vfnmadd213ps 0x20(rax){uint16}, zmm6, zmm2
+vfnmadd213ps 0x20(rax){sint16}, zmm6, zmm2
+vfnmadd213ps 0x40(rax){eh}, zmm6, zmm2
+vfnmadd213ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfnmadd213ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfnmadd213ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfnmadd213ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfnmadd213ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfnmadd213ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfnmadd213ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfnmadd213ps zmm3, zmm6, zmm2
+vfnmadd213ps zmm3{cdab}, zmm6, zmm10{k3}
+vfnmadd213ps zmm3{badc}, zmm6, zmm18
+vfnmadd213ps zmm3{dacb}, zmm6, zmm26
+vfnmadd213ps zmm11{aaaa}, zmm6, zmm2
+vfnmadd213ps zmm19{bbbb}, zmm6, zmm2
+vfnmadd213ps zmm27{cccc}, zmm6, zmm2
+vfnmadd213ps zmm3{dddd}, zmm6, zmm2
+vfnmadd213ps {rn}, zmm3, zmm6, zmm2
+vfnmadd213ps {rd}, zmm3, zmm6, zmm10
+vfnmadd213ps {ru}, zmm3, zmm6, zmm18
+vfnmadd213ps {rz}, zmm3, zmm6, zmm26
+vfnmadd213ps {rn-sae}, zmm11, zmm6, zmm2
+vfnmadd213ps {rd-sae}, zmm19, zmm14, zmm2
+vfnmadd213ps {ru-sae}, zmm27, zmm22, zmm2
+vfnmadd213ps {rz-sae}, zmm3, zmm30, zmm2
+vfnmadd213pd 0x40(rax), zmm6, zmm2
+vfnmadd213pd 8(rax){1to8}, zmm6, zmm10
+vfnmadd213pd 0x20(rax){4to8}, zmm6, zmm18
+vfnmadd213pd 0x40(rax){eh}, zmm6, zmm2
+vfnmadd213pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfnmadd213pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfnmadd213pd zmm3, zmm6, zmm2
+vfnmadd213pd zmm3{cdab}, zmm6, zmm10{k3}
+vfnmadd213pd zmm3{badc}, zmm6, zmm18
+vfnmadd213pd zmm3{dacb}, zmm6, zmm26
+vfnmadd213pd zmm11{aaaa}, zmm6, zmm2
+vfnmadd213pd zmm19{bbbb}, zmm6, zmm2
+vfnmadd213pd zmm27{cccc}, zmm6, zmm2
+vfnmadd213pd zmm3{dddd}, zmm6, zmm2
+vfnmadd213pd {rn}, zmm3, zmm6, zmm2
+vfnmadd213pd {rd}, zmm3, zmm6, zmm10
+vfnmadd213pd {ru}, zmm3, zmm6, zmm18
+vfnmadd213pd {rz}, zmm3, zmm6, zmm26
+vfnmadd213pd {rn-sae}, zmm11, zmm6, zmm2
+vfnmadd213pd {rd-sae}, zmm19, zmm14, zmm2
+vfnmadd213pd {ru-sae}, zmm27, zmm22, zmm2
+vfnmadd213pd {rz-sae}, zmm3, zmm30, zmm2
+vfnmsub213ps 0x40(rax), zmm6, zmm2
+vfnmsub213ps 4(rax){1to16}, zmm6, zmm10
+vfnmsub213ps 0x10(rax){4to16}, zmm6, zmm18
+vfnmsub213ps 0x20(rax){float16}, zmm6, zmm26
+vfnmsub213ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfnmsub213ps 0x10(rax){sint8}, zmm6, zmm2
+vfnmsub213ps 0x20(rax){uint16}, zmm6, zmm2
+vfnmsub213ps 0x20(rax){sint16}, zmm6, zmm2
+vfnmsub213ps 0x40(rax){eh}, zmm6, zmm2
+vfnmsub213ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfnmsub213ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfnmsub213ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfnmsub213ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfnmsub213ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfnmsub213ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfnmsub213ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfnmsub213ps zmm3, zmm6, zmm2
+vfnmsub213ps zmm3{cdab}, zmm6, zmm10{k3}
+vfnmsub213ps zmm3{badc}, zmm6, zmm18
+vfnmsub213ps zmm3{dacb}, zmm6, zmm26
+vfnmsub213ps zmm11{aaaa}, zmm6, zmm2
+vfnmsub213ps zmm19{bbbb}, zmm6, zmm2
+vfnmsub213ps zmm27{cccc}, zmm6, zmm2
+vfnmsub213ps zmm3{dddd}, zmm6, zmm2
+vfnmsub213ps {rn}, zmm3, zmm6, zmm2
+vfnmsub213ps {rd}, zmm3, zmm6, zmm10
+vfnmsub213ps {ru}, zmm3, zmm6, zmm18
+vfnmsub213ps {rz}, zmm3, zmm6, zmm26
+vfnmsub213ps {rn-sae}, zmm11, zmm6, zmm2
+vfnmsub213ps {rd-sae}, zmm19, zmm14, zmm2
+vfnmsub213ps {ru-sae}, zmm27, zmm22, zmm2
+vfnmsub213ps {rz-sae}, zmm3, zmm30, zmm2
+vfnmsub213pd 0x40(rax), zmm6, zmm2
+vfnmsub213pd 8(rax){1to8}, zmm6, zmm10
+vfnmsub213pd 0x20(rax){4to8}, zmm6, zmm18
+vfnmsub213pd 0x40(rax){eh}, zmm6, zmm2
+vfnmsub213pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfnmsub213pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfnmsub213pd zmm3, zmm6, zmm2
+vfnmsub213pd zmm3{cdab}, zmm6, zmm10{k3}
+vfnmsub213pd zmm3{badc}, zmm6, zmm18
+vfnmsub213pd zmm3{dacb}, zmm6, zmm26
+vfnmsub213pd zmm11{aaaa}, zmm6, zmm2
+vfnmsub213pd zmm19{bbbb}, zmm6, zmm2
+vfnmsub213pd zmm27{cccc}, zmm6, zmm2
+vfnmsub213pd zmm3{dddd}, zmm6, zmm2
+vfnmsub213pd {rn}, zmm3, zmm6, zmm2
+vfnmsub213pd {rd}, zmm3, zmm6, zmm10
+vfnmsub213pd {ru}, zmm3, zmm6, zmm18
+vfnmsub213pd {rz}, zmm3, zmm6, zmm26
+vfnmsub213pd {rn-sae}, zmm11, zmm6, zmm2
+vfnmsub213pd {rd-sae}, zmm19, zmm14, zmm2
+vfnmsub213pd {ru-sae}, zmm27, zmm22, zmm2
+vfnmsub213pd {rz-sae}, zmm3, zmm30, zmm2
+vpmadd233d 0x40(rax), zmm6, zmm2{k5}
+vpmadd233d 0x10(rax){4to16}, zmm6, zmm18
+vpmadd233d 0x40(rax){eh}, zmm6, zmm2
+vpmadd233d 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpmadd233d zmm3, zmm6, zmm2
+vpmadd233d zmm3, zmm6, zmm2
+vpmadd231d 0x40(rax), zmm6, zmm2
+vpmadd231d 4(rax){1to16}, zmm6, zmm10
+vpmadd231d 0x10(rax){4to16}, zmm6, zmm18
+vpmadd231d 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpmadd231d 0x10(rax){sint8}, zmm6, zmm2
+vpmadd231d 0x20(rax){uint16}, zmm6, zmm2
+vpmadd231d 0x20(rax){sint16}, zmm6, zmm2
+vpmadd231d 0x40(rax){eh}, zmm6, zmm2
+vpmadd231d 4(rax){eh}{1to16}, zmm6, zmm2
+vpmadd231d 0x10(rax){eh}{4to16}, zmm6, zmm2
+vpmadd231d 0x10(rax){eh}{uint8}, zmm6, zmm2
+vpmadd231d 0x10(rax){eh}{sint8}, zmm14, zmm2
+vpmadd231d 0x20(rax){eh}{uint16}, zmm22, zmm2
+vpmadd231d 0x20(rax){eh}{sint16}, zmm30, zmm2
+vpmadd231d zmm3, zmm6, zmm2
+vpmadd231d zmm3{cdab}, zmm6, zmm10{k3}
+vpmadd231d zmm3{badc}, zmm6, zmm18
+vpmadd231d zmm3{dacb}, zmm6, zmm26
+vpmadd231d zmm11{aaaa}, zmm6, zmm2
+vpmadd231d zmm19{bbbb}, zmm6, zmm2
+vpmadd231d zmm27{cccc}, zmm6, zmm2
+vpmadd231d zmm3{dddd}, zmm6, zmm2
+vpmadd231d zmm3, zmm6, zmm2
+vfmadd231ps 0x40(rax), zmm6, zmm2
+vfmadd231ps 4(rax){1to16}, zmm6, zmm10
+vfmadd231ps 0x10(rax){4to16}, zmm6, zmm18
+vfmadd231ps 0x20(rax){float16}, zmm6, zmm26
+vfmadd231ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfmadd231ps 0x10(rax){sint8}, zmm6, zmm2
+vfmadd231ps 0x20(rax){uint16}, zmm6, zmm2
+vfmadd231ps 0x20(rax){sint16}, zmm6, zmm2
+vfmadd231ps 0x40(rax){eh}, zmm6, zmm2
+vfmadd231ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfmadd231ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfmadd231ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfmadd231ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfmadd231ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfmadd231ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfmadd231ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfmadd231ps zmm3, zmm6, zmm2
+vfmadd231ps zmm3{cdab}, zmm6, zmm10{k3}
+vfmadd231ps zmm3{badc}, zmm6, zmm18
+vfmadd231ps zmm3{dacb}, zmm6, zmm26
+vfmadd231ps zmm11{aaaa}, zmm6, zmm2
+vfmadd231ps zmm19{bbbb}, zmm6, zmm2
+vfmadd231ps zmm27{cccc}, zmm6, zmm2
+vfmadd231ps zmm3{dddd}, zmm6, zmm2
+vfmadd231ps {rn}, zmm3, zmm6, zmm2
+vfmadd231ps {rd}, zmm3, zmm6, zmm10
+vfmadd231ps {ru}, zmm3, zmm6, zmm18
+vfmadd231ps {rz}, zmm3, zmm6, zmm26
+vfmadd231ps {rn-sae}, zmm11, zmm6, zmm2
+vfmadd231ps {rd-sae}, zmm19, zmm14, zmm2
+vfmadd231ps {ru-sae}, zmm27, zmm22, zmm2
+vfmadd231ps {rz-sae}, zmm3, zmm30, zmm2
+vfmadd231pd 0x40(rax), zmm6, zmm2
+vfmadd231pd 8(rax){1to8}, zmm6, zmm10
+vfmadd231pd 0x20(rax){4to8}, zmm6, zmm18
+vfmadd231pd 0x40(rax){eh}, zmm6, zmm2
+vfmadd231pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfmadd231pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfmadd231pd zmm3, zmm6, zmm2
+vfmadd231pd zmm3{cdab}, zmm6, zmm10{k3}
+vfmadd231pd zmm3{badc}, zmm6, zmm18
+vfmadd231pd zmm3{dacb}, zmm6, zmm26
+vfmadd231pd zmm11{aaaa}, zmm6, zmm2
+vfmadd231pd zmm19{bbbb}, zmm6, zmm2
+vfmadd231pd zmm27{cccc}, zmm6, zmm2
+vfmadd231pd zmm3{dddd}, zmm6, zmm2
+vfmadd231pd {rn}, zmm3, zmm6, zmm2
+vfmadd231pd {rd}, zmm3, zmm6, zmm10
+vfmadd231pd {ru}, zmm3, zmm6, zmm18
+vfmadd231pd {rz}, zmm3, zmm6, zmm26
+vfmadd231pd {rn-sae}, zmm11, zmm6, zmm2
+vfmadd231pd {rd-sae}, zmm19, zmm14, zmm2
+vfmadd231pd {ru-sae}, zmm27, zmm22, zmm2
+vfmadd231pd {rz-sae}, zmm3, zmm30, zmm2
+vfmsub231ps 0x40(rax), zmm6, zmm2
+vfmsub231ps 4(rax){1to16}, zmm6, zmm10
+vfmsub231ps 0x10(rax){4to16}, zmm6, zmm18
+vfmsub231ps 0x20(rax){float16}, zmm6, zmm26
+vfmsub231ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfmsub231ps 0x10(rax){sint8}, zmm6, zmm2
+vfmsub231ps 0x20(rax){uint16}, zmm6, zmm2
+vfmsub231ps 0x20(rax){sint16}, zmm6, zmm2
+vfmsub231ps 0x40(rax){eh}, zmm6, zmm2
+vfmsub231ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfmsub231ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfmsub231ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfmsub231ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfmsub231ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfmsub231ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfmsub231ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfmsub231ps zmm3, zmm6, zmm2
+vfmsub231ps zmm3{cdab}, zmm6, zmm10{k3}
+vfmsub231ps zmm3{badc}, zmm6, zmm18
+vfmsub231ps zmm3{dacb}, zmm6, zmm26
+vfmsub231ps zmm11{aaaa}, zmm6, zmm2
+vfmsub231ps zmm19{bbbb}, zmm6, zmm2
+vfmsub231ps zmm27{cccc}, zmm6, zmm2
+vfmsub231ps zmm3{dddd}, zmm6, zmm2
+vfmsub231ps {rn}, zmm3, zmm6, zmm2
+vfmsub231ps {rd}, zmm3, zmm6, zmm10
+vfmsub231ps {ru}, zmm3, zmm6, zmm18
+vfmsub231ps {rz}, zmm3, zmm6, zmm26
+vfmsub231ps {rn-sae}, zmm11, zmm6, zmm2
+vfmsub231ps {rd-sae}, zmm19, zmm14, zmm2
+vfmsub231ps {ru-sae}, zmm27, zmm22, zmm2
+vfmsub231ps {rz-sae}, zmm3, zmm30, zmm2
+vfmsub231pd 0x40(rax), zmm6, zmm2
+vfmsub231pd 8(rax){1to8}, zmm6, zmm10
+vfmsub231pd 0x20(rax){4to8}, zmm6, zmm18
+vfmsub231pd 0x40(rax){eh}, zmm6, zmm2
+vfmsub231pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfmsub231pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfmsub231pd zmm3, zmm6, zmm2
+vfmsub231pd zmm3{cdab}, zmm6, zmm10{k3}
+vfmsub231pd zmm3{badc}, zmm6, zmm18
+vfmsub231pd zmm3{dacb}, zmm6, zmm26
+vfmsub231pd zmm11{aaaa}, zmm6, zmm2
+vfmsub231pd zmm19{bbbb}, zmm6, zmm2
+vfmsub231pd zmm27{cccc}, zmm6, zmm2
+vfmsub231pd zmm3{dddd}, zmm6, zmm2
+vfmsub231pd {rn}, zmm3, zmm6, zmm2
+vfmsub231pd {rd}, zmm3, zmm6, zmm10
+vfmsub231pd {ru}, zmm3, zmm6, zmm18
+vfmsub231pd {rz}, zmm3, zmm6, zmm26
+vfmsub231pd {rn-sae}, zmm11, zmm6, zmm2
+vfmsub231pd {rd-sae}, zmm19, zmm14, zmm2
+vfmsub231pd {ru-sae}, zmm27, zmm22, zmm2
+vfmsub231pd {rz-sae}, zmm3, zmm30, zmm2
+vfnmadd231ps 0x40(rax), zmm6, zmm2
+vfnmadd231ps 4(rax){1to16}, zmm6, zmm10
+vfnmadd231ps 0x10(rax){4to16}, zmm6, zmm18
+vfnmadd231ps 0x20(rax){float16}, zmm6, zmm26
+vfnmadd231ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfnmadd231ps 0x10(rax){sint8}, zmm6, zmm2
+vfnmadd231ps 0x20(rax){uint16}, zmm6, zmm2
+vfnmadd231ps 0x20(rax){sint16}, zmm6, zmm2
+vfnmadd231ps 0x40(rax){eh}, zmm6, zmm2
+vfnmadd231ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfnmadd231ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfnmadd231ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfnmadd231ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfnmadd231ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfnmadd231ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfnmadd231ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfnmadd231ps zmm3, zmm6, zmm2
+vfnmadd231ps zmm3{cdab}, zmm6, zmm10{k3}
+vfnmadd231ps zmm3{badc}, zmm6, zmm18
+vfnmadd231ps zmm3{dacb}, zmm6, zmm26
+vfnmadd231ps zmm11{aaaa}, zmm6, zmm2
+vfnmadd231ps zmm19{bbbb}, zmm6, zmm2
+vfnmadd231ps zmm27{cccc}, zmm6, zmm2
+vfnmadd231ps zmm3{dddd}, zmm6, zmm2
+vfnmadd231ps {rn}, zmm3, zmm6, zmm2
+vfnmadd231ps {rd}, zmm3, zmm6, zmm10
+vfnmadd231ps {ru}, zmm3, zmm6, zmm18
+vfnmadd231ps {rz}, zmm3, zmm6, zmm26
+vfnmadd231ps {rn-sae}, zmm11, zmm6, zmm2
+vfnmadd231ps {rd-sae}, zmm19, zmm14, zmm2
+vfnmadd231ps {ru-sae}, zmm27, zmm22, zmm2
+vfnmadd231ps {rz-sae}, zmm3, zmm30, zmm2
+vfnmadd231pd 0x40(rax), zmm6, zmm2
+vfnmadd231pd 8(rax){1to8}, zmm6, zmm10
+vfnmadd231pd 0x20(rax){4to8}, zmm6, zmm18
+vfnmadd231pd 0x40(rax){eh}, zmm6, zmm2
+vfnmadd231pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfnmadd231pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfnmadd231pd zmm3, zmm6, zmm2
+vfnmadd231pd zmm3{cdab}, zmm6, zmm10{k3}
+vfnmadd231pd zmm3{badc}, zmm6, zmm18
+vfnmadd231pd zmm3{dacb}, zmm6, zmm26
+vfnmadd231pd zmm11{aaaa}, zmm6, zmm2
+vfnmadd231pd zmm19{bbbb}, zmm6, zmm2
+vfnmadd231pd zmm27{cccc}, zmm6, zmm2
+vfnmadd231pd zmm3{dddd}, zmm6, zmm2
+vfnmadd231pd {rn}, zmm3, zmm6, zmm2
+vfnmadd231pd {rd}, zmm3, zmm6, zmm10
+vfnmadd231pd {ru}, zmm3, zmm6, zmm18
+vfnmadd231pd {rz}, zmm3, zmm6, zmm26
+vfnmadd231pd {rn-sae}, zmm11, zmm6, zmm2
+vfnmadd231pd {rd-sae}, zmm19, zmm14, zmm2
+vfnmadd231pd {ru-sae}, zmm27, zmm22, zmm2
+vfnmadd231pd {rz-sae}, zmm3, zmm30, zmm2
+vfnmsub231ps 0x40(rax), zmm6, zmm2
+vfnmsub231ps 4(rax){1to16}, zmm6, zmm10
+vfnmsub231ps 0x10(rax){4to16}, zmm6, zmm18
+vfnmsub231ps 0x20(rax){float16}, zmm6, zmm26
+vfnmsub231ps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vfnmsub231ps 0x10(rax){sint8}, zmm6, zmm2
+vfnmsub231ps 0x20(rax){uint16}, zmm6, zmm2
+vfnmsub231ps 0x20(rax){sint16}, zmm6, zmm2
+vfnmsub231ps 0x40(rax){eh}, zmm6, zmm2
+vfnmsub231ps 4(rax){eh}{1to16}, zmm6, zmm2
+vfnmsub231ps 0x10(rax){eh}{4to16}, zmm6, zmm2
+vfnmsub231ps 0x20(rax){eh}{float16}, zmm6, zmm2
+vfnmsub231ps 0x10(rax){eh}{uint8}, zmm6, zmm2
+vfnmsub231ps 0x10(rax){eh}{sint8}, zmm14, zmm2
+vfnmsub231ps 0x20(rax){eh}{uint16}, zmm22, zmm2
+vfnmsub231ps 0x20(rax){eh}{sint16}, zmm30, zmm2
+vfnmsub231ps zmm3, zmm6, zmm2
+vfnmsub231ps zmm3{cdab}, zmm6, zmm10{k3}
+vfnmsub231ps zmm3{badc}, zmm6, zmm18
+vfnmsub231ps zmm3{dacb}, zmm6, zmm26
+vfnmsub231ps zmm11{aaaa}, zmm6, zmm2
+vfnmsub231ps zmm19{bbbb}, zmm6, zmm2
+vfnmsub231ps zmm27{cccc}, zmm6, zmm2
+vfnmsub231ps zmm3{dddd}, zmm6, zmm2
+vfnmsub231ps {rn}, zmm3, zmm6, zmm2
+vfnmsub231ps {rd}, zmm3, zmm6, zmm10
+vfnmsub231ps {ru}, zmm3, zmm6, zmm18
+vfnmsub231ps {rz}, zmm3, zmm6, zmm26
+vfnmsub231ps {rn-sae}, zmm11, zmm6, zmm2
+vfnmsub231ps {rd-sae}, zmm19, zmm14, zmm2
+vfnmsub231ps {ru-sae}, zmm27, zmm22, zmm2
+vfnmsub231ps {rz-sae}, zmm3, zmm30, zmm2
+vfnmsub231pd 0x40(rax), zmm6, zmm2
+vfnmsub231pd 8(rax){1to8}, zmm6, zmm10
+vfnmsub231pd 0x20(rax){4to8}, zmm6, zmm18
+vfnmsub231pd 0x40(rax){eh}, zmm6, zmm2
+vfnmsub231pd 8(rax){eh}{1to8}, zmm6, zmm2
+vfnmsub231pd 0x20(rax){eh}{4to8}, zmm6, zmm2
+vfnmsub231pd zmm3, zmm6, zmm2
+vfnmsub231pd zmm3{cdab}, zmm6, zmm10{k3}
+vfnmsub231pd zmm3{badc}, zmm6, zmm18
+vfnmsub231pd zmm3{dacb}, zmm6, zmm26
+vfnmsub231pd zmm11{aaaa}, zmm6, zmm2
+vfnmsub231pd zmm19{bbbb}, zmm6, zmm2
+vfnmsub231pd zmm27{cccc}, zmm6, zmm2
+vfnmsub231pd zmm3{dddd}, zmm6, zmm2
+vfnmsub231pd {rn}, zmm3, zmm6, zmm2
+vfnmsub231pd {rd}, zmm3, zmm6, zmm10
+vfnmsub231pd {ru}, zmm3, zmm6, zmm18
+vfnmsub231pd {rz}, zmm3, zmm6, zmm26
+vfnmsub231pd {rn-sae}, zmm11, zmm6, zmm2
+vfnmsub231pd {rd-sae}, zmm19, zmm14, zmm2
+vfnmsub231pd {ru-sae}, zmm27, zmm22, zmm2
+vfnmsub231pd {rz-sae}, zmm3, zmm30, zmm2
+vaddsetsps 0x40(rax), zmm6, zmm2{k5}
+vaddsetsps 4(rax){1to16}, zmm6, zmm10{k5}
+vaddsetsps 0x10(rax){4to16}, zmm6, zmm18{k5}
+vaddsetsps 0x20(rax){float16}, zmm6, zmm26{k5}
+vaddsetsps 0x10(rax){uint8}, zmm6, zmm2{k3}
+vaddsetsps 0x10(rax){sint8}, zmm6, zmm2{k5}
+vaddsetsps 0x20(rax){uint16}, zmm6, zmm2{k5}
+vaddsetsps 0x20(rax){sint16}, zmm6, zmm2{k5}
+vaddsetsps 0x40(rax){eh}, zmm6, zmm2{k5}
+vaddsetsps 4(rax){eh}{1to16}, zmm6, zmm2{k5}
+vaddsetsps 0x10(rax){eh}{4to16}, zmm6, zmm2{k5}
+vaddsetsps 0x20(rax){eh}{float16}, zmm6, zmm2{k5}
+vaddsetsps 0x10(rax){eh}{uint8}, zmm6, zmm2{k5}
+vaddsetsps 0x10(rax){eh}{sint8}, zmm14, zmm2{k5}
+vaddsetsps 0x20(rax){eh}{uint16}, zmm22, zmm2{k5}
+vaddsetsps 0x20(rax){eh}{sint16}, zmm30, zmm2{k5}
+vaddsetsps zmm3, zmm6, zmm2{k5}
+vaddsetsps zmm3{cdab}, zmm6, zmm10{k3}
+vaddsetsps zmm3{badc}, zmm6, zmm18{k5}
+vaddsetsps zmm3{dacb}, zmm6, zmm26{k5}
+vaddsetsps zmm11{aaaa}, zmm6, zmm2{k5}
+vaddsetsps zmm19{bbbb}, zmm6, zmm2{k5}
+vaddsetsps zmm27{cccc}, zmm6, zmm2{k5}
+vaddsetsps zmm3{dddd}, zmm6, zmm2{k5}
+vaddsetsps {rn}, zmm3, zmm6, zmm2{k5}
+vaddsetsps {rd}, zmm3, zmm6, zmm10{k5}
+vaddsetsps {ru}, zmm3, zmm6, zmm18{k5}
+vaddsetsps {rz}, zmm3, zmm6, zmm26{k5}
+vaddsetsps {rn-sae}, zmm11, zmm6, zmm2{k5}
+vaddsetsps {rd-sae}, zmm19, zmm14, zmm2{k5}
+vaddsetsps {ru-sae}, zmm27, zmm22, zmm2{k5}
+vaddsetsps {rz-sae}, zmm3, zmm30, zmm2{k5}
+vpaddsetsd 0x40(rax), zmm6, zmm2{k5}
+vpaddsetsd 4(rax){1to16}, zmm6, zmm10{k5}
+vpaddsetsd 0x10(rax){4to16}, zmm6, zmm18{k5}
+vpaddsetsd 0x10(rax){uint8}, zmm6, zmm2{k3}
+vpaddsetsd 0x10(rax){sint8}, zmm6, zmm2{k5}
+vpaddsetsd 0x20(rax){uint16}, zmm6, zmm2{k5}
+vpaddsetsd 0x20(rax){sint16}, zmm6, zmm2{k5}
+vpaddsetsd 0x40(rax){eh}, zmm6, zmm2{k5}
+vpaddsetsd 4(rax){eh}{1to16}, zmm6, zmm2{k5}
+vpaddsetsd 0x10(rax){eh}{4to16}, zmm6, zmm2{k5}
+vpaddsetsd 0x10(rax){eh}{uint8}, zmm6, zmm2{k5}
+vpaddsetsd 0x10(rax){eh}{sint8}, zmm14, zmm2{k5}
+vpaddsetsd 0x20(rax){eh}{uint16}, zmm22, zmm2{k5}
+vpaddsetsd 0x20(rax){eh}{sint16}, zmm30, zmm2{k5}
+vpaddsetsd zmm3, zmm6, zmm2{k5}
+vpaddsetsd zmm3{cdab}, zmm6, zmm10{k3}
+vpaddsetsd zmm3{badc}, zmm6, zmm18{k5}
+vpaddsetsd zmm3{dacb}, zmm6, zmm26{k5}
+vpaddsetsd zmm11{aaaa}, zmm6, zmm2{k5}
+vpaddsetsd zmm19{bbbb}, zmm6, zmm2{k5}
+vpaddsetsd zmm27{cccc}, zmm6, zmm2{k5}
+vpaddsetsd zmm3{dddd}, zmm6, zmm2{k5}
+vpaddsetsd zmm3, zmm6, zmm2{k5}
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+undoc 0x40(rax), zmm6, zmm2
+undoc 4(rax), zmm6, zmm10
+undoc 0x10(rax), zmm6, zmm18
+undoc 0x20(rax), zmm6, zmm26
+undoc 0x10(rax), zmm6, zmm2{k3}
+undoc 0x10(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x20(rax), zmm6, zmm2
+undoc 0x40(rax){eh}, zmm6, zmm2
+undoc 4(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x20(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm6, zmm2
+undoc 0x10(rax){eh}, zmm14, zmm2
+undoc 0x20(rax){eh}, zmm22, zmm2
+undoc 0x20(rax){eh}, zmm30, zmm2
+undoc zmm3, zmm6, zmm2
+undoc zmm3, zmm6, zmm10{k3}
+undoc zmm3, zmm6, zmm18
+undoc zmm3, zmm6, zmm26
+undoc zmm11, zmm6, zmm2
+undoc zmm19, zmm6, zmm2
+undoc zmm27, zmm6, zmm2
+undoc zmm3, zmm6, zmm2
+undoc {rn}, zmm3, zmm6, zmm2
+undoc {rd}, zmm3, zmm6, zmm10
+undoc {ru}, zmm3, zmm6, zmm18
+undoc {rz}, zmm3, zmm6, zmm26
+undoc {rn-sae}, zmm11, zmm6, zmm2
+undoc {rd-sae}, zmm19, zmm14, zmm2
+undoc {ru-sae}, zmm27, zmm22, zmm2
+undoc {rz-sae}, zmm3, zmm30, zmm2
+valignd $0x5a, 0x40(rax), zmm6, zmm2{k5}
+valignd $0x5a, 0x40(rax){eh}, zmm6, zmm26
+valignd $0x5a, zmm3, zmm6, zmm2
+valignd $0x5a, zmm27, zmm22, zmm2
+vpsrld $0x5a, 0x40(rax), zmm6
+vpsrld $-0x5b, 4(rax){1to16}, zmm6
+vpsrld $0x5a, 0x10(rax){4to16}, zmm6
+vpsrld $0x5a, 0x10(rax){uint8}, zmm6{k3}
+vpsrld $-0x5b, 0x10(rax){sint8}, zmm6
+vpsrld $0x5a, 0x20(rax){uint16}, zmm6
+vpsrld $-0x5b, 0x20(rax){sint16}, zmm6
+vpsrld $0x5a, 0x40(rax){eh}, zmm6
+vpsrld $-0x5b, 4(rax){eh}{1to16}, zmm6
+vpsrld $0x5a, 0x10(rax){eh}{4to16}, zmm6
+vpsrld $0x5a, 0x10(rax){eh}{uint8}, zmm6
+vpsrld $-0x5b, 0x10(rax){eh}{sint8}, zmm14
+vpsrld $0x5a, 0x20(rax){eh}{uint16}, zmm22
+vpsrld $0x5a, zmm3, zmm6
+vpsrld $-0x5b, zmm3{cdab}, zmm6{k3}
+vpsrld $0x5a, zmm3{badc}, zmm6
+vpsrld $-0x5b, zmm3{dacb}, zmm6
+vpsrld $0x5a, zmm11{aaaa}, zmm6
+vpsrld $-0x5b, zmm19{bbbb}, zmm6
+vpsrld $0x5a, zmm27{cccc}, zmm6
+vpsrld $-0x5b, zmm3{dddd}, zmm6
+vpsrld $0x5a, zmm3, zmm6
+vpsrad $0x5a, 0x40(rax), zmm6
+vpsrad $-0x5b, 4(rax){1to16}, zmm6
+vpsrad $0x5a, 0x10(rax){4to16}, zmm6
+vpsrad $0x5a, 0x10(rax){uint8}, zmm6{k3}
+vpsrad $-0x5b, 0x10(rax){sint8}, zmm6
+vpsrad $0x5a, 0x20(rax){uint16}, zmm6
+vpsrad $-0x5b, 0x20(rax){sint16}, zmm6
+vpsrad $0x5a, 0x40(rax){eh}, zmm6
+vpsrad $-0x5b, 4(rax){eh}{1to16}, zmm6
+vpsrad $0x5a, 0x10(rax){eh}{4to16}, zmm6
+vpsrad $0x5a, 0x10(rax){eh}{uint8}, zmm6
+vpsrad $-0x5b, 0x10(rax){eh}{sint8}, zmm14
+vpsrad $0x5a, 0x20(rax){eh}{uint16}, zmm22
+vpsrad $0x5a, zmm3, zmm6
+vpsrad $-0x5b, zmm3{cdab}, zmm6{k3}
+vpsrad $0x5a, zmm3{badc}, zmm6
+vpsrad $-0x5b, zmm3{dacb}, zmm6
+vpsrad $0x5a, zmm11{aaaa}, zmm6
+vpsrad $-0x5b, zmm19{bbbb}, zmm6
+vpsrad $0x5a, zmm27{cccc}, zmm6
+vpsrad $-0x5b, zmm3{dddd}, zmm6
+vpsrad $0x5a, zmm3, zmm6
+vpslld $0x5a, 0x40(rax), zmm6
+vpslld $-0x5b, 4(rax){1to16}, zmm6
+vpslld $0x5a, 0x10(rax){4to16}, zmm6
+vpslld $0x5a, 0x10(rax){uint8}, zmm6{k3}
+vpslld $-0x5b, 0x10(rax){sint8}, zmm6
+vpslld $0x5a, 0x20(rax){uint16}, zmm6
+vpslld $-0x5b, 0x20(rax){sint16}, zmm6
+vpslld $0x5a, 0x40(rax){eh}, zmm6
+vpslld $-0x5b, 4(rax){eh}{1to16}, zmm6
+vpslld $0x5a, 0x10(rax){eh}{4to16}, zmm6
+vpslld $0x5a, 0x10(rax){eh}{uint8}, zmm6
+vpslld $-0x5b, 0x10(rax){eh}{sint8}, zmm14
+vpslld $0x5a, 0x20(rax){eh}{uint16}, zmm22
+vpslld $0x5a, zmm3, zmm6
+vpslld $-0x5b, zmm3{cdab}, zmm6{k3}
+vpslld $0x5a, zmm3{badc}, zmm6
+vpslld $-0x5b, zmm3{dacb}, zmm6
+vpslld $0x5a, zmm11{aaaa}, zmm6
+vpslld $-0x5b, zmm19{bbbb}, zmm6
+vpslld $0x5a, zmm27{cccc}, zmm6
+vpslld $-0x5b, zmm3{dddd}, zmm6
+vpslld $0x5a, zmm3, zmm6
+vpcmpgtd 0x40(rax), zmm6, k2
+vpcmpgtd 4(rax){1to16}, zmm6, k2
+vpcmpgtd 0x10(rax){4to16}, zmm6, k2
+vpcmpgtd 0x10(rax){uint8}, zmm6, k2{k3}
+vpcmpgtd 0x10(rax){sint8}, zmm6, k2
+vpcmpgtd 0x20(rax){uint16}, zmm6, k2
+vpcmpgtd 0x20(rax){sint16}, zmm6, k2
+vpcmpgtd 0x40(rax){eh}, zmm6, k2
+vpcmpgtd 4(rax){eh}{1to16}, zmm6, k2
+vpcmpgtd 0x10(rax){eh}{4to16}, zmm6, k2
+vpcmpgtd 0x10(rax){eh}{uint8}, zmm6, k2
+vpcmpgtd 0x10(rax){eh}{sint8}, zmm14, k2
+vpcmpgtd 0x20(rax){eh}{uint16}, zmm22, k2
+vpcmpgtd 0x20(rax){eh}{sint16}, zmm30, k2
+vpcmpgtd zmm3, zmm6, k2
+vpcmpgtd zmm3{cdab}, zmm6, k2{k3}
+vpcmpgtd zmm3{badc}, zmm6, k2
+vpcmpgtd zmm3{dacb}, zmm6, k2
+vpcmpgtd zmm11{aaaa}, zmm6, k2
+vpcmpgtd zmm19{bbbb}, zmm6, k2
+vpcmpgtd zmm27{cccc}, zmm6, k2
+vpcmpgtd zmm3{dddd}, zmm6, k2
+vpcmpgtd zmm3, zmm6, k2
+vpcmpeqd 0x40(rax), zmm6, k2
+vpcmpeqd 4(rax){1to16}, zmm6, k2
+vpcmpeqd 0x10(rax){4to16}, zmm6, k2
+vpcmpeqd 0x10(rax){uint8}, zmm6, k2{k3}
+vpcmpeqd 0x10(rax){sint8}, zmm6, k2
+vpcmpeqd 0x20(rax){uint16}, zmm6, k2
+vpcmpeqd 0x20(rax){sint16}, zmm6, k2
+vpcmpeqd 0x40(rax){eh}, zmm6, k2
+vpcmpeqd 4(rax){eh}{1to16}, zmm6, k2
+vpcmpeqd 0x10(rax){eh}{4to16}, zmm6, k2
+vpcmpeqd 0x10(rax){eh}{uint8}, zmm6, k2
+vpcmpeqd 0x10(rax){eh}{sint8}, zmm14, k2
+vpcmpeqd 0x20(rax){eh}{uint16}, zmm22, k2
+vpcmpeqd 0x20(rax){eh}{sint16}, zmm30, k2
+vpcmpeqd zmm3, zmm6, k2
+vpcmpeqd zmm3{cdab}, zmm6, k2{k3}
+vpcmpeqd zmm3{badc}, zmm6, k2
+vpcmpeqd zmm3{dacb}, zmm6, k2
+vpcmpeqd zmm11{aaaa}, zmm6, k2
+vpcmpeqd zmm19{bbbb}, zmm6, k2
+vpcmpeqd zmm27{cccc}, zmm6, k2
+vpcmpeqd zmm3{dddd}, zmm6, k2
+vpcmpeqd zmm3, zmm6, k2
+vptestmd 0x40(rax), zmm6, k2
+vptestmd 4(rax){1to16}, zmm6, k2
+vptestmd 0x10(rax){4to16}, zmm6, k2
+vptestmd 0x10(rax){uint8}, zmm6, k2{k3}
+vptestmd 0x10(rax){sint8}, zmm6, k2
+vptestmd 0x20(rax){uint16}, zmm6, k2
+vptestmd 0x20(rax){sint16}, zmm6, k2
+vptestmd 0x40(rax){eh}, zmm6, k2
+vptestmd 4(rax){eh}{1to16}, zmm6, k2
+vptestmd 0x10(rax){eh}{4to16}, zmm6, k2
+vptestmd 0x10(rax){eh}{uint8}, zmm6, k2
+vptestmd 0x10(rax){eh}{sint8}, zmm14, k2
+vptestmd 0x20(rax){eh}{uint16}, zmm22, k2
+vptestmd 0x20(rax){eh}{sint16}, zmm30, k2
+vptestmd zmm3, zmm6, k2
+vptestmd zmm3{cdab}, zmm6, k2{k3}
+vptestmd zmm3{badc}, zmm6, k2
+vptestmd zmm3{dacb}, zmm6, k2
+vptestmd zmm11{aaaa}, zmm6, k2
+vptestmd zmm19{bbbb}, zmm6, k2
+vptestmd zmm27{cccc}, zmm6, k2
+vptestmd zmm3{dddd}, zmm6, k2
+vptestmd zmm3, zmm6, k2
+vpcmpltd 0x40(rax), zmm6, k2
+vpcmpltd 4(rax){1to16}, zmm6, k2
+vpcmpltd 0x10(rax){4to16}, zmm6, k2
+vpcmpltd 0x10(rax){uint8}, zmm6, k2{k3}
+vpcmpltd 0x10(rax){sint8}, zmm6, k2
+vpcmpltd 0x20(rax){uint16}, zmm6, k2
+vpcmpltd 0x20(rax){sint16}, zmm6, k2
+vpcmpltd 0x40(rax){eh}, zmm6, k2
+vpcmpltd 4(rax){eh}{1to16}, zmm6, k2
+vpcmpltd 0x10(rax){eh}{4to16}, zmm6, k2
+vpcmpltd 0x10(rax){eh}{uint8}, zmm6, k2
+vpcmpltd 0x10(rax){eh}{sint8}, zmm14, k2
+vpcmpltd 0x20(rax){eh}{uint16}, zmm22, k2
+vpcmpltd 0x20(rax){eh}{sint16}, zmm30, k2
+vpcmpltd zmm3, zmm6, k2
+vpcmpltd zmm3{cdab}, zmm6, k2{k3}
+vpcmpltd zmm3{badc}, zmm6, k2
+vpcmpltd zmm3{dacb}, zmm6, k2
+vpcmpltd zmm11{aaaa}, zmm6, k2
+vpcmpltd zmm19{bbbb}, zmm6, k2
+vpcmpltd zmm27{cccc}, zmm6, k2
+vpcmpltd zmm3{dddd}, zmm6, k2
+vpcmpltd zmm3, zmm6, k2
+vcmpeqps 0x40(rax), zmm6, k2
+vcmpltps 4(rax){1to16}, zmm6, k2
+vcmpleps 0x10(rax){4to16}, zmm6, k2
+vcmpunordps 0x20(rax){float16}, zmm6, k2
+vcmpneqps 0x10(rax){uint8}, zmm6, k2{k3}
+vcmpnltps 0x10(rax){sint8}, zmm6, k2
+vcmpnleps 0x20(rax){uint16}, zmm6, k2
+vcmpordps 0x20(rax){sint16}, zmm6, k2
+vcmpps $8, 0x40(rax){eh}, zmm6, k2
+vcmpps $-0x80, 4(rax){eh}{1to16}, zmm6, k2
+vcmpps $-1, 0x10(rax){eh}{4to16}, zmm6, k2
+vcmpps $-2, 0x20(rax){eh}{float16}, zmm6, k2
+vcmpps $-3, 0x10(rax){eh}{uint8}, zmm6, k2
+vcmpps $-4, 0x10(rax){eh}{sint8}, zmm14, k2
+vcmpps $-5, 0x20(rax){eh}{uint16}, zmm22, k2
+vcmpps $-6, 0x20(rax){eh}{sint16}, zmm30, k2
+vcmpeqps zmm3, zmm6, k2
+vcmpltps zmm3{cdab}, zmm6, k2{k3}
+vcmpleps zmm3{badc}, zmm6, k2
+vcmpunordps zmm3{dacb}, zmm6, k2
+vcmpneqps zmm11{aaaa}, zmm6, k2
+vcmpnltps zmm19{bbbb}, zmm6, k2
+vcmpnleps zmm27{cccc}, zmm6, k2
+vcmpordps zmm3{dddd}, zmm6, k2
+vcmpps $8, zmm3, zmm6, k2
+vcmpps $-3, {sae}, zmm11, zmm6, k2
+vcmpeqpd 0x40(rax), zmm6, k2
+vcmpltpd 8(rax){1to8}, zmm6, k2
+vcmplepd 0x20(rax){4to8}, zmm6, k2
+vcmppd $8, 0x40(rax){eh}, zmm6, k2
+vcmppd $-0x80, 8(rax){eh}{1to8}, zmm6, k2
+vcmppd $-1, 0x20(rax){eh}{4to8}, zmm6, k2
+vcmpeqpd zmm3, zmm6, k2
+vcmpltpd zmm3{cdab}, zmm6, k2{k3}
+vcmplepd zmm3{badc}, zmm6, k2
+vcmpunordpd zmm3{dacb}, zmm6, k2
+vcmpneqpd zmm11{aaaa}, zmm6, k2
+vcmpnltpd zmm19{bbbb}, zmm6, k2
+vcmpnlepd zmm27{cccc}, zmm6, k2
+vcmpordpd zmm3{dddd}, zmm6, k2
+vcmppd $8, zmm3, zmm6, k2
+vcmppd $-3, {sae}, zmm11, zmm6, k2
+vpcmpequd 0x40(rax), zmm6, k2
+vpcmpltud 4(rax){1to16}, zmm6, k2
+vpcmpleud 0x10(rax){4to16}, zmm6, k2
+vpcmpnequd 0x10(rax){uint8}, zmm6, k2{k3}
+vpcmpnltud 0x10(rax){sint8}, zmm6, k2
+vpcmpnleud 0x20(rax){uint16}, zmm6, k2
+vpcmp???ud 0x20(rax){sint16}, zmm6, k2
+vpcmpud $8, 0x40(rax){eh}, zmm6, k2
+vpcmpud $-0x80, 4(rax){eh}{1to16}, zmm6, k2
+vpcmpud $-1, 0x10(rax){eh}{4to16}, zmm6, k2
+vpcmpud $-3, 0x10(rax){eh}{uint8}, zmm6, k2
+vpcmpud $-4, 0x10(rax){eh}{sint8}, zmm14, k2
+vpcmpud $-5, 0x20(rax){eh}{uint16}, zmm22, k2
+vpcmpud $-6, 0x20(rax){eh}{sint16}, zmm30, k2
+vpcmpequd zmm3, zmm6, k2
+vpcmpltud zmm3{cdab}, zmm6, k2{k3}
+vpcmpleud zmm3{badc}, zmm6, k2
+vpcmp??ud zmm3{dacb}, zmm6, k2
+vpcmpnequd zmm11{aaaa}, zmm6, k2
+vpcmpnltud zmm19{bbbb}, zmm6, k2
+vpcmpnleud zmm27{cccc}, zmm6, k2
+vpcmp???ud zmm3{dddd}, zmm6, k2
+vpcmpud $8, zmm3, zmm6, k2
+vpcmpeqd 0x40(rax), zmm6, k2
+vpcmpltd 4(rax){1to16}, zmm6, k2
+vpcmpled 0x10(rax){4to16}, zmm6, k2
+vpcmpneqd 0x10(rax){uint8}, zmm6, k2{k3}
+vpcmpnltd 0x10(rax){sint8}, zmm6, k2
+vpcmpnled 0x20(rax){uint16}, zmm6, k2
+vpcmp???d 0x20(rax){sint16}, zmm6, k2
+vpcmpd $8, 0x40(rax){eh}, zmm6, k2
+vpcmpd $-0x80, 4(rax){eh}{1to16}, zmm6, k2
+vpcmpd $-1, 0x10(rax){eh}{4to16}, zmm6, k2
+vpcmpd $-3, 0x10(rax){eh}{uint8}, zmm6, k2
+vpcmpd $-4, 0x10(rax){eh}{sint8}, zmm14, k2
+vpcmpd $-5, 0x20(rax){eh}{uint16}, zmm22, k2
+vpcmpd $-6, 0x20(rax){eh}{sint16}, zmm30, k2
+vpcmpeqd zmm3, zmm6, k2
+vpcmpltd zmm3{cdab}, zmm6, k2{k3}
+vpcmpled zmm3{badc}, zmm6, k2
+vpcmp??d zmm3{dacb}, zmm6, k2
+vpcmpneqd zmm11{aaaa}, zmm6, k2
+vpcmpnltd zmm19{bbbb}, zmm6, k2
+vpcmpnled zmm27{cccc}, zmm6, k2
+vpcmp???d zmm3{dddd}, zmm6, k2
+vpcmpd $8, zmm3, zmm6, k2
+vpadcd 0x40(rax), k6, zmm2{k5}
+vpadcd 4(rax){1to16}, k6, zmm10
+vpadcd 0x10(rax){4to16}, k6, zmm18
+vpadcd 0x10(rax){uint8}, k6, zmm2{k3}
+vpadcd 0x10(rax){sint8}, k6, zmm2
+vpadcd 0x20(rax){uint16}, k6, zmm2
+vpadcd 0x20(rax){sint16}, k6, zmm2
+vpadcd 0x40(rax){eh}, k6, zmm2
+vpadcd 4(rax){eh}{1to16}, k6, zmm2
+vpadcd 0x10(rax){eh}{4to16}, k6, zmm2
+vpadcd 0x10(rax){eh}{uint8}, k6, zmm2
+vpadcd 0x10(rax){eh}{sint8}, k6, zmm2
+vpadcd 0x20(rax){eh}{uint16}, k6, zmm2
+vpadcd 0x20(rax){eh}{sint16}, k6, zmm2
+vpadcd zmm3, k6, zmm2
+vpadcd zmm3{cdab}, k6, zmm10{k3}
+vpadcd zmm3{badc}, k6, zmm18
+vpadcd zmm3{dacb}, k6, zmm26
+vpadcd zmm11{aaaa}, k6, zmm2
+vpadcd zmm19{bbbb}, k6, zmm2
+vpadcd zmm27{cccc}, k6, zmm2
+vpadcd zmm3{dddd}, k6, zmm2
+vpadcd zmm3, k6, zmm2
+vpaddsetcd 0x40(rax), k6, zmm2{k5}
+vpaddsetcd 4(rax){1to16}, k6, zmm10
+vpaddsetcd 0x10(rax){4to16}, k6, zmm18
+vpaddsetcd 0x10(rax){uint8}, k6, zmm2{k3}
+vpaddsetcd 0x10(rax){sint8}, k6, zmm2
+vpaddsetcd 0x20(rax){uint16}, k6, zmm2
+vpaddsetcd 0x20(rax){sint16}, k6, zmm2
+vpaddsetcd 0x40(rax){eh}, k6, zmm2
+vpaddsetcd 4(rax){eh}{1to16}, k6, zmm2
+vpaddsetcd 0x10(rax){eh}{4to16}, k6, zmm2
+vpaddsetcd 0x10(rax){eh}{uint8}, k6, zmm2
+vpaddsetcd 0x10(rax){eh}{sint8}, k6, zmm2
+vpaddsetcd 0x20(rax){eh}{uint16}, k6, zmm2
+vpaddsetcd 0x20(rax){eh}{sint16}, k6, zmm2
+vpaddsetcd zmm3, k6, zmm2
+vpaddsetcd zmm3{cdab}, k6, zmm10{k3}
+vpaddsetcd zmm3{badc}, k6, zmm18
+vpaddsetcd zmm3{dacb}, k6, zmm26
+vpaddsetcd zmm11{aaaa}, k6, zmm2
+vpaddsetcd zmm19{bbbb}, k6, zmm2
+vpaddsetcd zmm27{cccc}, k6, zmm2
+vpaddsetcd zmm3{dddd}, k6, zmm2
+vpaddsetcd zmm3, k6, zmm2
+vpsbbd 0x40(rax), k6, zmm2{k5}
+vpsbbd 4(rax){1to16}, k6, zmm10
+vpsbbd 0x10(rax){4to16}, k6, zmm18
+vpsbbd 0x10(rax){uint8}, k6, zmm2{k3}
+vpsbbd 0x10(rax){sint8}, k6, zmm2
+vpsbbd 0x20(rax){uint16}, k6, zmm2
+vpsbbd 0x20(rax){sint16}, k6, zmm2
+vpsbbd 0x40(rax){eh}, k6, zmm2
+vpsbbd 4(rax){eh}{1to16}, k6, zmm2
+vpsbbd 0x10(rax){eh}{4to16}, k6, zmm2
+vpsbbd 0x10(rax){eh}{uint8}, k6, zmm2
+vpsbbd 0x10(rax){eh}{sint8}, k6, zmm2
+vpsbbd 0x20(rax){eh}{uint16}, k6, zmm2
+vpsbbd 0x20(rax){eh}{sint16}, k6, zmm2
+vpsbbd zmm3, k6, zmm2
+vpsbbd zmm3{cdab}, k6, zmm10{k3}
+vpsbbd zmm3{badc}, k6, zmm18
+vpsbbd zmm3{dacb}, k6, zmm26
+vpsbbd zmm11{aaaa}, k6, zmm2
+vpsbbd zmm19{bbbb}, k6, zmm2
+vpsbbd zmm27{cccc}, k6, zmm2
+vpsbbd zmm3{dddd}, k6, zmm2
+vpsbbd zmm3, k6, zmm2
+vpsubsetbd 0x40(rax), k6, zmm2{k5}
+vpsubsetbd 4(rax){1to16}, k6, zmm10
+vpsubsetbd 0x10(rax){4to16}, k6, zmm18
+vpsubsetbd 0x10(rax){uint8}, k6, zmm2{k3}
+vpsubsetbd 0x10(rax){sint8}, k6, zmm2
+vpsubsetbd 0x20(rax){uint16}, k6, zmm2
+vpsubsetbd 0x20(rax){sint16}, k6, zmm2
+vpsubsetbd 0x40(rax){eh}, k6, zmm2
+vpsubsetbd 4(rax){eh}{1to16}, k6, zmm2
+vpsubsetbd 0x10(rax){eh}{4to16}, k6, zmm2
+vpsubsetbd 0x10(rax){eh}{uint8}, k6, zmm2
+vpsubsetbd 0x10(rax){eh}{sint8}, k6, zmm2
+vpsubsetbd 0x20(rax){eh}{uint16}, k6, zmm2
+vpsubsetbd 0x20(rax){eh}{sint16}, k6, zmm2
+vpsubsetbd zmm3, k6, zmm2
+vpsubsetbd zmm3{cdab}, k6, zmm10{k3}
+vpsubsetbd zmm3{badc}, k6, zmm18
+vpsubsetbd zmm3{dacb}, k6, zmm26
+vpsubsetbd zmm11{aaaa}, k6, zmm2
+vpsubsetbd zmm19{bbbb}, k6, zmm2
+vpsubsetbd zmm27{cccc}, k6, zmm2
+vpsubsetbd zmm3{dddd}, k6, zmm2
+vpsubsetbd zmm3, k6, zmm2
+vpsbbrd 0x40(rax), k6, zmm2{k5}
+vpsbbrd 4(rax){1to16}, k6, zmm10
+vpsbbrd 0x10(rax){4to16}, k6, zmm18
+vpsbbrd 0x10(rax){uint8}, k6, zmm2{k3}
+vpsbbrd 0x10(rax){sint8}, k6, zmm2
+vpsbbrd 0x20(rax){uint16}, k6, zmm2
+vpsbbrd 0x20(rax){sint16}, k6, zmm2
+vpsbbrd 0x40(rax){eh}, k6, zmm2
+vpsbbrd 4(rax){eh}{1to16}, k6, zmm2
+vpsbbrd 0x10(rax){eh}{4to16}, k6, zmm2
+vpsbbrd 0x10(rax){eh}{uint8}, k6, zmm2
+vpsbbrd 0x10(rax){eh}{sint8}, k6, zmm2
+vpsbbrd 0x20(rax){eh}{uint16}, k6, zmm2
+vpsbbrd 0x20(rax){eh}{sint16}, k6, zmm2
+vpsbbrd zmm3, k6, zmm2
+vpsbbrd zmm3{cdab}, k6, zmm10{k3}
+vpsbbrd zmm3{badc}, k6, zmm18
+vpsbbrd zmm3{dacb}, k6, zmm26
+vpsbbrd zmm11{aaaa}, k6, zmm2
+vpsbbrd zmm19{bbbb}, k6, zmm2
+vpsbbrd zmm27{cccc}, k6, zmm2
+vpsbbrd zmm3{dddd}, k6, zmm2
+vpsbbrd zmm3, k6, zmm2
+vpsubrsetbd 0x40(rax), k6, zmm2{k5}
+vpsubrsetbd 4(rax){1to16}, k6, zmm10
+vpsubrsetbd 0x10(rax){4to16}, k6, zmm18
+vpsubrsetbd 0x10(rax){uint8}, k6, zmm2{k3}
+vpsubrsetbd 0x10(rax){sint8}, k6, zmm2
+vpsubrsetbd 0x20(rax){uint16}, k6, zmm2
+vpsubrsetbd 0x20(rax){sint16}, k6, zmm2
+vpsubrsetbd 0x40(rax){eh}, k6, zmm2
+vpsubrsetbd 4(rax){eh}{1to16}, k6, zmm2
+vpsubrsetbd 0x10(rax){eh}{4to16}, k6, zmm2
+vpsubrsetbd 0x10(rax){eh}{uint8}, k6, zmm2
+vpsubrsetbd 0x10(rax){eh}{sint8}, k6, zmm2
+vpsubrsetbd 0x20(rax){eh}{uint16}, k6, zmm2
+vpsubrsetbd 0x20(rax){eh}{sint16}, k6, zmm2
+vpsubrsetbd zmm3, k6, zmm2
+vpsubrsetbd zmm3{cdab}, k6, zmm10{k3}
+vpsubrsetbd zmm3{badc}, k6, zmm18
+vpsubrsetbd zmm3{dacb}, k6, zmm26
+vpsubrsetbd zmm11{aaaa}, k6, zmm2
+vpsubrsetbd zmm19{bbbb}, k6, zmm2
+vpsubrsetbd zmm27{cccc}, k6, zmm2
+vpsubrsetbd zmm3{dddd}, k6, zmm2
+vpsubrsetbd zmm3, k6, zmm2
