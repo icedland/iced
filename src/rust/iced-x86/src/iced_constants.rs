@@ -69,6 +69,7 @@ impl IcedConstants {
 
 impl IcedConstants {
 	#[allow(dead_code)]
+	#[allow(unused_variables)]
 	pub(crate) fn is_mvex(code: crate::Code) -> bool {
 		#[cfg(feature = "mvex")]
 		{

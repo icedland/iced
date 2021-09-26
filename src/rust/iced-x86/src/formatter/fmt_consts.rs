@@ -2,6 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::formatter::FormatterString;
+#[cfg(any(feature = "intel", feature = "masm", feature = "mvex"))]
 use crate::iced_constants::IcedConstants;
 #[cfg(any(feature = "intel", feature = "nasm"))]
 use alloc::vec::Vec;
