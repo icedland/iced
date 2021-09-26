@@ -252,6 +252,32 @@ jobs:
   #############################################################################
   #############################################################################
 
+  build-rust-python-musllinux-x64:
+    name: Python (${{matrix.os}}) x64 (musllinux)
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - name: Build musllinux x86_64
+        shell: bash
+        run: |
+          git clean -xdf
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/musllinux_1_1_x86_64"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: py-dist-${{matrix.os}}-x86_64-musllinux
+          path: /tmp/py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
   build-rust-python-macos-x64:
     name: Python (${{matrix.os}}) x64
     runs-on: ${{matrix.os}}
@@ -502,6 +528,7 @@ jobs:
       - build-rust-python-linux-aarch64
       - build-rust-python-linux-x64
       - build-rust-python-linux-x86
+      - build-rust-python-musllinux-x64
       - build-rust-python-macos-x64
       - build-rust-python-windows-x64
       - build-rust-python-windows-x86
