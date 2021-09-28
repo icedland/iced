@@ -93,6 +93,7 @@ namespace Generator.Tables {
 			"pusha", "popa",
 			"emmi-reg",
 			"xstore",
+			"mem-displ"
 		};
 		public bool ReadImpliedAccesses(string line, [NotNullWhen(true)] out ImpliedAccesses? accesses, [NotNullWhen(false)] out string? error) {
 			accesses = null;
@@ -548,6 +549,12 @@ namespace Generator.Tables {
 					if (!TryParse_2_or_4(value, out arg1, out error))
 						return false;
 					stmt = new IntArgImplAccStatement(ImplAccStatementKind.Popa, arg1);
+					break;
+
+				case "mem-displ":
+					if (!ParserUtils.TryParseInt32(value, out int arg1s, out error))
+						return false;
+					stmt = new IntArgImplAccStatement(ImplAccStatementKind.MemDispl, (uint)arg1s);
 					break;
 
 				default:

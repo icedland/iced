@@ -4800,14 +4800,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000000, 0xB5020005,// MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D2
 			0x00000000, 0xB5020005,// MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D2
 			0x00000000, 0xB5020005,// MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D3
-			0x00000039, 0xB5000005,// MVEX_Vloadunpackhd_zmm_k1_mt
-			0x00000039, 0xB5000005,// MVEX_Vloadunpackhq_zmm_k1_mt
-			0x0000003A, 0xB5000005,// MVEX_Vpackstorehd_mt_k1_zmm
-			0x0000003A, 0xB5000005,// MVEX_Vpackstorehq_mt_k1_zmm
-			0x00000039, 0xB5000005,// MVEX_Vloadunpackhps_zmm_k1_mt
-			0x00000039, 0xB5000005,// MVEX_Vloadunpackhpd_zmm_k1_mt
-			0x0000003A, 0xB5000005,// MVEX_Vpackstorehps_mt_k1_zmm
-			0x0000003A, 0xB5000005,// MVEX_Vpackstorehpd_mt_k1_zmm
+			0x0C100039, 0xB5000005,// MVEX_Vloadunpackhd_zmm_k1_mt
+			0x0C100039, 0xB5000005,// MVEX_Vloadunpackhq_zmm_k1_mt
+			0x0C10003A, 0xB5000005,// MVEX_Vpackstorehd_mt_k1_zmm
+			0x0C10003A, 0xB5000005,// MVEX_Vpackstorehq_mt_k1_zmm
+			0x0C100039, 0xB5000005,// MVEX_Vloadunpackhps_zmm_k1_mt
+			0x0C100039, 0xB5000005,// MVEX_Vloadunpackhpd_zmm_k1_mt
+			0x0C10003A, 0xB5000005,// MVEX_Vpackstorehps_mt_k1_zmm
+			0x0C10003A, 0xB5000005,// MVEX_Vpackstorehpd_mt_k1_zmm
 			0x00000000, 0xB5020005,// MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D6
 			0x00000000, 0xB5020005,// MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D6
 			0x00000000, 0xB5020005,// MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D7

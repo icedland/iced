@@ -32753,44 +32753,52 @@ END
 
 # Code: MVEX_Vloadunpackhd_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W0 D4 /r | VLOADUNPACKHD zmm1 {k1}, Ui32(mt) | KNC
+	implied: mem-displ=-64
 	ops: rwvmm=reg r=rm | mem=1000_1111 i32-elem
 END
 
 # Code: MVEX_Vloadunpackhq_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W1 D4 /r | VLOADUNPACKHQ zmm1 {k1}, Ui64(mt) | KNC
+	implied: mem-displ=-64
 	ops: rwvmm=reg r=rm | mem=1000_0000 i64-elem
 END
 
 # Code: MVEX_Vpackstorehd_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W0 D4 /r | VPACKSTOREHD mt {k1}, Di32(zmm1) | KNC
+	implied: mem-displ=-64
 	ops: w=rm r=reg | mem=1000_1111 i32-elem
 	flags: k-elem-selector
 END
 
 # Code: MVEX_Vpackstorehq_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W1 D4 /r | VPACKSTOREHQ mt {k1}, Di64(zmm1) | KNC
+	implied: mem-displ=-64
 	ops: w=rm r=reg | mem=1000_0000 i64-elem
 	flags: k-elem-selector
 END
 
 # Code: MVEX_Vloadunpackhps_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W0 D5 /r | VLOADUNPACKHPS zmm1 {k1}, Uf32(mt) | KNC
+	implied: mem-displ=-64
 	ops: rwvmm=reg r=rm | mem=1001_1111 f32-elem
 END
 
 # Code: MVEX_Vloadunpackhpd_zmm_k1_mt
 INSTRUCTION: MVEX.512.0F38.W1 D5 /r | VLOADUNPACKHPD zmm1 {k1}, Uf64(mt) | KNC
+	implied: mem-displ=-64
 	ops: rwvmm=reg r=rm | mem=1000_0000 f64-elem
 END
 
 # Code: MVEX_Vpackstorehps_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W0 D5 /r | VPACKSTOREHPS mt {k1}, Df32(zmm1) | KNC
+	implied: mem-displ=-64
 	ops: w=rm r=reg | mem=1001_1111 f32-elem
 	flags: k-elem-selector
 END
 
 # Code: MVEX_Vpackstorehpd_mt_k1_zmm
 INSTRUCTION: MVEX.512.66.0F38.W1 D5 /r | VPACKSTOREHPD mt {k1}, Df64(zmm1) | KNC
+	implied: mem-displ=-64
 	ops: w=rm r=reg | mem=1000_0000 f64-elem
 	flags: k-elem-selector
 END

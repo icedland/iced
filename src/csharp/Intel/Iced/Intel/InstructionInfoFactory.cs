@@ -1682,6 +1682,9 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.EBX, OpAccess.CondWrite);
 				}
 				break;
+			case ImpliedAccess.t_memdisplm64:
+				CommandMemDispl(flags, -64);
+				break;
 			// GENERATOR-END: ImpliedAccessHandler
 
 			default:
@@ -2358,6 +2361,23 @@ namespace Iced.Intel {
 						AddRegister(flags, reg, opAccess);
 					}
 				}
+			}
+		}
+
+		void CommandMemDispl(Flags flags, int extraDispl) {
+			if ((flags & Flags.NoMemoryUsage) == 0) {
+				if (info.usedMemoryLocations.ValidLength == 1) {
+					ref var mem = ref info.usedMemoryLocations.Array[0];
+					ulong mask = mem.AddressSize switch {
+						CodeSize.Code16 => ushort.MaxValue,
+						CodeSize.Code32 => uint.MaxValue,
+						_ => ulong.MaxValue,
+					};
+					var displ = (mem.Displacement + (ulong)extraDispl) & mask;
+					info.usedMemoryLocations.Array[0] = new UsedMemory(mem.Segment, mem.Base, mem.Index, mem.Scale, displ, mem.MemorySize, mem.Access, mem.AddressSize, mem.VsibSize);
+				}
+				else
+					Debug.Assert(false);
 			}
 		}
 

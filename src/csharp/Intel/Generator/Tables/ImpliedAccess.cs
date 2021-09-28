@@ -213,6 +213,7 @@ namespace Generator.Tables {
 		Scas,
 		Stos,
 		Xstore,
+		MemDispl,
 	}
 
 	abstract class ImplAccStatement : IEquatable<ImplAccStatement> {
@@ -581,6 +582,13 @@ namespace Generator.Tables {
 				case ImplAccStatementKind.Xstore:
 					arg1 = (IntArgImplAccStatement)stmt;
 					sb.Append($"xstore{arg1.Arg}");
+					break;
+				case ImplAccStatementKind.MemDispl:
+					arg1 = (IntArgImplAccStatement)stmt;
+					if ((int)arg1.Arg < 0)
+						sb.Append($"memdisplm{-(int)arg1.Arg}");
+					else
+						sb.Append($"memdisplp{(int)arg1.Arg}");
 					break;
 				case ImplAccStatementKind.ShiftMask1FMod:
 					arg1 = (IntArgImplAccStatement)stmt;

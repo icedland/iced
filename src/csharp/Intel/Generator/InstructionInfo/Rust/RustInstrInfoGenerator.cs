@@ -299,6 +299,10 @@ namespace Generator.InstructionInfo.Rust {
 					arg1 = (IntArgImplAccStatement)stmt;
 					writer.WriteLine($"Self::command_xstore(instruction, info, flags, {Verify_2_4_or_8(arg1.Arg)});");
 					break;
+				case ImplAccStatementKind.MemDispl:
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"Self::command_mem_displ(info, flags, {(int)arg1.Arg});");
+					break;
 				default:
 					throw new InvalidOperationException();
 				}

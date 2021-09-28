@@ -1868,6 +1868,9 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::EBX, OpAccess::CondWrite);
 				}
 			}
+			ImpliedAccess::t_memdisplm64 => {
+				Self::command_mem_displ(info, flags, -64);
+			}
 			// GENERATOR-END: ImpliedAccessHandler
 		}
 	}
@@ -2716,6 +2719,25 @@ impl InstructionInfoFactory {
 					reg = unsafe { mem::transmute((((reg as u32 - Register::MM0 as u32) ^ 1) + Register::MM0 as u32) as RegisterUnderlyingType) };
 					Self::add_register(flags, info, reg, op_access);
 				}
+			}
+		}
+	}
+
+	fn command_mem_displ(info: &mut InstructionInfo, flags: u32, displ: i32) {
+		if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+			if info.used_memory_locations.len() == 1 {
+				if let Some(loc) = info.used_memory_locations.get_mut(0) {
+					static MASK: [u64; 4] = [u64::MAX, u16::MAX as u64, u32::MAX as u64, u64::MAX];
+					const_assert_eq!(CodeSize::Unknown as u32, 0);
+					const_assert_eq!(CodeSize::Code16 as u32, 1);
+					const_assert_eq!(CodeSize::Code32 as u32, 2);
+					const_assert_eq!(CodeSize::Code64 as u32, 3);
+					loc.displacement = loc.displacement.wrapping_add(displ as u64) & MASK[loc.address_size as usize];
+				} else {
+					debug_assert!(false);
+				}
+			} else {
+				debug_assert!(false);
 			}
 		}
 	}

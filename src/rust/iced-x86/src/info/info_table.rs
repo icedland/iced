@@ -4796,14 +4796,14 @@ pub(crate) static TABLE: [(u32, u32); 4818] = [
 	(0x0000_0000, 0xB502_0005),// MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D2
 	(0x0000_0000, 0xB502_0005),// MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D2
 	(0x0000_0000, 0xB502_0005),// MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D3
-	(0x0000_0039, 0xB500_0005),// MVEX_Vloadunpackhd_zmm_k1_mt
-	(0x0000_0039, 0xB500_0005),// MVEX_Vloadunpackhq_zmm_k1_mt
-	(0x0000_003A, 0xB500_0005),// MVEX_Vpackstorehd_mt_k1_zmm
-	(0x0000_003A, 0xB500_0005),// MVEX_Vpackstorehq_mt_k1_zmm
-	(0x0000_0039, 0xB500_0005),// MVEX_Vloadunpackhps_zmm_k1_mt
-	(0x0000_0039, 0xB500_0005),// MVEX_Vloadunpackhpd_zmm_k1_mt
-	(0x0000_003A, 0xB500_0005),// MVEX_Vpackstorehps_mt_k1_zmm
-	(0x0000_003A, 0xB500_0005),// MVEX_Vpackstorehpd_mt_k1_zmm
+	(0x0C10_0039, 0xB500_0005),// MVEX_Vloadunpackhd_zmm_k1_mt
+	(0x0C10_0039, 0xB500_0005),// MVEX_Vloadunpackhq_zmm_k1_mt
+	(0x0C10_003A, 0xB500_0005),// MVEX_Vpackstorehd_mt_k1_zmm
+	(0x0C10_003A, 0xB500_0005),// MVEX_Vpackstorehq_mt_k1_zmm
+	(0x0C10_0039, 0xB500_0005),// MVEX_Vloadunpackhps_zmm_k1_mt
+	(0x0C10_0039, 0xB500_0005),// MVEX_Vloadunpackhpd_zmm_k1_mt
+	(0x0C10_003A, 0xB500_0005),// MVEX_Vpackstorehps_mt_k1_zmm
+	(0x0C10_003A, 0xB500_0005),// MVEX_Vpackstorehpd_mt_k1_zmm
 	(0x0000_0000, 0xB502_0005),// MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D6
 	(0x0000_0000, 0xB502_0005),// MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D6
 	(0x0000_0000, 0xB502_0005),// MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D7
