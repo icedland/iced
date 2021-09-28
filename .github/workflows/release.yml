@@ -104,7 +104,7 @@ jobs:
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-node@v2.4.0
+      - uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
 
@@ -542,7 +542,7 @@ jobs:
       - uses: actions/setup-python@v2.2.2
         with:
           python-version: 3.x
-      - uses: actions/setup-node@v2.4.0
+      - uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
           registry-url: "https://registry.npmjs.org"
