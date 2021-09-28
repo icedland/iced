@@ -16,6 +16,8 @@ mod ip_rel_64;
 mod jcc_16;
 mod jcc_32;
 mod jcc_64;
+#[cfg(feature = "mvex")]
+mod jkcc_64;
 mod jmp_16;
 mod jmp_32;
 mod jmp_64;
@@ -24,7 +26,7 @@ mod xbegin_16;
 mod xbegin_32;
 mod xbegin_64;
 
-const DECODER_OPTIONS: u32 = 0; // DecoderOptions
+const DECODER_OPTIONS: u32 = DecoderOptions::NONE;
 
 fn decode(bitness: u32, rip: u64, data: &[u8], options: u32) -> Vec<Instruction> {
 	let mut decoder = create_decoder(bitness, data, get_default_ip(bitness), options).0;

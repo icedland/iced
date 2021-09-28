@@ -11705,8 +11705,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x00,// Invalid
 ];
 pub(super) const MAX_ID_NAMES: usize = 10;
+#[allow(dead_code)]
 pub(super) const HANDLERS_0F_INDEX: usize = 9;
+#[allow(dead_code)]
 pub(super) const HANDLERS_0F38_INDEX: usize = 5;
+#[allow(dead_code)]
 pub(super) const HANDLERS_0F3A_INDEX: usize = 6;
+#[allow(dead_code)]
 pub(super) const HANDLERS_MAP5_INDEX: usize = 7;
+#[allow(dead_code)]
 pub(super) const HANDLERS_MAP6_INDEX: usize = 8;

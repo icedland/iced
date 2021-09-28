@@ -28,14 +28,26 @@ pub(super) struct JccInstr {
 	instr_kind: InstrKind,
 	short_instruction_size: u32,
 	near_instruction_size: u32,
+	long_instruction_size64: u32,
 }
 
 impl JccInstr {
-	// Code:
-	//		!jcc short skip		; negated jcc opcode
-	//		jmp qword ptr [rip+mem]
-	//	skip:
-	const LONG_INSTRUCTION_SIZE64: u32 = 2 + InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64;
+	#[inline]
+	#[allow(unused_variables)]
+	fn long_instruction_size64(instruction: &Instruction) -> u32 {
+		#[cfg(feature = "mvex")]
+		{
+			// Check if JKZD/JKNZD
+			if instruction.op_count() == 2 {
+				return 5 + InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64;
+			}
+		}
+		// Code:
+		//		!jcc short skip		; negated jcc opcode
+		//		jmp qword ptr [rip+mem]
+		//	skip:
+		2 + InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64
+	}
 
 	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
 		let mut instr_kind = InstrKind::Uninitialized;
@@ -43,6 +55,7 @@ impl JccInstr {
 		let size;
 		let short_instruction_size;
 		let near_instruction_size;
+		let long_instruction_size64 = Self::long_instruction_size64(instruction);
 		if !block_encoder.fix_branches() {
 			instr_kind = InstrKind::Unchanged;
 			instr_copy = *instruction;
@@ -63,7 +76,7 @@ impl JccInstr {
 
 			size = if block_encoder.bitness() == 64 {
 				// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
-				cmp::max(near_instruction_size, Self::LONG_INSTRUCTION_SIZE64)
+				cmp::max(near_instruction_size, long_instruction_size64)
 			} else {
 				near_instruction_size
 			};
@@ -80,6 +93,7 @@ impl JccInstr {
 			instr_kind,
 			short_instruction_size,
 			near_instruction_size,
+			long_instruction_size64,
 		}
 	}
 
@@ -126,7 +140,7 @@ impl JccInstr {
 		false
 	}
 
-	fn short_jcc_to_native_jcc(code: Code, bitness: u32) -> Code {
+	fn short_br_to_native_br(code: Code, bitness: u32) -> Code {
 		let (c16, c32, c64) = match code {
 			Code::Jo_rel8_16 | Code::Jo_rel8_32 | Code::Jo_rel8_64 => (Code::Jo_rel8_16, Code::Jo_rel8_32, Code::Jo_rel8_64),
 			Code::Jno_rel8_16 | Code::Jno_rel8_32 | Code::Jno_rel8_64 => (Code::Jno_rel8_16, Code::Jno_rel8_32, Code::Jno_rel8_64),
@@ -144,7 +158,18 @@ impl JccInstr {
 			Code::Jge_rel8_16 | Code::Jge_rel8_32 | Code::Jge_rel8_64 => (Code::Jge_rel8_16, Code::Jge_rel8_32, Code::Jge_rel8_64),
 			Code::Jle_rel8_16 | Code::Jle_rel8_32 | Code::Jle_rel8_64 => (Code::Jle_rel8_16, Code::Jle_rel8_32, Code::Jle_rel8_64),
 			Code::Jg_rel8_16 | Code::Jg_rel8_32 | Code::Jg_rel8_64 => (Code::Jg_rel8_16, Code::Jg_rel8_32, Code::Jg_rel8_64),
-			_ => unreachable!(),
+			_ => {
+				#[cfg(feature = "mvex")]
+				{
+					if bitness == 64 {
+						match code {
+							Code::VEX_KNC_Jkzd_kr_rel8_64 | Code::VEX_KNC_Jknzd_kr_rel8_64 => return code,
+							_ => {}
+						}
+					}
+				}
+				unreachable!()
+			}
 		};
 
 		match bitness {
@@ -209,14 +234,26 @@ impl Instr for JccInstr {
 				let pointer_data = self.pointer_data.clone().ok_or_else(|| IcedError::new("Internal error"))?;
 				pointer_data.borrow_mut().data = self.target_instr.address(self);
 				let mut instr = Instruction::default();
-				instr.set_code(Self::short_jcc_to_native_jcc(
+				instr.set_code(Self::short_br_to_native_br(
 					self.instruction.code().negate_condition_code().as_short_branch(),
 					block.encoder.bitness(),
 				));
-				instr.set_op0_kind(OpKind::NearBranch64);
+				if self.instruction.op_count() == 1 {
+					instr.set_op0_kind(OpKind::NearBranch64);
+				} else {
+					#[cfg(feature = "mvex")]
+					{
+						debug_assert_eq!(self.instruction.op_count(), 2);
+						instr.set_op0_kind(OpKind::Register);
+						instr.set_op0_register(self.instruction.op0_register());
+						instr.set_op1_kind(OpKind::NearBranch64);
+					}
+					#[cfg(not(feature = "mvex"))]
+					unreachable!();
+				}
 				debug_assert!(block.encoder.bitness() == 64);
-				debug_assert!(Self::LONG_INSTRUCTION_SIZE64 <= i8::MAX as u32);
-				instr.set_near_branch64(self.ip.wrapping_add(Self::LONG_INSTRUCTION_SIZE64 as u64));
+				debug_assert!(self.long_instruction_size64 <= i8::MAX as u32);
+				instr.set_near_branch64(self.ip.wrapping_add(self.long_instruction_size64 as u64));
 				let instr_len = block
 					.encoder
 					.encode(&instr, self.ip)

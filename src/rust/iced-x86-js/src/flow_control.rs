@@ -15,7 +15,7 @@ pub enum FlowControl {
 	UnconditionalBranch = 1,
 	/// It's an unconditional indirect branch: `JMP NEAR reg`, `JMP NEAR [mem]`, `JMP FAR [mem]`
 	IndirectBranch = 2,
-	/// It's a conditional branch instruction: `Jcc SHORT`, `Jcc NEAR`, `LOOP`, `LOOPcc`, `JRCXZ`
+	/// It's a conditional branch instruction: `Jcc SHORT`, `Jcc NEAR`, `LOOP`, `LOOPcc`, `JRCXZ`, `JKccD SHORT`, `JKccD NEAR`
 	ConditionalBranch = 3,
 	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `SKINIT`, `RDM`, `UIRET`
 	Return = 4,
@@ -36,6 +36,6 @@ pub enum FlowControl {
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_flow_control(value: iced_x86_rust::FlowControl) -> FlowControl {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

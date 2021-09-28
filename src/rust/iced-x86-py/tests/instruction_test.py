@@ -396,6 +396,16 @@ def test_mem() -> None:
 	instr.memory_index = Register.XMM13
 	assert instr.memory_index == Register.XMM13
 
+	instr.code = Code.MVEX_VMOVAPD_ZMM_K1_ZMMMT
+
+	assert not instr.is_mvex_eviction_hint
+	instr.is_mvex_eviction_hint = True
+	assert instr.is_mvex_eviction_hint
+
+	assert instr.mvex_reg_mem_conv == MvexRegMemConv.NONE
+	instr.mvex_reg_mem_conv = MvexRegMemConv.REG_SWIZZLE_CDAB
+	assert instr.mvex_reg_mem_conv == MvexRegMemConv.REG_SWIZZLE_CDAB
+
 def test_imm8() -> None:
 	instr = Instruction()
 	instr.op0_kind = OpKind.IMMEDIATE8
@@ -813,15 +823,16 @@ def test_sp_inc() -> None:
 	assert instr.is_stack_instruction
 	assert instr.stack_pointer_increment == 8
 
-@pytest.mark.parametrize("bitness, data, encoding", [
-	(64, b"\x56", EncodingKind.LEGACY),
-	(64, b"\xC5\xF8\x10\x10", EncodingKind.VEX),
-	(64, b"\x62\xF1\x7C\x08\x10\x50\x01", EncodingKind.EVEX),
-	(64, b"\x8F\xE8\x48\x85\x10\x40", EncodingKind.XOP),
-	(64, b"\x0F\x0F\x88\x34\x12\x5A\xA5\x0C", EncodingKind.D3NOW),
+@pytest.mark.parametrize("bitness, data, encoding, options", [
+	(64, b"\x56", EncodingKind.LEGACY, DecoderOptions.NONE),
+	(64, b"\xC5\xF8\x10\x10", EncodingKind.VEX, DecoderOptions.NONE),
+	(64, b"\x62\xF1\x7C\x08\x10\x50\x01", EncodingKind.EVEX, DecoderOptions.NONE),
+	(64, b"\x8F\xE8\x48\x85\x10\x40", EncodingKind.XOP, DecoderOptions.NONE),
+	(64, b"\x0F\x0F\x88\x34\x12\x5A\xA5\x0C", EncodingKind.D3NOW, DecoderOptions.NONE),
+	(64, b"\x62\xF2\x49\x0D\x6F\x50\x01", EncodingKind.MVEX, DecoderOptions.KNC),
 ])
-def test_encoding(bitness: int, data: bytes, encoding: EncodingKind_) -> None:
-	instr = Decoder(bitness, data).decode()
+def test_encoding(bitness: int, data: bytes, encoding: EncodingKind_, options: DecoderOptions_) -> None:
+	instr = Decoder(bitness, data, options).decode()
 	assert instr.encoding == encoding
 
 def test_cpuid_features() -> None:
@@ -908,6 +919,16 @@ def test_br_checks() -> None:
 	assert not instr.is_call_near
 	assert not instr.is_jmp_near_indirect
 	assert instr.is_call_near_indirect
+
+	instr = Decoder(64, b"\xC4\xE0\x78\x74\x5A", DecoderOptions.KNC).decode()
+	assert instr.is_jkcc_short_or_near
+	assert instr.is_jkcc_short
+	assert not instr.is_jkcc_near
+
+	instr = Decoder(64, b"\xC5\xF8\x84\x5A\xA5\x12\x34", DecoderOptions.KNC).decode()
+	assert instr.is_jkcc_short_or_near
+	assert not instr.is_jkcc_short
+	assert instr.is_jkcc_near
 
 def test_condition_code() -> None:
 	instr = Decoder(64, b"\x70\x00").decode()

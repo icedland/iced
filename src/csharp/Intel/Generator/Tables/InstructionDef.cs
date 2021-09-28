@@ -2,13 +2,13 @@
 // Copyright (C) 2018-present iced project and contributors
 
 using System;
-using Generator.InstructionInfo;
-using Generator.Enums;
-using Generator.Enums.InstructionInfo;
-using Generator.Enums.Encoder;
 using System.Diagnostics;
-using Generator.Formatters;
+using Generator.Enums;
+using Generator.Enums.Encoder;
 using Generator.Enums.Formatter;
+using Generator.Enums.InstructionInfo;
+using Generator.Formatters;
+using Generator.InstructionInfo;
 
 namespace Generator.Tables {
 	[Flags]
@@ -435,6 +435,10 @@ namespace Generator.Tables {
 		/// Don't print the first operand
 		/// </summary>
 		SkipOp0,
+		/// <summary>
+		/// Vector index is the same as the op index (1 based), eg. `zmm1, k2, zmm3`
+		/// </summary>
+		VecIndexSameAsOpIndex,
 	}
 
 	[Flags]
@@ -464,6 +468,8 @@ namespace Generator.Tables {
 		Loop,
 		Jrcxz,
 		Xbegin,
+		JkccShort,
+		JkccNear,
 	}
 
 	readonly struct InstrStrImpliedOp {
@@ -500,6 +506,45 @@ namespace Generator.Tables {
 		}
 	}
 
+	enum OpCodeW : byte {
+		None,
+		W0,
+		W1,
+		WIG,
+		WIG32,
+	}
+
+	enum OpCodeL : byte {
+		None,
+		L0,
+		L1,
+		LIG,
+		LZ,
+		L128,
+		L256,
+		L512,
+	}
+
+	struct MvexInstructionInfo {
+		public EnumValue TupleTypeLutKind;
+		public MvexEHBit EHBit;
+		public MvexConvFn ConvFn;
+		public byte ValidConvFns;
+		public byte ValidSwizzleFns;
+		public MvexInfoFlags1 Flags1;
+		public MvexInfoFlags2 Flags2;
+
+		public MvexInstructionInfo(EnumValue tupleType, MvexEHBit ehBit, MvexConvFn convFn, byte validConvFns, byte validSwizzleFns) {
+			TupleTypeLutKind = tupleType;
+			EHBit = ehBit;
+			ConvFn = convFn;
+			ValidConvFns = validConvFns;
+			ValidSwizzleFns = validSwizzleFns;
+			Flags1 = MvexInfoFlags1.None;
+			Flags2 = MvexInfoFlags2.None;
+		}
+	}
+
 	[DebuggerDisplay("{OpCodeString,nq} | {InstructionString,nq}")]
 	sealed class InstructionDef {
 		public readonly string OpCodeString;
@@ -518,6 +563,7 @@ namespace Generator.Tables {
 		public readonly InstrStrFmtOption InstrStrFmtOption;
 		public readonly InstructionStringFlags InstrStrFlags;
 		public readonly InstrStrImpliedOp[] InstrStrImpliedOps;
+		public readonly MvexInstructionInfo Mvex;
 
 		public readonly CodeSize OperandSize;
 		public readonly CodeSize AddressSize;
@@ -525,6 +571,7 @@ namespace Generator.Tables {
 		public readonly OpCodeTableKind Table;
 		public readonly OpCodeL LBit;
 		public readonly OpCodeW WBit;
+		public readonly NonDestructiveOpKind NDKind;
 		public readonly uint OpCode;
 		public readonly int OpCodeLength;
 		public readonly int GroupIndex;
@@ -563,8 +610,9 @@ namespace Generator.Tables {
 		public InstructionDef(EnumValue code, string opCodeString, string instructionString, EnumValue mnemonic,
 			EnumValue mem, EnumValue bcst, EnumValue decoderOption, InstructionDefFlags1 flags1, InstructionDefFlags2 flags2,
 			InstructionDefFlags3 flags3, InstrStrFmtOption instrStrFmtOption, InstructionStringFlags instrStrFlags,
-			InstrStrImpliedOp[] instrStrImpliedOps,
-			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, uint opCode, int opCodeLength,
+			InstrStrImpliedOp[] instrStrImpliedOps, MvexInstructionInfo mvex,
+			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, NonDestructiveOpKind ndKind,
+			uint opCode, int opCodeLength,
 			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKindDef[] opKinds,
 			PseudoOpsKind? pseudoOp, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
 			BranchKind branchKind, StackInfo stackInfo, int fpuStackIncrement,
@@ -586,11 +634,13 @@ namespace Generator.Tables {
 			InstrStrFmtOption = instrStrFmtOption;
 			InstrStrFlags = instrStrFlags;
 			InstrStrImpliedOps = instrStrImpliedOps;
+			Mvex = mvex;
 
 			MandatoryPrefix = mandatoryPrefix;
 			Table = table;
 			LBit = lBit;
 			WBit = wBit;
+			NDKind = ndKind;
 			OpCode = opCode;
 			OpCodeLength = opCodeLength;
 			GroupIndex = groupIndex;

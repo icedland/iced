@@ -5,7 +5,7 @@
 
 #nullable enable
 
-#if DECODER || ENCODER || INSTR_INFO
+#if DECODER || ENCODER || INSTR_INFO || (ENCODER && OPCODE_INFO)
 namespace Iced.Intel {
 	/// <summary>Instruction encoding</summary>
 	public enum EncodingKind {
@@ -19,6 +19,8 @@ namespace Iced.Intel {
 		XOP = 3,
 		/// <summary>3DNow! encoding</summary>
 		D3NOW = 4,
+		/// <summary>MVEX encoding</summary>
+		MVEX = 5,
 	}
 }
 #endif

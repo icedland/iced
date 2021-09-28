@@ -15,10 +15,12 @@ namespace Generator.Encoder {
 		public (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] VexOpHandlers { get; }
 		public (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] XopOpHandlers { get; }
 		public (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] EvexOpHandlers { get; }
+		public (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] MvexOpHandlers { get; }
 		readonly Dictionary<OpCodeOperandKindDef, uint> toLegacy;
 		readonly Dictionary<OpCodeOperandKindDef, uint> toVex;
 		readonly Dictionary<OpCodeOperandKindDef, uint> toXop;
 		readonly Dictionary<OpCodeOperandKindDef, uint> toEvex;
+		readonly Dictionary<OpCodeOperandKindDef, uint> toMvex;
 
 		EncoderTypes(GenTypes genTypes) {
 			var gen = new EncoderTypesGen(genTypes);
@@ -30,11 +32,13 @@ namespace Generator.Encoder {
 			var vexOpKind = gen.VexOpKind ?? throw new InvalidOperationException();
 			var xopOpKind = gen.XopOpKind ?? throw new InvalidOperationException();
 			var evexOpKind = gen.EvexOpKind ?? throw new InvalidOperationException();
+			var mvexOpKind = gen.MvexOpKind ?? throw new InvalidOperationException();
 
 			LegacyOpHandlers = CreateOpHandlers(genTypes, EncodingKind.Legacy).ToArray();
 			VexOpHandlers = CreateOpHandlers(genTypes, EncodingKind.VEX).ToArray();
 			XopOpHandlers = CreateOpHandlers(genTypes, EncodingKind.XOP).ToArray();
 			EvexOpHandlers = CreateOpHandlers(genTypes, EncodingKind.EVEX).ToArray();
+			MvexOpHandlers = CreateOpHandlers(genTypes, EncodingKind.MVEX).ToArray();
 
 			if (new HashSet<EnumValue>(LegacyOpHandlers.Select(a => a.opCodeOperandKind)).Count != legacyOpKind.Values.Length)
 				throw new InvalidOperationException();
@@ -44,12 +48,15 @@ namespace Generator.Encoder {
 				throw new InvalidOperationException();
 			if (new HashSet<EnumValue>(EvexOpHandlers.Select(a => a.opCodeOperandKind)).Count != evexOpKind.Values.Length)
 				throw new InvalidOperationException();
+			if (new HashSet<EnumValue>(MvexOpHandlers.Select(a => a.opCodeOperandKind)).Count != mvexOpKind.Values.Length)
+				throw new InvalidOperationException();
 
 			var opKindDefs = genTypes.GetObject<OpCodeOperandKindDefs>(TypeIds.OpCodeOperandKindDefs).Defs;
 			toLegacy = LegacyOpHandlers.ToDictionary(a => opKindDefs[(int)a.opCodeOperandKind.Value], a => legacyOpKind[a.opCodeOperandKind.RawName].Value);
 			toVex = VexOpHandlers.ToDictionary(a => opKindDefs[(int)a.opCodeOperandKind.Value], a => vexOpKind[a.opCodeOperandKind.RawName].Value);
 			toXop = XopOpHandlers.ToDictionary(a => opKindDefs[(int)a.opCodeOperandKind.Value], a => xopOpKind[a.opCodeOperandKind.RawName].Value);
 			toEvex = EvexOpHandlers.ToDictionary(a => opKindDefs[(int)a.opCodeOperandKind.Value], a => evexOpKind[a.opCodeOperandKind.RawName].Value);
+			toMvex = MvexOpHandlers.ToDictionary(a => opKindDefs[(int)a.opCodeOperandKind.Value], a => mvexOpKind[a.opCodeOperandKind.RawName].Value);
 
 			genTypes.AddObject(TypeIds.EncoderTypes, this);
 		}
@@ -245,6 +252,11 @@ namespace Generator.Encoder {
 							Register.ZMM0 => (registerType[nameof(Register.ZMM0)], registerType[nameof(Register.ZMM31)]),
 							_ => throw new InvalidOperationException(),
 						},
+					EncodingKind.MVEX =>
+						register switch {
+							Register.ZMM0 => (registerType[nameof(Register.ZMM0)], registerType[nameof(Register.ZMM31)]),
+							_ => throw new InvalidOperationException(),
+						},
 					_ => throw new InvalidOperationException(),
 				},
 			};
@@ -253,5 +265,6 @@ namespace Generator.Encoder {
 		public uint ToVex(OpCodeOperandKindDef opKind) => toVex[opKind];
 		public uint ToXop(OpCodeOperandKindDef opKind) => toXop[opKind];
 		public uint ToEvex(OpCodeOperandKindDef opKind) => toEvex[opKind];
+		public uint ToMvex(OpCodeOperandKindDef opKind) => toMvex[opKind];
 	}
 }

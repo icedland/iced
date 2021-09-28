@@ -8,6 +8,7 @@ namespace Generator.Constants.Encoder {
 		public const string Encoding_EVEX = "EVEX";
 		public const string Encoding_XOP = "XOP";
 		public const string Encoding_3DNOW = "3DNow!";
+		public const string Encoding_MVEX = "MVEX";
 		public const string MandatoryPrefix_None = "";
 		public const string MandatoryPrefix_NP = "NP";
 		public const string MandatoryPrefix_66 = "66";
@@ -121,6 +122,12 @@ namespace Generator.Constants.Encoder {
 		public const string AmdDecoder32 = "amd32";
 		public const string AmdDecoder64 = "amd64";
 		public const string RequiresUniqueDestRegNum = "unique-dest-reg-num";
+		public const string EH0 = "EH0";
+		public const string EH1 = "EH1";
+		public const string EvictionHint = "eh";
+		public const string ImmRoundingControl = "er-imm";
+		public const string IgnoresOpMaskRegister = "ig-opmask";
+		public const string NoSaeRoundingControl = "no-er-sae";
 	}
 
 	static class OpCodeInfoKeywordKeys {
@@ -129,5 +136,6 @@ namespace Generator.Constants.Encoder {
 		public const string OpCodeOperandKind = "op";
 		public const string TupleType = "tt";
 		public const string DecoderOption = "dec-opt";
+		public const string MVEX = "mvex";
 	}
 }

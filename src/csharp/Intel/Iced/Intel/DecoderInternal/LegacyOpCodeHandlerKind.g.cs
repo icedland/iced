@@ -7,7 +7,7 @@
 
 #if DECODER
 namespace Iced.Intel.DecoderInternal {
-	enum OpCodeHandlerKind : byte {
+	enum LegacyOpCodeHandlerKind : byte {
 		Bitness,
 		Bitness_DontReadModRM,
 		Invalid,

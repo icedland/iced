@@ -11,11 +11,11 @@ namespace Iced.Intel {
 	public enum OpCodeTableKind {
 		/// <summary>Legacy/<c>MAP0</c> table</summary>
 		Normal = 0,
-		/// <summary><c>0F</c>/<c>MAP1</c> table (legacy, VEX, EVEX)</summary>
+		/// <summary><c>0F</c>/<c>MAP1</c> table (legacy, VEX, EVEX, MVEX)</summary>
 		T0F = 1,
-		/// <summary><c>0F38</c>/<c>MAP2</c> table (legacy, VEX, EVEX)</summary>
+		/// <summary><c>0F38</c>/<c>MAP2</c> table (legacy, VEX, EVEX, MVEX)</summary>
 		T0F38 = 2,
-		/// <summary><c>0F3A</c>/<c>MAP3</c> table (legacy, VEX, EVEX)</summary>
+		/// <summary><c>0F3A</c>/<c>MAP3</c> table (legacy, VEX, EVEX, MVEX)</summary>
 		T0F3A = 3,
 		/// <summary><c>MAP5</c> table (EVEX)</summary>
 		MAP5 = 4,

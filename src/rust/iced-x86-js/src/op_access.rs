@@ -30,6 +30,6 @@ pub enum OpAccess {
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_op_access(value: iced_x86_rust::OpAccess) -> OpAccess {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

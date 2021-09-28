@@ -31,6 +31,10 @@ use crate::memory_operand::MemoryOperand;
 use crate::memory_size::{iced_to_memory_size, MemorySize};
 #[cfg(feature = "instr_api")]
 use crate::mnemonic::{iced_to_mnemonic, Mnemonic};
+#[cfg(all(feature = "encoder", feature = "mvex"))]
+use crate::mvex_rm_conv::mvex_reg_mem_conv_to_iced;
+#[cfg(all(feature = "instr_api", feature = "mvex"))]
+use crate::mvex_rm_conv::{iced_to_mvex_reg_mem_conv, MvexRegMemConv};
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg(feature = "instr_api")]
 use crate::op_code_info::OpCodeInfo;
@@ -783,7 +787,7 @@ impl Instruction {
 
 	/// Gets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
 	/// Note that the return value can be 1 and [`memoryDisplacement`] may still not fit in
-	/// a signed byte if it's an EVEX encoded instruction.
+	/// a signed byte if it's an EVEX/MVEX encoded instruction.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
 	/// [`memoryDisplacement`]: #method.memory_displacement
@@ -796,7 +800,7 @@ impl Instruction {
 
 	/// Sets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
 	/// Note that the return value can be 1 and [`memoryDisplacement`] may still not fit in
-	/// a signed byte if it's an EVEX encoded instruction.
+	/// a signed byte if it's an EVEX/MVEX encoded instruction.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
 	/// [`memoryDisplacement`]: #method.memory_displacement
@@ -829,6 +833,46 @@ impl Instruction {
 	#[cfg(feature = "encoder")]
 	pub fn set_is_broadcast(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_is_broadcast(newValue)
+	}
+
+	/// `true` if eviction hint bit is set (`{eh}`) (MVEX instructions only)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isMvexEvictionHint")]
+	#[cfg(feature = "mvex")]
+	pub fn is_mvex_eviction_hint(&self) -> bool {
+		self.0.is_mvex_eviction_hint()
+	}
+
+	/// `true` if eviction hint bit is set (`{eh}`) (MVEX instructions only)
+	///
+	/// # Arguments
+	///
+	/// * `newValue`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "isMvexEvictionHint")]
+	#[cfg(all(feature = "encoder", feature = "mvex"))]
+	pub fn set_is_mvex_eviction_hint(&mut self, #[allow(non_snake_case)] newValue: bool) {
+		self.0.set_is_mvex_eviction_hint(newValue)
+	}
+
+	/// (MVEX) Register/memory operand conversion function
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexRegMemConv")]
+	#[cfg(feature = "mvex")]
+	pub fn mvex_reg_mem_conv(&self) -> MvexRegMemConv {
+		iced_to_mvex_reg_mem_conv(self.0.mvex_reg_mem_conv())
+	}
+
+	/// (MVEX) Register/memory operand conversion function
+	///
+	/// # Arguments
+	///
+	/// * `newValue`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "mvexRegMemConv")]
+	#[cfg(all(feature = "encoder", feature = "mvex"))]
+	pub fn set_mvex_reg_mem_conv(&mut self, #[allow(non_snake_case)] newValue: MvexRegMemConv) {
+		self.0.set_mvex_reg_mem_conv(mvex_reg_mem_conv_to_iced(newValue))
 	}
 
 	/// Gets the size of the memory location (a [`MemorySize`] enum value) that is referenced by the operand. See also [`isBroadcast`].
@@ -2081,7 +2125,7 @@ impl Instruction {
 		self.0.vsib()
 	}
 
-	/// Gets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`roundingControl`] is
+	/// Gets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if [`roundingControl`] is
 	/// not [`RoundingControl.None`], SAE is implied but this method will still return `false`.
 	///
 	/// [`roundingControl`]: #method.rounding_control
@@ -2092,7 +2136,7 @@ impl Instruction {
 		self.0.suppress_all_exceptions()
 	}
 
-	/// Sets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`roundingControl`] is
+	/// Sets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if [`roundingControl`] is
 	/// not [`RoundingControl.None`], SAE is implied but this method will still return `false`.
 	///
 	/// [`roundingControl`]: #method.rounding_control
@@ -2734,6 +2778,30 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "isCallFarIndirect")]
 	pub fn is_call_far_indirect(&self) -> bool {
 		self.0.is_call_far_indirect()
+	}
+
+	/// Checks if it's a `JKccD SHORT` or `JKccD NEAR` instruction
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isJkccShortOrNear")]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_short_or_near(&self) -> bool {
+		self.0.is_jkcc_short_or_near()
+	}
+
+	/// Checks if it's a `JKccD NEAR` instruction
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isJkccNear")]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_near(&self) -> bool {
+		self.0.is_jkcc_near()
+	}
+
+	/// Checks if it's a `JKccD SHORT` instruction
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isJkccShort")]
+	#[cfg(feature = "mvex")]
+	pub fn is_jkcc_short(&self) -> bool {
+		self.0.is_jkcc_short()
 	}
 
 	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc` and does

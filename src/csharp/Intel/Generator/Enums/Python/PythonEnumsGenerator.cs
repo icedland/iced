@@ -75,6 +75,7 @@ namespace Generator.Enums.Python {
 			toFullFileInfo.Add(TypeIds.Mnemonic, new FullEnumFileInfo(dirs.GetPythonPyFilename("Mnemonic.py")));
 			toFullFileInfo.Add(TypeIds.OpAccess, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpAccess.py")));
 			toFullFileInfo.Add(TypeIds.OpCodeOperandKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpCodeOperandKind.py")));
+			toFullFileInfo.Add(TypeIds.MvexEHBit, new FullEnumFileInfo(dirs.GetPythonPyFilename("MvexEHBit.py")));
 			toFullFileInfo.Add(TypeIds.OpCodeTableKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpCodeTableKind.py")));
 			toFullFileInfo.Add(TypeIds.OpKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpKind.py")));
 			toFullFileInfo.Add(TypeIds.Register, new FullEnumFileInfo(dirs.GetPythonPyFilename("Register.py")));
@@ -83,6 +84,9 @@ namespace Generator.Enums.Python {
 			toFullFileInfo.Add(TypeIds.RoundingControl, new FullEnumFileInfo(dirs.GetPythonPyFilename("RoundingControl.py")));
 			toFullFileInfo.Add(TypeIds.TupleType, new FullEnumFileInfo(dirs.GetPythonPyFilename("TupleType.py")));
 			toFullFileInfo.Add(TypeIds.FormatterSyntax, new FullEnumFileInfo(dirs.GetPythonPyFilename("FormatterSyntax.py")));
+			toFullFileInfo.Add(TypeIds.MvexConvFn, new FullEnumFileInfo(dirs.GetPythonPyFilename("MvexConvFn.py")));
+			toFullFileInfo.Add(TypeIds.MvexRegMemConv, new FullEnumFileInfo(dirs.GetPythonPyFilename("MvexRegMemConv.py")));
+			toFullFileInfo.Add(TypeIds.MvexTupleTypeLutKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("MvexTupleTypeLutKind.py")));
 
 			toPartialFileInfo = new();
 			toPartialFileInfo.Add(TypeIds.FormatterSyntax, new PartialEnumFileInfo("FormatterSyntax", TargetLanguage.Rust, dirs.GetPythonRustFilename("formatter.rs")));

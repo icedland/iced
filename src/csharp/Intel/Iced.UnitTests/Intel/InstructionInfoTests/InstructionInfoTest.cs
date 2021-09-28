@@ -192,6 +192,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(testCase.IsSaveRestoreInstruction, instruction.Code.IsSaveRestoreInstruction());
 
 			Assert.Equal(testCase.Encoding, instruction.Encoding);
+#if MVEX
+			if (instruction.Encoding == EncodingKind.MVEX)
+				Assert.True(IcedConstants.IsMvex(instruction.Code));
+			else
+				Assert.False(IcedConstants.IsMvex(instruction.Code));
+#endif
 			Assert.Equal(testCase.CpuidFeatures, instruction.CpuidFeatures);
 			Assert.Equal(testCase.FlowControl, instruction.FlowControl);
 			Assert.Equal(testCase.IsPrivileged, instruction.IsPrivileged);

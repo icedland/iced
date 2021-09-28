@@ -8,7 +8,7 @@
 # pylint: disable=too-many-lines
 
 """
-Tuple type (EVEX) which can be used to get the disp8 scale factor ``N``
+Tuple type (EVEX/MVEX) which can be used to get the disp8 scale factor ``N``
 """
 
 import typing

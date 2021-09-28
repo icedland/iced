@@ -8,6 +8,18 @@ use crate::instruction_internal;
 use core::mem;
 use static_assertions::const_assert_eq;
 
+static XSP_TABLE: [(Register, CodeSize, u64); 4] = [
+	(Register::RSP, CodeSize::Code64, u64::MAX),
+	(Register::SP, CodeSize::Code16, u16::MAX as u64),
+	(Register::ESP, CodeSize::Code32, u32::MAX as u64),
+	(Register::RSP, CodeSize::Code64, u64::MAX),
+];
+const_assert_eq!(CodeSize::Unknown as u32, 0);
+const_assert_eq!(CodeSize::Code16 as u32, 1);
+const_assert_eq!(CodeSize::Code32 as u32, 2);
+const_assert_eq!(CodeSize::Code64 as u32, 3);
+const_assert_eq!(IcedConstants::CODE_SIZE_ENUM_COUNT, 4);
+
 /// Instruction info options used by [`InstructionInfoFactory`]
 ///
 /// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
@@ -457,12 +469,9 @@ impl InstructionInfoFactory {
 		info
 	}
 
+	#[inline]
 	fn get_xsp(code_size: CodeSize) -> (Register, CodeSize, u64) {
-		match code_size {
-			CodeSize::Code64 | CodeSize::Unknown => (Register::RSP, CodeSize::Code64, u64::MAX),
-			CodeSize::Code32 => (Register::ESP, code_size, u32::MAX as u64),
-			CodeSize::Code16 => (Register::SP, code_size, u16::MAX as u64),
-		}
+		XSP_TABLE[code_size as usize]
 	}
 
 	#[rustfmt::skip]
@@ -1859,6 +1868,9 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::EBX, OpAccess::CondWrite);
 				}
 			}
+			ImpliedAccess::t_memdisplm64 => {
+				Self::command_mem_displ(info, flags, -64);
+			}
 			// GENERATOR-END: ImpliedAccessHandler
 		}
 	}
@@ -2590,8 +2602,20 @@ impl InstructionInfoFactory {
 		}
 	}
 
+	#[inline(always)]
+	#[allow(unused_variables)]
+	fn is_clear_instr(instruction: &Instruction) -> bool {
+		#[cfg(feature = "mvex")]
+		{
+			matches!(instruction.mvex_reg_mem_conv(), MvexRegMemConv::None | MvexRegMemConv::RegSwizzleNone)
+		}
+		#[cfg(not(feature = "mvex"))]
+		true
+	}
+
 	fn command_clear_reg_regmem(instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
-		if instruction.op0_register() == instruction.op1_register() && instruction.op1_kind() == OpKind::Register {
+		if instruction.op0_register() == instruction.op1_register() && instruction.op1_kind() == OpKind::Register && Self::is_clear_instr(instruction)
+		{
 			info.op_accesses[0] = OpAccess::Write;
 			info.op_accesses[1] = OpAccess::None;
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
@@ -2603,7 +2627,8 @@ impl InstructionInfoFactory {
 	}
 
 	fn command_clear_reg_reg_regmem(instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
-		if instruction.op1_register() == instruction.op2_register() && instruction.op2_kind() == OpKind::Register {
+		if instruction.op1_register() == instruction.op2_register() && instruction.op2_kind() == OpKind::Register && Self::is_clear_instr(instruction)
+		{
 			info.op_accesses[1] = OpAccess::None;
 			info.op_accesses[2] = OpAccess::None;
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
@@ -2694,6 +2719,25 @@ impl InstructionInfoFactory {
 					reg = unsafe { mem::transmute((((reg as u32 - Register::MM0 as u32) ^ 1) + Register::MM0 as u32) as RegisterUnderlyingType) };
 					Self::add_register(flags, info, reg, op_access);
 				}
+			}
+		}
+	}
+
+	fn command_mem_displ(info: &mut InstructionInfo, flags: u32, displ: i32) {
+		if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+			if info.used_memory_locations.len() == 1 {
+				if let Some(loc) = info.used_memory_locations.get_mut(0) {
+					static MASK: [u64; 4] = [u64::MAX, u16::MAX as u64, u32::MAX as u64, u64::MAX];
+					const_assert_eq!(CodeSize::Unknown as u32, 0);
+					const_assert_eq!(CodeSize::Code16 as u32, 1);
+					const_assert_eq!(CodeSize::Code32 as u32, 2);
+					const_assert_eq!(CodeSize::Code64 as u32, 3);
+					loc.displacement = loc.displacement.wrapping_add(displ as u64) & MASK[loc.address_size as usize];
+				} else {
+					debug_assert!(false);
+				}
+			} else {
+				debug_assert!(false);
 			}
 		}
 	}

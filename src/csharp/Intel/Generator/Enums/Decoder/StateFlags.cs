@@ -23,6 +23,9 @@ namespace Generator.Enums.Decoder {
 		AllowLock				= 0x00002000,
 		NoMoreBytes				= 0x00004000,
 		Has66					= 0x00008000,
+		MvexSssMask				= 7,
+		MvexSssShift			= 16,
+		MvexEH					= 0x00080000,
 
 		// Only used by Debug.Assert()
 		EncodingMask			= 7,

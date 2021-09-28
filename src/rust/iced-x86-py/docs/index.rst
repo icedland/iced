@@ -54,6 +54,10 @@ Welcome to iced-x86's documentation!
 	src/MemorySize
 	src/MemorySizeOptions
 	src/Mnemonic
+	src/MvexConvFn
+	src/MvexEHBit
+	src/MvexRegMemConv
+	src/MvexTupleTypeLutKind
 	src/OpAccess
 	src/OpCodeOperandKind
 	src/OpCodeTableKind

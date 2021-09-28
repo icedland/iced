@@ -34,24 +34,24 @@ namespace Generator.Decoder {
 
 			switch (encoding) {
 			case EncodingKind.Legacy:
-				handlerKindType = genTypes[TypeIds.OpCodeHandlerKind];
-				invalid = handlerKindType[nameof(OpCodeHandlerKind.Invalid)];
-				invalid_NoModRM = handlerKindType[nameof(OpCodeHandlerKind.Invalid_NoModRM)];
-				handlerKind_d3now = handlerKindType[nameof(OpCodeHandlerKind.D3NOW)];
-				handlerKind_wbinvd = handlerKindType[nameof(OpCodeHandlerKind.Wbinvd)];
-				groupKind = handlerKindType[nameof(OpCodeHandlerKind.Group)];
-				group8x64Kind = handlerKindType[nameof(OpCodeHandlerKind.Group8x64)];
-				group8x8Kind = handlerKindType[nameof(OpCodeHandlerKind.Group8x8)];
-				noModrmHandlers = new[] { handlerKindType[nameof(OpCodeHandlerKind.MandatoryPrefix_NoModRM)] };
+				handlerKindType = genTypes[TypeIds.LegacyOpCodeHandlerKind];
+				invalid = handlerKindType[nameof(LegacyOpCodeHandlerKind.Invalid)];
+				invalid_NoModRM = handlerKindType[nameof(LegacyOpCodeHandlerKind.Invalid_NoModRM)];
+				handlerKind_d3now = handlerKindType[nameof(LegacyOpCodeHandlerKind.D3NOW)];
+				handlerKind_wbinvd = handlerKindType[nameof(LegacyOpCodeHandlerKind.Wbinvd)];
+				groupKind = handlerKindType[nameof(LegacyOpCodeHandlerKind.Group)];
+				group8x64Kind = handlerKindType[nameof(LegacyOpCodeHandlerKind.Group8x64)];
+				group8x8Kind = handlerKindType[nameof(LegacyOpCodeHandlerKind.Group8x8)];
+				noModrmHandlers = new[] { handlerKindType[nameof(LegacyOpCodeHandlerKind.MandatoryPrefix_NoModRM)] };
 				prefixes = new[] {
-					handlerKindType[nameof(OpCodeHandlerKind.PrefixEsCsSsDs)],
-					handlerKindType[nameof(OpCodeHandlerKind.PrefixFsGs)],
-					handlerKindType[nameof(OpCodeHandlerKind.Prefix66)],
-					handlerKindType[nameof(OpCodeHandlerKind.Prefix67)],
-					handlerKindType[nameof(OpCodeHandlerKind.PrefixF0)],
-					handlerKindType[nameof(OpCodeHandlerKind.PrefixF2)],
-					handlerKindType[nameof(OpCodeHandlerKind.PrefixF3)],
-					handlerKindType[nameof(OpCodeHandlerKind.PrefixREX)],
+					handlerKindType[nameof(LegacyOpCodeHandlerKind.PrefixEsCsSsDs)],
+					handlerKindType[nameof(LegacyOpCodeHandlerKind.PrefixFsGs)],
+					handlerKindType[nameof(LegacyOpCodeHandlerKind.Prefix66)],
+					handlerKindType[nameof(LegacyOpCodeHandlerKind.Prefix67)],
+					handlerKindType[nameof(LegacyOpCodeHandlerKind.PrefixF0)],
+					handlerKindType[nameof(LegacyOpCodeHandlerKind.PrefixF2)],
+					handlerKindType[nameof(LegacyOpCodeHandlerKind.PrefixF3)],
+					handlerKindType[nameof(LegacyOpCodeHandlerKind.PrefixREX)],
 				};
 				break;
 
@@ -79,6 +79,19 @@ namespace Generator.Decoder {
 				handlerKind_d3now = null;
 				handlerKind_wbinvd = null;
 				groupKind = handlerKindType[nameof(EvexOpCodeHandlerKind.Group)];
+				group8x64Kind = null;
+				group8x8Kind = null;
+				noModrmHandlers = Array.Empty<EnumValue>();
+				prefixes = Array.Empty<EnumValue>();
+				break;
+
+			case EncodingKind.MVEX:
+				handlerKindType = genTypes[TypeIds.MvexOpCodeHandlerKind];
+				invalid = handlerKindType[nameof(MvexOpCodeHandlerKind.Invalid)];
+				invalid_NoModRM = invalid;
+				handlerKind_d3now = null;
+				handlerKind_wbinvd = null;
+				groupKind = handlerKindType[nameof(MvexOpCodeHandlerKind.Group)];
 				group8x64Kind = null;
 				group8x8Kind = null;
 				noModrmHandlers = Array.Empty<EnumValue>();

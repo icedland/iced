@@ -212,6 +212,17 @@ impl Encoder {
 		self.encoder.set_evex_lig(new_value)
 	}
 
+	/// int: (``u8``) Value of the ``MVEX.W`` bit to use if it's an instruction that ignores the bit. Default is 0.
+	#[getter]
+	fn mvex_wig(&self) -> u32 {
+		self.encoder.mvex_wig()
+	}
+
+	#[setter]
+	fn set_mvex_wig(&mut self, new_value: u32) {
+		self.encoder.set_mvex_wig(new_value)
+	}
+
 	/// int: Gets the bitness (16, 32 or 64)
 	#[getter]
 	fn bitness(&self) -> u32 {

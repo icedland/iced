@@ -45,6 +45,7 @@ build_features() {
 
 	set -- \
 		"DECODER" \
+		"DECODER MVEX" \
 		"ENCODER" \
 		"ENCODER BLOCK_ENCODER" \
 		"ENCODER BLOCK_ENCODER CODE_ASSEMBLER" \
@@ -69,6 +70,7 @@ build_features() {
 
 	set -- \
 		"DECODER" \
+		"DECODER MVEX" \
 		"DECODER ENCODER" \
 		"DECODER ENCODER BLOCK_ENCODER" \
 		"DECODER ENCODER BLOCK_ENCODER CODE_ASSEMBLER" \

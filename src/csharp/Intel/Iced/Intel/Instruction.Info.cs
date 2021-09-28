@@ -552,6 +552,35 @@ namespace Iced.Intel {
 			get => Code.IsCallFarIndirect();
 		}
 
+#if MVEX
+		/// <summary>
+		/// Checks if it's a <c>JKccD SHORT</c> or <c>JKccD NEAR</c> instruction
+		/// </summary>
+		/// <returns></returns>
+		public readonly bool IsJkccShortOrNear {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.IsJkccShortOrNear();
+		}
+
+		/// <summary>
+		/// Checks if it's a <c>JKccD NEAR</c> instruction
+		/// </summary>
+		/// <returns></returns>
+		public readonly bool IsJkccNear {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.IsJkccNear();
+		}
+
+		/// <summary>
+		/// Checks if it's a <c>JKccD SHORT</c> instruction
+		/// </summary>
+		/// <returns></returns>
+		public readonly bool IsJkccShort {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.IsJkccShort();
+		}
+#endif
+
 		/// <summary>
 		/// Negates the condition code, eg. <c>JE</c> -> <c>JNE</c>. Can be used if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c>
 		/// and does nothing if the instruction doesn't have a condition code.

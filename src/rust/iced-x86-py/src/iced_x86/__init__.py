@@ -56,6 +56,10 @@ from . import MandatoryPrefix
 from . import MemorySize
 from . import MemorySizeOptions
 from . import Mnemonic
+from . import MvexConvFn
+from . import MvexEHBit
+from . import MvexRegMemConv
+from . import MvexTupleTypeLutKind
 from . import OpAccess
 from . import OpCodeOperandKind
 from . import OpCodeTableKind
@@ -94,6 +98,10 @@ if typing.TYPE_CHECKING:
 	MemorySize_ = _iced_x86_py.MemorySize
 	MemorySizeOptions_ = _iced_x86_py.MemorySizeOptions
 	Mnemonic_ = _iced_x86_py.Mnemonic
+	MvexConvFn_ = _iced_x86_py.MvexConvFn
+	MvexEHBit_ = _iced_x86_py.MvexEHBit
+	MvexRegMemConv_ = _iced_x86_py.MvexRegMemConv
+	MvexTupleTypeLutKind_ = _iced_x86_py.MvexTupleTypeLutKind
 	OpAccess_ = _iced_x86_py.OpAccess
 	OpCodeOperandKind_ = _iced_x86_py.OpCodeOperandKind
 	OpCodeTableKind_ = _iced_x86_py.OpCodeTableKind
@@ -130,6 +138,10 @@ else:
 	MemorySize_ = int
 	MemorySizeOptions_ = int
 	Mnemonic_ = int
+	MvexConvFn_ = int
+	MvexEHBit_ = int
+	MvexRegMemConv_ = int
+	MvexTupleTypeLutKind_ = int
 	OpAccess_ = int
 	OpCodeOperandKind_ = int
 	OpCodeTableKind_ = int
@@ -180,6 +192,10 @@ __all__ = [
 	"MemorySizeInfo",
 	"MemorySizeOptions",
 	"Mnemonic",
+	"MvexConvFn",
+	"MvexEHBit",
+	"MvexRegMemConv",
+	"MvexTupleTypeLutKind",
 	"OpAccess",
 	"OpCodeInfo",
 	"OpCodeOperandKind",
@@ -220,6 +236,10 @@ __all__ = [
 	"MemorySize_",
 	"MemorySizeOptions_",
 	"Mnemonic_",
+	"MvexConvFn_",
+	"MvexEHBit_",
+	"MvexRegMemConv_",
+	"MvexTupleTypeLutKind_",
 	"OpAccess_",
 	"OpCodeOperandKind_",
 	"OpCodeTableKind_",

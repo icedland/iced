@@ -76,6 +76,23 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		internal const string DecoderTestOptions_NoEncode = "noencode";
 		internal const string DecoderTestOptions_NoOptDisableTest = "no_opt_disable_test";
 		internal const string IP = "ip";
+		internal const string EvictionHint = "eh";
+		internal const string MVEX_RegSwizzleNone = "mvex-dcba";
+		internal const string MVEX_RegSwizzleCdab = "mvex-cdab";
+		internal const string MVEX_RegSwizzleBadc = "mvex-badc";
+		internal const string MVEX_RegSwizzleDacb = "mvex-dacb";
+		internal const string MVEX_RegSwizzleAaaa = "mvex-aaaa";
+		internal const string MVEX_RegSwizzleBbbb = "mvex-bbbb";
+		internal const string MVEX_RegSwizzleCccc = "mvex-cccc";
+		internal const string MVEX_RegSwizzleDddd = "mvex-dddd";
+		internal const string MVEX_MemConvNone = "mvex-mident";
+		internal const string MVEX_MemConvBroadcast1 = "mvex-bcst1";
+		internal const string MVEX_MemConvBroadcast4 = "mvex-bcst4";
+		internal const string MVEX_MemConvFloat16 = "mvex-f16";
+		internal const string MVEX_MemConvUint8 = "mvex-u8";
+		internal const string MVEX_MemConvSint8 = "mvex-s8";
+		internal const string MVEX_MemConvUint16 = "mvex-u16";
+		internal const string MVEX_MemConvSint16 = "mvex-s16";
 	}
 	// GENERATOR-END: DecoderTestText
 
@@ -260,6 +277,143 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						throw new InvalidOperationException($"Invalid IP value: '{value}'");
 					tc.IP = NumberConverter.ToUInt64(value);
 					break;
+
+				case DecoderTestParserConstants.EvictionHint:
+#if MVEX
+					tc.Mvex.EvictionHint = true;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_RegSwizzleNone:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.RegSwizzleNone;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_RegSwizzleCdab:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.RegSwizzleCdab;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_RegSwizzleBadc:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.RegSwizzleBadc;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_RegSwizzleDacb:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.RegSwizzleDacb;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_RegSwizzleAaaa:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.RegSwizzleAaaa;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_RegSwizzleBbbb:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.RegSwizzleBbbb;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_RegSwizzleCccc:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.RegSwizzleCccc;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_RegSwizzleDddd:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.RegSwizzleDddd;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_MemConvNone:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.MemConvNone;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_MemConvBroadcast1:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.MemConvBroadcast1;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_MemConvBroadcast4:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.MemConvBroadcast4;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_MemConvFloat16:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.MemConvFloat16;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_MemConvUint8:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.MemConvUint8;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_MemConvSint8:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.MemConvSint8;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_MemConvUint16:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.MemConvUint16;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
+				case DecoderTestParserConstants.MVEX_MemConvSint16:
+#if MVEX
+					tc.Mvex.RegMemConv = MvexRegMemConv.MemConvSint16;
+					break;
+#else
+					throw new InvalidOperationException();
+#endif
+
 
 				case DecoderTestParserConstants.SegmentPrefix_ES:
 					tc.SegmentPrefix = Register.ES;

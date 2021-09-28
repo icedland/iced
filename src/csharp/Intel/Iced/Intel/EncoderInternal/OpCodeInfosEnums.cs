@@ -86,6 +86,7 @@ namespace Iced.Intel.EncoderInternal {
 		NoVecIndex,
 		SwapVecIndex12,
 		SkipOp0,
+		VecIndexSameAsOpIndex,
 	}
 	// GENERATOR-END: InstrStrFmtOption
 }

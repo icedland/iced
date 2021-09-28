@@ -55,6 +55,12 @@ test("Instruction props", () => {
 	expect(instr.memoryDisplSize).toBe(1);
 	expect(instr.isBroadcast).toBe(false);
 	expect(instr.memorySize).toBe(MemorySize.UInt8);
+	// Check if MVEX support
+	if ((getIcedFeatures() & 0x10) != 0) {
+		const { MvexRegMemConv } = require("iced-x86");
+		expect(instr.isMvexEvictionHint).toBe(false);
+		expect(instr.mvexRegMemConv).toBe(MvexRegMemConv.None);
+	}
 	expect(instr.memoryIndexScale).toBe(1);
 	expect(instr.memoryDisplacement).toBe(0x16);
 	expect(instr.memoryDisplacement64Lo).toBe(0x16);
@@ -99,6 +105,12 @@ test("Instruction props", () => {
 	expect(instr.isJmpFarIndirect).toBe(false);
 	expect(instr.isCallNearIndirect).toBe(false);
 	expect(instr.isCallFarIndirect).toBe(false);
+	// Check if MVEX support
+	if ((getIcedFeatures() & 0x10) != 0) {
+		expect(instr.isJkccShortOrNear).toBe(false);
+		expect(instr.isJkccNear).toBe(false);
+		expect(instr.isJkccShort).toBe(false);
+	}
 	expect(instr.conditionCode).toBe(ConditionCode.None);
 	expect(instr.isStringInstruction).toBe(false);
 

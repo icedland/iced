@@ -21,7 +21,7 @@ features = ["macros", "extension-module", "abi3-py36"]
 [dependencies.iced-x86]
 # If building from sdist, it should use the exact same version as the sdist.
 version = "=1.14.0"
-features = ["serde"]
+features = ["serde", "mvex"]
 # To use ../iced-x86 source code, add this to your $HOME/.cargo/config.toml
 #	paths = ["/abs/path/to/iced/src/rust/iced-x86"]
 # or uncomment this line:

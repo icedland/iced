@@ -212,6 +212,22 @@ struct Mnemonic {}
 /// DO NOT USE
 #[pyclass(module = "iced_x86._iced_x86_py")]
 #[allow(non_camel_case_types)]
+struct MvexConvFn {}
+/// DO NOT USE
+#[pyclass(module = "iced_x86._iced_x86_py")]
+#[allow(non_camel_case_types)]
+struct MvexEHBit {}
+/// DO NOT USE
+#[pyclass(module = "iced_x86._iced_x86_py")]
+#[allow(non_camel_case_types)]
+struct MvexRegMemConv {}
+/// DO NOT USE
+#[pyclass(module = "iced_x86._iced_x86_py")]
+#[allow(non_camel_case_types)]
+struct MvexTupleTypeLutKind {}
+/// DO NOT USE
+#[pyclass(module = "iced_x86._iced_x86_py")]
+#[allow(non_camel_case_types)]
 struct OpAccess {}
 /// DO NOT USE
 #[pyclass(module = "iced_x86._iced_x86_py")]
@@ -290,6 +306,10 @@ fn _iced_x86_py(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
 	m.add_class::<MemorySizeInfo>()?;
 	m.add_class::<MemorySizeOptions>()?;
 	m.add_class::<Mnemonic>()?;
+	m.add_class::<MvexConvFn>()?;
+	m.add_class::<MvexEHBit>()?;
+	m.add_class::<MvexRegMemConv>()?;
+	m.add_class::<MvexTupleTypeLutKind>()?;
 	m.add_class::<OpAccess>()?;
 	m.add_class::<OpCodeInfo>()?;
 	m.add_class::<OpCodeOperandKind>()?;

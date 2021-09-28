@@ -12,7 +12,7 @@ namespace Generator.Decoder {
 			var data = handler[0];
 			bool isInvalid =
 				data is IEnumValue enumValue &&
-				((enumValue.DeclaringType.TypeId == TypeIds.OpCodeHandlerKind && enumValue == genTypes[TypeIds.OpCodeHandlerKind][nameof(OpCodeHandlerKind.Invalid)]) ||
+				((enumValue.DeclaringType.TypeId == TypeIds.LegacyOpCodeHandlerKind && enumValue == genTypes[TypeIds.LegacyOpCodeHandlerKind][nameof(LegacyOpCodeHandlerKind.Invalid)]) ||
 				(enumValue.DeclaringType.TypeId == TypeIds.VexOpCodeHandlerKind && enumValue == genTypes[TypeIds.VexOpCodeHandlerKind][nameof(VexOpCodeHandlerKind.Invalid)]) ||
 				(enumValue.DeclaringType.TypeId == TypeIds.EvexOpCodeHandlerKind && enumValue == genTypes[TypeIds.EvexOpCodeHandlerKind][nameof(EvexOpCodeHandlerKind.Invalid)]));
 			if (isInvalid && handler.Length != 1)

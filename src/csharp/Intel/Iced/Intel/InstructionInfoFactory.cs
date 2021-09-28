@@ -1682,6 +1682,9 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.EBX, OpAccess.CondWrite);
 				}
 				break;
+			case ImpliedAccess.t_memdisplm64:
+				CommandMemDispl(flags, -64);
+				break;
 			// GENERATOR-END: ImpliedAccessHandler
 
 			default:
@@ -2236,10 +2239,27 @@ namespace Iced.Intel {
 			}
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static bool IsClearInstr(in Instruction instruction) {
+#if MVEX
+			switch (instruction.MvexRegMemConv) {
+			case MvexRegMemConv.None:
+			case MvexRegMemConv.RegSwizzleNone:
+				return true;
+			default:
+				return false;
+			}
+#else
+			return true;
+#endif
+		}
+
 		void CommandClearRegRegmem(in Instruction instruction, Flags flags) {
 			if (instruction.Op0Register != instruction.Op1Register)
 				return;
 			if (instruction.Op1Kind != OpKind.Register)
+				return;
+			if (!IsClearInstr(instruction))
 				return;
 			unsafe { info.opAccesses[0] = (byte)OpAccess.Write; }
 			unsafe { info.opAccesses[1] = (byte)OpAccess.None; }
@@ -2254,6 +2274,8 @@ namespace Iced.Intel {
 			if (instruction.Op1Register != instruction.Op2Register)
 				return;
 			if (instruction.Op2Kind != OpKind.Register)
+				return;
+			if (!IsClearInstr(instruction))
 				return;
 			unsafe { info.opAccesses[1] = (byte)OpAccess.None; }
 			unsafe { info.opAccesses[2] = (byte)OpAccess.None; }
@@ -2339,6 +2361,23 @@ namespace Iced.Intel {
 						AddRegister(flags, reg, opAccess);
 					}
 				}
+			}
+		}
+
+		void CommandMemDispl(Flags flags, int extraDispl) {
+			if ((flags & Flags.NoMemoryUsage) == 0) {
+				if (info.usedMemoryLocations.ValidLength == 1) {
+					ref var mem = ref info.usedMemoryLocations.Array[0];
+					ulong mask = mem.AddressSize switch {
+						CodeSize.Code16 => ushort.MaxValue,
+						CodeSize.Code32 => uint.MaxValue,
+						_ => ulong.MaxValue,
+					};
+					var displ = (mem.Displacement + (ulong)extraDispl) & mask;
+					info.usedMemoryLocations.Array[0] = new UsedMemory(mem.Segment, mem.Base, mem.Index, mem.Scale, displ, mem.MemorySize, mem.Access, mem.AddressSize, mem.VsibSize);
+				}
+				else
+					Debug.Assert(false);
 			}
 		}
 

@@ -77,6 +77,23 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.String, "DecoderTestOptions_NoEncode", "noencode", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderTestOptions_NoOptDisableTest", "no_opt_disable_test", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "IP", "ip", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "EvictionHint", "eh", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_RegSwizzleNone", "mvex-dcba", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_RegSwizzleCdab", "mvex-cdab", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_RegSwizzleBadc", "mvex-badc", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_RegSwizzleDacb", "mvex-dacb", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_RegSwizzleAaaa", "mvex-aaaa", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_RegSwizzleBbbb", "mvex-bbbb", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_RegSwizzleCccc", "mvex-cccc", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_RegSwizzleDddd", "mvex-dddd", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_MemConvNone", "mvex-mident", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_MemConvBroadcast1", "mvex-bcst1", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_MemConvBroadcast4", "mvex-bcst4", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_MemConvFloat16", "mvex-f16", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_MemConvUint8", "mvex-u8", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_MemConvSint8", "mvex-s8", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_MemConvUint16", "mvex-u16", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "MVEX_MemConvSint16", "mvex-s16", ConstantsTypeFlags.None),
 			};
 	}
 }

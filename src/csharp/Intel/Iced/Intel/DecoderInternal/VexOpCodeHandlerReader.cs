@@ -306,6 +306,36 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_VEX_VT_RT_HT(deserializer.ReadCode());
 				return 1;
 
+			case VexOpCodeHandlerKind.Options_DontReadModRM:
+				elem = new OpCodeHandler_Options_DontReadModRM(deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadDecoderOptions());
+				return 1;
+
+			case VexOpCodeHandlerKind.Gq_HK_RK:
+				elem = new OpCodeHandler_VEX_Gq_HK_RK(deserializer.ReadCode());
+				return 1;
+
+			case VexOpCodeHandlerKind.VK_R_Ib:
+				elem = new OpCodeHandler_VEX_VK_R_Ib(deserializer.ReadCode(), deserializer.ReadRegister());
+				return 1;
+
+			case VexOpCodeHandlerKind.Gv_Ev:
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_VEX_Gv_Ev(code, code + 1);
+				return 1;
+
+			case VexOpCodeHandlerKind.Ev:
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_VEX_Ev(code, code + 1);
+				return 1;
+
+			case VexOpCodeHandlerKind.K_Jb:
+				elem = new OpCodeHandler_VEX_K_Jb(deserializer.ReadCode());
+				return 1;
+
+			case VexOpCodeHandlerKind.K_Jz:
+				elem = new OpCodeHandler_VEX_K_Jz(deserializer.ReadCode());
+				return 1;
+
 			default:
 				throw new InvalidOperationException();
 			}

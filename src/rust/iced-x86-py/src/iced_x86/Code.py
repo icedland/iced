@@ -45617,3 +45617,2553 @@ WRUDBG: Code = 4562 # type: ignore
 
 ``16/32/64-bit``
 """
+VEX_KNC_JKZD_KR_REL8_64: Code = 4563 # type: ignore
+"""
+``JKZD k1, rel8``
+
+``VEX.128.W0 74 cb``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_JKNZD_KR_REL8_64: Code = 4564 # type: ignore
+"""
+``JKNZD k1, rel8``
+
+``VEX.128.W0 75 cb``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_VPREFETCHNTA_M8: Code = 4565 # type: ignore
+"""
+``VPREFETCHNTA m8``
+
+``VEX.128.0F.WIG 18 /0``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_VPREFETCH0_M8: Code = 4566 # type: ignore
+"""
+``VPREFETCH0 m8``
+
+``VEX.128.0F.WIG 18 /1``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_VPREFETCH1_M8: Code = 4567 # type: ignore
+"""
+``VPREFETCH1 m8``
+
+``VEX.128.0F.WIG 18 /2``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_VPREFETCH2_M8: Code = 4568 # type: ignore
+"""
+``VPREFETCH2 m8``
+
+``VEX.128.0F.WIG 18 /3``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_VPREFETCHENTA_M8: Code = 4569 # type: ignore
+"""
+``VPREFETCHENTA m8``
+
+``VEX.128.0F.WIG 18 /4``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_VPREFETCHE0_M8: Code = 4570 # type: ignore
+"""
+``VPREFETCHE0 m8``
+
+``VEX.128.0F.WIG 18 /5``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_VPREFETCHE1_M8: Code = 4571 # type: ignore
+"""
+``VPREFETCHE1 m8``
+
+``VEX.128.0F.WIG 18 /6``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_VPREFETCHE2_M8: Code = 4572 # type: ignore
+"""
+``VPREFETCHE2 m8``
+
+``VEX.128.0F.WIG 18 /7``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KAND_KR_KR: Code = 4573 # type: ignore
+"""
+``KAND k1, k2``
+
+``VEX.128.0F.W0 41 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KANDN_KR_KR: Code = 4574 # type: ignore
+"""
+``KANDN k1, k2``
+
+``VEX.128.0F.W0 42 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KANDNR_KR_KR: Code = 4575 # type: ignore
+"""
+``KANDNR k1, k2``
+
+``VEX.128.0F.W0 43 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KNOT_KR_KR: Code = 4576 # type: ignore
+"""
+``KNOT k1, k2``
+
+``VEX.128.0F.W0 44 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KOR_KR_KR: Code = 4577 # type: ignore
+"""
+``KOR k1, k2``
+
+``VEX.128.0F.W0 45 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KXNOR_KR_KR: Code = 4578 # type: ignore
+"""
+``KXNOR k1, k2``
+
+``VEX.128.0F.W0 46 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KXOR_KR_KR: Code = 4579 # type: ignore
+"""
+``KXOR k1, k2``
+
+``VEX.128.0F.W0 47 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KMERGE2L1H_KR_KR: Code = 4580 # type: ignore
+"""
+``KMERGE2L1H k1, k2``
+
+``VEX.128.0F.W0 48 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KMERGE2L1L_KR_KR: Code = 4581 # type: ignore
+"""
+``KMERGE2L1L k1, k2``
+
+``VEX.128.0F.W0 49 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_JKZD_KR_REL32_64: Code = 4582 # type: ignore
+"""
+``JKZD k1, rel32``
+
+``VEX.128.0F.W0 84 cd``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_JKNZD_KR_REL32_64: Code = 4583 # type: ignore
+"""
+``JKNZD k1, rel32``
+
+``VEX.128.0F.W0 85 cd``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KMOV_KR_KR: Code = 4584 # type: ignore
+"""
+``KMOV k1, k2``
+
+``VEX.128.0F.W0 90 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KMOV_KR_R32: Code = 4585 # type: ignore
+"""
+``KMOV k1, r32``
+
+``VEX.128.0F.W0 92 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KMOV_R32_KR: Code = 4586 # type: ignore
+"""
+``KMOV r32, k1``
+
+``VEX.128.0F.W0 93 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KCONCATH_R64_KR_KR: Code = 4587 # type: ignore
+"""
+``KCONCATH r64, k1, k2``
+
+``VEX.128.0F.W0 95 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KCONCATL_R64_KR_KR: Code = 4588 # type: ignore
+"""
+``KCONCATL r64, k1, k2``
+
+``VEX.128.0F.W0 97 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KORTEST_KR_KR: Code = 4589 # type: ignore
+"""
+``KORTEST k1, k2``
+
+``VEX.128.0F.W0 98 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_DELAY_R32: Code = 4590 # type: ignore
+"""
+``DELAY r32``
+
+``VEX.128.F3.0F.W0 AE /6``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_DELAY_R64: Code = 4591 # type: ignore
+"""
+``DELAY r64``
+
+``VEX.128.F3.0F.W1 AE /6``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_SPFLT_R32: Code = 4592 # type: ignore
+"""
+``SPFLT r32``
+
+``VEX.128.F2.0F.W0 AE /6``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_SPFLT_R64: Code = 4593 # type: ignore
+"""
+``SPFLT r64``
+
+``VEX.128.F2.0F.W1 AE /6``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_CLEVICT1_M8: Code = 4594 # type: ignore
+"""
+``CLEVICT1 m8``
+
+``VEX.128.F3.0F.WIG AE /7``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_CLEVICT0_M8: Code = 4595 # type: ignore
+"""
+``CLEVICT0 m8``
+
+``VEX.128.F2.0F.WIG AE /7``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_POPCNT_R32_R32: Code = 4596 # type: ignore
+"""
+``POPCNT r32, r32``
+
+``VEX.128.F3.0F.W0 B8 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_POPCNT_R64_R64: Code = 4597 # type: ignore
+"""
+``POPCNT r64, r64``
+
+``VEX.128.F3.0F.W1 B8 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_TZCNT_R32_R32: Code = 4598 # type: ignore
+"""
+``TZCNT r32, r32``
+
+``VEX.128.F3.0F.W0 BC /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_TZCNT_R64_R64: Code = 4599 # type: ignore
+"""
+``TZCNT r64, r64``
+
+``VEX.128.F3.0F.W1 BC /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_TZCNTI_R32_R32: Code = 4600 # type: ignore
+"""
+``TZCNTI r32, r32``
+
+``VEX.128.F2.0F.W0 BC /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_TZCNTI_R64_R64: Code = 4601 # type: ignore
+"""
+``TZCNTI r64, r64``
+
+``VEX.128.F2.0F.W1 BC /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_LZCNT_R32_R32: Code = 4602 # type: ignore
+"""
+``LZCNT r32, r32``
+
+``VEX.128.F3.0F.W0 BD /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_LZCNT_R64_R64: Code = 4603 # type: ignore
+"""
+``LZCNT r64, r64``
+
+``VEX.128.F3.0F.W1 BD /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_UNDOC_R32_RM32_128_F3_0F38_W0_F0: Code = 4604 # type: ignore
+"""
+``UNDOC r32, r/m32``
+
+``VEX.128.F3.0F38.W0 F0 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_UNDOC_R64_RM64_128_F3_0F38_W1_F0: Code = 4605 # type: ignore
+"""
+``UNDOC r64, r/m64``
+
+``VEX.128.F3.0F38.W1 F0 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_UNDOC_R32_RM32_128_F2_0F38_W0_F0: Code = 4606 # type: ignore
+"""
+``UNDOC r32, r/m32``
+
+``VEX.128.F2.0F38.W0 F0 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_UNDOC_R64_RM64_128_F2_0F38_W1_F0: Code = 4607 # type: ignore
+"""
+``UNDOC r64, r/m64``
+
+``VEX.128.F2.0F38.W1 F0 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_UNDOC_R32_RM32_128_F2_0F38_W0_F1: Code = 4608 # type: ignore
+"""
+``UNDOC r32, r/m32``
+
+``VEX.128.F2.0F38.W0 F1 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_UNDOC_R64_RM64_128_F2_0F38_W1_F1: Code = 4609 # type: ignore
+"""
+``UNDOC r64, r/m64``
+
+``VEX.128.F2.0F38.W1 F1 /r``
+
+``KNC``
+
+``64-bit``
+"""
+VEX_KNC_KEXTRACT_KR_R64_IMM8: Code = 4610 # type: ignore
+"""
+``KEXTRACT k1, r64, imm8``
+
+``VEX.128.66.0F3A.W0 3E /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPREFETCHNTA_M: Code = 4611 # type: ignore
+"""
+``VPREFETCHNTA m``
+
+``MVEX.512.0F.WIG 18 /0``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPREFETCH0_M: Code = 4612 # type: ignore
+"""
+``VPREFETCH0 m``
+
+``MVEX.512.0F.WIG 18 /1``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPREFETCH1_M: Code = 4613 # type: ignore
+"""
+``VPREFETCH1 m``
+
+``MVEX.512.0F.WIG 18 /2``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPREFETCH2_M: Code = 4614 # type: ignore
+"""
+``VPREFETCH2 m``
+
+``MVEX.512.0F.WIG 18 /3``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPREFETCHENTA_M: Code = 4615 # type: ignore
+"""
+``VPREFETCHENTA m``
+
+``MVEX.512.0F.WIG 18 /4``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPREFETCHE0_M: Code = 4616 # type: ignore
+"""
+``VPREFETCHE0 m``
+
+``MVEX.512.0F.WIG 18 /5``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPREFETCHE1_M: Code = 4617 # type: ignore
+"""
+``VPREFETCHE1 m``
+
+``MVEX.512.0F.WIG 18 /6``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPREFETCHE2_M: Code = 4618 # type: ignore
+"""
+``VPREFETCHE2 m``
+
+``MVEX.512.0F.WIG 18 /7``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVAPS_ZMM_K1_ZMMMT: Code = 4619 # type: ignore
+"""
+``VMOVAPS zmm1 {k1}, Sf32(zmm2/mt)``
+
+``MVEX.512.0F.W0 28 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVAPD_ZMM_K1_ZMMMT: Code = 4620 # type: ignore
+"""
+``VMOVAPD zmm1 {k1}, Sf64(zmm2/mt)``
+
+``MVEX.512.66.0F.W1 28 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVAPS_MT_K1_ZMM: Code = 4621 # type: ignore
+"""
+``VMOVAPS mt {k1}, Df32(zmm1)``
+
+``MVEX.512.0F.W0 29 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVAPD_MT_K1_ZMM: Code = 4622 # type: ignore
+"""
+``VMOVAPD mt {k1}, Df64(zmm1)``
+
+``MVEX.512.66.0F.W1 29 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVNRAPD_M_K1_ZMM: Code = 4623 # type: ignore
+"""
+``VMOVNRAPD m {k1}, Df64(zmm1)``
+
+``MVEX.512.F3.0F.W1.EH0 29 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVNRNGOAPD_M_K1_ZMM: Code = 4624 # type: ignore
+"""
+``VMOVNRNGOAPD m {k1}, Df64(zmm1)``
+
+``MVEX.512.F3.0F.W1.EH1 29 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVNRAPS_M_K1_ZMM: Code = 4625 # type: ignore
+"""
+``VMOVNRAPS m {k1}, Df32(zmm1)``
+
+``MVEX.512.F2.0F.W0.EH0 29 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVNRNGOAPS_M_K1_ZMM: Code = 4626 # type: ignore
+"""
+``VMOVNRNGOAPS m {k1}, Df32(zmm1)``
+
+``MVEX.512.F2.0F.W0.EH1 29 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VADDPS_ZMM_K1_ZMM_ZMMMT: Code = 4627 # type: ignore
+"""
+``VADDPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.0F.W0 58 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VADDPD_ZMM_K1_ZMM_ZMMMT: Code = 4628 # type: ignore
+"""
+``VADDPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W1 58 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMULPS_ZMM_K1_ZMM_ZMMMT: Code = 4629 # type: ignore
+"""
+``VMULPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.0F.W0 59 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMULPD_ZMM_K1_ZMM_ZMMMT: Code = 4630 # type: ignore
+"""
+``VMULPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W1 59 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCVTPS2PD_ZMM_K1_ZMMMT: Code = 4631 # type: ignore
+"""
+``VCVTPS2PD zmm1 {k1}, Sf32(zmm2/mt)``
+
+``MVEX.512.0F.W0 5A /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCVTPD2PS_ZMM_K1_ZMMMT: Code = 4632 # type: ignore
+"""
+``VCVTPD2PS zmm1 {k1}, Sf64(zmm2/mt)``
+
+``MVEX.512.66.0F.W1 5A /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSUBPS_ZMM_K1_ZMM_ZMMMT: Code = 4633 # type: ignore
+"""
+``VSUBPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.0F.W0 5C /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSUBPD_ZMM_K1_ZMM_ZMMMT: Code = 4634 # type: ignore
+"""
+``VSUBPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W1 5C /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPCMPGTD_KR_K1_ZMM_ZMMMT: Code = 4635 # type: ignore
+"""
+``VPCMPGTD k2 {k1}, zmm1, Si32(zmm2/mt)``
+
+``MVEX.NDS.512.66.0F.W0 66 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVDQA32_ZMM_K1_ZMMMT: Code = 4636 # type: ignore
+"""
+``VMOVDQA32 zmm1 {k1}, Si32(zmm2/mt)``
+
+``MVEX.512.66.0F.W0 6F /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVDQA64_ZMM_K1_ZMMMT: Code = 4637 # type: ignore
+"""
+``VMOVDQA64 zmm1 {k1}, Si64(zmm2/mt)``
+
+``MVEX.512.66.0F.W1 6F /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSHUFD_ZMM_K1_ZMMMT_IMM8: Code = 4638 # type: ignore
+"""
+``VPSHUFD zmm1 {k1}, zmm2/mt, imm8``
+
+``MVEX.512.66.0F.W0 70 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSRLD_ZMM_K1_ZMMMT_IMM8: Code = 4639 # type: ignore
+"""
+``VPSRLD zmm1 {k1}, Si32(zmm2/mt), imm8``
+
+``MVEX.NDD.512.66.0F.W0 72 /2 ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSRAD_ZMM_K1_ZMMMT_IMM8: Code = 4640 # type: ignore
+"""
+``VPSRAD zmm1 {k1}, Si32(zmm2/mt), imm8``
+
+``MVEX.NDD.512.66.0F.W0 72 /4 ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSLLD_ZMM_K1_ZMMMT_IMM8: Code = 4641 # type: ignore
+"""
+``VPSLLD zmm1 {k1}, Si32(zmm2/mt), imm8``
+
+``MVEX.NDD.512.66.0F.W0 72 /6 ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPCMPEQD_KR_K1_ZMM_ZMMMT: Code = 4642 # type: ignore
+"""
+``VPCMPEQD k2 {k1}, zmm1, Si32(zmm2/mt)``
+
+``MVEX.NDS.512.66.0F.W0 76 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCVTUDQ2PD_ZMM_K1_ZMMMT: Code = 4643 # type: ignore
+"""
+``VCVTUDQ2PD zmm1 {k1}, Si32(zmm2/mt)``
+
+``MVEX.512.F3.0F.W0 7A /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVDQA32_MT_K1_ZMM: Code = 4644 # type: ignore
+"""
+``VMOVDQA32 mt {k1}, Di32(zmm1)``
+
+``MVEX.512.66.0F.W0 7F /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VMOVDQA64_MT_K1_ZMM: Code = 4645 # type: ignore
+"""
+``VMOVDQA64 mt {k1}, Di64(zmm1)``
+
+``MVEX.512.66.0F.W1 7F /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_CLEVICT1_M: Code = 4646 # type: ignore
+"""
+``CLEVICT1 m``
+
+``MVEX.512.F3.0F.WIG AE /7``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_CLEVICT0_M: Code = 4647 # type: ignore
+"""
+``CLEVICT0 m``
+
+``MVEX.512.F2.0F.WIG AE /7``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCMPPS_KR_K1_ZMM_ZMMMT_IMM8: Code = 4648 # type: ignore
+"""
+``VCMPPS k2 {k1}, zmm1, Sf32(zmm2/mt), imm8``
+
+``MVEX.NDS.512.0F.W0 C2 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCMPPD_KR_K1_ZMM_ZMMMT_IMM8: Code = 4649 # type: ignore
+"""
+``VCMPPD k2 {k1}, zmm1, Sf64(zmm2/mt), imm8``
+
+``MVEX.NDS.512.66.0F.W1 C2 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPANDD_ZMM_K1_ZMM_ZMMMT: Code = 4650 # type: ignore
+"""
+``VPANDD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W0 DB /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPANDQ_ZMM_K1_ZMM_ZMMMT: Code = 4651 # type: ignore
+"""
+``VPANDQ zmm1 {k1}, zmm2, Si64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W1 DB /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPANDND_ZMM_K1_ZMM_ZMMMT: Code = 4652 # type: ignore
+"""
+``VPANDND zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W0 DF /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPANDNQ_ZMM_K1_ZMM_ZMMMT: Code = 4653 # type: ignore
+"""
+``VPANDNQ zmm1 {k1}, zmm2, Si64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W1 DF /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCVTDQ2PD_ZMM_K1_ZMMMT: Code = 4654 # type: ignore
+"""
+``VCVTDQ2PD zmm1 {k1}, Si32(zmm2/mt)``
+
+``MVEX.512.F3.0F.W0 E6 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPORD_ZMM_K1_ZMM_ZMMMT: Code = 4655 # type: ignore
+"""
+``VPORD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W0 EB /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPORQ_ZMM_K1_ZMM_ZMMMT: Code = 4656 # type: ignore
+"""
+``VPORQ zmm1 {k1}, zmm2, Si64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W1 EB /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPXORD_ZMM_K1_ZMM_ZMMMT: Code = 4657 # type: ignore
+"""
+``VPXORD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W0 EF /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPXORQ_ZMM_K1_ZMM_ZMMMT: Code = 4658 # type: ignore
+"""
+``VPXORQ zmm1 {k1}, zmm2, Si64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W1 EF /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSUBD_ZMM_K1_ZMM_ZMMMT: Code = 4659 # type: ignore
+"""
+``VPSUBD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W0 FA /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPADDD_ZMM_K1_ZMM_ZMMMT: Code = 4660 # type: ignore
+"""
+``VPADDD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F.W0 FE /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VBROADCASTSS_ZMM_K1_MT: Code = 4661 # type: ignore
+"""
+``VBROADCASTSS zmm1 {k1}, Uf32(mt)``
+
+``MVEX.512.66.0F38.W0 18 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VBROADCASTSD_ZMM_K1_MT: Code = 4662 # type: ignore
+"""
+``VBROADCASTSD zmm1 {k1}, Uf64(mt)``
+
+``MVEX.512.66.0F38.W1 19 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VBROADCASTF32X4_ZMM_K1_MT: Code = 4663 # type: ignore
+"""
+``VBROADCASTF32X4 zmm1 {k1}, Uf32(mt)``
+
+``MVEX.512.66.0F38.W0 1A /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VBROADCASTF64X4_ZMM_K1_MT: Code = 4664 # type: ignore
+"""
+``VBROADCASTF64X4 zmm1 {k1}, Uf64(mt)``
+
+``MVEX.512.66.0F38.W1 1B /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPTESTMD_KR_K1_ZMM_ZMMMT: Code = 4665 # type: ignore
+"""
+``VPTESTMD k2 {k1}, zmm1, Si32(zmm2/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 27 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPERMD_ZMM_K1_ZMM_ZMMMT: Code = 4666 # type: ignore
+"""
+``VPERMD zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 36 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPMINSD_ZMM_K1_ZMM_ZMMMT: Code = 4667 # type: ignore
+"""
+``VPMINSD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 39 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPMINUD_ZMM_K1_ZMM_ZMMMT: Code = 4668 # type: ignore
+"""
+``VPMINUD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 3B /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPMAXSD_ZMM_K1_ZMM_ZMMMT: Code = 4669 # type: ignore
+"""
+``VPMAXSD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 3D /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPMAXUD_ZMM_K1_ZMM_ZMMMT: Code = 4670 # type: ignore
+"""
+``VPMAXUD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 3F /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPMULLD_ZMM_K1_ZMM_ZMMMT: Code = 4671 # type: ignore
+"""
+``VPMULLD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 40 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGETEXPPS_ZMM_K1_ZMMMT: Code = 4672 # type: ignore
+"""
+``VGETEXPPS zmm1 {k1}, Sf32(zmm2/mt)``
+
+``MVEX.512.66.0F38.W0 42 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGETEXPPD_ZMM_K1_ZMMMT: Code = 4673 # type: ignore
+"""
+``VGETEXPPD zmm1 {k1}, Sf64(zmm2/mt)``
+
+``MVEX.512.66.0F38.W1 42 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSRLVD_ZMM_K1_ZMM_ZMMMT: Code = 4674 # type: ignore
+"""
+``VPSRLVD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 45 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSRAVD_ZMM_K1_ZMM_ZMMMT: Code = 4675 # type: ignore
+"""
+``VPSRAVD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 46 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSLLVD_ZMM_K1_ZMM_ZMMMT: Code = 4676 # type: ignore
+"""
+``VPSLLVD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 47 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_66_0F38_W0_48: Code = 4677 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 48 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_66_0F38_W0_49: Code = 4678 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 49 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_66_0F38_W0_4A: Code = 4679 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 4A /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_66_0F38_W0_4B: Code = 4680 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 4B /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VADDNPS_ZMM_K1_ZMM_ZMMMT: Code = 4681 # type: ignore
+"""
+``VADDNPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 50 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VADDNPD_ZMM_K1_ZMM_ZMMMT: Code = 4682 # type: ignore
+"""
+``VADDNPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 50 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGMAXABSPS_ZMM_K1_ZMM_ZMMMT: Code = 4683 # type: ignore
+"""
+``VGMAXABSPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 51 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGMINPS_ZMM_K1_ZMM_ZMMMT: Code = 4684 # type: ignore
+"""
+``VGMINPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 52 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGMINPD_ZMM_K1_ZMM_ZMMMT: Code = 4685 # type: ignore
+"""
+``VGMINPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 52 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGMAXPS_ZMM_K1_ZMM_ZMMMT: Code = 4686 # type: ignore
+"""
+``VGMAXPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 53 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGMAXPD_ZMM_K1_ZMM_ZMMMT: Code = 4687 # type: ignore
+"""
+``VGMAXPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 53 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_54: Code = 4688 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 54 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFIXUPNANPS_ZMM_K1_ZMM_ZMMMT: Code = 4689 # type: ignore
+"""
+``VFIXUPNANPS zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 55 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFIXUPNANPD_ZMM_K1_ZMM_ZMMMT: Code = 4690 # type: ignore
+"""
+``VFIXUPNANPD zmm1 {k1}, zmm2, Si64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 55 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_56: Code = 4691 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 56 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_57: Code = 4692 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 57 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPBROADCASTD_ZMM_K1_MT: Code = 4693 # type: ignore
+"""
+``VPBROADCASTD zmm1 {k1}, Ui32(mt)``
+
+``MVEX.512.66.0F38.W0 58 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPBROADCASTQ_ZMM_K1_MT: Code = 4694 # type: ignore
+"""
+``VPBROADCASTQ zmm1 {k1}, Ui64(mt)``
+
+``MVEX.512.66.0F38.W1 59 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VBROADCASTI32X4_ZMM_K1_MT: Code = 4695 # type: ignore
+"""
+``VBROADCASTI32X4 zmm1 {k1}, Ui32(mt)``
+
+``MVEX.512.66.0F38.W0 5A /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VBROADCASTI64X4_ZMM_K1_MT: Code = 4696 # type: ignore
+"""
+``VBROADCASTI64X4 zmm1 {k1}, Ui64(mt)``
+
+``MVEX.512.66.0F38.W1 5B /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPADCD_ZMM_K1_KR_ZMMMT: Code = 4697 # type: ignore
+"""
+``VPADCD zmm1 {k1}, k2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 5C /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPADDSETCD_ZMM_K1_KR_ZMMMT: Code = 4698 # type: ignore
+"""
+``VPADDSETCD zmm1 {k1}, k2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 5D /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSBBD_ZMM_K1_KR_ZMMMT: Code = 4699 # type: ignore
+"""
+``VPSBBD zmm1 {k1}, k2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 5E /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSUBSETBD_ZMM_K1_KR_ZMMMT: Code = 4700 # type: ignore
+"""
+``VPSUBSETBD zmm1 {k1}, k2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 5F /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPBLENDMD_ZMM_K1_ZMM_ZMMMT: Code = 4701 # type: ignore
+"""
+``VPBLENDMD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 64 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPBLENDMQ_ZMM_K1_ZMM_ZMMMT: Code = 4702 # type: ignore
+"""
+``VPBLENDMQ zmm1 {k1}, zmm2, Si64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 64 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VBLENDMPS_ZMM_K1_ZMM_ZMMMT: Code = 4703 # type: ignore
+"""
+``VBLENDMPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 65 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VBLENDMPD_ZMM_K1_ZMM_ZMMMT: Code = 4704 # type: ignore
+"""
+``VBLENDMPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 65 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_67: Code = 4705 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 67 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_66_0F38_W0_68: Code = 4706 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 68 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_66_0F38_W0_69: Code = 4707 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 69 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_66_0F38_W0_6A: Code = 4708 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 6A /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_66_0F38_W0_6B: Code = 4709 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 6B /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSUBRD_ZMM_K1_ZMM_ZMMMT: Code = 4710 # type: ignore
+"""
+``VPSUBRD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 6C /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSUBRPS_ZMM_K1_ZMM_ZMMMT: Code = 4711 # type: ignore
+"""
+``VSUBRPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 6D /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSUBRPD_ZMM_K1_ZMM_ZMMMT: Code = 4712 # type: ignore
+"""
+``VSUBRPD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 6D /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSBBRD_ZMM_K1_KR_ZMMMT: Code = 4713 # type: ignore
+"""
+``VPSBBRD zmm1 {k1}, k2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 6E /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSUBRSETBD_ZMM_K1_KR_ZMMMT: Code = 4714 # type: ignore
+"""
+``VPSUBRSETBD zmm1 {k1}, k2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 6F /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_70: Code = 4715 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 70 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_71: Code = 4716 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 71 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_72: Code = 4717 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 72 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_73: Code = 4718 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 73 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPCMPLTD_KR_K1_ZMM_ZMMMT: Code = 4719 # type: ignore
+"""
+``VPCMPLTD k2 {k1}, zmm1, Si32(zmm2/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 74 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSCALEPS_ZMM_K1_ZMM_ZMMMT: Code = 4720 # type: ignore
+"""
+``VSCALEPS zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 84 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPMULHUD_ZMM_K1_ZMM_ZMMMT: Code = 4721 # type: ignore
+"""
+``VPMULHUD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 86 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPMULHD_ZMM_K1_ZMM_ZMMMT: Code = 4722 # type: ignore
+"""
+``VPMULHD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 87 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPGATHERDD_ZMM_K1_MVT: Code = 4723 # type: ignore
+"""
+``VPGATHERDD zmm1 {k1}, Ui32(mvt)``
+
+``MVEX.512.66.0F38.W0 90 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPGATHERDQ_ZMM_K1_MVT: Code = 4724 # type: ignore
+"""
+``VPGATHERDQ zmm1 {k1}, Ui64(mvt)``
+
+``MVEX.512.66.0F38.W1 90 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGATHERDPS_ZMM_K1_MVT: Code = 4725 # type: ignore
+"""
+``VGATHERDPS zmm1 {k1}, Uf32(mvt)``
+
+``MVEX.512.66.0F38.W0 92 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGATHERDPD_ZMM_K1_MVT: Code = 4726 # type: ignore
+"""
+``VGATHERDPD zmm1 {k1}, Uf64(mvt)``
+
+``MVEX.512.66.0F38.W1 92 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_94: Code = 4727 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 94 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W1_94: Code = 4728 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W1 94 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMADD132PS_ZMM_K1_ZMM_ZMMMT: Code = 4729 # type: ignore
+"""
+``VFMADD132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 98 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMADD132PD_ZMM_K1_ZMM_ZMMMT: Code = 4730 # type: ignore
+"""
+``VFMADD132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 98 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMSUB132PS_ZMM_K1_ZMM_ZMMMT: Code = 4731 # type: ignore
+"""
+``VFMSUB132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 9A /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMSUB132PD_ZMM_K1_ZMM_ZMMMT: Code = 4732 # type: ignore
+"""
+``VFMSUB132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 9A /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMADD132PS_ZMM_K1_ZMM_ZMMMT: Code = 4733 # type: ignore
+"""
+``VFNMADD132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 9C /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMADD132PD_ZMM_K1_ZMM_ZMMMT: Code = 4734 # type: ignore
+"""
+``VFNMADD132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 9C /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMSUB132PS_ZMM_K1_ZMM_ZMMMT: Code = 4735 # type: ignore
+"""
+``VFNMSUB132PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 9E /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMSUB132PD_ZMM_K1_ZMM_ZMMMT: Code = 4736 # type: ignore
+"""
+``VFNMSUB132PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 9E /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSCATTERDD_MVT_K1_ZMM: Code = 4737 # type: ignore
+"""
+``VPSCATTERDD mvt {k1}, Di32(zmm1)``
+
+``MVEX.512.66.0F38.W0 A0 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPSCATTERDQ_MVT_K1_ZMM: Code = 4738 # type: ignore
+"""
+``VPSCATTERDQ mvt {k1}, Di64(zmm1)``
+
+``MVEX.512.66.0F38.W1 A0 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSCATTERDPS_MVT_K1_ZMM: Code = 4739 # type: ignore
+"""
+``VSCATTERDPS mvt {k1}, Df32(zmm1)``
+
+``MVEX.512.66.0F38.W0 A2 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSCATTERDPD_MVT_K1_ZMM: Code = 4740 # type: ignore
+"""
+``VSCATTERDPD mvt {k1}, Df64(zmm1)``
+
+``MVEX.512.66.0F38.W1 A2 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMADD233PS_ZMM_K1_ZMM_ZMMMT: Code = 4741 # type: ignore
+"""
+``VFMADD233PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 A4 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMADD213PS_ZMM_K1_ZMM_ZMMMT: Code = 4742 # type: ignore
+"""
+``VFMADD213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 A8 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMADD213PD_ZMM_K1_ZMM_ZMMMT: Code = 4743 # type: ignore
+"""
+``VFMADD213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 A8 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMSUB213PS_ZMM_K1_ZMM_ZMMMT: Code = 4744 # type: ignore
+"""
+``VFMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 AA /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMSUB213PD_ZMM_K1_ZMM_ZMMMT: Code = 4745 # type: ignore
+"""
+``VFMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 AA /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMADD213PS_ZMM_K1_ZMM_ZMMMT: Code = 4746 # type: ignore
+"""
+``VFNMADD213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 AC /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMADD213PD_ZMM_K1_ZMM_ZMMMT: Code = 4747 # type: ignore
+"""
+``VFNMADD213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 AC /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMSUB213PS_ZMM_K1_ZMM_ZMMMT: Code = 4748 # type: ignore
+"""
+``VFNMSUB213PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 AE /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMSUB213PD_ZMM_K1_ZMM_ZMMMT: Code = 4749 # type: ignore
+"""
+``VFNMSUB213PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 AE /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_MVT_512_66_0F38_W0_B0: Code = 4750 # type: ignore
+"""
+``UNDOC zmm1 {k1}, mvt``
+
+``MVEX.512.66.0F38.W0 B0 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_MVT_512_66_0F38_W0_B2: Code = 4751 # type: ignore
+"""
+``UNDOC zmm1 {k1}, mvt``
+
+``MVEX.512.66.0F38.W0 B2 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPMADD233D_ZMM_K1_ZMM_ZMMMT: Code = 4752 # type: ignore
+"""
+``VPMADD233D zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 B4 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPMADD231D_ZMM_K1_ZMM_ZMMMT: Code = 4753 # type: ignore
+"""
+``VPMADD231D zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 B5 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMADD231PS_ZMM_K1_ZMM_ZMMMT: Code = 4754 # type: ignore
+"""
+``VFMADD231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 B8 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMADD231PD_ZMM_K1_ZMM_ZMMMT: Code = 4755 # type: ignore
+"""
+``VFMADD231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 B8 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMSUB231PS_ZMM_K1_ZMM_ZMMMT: Code = 4756 # type: ignore
+"""
+``VFMSUB231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 BA /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFMSUB231PD_ZMM_K1_ZMM_ZMMMT: Code = 4757 # type: ignore
+"""
+``VFMSUB231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 BA /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMADD231PS_ZMM_K1_ZMM_ZMMMT: Code = 4758 # type: ignore
+"""
+``VFNMADD231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 BC /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMADD231PD_ZMM_K1_ZMM_ZMMMT: Code = 4759 # type: ignore
+"""
+``VFNMADD231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 BC /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMSUB231PS_ZMM_K1_ZMM_ZMMMT: Code = 4760 # type: ignore
+"""
+``VFNMSUB231PS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 BE /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VFNMSUB231PD_ZMM_K1_ZMM_ZMMMT: Code = 4761 # type: ignore
+"""
+``VFNMSUB231PD zmm1 {k1}, zmm2, Sf64(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W1 BE /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_MVT_512_66_0F38_W0_C0: Code = 4762 # type: ignore
+"""
+``UNDOC zmm1 {k1}, mvt``
+
+``MVEX.512.66.0F38.W0 C0 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGATHERPF0HINTDPS_MVT_K1: Code = 4763 # type: ignore
+"""
+``VGATHERPF0HINTDPS Uf32(mvt) {k1}``
+
+``MVEX.512.66.0F38.W0 C6 /0 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGATHERPF0HINTDPD_MVT_K1: Code = 4764 # type: ignore
+"""
+``VGATHERPF0HINTDPD Uf64(mvt) {k1}``
+
+``MVEX.512.66.0F38.W1 C6 /0 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGATHERPF0DPS_MVT_K1: Code = 4765 # type: ignore
+"""
+``VGATHERPF0DPS Uf32(mvt) {k1}``
+
+``MVEX.512.66.0F38.W0 C6 /1 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGATHERPF1DPS_MVT_K1: Code = 4766 # type: ignore
+"""
+``VGATHERPF1DPS Uf32(mvt) {k1}``
+
+``MVEX.512.66.0F38.W0 C6 /2 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSCATTERPF0HINTDPS_MVT_K1: Code = 4767 # type: ignore
+"""
+``VSCATTERPF0HINTDPS Uf32(mvt) {k1}``
+
+``MVEX.512.66.0F38.W0 C6 /4 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSCATTERPF0HINTDPD_MVT_K1: Code = 4768 # type: ignore
+"""
+``VSCATTERPF0HINTDPD Uf64(mvt) {k1}``
+
+``MVEX.512.66.0F38.W1 C6 /4 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSCATTERPF0DPS_MVT_K1: Code = 4769 # type: ignore
+"""
+``VSCATTERPF0DPS Uf32(mvt) {k1}``
+
+``MVEX.512.66.0F38.W0 C6 /5 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VSCATTERPF1DPS_MVT_K1: Code = 4770 # type: ignore
+"""
+``VSCATTERPF1DPS Uf32(mvt) {k1}``
+
+``MVEX.512.66.0F38.W0 C6 /6 /vsib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VEXP223PS_ZMM_K1_ZMMMT: Code = 4771 # type: ignore
+"""
+``VEXP223PS zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 C8 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VLOG2PS_ZMM_K1_ZMMMT: Code = 4772 # type: ignore
+"""
+``VLOG2PS zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 C9 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VRCP23PS_ZMM_K1_ZMMMT: Code = 4773 # type: ignore
+"""
+``VRCP23PS zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 CA /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VRSQRT23PS_ZMM_K1_ZMMMT: Code = 4774 # type: ignore
+"""
+``VRSQRT23PS zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 CB /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VADDSETSPS_ZMM_K1_ZMM_ZMMMT: Code = 4775 # type: ignore
+"""
+``VADDSETSPS zmm1 {k1}, zmm2, Sf32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 CC /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPADDSETSD_ZMM_K1_ZMM_ZMMMT: Code = 4776 # type: ignore
+"""
+``VPADDSETSD zmm1 {k1}, zmm2, Si32(zmm3/mt)``
+
+``MVEX.NDS.512.66.0F38.W0 CD /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_CE: Code = 4777 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 CE /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W1_CE: Code = 4778 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W1 CE /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMM_ZMMMT_512_66_0F38_W0_CF: Code = 4779 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2, zmm3/mt``
+
+``MVEX.NDS.512.66.0F38.W0 CF /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VLOADUNPACKLD_ZMM_K1_MT: Code = 4780 # type: ignore
+"""
+``VLOADUNPACKLD zmm1 {k1}, Ui32(mt)``
+
+``MVEX.512.0F38.W0 D0 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VLOADUNPACKLQ_ZMM_K1_MT: Code = 4781 # type: ignore
+"""
+``VLOADUNPACKLQ zmm1 {k1}, Ui64(mt)``
+
+``MVEX.512.0F38.W1 D0 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPACKSTORELD_MT_K1_ZMM: Code = 4782 # type: ignore
+"""
+``VPACKSTORELD mt {k1}, Di32(zmm1)``
+
+``MVEX.512.66.0F38.W0 D0 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPACKSTORELQ_MT_K1_ZMM: Code = 4783 # type: ignore
+"""
+``VPACKSTORELQ mt {k1}, Di64(zmm1)``
+
+``MVEX.512.66.0F38.W1 D0 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VLOADUNPACKLPS_ZMM_K1_MT: Code = 4784 # type: ignore
+"""
+``VLOADUNPACKLPS zmm1 {k1}, Uf32(mt)``
+
+``MVEX.512.0F38.W0 D1 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VLOADUNPACKLPD_ZMM_K1_MT: Code = 4785 # type: ignore
+"""
+``VLOADUNPACKLPD zmm1 {k1}, Uf64(mt)``
+
+``MVEX.512.0F38.W1 D1 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPACKSTORELPS_MT_K1_ZMM: Code = 4786 # type: ignore
+"""
+``VPACKSTORELPS mt {k1}, Df32(zmm1)``
+
+``MVEX.512.66.0F38.W0 D1 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPACKSTORELPD_MT_K1_ZMM: Code = 4787 # type: ignore
+"""
+``VPACKSTORELPD mt {k1}, Df64(zmm1)``
+
+``MVEX.512.66.0F38.W1 D1 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_0F38_W0_D2: Code = 4788 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.0F38.W0 D2 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_66_0F38_W0_D2: Code = 4789 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 D2 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_0F38_W0_D3: Code = 4790 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.0F38.W0 D3 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VLOADUNPACKHD_ZMM_K1_MT: Code = 4791 # type: ignore
+"""
+``VLOADUNPACKHD zmm1 {k1}, Ui32(mt)``
+
+``MVEX.512.0F38.W0 D4 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VLOADUNPACKHQ_ZMM_K1_MT: Code = 4792 # type: ignore
+"""
+``VLOADUNPACKHQ zmm1 {k1}, Ui64(mt)``
+
+``MVEX.512.0F38.W1 D4 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPACKSTOREHD_MT_K1_ZMM: Code = 4793 # type: ignore
+"""
+``VPACKSTOREHD mt {k1}, Di32(zmm1)``
+
+``MVEX.512.66.0F38.W0 D4 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPACKSTOREHQ_MT_K1_ZMM: Code = 4794 # type: ignore
+"""
+``VPACKSTOREHQ mt {k1}, Di64(zmm1)``
+
+``MVEX.512.66.0F38.W1 D4 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VLOADUNPACKHPS_ZMM_K1_MT: Code = 4795 # type: ignore
+"""
+``VLOADUNPACKHPS zmm1 {k1}, Uf32(mt)``
+
+``MVEX.512.0F38.W0 D5 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VLOADUNPACKHPD_ZMM_K1_MT: Code = 4796 # type: ignore
+"""
+``VLOADUNPACKHPD zmm1 {k1}, Uf64(mt)``
+
+``MVEX.512.0F38.W1 D5 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPACKSTOREHPS_MT_K1_ZMM: Code = 4797 # type: ignore
+"""
+``VPACKSTOREHPS mt {k1}, Df32(zmm1)``
+
+``MVEX.512.66.0F38.W0 D5 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPACKSTOREHPD_MT_K1_ZMM: Code = 4798 # type: ignore
+"""
+``VPACKSTOREHPD mt {k1}, Df64(zmm1)``
+
+``MVEX.512.66.0F38.W1 D5 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_0F38_W0_D6: Code = 4799 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.0F38.W0 D6 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_66_0F38_W0_D6: Code = 4800 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.66.0F38.W0 D6 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_512_0F38_W0_D7: Code = 4801 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt``
+
+``MVEX.512.0F38.W0 D7 /r``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VALIGND_ZMM_K1_ZMM_ZMMMT_IMM8: Code = 4802 # type: ignore
+"""
+``VALIGND zmm1 {k1}, zmm2, zmm3/mt, imm8``
+
+``MVEX.NDS.512.66.0F3A.W0 03 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPERMF32X4_ZMM_K1_ZMMMT_IMM8: Code = 4803 # type: ignore
+"""
+``VPERMF32X4 zmm1 {k1}, zmm2/mt, imm8``
+
+``MVEX.512.66.0F3A.W0 07 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPCMPUD_KR_K1_ZMM_ZMMMT_IMM8: Code = 4804 # type: ignore
+"""
+``VPCMPUD k2 {k1}, zmm1, Si32(zmm2/mt), imm8``
+
+``MVEX.NDS.512.66.0F3A.W0 1E /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VPCMPD_KR_K1_ZMM_ZMMMT_IMM8: Code = 4805 # type: ignore
+"""
+``VPCMPD k2 {k1}, zmm1, Si32(zmm2/mt), imm8``
+
+``MVEX.NDS.512.66.0F3A.W0 1F /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGETMANTPS_ZMM_K1_ZMMMT_IMM8: Code = 4806 # type: ignore
+"""
+``VGETMANTPS zmm1 {k1}, Sf32(zmm2/mt), imm8``
+
+``MVEX.512.66.0F3A.W0 26 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VGETMANTPD_ZMM_K1_ZMMMT_IMM8: Code = 4807 # type: ignore
+"""
+``VGETMANTPD zmm1 {k1}, Sf64(zmm2/mt), imm8``
+
+``MVEX.512.66.0F3A.W1 26 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VRNDFXPNTPS_ZMM_K1_ZMMMT_IMM8: Code = 4808 # type: ignore
+"""
+``VRNDFXPNTPS zmm1 {k1}, Sf32(zmm2/mt), imm8``
+
+``MVEX.512.66.0F3A.W0 52 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VRNDFXPNTPD_ZMM_K1_ZMMMT_IMM8: Code = 4809 # type: ignore
+"""
+``VRNDFXPNTPD zmm1 {k1}, Sf64(zmm2/mt), imm8``
+
+``MVEX.512.66.0F3A.W1 52 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCVTFXPNTUDQ2PS_ZMM_K1_ZMMMT_IMM8: Code = 4810 # type: ignore
+"""
+``VCVTFXPNTUDQ2PS zmm1 {k1}, Si32(zmm2/mt), imm8``
+
+``MVEX.512.0F3A.W0 CA /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCVTFXPNTPS2UDQ_ZMM_K1_ZMMMT_IMM8: Code = 4811 # type: ignore
+"""
+``VCVTFXPNTPS2UDQ zmm1 {k1}, Sf32(zmm2/mt), imm8``
+
+``MVEX.512.66.0F3A.W0 CA /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCVTFXPNTPD2UDQ_ZMM_K1_ZMMMT_IMM8: Code = 4812 # type: ignore
+"""
+``VCVTFXPNTPD2UDQ zmm1 {k1}, Sf64(zmm2/mt), imm8``
+
+``MVEX.512.F2.0F3A.W1 CA /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCVTFXPNTDQ2PS_ZMM_K1_ZMMMT_IMM8: Code = 4813 # type: ignore
+"""
+``VCVTFXPNTDQ2PS zmm1 {k1}, Si32(zmm2/mt), imm8``
+
+``MVEX.512.0F3A.W0 CB /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCVTFXPNTPS2DQ_ZMM_K1_ZMMMT_IMM8: Code = 4814 # type: ignore
+"""
+``VCVTFXPNTPS2DQ zmm1 {k1}, Sf32(zmm2/mt), imm8``
+
+``MVEX.512.66.0F3A.W0 CB /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_IMM8_512_66_0F3A_W0_D0: Code = 4815 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt, imm8``
+
+``MVEX.512.66.0F3A.W0 D0 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_UNDOC_ZMM_K1_ZMMMT_IMM8_512_66_0F3A_W0_D1: Code = 4816 # type: ignore
+"""
+``UNDOC zmm1 {k1}, zmm2/mt, imm8``
+
+``MVEX.512.66.0F3A.W0 D1 /r ib``
+
+``KNC``
+
+``64-bit``
+"""
+MVEX_VCVTFXPNTPD2DQ_ZMM_K1_ZMMMT_IMM8: Code = 4817 # type: ignore
+"""
+``VCVTFXPNTPD2DQ zmm1 {k1}, Sf64(zmm2/mt), imm8``
+
+``MVEX.512.F2.0F3A.W1 E6 /r ib``
+
+``KNC``
+
+``64-bit``
+"""

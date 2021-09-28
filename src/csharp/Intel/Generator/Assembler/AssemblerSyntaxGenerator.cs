@@ -294,6 +294,7 @@ namespace Generator.Assembler {
 
 				if (def.Encoding == EncodingKind.VEX) opCodeArgFlags |= OpCodeArgFlags.HasVex;
 				if (def.Encoding == EncodingKind.EVEX) opCodeArgFlags |= OpCodeArgFlags.HasEvex;
+				if (def.Encoding == EncodingKind.MVEX) throw new InvalidOperationException();
 
 				if ((def.Flags1 & InstructionDefFlags1.ZeroingMasking) != 0) opCodeArgFlags |= OpCodeArgFlags.HasZeroingMask;
 				if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0) opCodeArgFlags |= OpCodeArgFlags.HasKMask;
@@ -722,6 +723,9 @@ namespace Generator.Assembler {
 					if ((argFlags & (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) == (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) {
 						var vex = opcodes.Where(x => x.Encoding == EncodingKind.VEX).ToList();
 						var evex = opcodes.Where(x => x.Encoding == EncodingKind.EVEX).ToList();
+						var mvex = opcodes.Where(x => x.Encoding == EncodingKind.MVEX).ToList();
+						if (mvex.Count != 0)
+							throw new InvalidOperationException();
 
 						return new OpCodeSelector(OpCodeSelectorKind.Vex) {
 							IfTrue = BuildSelectorGraph(group, signature, argFlags & ~(OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex), vex),
@@ -1145,6 +1149,7 @@ namespace Generator.Assembler {
 				var codeEvexFlags = def.Encoding switch {
 					EncodingKind.VEX => OpCodeArgFlags.HasVex,
 					EncodingKind.EVEX => OpCodeArgFlags.HasEvex,
+					EncodingKind.MVEX => throw new InvalidOperationException(),
 					_ => OpCodeArgFlags.None,
 				};
 

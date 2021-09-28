@@ -17,6 +17,7 @@ namespace Generator.Decoder.Rust {
 				new RustDecoderTableSerializer(genTypes, "vex", DecoderTableSerializerInfo.Vex(genTypes)),
 				new RustDecoderTableSerializer(genTypes, "evex", DecoderTableSerializerInfo.Evex(genTypes)),
 				new RustDecoderTableSerializer(genTypes, "xop", DecoderTableSerializerInfo.Xop(genTypes)),
+				new RustDecoderTableSerializer(genTypes, "mvex", DecoderTableSerializerInfo.Mvex(genTypes)),
 			};
 
 			foreach (var serializer in serializers) {

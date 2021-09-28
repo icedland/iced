@@ -2,6 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 using System;
+using System.Linq;
 using Generator.Constants.Encoder;
 using Generator.Enums;
 using Generator.Enums.Encoder;
@@ -45,6 +46,7 @@ namespace Generator.Tables {
 				EncodingKind.EVEX => OpCodeInfoConstants.Encoding_EVEX,
 				EncodingKind.XOP => OpCodeInfoConstants.Encoding_XOP,
 				EncodingKind.D3NOW => OpCodeInfoConstants.Encoding_3DNOW,
+				EncodingKind.MVEX => OpCodeInfoConstants.Encoding_MVEX,
 				_ => throw new InvalidOperationException(),
 			};
 			writer.Write(sep);
@@ -146,50 +148,36 @@ namespace Generator.Tables {
 			}
 
 			switch (def.LBit) {
-			case OpCodeL.None:
-				break;
+			case OpCodeL.None: break;
 			case OpCodeL.L0:
-			case OpCodeL.LZ:
-				W(OpCodeInfoKeywords.L0);
-				break;
-			case OpCodeL.L1:
-				W(OpCodeInfoKeywords.L1);
-				break;
-			case OpCodeL.LIG:
-				W(OpCodeInfoKeywords.LIG);
-				break;
-			case OpCodeL.L128:
-				W(OpCodeInfoKeywords.L128);
-				break;
-			case OpCodeL.L256:
-				W(OpCodeInfoKeywords.L256);
-				break;
-			case OpCodeL.L512:
-				W(OpCodeInfoKeywords.L512);
-				break;
-			default:
-				throw new InvalidOperationException();
+			case OpCodeL.LZ: W(OpCodeInfoKeywords.L0); break;
+			case OpCodeL.L1: W(OpCodeInfoKeywords.L1); break;
+			case OpCodeL.LIG: W(OpCodeInfoKeywords.LIG); break;
+			case OpCodeL.L128: W(OpCodeInfoKeywords.L128); break;
+			case OpCodeL.L256: W(OpCodeInfoKeywords.L256); break;
+			case OpCodeL.L512: W(OpCodeInfoKeywords.L512); break;
+			default: throw new InvalidOperationException();
 			}
 
 			if ((def.Flags1 & InstructionDefFlags1.WIG32) != 0)
 				W(OpCodeInfoKeywords.WIG32);
 			else {
 				switch (def.WBit) {
-				case OpCodeW.None:
-					break;
-				case OpCodeW.W0:
-					W(OpCodeInfoKeywords.W0);
-					break;
-				case OpCodeW.W1:
-					W(OpCodeInfoKeywords.W1);
-					break;
-				case OpCodeW.WIG:
-					W(OpCodeInfoKeywords.WIG);
-					break;
+				case OpCodeW.None: break;
+				case OpCodeW.W0: W(OpCodeInfoKeywords.W0); break;
+				case OpCodeW.W1: W(OpCodeInfoKeywords.W1); break;
+				case OpCodeW.WIG: W(OpCodeInfoKeywords.WIG); break;
 				case OpCodeW.WIG32:
 				default:
 					throw new InvalidOperationException();
 				}
+			}
+
+			switch (def.Mvex.EHBit) {
+			case MvexEHBit.None: break;
+			case MvexEHBit.EH0: W(OpCodeInfoKeywords.EH0); break;
+			case MvexEHBit.EH1: W(OpCodeInfoKeywords.EH1); break;
+			default: throw new InvalidOperationException();
 			}
 
 			if (def.OpCount > 0) {
@@ -226,9 +214,20 @@ namespace Generator.Tables {
 			if ((def.Flags1 & InstructionDefFlags1.HintTaken) != 0) W(OpCodeInfoKeywords.HintTaken);
 			if ((def.Flags1 & InstructionDefFlags1.Notrack) != 0) W(OpCodeInfoKeywords.Notrack);
 
-			if ((MemorySize)def.Memory.Value != MemorySize.Unknown && def.Encoding == EncodingKind.EVEX) {
+			bool addTupleType = def.Encoding switch {
+				EncodingKind.EVEX or EncodingKind.MVEX => def.OpKindDefs.Any(x => x.Memory),
+				_ => false,
+			};
+			if (addTupleType) {
 				WK(OpCodeInfoKeywordKeys.TupleType);
 				writer.Write(def.TupleType.ToString());
+			}
+
+			if (def.Encoding == EncodingKind.MVEX) {
+				WK(OpCodeInfoKeywordKeys.MVEX);
+				ref readonly var mvex = ref def.Mvex;
+				var value = $"{mvex.TupleTypeLutKind.RawName};{mvex.ConvFn};0x{mvex.ValidConvFns:X};0x{mvex.ValidSwizzleFns:X}";
+				writer.Write(value);
 			}
 
 			if ((def.Flags1 & InstructionDefFlags1.Broadcast) != 0) W(OpCodeInfoKeywords.Broadcast);
@@ -291,6 +290,11 @@ namespace Generator.Tables {
 			if ((def.Flags3 & InstructionDefFlags3.FpuNoWait) != 0) W(OpCodeInfoKeywords.FpuNoWait);
 			if ((def.Flags3 & InstructionDefFlags3.Privileged) != 0) W(OpCodeInfoKeywords.Privileged);
 			if ((def.Flags3 & InstructionDefFlags3.RequiresUniqueDestRegNum) != 0) W(OpCodeInfoKeywords.RequiresUniqueDestRegNum);
+
+			if ((def.Mvex.Flags1 & MvexInfoFlags1.EvictionHint) != 0) W(OpCodeInfoKeywords.EvictionHint);
+			if ((def.Mvex.Flags1 & MvexInfoFlags1.IgnoresOpMaskRegister) != 0) W(OpCodeInfoKeywords.IgnoresOpMaskRegister);
+			if ((def.Mvex.Flags1 & MvexInfoFlags1.ImmRoundingControl) != 0) W(OpCodeInfoKeywords.ImmRoundingControl);
+			if ((def.Mvex.Flags2 & MvexInfoFlags2.NoSaeRoundingControl) != 0) W(OpCodeInfoKeywords.NoSaeRoundingControl);
 
 			writer.WriteLine();
 		}

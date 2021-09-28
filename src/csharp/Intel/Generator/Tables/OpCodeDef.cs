@@ -6,25 +6,6 @@ using Generator.Enums;
 using Generator.Enums.Encoder;
 
 namespace Generator.Tables {
-	enum OpCodeW : byte {
-		None,
-		W0,
-		W1,
-		WIG,
-		WIG32,
-	}
-
-	enum OpCodeL : byte {
-		None,
-		L0,
-		L1,
-		LIG,
-		LZ,
-		L128,
-		L256,
-		L512,
-	}
-
 	[Flags]
 	enum ParsedOpCodeFlags : byte {
 		None			= 0,
@@ -41,6 +22,8 @@ namespace Generator.Tables {
 		public OpCodeW WBit;
 		public OpCodeL LBit;
 		public OpCodeTableKind Table;
+		public NonDestructiveOpKind NDKind;
+		public MvexEHBit MvexEHBit;
 		public uint OpCode;
 		public int OpCodeLength;
 		public sbyte GroupIndex;
@@ -56,6 +39,8 @@ namespace Generator.Tables {
 				WBit = OpCodeW.None,
 				LBit = OpCodeL.None,
 				Table = OpCodeTableKind.Normal,
+				NDKind = NonDestructiveOpKind.None,
+				MvexEHBit = MvexEHBit.None,
 				OpCode = 0,
 				GroupIndex = -1,
 				RmGroupIndex = -1,

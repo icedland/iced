@@ -99,13 +99,17 @@ namespace Generator.Tables {
 		/// Memory broadcast size in bits
 		/// </summary>
 		public readonly int MemSize2Bits;
+		
+		public readonly MvexConvFn MvexConvFn;
 
-		public ParsedInstructionOperand(ParsedInstructionOperandFlags flags, Register register, int sizeBits, int memSizeBits, int memSize2Bits) {
+		public ParsedInstructionOperand(ParsedInstructionOperandFlags flags, Register register, int sizeBits, int memSizeBits, int memSize2Bits,
+			MvexConvFn mvexConvFn) {
 			Flags = flags;
 			Register = register;
 			SizeBits = sizeBits;
 			MemSizeBits = memSizeBits;
 			MemSize2Bits = memSize2Bits;
+			MvexConvFn = mvexConvFn;
 		}
 	}
 
@@ -132,6 +136,10 @@ namespace Generator.Tables {
 		/// m64bcst
 		/// </summary>
 		Broadcast				= 0x00000010,
+		/// <summary>
+		/// {eh}
+		/// </summary>
+		EvictionHint			= 0x00000020,
 	}
 
 	[DebuggerDisplay("{Mnemonic} {Flags}")]

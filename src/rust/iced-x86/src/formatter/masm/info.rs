@@ -214,12 +214,12 @@ pub(super) trait InstrInfo {
 }
 
 fn get_bitness(code_size: CodeSize) -> u32 {
-	match code_size {
-		CodeSize::Code16 => 16,
-		CodeSize::Code32 => 32,
-		CodeSize::Code64 => 64,
-		_ => 0,
-	}
+	static CODESIZE_TO_BITNESS: [u32; 4] = [0, 16, 32, 64];
+	const_assert_eq!(CodeSize::Unknown as u32, 0);
+	const_assert_eq!(CodeSize::Code16 as u32, 1);
+	const_assert_eq!(CodeSize::Code32 as u32, 2);
+	const_assert_eq!(CodeSize::Code64 as u32, 3);
+	CODESIZE_TO_BITNESS[code_size as usize]
 }
 
 pub(super) struct SimpleInstrInfo {

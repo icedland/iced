@@ -85,6 +85,7 @@ Here's a list of all features you can enable when building the wasm file
 - `no_evex`: Disables all `EVEX` instructions. See below for more info.
 - `no_xop`: Disables all `XOP` instructions. See below for more info.
 - `no_d3now`: Disables all `3DNow!` instructions. See below for more info.
+- `mvex`: Enables `MVEX` instructions (Knights Corner). You must also pass in `DecoderOptions.KNC` to the `Decoder` constructor.
 
 `"decoder fast_fmt"` is all you need to disassemble code (or replace `fast_fmt` with eg. `nasm` or `gas`).
 
@@ -896,6 +897,7 @@ function encodingKindToString(value) {
         case EncodingKind.EVEX: return "EVEX";
         case EncodingKind.XOP: return "XOP";
         case EncodingKind.D3NOW: return "D3NOW";
+        case EncodingKind.MVEX: return "MVEX";
         default: return value + " /*EncodingKind enum*/";
     }
 }

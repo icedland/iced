@@ -37,6 +37,10 @@ class MandatoryPrefix(IntEnum): ...
 class MemorySize(IntEnum): ...
 class MemorySizeOptions(IntEnum): ...
 class Mnemonic(IntEnum): ...
+class MvexConvFn(IntEnum): ...
+class MvexEHBit(IntEnum): ...
+class MvexRegMemConv(IntEnum): ...
+class MvexTupleTypeLutKind(IntEnum): ...
 class OpAccess(IntEnum): ...
 class OpCodeOperandKind(IntEnum): ...
 class OpCodeTableKind(IntEnum): ...
@@ -726,6 +730,12 @@ class Encoder:
 		...
 	@evex_lig.setter
 	def evex_lig(self, new_value: int) -> None: ...
+	@property
+	def mvex_wig(self) -> int:
+		"""int: (`u8`) Value of the `MVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0."""
+		...
+	@mvex_wig.setter
+	def mvex_wig(self, new_value: int) -> None: ...
 	@property
 	def bitness(self) -> int:
 		"""int: Gets the bitness (16, 32 or 64)"""
@@ -2518,7 +2528,7 @@ class Instruction:
 		Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
 
 		Note that the return value can be 1 and `Instruction.memory_displacement` may still not fit in
-		a signed byte if it's an EVEX encoded instruction.
+		a signed byte if it's an EVEX/MVEX encoded instruction.
 
 		Use this method if the operand has kind `OpKind.MEMORY`
 		"""
@@ -2531,6 +2541,18 @@ class Instruction:
 		...
 	@is_broadcast.setter
 	def is_broadcast(self, new_value: bool) -> None: ...
+	@property
+	def is_mvex_eviction_hint(self) -> bool:
+		"""bool: `True` if eviction hint bit is set (`{eh}`) (MVEX instructions only)"""
+		...
+	@is_mvex_eviction_hint.setter
+	def is_mvex_eviction_hint(self, new_value: bool) -> None: ...
+	@property
+	def mvex_reg_mem_conv(self) -> MvexRegMemConv:
+		"""`MvexRegMemConv`: (MVEX) Register/memory operand conversion function (a `MvexRegMemConv` enum value)"""
+		...
+	@mvex_reg_mem_conv.setter
+	def mvex_reg_mem_conv(self, new_value: MvexRegMemConv) -> None: ...
 	@property
 	def memory_size(self) -> MemorySize:
 		"""
@@ -3272,7 +3294,7 @@ class Instruction:
 		...
 	@property
 	def suppress_all_exceptions(self) -> bool:
-		"""bool: Gets the suppress all exceptions flag (EVEX encoded instructions). Note that if `Instruction.rounding_control` is not `RoundingControl.NONE`, SAE is implied but this method will still return `False`."""
+		"""bool: Gets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if `Instruction.rounding_control` is not `RoundingControl.NONE`, SAE is implied but this method will still return `False`."""
 		...
 	@suppress_all_exceptions.setter
 	def suppress_all_exceptions(self, new_value: bool) -> None: ...
@@ -3464,7 +3486,7 @@ class Instruction:
 		"""
 		`RflagsBits`: All flags that are read by the CPU when executing the instruction.
 
-		This method returns a `RflagsBits` value. See also `Instruction.rflags_modified`.
+		This method returns an `RflagsBits` value. See also `Instruction.rflags_modified`.
 
 		### Examples:
 
@@ -3501,7 +3523,7 @@ class Instruction:
 		"""
 		`RflagsBits`: All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
 
-		This method returns a `RflagsBits` value. See also `Instruction.rflags_modified`.
+		This method returns an `RflagsBits` value. See also `Instruction.rflags_modified`.
 
 		### Examples:
 
@@ -3538,7 +3560,7 @@ class Instruction:
 		"""
 		`RflagsBits`: All flags that are always cleared by the CPU.
 
-		This method returns a `RflagsBits` value. See also `Instruction.rflags_modified`.
+		This method returns an `RflagsBits` value. See also `Instruction.rflags_modified`.
 
 		### Examples:
 
@@ -3575,7 +3597,7 @@ class Instruction:
 		"""
 		`RflagsBits`: All flags that are always set by the CPU.
 
-		This method returns a `RflagsBits` value. See also `Instruction.rflags_modified`.
+		This method returns an `RflagsBits` value. See also `Instruction.rflags_modified`.
 
 		### Examples:
 
@@ -3612,7 +3634,7 @@ class Instruction:
 		"""
 		`RflagsBits`: All flags that are undefined after executing the instruction.
 
-		This method returns a `RflagsBits` value. See also `Instruction.rflags_modified`.
+		This method returns an `RflagsBits` value. See also `Instruction.rflags_modified`.
 
 		### Examples:
 
@@ -3649,7 +3671,7 @@ class Instruction:
 		"""
 		`RflagsBits`: All flags that are modified by the CPU. This is `rflags_written + rflags_cleared + rflags_set + rflags_undefined`.
 
-		This method returns a `RflagsBits` value.
+		This method returns an `RflagsBits` value.
 
 		### Examples:
 
@@ -3732,6 +3754,18 @@ class Instruction:
 	@property
 	def is_call_far_indirect(self) -> bool:
 		"""bool: Checks if it's a `CALL FAR [mem]` instruction"""
+		...
+	@property
+	def is_jkcc_short_or_near(self) -> bool:
+		"""bool: Checks if it's a `JKccD SHORT` or `JKccD NEAR` instruction"""
+		...
+	@property
+	def is_jkcc_near(self) -> bool:
+		"""bool: Checks if it's a `JKccD NEAR` instruction"""
+		...
+	@property
+	def is_jkcc_short(self) -> bool:
+		"""bool: Checks if it's a `JKccD SHORT` instruction"""
 		...
 	def negate_condition_code(self) -> None:
 		"""
@@ -7393,7 +7427,7 @@ class OpCodeInfo:
 		...
 	@property
 	def w(self) -> int:
-		"""int: (`u8`) (VEX/XOP/EVEX) `W` value or default value if `OpCodeInfo.is_wig` or `OpCodeInfo.is_wig32` is `True`"""
+		"""int: (`u8`) (VEX/XOP/EVEX/MVEX) `W` value or default value if `OpCodeInfo.is_wig` or `OpCodeInfo.is_wig32` is `True`"""
 		...
 	@property
 	def is_lig(self) -> bool:
@@ -7405,15 +7439,51 @@ class OpCodeInfo:
 		...
 	@property
 	def is_wig(self) -> bool:
-		"""bool: (VEX/XOP/EVEX) `True` if the `W` field is ignored in 16/32/64-bit modes"""
+		"""bool: (VEX/XOP/EVEX/MVEX) `True` if the `W` field is ignored in 16/32/64-bit modes"""
 		...
 	@property
 	def is_wig32(self) -> bool:
-		"""bool: (VEX/XOP/EVEX) `True` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)"""
+		"""bool: (VEX/XOP/EVEX/MVEX) `True` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)"""
 		...
 	@property
 	def tuple_type(self) -> TupleType:
-		"""`TupleType`: (EVEX) Gets the tuple type (a `TupleType` enum value)"""
+		"""`TupleType`: (EVEX/MVEX) Gets the tuple type (a `TupleType` enum value)"""
+		...
+	@property
+	def mvex_eh_bit(self) -> MvexEHBit:
+		"""`MvexEHBit`: (MVEX) Gets the `EH` bit that's required to encode this instruction (an `MvexEHBit` enum value)"""
+		...
+	@property
+	def mvex_can_use_eviction_hint(self) -> bool:
+		"""bool: (MVEX) `True` if the instruction supports eviction hint (if it has a memory operand)"""
+		...
+	@property
+	def mvex_can_use_imm_rounding_control(self) -> bool:
+		"""bool: (MVEX) `True` if the instruction's rounding control bits are stored in `imm8[1:0]`"""
+		...
+	@property
+	def mvex_ignores_op_mask_register(self) -> bool:
+		"""bool: (MVEX) `True` if the instruction ignores op mask registers (eg. `{k1}`)"""
+		...
+	@property
+	def mvex_no_sae_rc(self) -> bool:
+		"""bool: (MVEX) `True` if the instruction must have `MVEX.SSS=000` if `MVEX.EH=1`"""
+		...
+	@property
+	def mvex_tuple_type_lut_kind(self) -> MvexTupleTypeLutKind:
+		"""`MvexTupleTypeLutKind`: (MVEX) Gets the tuple type / conv lut kind (an `MvexTupleTypeLutKind` enum value)"""
+		...
+	@property
+	def mvex_conversion_func(self) -> MvexConvFn:
+		"""`MvexConvFn`: (MVEX) Gets the conversion function, eg. `Sf32` (an `MvexConvFn` enum value)"""
+		...
+	@property
+	def mvex_valid_conversion_funcs_mask(self) -> int:
+		"""int: (`u8`) (MVEX) Gets flags indicating which conversion functions are valid (bit 0 == func 0)"""
+		...
+	@property
+	def mvex_valid_swizzle_funcs_mask(self) -> int:
+		"""int: (`u8`) (MVEX) Gets flags indicating which swizzle functions are valid (bit 0 == func 0)"""
 		...
 	@property
 	def memory_size(self) -> MemorySize:
@@ -7429,19 +7499,19 @@ class OpCodeInfo:
 		...
 	@property
 	def can_use_rounding_control(self) -> bool:
-		"""bool: (EVEX) `True` if the instruction supports rounding control"""
+		"""bool: (EVEX/MVEX) `True` if the instruction supports rounding control"""
 		...
 	@property
 	def can_suppress_all_exceptions(self) -> bool:
-		"""bool: (EVEX) `True` if the instruction supports suppress all exceptions"""
+		"""bool: (EVEX/MVEX) `True` if the instruction supports suppress all exceptions"""
 		...
 	@property
 	def can_use_op_mask_register(self) -> bool:
-		"""bool: (EVEX) `True` if an opmask register can be used"""
+		"""bool: (EVEX/MVEX) `True` if an opmask register can be used"""
 		...
 	@property
 	def require_op_mask_register(self) -> bool:
-		"""bool: (EVEX) `True` if a non-zero opmask register must be used"""
+		"""bool: (EVEX/MVEX) `True` if a non-zero opmask register must be used"""
 		...
 	@property
 	def can_use_zeroing_masking(self) -> bool:
@@ -7735,7 +7805,7 @@ class OpCodeInfo:
 		...
 	@property
 	def table(self) -> OpCodeTableKind:
-		"""`OpCodeTableKind`: Gets the opcode table (a `OpCodeTableKind` enum value)"""
+		"""`OpCodeTableKind`: Gets the opcode table (an `OpCodeTableKind` enum value)"""
 		...
 	@property
 	def mandatory_prefix(self) -> MandatoryPrefix:
@@ -7798,27 +7868,27 @@ class OpCodeInfo:
 		...
 	@property
 	def op0_kind(self) -> OpCodeOperandKind:
-		"""`OpCodeOperandKind`: Gets operand #0's opkind (a `OpCodeOperandKind` enum value)"""
+		"""`OpCodeOperandKind`: Gets operand #0's opkind (an `OpCodeOperandKind` enum value)"""
 		...
 	@property
 	def op1_kind(self) -> OpCodeOperandKind:
-		"""`OpCodeOperandKind`: Gets operand #1's opkind (a `OpCodeOperandKind` enum value)"""
+		"""`OpCodeOperandKind`: Gets operand #1's opkind (an `OpCodeOperandKind` enum value)"""
 		...
 	@property
 	def op2_kind(self) -> OpCodeOperandKind:
-		"""`OpCodeOperandKind`: Gets operand #2's opkind (a `OpCodeOperandKind` enum value)"""
+		"""`OpCodeOperandKind`: Gets operand #2's opkind (an `OpCodeOperandKind` enum value)"""
 		...
 	@property
 	def op3_kind(self) -> OpCodeOperandKind:
-		"""`OpCodeOperandKind`: Gets operand #3's opkind (a `OpCodeOperandKind` enum value)"""
+		"""`OpCodeOperandKind`: Gets operand #3's opkind (an `OpCodeOperandKind` enum value)"""
 		...
 	@property
 	def op4_kind(self) -> OpCodeOperandKind:
-		"""`OpCodeOperandKind`: Gets operand #4's opkind (a `OpCodeOperandKind` enum value)"""
+		"""`OpCodeOperandKind`: Gets operand #4's opkind (an `OpCodeOperandKind` enum value)"""
 		...
 	def op_kind(self, operand: int) -> OpCodeOperandKind:
 		"""
-		Gets an operand's opkind (a `OpCodeOperandKind` enum value)
+		Gets an operand's opkind (an `OpCodeOperandKind` enum value)
 
 		### Args:
 

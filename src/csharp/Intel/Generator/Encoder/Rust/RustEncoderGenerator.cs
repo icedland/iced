@@ -33,6 +33,7 @@ namespace Generator.Encoder.Rust {
 			VEX				= 2,
 			EVEX			= 4,
 			XOP				= 8,
+			MVEX			= 0x10,
 		}
 		sealed class OpInfo {
 			public readonly OpHandlerKind OpHandlerKind;
@@ -71,21 +72,22 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
-		protected override void Generate((EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
-			GenerateOpCodeOperandKindTables(legacy, vex, xop, evex);
-			GenerateOpTables(legacy, vex, xop, evex);
+		protected override void Generate(OpCodeHandlers handlers) {
+			GenerateOpCodeOperandKindTables(handlers);
+			GenerateOpTables(handlers);
 		}
 
-		void GenerateOpCodeOperandKindTables((EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+		void GenerateOpCodeOperandKindTables(OpCodeHandlers handlers) {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("encoder", "op_kind_tables.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 
 				writer.WriteLine("use crate::OpCodeOperandKind;");
-				Generate(writer, "LEGACY_OP_KINDS", null, legacy);
-				Generate(writer, "VEX_OP_KINDS", RustConstants.FeatureVex, vex);
-				Generate(writer, "XOP_OP_KINDS", RustConstants.FeatureXop, xop);
-				Generate(writer, "EVEX_OP_KINDS", RustConstants.FeatureEvex, evex);
+				Generate(writer, "LEGACY_OP_KINDS", null, handlers.Legacy);
+				Generate(writer, "VEX_OP_KINDS", RustConstants.FeatureVex, handlers.Vex);
+				Generate(writer, "XOP_OP_KINDS", RustConstants.FeatureXop, handlers.Xop);
+				Generate(writer, "EVEX_OP_KINDS", RustConstants.FeatureEvex, handlers.Evex);
+				Generate(writer, "MVEX_OP_KINDS", RustConstants.FeatureMvex, handlers.Mvex);
 			}
 
 			void Generate(FileWriter writer, string name, string? feature, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
@@ -103,13 +105,14 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
-		void GenerateOpTables((EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+		void GenerateOpTables(OpCodeHandlers handlers) {
 			var sb = new StringBuilder();
 			var dict = new Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo>(new OpKeyComparer());
-			Add(sb, dict, legacy.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.Legacy);
-			Add(sb, dict, vex.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.VEX);
-			Add(sb, dict, xop.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.XOP);
-			Add(sb, dict, evex.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.EVEX);
+			Add(sb, dict, handlers.Legacy.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.Legacy);
+			Add(sb, dict, handlers.Vex.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.VEX);
+			Add(sb, dict, handlers.Xop.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.XOP);
+			Add(sb, dict, handlers.Evex.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.EVEX);
+			Add(sb, dict, handlers.Mvex.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.MVEX);
 
 			var usedNames = new HashSet<string>(dict.Count, StringComparer.Ordinal);
 			foreach (var kv in dict) {
@@ -258,10 +261,11 @@ namespace Generator.Encoder.Rust {
 				}
 
 				writer.WriteLine();
-				WriteTable(writer, "LEGACY_TABLE", null, dict, legacy.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
-				WriteTable(writer, "VEX_TABLE", RustConstants.FeatureVex, dict, vex.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
-				WriteTable(writer, "XOP_TABLE", RustConstants.FeatureXop, dict, xop.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
-				WriteTable(writer, "EVEX_TABLE", RustConstants.FeatureEvex, dict, evex.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "LEGACY_TABLE", null, dict, handlers.Legacy.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "VEX_TABLE", RustConstants.FeatureVex, dict, handlers.Vex.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "XOP_TABLE", RustConstants.FeatureXop, dict, handlers.Xop.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "EVEX_TABLE", RustConstants.FeatureEvex, dict, handlers.Evex.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "MVEX_TABLE", RustConstants.FeatureMvex, dict, handlers.Mvex.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
 			}
 
 			static string? GetFeatures(OpInfo info) {
@@ -276,6 +280,8 @@ namespace Generator.Encoder.Rust {
 					features.Add(RustConstants.Evex);
 				if ((info.Flags & OpInfoFlags.XOP) != 0)
 					features.Add(RustConstants.Xop);
+				if ((info.Flags & OpInfoFlags.MVEX) != 0)
+					features.Add(RustConstants.Mvex);
 				if (features.Count == 0)
 					return null;
 				if (features.Count == 1)
@@ -342,16 +348,19 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
-		protected override void GenerateOpCodeInfo(InstructionDef[] defs) =>
-			GenerateTable(defs);
+		protected override void GenerateOpCodeInfo(InstructionDef[] defs, (MvexTupleTypeLutKind ttLutKind, EnumValue[] tupleTypes)[] mvexTupleTypeData,
+			(MvexTupleTypeLutKind ttLutKind, EnumValue[] tupleTypes)[] mvexMemorySizeData) =>
+			GenerateTable(defs, mvexTupleTypeData, mvexMemorySizeData);
 
-		void GenerateTable(InstructionDef[] defs) {
+		void GenerateTable(InstructionDef[] defs, (MvexTupleTypeLutKind ttLutKind, EnumValue[] tupleTypes)[] mvexTupleTypeData,
+			(MvexTupleTypeLutKind ttLutKind, EnumValue[] tupleTypes)[] mvexMemorySizeData) {
 			var allData = GetData(defs).ToArray();
 			var encFlags1 = allData.Select(a => (a.def, a.encFlags1)).ToArray();
 			var encFlags2 = allData.Select(a => (a.def, a.encFlags2)).ToArray();
 			var encFlags3 = allData.Select(a => (a.def, a.encFlags3)).ToArray();
 			var opcFlags1 = allData.Select(a => (a.def, a.opcFlags1)).ToArray();
 			var opcFlags2 = allData.Select(a => (a.def, a.opcFlags2)).ToArray();
+			var mvexInfos = allData.Where(a => a.mvex is not null).Select(a => (a.def, a.mvex.GetValueOrDefault())).ToArray();
 			var encoderInfo = new (string name, (InstructionDef def, uint value)[] values)[] {
 				("ENC_FLAGS1", encFlags1),
 				("ENC_FLAGS2", encFlags2),
@@ -364,6 +373,9 @@ namespace Generator.Encoder.Rust {
 
 			GenerateTables(defs, encoderInfo, "encoder_data.rs");
 			GenerateTables(defs, opCodeInfo, "op_code_data.rs");
+			GenerateTables(mvexInfos, "mvex_data.rs");
+			GenerateTables(mvexTupleTypeData, "mvex_tt_lut.rs", "MVEX_TUPLE_TYPE_LUT");
+			GenerateTables(mvexMemorySizeData, "mvex_memsz_lut.rs", "MVEX_MEMSZ_LUT");
 		}
 
 		void GenerateTables(InstructionDef[] defs, (string name, (InstructionDef def, uint value)[] values)[] encoderInfo, string filename) {
@@ -382,6 +394,48 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
+		void GenerateTables((InstructionDef def, MvexEncInfo mvex)[] mvexInfos, string filename) {
+			var infos = mvexInfos.Where(x => x.def.Encoding == EncodingKind.MVEX).ToArray();
+			var fullFilename = generatorContext.Types.Dirs.GetRustFilename("mvex", filename);
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(fullFilename))) {
+				writer.WriteFileHeader();
+				writer.WriteLine("use crate::mvex::mvex_info::MvexInfo;");
+				writer.WriteLine("use crate::{MvexConvFn, MvexEHBit, MvexTupleTypeLutKind};");
+				writer.WriteLine();
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				writer.WriteLine($"pub(super) static MVEX_INFO: [MvexInfo; {infos.Length}] = [");
+				using (writer.Indent()) {
+					foreach (var (def, mvex) in infos)
+						writer.WriteLine($"MvexInfo::new({idConverter.ToDeclTypeAndValue(mvex.TupleTypeLutKind)}, {idConverter.ToDeclTypeAndValue(mvex.EHBit)}, {idConverter.ToDeclTypeAndValue(mvex.ConvFn)}, 0x{mvex.InvalidConvFns:X02}, 0x{mvex.InvalidSwizzleFns:X02}, 0x{(uint)mvex.Flags1:X02}, 0x{(uint)mvex.Flags2:X02}),// {idConverter.ToDeclTypeAndValue(def.Code)}");
+				}
+				writer.WriteLine("];");
+			}
+		}
+
+		void GenerateTables((MvexTupleTypeLutKind ttLutKind, EnumValue[] enumValues)[] mvexData, string filename, string tableName) {
+			var fullFilename = generatorContext.Types.Dirs.GetRustFilename("mvex", filename);
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(fullFilename))) {
+				writer.WriteFileHeader();
+				var declTypeStr = mvexData[0].enumValues[0].DeclaringType.Name(idConverter);
+				writer.WriteLine($"use crate::{declTypeStr};");
+				writer.WriteLine();
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				var totalSize = mvexData.Select(x => x.enumValues.Length).Sum();
+				writer.WriteLine($"pub(crate) static {tableName}: [{declTypeStr}; {totalSize}] = [");
+				using (writer.Indent()) {
+					foreach (var (ttLutKind, enumValues) in mvexData) {
+						var ttLutKindValue = genTypes[TypeIds.MvexTupleTypeLutKind][ttLutKind.ToString()];
+						writer.WriteLine($"// {idConverter.ToDeclTypeAndValue(ttLutKindValue)}");
+						for (int i = 0; i < enumValues.Length; i++) {
+							var enumValue = enumValues[i];
+							writer.WriteLine($"{idConverter.ToDeclTypeAndValue(enumValue)},// {i}");
+						}
+					}
+				}
+				writer.WriteLine("];");
+			}
+		}
+
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("encoder.rs");
 			new FileUpdater(TargetLanguage.Rust, "ImmSizes", filename).Generate(writer => {
@@ -395,7 +449,7 @@ namespace Generator.Encoder.Rust {
 			});
 		}
 
-		void GenerateCases(string filename, string id, EnumValue[] codeValues, string statement) {
+		void GenerateCases(string filename, string id, EnumValue[] codeValues, string statement) =>
 			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
 				if (codeValues.Length == 0)
 					return;
@@ -406,15 +460,13 @@ namespace Generator.Encoder.Rust {
 				}
 				writer.WriteLine($"=> {statement},");
 			});
-		}
 
-		void GenerateNotInstrCases(string filename, string id, (EnumValue code, string result)[] notInstrStrings, bool useReturn) {
+		void GenerateNotInstrCases(string filename, string id, (EnumValue code, string result)[] notInstrStrings, bool useReturn) =>
 			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
 				string @return = useReturn ? "return " : string.Empty;
 				foreach (var info in notInstrStrings)
 					writer.WriteLine($"{idConverter.ToDeclTypeAndValue(info.code)} => {@return}String::from(\"{info.result}\"),");
 			});
-		}
 
 		protected override void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings) {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("encoder", "instruction_fmt.rs");

@@ -22,6 +22,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var callNear = MiscTestsData.CallNear;
 			var callNearIndirect = MiscTestsData.CallNearIndirect;
 			var callFarIndirect = MiscTestsData.CallFarIndirect;
+#if MVEX
+			var jkccShort = MiscTestsData.JkccShort;
+			var jkccNear = MiscTestsData.JkccNear;
+#endif
 
 			for (int i = 0; i < IcedConstants.CodeEnumCount; i++) {
 				var code = (Code)i;
@@ -66,6 +70,17 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 				Assert.Equal(callFarIndirect.Contains(code), code.IsCallFarIndirect());
 				Assert.Equal(code.IsCallFarIndirect(), instruction.IsCallFarIndirect);
+
+#if MVEX
+				Assert.Equal(jkccShort.Contains(code) || jkccNear.Contains(code), code.IsJkccShortOrNear());
+				Assert.Equal(code.IsJkccShortOrNear(), instruction.IsJkccShortOrNear);
+
+				Assert.Equal(jkccNear.Contains(code), code.IsJkccNear());
+				Assert.Equal(code.IsJkccNear(), instruction.IsJkccNear);
+
+				Assert.Equal(jkccShort.Contains(code), code.IsJkccShort());
+				Assert.Equal(code.IsJkccShort(), instruction.IsJkccShort);
+#endif
 			}
 		}
 
@@ -82,6 +97,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				toNegatedCodeValue.Add(info.cmovcc, info.negated);
 			foreach (var info in MiscTestsData.LoopccInfos)
 				toNegatedCodeValue.Add(info.loopcc, info.negated);
+			foreach (var info in MiscTestsData.JkccShortInfos)
+				toNegatedCodeValue.Add(info.jkcc, info.negated);
+			foreach (var info in MiscTestsData.JkccNearInfos)
+				toNegatedCodeValue.Add(info.jkcc, info.negated);
 
 			for (int i = 0; i < IcedConstants.CodeEnumCount; i++) {
 				var code = (Code)i;
@@ -104,6 +123,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				toShortBranch.Add(info.jcc, info.jccShort);
 			foreach (var info in MiscTestsData.JmpInfos)
 				toShortBranch.Add(info.jmpNear, info.jmpShort);
+			foreach (var info in MiscTestsData.JkccNearInfos)
+				toShortBranch.Add(info.jkcc, info.jkccShort);
 
 			for (int i = 0; i < IcedConstants.CodeEnumCount; i++) {
 				var code = (Code)i;
@@ -126,6 +147,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				toNearBranch.Add(info.jcc, info.jccNear);
 			foreach (var info in MiscTestsData.JmpInfos)
 				toNearBranch.Add(info.jmpShort, info.jmpNear);
+			foreach (var info in MiscTestsData.JkccShortInfos)
+				toNearBranch.Add(info.jkcc, info.jkccNear);
 
 			for (int i = 0; i < IcedConstants.CodeEnumCount; i++) {
 				var code = (Code)i;
@@ -154,6 +177,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				toConditionCode.Add(info.cmovcc, info.cc);
 			foreach (var info in MiscTestsData.LoopccInfos)
 				toConditionCode.Add(info.loopcc, info.cc);
+			foreach (var info in MiscTestsData.JkccShortInfos)
+				toConditionCode.Add(info.jkcc, info.cc);
+			foreach (var info in MiscTestsData.JkccNearInfos)
+				toConditionCode.Add(info.jkcc, info.cc);
 
 			for (int i = 0; i < IcedConstants.CodeEnumCount; i++) {
 				var code = (Code)i;

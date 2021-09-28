@@ -81,7 +81,7 @@ fn verify_invalid_and_valid_lock_prefix() {
 }
 
 #[test]
-fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
+fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop_mvex() {
 	let prefixes1632 = vec!["66", "F3", "F2"];
 	let prefixes64 = vec!["66", "F3", "F2", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "4A", "4B", "4C", "4D", "4E", "4F"];
 	for info in decoder_tests(false, false) {
@@ -91,7 +91,7 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
 
 		match info.code().op_code().encoding() {
 			EncodingKind::Legacy | EncodingKind::D3NOW => continue,
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {}
 		}
 
 		let prefixes: &[&str] = match info.bitness() {
@@ -139,6 +139,9 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
 				} else if prefix == "F2" {
 					assert!(instruction.has_repne_prefix());
 					instruction.set_has_repne_prefix(false);
+				}
+				if instruction.op1_kind() == OpKind::NearBranch64 {
+					instruction.set_near_branch64(instruction.near_branch64() - 1);
 				}
 				assert!(instruction.eq_all_bits(&orig_instr));
 			}
@@ -309,7 +312,7 @@ fn test_wig_instructions_ignore_w() {
 		let op_code = info.code().op_code();
 		let encoding = op_code.encoding();
 		let is_wig = op_code.is_wig() || (op_code.is_wig32() && info.bitness() != 64);
-		if encoding == EncodingKind::EVEX {
+		if matches!(encoding, EncodingKind::EVEX | EncodingKind::MVEX) {
 			let mut bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let evex_index = get_evex_index(&bytes);
 
@@ -484,7 +487,7 @@ fn test_lig_instructions_ignore_l() {
 					assert_ne!(instruction.code(), info.code());
 				}
 			}
-		} else if encoding == EncodingKind::Legacy || encoding == EncodingKind::D3NOW {
+		} else if encoding == EncodingKind::Legacy || encoding == EncodingKind::D3NOW || encoding == EncodingKind::MVEX {
 			continue;
 		} else {
 			panic!();
@@ -718,7 +721,7 @@ fn verify_invalid_vvvv() {
 
 		match op_code.encoding() {
 			EncodingKind::Legacy | EncodingKind::D3NOW => continue,
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {}
 		}
 
 		let (uses_vvvv, is_vsib, vvvv_mask) = get_vvvvv_info(op_code);
@@ -783,8 +786,7 @@ fn verify_invalid_vvvv() {
 					assert!(orig_instr.eq_all_bits(&instruction));
 				}
 			}
-		} else if op_code.encoding() == EncodingKind::EVEX {
-			debug_assert_eq!(vvvv_mask, 0x1F);
+		} else if matches!(op_code.encoding(), EncodingKind::EVEX | EncodingKind::MVEX) {
 			let mut bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let evex_index = get_evex_index(&bytes);
 			let b2 = bytes[evex_index + 2];
@@ -807,7 +809,11 @@ fn verify_invalid_vvvv() {
 					assert_eq!(instruction.code(), Code::INVALID);
 					assert_ne!(decoder.last_error(), DecoderError::None);
 				} else if uses_vvvv {
-					assert_eq!(instruction.code(), info.code());
+					if vvvv_mask != 0x1F {
+						assert_eq!(instruction.code(), Code::INVALID);
+					} else {
+						assert_eq!(instruction.code(), info.code());
+					}
 				} else {
 					assert_eq!(instruction.code(), Code::INVALID);
 					assert_ne!(decoder.last_error(), DecoderError::None);
@@ -830,7 +836,11 @@ fn verify_invalid_vvvv() {
 				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 				let instruction = decoder.decode();
 				if uses_vvvv {
-					assert_eq!(instruction.code(), info.code());
+					if vvvv_mask != 0x1F {
+						assert_eq!(instruction.code(), Code::INVALID);
+					} else {
+						assert_eq!(instruction.code(), info.code());
+					}
 				} else {
 					assert_eq!(instruction.code(), Code::INVALID);
 					assert_ne!(decoder.last_error(), DecoderError::None);
@@ -865,7 +875,7 @@ fn get_vvvvv_info(op_code: &OpCodeInfo) -> (bool, bool, u8) {
 	let mut uses_vvvv = false;
 	let mut is_vsib = false;
 	let mut vvvv_mask = match op_code.encoding() {
-		EncodingKind::EVEX => 0x1F,
+		EncodingKind::EVEX | EncodingKind::MVEX => 0x1F,
 		EncodingKind::VEX | EncodingKind::XOP => 0xF,
 		EncodingKind::Legacy | EncodingKind::D3NOW => panic!(),
 	};
@@ -905,7 +915,7 @@ fn verify_gpr_rrxb_bits() {
 
 		match op_code.encoding() {
 			EncodingKind::Legacy | EncodingKind::D3NOW => continue,
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {}
 		}
 
 		let mut uses_rm = false;
@@ -1006,7 +1016,7 @@ fn verify_gpr_rrxb_bits() {
 				assert_eq!(instruction.code(), info.code());
 				assert!(orig_instr.eq_all_bits(&instruction));
 			}
-		} else if op_code.encoding() == EncodingKind::EVEX {
+		} else if matches!(op_code.encoding(), EncodingKind::EVEX | EncodingKind::MVEX) {
 			let mut bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let evex_index = get_evex_index(&bytes);
 			let is_reg_only = (bytes[evex_index + 5] >> 6) == 3;
@@ -1095,7 +1105,7 @@ fn verify_k_reg_rrxb_bits() {
 
 		match op_code.encoding() {
 			EncodingKind::Legacy | EncodingKind::D3NOW => continue,
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
+			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {}
 		}
 
 		let mut uses_rm = false;
@@ -1208,7 +1218,7 @@ fn verify_k_reg_rrxb_bits() {
 				assert_eq!(instruction.code(), info.code());
 				assert!(orig_instr.eq_all_bits(&instruction));
 			}
-		} else if op_code.encoding() == EncodingKind::EVEX {
+		} else if matches!(op_code.encoding(), EncodingKind::EVEX | EncodingKind::MVEX) {
 			let mut bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let evex_index = get_evex_index(&bytes);
 			let is_reg_only = (bytes[evex_index + 5] >> 6) == 3;
@@ -1305,7 +1315,7 @@ fn verify_vsib_with_invalid_index_register_evex() {
 			continue;
 		}
 
-		if op_code.encoding() == EncodingKind::EVEX {
+		if matches!(op_code.encoding(), EncodingKind::EVEX | EncodingKind::MVEX) {
 			let mut bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let evex_index = get_evex_index(&bytes);
 			let p0 = bytes[evex_index + 1];
@@ -1356,7 +1366,7 @@ fn verify_vsib_with_invalid_index_register_evex() {
 
 // All Vk_VSIB instructions, eg. EVEX_Vpgatherdd_xmm_k1_vm32x
 fn can_have_invalid_index_register_evex(op_code: &OpCodeInfo) -> bool {
-	if op_code.encoding() != EncodingKind::EVEX {
+	if !matches!(op_code.encoding(), EncodingKind::EVEX | EncodingKind::MVEX) {
 		return false;
 	}
 
@@ -1602,7 +1612,7 @@ fn verify_that_test_cases_test_enough_bits() {
 			let op_code = code.op_code();
 			match op_code.encoding() {
 				EncodingKind::Legacy | EncodingKind::D3NOW => can_use_w[code as usize] = !uses_w.contains(&(op_code.table(), op_code.op_code())),
-				EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
+				EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::MVEX => {}
 			}
 		}
 	}
@@ -1626,17 +1636,20 @@ fn verify_that_test_cases_test_enough_bits() {
 		let instruction = decoder.decode();
 		assert_eq!(instruction.code(), info.code());
 
-		if op_code.encoding() == EncodingKind::EVEX {
+		if matches!(op_code.encoding(), EncodingKind::EVEX | EncodingKind::MVEX) {
 			let evex_index = get_evex_index(&bytes);
-			if instruction.rounding_control() == RoundingControl::None {
-				tested.l_bits |= 1 << ((bytes[evex_index + 3] >> 5) & 3);
-			}
 
-			let ll = (bytes[evex_index + 3] >> 5) & 3;
-			let invalid = (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) == 0
-				&& ll == 3 && (bytes[evex_index + 5] < 0xC0 || (bytes[evex_index + 3] & 0x10) == 0);
-			if !invalid {
-				tested.l_bits |= 1 << 3;
+			if op_code.encoding() == EncodingKind::EVEX {
+				if instruction.rounding_control() == RoundingControl::None {
+					tested.l_bits |= 1 << ((bytes[evex_index + 3] >> 5) & 3);
+				}
+
+				let ll = (bytes[evex_index + 3] >> 5) & 3;
+				let invalid = (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) == 0
+					&& ll == 3 && (bytes[evex_index + 5] < 0xC0 || (bytes[evex_index + 3] & 0x10) == 0);
+				if !invalid {
+					tested.l_bits |= 1 << 3;
+				}
 			}
 
 			tested.w_bits |= 1 << (bytes[evex_index + 2] >> 7);
@@ -2001,7 +2014,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				match op_code.encoding() {
 					EncodingKind::VEX | EncodingKind::XOP => all_l_bits = 3, // 1 bit = 2 values
 					EncodingKind::EVEX => all_l_bits = 0xF,                  // 2 bits = 4 values
-					EncodingKind::Legacy | EncodingKind::D3NOW => panic!(),
+					EncodingKind::Legacy | EncodingKind::D3NOW | EncodingKind::MVEX => panic!(),
 				}
 				if tested.l_bits != all_l_bits {
 					get_vec(bitness, &mut lig_16, &mut lig_32, &mut lig_64).push(code);
@@ -2024,7 +2037,7 @@ fn verify_that_test_cases_test_enough_bits() {
 			}
 			match op_code.encoding() {
 				EncodingKind::Legacy | EncodingKind::VEX | EncodingKind::XOP | EncodingKind::D3NOW => {}
-				EncodingKind::EVEX => {
+				EncodingKind::EVEX | EncodingKind::MVEX => {
 					if !tested.mem_disp8 && can_use_modrm_rm_mem(op_code) {
 						get_vec(bitness, &mut disp8_16, &mut disp8_32, &mut disp8_64).push(code);
 					}
@@ -2056,7 +2069,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				}
 			}
 			match op_code.encoding() {
-				EncodingKind::EVEX => {
+				EncodingKind::EVEX | EncodingKind::MVEX => {
 					if can_use_r2(op_code) {
 						if tested.r2_bits != 3 {
 							get_vec(bitness, &mut r2_16, &mut r2_32, &mut r2_64).push(code);
@@ -2094,7 +2107,7 @@ fn verify_that_test_cases_test_enough_bits() {
 					}
 				}
 				match op_code.encoding() {
-					EncodingKind::EVEX => {
+					EncodingKind::EVEX | EncodingKind::MVEX => {
 						if is_vsib(op_code) {
 							// The memory tests test vsib memory operands
 						} else if can_use_v2(op_code) {
@@ -2769,21 +2782,35 @@ fn verify_can_only_decode_in_correct_mode() {
 fn verify_invalid_table_encoding() {
 	for info in decoder_tests(false, false) {
 		let op_code = info.code().op_code();
-		if op_code.encoding() == EncodingKind::EVEX {
+		if matches!(op_code.encoding(), EncodingKind::EVEX | EncodingKind::MVEX) {
 			let mut hex_bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let evex_index = get_evex_index(&hex_bytes);
-			hex_bytes[evex_index + 1] &= 0xFC;
-			{
-				let mut decoder = Decoder::new(info.bitness(), &hex_bytes, info.decoder_options());
-				let instruction = decoder.decode();
-				assert_eq!(instruction.code(), Code::INVALID);
-				assert_ne!(decoder.last_error(), DecoderError::None);
-			}
-			{
-				let mut decoder = Decoder::new(info.bitness(), &hex_bytes, info.decoder_options() ^ DecoderOptions::NO_INVALID_CHECK);
-				let instruction = decoder.decode();
-				assert_eq!(instruction.code(), Code::INVALID);
-				assert_ne!(decoder.last_error(), DecoderError::None);
+			let max_table = if op_code.encoding() == EncodingKind::EVEX { 0x08 } else { 0x10 };
+			for i in 0..max_table {
+				match op_code.encoding() {
+					EncodingKind::EVEX => match i {
+						1 | 2 | 3 | 5 | 6 => continue,
+						_ => {}
+					},
+					EncodingKind::MVEX => match i {
+						1 | 2 | 3 => continue,
+						_ => {}
+					},
+					_ => unreachable!(),
+				}
+				hex_bytes[evex_index + 1] = (hex_bytes[evex_index + 1] & !(max_table - 1)) | i;
+				{
+					let mut decoder = Decoder::new(info.bitness(), &hex_bytes, info.decoder_options());
+					let instruction = decoder.decode();
+					assert_eq!(instruction.code(), Code::INVALID);
+					assert_ne!(decoder.last_error(), DecoderError::None);
+				}
+				{
+					let mut decoder = Decoder::new(info.bitness(), &hex_bytes, info.decoder_options() ^ DecoderOptions::NO_INVALID_CHECK);
+					let instruction = decoder.decode();
+					assert_eq!(instruction.code(), Code::INVALID);
+					assert_ne!(decoder.last_error(), DecoderError::None);
+				}
 			}
 		} else if op_code.encoding() == EncodingKind::VEX {
 			let mut hex_bytes = to_vec_u8(info.hex_bytes()).unwrap();
@@ -2793,6 +2820,10 @@ fn verify_invalid_table_encoding() {
 			}
 			for i in 0..32 {
 				match i {
+					0 => {
+						#[cfg(feature = "mvex")]
+						continue;
+					}
 					1 | 2 | 3 => continue,
 					_ => {}
 				}
@@ -2851,7 +2882,7 @@ fn verify_invalid_table_encoding() {
 fn verify_invalid_pp_field() {
 	for info in decoder_tests(false, false) {
 		let op_code = info.code().op_code();
-		if op_code.encoding() == EncodingKind::EVEX {
+		if matches!(op_code.encoding(), EncodingKind::EVEX | EncodingKind::MVEX) {
 			let mut hex_bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let evex_index = get_evex_index(&hex_bytes);
 			let b = hex_bytes[evex_index + 2];
@@ -2907,7 +2938,7 @@ fn verify_regonly_or_regmemonly_mod_bits() {
 		}
 
 		let mut bytes = to_vec_u8(&format!("{}{}", info.hex_bytes(), extra_bytes)).unwrap();
-		let m_index = if op_code.encoding() == EncodingKind::EVEX {
+		let m_index = if matches!(op_code.encoding(), EncodingKind::EVEX | EncodingKind::MVEX) {
 			get_evex_index(&bytes) + 5
 		} else if op_code.encoding() == EncodingKind::VEX || op_code.encoding() == EncodingKind::XOP {
 			let vex_index = get_vex_xop_index(&bytes);

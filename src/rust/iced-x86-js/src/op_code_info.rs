@@ -7,6 +7,12 @@ use crate::ex_utils::to_js_error;
 use crate::mandatory_prefix::{iced_to_mandatory_prefix, MandatoryPrefix};
 use crate::memory_size::{iced_to_memory_size, MemorySize};
 use crate::mnemonic::{iced_to_mnemonic, Mnemonic};
+#[cfg(feature = "mvex")]
+use crate::mvex_cvt_fn::{iced_to_mvex_conv_fn, MvexConvFn};
+#[cfg(feature = "mvex")]
+use crate::mvex_eh_bit::{iced_to_mvex_eh_bit, MvexEHBit};
+#[cfg(feature = "mvex")]
+use crate::mvex_tt_lut::{iced_to_mvex_tuple_type_lut_kind, MvexTupleTypeLutKind};
 use crate::op_code_operand_kind::{iced_to_op_code_operand_kind, OpCodeOperandKind};
 use crate::op_code_table_kind::{iced_to_op_code_table_kind, OpCodeTableKind};
 use crate::tuple_type::{iced_to_tuple_type, TupleType};
@@ -162,7 +168,7 @@ impl OpCodeInfo {
 		self.0.l()
 	}
 
-	/// (VEX/XOP/EVEX) `W` value or default value if [`isWIG`] or [`isWIG32`] is `true`
+	/// (VEX/XOP/EVEX/MVEX) `W` value or default value if [`isWIG`] or [`isWIG32`] is `true`
 	///
 	/// [`isWIG`]: #method.is_wig
 	/// [`isWIG32`]: #method.is_wig32
@@ -181,27 +187,105 @@ impl OpCodeInfo {
 		self.0.is_lig()
 	}
 
-	/// (VEX/XOP/EVEX) `true` if the `W` field is ignored in 16/32/64-bit modes
+	/// (VEX/XOP/EVEX/MVEX) `true` if the `W` field is ignored in 16/32/64-bit modes
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isWIG")]
 	pub fn is_wig(&self) -> bool {
 		self.0.is_wig()
 	}
 
-	/// (VEX/XOP/EVEX) `true` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)
+	/// (VEX/XOP/EVEX/MVEX) `true` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isWIG32")]
 	pub fn is_wig32(&self) -> bool {
 		self.0.is_wig32()
 	}
 
-	/// (EVEX) Gets the tuple type (a [`TupleType`] enum value)
+	/// (EVEX/MVEX) Gets the tuple type (a [`TupleType`] enum value)
 	///
 	/// [`TupleType`]: enum.TupleType.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "tupleType")]
 	pub fn tuple_type(&self) -> TupleType {
 		iced_to_tuple_type(self.0.tuple_type())
+	}
+
+	/// (MVEX) Gets the `EH` bit that's required to encode this instruction (a [`MvexEHBit`] enum value)
+	///
+	/// [`MvexEHBit`]: enum.MvexEHBit.html
+	#[cfg(feature = "mvex")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexEHBit")]
+	pub fn mvex_eh_bit(&self) -> MvexEHBit {
+		iced_to_mvex_eh_bit(self.0.mvex_eh_bit())
+	}
+
+	/// (MVEX) `true` if the instruction supports eviction hint (if it has a memory operand)
+	#[cfg(feature = "mvex")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexCanUseEvictionHint")]
+	pub fn mvex_can_use_eviction_hint(&self) -> bool {
+		self.0.mvex_can_use_eviction_hint()
+	}
+
+	/// (MVEX) `true` if the instruction's rounding control bits are stored in `imm8[1:0]`
+	#[cfg(feature = "mvex")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexCanUseImmRoundingControl")]
+	pub fn mvex_can_use_imm_rounding_control(&self) -> bool {
+		self.0.mvex_can_use_imm_rounding_control()
+	}
+
+	/// (MVEX) `true` if the instruction ignores op mask registers (eg. `{k1}`)
+	#[cfg(feature = "mvex")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexIgnoresOpMaskRegister")]
+	pub fn mvex_ignores_op_mask_register(&self) -> bool {
+		self.0.mvex_ignores_op_mask_register()
+	}
+
+	/// (MVEX) `true` if the instruction must have `MVEX.SSS=000` if `MVEX.EH=1`
+	#[cfg(feature = "mvex")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexNoSaeRc")]
+	pub fn mvex_no_sae_rc(&self) -> bool {
+		self.0.mvex_no_sae_rc()
+	}
+
+	/// (MVEX) Gets the tuple type / conv lut kind Gets the base tuple type (conv fn = `000b`) (a [`MvexTupleTypeLutKind`] enum value)
+	///
+	/// [`MvexTupleTypeLutKind`]: enum.MvexTupleTypeLutKind.html
+	#[cfg(feature = "mvex")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexTupleTypeLutKind")]
+	pub fn mvex_tuple_type_lut_kind(&self) -> MvexTupleTypeLutKind {
+		iced_to_mvex_tuple_type_lut_kind(self.0.mvex_tuple_type_lut_kind())
+	}
+
+	/// (MVEX) Gets the conversion function, eg. `Sf32` (a [`MvexConvFn`] enum value)
+	///
+	/// [`MvexConvFn`]: enum.MvexConvFn.html
+	#[cfg(feature = "mvex")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexConversionFunc")]
+	pub fn mvex_conversion_func(&self) -> MvexConvFn {
+		iced_to_mvex_conv_fn(self.0.mvex_conversion_func())
+	}
+
+	/// (MVEX) Gets flags indicating which conversion functions are valid (bit 0 == func 0)
+	#[cfg(feature = "mvex")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexValidConversionFuncsMask")]
+	pub fn mvex_valid_conversion_funcs_mask(&self) -> u8 {
+		self.0.mvex_valid_conversion_funcs_mask()
+	}
+
+	/// (MVEX) Gets flags indicating which swizzle functions are valid (bit 0 == func 0)
+	#[cfg(feature = "mvex")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mvexValidSwizzleFuncsMask")]
+	pub fn mvex_valid_swizzle_funcs_mask(&self) -> u8 {
+		self.0.mvex_valid_swizzle_funcs_mask()
 	}
 
 	/// If it has a memory operand, gets the [`MemorySize`] (non-broadcast memory type)
@@ -233,28 +317,28 @@ impl OpCodeInfo {
 		self.0.can_broadcast()
 	}
 
-	/// (EVEX) `true` if the instruction supports rounding control
+	/// (EVEX/MVEX) `true` if the instruction supports rounding control
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "canUseRoundingControl")]
 	pub fn can_use_rounding_control(&self) -> bool {
 		self.0.can_use_rounding_control()
 	}
 
-	/// (EVEX) `true` if the instruction supports suppress all exceptions
+	/// (EVEX/MVEX) `true` if the instruction supports suppress all exceptions
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "canSuppressAllExceptions")]
 	pub fn can_suppress_all_exceptions(&self) -> bool {
 		self.0.can_suppress_all_exceptions()
 	}
 
-	/// (EVEX) `true` if an opmask register can be used
+	/// (EVEX/MVEX) `true` if an opmask register can be used
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "canUseOpMaskRegister")]
 	pub fn can_use_op_mask_register(&self) -> bool {
 		self.0.can_use_op_mask_register()
 	}
 
-	/// (EVEX) `true` if a non-zero opmask register must be used
+	/// (EVEX/MVEX) `true` if a non-zero opmask register must be used
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "requireOpMaskRegister")]
 	pub fn require_op_mask_register(&self) -> bool {

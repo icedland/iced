@@ -1,6 +1,54 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+macro_rules! write_op0_reg {
+	($instruction:ident, $expr:expr) => {
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op0_kind(OpKind::Register);
+		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
+		$instruction.set_op0_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
+	};
+}
+
+macro_rules! write_op1_reg {
+	($instruction:ident, $expr:expr) => {
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op1_kind(OpKind::Register);
+		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
+		$instruction.set_op1_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
+	};
+}
+
+macro_rules! write_op2_reg {
+	($instruction:ident, $expr:expr) => {
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op2_kind(OpKind::Register);
+		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
+		$instruction.set_op2_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
+	};
+}
+
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
+macro_rules! write_op3_reg {
+	($instruction:ident, $expr:expr) => {
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op3_kind(OpKind::Register);
+		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
+		$instruction.set_op3_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
+	};
+}
+
+pub(super) mod d3now;
+#[cfg(not(feature = "no_evex"))]
+pub(super) mod evex;
+pub(super) mod fpu;
+pub(super) mod legacy;
+#[cfg(feature = "mvex")]
+pub(super) mod mvex;
+pub(super) mod tables;
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
+pub(super) mod vex;
+
 use crate::decoder::*;
 use crate::*;
 use alloc::boxed::Box;
@@ -215,7 +263,7 @@ impl OpCodeHandler_AnotherTable {
 	}
 }
 
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_MandatoryPrefix2 {
@@ -223,7 +271,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix2 {
 	handlers: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 4],
 }
 
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
 impl OpCodeHandler_MandatoryPrefix2 {
 	#[inline]
 	pub(super) fn new(
@@ -252,13 +300,14 @@ impl OpCodeHandler_MandatoryPrefix2 {
 			decoder.state.encoding() == EncodingKind::VEX as u32
 				|| decoder.state.encoding() == EncodingKind::EVEX as u32
 				|| decoder.state.encoding() == EncodingKind::XOP as u32
+				|| decoder.state.encoding() == EncodingKind::MVEX as u32
 		);
-		let (decode, handler) = unsafe { *this.handlers.get_unchecked(decoder.state.mandatory_prefix as usize) };
+		let (decode, handler) = this.handlers[decoder.state.mandatory_prefix as usize];
 		(decode)(handler, decoder, instruction);
 	}
 }
 
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_W {
@@ -266,7 +315,7 @@ pub(super) struct OpCodeHandler_W {
 	handlers: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 2],
 }
 
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
 impl OpCodeHandler_W {
 	#[inline]
 	pub(super) fn new(
@@ -283,10 +332,9 @@ impl OpCodeHandler_W {
 			decoder.state.encoding() == EncodingKind::VEX as u32
 				|| decoder.state.encoding() == EncodingKind::EVEX as u32
 				|| decoder.state.encoding() == EncodingKind::XOP as u32
+				|| decoder.state.encoding() == EncodingKind::MVEX as u32
 		);
-		const_assert_eq!(StateFlags::W, 0x80);
-		let index = (decoder.state.flags >> 7) & 1;
-		let (decode, handler) = unsafe { *this.handlers.get_unchecked(index as usize) };
+		let (decode, handler) = this.handlers[((decoder.state.flags & StateFlags::W) != 0) as usize];
 		(decode)(handler, decoder, instruction);
 	}
 }

@@ -342,6 +342,10 @@ impl NasmFormatter {
 				| InstrOpKind::RdSae
 				| InstrOpKind::RuSae
 				| InstrOpKind::RzSae
+				| InstrOpKind::Rn
+				| InstrOpKind::Rd
+				| InstrOpKind::Ru
+				| InstrOpKind::Rz
 				| InstrOpKind::DeclareByte
 				| InstrOpKind::DeclareWord
 				| InstrOpKind::DeclareDword
@@ -386,6 +390,21 @@ impl NasmFormatter {
 
 	fn format_operand(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo<'_>, operand: u32) {
 		debug_assert!(operand < op_info.op_count as u32);
+
+		#[cfg(feature = "mvex")]
+		let mvex_rm_operand = {
+			if IcedConstants::is_mvex(instruction.code()) {
+				let op_count = instruction.op_count();
+				debug_assert_ne!(op_count, 0);
+				if instruction.op_kind(op_count.wrapping_sub(1)) == OpKind::Immediate8 {
+					op_count.wrapping_sub(2)
+				} else {
+					op_count.wrapping_sub(1)
+				}
+			} else {
+				u32::MAX
+			}
+		};
 
 		let instruction_operand = op_info.instruction_index(operand);
 
@@ -1016,6 +1035,42 @@ impl NasmFormatter {
 				&self.d.str_.rz_sae,
 				DecoratorKind::RoundingControl,
 			),
+			InstrOpKind::Rn => NasmFormatter::format_decorator(
+				&self.d.options,
+				output,
+				instruction,
+				operand,
+				instruction_operand,
+				&self.d.str_.rn,
+				DecoratorKind::RoundingControl,
+			),
+			InstrOpKind::Rd => NasmFormatter::format_decorator(
+				&self.d.options,
+				output,
+				instruction,
+				operand,
+				instruction_operand,
+				&self.d.str_.rd,
+				DecoratorKind::RoundingControl,
+			),
+			InstrOpKind::Ru => NasmFormatter::format_decorator(
+				&self.d.options,
+				output,
+				instruction,
+				operand,
+				instruction_operand,
+				&self.d.str_.ru,
+				DecoratorKind::RoundingControl,
+			),
+			InstrOpKind::Rz => NasmFormatter::format_decorator(
+				&self.d.options,
+				output,
+				instruction,
+				operand,
+				instruction_operand,
+				&self.d.str_.rz,
+				DecoratorKind::RoundingControl,
+			),
 		}
 
 		if operand == 0 && instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
@@ -1034,6 +1089,20 @@ impl NasmFormatter {
 					&self.d.str_.z,
 					DecoratorKind::ZeroingMasking,
 				);
+			}
+		}
+		#[cfg(feature = "mvex")]
+		if mvex_rm_operand == operand {
+			let conv = instruction.mvex_reg_mem_conv();
+			if conv != MvexRegMemConv::None {
+				let mvex = crate::mvex::get_mvex_info(instruction.code());
+				if mvex.conv_fn != MvexConvFn::None {
+					let tbl = if mvex.is_conv_fn_32() { &self.d.vec_.mvex_reg_mem_consts_32 } else { &self.d.vec_.mvex_reg_mem_consts_64 };
+					let s = tbl[conv as usize];
+					if s.len() != 0 {
+						Self::format_decorator(&self.d.options, output, instruction, operand, instruction_operand, s, DecoratorKind::SwizzleMemConv);
+					}
+				}
 			}
 		}
 	}
@@ -1372,6 +1441,18 @@ impl NasmFormatter {
 		let bcst_to = &self.d.all_memory_sizes[mem_size as usize].bcst_to;
 		if !bcst_to.is_default() {
 			NasmFormatter::format_decorator(&self.d.options, output, instruction, operand, instruction_operand, bcst_to, DecoratorKind::Broadcast);
+		}
+		#[cfg(feature = "mvex")]
+		if instruction.is_mvex_eviction_hint() {
+			Self::format_decorator(
+				&self.d.options,
+				output,
+				instruction,
+				operand,
+				instruction_operand,
+				&self.d.str_.mvex.eh,
+				DecoratorKind::EvictionHint,
+			);
 		}
 	}
 

@@ -44,6 +44,9 @@ namespace Iced.Intel.FastFormatterInternal {
 		vpcmpuq = 0x000000D0,
 		vcmpph = 0x000000D8,
 		vcmpsh = 0x000000E0,
+		vcmpps8 = 0x000000E8,
+		vcmppd8 = 0x000000F0,
+		vpcmpd6 = 0x000000F8,
 	}
 }
 #endif

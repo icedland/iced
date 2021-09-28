@@ -22,12 +22,12 @@ pub enum MemorySizeOptions {
 
 #[allow(dead_code)]
 pub(crate) fn memory_size_options_to_iced(value: MemorySizeOptions) -> iced_x86_rust::MemorySizeOptions {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_memory_size_options(value: iced_x86_rust::MemorySizeOptions) -> MemorySizeOptions {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

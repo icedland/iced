@@ -12,7 +12,7 @@
     <Features>strict;nullablePublicOnly</Features>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Iced.snk</AssemblyOriginatorKeyFile>
-    <IcedFeatureFlags>DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT</IcedFeatureFlags>
+    <IcedFeatureFlags>DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;MVEX</IcedFeatureFlags>
     <DefineConstants>$(IcedDefineConstants);$(IcedFeatureFlags)</DefineConstants>
   </PropertyGroup>
 

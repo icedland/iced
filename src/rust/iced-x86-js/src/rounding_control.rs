@@ -24,12 +24,12 @@ pub enum RoundingControl {
 
 #[allow(dead_code)]
 pub(crate) fn rounding_control_to_iced(value: RoundingControl) -> iced_x86_rust::RoundingControl {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
 pub(crate) fn iced_to_rounding_control(value: iced_x86_rust::RoundingControl) -> RoundingControl {
-	// Safe, the enums are exactly identical
+	// SAFETY: the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

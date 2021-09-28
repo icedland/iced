@@ -18,8 +18,10 @@ impl IcedConstants {
 	pub(crate) const YMM_LAST: Register = Register::YMM31;
 	pub(crate) const ZMM_LAST: Register = Register::ZMM31;
 	pub(crate) const TMM_LAST: Register = Register::TMM7;
-	pub(crate) const MAX_CPUID_FEATURE_INTERNAL_VALUES: usize = 181;
+	pub(crate) const MAX_CPUID_FEATURE_INTERNAL_VALUES: usize = 182;
 	pub(crate) const FIRST_BROADCAST_MEMORY_SIZE: MemorySize = MemorySize::Broadcast32_Float16;
+	pub(crate) const MVEX_START: u32 = 4611;
+	pub(crate) const MVEX_LENGTH: u32 = 207;
 	pub(crate) const CC_A_ENUM_COUNT: usize = 2;
 	pub(crate) const CC_AE_ENUM_COUNT: usize = 3;
 	pub(crate) const CC_B_ENUM_COUNT: usize = 3;
@@ -32,20 +34,24 @@ impl IcedConstants {
 	pub(crate) const CC_NE_ENUM_COUNT: usize = 2;
 	pub(crate) const CC_NP_ENUM_COUNT: usize = 2;
 	pub(crate) const CC_P_ENUM_COUNT: usize = 2;
-	pub(crate) const CODE_ENUM_COUNT: usize = 4563;
+	pub(crate) const CODE_ENUM_COUNT: usize = 4818;
 	pub(crate) const CODE_SIZE_ENUM_COUNT: usize = 4;
 	pub(crate) const CONDITION_CODE_ENUM_COUNT: usize = 17;
-	pub(crate) const CPUID_FEATURE_ENUM_COUNT: usize = 160;
+	pub(crate) const CPUID_FEATURE_ENUM_COUNT: usize = 161;
 	pub(crate) const DECODER_ERROR_ENUM_COUNT: usize = 3;
-	pub(crate) const DECORATOR_KIND_ENUM_COUNT: usize = 4;
-	pub(crate) const ENCODING_KIND_ENUM_COUNT: usize = 5;
+	pub(crate) const DECORATOR_KIND_ENUM_COUNT: usize = 6;
+	pub(crate) const ENCODING_KIND_ENUM_COUNT: usize = 6;
 	pub(crate) const FLOW_CONTROL_ENUM_COUNT: usize = 10;
 	pub(crate) const FORMATTER_SYNTAX_ENUM_COUNT: usize = 4;
 	pub(crate) const FORMATTER_TEXT_KIND_ENUM_COUNT: usize = 16;
 	pub(crate) const MANDATORY_PREFIX_ENUM_COUNT: usize = 5;
 	pub(crate) const MEMORY_SIZE_ENUM_COUNT: usize = 160;
 	pub(crate) const MEMORY_SIZE_OPTIONS_ENUM_COUNT: usize = 4;
-	pub(crate) const MNEMONIC_ENUM_COUNT: usize = 1741;
+	pub(crate) const MNEMONIC_ENUM_COUNT: usize = 1834;
+	pub(crate) const MVEX_CONV_FN_ENUM_COUNT: usize = 13;
+	pub(crate) const MVEX_EHBIT_ENUM_COUNT: usize = 3;
+	pub(crate) const MVEX_REG_MEM_CONV_ENUM_COUNT: usize = 17;
+	pub(crate) const MVEX_TUPLE_TYPE_LUT_KIND_ENUM_COUNT: usize = 14;
 	pub(crate) const NUMBER_BASE_ENUM_COUNT: usize = 4;
 	pub(crate) const NUMBER_KIND_ENUM_COUNT: usize = 8;
 	pub(crate) const OP_ACCESS_ENUM_COUNT: usize = 8;
@@ -60,3 +66,16 @@ impl IcedConstants {
 	pub(crate) const TUPLE_TYPE_ENUM_COUNT: usize = 19;
 }
 // GENERATOR-END: IcedConstants
+
+impl IcedConstants {
+	#[allow(dead_code)]
+	#[allow(unused_variables)]
+	pub(crate) fn is_mvex(code: crate::Code) -> bool {
+		#[cfg(feature = "mvex")]
+		{
+			(code as u32).wrapping_sub(Self::MVEX_START) < Self::MVEX_LENGTH
+		}
+		#[cfg(not(feature = "mvex"))]
+		false
+	}
+}

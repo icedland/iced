@@ -142,7 +142,7 @@ impl OpCodeInfo {
 		self.info.l()
 	}
 
-	/// int: (``u8``) (VEX/XOP/EVEX) ``W`` value or default value if :class:`OpCodeInfo.is_wig` or :class:`OpCodeInfo.is_wig32` is ``True``
+	/// int: (``u8``) (VEX/XOP/EVEX/MVEX) ``W`` value or default value if :class:`OpCodeInfo.is_wig` or :class:`OpCodeInfo.is_wig32` is ``True``
 	#[getter]
 	fn w(&self) -> u32 {
 		self.info.w()
@@ -156,22 +156,76 @@ impl OpCodeInfo {
 		self.info.is_lig()
 	}
 
-	/// bool: (VEX/XOP/EVEX) ``True`` if the ``W`` field is ignored in 16/32/64-bit modes
+	/// bool: (VEX/XOP/EVEX/MVEX) ``True`` if the ``W`` field is ignored in 16/32/64-bit modes
 	#[getter]
 	fn is_wig(&self) -> bool {
 		self.info.is_wig()
 	}
 
-	/// bool: (VEX/XOP/EVEX) ``True`` if the ``W`` field is ignored in 16/32-bit modes (but not 64-bit mode)
+	/// bool: (VEX/XOP/EVEX/MVEX) ``True`` if the ``W`` field is ignored in 16/32-bit modes (but not 64-bit mode)
 	#[getter]
 	fn is_wig32(&self) -> bool {
 		self.info.is_wig32()
 	}
 
-	/// :class:`TupleType`: (EVEX) Gets the tuple type (a :class:`TupleType` enum value)
+	/// :class:`TupleType`: (EVEX/MVEX) Gets the tuple type (a :class:`TupleType` enum value)
 	#[getter]
 	fn tuple_type(&self) -> u32 {
 		self.info.tuple_type() as u32
+	}
+
+	/// :class:`MvexEHBit`: (MVEX) Gets the ``EH`` bit that's required to encode this instruction (an :class:`MvexEHBit` enum value)
+	#[getter]
+	pub fn mvex_eh_bit(&self) -> u32 {
+		self.info.mvex_eh_bit() as u32
+	}
+
+	/// bool: (MVEX) ``True`` if the instruction supports eviction hint (if it has a memory operand)
+	#[getter]
+	pub fn mvex_can_use_eviction_hint(&self) -> bool {
+		self.info.mvex_can_use_eviction_hint()
+	}
+
+	/// bool: (MVEX) ``True`` if the instruction's rounding control bits are stored in ``imm8[1:0]``
+	#[getter]
+	pub fn mvex_can_use_imm_rounding_control(&self) -> bool {
+		self.info.mvex_can_use_imm_rounding_control()
+	}
+
+	/// bool: (MVEX) ``True`` if the instruction ignores op mask registers (eg. ``{k1}``)
+	#[getter]
+	pub fn mvex_ignores_op_mask_register(&self) -> bool {
+		self.info.mvex_ignores_op_mask_register()
+	}
+
+	/// bool: (MVEX) ``True`` if the instruction must have ``MVEX.SSS=000`` if ``MVEX.EH=1``
+	#[getter]
+	pub fn mvex_no_sae_rc(&self) -> bool {
+		self.info.mvex_no_sae_rc()
+	}
+
+	/// :class:`MvexTupleTypeLutKind`: (MVEX) Gets the tuple type / conv lut kind (an :class:`MvexTupleTypeLutKind` enum value)
+	#[getter]
+	pub fn mvex_tuple_type_lut_kind(&self) -> u32 {
+		self.info.mvex_tuple_type_lut_kind() as u32
+	}
+
+	/// :class:`MvexConvFn`: (MVEX) Gets the conversion function, eg. ``Sf32`` (an :class:`MvexConvFn` enum value)
+	#[getter]
+	pub fn mvex_conversion_func(&self) -> u32 {
+		self.info.mvex_conversion_func() as u32
+	}
+
+	/// int: (``u8``) (MVEX) Gets flags indicating which conversion functions are valid (bit 0 == func 0)
+	#[getter]
+	pub fn mvex_valid_conversion_funcs_mask(&self) -> u8 {
+		self.info.mvex_valid_conversion_funcs_mask()
+	}
+
+	/// int: (``u8``) (MVEX) Gets flags indicating which swizzle functions are valid (bit 0 == func 0)
+	#[getter]
+	pub fn mvex_valid_swizzle_funcs_mask(&self) -> u8 {
+		self.info.mvex_valid_swizzle_funcs_mask()
 	}
 
 	/// :class:`MemorySize`: If it has a memory operand, gets the :class:`MemorySize` (non-broadcast memory type)
@@ -192,25 +246,25 @@ impl OpCodeInfo {
 		self.info.can_broadcast()
 	}
 
-	/// bool: (EVEX) ``True`` if the instruction supports rounding control
+	/// bool: (EVEX/MVEX) ``True`` if the instruction supports rounding control
 	#[getter]
 	fn can_use_rounding_control(&self) -> bool {
 		self.info.can_use_rounding_control()
 	}
 
-	/// bool: (EVEX) ``True`` if the instruction supports suppress all exceptions
+	/// bool: (EVEX/MVEX) ``True`` if the instruction supports suppress all exceptions
 	#[getter]
 	fn can_suppress_all_exceptions(&self) -> bool {
 		self.info.can_suppress_all_exceptions()
 	}
 
-	/// bool: (EVEX) ``True`` if an opmask register can be used
+	/// bool: (EVEX/MVEX) ``True`` if an opmask register can be used
 	#[getter]
 	fn can_use_op_mask_register(&self) -> bool {
 		self.info.can_use_op_mask_register()
 	}
 
-	/// bool: (EVEX) ``True`` if a non-zero opmask register must be used
+	/// bool: (EVEX/MVEX) ``True`` if a non-zero opmask register must be used
 	#[getter]
 	fn require_op_mask_register(&self) -> bool {
 		self.info.require_op_mask_register()
@@ -644,7 +698,7 @@ impl OpCodeInfo {
 		self.info.decoder_option()
 	}
 
-	/// :class:`OpCodeTableKind`: Gets the opcode table (a :class:`OpCodeTableKind` enum value)
+	/// :class:`OpCodeTableKind`: Gets the opcode table (an :class:`OpCodeTableKind` enum value)
 	#[getter]
 	fn table(&self) -> u32 {
 		self.info.table() as u32
@@ -721,37 +775,37 @@ impl OpCodeInfo {
 		self.info.op_count()
 	}
 
-	/// :class:`OpCodeOperandKind`: Gets operand #0's opkind (a :class:`OpCodeOperandKind` enum value)
+	/// :class:`OpCodeOperandKind`: Gets operand #0's opkind (an :class:`OpCodeOperandKind` enum value)
 	#[getter]
 	fn op0_kind(&self) -> u32 {
 		self.info.op0_kind() as u32
 	}
 
-	/// :class:`OpCodeOperandKind`: Gets operand #1's opkind (a :class:`OpCodeOperandKind` enum value)
+	/// :class:`OpCodeOperandKind`: Gets operand #1's opkind (an :class:`OpCodeOperandKind` enum value)
 	#[getter]
 	fn op1_kind(&self) -> u32 {
 		self.info.op1_kind() as u32
 	}
 
-	/// :class:`OpCodeOperandKind`: Gets operand #2's opkind (a :class:`OpCodeOperandKind` enum value)
+	/// :class:`OpCodeOperandKind`: Gets operand #2's opkind (an :class:`OpCodeOperandKind` enum value)
 	#[getter]
 	fn op2_kind(&self) -> u32 {
 		self.info.op2_kind() as u32
 	}
 
-	/// :class:`OpCodeOperandKind`: Gets operand #3's opkind (a :class:`OpCodeOperandKind` enum value)
+	/// :class:`OpCodeOperandKind`: Gets operand #3's opkind (an :class:`OpCodeOperandKind` enum value)
 	#[getter]
 	fn op3_kind(&self) -> u32 {
 		self.info.op3_kind() as u32
 	}
 
-	/// :class:`OpCodeOperandKind`: Gets operand #4's opkind (a :class:`OpCodeOperandKind` enum value)
+	/// :class:`OpCodeOperandKind`: Gets operand #4's opkind (an :class:`OpCodeOperandKind` enum value)
 	#[getter]
 	fn op4_kind(&self) -> u32 {
 		self.info.op4_kind() as u32
 	}
 
-	/// Gets an operand's opkind (a :class:`OpCodeOperandKind` enum value)
+	/// Gets an operand's opkind (an :class:`OpCodeOperandKind` enum value)
 	///
 	/// Args:
 	///     `operand` (int): Operand number, 0-4

@@ -6,7 +6,7 @@
 #nullable enable
 
 namespace Iced.Intel {
-	static class IcedConstants {
+	static partial class IcedConstants {
 		internal const int MaxOpCount = 5;
 		internal const int MaxInstructionLength = 15;
 		internal const int RegisterBits = 8;
@@ -17,8 +17,10 @@ namespace Iced.Intel {
 		internal const Register YMM_last = Register.YMM31;
 		internal const Register ZMM_last = Register.ZMM31;
 		internal const Register TMM_last = Register.TMM7;
-		internal const int MaxCpuidFeatureInternalValues = 181;
+		internal const int MaxCpuidFeatureInternalValues = 182;
 		internal const MemorySize FirstBroadcastMemorySize = MemorySize.Broadcast32_Float16;
+		internal const uint MvexStart = 4611;
+		internal const uint MvexLength = 207;
 		internal const int CC_a_EnumCount = 2;
 		internal const int CC_ae_EnumCount = 3;
 		internal const int CC_b_EnumCount = 3;
@@ -31,20 +33,24 @@ namespace Iced.Intel {
 		internal const int CC_ne_EnumCount = 2;
 		internal const int CC_np_EnumCount = 2;
 		internal const int CC_p_EnumCount = 2;
-		internal const int CodeEnumCount = 4563;
+		internal const int CodeEnumCount = 4818;
 		internal const int CodeSizeEnumCount = 4;
 		internal const int ConditionCodeEnumCount = 17;
-		internal const int CpuidFeatureEnumCount = 160;
+		internal const int CpuidFeatureEnumCount = 161;
 		internal const int DecoderErrorEnumCount = 3;
-		internal const int DecoratorKindEnumCount = 4;
-		internal const int EncodingKindEnumCount = 5;
+		internal const int DecoratorKindEnumCount = 6;
+		internal const int EncodingKindEnumCount = 6;
 		internal const int FlowControlEnumCount = 10;
 		internal const int FormatterSyntaxEnumCount = 4;
 		internal const int FormatterTextKindEnumCount = 16;
 		internal const int MandatoryPrefixEnumCount = 5;
 		internal const int MemorySizeEnumCount = 160;
 		internal const int MemorySizeOptionsEnumCount = 4;
-		internal const int MnemonicEnumCount = 1741;
+		internal const int MnemonicEnumCount = 1834;
+		internal const int MvexConvFnEnumCount = 13;
+		internal const int MvexEHBitEnumCount = 3;
+		internal const int MvexRegMemConvEnumCount = 17;
+		internal const int MvexTupleTypeLutKindEnumCount = 14;
 		internal const int NumberBaseEnumCount = 4;
 		internal const int NumberKindEnumCount = 8;
 		internal const int OpAccessEnumCount = 8;

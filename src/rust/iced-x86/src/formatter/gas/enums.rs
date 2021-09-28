@@ -210,13 +210,17 @@ pub(crate) enum InstrOpKind {
 	RdSae,
 	RuSae,
 	RzSae,
+	Rn,
+	Rd,
+	Ru,
+	Rz,
 	DeclareByte,
 	DeclareWord,
 	DeclareDword,
 	DeclareQword,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_INSTR_OP_KIND: [&str; 34] = [
+static GEN_DEBUG_INSTR_OP_KIND: [&str; 38] = [
 	"Register",
 	"NearBranch16",
 	"NearBranch32",
@@ -247,6 +251,10 @@ static GEN_DEBUG_INSTR_OP_KIND: [&str; 34] = [
 	"RdSae",
 	"RuSae",
 	"RzSae",
+	"Rn",
+	"Rd",
+	"Ru",
+	"Rz",
 	"DeclareByte",
 	"DeclareWord",
 	"DeclareDword",

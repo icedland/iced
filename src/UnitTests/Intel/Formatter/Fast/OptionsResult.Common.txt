@@ -999,6 +999,46 @@ vcmpsh k2{k3},xmm6,xmm3,1Eh
 vcmpsh k2{k3},xmm6,xmm3,1Fh
 vcmpsh k2{k3},xmm6,xmm3,20h
 
+vcmpps k2,zmm6,zmm3,0h
+vcmpps k2,zmm6,zmm3,1h
+vcmpps k2,zmm6,zmm3,2h
+vcmpps k2,zmm6,zmm3,3h
+vcmpps k2,zmm6,zmm3,4h
+vcmpps k2,zmm6,zmm3,5h
+vcmpps k2,zmm6,zmm3,6h
+vcmpps k2,zmm6,zmm3,7h
+vcmpps k2,zmm6,zmm3,8h
+
+vcmppd k2,zmm6,zmm3,0h
+vcmppd k2,zmm6,zmm3,1h
+vcmppd k2,zmm6,zmm3,2h
+vcmppd k2,zmm6,zmm3,3h
+vcmppd k2,zmm6,zmm3,4h
+vcmppd k2,zmm6,zmm3,5h
+vcmppd k2,zmm6,zmm3,6h
+vcmppd k2,zmm6,zmm3,7h
+vcmppd k2,zmm6,zmm3,8h
+
+vpcmpud k2,zmm6,zmm3,0h
+vpcmpud k2,zmm6,zmm3,1h
+vpcmpud k2,zmm6,zmm3,2h
+vpcmpud k2,zmm6,zmm3,3h
+vpcmpud k2,zmm6,zmm3,4h
+vpcmpud k2,zmm6,zmm3,5h
+vpcmpud k2,zmm6,zmm3,6h
+vpcmpud k2,zmm6,zmm3,7h
+vpcmpud k2,zmm6,zmm3,8h
+
+vpcmpd k2,zmm6,zmm3,0h
+vpcmpd k2,zmm6,zmm3,1h
+vpcmpd k2,zmm6,zmm3,2h
+vpcmpd k2,zmm6,zmm3,3h
+vpcmpd k2,zmm6,zmm3,4h
+vpcmpd k2,zmm6,zmm3,5h
+vpcmpd k2,zmm6,zmm3,6h
+vpcmpd k2,zmm6,zmm3,7h
+vpcmpd k2,zmm6,zmm3,8h
+
 faddp st(1),st(0)
 fcom st(0),st(1)
 fcomp st(0),st(1)
@@ -1982,6 +2022,46 @@ vcmpge_oqsh k2{k3},xmm6,xmm3
 vcmpgt_oqsh k2{k3},xmm6,xmm3
 vcmptrue_ussh k2{k3},xmm6,xmm3
 vcmpsh k2{k3},xmm6,xmm3,20h
+
+vcmpeqps k2,zmm6,zmm3
+vcmpltps k2,zmm6,zmm3
+vcmpleps k2,zmm6,zmm3
+vcmpunordps k2,zmm6,zmm3
+vcmpneqps k2,zmm6,zmm3
+vcmpnltps k2,zmm6,zmm3
+vcmpnleps k2,zmm6,zmm3
+vcmpordps k2,zmm6,zmm3
+vcmpps k2,zmm6,zmm3,8h
+
+vcmpeqpd k2,zmm6,zmm3
+vcmpltpd k2,zmm6,zmm3
+vcmplepd k2,zmm6,zmm3
+vcmpunordpd k2,zmm6,zmm3
+vcmpneqpd k2,zmm6,zmm3
+vcmpnltpd k2,zmm6,zmm3
+vcmpnlepd k2,zmm6,zmm3
+vcmpordpd k2,zmm6,zmm3
+vcmppd k2,zmm6,zmm3,8h
+
+vpcmpequd k2,zmm6,zmm3
+vpcmpltud k2,zmm6,zmm3
+vpcmpleud k2,zmm6,zmm3
+vpcmp??ud k2,zmm6,zmm3
+vpcmpnequd k2,zmm6,zmm3
+vpcmpnltud k2,zmm6,zmm3
+vpcmpnleud k2,zmm6,zmm3
+vpcmp???ud k2,zmm6,zmm3
+vpcmpud k2,zmm6,zmm3,8h
+
+vpcmpeqd k2,zmm6,zmm3
+vpcmpltd k2,zmm6,zmm3
+vpcmpled k2,zmm6,zmm3
+vpcmp??d k2,zmm6,zmm3
+vpcmpneqd k2,zmm6,zmm3
+vpcmpnltd k2,zmm6,zmm3
+vpcmpnled k2,zmm6,zmm3
+vpcmp???d k2,zmm6,zmm3
+vpcmpd k2,zmm6,zmm3,8h
 
 imul cx,cx,0FFFFh
 imul ecx,ecx,0FFFFFFFFh

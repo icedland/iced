@@ -31,12 +31,16 @@ impl MiscSectionNames {
 	pub(crate) const LOOP: &'static str = "loop";
 	pub(crate) const JRCXZ: &'static str = "jrcxz";
 	pub(crate) const XBEGIN: &'static str = "xbegin";
+	pub(crate) const JKCC_SHORT: &'static str = "jkcc-short";
+	pub(crate) const JKCC_NEAR: &'static str = "jkcc-near";
 	pub(crate) const JMP_INFO: &'static str = "jmp-info";
 	pub(crate) const JCC_SHORT_INFO: &'static str = "jcc-short-info";
 	pub(crate) const JCC_NEAR_INFO: &'static str = "jcc-near-info";
 	pub(crate) const SETCC_INFO: &'static str = "setcc-info";
 	pub(crate) const CMOVCC_INFO: &'static str = "cmovcc-info";
 	pub(crate) const LOOPCC_INFO: &'static str = "loopcc-info";
+	pub(crate) const JKCC_SHORT_INFO: &'static str = "jkcc-short-info";
+	pub(crate) const JKCC_NEAR_INFO: &'static str = "jkcc-near-info";
 	pub(crate) const STRING_INSTRUCTION: &'static str = "string";
 }
 // GENERATOR-END: MiscSectionNames
@@ -66,6 +70,10 @@ impl MiscSectionNameIds {
 	const CMOVCC_INFO: u32 = 20;
 	const LOOPCC_INFO: u32 = 21;
 	const STRING_INSTRUCTION: u32 = 22;
+	const JKCC_SHORT: u32 = 23;
+	const JKCC_NEAR: u32 = 24;
+	const JKCC_SHORT_INFO: u32 = 25;
+	const JKCC_NEAR_INFO: u32 = 26;
 }
 
 pub(super) struct MiscTestsData {
@@ -86,9 +94,13 @@ pub(super) struct MiscTestsData {
 	pub(super) jrcxz: HashSet<Code>,
 	pub(super) xbegin: HashSet<Code>,
 	pub(super) string: HashSet<Code>,
+	pub(super) jkcc_short: HashSet<Code>,
+	pub(super) jkcc_near: HashSet<Code>,
 	pub(super) jmp_infos: Vec<(Code, Code)>,
 	pub(super) jcc_short_infos: Vec<(Code, Code, Code, ConditionCode)>,
 	pub(super) jcc_near_infos: Vec<(Code, Code, Code, ConditionCode)>,
+	pub(super) jkcc_short_infos: Vec<(Code, Code, Code, ConditionCode)>,
+	pub(super) jkcc_near_infos: Vec<(Code, Code, Code, ConditionCode)>,
 	pub(super) setcc_infos: Vec<(Code, Code, ConditionCode)>,
 	pub(super) cmovcc_infos: Vec<(Code, Code, ConditionCode)>,
 	pub(super) loopcc_infos: Vec<(Code, Code, ConditionCode)>,
@@ -127,9 +139,13 @@ impl MiscTestsDataReader {
 				jrcxz: HashSet::new(),
 				xbegin: HashSet::new(),
 				string: HashSet::new(),
+				jkcc_short: HashSet::new(),
+				jkcc_near: HashSet::new(),
 				jmp_infos: Vec::new(),
 				jcc_short_infos: Vec::new(),
 				jcc_near_infos: Vec::new(),
+				jkcc_short_infos: Vec::new(),
+				jkcc_near_infos: Vec::new(),
 				setcc_infos: Vec::new(),
 				cmovcc_infos: Vec::new(),
 				loopcc_infos: Vec::new(),
@@ -162,6 +178,10 @@ impl MiscTestsDataReader {
 			(MiscSectionNames::CMOVCC_INFO, MiscSectionNameIds::CMOVCC_INFO),
 			(MiscSectionNames::LOOPCC_INFO, MiscSectionNameIds::LOOPCC_INFO),
 			(MiscSectionNames::STRING_INSTRUCTION, MiscSectionNameIds::STRING_INSTRUCTION),
+			(MiscSectionNames::JKCC_SHORT, MiscSectionNameIds::JKCC_SHORT),
+			(MiscSectionNames::JKCC_NEAR, MiscSectionNameIds::JKCC_NEAR),
+			(MiscSectionNames::JKCC_SHORT_INFO, MiscSectionNameIds::JKCC_SHORT_INFO),
+			(MiscSectionNames::JKCC_NEAR_INFO, MiscSectionNameIds::JKCC_NEAR_INFO),
 		];
 		let mut reader = SectionFileReader::new(infos);
 		let mut path = get_instr_info_unit_tests_dir();
@@ -239,6 +259,10 @@ impl SectionFileLineHandler for MiscTestsDataReader {
 			MiscSectionNameIds::CMOVCC_INFO => Self::add_instr_cc_info(&mut self.data.cmovcc_infos, line),
 			MiscSectionNameIds::LOOPCC_INFO => Self::add_instr_cc_info(&mut self.data.loopcc_infos, line),
 			MiscSectionNameIds::STRING_INSTRUCTION => Self::add_code(&mut self.data.string, line),
+			MiscSectionNameIds::JKCC_SHORT => Self::add_code(&mut self.data.jkcc_short, line),
+			MiscSectionNameIds::JKCC_NEAR => Self::add_code(&mut self.data.jkcc_near, line),
+			MiscSectionNameIds::JKCC_SHORT_INFO => Self::add_jcc_info(&mut self.data.jkcc_short_infos, line),
+			MiscSectionNameIds::JKCC_NEAR_INFO => Self::add_jcc_info(&mut self.data.jkcc_near_infos, line),
 			_ => unreachable!(),
 		}
 	}

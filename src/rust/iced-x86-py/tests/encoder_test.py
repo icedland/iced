@@ -29,18 +29,21 @@ def test_options(bitness: int) -> None:
 	assert encoder.vex_lig == 0
 	assert encoder.evex_wig == 0
 	assert encoder.evex_lig == 0
+	assert encoder.mvex_wig == 0
 
 	encoder.prevent_vex2 = True
 	encoder.vex_wig = 1
 	encoder.vex_lig = 1
 	encoder.evex_wig = 1
 	encoder.evex_lig = 2
+	encoder.mvex_wig = 1
 
 	assert encoder.prevent_vex2
 	assert encoder.vex_wig == 1
 	assert encoder.vex_lig == 1
 	assert encoder.evex_wig == 1
 	assert encoder.evex_lig == 2
+	assert encoder.mvex_wig == 1
 
 @pytest.mark.parametrize("bitness, data", [
 	(16, b"\x03\xCE\x90\xF3\x90"),

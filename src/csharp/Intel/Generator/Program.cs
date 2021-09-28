@@ -146,6 +146,10 @@ Options:
     Don't include XOP instructions
 --no-3dnow
     Don't include 3DNow! instructions
+--no-mvex
+    Don't include MVEX instructions
+--no-knc
+    Don't include KNC instructions (MVEX + KNC VEX)
 --no-padlock
     Don't include Centaur (VIA) PadLock instructions
 --no-cyrix
@@ -237,6 +241,15 @@ Options:
 					options.GeneratorFlags |= GeneratorFlags.No3DNow;
 					// Remove FEMMS too
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.D3NOW));
+					break;
+
+				case "--no-mvex":
+					options.GeneratorFlags |= GeneratorFlags.NoMVEX;
+					break;
+
+				case "--no-knc":
+					options.GeneratorFlags |= GeneratorFlags.NoMVEX;
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.KNC));
 					break;
 
 				case "--no-padlock":

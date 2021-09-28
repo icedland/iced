@@ -19,6 +19,10 @@ namespace Generator.Enums.Formatter.Gas {
 			list.Add(new EnumValue((uint)list.Count, "RdSae", null));
 			list.Add(new EnumValue((uint)list.Count, "RuSae", null));
 			list.Add(new EnumValue((uint)list.Count, "RzSae", null));
+			list.Add(new EnumValue((uint)list.Count, "Rn", null));
+			list.Add(new EnumValue((uint)list.Count, "Rd", null));
+			list.Add(new EnumValue((uint)list.Count, "Ru", null));
+			list.Add(new EnumValue((uint)list.Count, "Rz", null));
 			list.Add(new EnumValue((uint)list.Count, "DeclareByte", null));
 			list.Add(new EnumValue((uint)list.Count, "DeclareWord", null));
 			list.Add(new EnumValue((uint)list.Count, "DeclareDword", null));

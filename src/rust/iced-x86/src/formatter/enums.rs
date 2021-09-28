@@ -465,13 +465,19 @@ pub enum DecoratorKind {
 	SuppressAllExceptions = 2,
 	/// Zeroing masking: `{z}`
 	ZeroingMasking = 3,
+	/// MVEX swizzle or memory up/down conversion: `{dacb}` or `{sint16}`
+	SwizzleMemConv = 4,
+	/// MVEX eviction hint: `{eh}`
+	EvictionHint = 5,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_DECORATOR_KIND: [&str; 4] = [
+static GEN_DEBUG_DECORATOR_KIND: [&str; 6] = [
 	"Broadcast",
 	"RoundingControl",
 	"SuppressAllExceptions",
 	"ZeroingMasking",
+	"SwizzleMemConv",
+	"EvictionHint",
 ];
 impl fmt::Debug for DecoratorKind {
 	#[inline]

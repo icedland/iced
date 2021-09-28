@@ -28,8 +28,13 @@ namespace Iced.Intel {
 		readonly FormatterString[] opSizeStrings;
 		readonly FormatterString[] addrSizeStrings;
 		readonly FormatterString[] rcStrings;
+		readonly FormatterString[] rcSaeStrings;
 		readonly FormatterString[]?[] branchInfos;
 		readonly string[] scaleNumbers;
+#if MVEX
+		readonly FormatterString[] mvexRegMemConsts32;
+		readonly FormatterString[] mvexRegMemConsts64;
+#endif
 
 		/// <summary>
 		/// Constructor
@@ -61,8 +66,13 @@ namespace Iced.Intel {
 			opSizeStrings = s_opSizeStrings;
 			addrSizeStrings = s_addrSizeStrings;
 			rcStrings = s_rcStrings;
+			rcSaeStrings = s_rcSaeStrings;
 			branchInfos = s_branchInfos;
 			scaleNumbers = s_scaleNumbers;
+#if MVEX
+			mvexRegMemConsts32 = s_mvexRegMemConsts32;
+			mvexRegMemConsts64 = s_mvexRegMemConsts64;
+#endif
 		}
 
 		static readonly FormatterString str_bnd = new FormatterString("bnd");
@@ -97,6 +107,12 @@ namespace Iced.Intel {
 			new FormatterString("addr64"),
 		};
 		static readonly FormatterString[] s_rcStrings = new FormatterString[] {
+			new FormatterString("rne"),
+			new FormatterString("rd"),
+			new FormatterString("ru"),
+			new FormatterString("rz"),
+		};
+		static readonly FormatterString[] s_rcSaeStrings = new FormatterString[] {
 			new FormatterString("rne-sae"),
 			new FormatterString("rd-sae"),
 			new FormatterString("ru-sae"),
@@ -109,6 +125,47 @@ namespace Iced.Intel {
 		static readonly string[] s_scaleNumbers = new string[4] {
 			"1", "2", "4", "8",
 		};
+#if MVEX
+		static readonly FormatterString[] s_mvexRegMemConsts32 = new FormatterString[IcedConstants.MvexRegMemConvEnumCount] {
+			new FormatterString(""),
+			new FormatterString(""),
+			new FormatterString("cdab"),
+			new FormatterString("badc"),
+			new FormatterString("dacb"),
+			new FormatterString("aaaa"),
+			new FormatterString("bbbb"),
+			new FormatterString("cccc"),
+			new FormatterString("dddd"),
+			new FormatterString(""),
+			new FormatterString("1to16"),
+			new FormatterString("4to16"),
+			new FormatterString("float16"),
+			new FormatterString("uint8"),
+			new FormatterString("sint8"),
+			new FormatterString("uint16"),
+			new FormatterString("sint16"),
+		};
+		static readonly FormatterString[] s_mvexRegMemConsts64 = new FormatterString[IcedConstants.MvexRegMemConvEnumCount] {
+			new FormatterString(""),
+			new FormatterString(""),
+			new FormatterString("cdab"),
+			new FormatterString("badc"),
+			new FormatterString("dacb"),
+			new FormatterString("aaaa"),
+			new FormatterString("bbbb"),
+			new FormatterString("cccc"),
+			new FormatterString("dddd"),
+			new FormatterString(""),
+			new FormatterString("1to8"),
+			new FormatterString("4to8"),
+			new FormatterString("float16"),
+			new FormatterString("uint8"),
+			new FormatterString("sint8"),
+			new FormatterString("uint16"),
+			new FormatterString("sint16"),
+		};
+		static readonly FormatterString str_eh = new FormatterString("eh");
+#endif
 
 		/// <summary>
 		/// Formats the mnemonic and/or any prefixes
@@ -423,6 +480,16 @@ namespace Iced.Intel {
 			if (output is null)
 				ThrowHelper.ThrowArgumentNullException_output();
 
+#if MVEX
+			int mvexRmOperand;
+			if (IcedConstants.IsMvex(instruction.Code)) {
+				var opCount = instruction.OpCount;
+				Debug.Assert(opCount != 0);
+				mvexRmOperand = instruction.GetOpKind(opCount - 1) == OpKind.Immediate8 ? opCount - 2 : opCount - 1;
+			}
+			else
+				mvexRmOperand = -1;
+#endif
 			int instructionOperand = opInfo.GetInstructionIndex(operand);
 
 			string s;
@@ -727,11 +794,30 @@ namespace Iced.Intel {
 					Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-					FormatDecorator(output, instruction, operand, instructionOperand, rcStrings[(int)rc - 1], DecoratorKind.RoundingControl);
+					FormatterString decStr;
+					if (IcedConstants.IsMvex(instruction.Code))
+						decStr = instruction.SuppressAllExceptions ? rcSaeStrings[(int)rc - 1] : rcStrings[(int)rc - 1];
+					else
+						decStr = rcSaeStrings[(int)rc - 1];
+					FormatDecorator(output, instruction, operand, instructionOperand, decStr, DecoratorKind.RoundingControl);
 				}
 				else if (instruction.SuppressAllExceptions)
 					FormatDecorator(output, instruction, operand, instructionOperand, str_sae, DecoratorKind.SuppressAllExceptions);
 			}
+#if MVEX
+			if (mvexRmOperand == operand) {
+				var conv = instruction.MvexRegMemConv;
+				if (conv != MvexRegMemConv.None) {
+					var mvex = new MvexInfo(instruction.Code);
+					if (mvex.ConvFn != MvexConvFn.None) {
+						var tbl = mvex.IsConvFn32 ? mvexRegMemConsts32 : mvexRegMemConsts64;
+						var fs = tbl[(int)conv];
+						if (fs.Length != 0)
+							FormatDecorator(output, instruction, operand, instructionOperand, fs, DecoratorKind.SwizzleMemConv);
+					}
+				}
+			}
+#endif
 		}
 
 		void FormatFlowControl(FormatterOutput output, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions) {
@@ -971,6 +1057,10 @@ namespace Iced.Intel {
 			var bcstTo = allMemorySizes[(int)memSize].bcstTo;
 			if (bcstTo.Length != 0)
 				FormatDecorator(output, instruction, operand, instructionOperand, bcstTo, DecoratorKind.Broadcast);
+#if MVEX
+			if (instruction.IsMvexEvictionHint)
+				FormatDecorator(output, instruction, operand, instructionOperand, str_eh, DecoratorKind.EvictionHint);
+#endif
 		}
 
 		void FormatMemorySize(FormatterOutput output, ref SymbolResult symbol, MemorySize memSize, InstrOpInfoFlags flags, FormatterOperandOptions operandOptions, bool useSymbol) {

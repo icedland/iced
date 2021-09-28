@@ -334,8 +334,14 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 		tests.push((64, "0F0F 8E 78563412 0C", RIP, Instruction::with2(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory64).unwrap()));
 	}
 
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "mvex")]
+	{
+		tests.push((64, "62 D17808 28 8E 78563412", RIP, Instruction::with2(Code::MVEX_Vmovaps_zmm_k1_zmmmt, Register::ZMM1, memory64).unwrap()));
+	}
+
 	// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
-	const_assert_eq!(IcedConstants::ENCODING_KIND_ENUM_COUNT, 5);
+	const_assert_eq!(IcedConstants::ENCODING_KIND_ENUM_COUNT, 6);
 
 	for &(bitness, hex_bytes, rip, instruction) in &tests {
 		let expected_bytes = to_vec_u8(hex_bytes).unwrap();
@@ -454,6 +460,8 @@ fn verify_encoder_options() {
 		assert_eq!(encoder.vex_lig(), 0);
 		assert_eq!(encoder.evex_wig(), 0);
 		assert_eq!(encoder.evex_lig(), 0);
+		#[cfg(feature = "mvex")]
+		assert_eq!(encoder.mvex_wig(), 0);
 	}
 }
 
@@ -533,6 +541,19 @@ fn get_set_wig_lig_options() {
 		encoder.set_evex_lig(0xFFFF_FFFF);
 		assert_eq!(encoder.evex_lig(), 3);
 		assert_eq!(encoder.evex_wig(), 1);
+
+		#[cfg(feature = "mvex")]
+		{
+			encoder.set_mvex_wig(0);
+			assert_eq!(encoder.mvex_wig(), 0);
+			encoder.set_mvex_wig(1);
+			assert_eq!(encoder.mvex_wig(), 1);
+
+			encoder.set_mvex_wig(0xFFFF_FFFE);
+			assert_eq!(encoder.mvex_wig(), 0);
+			encoder.set_mvex_wig(0xFFFF_FFFF);
+			assert_eq!(encoder.mvex_wig(), 1);
+		}
 	}
 }
 
@@ -951,6 +972,18 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	for i in tc.op_count..IcedConstants::MAX_OP_COUNT as u32 {
 		assert_eq!(info.op_kind(i), OpCodeOperandKind::None);
 		assert_eq!(info.try_op_kind(i).unwrap(), OpCodeOperandKind::None);
+	}
+	#[cfg(feature = "mvex")]
+	{
+		assert_eq!(info.mvex_eh_bit(), tc.mvex.eh_bit);
+		assert_eq!(info.mvex_can_use_eviction_hint(), tc.mvex.can_use_eviction_hint);
+		assert_eq!(info.mvex_can_use_imm_rounding_control(), tc.mvex.can_use_imm_rounding_control);
+		assert_eq!(info.mvex_ignores_op_mask_register(), tc.mvex.ignores_op_mask_register);
+		assert_eq!(info.mvex_no_sae_rc(), tc.mvex.no_sae_rc);
+		assert_eq!(info.mvex_tuple_type_lut_kind(), tc.mvex.tuple_type_lut_kind);
+		assert_eq!(info.mvex_conversion_func(), tc.mvex.conversion_func);
+		assert_eq!(info.mvex_valid_conversion_funcs_mask(), tc.mvex.valid_conversion_funcs_mask);
+		assert_eq!(info.mvex_valid_swizzle_funcs_mask(), tc.mvex.valid_swizzle_funcs_mask);
 	}
 }
 

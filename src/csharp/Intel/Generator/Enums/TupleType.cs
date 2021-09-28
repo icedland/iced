@@ -2,7 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 namespace Generator.Enums {
-	[Enum("TupleType", Documentation = "Tuple type (EVEX) which can be used to get the disp8 scale factor #(c:N)#", Public = true)]
+	[Enum("TupleType", Documentation = "Tuple type (EVEX/MVEX) which can be used to get the disp8 scale factor #(c:N)#", Public = true)]
 	enum TupleType {
 		[Comment("#(c:N = 1)#")]
 		N1,

@@ -62,6 +62,8 @@ namespace Iced.Intel {
 		Cyrix_DMI = 0x00400000,
 		/// <summary>Decode Centaur <c>ALTINST</c></summary>
 		ALTINST = 0x00800000,
+		/// <summary>Decode Intel Knights Corner instructions (requires the <c>mvex</c> feature)</summary>
+		KNC = 0x01000000,
 	}
 }
 #endif

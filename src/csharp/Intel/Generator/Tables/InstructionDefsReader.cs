@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -34,6 +33,7 @@ namespace Generator.Tables {
 		readonly Dictionary<string, EnumValue> toEncoding;
 		readonly Dictionary<string, EnumValue> toCpuid;
 		readonly Dictionary<string, EnumValue> toTupleType;
+		readonly Dictionary<string, EnumValue> toMvexTupleTypeLutKind;
 		readonly Dictionary<string, EnumValue> toConditionCode;
 		readonly Dictionary<string, EnumValue> toPseudoOpsKind;
 		readonly Dictionary<string, EnumValue> toDecOptionValue;
@@ -144,6 +144,7 @@ namespace Generator.Tables {
 			toEncoding = CreateEnumDict(genTypes[TypeIds.EncodingKind]);
 			toCpuid = CreateEnumDict(genTypes[TypeIds.CpuidFeature]);
 			toTupleType = CreateEnumDict(genTypes[TypeIds.TupleType]);
+			toMvexTupleTypeLutKind = CreateEnumDict(genTypes[TypeIds.MvexTupleTypeLutKind]);
 			toConditionCode = CreateEnumDict(genTypes[TypeIds.ConditionCode]);
 			toPseudoOpsKind = CreateEnumDict(genTypes[TypeIds.PseudoOpsKind]);
 			toDecOptionValue = CreateEnumDict(genTypes[TypeIds.DecOptionValue]);
@@ -246,7 +247,8 @@ namespace Generator.Tables {
 				int errorCount = errors.Count;
 				int origLineIndex = lineIndex;
 				if (!TryParse(ref lineIndex, out var def, out var accesses, out var defLineIndex)) {
-					Debug.Assert(errorCount < errors.Count);
+					if (errorCount >= errors.Count)
+						throw new InvalidOperationException();
 					lineIndex = SkipLines(Math.Max(origLineIndex + 1, lineIndex));
 				}
 				else
@@ -341,13 +343,6 @@ namespace Generator.Tables {
 				return false;
 			}
 
-			var instrStrParser = new InstructionStringParser(toRegisterIgnoreCase, instrStr);
-			if (!instrStrParser.TryParse(out var parsedInstr, out error)) {
-				Error(lineIndex, $"Instruction string: {error}");
-				return false;
-			}
-			instrStr = parsedInstr.InstructionStr;
-
 			var opCodeParser = new OpCodeStringParser(opCodeStr);
 			if (!opCodeParser.TryParse(out var parsedOpCode, out error)) {
 				Error(lineIndex, $"Opcode string: {error}");
@@ -366,15 +361,18 @@ namespace Generator.Tables {
 				Error(lineIndex, $"Invalid op code length: {parsedOpCode.OpCodeLength}");
 				return false;
 			}
+
+			var instrStrParser = new InstructionStringParser(toRegisterIgnoreCase, parsedOpCode.Encoding, instrStr);
+			if (!instrStrParser.TryParse(out var parsedInstr, out error)) {
+				Error(lineIndex, $"Instruction string: {error}");
+				return false;
+			}
+			instrStr = parsedInstr.InstructionStr;
+
 			var state = new InstructionDefState(lineIndex, opCodeStr, instrStr, cpuid,
 				tupleType ?? tupleTypeN1, toEncoding[parsedOpCode.Encoding.ToString()]);
 			lineIndex++;
 			state.OpCode = parsedOpCode;
-
-			if ((parsedOpCode.Flags & ParsedOpCodeFlags.Fwait) != 0)
-				state.Flags1 |= InstructionDefFlags1.Fwait;
-			if ((parsedOpCode.Flags & ParsedOpCodeFlags.ModRegRmString) != 0)
-				state.InstrStrFlags |= InstructionStringFlags.ModRegRmString;
 
 			bool foundEnd = false;
 			bool hasRflags = false;
@@ -455,6 +453,9 @@ namespace Generator.Tables {
 						break;
 					case "fpu-skip-op0":
 						state.InstrStrFmtOption = InstrStrFmtOption.SkipOp0;
+						break;
+					case "vec-index-same-as-op-index":
+						state.InstrStrFmtOption = InstrStrFmtOption.VecIndexSameAsOpIndex;
 						break;
 					default:
 						Error(lineIndex, $"Unknown value `{lineValue}`");
@@ -636,7 +637,7 @@ namespace Generator.Tables {
 
 						case "vmx":
 							if (state.VmxMode != VmxMode.None) {
-								error = $"Duplicate {newKey} value";
+								Error(lineIndex, $"Duplicate {newKey} value");
 								return false;
 							}
 							state.VmxMode = newValue switch {
@@ -650,7 +651,7 @@ namespace Generator.Tables {
 						case "privileged":
 						case "no-privileged":
 							if (privileged is not null) {
-								error = "Duplicate privileged/no-privileged value";
+								Error(lineIndex, $"Duplicate privileged/no-privileged value");
 								return false;
 							}
 							privileged = value == "privileged";
@@ -661,7 +662,7 @@ namespace Generator.Tables {
 						case "fpu-pop":
 						case "fpu-stack":
 							if (state.FpuStackIncrement != 0) {
-								error = $"At most one of these can be used: `fpu-push`, `fpu-cond-push`, `fpu-pop`, `fpu-stack`";
+								Error(lineIndex, $"At most one of these can be used: `fpu-push`, `fpu-cond-push`, `fpu-pop`, `fpu-stack`");
 								return false;
 							}
 							if (!ParserUtils.TryParseInt32(newValue, out int stackCount, out error))
@@ -671,7 +672,7 @@ namespace Generator.Tables {
 							case "fpu-push":
 							case "fpu-cond-push":
 								if (stackCount < 1) {
-									error = $"Invalid FPU stack push count: {newValue}";
+									Error(lineIndex, $"Invalid FPU stack push count: {newValue}");
 									return false;
 								}
 								state.FpuStackIncrement = -stackCount;
@@ -680,7 +681,7 @@ namespace Generator.Tables {
 								break;
 							case "fpu-pop":
 								if (stackCount < 1) {
-									error = $"Invalid FPU stack pop count: {newValue}";
+									Error(lineIndex, $"Invalid FPU stack pop count: {newValue}");
 									return false;
 								}
 								state.FpuStackIncrement = stackCount;
@@ -699,13 +700,13 @@ namespace Generator.Tables {
 
 						case "sp":
 							if (state.StackInfo.Kind != StackInfoKind.None) {
-								error = $"Duplicate {newKey} value";
+								Error(lineIndex, $"Duplicate {newKey} value");
 								return false;
 							}
 							state.Flags1 |= InstructionDefFlags1.StackInstruction;
 							var spArgs = newValue.Split(';');
 							if (spArgs.Length != 2) {
-								error = "Expected exactly one semicolon";
+								Error(lineIndex, $"Expected exactly one semicolon");
 								return false;
 							}
 							var spKey = spArgs[0];
@@ -728,7 +729,7 @@ namespace Generator.Tables {
 								state.StackInfo = new StackInfo(StackInfoKind.PopImm16, spValue);
 								break;
 							default:
-								error = $"Unknown sp key: `{spKey}`";
+								Error(lineIndex, $"Unknown sp key: `{spKey}`");
 								return false;
 							}
 							break;
@@ -755,6 +756,8 @@ namespace Generator.Tables {
 							case "loop": state.BranchKind = BranchKind.Loop; break;
 							case "jrcxz": state.BranchKind = BranchKind.Jrcxz; break;
 							case "xbegin": state.BranchKind = BranchKind.Xbegin; break;
+							case "jkcc-short": state.BranchKind = BranchKind.JkccShort; break;
+							case "jkcc-near": state.BranchKind = BranchKind.JkccNear; break;
 							default:
 								Error(lineIndex, $"Unknown branch kind `{newValue}`");
 								return false;
@@ -934,16 +937,26 @@ namespace Generator.Tables {
 							break;
 
 						case "br":
+						case "br64":
 							if ((parsedOpFlags & ParsedInstructionOperandFlags.DispBranch) != 0)
 								opEnc = OperandEncoding.AbsNearBranch;
 							else if ((parsedOpFlags & ParsedInstructionOperandFlags.RelBranch) != 0) {
 								opEnc = OperandEncoding.NearBranch;
-								switch (parsedOpCode.OperandSize) {
+								var opSize = parsedOpCode.OperandSize;
+								if (opSize == CodeSize.Unknown) {
+									switch (opKindStr) {
+									case "br64": opSize = CodeSize.Code64; break;
+									default:
+										Error(lineIndex, "Unknown operand size");
+										return false;
+									}
+								}
+								switch (opSize) {
 								case CodeSize.Code16: size2 = 16; break;
 								case CodeSize.Code32: size2 = 32; break;
 								case CodeSize.Code64: size2 = 64; break;
 								default:
-									Error(lineIndex, $"Op {opIndex}: Expected a 16/32/64-bit near branch operand but got {parsedOpCode.OperandSize}");
+									Error(lineIndex, $"Op {opIndex}: Expected a 16/32/64-bit near branch operand but got {opSize}");
 									return false;
 								}
 							}
@@ -1157,7 +1170,173 @@ namespace Generator.Tables {
 					}
 					state.OpAccess = opAccess.ToArray();
 					state.OpKinds = opKinds.ToArray();
-					if (opsParts.Length > 1) {
+					if (parsedOpCode.Encoding == EncodingKind.MVEX) {
+						if (opsParts.Length < 2) {
+							Error(lineIndex, "Expected MVEX memory/swizzle info");
+							return false;
+						}
+
+						state.Mvex = new(toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)], state.OpCode.MvexEHBit, MvexConvFn.None, 0, 0);
+						bool seenN = false;
+						EnumValue? ttLutKind = null;
+						int elemSize = 0;
+						foreach (var (key, value) in GetKeyValues(opsParts[1].Trim())) {
+							if (key is not "swizz" and not "mem" and not "N") {
+								if (value != string.Empty) {
+									Error(lineIndex, $"Unexpected value `{key}={value}`");
+									return false;
+								}
+							}
+							switch (key) {
+							case "sae":
+								state.Flags1 |= InstructionDefFlags1.SuppressAllExceptions;
+								state.Mvex.Flags1 |= MvexInfoFlags1.SuppressAllExceptions;
+								break;
+
+							case "er":
+								state.Flags1 |= InstructionDefFlags1.RoundingControl;
+								state.Mvex.Flags1 |= MvexInfoFlags1.RoundingControl;
+								break;
+
+							case "er-imm":
+								state.Flags1 |= InstructionDefFlags1.RoundingControl;
+								state.Mvex.Flags1 |= MvexInfoFlags1.ImmRoundingControl;
+								break;
+
+							case "no-er-sae":
+								state.Mvex.Flags2 |= MvexInfoFlags2.NoSaeRoundingControl;
+								break;
+
+							case "ignore-opmask":
+								state.Mvex.Flags1 |= MvexInfoFlags1.IgnoresOpMaskRegister;
+								break;
+
+							case "ignore-eh":
+								state.Mvex.Flags2 |= MvexInfoFlags2.IgnoresEvictionHint;
+								break;
+
+							case "swizz":
+								if (value == string.Empty)
+									state.Mvex.ValidSwizzleFns = 0xFF;
+								else if (!ParseMvexValidFns(value, out state.Mvex.ValidSwizzleFns, out error)) {
+									Error(lineIndex, $"Invalid swizzle-fn bits: {error}");
+									return false;
+								}
+								break;
+
+							case "mem":
+								if (seenN) {
+									Error(lineIndex, "mem=xxx must be before N=xxx");
+									return false;
+								}
+								if (value == string.Empty) {
+									Error(lineIndex, "Expected mem conv fn bits");
+									return false;
+								}
+								if (!ParseMvexValidFns(value, out state.Mvex.ValidConvFns, out error)) {
+									Error(lineIndex, $"Invalid mem-conv-fn bits: {error}");
+									return false;
+								}
+								break;
+
+							case "i32":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)];
+								elemSize = 32;
+								break;
+
+							case "f32":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32)];
+								elemSize = 32;
+								break;
+
+							case "i32-half":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_Half)];
+								elemSize = 32;
+								break;
+
+							case "f32-half":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_Half)];
+								elemSize = 32;
+								break;
+
+							case "i32-bcst1":
+							case "i32-elem":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_1to16_or_elem)];
+								elemSize = 32;
+								break;
+
+							case "f32-bcst1":
+							case "f32-elem":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_1to16_or_elem)];
+								elemSize = 32;
+								break;
+
+							case "i64-bcst1":
+							case "i64-elem":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int64_1to8_or_elem)];
+								elemSize = 64;
+								break;
+
+							case "f64-bcst1":
+							case "f64-elem":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float64_1to8_or_elem)];
+								elemSize = 64;
+								break;
+
+							case "i32-bcst4":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32_4to16)];
+								elemSize = 32;
+								break;
+
+							case "f32-bcst4":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32_4to16)];
+								elemSize = 32;
+								break;
+
+							case "i64-bcst4":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int64_4to8)];
+								elemSize = 64;
+								break;
+
+							case "f64-bcst4":
+								ttLutKind = toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float64_4to8)];
+								elemSize = 64;
+								break;
+
+							default:
+								Error(lineIndex, $"Invalid key `{key}`");
+								return false;
+							}
+						}
+						foreach (var op in parsedInstr.Operands) {
+							if (op.MvexConvFn != MvexConvFn.None) {
+								state.Mvex.ConvFn = op.MvexConvFn;
+								break;
+							}
+						}
+						ttLutKind ??= state.Mvex.ConvFn switch {
+							MvexConvFn.Si32 or MvexConvFn.Ui32 or MvexConvFn.Di32 => toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int32)],
+							MvexConvFn.Sf32 or MvexConvFn.Uf32 or MvexConvFn.Df32 => toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float32)],
+							MvexConvFn.Si64 or MvexConvFn.Ui64 or MvexConvFn.Di64 => toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Int64)],
+							MvexConvFn.Sf64 or MvexConvFn.Uf64 or MvexConvFn.Df64 => toMvexTupleTypeLutKind[nameof(MvexTupleTypeLutKind.Float64)],
+							MvexConvFn.None => null,
+							_ => throw new InvalidOperationException(),
+						};
+						state.Mvex.Flags2 |= state.Mvex.ConvFn switch {
+							MvexConvFn.Si32 or MvexConvFn.Ui32 or MvexConvFn.Di32 or
+							MvexConvFn.Sf32 or MvexConvFn.Uf32 or MvexConvFn.Df32 => MvexInfoFlags2.ConvFn32,
+							MvexConvFn.Si64 or MvexConvFn.Ui64 or MvexConvFn.Di64 or
+							MvexConvFn.Sf64 or MvexConvFn.Uf64 or MvexConvFn.Df64 => MvexInfoFlags2.None,
+							MvexConvFn.None => elemSize == 32 ? MvexInfoFlags2.ConvFn32 : MvexInfoFlags2.None,
+							_ => throw new InvalidOperationException(),
+						};
+						if (ttLutKind is null) {
+							Error(lineIndex, $"Unknown {nameof(MvexTupleTypeLutKind)} value");
+							return false;
+						}
+						state.Mvex.TupleTypeLutKind = ttLutKind;
+					}
+					else if (opsParts.Length > 1) {
 						var memParts = opsParts[1].Split(' ', StringSplitOptions.RemoveEmptyEntries);
 						if (memParts.Length == 0 || memParts.Length > 2) {
 							Error(lineIndex, $"Expected 1-2 {nameof(MemorySize)} values");
@@ -1196,6 +1375,9 @@ namespace Generator.Tables {
 				Error(lineIndex, $"Missing `{DefEnd}`");
 				return false;
 			}
+
+			if ((state.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0)
+				state.Mvex.Flags1 |= MvexInfoFlags1.RequireOpMaskRegister;
 
 			if ((state.Flags3 & (InstructionDefFlags3.ImpliedZeroingMasking | InstructionDefFlags3.OpMaskIsElementSelector)) != 0) {
 				if (state.OpAccess.Length == 0 || state.OpAccess[0] != OpInfo.Write) {
@@ -1301,6 +1483,8 @@ namespace Generator.Tables {
 					instrStr.EndsWith("r32, r32", StringComparison.Ordinal) || instrStr.EndsWith("r64, r64", StringComparison.Ordinal)) {
 					state.InstrStrFmtOption = InstrStrFmtOption.OpMaskIsK1_or_NoGprSuffix;
 				}
+				else if (instrStr.Contains("zmm1 {k1}, k2, ", StringComparison.Ordinal) && instrStr.Contains("zmm3", StringComparison.Ordinal))
+					state.InstrStrFmtOption = InstrStrFmtOption.VecIndexSameAsOpIndex;
 			}
 
 			state.Cflow ??= flowControlNext;
@@ -1326,8 +1510,42 @@ namespace Generator.Tables {
 					return false;
 				}
 			}
-
 			const InstructionDefFlags1 CpuModeBits = InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit64;
+
+			if (parsedOpCode.Encoding == EncodingKind.MVEX) {
+				if (state.Cpuid.Length != 1 || (CpuidFeature)state.Cpuid[0].Value != CpuidFeature.KNC) {
+					Error(state.LineIndex, "KNC CPUID feature must be used");
+					return false;
+				}
+			}
+			var isKnc = state.Cpuid.Any(x => (CpuidFeature)x.Value == CpuidFeature.KNC);
+			if (isKnc) {
+				if ((state.Flags1 & CpuModeBits) != 0) {
+					Error(lineIndex, "KNC is 64-bit only. The parser hard codes the bitness");
+					return false;
+				}
+				state.Flags1 |= InstructionDefFlags1.Bit64;
+				state.Flags3 |= InstructionDefFlags3.AsmIgnore;
+				if (state.DecoderOption != decoderOptionNone) {
+					Error(lineIndex, "The parser adds KNC decoder option");
+					return false;
+				}
+				state.DecoderOption = toDecOptionValue[nameof(DecOptionValue.KNC)];
+			}
+			switch (state.OpCode.MvexEHBit) {
+			case MvexEHBit.None:
+				break;
+			case MvexEHBit.EH0:
+			case MvexEHBit.EH1:
+				if ((state.Mvex.Flags1 & MvexInfoFlags1.EvictionHint) != 0) {
+					Error(state.LineIndex, "{eh} can't be used when the instruction requires EH0 or EH1");
+					return false;
+				}
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
+
 			if ((state.Flags1 & CpuModeBits) == 0)
 				state.Flags1 |= CpuModeBits;
 			const InstructionDefFlags1 CplBits = InstructionDefFlags1.Cpl0 | InstructionDefFlags1.Cpl1 |
@@ -1337,9 +1555,13 @@ namespace Generator.Tables {
 			if (state.MemorySize_Broadcast != memorySizeUnknown)
 				state.Flags1 |= InstructionDefFlags1.Broadcast;
 			if (((state.Flags1 & InstructionDefFlags1.Broadcast) != 0) != ((parsedInstr.Flags & ParsedInstructionFlags.Broadcast) != 0)) {
-				error = "Mem size enum and instruction string's mem op aren't both broadcast or both not broadcast";
+				Error(lineIndex, $"Mem size enum and instruction string's mem op aren't both broadcast or both not broadcast");
 				return false;
 			}
+			if ((parsedOpCode.Flags & ParsedOpCodeFlags.Fwait) != 0)
+				state.Flags1 |= InstructionDefFlags1.Fwait;
+			if ((parsedOpCode.Flags & ParsedOpCodeFlags.ModRegRmString) != 0)
+				state.InstrStrFlags |= InstructionStringFlags.ModRegRmString;
 			if ((parsedInstr.Flags & ParsedInstructionFlags.RoundingControl) != 0)
 				state.Flags1 |= InstructionDefFlags1.RoundingControl;
 			if ((parsedInstr.Flags & ParsedInstructionFlags.SuppressAllExceptions) != 0)
@@ -1348,6 +1570,8 @@ namespace Generator.Tables {
 				state.Flags1 |= InstructionDefFlags1.OpMaskRegister;
 			if ((parsedInstr.Flags & ParsedInstructionFlags.ZeroingMasking) != 0)
 				state.Flags1 |= InstructionDefFlags1.ZeroingMasking;
+			if ((parsedInstr.Flags & ParsedInstructionFlags.EvictionHint) != 0)
+				state.Mvex.Flags1 |= MvexInfoFlags1.EvictionHint;
 			switch (state.VmxMode) {
 			case VmxMode.None:
 				break;
@@ -1381,6 +1605,7 @@ namespace Generator.Tables {
 			case EncodingKind.VEX:
 			case EncodingKind.EVEX:
 			case EncodingKind.XOP:
+			case EncodingKind.MVEX:
 				state.Flags2 &= ~(InstructionDefFlags2.RealMode | InstructionDefFlags2.Virtual8086Mode);
 				break;
 			default:
@@ -1444,7 +1669,8 @@ namespace Generator.Tables {
 			}
 
 			var codeFormatter = new CodeFormatter(sb, regDefs, memSizeTbl, state.CodeMnemonic, state.CodeSuffix, state.CodeMemorySize,
-				state.CodeMemorySizeSuffix, state.MemorySize, state.MemorySize_Broadcast, state.Flags1, parsedOpCode.Encoding, state.OpKinds);
+				state.CodeMemorySizeSuffix, state.MemorySize, state.MemorySize_Broadcast, state.Flags1, state.Mvex.Flags1, parsedOpCode.Encoding,
+				state.OpKinds, isKnc);
 			var codeValue = codeFormatter.Format();
 			if (usedCodeValues.TryGetValue(codeValue, out var otherLineIndex)) {
 				Error(state.LineIndex,
@@ -1501,8 +1727,9 @@ namespace Generator.Tables {
 			var cpuidFeatureStrings = state.Cpuid.Select(a => toCpuidFeatureString[a]).ToArray();
 			def = new InstructionDef(state.Code, state.OpCodeStr, state.InstrStr, state.Mnemonic, state.MemorySize,
 				state.MemorySize_Broadcast, state.DecoderOption, state.Flags1, state.Flags2, state.Flags3, state.InstrStrFmtOption,
-				state.InstrStrFlags, parsedInstr.ImpliedOps,
-				state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.OpCode,
+				state.InstrStrFlags, parsedInstr.ImpliedOps, state.Mvex,
+				state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.NDKind,
+				state.OpCode.OpCode,
 				state.OpCode.OpCodeLength, state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
 				pseudoOp, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.StackInfo, state.FpuStackIncrement,
@@ -1769,8 +1996,17 @@ namespace Generator.Tables {
 
 		bool TryCreateFastDef(EnumValue code, string defaultMnemonic, PseudoOpsKind? pseudoOp, FastState state, [NotNullWhen(true)] out FastFmtInstructionDef? fastDef, [NotNullWhen(false)] out string? error) {
 			var mnemonic = state.Mnemonic ?? defaultMnemonic;
-			if (pseudoOp is not null)
-				state.Flags.Add(fastFmtFlags[pseudoOp.GetValueOrDefault().ToString()]);
+			if (pseudoOp is PseudoOpsKind pseudoOp2) {
+				var name = pseudoOp2.ToString();
+				// We only store 8 bits per Code value and we don't have enough bits left for all pseudo ops
+				if (pseudoOp2 > PseudoOpsKind.vpcmpd6) {
+					// If it fails, we can remove the above if check and block. C#/Rust fast fmt code should be updated too.
+					if (fastFmtFlags.Values.Any(x => x.RawName == name))
+						throw new InvalidOperationException();
+					name = nameof(PseudoOpsKind.vpcmpd6);
+				}
+				state.Flags.Add(fastFmtFlags[name]);
+			}
 			fastDef = new FastFmtInstructionDef(code, mnemonic, new OrEnumValue(fastFmtFlags, state.Flags.ToArray()));
 			error = null;
 			return true;
@@ -2083,15 +2319,6 @@ namespace Generator.Tables {
 						state.Args.Add((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0);
 					}
 				}
-				else if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0) {
-					if (def.OpKinds.Length == 0) {
-						error = "Instruction has no operands";
-						return false;
-					}
-					ctorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.sae)];
-					var saeIndex = def.OpKinds[^1].OperandEncoding == OperandEncoding.Immediate ? 1 : 0;
-					state.Args.Add(saeIndex);
-				}
 				else if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0) {
 					if (def.OpKinds.Length == 0) {
 						error = "Instruction has no operands";
@@ -2109,6 +2336,15 @@ namespace Generator.Tables {
 						ctorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.er_2)];
 						state.Args.Add(erIndex);
 					}
+				}
+				else if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0) {
+					if (def.OpKinds.Length == 0) {
+						error = "Instruction has no operands";
+						return false;
+					}
+					ctorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.sae)];
+					var saeIndex = def.OpKinds[^1].OperandEncoding == OperandEncoding.Immediate ? 1 : 0;
+					state.Args.Add(saeIndex);
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
 					int ccIndex = (int)(def.OpCode.OpCode & 0x0F);
@@ -3311,15 +3547,6 @@ namespace Generator.Tables {
 					else
 						ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.pops)];
 				}
-				else if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0) {
-					if (def.OpKinds.Length == 0) {
-						error = "Instruction has no operands";
-						return false;
-					}
-					ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.sae)];
-					var saeIndex = def.OpKinds[^1].OperandEncoding == OperandEncoding.Immediate ? def.OpKinds.Length - 1 : def.OpKinds.Length;
-					state.Args.Add(saeIndex);
-				}
 				else if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0) {
 					if (def.OpKinds.Length == 0) {
 						error = "Instruction has no operands";
@@ -3334,6 +3561,15 @@ namespace Generator.Tables {
 					}
 					else
 						ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.er_2)];
+				}
+				else if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0) {
+					if (def.OpKinds.Length == 0) {
+						error = "Instruction has no operands";
+						return false;
+					}
+					ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.sae)];
+					var saeIndex = def.OpKinds[^1].OperandEncoding == OperandEncoding.Immediate ? def.OpKinds.Length - 1 : def.OpKinds.Length;
+					state.Args.Add(saeIndex);
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
 					int ccIndex = (int)(def.OpCode.OpCode & 0x0F);
@@ -3456,7 +3692,8 @@ namespace Generator.Tables {
 			if (parts.Length == 3)
 				tupleType = null;
 			else {
-				Debug.Assert(parts.Length == 4);
+				if (parts.Length != 4)
+					throw new InvalidOperationException();
 				if (!TryGetValue(toTupleType, parts[3], out var ttValue, out var errMsg)) {
 					error = errMsg;
 					tupleType = null;
@@ -3481,6 +3718,36 @@ namespace Generator.Tables {
 				error = $"Invalid enum value `{name}`";
 				return false;
 			}
+		}
+
+		static bool ParseMvexValidFns(string value, out byte validBits, [NotNullWhen(false)] out string? error) {
+			validBits = 0;
+			int bit = 0;
+			foreach (var c in value) {
+				if (c == '_')
+					continue;
+				switch (c) {
+				case '_':
+					break;
+				case '0':
+					bit++;
+					break;
+				case '1':
+					validBits |= (byte)(1 << bit);
+					bit++;
+					break;
+				default:
+					error = $"Invalid char `{c}`, expected `0`, `1` or `_`";
+					return false;
+				}
+			}
+			if (bit != 8) {
+				error = $"Expected 8 bits but got {bit} bits";
+				return false;
+			}
+
+			error = null;
+			return true;
 		}
 	}
 
@@ -3525,7 +3792,7 @@ namespace Generator.Tables {
 		public readonly string OpCodeStr;
 		public readonly string InstrStr;
 		public readonly EnumValue[] Cpuid;
-		public readonly EnumValue TupleType;
+		public EnumValue TupleType;
 		public readonly EnumValue Encoding;
 		public OpInfo[] OpAccess;
 		public OpCodeOperandKindDef[] OpKinds;
@@ -3558,6 +3825,7 @@ namespace Generator.Tables {
 		public EnumValue? PseudoOpsKind;
 		public EnumValue? MemorySize;
 		public EnumValue? MemorySize_Broadcast;
+		public MvexInstructionInfo Mvex;
 		public OpCodeDef OpCode;
 		public FastState? FastInfo;
 		public GasState? Gas;

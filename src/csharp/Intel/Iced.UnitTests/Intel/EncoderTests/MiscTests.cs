@@ -93,8 +93,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				yield return new object[] { 64, "0F0F 8E 78563412 0C", rip, Instruction.Create(Code.D3NOW_Pi2fw_mm_mmm64, Register.MM1, memory64) };
 #endif
 
+#if MVEX
+				yield return new object[] { 64, "62 D17808 28 8E 78563412", rip, Instruction.Create(Code.MVEX_Vmovaps_zmm_k1_zmmmt, Register.ZMM1, memory64) };
+#endif
+
 				// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
-				Static.Assert(IcedConstants.EncodingKindEnumCount == 5 ? 0 : -1);
+				Static.Assert(IcedConstants.EncodingKindEnumCount == 6 ? 0 : -1);
 			}
 		}
 
@@ -217,6 +221,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(0U, encoder.VEX_LIG);
 			Assert.Equal(0U, encoder.EVEX_WIG);
 			Assert.Equal(0U, encoder.EVEX_LIG);
+#if MVEX
+			Assert.Equal(0U, encoder.MVEX_WIG);
+#endif
 		}
 
 		[Theory]
@@ -297,6 +304,18 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			encoder.EVEX_LIG = 0xFFFFFFFF;
 			Assert.Equal(3U, encoder.EVEX_LIG);
 			Assert.Equal(1U, encoder.EVEX_WIG);
+
+#if MVEX
+			encoder.MVEX_WIG = 0;
+			Assert.Equal(0U, encoder.MVEX_WIG);
+			encoder.MVEX_WIG = 1;
+			Assert.Equal(1U, encoder.MVEX_WIG);
+
+			encoder.MVEX_WIG = 0xFFFFFFFE;
+			Assert.Equal(0U, encoder.MVEX_WIG);
+			encoder.MVEX_WIG = 0xFFFFFFFF;
+			Assert.Equal(1U, encoder.MVEX_WIG);
+#endif
 		}
 
 #if !NO_VEX

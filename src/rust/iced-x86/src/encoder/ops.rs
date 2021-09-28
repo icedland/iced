@@ -501,13 +501,13 @@ impl Op for OpHx {
 	}
 }
 
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_evex"), feature = "mvex"))]
 #[allow(non_camel_case_types)]
 pub(super) struct OpVsib {
 	pub(super) vsib_index_reg_lo: Register,
 	pub(super) vsib_index_reg_hi: Register,
 }
-#[cfg(any(not(feature = "no_vex"), not(feature = "no_evex")))]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_evex"), feature = "mvex"))]
 impl Op for OpVsib {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		encoder.encoder_flags |= EncoderFlags::MUST_USE_SIB;

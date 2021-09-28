@@ -5,6 +5,13 @@ use crate::iced_constants::IcedConstants;
 use crate::*;
 use alloc::string::String;
 
+#[cfg(feature = "mvex")]
+#[derive(Default)]
+pub(crate) struct MvexDecoderInfo {
+	pub(crate) eviction_hint: bool,
+	pub(crate) reg_mem_conv: MvexRegMemConv,
+}
+
 #[derive(Default)]
 pub(crate) struct DecoderTestCase {
 	#[allow(dead_code)]
@@ -46,4 +53,6 @@ pub(crate) struct DecoderTestCase {
 	pub(crate) far_branch_selector: u16,
 	pub(crate) op_registers: [Register; IcedConstants::MAX_OP_COUNT],
 	pub(crate) constant_offsets: ConstantOffsets,
+	#[cfg(feature = "mvex")]
+	pub(crate) mvex: MvexDecoderInfo,
 }

@@ -485,10 +485,11 @@ pub(crate) enum ImpliedAccess {
 	t_Wrsp_pop5x8,
 	t_Reax_Recx_Wedx_Webx,
 	t_Reax_Recx_Redx_CRebx_CWedx_CWebx,
+	t_memdisplm64,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_IMPLIED_ACCESS: [&str; 193] = [
+static GEN_DEBUG_IMPLIED_ACCESS: [&str; 194] = [
 	"None",
 	"Shift_Ib_MASK1FMOD9",
 	"Shift_Ib_MASK1FMOD11",
@@ -682,6 +683,7 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 193] = [
 	"t_Wrsp_pop5x8",
 	"t_Reax_Recx_Wedx_Webx",
 	"t_Reax_Recx_Redx_CRebx_CWedx_CWebx",
+	"t_memdisplm64",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for ImpliedAccess {
@@ -1075,10 +1077,11 @@ pub(crate) enum CpuidFeatureInternal {
 	AVX512_FP16,
 	AVX512VL_and_AVX512_FP16,
 	UDBG,
+	KNC,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 181] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 182] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1260,6 +1263,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 181] = [
 	"AVX512_FP16",
 	"AVX512VL_and_AVX512_FP16",
 	"UDBG",
+	"KNC",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

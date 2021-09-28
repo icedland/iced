@@ -185,6 +185,10 @@ namespace Iced.Intel {
 		SuppressAllExceptions = 2,
 		/// <summary>Zeroing masking: <c>{z}</c></summary>
 		ZeroingMasking = 3,
+		/// <summary>MVEX swizzle or memory up/down conversion: <c>{dacb}</c> or <c>{sint16}</c></summary>
+		SwizzleMemConv = 4,
+		/// <summary>MVEX eviction hint: <c>{eh}</c></summary>
+		EvictionHint = 5,
 	}
 	// GENERATOR-END: DecoratorKind
 

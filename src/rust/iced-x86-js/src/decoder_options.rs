@@ -64,5 +64,7 @@ pub enum DecoderOptions {
 	Cyrix_DMI = 0x0040_0000,
 	/// Decode Centaur `ALTINST`
 	ALTINST = 0x0080_0000,
+	/// Decode Intel Knights Corner instructions (requires the `mvex` feature)
+	KNC = 0x0100_0000,
 }
 // GENERATOR-END: Enum

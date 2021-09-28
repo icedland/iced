@@ -274,6 +274,7 @@ namespace IcedFuzzer.Core {
 				EncodingKind.EVEX => evexEncodings,
 				EncodingKind.XOP => xopEncodings,
 				EncodingKind.D3NOW => d3nowEncodings,
+				EncodingKind.MVEX => throw ThrowHelpers.Unreachable,
 				_ => throw ThrowHelpers.Unreachable,
 			};
 

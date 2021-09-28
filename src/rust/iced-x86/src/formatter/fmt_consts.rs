@@ -2,9 +2,57 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::formatter::FormatterString;
+#[cfg(any(feature = "intel", feature = "masm", feature = "mvex"))]
+use crate::iced_constants::IcedConstants;
 #[cfg(any(feature = "intel", feature = "nasm"))]
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
+
+#[cfg(feature = "mvex")]
+pub(super) struct MvexFormatterConstants {
+	pub(super) swizzle_cdab: FormatterString,
+	pub(super) swizzle_badc: FormatterString,
+	pub(super) swizzle_dacb: FormatterString,
+	pub(super) swizzle_aaaa: FormatterString,
+	pub(super) swizzle_bbbb: FormatterString,
+	pub(super) swizzle_cccc: FormatterString,
+	pub(super) swizzle_dddd: FormatterString,
+	pub(super) mem_1to16: FormatterString,
+	pub(super) mem_1to8: FormatterString,
+	pub(super) mem_4to16: FormatterString,
+	pub(super) mem_4to8: FormatterString,
+	pub(super) mem_float16: FormatterString,
+	pub(super) mem_uint8: FormatterString,
+	pub(super) mem_sint8: FormatterString,
+	pub(super) mem_uint16: FormatterString,
+	pub(super) mem_sint16: FormatterString,
+	pub(super) eh: FormatterString,
+}
+
+#[cfg(feature = "mvex")]
+impl MvexFormatterConstants {
+	fn new() -> Self {
+		Self {
+			swizzle_cdab: FormatterString::new_str("cdab"),
+			swizzle_badc: FormatterString::new_str("badc"),
+			swizzle_dacb: FormatterString::new_str("dacb"),
+			swizzle_aaaa: FormatterString::new_str("aaaa"),
+			swizzle_bbbb: FormatterString::new_str("bbbb"),
+			swizzle_cccc: FormatterString::new_str("cccc"),
+			swizzle_dddd: FormatterString::new_str("dddd"),
+			mem_1to16: FormatterString::new_str("1to16"),
+			mem_1to8: FormatterString::new_str("1to8"),
+			mem_4to16: FormatterString::new_str("4to16"),
+			mem_4to8: FormatterString::new_str("4to8"),
+			mem_float16: FormatterString::new_str("float16"),
+			mem_uint8: FormatterString::new_str("uint8"),
+			mem_sint8: FormatterString::new_str("sint8"),
+			mem_uint16: FormatterString::new_str("uint16"),
+			mem_sint16: FormatterString::new_str("sint16"),
+			eh: FormatterString::new_str("eh"),
+		}
+	}
+}
 
 #[allow(dead_code)]
 pub(super) struct FormatterConstants {
@@ -51,7 +99,6 @@ pub(super) struct FormatterConstants {
 	pub(super) offset: FormatterString,
 	pub(super) pn: FormatterString,
 	pub(super) pt: FormatterString,
-	pub(super) rd_sae: FormatterString,
 	pub(super) rel: FormatterString,
 	pub(super) rep: FormatterString,
 	pub(super) repe: [FormatterString; 2],
@@ -59,9 +106,15 @@ pub(super) struct FormatterConstants {
 	pub(super) rex_w: FormatterString,
 	pub(super) rne_sae: FormatterString,
 	pub(super) rn_sae: FormatterString,
+	pub(super) rd_sae: FormatterString,
 	pub(super) ru_sae: FormatterString,
 	pub(super) rz_sae: FormatterString,
 	pub(super) sae: FormatterString,
+	pub(super) rne: FormatterString,
+	pub(super) rn: FormatterString,
+	pub(super) rd: FormatterString,
+	pub(super) ru: FormatterString,
+	pub(super) rz: FormatterString,
 	pub(super) short: FormatterString,
 	pub(super) to: FormatterString,
 	pub(super) xacquire: FormatterString,
@@ -79,6 +132,8 @@ pub(super) struct FormatterConstants {
 	pub(super) o16: FormatterString,
 	pub(super) o32: FormatterString,
 	pub(super) o64: FormatterString,
+	#[cfg(feature = "mvex")]
+	pub(super) mvex: MvexFormatterConstants,
 }
 
 lazy_static! {
@@ -127,7 +182,6 @@ lazy_static! {
 			offset: FormatterString::new_str("offset"),
 			pn: FormatterString::new_str("pn"),
 			pt: FormatterString::new_str("pt"),
-			rd_sae: FormatterString::new_str("rd-sae"),
 			rel: FormatterString::new_str("rel"),
 			rep: FormatterString::new_str("rep"),
 			repe: [FormatterString::new_str("repe"), FormatterString::new_str("repz")],
@@ -135,9 +189,15 @@ lazy_static! {
 			rex_w: FormatterString::new_str("rex.w"),
 			rne_sae: FormatterString::new_str("rne-sae"),
 			rn_sae: FormatterString::new_str("rn-sae"),
+			rd_sae: FormatterString::new_str("rd-sae"),
 			ru_sae: FormatterString::new_str("ru-sae"),
 			rz_sae: FormatterString::new_str("rz-sae"),
 			sae: FormatterString::new_str("sae"),
+			rne: FormatterString::new_str("rne"),
+			rn: FormatterString::new_str("rn"),
+			rd: FormatterString::new_str("rd"),
+			ru: FormatterString::new_str("ru"),
+			rz: FormatterString::new_str("rz"),
 			short: FormatterString::new_str("short"),
 			to: FormatterString::new_str("to"),
 			xacquire: FormatterString::new_str("xacquire"),
@@ -155,6 +215,8 @@ lazy_static! {
 			o16: FormatterString::new_str("o16"),
 			o32: FormatterString::new_str("o32"),
 			o64: FormatterString::new_str("o64"),
+			#[cfg(feature = "mvex")]
+			mvex: MvexFormatterConstants::new(),
 		}
 	};
 }
@@ -201,18 +263,26 @@ pub(super) struct FormatterArrayConstants {
 	#[cfg(not(feature = "intel"))]
 	pub(super) intel_addr_size_strings: (),
 	#[cfg(feature = "intel")]
-	pub(super) intel_rc_strings: [&'static FormatterString; 4],
+	pub(super) intel_rc_strings: [&'static FormatterString; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT],
+	#[cfg(feature = "intel")]
+	pub(super) intel_rc_sae_strings: [&'static FormatterString; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT],
 	#[cfg(not(feature = "intel"))]
 	pub(super) intel_rc_strings: (),
+	#[cfg(not(feature = "intel"))]
+	pub(super) intel_rc_sae_strings: (),
 	#[cfg(feature = "intel")]
 	pub(super) intel_branch_infos:
 		[Vec<&'static FormatterString>; crate::formatter::intel::enums::InstrOpInfoFlags::BRANCH_SIZE_INFO_MASK as usize + 1],
 	#[cfg(not(feature = "intel"))]
 	pub(super) intel_branch_infos: (),
 	#[cfg(feature = "masm")]
-	pub(super) masm_rc_strings: [&'static FormatterString; 4],
+	pub(super) masm_rc_strings: [&'static FormatterString; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT],
+	#[cfg(feature = "masm")]
+	pub(super) masm_rc_sae_strings: [&'static FormatterString; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT],
 	#[cfg(not(feature = "masm"))]
 	pub(super) masm_rc_strings: (),
+	#[cfg(not(feature = "masm"))]
+	pub(super) masm_rc_sae_strings: (),
 	#[cfg(feature = "nasm")]
 	pub(super) nasm_op_size_strings: [&'static FormatterString; crate::formatter::nasm::enums::InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize + 1],
 	#[cfg(not(feature = "nasm"))]
@@ -235,6 +305,10 @@ pub(super) struct FormatterArrayConstants {
 		[&'static FormatterString; crate::formatter::nasm::enums::InstrOpInfoFlags::FAR_MEMORY_SIZE_INFO_MASK as usize + 1],
 	#[cfg(not(feature = "nasm"))]
 	pub(super) nasm_far_mem_size_infos: (),
+	#[cfg(feature = "mvex")]
+	pub(super) mvex_reg_mem_consts_32: [&'static FormatterString; IcedConstants::MVEX_REG_MEM_CONV_ENUM_COUNT],
+	#[cfg(feature = "mvex")]
+	pub(super) mvex_reg_mem_consts_64: [&'static FormatterString; IcedConstants::MVEX_REG_MEM_CONV_ENUM_COUNT],
 }
 
 lazy_static! {
@@ -306,14 +380,24 @@ lazy_static! {
 		let intel_addr_size_strings = ();
 		#[cfg(feature = "intel")]
 		#[rustfmt::skip]
-		let intel_rc_strings: [&'static FormatterString; 4] = [
+		let intel_rc_strings: [&'static FormatterString; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT] = [
+			&c.empty,
+			&c.rne,
+			&c.rd,
+			&c.ru,
+			&c.rz,
+		];
+		#[cfg(feature = "intel")]
+		#[rustfmt::skip]
+		let intel_rc_sae_strings: [&'static FormatterString; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT] = [
+			&c.empty,
 			&c.rne_sae,
 			&c.rd_sae,
 			&c.ru_sae,
 			&c.rz_sae,
 		];
 		#[cfg(not(feature = "intel"))]
-		let intel_rc_strings = ();
+		let (intel_rc_strings, intel_rc_sae_strings) = ((), ());
 		#[cfg(feature = "intel")]
 		#[rustfmt::skip]
 		let intel_branch_infos: [Vec<&'static FormatterString>; crate::formatter::intel::enums::InstrOpInfoFlags::BRANCH_SIZE_INFO_MASK as usize + 1] = [
@@ -324,14 +408,24 @@ lazy_static! {
 		let intel_branch_infos = ();
 		#[cfg(feature = "masm")]
 		#[rustfmt::skip]
-		let masm_rc_strings: [&'static FormatterString; 4] = [
+		let masm_rc_strings: [&'static FormatterString; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT] = [
+			&c.empty,
+			&c.rn,
+			&c.rd,
+			&c.ru,
+			&c.rz,
+		];
+		#[cfg(feature = "masm")]
+		#[rustfmt::skip]
+		let masm_rc_sae_strings: [&'static FormatterString; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT] = [
+			&c.empty,
 			&c.rn_sae,
 			&c.rd_sae,
 			&c.ru_sae,
 			&c.rz_sae,
 		];
 		#[cfg(not(feature = "masm"))]
-		let masm_rc_strings = ();
+		let (masm_rc_strings, masm_rc_sae_strings) = ((), ());
 		#[cfg(feature = "nasm")]
 		#[rustfmt::skip]
 		let nasm_op_size_strings: [&'static FormatterString; crate::formatter::nasm::enums::InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize + 1] = [
@@ -416,13 +510,55 @@ lazy_static! {
 			intel_op_size_strings,
 			intel_addr_size_strings,
 			intel_rc_strings,
+			intel_rc_sae_strings,
 			intel_branch_infos,
 			masm_rc_strings,
+			masm_rc_sae_strings,
 			nasm_op_size_strings,
 			nasm_addr_size_strings,
 			nasm_branch_infos,
 			nasm_mem_size_infos,
 			nasm_far_mem_size_infos,
+			#[cfg(feature = "mvex")]
+			mvex_reg_mem_consts_32: [
+				&c.empty,
+				&c.empty,
+				&c.mvex.swizzle_cdab,
+				&c.mvex.swizzle_badc,
+				&c.mvex.swizzle_dacb,
+				&c.mvex.swizzle_aaaa,
+				&c.mvex.swizzle_bbbb,
+				&c.mvex.swizzle_cccc,
+				&c.mvex.swizzle_dddd,
+				&c.empty,
+				&c.mvex.mem_1to16,
+				&c.mvex.mem_4to16,
+				&c.mvex.mem_float16,
+				&c.mvex.mem_uint8,
+				&c.mvex.mem_sint8,
+				&c.mvex.mem_uint16,
+				&c.mvex.mem_sint16,
+			],
+			#[cfg(feature = "mvex")]
+			mvex_reg_mem_consts_64: [
+				&c.empty,
+				&c.empty,
+				&c.mvex.swizzle_cdab,
+				&c.mvex.swizzle_badc,
+				&c.mvex.swizzle_dacb,
+				&c.mvex.swizzle_aaaa,
+				&c.mvex.swizzle_bbbb,
+				&c.mvex.swizzle_cccc,
+				&c.mvex.swizzle_dddd,
+				&c.empty,
+				&c.mvex.mem_1to8,
+				&c.mvex.mem_4to8,
+				&c.mvex.mem_float16,
+				&c.mvex.mem_uint8,
+				&c.mvex.mem_sint8,
+				&c.mvex.mem_uint16,
+				&c.mvex.mem_sint16,
+			],
 		}
 	};
 }

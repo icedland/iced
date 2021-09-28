@@ -112,6 +112,11 @@ pub struct Encoder {
 	internal_vex_lig: u32,
 	internal_evex_wig: u32,
 	internal_evex_lig: u32,
+	#[cfg(feature = "mvex")]
+	internal_mvex_wig: u32,
+	#[cfg(not(feature = "mvex"))]
+	#[allow(dead_code)]
+	internal_mvex_wig: (),
 	prevent_vex2: u32,
 	opsize16_flags: u32,
 	opsize32_flags: u32,
@@ -185,6 +190,10 @@ impl Encoder {
 
 		let handlers = HANDLERS_TABLE.as_ref();
 
+		#[cfg(feature = "mvex")]
+		const INTERNAL_MVEX_WIG: u32 = 0;
+		#[cfg(not(feature = "mvex"))]
+		const INTERNAL_MVEX_WIG: () = ();
 		Ok(Self {
 			current_rip: 0,
 			handler: handlers[0],
@@ -204,6 +213,7 @@ impl Encoder {
 			internal_vex_lig: 0,
 			internal_evex_wig: 0,
 			internal_evex_lig: 0,
+			internal_mvex_wig: INTERNAL_MVEX_WIG,
 			prevent_vex2: 0,
 			opsize16_flags,
 			opsize32_flags,
@@ -832,9 +842,9 @@ impl Encoder {
 	}
 
 	#[must_use]
-	fn try_convert_to_disp8n(&mut self, displ: i32) -> Option<i8> {
+	fn try_convert_to_disp8n(&mut self, instruction: &Instruction, displ: i32) -> Option<i8> {
 		if let Some(try_convert_to_disp8n) = self.handler.try_convert_to_disp8n {
-			(try_convert_to_disp8n)(self.handler, self, displ)
+			(try_convert_to_disp8n)(self.handler, self, instruction, displ)
 		} else if i8::MIN as i32 <= displ && displ <= i8::MAX as i32 {
 			Some(displ as i8)
 		} else {
@@ -902,7 +912,7 @@ impl Encoder {
 				}
 			}
 			if displ_size == 1 {
-				if let Some(compressed_value) = self.try_convert_to_disp8n(self.displ as i16 as i32) {
+				if let Some(compressed_value) = self.try_convert_to_disp8n(instruction, self.displ as i16 as i32) {
 					self.displ = compressed_value as u32;
 				} else {
 					displ_size = 2;
@@ -1049,7 +1059,7 @@ impl Encoder {
 		}
 
 		if displ_size == 1 {
-			if let Some(compressed_value) = self.try_convert_to_disp8n(self.displ as i32) {
+			if let Some(compressed_value) = self.try_convert_to_disp8n(instruction, self.displ as i32) {
 				self.displ = compressed_value as u32;
 			} else {
 				displ_size = addr_size / 8;
@@ -1638,6 +1648,25 @@ impl Encoder {
 	#[inline]
 	pub fn set_evex_lig(&mut self, new_value: u32) {
 		self.internal_evex_lig = (new_value & 3) << 5
+	}
+
+	/// Value of the `MVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
+	#[must_use]
+	#[inline]
+	#[cfg(feature = "mvex")]
+	pub fn mvex_wig(&self) -> u32 {
+		self.internal_mvex_wig >> 7
+	}
+
+	/// Value of the `MVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: new value (0 or 1)
+	#[inline]
+	#[cfg(feature = "mvex")]
+	pub fn set_mvex_wig(&mut self, new_value: u32) {
+		self.internal_mvex_wig = (new_value & 1) << 7;
 	}
 
 	/// Gets the bitness (16, 32 or 64)

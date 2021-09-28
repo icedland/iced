@@ -12,13 +12,15 @@ using Generator.Enums;
 namespace Generator.Tables {
 	struct InstructionStringParser {
 		readonly Dictionary<string, EnumValue> toRegister;
+		readonly EncodingKind encoding;
 		readonly string instrStr;
 		readonly string mnemonic;
 		readonly string[] operands;
 		ParsedInstructionFlags instrFlags;
 
-		public InstructionStringParser(Dictionary<string, EnumValue> toRegister, string instrStr) {
+		public InstructionStringParser(Dictionary<string, EnumValue> toRegister, EncodingKind encoding, string instrStr) {
 			this.toRegister = toRegister;
+			this.encoding = encoding;
 			this.instrStr = instrStr;
 			int index = instrStr.IndexOf(' ', StringComparison.Ordinal);
 			if (index < 0)
@@ -104,6 +106,12 @@ namespace Generator.Tables {
 					realOps++;
 				}
 
+				var mvexConvFn = MvexConvFn.None;
+				if (encoding == EncodingKind.MVEX) {
+					if (!TryParseMvedConvFn(op, out mvexConvFn, out var op2, out error))
+						return false;
+					op = op2;
+				}
 				if (!TryParseDecorators(op, out var newOp, out error))
 					return false;
 				op = newOp;
@@ -130,235 +138,236 @@ namespace Generator.Tables {
 					case "m32": firstPart = "r32"; break;
 					case "m64": firstPart = "r64"; break;
 					default:
-						error = $"Can't detect GPR size, memory op: `{opParts[1]}`";
+						error = $"Couldn't detect GPR size, memory op: `{opParts[1]}`";
 						return false;
 					}
 				}
+				opParts[0] = firstPart;
+
 				var register = Register.None;
 				int sizeBits = 0;
 				int memSizeBits = 0;
 				int memSize2Bits = 0;
-				switch (firstPart) {
-				case "bnd":
-				case "bnd1":
-				case "bnd2":
-					register = Register.BND0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "cr":
-					register = Register.CR0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "dr":
-					register = Register.DR0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "k1":
-				case "k2":
-				case "k3":
-					register = Register.K0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "mm":
-				case "mm1":
-				case "mm2":
-					register = Register.MM0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "r8":
-					register = Register.AL;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "r16":
-					register = Register.AX;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "r32":
-				case "r32a":
-				case "r32b":
-					register = Register.EAX;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "r64":
-				case "r64a":
-				case "r64b":
-					register = Register.RAX;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "Sreg":
-					register = Register.ES;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "ST(i)":
-					register = Register.ST0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "tmm1":
-				case "tmm2":
-				case "tmm3":
-					register = Register.TMM0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "tr":
-					register = Register.TR0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "xmm":
-				case "xmm1":
-				case "xmm2":
-				case "xmm3":
-				case "xmm4":
-					register = Register.XMM0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "ymm1":
-				case "ymm2":
-				case "ymm3":
-				case "ymm4":
-					register = Register.YMM0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "zmm1":
-				case "zmm2":
-				case "zmm3":
-					register = Register.ZMM0;
-					opFlags |= ParsedInstructionOperandFlags.Register;
-					break;
-
-				case "disp16":
-				case "disp32":
-					sizeBits = int.Parse(firstPart.AsSpan()["disp".Length..]);
-					opFlags |= ParsedInstructionOperandFlags.DispBranch;
-					break;
-
-				case "ptr16:16":
-				case "ptr16:32":
-					sizeBits = int.Parse(firstPart.AsSpan()["ptr16:".Length..]);
-					opFlags |= ParsedInstructionOperandFlags.FarBranch;
-					break;
-
-				case "rel8":
-				case "rel16":
-				case "rel32":
-					sizeBits = int.Parse(firstPart.AsSpan()["rel".Length..]);
-					opFlags |= ParsedInstructionOperandFlags.RelBranch;
-					break;
-
-				case "imm4":
-				case "imm8":
-				case "imm16":
-				case "imm32":
-				case "imm64":
-					sizeBits = int.Parse(firstPart.AsSpan()["imm".Length..]);
-					opFlags |= ParsedInstructionOperandFlags.Immediate;
-					break;
-
-				case "moffs8":
-				case "moffs16":
-				case "moffs32":
-				case "moffs64":
-					opFlags |= ParsedInstructionOperandFlags.MemoryOffset | ParsedInstructionOperandFlags.Memory;
-					memSizeBits = int.Parse(firstPart.AsSpan()["moffs".Length..]);
-					break;
-
-				case "vm32x":
-				case "vm32y":
-				case "vm32z":
-				case "vm64x":
-				case "vm64y":
-				case "vm64z":
-					opFlags |= ParsedInstructionOperandFlags.Memory | ParsedInstructionOperandFlags.Vsib;
-					sizeBits = int.Parse(firstPart.AsSpan()[2..4]);
-					register = (firstPart[^1]) switch {
-						'x' => Register.XMM0,
-						'y' => Register.YMM0,
-						'z' => Register.ZMM0,
-						_ => throw new InvalidOperationException(),
-					};
-					break;
-
-				case "m":
-				case "mem":
-					opFlags |= ParsedInstructionOperandFlags.Memory;
-					break;
-				case "mib":
-					opFlags |= ParsedInstructionOperandFlags.Memory | ParsedInstructionOperandFlags.MIB;
-					break;
-				case "sibmem":
-					opFlags |= ParsedInstructionOperandFlags.Memory | ParsedInstructionOperandFlags.Sibmem;
-					break;
-
-				default:
-					if (int.TryParse(firstPart, out _)) {
-						opFlags |= ParsedInstructionOperandFlags.ConstImmediate;
+				foreach (var part in opParts) {
+					switch (part) {
+					case "bnd":
+					case "bnd1":
+					case "bnd2":
+						register = Register.BND0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
 						break;
-					}
-					else if (firstPart.StartsWith("m", StringComparison.Ordinal) && firstPart.Length >= 2 && char.IsDigit(firstPart[1])) {
-						opFlags |= ParsedInstructionOperandFlags.Memory;
-						if (!TryParseMemorySize(firstPart, out memSizeBits))
-							throw new InvalidOperationException($"Invalid memory size: {firstPart}");
+
+					case "cr":
+						register = Register.CR0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
 						break;
-					}
-					else if (firstPart.ToUpperInvariant() == firstPart) {
-						if (firstPart == "ST(0)" || firstPart == "ST")
-							firstPart = "ST0";
-						if (toRegister.TryGetValue(firstPart, out var regEnum)) {
-							register = (Register)regEnum.Value;
-							opFlags |= ParsedInstructionOperandFlags.ImpliedRegister;
-							break;
+
+					case "dr":
+						register = Register.DR0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "k1":
+					case "k2":
+					case "k3":
+						register = Register.K0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "mm":
+					case "mm1":
+					case "mm2":
+						register = Register.MM0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "r8":
+						register = Register.AL;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "r16":
+						register = Register.AX;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "r32":
+					case "r32a":
+					case "r32b":
+						register = Register.EAX;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "r64":
+					case "r64a":
+					case "r64b":
+						register = Register.RAX;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "Sreg":
+						register = Register.ES;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "ST(i)":
+						register = Register.ST0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "tmm1":
+					case "tmm2":
+					case "tmm3":
+						register = Register.TMM0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "tr":
+						register = Register.TR0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "xmm":
+					case "xmm1":
+					case "xmm2":
+					case "xmm3":
+					case "xmm4":
+						register = Register.XMM0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "ymm1":
+					case "ymm2":
+					case "ymm3":
+					case "ymm4":
+						register = Register.YMM0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "zmm1":
+					case "zmm2":
+					case "zmm3":
+						register = Register.ZMM0;
+						opFlags |= ParsedInstructionOperandFlags.Register;
+						break;
+
+					case "disp16":
+					case "disp32":
+						sizeBits = int.Parse(part.AsSpan()["disp".Length..]);
+						opFlags |= ParsedInstructionOperandFlags.DispBranch;
+						break;
+
+					case "ptr16:16":
+					case "ptr16:32":
+						sizeBits = int.Parse(part.AsSpan()["ptr16:".Length..]);
+						opFlags |= ParsedInstructionOperandFlags.FarBranch;
+						break;
+
+					case "rel8":
+					case "rel16":
+					case "rel32":
+						sizeBits = int.Parse(part.AsSpan()["rel".Length..]);
+						opFlags |= ParsedInstructionOperandFlags.RelBranch;
+						break;
+
+					case "imm4":
+					case "imm8":
+					case "imm16":
+					case "imm32":
+					case "imm64":
+						sizeBits = int.Parse(part.AsSpan()["imm".Length..]);
+						opFlags |= ParsedInstructionOperandFlags.Immediate;
+						break;
+
+					case "moffs8":
+					case "moffs16":
+					case "moffs32":
+					case "moffs64":
+						opFlags |= ParsedInstructionOperandFlags.MemoryOffset | ParsedInstructionOperandFlags.Memory;
+						memSizeBits = int.Parse(part.AsSpan()["moffs".Length..]);
+						break;
+
+					case "vm32x":
+					case "vm32y":
+					case "vm32z":
+					case "vm64x":
+					case "vm64y":
+					case "vm64z":
+						opFlags |= ParsedInstructionOperandFlags.Memory | ParsedInstructionOperandFlags.Vsib;
+						sizeBits = int.Parse(part.AsSpan()[2..4]);
+						register = part[^1] switch {
+							'x' => Register.XMM0,
+							'y' => Register.YMM0,
+							'z' => Register.ZMM0,
+							_ => throw new InvalidOperationException(),
+						};
+						break;
+
+					case "mt":
+						if (encoding != EncodingKind.MVEX) {
+							error = $"Expected MVEX encoding: {part}";
+							return false;
 						}
-					}
-					error = $"Unknown value: `{firstPart}`";
-					return false;
-				}
-
-				if (opParts.Length >= 2) {
-					var part = opParts[1];
-					if (part.StartsWith("m", StringComparison.Ordinal) && part.Length >= 2 && char.IsDigit(part[1])) {
 						opFlags |= ParsedInstructionOperandFlags.Memory;
-						if (!TryParseMemorySize(part, out memSizeBits))
-							throw new InvalidOperationException($"Invalid memory size: {part}");
-					}
-					else {
-						error = $"Unknown value: `{part}`";
-						return false;
+						instrFlags |= ParsedInstructionFlags.EvictionHint;
+						break;
+					case "mvt":
+						if (encoding != EncodingKind.MVEX) {
+							error = $"Expected MVEX encoding: {part}";
+							return false;
+						}
+						opFlags |= ParsedInstructionOperandFlags.Memory | ParsedInstructionOperandFlags.Vsib;
+						sizeBits = 32;
+						instrFlags |= ParsedInstructionFlags.EvictionHint;
+						register = Register.ZMM0;
+						break;
+
+					case "m":
+					case "mem":
+						opFlags |= ParsedInstructionOperandFlags.Memory;
+						break;
+					case "mib":
+						opFlags |= ParsedInstructionOperandFlags.Memory | ParsedInstructionOperandFlags.MIB;
+						break;
+					case "sibmem":
+						opFlags |= ParsedInstructionOperandFlags.Memory | ParsedInstructionOperandFlags.Sibmem;
+						break;
+
+					default:
+						if (int.TryParse(part, out _))
+							opFlags |= ParsedInstructionOperandFlags.ConstImmediate;
+						else if (part.StartsWith("m", StringComparison.Ordinal) && part.Length >= 2 && char.IsDigit(part[1]) && part.EndsWith("bcst", StringComparison.Ordinal)) {
+							opFlags |= ParsedInstructionOperandFlags.Broadcast;
+							if (!TryParseMemorySize(part, out memSize2Bits)) {
+								error = $"Invalid memory size: {part}";
+								return false;
+							}
+						}
+						else if (part.StartsWith("m", StringComparison.Ordinal) && part.Length >= 2 && char.IsDigit(part[1])) {
+							opFlags |= ParsedInstructionOperandFlags.Memory;
+							if (!TryParseMemorySize(part, out memSizeBits)) {
+								error = $"Invalid memory size: {part}";
+								return false;
+							}
+						}
+						else if (part.ToUpperInvariant() == part) {
+							var reg = part;
+							if (reg == "ST(0)" || reg == "ST")
+								reg = "ST0";
+							if (toRegister.TryGetValue(reg, out var regEnum)) {
+								register = (Register)regEnum.Value;
+								opFlags |= ParsedInstructionOperandFlags.ImpliedRegister;
+							}
+						}
+						else {
+							error = $"Unknown value: `{part}`";
+							return false;
+						}
+						break;
 					}
 				}
 
-				if (opParts.Length >= 3) {
-					var part = opParts[2];
-					if (part.StartsWith("m", StringComparison.Ordinal) && part.Length >= 2 && char.IsDigit(part[1]) && part.EndsWith("bcst", StringComparison.Ordinal)) {
-						opFlags |= ParsedInstructionOperandFlags.Broadcast;
-						if (!TryParseMemorySize(part, out memSize2Bits))
-							throw new InvalidOperationException($"Invalid memory size: {part}");
-					}
-					else {
-						error = $"Unknown value: `{part}`";
-						return false;
-					}
-				}
-
-				if (opParts.Length >= 4) {
-					error = "Too many reg/mem parts";
-					return false;
-				}
-
-				parsedOps.Add(new ParsedInstructionOperand(opFlags, register, sizeBits, memSizeBits, memSize2Bits));
+				parsedOps.Add(new ParsedInstructionOperand(opFlags, register, sizeBits, memSizeBits, memSize2Bits, mvexConvFn));
 			}
 
 			var impliedOps = new List<InstrStrImpliedOp>();
@@ -425,6 +434,50 @@ namespace Generator.Tables {
 			}
 
 			newOp = parts[0];
+			error = null;
+			return true;
+		}
+
+		static bool TryParseMvedConvFn(string op, out MvexConvFn mvexConvFn, [NotNullWhen(true)] out string? newOp, [NotNullWhen(false)] out string? error) {
+			newOp = null;
+			mvexConvFn = MvexConvFn.None;
+
+			int index = op.IndexOf('(');
+			if (index < 0) {
+				newOp = op;
+				error = null;
+				return true;
+			}
+			int endIndex = op.IndexOf(')');
+			if (endIndex <= index) {
+				error = "Expected ')'";
+				return false;
+			}
+			var convFnStr = op[0..index];
+			// Some of them have an opmask register after ')'
+			newOp = op[(index + 1)..endIndex] + op[(endIndex + 1)..];
+			var convFn = convFnStr switch {
+				"Sf32" => MvexConvFn.Sf32,
+				"Sf64" => MvexConvFn.Sf64,
+				"Si32" => MvexConvFn.Si32,
+				"Si64" => MvexConvFn.Si64,
+				"Uf32" => MvexConvFn.Uf32,
+				"Uf64" => MvexConvFn.Uf64,
+				"Ui32" => MvexConvFn.Ui32,
+				"Ui64" => MvexConvFn.Ui64,
+				"Df32" => MvexConvFn.Df32,
+				"Df64" => MvexConvFn.Df64,
+				"Di32" => MvexConvFn.Di32,
+				"Di64" => MvexConvFn.Di64,
+				_ => (MvexConvFn?)null,
+			};
+			if (convFn is MvexConvFn convFn2)
+				mvexConvFn = convFn2;
+			else {
+				error = $"Unknown MVEX conv fn: {convFnStr}";
+				return false;
+			}
+
 			error = null;
 			return true;
 		}

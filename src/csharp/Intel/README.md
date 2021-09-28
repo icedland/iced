@@ -172,7 +172,7 @@ static class HowTo_Assemble {
 1234567810000015 = lea rcx,[1234567810000040h]
 123456781000001C = rep stosd
 123456781000001E = xacquire lock add qword ptr [rax+rcx],7Bh
-1234567810000025 = vaddpd zmm1{k3}{z},zmm2,zmm3 {rz-sae}
+1234567810000025 = vaddpd zmm1{k3}{z},zmm2,zmm3{rz-sae}
 123456781000002B = vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax]
 1234567810000031 = inc rax
 1234567810000034 = je short 1234567810000031h

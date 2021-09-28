@@ -32,5 +32,9 @@ namespace Generator.Enums.Formatter {
 		vpcmpuq,
 		vcmpph,
 		vcmpsh,
+		vcmpps8,
+		vcmppd8,
+		vpcmpd6,
+		vpcmpud6,
 	}
 }

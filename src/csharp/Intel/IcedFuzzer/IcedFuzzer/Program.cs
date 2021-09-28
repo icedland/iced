@@ -103,6 +103,8 @@ namespace IcedFuzzer {
 				genFlags |= InstrGenFlags.NoEVEX;
 			if (!options.OpCodeInfoOptions.Include3DNow)
 				genFlags |= InstrGenFlags.No3DNow;
+			if (!options.OpCodeInfoOptions.IncludeMVEX)
+				genFlags |= InstrGenFlags.NoMVEX;
 			var encodingTables = InstrGen.Create(options.OpCodeInfoOptions.Bitness, infos, genFlags);
 
 			var instructions = encodingTables.GetOpCodeGroups().SelectMany(a => a.opCodes).SelectMany(a => a.Instructions).Where(instr => {
@@ -240,6 +242,7 @@ namespace IcedFuzzer {
 			Console.WriteLine($"--no-xop                  No XOP instructions");
 			Console.WriteLine($"--no-evex                 No EVEX instructions");
 			Console.WriteLine($"--no-3dnow                No 3DNow! instructions (implies --no-geode-3dnow)");
+			Console.WriteLine($"--mvex                    MVEX instructions");
 			Console.WriteLine($"--no-geode-3dnow          No AMD Geode GX/LX 3DNow! instructions");
 			Console.WriteLine($"--no-padlock              No Centaur (VIA) PadLock instructions");
 			Console.WriteLine($"--no-unused-tables        Don't gen unused VEX/EVEX/XOP opcode tables (eg. EVEX.mmm=000). Smaller output files.");
@@ -349,6 +352,10 @@ namespace IcedFuzzer {
 					options.OpCodeInfoOptions.Filter.ExcludeCode.Add(Code.Femms);
 					options.OpCodeInfoOptions.Filter.ExcludeCpuid.Add(CpuidFeature.CYRIX_D3NOW);
 					break;
+
+				case "--mvex":
+					options.OpCodeInfoOptions.IncludeMVEX = true;
+					throw new NotImplementedException();
 
 				case "--no-geode-3dnow":
 					options.OpCodeInfoOptions.Filter.ExcludeCpuid.Add(CpuidFeature.CYRIX_D3NOW);

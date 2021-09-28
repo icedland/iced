@@ -94,7 +94,7 @@ namespace Generator.Enums.Encoder {
 		kp1_reg,
 		[Comment("#(c:K)# register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		k_rm,
-		[Comment("#(c:K)# register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
+		[Comment("#(c:K)# register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/MVEX/XOP)")]
 		k_vvvv,
 		[Comment("#(c:MM)# register encoded in the #(c:reg)# field of the modrm byte")]
 		mm_reg,
@@ -126,7 +126,7 @@ namespace Generator.Enums.Encoder {
 		zmm_reg,
 		[Comment("#(c:ZMM)# register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		zmm_rm,
-		[Comment("#(c:ZMM)# register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
+		[Comment("#(c:ZMM)# register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/MVEX/XOP)")]
 		zmm_vvvv,
 		[Comment("#(c:ZMM)# register (+3) encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
 		zmmp3_vvvv,

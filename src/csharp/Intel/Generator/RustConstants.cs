@@ -37,17 +37,20 @@ namespace Generator {
 		public const string Vex = "not(feature = \"no_vex\")";
 		public const string Evex = "not(feature = \"no_evex\")";
 		public const string Xop = "not(feature = \"no_xop\")";
+		public const string Mvex = "feature = \"mvex\"";
 		public const string FeatureVex = "#[cfg(not(feature = \"no_vex\"))]";
 		public const string FeatureXop = "#[cfg(not(feature = \"no_xop\"))]";
 		public const string FeatureVexOrXop = "#[cfg(any(not(feature = \"no_vex\"), not(feature = \"no_xop\")))]";
-		public const string FeatureVexOrXopOrEvex = "#[cfg(any(not(feature = \"no_vex\"), not(feature = \"no_xop\"), not(feature = \"no_evex\")))]";
+		public const string FeatureVexOrXopOrEvexOrMvex = "#[cfg(any(not(feature = \"no_vex\"), not(feature = \"no_xop\"), not(feature = \"no_evex\"), feature = \"mvex\"))]";
 		public const string FeatureEvex = "#[cfg(not(feature = \"no_evex\"))]";
+		public const string FeatureMvex = "#[cfg(feature = \"mvex\")]";
 		public const string FeatureD3now = "#[cfg(not(feature = \"no_d3now\"))]";
 		public const string FeatureEncodingOne = "#[cfg({0})]";
 		public const string FeatureEncodingMany = "#[cfg(any({0}))]";
 		public const string FeatureDecoder = "#[cfg(feature = \"decoder\")]";
 		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"decoder\", feature = \"encoder\"))]";
-		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"instr_info\"))]";
+		public const string FeatureDecoderOrEncoderOrOpCodeInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"op_code_info\"))]";
+		public const string FeatureDecoderOrEncoderOrInstrInfoOrOpCodeInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"instr_info\", feature = \"op_code_info\"))]";
 		public const string FeatureBigInt = "#[cfg(feature = \"bigint\")]";
 		public const string FeatureNotBigInt = "#[cfg(not(feature = \"bigint\"))]";
 		public const string FeatureGasIntelNasm = "#[cfg(any(feature = \"gas\", feature = \"intel\", feature = \"nasm\"))]";
@@ -59,6 +62,7 @@ namespace Generator {
 				EncodingKind.EVEX => FeatureEvex,
 				EncodingKind.XOP => FeatureXop,
 				EncodingKind.D3NOW => FeatureD3now,
+				EncodingKind.MVEX => FeatureMvex,
 				_ => throw new InvalidOperationException(),
 			};
 	}

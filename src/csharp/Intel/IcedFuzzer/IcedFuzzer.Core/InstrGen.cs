@@ -14,6 +14,7 @@ namespace IcedFuzzer.Core {
 		public readonly List<FuzzerOpCode> VEX = new List<FuzzerOpCode>();
 		public readonly List<FuzzerOpCode> XOP = new List<FuzzerOpCode>();
 		public readonly List<FuzzerOpCode> EVEX = new List<FuzzerOpCode>();
+		public readonly List<FuzzerOpCode> MVEX = new List<FuzzerOpCode>();
 
 		public IEnumerable<(EncodingKind encoding, List<FuzzerOpCode> opCodes)> GetOpCodeGroups() {
 			yield return (EncodingKind.Legacy, Legacy);
@@ -21,6 +22,7 @@ namespace IcedFuzzer.Core {
 			yield return (EncodingKind.VEX, VEX);
 			yield return (EncodingKind.XOP, XOP);
 			yield return (EncodingKind.EVEX, EVEX);
+			yield return (EncodingKind.MVEX, MVEX);
 		}
 	}
 
@@ -31,6 +33,7 @@ namespace IcedFuzzer.Core {
 		NoXOP				= 0x00000004,
 		NoEVEX				= 0x00000008,
 		No3DNow				= 0x00000010,
+		NoMVEX				= 0x00000020,
 	}
 
 	public static class InstrGen {
@@ -115,7 +118,7 @@ namespace IcedFuzzer.Core {
 				for (int i = 0; i < 2; i++) {
 					bool isModrmMemory = i != 0;
 					for (int table = 0; table < 0x20; table++) {
-						bool usedTable = table == 1 || table == 2 || table == 3;
+						bool usedTable = table == 1 || table == 2 || table == 3 || (table == 0 && (genFlags & InstrGenFlags.NoMVEX) == 0);
 						if (usedTable || (genFlags & InstrGenFlags.UnusedTables) != 0)
 							vex.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.VEX, table), isModrmMemory), CreateOpCodes(isModrmMemory));
 					}
@@ -144,6 +147,10 @@ namespace IcedFuzzer.Core {
 							evex.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.EVEX, table), isModrmMemory), CreateOpCodes(isModrmMemory));
 					}
 				}
+			}
+
+			if ((genFlags & InstrGenFlags.NoMVEX) == 0) {
+				throw new NotImplementedException();
 			}
 
 			foreach (var (hasModrm, instr) in GetInstructions(bitness, opCodes)) {
@@ -192,6 +199,9 @@ namespace IcedFuzzer.Core {
 					var d3nowInstrs = d3now[key];
 					d3nowInstrs[byteOpCode].Add(hasModrm, instr);
 					break;
+
+				case EncodingKind.MVEX:
+					throw new NotImplementedException();
 
 				default:
 					throw ThrowHelpers.Unreachable;
@@ -513,7 +523,7 @@ namespace IcedFuzzer.Core {
 			Assert.True(flags.Length == 0x40);
 
 			bool xopCheck = false;
-			// Check if it's a prefix or a disabled VEX/XOP/EVEX/3DNow instruction
+			// Check if it's a prefix or a disabled VEX/XOP/EVEX/MVEX/3DNow instruction
 			if (table.TableIndex == 0) {
 				switch (opCode) {
 				case 0x0F:
@@ -1192,7 +1202,8 @@ namespace IcedFuzzer.Core {
 		};
 		// Returns all combinations of mandatory prefix, W, L. If it's a group, also modrm.reg=0-7, modrm.rm=0-7 and/or modrm=C0-FFh.
 		static IEnumerable<FuzzerInstruction> GetVecInstructions(FuzzerOpCodeTable table, byte opCode, List<FuzzerInstruction> instructions, bool isModrmMemory) {
-			Assert.True(table.Encoding == EncodingKind.VEX || table.Encoding == EncodingKind.XOP || table.Encoding == EncodingKind.EVEX);
+			Assert.True(table.Encoding == EncodingKind.VEX || table.Encoding == EncodingKind.XOP ||
+				table.Encoding == EncodingKind.EVEX || table.Encoding == EncodingKind.MVEX);
 			const int L_er_or_sae = 2;
 
 			Func<uint, uint, int> getKeyIndex;
@@ -1213,6 +1224,8 @@ namespace IcedFuzzer.Core {
 					return (int)l + (int)w * 4;
 				};
 				break;
+			case EncodingKind.MVEX:
+				throw new NotImplementedException();
 			default:
 				throw ThrowHelpers.Unreachable;
 			}
@@ -1574,6 +1587,8 @@ namespace IcedFuzzer.Core {
 				else
 					(w_lo, w_hi) = (opCode.W, opCode.W + 1);
 				break;
+			case EncodingKind.MVEX:
+				throw new NotImplementedException();
 			default:
 				throw ThrowHelpers.Unreachable;
 			}

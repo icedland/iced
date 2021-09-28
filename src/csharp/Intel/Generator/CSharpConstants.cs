@@ -27,17 +27,20 @@ namespace Generator {
 		public const string VexDefine = "!NO_VEX";
 		public const string XopDefine = "!NO_XOP";
 		public const string EvexDefine = "!NO_EVEX";
+		public const string MvexDefine = "MVEX";
 		public const string D3nowDefine = "!NO_D3NOW";
 		public const string DecoderVexDefine = "DECODER && !NO_VEX";
 		public const string DecoderXopDefine = "DECODER && !NO_XOP";
 		public const string DecoderVexOrXopDefine = "DECODER && (!NO_VEX || !NO_XOP)";
 		public const string DecoderEvexDefine = "DECODER && !NO_EVEX";
+		public const string DecoderMvexDefine = "DECODER && MVEX";
 		public const string EncoderDefine = "ENCODER";
 		public const string CodeAssemblerDefine = "ENCODER && BLOCK_ENCODER && CODE_ASSEMBLER";
 		public const string OpCodeInfoDefine = "ENCODER && OPCODE_INFO";
 		public const string InstructionInfoDefine = "INSTR_INFO";
 		public const string DecoderOrEncoderDefine = "DECODER || ENCODER";
-		public const string DecoderOrEncoderOrInstrInfoDefine = "DECODER || ENCODER || INSTR_INFO";
+		public const string DecoderOrEncoderOrOpCodeInfoDefine = "DECODER || ENCODER || (ENCODER && OPCODE_INFO)";
+		public const string DecoderOrEncoderOrInstrInfoOrOpCodeInfoDefine = "DECODER || ENCODER || INSTR_INFO || (ENCODER && OPCODE_INFO)";
 		public const string AnyFormatterDefine = "GAS || INTEL || MASM || NASM || FAST_FMT";
 		public const string GasIntelNasmFormatterDefine = "GAS || INTEL || NASM";
 		public const string GasFormatterDefine = "GAS";
@@ -59,6 +62,7 @@ namespace Generator {
 				EncodingKind.EVEX => EvexDefine,
 				EncodingKind.XOP => XopDefine,
 				EncodingKind.D3NOW => D3nowDefine,
+				EncodingKind.MVEX => MvexDefine,
 				_ => throw new InvalidOperationException(),
 			};
 	}

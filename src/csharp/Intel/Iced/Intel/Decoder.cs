@@ -38,6 +38,9 @@ namespace Iced.Intel {
 		AllowLock = 0x00002000,
 		NoMoreBytes = 0x00004000,
 		Has66 = 0x00008000,
+		MvexSssMask = 0x00000007,
+		MvexSssShift = 0x00000010,
+		MvexEH = 0x00080000,
 		EncodingMask = 0x00000007,
 		EncodingShift = 0x0000001D,
 	}
@@ -51,6 +54,9 @@ namespace Iced.Intel {
 		readonly CodeReader reader;
 		readonly RegInfo2[] memRegs16;
 		readonly OpCodeHandler[] handlers_MAP0;
+#if !NO_VEX && MVEX
+		readonly OpCodeHandler[] handlers_VEX_MAP0;
+#endif
 #if !NO_VEX
 		readonly OpCodeHandler[] handlers_VEX_0F;
 		readonly OpCodeHandler[] handlers_VEX_0F38;
@@ -67,6 +73,11 @@ namespace Iced.Intel {
 		readonly OpCodeHandler[] handlers_XOP_MAP8;
 		readonly OpCodeHandler[] handlers_XOP_MAP9;
 		readonly OpCodeHandler[] handlers_XOP_MAP10;
+#endif
+#if MVEX
+		readonly OpCodeHandler[] handlers_MVEX_0F;
+		readonly OpCodeHandler[] handlers_MVEX_0F38;
+		readonly OpCodeHandler[] handlers_MVEX_0F3A;
 #endif
 		internal State state;
 		internal uint displIndex;
@@ -94,14 +105,17 @@ namespace Iced.Intel {
 			public uint vvvv;// V`vvvv. Not stored in inverted form. If 16/32-bit mode, bits [4:3] are cleared
 			public uint vvvv_invalidCheck;// vvvv bits, even in 16/32-bit mode.
 			public uint aaa;
-			public uint extraRegisterBaseEVEX;		// EVEX.R' << 4
-			public uint extraBaseRegisterBaseEVEX;	// EVEX.XB << 3
+			public uint extraRegisterBaseEVEX;		// EVEX/MVEX.R' << 4
+			public uint extraBaseRegisterBaseEVEX;	// EVEX/MVEX.XB << 3
 			public uint vectorLength;
 			public OpSize operandSize;
 			public OpSize addressSize;
 			// 0=ES/CS/SS/DS, 1=FS/GS
 			public byte segmentPrio;
 			public readonly EncodingKind Encoding => (EncodingKind)(((uint)flags >> (int)StateFlags.EncodingShift) & (uint)StateFlags.EncodingMask);
+#if MVEX
+			public int Sss => ((int)flags >> (int)StateFlags.MvexSssShift) & (int)StateFlags.MvexSssMask;
+#endif
 		}
 
 		/// <summary>
@@ -182,6 +196,9 @@ namespace Iced.Intel {
 			is64bMode_and_W = is64bMode ? (uint)StateFlags.W : 0;
 			reg15Mask = is64bMode ? 0xFU : 0x7;
 			handlers_MAP0 = OpCodeHandlersTables_Legacy.Handlers_MAP0;
+#if !NO_VEX && MVEX
+			handlers_VEX_MAP0 = OpCodeHandlersTables_VEX.Handlers_MAP0;
+#endif
 #if !NO_VEX
 			handlers_VEX_0F = OpCodeHandlersTables_VEX.Handlers_0F;
 			handlers_VEX_0F38 = OpCodeHandlersTables_VEX.Handlers_0F38;
@@ -198,6 +215,11 @@ namespace Iced.Intel {
 			handlers_XOP_MAP8 = OpCodeHandlersTables_XOP.Handlers_MAP8;
 			handlers_XOP_MAP9 = OpCodeHandlersTables_XOP.Handlers_MAP9;
 			handlers_XOP_MAP10 = OpCodeHandlersTables_XOP.Handlers_MAP10;
+#endif
+#if MVEX
+			handlers_MVEX_0F = OpCodeHandlersTables_MVEX.Handlers_0F;
+			handlers_MVEX_0F38 = OpCodeHandlersTables_MVEX.Handlers_0F38;
+			handlers_MVEX_0F3A = OpCodeHandlersTables_MVEX.Handlers_0F3A;
 #endif
 		}
 
@@ -381,7 +403,7 @@ namespace Iced.Intel {
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal void SetXacquireXrelease(ref Instruction instruction, HandlerFlags flags) {
+		internal void SetXacquireXrelease(ref Instruction instruction) {
 			if (instruction.HasLockPrefix) {
 				if (state.mandatoryPrefix == MandatoryPrefixByte.PF2) {
 					ClearMandatoryPrefixF2(ref instruction);
@@ -520,6 +542,10 @@ namespace Iced.Intel {
 				DecodeTable(handlers_VEX_0F38, ref instruction);
 			else if (table == 3)
 				DecodeTable(handlers_VEX_0F3A, ref instruction);
+#if MVEX
+			else if (table == 0)
+				DecodeTable(handlers_VEX_MAP0, ref instruction);
+#endif
 			else
 				SetInvalidInstruction();
 #endif
@@ -580,7 +606,7 @@ namespace Iced.Intel {
 		}
 
 		internal void EVEX_MVEX(ref Instruction instruction) {
-#if NO_EVEX
+#if NO_EVEX && !MVEX
 			SetInvalidInstruction();
 #else
 			if ((((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) & invalidCheckMask) != 0)
@@ -593,6 +619,9 @@ namespace Iced.Intel {
 			uint p2 = ReadByte();
 
 			if ((p1 & 4) != 0) {
+#if NO_EVEX
+				SetInvalidInstruction();
+#else
 				if ((p0 & 8) == 0) {
 #if DEBUG
 					state.flags |= (StateFlags)((uint)EncodingKind.EVEX << (int)StateFlags.EncodingShift);
@@ -675,10 +704,70 @@ namespace Iced.Intel {
 				}
 				else
 					SetInvalidInstruction();
+#endif
 			}
 			else {
-				//TODO: Support deprecated MVEX instructions: https://github.com/icedland/iced/issues/2
+#if !MVEX
 				SetInvalidInstruction();
+#else
+				if ((options & DecoderOptions.KNC) == 0 || !is64bMode)
+					SetInvalidInstruction();
+				else {
+#if DEBUG
+					state.flags |= (StateFlags)((uint)EncodingKind.MVEX << (int)StateFlags.EncodingShift);
+#endif
+
+					Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
+					Static.Assert((int)MandatoryPrefixByte.P66 == 1 ? 0 : -1);
+					Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
+					Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
+					state.mandatoryPrefix = (MandatoryPrefixByte)(p1 & 3);
+
+					Static.Assert((int)StateFlags.W == 0x80 ? 0 : -1);
+					state.flags |= (StateFlags)(p1 & 0x80);
+
+					uint aaa = p2 & 7;
+					state.aaa = aaa;
+					instruction.InternalOpMask = aaa;
+
+					Static.Assert((int)StateFlags.MvexSssShift == 16 ? 0 : -1);
+					Static.Assert((int)StateFlags.MvexSssMask == 7 ? 0 : -1);
+					Static.Assert((int)StateFlags.MvexEH == 1 << ((int)StateFlags.MvexSssShift + 3) ? 0 : -1);
+					state.flags |= (StateFlags)((p2 & 0xF0) << ((int)StateFlags.MvexSssShift - 4));
+
+					p1 = (~p1 >> 3) & 0x0F;
+					uint tmp = (~p2 & 8) << 1;
+					state.extraIndexRegisterBaseVSIB = tmp;
+					tmp += p1;
+					state.vvvv = tmp;
+					state.vvvv_invalidCheck = tmp;
+					uint p0x = ~p0;
+					state.extraRegisterBase = (p0x >> 4) & 8;
+					state.extraIndexRegisterBase = (p0x >> 3) & 8;
+					state.extraRegisterBaseEVEX = p0x & 0x10;
+					p0x >>= 2;
+					state.extraBaseRegisterBaseEVEX = p0x & 0x18;
+					state.extraBaseRegisterBase = p0x & 8;
+
+					OpCodeHandler[] handlers;
+					switch ((int)(p0 & 0xF)) {
+					case 1: handlers = handlers_MVEX_0F; break;
+					case 2: handlers = handlers_MVEX_0F38; break;
+					case 3: handlers = handlers_MVEX_0F3A; break;
+					default:
+						SetInvalidInstruction();
+						return;
+					}
+					var handler = handlers[(int)ReadByte()];
+					Debug.Assert(handler.HasModRM);
+					uint m = ReadByte();
+					state.modrm = m;
+					state.mod = m >> 6;
+					state.reg = (m >> 3) & 7;
+					state.rm = m & 7;
+					handler.Decode(this, ref instruction);
+				}
+#endif
 			}
 #endif
 		}
@@ -694,7 +783,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal bool ReadOpMem(ref Instruction instruction) {
-			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			Debug.Assert(state.Encoding != EncodingKind.EVEX && state.Encoding != EncodingKind.MVEX);
 			if (state.addressSize == OpSize.Size64)
 				return ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.N1, false);
 			else if (state.addressSize == OpSize.Size32)
@@ -707,7 +796,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMemSib(ref Instruction instruction) {
-			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			Debug.Assert(state.Encoding != EncodingKind.EVEX && state.Encoding != EncodingKind.MVEX);
 			bool isValid;
 			if (state.addressSize == OpSize.Size64)
 				isValid = ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.N1, false);
@@ -726,7 +815,7 @@ namespace Iced.Intel {
 		// (see SDM Vol 1, 17.5.1 Intel MPX and Operating Modes)
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMem_MPX(ref Instruction instruction) {
-			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			Debug.Assert(state.Encoding != EncodingKind.EVEX && state.Encoding != EncodingKind.MVEX);
 			if (is64bMode) {
 				state.addressSize = OpSize.Size64;
 				ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.N1, false);
@@ -742,7 +831,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMem(ref Instruction instruction, TupleType tupleType) {
-			Debug.Assert(state.Encoding == EncodingKind.EVEX);
+			Debug.Assert(state.Encoding != EncodingKind.EVEX && state.Encoding != EncodingKind.MVEX);
 			if (state.addressSize == OpSize.Size64)
 				ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, tupleType, false);
 			else if (state.addressSize == OpSize.Size32)

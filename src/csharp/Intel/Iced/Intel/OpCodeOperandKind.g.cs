@@ -107,7 +107,7 @@ namespace Iced.Intel {
 		kp1_reg = 43,
 		/// <summary><c>K</c> register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		k_rm = 44,
-		/// <summary><c>K</c> register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
+		/// <summary><c>K</c> register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/MVEX/XOP)</summary>
 		k_vvvv = 45,
 		/// <summary><c>MM</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		mm_reg = 46,
@@ -139,7 +139,7 @@ namespace Iced.Intel {
 		zmm_reg = 59,
 		/// <summary><c>ZMM</c> register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		zmm_rm = 60,
-		/// <summary><c>ZMM</c> register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
+		/// <summary><c>ZMM</c> register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/MVEX/XOP)</summary>
 		zmm_vvvv = 61,
 		/// <summary><c>ZMM</c> register (+3) encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
 		zmmp3_vvvv = 62,

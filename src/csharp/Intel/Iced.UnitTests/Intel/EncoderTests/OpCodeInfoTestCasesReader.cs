@@ -105,6 +105,20 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						tc.DecoderOption = ToDecoderOptions(value.Trim());
 						break;
 
+					case OpCodeInfoKeys.MVEX:
+#if MVEX
+						var mvexParts = value.Split(opseps);
+						if (mvexParts.Length != 4)
+							throw new InvalidOperationException($"Invalid number of semicolons. Expected 3, found {mvexParts.Length - 1}");
+						tc.Mvex.TupleTypeLutKind = ToMvexTupleTypeLutKind(mvexParts[0].Trim());
+						tc.Mvex.ConversionFunc = ToMvexConvFn(mvexParts[1].Trim());
+						tc.Mvex.ValidConversionFuncsMask = NumberConverter.ToUInt8(mvexParts[2].Trim());
+						tc.Mvex.ValidSwizzleFuncsMask = NumberConverter.ToUInt8(mvexParts[3].Trim());
+						break;
+#else
+						throw new InvalidOperationException();
+#endif
+
 					default:
 						throw new InvalidOperationException($"Invalid key: '{key}'");
 					}
@@ -504,6 +518,54 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						tc.RequiresUniqueDestRegNum = true;
 						break;
 
+					case OpCodeInfoFlags.EH0:
+#if MVEX
+						tc.Mvex.EHBit = MvexEHBit.EH0;
+						break;
+#else
+						throw new InvalidOperationException();
+#endif
+
+					case OpCodeInfoFlags.EH1:
+#if MVEX
+						tc.Mvex.EHBit = MvexEHBit.EH1;
+						break;
+#else
+						throw new InvalidOperationException();
+#endif
+
+					case OpCodeInfoFlags.EvictionHint:
+#if MVEX
+						tc.Mvex.CanUseEvictionHint = true;
+						break;
+#else
+						throw new InvalidOperationException();
+#endif
+
+					case OpCodeInfoFlags.ImmRoundingControl:
+#if MVEX
+						tc.Mvex.CanUseImmRoundingControl = true;
+						break;
+#else
+						throw new InvalidOperationException();
+#endif
+
+					case OpCodeInfoFlags.IgnoresOpMaskRegister:
+#if MVEX
+						tc.Mvex.IgnoresOpMaskRegister = true;
+						break;
+#else
+						throw new InvalidOperationException();
+#endif
+
+					case OpCodeInfoFlags.NoSaeRoundingControl:
+#if MVEX
+						tc.Mvex.NoSaeRc = true;
+						break;
+#else
+						throw new InvalidOperationException();
+#endif
+
 					default:
 						throw new InvalidOperationException($"Invalid key: '{key}'");
 					}
@@ -516,6 +578,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			case EncodingKind.VEX:
 			case EncodingKind.EVEX:
 			case EncodingKind.XOP:
+			case EncodingKind.MVEX:
 				if (!gotVectorLength)
 					throw new InvalidOperationException("Missing vector length: L0/L1/L128/L256/L512/LIG");
 				if (!gotW)
@@ -563,6 +626,22 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				throw new InvalidOperationException($"Invalid OpCodeOperandKind value: '{value}'");
 			return code;
 		}
+
+#if MVEX
+		static MvexTupleTypeLutKind ToMvexTupleTypeLutKind(string value) {
+			if (!ToEnumConverter.TryMvexTupleTypeLutKind(value, out var result))
+				throw new InvalidOperationException($"Invalid MvexTupleTypeLutKind value: '{value}'");
+			return result;
+		}
+#endif
+
+#if MVEX
+		static MvexConvFn ToMvexConvFn(string value) {
+			if (!ToEnumConverter.TryMvexConvFn(value, out var mvexConvFn))
+				throw new InvalidOperationException($"Invalid MvexConvFn value: '{value}'");
+			return mvexConvFn;
+		}
+#endif
 
 		static EncodingKind ToEncoding(string value) {
 			if (OpCodeInfoDicts.ToEncodingKind.TryGetValue(value, out var kind))

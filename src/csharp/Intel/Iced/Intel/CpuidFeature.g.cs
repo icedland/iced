@@ -329,6 +329,8 @@ namespace Iced.Intel {
 		AVX512_FP16 = 158,
 		/// <summary>Undocumented Intel <c>RDUDBG</c> and <c>WRUDBG</c> instructions</summary>
 		UDBG = 159,
+		/// <summary>Intel Knights Corner</summary>
+		KNC = 160,
 	}
 }
 #endif

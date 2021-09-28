@@ -24,11 +24,22 @@ namespace Iced.Intel {
 		readonly FastFmtFlags[] codeFlags;
 		readonly string[] allMemorySizes;
 		readonly string[] rcStrings;
+		readonly string[] rcSaeStrings;
 		readonly string[] scaleNumbers;
+#if MVEX
+		readonly string[] mvexRegMemConsts32;
+		readonly string[] mvexRegMemConsts64;
+#endif
 
 		const bool ShowUselessPrefixes = true;
 
 		static readonly string[] s_rcStrings = new string[] {
+			"{rn}",
+			"{rd}",
+			"{ru}",
+			"{rz}",
+		};
+		static readonly string[] s_rcSaeStrings = new string[] {
 			"{rn-sae}",
 			"{rd-sae}",
 			"{ru-sae}",
@@ -37,6 +48,46 @@ namespace Iced.Intel {
 		static readonly string[] s_scaleNumbers = new string[4] {
 			"*1", "*2", "*4", "*8",
 		};
+#if MVEX
+		static readonly string[] s_mvexRegMemConsts32 = new string[IcedConstants.MvexRegMemConvEnumCount] {
+			string.Empty,
+			string.Empty,
+			"{cdab}",
+			"{badc}",
+			"{dacb}",
+			"{aaaa}",
+			"{bbbb}",
+			"{cccc}",
+			"{dddd}",
+			string.Empty,
+			"{1to16}",
+			"{4to16}",
+			"{float16}",
+			"{uint8}",
+			"{sint8}",
+			"{uint16}",
+			"{sint16}",
+		};
+		static readonly string[] s_mvexRegMemConsts64 = new string[IcedConstants.MvexRegMemConvEnumCount] {
+			string.Empty,
+			string.Empty,
+			"{cdab}",
+			"{badc}",
+			"{dacb}",
+			"{aaaa}",
+			"{bbbb}",
+			"{cccc}",
+			"{dddd}",
+			string.Empty,
+			"{1to8}",
+			"{4to8}",
+			"{float16}",
+			"{uint8}",
+			"{sint8}",
+			"{uint16}",
+			"{sint16}",
+		};
+#endif
 
 		/// <summary>
 		/// Gets the formatter options
@@ -60,7 +111,12 @@ namespace Iced.Intel {
 			codeFlags = FmtData.Flags;
 			allMemorySizes = MemorySizes.AllMemorySizes;
 			rcStrings = s_rcStrings;
+			rcSaeStrings = s_rcSaeStrings;
 			scaleNumbers = s_scaleNumbers;
+#if MVEX
+			mvexRegMemConsts32 = s_mvexRegMemConsts32;
+			mvexRegMemConsts64 = s_mvexRegMemConsts64;
+#endif
 		}
 
 		/// <summary>
@@ -80,6 +136,17 @@ namespace Iced.Intel {
 			if (pseudoOpsNum != 0 && options.UsePseudoOps && instruction.GetOpKind(opCount - 1) == OpKind.Immediate8) {
 				int index = instruction.Immediate8;
 				var pseudoOpKind = (PseudoOpsKind)(pseudoOpsNum - 1);
+				if (pseudoOpKind == PseudoOpsKind.vpcmpd6) {
+					switch (code) {
+#if MVEX
+					case Code.MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8:
+						pseudoOpKind = PseudoOpsKind.vpcmpud6;
+						break;
+#endif
+					default:
+						break;
+					}
+				}
 				var pseudoOps = FormatterConstants.GetPseudoOps(pseudoOpKind);
 				if (pseudoOpKind == PseudoOpsKind.pclmulqdq || pseudoOpKind == PseudoOpsKind.vpclmulqdq) {
 					if (index <= 1) {
@@ -171,6 +238,16 @@ namespace Iced.Intel {
 
 			if (opCount > 0) {
 				output.Append(' ');
+				
+#if MVEX
+				int mvexRmOperand;
+				if (IcedConstants.IsMvex(instruction.Code)) {
+					Debug.Assert(opCount != 0);
+					mvexRmOperand = instruction.GetOpKind(opCount - 1) == OpKind.Immediate8 ? opCount - 2 : opCount - 1;
+				}
+				else
+					mvexRmOperand = -1;
+#endif
 
 				for (int operand = 0; operand < opCount; operand++) {
 					if (operand > 0) {
@@ -386,6 +463,20 @@ namespace Iced.Intel {
 						if (instruction.ZeroingMasking)
 							output.AppendNotNull("{z}");
 					}
+#if MVEX
+					if (mvexRmOperand == operand) {
+						var conv = instruction.MvexRegMemConv;
+						if (conv != MvexRegMemConv.None) {
+							var mvex = new MvexInfo(instruction.Code);
+							if (mvex.ConvFn != MvexConvFn.None) {
+								var tbl = mvex.IsConvFn32 ? mvexRegMemConsts32 : mvexRegMemConsts64;
+								var s = tbl[(int)conv];
+								if (s.Length != 0)
+									output.AppendNotNull(s);
+							}
+						}
+					}
+#endif
 				}
 				if (instruction.HasRoundingControlOrSae) {
 					var rc = instruction.RoundingControl;
@@ -395,7 +486,10 @@ namespace Iced.Intel {
 						Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
 						Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
-						output.AppendNotNull(rcStrings[(int)rc - 1]);
+						if (IcedConstants.IsMvex(instruction.Code) && !instruction.SuppressAllExceptions)
+							output.AppendNotNull(rcStrings[(int)rc - 1]);
+						else
+							output.AppendNotNull(rcSaeStrings[(int)rc - 1]);
 					}
 					else {
 						Debug.Assert(instruction.SuppressAllExceptions);
@@ -641,6 +735,10 @@ namespace Iced.Intel {
 			}
 
 			output.Append(']');
+#if MVEX
+			if (instruction.IsMvexEvictionHint)
+				output.AppendNotNull("{eh}");
+#endif
 		}
 	}
 }

@@ -2,6 +2,8 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::encoder::op_code::OpCodeInfo;
+#[cfg(feature = "mvex")]
+use crate::mvex::get_mvex_info;
 use crate::*;
 use alloc::string::String;
 use core::fmt;
@@ -73,13 +75,15 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 			match self.op_code.encoding() {
 				EncodingKind::Legacy => self.format_legacy(),
 				#[cfg(not(feature = "no_vex"))]
-				EncodingKind::VEX => self.format_vex_xop_evex("VEX"),
+				EncodingKind::VEX => self.format_vec_encoding("VEX"),
 				#[cfg(not(feature = "no_evex"))]
-				EncodingKind::EVEX => self.format_vex_xop_evex("EVEX"),
+				EncodingKind::EVEX => self.format_vec_encoding("EVEX"),
 				#[cfg(not(feature = "no_xop"))]
-				EncodingKind::XOP => self.format_vex_xop_evex("XOP"),
+				EncodingKind::XOP => self.format_vec_encoding("XOP"),
 				#[cfg(not(feature = "no_d3now"))]
 				EncodingKind::D3NOW => self.format_3dnow(),
+				#[cfg(feature = "mvex")]
+				EncodingKind::MVEX => self.format_vec_encoding("MVEX"),
 				#[cfg(feature = "no_vex")]
 				EncodingKind::VEX => String::new(),
 				#[cfg(feature = "no_evex")]
@@ -88,6 +92,8 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				EncodingKind::XOP => String::new(),
 				#[cfg(feature = "no_d3now")]
 				EncodingKind::D3NOW => String::new(),
+				#[cfg(not(feature = "mvex"))]
+				EncodingKind::MVEX => String::new(),
 			}
 		}
 	}
@@ -130,8 +136,8 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		}
 
 		match self.op_code.encoding() {
-			EncodingKind::Legacy => {}
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::D3NOW => return true,
+			EncodingKind::Legacy | EncodingKind::VEX => {}
+			EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::D3NOW | EncodingKind::MVEX => return true,
 		}
 
 		for &op_kind in self.op_code.op_kinds() {
@@ -277,7 +283,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 			self.sb.push(':');
 			self.append_bits("bbb", bbb, 3);
 		} else {
-			let is_vsib = self.op_code.encoding() == EncodingKind::EVEX && self.has_vsib();
+			let is_vsib = (self.op_code.encoding() == EncodingKind::EVEX || self.op_code.encoding() == EncodingKind::MVEX) && self.has_vsib();
 			if self.op_code.is_group() {
 				self.sb.push_str(" /");
 				write!(self.sb, "{}", self.op_code.group_index()).unwrap();
@@ -405,11 +411,22 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		self.sb.clone()
 	}
 
-	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
-	fn format_vex_xop_evex(&mut self, encoding_name: &str) -> String {
+	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
+	fn format_vec_encoding(&mut self, encoding_name: &str) -> String {
 		self.sb.clear();
 
 		self.sb.push_str(encoding_name);
+		#[cfg(feature = "mvex")]
+		{
+			if self.op_code.encoding() == EncodingKind::MVEX {
+				let mvex = get_mvex_info(self.op_code.code());
+				if mvex.is_ndd() {
+					self.sb.push_str(".NDD");
+				} else if mvex.is_nds() {
+					self.sb.push_str(".NDS");
+				}
+			}
+		}
 		self.sb.push('.');
 		if self.op_code.is_lig() {
 			self.sb.push_str("LIG");
@@ -444,13 +461,25 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				self.append_hex_byte(0xF2);
 			}
 		}
-		self.sb.push('.');
+		if self.op_code.table() != OpCodeTableKind::Normal {
+			self.sb.push('.');
+		}
 		self.append_table(false);
 		if self.op_code.is_wig() {
 			self.sb.push_str(".WIG");
 		} else {
 			self.sb.push_str(".W");
 			write!(self.sb, "{}", self.op_code.w()).unwrap();
+		}
+		#[cfg(feature = "mvex")]
+		{
+			if self.op_code.encoding() == EncodingKind::MVEX {
+				match get_mvex_info(self.op_code.code()).eh_bit {
+					MvexEHBit::None => {}
+					MvexEHBit::EH0 => self.sb.push_str(".EH0"),
+					MvexEHBit::EH1 => self.sb.push_str(".EH1"),
+				}
+			}
 		}
 		self.sb.push(' ');
 		self.append_op_code(self.op_code.op_code(), self.op_code.op_code_len(), true);

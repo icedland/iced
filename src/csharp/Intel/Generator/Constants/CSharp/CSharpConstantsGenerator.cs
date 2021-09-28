@@ -21,21 +21,25 @@ namespace Generator.Constants.CSharp {
 			public readonly string Filename;
 			public readonly string Namespace;
 			public readonly string? Define;
+			public readonly bool PartialClass;
 
-			public FullConstantsFileInfo(string filename, string @namespace, string? define = null) {
+			public FullConstantsFileInfo(string filename, string @namespace, string? define = null, bool partialClass = false) {
 				Filename = filename;
 				Namespace = @namespace;
 				Define = define;
+				PartialClass = partialClass;
 			}
 		}
 
 		sealed class PartialConstantsFileInfo {
 			public readonly string Id;
 			public readonly string Filename;
+			public readonly bool PartialClass;
 
-			public PartialConstantsFileInfo(string id, string filename) {
+			public PartialConstantsFileInfo(string id, string filename, bool partialClass = false) {
 				Id = id;
 				Filename = filename;
+				PartialClass = partialClass;
 			}
 		}
 
@@ -47,7 +51,7 @@ namespace Generator.Constants.CSharp {
 
 			var dirs = genTypes.Dirs;
 			toFullFileInfo = new Dictionary<TypeId, FullConstantsFileInfo>();
-			toFullFileInfo.Add(TypeIds.IcedConstants, new FullConstantsFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
+			toFullFileInfo.Add(TypeIds.IcedConstants, new FullConstantsFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace, partialClass: true));
 			toFullFileInfo.Add(TypeIds.DecoderConstants, new FullConstantsFileInfo(dirs.GetCSharpTestFilename("Intel", nameof(TypeIds.DecoderConstants) + ".g.cs"), CSharpConstants.IcedUnitTestsNamespace));
 
 			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo?>();
@@ -66,7 +70,7 @@ namespace Generator.Constants.CSharp {
 				WriteFile(fullFileInfo, constantsType);
 			else if (toPartialFileInfo.TryGetValue(constantsType.TypeId, out var partialInfo)) {
 				if (partialInfo is not null)
-					new FileUpdater(TargetLanguage.CSharp, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteConstants(writer, constantsType));
+					new FileUpdater(TargetLanguage.CSharp, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteConstants(writer, constantsType, isPartialClass: partialInfo.PartialClass));
 			}
 			else
 				throw new InvalidOperationException();
@@ -83,7 +87,7 @@ namespace Generator.Constants.CSharp {
 				if (constantsType.IsPublic && constantsType.IsMissingDocs)
 					writer.WriteLine(CSharpConstants.PragmaMissingDocsDisable);
 				using (writer.Indent())
-					WriteConstants(writer, constantsType);
+					WriteConstants(writer, constantsType, isPartialClass: info.PartialClass);
 				writer.WriteLine("}");
 
 				if (info.Define is not null)
@@ -91,10 +95,11 @@ namespace Generator.Constants.CSharp {
 			}
 		}
 
-		void WriteConstants(FileWriter writer, ConstantsType constantsType) {
+		void WriteConstants(FileWriter writer, ConstantsType constantsType, bool isPartialClass) {
 			docWriter.WriteSummary(writer, constantsType.Documentation, constantsType.RawName);
 			var pub = constantsType.IsPublic ? "public " : string.Empty;
-			writer.WriteLine($"{pub}static class {constantsType.Name(idConverter)} {{");
+			var partial = isPartialClass ? " partial" : string.Empty;
+			writer.WriteLine($"{pub}static{partial} class {constantsType.Name(idConverter)} {{");
 
 			using (writer.Indent()) {
 				foreach (var constant in constantsType.Constants) {

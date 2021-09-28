@@ -19,6 +19,7 @@ namespace Generator {
 		NoEVEX				= 0x0000_0080,
 		NoXOP				= 0x0000_0100,
 		No3DNow				= 0x0000_0200,
+		NoMVEX				= 0x0000_0400,
 	}
 
 	sealed class GeneratorOptions {
@@ -31,6 +32,7 @@ namespace Generator {
 		public bool IncludeEVEX { get; }
 		public bool IncludeXOP { get; }
 		public bool Include3DNow { get; }
+		public bool IncludeMVEX { get; }
 		public HashSet<string> IncludeCpuid { get; }
 		public HashSet<string> ExcludeCpuid { get; }
 
@@ -44,6 +46,7 @@ namespace Generator {
 			IncludeEVEX = (flags & GeneratorFlags.NoEVEX) == 0;
 			IncludeXOP = (flags & GeneratorFlags.NoXOP) == 0;
 			Include3DNow = (flags & GeneratorFlags.No3DNow) == 0;
+			IncludeMVEX = (flags & GeneratorFlags.NoMVEX) == 0;
 			IncludeCpuid = includeCpuid;
 			ExcludeCpuid = excludeCpuid;
 		}
