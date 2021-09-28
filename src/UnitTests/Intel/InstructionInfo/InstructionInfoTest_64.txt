@@ -18987,6 +18987,30 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 62 F1ED4B FB CA, EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512F, op0=rcw op1=n op2=n r=zmm1 cw=vmm1 r=k3
 # vpsubq zmm1{k3}{z},zmm2,zmm2
 62 F1EDCB FB CA, EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
+# vpxord zmm1,zmm2,zmm2
+62 F16908 EF CA, MVEX_Vpxord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=n op2=n w=vmm1 decopt=KNC
+# vpxord zmm1{k3},zmm2,zmm2
+62 F1690B EF CA, MVEX_Vpxord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=n op2=n r=zmm1 cw=vmm1 r=k3 decopt=KNC
+# vpxord zmm1,zmm2,zmm2{cdab}
+62 F16918 EF CA, MVEX_Vpxord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm1 r=zmm2 decopt=KNC
+# vpxorq zmm1,zmm2,zmm2
+62 F1E908 EF CA, MVEX_Vpxorq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=n op2=n w=vmm1 decopt=KNC
+# vpxorq zmm1{k3},zmm2,zmm2
+62 F1E90B EF CA, MVEX_Vpxorq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=n op2=n r=zmm1 cw=vmm1 r=k3 decopt=KNC
+# vpxorq zmm1,zmm2,zmm2{cdab}
+62 F1E918 EF CA, MVEX_Vpxorq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm1 r=zmm2 decopt=KNC
+# vpsubd zmm1,zmm2,zmm2
+62 F16908 FA CA, MVEX_Vpsubd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=n op2=n w=vmm1 decopt=KNC
+# vpsubd zmm1{k3},zmm2,zmm2
+62 F1690B FA CA, MVEX_Vpsubd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=n op2=n r=zmm1 cw=vmm1 r=k3 decopt=KNC
+# vpsubd zmm1,zmm2,zmm2{cdab}
+62 F16918 FA CA, MVEX_Vpsubd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm1 r=zmm2 decopt=KNC
+# vpsubrd zmm1,zmm2,zmm2
+62 F26908 6C CA, MVEX_Vpsubrd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=n op2=n w=vmm1 decopt=KNC
+# vpsubrd zmm1{k3},zmm2,zmm2
+62 F2690B 6C CA, MVEX_Vpsubrd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=n op2=n r=zmm1 cw=vmm1 r=k3 decopt=KNC
+# vpsubrd zmm1,zmm2,zmm2{cdab}
+62 F26918 6C CA, MVEX_Vpsubrd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm1 r=zmm2 decopt=KNC
 # fs monitor eax,rcx,rdx
 64 67 0F01 C8, Monitord, Legacy, MONITOR, r=eax;ecx;edx;fs
 # fs monitor rax,rcx,rdx
@@ -20603,3 +20627,1361 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 0F0E, Rdudbg, Legacy, UDBG, priv r=eax;ecx w=rdx;rbx decopt=Udbg
 # wrudbg
 0F0F, Wrudbg, Legacy, UDBG, priv r=eax;ecx;edx cr=ebx cw=rdx;rbx decopt=Udbg
+# jkzd k0,short 800000000000004Fh
+C4E078 74 5A, VEX_KNC_Jkzd_kr_rel8_64, VEX, KNC, flow=ConditionalBranch op0=r op1=r r=k0 decopt=KNC
+# jknzd k0,short 800000000000004Fh
+C4E078 75 5A, VEX_KNC_Jknzd_kr_rel8_64, VEX, KNC, flow=ConditionalBranch op0=r op1=r r=k0 decopt=KNC
+# vprefetchnta [rax]
+C5F8 18 00, VEX_KNC_Vprefetchnta_m8, VEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetch0 [rax]
+C5F8 18 08, VEX_KNC_Vprefetch0_m8, VEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetch1 [rax]
+C5F8 18 10, VEX_KNC_Vprefetch1_m8, VEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetch2 [rax]
+C5F8 18 18, VEX_KNC_Vprefetch2_m8, VEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetchenta [rax]
+C5F8 18 20, VEX_KNC_Vprefetchenta_m8, VEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetche0 [rax]
+C5F8 18 28, VEX_KNC_Vprefetche0_m8, VEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetche1 [rax]
+C5F8 18 30, VEX_KNC_Vprefetche1_m8, VEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetche2 [rax]
+C5F8 18 38, VEX_KNC_Vprefetche2_m8, VEX, KNC, op0=nma r=rax decopt=KNC
+# kand k2,k3
+C5F8 41 D3, VEX_KNC_Kand_kr_kr, VEX, KNC, op0=rw op1=r rw=k2 r=k3 decopt=KNC
+# kandn k2,k3
+C5F8 42 D3, VEX_KNC_Kandn_kr_kr, VEX, KNC, op0=rw op1=r rw=k2 r=k3 decopt=KNC
+# kandnr k2,k3
+C5F8 43 D3, VEX_KNC_Kandnr_kr_kr, VEX, KNC, op0=rw op1=r rw=k2 r=k3 decopt=KNC
+# knot k2,k3
+C5F8 44 D3, VEX_KNC_Knot_kr_kr, VEX, KNC, op0=w op1=r w=k2 r=k3 decopt=KNC
+# kor k2,k3
+C5F8 45 D3, VEX_KNC_Kor_kr_kr, VEX, KNC, op0=rw op1=r rw=k2 r=k3 decopt=KNC
+# kxnor k2,k3
+C5F8 46 D3, VEX_KNC_Kxnor_kr_kr, VEX, KNC, op0=rw op1=r rw=k2 r=k3 decopt=KNC
+# kxor k2,k3
+C5F8 47 D3, VEX_KNC_Kxor_kr_kr, VEX, KNC, op0=rw op1=r rw=k2 r=k3 decopt=KNC
+# kmerge2l1h k2,k3
+C5F8 48 D3, VEX_KNC_Kmerge2l1h_kr_kr, VEX, KNC, op0=rw op1=r rw=k2 r=k3 decopt=KNC
+# kmerge2l1l k2,k3
+C5F8 49 D3, VEX_KNC_Kmerge2l1l_kr_kr, VEX, KNC, op0=rw op1=r rw=k2 r=k3 decopt=KNC
+# jkzd k0,near ptr 800000003412A551h
+C5F8 84 5AA51234, VEX_KNC_Jkzd_kr_rel32_64, VEX, KNC, flow=ConditionalBranch op0=r op1=r r=k0 decopt=KNC
+# jknzd k0,near ptr 800000003412A551h
+C5F8 85 5AA51234, VEX_KNC_Jknzd_kr_rel32_64, VEX, KNC, flow=ConditionalBranch op0=r op1=r r=k0 decopt=KNC
+# kmov k2,k3
+C5F8 90 D3, VEX_KNC_Kmov_kr_kr, VEX, KNC, op0=w op1=r w=k2 r=k3 decopt=KNC
+# kmov k2,ebx
+C5F8 92 D3, VEX_KNC_Kmov_kr_r32, VEX, KNC, op0=w op1=r w=k2 r=ebx decopt=KNC
+# kmov edx,k3
+C5F8 93 D3, VEX_KNC_Kmov_r32_kr, VEX, KNC, op0=w op1=r w=rdx r=k3 decopt=KNC
+# kconcath rdx,k5,k3
+C5D0 95 D3, VEX_KNC_Kconcath_r64_kr_kr, VEX, KNC, op0=w op1=r op2=r w=rdx r=k5 r=k3 decopt=KNC
+# kconcatl rdx,k5,k3
+C5D0 97 D3, VEX_KNC_Kconcatl_r64_kr_kr, VEX, KNC, op0=w op1=r op2=r w=rdx r=k5 r=k3 decopt=KNC
+# kortest k2,k3
+C5F8 98 D3, VEX_KNC_Kortest_kr_kr, VEX, KNC, fw=zc fc=osap op0=r op1=r r=k2 r=k3 decopt=KNC
+# delay ebx
+C5FA AE F3, VEX_KNC_Delay_r32, VEX, KNC, op0=r r=ebx decopt=KNC
+# delay rbx
+C4E1FA AE F3, VEX_KNC_Delay_r64, VEX, KNC, op0=r r=rbx decopt=KNC
+# spflt ebx
+C5FB AE F3, VEX_KNC_Spflt_r32, VEX, KNC, op0=r r=ebx decopt=KNC
+# spflt rbx
+C4E1FB AE F3, VEX_KNC_Spflt_r64, VEX, KNC, op0=r r=rbx decopt=KNC
+# clevict1 [rax]
+C5FA AE 38, VEX_KNC_Clevict1_m8, VEX, KNC, op0=nma r=rax decopt=KNC
+# clevict0 [rax]
+C5FB AE 38, VEX_KNC_Clevict0_m8, VEX, KNC, op0=nma r=rax decopt=KNC
+# popcnt ecx,esi
+C5FA B8 CE, VEX_KNC_Popcnt_r32_r32, VEX, KNC, fw=z fc=osacp op0=w op1=r w=rcx r=esi decopt=KNC
+# popcnt rcx,rsi
+C4E1FA B8 CE, VEX_KNC_Popcnt_r64_r64, VEX, KNC, fw=z fc=osacp op0=w op1=r w=rcx r=rsi decopt=KNC
+# tzcnt ecx,esi
+C5FA BC CE, VEX_KNC_Tzcnt_r32_r32, VEX, KNC, fw=zc fu=osap op0=w op1=r w=rcx r=esi decopt=KNC
+# tzcnt rcx,rsi
+C4E1FA BC CE, VEX_KNC_Tzcnt_r64_r64, VEX, KNC, fw=zc fu=osap op0=w op1=r w=rcx r=rsi decopt=KNC
+# tzcnti ecx,esi
+C5FB BC CE, VEX_KNC_Tzcnti_r32_r32, VEX, KNC, fw=zc fu=osap op0=rw op1=r r=ecx w=rcx r=esi decopt=KNC
+# tzcnti rcx,rsi
+C4E1FB BC CE, VEX_KNC_Tzcnti_r64_r64, VEX, KNC, fw=zc fu=osap op0=rw op1=r rw=rcx r=rsi decopt=KNC
+# lzcnt ecx,esi
+C5FA BD CE, VEX_KNC_Lzcnt_r32_r32, VEX, KNC, fw=zc fu=osap op0=w op1=r w=rcx r=esi decopt=KNC
+# lzcnt rcx,rsi
+C4E1FA BD CE, VEX_KNC_Lzcnt_r64_r64, VEX, KNC, fw=zc fu=osap op0=w op1=r w=rcx r=rsi decopt=KNC
+# undoc ebx,[rax]
+C4E27A F0 18, VEX_KNC_Undoc_r32_rm32_128_F3_0F38_W0_F0, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc ecx,esi
+C4E27A F0 CE, VEX_KNC_Undoc_r32_rm32_128_F3_0F38_W0_F0, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc rbx,[rax]
+C4E2FA F0 18, VEX_KNC_Undoc_r64_rm64_128_F3_0F38_W1_F0, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc rcx,rsi
+C4E2FA F0 CE, VEX_KNC_Undoc_r64_rm64_128_F3_0F38_W1_F0, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc ebx,[rax]
+C4E27B F0 18, VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F0, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc ecx,esi
+C4E27B F0 CE, VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F0, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc rbx,[rax]
+C4E2FB F0 18, VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F0, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc rcx,rsi
+C4E2FB F0 CE, VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F0, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc ebx,[rax]
+C4E27B F1 18, VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc ecx,esi
+C4E27B F1 CE, VEX_KNC_Undoc_r32_rm32_128_F2_0F38_W0_F1, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc rbx,[rax]
+C4E2FB F1 18, VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc rcx,rsi
+C4E2FB F1 CE, VEX_KNC_Undoc_r64_rm64_128_F2_0F38_W1_F1, VEX, KNC, save-restore op0=n op1=n decopt=KNC
+# kextract k2,r11,5Ah
+C4C379 3E D3 5A, VEX_KNC_Kextract_kr_r64_imm8, VEX, KNC, op0=w op1=r op2=r w=k2 r=r11 decopt=KNC
+# vprefetchnta [rax+40h]
+62 F17808 18 40 01, MVEX_Vprefetchnta_m, MVEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetch0 [rax+40h]
+62 F17808 18 48 01, MVEX_Vprefetch0_m, MVEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetch1 [rax+40h]
+62 F17808 18 50 01, MVEX_Vprefetch1_m, MVEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetch2 [rax+40h]
+62 F17808 18 58 01, MVEX_Vprefetch2_m, MVEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetchenta [rax+40h]
+62 F17808 18 60 01, MVEX_Vprefetchenta_m, MVEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetche0 [rax+40h]
+62 F17808 18 68 01, MVEX_Vprefetche0_m, MVEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetche1 [rax+40h]
+62 F17808 18 70 01, MVEX_Vprefetche1_m, MVEX, KNC, op0=nma r=rax decopt=KNC
+# vprefetche2 [rax+40h]
+62 F17808 18 78 01, MVEX_Vprefetche2_m, MVEX, KNC, op0=nma r=rax decopt=KNC
+# vmovaps zmm2,[rax+40h]
+62 F17808 28 50 01, MVEX_Vmovaps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vmovaps zmm2{k3},[rax+10h]{uint8}
+62 F1784B 28 50 01, MVEX_Vmovaps_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vmovaps zmm2,zmm3
+62 F17808 28 D3, MVEX_Vmovaps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vmovaps zmm10{k3},zmm3{cdab}
+62 71781B 28 D3, MVEX_Vmovaps_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vmovapd zmm2,[rax+40h]
+62 F1F908 28 50 01, MVEX_Vmovapd_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vmovapd zmm2,zmm3
+62 F1F908 28 D3, MVEX_Vmovapd_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vmovapd zmm10{k3},zmm3{cdab}
+62 71F91B 28 D3, MVEX_Vmovapd_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vmovaps [rax+40h],zmm2
+62 F17808 29 50 01, MVEX_Vmovaps_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 wm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vmovaps [rax+10h]{k3},zmm2{uint8}
+62 F1784B 29 50 01, MVEX_Vmovaps_mt_k1_zmm, MVEX, KNC, op0=cw op1=r r=rax r=zmm2 r=k3 cwm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vmovapd [rax+40h]{eh},zmm26
+62 61F988 29 50 01, MVEX_Vmovapd_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm26 wm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vmovapd [rax+40h]{k5},zmm2
+62 F1F90D 29 50 01, MVEX_Vmovapd_mt_k1_zmm, MVEX, KNC, op0=cw op1=r r=rax r=zmm2 r=k5 cwm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vmovnrapd [rax+40h],zmm2
+62 F1FA08 29 50 01, MVEX_Vmovnrapd_m_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 wm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vmovnrapd [rax+40h]{k5},zmm26
+62 61FA0D 29 50 01, MVEX_Vmovnrapd_m_k1_zmm, MVEX, KNC, op0=cw op1=r r=rax r=zmm26 r=k5 cwm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vmovnrngoapd [rax+40h],zmm2
+62 F1FA88 29 50 01, MVEX_Vmovnrngoapd_m_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 wm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vmovnrngoapd [rax+40h]{k5},zmm26
+62 61FA8D 29 50 01, MVEX_Vmovnrngoapd_m_k1_zmm, MVEX, KNC, op0=cw op1=r r=rax r=zmm26 r=k5 cwm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vmovnraps [rax+40h],zmm2
+62 F17B08 29 50 01, MVEX_Vmovnraps_m_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 wm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vmovnraps [rax+10h]{k3},zmm2{uint8}
+62 F17B4B 29 50 01, MVEX_Vmovnraps_m_k1_zmm, MVEX, KNC, op0=cw op1=r r=rax r=zmm2 r=k3 cwm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vmovnrngoaps [rax+40h],zmm2
+62 F17B88 29 50 01, MVEX_Vmovnrngoaps_m_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 wm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vmovnrngoaps [rax+10h]{k3},zmm2{uint8}
+62 F17BCB 29 50 01, MVEX_Vmovnrngoaps_m_k1_zmm, MVEX, KNC, op0=cw op1=r r=rax r=zmm2 r=k3 cwm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vaddps zmm2,zmm6,[rax+40h]
+62 F14808 58 50 01, MVEX_Vaddps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vaddps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F1484B 58 50 01, MVEX_Vaddps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vaddps zmm2,zmm6,zmm3
+62 F14808 58 D3, MVEX_Vaddps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vaddps zmm10{k3},zmm6,zmm3{cdab}
+62 71481B 58 D3, MVEX_Vaddps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vaddpd zmm2,zmm6,[rax+40h]
+62 F1C908 58 50 01, MVEX_Vaddpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vaddpd zmm2,zmm6,zmm3
+62 F1C908 58 D3, MVEX_Vaddpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vaddpd zmm10{k3},zmm6,zmm3{cdab}
+62 71C91B 58 D3, MVEX_Vaddpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vmulps zmm2,zmm6,[rax+40h]
+62 F14808 59 50 01, MVEX_Vmulps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vmulps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F1484B 59 50 01, MVEX_Vmulps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vmulps zmm2,zmm6,zmm3
+62 F14808 59 D3, MVEX_Vmulps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vmulps zmm10{k3},zmm6,zmm3{cdab}
+62 71481B 59 D3, MVEX_Vmulps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vmulpd zmm2,zmm6,[rax+40h]
+62 F1C908 59 50 01, MVEX_Vmulpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vmulpd zmm2,zmm6,zmm3
+62 F1C908 59 D3, MVEX_Vmulpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vmulpd zmm10{k3},zmm6,zmm3{cdab}
+62 71C91B 59 D3, MVEX_Vmulpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vcvtps2pd zmm2,[rax+20h]
+62 F17808 5A 50 01, MVEX_Vcvtps2pd_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Float32 decopt=KNC
+# vcvtps2pd zmm2,zmm3
+62 F17808 5A D3, MVEX_Vcvtps2pd_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vcvtps2pd zmm10{k3},zmm3{cdab}
+62 71781B 5A D3, MVEX_Vcvtps2pd_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vcvtpd2ps zmm2,[rax+40h]
+62 F1F908 5A 50 01, MVEX_Vcvtpd2ps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vcvtpd2ps zmm2,zmm3
+62 F1F908 5A D3, MVEX_Vcvtpd2ps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vcvtpd2ps zmm10{k3},zmm3{cdab}
+62 71F91B 5A D3, MVEX_Vcvtpd2ps_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vsubps zmm2,zmm6,[rax+40h]
+62 F14808 5C 50 01, MVEX_Vsubps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vsubps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F1484B 5C 50 01, MVEX_Vsubps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vsubps zmm2,zmm6,zmm3
+62 F14808 5C D3, MVEX_Vsubps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vsubps zmm10{k3},zmm6,zmm3{cdab}
+62 71481B 5C D3, MVEX_Vsubps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vsubpd zmm2,zmm6,[rax+40h]
+62 F1C908 5C 50 01, MVEX_Vsubpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vsubpd zmm2,zmm6,zmm3
+62 F1C908 5C D3, MVEX_Vsubpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vsubpd zmm10{k3},zmm6,zmm3{cdab}
+62 71C91B 5C D3, MVEX_Vsubpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpcmpgtd k2,zmm6,[rax+40h]
+62 F14908 66 50 01, MVEX_Vpcmpgtd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpcmpgtd k2{k3},zmm6,[rax+10h]{uint8}
+62 F1494B 66 50 01, MVEX_Vpcmpgtd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpcmpgtd k2,zmm6,zmm3
+62 F14908 66 D3, MVEX_Vpcmpgtd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=zmm3 decopt=KNC
+# vpcmpgtd k2{k3},zmm6,zmm3{cdab}
+62 F1491B 66 D3, MVEX_Vpcmpgtd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vmovdqa32 zmm2,[rax+40h]
+62 F17908 6F 50 01, MVEX_Vmovdqa32_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vmovdqa32 zmm2{k3},[rax+10h]{uint8}
+62 F1794B 6F 50 01, MVEX_Vmovdqa32_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vmovdqa32 zmm2,zmm3
+62 F17908 6F D3, MVEX_Vmovdqa32_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vmovdqa32 zmm10{k3},zmm3{cdab}
+62 71791B 6F D3, MVEX_Vmovdqa32_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vmovdqa64 zmm2,[rax+40h]
+62 F1F908 6F 50 01, MVEX_Vmovdqa64_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Int64 decopt=KNC
+# vmovdqa64 zmm2,zmm3
+62 F1F908 6F D3, MVEX_Vmovdqa64_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vmovdqa64 zmm10{k3},zmm3{cdab}
+62 71F91B 6F D3, MVEX_Vmovdqa64_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vpshufd zmm26,[rax+40h]{eh},5Ah
+62 617988 70 50 01 5A, MVEX_Vpshufd_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm26 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpshufd zmm2{k5},[rax+40h],5Ah
+62 F1790D 70 50 01 5A, MVEX_Vpshufd_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpshufd zmm2,zmm3,5Ah
+62 F17908 70 D3 5A, MVEX_Vpshufd_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vpsrld zmm6,[rax+40h],5Ah
+62 F14908 72 50 01 5A, MVEX_Vpsrld_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsrld zmm6{k3},[rax+10h]{uint8},5Ah
+62 F1494B 72 50 01 5A, MVEX_Vpsrld_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpsrld zmm6,zmm3,5Ah
+62 F14908 72 D3 5A, MVEX_Vpsrld_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm6 r=zmm3 decopt=KNC
+# vpsrld zmm6{k3},zmm3{cdab},0A5h
+62 F1491B 72 D3 A5, MVEX_Vpsrld_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm6 r=zmm3 r=k3 decopt=KNC
+# vpsrad zmm6,[rax+40h],5Ah
+62 F14908 72 60 01 5A, MVEX_Vpsrad_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsrad zmm6{k3},[rax+10h]{uint8},5Ah
+62 F1494B 72 60 01 5A, MVEX_Vpsrad_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpsrad zmm6,zmm3,5Ah
+62 F14908 72 E3 5A, MVEX_Vpsrad_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm6 r=zmm3 decopt=KNC
+# vpsrad zmm6{k3},zmm3{cdab},0A5h
+62 F1491B 72 E3 A5, MVEX_Vpsrad_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm6 r=zmm3 r=k3 decopt=KNC
+# vpslld zmm6,[rax+40h],5Ah
+62 F14908 72 70 01 5A, MVEX_Vpslld_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpslld zmm6{k3},[rax+10h]{uint8},5Ah
+62 F1494B 72 70 01 5A, MVEX_Vpslld_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpslld zmm6,zmm3,5Ah
+62 F14908 72 F3 5A, MVEX_Vpslld_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm6 r=zmm3 decopt=KNC
+# vpslld zmm6{k3},zmm3{cdab},0A5h
+62 F1491B 72 F3 A5, MVEX_Vpslld_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm6 r=zmm3 r=k3 decopt=KNC
+# vpcmpeqd k2,zmm6,[rax+40h]
+62 F14908 76 50 01, MVEX_Vpcmpeqd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpcmpeqd k2{k3},zmm6,[rax+10h]{uint8}
+62 F1494B 76 50 01, MVEX_Vpcmpeqd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpcmpeqd k2,zmm6,zmm3
+62 F14908 76 D3, MVEX_Vpcmpeqd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=zmm3 decopt=KNC
+# vpcmpeqd k2{k3},zmm6,zmm3{cdab}
+62 F1491B 76 D3, MVEX_Vpcmpeqd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vcvtudq2pd zmm2,[rax+20h]
+62 F17A08 7A 50 01, MVEX_Vcvtudq2pd_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Int32 decopt=KNC
+# vcvtudq2pd zmm2,zmm3
+62 F17A08 7A D3, MVEX_Vcvtudq2pd_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vcvtudq2pd zmm10{k3},zmm3{cdab}
+62 717A1B 7A D3, MVEX_Vcvtudq2pd_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vmovdqa32 [rax+40h],zmm2
+62 F17908 7F 50 01, MVEX_Vmovdqa32_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 wm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vmovdqa32 [rax+10h]{k3},zmm18{uint8}
+62 E1794B 7F 50 01, MVEX_Vmovdqa32_mt_k1_zmm, MVEX, KNC, op0=cw op1=r r=rax r=zmm18 r=k3 cwm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vmovdqa64 [rax+40h]{eh},zmm26
+62 61F988 7F 50 01, MVEX_Vmovdqa64_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm26 wm=ds:rax+0x40;Packed512_Int64 decopt=KNC
+# vmovdqa64 [rax+40h]{k5},zmm2
+62 F1F90D 7F 50 01, MVEX_Vmovdqa64_mt_k1_zmm, MVEX, KNC, op0=cw op1=r r=rax r=zmm2 r=k5 cwm=ds:rax+0x40;Packed512_Int64 decopt=KNC
+# clevict1 [rax+40h]
+62 F17A08 AE 78 01, MVEX_Clevict1_m, MVEX, KNC, op0=nma r=rax decopt=KNC
+# clevict0 [rax+40h]
+62 F17B08 AE 78 01, MVEX_Clevict0_m, MVEX, KNC, op0=nma r=rax decopt=KNC
+# vcmpeqps k2,zmm6,[rax+40h]
+62 F14808 C2 50 01 00, MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vcmpneqps k2{k3},zmm6,[rax+10h]{uint8}
+62 F1484B C2 50 01 04, MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vcmpeqps k2,zmm6,zmm3
+62 F14808 C2 D3 00, MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=zmm3 decopt=KNC
+# vcmpltps k2{k3},zmm6,zmm3{cdab}
+62 F1481B C2 D3 01, MVEX_Vcmpps_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vcmpeqpd k2,zmm6,[rax+40h]
+62 F1C908 C2 50 01 00, MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vcmpeqpd k2,zmm6,zmm3
+62 F1C908 C2 D3 00, MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=zmm3 decopt=KNC
+# vcmpltpd k2{k3},zmm6,zmm3{cdab}
+62 F1C91B C2 D3 01, MVEX_Vcmppd_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpandd zmm2,zmm6,[rax+40h]
+62 F14908 DB 50 01, MVEX_Vpandd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpandd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F1494B DB 50 01, MVEX_Vpandd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpandd zmm2,zmm6,zmm3
+62 F14908 DB D3, MVEX_Vpandd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpandd zmm10{k3},zmm6,zmm3{cdab}
+62 71491B DB D3, MVEX_Vpandd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpandq zmm2,zmm6,[rax+40h]
+62 F1C908 DB 50 01, MVEX_Vpandq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int64 decopt=KNC
+# vpandq zmm2,zmm6,zmm3
+62 F1C908 DB D3, MVEX_Vpandq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpandq zmm10{k3},zmm6,zmm3{cdab}
+62 71C91B DB D3, MVEX_Vpandq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpandnd zmm2,zmm6,[rax+40h]
+62 F14908 DF 50 01, MVEX_Vpandnd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpandnd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F1494B DF 50 01, MVEX_Vpandnd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpandnd zmm2,zmm6,zmm3
+62 F14908 DF D3, MVEX_Vpandnd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpandnd zmm10{k3},zmm6,zmm3{cdab}
+62 71491B DF D3, MVEX_Vpandnd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpandnq zmm2,zmm6,[rax+40h]
+62 F1C908 DF 50 01, MVEX_Vpandnq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int64 decopt=KNC
+# vpandnq zmm2,zmm6,zmm3
+62 F1C908 DF D3, MVEX_Vpandnq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpandnq zmm10{k3},zmm6,zmm3{cdab}
+62 71C91B DF D3, MVEX_Vpandnq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vcvtdq2pd zmm2,[rax+20h]
+62 F17A08 E6 50 01, MVEX_Vcvtdq2pd_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x20;Packed256_Int32 decopt=KNC
+# vcvtdq2pd zmm2,zmm3
+62 F17A08 E6 D3, MVEX_Vcvtdq2pd_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vcvtdq2pd zmm10{k3},zmm3{cdab}
+62 717A1B E6 D3, MVEX_Vcvtdq2pd_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vpord zmm2,zmm6,[rax+40h]
+62 F14908 EB 50 01, MVEX_Vpord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpord zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F1494B EB 50 01, MVEX_Vpord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpord zmm2,zmm6,zmm3
+62 F14908 EB D3, MVEX_Vpord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpord zmm10{k3},zmm6,zmm3{cdab}
+62 71491B EB D3, MVEX_Vpord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vporq zmm2,zmm6,[rax+40h]
+62 F1C908 EB 50 01, MVEX_Vporq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int64 decopt=KNC
+# vporq zmm2,zmm6,zmm3
+62 F1C908 EB D3, MVEX_Vporq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vporq zmm10{k3},zmm6,zmm3{cdab}
+62 71C91B EB D3, MVEX_Vporq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpxord zmm2,zmm6,[rax+40h]
+62 F14908 EF 50 01, MVEX_Vpxord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpxord zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F1494B EF 50 01, MVEX_Vpxord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpxord zmm2,zmm6,zmm3
+62 F14908 EF D3, MVEX_Vpxord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpxord zmm10{k3},zmm6,zmm3{cdab}
+62 71491B EF D3, MVEX_Vpxord_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpxorq zmm2,zmm6,[rax+40h]
+62 F1C908 EF 50 01, MVEX_Vpxorq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int64 decopt=KNC
+# vpxorq zmm2,zmm6,zmm3
+62 F1C908 EF D3, MVEX_Vpxorq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpxorq zmm10{k3},zmm6,zmm3{cdab}
+62 71C91B EF D3, MVEX_Vpxorq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpsubd zmm2,zmm6,[rax+40h]
+62 F14908 FA 50 01, MVEX_Vpsubd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsubd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F1494B FA 50 01, MVEX_Vpsubd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpsubd zmm2,zmm6,zmm3
+62 F14908 FA D3, MVEX_Vpsubd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpsubd zmm10{k3},zmm6,zmm3{cdab}
+62 71491B FA D3, MVEX_Vpsubd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpaddd zmm2,zmm6,[rax+40h]
+62 F14908 FE 50 01, MVEX_Vpaddd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpaddd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F1494B FE 50 01, MVEX_Vpaddd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpaddd zmm2,zmm6,zmm3
+62 F14908 FE D3, MVEX_Vpaddd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpaddd zmm10{k3},zmm6,zmm3{cdab}
+62 71491B FE D3, MVEX_Vpaddd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vbroadcastss zmm2,[rax+4]
+62 F27908 18 50 01, MVEX_Vbroadcastss_zmm_k1_mt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x4;Float32 decopt=KNC
+# vbroadcastss zmm2{k3},[rax+1]{uint8}
+62 F2794B 18 50 01, MVEX_Vbroadcastss_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x1;UInt8 decopt=KNC
+# vbroadcastsd zmm26,[rax+8]{eh}
+62 62F988 19 50 01, MVEX_Vbroadcastsd_zmm_k1_mt, MVEX, KNC, op0=w op1=r w=vmm26 r=rax rm=ds:rax+0x8;Float64 decopt=KNC
+# vbroadcastsd zmm2{k5},[rax+8]
+62 F2F90D 19 50 01, MVEX_Vbroadcastsd_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x8;Float64 decopt=KNC
+# vbroadcastf32x4 zmm2,[rax+10h]
+62 F27908 1A 50 01, MVEX_Vbroadcastf32x4_zmm_k1_mt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Float32 decopt=KNC
+# vbroadcastf32x4 zmm2{k3},[rax+4]{uint8}
+62 F2794B 1A 50 01, MVEX_Vbroadcastf32x4_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x4;Packed32_UInt8 decopt=KNC
+# vbroadcastf64x4 zmm26,[rax+20h]{eh}
+62 62F988 1B 50 01, MVEX_Vbroadcastf64x4_zmm_k1_mt, MVEX, KNC, op0=w op1=r w=vmm26 r=rax rm=ds:rax+0x20;Packed256_Float64 decopt=KNC
+# vbroadcastf64x4 zmm2{k5},[rax+20h]
+62 F2F90D 1B 50 01, MVEX_Vbroadcastf64x4_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x20;Packed256_Float64 decopt=KNC
+# vptestmd k2,zmm6,[rax+40h]
+62 F24908 27 50 01, MVEX_Vptestmd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vptestmd k2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 27 50 01, MVEX_Vptestmd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vptestmd k2,zmm6,zmm3
+62 F24908 27 D3, MVEX_Vptestmd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=zmm3 decopt=KNC
+# vptestmd k2{k3},zmm6,zmm3{cdab}
+62 F2491B 27 D3, MVEX_Vptestmd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpermd zmm26,zmm6,[rax+40h]{eh}
+62 624988 36 50 01, MVEX_Vpermd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm26 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpermd zmm2{k5},zmm6,[rax+40h]
+62 F2490D 36 50 01, MVEX_Vpermd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpermd zmm2,zmm6,zmm3
+62 F24908 36 D3, MVEX_Vpermd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpminsd zmm2,zmm6,[rax+40h]
+62 F24908 39 50 01, MVEX_Vpminsd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpminsd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 39 50 01, MVEX_Vpminsd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpminsd zmm2,zmm6,zmm3
+62 F24908 39 D3, MVEX_Vpminsd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpminsd zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 39 D3, MVEX_Vpminsd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpminud zmm2,zmm6,[rax+40h]
+62 F24908 3B 50 01, MVEX_Vpminud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpminud zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 3B 50 01, MVEX_Vpminud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpminud zmm2,zmm6,zmm3
+62 F24908 3B D3, MVEX_Vpminud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpminud zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 3B D3, MVEX_Vpminud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpmaxsd zmm2,zmm6,[rax+40h]
+62 F24908 3D 50 01, MVEX_Vpmaxsd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpmaxsd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 3D 50 01, MVEX_Vpmaxsd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpmaxsd zmm2,zmm6,zmm3
+62 F24908 3D D3, MVEX_Vpmaxsd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpmaxsd zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 3D D3, MVEX_Vpmaxsd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpmaxud zmm2,zmm6,[rax+40h]
+62 F24908 3F 50 01, MVEX_Vpmaxud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpmaxud zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 3F 50 01, MVEX_Vpmaxud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpmaxud zmm2,zmm6,zmm3
+62 F24908 3F D3, MVEX_Vpmaxud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpmaxud zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 3F D3, MVEX_Vpmaxud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpmulld zmm2,zmm6,[rax+40h]
+62 F24908 40 50 01, MVEX_Vpmulld_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpmulld zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 40 50 01, MVEX_Vpmulld_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpmulld zmm2,zmm6,zmm3
+62 F24908 40 D3, MVEX_Vpmulld_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpmulld zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 40 D3, MVEX_Vpmulld_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vgetexpps zmm2,[rax+40h]
+62 F27908 42 50 01, MVEX_Vgetexpps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vgetexpps zmm2{k3},[rax+10h]{uint8}
+62 F2794B 42 50 01, MVEX_Vgetexpps_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vgetexpps zmm2,zmm3
+62 F27908 42 D3, MVEX_Vgetexpps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vgetexpps zmm10{k3},zmm3{cdab}
+62 72791B 42 D3, MVEX_Vgetexpps_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vgetexppd zmm2,[rax+40h]
+62 F2F908 42 50 01, MVEX_Vgetexppd_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vgetexppd zmm2,zmm3
+62 F2F908 42 D3, MVEX_Vgetexppd_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vgetexppd zmm10{k3},zmm3{cdab}
+62 72F91B 42 D3, MVEX_Vgetexppd_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vpsrlvd zmm2,zmm6,[rax+40h]
+62 F24908 45 50 01, MVEX_Vpsrlvd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsrlvd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 45 50 01, MVEX_Vpsrlvd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpsrlvd zmm2,zmm6,zmm3
+62 F24908 45 D3, MVEX_Vpsrlvd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpsrlvd zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 45 D3, MVEX_Vpsrlvd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpsravd zmm2,zmm6,[rax+40h]
+62 F24908 46 50 01, MVEX_Vpsravd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsravd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 46 50 01, MVEX_Vpsravd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpsravd zmm2,zmm6,zmm3
+62 F24908 46 D3, MVEX_Vpsravd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpsravd zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 46 D3, MVEX_Vpsravd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpsllvd zmm2,zmm6,[rax+40h]
+62 F24908 47 50 01, MVEX_Vpsllvd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsllvd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 47 50 01, MVEX_Vpsllvd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpsllvd zmm2,zmm6,zmm3
+62 F24908 47 D3, MVEX_Vpsllvd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpsllvd zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 47 D3, MVEX_Vpsllvd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27908 48 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_48, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2794B 48 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_48, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27908 48 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_48, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72791B 48 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_48, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27908 49 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_49, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2794B 49 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_49, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27908 49 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_49, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72791B 49 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_49, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27908 4A 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4A, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2794B 4A 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4A, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27908 4A D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4A, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72791B 4A D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4A, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27908 4B 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4B, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2794B 4B 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4B, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27908 4B D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4B, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72791B 4B D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_4B, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# vaddnps zmm2,zmm6,[rax+40h]
+62 F24908 50 50 01, MVEX_Vaddnps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vaddnps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 50 50 01, MVEX_Vaddnps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vaddnps zmm2,zmm6,zmm3
+62 F24908 50 D3, MVEX_Vaddnps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vaddnps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 50 D3, MVEX_Vaddnps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vaddnpd zmm2,zmm6,[rax+40h]
+62 F2C908 50 50 01, MVEX_Vaddnpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vaddnpd zmm2,zmm6,zmm3
+62 F2C908 50 D3, MVEX_Vaddnpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vaddnpd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 50 D3, MVEX_Vaddnpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vgmaxabsps zmm2,zmm6,[rax+40h]
+62 F24908 51 50 01, MVEX_Vgmaxabsps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vgmaxabsps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 51 50 01, MVEX_Vgmaxabsps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vgmaxabsps zmm2,zmm6,zmm3
+62 F24908 51 D3, MVEX_Vgmaxabsps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vgmaxabsps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 51 D3, MVEX_Vgmaxabsps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vgminps zmm2,zmm6,[rax+40h]
+62 F24908 52 50 01, MVEX_Vgminps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vgminps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 52 50 01, MVEX_Vgminps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vgminps zmm2,zmm6,zmm3
+62 F24908 52 D3, MVEX_Vgminps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vgminps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 52 D3, MVEX_Vgminps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vgminpd zmm2,zmm6,[rax+40h]
+62 F2C908 52 50 01, MVEX_Vgminpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vgminpd zmm2,zmm6,zmm3
+62 F2C908 52 D3, MVEX_Vgminpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vgminpd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 52 D3, MVEX_Vgminpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vgmaxps zmm2,zmm6,[rax+40h]
+62 F24908 53 50 01, MVEX_Vgmaxps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vgmaxps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 53 50 01, MVEX_Vgmaxps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vgmaxps zmm2,zmm6,zmm3
+62 F24908 53 D3, MVEX_Vgmaxps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vgmaxps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 53 D3, MVEX_Vgmaxps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vgmaxpd zmm2,zmm6,[rax+40h]
+62 F2C908 53 50 01, MVEX_Vgmaxpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vgmaxpd zmm2,zmm6,zmm3
+62 F2C908 53 D3, MVEX_Vgmaxpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vgmaxpd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 53 D3, MVEX_Vgmaxpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 54 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_54, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B 54 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_54, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 54 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_54, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B 54 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_54, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# vfixupnanps zmm2,zmm6,[rax+40h]
+62 F24908 55 50 01, MVEX_Vfixupnanps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vfixupnanps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 55 50 01, MVEX_Vfixupnanps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfixupnanps zmm2,zmm6,zmm3
+62 F24908 55 D3, MVEX_Vfixupnanps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfixupnanps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 55 D3, MVEX_Vfixupnanps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfixupnanpd zmm2,zmm6,[rax+40h]
+62 F2C908 55 50 01, MVEX_Vfixupnanpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int64 decopt=KNC
+# vfixupnanpd zmm2,zmm6,zmm3
+62 F2C908 55 D3, MVEX_Vfixupnanpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfixupnanpd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 55 D3, MVEX_Vfixupnanpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 56 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_56, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B 56 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_56, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 56 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_56, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B 56 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_56, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 57 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_57, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B 57 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_57, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 57 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_57, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B 57 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_57, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# vpbroadcastd zmm2,[rax+4]
+62 F27908 58 50 01, MVEX_Vpbroadcastd_zmm_k1_mt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x4;Int32 decopt=KNC
+# vpbroadcastd zmm2{k3},[rax+1]{uint8}
+62 F2794B 58 50 01, MVEX_Vpbroadcastd_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x1;UInt8 decopt=KNC
+# vpbroadcastq zmm26,[rax+8]{eh}
+62 62F988 59 50 01, MVEX_Vpbroadcastq_zmm_k1_mt, MVEX, KNC, op0=w op1=r w=vmm26 r=rax rm=ds:rax+0x8;Int64 decopt=KNC
+# vpbroadcastq zmm2{k5},[rax+8]
+62 F2F90D 59 50 01, MVEX_Vpbroadcastq_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x8;Int64 decopt=KNC
+# vbroadcasti32x4 zmm2,[rax+10h]
+62 F27908 5A 50 01, MVEX_Vbroadcasti32x4_zmm_k1_mt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x10;Packed128_Int32 decopt=KNC
+# vbroadcasti32x4 zmm2{k3},[rax+4]{uint8}
+62 F2794B 5A 50 01, MVEX_Vbroadcasti32x4_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x4;Packed32_UInt8 decopt=KNC
+# vbroadcasti64x4 zmm26,[rax+20h]{eh}
+62 62F988 5B 50 01, MVEX_Vbroadcasti64x4_zmm_k1_mt, MVEX, KNC, op0=w op1=r w=vmm26 r=rax rm=ds:rax+0x20;Packed256_Int64 decopt=KNC
+# vbroadcasti64x4 zmm2{k5},[rax+20h]
+62 F2F90D 5B 50 01, MVEX_Vbroadcasti64x4_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x20;Packed256_Int64 decopt=KNC
+# vpadcd zmm10,k6,[rax+4]{1to16}
+62 724918 5C 50 01, MVEX_Vpadcd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm10 rw=k6 r=rax rm=ds:rax+0x4;Int32 decopt=KNC
+# vpadcd zmm2{k5},k6,[rax+40h]
+62 F2490D 5C 50 01, MVEX_Vpadcd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm2 rw=k6 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpadcd zmm2,k6,zmm3
+62 F24908 5C D3, MVEX_Vpadcd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm2 rw=k6 r=zmm3 decopt=KNC
+# vpadcd zmm10{k3},k6,zmm3{cdab}
+62 72491B 5C D3, MVEX_Vpadcd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm10 rw=k6 r=zmm3 r=k3 decopt=KNC
+# vpaddsetcd zmm10,k6,[rax+4]{1to16}
+62 724918 5D 50 01, MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm10 rw=k6 r=rax rm=ds:rax+0x4;Int32 decopt=KNC
+# vpaddsetcd zmm2{k5},k6,[rax+40h]
+62 F2490D 5D 50 01, MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm2 rw=k6 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpaddsetcd zmm2,k6,zmm3
+62 F24908 5D D3, MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm2 rw=k6 r=zmm3 decopt=KNC
+# vpaddsetcd zmm10{k3},k6,zmm3{cdab}
+62 72491B 5D D3, MVEX_Vpaddsetcd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm10 rw=k6 r=zmm3 r=k3 decopt=KNC
+# vpsbbd zmm10,k6,[rax+4]{1to16}
+62 724918 5E 50 01, MVEX_Vpsbbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm10 rw=k6 r=rax rm=ds:rax+0x4;Int32 decopt=KNC
+# vpsbbd zmm2{k5},k6,[rax+40h]
+62 F2490D 5E 50 01, MVEX_Vpsbbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm2 rw=k6 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsbbd zmm2,k6,zmm3
+62 F24908 5E D3, MVEX_Vpsbbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm2 rw=k6 r=zmm3 decopt=KNC
+# vpsbbd zmm10{k3},k6,zmm3{cdab}
+62 72491B 5E D3, MVEX_Vpsbbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm10 rw=k6 r=zmm3 r=k3 decopt=KNC
+# vpsubsetbd zmm10,k6,[rax+4]{1to16}
+62 724918 5F 50 01, MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm10 rw=k6 r=rax rm=ds:rax+0x4;Int32 decopt=KNC
+# vpsubsetbd zmm2{k5},k6,[rax+40h]
+62 F2490D 5F 50 01, MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm2 rw=k6 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsubsetbd zmm2,k6,zmm3
+62 F24908 5F D3, MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm2 rw=k6 r=zmm3 decopt=KNC
+# vpsubsetbd zmm10{k3},k6,zmm3{cdab}
+62 72491B 5F D3, MVEX_Vpsubsetbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm10 rw=k6 r=zmm3 r=k3 decopt=KNC
+# vpblendmd zmm2,zmm6,[rax+40h]
+62 F24908 64 50 01, MVEX_Vpblendmd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpblendmd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 64 50 01, MVEX_Vpblendmd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpblendmd zmm2,zmm6,zmm3
+62 F24908 64 D3, MVEX_Vpblendmd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpblendmd zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 64 D3, MVEX_Vpblendmd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpblendmq zmm2,zmm6,[rax+40h]
+62 F2C908 64 50 01, MVEX_Vpblendmq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int64 decopt=KNC
+# vpblendmq zmm2,zmm6,zmm3
+62 F2C908 64 D3, MVEX_Vpblendmq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpblendmq zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 64 D3, MVEX_Vpblendmq_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vblendmps zmm2,zmm6,[rax+40h]
+62 F24908 65 50 01, MVEX_Vblendmps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vblendmps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 65 50 01, MVEX_Vblendmps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vblendmps zmm2,zmm6,zmm3
+62 F24908 65 D3, MVEX_Vblendmps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vblendmps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 65 D3, MVEX_Vblendmps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vblendmpd zmm2,zmm6,[rax+40h]
+62 F2C908 65 50 01, MVEX_Vblendmpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vblendmpd zmm2,zmm6,zmm3
+62 F2C908 65 D3, MVEX_Vblendmpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vblendmpd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 65 D3, MVEX_Vblendmpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 67 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_67, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B 67 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_67, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 67 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_67, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B 67 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_67, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27908 68 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_68, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2794B 68 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_68, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27908 68 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_68, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72791B 68 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_68, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27908 69 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_69, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2794B 69 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_69, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27908 69 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_69, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72791B 69 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_69, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27908 6A 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6A, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2794B 6A 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6A, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27908 6A D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6A, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72791B 6A D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6A, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27908 6B 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6B, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2794B 6B 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6B, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27908 6B D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6B, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72791B 6B D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_6B, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# vpsubrd zmm2,zmm6,[rax+40h]
+62 F24908 6C 50 01, MVEX_Vpsubrd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsubrd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 6C 50 01, MVEX_Vpsubrd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpsubrd zmm2,zmm6,zmm3
+62 F24908 6C D3, MVEX_Vpsubrd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpsubrd zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 6C D3, MVEX_Vpsubrd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vsubrps zmm2,zmm6,[rax+40h]
+62 F24908 6D 50 01, MVEX_Vsubrps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vsubrps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 6D 50 01, MVEX_Vsubrps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vsubrps zmm2,zmm6,zmm3
+62 F24908 6D D3, MVEX_Vsubrps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vsubrps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 6D D3, MVEX_Vsubrps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vsubrpd zmm2,zmm6,[rax+40h]
+62 F2C908 6D 50 01, MVEX_Vsubrpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vsubrpd zmm2,zmm6,zmm3
+62 F2C908 6D D3, MVEX_Vsubrpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vsubrpd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 6D D3, MVEX_Vsubrpd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpsbbrd zmm10,k6,[rax+4]{1to16}
+62 724918 6E 50 01, MVEX_Vpsbbrd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm10 rw=k6 r=rax rm=ds:rax+0x4;Int32 decopt=KNC
+# vpsbbrd zmm2{k5},k6,[rax+40h]
+62 F2490D 6E 50 01, MVEX_Vpsbbrd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm2 rw=k6 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsbbrd zmm2,k6,zmm3
+62 F24908 6E D3, MVEX_Vpsbbrd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm2 rw=k6 r=zmm3 decopt=KNC
+# vpsbbrd zmm10{k3},k6,zmm3{cdab}
+62 72491B 6E D3, MVEX_Vpsbbrd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm10 rw=k6 r=zmm3 r=k3 decopt=KNC
+# vpsubrsetbd zmm10,k6,[rax+4]{1to16}
+62 724918 6F 50 01, MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm10 rw=k6 r=rax rm=ds:rax+0x4;Int32 decopt=KNC
+# vpsubrsetbd zmm2{k5},k6,[rax+40h]
+62 F2490D 6F 50 01, MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm2 rw=k6 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpsubrsetbd zmm2,k6,zmm3
+62 F24908 6F D3, MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rw op1=rw op2=r rw=vmm2 rw=k6 r=zmm3 decopt=KNC
+# vpsubrsetbd zmm10{k3},k6,zmm3{cdab}
+62 72491B 6F D3, MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt, MVEX, KNC, op0=rcw op1=rw op2=r rcw=vmm10 rw=k6 r=zmm3 r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 70 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_70, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B 70 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_70, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 70 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_70, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B 70 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_70, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 71 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_71, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B 71 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_71, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 71 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_71, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B 71 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_71, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 72 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_72, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B 72 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_72, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 72 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_72, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B 72 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_72, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 73 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_73, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B 73 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_73, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 73 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_73, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B 73 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_73, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# vpcmpltd k2,zmm6,[rax+40h]
+62 F24908 74 50 01, MVEX_Vpcmpltd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpcmpltd k2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 74 50 01, MVEX_Vpcmpltd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpcmpltd k2,zmm6,zmm3
+62 F24908 74 D3, MVEX_Vpcmpltd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=zmm3 decopt=KNC
+# vpcmpltd k2{k3},zmm6,zmm3{cdab}
+62 F2491B 74 D3, MVEX_Vpcmpltd_kr_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=k2 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vscaleps zmm2,zmm6,[rax+40h]
+62 F24908 84 50 01, MVEX_Vscaleps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vscaleps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 84 50 01, MVEX_Vscaleps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vscaleps zmm2,zmm6,zmm3
+62 F24908 84 D3, MVEX_Vscaleps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vscaleps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 84 D3, MVEX_Vscaleps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpmulhud zmm2,zmm6,[rax+40h]
+62 F24908 86 50 01, MVEX_Vpmulhud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpmulhud zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 86 50 01, MVEX_Vpmulhud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpmulhud zmm2,zmm6,zmm3
+62 F24908 86 D3, MVEX_Vpmulhud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpmulhud zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 86 D3, MVEX_Vpmulhud_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpmulhd zmm2,zmm6,[rax+40h]
+62 F24908 87 50 01, MVEX_Vpmulhd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpmulhd zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 87 50 01, MVEX_Vpmulhd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpmulhd zmm2,zmm6,zmm3
+62 F24908 87 D3, MVEX_Vpmulhd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpmulhd zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 87 D3, MVEX_Vpmulhd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpgatherdd zmm2{k3},[rcx+zmm4*4+4]
+62 F2790B 90 54 A1 01, MVEX_Vpgatherdd_zmm_k1_mvt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rcx r=zmm4 rw=k3 rm=ds:rcx+zmm4*4+0x4|vsib32;Int32 decopt=KNC
+# vpgatherdq zmm2{k3},[rcx+zmm4*4+8]
+62 F2F90B 90 54 A1 01, MVEX_Vpgatherdq_zmm_k1_mvt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rcx r=zmm4 rw=k3 rm=ds:rcx+zmm4*4+0x8|vsib32;Int64 decopt=KNC
+# vgatherdps zmm2{k3},[rcx+zmm4*4+4]
+62 F2790B 92 54 A1 01, MVEX_Vgatherdps_zmm_k1_mvt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rcx r=zmm4 rw=k3 rm=ds:rcx+zmm4*4+0x4|vsib32;Float32 decopt=KNC
+# vgatherdpd zmm2{k3},[rcx+zmm4*4+8]
+62 F2F90B 92 54 A1 01, MVEX_Vgatherdpd_zmm_k1_mvt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rcx r=zmm4 rw=k3 rm=ds:rcx+zmm4*4+0x8|vsib32;Float64 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 94 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_94, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B 94 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_94, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 94 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_94, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B 94 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_94, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F2C908 94 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_94, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2C94B 94 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_94, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F2C908 94 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_94, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72C91B 94 D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_94, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# vfmadd132ps zmm2,zmm6,[rax+40h]
+62 F24908 98 50 01, MVEX_Vfmadd132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfmadd132ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 98 50 01, MVEX_Vfmadd132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfmadd132ps zmm2,zmm6,zmm3
+62 F24908 98 D3, MVEX_Vfmadd132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmadd132ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 98 D3, MVEX_Vfmadd132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfmadd132pd zmm2,zmm6,[rax+40h]
+62 F2C908 98 50 01, MVEX_Vfmadd132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfmadd132pd zmm2,zmm6,zmm3
+62 F2C908 98 D3, MVEX_Vfmadd132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmadd132pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 98 D3, MVEX_Vfmadd132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfmsub132ps zmm2,zmm6,[rax+40h]
+62 F24908 9A 50 01, MVEX_Vfmsub132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfmsub132ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 9A 50 01, MVEX_Vfmsub132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfmsub132ps zmm2,zmm6,zmm3
+62 F24908 9A D3, MVEX_Vfmsub132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmsub132ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 9A D3, MVEX_Vfmsub132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfmsub132pd zmm2,zmm6,[rax+40h]
+62 F2C908 9A 50 01, MVEX_Vfmsub132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfmsub132pd zmm2,zmm6,zmm3
+62 F2C908 9A D3, MVEX_Vfmsub132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmsub132pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 9A D3, MVEX_Vfmsub132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmadd132ps zmm2,zmm6,[rax+40h]
+62 F24908 9C 50 01, MVEX_Vfnmadd132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfnmadd132ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 9C 50 01, MVEX_Vfnmadd132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfnmadd132ps zmm2,zmm6,zmm3
+62 F24908 9C D3, MVEX_Vfnmadd132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmadd132ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 9C D3, MVEX_Vfnmadd132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmadd132pd zmm2,zmm6,[rax+40h]
+62 F2C908 9C 50 01, MVEX_Vfnmadd132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfnmadd132pd zmm2,zmm6,zmm3
+62 F2C908 9C D3, MVEX_Vfnmadd132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmadd132pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 9C D3, MVEX_Vfnmadd132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmsub132ps zmm2,zmm6,[rax+40h]
+62 F24908 9E 50 01, MVEX_Vfnmsub132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfnmsub132ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B 9E 50 01, MVEX_Vfnmsub132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfnmsub132ps zmm2,zmm6,zmm3
+62 F24908 9E D3, MVEX_Vfnmsub132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmsub132ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B 9E D3, MVEX_Vfnmsub132ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmsub132pd zmm2,zmm6,[rax+40h]
+62 F2C908 9E 50 01, MVEX_Vfnmsub132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfnmsub132pd zmm2,zmm6,zmm3
+62 F2C908 9E D3, MVEX_Vfnmsub132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmsub132pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B 9E D3, MVEX_Vfnmsub132pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpscatterdd [rcx+zmm4*4+4]{k3},zmm2
+62 F2790B A0 54 A1 01, MVEX_Vpscatterdd_mvt_k1_zmm, MVEX, KNC, op0=cw op1=r r=rcx r=zmm4 r=zmm2 rw=k3 cwm=ds:rcx+zmm4*4+0x4|vsib32;Int32 decopt=KNC
+# vpscatterdq [rcx+zmm4*4+8]{k3},zmm2
+62 F2F90B A0 54 A1 01, MVEX_Vpscatterdq_mvt_k1_zmm, MVEX, KNC, op0=cw op1=r r=rcx r=zmm4 r=zmm2 rw=k3 cwm=ds:rcx+zmm4*4+0x8|vsib32;Int64 decopt=KNC
+# vscatterdps [rcx+zmm4*4+4]{k3},zmm2
+62 F2790B A2 54 A1 01, MVEX_Vscatterdps_mvt_k1_zmm, MVEX, KNC, op0=cw op1=r r=rcx r=zmm4 r=zmm2 rw=k3 cwm=ds:rcx+zmm4*4+0x4|vsib32;Float32 decopt=KNC
+# vscatterdpd [rcx+zmm4*4+8]{k3},zmm2
+62 F2F90B A2 54 A1 01, MVEX_Vscatterdpd_mvt_k1_zmm, MVEX, KNC, op0=cw op1=r r=rcx r=zmm4 r=zmm2 rw=k3 cwm=ds:rcx+zmm4*4+0x8|vsib32;Float64 decopt=KNC
+# vfmadd233ps zmm18,zmm6,[rax+10h]{4to16}
+62 E24928 A4 50 01, MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm18 r=zmm6 r=rax rm=ds:rax+0x10;Packed128_Float32 decopt=KNC
+# vfmadd233ps zmm2{k5},zmm6,[rax+40h]
+62 F2490D A4 50 01, MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k5 rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfmadd233ps zmm2,zmm6,zmm3
+62 F24908 A4 D3, MVEX_Vfmadd233ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmadd213ps zmm2,zmm6,[rax+40h]
+62 F24908 A8 50 01, MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfmadd213ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B A8 50 01, MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfmadd213ps zmm2,zmm6,zmm3
+62 F24908 A8 D3, MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmadd213ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B A8 D3, MVEX_Vfmadd213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfmadd213pd zmm2,zmm6,[rax+40h]
+62 F2C908 A8 50 01, MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfmadd213pd zmm2,zmm6,zmm3
+62 F2C908 A8 D3, MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmadd213pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B A8 D3, MVEX_Vfmadd213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfmsub213ps zmm2,zmm6,[rax+40h]
+62 F24908 AA 50 01, MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfmsub213ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B AA 50 01, MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfmsub213ps zmm2,zmm6,zmm3
+62 F24908 AA D3, MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmsub213ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B AA D3, MVEX_Vfmsub213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfmsub213pd zmm2,zmm6,[rax+40h]
+62 F2C908 AA 50 01, MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfmsub213pd zmm2,zmm6,zmm3
+62 F2C908 AA D3, MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmsub213pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B AA D3, MVEX_Vfmsub213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmadd213ps zmm2,zmm6,[rax+40h]
+62 F24908 AC 50 01, MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfnmadd213ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B AC 50 01, MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfnmadd213ps zmm2,zmm6,zmm3
+62 F24908 AC D3, MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmadd213ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B AC D3, MVEX_Vfnmadd213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmadd213pd zmm2,zmm6,[rax+40h]
+62 F2C908 AC 50 01, MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfnmadd213pd zmm2,zmm6,zmm3
+62 F2C908 AC D3, MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmadd213pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B AC D3, MVEX_Vfnmadd213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmsub213ps zmm2,zmm6,[rax+40h]
+62 F24908 AE 50 01, MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfnmsub213ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B AE 50 01, MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfnmsub213ps zmm2,zmm6,zmm3
+62 F24908 AE D3, MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmsub213ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B AE D3, MVEX_Vfnmsub213ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmsub213pd zmm2,zmm6,[rax+40h]
+62 F2C908 AE 50 01, MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfnmsub213pd zmm2,zmm6,zmm3
+62 F2C908 AE D3, MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmsub213pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B AE D3, MVEX_Vfnmsub213pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# undoc zmm2{k3},[rcx+zmm4*4+4]
+62 F2790B B0 54 A1 01, MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B0, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2{k3},[rcx+zmm4*4+4]
+62 F2790B B2 54 A1 01, MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_B2, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# vpmadd233d zmm18,zmm6,[rax+10h]{4to16}
+62 E24928 B4 50 01, MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm18 r=zmm6 r=rax rm=ds:rax+0x10;Packed128_Int32 decopt=KNC
+# vpmadd233d zmm2{k5},zmm6,[rax+40h]
+62 F2490D B4 50 01, MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpmadd233d zmm2,zmm6,zmm3
+62 F24908 B4 D3, MVEX_Vpmadd233d_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpmadd231d zmm2,zmm6,[rax+40h]
+62 F24908 B5 50 01, MVEX_Vpmadd231d_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpmadd231d zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B B5 50 01, MVEX_Vpmadd231d_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpmadd231d zmm2,zmm6,zmm3
+62 F24908 B5 D3, MVEX_Vpmadd231d_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpmadd231d zmm10{k3},zmm6,zmm3{cdab}
+62 72491B B5 D3, MVEX_Vpmadd231d_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfmadd231ps zmm2,zmm6,[rax+40h]
+62 F24908 B8 50 01, MVEX_Vfmadd231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfmadd231ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B B8 50 01, MVEX_Vfmadd231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfmadd231ps zmm2,zmm6,zmm3
+62 F24908 B8 D3, MVEX_Vfmadd231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmadd231ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B B8 D3, MVEX_Vfmadd231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfmadd231pd zmm2,zmm6,[rax+40h]
+62 F2C908 B8 50 01, MVEX_Vfmadd231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfmadd231pd zmm2,zmm6,zmm3
+62 F2C908 B8 D3, MVEX_Vfmadd231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmadd231pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B B8 D3, MVEX_Vfmadd231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfmsub231ps zmm2,zmm6,[rax+40h]
+62 F24908 BA 50 01, MVEX_Vfmsub231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfmsub231ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B BA 50 01, MVEX_Vfmsub231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfmsub231ps zmm2,zmm6,zmm3
+62 F24908 BA D3, MVEX_Vfmsub231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmsub231ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B BA D3, MVEX_Vfmsub231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfmsub231pd zmm2,zmm6,[rax+40h]
+62 F2C908 BA 50 01, MVEX_Vfmsub231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfmsub231pd zmm2,zmm6,zmm3
+62 F2C908 BA D3, MVEX_Vfmsub231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfmsub231pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B BA D3, MVEX_Vfmsub231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmadd231ps zmm2,zmm6,[rax+40h]
+62 F24908 BC 50 01, MVEX_Vfnmadd231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfnmadd231ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B BC 50 01, MVEX_Vfnmadd231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfnmadd231ps zmm2,zmm6,zmm3
+62 F24908 BC D3, MVEX_Vfnmadd231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmadd231ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B BC D3, MVEX_Vfnmadd231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmadd231pd zmm2,zmm6,[rax+40h]
+62 F2C908 BC 50 01, MVEX_Vfnmadd231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfnmadd231pd zmm2,zmm6,zmm3
+62 F2C908 BC D3, MVEX_Vfnmadd231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmadd231pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B BC D3, MVEX_Vfnmadd231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmsub231ps zmm2,zmm6,[rax+40h]
+62 F24908 BE 50 01, MVEX_Vfnmsub231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vfnmsub231ps zmm2{k3},zmm6,[rax+10h]{uint8}
+62 F2494B BE 50 01, MVEX_Vfnmsub231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vfnmsub231ps zmm2,zmm6,zmm3
+62 F24908 BE D3, MVEX_Vfnmsub231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmsub231ps zmm10{k3},zmm6,zmm3{cdab}
+62 72491B BE D3, MVEX_Vfnmsub231ps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vfnmsub231pd zmm2,zmm6,[rax+40h]
+62 F2C908 BE 50 01, MVEX_Vfnmsub231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vfnmsub231pd zmm2,zmm6,zmm3
+62 F2C908 BE D3, MVEX_Vfnmsub231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rw op1=r op2=r rw=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vfnmsub231pd zmm10{k3},zmm6,zmm3{cdab}
+62 72C91B BE D3, MVEX_Vfnmsub231pd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# undoc zmm2{k3},[rcx+zmm4*4+4]
+62 F2790B C0 54 A1 01, MVEX_Undoc_zmm_k1_mvt_512_66_0F38_W0_C0, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# vgatherpf0hintdps [rcx+zmm4*4+4]{k3}
+62 F2790B C6 44 A1 01, MVEX_Vgatherpf0hintdps_mvt_k1, MVEX, KNC, op0=nma r=rcx r=zmm4 r=k3 decopt=KNC
+# vgatherpf0hintdpd [rcx+zmm4*4+8]{k3}
+62 F2F90B C6 44 A1 01, MVEX_Vgatherpf0hintdpd_mvt_k1, MVEX, KNC, op0=nma r=rcx r=zmm4 r=k3 decopt=KNC
+# vgatherpf0dps [rcx+zmm4*4+4]{k3}
+62 F2790B C6 4C A1 01, MVEX_Vgatherpf0dps_mvt_k1, MVEX, KNC, op0=nma r=rcx r=zmm4 rw=k3 decopt=KNC
+# vgatherpf1dps [rcx+zmm4*4+4]{k3}
+62 F2790B C6 54 A1 01, MVEX_Vgatherpf1dps_mvt_k1, MVEX, KNC, op0=nma r=rcx r=zmm4 rw=k3 decopt=KNC
+# vscatterpf0hintdps [rcx+zmm4*4+4]{k3}
+62 F2790B C6 64 A1 01, MVEX_Vscatterpf0hintdps_mvt_k1, MVEX, KNC, op0=nma r=rcx r=zmm4 r=k3 decopt=KNC
+# vscatterpf0hintdpd [rcx+zmm4*4+8]{k3}
+62 F2F90B C6 64 A1 01, MVEX_Vscatterpf0hintdpd_mvt_k1, MVEX, KNC, op0=nma r=rcx r=zmm4 r=k3 decopt=KNC
+# vscatterpf0dps [rcx+zmm4*4+4]{k3}
+62 F2790B C6 6C A1 01, MVEX_Vscatterpf0dps_mvt_k1, MVEX, KNC, op0=nma r=rcx r=zmm4 rw=k3 decopt=KNC
+# vscatterpf1dps [rcx+zmm4*4+4]{k3}
+62 F2790B C6 74 A1 01, MVEX_Vscatterpf1dps_mvt_k1, MVEX, KNC, op0=nma r=rcx r=zmm4 rw=k3 decopt=KNC
+# vexp223ps zmm2,[rax+40h]{eh}
+62 F27988 C8 50 01, MVEX_Vexp223ps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vexp223ps zmm2{k5},[rax+40h]
+62 F2790D C8 50 01, MVEX_Vexp223ps_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vexp223ps zmm2,zmm3
+62 F27908 C8 D3, MVEX_Vexp223ps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vlog2ps zmm2,[rax+40h]{eh}
+62 F27988 C9 50 01, MVEX_Vlog2ps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vlog2ps zmm2{k5},[rax+40h]
+62 F2790D C9 50 01, MVEX_Vlog2ps_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vlog2ps zmm2,zmm3
+62 F27908 C9 D3, MVEX_Vlog2ps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vrcp23ps zmm2,[rax+40h]{eh}
+62 F27988 CA 50 01, MVEX_Vrcp23ps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vrcp23ps zmm2{k5},[rax+40h]
+62 F2790D CA 50 01, MVEX_Vrcp23ps_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vrcp23ps zmm2,zmm3
+62 F27908 CA D3, MVEX_Vrcp23ps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vrsqrt23ps zmm2,[rax+40h]{eh}
+62 F27988 CB 50 01, MVEX_Vrsqrt23ps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vrsqrt23ps zmm2{k5},[rax+40h]
+62 F2790D CB 50 01, MVEX_Vrsqrt23ps_zmm_k1_zmmmt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vrsqrt23ps zmm2,zmm3
+62 F27908 CB D3, MVEX_Vrsqrt23ps_zmm_k1_zmmmt, MVEX, KNC, op0=w op1=r w=vmm2 r=zmm3 decopt=KNC
+# vaddsetsps zmm2{k5},zmm6,[rax+40h]
+62 F2490D CC 50 01, MVEX_Vaddsetsps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax rw=k5 rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vaddsetsps zmm2{k5},zmm6,zmm3
+62 F2490D CC D3, MVEX_Vaddsetsps_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=zmm3 rw=k5 decopt=KNC
+# vpaddsetsd zmm2{k5},zmm6,[rax+40h]
+62 F2490D CD 50 01, MVEX_Vpaddsetsd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=rax rw=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpaddsetsd zmm2{k5},zmm6,zmm3
+62 F2490D CD D3, MVEX_Vpaddsetsd_zmm_k1_zmm_zmmmt, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=zmm6 r=zmm3 rw=k5 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 CE 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CE, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B CE 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CE, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 CE D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CE, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B CE D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CE, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F2C908 CE 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_CE, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2C94B CE 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_CE, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F2C908 CE D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_CE, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72C91B CE D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W1_CE, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,[rax+40h]
+62 F24908 CF 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CF, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},zmm6,[rax+10h]
+62 F2494B CF 50 01, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CF, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm6,zmm3
+62 F24908 CF D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CF, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm6,zmm3
+62 72491B CF D3, MVEX_Undoc_zmm_k1_zmm_zmmmt_512_66_0F38_W0_CF, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# vloadunpackld zmm2,[rax+4]
+62 F27808 D0 50 01, MVEX_Vloadunpackld_zmm_k1_mt, MVEX, KNC, op0=rw op1=r rw=vmm2 r=rax rm=ds:rax+0x4;Int32 decopt=KNC
+# vloadunpackld zmm2{k3},[rax+1]{uint8}
+62 F2784B D0 50 01, MVEX_Vloadunpackld_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x1;UInt8 decopt=KNC
+# vloadunpacklq zmm26,[rax+8]{eh}
+62 62F888 D0 50 01, MVEX_Vloadunpacklq_zmm_k1_mt, MVEX, KNC, op0=rw op1=r rw=vmm26 r=rax rm=ds:rax+0x8;Int64 decopt=KNC
+# vloadunpacklq zmm2{k5},[rax+8]
+62 F2F80D D0 50 01, MVEX_Vloadunpacklq_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x8;Int64 decopt=KNC
+# vpackstoreld [rax+4],zmm2
+62 F27908 D0 50 01, MVEX_Vpackstoreld_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 wm=ds:rax+0x4;Int32 decopt=KNC
+# vpackstoreld [rax+1]{k3},zmm2{uint8}
+62 F2794B D0 50 01, MVEX_Vpackstoreld_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 r=k3 wm=ds:rax+0x1;UInt8 decopt=KNC
+# vpackstorelq [rax+8]{eh},zmm26
+62 62F988 D0 50 01, MVEX_Vpackstorelq_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm26 wm=ds:rax+0x8;Int64 decopt=KNC
+# vpackstorelq [rax+8]{k5},zmm2
+62 F2F90D D0 50 01, MVEX_Vpackstorelq_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 r=k5 wm=ds:rax+0x8;Int64 decopt=KNC
+# vloadunpacklps zmm2,[rax+4]
+62 F27808 D1 50 01, MVEX_Vloadunpacklps_zmm_k1_mt, MVEX, KNC, op0=rw op1=r rw=vmm2 r=rax rm=ds:rax+0x4;Float32 decopt=KNC
+# vloadunpacklps zmm2{k3},[rax+1]{uint8}
+62 F2784B D1 50 01, MVEX_Vloadunpacklps_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x1;UInt8 decopt=KNC
+# vloadunpacklpd zmm26,[rax+8]{eh}
+62 62F888 D1 50 01, MVEX_Vloadunpacklpd_zmm_k1_mt, MVEX, KNC, op0=rw op1=r rw=vmm26 r=rax rm=ds:rax+0x8;Float64 decopt=KNC
+# vloadunpacklpd zmm2{k5},[rax+8]
+62 F2F80D D1 50 01, MVEX_Vloadunpacklpd_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x8;Float64 decopt=KNC
+# vpackstorelps [rax+4],zmm2
+62 F27908 D1 50 01, MVEX_Vpackstorelps_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 wm=ds:rax+0x4;Float32 decopt=KNC
+# vpackstorelps [rax+1]{k3},zmm2{uint8}
+62 F2794B D1 50 01, MVEX_Vpackstorelps_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 r=k3 wm=ds:rax+0x1;UInt8 decopt=KNC
+# vpackstorelpd [rax+8]{eh},zmm26
+62 62F988 D1 50 01, MVEX_Vpackstorelpd_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm26 wm=ds:rax+0x8;Float64 decopt=KNC
+# vpackstorelpd [rax+8]{k5},zmm2
+62 F2F90D D1 50 01, MVEX_Vpackstorelpd_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 r=k5 wm=ds:rax+0x8;Float64 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27808 D2 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D2, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2784B D2 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D2, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27808 D2 D3, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D2, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72781B D2 D3, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D2, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27908 D2 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D2, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2794B D2 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D2, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27908 D2 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D2, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72791B D2 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D2, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27808 D3 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D3, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2784B D3 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D3, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27808 D3 D3, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D3, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72781B D3 D3, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D3, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# vloadunpackhd zmm2,[rax+4]
+62 F27808 D4 50 01, MVEX_Vloadunpackhd_zmm_k1_mt, MVEX, KNC, op0=rw op1=r rw=vmm2 r=rax rm=ds:rax+0xFFFFFFFFFFFFFFC4;Int32 decopt=KNC
+# vloadunpackhd zmm2{k3},[rax+1]{uint8}
+62 F2784B D4 50 01, MVEX_Vloadunpackhd_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0xFFFFFFFFFFFFFFC1;UInt8 decopt=KNC
+# vloadunpackhq zmm26,[rax+8]{eh}
+62 62F888 D4 50 01, MVEX_Vloadunpackhq_zmm_k1_mt, MVEX, KNC, op0=rw op1=r rw=vmm26 r=rax rm=ds:rax+0xFFFFFFFFFFFFFFC8;Int64 decopt=KNC
+# vloadunpackhq zmm2{k5},[rax+8]
+62 F2F80D D4 50 01, MVEX_Vloadunpackhq_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0xFFFFFFFFFFFFFFC8;Int64 decopt=KNC
+# vpackstorehd [rax+4],zmm2
+62 F27908 D4 50 01, MVEX_Vpackstorehd_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 wm=ds:rax+0xFFFFFFFFFFFFFFC4;Int32 decopt=KNC
+# vpackstorehd [rax+1]{k3},zmm2{uint8}
+62 F2794B D4 50 01, MVEX_Vpackstorehd_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 r=k3 wm=ds:rax+0xFFFFFFFFFFFFFFC1;UInt8 decopt=KNC
+# vpackstorehq [rax+8]{eh},zmm26
+62 62F988 D4 50 01, MVEX_Vpackstorehq_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm26 wm=ds:rax+0xFFFFFFFFFFFFFFC8;Int64 decopt=KNC
+# vpackstorehq [rax+8]{k5},zmm2
+62 F2F90D D4 50 01, MVEX_Vpackstorehq_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 r=k5 wm=ds:rax+0xFFFFFFFFFFFFFFC8;Int64 decopt=KNC
+# vloadunpackhps zmm2,[rax+4]
+62 F27808 D5 50 01, MVEX_Vloadunpackhps_zmm_k1_mt, MVEX, KNC, op0=rw op1=r rw=vmm2 r=rax rm=ds:rax+0xFFFFFFFFFFFFFFC4;Float32 decopt=KNC
+# vloadunpackhps zmm2{k3},[rax+1]{uint8}
+62 F2784B D5 50 01, MVEX_Vloadunpackhps_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0xFFFFFFFFFFFFFFC1;UInt8 decopt=KNC
+# vloadunpackhpd zmm26,[rax+8]{eh}
+62 62F888 D5 50 01, MVEX_Vloadunpackhpd_zmm_k1_mt, MVEX, KNC, op0=rw op1=r rw=vmm26 r=rax rm=ds:rax+0xFFFFFFFFFFFFFFC8;Float64 decopt=KNC
+# vloadunpackhpd zmm2{k5},[rax+8]
+62 F2F80D D5 50 01, MVEX_Vloadunpackhpd_zmm_k1_mt, MVEX, KNC, op0=rcw op1=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0xFFFFFFFFFFFFFFC8;Float64 decopt=KNC
+# vpackstorehps [rax+4],zmm2
+62 F27908 D5 50 01, MVEX_Vpackstorehps_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 wm=ds:rax+0xFFFFFFFFFFFFFFC4;Float32 decopt=KNC
+# vpackstorehps [rax+1]{k3},zmm2{uint8}
+62 F2794B D5 50 01, MVEX_Vpackstorehps_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 r=k3 wm=ds:rax+0xFFFFFFFFFFFFFFC1;UInt8 decopt=KNC
+# vpackstorehpd [rax+8]{eh},zmm26
+62 62F988 D5 50 01, MVEX_Vpackstorehpd_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm26 wm=ds:rax+0xFFFFFFFFFFFFFFC8;Float64 decopt=KNC
+# vpackstorehpd [rax+8]{k5},zmm2
+62 F2F90D D5 50 01, MVEX_Vpackstorehpd_mt_k1_zmm, MVEX, KNC, op0=w op1=r r=rax r=zmm2 r=k5 wm=ds:rax+0xFFFFFFFFFFFFFFC8;Float64 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27808 D6 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D6, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2784B D6 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D6, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27808 D6 D3, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D6, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72781B D6 D3, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D6, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27908 D6 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D6, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2794B D6 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D6, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27908 D6 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D6, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72791B D6 D3, MVEX_Undoc_zmm_k1_zmmmt_512_66_0F38_W0_D6, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h]
+62 F27808 D7 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D7, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm2{k3},[rax+10h]
+62 F2784B D7 50 01, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D7, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# undoc zmm2,zmm3
+62 F27808 D7 D3, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D7, MVEX, KNC, save-restore op0=n op1=n decopt=KNC
+# undoc zmm10{k3},zmm3
+62 72781B D7 D3, MVEX_Undoc_zmm_k1_zmmmt_512_0F38_W0_D7, MVEX, KNC, save-restore op0=n op1=n r=k3 decopt=KNC
+# valignd zmm26,zmm6,[rax+40h]{eh},5Ah
+62 634988 03 50 01 5A, MVEX_Valignd_zmm_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=vmm26 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# valignd zmm2{k5},zmm6,[rax+40h],5Ah
+62 F3490D 03 50 01 5A, MVEX_Valignd_zmm_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r op3=r rcw=vmm2 r=zmm6 r=rax r=k5 rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# valignd zmm2,zmm6,zmm3,5Ah
+62 F34908 03 D3 5A, MVEX_Valignd_zmm_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=vmm2 r=zmm6 r=zmm3 decopt=KNC
+# vpermf32x4 zmm26,[rax+40h]{eh},5Ah
+62 637988 07 50 01 5A, MVEX_Vpermf32x4_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm26 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vpermf32x4 zmm2{k5},[rax+40h],5Ah
+62 F3790D 07 50 01 5A, MVEX_Vpermf32x4_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=rax r=k5 rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vpermf32x4 zmm2,zmm3,5Ah
+62 F37908 07 D3 5A, MVEX_Vpermf32x4_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vpcmpequd k2,zmm6,[rax+40h]
+62 F34908 1E 50 01 00, MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpcmpnequd k2{k3},zmm6,[rax+10h]{uint8}
+62 F3494B 1E 50 01 04, MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpcmpequd k2,zmm6,zmm3
+62 F34908 1E D3 00, MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=zmm3 decopt=KNC
+# vpcmpltud k2{k3},zmm6,zmm3{cdab}
+62 F3491B 1E D3 01, MVEX_Vpcmpud_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vpcmpeqd k2,zmm6,[rax+40h]
+62 F34908 1F 50 01 00, MVEX_Vpcmpd_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vpcmpneqd k2{k3},zmm6,[rax+10h]{uint8}
+62 F3494B 1F 50 01 04, MVEX_Vpcmpd_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vpcmpeqd k2,zmm6,zmm3
+62 F34908 1F D3 00, MVEX_Vpcmpd_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=zmm3 decopt=KNC
+# vpcmpltd k2{k3},zmm6,zmm3{cdab}
+62 F3491B 1F D3 01, MVEX_Vpcmpd_kr_k1_zmm_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r op3=r w=k2 r=zmm6 r=zmm3 r=k3 decopt=KNC
+# vgetmantps zmm2,[rax+40h],5Ah
+62 F37908 26 50 01 5A, MVEX_Vgetmantps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vgetmantps zmm2{k3},[rax+10h]{uint8},5Ah
+62 F3794B 26 50 01 5A, MVEX_Vgetmantps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vgetmantps zmm2,zmm3,5Ah
+62 F37908 26 D3 5A, MVEX_Vgetmantps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vgetmantps zmm10{k3},zmm3{cdab},0A5h
+62 73791B 26 D3 A5, MVEX_Vgetmantps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vgetmantpd zmm2,[rax+40h],5Ah
+62 F3F908 26 50 01 5A, MVEX_Vgetmantpd_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vgetmantpd zmm2,zmm3,5Ah
+62 F3F908 26 D3 5A, MVEX_Vgetmantpd_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vgetmantpd zmm10{k3},zmm3{cdab},0A5h
+62 73F91B 26 D3 A5, MVEX_Vgetmantpd_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vrndfxpntps zmm2,[rax+40h],5Ah
+62 F37908 52 50 01 5A, MVEX_Vrndfxpntps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vrndfxpntps zmm2{k3},[rax+10h]{uint8},5Ah
+62 F3794B 52 50 01 5A, MVEX_Vrndfxpntps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vrndfxpntps zmm2,zmm3,5Ah
+62 F37908 52 D3 5A, MVEX_Vrndfxpntps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vrndfxpntps zmm10{k3},zmm3{cdab},0A5h
+62 73791B 52 D3 A5, MVEX_Vrndfxpntps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vrndfxpntpd zmm2,[rax+40h],5Ah
+62 F3F908 52 50 01 5A, MVEX_Vrndfxpntpd_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vrndfxpntpd zmm2,zmm3,5Ah
+62 F3F908 52 D3 5A, MVEX_Vrndfxpntpd_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vrndfxpntpd zmm10{k3},zmm3{cdab},0A5h
+62 73F91B 52 D3 A5, MVEX_Vrndfxpntpd_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vcvtfxpntudq2ps zmm2,[rax+40h],5Ah
+62 F37808 CA 50 01 5A, MVEX_Vcvtfxpntudq2ps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vcvtfxpntudq2ps zmm2{k3},[rax+10h]{uint8},5Ah
+62 F3784B CA 50 01 5A, MVEX_Vcvtfxpntudq2ps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vcvtfxpntudq2ps zmm2,zmm3,5Ah
+62 F37808 CA D3 5A, MVEX_Vcvtfxpntudq2ps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vcvtfxpntudq2ps zmm10{k3},zmm3{cdab},0A5h
+62 73781B CA D3 A5, MVEX_Vcvtfxpntudq2ps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vcvtfxpntps2udq zmm2,[rax+40h],5Ah
+62 F37908 CA 50 01 5A, MVEX_Vcvtfxpntps2udq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vcvtfxpntps2udq zmm2{k3},[rax+10h]{uint8},5Ah
+62 F3794B CA 50 01 5A, MVEX_Vcvtfxpntps2udq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vcvtfxpntps2udq zmm2,zmm3,5Ah
+62 F37908 CA D3 5A, MVEX_Vcvtfxpntps2udq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vcvtfxpntps2udq zmm10{k3},zmm3{cdab},0A5h
+62 73791B CA D3 A5, MVEX_Vcvtfxpntps2udq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vcvtfxpntpd2udq zmm2,[rax+40h],5Ah
+62 F3FB08 CA 50 01 5A, MVEX_Vcvtfxpntpd2udq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vcvtfxpntpd2udq zmm2,zmm3,5Ah
+62 F3FB08 CA D3 5A, MVEX_Vcvtfxpntpd2udq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vcvtfxpntpd2udq zmm10{k3},zmm3{cdab},0A5h
+62 73FB1B CA D3 A5, MVEX_Vcvtfxpntpd2udq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vcvtfxpntdq2ps zmm2,[rax+40h],5Ah
+62 F37808 CB 50 01 5A, MVEX_Vcvtfxpntdq2ps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Int32 decopt=KNC
+# vcvtfxpntdq2ps zmm2{k3},[rax+10h]{uint8},5Ah
+62 F3784B CB 50 01 5A, MVEX_Vcvtfxpntdq2ps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vcvtfxpntdq2ps zmm2,zmm3,5Ah
+62 F37808 CB D3 5A, MVEX_Vcvtfxpntdq2ps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vcvtfxpntdq2ps zmm10{k3},zmm3{cdab},0A5h
+62 73781B CB D3 A5, MVEX_Vcvtfxpntdq2ps_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# vcvtfxpntps2dq zmm2,[rax+40h],5Ah
+62 F37908 CB 50 01 5A, MVEX_Vcvtfxpntps2dq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float32 decopt=KNC
+# vcvtfxpntps2dq zmm2{k3},[rax+10h]{uint8},5Ah
+62 F3794B CB 50 01 5A, MVEX_Vcvtfxpntps2dq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm2 r=rax r=k3 rm=ds:rax+0x10;Packed128_UInt8 decopt=KNC
+# vcvtfxpntps2dq zmm2,zmm3,5Ah
+62 F37908 CB D3 5A, MVEX_Vcvtfxpntps2dq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vcvtfxpntps2dq zmm10{k3},zmm3{cdab},0A5h
+62 73791B CB D3 A5, MVEX_Vcvtfxpntps2dq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
+# undoc zmm2,[rax+40h],5Ah
+62 F37908 D0 50 01 5A, MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},[rax+10h],5Ah
+62 F3794B D0 50 01 5A, MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm3,5Ah
+62 F37908 D0 D3 5A, MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm3,0A5h
+62 73791B D0 D3 A5, MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,[rax+40h],5Ah
+62 F37908 D1 50 01 5A, MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm2{k3},[rax+10h],5Ah
+62 F3794B D1 50 01 5A, MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# undoc zmm2,zmm3,5Ah
+62 F37908 D1 D3 5A, MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1, MVEX, KNC, save-restore op0=n op1=n op2=n decopt=KNC
+# undoc zmm10{k3},zmm3,0A5h
+62 73791B D1 D3 A5, MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1, MVEX, KNC, save-restore op0=n op1=n op2=n r=k3 decopt=KNC
+# vcvtfxpntpd2dq zmm2,[rax+40h],5Ah
+62 F3FB08 E6 50 01 5A, MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=rax rm=ds:rax+0x40;Packed512_Float64 decopt=KNC
+# vcvtfxpntpd2dq zmm2,zmm3,5Ah
+62 F3FB08 E6 D3 5A, MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=w op1=r op2=r w=vmm2 r=zmm3 decopt=KNC
+# vcvtfxpntpd2dq zmm10{k3},zmm3{cdab},0A5h
+62 73FB1B E6 D3 A5, MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8, MVEX, KNC, op0=rcw op1=r op2=r rcw=vmm10 r=zmm3 r=k3 decopt=KNC
