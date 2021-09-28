@@ -2725,6 +2725,10 @@ impl Instruction {
 							offset.wrapping_add(get_register_value(index_reg, 0, 0)? << instruction_internal::internal_get_memory_index_scale(self));
 					}
 				}
+				#[cfg(feature = "mvex")]
+				if code >= Code::MVEX_Vloadunpackhd_zmm_k1_mt && code <= Code::MVEX_Vpackstorehpd_mt_k1_zmm {
+					offset = offset.wrapping_sub(0x40);
+				}
 				offset &= offset_mask;
 				if !code.ignores_segment() {
 					get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(offset)

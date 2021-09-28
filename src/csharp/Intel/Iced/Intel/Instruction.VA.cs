@@ -195,6 +195,10 @@ namespace Iced.Intel {
 						offset += @base << InternalMemoryIndexScale;
 					}
 				}
+#if MVEX
+				if (code >= Code.MVEX_Vloadunpackhd_zmm_k1_mt && code <= Code.MVEX_Vpackstorehpd_mt_k1_zmm)
+					offset -= 0x40;
+#endif
 				offset &= offsetMask;
 				if (!code.IgnoresSegment()) {
 					if (!registerValueProvider.TryGetRegisterValue(MemorySegment, 0, 0, out seg))
