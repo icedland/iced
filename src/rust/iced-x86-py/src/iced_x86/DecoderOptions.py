@@ -119,5 +119,5 @@ Decode Centaur ``ALTINST``
 """
 KNC: DecoderOptions = 0x0100_0000 # type: ignore
 """
-Decode Intel Knights Corner instructions (requires the ``mvex`` feature)
+Decode Intel Knights Corner instructions
 """
