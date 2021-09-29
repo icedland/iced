@@ -336,8 +336,7 @@ fn verify_sae_er() {
 		let mut decoder = create_decoder(tc.bitness(), &bytes, tc.ip(), tc.decoder_options()).0;
 		decoder.decode_out(&mut instr);
 
-		let mut expected_flags = 0;
-		expected_flags |= if IcedConstants::is_mvex(tc.code()) && !instr.suppress_all_exceptions() {
+		let expected_flags = if IcedConstants::is_mvex(tc.code()) && !instr.suppress_all_exceptions() {
 			match instr.rounding_control() {
 				RoundingControl::None => 0,
 				RoundingControl::RoundToNearest => FL_RN,
