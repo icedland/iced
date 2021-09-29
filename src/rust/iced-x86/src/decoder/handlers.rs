@@ -151,17 +151,18 @@ impl OpCodeHandler_Simple {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Group8x8 {
 	has_modrm: bool,
-	table_low: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
-	table_high: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	table_low: Box<[(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 8]>,
+	table_high: Box<[(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 8]>,
 }
 
 impl OpCodeHandler_Group8x8 {
 	#[inline]
+	#[allow(clippy::unwrap_used)]
 	pub(super) fn new(
 		table_low: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>, table_high: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	) -> (OpCodeHandlerDecodeFn, Self) {
-		debug_assert_eq!(table_low.len(), 8);
-		debug_assert_eq!(table_high.len(), 8);
+		let table_low = table_low.into_boxed_slice().try_into().ok().unwrap();
+		let table_high = table_high.into_boxed_slice().try_into().ok().unwrap();
 		(OpCodeHandler_Group8x8::decode, Self { has_modrm: true, table_low, table_high })
 	}
 
@@ -169,10 +170,10 @@ impl OpCodeHandler_Group8x8 {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.reg <= 7);
 		let (decode, handler) = if decoder.state.mod_ == 3 {
-			// SAFETY: reg <= 7 and table_high.len() == 8 (see ctor)
+			// SAFETY: reg <= 7 and table_high.len() == 8 (see field type)
 			unsafe { *this.table_high.get_unchecked(decoder.state.reg as usize) }
 		} else {
-			// SAFETY: reg <= 7 and table_low.len() == 8 (see ctor)
+			// SAFETY: reg <= 7 and table_low.len() == 8 (see field type)
 			unsafe { *this.table_low.get_unchecked(decoder.state.reg as usize) }
 		};
 		(decode)(handler, decoder, instruction);
@@ -183,17 +184,18 @@ impl OpCodeHandler_Group8x8 {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Group8x64 {
 	has_modrm: bool,
-	table_low: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
-	table_high: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	table_low: Box<[(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 8]>,
+	table_high: Box<[(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x40]>,
 }
 
 impl OpCodeHandler_Group8x64 {
 	#[inline]
+	#[allow(clippy::unwrap_used)]
 	pub(super) fn new(
 		table_low: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>, table_high: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	) -> (OpCodeHandlerDecodeFn, Self) {
-		debug_assert_eq!(table_low.len(), 8);
-		debug_assert_eq!(table_high.len(), 0x40);
+		let table_low = table_low.into_boxed_slice().try_into().ok().unwrap();
+		let table_high = table_high.into_boxed_slice().try_into().ok().unwrap();
 		(OpCodeHandler_Group8x64::decode, Self { has_modrm: true, table_low, table_high })
 	}
 
@@ -201,18 +203,18 @@ impl OpCodeHandler_Group8x64 {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let (decode, handler) = if decoder.state.mod_ == 3 {
-			// SAFETY: table_high.len() == 0x40 (see ctor) and index <= 0x3F due to masking `modrm`
+			// SAFETY: table_high.len() == 0x40 (see field type) and index <= 0x3F due to masking `modrm`
 			let (decode, handler) = unsafe { *this.table_high.get_unchecked((decoder.state.modrm & 0x3F) as usize) };
 			if handler as *const _ as *const u8 == &NULL_HANDLER as *const _ as *const u8 {
 				debug_assert!(decoder.state.reg <= 7);
-				// SAFETY: reg <= 7 and table_low.len() == 8 (see ctor)
+				// SAFETY: reg <= 7 and table_low.len() == 8 (see field type)
 				unsafe { *this.table_low.get_unchecked(decoder.state.reg as usize) }
 			} else {
 				(decode, handler)
 			}
 		} else {
 			debug_assert!(decoder.state.reg <= 7);
-			// SAFETY: reg <= 7 and table_low.len() == 8 (see ctor)
+			// SAFETY: reg <= 7 and table_low.len() == 8 (see field type)
 			unsafe { *this.table_low.get_unchecked(decoder.state.reg as usize) }
 		};
 		(decode)(handler, decoder, instruction);
@@ -223,20 +225,21 @@ impl OpCodeHandler_Group8x64 {
 #[repr(C)]
 pub(super) struct OpCodeHandler_Group {
 	has_modrm: bool,
-	group_handlers: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	group_handlers: Box<[(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 8]>,
 }
 
 impl OpCodeHandler_Group {
 	#[inline]
+	#[allow(clippy::unwrap_used)]
 	pub(super) fn new(group_handlers: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>) -> (OpCodeHandlerDecodeFn, Self) {
-		debug_assert_eq!(group_handlers.len(), 8);
+		let group_handlers = group_handlers.into_boxed_slice().try_into().ok().unwrap();
 		(OpCodeHandler_Group::decode, Self { has_modrm: true, group_handlers })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.reg <= 7);
-		// SAFETY: group_handlers.len() == 8 (see ctor) and reg <= 7
+		// SAFETY: group_handlers.len() == 8 (see field type) and reg <= 7
 		let (decode, handler) = unsafe { *this.group_handlers.get_unchecked(decoder.state.reg as usize) };
 		(decode)(handler, decoder, instruction);
 	}
