@@ -5,7 +5,7 @@ namespace Generator.Constants {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class DecoderTestParserConstantsType {
 		DecoderTestParserConstantsType(GenTypes genTypes) {
-			var type = new ConstantsType(TypeIds.DecoderTestParserConstants, ConstantsTypeFlags.None, null, GetConstants());
+			var type = new ConstantsType(TypeIds.DecoderTestParserConstants, ConstantsTypeFlags.None, default, GetConstants());
 			genTypes.Add(type);
 		}
 

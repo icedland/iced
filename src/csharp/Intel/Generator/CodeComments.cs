@@ -12,8 +12,8 @@ namespace Generator {
 			foreach (var def in genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs) {
 				var cpuidDocs = string.Join(" and ", def.CpuidFeatureStrings);
 				var docStr = $"#(c:{def.InstructionString})##(p:)##(c:{def.OpCodeString})##(p:)##(c:{cpuidDocs})##(p:)##(c:{GetMode(sb, def)})#";
-				if (string.IsNullOrEmpty(def.Code.Documentation))
-					def.Code.Documentation = docStr;
+				if (!def.Code.Documentation.HasDefaultComment)
+					def.Code.Documentation = new(docStr);
 			}
 		}
 

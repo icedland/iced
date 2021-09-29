@@ -70,7 +70,7 @@ namespace Generator.Constants {
 
 		public void Generate(GenTypes genTypes) {
 			IcedConstants.InitializeEnumCountTypes(genTypes);
-			var type = new ConstantsType(TypeIds.IcedConstants, ConstantsTypeFlags.None, null, GetConstants());
+			var type = new ConstantsType(TypeIds.IcedConstants, ConstantsTypeFlags.None, default, GetConstants());
 			genTypes.Add(type);
 		}
 

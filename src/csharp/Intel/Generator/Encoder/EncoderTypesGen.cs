@@ -52,8 +52,8 @@ namespace Generator.Encoder {
 		}
 
 		EnumType GenerateOpKind(TypeId typeId, EncodingKind encoding) {
-			var values = GetDefs(genTypes, encoding).Select(a => new EnumValue(0, a.EnumValue.RawName, null)).ToArray();
-			return new EnumType(typeId, null, values, EnumTypeFlags.None);
+			var values = GetDefs(genTypes, encoding).Select(a => new EnumValue(0, a.EnumValue.RawName, default)).ToArray();
+			return new EnumType(typeId, default, values, EnumTypeFlags.None);
 		}
 
 		void GenerateImmSizes() {
@@ -91,9 +91,9 @@ namespace Generator.Encoder {
 			uint bit = 0;
 
 			var opKind = ConstantUtils.GetMaskBits(opKindEnumType.Values.Max(a => a.Value));
-			fields.Add(new EnumValue(opKind.mask, $"{fieldPrefix}OpMask", null));
+			fields.Add(new EnumValue(opKind.mask, $"{fieldPrefix}OpMask", default));
 			for (int i = 0; i < numOps; i++) {
-				fields.Add(new EnumValue(bit, $"{fieldPrefix}Op{i}Shift", null));
+				fields.Add(new EnumValue(bit, $"{fieldPrefix}Op{i}Shift", default));
 				bit += opKind.bits;
 			}
 			if (bit > 32)
@@ -103,7 +103,7 @@ namespace Generator.Encoder {
 
 		void GenerateEncFlags1() {
 			var values = new List<EnumValue> {
-				new EnumValue(0, "None", null)
+				new EnumValue(0, "None", default)
 			};
 
 			uint maxBits = 0;
@@ -115,10 +115,10 @@ namespace Generator.Encoder {
 
 			if (maxBits > 30)
 				throw new InvalidOperationException();
-			values.Add(new EnumValue(0x40000000, nameof(InstructionDefFlags3.IgnoresRoundingControl), null));
-			values.Add(new EnumValue(0x80000000, nameof(InstructionDefFlags3.AmdLockRegBit), null));
+			values.Add(new EnumValue(0x40000000, nameof(InstructionDefFlags3.IgnoresRoundingControl), default));
+			values.Add(new EnumValue(0x80000000, nameof(InstructionDefFlags3.AmdLockRegBit), default));
 
-			EncFlags1 = new EnumType(TypeIds.EncFlags1, null, values.ToArray(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
+			EncFlags1 = new EnumType(TypeIds.EncFlags1, default, values.ToArray(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 		}
 	}
 }

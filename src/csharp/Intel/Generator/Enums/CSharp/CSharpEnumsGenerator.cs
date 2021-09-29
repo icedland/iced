@@ -192,7 +192,7 @@ namespace Generator.Enums.CSharp {
 		void WriteEnum(FileWriter writer, EnumType enumType, string? baseType) {
 			if (enumType.IsPublic && enumType.IsMissingDocs)
 				writer.WriteLineNoIndent(CSharpConstants.PragmaMissingDocsDisable);
-			docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
+			docWriter.WriteSummary(writer, enumType.Documentation.GetComment(TargetLanguage.CSharp), enumType.RawName);
 			if (enumType.IsFlags)
 				writer.WriteLine("[Flags]");
 			var pub = enumType.IsPublic ? "public " : string.Empty;
@@ -201,7 +201,7 @@ namespace Generator.Enums.CSharp {
 			using (writer.Indent()) {
 				uint expectedValue = 0;
 				foreach (var value in enumType.Values) {
-					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
+					docWriter.WriteSummary(writer, value.Documentation.GetComment(TargetLanguage.CSharp), enumType.RawName);
 					deprecatedWriter.WriteDeprecated(writer, value);
 					if (enumType.IsFlags)
 						writer.WriteLine($"{value.Name(idConverter)} = 0x{value.Value:X8},");

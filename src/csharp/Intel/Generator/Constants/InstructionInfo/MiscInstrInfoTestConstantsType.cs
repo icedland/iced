@@ -5,7 +5,7 @@ namespace Generator.Constants.InstructionInfo {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class MiscInstrInfoTestConstantsType {
 		MiscInstrInfoTestConstantsType(GenTypes genTypes) {
-			var type = new ConstantsType(TypeIds.MiscInstrInfoTestConstants, ConstantsTypeFlags.None, null, GetConstants());
+			var type = new ConstantsType(TypeIds.MiscInstrInfoTestConstants, ConstantsTypeFlags.None, default, GetConstants());
 			genTypes.Add(type);
 		}
 

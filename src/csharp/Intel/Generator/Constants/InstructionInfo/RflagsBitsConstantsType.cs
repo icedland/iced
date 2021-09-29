@@ -8,7 +8,7 @@ namespace Generator.Constants.InstructionInfo {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class RflagsBitsConstantsType {
 		RflagsBitsConstantsType(GenTypes genTypes) {
-			var type = new ConstantsType(TypeIds.RflagsBitsConstants, ConstantsTypeFlags.None, null, GetConstants());
+			var type = new ConstantsType(TypeIds.RflagsBitsConstants, ConstantsTypeFlags.None, default, GetConstants());
 			genTypes.Add(type);
 		}
 

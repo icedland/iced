@@ -96,14 +96,14 @@ namespace Generator.Constants.CSharp {
 		}
 
 		void WriteConstants(FileWriter writer, ConstantsType constantsType, bool isPartialClass) {
-			docWriter.WriteSummary(writer, constantsType.Documentation, constantsType.RawName);
+			docWriter.WriteSummary(writer, constantsType.Documentation.GetComment(TargetLanguage.CSharp), constantsType.RawName);
 			var pub = constantsType.IsPublic ? "public " : string.Empty;
 			var partial = isPartialClass ? " partial" : string.Empty;
 			writer.WriteLine($"{pub}static{partial} class {constantsType.Name(idConverter)} {{");
 
 			using (writer.Indent()) {
 				foreach (var constant in constantsType.Constants) {
-					docWriter.WriteSummary(writer, constant.Documentation, constantsType.RawName);
+					docWriter.WriteSummary(writer, constant.Documentation.GetComment(TargetLanguage.CSharp), constantsType.RawName);
 					deprecatedWriter.WriteDeprecated(writer, constant);
 					writer.Write(constant.IsPublic ? "public " : "internal ");
 					writer.Write("const ");

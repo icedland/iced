@@ -634,9 +634,9 @@ namespace Generator.Assembler.CSharp {
 			var methodDoc = new StringBuilder();
 			methodDoc.Append($"{group.Name} instruction.");
 			foreach (var def in group.GetDefsAndParentDefs()) {
-				if (!string.IsNullOrEmpty(def.Code.Documentation)) {
+				if (def.Code.Documentation.GetComment(TargetLanguage.CSharp) is string comment) {
 					methodDoc.Append("#(p:)#");
-					methodDoc.Append(def.Code.Documentation);
+					methodDoc.Append(comment);
 				}
 			}
 

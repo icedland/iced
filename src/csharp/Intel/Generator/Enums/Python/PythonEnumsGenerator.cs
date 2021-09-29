@@ -121,7 +121,7 @@ namespace Generator.Enums.Python {
 		}
 
 		void WriteEnumRust(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
-			rustDocWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
+			rustDocWriter.WriteSummary(writer, enumType.Documentation.GetComment(TargetLanguage.Python), enumType.RawName);
 			var enumTypeName = enumType.Name(rustIdConverter);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
@@ -132,7 +132,7 @@ namespace Generator.Enums.Python {
 				foreach (var value in enumType.Values) {
 					if (value.DeprecatedInfo.IsDeprecatedAndRenamed)
 						continue;
-					rustDocWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
+					rustDocWriter.WriteSummary(writer, value.Documentation.GetComment(TargetLanguage.Python), enumType.RawName);
 					if (enumType.IsFlags)
 						writer.WriteLine($"{value.Name(rustIdConverter)} = {NumberFormatter.FormatHexUInt32WithSep(value.Value)},");
 					else if (expectedValue != value.Value || enumType.IsPublic)
@@ -153,7 +153,7 @@ namespace Generator.Enums.Python {
 				writer.WriteLine("# pylint: disable=line-too-long");
 				writer.WriteLine("# pylint: disable=too-many-lines");
 				writer.WriteLine();
-				docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
+				docWriter.WriteSummary(writer, enumType.Documentation.GetComment(TargetLanguage.Python), enumType.RawName);
 				writer.WriteLine();
 				// Needed by Sphinx or it will generate a lot of errors
 				writer.WriteLine("import typing");
@@ -182,7 +182,7 @@ namespace Generator.Enums.Python {
 				if (value.DeprecatedInfo.IsDeprecated && value.DeprecatedInfo.Version < firstVersion)
 					continue;
 
-				var docs = value.Documentation;
+				var docs = value.Documentation.GetComment(TargetLanguage.Python);
 				// Sphinx doesn't include the public enum items (global vars in a module) if they're not documented
 				if (string.IsNullOrEmpty(docs)) {
 					if (mustHaveDocs)

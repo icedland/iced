@@ -73,7 +73,7 @@ namespace Generator.Constants.Rust {
 					throw new InvalidOperationException();
 				newConstants[i] = new Constant(ConstantKind.UInt32, constant.RawName, (uint)i, ConstantsTypeFlags.None);
 			}
-			return new ConstantsType(constantsType.RawName, constantsType.TypeId, ConstantsTypeFlags.None, null, newConstants);
+			return new ConstantsType(constantsType.RawName, constantsType.TypeId, ConstantsTypeFlags.None, default, newConstants);
 		}
 
 		void WriteMacro(FileWriter writer, ConstantsType newType, ConstantsType origType) {

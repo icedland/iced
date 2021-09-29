@@ -90,7 +90,7 @@ namespace Generator.Enums.RustJS {
 		void WriteEnumCore(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
 			// Don't add the Code comments since they're generated (less useful comments) and will generate bigger ts/js files
 			bool writeComments = enumType.TypeId != TypeIds.Code;
-			docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
+			docWriter.WriteSummary(writer, enumType.Documentation.GetComment(TargetLanguage.RustJS), enumType.RawName);
 			var enumTypeName = enumType.Name(idConverter);
 			if (enumType.IsPublic)
 				writer.WriteLine(RustConstants.AttributeWasmBindgen);
@@ -109,7 +109,7 @@ namespace Generator.Enums.RustJS {
 					if (value.DeprecatedInfo.IsDeprecatedAndRenamed)
 						continue;
 					if (writeComments)
-						docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
+						docWriter.WriteSummary(writer, value.Documentation.GetComment(TargetLanguage.RustJS), enumType.RawName);
 					deprecatedWriter.WriteDeprecated(writer, value);
 					if (enumType.IsFlags)
 						writer.WriteLine($"{value.Name(idConverter)} = {NumberFormatter.FormatHexUInt32WithSep(value.Value)},");

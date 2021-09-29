@@ -7,26 +7,26 @@ namespace Generator.Enums.Formatter.Nasm {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class InstrOpKindEnum {
 		InstrOpKindEnum(GenTypes genTypes) {
-			var enumType = new EnumType("InstrOpKind", TypeIds.NasmInstrOpKind, null, GetValues(genTypes), EnumTypeFlags.NoInitialize);
+			var enumType = new EnumType("InstrOpKind", TypeIds.NasmInstrOpKind, default, GetValues(genTypes), EnumTypeFlags.NoInitialize);
 			genTypes.Add(enumType);
 		}
 
 		static EnumValue[] GetValues(GenTypes genTypes) {
-			var list = genTypes[TypeIds.OpKind].Values.Select(a => new EnumValue(a.Value, a.RawName, null)).ToList();
+			var list = genTypes[TypeIds.OpKind].Values.Select(a => new EnumValue(a.Value, a.RawName, default)).ToList();
 			// Extra opkinds
-			list.Add(new EnumValue((uint)list.Count, "Sae", null));
-			list.Add(new EnumValue((uint)list.Count, "RnSae", null));
-			list.Add(new EnumValue((uint)list.Count, "RdSae", null));
-			list.Add(new EnumValue((uint)list.Count, "RuSae", null));
-			list.Add(new EnumValue((uint)list.Count, "RzSae", null));
-			list.Add(new EnumValue((uint)list.Count, "Rn", null));
-			list.Add(new EnumValue((uint)list.Count, "Rd", null));
-			list.Add(new EnumValue((uint)list.Count, "Ru", null));
-			list.Add(new EnumValue((uint)list.Count, "Rz", null));
-			list.Add(new EnumValue((uint)list.Count, "DeclareByte", null));
-			list.Add(new EnumValue((uint)list.Count, "DeclareWord", null));
-			list.Add(new EnumValue((uint)list.Count, "DeclareDword", null));
-			list.Add(new EnumValue((uint)list.Count, "DeclareQword", null));
+			list.Add(new EnumValue((uint)list.Count, "Sae", default));
+			list.Add(new EnumValue((uint)list.Count, "RnSae", default));
+			list.Add(new EnumValue((uint)list.Count, "RdSae", default));
+			list.Add(new EnumValue((uint)list.Count, "RuSae", default));
+			list.Add(new EnumValue((uint)list.Count, "RzSae", default));
+			list.Add(new EnumValue((uint)list.Count, "Rn", default));
+			list.Add(new EnumValue((uint)list.Count, "Rd", default));
+			list.Add(new EnumValue((uint)list.Count, "Ru", default));
+			list.Add(new EnumValue((uint)list.Count, "Rz", default));
+			list.Add(new EnumValue((uint)list.Count, "DeclareByte", default));
+			list.Add(new EnumValue((uint)list.Count, "DeclareWord", default));
+			list.Add(new EnumValue((uint)list.Count, "DeclareDword", default));
+			list.Add(new EnumValue((uint)list.Count, "DeclareQword", default));
 			return list.ToArray();
 		}
 	}

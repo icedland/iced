@@ -8,7 +8,7 @@ namespace Generator.Constants.InstructionInfo {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class InstructionInfoKeysType {
 		InstructionInfoKeysType(GenTypes genTypes) {
-			var type = new ConstantsType(TypeIds.InstructionInfoKeys, ConstantsTypeFlags.None, null, GetConstants());
+			var type = new ConstantsType(TypeIds.InstructionInfoKeys, ConstantsTypeFlags.None, default, GetConstants());
 			genTypes.Add(type);
 		}
 

@@ -18,7 +18,7 @@ namespace Generator.Enums {
 		public TypeId TypeId { get; }
 		public string RawName { get; }
 		public string Name(IdentifierConverter idConverter) => idConverter.Type(RawName);
-		public string? Documentation { get; }
+		public LanguageDocumentation Documentation { get; }
 		public EnumValue[] Values => values;
 		EnumValue[] values;
 		readonly bool initialized;
@@ -45,21 +45,21 @@ namespace Generator.Enums {
 
 		public bool IsMissingDocs {
 			get {
-				if (string.IsNullOrEmpty(Documentation))
+				if (!Documentation.HasDefaultComment)
 					return true;
 				foreach (var value in Values) {
-					if (string.IsNullOrEmpty(value.Documentation))
+					if (!value.Documentation.HasDefaultComment)
 						return true;
 				}
 				return false;
 			}
 		}
 
-		public EnumType(TypeId typeId, string? documentation, EnumValue[] values, EnumTypeFlags flags)
+		public EnumType(TypeId typeId, LanguageDocumentation documentation, EnumValue[] values, EnumTypeFlags flags)
 			: this(typeId.ToString(), typeId, documentation, values, flags) {
 		}
 
-		public EnumType(string name, TypeId typeId, string? documentation, EnumValue[] values, EnumTypeFlags flags) {
+		public EnumType(string name, TypeId typeId, LanguageDocumentation documentation, EnumValue[] values, EnumTypeFlags flags) {
 			toEnumValue = new Dictionary<string, EnumValue>(values.Length, StringComparer.Ordinal);
 			IsPublic = (flags & EnumTypeFlags.Public) != 0;
 			IsFlags = (flags & EnumTypeFlags.Flags) != 0;
@@ -114,7 +114,7 @@ namespace Generator.Enums {
 				if (!toEnumValue.TryGetValue(enumValue.DeprecatedInfo.NewName, out var newValue))
 					throw new InvalidOperationException($"Couldn't find enum {enumValue.RawName}");
 				enumValue.Value = newValue.Value;
-				if (enumValue.Documentation is null)
+				if (!enumValue.Documentation.HasDefaultComment)
 					enumValue.Documentation = newValue.Documentation;
 			}
 		}
@@ -200,19 +200,19 @@ namespace Generator.Enums {
 		public string RawName { get; }
 		public string Name(IdentifierConverter idConverter) => idConverter.EnumField(RawName);
 		public string ToStringValue(IdentifierConverter idConverter) => idConverter.EnumField(RawName);
-		public string? Documentation { get; internal set; }
+		public LanguageDocumentation Documentation { get; internal set; }
 		public DeprecatedInfo DeprecatedInfo { get; }
 
-		public EnumValue(uint value, string name, string? documentation)
+		public EnumValue(uint value, string name, LanguageDocumentation documentation)
 			: this(value, name, documentation, default) {
 		}
 
-		public EnumValue(uint value, string name, string? documentation, DeprecatedInfo deprecatedInfo) {
+		public EnumValue(uint value, string name, LanguageDocumentation documentation, DeprecatedInfo deprecatedInfo) {
 			DeclaringType = null!;
 			Value = value;
 			RawName = name;
-			if (deprecatedInfo.IsDeprecated && deprecatedInfo.NewName is null && documentation is null)
-				Documentation = "Don't use it!";
+			if (deprecatedInfo.IsDeprecated && deprecatedInfo.NewName is null && !documentation.HasDefaultComment)
+				Documentation = new("Don't use it!");
 			else
 				Documentation = documentation;
 			DeprecatedInfo = deprecatedInfo;

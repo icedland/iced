@@ -23,7 +23,7 @@ namespace Generator.Constants.Rust {
 		}
 
 		public void Write(FileWriter writer, ConstantsType constantsType, string[] attributes) {
-			docWriter.WriteSummary(writer, constantsType.Documentation, constantsType.RawName);
+			docWriter.WriteSummary(writer, constantsType.Documentation.GetComment(TargetLanguage.Rust), constantsType.RawName);
 			foreach (var attr in attributes)
 				writer.WriteLine(attr);
 			var pub = constantsType.IsPublic ? "pub " : "pub(crate) ";
@@ -41,7 +41,7 @@ namespace Generator.Constants.Rust {
 				foreach (var constant in constantsType.Constants) {
 					if (ShouldIgnore(constant))
 						continue;
-					docWriter.WriteSummary(writer, constant.Documentation, constantsType.RawName);
+					docWriter.WriteSummary(writer, constant.Documentation.GetComment(TargetLanguage.Rust), constantsType.RawName);
 					deprecatedWriter.WriteDeprecated(writer, constant);
 					sb.Clear();
 					sb.Append(constant.IsPublic ? "pub " : "pub(crate) ");

@@ -2,6 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Generator {
@@ -46,10 +47,26 @@ namespace Generator {
 	[AttributeUsage(AttributeTargets.All)]
 	sealed class CommentAttribute : Attribute {
 		public string Comment { get; }
+		public string? CSharp { get; set; }
+		public string? Rust { get; set; }
+		public string? RustJS { get; set; }
+		public string? Python { get; set; }
 		public CommentAttribute(string comment) => Comment = comment ?? throw new InvalidOperationException();
 
-		public static string? GetDocumentation(MemberInfo member) =>
-			((CommentAttribute?)member.GetCustomAttribute(typeof(CommentAttribute)))?.Comment;
+		public static LanguageDocumentation GetDocumentation(MemberInfo member) {
+			if (member.GetCustomAttribute<CommentAttribute>() is not CommentAttribute attr)
+				return default;
+			var langComments = new List<(TargetLanguage language, string comment)>();
+			if (attr.CSharp is string csharpComment)
+				langComments.Add((TargetLanguage.CSharp, csharpComment));
+			if (attr.Rust is string rustComment)
+				langComments.Add((TargetLanguage.Rust, rustComment));
+			if (attr.RustJS is string rustJSComment)
+				langComments.Add((TargetLanguage.RustJS, rustJSComment));
+			if (attr.Python is string pythonComment)
+				langComments.Add((TargetLanguage.Python, pythonComment));
+			return new(attr.Comment, langComments.Count == 0 ? Array.Empty<(TargetLanguage language, string comment)>() : langComments.ToArray());
+		}
 	}
 
 	[AttributeUsage(AttributeTargets.Enum)]
@@ -70,6 +87,8 @@ namespace Generator {
 			Name = name;
 			TypeId = new TypeId(typeId);
 		}
+
+		public LanguageDocumentation GetDocumentation() => new(Documentation);
 	}
 
 	static class TypeGenOrders {

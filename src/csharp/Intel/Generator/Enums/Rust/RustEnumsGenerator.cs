@@ -187,7 +187,7 @@ namespace Generator.Enums.Rust {
 			// Some private enums are known by the serializer/deserializer so they need extra code generated that all public enums also get
 			bool isSerializePublic = enumType.TypeId == TypeIds.InstrScale;
 			bool serializeType = enumType.IsPublic || isSerializePublic;
-			docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
+			docWriter.WriteSummary(writer, enumType.Documentation.GetComment(TargetLanguage.Rust), enumType.RawName);
 			var enumTypeName = enumType.Name(idConverter);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
@@ -202,7 +202,7 @@ namespace Generator.Enums.Rust {
 			using (writer.Indent()) {
 				uint expectedValue = 0;
 				foreach (var value in enumValues) {
-					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
+					docWriter.WriteSummary(writer, value.Documentation.GetComment(TargetLanguage.Rust), enumType.RawName);
 					deprecatedWriter.WriteDeprecated(writer, value);
 					if (expectedValue != value.Value || enumType.IsPublic || isSerializePublic)
 						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");

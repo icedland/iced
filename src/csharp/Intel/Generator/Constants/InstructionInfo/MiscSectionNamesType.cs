@@ -8,7 +8,7 @@ namespace Generator.Constants.InstructionInfo {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class MiscSectionNamesType {
 		MiscSectionNamesType(GenTypes genTypes) {
-			var type = new ConstantsType(TypeIds.MiscSectionNames, ConstantsTypeFlags.None, null, GetConstants());
+			var type = new ConstantsType(TypeIds.MiscSectionNames, ConstantsTypeFlags.None, default, GetConstants());
 			genTypes.Add(type);
 		}
 

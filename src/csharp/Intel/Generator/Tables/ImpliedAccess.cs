@@ -446,7 +446,7 @@ namespace Generator.Tables {
 
 		ImpliedAccessesDef AddHardCodedValue(string enumValueName, ImpliedAccesses accesses) {
 			usedEnumNames.Add(enumValueName);
-			var enumValue = new EnumValue(0, enumValueName, null);
+			var enumValue = new EnumValue(0, enumValueName, default);
 			var def = new ImpliedAccessesDef(accesses, enumValue);
 			hardCodedDefs.Add(def);
 			toDef.Add(accesses, def);
@@ -460,7 +460,7 @@ namespace Generator.Tables {
 				return def;
 
 			var name = GetEnumName(accesses);
-			var enumValue = new EnumValue(0, name, null);
+			var enumValue = new EnumValue(0, name, default);
 			def = new ImpliedAccessesDef(accesses, enumValue);
 			toDef.Add(accesses, def);
 			otherDefs.Add(def);
@@ -668,7 +668,7 @@ namespace Generator.Tables {
 			var values = new List<ImpliedAccessesDef>(hardCodedDefs.Count + otherDefs.Count);
 			values.AddRange(hardCodedDefs);
 			values.AddRange(otherDefs);
-			return (new EnumType(TypeIds.ImpliedAccess, null, values.Select(a => a.EnumValue).ToArray(), EnumTypeFlags.None), values.ToArray());
+			return (new EnumType(TypeIds.ImpliedAccess, default, values.Select(a => a.EnumValue).ToArray(), EnumTypeFlags.None), values.ToArray());
 		}
 	}
 }

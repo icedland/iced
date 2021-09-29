@@ -8,7 +8,7 @@ namespace Generator.Constants.Encoder {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class OpCodeInfoFlagsType {
 		OpCodeInfoFlagsType(GenTypes genTypes) {
-			var type = new ConstantsType(TypeIds.OpCodeInfoFlags, ConstantsTypeFlags.None, null, GetConstants());
+			var type = new ConstantsType(TypeIds.OpCodeInfoFlags, ConstantsTypeFlags.None, default, GetConstants());
 			genTypes.Add(type);
 		}
 
