@@ -2726,8 +2726,17 @@ impl Instruction {
 					}
 				}
 				#[cfg(feature = "mvex")]
-				if code >= Code::MVEX_Vloadunpackhd_zmm_k1_mt && code <= Code::MVEX_Vpackstorehpd_mt_k1_zmm {
-					offset = offset.wrapping_sub(0x40);
+				{
+					const_assert_eq!(Code::MVEX_Vloadunpackhd_zmm_k1_mt as u32 + 1, Code::MVEX_Vloadunpackhq_zmm_k1_mt as u32);
+					const_assert_eq!(Code::MVEX_Vloadunpackhd_zmm_k1_mt as u32 + 2, Code::MVEX_Vpackstorehd_mt_k1_zmm as u32);
+					const_assert_eq!(Code::MVEX_Vloadunpackhd_zmm_k1_mt as u32 + 3, Code::MVEX_Vpackstorehq_mt_k1_zmm as u32);
+					const_assert_eq!(Code::MVEX_Vloadunpackhd_zmm_k1_mt as u32 + 4, Code::MVEX_Vloadunpackhps_zmm_k1_mt as u32);
+					const_assert_eq!(Code::MVEX_Vloadunpackhd_zmm_k1_mt as u32 + 5, Code::MVEX_Vloadunpackhpd_zmm_k1_mt as u32);
+					const_assert_eq!(Code::MVEX_Vloadunpackhd_zmm_k1_mt as u32 + 6, Code::MVEX_Vpackstorehps_mt_k1_zmm as u32);
+					const_assert_eq!(Code::MVEX_Vloadunpackhd_zmm_k1_mt as u32 + 7, Code::MVEX_Vpackstorehpd_mt_k1_zmm as u32);
+					if code >= Code::MVEX_Vloadunpackhd_zmm_k1_mt && code <= Code::MVEX_Vpackstorehpd_mt_k1_zmm {
+						offset = offset.wrapping_sub(0x40);
+					}
 				}
 				offset &= offset_mask;
 				if !code.ignores_segment() {

@@ -196,6 +196,13 @@ namespace Iced.Intel {
 					}
 				}
 #if MVEX
+				Static.Assert(Code.MVEX_Vloadunpackhd_zmm_k1_mt + 1 == Code.MVEX_Vloadunpackhq_zmm_k1_mt ? 0 : -1);
+				Static.Assert(Code.MVEX_Vloadunpackhd_zmm_k1_mt + 2 == Code.MVEX_Vpackstorehd_mt_k1_zmm ? 0 : -1);
+				Static.Assert(Code.MVEX_Vloadunpackhd_zmm_k1_mt + 3 == Code.MVEX_Vpackstorehq_mt_k1_zmm ? 0 : -1);
+				Static.Assert(Code.MVEX_Vloadunpackhd_zmm_k1_mt + 4 == Code.MVEX_Vloadunpackhps_zmm_k1_mt ? 0 : -1);
+				Static.Assert(Code.MVEX_Vloadunpackhd_zmm_k1_mt + 5 == Code.MVEX_Vloadunpackhpd_zmm_k1_mt ? 0 : -1);
+				Static.Assert(Code.MVEX_Vloadunpackhd_zmm_k1_mt + 6 == Code.MVEX_Vpackstorehps_mt_k1_zmm ? 0 : -1);
+				Static.Assert(Code.MVEX_Vloadunpackhd_zmm_k1_mt + 7 == Code.MVEX_Vpackstorehpd_mt_k1_zmm ? 0 : -1);
 				if (code >= Code.MVEX_Vloadunpackhd_zmm_k1_mt && code <= Code.MVEX_Vpackstorehpd_mt_k1_zmm)
 					offset -= 0x40;
 #endif
