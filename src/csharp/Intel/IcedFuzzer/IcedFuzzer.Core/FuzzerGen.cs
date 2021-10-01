@@ -882,10 +882,11 @@ namespace IcedFuzzer.Core {
 			uint modMax = ignoresModBits ? 3U : 0;
 			uint lockTestMax = 0;
 			if (ignoresModBits && context.Fuzzer.CpuDecoder == CpuDecoder.AMD)
-				lockTestMax = 1;
+				lockTestMax = 2;
 
 			for (uint lockCount = 0; lockCount <= lockTestMax; lockCount++) {
-				bool useLockPrefix = lockCount == 1;
+				bool useLockPrefix = lockCount >= 1;
+				bool useLockAndRex = lockCount >= 2;
 				for (uint mod = 0; mod <= modMax; mod++) {
 					foreach (var (regOp, forceREX) in GetRegisterOperands(context.Instruction, context.Bitness, context.Encoding)) {
 						var regInfo = regOp.GetRegisterInfo(context.Bitness, context.Encoding);
@@ -914,12 +915,18 @@ namespace IcedFuzzer.Core {
 									continue;
 								info.Flags |= EncodedInfoFlags.HasREX;
 							}
+							bool isValid = true;
 							if (useLockPrefix && (regOp.Register == FuzzerRegisterKind.CR || regOp.Register == FuzzerRegisterKind.DR || regOp.Register == FuzzerRegisterKind.TR)) {
 								Assert.True(regOp.RegLocation == FuzzerOperandRegLocation.ModrmRegBits);
 								Assert.True(context.Encoding == FuzzerEncodingKind.Legacy);
 								Assert.True(regNum <= 15);
-								info.SetRegister(regOp.RegLocation, regNum & 7);
+								if (useLockAndRex)
+									info.SetRegister(regOp.RegLocation, regNum);
+								else
+									info.SetRegister(regOp.RegLocation, regNum & 7);
 								if ((regNum & 8) != 0) {
+									if (useLockAndRex)
+										isValid = false;
 									info.WritePrefixes = new WritePrefix[] {
 										new WritePrefix(new byte[] { 0xF0 }),
 										new WritePrefix(WritePrefixKind.AddressSize),
@@ -949,7 +956,7 @@ namespace IcedFuzzer.Core {
 							}
 
 							context.Fuzzer.Write(info);
-							bool isValid = regInfo.IsValid(context.Instruction, regOp.Register, regNum);
+							isValid = isValid && regInfo.IsValid(context.Instruction, regOp.Register, regNum);
 							Assert.True(!setIgnoredBits || isValid, "Must be a valid instruction when testing ignored bits!");
 							yield return new FuzzerGenResult(isValid);
 						}

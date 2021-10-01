@@ -3714,6 +3714,7 @@ F0 0F22 F9, Mov_cr_r32, Mov, 2, op0=r;cr7 op1=r;ecx decopt=NoInvalidCheck lock
 66 0F23 C1, Mov_dr_r32, Mov, 2, op0=r;dr0 op1=r;ecx enc=0F23C1
 
 0F24 DE, Mov_r32_tr, Mov, 2, op0=r;esi op1=r;tr3 decopt=MovTr
+0F24 DE, Mov_r32_tr, Mov, 2, op0=r;esi op1=r;tr3 decopt=MovTr;NoInvalidCheck
 0F24 DE, INVALID, INVALID, 0, code=Mov_r32_tr
 0F24 B1, Mov_r32_tr, Mov, 2, op0=r;ecx op1=r;tr6 decopt=MovTr enc=0F24F1
 0F24 5E, Mov_r32_tr, Mov, 2, op0=r;esi op1=r;tr3 decopt=MovTr enc=0F24DE
@@ -3724,6 +3725,7 @@ F0 0F22 F9, Mov_cr_r32, Mov, 2, op0=r;cr7 op1=r;ecx decopt=NoInvalidCheck lock
 66 0F24 31, Mov_r32_tr, Mov, 2, op0=r;ecx op1=r;tr6 decopt=MovTr enc=0F24F1
 
 0F26 DE, Mov_tr_r32, Mov, 2, op0=r;tr3 op1=r;esi decopt=MovTr
+0F26 DE, Mov_tr_r32, Mov, 2, op0=r;tr3 op1=r;esi decopt=MovTr;NoInvalidCheck
 0F26 DE, INVALID, INVALID, 0, code=Mov_tr_r32
 0F26 B1, Mov_tr_r32, Mov, 2, op0=r;tr6 op1=r;ecx decopt=MovTr enc=0F26F1
 0F26 5E, Mov_tr_r32, Mov, 2, op0=r;tr3 op1=r;esi decopt=MovTr enc=0F26DE

@@ -1409,7 +1409,9 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			var extraRegisterBase = state.extraRegisterBase;
 			// LOCK MOV CR0 is supported by some AMD CPUs
-			if (baseReg == Register.CR0 && extraRegisterBase == 0 && instruction.HasLockPrefix && (decoder.options & DecoderOptions.AMD) != 0) {
+			if (baseReg == Register.CR0 && instruction.HasLockPrefix && (decoder.options & DecoderOptions.AMD) != 0) {
+				if ((extraRegisterBase & decoder.invalidCheckMask) != 0)
+					decoder.SetInvalidInstruction();
 				extraRegisterBase = 8;
 				instruction.InternalClearHasLockPrefix();
 				state.flags &= ~StateFlags.Lock;
@@ -1426,8 +1428,10 @@ namespace Iced.Intel.DecoderInternal {
 					if (reg > 7)
 						decoder.SetInvalidInstruction();
 				}
-				else
+				else {
+					Debug.Assert(!decoder.is64bMode);
 					Debug.Assert(baseReg == Register.TR0);
+				}
 			}
 			instruction.Op1Register = reg + baseReg;
 		}
@@ -1461,7 +1465,9 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			var extraRegisterBase = state.extraRegisterBase;
 			// LOCK MOV CR0 is supported by some AMD CPUs
-			if (baseReg == Register.CR0 && extraRegisterBase == 0 && instruction.HasLockPrefix && (decoder.options & DecoderOptions.AMD) != 0) {
+			if (baseReg == Register.CR0 && instruction.HasLockPrefix && (decoder.options & DecoderOptions.AMD) != 0) {
+				if ((extraRegisterBase & decoder.invalidCheckMask) != 0)
+					decoder.SetInvalidInstruction();
 				extraRegisterBase = 8;
 				instruction.InternalClearHasLockPrefix();
 				state.flags &= ~StateFlags.Lock;
@@ -1478,8 +1484,10 @@ namespace Iced.Intel.DecoderInternal {
 					if (reg > 7)
 						decoder.SetInvalidInstruction();
 				}
-				else
+				else {
+					Debug.Assert(!decoder.is64bMode);
 					Debug.Assert(baseReg == Register.TR0);
+				}
 			}
 			instruction.Op0Register = reg + baseReg;
 		}

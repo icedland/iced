@@ -1508,8 +1508,10 @@ impl OpCodeHandler_R_C {
 		}
 		let mut extra_register_base = decoder.state.extra_register_base;
 		// LOCK MOV CR0 is supported by some AMD CPUs
-		if this.base_reg == Register::CR0 && extra_register_base == 0 && instruction.has_lock_prefix() && (decoder.options & DecoderOptions::AMD) != 0
-		{
+		if this.base_reg == Register::CR0 && instruction.has_lock_prefix() && (decoder.options & DecoderOptions::AMD) != 0 {
+			if (extra_register_base & decoder.invalid_check_mask) != 0 {
+				decoder.set_invalid_instruction();
+			}
 			extra_register_base = 8;
 			instruction.set_has_lock_prefix(false);
 			decoder.state.flags &= !StateFlags::LOCK;
@@ -1525,6 +1527,7 @@ impl OpCodeHandler_R_C {
 					decoder.set_invalid_instruction();
 				}
 			} else {
+				debug_assert!(!decoder.is64b_mode);
 				debug_assert_eq!(this.base_reg, Register::TR0);
 			}
 		}
@@ -1559,8 +1562,10 @@ impl OpCodeHandler_C_R {
 		}
 		let mut extra_register_base = decoder.state.extra_register_base;
 		// LOCK MOV CR0 is supported by some AMD CPUs
-		if this.base_reg == Register::CR0 && extra_register_base == 0 && instruction.has_lock_prefix() && (decoder.options & DecoderOptions::AMD) != 0
-		{
+		if this.base_reg == Register::CR0 && instruction.has_lock_prefix() && (decoder.options & DecoderOptions::AMD) != 0 {
+			if (extra_register_base & decoder.invalid_check_mask) != 0 {
+				decoder.set_invalid_instruction();
+			}
 			extra_register_base = 8;
 			instruction.set_has_lock_prefix(false);
 			decoder.state.flags &= !StateFlags::LOCK;
@@ -1576,6 +1581,7 @@ impl OpCodeHandler_C_R {
 					decoder.set_invalid_instruction();
 				}
 			} else {
+				debug_assert!(!decoder.is64b_mode);
 				debug_assert_eq!(this.base_reg, Register::TR0);
 			}
 		}
