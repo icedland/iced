@@ -831,7 +831,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ReadOpMem(ref Instruction instruction, TupleType tupleType) {
-			Debug.Assert(state.Encoding != EncodingKind.EVEX && state.Encoding != EncodingKind.MVEX);
+			Debug.Assert(state.Encoding == EncodingKind.EVEX || state.Encoding == EncodingKind.MVEX);
 			if (state.addressSize == OpSize.Size64)
 				ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, tupleType, false);
 			else if (state.addressSize == OpSize.Size32)
