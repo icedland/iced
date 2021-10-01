@@ -150,6 +150,11 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	assert_eq!(instr.has_repe_prefix(), tc.has_repe_prefix);
 	assert_eq!(instr.has_repne_prefix(), tc.has_repne_prefix);
 	assert_eq!(instr.has_lock_prefix(), tc.has_lock_prefix);
+	#[cfg(feature = "mvex")]
+	{
+		assert_eq!(instr.is_mvex_eviction_hint(), tc.mvex.eviction_hint);
+		assert_eq!(instr.mvex_reg_mem_conv(), tc.mvex.reg_mem_conv);
+	}
 	match tc.vsib_bitness {
 		0 => {
 			assert!(!instr.is_vsib());
