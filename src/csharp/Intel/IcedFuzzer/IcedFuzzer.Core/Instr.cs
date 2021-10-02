@@ -343,6 +343,7 @@ namespace IcedFuzzer.Core {
 					_ => throw ThrowHelpers.Unreachable,
 				},
 				EncodingKind.VEX => table switch {
+					OpCodeTableKind.Normal => new FuzzerOpCodeTable(encoding, 0),
 					OpCodeTableKind.T0F => new FuzzerOpCodeTable(encoding, 1),
 					OpCodeTableKind.T0F38 => new FuzzerOpCodeTable(encoding, 2),
 					OpCodeTableKind.T0F3A => new FuzzerOpCodeTable(encoding, 3),
