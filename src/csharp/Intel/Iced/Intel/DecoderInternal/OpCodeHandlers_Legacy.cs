@@ -4252,8 +4252,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Code = codeM;
 				instruction.Op1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
-				if (codeM == Code.INVALID)
-					decoder.SetInvalidInstruction();
 			}
 		}
 	}

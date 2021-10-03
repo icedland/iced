@@ -4288,9 +4288,6 @@ impl OpCodeHandler_VW {
 			instruction.set_code(this.code_r);
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
-			if this.code_m == Code::INVALID {
-				decoder.set_invalid_instruction();
-			}
 			instruction.set_code(this.code_m);
 			instruction.set_op1_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);

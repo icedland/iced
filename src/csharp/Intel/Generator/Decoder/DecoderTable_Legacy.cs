@@ -4538,9 +4538,15 @@ namespace Generator.Decoder {
 					new object[] { Options1632_1,
 						new object[] { MandatoryPrefix,
 							new object[] { Gv_Ev_32_64, code[nameof(Code.Vmwrite_r32_rm32)], code[nameof(Code.Vmwrite_r64_rm64)], true, true },
-							new object[] { VW_3, code[nameof(Code.Extrq_xmm_xmm)], code[nameof(Code.INVALID)] },
+							new object[] { RM,
+								new object[] { VW_3, code[nameof(Code.Extrq_xmm_xmm)], code[nameof(Code.INVALID)] },
+								invalid,
+							},
 							invalid,
-							new object[] { VW_3, code[nameof(Code.Insertq_xmm_xmm)], code[nameof(Code.INVALID)] }
+							new object[] { RM,
+								new object[] { VW_3, code[nameof(Code.Insertq_xmm_xmm)], code[nameof(Code.INVALID)] },
+								invalid,
+							},
 						},
 						new object[] { Sw_M, code[nameof(Code.Rsdc_Sreg_m80)] }, options[nameof(DecoderOptions.Cyrix)]
 					},
