@@ -7,7 +7,8 @@ use crate::decoder::handlers::legacy::*;
 use crate::decoder::handlers::{
 	get_invalid_handler, get_invalid_no_modrm_handler, get_null_handler, OpCodeHandler, OpCodeHandlerDecodeFn, OpCodeHandler_AnotherTable,
 	OpCodeHandler_Bitness, OpCodeHandler_Bitness_DontReadModRM, OpCodeHandler_Group, OpCodeHandler_Group8x64, OpCodeHandler_Group8x8,
-	OpCodeHandler_Options, OpCodeHandler_Options1632, OpCodeHandler_Options_DontReadModRM, OpCodeHandler_RM, OpCodeHandler_Simple,
+	OpCodeHandler_Int3, OpCodeHandler_Options, OpCodeHandler_Options1632, OpCodeHandler_Options_DontReadModRM, OpCodeHandler_RM,
+	OpCodeHandler_Simple,
 };
 use crate::decoder::table_de::enums::*;
 use crate::decoder::table_de::{box_opcode_handler, TableDeserializer};
@@ -707,7 +708,14 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			box_opcode_handler(OpCodeHandler_RvMw_Gw::new(code1, code2))
 		}
 
-		LegacyOpCodeHandlerKind::Simple => box_opcode_handler(OpCodeHandler_Simple::new(deserializer.read_code())),
+		LegacyOpCodeHandlerKind::Simple => {
+			let code = deserializer.read_code();
+			if code == Code::Int3 {
+				box_opcode_handler(OpCodeHandler_Int3::new())
+			} else {
+				box_opcode_handler(OpCodeHandler_Simple::new(code))
+			}
+		}
 		LegacyOpCodeHandlerKind::Simple_ModRM => box_opcode_handler(OpCodeHandler_Simple::new_modrm(deserializer.read_code())),
 
 		LegacyOpCodeHandlerKind::Simple2_3a => {

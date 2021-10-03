@@ -149,6 +149,23 @@ impl OpCodeHandler_Simple {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub(super) struct OpCodeHandler_Int3 {
+	has_modrm: bool,
+}
+
+impl OpCodeHandler_Int3 {
+	#[inline]
+	pub(super) fn new() -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_Int3::decode, Self { has_modrm: false })
+	}
+
+	fn decode(_self_ptr: *const OpCodeHandler, _decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		instruction.set_code(Code::Int3);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub(super) struct OpCodeHandler_Group8x8 {
 	has_modrm: bool,
 	table_low: Box<[(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 8]>,

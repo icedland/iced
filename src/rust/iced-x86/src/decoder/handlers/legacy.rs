@@ -1119,7 +1119,7 @@ impl OpCodeHandler_Evj {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		if decoder.is64b_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
+			if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32)) != 0 {
 				instruction.set_code(this.code64);
 			} else {
 				instruction.set_code(this.code16);
@@ -1128,7 +1128,7 @@ impl OpCodeHandler_Evj {
 				instruction.set_op0_kind(OpKind::Memory);
 				decoder.read_op_mem(instruction);
 			} else {
-				if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
+				if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32)) != 0 {
 					write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::RAX as u32);
 				} else {
 					write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32);
@@ -1610,7 +1610,7 @@ impl OpCodeHandler_Jb {
 		decoder.state.flags |= StateFlags::BRANCH_IMM8;
 		let b = decoder.read_u8();
 		if decoder.is64b_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
+			if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32)) != 0 {
 				instruction.set_near_branch64((b as i8 as u64).wrapping_add(decoder.current_ip64()));
 				instruction.set_code(this.code64);
 				instruction.set_op0_kind(OpKind::NearBranch64);
@@ -1701,7 +1701,7 @@ impl OpCodeHandler_Jz {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		if decoder.is64b_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
+			if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32)) != 0 {
 				instruction.set_code(this.code64);
 				instruction.set_op0_kind(OpKind::NearBranch64);
 				instruction.set_near_branch64((decoder.read_u32() as i32 as u64).wrapping_add(decoder.current_ip64()));
@@ -1757,7 +1757,7 @@ impl OpCodeHandler_Jb2 {
 		decoder.state.flags |= StateFlags::BRANCH_IMM8;
 		let b = decoder.read_u8();
 		if decoder.is64b_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
+			if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32)) != 0 {
 				instruction.set_near_branch64((b as i8 as u64).wrapping_add(decoder.current_ip64()));
 				instruction.set_op0_kind(OpKind::NearBranch64);
 				if decoder.state.address_size == OpSize::Size64 {
@@ -3736,7 +3736,7 @@ impl OpCodeHandler_BranchIw {
 		instruction.set_op0_kind(OpKind::Immediate16);
 		instruction_internal::internal_set_immediate16(instruction, decoder.read_u16() as u32);
 		if decoder.is64b_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
+			if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32)) != 0 {
 				instruction.set_code(this.code64);
 			} else {
 				instruction.set_code(this.code16);
@@ -3770,7 +3770,7 @@ impl OpCodeHandler_BranchSimple {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		if decoder.is64b_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
+			if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32)) != 0 {
 				instruction.set_code(this.code64);
 			} else {
 				instruction.set_code(this.code16);
