@@ -219,7 +219,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Ed_V_Ib:
-				elem = new OpCodeHandler_Ed_V_Ib(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1);
+				elem = new OpCodeHandler_Ed_V_Ib(code = deserializer.ReadCode(), code + 1);
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Ep:
@@ -397,7 +397,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Gv_Ev_Ib_REX:
-				elem = new OpCodeHandler_Gv_Ev_Ib_REX(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1);
+				elem = new OpCodeHandler_Gv_Ev_Ib_REX(code = deserializer.ReadCode(), code + 1);
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Gv_Ev_Iz:
@@ -466,15 +466,15 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Gv_RX:
-				elem = new OpCodeHandler_Gv_RX(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1);
+				elem = new OpCodeHandler_Gv_RX(code = deserializer.ReadCode(), code + 1);
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Gv_W:
-				elem = new OpCodeHandler_Gv_W(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1);
+				elem = new OpCodeHandler_Gv_W(code = deserializer.ReadCode(), code + 1);
 				return 1;
 
 			case LegacyOpCodeHandlerKind.GvM_VX_Ib:
-				elem = new OpCodeHandler_GvM_VX_Ib(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1);
+				elem = new OpCodeHandler_GvM_VX_Ib(code = deserializer.ReadCode(), code + 1);
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Ib:
@@ -573,7 +573,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case LegacyOpCodeHandlerKind.MV:
-				elem = new OpCodeHandler_MV(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_MV(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Mv_Gv:
@@ -618,11 +618,11 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case LegacyOpCodeHandlerKind.P_R:
-				elem = new OpCodeHandler_P_R(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_P_R(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.P_W:
-				elem = new OpCodeHandler_P_W(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_P_W(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.PushEv:
@@ -677,7 +677,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case LegacyOpCodeHandlerKind.rDI_VX_RX:
-				elem = new OpCodeHandler_rDI_VX_RX(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_rDI_VX_RX(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Reg:
@@ -743,11 +743,11 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case LegacyOpCodeHandlerKind.RIb:
-				elem = new OpCodeHandler_RIb(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_RIb(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.RIbIb:
-				elem = new OpCodeHandler_RIbIb(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_RIbIb(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Rv:
@@ -835,43 +835,43 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case LegacyOpCodeHandlerKind.V_Ev:
-				elem = new OpCodeHandler_V_Ev(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1);
+				elem = new OpCodeHandler_V_Ev(code = deserializer.ReadCode(), code + 1);
 				return 1;
 
 			case LegacyOpCodeHandlerKind.VM:
-				elem = new OpCodeHandler_VM(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_VM(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.VN:
-				elem = new OpCodeHandler_VN(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_VN(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.VQ:
-				elem = new OpCodeHandler_VQ(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_VQ(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.VRIbIb:
-				elem = new OpCodeHandler_VRIbIb(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_VRIbIb(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.VW_2:
-				elem = new OpCodeHandler_VW(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_VW(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.VW_3:
-				elem = new OpCodeHandler_VW(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadCode());
+				elem = new OpCodeHandler_VW(deserializer.ReadCode(), deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.VWIb_2:
-				elem = new OpCodeHandler_VWIb(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_VWIb(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.VWIb_3:
-				elem = new OpCodeHandler_VWIb(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1);
+				elem = new OpCodeHandler_VWIb(code = deserializer.ReadCode(), code + 1);
 				return 1;
 
 			case LegacyOpCodeHandlerKind.VX_E_Ib:
-				elem = new OpCodeHandler_VX_E_Ib(deserializer.ReadRegister(), code = deserializer.ReadCode(), code + 1);
+				elem = new OpCodeHandler_VX_E_Ib(code = deserializer.ReadCode(), code + 1);
 				return 1;
 
 			case LegacyOpCodeHandlerKind.VX_Ev:
@@ -884,7 +884,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case LegacyOpCodeHandlerKind.WV:
-				elem = new OpCodeHandler_WV(deserializer.ReadRegister(), deserializer.ReadCode());
+				elem = new OpCodeHandler_WV(deserializer.ReadCode());
 				return 1;
 
 			case LegacyOpCodeHandlerKind.Xb_Yb:

@@ -16,7 +16,6 @@ use alloc::vec::Vec;
 
 #[allow(trivial_casts)]
 pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>) {
-	let reg;
 	let index;
 	let (decode, handler_ptr): (OpCodeHandlerDecodeFn, *const OpCodeHandler) = match deserializer.read_legacy_op_code_handler_kind() {
 		LegacyOpCodeHandlerKind::Bitness => box_opcode_handler(OpCodeHandler_Bitness::new(deserializer.read_handler(), deserializer.read_handler())),
@@ -221,9 +220,8 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		LegacyOpCodeHandlerKind::Eb1 => box_opcode_handler(OpCodeHandler_Eb_1::new(deserializer.read_code())),
 
 		LegacyOpCodeHandlerKind::Ed_V_Ib => {
-			reg = deserializer.read_register();
 			let (code1, code2) = deserializer.read_code2();
-			box_opcode_handler(OpCodeHandler_Ed_V_Ib::new(reg, code1, code2))
+			box_opcode_handler(OpCodeHandler_Ed_V_Ib::new(code1, code2))
 		}
 
 		LegacyOpCodeHandlerKind::Ep => {
@@ -399,9 +397,8 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		LegacyOpCodeHandlerKind::Gv_Ev_Ib_REX => {
-			reg = deserializer.read_register();
 			let (code1, code2) = deserializer.read_code2();
-			box_opcode_handler(OpCodeHandler_Gv_Ev_Ib_REX::new(reg, code1, code2))
+			box_opcode_handler(OpCodeHandler_Gv_Ev_Ib_REX::new(code1, code2))
 		}
 
 		LegacyOpCodeHandlerKind::Gv_Ev_Iz => {
@@ -470,21 +467,18 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		LegacyOpCodeHandlerKind::Gv_RX => {
-			reg = deserializer.read_register();
 			let (code1, code2) = deserializer.read_code2();
-			box_opcode_handler(OpCodeHandler_Gv_RX::new(reg, code1, code2))
+			box_opcode_handler(OpCodeHandler_Gv_RX::new(code1, code2))
 		}
 
 		LegacyOpCodeHandlerKind::Gv_W => {
-			reg = deserializer.read_register();
 			let (code1, code2) = deserializer.read_code2();
-			box_opcode_handler(OpCodeHandler_Gv_W::new(reg, code1, code2))
+			box_opcode_handler(OpCodeHandler_Gv_W::new(code1, code2))
 		}
 
 		LegacyOpCodeHandlerKind::GvM_VX_Ib => {
-			reg = deserializer.read_register();
 			let (code1, code2) = deserializer.read_code2();
-			box_opcode_handler(OpCodeHandler_GvM_VX_Ib::new(reg, code1, code2))
+			box_opcode_handler(OpCodeHandler_GvM_VX_Ib::new(code1, code2))
 		}
 
 		LegacyOpCodeHandlerKind::Ib => box_opcode_handler(OpCodeHandler_Ib::new(deserializer.read_code())),
@@ -565,7 +559,7 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			box_opcode_handler(OpCodeHandler_Ms::new(code1, code2, code3))
 		}
 
-		LegacyOpCodeHandlerKind::MV => box_opcode_handler(OpCodeHandler_MV::new(deserializer.read_register(), deserializer.read_code())),
+		LegacyOpCodeHandlerKind::MV => box_opcode_handler(OpCodeHandler_MV::new(deserializer.read_code())),
 
 		LegacyOpCodeHandlerKind::Mv_Gv => {
 			let (code1, code2, code3) = deserializer.read_code3();
@@ -597,8 +591,8 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 
 		LegacyOpCodeHandlerKind::P_Q => box_opcode_handler(OpCodeHandler_P_Q::new(deserializer.read_code())),
 		LegacyOpCodeHandlerKind::P_Q_Ib => box_opcode_handler(OpCodeHandler_P_Q_Ib::new(deserializer.read_code())),
-		LegacyOpCodeHandlerKind::P_R => box_opcode_handler(OpCodeHandler_P_R::new(deserializer.read_register(), deserializer.read_code())),
-		LegacyOpCodeHandlerKind::P_W => box_opcode_handler(OpCodeHandler_P_W::new(deserializer.read_register(), deserializer.read_code())),
+		LegacyOpCodeHandlerKind::P_R => box_opcode_handler(OpCodeHandler_P_R::new(deserializer.read_code())),
+		LegacyOpCodeHandlerKind::P_W => box_opcode_handler(OpCodeHandler_P_W::new(deserializer.read_code())),
 
 		LegacyOpCodeHandlerKind::PushEv => {
 			let (code1, code2, code3) = deserializer.read_code3();
@@ -648,9 +642,7 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		LegacyOpCodeHandlerKind::rDI_P_N => box_opcode_handler(OpCodeHandler_rDI_P_N::new(deserializer.read_code())),
-		LegacyOpCodeHandlerKind::rDI_VX_RX => {
-			box_opcode_handler(OpCodeHandler_rDI_VX_RX::new(deserializer.read_register(), deserializer.read_code()))
-		}
+		LegacyOpCodeHandlerKind::rDI_VX_RX => box_opcode_handler(OpCodeHandler_rDI_VX_RX::new(deserializer.read_code())),
 		LegacyOpCodeHandlerKind::Reg => box_opcode_handler(OpCodeHandler_Reg::new(deserializer.read_code(), deserializer.read_register())),
 
 		LegacyOpCodeHandlerKind::Reg_Ib2 => {
@@ -697,8 +689,8 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			box_opcode_handler(OpCodeHandler_Reservednop::new(deserializer.read_handler(), deserializer.read_handler()))
 		}
 
-		LegacyOpCodeHandlerKind::RIb => box_opcode_handler(OpCodeHandler_RIb::new(deserializer.read_register(), deserializer.read_code())),
-		LegacyOpCodeHandlerKind::RIbIb => box_opcode_handler(OpCodeHandler_RIbIb::new(deserializer.read_register(), deserializer.read_code())),
+		LegacyOpCodeHandlerKind::RIb => box_opcode_handler(OpCodeHandler_RIb::new(deserializer.read_code())),
+		LegacyOpCodeHandlerKind::RIbIb => box_opcode_handler(OpCodeHandler_RIbIb::new(deserializer.read_code())),
 
 		LegacyOpCodeHandlerKind::Rv => {
 			let (code1, code2, code3) = deserializer.read_code3();
@@ -769,33 +761,26 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		LegacyOpCodeHandlerKind::V_Ev => {
-			reg = deserializer.read_register();
 			let (code1, code2) = deserializer.read_code2();
-			box_opcode_handler(OpCodeHandler_V_Ev::new(reg, code1, code2))
+			box_opcode_handler(OpCodeHandler_V_Ev::new(code1, code2))
 		}
 
-		LegacyOpCodeHandlerKind::VM => box_opcode_handler(OpCodeHandler_VM::new(deserializer.read_register(), deserializer.read_code())),
-		LegacyOpCodeHandlerKind::VN => box_opcode_handler(OpCodeHandler_VN::new(deserializer.read_register(), deserializer.read_code())),
-		LegacyOpCodeHandlerKind::VQ => box_opcode_handler(OpCodeHandler_VQ::new(deserializer.read_register(), deserializer.read_code())),
-		LegacyOpCodeHandlerKind::VRIbIb => box_opcode_handler(OpCodeHandler_VRIbIb::new(deserializer.read_register(), deserializer.read_code())),
-		LegacyOpCodeHandlerKind::VW_2 => box_opcode_handler(OpCodeHandler_VW::new(deserializer.read_register(), deserializer.read_code())),
-
-		LegacyOpCodeHandlerKind::VW_3 => {
-			box_opcode_handler(OpCodeHandler_VW::new1(deserializer.read_register(), deserializer.read_code(), deserializer.read_code()))
-		}
-
-		LegacyOpCodeHandlerKind::VWIb_2 => box_opcode_handler(OpCodeHandler_VWIb::new(deserializer.read_register(), deserializer.read_code())),
+		LegacyOpCodeHandlerKind::VM => box_opcode_handler(OpCodeHandler_VM::new(deserializer.read_code())),
+		LegacyOpCodeHandlerKind::VN => box_opcode_handler(OpCodeHandler_VN::new(deserializer.read_code())),
+		LegacyOpCodeHandlerKind::VQ => box_opcode_handler(OpCodeHandler_VQ::new(deserializer.read_code())),
+		LegacyOpCodeHandlerKind::VRIbIb => box_opcode_handler(OpCodeHandler_VRIbIb::new(deserializer.read_code())),
+		LegacyOpCodeHandlerKind::VW_2 => box_opcode_handler(OpCodeHandler_VW::new(deserializer.read_code())),
+		LegacyOpCodeHandlerKind::VW_3 => box_opcode_handler(OpCodeHandler_VW::new1(deserializer.read_code(), deserializer.read_code())),
+		LegacyOpCodeHandlerKind::VWIb_2 => box_opcode_handler(OpCodeHandler_VWIb::new(deserializer.read_code())),
 
 		LegacyOpCodeHandlerKind::VWIb_3 => {
-			reg = deserializer.read_register();
 			let (code1, code2) = deserializer.read_code2();
-			box_opcode_handler(OpCodeHandler_VWIb::new1(reg, code1, code2))
+			box_opcode_handler(OpCodeHandler_VWIb::new1(code1, code2))
 		}
 
 		LegacyOpCodeHandlerKind::VX_E_Ib => {
-			reg = deserializer.read_register();
 			let (code1, code2) = deserializer.read_code2();
-			box_opcode_handler(OpCodeHandler_VX_E_Ib::new(reg, code1, code2))
+			box_opcode_handler(OpCodeHandler_VX_E_Ib::new(code1, code2))
 		}
 
 		LegacyOpCodeHandlerKind::VX_Ev => {
@@ -804,7 +789,7 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		LegacyOpCodeHandlerKind::Wbinvd => box_opcode_handler(OpCodeHandler_Wbinvd::new()),
-		LegacyOpCodeHandlerKind::WV => box_opcode_handler(OpCodeHandler_WV::new(deserializer.read_register(), deserializer.read_code())),
+		LegacyOpCodeHandlerKind::WV => box_opcode_handler(OpCodeHandler_WV::new(deserializer.read_code())),
 		LegacyOpCodeHandlerKind::Xb_Yb => box_opcode_handler(OpCodeHandler_Xb_Yb::new(deserializer.read_code())),
 		LegacyOpCodeHandlerKind::Xchg_Reg_rAX => box_opcode_handler(OpCodeHandler_Xchg_Reg_rAX::new(deserializer.read_u32())),
 

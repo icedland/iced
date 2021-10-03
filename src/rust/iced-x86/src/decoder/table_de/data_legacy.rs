@@ -2305,7 +2305,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x7C,// NIb
 			0xDF, 0x0C,// Psrlw_mm_imm8
 		0x9F,// RIb
-			0x4D,// XMM0
 			0xE0, 0x0C,// Psrlw_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -2318,7 +2317,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x7C,// NIb
 			0xE6, 0x0C,// Psraw_mm_imm8
 		0x9F,// RIb
-			0x4D,// XMM0
 			0xE7, 0x0C,// Psraw_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -2331,7 +2329,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x7C,// NIb
 			0xED, 0x0C,// Psllw_mm_imm8
 		0x9F,// RIb
-			0x4D,// XMM0
 			0xEE, 0x0C,// Psllw_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -2350,7 +2347,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x7C,// NIb
 			0x80, 0x0D,// Psrld_mm_imm8
 		0x9F,// RIb
-			0x4D,// XMM0
 			0x81, 0x0D,// Psrld_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -2363,7 +2359,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x7C,// NIb
 			0x87, 0x0D,// Psrad_mm_imm8
 		0x9F,// RIb
-			0x4D,// XMM0
 			0x88, 0x0D,// Psrad_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -2376,7 +2371,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x7C,// NIb
 			0x91, 0x0D,// Pslld_mm_imm8
 		0x9F,// RIb
-			0x4D,// XMM0
 			0x92, 0x0D,// Pslld_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -2395,7 +2389,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x7C,// NIb
 			0x98, 0x0D,// Psrlq_mm_imm8
 		0x9F,// RIb
-			0x4D,// XMM0
 			0x99, 0x0D,// Psrlq_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -2404,7 +2397,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0x9F,// RIb
-			0x4D,// XMM0
 			0x9F, 0x0D,// Psrldq_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -2417,7 +2409,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x7C,// NIb
 			0xA5, 0x0D,// Psllq_mm_imm8
 		0x9F,// RIb
-			0x4D,// XMM0
 			0xA6, 0x0D,// Psllq_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -2426,7 +2417,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0x9F,// RIb
-			0x4D,// XMM0
 			0xAC, 0x0D,// Pslldq_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3058,7 +3048,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x08,// 0x8
 	// 0 = 0x00
 	0xA0,// RIbIb
-		0x4D,// XMM0
 		0xD2, 0x0D,// Extrq_xmm_imm8_imm8
 
 	// 1 = 0x01
@@ -3130,7 +3119,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x82, 0x14,// Pshufb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x83, 0x14,// Pshufb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3140,7 +3128,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x89, 0x14,// Phaddw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x8A, 0x14,// Phaddw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3150,7 +3137,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x8D, 0x14,// Phaddd_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x8E, 0x14,// Phaddd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3160,7 +3146,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x91, 0x14,// Phaddsw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x92, 0x14,// Phaddsw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3170,7 +3155,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x95, 0x14,// Pmaddubsw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x96, 0x14,// Pmaddubsw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3180,7 +3164,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x9C, 0x14,// Phsubw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x9D, 0x14,// Phsubw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3190,7 +3173,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xA0, 0x14,// Phsubd_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA1, 0x14,// Phsubd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3200,7 +3182,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xA4, 0x14,// Phsubsw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA5, 0x14,// Phsubsw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3210,7 +3191,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xA8, 0x14,// Psignb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA9, 0x14,// Psignb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3220,7 +3200,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xAC, 0x14,// Psignw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xAD, 0x14,// Psignw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3230,7 +3209,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xB0, 0x14,// Psignd_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB1, 0x14,// Psignd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3240,7 +3218,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xB4, 0x14,// Pmulhrsw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB5, 0x14,// Pmulhrsw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3254,7 +3231,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC9, 0x14,// Pblendvb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3268,7 +3244,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xE4, 0x14,// Blendvps_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3277,7 +3252,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xEE, 0x14,// Blendvpd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3289,7 +3263,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xFD, 0x14,// Ptest_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3304,7 +3277,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x91, 0x15,// Pabsb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x92, 0x15,// Pabsb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3314,7 +3286,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x98, 0x15,// Pabsw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x99, 0x15,// Pabsw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3324,7 +3295,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x9F, 0x15,// Pabsd_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA0, 0x15,// Pabsd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3336,7 +3306,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA9, 0x15,// Pmovsxbw_xmm_xmmm64
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3345,7 +3314,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB2, 0x15,// Pmovsxbd_xmm_xmmm32
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3354,7 +3322,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xBB, 0x15,// Pmovsxbq_xmm_xmmm16
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3363,7 +3330,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC4, 0x15,// Pmovsxwd_xmm_xmmm64
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3372,7 +3338,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xCD, 0x15,// Pmovsxwq_xmm_xmmm32
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3381,7 +3346,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xD6, 0x15,// Pmovsxdq_xmm_xmmm64
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3393,7 +3357,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xF7, 0x15,// Pmuldq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3402,7 +3365,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x83, 0x16,// Pcmpeqq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3411,7 +3373,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB3,// VM
-			0x4D,// XMM0
 			0x8F, 0x16,// Movntdqa_xmm_m128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3420,7 +3381,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x98, 0x16,// Packusdw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3434,7 +3394,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xAE, 0x16,// Pmovzxbw_xmm_xmmm64
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3443,7 +3402,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB7, 0x16,// Pmovzxbd_xmm_xmmm32
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3452,7 +3410,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC0, 0x16,// Pmovzxbq_xmm_xmmm16
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3461,7 +3418,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC9, 0x16,// Pmovzxwd_xmm_xmmm64
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3470,7 +3426,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xD2, 0x16,// Pmovzxwq_xmm_xmmm32
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3479,7 +3434,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xDB, 0x16,// Pmovzxdq_xmm_xmmm64
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3491,7 +3445,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xE9, 0x16,// Pcmpgtq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3500,7 +3453,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xEF, 0x16,// Pminsb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3509,7 +3461,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xFB, 0x16,// Pminsd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3518,7 +3469,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x8A, 0x17,// Pminuw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3527,7 +3477,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x93, 0x17,// Pminud_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3536,7 +3485,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x9C, 0x17,// Pmaxsb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3545,7 +3493,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA2, 0x17,// Pmaxsd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3554,7 +3501,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xAB, 0x17,// Pmaxuw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3563,7 +3509,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB1, 0x17,// Pmaxud_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3572,7 +3517,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xBA, 0x17,// Pmulld_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3581,7 +3525,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC3, 0x17,// Phminposuw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3635,7 +3578,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 200 = 0xC8
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x9C, 0x1C,// Sha1nexte_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3644,7 +3586,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 201 = 0xC9
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x9F, 0x1C,// Sha1msg1_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3653,7 +3594,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 202 = 0xCA
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA0, 0x1C,// Sha1msg2_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3662,7 +3602,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 203 = 0xCB
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA3, 0x1C,// Sha256rnds2_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3671,7 +3610,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 204 = 0xCC
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA6, 0x1C,// Sha256msg1_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3680,7 +3618,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 205 = 0xCD
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA9, 0x1C,// Sha256msg2_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3693,7 +3630,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xAC, 0x1C,// Gf2p8mulb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3719,7 +3655,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB2, 0x1C,// Aesimc_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3728,10 +3663,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB4, 0x1C,// Aesenc_xmm_xmmm128
 		0xB8,// VW_3
-			0x4D,// XMM0
 			0xBF, 0x21,// Loadiwkey_xmm_xmm
 			0xC0, 0x21,// Aesenc128kl_xmm_m384
 		0x02,// Invalid
@@ -3740,12 +3673,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xBA, 0x1C,// Aesenclast_xmm_xmmm128
 		0x09,// RM
 			0x02,// Invalid
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xC1, 0x21,// Aesdec128kl_xmm_m384
 		0x02,// Invalid
 
@@ -3753,12 +3684,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC0, 0x1C,// Aesdec_xmm_xmmm128
 		0x09,// RM
 			0x02,// Invalid
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xC2, 0x21,// Aesenc256kl_xmm_m512
 		0x02,// Invalid
 
@@ -3766,12 +3695,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC6, 0x1C,// Aesdeclast_xmm_xmmm128
 		0x09,// RM
 			0x02,// Invalid
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xC3, 0x21,// Aesdec256kl_xmm_m512
 		0x02,// Invalid
 
@@ -3889,7 +3816,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0x9B, 0x1D,// Roundps_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3898,7 +3824,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xA1, 0x1D,// Roundpd_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3907,7 +3832,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xA7, 0x1D,// Roundss_xmm_xmmm32_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3916,7 +3840,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xAA, 0x1D,// Roundsd_xmm_xmmm64_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3925,7 +3848,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xAD, 0x1D,// Blendps_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3934,7 +3856,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xB0, 0x1D,// Blendpd_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3943,7 +3864,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xB3, 0x1D,// Pblendw_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3953,7 +3873,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x82,// P_Q_Ib
 			0xB6, 0x1D,// Palignr_mm_mmm64_imm8
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xB7, 0x1D,// Palignr_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3967,7 +3886,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0x63,// GvM_VX_Ib
-			0x4D,// XMM0
 			0xBD, 0x1D,// Pextrb_r32m8_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3976,7 +3894,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0x63,// GvM_VX_Ib
-			0x4D,// XMM0
 			0xC3, 0x1D,// Pextrw_r32m16_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3985,7 +3902,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0x63,// GvM_VX_Ib
-			0x4D,// XMM0
 			0xC9, 0x1D,// Pextrd_rm32_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -3994,7 +3910,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0x30,// Ed_V_Ib
-			0x4D,// XMM0
 			0xCF, 0x1D,// Extractps_rm32_xmm_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4008,7 +3923,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xBB,// VX_E_Ib
-			0x4D,// XMM0
 			0xF4, 0x1D,// Pinsrb_xmm_r32m8_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4017,7 +3931,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xFA, 0x1D,// Insertps_xmm_xmmm32_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4026,7 +3939,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xBB,// VX_E_Ib
-			0x4D,// XMM0
 			0xFD, 0x1D,// Pinsrd_xmm_rm32_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4040,7 +3952,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xB7, 0x1E,// Dpps_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4049,7 +3960,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xBA, 0x1E,// Dppd_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4058,7 +3968,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xBC, 0x1E,// Mpsadbw_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4070,7 +3979,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xC6, 0x1E,// Pclmulqdq_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4084,7 +3992,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xBA,// VWIb_3
-			0x4D,// XMM0
 			0x83, 0x1F,// Pcmpestrm_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4093,7 +4000,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xBA,// VWIb_3
-			0x4D,// XMM0
 			0x87, 0x1F,// Pcmpestri_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4102,7 +4008,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0x8B, 0x1F,// Pcmpistrm_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4111,7 +4016,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0x8D, 0x1F,// Pcmpistri_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4124,7 +4028,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 204 = 0xCC
 	0x11,// MandatoryPrefix
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xD9, 0x1F,// Sha1rnds4_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4137,7 +4040,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xDA, 0x1F,// Gf2p8affineqb_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4146,7 +4048,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xE0, 0x1F,// Gf2p8affineinvqb_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4160,7 +4061,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xE6, 0x1F,// Aeskeygenassist_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4294,32 +4194,24 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0A,// Options3
 			0x11,// MandatoryPrefix
 				0xB7,// VW_2
-					0x4D,// XMM0
 					0xFD, 0x06,// Movups_xmm_xmmm128
 				0xB7,// VW_2
-					0x4D,// XMM0
 					0x83, 0x07,// Movupd_xmm_xmmm128
 				0xB7,// VW_2
-					0x4D,// XMM0
 					0x89, 0x07,// Movss_xmm_xmmm32
 				0xB7,// VW_2
-					0x4D,// XMM0
 					0x8E, 0x07,// Movsd_xmm_xmmm64
 			0x2B,// Eb_Gb_1
 				0xF7, 0x06,// Umov_rm8_r8
 			0x08,// Umov
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xFD, 0x06,// Movups_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x83, 0x07,// Movupd_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x89, 0x07,// Movss_xmm_xmmm32
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x8E, 0x07,// Movsd_xmm_xmmm64
 
 	// 17 = 0x11
@@ -4327,32 +4219,24 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0A,// Options3
 			0x11,// MandatoryPrefix
 				0xBE,// WV
-					0x4D,// XMM0
 					0x93, 0x07,// Movups_xmmm128_xmm
 				0xBE,// WV
-					0x4D,// XMM0
 					0x99, 0x07,// Movupd_xmmm128_xmm
 				0xBE,// WV
-					0x4D,// XMM0
 					0x9F, 0x07,// Movss_xmmm32_xmm
 				0xBE,// WV
-					0x4D,// XMM0
 					0xA4, 0x07,// Movsd_xmmm64_xmm
 			0x38,// Ev_Gv_3b
 				0xF8, 0x06,// Umov_rm16_r16
 			0x08,// Umov
 		0x11,// MandatoryPrefix
 			0xBE,// WV
-				0x4D,// XMM0
 				0x93, 0x07,// Movups_xmmm128_xmm
 			0xBE,// WV
-				0x4D,// XMM0
 				0x99, 0x07,// Movupd_xmmm128_xmm
 			0xBE,// WV
-				0x4D,// XMM0
 				0x9F, 0x07,// Movss_xmmm32_xmm
 			0xBE,// WV
-				0x4D,// XMM0
 				0xA4, 0x07,// Movsd_xmmm64_xmm
 
 	// 18 = 0x12
@@ -4360,34 +4244,26 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0A,// Options3
 			0x11,// MandatoryPrefix
 				0xB8,// VW_3
-					0x4D,// XMM0
 					0xA9, 0x07,// Movhlps_xmm_xmm
 					0xAA, 0x07,// Movlps_xmm_m64
 				0xB3,// VM
-					0x4D,// XMM0
 					0xAF, 0x07,// Movlpd_xmm_m64
 				0xB7,// VW_2
-					0x4D,// XMM0
 					0xB2, 0x07,// Movsldup_xmm_xmmm128
 				0xB7,// VW_2
-					0x4D,// XMM0
 					0xB8, 0x07,// Movddup_xmm_xmmm64
 			0x4B,// Gb_Eb
 				0xFA, 0x06,// Umov_r8_rm8
 			0x08,// Umov
 		0x11,// MandatoryPrefix
 			0xB8,// VW_3
-				0x4D,// XMM0
 				0xA9, 0x07,// Movhlps_xmm_xmm
 				0xAA, 0x07,// Movlps_xmm_m64
 			0xB3,// VM
-				0x4D,// XMM0
 				0xAF, 0x07,// Movlpd_xmm_m64
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xB2, 0x07,// Movsldup_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xB8, 0x07,// Movddup_xmm_xmmm64
 
 	// 19 = 0x13
@@ -4395,10 +4271,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0A,// Options3
 			0x11,// MandatoryPrefix
 				0x79,// MV
-					0x4D,// XMM0
 					0xBE, 0x07,// Movlps_m64_xmm
 				0x79,// MV
-					0x4D,// XMM0
 					0xC1, 0x07,// Movlpd_m64_xmm
 				0x02,// Invalid
 				0x02,// Invalid
@@ -4407,10 +4281,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x08,// Umov
 		0x11,// MandatoryPrefix
 			0x79,// MV
-				0x4D,// XMM0
 				0xBE, 0x07,// Movlps_m64_xmm
 			0x79,// MV
-				0x4D,// XMM0
 				0xC1, 0x07,// Movlpd_m64_xmm
 			0x02,// Invalid
 			0x02,// Invalid
@@ -4418,10 +4290,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 20 = 0x14
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC4, 0x07,// Unpcklps_xmm_xmmm128
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xCA, 0x07,// Unpcklpd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4429,10 +4299,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 21 = 0x15
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xD0, 0x07,// Unpckhps_xmm_xmmm128
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xD6, 0x07,// Unpckhpd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4440,24 +4308,19 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 22 = 0x16
 	0x11,// MandatoryPrefix
 		0xB8,// VW_3
-			0x4D,// XMM0
 			0xDC, 0x07,// Movlhps_xmm_xmm
 			0xDF, 0x07,// Movhps_xmm_m64
 		0xB3,// VM
-			0x4D,// XMM0
 			0xE2, 0x07,// Movhpd_xmm_m64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xE5, 0x07,// Movshdup_xmm_xmmm128
 		0x02,// Invalid
 
 	// 23 = 0x17
 	0x11,// MandatoryPrefix
 		0x79,// MV
-			0x4D,// XMM0
 			0xEB, 0x07,// Movhps_m64_xmm
 		0x79,// MV
-			0x4D,// XMM0
 			0xEE, 0x07,// Movhpd_m64_xmm
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4584,10 +4447,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 40 = 0x28
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xAD, 0x08,// Movaps_xmm_xmmm128
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB3, 0x08,// Movapd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4595,10 +4456,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 41 = 0x29
 	0x11,// MandatoryPrefix
 		0xBE,// WV
-			0x4D,// XMM0
 			0xB9, 0x08,// Movaps_xmmm128_xmm
 		0xBE,// WV
-			0x4D,// XMM0
 			0xBF, 0x08,// Movapd_xmmm128_xmm
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4606,70 +4465,52 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 42 = 0x2A
 	0x11,// MandatoryPrefix
 		0xB5,// VQ
-			0x4D,// XMM0
 			0xC5, 0x08,// Cvtpi2ps_xmm_mmm64
 		0xB5,// VQ
-			0x4D,// XMM0
 			0xC6, 0x08,// Cvtpi2pd_xmm_mmm64
 		0xB2,// V_Ev
-			0x4D,// XMM0
 			0xC7, 0x08,// Cvtsi2ss_xmm_rm32
 		0xB2,// V_Ev
-			0x4D,// XMM0
 			0xCD, 0x08,// Cvtsi2sd_xmm_rm32
 
 	// 43 = 0x2B
 	0x11,// MandatoryPrefix
 		0x79,// MV
-			0x4D,// XMM0
 			0xD3, 0x08,// Movntps_m128_xmm
 		0x79,// MV
-			0x4D,// XMM0
 			0xD9, 0x08,// Movntpd_m128_xmm
 		0x79,// MV
-			0x4D,// XMM0
 			0xDF, 0x08,// Movntss_m32_xmm
 		0x79,// MV
-			0x4D,// XMM0
 			0xE0, 0x08,// Movntsd_m64_xmm
 
 	// 44 = 0x2C
 	0x11,// MandatoryPrefix
 		0x84,// P_W
-			0x4D,// XMM0
 			0xE1, 0x08,// Cvttps2pi_mm_xmmm64
 		0x84,// P_W
-			0x4D,// XMM0
 			0xE2, 0x08,// Cvttpd2pi_mm_xmmm128
 		0x62,// Gv_W
-			0x4D,// XMM0
 			0xE3, 0x08,// Cvttss2si_r32_xmmm32
 		0x62,// Gv_W
-			0x4D,// XMM0
 			0xE9, 0x08,// Cvttsd2si_r32_xmmm64
 
 	// 45 = 0x2D
 	0x11,// MandatoryPrefix
 		0x84,// P_W
-			0x4D,// XMM0
 			0xEF, 0x08,// Cvtps2pi_mm_xmmm64
 		0x84,// P_W
-			0x4D,// XMM0
 			0xF0, 0x08,// Cvtpd2pi_mm_xmmm128
 		0x62,// Gv_W
-			0x4D,// XMM0
 			0xF1, 0x08,// Cvtss2si_r32_xmmm32
 		0x62,// Gv_W
-			0x4D,// XMM0
 			0xF7, 0x08,// Cvtsd2si_r32_xmmm64
 
 	// 46 = 0x2E
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xFD, 0x08,// Ucomiss_xmm_xmmm32
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x80, 0x09,// Ucomisd_xmm_xmmm64
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4677,10 +4518,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 47 = 0x2F
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x83, 0x09,// Comiss_xmm_xmmm32
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x84, 0x09,// Comisd_xmm_xmmm64
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4858,10 +4697,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0x61,// Gv_RX
-				0x4D,// XMM0
 				0xE0, 0x09,// Movmskps_r32_xmm
 			0x61,// Gv_RX
-				0x4D,// XMM0
 				0xE6, 0x09,// Movmskpd_r32_xmm
 			0x02,// Invalid
 			0x02,// Invalid
@@ -4873,16 +4710,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xEC, 0x09,// Sqrtps_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xF2, 0x09,// Sqrtpd_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xF8, 0x09,// Sqrtss_xmm_xmmm32
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xFB, 0x09,// Sqrtsd_xmm_xmmm64
 		0x81,// P_Q
 			0xA0, 0x21,// Paddsiw_mm_mmm64
@@ -4892,11 +4725,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xFE, 0x09,// Rsqrtps_xmm_xmmm128
 			0x02,// Invalid
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x81, 0x0A,// Rsqrtss_xmm_xmmm32
 			0x02,// Invalid
 		0x81,// P_Q
@@ -4906,11 +4737,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 83 = 0x53
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x83, 0x0A,// Rcpps_xmm_xmmm128
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x86, 0x0A,// Rcpss_xmm_xmmm32
 		0x02,// Invalid
 
@@ -4918,10 +4747,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x88, 0x0A,// Andps_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x8E, 0x0A,// Andpd_xmm_xmmm128
 			0x02,// Invalid
 			0x02,// Invalid
@@ -4935,10 +4762,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x94, 0x0A,// Andnps_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x9A, 0x0A,// Andnpd_xmm_xmmm128
 			0x02,// Invalid
 			0x02,// Invalid
@@ -4949,10 +4774,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 86 = 0x56
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA0, 0x0A,// Orps_xmm_xmmm128
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA6, 0x0A,// Orpd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4960,10 +4783,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 87 = 0x57
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xAC, 0x0A,// Xorps_xmm_xmmm128
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB2, 0x0A,// Xorpd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -4972,16 +4793,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xB8, 0x0A,// Addps_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xBE, 0x0A,// Addpd_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xC4, 0x0A,// Addss_xmm_xmmm32
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xC7, 0x0A,// Addsd_xmm_xmmm64
 		0x09,// RM
 			0x02,// Invalid
@@ -4993,16 +4810,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xCA, 0x0A,// Mulps_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xD0, 0x0A,// Mulpd_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xD6, 0x0A,// Mulss_xmm_xmmm32
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xD9, 0x0A,// Mulsd_xmm_xmmm64
 		0x81,// P_Q
 			0xA5, 0x21,// Pmulhrw_mm_mmm64
@@ -5012,16 +4825,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xDC, 0x0A,// Cvtps2pd_xmm_xmmm64
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xE2, 0x0A,// Cvtpd2ps_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xE8, 0x0A,// Cvtss2sd_xmm_xmmm32
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xEB, 0x0A,// Cvtsd2ss_xmm_xmmm64
 		0x09,// RM
 			0x02,// Invalid
@@ -5033,13 +4842,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xEE, 0x0A,// Cvtdq2ps_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xF7, 0x0A,// Cvtps2dq_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xFD, 0x0A,// Cvttps2dq_xmm_xmmm128
 			0x02,// Invalid
 		0x09,// RM
@@ -5052,16 +4858,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x83, 0x0B,// Subps_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x89, 0x0B,// Subpd_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x8F, 0x0B,// Subss_xmm_xmmm32
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x92, 0x0B,// Subsd_xmm_xmmm64
 		0x09,// RM
 			0x02,// Invalid
@@ -5073,16 +4875,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x95, 0x0B,// Minps_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x9B, 0x0B,// Minpd_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xA1, 0x0B,// Minss_xmm_xmmm32
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xA4, 0x0B,// Minsd_xmm_xmmm64
 		0x81,// P_Q
 			0xA9, 0x21,// Pmulhriw_mm_mmm64
@@ -5092,16 +4890,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x11,// MandatoryPrefix
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xA7, 0x0B,// Divps_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xAD, 0x0B,// Divpd_xmm_xmmm128
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xB3, 0x0B,// Divss_xmm_xmmm32
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xB6, 0x0B,// Divsd_xmm_xmmm64
 		0x09,// RM
 			0x02,// Invalid
@@ -5112,16 +4906,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 95 = 0x5F
 	0x11,// MandatoryPrefix
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB9, 0x0B,// Maxps_xmm_xmmm128
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xBF, 0x0B,// Maxpd_xmm_xmmm128
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC5, 0x0B,// Maxss_xmm_xmmm32
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC8, 0x0B,// Maxsd_xmm_xmmm64
 
 	// 96 = 0x60
@@ -5129,7 +4919,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xCB, 0x0B,// Punpcklbw_mm_mmm32
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xCC, 0x0B,// Punpcklbw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5139,7 +4928,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xD2, 0x0B,// Punpcklwd_mm_mmm32
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xD3, 0x0B,// Punpcklwd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5149,7 +4937,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xD9, 0x0B,// Punpckldq_mm_mmm32
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xDA, 0x0B,// Punpckldq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5159,7 +4946,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xE0, 0x0B,// Packsswb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xE1, 0x0B,// Packsswb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5169,7 +4955,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xE7, 0x0B,// Pcmpgtb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xE8, 0x0B,// Pcmpgtb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5179,7 +4964,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xEE, 0x0B,// Pcmpgtw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xEF, 0x0B,// Pcmpgtw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5189,7 +4973,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xF5, 0x0B,// Pcmpgtd_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xF6, 0x0B,// Pcmpgtd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5199,7 +4982,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xFC, 0x0B,// Packuswb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xFD, 0x0B,// Packuswb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5209,7 +4991,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x83, 0x0C,// Punpckhbw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x84, 0x0C,// Punpckhbw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5219,7 +5000,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x8A, 0x0C,// Punpckhwd_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x8B, 0x0C,// Punpckhwd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5229,7 +5009,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x91, 0x0C,// Punpckhdq_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x92, 0x0C,// Punpckhdq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5239,7 +5018,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x98, 0x0C,// Packssdw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x99, 0x0C,// Packssdw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5248,7 +5026,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x9F, 0x0C,// Punpcklqdq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5257,7 +5034,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA5, 0x0C,// Punpckhqdq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5276,10 +5052,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xB3, 0x0C,// Movq_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB4, 0x0C,// Movdqa_xmm_xmmm128
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xBD, 0x0C,// Movdqu_xmm_xmmm128
 		0x02,// Invalid
 
@@ -5288,13 +5062,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x82,// P_Q_Ib
 			0xCC, 0x0C,// Pshufw_mm_mmm64_imm8
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xCD, 0x0C,// Pshufd_xmm_xmmm128_imm8
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xD3, 0x0C,// Pshufhw_xmm_xmmm128_imm8
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xD9, 0x0C,// Pshuflw_xmm_xmmm128_imm8
 
 	// 113 = 0x71
@@ -5317,7 +5088,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xB2, 0x0D,// Pcmpeqb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB3, 0x0D,// Pcmpeqb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5327,7 +5097,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xB9, 0x0D,// Pcmpeqw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xBA, 0x0D,// Pcmpeqw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5337,7 +5106,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xC0, 0x0D,// Pcmpeqd_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC1, 0x0D,// Pcmpeqd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5360,7 +5128,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 					0x4C,// 0x4C = handlers_Grp_660F78
 			0x02,// Invalid
 			0xB6,// VRIbIb
-				0x4D,// XMM0
 				0xDB, 0x0D,// Insertq_xmm_xmm_imm8_imm8
 		0xCA,// M_Sw
 			0x93, 0x21,// Svdc_m80_Sreg
@@ -5374,12 +5141,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 				0x01,// true
 				0x01,// true
 			0xB8,// VW_3
-				0x4D,// XMM0
 				0xE6, 0x0D,// Extrq_xmm_xmm
 				0x00,// INVALID
 			0x02,// Invalid
 			0xB8,// VW_3
-				0x4D,// XMM0
 				0xEF, 0x0D,// Insertq_xmm_xmm
 				0x00,// INVALID
 		0xCB,// Sw_M
@@ -5407,11 +5172,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x11,// MandatoryPrefix
 			0x02,// Invalid
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x8E, 0x0E,// Haddpd_xmm_xmmm128
 			0x02,// Invalid
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x91, 0x0E,// Haddps_xmm_xmmm128
 		0x0E,// Group
 			0x08,// ArrayReference
@@ -5423,11 +5186,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x11,// MandatoryPrefix
 			0x02,// Invalid
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x94, 0x0E,// Hsubpd_xmm_xmmm128
 			0x02,// Invalid
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0x97, 0x0E,// Hsubps_xmm_xmmm128
 		0x0E,// Group
 			0x08,// ArrayReference
@@ -5442,7 +5203,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x46,// Ev_VX
 				0x9C, 0x0E,// Movd_rm32_xmm
 			0xB7,// VW_2
-				0x4D,// XMM0
 				0xA2, 0x0E,// Movq_xmm_xmmm64
 			0x02,// Invalid
 		0xA4,// Simple
@@ -5454,10 +5214,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x8C,// Q_P
 			0xA5, 0x0E,// Movq_mmm64_mm
 		0xBE,// WV
-			0x4D,// XMM0
 			0xA6, 0x0E,// Movdqa_xmmm128_xmm
 		0xBE,// WV
-			0x4D,// XMM0
 			0xAF, 0x0E,// Movdqu_xmmm128_xmm
 		0x02,// Invalid
 
@@ -5816,16 +5574,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 194 = 0xC2
 	0x11,// MandatoryPrefix
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xDC, 0x10,// Cmpps_xmm_xmmm128_imm8
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xE2, 0x10,// Cmppd_xmm_xmmm128_imm8
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xE8, 0x10,// Cmpss_xmm_xmmm32_imm8
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0xEB, 0x10,// Cmpsd_xmm_xmmm64_imm8
 
 	// 195 = 0xC3
@@ -5841,7 +5595,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x80,// P_Ev_Ib
 			0xF0, 0x10,// Pinsrw_mm_r32m16_imm8
 		0xBB,// VX_E_Ib
-			0x4D,// XMM0
 			0xF2, 0x10,// Pinsrw_xmm_r32m16_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5852,7 +5605,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0xF8, 0x10,// Pextrw_r32_mm_imm8
 		0x09,// RM
 			0x53,// Gv_Ev_Ib_REX
-				0x4D,// XMM0
 				0xFA, 0x10,// Pextrw_r32_xmm_imm8
 			0x02,// Invalid
 		0x02,// Invalid
@@ -5861,10 +5613,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 198 = 0xC6
 	0x11,// MandatoryPrefix
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0x80, 0x11,// Shufps_xmm_xmmm128_imm8
 		0xB9,// VWIb_2
-			0x4D,// XMM0
 			0x86, 0x11,// Shufpd_xmm_xmmm128_imm8
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5918,11 +5668,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA3, 0x11,// Addsubpd_xmm_xmmm128
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA6, 0x11,// Addsubps_xmm_xmmm128
 
 	// 209 = 0xD1
@@ -5930,7 +5678,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xA9, 0x11,// Psrlw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xAA, 0x11,// Psrlw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5940,7 +5687,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xB0, 0x11,// Psrld_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB1, 0x11,// Psrld_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5950,7 +5696,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xB7, 0x11,// Psrlq_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB8, 0x11,// Psrlq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5960,7 +5705,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xBE, 0x11,// Paddq_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xBF, 0x11,// Paddq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5970,7 +5714,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xC5, 0x11,// Pmullw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC6, 0x11,// Pmullw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -5979,13 +5722,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xBE,// WV
-			0x4D,// XMM0
 			0xCC, 0x11,// Movq_xmmm64_xmm
 		0xB4,// VN
-			0x4D,// XMM0
 			0xCF, 0x11,// Movq2dq_xmm_mm
 		0x83,// P_R
-			0x4D,// XMM0
 			0xD0, 0x11,// Movdq2q_mm_xmm
 
 	// 215 = 0xD7
@@ -5993,7 +5733,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x5F,// Gv_N
 			0xD1, 0x11,// Pmovmskb_r32_mm
 		0x61,// Gv_RX
-			0x4D,// XMM0
 			0xD3, 0x11,// Pmovmskb_r32_xmm
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6003,7 +5742,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xD9, 0x11,// Psubusb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xDA, 0x11,// Psubusb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6013,7 +5751,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xE0, 0x11,// Psubusw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xE1, 0x11,// Psubusw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6023,7 +5760,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xE7, 0x11,// Pminub_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xE8, 0x11,// Pminub_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6033,7 +5769,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xEE, 0x11,// Pand_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xEF, 0x11,// Pand_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6043,7 +5778,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xF8, 0x11,// Paddusb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xF9, 0x11,// Paddusb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6053,7 +5787,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xFF, 0x11,// Paddusw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x80, 0x12,// Paddusw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6063,7 +5796,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x86, 0x12,// Pmaxub_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x87, 0x12,// Pmaxub_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6073,7 +5805,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x8D, 0x12,// Pandn_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x8E, 0x12,// Pandn_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6083,7 +5814,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x97, 0x12,// Pavgb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x98, 0x12,// Pavgb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6093,7 +5823,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x9E, 0x12,// Psraw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x9F, 0x12,// Psraw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6103,7 +5832,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xA5, 0x12,// Psrad_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA6, 0x12,// Psrad_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6113,7 +5841,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xAF, 0x12,// Pavgw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB0, 0x12,// Pavgw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6123,7 +5850,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xB6, 0x12,// Pmulhuw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB7, 0x12,// Pmulhuw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6133,7 +5859,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xBD, 0x12,// Pmulhw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xBE, 0x12,// Pmulhw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6142,13 +5867,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x11,// MandatoryPrefix
 		0x02,// Invalid
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC4, 0x12,// Cvttpd2dq_xmm_xmmm128
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xCA, 0x12,// Cvtdq2pd_xmm_xmmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xD3, 0x12,// Cvtpd2dq_xmm_xmmm128
 
 	// 231 = 0xE7
@@ -6156,7 +5878,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x77,// MP
 			0xD9, 0x12,// Movntq_m64_mm
 		0x79,// MV
-			0x4D,// XMM0
 			0xDA, 0x12,// Movntdq_m128_xmm
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6166,7 +5887,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xE0, 0x12,// Psubsb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xE1, 0x12,// Psubsb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6176,7 +5896,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xE7, 0x12,// Psubsw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xE8, 0x12,// Psubsw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6186,7 +5905,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xEE, 0x12,// Pminsw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xEF, 0x12,// Pminsw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6196,7 +5914,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xF5, 0x12,// Por_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xF6, 0x12,// Por_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6206,7 +5923,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xFF, 0x12,// Paddsb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x80, 0x13,// Paddsb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6216,7 +5932,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x86, 0x13,// Paddsw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x87, 0x13,// Paddsw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6226,7 +5941,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x8D, 0x13,// Pmaxsw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x8E, 0x13,// Pmaxsw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6236,7 +5950,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0x94, 0x13,// Pxor_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0x95, 0x13,// Pxor_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6247,7 +5960,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x02,// Invalid
 		0xB3,// VM
-			0x4D,// XMM0
 			0x9E, 0x13,// Lddqu_xmm_m128
 
 	// 241 = 0xF1
@@ -6255,7 +5967,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xA1, 0x13,// Psllw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA2, 0x13,// Psllw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6265,7 +5976,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xA8, 0x13,// Pslld_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xA9, 0x13,// Pslld_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6275,7 +5985,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xAF, 0x13,// Psllq_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB0, 0x13,// Psllq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6285,7 +5994,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xB6, 0x13,// Pmuludq_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xB7, 0x13,// Pmuludq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6295,7 +6003,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xBD, 0x13,// Pmaddwd_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xBE, 0x13,// Pmaddwd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6305,7 +6012,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xC4, 0x13,// Psadbw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xC5, 0x13,// Psadbw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6315,7 +6021,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x8F,// rDI_P_N
 			0xCB, 0x13,// Maskmovq_rDI_mm_mm
 		0x90,// rDI_VX_RX
-			0x4D,// XMM0
 			0xCC, 0x13,// Maskmovdqu_rDI_xmm_xmm
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6325,7 +6030,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xCE, 0x13,// Psubb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xCF, 0x13,// Psubb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6335,7 +6039,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xD5, 0x13,// Psubw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xD6, 0x13,// Psubw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6345,7 +6048,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xDC, 0x13,// Psubd_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xDD, 0x13,// Psubd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6355,7 +6057,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xE3, 0x13,// Psubq_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xE4, 0x13,// Psubq_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6365,7 +6066,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xEA, 0x13,// Paddb_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xEB, 0x13,// Paddb_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6375,7 +6075,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xF1, 0x13,// Paddw_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xF2, 0x13,// Paddw_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid
@@ -6385,7 +6084,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x81,// P_Q
 			0xF8, 0x13,// Paddd_mm_mmm64
 		0xB7,// VW_2
-			0x4D,// XMM0
 			0xF9, 0x13,// Paddd_xmm_xmmm128
 		0x02,// Invalid
 		0x02,// Invalid

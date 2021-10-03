@@ -2808,12 +2808,10 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gv_Ev_Ib_REX : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code32;
 		readonly Code code64;
 
-		public OpCodeHandler_Gv_Ev_Ib_REX(Register baseReg, Code code32, Code code64) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_Gv_Ev_Ib_REX(Code code32, Code code64) {
 			this.code32 = code32;
 			this.code64 = code64;
 		}
@@ -2836,7 +2834,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(state.mod == 3);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+			instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			instruction.Op2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
@@ -4225,18 +4223,15 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_VW : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code codeR;
 		readonly Code codeM;
 
-		public OpCodeHandler_VW(Register baseReg, Code codeR, Code codeM) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_VW(Code codeR, Code codeM) {
 			this.codeR = codeR;
 			this.codeM = codeM;
 		}
 
-		public OpCodeHandler_VW(Register baseReg, Code code) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_VW(Code code) {
 			codeR = code;
 			codeM = code;
 		}
@@ -4246,12 +4241,12 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			if (state.mod == 3) {
 				instruction.Code = codeR;
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else {
 				instruction.Code = codeM;
@@ -4264,13 +4259,9 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_WV : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_WV(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_WV(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -4279,7 +4270,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -4287,18 +4278,14 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 		}
 	}
 
 	sealed class OpCodeHandler_rDI_VX_RX : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_rDI_VX_RX(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_rDI_VX_RX(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -4312,11 +4299,11 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.MemorySegDI;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op2Kind = OpKind.Register;
-				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else
 				decoder.SetInvalidInstruction();
@@ -4352,13 +4339,9 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_VM : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_VM(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_VM(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -4366,7 +4349,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.Code = code;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -4377,13 +4360,9 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_MV : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_MV(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_MV(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -4397,18 +4376,14 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 		}
 	}
 
 	sealed class OpCodeHandler_VQ : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_VQ(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_VQ(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -4416,7 +4391,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.Code = code;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
@@ -4525,13 +4500,9 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_P_W : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_P_W(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_P_W(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -4543,7 +4514,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
@@ -4553,13 +4524,9 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_P_R : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_P_R(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_P_R(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -4571,7 +4538,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else
 				decoder.SetInvalidInstruction();
@@ -4689,12 +4656,10 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gv_W : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code codeW0;
 		readonly Code codeW1;
 
-		public OpCodeHandler_Gv_W(Register baseReg, Code codeW0, Code codeW1) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_Gv_W(Code codeW0, Code codeW1) {
 			this.codeW0 = codeW0;
 			this.codeW1 = codeW1;
 		}
@@ -4717,7 +4682,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
@@ -4727,12 +4692,10 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_V_Ev : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code codeW0;
 		readonly Code codeW1;
 
-		public OpCodeHandler_V_Ev(Register baseReg, Code codeW0, Code codeW1) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_V_Ev(Code codeW0, Code codeW1) {
 			this.codeW0 = codeW0;
 			this.codeW1 = codeW1;
 		}
@@ -4751,7 +4714,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
@@ -4765,18 +4728,15 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_VWIb : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code codeW0;
 		readonly Code codeW1;
 
-		public OpCodeHandler_VWIb(Register baseReg, Code code) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_VWIb(Code code) {
 			codeW0 = code;
 			codeW1 = code;
 		}
 
-		public OpCodeHandler_VWIb(Register baseReg, Code codeW0, Code codeW1) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_VWIb(Code codeW0, Code codeW1) {
 			this.codeW0 = codeW0;
 			this.codeW1 = codeW1;
 		}
@@ -4790,11 +4750,11 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Code = codeW0;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
@@ -4806,13 +4766,9 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_VRIbIb : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_VRIbIb(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_VRIbIb(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -4820,11 +4776,11 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.Code = code;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else
 				decoder.SetInvalidInstruction();
@@ -4836,13 +4792,9 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_RIbIb : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_RIbIb(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_RIbIb(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -4851,7 +4803,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else
 				decoder.SetInvalidInstruction();
@@ -4863,13 +4815,9 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_RIb : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_RIb(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_RIb(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -4878,7 +4826,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else
 				decoder.SetInvalidInstruction();
@@ -4888,12 +4836,10 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Ed_V_Ib : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code32;
 		readonly Code code64;
 
-		public OpCodeHandler_Ed_V_Ib(Register baseReg, Code code32, Code code64) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_Ed_V_Ib(Code code32, Code code64) {
 			this.code32 = code32;
 			this.code64 = code64;
 		}
@@ -4921,7 +4867,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			instruction.Op2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
@@ -5000,12 +4946,10 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_VX_E_Ib : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code32;
 		readonly Code code64;
 
-		public OpCodeHandler_VX_E_Ib(Register baseReg, Code code32, Code code64) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_VX_E_Ib(Code code32, Code code64) {
 			this.code32 = code32;
 			this.code64 = code64;
 		}
@@ -5024,7 +4968,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
@@ -5040,12 +4984,10 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gv_RX : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code32;
 		readonly Code code64;
 
-		public OpCodeHandler_Gv_RX(Register baseReg, Code code32, Code code64) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_Gv_RX(Code code32, Code code64) {
 			this.code32 = code32;
 			this.code64 = code64;
 		}
@@ -5066,7 +5008,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + baseReg;
+				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.XMM0;
 			}
 			else
 				decoder.SetInvalidInstruction();
@@ -5332,13 +5274,9 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_VN : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code;
 
-		public OpCodeHandler_VN(Register baseReg, Code code) {
-			this.baseReg = baseReg;
-			this.code = code;
-		}
+		public OpCodeHandler_VN(Code code) => this.code = code;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
@@ -5346,7 +5284,7 @@ namespace Iced.Intel.DecoderInternal {
 			instruction.Code = code;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
@@ -5548,12 +5486,10 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_GvM_VX_Ib : OpCodeHandlerModRM {
-		readonly Register baseReg;
 		readonly Code code32;
 		readonly Code code64;
 
-		public OpCodeHandler_GvM_VX_Ib(Register baseReg, Code code32, Code code64) {
-			this.baseReg = baseReg;
+		public OpCodeHandler_GvM_VX_Ib(Code code32, Code code64) {
 			this.code32 = code32;
 			this.code64 = code64;
 		}
@@ -5581,7 +5517,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase) + Register.XMM0;
 			instruction.Op2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
 		}

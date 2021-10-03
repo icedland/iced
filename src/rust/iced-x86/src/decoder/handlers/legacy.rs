@@ -2866,20 +2866,19 @@ pub(in crate::decoder) struct OpCodeHandler_Gv_Ev_Ib_REX {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_Gv_Ev_Ib_REX {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_Gv_Ev_Ib_REX::decode, Self { has_modrm: true, base_reg, code32, code64 })
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_Gv_Ev_Ib_REX::decode, Self { has_modrm: true, code32, code64 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		debug_assert_eq!(decoder.state.mod_, 3);
-		write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+		write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		instruction.set_op2_kind(OpKind::Immediate8);
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 		if (decoder.state.flags & StateFlags::W) != 0 {
@@ -4268,27 +4267,26 @@ pub(in crate::decoder) struct OpCodeHandler_VW {
 	has_modrm: bool,
 	code_r: Code,
 	code_m: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_VW {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_VW::decode, Self { has_modrm: true, base_reg, code_r: code, code_m: code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_VW::decode, Self { has_modrm: true, code_r: code, code_m: code })
 	}
 
 	#[inline]
-	pub(in crate::decoder) fn new1(base_reg: Register, code_r: Code, code_m: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_VW::decode, Self { has_modrm: true, base_reg, code_r, code_m })
+	pub(in crate::decoder) fn new1(code_r: Code, code_m: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_VW::decode, Self { has_modrm: true, code_r, code_m })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		if decoder.state.mod_ == 3 {
 			instruction.set_code(this.code_r);
-			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			if this.code_m == Code::INVALID {
 				decoder.set_invalid_instruction();
@@ -4305,22 +4303,21 @@ impl OpCodeHandler_VW {
 pub(in crate::decoder) struct OpCodeHandler_WV {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_WV {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_WV::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_WV::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
-		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		if decoder.state.mod_ == 3 {
-			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			instruction.set_op0_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -4333,13 +4330,12 @@ impl OpCodeHandler_WV {
 pub(in crate::decoder) struct OpCodeHandler_rDI_VX_RX {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_rDI_VX_RX {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_rDI_VX_RX::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_rDI_VX_RX::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4353,9 +4349,9 @@ impl OpCodeHandler_rDI_VX_RX {
 		} else {
 			instruction.set_op0_kind(OpKind::MemorySegDI);
 		}
-		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		if decoder.state.mod_ == 3 {
-			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			decoder.set_invalid_instruction();
 		}
@@ -4400,20 +4396,19 @@ impl OpCodeHandler_rDI_P_N {
 pub(in crate::decoder) struct OpCodeHandler_VM {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_VM {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_VM::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_VM::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
-		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
@@ -4428,20 +4423,19 @@ impl OpCodeHandler_VM {
 pub(in crate::decoder) struct OpCodeHandler_MV {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_MV {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_MV::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_MV::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
-		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
@@ -4456,20 +4450,19 @@ impl OpCodeHandler_MV {
 pub(in crate::decoder) struct OpCodeHandler_VQ {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_VQ {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_VQ::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_VQ::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
-		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + Register::MM0 as u32);
 		} else {
@@ -4594,13 +4587,12 @@ impl OpCodeHandler_P_Q_Ib {
 pub(in crate::decoder) struct OpCodeHandler_P_W {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_P_W {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_P_W::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_P_W::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4609,7 +4601,7 @@ impl OpCodeHandler_P_W {
 		instruction.set_code(this.code);
 		write_op0_reg!(instruction, decoder.state.reg + Register::MM0 as u32);
 		if decoder.state.mod_ == 3 {
-			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			instruction.set_op1_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -4622,13 +4614,12 @@ impl OpCodeHandler_P_W {
 pub(in crate::decoder) struct OpCodeHandler_P_R {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_P_R {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_P_R::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_P_R::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4637,7 +4628,7 @@ impl OpCodeHandler_P_R {
 		instruction.set_code(this.code);
 		write_op0_reg!(instruction, decoder.state.reg + Register::MM0 as u32);
 		if decoder.state.mod_ == 3 {
-			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			decoder.set_invalid_instruction();
 		}
@@ -4757,13 +4748,12 @@ pub(in crate::decoder) struct OpCodeHandler_Gv_W {
 	has_modrm: bool,
 	code_w0: Code,
 	code_w1: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_Gv_W {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_Gv_W::decode, Self { has_modrm: true, base_reg, code_w0, code_w1 })
+	pub(in crate::decoder) fn new(code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_Gv_W::decode, Self { has_modrm: true, code_w0, code_w1 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4777,7 +4767,7 @@ impl OpCodeHandler_Gv_W {
 			write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::EAX as u32);
 		}
 		if decoder.state.mod_ == 3 {
-			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			instruction.set_op1_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -4791,13 +4781,12 @@ pub(in crate::decoder) struct OpCodeHandler_V_Ev {
 	has_modrm: bool,
 	code_w0: Code,
 	code_w1: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_V_Ev {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_V_Ev::decode, Self { has_modrm: true, base_reg, code_w0, code_w1 })
+	pub(in crate::decoder) fn new(code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_V_Ev::decode, Self { has_modrm: true, code_w0, code_w1 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4811,7 +4800,7 @@ impl OpCodeHandler_V_Ev {
 			instruction.set_code(this.code_w1);
 			gpr = Register::RAX;
 		}
-		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
 		} else {
@@ -4827,18 +4816,17 @@ pub(in crate::decoder) struct OpCodeHandler_VWIb {
 	has_modrm: bool,
 	code_w0: Code,
 	code_w1: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_VWIb {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_VWIb::decode, Self { has_modrm: true, base_reg, code_w0: code, code_w1: code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_VWIb::decode, Self { has_modrm: true, code_w0: code, code_w1: code })
 	}
 
 	#[inline]
-	pub(in crate::decoder) fn new1(base_reg: Register, code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_VWIb::decode, Self { has_modrm: true, base_reg, code_w0, code_w1 })
+	pub(in crate::decoder) fn new1(code_w0: Code, code_w1: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_VWIb::decode, Self { has_modrm: true, code_w0, code_w1 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4849,10 +4837,10 @@ impl OpCodeHandler_VWIb {
 		} else {
 			instruction.set_code(this.code_w0);
 		}
-		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		instruction.set_op2_kind(OpKind::Immediate8);
 		if decoder.state.mod_ == 3 {
-			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			instruction.set_op1_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -4866,27 +4854,26 @@ impl OpCodeHandler_VWIb {
 pub(in crate::decoder) struct OpCodeHandler_VRIbIb {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_VRIbIb {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_VRIbIb::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_VRIbIb::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
-		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		instruction.set_op2_kind(OpKind::Immediate8);
 		instruction.set_op3_kind(OpKind::Immediate8_2nd);
 		let w = decoder.read_u16() as u32;
 		instruction_internal::internal_set_immediate8(instruction, w as u8 as u32);
 		instruction_internal::internal_set_immediate8_2nd(instruction, w >> 8);
 		if decoder.state.mod_ == 3 {
-			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			decoder.set_invalid_instruction();
 		}
@@ -4898,13 +4885,12 @@ impl OpCodeHandler_VRIbIb {
 pub(in crate::decoder) struct OpCodeHandler_RIbIb {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_RIbIb {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_RIbIb::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_RIbIb::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4917,7 +4903,7 @@ impl OpCodeHandler_RIbIb {
 		instruction_internal::internal_set_immediate8(instruction, w as u8 as u32);
 		instruction_internal::internal_set_immediate8_2nd(instruction, w >> 8);
 		if decoder.state.mod_ == 3 {
-			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			decoder.set_invalid_instruction();
 		}
@@ -4929,13 +4915,12 @@ impl OpCodeHandler_RIbIb {
 pub(in crate::decoder) struct OpCodeHandler_RIb {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_RIb {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_RIb::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_RIb::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4945,7 +4930,7 @@ impl OpCodeHandler_RIb {
 		instruction.set_op1_kind(OpKind::Immediate8);
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 		if decoder.state.mod_ == 3 {
-			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			decoder.set_invalid_instruction();
 		}
@@ -4958,19 +4943,18 @@ pub(in crate::decoder) struct OpCodeHandler_Ed_V_Ib {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_Ed_V_Ib {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_Ed_V_Ib::decode, Self { has_modrm: true, base_reg, code32, code64 })
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_Ed_V_Ib::decode, Self { has_modrm: true, code32, code64 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		instruction.set_op2_kind(OpKind::Immediate8);
 		let gpr;
 		if (decoder.state.flags & StateFlags::W) != 0 {
@@ -5066,13 +5050,12 @@ pub(in crate::decoder) struct OpCodeHandler_VX_E_Ib {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_VX_E_Ib {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_VX_E_Ib::decode, Self { has_modrm: true, base_reg, code32, code64 })
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_VX_E_Ib::decode, Self { has_modrm: true, code32, code64 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -5086,7 +5069,7 @@ impl OpCodeHandler_VX_E_Ib {
 			instruction.set_code(this.code32);
 			gpr = Register::EAX;
 		}
-		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		instruction.set_op2_kind(OpKind::Immediate8);
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
@@ -5104,13 +5087,12 @@ pub(in crate::decoder) struct OpCodeHandler_Gv_RX {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_Gv_RX {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_Gv_RX::decode, Self { has_modrm: true, base_reg, code32, code64 })
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_Gv_RX::decode, Self { has_modrm: true, code32, code64 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -5127,7 +5109,7 @@ impl OpCodeHandler_Gv_RX {
 			write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::EAX as u32);
 		}
 		if decoder.state.mod_ == 3 {
-			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
+			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
 			decoder.set_invalid_instruction();
 		}
@@ -5425,20 +5407,19 @@ impl OpCodeHandler_Gv_N {
 pub(in crate::decoder) struct OpCodeHandler_VN {
 	has_modrm: bool,
 	code: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_VN {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_VN::decode, Self { has_modrm: true, base_reg, code })
+	pub(in crate::decoder) fn new(code: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_VN::decode, Self { has_modrm: true, code })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
-		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + Register::MM0 as u32);
 		} else {
@@ -5623,19 +5604,18 @@ pub(in crate::decoder) struct OpCodeHandler_GvM_VX_Ib {
 	has_modrm: bool,
 	code32: Code,
 	code64: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_GvM_VX_Ib {
 	#[inline]
-	pub(in crate::decoder) fn new(base_reg: Register, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
-		(OpCodeHandler_GvM_VX_Ib::decode, Self { has_modrm: true, base_reg, code32, code64 })
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_GvM_VX_Ib::decode, Self { has_modrm: true, code32, code64 })
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32);
+		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		instruction.set_op2_kind(OpKind::Immediate8);
 		let gpr;
 		if (decoder.state.flags & StateFlags::W) != 0 {
