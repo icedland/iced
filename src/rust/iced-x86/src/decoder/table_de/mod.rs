@@ -313,6 +313,7 @@ type VexMap0Type = ();
 
 #[cfg(not(feature = "no_vex"))]
 #[must_use]
+#[allow(clippy::let_unit_value)]
 pub(super) fn read_vex() -> (
 	VexMap0Type,
 	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
