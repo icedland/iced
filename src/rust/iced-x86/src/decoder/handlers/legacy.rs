@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+#![allow(clippy::never_loop)]
 #![allow(clippy::useless_let_if_seq)]
 
 use crate::decoder::enums::*;
@@ -1128,7 +1129,9 @@ impl OpCodeHandler_Evj {
 				instruction.set_op0_kind(OpKind::Memory);
 				decoder.read_op_mem(instruction);
 			} else {
-				if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32)) != 0 {
+				if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32))
+					!= 0
+				{
 					write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::RAX as u32);
 				} else {
 					write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32);
@@ -1702,9 +1705,13 @@ impl OpCodeHandler_Jz {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		if decoder.is64b_mode {
 			if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32)) != 0 {
-				instruction.set_code(this.code64);
-				instruction.set_op0_kind(OpKind::NearBranch64);
-				instruction.set_near_branch64((decoder.read_u32() as i32 as u64).wrapping_add(decoder.current_ip64()));
+				loop {
+					instruction.set_code(this.code64);
+					instruction.set_op0_kind(OpKind::NearBranch64);
+					instruction.set_near_branch64((read_u32_break!(decoder) as i32 as u64).wrapping_add(decoder.current_ip64()));
+					return;
+				}
+				decoder.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 			} else {
 				instruction.set_code(this.code16);
 				instruction.set_op0_kind(OpKind::NearBranch16);

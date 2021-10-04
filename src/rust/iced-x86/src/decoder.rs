@@ -1,6 +1,57 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+macro_rules! mk_read_xx {
+	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty, $err_expr:expr) => {
+		const SIZE: usize = mem::size_of::<$mem_ty>();
+		const_assert!(SIZE >= 1);
+		const_assert!(SIZE <= Decoder::MAX_READ_SIZE);
+		let data_ptr = $slf.data_ptr;
+		#[allow(trivial_numeric_casts)]
+		{
+			// This doesn't overflow data_ptr (verified in ctor since SIZE <= MAX_READ_SIZE)
+			if data_ptr + SIZE - 1 < $slf.max_data_ptr {
+				// SAFETY:
+				// - cast: It's OK to cast to an unaligned `*const uXX` since we call read_unaligned()
+				// - ptr::read_unaligned: ptr is readable and data (u8 slice) is initialized
+				let result = $from_le(unsafe { ptr::read_unaligned(data_ptr as *const $mem_ty) }) as $ret_ty;
+				// - data_ptr + SIZE doesn't overflow (verified in ctor since SIZE <= MAX_READ_SIZE)
+				// - data_ptr + SIZE <= self.max_data_ptr (see `if` check above)
+				$slf.data_ptr = data_ptr + SIZE;
+				result
+			} else {
+				$err_expr
+			}
+		}
+	};
+}
+macro_rules! mk_read_xx_fn_body {
+	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty) => {
+		mk_read_xx!($slf, $mem_ty, $from_le, $ret_ty, {
+			$slf.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+			0
+		})
+	};
+}
+#[cfg(not(feature = "__internal_flip"))]
+macro_rules! read_u8_break {
+	($slf:ident) => {{
+		mk_read_xx! {$slf, u8, u8::from_le, usize, break}
+	}};
+}
+#[cfg(not(feature = "__internal_flip"))]
+macro_rules! read_u16_break {
+	($slf:ident) => {{
+		mk_read_xx! {$slf, u16, u16::from_le, usize, break}
+	}};
+}
+#[cfg(not(feature = "__internal_flip"))]
+macro_rules! read_u32_break {
+	($slf:ident) => {{
+		mk_read_xx! {$slf, u32, u32::from_le, usize, break}
+	}};
+}
+
 mod enums;
 mod handlers;
 mod table_de;
@@ -396,57 +447,6 @@ impl StateFlags {
 	pub(crate) const ENCODING_SHIFT: u32 = 0x0000_001D;
 }
 // GENERATOR-END: StateFlags
-
-macro_rules! mk_read_xx {
-	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty, $err_expr:expr) => {
-		const SIZE: usize = mem::size_of::<$mem_ty>();
-		const_assert!(SIZE >= 1);
-		const_assert!(SIZE <= Decoder::MAX_READ_SIZE);
-		let data_ptr = $slf.data_ptr;
-		#[allow(trivial_numeric_casts)]
-		{
-			// This doesn't overflow data_ptr (verified in ctor since SIZE <= MAX_READ_SIZE)
-			if data_ptr + SIZE - 1 < $slf.max_data_ptr {
-				// SAFETY:
-				// - cast: It's OK to cast to an unaligned `*const uXX` since we call read_unaligned()
-				// - ptr::read_unaligned: ptr is readable and data (u8 slice) is initialized
-				let result = $from_le(unsafe { ptr::read_unaligned(data_ptr as *const $mem_ty) }) as $ret_ty;
-				// - data_ptr + SIZE doesn't overflow (verified in ctor since SIZE <= MAX_READ_SIZE)
-				// - data_ptr + SIZE <= self.max_data_ptr (see `if` check above)
-				$slf.data_ptr = data_ptr + SIZE;
-				result
-			} else {
-				$err_expr
-			}
-		}
-	};
-}
-macro_rules! mk_read_xx_fn_body {
-	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty) => {
-		mk_read_xx!($slf, $mem_ty, $from_le, $ret_ty, {
-			$slf.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
-			0
-		})
-	};
-}
-#[cfg(not(feature = "__internal_flip"))]
-macro_rules! read_u8_break {
-	($slf:ident) => {{
-		mk_read_xx! {$slf, u8, u8::from_le, usize, break}
-	}};
-}
-#[cfg(not(feature = "__internal_flip"))]
-macro_rules! read_u16_break {
-	($slf:ident) => {{
-		mk_read_xx! {$slf, u16, u16::from_le, usize, break}
-	}};
-}
-#[cfg(not(feature = "__internal_flip"))]
-macro_rules! read_u32_break {
-	($slf:ident) => {{
-		mk_read_xx! {$slf, u32, u32::from_le, usize, break}
-	}};
-}
 
 // This is `repr(u32)` since we need the decoder field near other fields that also get cleared in `decode()`.
 // It could fit in a `u8` but then it wouldn't be cleared at the same time as the other fields since the
