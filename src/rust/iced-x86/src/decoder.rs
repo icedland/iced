@@ -577,7 +577,7 @@ where
 	handlers_mvex: [(); 3],
 
 	#[cfg(not(feature = "__internal_flip"))]
-	read_op_mem_fns: [fn(&mut Decoder<'a>, &mut Instruction) -> bool; 0x18],
+	read_op_mem_fns: [fn(&mut Instruction, &mut Decoder<'a>) -> bool; 0x18],
 	#[cfg(feature = "__internal_flip")]
 	read_op_mem_fns: (),
 
@@ -2076,38 +2076,38 @@ impl<'a> Decoder<'a> {
 		let index = self.state.mem_index as usize;
 		debug_assert!(index < self.read_op_mem_fns.len());
 		// SAFETY: index is valid because modrm.mod = 0-2 (never 3 if we're here) so index will always be 0-10_111 (17h)
-		unsafe { (self.read_op_mem_fns.get_unchecked(index))(self, instruction) }
+		unsafe { (self.read_op_mem_fns.get_unchecked(index))(instruction, self) }
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
 	#[allow(clippy::never_loop)]
-	fn read_op_mem_1(&mut self, instruction: &mut Instruction) -> bool {
+	fn read_op_mem_1(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
 			instruction_internal::internal_set_memory_displ_size(instruction, 1);
-			self.displ_index = self.data_ptr as u8;
-			let displ = read_u8_break!(self) as i8 as u64;
-			if self.state.address_size == OpSize::Size64 {
+			this.displ_index = this.data_ptr as u8;
+			let displ = read_u8_break!(this) as i8 as u64;
+			if this.state.address_size == OpSize::Size64 {
 				instruction.set_memory_displacement64(displ);
-				write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::RAX as u32);
+				write_base_reg!(instruction, this.state.extra_base_register_base + this.state.rm + Register::RAX as u32);
 			} else {
 				instruction.set_memory_displacement64(displ as u32 as u64);
-				write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::EAX as u32);
+				write_base_reg!(instruction, this.state.extra_base_register_base + this.state.rm + Register::EAX as u32);
 			}
 
 			return false;
 		}
-		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+		this.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		false
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
 	#[allow(clippy::never_loop)]
-	fn read_op_mem_1_4(&mut self, instruction: &mut Instruction) -> bool {
+	fn read_op_mem_1_4(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
 			instruction_internal::internal_set_memory_displ_size(instruction, 1);
 
-			self.displ_index = self.data_ptr.wrapping_add(1) as u8;
-			let w = read_u16_break!(self) as u32;
+			this.displ_index = this.data_ptr.wrapping_add(1) as u8;
+			let w = read_u16_break!(this) as u32;
 
 			const_assert_eq!(InstrScale::Scale1 as u32, 0);
 			const_assert_eq!(InstrScale::Scale2 as u32, 1);
@@ -2115,14 +2115,14 @@ impl<'a> Decoder<'a> {
 			const_assert_eq!(InstrScale::Scale8 as u32, 3);
 			// SAFETY: 0-3 are valid variants
 			instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((w >> 6) & 3) as InstrScaleUnderlyingType) });
-			let index = ((w >> 3) & 7) + self.state.extra_index_register_base;
-			if self.state.address_size == OpSize::Size64 {
+			let index = ((w >> 3) & 7) + this.state.extra_index_register_base;
+			if this.state.address_size == OpSize::Size64 {
 				const BASE_REG: Register = Register::RAX;
 				if index != 4 {
 					write_index_reg!(instruction, index + BASE_REG as u32);
 				}
 
-				write_base_reg!(instruction, (w & 7) + self.state.extra_base_register_base + BASE_REG as u32);
+				write_base_reg!(instruction, (w & 7) + this.state.extra_base_register_base + BASE_REG as u32);
 				let displ = (w >> 8) as i8 as u64;
 				instruction.set_memory_displacement64(displ);
 			} else {
@@ -2131,23 +2131,23 @@ impl<'a> Decoder<'a> {
 					write_index_reg!(instruction, index + BASE_REG as u32);
 				}
 
-				write_base_reg!(instruction, (w & 7) + self.state.extra_base_register_base + BASE_REG as u32);
+				write_base_reg!(instruction, (w & 7) + this.state.extra_base_register_base + BASE_REG as u32);
 				let displ = (w >> 8) as i8 as u32 as u64;
 				instruction.set_memory_displacement64(displ);
 			}
 
 			return true;
 		}
-		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+		this.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		true
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
-	fn read_op_mem_0(&mut self, instruction: &mut Instruction) -> bool {
-		if self.state.address_size == OpSize::Size64 {
-			write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::RAX as u32);
+	fn read_op_mem_0(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
+		if this.state.address_size == OpSize::Size64 {
+			write_base_reg!(instruction, this.state.extra_base_register_base + this.state.rm + Register::RAX as u32);
 		} else {
-			write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::EAX as u32);
+			write_base_reg!(instruction, this.state.extra_base_register_base + this.state.rm + Register::EAX as u32);
 		};
 
 		false
@@ -2155,18 +2155,18 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(not(feature = "__internal_flip"))]
 	#[allow(clippy::never_loop)]
-	fn read_op_mem_0_5(&mut self, instruction: &mut Instruction) -> bool {
+	fn read_op_mem_0_5(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
-			self.displ_index = self.data_ptr as u8;
-			let displ = read_u32_break!(self) as i32 as u64;
-			if self.is64b_mode {
-				if self.state.address_size == OpSize::Size64 {
-					self.state.flags |= StateFlags::IP_REL64;
+			this.displ_index = this.data_ptr as u8;
+			let displ = read_u32_break!(this) as i32 as u64;
+			if this.is64b_mode {
+				if this.state.address_size == OpSize::Size64 {
+					this.state.flags |= StateFlags::IP_REL64;
 					instruction.set_memory_displacement64(displ);
 					instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					instruction.set_memory_base(Register::RIP);
 				} else {
-					self.state.flags |= StateFlags::IP_REL32;
+					this.state.flags |= StateFlags::IP_REL32;
 					instruction.set_memory_displacement64(displ as u32 as u64);
 					instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					instruction.set_memory_base(Register::EIP);
@@ -2178,17 +2178,17 @@ impl<'a> Decoder<'a> {
 
 			return false;
 		}
-		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+		this.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		false
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
 	#[allow(clippy::never_loop)]
-	fn read_op_mem_2_4(&mut self, instruction: &mut Instruction) -> bool {
+	fn read_op_mem_2_4(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
-			let sib = read_u8_break!(self) as u32;
-			self.displ_index = self.data_ptr as u8;
-			let displ = read_u32_break!(self) as i32 as u64;
+			let sib = read_u8_break!(this) as u32;
+			this.displ_index = this.data_ptr as u8;
+			let displ = read_u32_break!(this) as i32 as u64;
 
 			const_assert_eq!(InstrScale::Scale1 as u32, 0);
 			const_assert_eq!(InstrScale::Scale2 as u32, 1);
@@ -2196,14 +2196,14 @@ impl<'a> Decoder<'a> {
 			const_assert_eq!(InstrScale::Scale8 as u32, 3);
 			// SAFETY: 0-3 are valid variants
 			instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
-			let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
-			if self.state.address_size == OpSize::Size64 {
+			let index = ((sib >> 3) & 7) + this.state.extra_index_register_base;
+			if this.state.address_size == OpSize::Size64 {
 				const BASE_REG: Register = Register::RAX;
 				if index != 4 {
 					write_index_reg!(instruction, index + BASE_REG as u32);
 				}
 
-				write_base_reg!(instruction, (sib & 7) + self.state.extra_base_register_base + BASE_REG as u32);
+				write_base_reg!(instruction, (sib & 7) + this.state.extra_base_register_base + BASE_REG as u32);
 				instruction_internal::internal_set_memory_displ_size(instruction, 4);
 				instruction.set_memory_displacement64(displ);
 			} else {
@@ -2212,61 +2212,61 @@ impl<'a> Decoder<'a> {
 					write_index_reg!(instruction, index + BASE_REG as u32);
 				}
 
-				write_base_reg!(instruction, (sib & 7) + self.state.extra_base_register_base + BASE_REG as u32);
+				write_base_reg!(instruction, (sib & 7) + this.state.extra_base_register_base + BASE_REG as u32);
 				instruction_internal::internal_set_memory_displ_size(instruction, 3);
 				instruction.set_memory_displacement64(displ as u32 as u64);
 			}
 
 			return true;
 		}
-		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+		this.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		true
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
 	#[allow(clippy::never_loop)]
-	fn read_op_mem_2(&mut self, instruction: &mut Instruction) -> bool {
+	fn read_op_mem_2(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
-			self.displ_index = self.data_ptr as u8;
-			let displ = read_u32_break!(self) as i32 as u64;
-			if self.state.address_size == OpSize::Size64 {
+			this.displ_index = this.data_ptr as u8;
+			let displ = read_u32_break!(this) as i32 as u64;
+			if this.state.address_size == OpSize::Size64 {
 				instruction.set_memory_displacement64(displ);
 				instruction_internal::internal_set_memory_displ_size(instruction, 4);
-				write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::RAX as u32);
+				write_base_reg!(instruction, this.state.extra_base_register_base + this.state.rm + Register::RAX as u32);
 			} else {
 				instruction.set_memory_displacement64(displ as u32 as u64);
 				instruction_internal::internal_set_memory_displ_size(instruction, 3);
-				write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + Register::EAX as u32);
+				write_base_reg!(instruction, this.state.extra_base_register_base + this.state.rm + Register::EAX as u32);
 			}
 
 			return false;
 		}
-		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+		this.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		false
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
 	#[allow(clippy::never_loop)]
-	fn read_op_mem_0_4(&mut self, instruction: &mut Instruction) -> bool {
+	fn read_op_mem_0_4(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
-			let sib = read_u8_break!(self) as u32;
+			let sib = read_u8_break!(this) as u32;
 			const_assert_eq!(InstrScale::Scale1 as u32, 0);
 			const_assert_eq!(InstrScale::Scale2 as u32, 1);
 			const_assert_eq!(InstrScale::Scale4 as u32, 2);
 			const_assert_eq!(InstrScale::Scale8 as u32, 3);
 			// SAFETY: 0-3 are valid variants
 			instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
-			let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
-			let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
+			let index = ((sib >> 3) & 7) + this.state.extra_index_register_base;
+			let base_reg = if this.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 			if index != 4 {
 				write_index_reg!(instruction, index + base_reg as u32);
 			}
 
 			let base = sib & 7;
 			if base == 5 {
-				self.displ_index = self.data_ptr as u8;
-				let displ = read_u32_break!(self) as i32 as u64;
-				if self.state.address_size == OpSize::Size64 {
+				this.displ_index = this.data_ptr as u8;
+				let displ = read_u32_break!(this) as i32 as u64;
+				if this.state.address_size == OpSize::Size64 {
 					instruction.set_memory_displacement64(displ);
 					instruction_internal::internal_set_memory_displ_size(instruction, 4);
 				} else {
@@ -2274,14 +2274,14 @@ impl<'a> Decoder<'a> {
 					instruction_internal::internal_set_memory_displ_size(instruction, 3);
 				}
 			} else {
-				write_base_reg!(instruction, base + self.state.extra_base_register_base + base_reg as u32);
+				write_base_reg!(instruction, base + this.state.extra_base_register_base + base_reg as u32);
 				instruction_internal::internal_set_memory_displ_size(instruction, 0);
 				instruction.set_memory_displacement64(0);
 			}
 
 			return true;
 		}
-		self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+		this.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 		true
 	}
 
