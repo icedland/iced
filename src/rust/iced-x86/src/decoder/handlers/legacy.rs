@@ -760,6 +760,7 @@ pub(in crate::decoder) struct OpCodeHandler_Ev_Ib {
 	reg_base: [u32; 3],
 	code: [Code; 3],
 	state_flags_or_value: u32,
+	op_kinds: [OpKind; 3],
 }
 
 impl OpCodeHandler_Ev_Ib {
@@ -776,6 +777,7 @@ impl OpCodeHandler_Ev_Ib {
 				reg_base: [Register::AX as u32, Register::EAX as u32, Register::RAX as u32],
 				code: [code16, code32, code64],
 				state_flags_or_value,
+				op_kinds: [OpKind::Immediate8to16, OpKind::Immediate8to32, OpKind::Immediate8to64],
 			},
 		)
 	}
@@ -785,6 +787,7 @@ impl OpCodeHandler_Ev_Ib {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		let operand_size = decoder.state.operand_size;
 		instruction.set_code(this.code[operand_size as usize]);
+		instruction.set_op1_kind(this.op_kinds[operand_size as usize]);
 		if decoder.state.mod_ == 3 {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
@@ -794,13 +797,6 @@ impl OpCodeHandler_Ev_Ib {
 			decoder.read_op_mem(instruction);
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
-		if operand_size == OpSize::Size32 {
-			instruction.set_op1_kind(OpKind::Immediate8to32);
-		} else if operand_size == OpSize::Size64 {
-			instruction.set_op1_kind(OpKind::Immediate8to64);
-		} else {
-			instruction.set_op1_kind(OpKind::Immediate8to16);
-		}
 	}
 }
 
