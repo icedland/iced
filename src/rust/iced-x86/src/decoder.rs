@@ -1584,12 +1584,6 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	fn decode_table(&mut self, table: &[(OpCodeHandlerDecodeFn, &OpCodeHandler); 0x100], instruction: &mut Instruction) {
-		let b = self.read_u8();
-		self.decode_table2(table[b], instruction);
-	}
-
-	#[inline(always)]
 	fn decode_table2(&mut self, (decode, handler): (OpCodeHandlerDecodeFn, &OpCodeHandler), instruction: &mut Instruction) {
 		if handler.has_modrm {
 			let m = self.read_u8() as u32;

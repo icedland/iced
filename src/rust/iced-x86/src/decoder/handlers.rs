@@ -277,9 +277,24 @@ impl OpCodeHandler_AnotherTable {
 		(OpCodeHandler_AnotherTable::decode, Self { has_modrm: false, handlers })
 	}
 
+	#[allow(clippy::never_loop)]
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		decoder.decode_table(&this.handlers, instruction);
+		loop {
+			let b = read_u8_break!(decoder);
+			let (decode, handler) = this.handlers[b];
+			if handler.has_modrm {
+				let m = read_u8_break!(decoder) as u32;
+				decoder.state.modrm = m;
+				decoder.state.reg = (m >> 3) & 7;
+				decoder.state.mod_ = m >> 6;
+				decoder.state.rm = m & 7;
+				decoder.state.mem_index = (decoder.state.mod_ << 3) | decoder.state.rm;
+			}
+			(decode)(handler, decoder, instruction);
+			return;
+		}
+		decoder.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 	}
 }
 
