@@ -2153,18 +2153,17 @@ impl<'a> Decoder<'a> {
 		loop {
 			this.displ_index = this.data_ptr as u8;
 			let displ = read_u32_break!(this) as i32 as u64;
-			if this.is64b_mode {
-				if this.state.address_size == OpSize::Size64 {
-					this.state.flags |= StateFlags::IP_REL64;
-					instruction.set_memory_displacement64(displ);
-					instruction_internal::internal_set_memory_displ_size(instruction, 4);
-					instruction.set_memory_base(Register::RIP);
-				} else {
-					this.state.flags |= StateFlags::IP_REL32;
-					instruction.set_memory_displacement64(displ as u32 as u64);
-					instruction_internal::internal_set_memory_displ_size(instruction, 3);
-					instruction.set_memory_base(Register::EIP);
-				}
+			if this.state.address_size == OpSize::Size64 {
+				debug_assert!(this.is64b_mode);
+				this.state.flags |= StateFlags::IP_REL64;
+				instruction.set_memory_displacement64(displ);
+				instruction_internal::internal_set_memory_displ_size(instruction, 4);
+				instruction.set_memory_base(Register::RIP);
+			} else if this.is64b_mode {
+				this.state.flags |= StateFlags::IP_REL32;
+				instruction.set_memory_displacement64(displ as u32 as u64);
+				instruction_internal::internal_set_memory_displ_size(instruction, 3);
+				instruction.set_memory_base(Register::EIP);
 			} else {
 				instruction.set_memory_displacement64(displ as u32 as u64);
 				instruction_internal::internal_set_memory_displ_size(instruction, 3);
@@ -2518,18 +2517,17 @@ fn decoder_read_op_mem_vsib_0_5(
 ) -> bool {
 	this.displ_index = this.data_ptr as u8;
 	let d = this.read_u32();
-	if this.is64b_mode {
-		if this.state.address_size == OpSize::Size64 {
-			this.state.flags |= StateFlags::IP_REL64;
-			instruction.set_memory_displacement64(d as i32 as u64);
-			instruction_internal::internal_set_memory_displ_size(instruction, 4);
-			instruction.set_memory_base(Register::RIP);
-		} else {
-			this.state.flags |= StateFlags::IP_REL32;
-			instruction.set_memory_displacement64(d as u64);
-			instruction_internal::internal_set_memory_displ_size(instruction, 3);
-			instruction.set_memory_base(Register::EIP);
-		}
+	if this.state.address_size == OpSize::Size64 {
+		debug_assert!(this.is64b_mode);
+		this.state.flags |= StateFlags::IP_REL64;
+		instruction.set_memory_displacement64(d as i32 as u64);
+		instruction_internal::internal_set_memory_displ_size(instruction, 4);
+		instruction.set_memory_base(Register::RIP);
+	} else if this.is64b_mode {
+		this.state.flags |= StateFlags::IP_REL32;
+		instruction.set_memory_displacement64(d as u64);
+		instruction_internal::internal_set_memory_displ_size(instruction, 3);
+		instruction.set_memory_base(Register::EIP);
 	} else {
 		instruction.set_memory_displacement64(d as u64);
 		instruction_internal::internal_set_memory_displ_size(instruction, 3);
