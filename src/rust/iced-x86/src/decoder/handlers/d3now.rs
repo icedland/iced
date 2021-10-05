@@ -292,8 +292,9 @@ impl OpCodeHandler_D3NOW {
 			//instruction.set_op1_kind(OpKind::Register);
 			instruction.set_op1_register(unsafe { mem::transmute((decoder.state.rm + Register::MM0 as u32) as RegisterUnderlyingType) });
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		let ib = decoder.read_u8();
 		let mut code = CODE_VALUES[ib];

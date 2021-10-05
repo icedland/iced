@@ -103,7 +103,8 @@ impl OpCodeHandler_Mf {
 			instruction.set_code(this.code16);
 		}
 		debug_assert_ne!(decoder.state.mod_, 3);
-		instruction.set_op0_kind(OpKind::Memory);
-		decoder.read_op_mem(instruction);
+		read_op_mem_stmt!(decoder, instruction, {
+			instruction.set_op0_kind(OpKind::Memory);
+		});
 	}
 }

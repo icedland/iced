@@ -733,9 +733,10 @@ impl OpCodeHandler_Ev_Iz {
 		let operand_size = decoder.state.operand_size;
 		instruction.set_code(this.code[operand_size as usize]);
 		if decoder.state.mod_ < 3 {
-			decoder.state.flags |= this.state_flags_or_value;
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				decoder.state.flags |= this.state_flags_or_value;
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		} else {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
@@ -792,9 +793,10 @@ impl OpCodeHandler_Ev_Ib {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			decoder.state.flags |= this.state_flags_or_value;
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				decoder.state.flags |= this.state_flags_or_value;
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -837,9 +839,10 @@ impl OpCodeHandler_Ev_Ib2 {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			decoder.state.flags |= this.state_flags_or_value;
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				decoder.state.flags |= this.state_flags_or_value;
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -874,8 +877,9 @@ impl OpCodeHandler_Ev_1 {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -907,8 +911,9 @@ impl OpCodeHandler_Ev_CL {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -949,9 +954,10 @@ impl OpCodeHandler_Ev {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			decoder.state.flags |= this.state_flags_or_value;
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				decoder.state.flags |= this.state_flags_or_value;
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1084,11 +1090,12 @@ impl OpCodeHandler_Ev_REXW {
 				decoder.set_invalid_instruction();
 			}
 		} else {
-			if (this.disallow_mem & decoder.invalid_check_mask) != 0 {
-				decoder.set_invalid_instruction();
-			}
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				if (this.disallow_mem & decoder.invalid_check_mask) != 0 {
+					decoder.set_invalid_instruction();
+				}
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1122,8 +1129,9 @@ impl OpCodeHandler_Evj {
 				instruction.set_code(this.code16);
 			}
 			if decoder.state.mod_ < 3 {
-				instruction.set_op0_kind(OpKind::Memory);
-				decoder.read_op_mem(instruction);
+				read_op_mem_stmt!(decoder, instruction, {
+					instruction.set_op0_kind(OpKind::Memory);
+				});
 			} else {
 				if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32))
 					!= 0
@@ -1141,8 +1149,9 @@ impl OpCodeHandler_Evj {
 				instruction.set_code(this.code16);
 			}
 			if decoder.state.mod_ < 3 {
-				instruction.set_op0_kind(OpKind::Memory);
-				decoder.read_op_mem(instruction);
+				read_op_mem_stmt!(decoder, instruction, {
+					instruction.set_op0_kind(OpKind::Memory);
+				});
 			} else {
 				let reg_base = this.reg_base[operand_size as usize];
 				write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
@@ -1179,8 +1188,9 @@ impl OpCodeHandler_Ep {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1211,8 +1221,9 @@ impl OpCodeHandler_Evw {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1243,8 +1254,9 @@ impl OpCodeHandler_Ew {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1267,16 +1279,17 @@ impl OpCodeHandler_Ms {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		if decoder.is64b_mode {
-			instruction.set_code(this.code64);
-		} else if decoder.state.operand_size == OpSize::Size32 {
-			instruction.set_code(this.code32);
-		} else {
-			instruction.set_code(this.code16);
-		}
-		debug_assert_ne!(decoder.state.mod_, 3);
-		instruction.set_op0_kind(OpKind::Memory);
-		decoder.read_op_mem(instruction);
+		read_op_mem_stmt!(decoder, instruction, {
+			if decoder.is64b_mode {
+				instruction.set_code(this.code64);
+			} else if decoder.state.operand_size == OpSize::Size32 {
+				instruction.set_code(this.code32);
+			} else {
+				instruction.set_code(this.code16);
+			}
+			debug_assert_ne!(decoder.state.mod_, 3);
+			instruction.set_op0_kind(OpKind::Memory);
+		});
 	}
 }
 
@@ -1305,8 +1318,9 @@ impl OpCodeHandler_Gv_Ev {
 		let reg_base = this.reg_base[operand_size as usize];
 		write_op0_reg!(instruction, reg_base + decoder.state.reg + decoder.state.extra_register_base);
 		if decoder.state.mod_ < 3 {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		} else {
 			write_op1_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		}
@@ -1366,8 +1380,9 @@ impl OpCodeHandler_Gv_M_as {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1403,8 +1418,9 @@ impl OpCodeHandler_Gdq_Ev {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op1_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1436,8 +1452,9 @@ impl OpCodeHandler_Gv_Ev3 {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1474,8 +1491,9 @@ impl OpCodeHandler_Gv_Ev2 {
 				write_op1_reg!(instruction, index + Register::AX as u32);
 			}
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1912,8 +1930,9 @@ impl OpCodeHandler_PushEv {
 				}
 			}
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1945,8 +1964,9 @@ impl OpCodeHandler_Ev_Gv {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1990,9 +2010,10 @@ impl OpCodeHandler_Ev_Gv_flags {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			decoder.state.flags |= this.state_flags_or_value;
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				decoder.state.flags |= this.state_flags_or_value;
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -2026,8 +2047,9 @@ impl OpCodeHandler_Ev_Gv_32_64 {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + base_reg as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -2060,8 +2082,9 @@ impl OpCodeHandler_Ev_Gv_Ib {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -2095,8 +2118,9 @@ impl OpCodeHandler_Ev_Gv_CL {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -2132,8 +2156,9 @@ impl OpCodeHandler_Gv_Mp {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -2163,8 +2188,9 @@ impl OpCodeHandler_Gv_Eb {
 		let reg_base = this.reg_base[operand_size as usize];
 		write_op0_reg!(instruction, reg_base + decoder.state.reg + decoder.state.extra_register_base);
 		if decoder.state.mod_ < 3 {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		} else {
 			let mut index = decoder.state.rm + decoder.state.extra_base_register_base;
 			if (decoder.state.flags & StateFlags::HAS_REX) != 0 && index >= 4 {
@@ -2200,8 +2226,9 @@ impl OpCodeHandler_Gv_Ew {
 		let reg_base = this.reg_base[operand_size as usize];
 		write_op0_reg!(instruction, reg_base + decoder.state.reg + decoder.state.extra_register_base);
 		if decoder.state.mod_ < 3 {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		} else {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32);
 		}
@@ -2781,8 +2808,9 @@ impl OpCodeHandler_Gv_Ma {
 			write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::AX as u32);
 		}
 		debug_assert_ne!(decoder.state.mod_, 3);
-		instruction.set_op1_kind(OpKind::Memory);
-		decoder.read_op_mem(instruction);
+		read_op_mem_stmt!(decoder, instruction, {
+			instruction.set_op1_kind(OpKind::Memory);
+		});
 	}
 }
 
@@ -2816,8 +2844,9 @@ impl OpCodeHandler_RvMw_Gw {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + base_reg as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -2848,8 +2877,9 @@ impl OpCodeHandler_Gv_Ev_Ib {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 		write_op0_reg!(instruction, reg_base + decoder.state.reg + decoder.state.extra_register_base);
@@ -2937,11 +2967,12 @@ impl OpCodeHandler_Gv_Ev_32_64 {
 				decoder.set_invalid_instruction();
 			}
 		} else {
-			if (this.disallow_mem & decoder.invalid_check_mask) != 0 {
-				decoder.set_invalid_instruction();
-			}
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				if (this.disallow_mem & decoder.invalid_check_mask) != 0 {
+					decoder.set_invalid_instruction();
+				}
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -2972,8 +3003,9 @@ impl OpCodeHandler_Gv_Ev_Iz {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		write_op0_reg!(instruction, reg_base + decoder.state.reg + decoder.state.extra_register_base);
 		if operand_size == OpSize::Size32 {
@@ -3392,8 +3424,9 @@ impl OpCodeHandler_Ev_Sw {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op0_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -3420,8 +3453,9 @@ impl OpCodeHandler_M_Sw {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -3451,8 +3485,9 @@ impl OpCodeHandler_Gv_M {
 		let reg_base = this.reg_base[operand_size as usize];
 		write_op0_reg!(instruction, reg_base + decoder.state.reg + decoder.state.extra_register_base);
 		if decoder.state.mod_ < 3 {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		} else {
 			decoder.set_invalid_instruction();
 		}
@@ -3490,8 +3525,9 @@ impl OpCodeHandler_Sw_Ev {
 			let reg_base = this.reg_base[operand_size as usize];
 			write_op1_reg!(instruction, reg_base + decoder.state.rm + decoder.state.extra_base_register_base);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -3518,8 +3554,9 @@ impl OpCodeHandler_Sw_M {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -3963,9 +4000,10 @@ impl OpCodeHandler_Eb_Ib {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
 		if decoder.state.mod_ < 3 {
-			decoder.state.flags |= this.state_flags_or_value;
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				decoder.state.flags |= this.state_flags_or_value;
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		} else {
 			let mut index = decoder.state.rm + decoder.state.extra_base_register_base;
 			if (decoder.state.flags & StateFlags::HAS_REX) != 0 && index >= 4 {
@@ -4005,8 +4043,9 @@ impl OpCodeHandler_Eb_1 {
 			}
 			write_op0_reg!(instruction, index + Register::AL as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4036,8 +4075,9 @@ impl OpCodeHandler_Eb_CL {
 			}
 			write_op0_reg!(instruction, index + Register::AL as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4071,9 +4111,10 @@ impl OpCodeHandler_Eb {
 			}
 			write_op0_reg!(instruction, index + Register::AL as u32);
 		} else {
-			decoder.state.flags |= this.state_flags_or_value;
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				decoder.state.flags |= this.state_flags_or_value;
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4112,9 +4153,10 @@ impl OpCodeHandler_Eb_Gb {
 			}
 			write_op0_reg!(instruction, index + Register::AL as u32);
 		} else {
-			decoder.state.flags |= this.state_flags_or_value;
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				decoder.state.flags |= this.state_flags_or_value;
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4143,8 +4185,9 @@ impl OpCodeHandler_Gb_Eb {
 		write_op0_reg!(instruction, index + Register::AL as u32);
 
 		if decoder.state.mod_ < 3 {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		} else {
 			index = decoder.state.rm + decoder.state.extra_base_register_base;
 			if (decoder.state.flags & StateFlags::HAS_REX) != 0 && index >= 4 {
@@ -4185,8 +4228,9 @@ impl OpCodeHandler_M {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4225,13 +4269,14 @@ impl OpCodeHandler_M_REXW {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			let flags = if (decoder.state.flags & StateFlags::W) != 0 { this.flags64 } else { this.flags32 };
-			if (flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
-				decoder.set_xacquire_xrelease(instruction, flags);
-			}
-			decoder.state.flags |= this.state_flags_or_value;
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				let flags = if (decoder.state.flags & StateFlags::W) != 0 { this.flags64 } else { this.flags32 };
+				if (flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
+					decoder.set_xacquire_xrelease(instruction, flags);
+				}
+				decoder.state.flags |= this.state_flags_or_value;
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4291,9 +4336,10 @@ impl OpCodeHandler_VW {
 			instruction.set_code(this.code_r);
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
-			instruction.set_code(this.code_m);
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_code(this.code_m);
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4317,8 +4363,9 @@ impl OpCodeHandler_WV {
 		instruction.set_code(this.code);
 		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::XMM0 as u32);
 		if decoder.state.mod_ < 3 {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		} else {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		}
@@ -4412,8 +4459,9 @@ impl OpCodeHandler_VM {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4439,8 +4487,9 @@ impl OpCodeHandler_MV {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4466,8 +4515,9 @@ impl OpCodeHandler_VQ {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + Register::MM0 as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4493,8 +4543,9 @@ impl OpCodeHandler_P_Q {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + Register::MM0 as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4520,8 +4571,9 @@ impl OpCodeHandler_Q_P {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + Register::MM0 as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4547,8 +4599,9 @@ impl OpCodeHandler_MP {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4575,8 +4628,9 @@ impl OpCodeHandler_P_Q_Ib {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + Register::MM0 as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -4603,8 +4657,9 @@ impl OpCodeHandler_P_W {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4664,8 +4719,9 @@ impl OpCodeHandler_P_Ev {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4700,8 +4756,9 @@ impl OpCodeHandler_P_Ev_Ib {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -4736,8 +4793,9 @@ impl OpCodeHandler_Ev_P {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4769,8 +4827,9 @@ impl OpCodeHandler_Gv_W {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4804,8 +4863,9 @@ impl OpCodeHandler_V_Ev {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -4842,8 +4902,9 @@ impl OpCodeHandler_VWIb {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::XMM0 as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -4967,8 +5028,9 @@ impl OpCodeHandler_Ed_V_Ib {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -5003,8 +5065,9 @@ impl OpCodeHandler_VX_Ev {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -5038,8 +5101,9 @@ impl OpCodeHandler_Ev_VX {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -5074,8 +5138,9 @@ impl OpCodeHandler_VX_E_Ib {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -5324,8 +5389,9 @@ impl OpCodeHandler_Mv_Gv_REXW {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -5455,8 +5521,9 @@ impl OpCodeHandler_Gv_Mv {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -5488,8 +5555,9 @@ impl OpCodeHandler_Mv_Gv {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -5525,8 +5593,9 @@ impl OpCodeHandler_Gv_Eb_REX {
 			}
 			write_op1_reg!(instruction, index + Register::AL as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -5562,8 +5631,9 @@ impl OpCodeHandler_Gv_Ev_REX {
 				write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::EAX as u32);
 			}
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -5593,8 +5663,9 @@ impl OpCodeHandler_Ev_Gv_REX {
 			instruction.set_code(this.code32);
 			write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::EAX as u32);
 		}
-		instruction.set_op0_kind(OpKind::Memory);
-		decoder.read_op_mem(instruction);
+		read_op_mem_stmt!(decoder, instruction, {
+			instruction.set_op0_kind(OpKind::Memory);
+		});
 	}
 }
 
@@ -5628,8 +5699,9 @@ impl OpCodeHandler_GvM_VX_Ib {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}

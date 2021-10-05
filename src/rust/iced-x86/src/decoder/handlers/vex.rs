@@ -101,8 +101,9 @@ impl OpCodeHandler_VEX_VHEv {
 		if decoder.state.mod_ == 3 {
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op2_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op2_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -139,8 +140,9 @@ impl OpCodeHandler_VEX_VHEvIb {
 		if decoder.state.mod_ == 3 {
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op2_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op2_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -172,8 +174,9 @@ impl OpCodeHandler_VEX_VW {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg2 as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -210,8 +213,9 @@ impl OpCodeHandler_VEX_VX_Ev {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -248,8 +252,9 @@ impl OpCodeHandler_VEX_Ev_VX {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -280,8 +285,9 @@ impl OpCodeHandler_VEX_WV {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg2 as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -311,8 +317,9 @@ impl OpCodeHandler_VEX_VM {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -342,8 +349,9 @@ impl OpCodeHandler_VEX_MV {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -371,8 +379,9 @@ impl OpCodeHandler_VEX_M {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -479,8 +488,9 @@ impl OpCodeHandler_VEX_VWIb {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg2 as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -513,8 +523,9 @@ impl OpCodeHandler_VEX_WVIb {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg1 as u32);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -554,8 +565,9 @@ impl OpCodeHandler_VEX_Ed_V_Ib {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -594,9 +606,10 @@ impl OpCodeHandler_VEX_VHW {
 			instruction.set_code(this.code_r);
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg3 as u32);
 		} else {
-			instruction.set_code(this.code_m);
-			instruction.set_op2_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_code(this.code_m);
+				instruction.set_op2_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -624,8 +637,9 @@ impl OpCodeHandler_VEX_VWH {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -678,8 +692,9 @@ impl OpCodeHandler_VEX_VHM {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op2_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op2_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -707,8 +722,9 @@ impl OpCodeHandler_VEX_MHV {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -739,8 +755,9 @@ impl OpCodeHandler_VEX_VHWIb {
 		if decoder.state.mod_ == 3 {
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg3 as u32);
 		} else {
-			instruction.set_op2_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op2_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -798,8 +815,9 @@ impl OpCodeHandler_VEX_VHWIs4 {
 		if decoder.state.mod_ == 3 {
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
 		} else {
-			instruction.set_op2_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op2_kind(OpKind::Memory);
+			});
 		}
 		let b = decoder.read_u8();
 		write_op3_reg!(instruction, (((b as u32) >> 4) & decoder.reg15_mask) + this.base_reg as u32);
@@ -829,8 +847,9 @@ impl OpCodeHandler_VEX_VHIs4W {
 		if decoder.state.mod_ == 3 {
 			write_op3_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
 		} else {
-			instruction.set_op3_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op3_kind(OpKind::Memory);
+			});
 		}
 		let b = decoder.read_u8();
 		write_op2_reg!(instruction, (((b as u32) >> 4) & decoder.reg15_mask) + this.base_reg as u32);
@@ -860,8 +879,9 @@ impl OpCodeHandler_VEX_VHWIs5 {
 		if decoder.state.mod_ == 3 {
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
 		} else {
-			instruction.set_op2_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op2_kind(OpKind::Memory);
+			});
 		}
 		let ib = decoder.read_u8() as u32;
 		write_op3_reg!(instruction, ((ib >> 4) & decoder.reg15_mask) + this.base_reg as u32);
@@ -893,8 +913,9 @@ impl OpCodeHandler_VEX_VHIs5W {
 		if decoder.state.mod_ == 3 {
 			write_op3_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
 		} else {
-			instruction.set_op3_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op3_kind(OpKind::Memory);
+			});
 		}
 		let ib = decoder.read_u8() as u32;
 		write_op2_reg!(instruction, ((ib >> 4) & decoder.reg15_mask) + this.base_reg as u32);
@@ -1017,8 +1038,9 @@ impl OpCodeHandler_VEX_VK_WK {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + Register::K0 as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1047,8 +1069,9 @@ impl OpCodeHandler_VEX_M_VK {
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1144,8 +1167,9 @@ impl OpCodeHandler_VEX_Gv_W {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + this.base_reg as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1296,8 +1320,9 @@ impl OpCodeHandler_VEX_Gv_Gv_Ev {
 		if decoder.state.mod_ == 3 {
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op2_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op2_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1332,8 +1357,9 @@ impl OpCodeHandler_VEX_Gv_Ev_Gv {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1367,8 +1393,9 @@ impl OpCodeHandler_VEX_Hv_Ev {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1401,8 +1428,9 @@ impl OpCodeHandler_VEX_Hv_Ed_Id {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + Register::EAX as u32);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		instruction.set_immediate32(decoder.read_u32() as u32);
 	}
@@ -1442,8 +1470,9 @@ impl OpCodeHandler_VEX_GvM_VX_Ib {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -1482,8 +1511,9 @@ impl OpCodeHandler_VEX_Gv_Ev_Ib {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -1522,8 +1552,9 @@ impl OpCodeHandler_VEX_Gv_Ev_Id {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 		instruction.set_immediate32(decoder.read_u32() as u32);
 	}
@@ -1804,8 +1835,9 @@ impl OpCodeHandler_VEX_Gv_Ev {
 		if decoder.state.mod_ == 3 {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op1_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
 		}
 	}
 }
@@ -1841,8 +1873,9 @@ impl OpCodeHandler_VEX_Ev {
 		if decoder.state.mod_ == 3 {
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
-			instruction.set_op0_kind(OpKind::Memory);
-			decoder.read_op_mem(instruction);
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
 		}
 	}
 }

@@ -51,6 +51,29 @@ macro_rules! read_u32_break {
 		mk_read_xx! {$slf, u32, u32::from_le, usize, break}
 	}};
 }
+macro_rules! read_op_mem_stmt_ret {
+	($decoder:ident, $instruction:ident, $stmts:block) => {{
+		debug_assert!($decoder.state.encoding() != EncodingKind::EVEX as u32 && $decoder.state.encoding() != EncodingKind::MVEX as u32);
+		let index = $decoder.state.mem_index as usize;
+		debug_assert!(index < $decoder.read_op_mem_fns.len());
+		// SAFETY: index is valid because modrm.mod = 0-2 (never 3 if we're here) so index will always be 0-10_111 (17h)
+		let handler = unsafe { *$decoder.read_op_mem_fns.get_unchecked(index) };
+
+		$stmts
+
+		if $decoder.state.address_size != OpSize::Size16 {
+			(handler)($instruction, $decoder)
+		} else {
+			$decoder.read_op_mem_16($instruction, TupleType::N1);
+			false
+		}
+	}};
+}
+macro_rules! read_op_mem_stmt {
+	($decoder:ident, $instruction:ident, $stmts:block) => {
+		let _ = read_op_mem_stmt_ret!($decoder, $instruction, $stmts);
+	};
+}
 
 mod enums;
 mod handlers;
@@ -1947,16 +1970,6 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	fn read_op_mem(&mut self, instruction: &mut Instruction) {
-		debug_assert!(self.state.encoding() != EncodingKind::EVEX as u32 && self.state.encoding() != EncodingKind::MVEX as u32);
-		if self.state.address_size != OpSize::Size16 {
-			let _ = self.read_op_mem_32_or_64(instruction);
-		} else {
-			self.read_op_mem_16(instruction, TupleType::N1);
-		}
-	}
-
-	#[inline(always)]
 	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 	fn read_op_mem_sib(&mut self, instruction: &mut Instruction) {
 		debug_assert!(self.state.encoding() != EncodingKind::EVEX as u32 && self.state.encoding() != EncodingKind::MVEX as u32);
@@ -2065,12 +2078,7 @@ impl<'a> Decoder<'a> {
 	#[cfg(not(feature = "__internal_flip"))]
 	#[inline(always)]
 	fn read_op_mem_32_or_64(&mut self, instruction: &mut Instruction) -> bool {
-		debug_assert!(self.state.address_size == OpSize::Size32 || self.state.address_size == OpSize::Size64);
-
-		let index = self.state.mem_index as usize;
-		debug_assert!(index < self.read_op_mem_fns.len());
-		// SAFETY: index is valid because modrm.mod = 0-2 (never 3 if we're here) so index will always be 0-10_111 (17h)
-		unsafe { (self.read_op_mem_fns.get_unchecked(index))(instruction, self) }
+		read_op_mem_stmt_ret!(self, instruction, {})
 	}
 
 	#[cfg(not(feature = "__internal_flip"))]
