@@ -59,7 +59,6 @@ pub struct Instruction {
 	pub(crate) next_rip: u64,
 	pub(crate) mem_displ: u64,
 	pub(crate) flags1: u32, // InstrFlags1
-	// If it's a 64-bit immediate/offset/target, the high 32 bits is in mem_displ
 	pub(crate) immediate: u32,
 	pub(crate) code: Code,
 	pub(crate) mem_base_reg: Register,
@@ -1360,7 +1359,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn near_branch16(&self) -> u16 {
-		self.immediate as u16
+		self.mem_displ as u16
 	}
 
 	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch16`]
@@ -1372,7 +1371,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_near_branch16(&mut self, new_value: u16) {
-		self.immediate = new_value as u32;
+		self.mem_displ = new_value as u64;
 	}
 
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch32`]
@@ -1381,7 +1380,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn near_branch32(&self) -> u32 {
-		self.immediate
+		self.mem_displ as u32
 	}
 
 	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch32`]
@@ -1393,7 +1392,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_near_branch32(&mut self, new_value: u32) {
-		self.immediate = new_value;
+		self.mem_displ = new_value as u64;
 	}
 
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch64`]
@@ -1402,7 +1401,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn near_branch64(&self) -> u64 {
-		(self.mem_displ << 32) | self.immediate as u64
+		self.mem_displ
 	}
 
 	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch64`]
@@ -1414,8 +1413,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_near_branch64(&mut self, new_value: u64) {
-		self.immediate = new_value as u32;
-		self.mem_displ = new_value >> 32;
+		self.mem_displ = new_value
 	}
 
 	/// Gets the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction

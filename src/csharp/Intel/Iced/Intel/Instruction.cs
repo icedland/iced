@@ -50,7 +50,6 @@ namespace Iced.Intel {
 		ulong nextRip;
 		ulong memDispl;
 		uint flags1;// InstrFlags1
-		// If it's a 64-bit immediate/offset/target, the high 32 bits is in memDispl
 		uint immediate;
 		ushort code;
 		byte memBaseReg;// Register
@@ -897,19 +896,19 @@ namespace Iced.Intel {
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.NearBranch16"/>
 		/// </summary>
 		public ushort NearBranch16 {
-			readonly get => (ushort)immediate;
-			set => immediate = value;
+			readonly get => (ushort)memDispl;
+			set => memDispl = value;
 		}
 		internal uint InternalNearBranch16 {
-			set => immediate = value;
+			set => memDispl = value;
 		}
 
 		/// <summary>
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.NearBranch32"/>
 		/// </summary>
 		public uint NearBranch32 {
-			readonly get => immediate;
-			set => immediate = value;
+			readonly get => (uint)memDispl;
+			set => memDispl = value;
 		}
 
 		/// <summary>
@@ -917,12 +916,9 @@ namespace Iced.Intel {
 		/// </summary>
 		public ulong NearBranch64 {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			readonly get => (memDispl << 32) | immediate;
+			readonly get => memDispl;
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set {
-				immediate = (uint)value;
-				memDispl = (uint)(value >> 32);
-			}
+			set => memDispl = value;
 		}
 
 		/// <summary>

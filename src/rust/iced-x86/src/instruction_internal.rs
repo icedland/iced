@@ -124,7 +124,7 @@ pub(crate) fn internal_set_immediate64_hi(this: &mut Instruction, new_value: u32
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_near_branch16(this: &mut Instruction, new_value: u32) {
-	this.immediate = new_value;
+	this.mem_displ = new_value as u64;
 }
 
 #[cfg(feature = "decoder")]
