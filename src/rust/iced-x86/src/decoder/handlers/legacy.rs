@@ -1607,24 +1607,24 @@ impl OpCodeHandler_Jb {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		decoder.state.flags |= StateFlags::BRANCH_IMM8;
-		let b = decoder.read_u8();
+		let b = decoder.read_u8() as i8 as u64;
 		if decoder.is64b_mode {
 			if (((decoder.options ^ DecoderOptions::AMD) & DecoderOptions::AMD) | (decoder.state.operand_size as u32 - OpSize::Size16 as u32)) != 0 {
-				instruction.set_near_branch64((b as i8 as u64).wrapping_add(decoder.current_ip64()));
+				instruction.set_near_branch64(b.wrapping_add(decoder.current_ip64()));
 				instruction.set_code(this.code64);
 				instruction.set_op0_kind(OpKind::NearBranch64);
 			} else {
-				instruction_internal::internal_set_near_branch16(instruction, (b as i8 as u32).wrapping_add(decoder.current_ip32()) as u16 as u32);
+				instruction_internal::internal_set_near_branch16(instruction, (b as u32).wrapping_add(decoder.current_ip32()) as u16 as u32);
 				instruction.set_code(this.code16);
 				instruction.set_op0_kind(OpKind::NearBranch16);
 			}
 		} else {
 			if decoder.state.operand_size != OpSize::Size16 {
-				instruction.set_near_branch32((b as i8 as u32).wrapping_add(decoder.current_ip32()));
+				instruction.set_near_branch32((b as u32).wrapping_add(decoder.current_ip32()));
 				instruction.set_code(this.code32);
 				instruction.set_op0_kind(OpKind::NearBranch32);
 			} else {
-				instruction_internal::internal_set_near_branch16(instruction, (b as i8 as u32).wrapping_add(decoder.current_ip32()) as u16 as u32);
+				instruction_internal::internal_set_near_branch16(instruction, (b as u32).wrapping_add(decoder.current_ip32()) as u16 as u32);
 				instruction.set_code(this.code16);
 				instruction.set_op0_kind(OpKind::NearBranch16);
 			}
