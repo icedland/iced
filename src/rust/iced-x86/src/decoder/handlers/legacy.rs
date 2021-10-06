@@ -1279,6 +1279,7 @@ impl OpCodeHandler_Ms {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
+		debug_assert_ne!(decoder.state.mod_, 3);
 		read_op_mem_stmt!(decoder, instruction, {
 			if decoder.is64b_mode {
 				instruction.set_code(this.code64);
@@ -1287,7 +1288,6 @@ impl OpCodeHandler_Ms {
 			} else {
 				instruction.set_code(this.code16);
 			}
-			debug_assert_ne!(decoder.state.mod_, 3);
 			instruction.set_op0_kind(OpKind::Memory);
 		});
 	}
