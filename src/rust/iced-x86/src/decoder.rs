@@ -615,7 +615,7 @@ where
 	reg15_mask: u32,
 	// 0 in 16/32-bit mode, 0E0h in 64-bit mode
 	mask_e0: u32,
-	mask_64b: u32,
+	rex_mask: u32,
 	bitness: u32,
 	// The order of these 4 fields are important. They're accessed as a u32 (decode_out_ptr()) by the compiler so should be 4 byte aligned.
 	default_address_size: OpSize,
@@ -1068,7 +1068,7 @@ impl<'a> Decoder<'a> {
 			is64b_mode_and_w: if is64b_mode { StateFlags::W } else { 0 },
 			reg15_mask: if is64b_mode { 0xF } else { 0x7 },
 			mask_e0: if is64b_mode { 0xE0 } else { 0 },
-			mask_64b: if is64b_mode { 0xFFFF_FFFF } else { 0 },
+			rex_mask: if is64b_mode { 0xF0 } else { 0 },
 			bitness,
 			default_address_size,
 			default_operand_size,
@@ -1450,7 +1450,7 @@ impl<'a> Decoder<'a> {
 
 		let b = self.read_u8();
 		let mut handler = self.handlers_map0[b];
-		if (((b as u32) & 0xF0) & self.mask_64b) == 0x40 {
+		if ((b as u32) & self.rex_mask) == 0x40 {
 			debug_assert!(self.is64b_mode);
 			handler = self.handlers_map0[self.read_u8()];
 			let mut flags = self.state.flags | StateFlags::HAS_REX;
