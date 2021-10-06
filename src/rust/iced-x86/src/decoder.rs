@@ -1477,18 +1477,17 @@ impl<'a> Decoder<'a> {
 
 		let mut flags = self.state.flags;
 		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK | StateFlags::IP_REL64 | StateFlags::IP_REL32)) != 0 {
-			if (flags & StateFlags::IP_REL64) != 0 {
-				let addr = ip.wrapping_add(instruction.memory_displacement64());
-				instruction.set_memory_displacement64(addr);
-
-				// RIP rel ops are common, but invalid/lock bits are usually never set, so exit early if possible
-				if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK)) == 0 {
-					return;
-				}
+			let addr = ip.wrapping_add(instruction.memory_displacement64());
+			// Assume it's IP_REL64 (very common if we're here). We'll undo this if it's not.
+			instruction.set_memory_displacement64(addr);
+			// RIP rel ops are common, but invalid/lock bits are usually never set, so exit early if possible
+			if (flags & (StateFlags::IP_REL64 | StateFlags::IS_INVALID | StateFlags::LOCK)) == StateFlags::IP_REL64 {
+				return;
 			}
-			// We don't use 'else if' here because the compiler generates worse code. It assumes the first if condition above
-			// (i.e, IP_REL64 check) is unlikely even though it's more likely to be set than IP_REL32 (close to 0% probability
-			// of being set). IOW, it generates code as if the cond and blocks were swapped.
+			if (flags & StateFlags::IP_REL64) == 0 {
+				// Undo what we did above
+				instruction.set_memory_displacement64(addr.wrapping_sub(ip));
+			}
 			if (flags & StateFlags::IP_REL32) != 0 {
 				let addr = ip.wrapping_add(instruction.memory_displacement64());
 				instruction.set_memory_displacement64(addr as u32 as u64);
