@@ -49,6 +49,7 @@ macro_rules! read_u32_break {
 		mk_read_xx! {$slf, u32, u32::from_le, usize, break}
 	}};
 }
+#[cfg(not(feature = "__internal_flip"))]
 macro_rules! read_op_mem_stmt_ret {
 	($decoder:ident, $instruction:ident, $stmts:block) => {{
 		debug_assert!($decoder.state.encoding() != EncodingKind::EVEX as u32 && $decoder.state.encoding() != EncodingKind::MVEX as u32);
@@ -67,9 +68,22 @@ macro_rules! read_op_mem_stmt_ret {
 		}
 	}};
 }
+#[cfg(not(feature = "__internal_flip"))]
 macro_rules! read_op_mem_stmt {
 	($decoder:ident, $instruction:ident, $stmts:block) => {
 		let _ = read_op_mem_stmt_ret!($decoder, $instruction, $stmts);
+	};
+}
+#[cfg(feature = "__internal_flip")]
+macro_rules! read_op_mem_stmt {
+	($decoder:ident, $instruction:ident, $stmts:block) => {
+		debug_assert!($decoder.state.encoding() != EncodingKind::EVEX as u32 && $decoder.state.encoding() != EncodingKind::MVEX as u32);
+		$stmts
+		if $decoder.state.address_size != OpSize::Size16 {
+			let _ = $decoder.read_op_mem_32_or_64($instruction);
+		} else {
+			$decoder.read_op_mem_16($instruction, TupleType::N1);
+		}
 	};
 }
 
