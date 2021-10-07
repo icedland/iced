@@ -1,6 +1,6 @@
 [package]
 name = "iced-x86"
-version = "1.14.0"
+version = "1.15.0"
 authors = ["iced project and contributors <https://github.com/icedland>"]
 edition = "2018"
 license = "MIT"
