@@ -33,7 +33,6 @@ macro_rules! mk_read_xx_fn_body {
 		})
 	};
 }
-#[cfg(not(feature = "__internal_flip"))]
 macro_rules! read_u8_break {
 	($slf:ident) => {{
 		mk_read_xx! {$slf, u8, u8::from_le, usize, break}
@@ -45,7 +44,6 @@ macro_rules! read_u16_break {
 		mk_read_xx! {$slf, u16, u16::from_le, usize, break}
 	}};
 }
-#[cfg(not(feature = "__internal_flip"))]
 macro_rules! read_u32_break {
 	($slf:ident) => {{
 		mk_read_xx! {$slf, u32, u32::from_le, usize, break}
