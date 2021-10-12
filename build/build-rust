@@ -337,7 +337,7 @@ if [ "$test_cov" = "y" ]; then
 	mkdir -p "$cov_out"
 	rm -rf "$cov_out_rust" "$cov_out_rust_merged"
 	mkdir -p "$cov_out_rust_tmp"
-	kcov --version
+	$kcov --version
 fi
 
 if [ "$test_code_asm" = "y" ]; then
