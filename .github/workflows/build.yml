@@ -19,7 +19,6 @@ on:
 # Keep this in sync with the other *.yml files
 env:
   CI_REQ_DOTNET_SDK_VER: 5.0.300
-  COVERAGE_FILENAME: coverage.info
   CI_NODE_MIN_VER: 12.0.0
   RUSTFLAGS: -D warnings
   MACOSX_DEPLOYMENT_TARGET: 10.12
@@ -57,7 +56,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: coverage.info
-          path: src/csharp/Intel/Iced.UnitTests/${{env.COVERAGE_FILENAME}}
+          path: src/csharp/Intel/Iced.UnitTests/coverage.info
           if-no-files-found: error
 
       - name: Upload coverage report
@@ -65,6 +64,7 @@ jobs:
         shell: bash
         continue-on-error: true
         run: |
+          # https://docs.codecov.com/docs/codecov-uploader
           curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import
           curl -Os https://uploader.codecov.io/latest/linux/codecov
           curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
@@ -72,7 +72,7 @@ jobs:
           gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
           shasum -a 256 -c codecov.SHA256SUM
           chmod +x codecov
-          ./codecov -t ${{secrets.CODECOV_TOKEN}} -f "src/csharp/Intel/Iced.UnitTests/${{env.COVERAGE_FILENAME}}"
+          ./codecov -t "${{secrets.CODECOV_TOKEN}}" -f "src/csharp/Intel/Iced.UnitTests/coverage.info"
 
   #############################################################################
   #############################################################################
@@ -96,9 +96,36 @@ jobs:
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
+      - name: Install kcov
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt install kcov
+
       - name: Build and test
         shell: bash
-        run: ./build/build-rust --no-set-rustflags --no-tests --test-current --test-msrv --test-no_std
+        run: ./build/build-rust --no-set-rustflags --no-tests --test-current --test-msrv --test-no_std --coverage
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: rust-coverage
+          path: cov-out/rust/merged/
+          if-no-files-found: error
+
+      - name: Upload coverage report
+        if: github.ref == 'refs/heads/master'
+        shell: bash
+        continue-on-error: true
+        run: |
+          # https://docs.codecov.com/docs/codecov-uploader
+          curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
+          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+          gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
+          shasum -a 256 -c codecov.SHA256SUM
+          chmod +x codecov
+          ./codecov -t "${{secrets.CODECOV_TOKEN}}" -f "cov-out/rust/merged/kcov-merged/cobertura.xml"
 
   #############################################################################
   #############################################################################

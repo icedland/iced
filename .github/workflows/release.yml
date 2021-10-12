@@ -7,7 +7,6 @@ on:
 # Keep this in sync with the other *.yml files
 env:
   CI_REQ_DOTNET_SDK_VER: 5.0.300
-  COVERAGE_FILENAME: coverage.info
   CI_NODE_MIN_VER: 12.0.0
   RUSTFLAGS: -D warnings
   MACOSX_DEPLOYMENT_TARGET: 10.12
@@ -46,13 +45,6 @@ jobs:
         with:
           name: nupkg
           path: src/csharp/Intel/Iced/bin/Release/*.*nupkg
-          if-no-files-found: error
-
-      - uses: actions/upload-artifact@v2
-        if: startsWith(matrix.os, 'ubuntu-')
-        with:
-          name: coverage.info
-          path: src/csharp/Intel/Iced.UnitTests/${{env.COVERAGE_FILENAME}}
           if-no-files-found: error
 
   #############################################################################
@@ -554,10 +546,6 @@ jobs:
       - name: Verify downloads
         shell: bash
         run: |
-          if [ ! -f "/tmp/artifacts/coverage.info/$COVERAGE_FILENAME" ]; then
-            echo "Missing coverage"
-            exit 1
-          fi
           if [ -z "$(ls -A /tmp/artifacts/nupkg/Iced.*.nupkg)" ]; then
             echo "Missing nupkg files"
             exit 1

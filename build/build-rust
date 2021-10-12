@@ -17,6 +17,13 @@ test_features=y
 test_current=y
 test_msrv=y
 test_code_asm=y
+test_cov=n
+
+kcov=kcov
+cov_out=$root_dir/cov-out
+cov_out_rust=$cov_out/rust
+cov_out_rust_tmp=$cov_out_rust/tmp
+cov_out_rust_merged=$cov_out_rust/merged
 
 # Minimum supported Rust version
 msrv="1.48.0"
@@ -44,22 +51,31 @@ test_valid_invalid_instructions() {
 
 	# The C# code needs a formatter so add masm feature
 	dotnet build -c:$configuration -p:IcedFeatureFlags="DECODER ENCODER OPCODE_INFO INSTR_INFO MASM" "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj"
+	if [ "$test_cov" = "y" ]; then
+		release_flag=
+		fzgt_output_dir=debug
+	else
+		release_flag="--release"
+		fzgt_output_dir=release
+	fi
+	cargo build --color always $release_flag --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml"
+	fzgt_exe="$root_dir/src/rust/iced-x86-fzgt/target/$fzgt_output_dir/iced-x86-fzgt"
 	for bitness in 16 32 64; do
 		echo "==== ${bitness}-bit: Generating valid/invalid files ===="
 		dotnet run -c:$configuration --no-build -p "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file"
 		echo "==== ${bitness}-bit: Testing valid instructions ===="
-		cargo run --color always --release --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml" -- -b $bitness -f "$valid_file"
+		cov_test "test_valid_$bitness" "$fzgt_exe" -b $bitness -f "$valid_file"
 		echo "==== ${bitness}-bit: Testing invalid instructions ===="
-		cargo run --color always --release --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml" -- -b $bitness -f "$invalid_file" --invalid
+		cov_test "test_invalid_$bitness" "$fzgt_exe" -b $bitness -f "$invalid_file" --invalid
 	done
 
 	for bitness in 16 32 64; do
 		echo "==== ${bitness}-bit (AMD): Generating valid/invalid files ===="
 		dotnet run -c:$configuration --no-build -p "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file" --amd
 		echo "==== ${bitness}-bit (AMD): Testing valid instructions ===="
-		cargo run --color always --release --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml" -- -b $bitness -f "$valid_file" --amd
+		cov_test "test_amd_valid_$bitness" "$fzgt_exe" -b $bitness -f "$valid_file" --amd
 		echo "==== ${bitness}-bit (AMD): Testing invalid instructions ===="
-		cargo run --color always --release --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml" -- -b $bitness -f "$invalid_file" --invalid --amd
+		cov_test "test_amd_invalid_$bitness" "$fzgt_exe" -b $bitness -f "$invalid_file" --invalid --amd
 	done
 
 	rm "$valid_file"
@@ -164,6 +180,33 @@ build_features() {
 	cd "$curr_dir"
 }
 
+cov_test() {
+	cov_test_dir=$1
+	shift
+	if [ "$test_cov" = "y" ]; then
+		$kcov --verify --exclude-pattern=/tests/,/test/,/test_utils/ --include-pattern=/iced-x86/ "$cov_out_rust_tmp/$cov_test_dir" "$@"
+	else
+		"$@"
+	fi
+}
+
+cargo_test_cov() {
+	cov_test_dir=$1
+	shift
+	if [ "$test_cov" = "y" ]; then
+		test_exe=$(cargo test --color always --no-run --message-format=json "$@" | grep -- '"name":"iced-x86"' | tail -1 | sed -e 's/.*"executable":"\([^"]\+\)".*/\1/')
+		if [ ! -x "$test_exe" ]; then
+			echo "Couldn't get the test executable name, got '$test_exe'"
+			echo "json output:"
+			cargo test --color always --no-run --message-format=json "$@"
+			exit 1
+		fi
+		cov_test "$cov_test_dir" "$test_exe"
+	else
+		cargo test --color always "$@"
+	fi
+}
+
 build_test_current_version() {
 	new_func "Build, test (current version)"
 	curr_dir=$(pwd)
@@ -194,10 +237,10 @@ build_test_current_version() {
 	# Make sure the two read-mem methods behave the same
 	# Also test serde code. It needs encoder to also test 'db x,y,z', see serde tests
 	echo "==== TEST DEBUG: std decoder encoder serde __internal_flip ===="
-	cargo test --color always --tests --no-default-features --features "std decoder encoder serde __internal_flip"
+	cargo_test_cov test_internal_flip --tests --no-default-features --features "std decoder encoder serde __internal_flip"
 
 	echo "==== TEST DEBUG ===="
-	cargo test --color always --tests --features "serde $test_code_asm_feat mvex"
+	cargo_test_cov test_debug --tests --features "serde $test_code_asm_feat mvex"
 
 	echo "==== BUILD RELEASE wasm32-unknown-unknown ===="
 	cargo check --color always --target wasm32-unknown-unknown --release --features "serde code_asm mvex"
@@ -269,6 +312,7 @@ while [ "$#" -gt 0 ]; do
 	--test-features) test_features=y ;;
 	--test-current) test_current=y ;;
 	--test-msrv) test_msrv=y ;;
+	--coverage) test_cov=y ;;
 
 	--no-set-rustflags) set_rustflags=n ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
@@ -288,6 +332,13 @@ fi
 
 echo "rustup show"
 rustup show
+
+if [ "$test_cov" = "y" ]; then
+	mkdir -p "$cov_out"
+	rm -rf "$cov_out_rust" "$cov_out_rust_merged"
+	mkdir -p "$cov_out_rust_tmp"
+	kcov --version
+fi
 
 if [ "$test_code_asm" = "y" ]; then
 	test_code_asm_feat="code_asm"
@@ -317,4 +368,8 @@ if [ "$test_current" = "y" ]; then
 fi
 if [ "$test_msrv" = "y" ]; then
 	build_test_msrv
+fi
+
+if [ "$test_cov" = "y" ]; then
+	$kcov --merge "$cov_out_rust_merged" "$cov_out_rust_tmp/"*
 fi
