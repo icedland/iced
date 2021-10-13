@@ -187,7 +187,7 @@ jobs:
       - name: Install Python tools
         shell: bash
         run: |
-          python --version 2>&1 | grep "Python 3\.6"
+          python --version 2>&1 | grep 'Python 3\.6'
           python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
       - name: Build and test
