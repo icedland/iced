@@ -344,6 +344,15 @@ jobs:
           python --version 2>&1 | grep "Python 3\.9"
           bash build/ci-py-build-wheels.sh
 
+      - uses: conda-incubator/setup-miniconda@v2.1.1
+        with:
+          python-version: 3.10
+      - name: Build and test the wheel
+        shell: bash -le {0}
+        run: |
+          python --version 2>&1 | grep "Python 3\.10"
+          bash build/ci-py-build-wheels.sh
+
       - uses: actions/upload-artifact@v2
         with:
           name: py-dist-${{matrix.os}}-x64
@@ -417,6 +426,15 @@ jobs:
         shell: bash
         run: |
           python --version 2>&1 | grep "Python 3\.9"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2.2.2
+        with:
+          python-version: 3.10
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.10"
           bash build/ci-py-build-wheels.sh
 
       - name: Fix upload path
@@ -493,6 +511,16 @@ jobs:
         shell: bash
         run: |
           python --version 2>&1 | grep "Python 3\.9"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2.2.2
+        with:
+          python-version: 3.10
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.10"
           bash build/ci-py-build-wheels.sh
 
       - name: Fix upload path
