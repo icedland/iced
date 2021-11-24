@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.4.0
 
-      - uses: actions/setup-dotnet@v1.8.2
+      - uses: actions/setup-dotnet@v1.9.0
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
@@ -92,7 +92,7 @@ jobs:
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-dotnet@v1.8.2
+      - uses: actions/setup-dotnet@v1.9.0
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
