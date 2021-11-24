@@ -12,7 +12,9 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join("..", "build", "lib")))
+import sysconfig
+lib_dir = f"lib.{sysconfig.get_platform()}-{sys.version_info.major}.{sys.version_info.minor}"
+sys.path.insert(0, os.path.abspath(os.path.join("..", "build", lib_dir)))
 
 
 # -- Project information -----------------------------------------------------
