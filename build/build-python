@@ -140,7 +140,7 @@ generate_docs() {
 	patchci_verify_patched
 
 	# Depends on generate_wheel output.
-	if [ ! -f "$(ls build/lib/iced_x86/_iced_x86_py.*.*)" ]; then
+	if [ ! -f "$(ls build/lib*/iced_x86/_iced_x86_py.*.*)" ]; then
 		echo "Couldn't find the built _iced_x86_py.*.* file"
 		exit 1
 	fi
