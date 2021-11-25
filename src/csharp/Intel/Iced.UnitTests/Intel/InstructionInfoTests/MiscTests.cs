@@ -12,6 +12,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		[Fact]
 		void IsBranchCall() {
 			var jccShort = MiscTestsData.JccShort;
+			var jcxShort = MiscTestsData.Jrcxz;
 			var jmpNear = MiscTestsData.JmpNear;
 			var jmpFar = MiscTestsData.JmpFar;
 			var jmpShort = MiscTestsData.JmpShort;
@@ -26,6 +27,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var jkccShort = MiscTestsData.JkccShort;
 			var jkccNear = MiscTestsData.JkccNear;
 #endif
+			var loop = MiscTestsData.Loop;
 
 			for (int i = 0; i < IcedConstants.CodeEnumCount; i++) {
 				var code = (Code)i;
@@ -40,6 +42,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 				Assert.Equal(jccShort.Contains(code), code.IsJccShort());
 				Assert.Equal(code.IsJccShort(), instruction.IsJccShort);
+
+				Assert.Equal(jcxShort.Contains(code), code.IsJcxShort());
+				Assert.Equal(code.IsJcxShort(), instruction.IsJcxShort);
 
 				Assert.Equal(jmpShort.Contains(code), code.IsJmpShort());
 				Assert.Equal(code.IsJmpShort(), instruction.IsJmpShort);
@@ -81,6 +86,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				Assert.Equal(jkccShort.Contains(code), code.IsJkccShort());
 				Assert.Equal(code.IsJkccShort(), instruction.IsJkccShort);
 #endif
+				Assert.Equal(loop.Contains(code), code.IsLoop() || code.IsLoopcc());
+				Assert.Equal(code.IsLoop(), instruction.IsLoop);
+				Assert.Equal(code.IsLoopcc(), instruction.IsLoopcc);
 			}
 		}
 
