@@ -454,6 +454,15 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Checks if it's a <c>Jcxz SHORT</c>, <c>Jecxz SHORT</c> or <c>Jrcxz SHORT</c> instruction
+		/// </summary>
+		/// <returns></returns>
+		public readonly bool IsJcxShort {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.IsJcxShort();
+		}
+
+		/// <summary>
 		/// Checks if it's a <c>Jcc SHORT</c> instruction
 		/// </summary>
 		/// <returns></returns>
@@ -550,6 +559,25 @@ namespace Iced.Intel {
 		public readonly bool IsCallFarIndirect {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.IsCallFarIndirect();
+		}
+
+		/// <summary>
+		/// Checks if it's a <c>LOOPcc SHORT</c> instruction
+		/// </summary>
+		/// <returns></returns>
+		public readonly bool IsLoopcc {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.IsLoopcc();
+		}
+
+		/// <summary>
+		/// Checks if it's a <c>LOOP SHORT</c> instruction
+		/// </summary>
+		/// <param name="code">Code value</param>
+		/// <returns></returns>
+		public readonly bool IsLoop {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.IsLoop();
 		}
 
 #if MVEX
