@@ -573,7 +573,6 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Checks if it's a <c>LOOP SHORT</c> instruction
 		/// </summary>
-		/// <param name="code">Code value</param>
 		/// <returns></returns>
 		public readonly bool IsLoop {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
