@@ -26,6 +26,7 @@ pub mod registers;
 #[cfg(test)]
 mod tests;
 
+pub use crate::code_asm::fn_asm_traits as asm_traits;
 pub use crate::code_asm::mem::*;
 pub use crate::code_asm::reg::*;
 pub use crate::code_asm::registers::*;
