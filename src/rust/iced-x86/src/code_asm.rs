@@ -15,10 +15,12 @@
 //!
 //! [`CodeAssembler`]: struct.CodeAssembler.html
 
+#[doc(hidden)]
+#[allow(clippy::missing_errors_doc)]
+pub mod asm_traits;
 mod code_asm_methods;
 mod fn_asm_impl;
 mod fn_asm_pub;
-mod fn_asm_traits;
 mod mem;
 mod op_state;
 mod reg;
@@ -26,7 +28,6 @@ pub mod registers;
 #[cfg(test)]
 mod tests;
 
-pub use crate::code_asm::fn_asm_traits as asm_traits;
 pub use crate::code_asm::mem::*;
 pub use crate::code_asm::reg::*;
 pub use crate::code_asm::registers::*;
