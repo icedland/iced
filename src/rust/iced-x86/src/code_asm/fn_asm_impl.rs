@@ -5,7 +5,7 @@
 
 #![allow(clippy::if_same_then_else)]
 
-use crate::code_asm::fn_asm_traits::*;
+use crate::code_asm::asm_traits::*;
 use crate::code_asm::mem::*;
 use crate::code_asm::op_state::MemoryOperandSize;
 use crate::code_asm::reg::*;

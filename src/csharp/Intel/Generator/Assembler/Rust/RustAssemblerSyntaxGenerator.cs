@@ -453,7 +453,7 @@ namespace Generator.Assembler.Rust {
 		}
 
 		void GenerateAsmTraits(TraitGroup[] traitGroups) {
-			var filename = genTypes.Dirs.GetRustFilename("code_asm", "fn_asm_traits.rs");
+			var filename = genTypes.Dirs.GetRustFilename("code_asm", "asm_traits.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine(RustConstants.InnerAttributeAllowNonCamelCaseTypes);
@@ -565,7 +565,7 @@ namespace Generator.Assembler.Rust {
 			var filename = genTypes.Dirs.GetRustFilename("code_asm", "fn_asm_pub.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine("use crate::code_asm::fn_asm_traits::*;");
+				writer.WriteLine("use crate::code_asm::asm_traits::*;");
 				writer.WriteLine($"use crate::code_asm::{CodeAssembler};");
 				writer.WriteLine($"use crate::{ErrorType};");
 				writer.WriteLine();
@@ -696,7 +696,7 @@ namespace Generator.Assembler.Rust {
 				writer.WriteFileHeader();
 				writer.WriteLine("#![allow(clippy::if_same_then_else)]");
 				writer.WriteLine();
-				writer.WriteLine("use crate::code_asm::fn_asm_traits::*;");
+				writer.WriteLine("use crate::code_asm::asm_traits::*;");
 				writer.WriteLine("use crate::code_asm::mem::*;");
 				writer.WriteLine($"use crate::code_asm::op_state::{memoryOperandSizeType.Name(idConverter)};");
 				writer.WriteLine("use crate::code_asm::reg::*;");
