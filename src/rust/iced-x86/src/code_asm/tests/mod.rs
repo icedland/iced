@@ -86,6 +86,7 @@ fn test_prefixes_dup() {
 }
 
 #[test]
+#[allow(clippy::redundant_closure_for_method_calls)]
 fn prefixes_without_instr_fails_assemble() {
 	#[rustfmt::skip]
 	let set_prefixes: &[fn(&mut CodeAssembler) -> &mut CodeAssembler] = &[
