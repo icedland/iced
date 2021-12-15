@@ -15,10 +15,10 @@
 //!
 //! [`CodeAssembler`]: struct.CodeAssembler.html
 
-#[doc(hidden)]
-#[allow(clippy::missing_errors_doc)]
+#[allow(missing_docs, clippy::missing_errors_doc)]
 pub mod asm_traits;
 mod code_asm_methods;
+#[allow(clippy::missing_inline_in_public_items)]
 mod fn_asm_impl;
 mod fn_asm_pub;
 mod mem;
