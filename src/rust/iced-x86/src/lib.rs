@@ -35,6 +35,7 @@
 #![allow(clippy::manual_range_contains)]
 #![allow(clippy::match_ref_pats)]
 #![allow(clippy::ptr_eq)]
+#![allow(clippy::redundant_closure)] // Clippy is buggy
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::upper_case_acronyms)]
@@ -62,7 +63,6 @@
 #![warn(clippy::print_stderr)]
 #![warn(clippy::print_stdout)]
 #![warn(clippy::rc_buffer)]
-#![warn(clippy::redundant_closure)]
 #![warn(clippy::redundant_closure_for_method_calls)]
 #![warn(clippy::same_functions_in_if_condition)]
 #![warn(clippy::todo)]
