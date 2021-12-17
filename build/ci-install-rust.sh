@@ -11,12 +11,6 @@ echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
 if [[ "$OSTYPE" = "darwin"* ]]; then
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 	rustup install stable
-
-	# CI builds are slow AF now, https://github.com/icedland/iced/issues/241
-	# Force 1.56.1, the compiler without the problem in the linked issue.
-	rustup install 1.56.1
-	rustup default 1.56.1
-
 	rustup component add rustfmt
 	rustup component add clippy
 fi
@@ -25,6 +19,8 @@ fi
 # Force 1.56.1, the compiler without the problem in the linked issue.
 rustup install 1.56.1
 rustup default 1.56.1
+rustup component add rustfmt
+rustup component add clippy
 
 # It fails on Windows so disable auto self update
 rustup toolchain install 1.48.0 --no-self-update
