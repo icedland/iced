@@ -305,7 +305,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn register(&self) -> Register {
+		pub const fn register(&self) -> Register {
 			self.register
 		}
 
@@ -328,7 +328,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn base(&self) -> Register {
+		pub const fn base(&self) -> Register {
 			self.base
 		}
 
@@ -353,7 +353,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn number(&self) -> usize {
+		pub const fn number(&self) -> usize {
 			self.register as usize - self.base as usize
 		}
 
@@ -382,7 +382,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn full_register(&self) -> Register {
+		pub const fn full_register(&self) -> Register {
 			self.full_register
 		}
 
@@ -412,7 +412,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn full_register32(&self) -> Register {
+		pub const fn full_register32(&self) -> Register {
 			self.full_register32
 		}
 
@@ -441,7 +441,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn size(&self) -> usize {
+		pub const fn size(&self) -> usize {
 			self.size as usize
 		}
 	}

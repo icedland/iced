@@ -104,7 +104,7 @@ impl Instruction {
 	/// [`next_ip16()`]: #method.next_ip16
 	#[must_use]
 	#[inline]
-	pub fn ip16(&self) -> u16 {
+	pub const fn ip16(&self) -> u16 {
 		(self.next_rip as u16).wrapping_sub(self.len() as u16)
 	}
 
@@ -125,7 +125,7 @@ impl Instruction {
 	/// [`next_ip32()`]: #method.next_ip32
 	#[must_use]
 	#[inline]
-	pub fn ip32(&self) -> u32 {
+	pub const fn ip32(&self) -> u32 {
 		(self.next_rip as u32).wrapping_sub(self.len() as u32)
 	}
 
@@ -146,7 +146,7 @@ impl Instruction {
 	/// [`next_ip()`]: #method.next_ip
 	#[must_use]
 	#[inline]
-	pub fn ip(&self) -> u64 {
+	pub const fn ip(&self) -> u64 {
 		self.next_rip.wrapping_sub(self.len() as u64)
 	}
 
@@ -167,7 +167,7 @@ impl Instruction {
 	/// [`ip16()`]: #method.ip16
 	#[must_use]
 	#[inline]
-	pub fn next_ip16(&self) -> u16 {
+	pub const fn next_ip16(&self) -> u16 {
 		self.next_rip as u16
 	}
 
@@ -188,7 +188,7 @@ impl Instruction {
 	/// [`ip32()`]: #method.ip32
 	#[must_use]
 	#[inline]
-	pub fn next_ip32(&self) -> u32 {
+	pub const fn next_ip32(&self) -> u32 {
 		self.next_rip as u32
 	}
 
@@ -209,7 +209,7 @@ impl Instruction {
 	/// [`ip()`]: #method.ip
 	#[must_use]
 	#[inline]
-	pub fn next_ip(&self) -> u64 {
+	pub const fn next_ip(&self) -> u64 {
 		self.next_rip
 	}
 
@@ -260,7 +260,7 @@ impl Instruction {
 	/// [`mnemonic()`]: #method.mnemonic
 	#[must_use]
 	#[inline]
-	pub fn code(&self) -> Code {
+	pub const fn code(&self) -> Code {
 		self.code
 	}
 
@@ -307,7 +307,7 @@ impl Instruction {
 	/// or create a new one, this method could return the wrong value.
 	#[must_use]
 	#[inline]
-	pub fn len(&self) -> usize {
+	pub const fn len(&self) -> usize {
 		self.len as usize
 	}
 
@@ -491,7 +491,7 @@ impl Instruction {
 	/// [`try_op_kind()`]: #method.try_op_kind
 	#[must_use]
 	#[inline]
-	pub fn op0_kind(&self) -> OpKind {
+	pub const fn op0_kind(&self) -> OpKind {
 		self.op_kinds[0]
 	}
 
@@ -514,7 +514,7 @@ impl Instruction {
 	/// [`try_op_kind()`]: #method.try_op_kind
 	#[must_use]
 	#[inline]
-	pub fn op1_kind(&self) -> OpKind {
+	pub const fn op1_kind(&self) -> OpKind {
 		self.op_kinds[1]
 	}
 
@@ -537,7 +537,7 @@ impl Instruction {
 	/// [`try_op_kind()`]: #method.try_op_kind
 	#[must_use]
 	#[inline]
-	pub fn op2_kind(&self) -> OpKind {
+	pub const fn op2_kind(&self) -> OpKind {
 		self.op_kinds[2]
 	}
 
@@ -560,7 +560,7 @@ impl Instruction {
 	/// [`try_op_kind()`]: #method.try_op_kind
 	#[must_use]
 	#[inline]
-	pub fn op3_kind(&self) -> OpKind {
+	pub const fn op3_kind(&self) -> OpKind {
 		self.op_kinds[3]
 	}
 
@@ -584,7 +584,7 @@ impl Instruction {
 	#[allow(clippy::unused_self)]
 	#[must_use]
 	#[inline]
-	pub fn op4_kind(&self) -> OpKind {
+	pub const fn op4_kind(&self) -> OpKind {
 		OpKind::Immediate8
 	}
 
@@ -725,7 +725,7 @@ impl Instruction {
 	/// [`segment_prefix()`]: #method.segment_prefix
 	#[must_use]
 	#[inline]
-	pub fn has_segment_prefix(&self) -> bool {
+	pub const fn has_segment_prefix(&self) -> bool {
 		((self.flags1 >> InstrFlags1::SEGMENT_PREFIX_SHIFT) & InstrFlags1::SEGMENT_PREFIX_MASK).wrapping_sub(1) < 6
 	}
 
@@ -960,7 +960,7 @@ impl Instruction {
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[must_use]
 	#[inline]
-	pub fn memory_index_scale(&self) -> u32 {
+	pub const fn memory_index_scale(&self) -> u32 {
 		1 << (self.scale as u8)
 	}
 
@@ -991,7 +991,7 @@ impl Instruction {
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[must_use]
 	#[inline]
-	pub fn memory_displacement32(&self) -> u32 {
+	pub const fn memory_displacement32(&self) -> u32 {
 		self.mem_displ as u32
 	}
 
@@ -1016,7 +1016,7 @@ impl Instruction {
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[must_use]
 	#[inline]
-	pub fn memory_displacement64(&self) -> u64 {
+	pub const fn memory_displacement64(&self) -> u64 {
 		self.mem_displ
 	}
 
@@ -1161,7 +1161,7 @@ impl Instruction {
 	/// [`OpKind::Immediate8`]: enum.OpKind.html#variant.Immediate8
 	#[must_use]
 	#[inline]
-	pub fn immediate8(&self) -> u8 {
+	pub const fn immediate8(&self) -> u8 {
 		self.immediate as u8
 	}
 
@@ -1189,7 +1189,7 @@ impl Instruction {
 	/// [`OpKind::Immediate8_2nd`]: enum.OpKind.html#variant.Immediate8_2nd
 	#[must_use]
 	#[inline]
-	pub fn immediate8_2nd(&self) -> u8 {
+	pub const fn immediate8_2nd(&self) -> u8 {
 		self.mem_displ as u8
 	}
 
@@ -1210,7 +1210,7 @@ impl Instruction {
 	/// [`OpKind::Immediate16`]: enum.OpKind.html#variant.Immediate16
 	#[must_use]
 	#[inline]
-	pub fn immediate16(&self) -> u16 {
+	pub const fn immediate16(&self) -> u16 {
 		self.immediate as u16
 	}
 
@@ -1231,7 +1231,7 @@ impl Instruction {
 	/// [`OpKind::Immediate32`]: enum.OpKind.html#variant.Immediate32
 	#[must_use]
 	#[inline]
-	pub fn immediate32(&self) -> u32 {
+	pub const fn immediate32(&self) -> u32 {
 		self.immediate
 	}
 
@@ -1252,7 +1252,7 @@ impl Instruction {
 	/// [`OpKind::Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[must_use]
 	#[inline]
-	pub fn immediate64(&self) -> u64 {
+	pub const fn immediate64(&self) -> u64 {
 		(self.mem_displ << 32) | (self.immediate as u64)
 	}
 
@@ -1274,7 +1274,7 @@ impl Instruction {
 	/// [`OpKind::Immediate8to16`]: enum.OpKind.html#variant.Immediate8to16
 	#[must_use]
 	#[inline]
-	pub fn immediate8to16(&self) -> i16 {
+	pub const fn immediate8to16(&self) -> i16 {
 		self.immediate as i8 as i16
 	}
 
@@ -1295,7 +1295,7 @@ impl Instruction {
 	/// [`OpKind::Immediate8to32`]: enum.OpKind.html#variant.Immediate8to32
 	#[must_use]
 	#[inline]
-	pub fn immediate8to32(&self) -> i32 {
+	pub const fn immediate8to32(&self) -> i32 {
 		self.immediate as i8 as i32
 	}
 
@@ -1316,7 +1316,7 @@ impl Instruction {
 	/// [`OpKind::Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
 	#[must_use]
 	#[inline]
-	pub fn immediate8to64(&self) -> i64 {
+	pub const fn immediate8to64(&self) -> i64 {
 		self.immediate as i8 as i64
 	}
 
@@ -1337,7 +1337,7 @@ impl Instruction {
 	/// [`OpKind::Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
 	#[must_use]
 	#[inline]
-	pub fn immediate32to64(&self) -> i64 {
+	pub const fn immediate32to64(&self) -> i64 {
 		self.immediate as i32 as i64
 	}
 
@@ -1358,7 +1358,7 @@ impl Instruction {
 	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	#[must_use]
 	#[inline]
-	pub fn near_branch16(&self) -> u16 {
+	pub const fn near_branch16(&self) -> u16 {
 		self.mem_displ as u16
 	}
 
@@ -1379,7 +1379,7 @@ impl Instruction {
 	/// [`OpKind::NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	#[must_use]
 	#[inline]
-	pub fn near_branch32(&self) -> u32 {
+	pub const fn near_branch32(&self) -> u32 {
 		self.mem_displ as u32
 	}
 
@@ -1400,7 +1400,7 @@ impl Instruction {
 	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[must_use]
 	#[inline]
-	pub fn near_branch64(&self) -> u64 {
+	pub const fn near_branch64(&self) -> u64 {
 		self.mem_displ
 	}
 
@@ -1448,7 +1448,7 @@ impl Instruction {
 	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	#[must_use]
 	#[inline]
-	pub fn far_branch16(&self) -> u16 {
+	pub const fn far_branch16(&self) -> u16 {
 		self.immediate as u16
 	}
 
@@ -1469,7 +1469,7 @@ impl Instruction {
 	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	#[must_use]
 	#[inline]
-	pub fn far_branch32(&self) -> u32 {
+	pub const fn far_branch32(&self) -> u32 {
 		self.immediate
 	}
 
@@ -1491,7 +1491,7 @@ impl Instruction {
 	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	#[must_use]
 	#[inline]
-	pub fn far_branch_selector(&self) -> u16 {
+	pub const fn far_branch_selector(&self) -> u16 {
 		self.mem_displ as u16
 	}
 
@@ -1514,7 +1514,7 @@ impl Instruction {
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[must_use]
 	#[inline]
-	pub fn memory_base(&self) -> Register {
+	pub const fn memory_base(&self) -> Register {
 		self.mem_base_reg
 	}
 
@@ -1537,7 +1537,7 @@ impl Instruction {
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[must_use]
 	#[inline]
-	pub fn memory_index(&self) -> Register {
+	pub const fn memory_index(&self) -> Register {
 		self.mem_index_reg
 	}
 
@@ -1563,7 +1563,7 @@ impl Instruction {
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	#[must_use]
 	#[inline]
-	pub fn op0_register(&self) -> Register {
+	pub const fn op0_register(&self) -> Register {
 		self.regs[0]
 	}
 
@@ -1592,7 +1592,7 @@ impl Instruction {
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	#[must_use]
 	#[inline]
-	pub fn op1_register(&self) -> Register {
+	pub const fn op1_register(&self) -> Register {
 		self.regs[1]
 	}
 
@@ -1621,7 +1621,7 @@ impl Instruction {
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	#[must_use]
 	#[inline]
-	pub fn op2_register(&self) -> Register {
+	pub const fn op2_register(&self) -> Register {
 		self.regs[2]
 	}
 
@@ -1650,7 +1650,7 @@ impl Instruction {
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	#[must_use]
 	#[inline]
-	pub fn op3_register(&self) -> Register {
+	pub const fn op3_register(&self) -> Register {
 		self.regs[3]
 	}
 
@@ -1680,7 +1680,7 @@ impl Instruction {
 	#[allow(clippy::unused_self)]
 	#[must_use]
 	#[inline]
-	pub fn op4_register(&self) -> Register {
+	pub const fn op4_register(&self) -> Register {
 		Register::None
 	}
 
@@ -1844,7 +1844,7 @@ impl Instruction {
 	/// [`op_mask()`]: #method.op_mask
 	#[must_use]
 	#[inline]
-	pub fn has_op_mask(&self) -> bool {
+	pub const fn has_op_mask(&self) -> bool {
 		(self.flags1 & (InstrFlags1::OP_MASK_MASK << InstrFlags1::OP_MASK_SHIFT)) != 0
 	}
 
@@ -1852,7 +1852,7 @@ impl Instruction {
 	/// Only used by most EVEX encoded instructions that use opmask registers.
 	#[must_use]
 	#[inline]
-	pub fn zeroing_masking(&self) -> bool {
+	pub const fn zeroing_masking(&self) -> bool {
 		(self.flags1 & InstrFlags1::ZEROING_MASKING) != 0
 	}
 
@@ -1875,7 +1875,7 @@ impl Instruction {
 	/// Only used by most EVEX encoded instructions that use opmask registers.
 	#[must_use]
 	#[inline]
-	pub fn merging_masking(&self) -> bool {
+	pub const fn merging_masking(&self) -> bool {
 		(self.flags1 & InstrFlags1::ZEROING_MASKING) == 0
 	}
 
@@ -1934,7 +1934,7 @@ impl Instruction {
 	/// [`Code::DeclareQword`]: enum.Code.html#variant.DeclareQword
 	#[must_use]
 	#[inline]
-	pub fn declare_data_len(&self) -> usize {
+	pub const fn declare_data_len(&self) -> usize {
 		(((self.flags1 >> InstrFlags1::DATA_LENGTH_SHIFT) & InstrFlags1::DATA_LENGTH_MASK) + 1) as usize
 	}
 
@@ -2392,7 +2392,7 @@ impl Instruction {
 	/// [`is_vsib64()`]: #method.is_vsib64
 	#[must_use]
 	#[inline]
-	pub fn is_vsib(&self) -> bool {
+	pub const fn is_vsib(&self) -> bool {
 		self.vsib().is_some()
 	}
 
@@ -2401,7 +2401,7 @@ impl Instruction {
 	/// [`is_vsib()`]: #method.is_vsib
 	#[must_use]
 	#[inline]
-	pub fn is_vsib32(&self) -> bool {
+	pub const fn is_vsib32(&self) -> bool {
 		if let Some(is_vsib64) = self.vsib() {
 			!is_vsib64
 		} else {
@@ -2414,7 +2414,7 @@ impl Instruction {
 	/// [`is_vsib()`]: #method.is_vsib
 	#[must_use]
 	#[inline]
-	pub fn is_vsib64(&self) -> bool {
+	pub const fn is_vsib64(&self) -> bool {
 		if let Some(is_vsib64) = self.vsib() {
 			is_vsib64
 		} else {
@@ -2432,7 +2432,7 @@ impl Instruction {
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[allow(clippy::match_single_binding)]
-	pub fn vsib(&self) -> Option<bool> {
+	pub const fn vsib(&self) -> Option<bool> {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self.code() {
 			// GENERATOR-BEGIN: Vsib32
@@ -2555,7 +2555,7 @@ impl Instruction {
 	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
 	#[must_use]
 	#[inline]
-	pub fn suppress_all_exceptions(&self) -> bool {
+	pub const fn suppress_all_exceptions(&self) -> bool {
 		(self.flags1 & InstrFlags1::SUPPRESS_ALL_EXCEPTIONS) != 0
 	}
 
@@ -2761,7 +2761,7 @@ impl FpuStackIncrementInfo {
 	/// Constructor
 	#[must_use]
 	#[inline]
-	pub fn new(increment: i32, conditional: bool, writes_top: bool) -> Self {
+	pub const fn new(increment: i32, conditional: bool, writes_top: bool) -> Self {
 		Self { increment, conditional, writes_top }
 	}
 
@@ -2775,21 +2775,21 @@ impl FpuStackIncrementInfo {
 	/// [`writes_top()`]: #method.writes_top
 	#[must_use]
 	#[inline]
-	pub fn increment(&self) -> i32 {
+	pub const fn increment(&self) -> i32 {
 		self.increment
 	}
 
 	/// `true` if it's a conditional push/pop (eg. `FPTAN` or `FSINCOS`)
 	#[must_use]
 	#[inline]
-	pub fn conditional(&self) -> bool {
+	pub const fn conditional(&self) -> bool {
 		self.conditional
 	}
 
 	/// `true` if `TOP` is written (it's a conditional/unconditional push/pop, `FNSAVE`, `FLDENV`, etc)
 	#[must_use]
 	#[inline]
-	pub fn writes_top(&self) -> bool {
+	pub const fn writes_top(&self) -> bool {
 		self.writes_top
 	}
 }

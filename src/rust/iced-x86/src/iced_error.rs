@@ -23,13 +23,13 @@ where
 
 impl IcedError {
 	#[allow(dead_code)]
-	pub(crate) fn new(error: &'static str) -> Self {
-		Self { error: error.into() }
+	pub(crate) const fn new(error: &'static str) -> Self {
+		Self { error: Cow::Borrowed(error) }
 	}
 
 	#[allow(dead_code)]
-	pub(crate) fn with_string(error: String) -> Self {
-		Self { error: error.into() }
+	pub(crate) const fn with_string(error: String) -> Self {
+		Self { error: Cow::Owned(error) }
 	}
 }
 
