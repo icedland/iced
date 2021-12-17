@@ -21,6 +21,10 @@ if [[ "$OSTYPE" = "darwin"* ]]; then
 	rustup component add clippy
 fi
 
+# CI builds are slow AF now, https://github.com/icedland/iced/issues/241
+# Force 1.56.1, the compiler without the problem in the linked issue.
+rustup install 1.56.1
+rustup default 1.56.1
 
 # It fails on Windows so disable auto self update
 rustup toolchain install 1.48.0 --no-self-update
