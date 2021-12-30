@@ -32,6 +32,8 @@ mod num_fmt_opts;
 mod pseudo_ops;
 mod regs_tbl;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod regs_tbl_ls;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod string_output;
 mod strings_data;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
@@ -93,40 +95,31 @@ fn r64_to_r32(reg: Register) -> Register {
 }
 
 #[derive(Debug, Default, Clone)]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 struct FormatterString {
 	lower: String,
-	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	upper: String,
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 impl FormatterString {
 	#[must_use]
 	fn new(lower: String) -> Self {
 		debug_assert_eq!(lower.to_lowercase(), lower);
-		#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-		{
-			Self { upper: lower.to_uppercase(), lower }
-		}
-		#[cfg(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
-		{
-			Self { lower }
-		}
+		Self { upper: lower.to_uppercase(), lower }
 	}
 
-	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	#[must_use]
 	fn with_strings(strings: Vec<String>) -> Vec<Self> {
 		strings.into_iter().map(FormatterString::new).collect()
 	}
 
-	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	#[must_use]
 	fn new_str(lower: &str) -> Self {
 		debug_assert_eq!(lower.to_lowercase(), lower);
 		Self { lower: String::from(lower), upper: lower.to_uppercase() }
 	}
 
-	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	#[must_use]
 	#[inline]
 	fn len(&self) -> usize {
@@ -140,7 +133,6 @@ impl FormatterString {
 		self.lower.is_empty()
 	}
 
-	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	#[must_use]
 	#[inline]
 	fn get(&self, upper: bool) -> &str {

@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::formatter::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
+use crate::formatter::regs_tbl::MAX_STRING_LENGTH;
+use crate::formatter::regs_tbl_ls::REGS_TBL;
 use crate::formatter::FormatterString;
 use crate::iced_constants::IcedConstants;
 use crate::Register;
