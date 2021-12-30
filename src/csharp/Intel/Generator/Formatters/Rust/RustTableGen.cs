@@ -341,9 +341,11 @@ namespace Generator.Formatters.Rust {
 						writer.WriteCommentLine("No padding needed");
 				}
 				writer.WriteLine("];");
+				writer.WriteLine(RustConstants.AttributeAllowDeadCode);
 				writer.WriteLine($"pub(super) const MAX_STRING_LENGTH: usize = {maxLen};");
 				writer.WriteLine(RustConstants.AttributeAllowDeadCode);
 				writer.WriteLine($"pub(super) const VALID_STRING_LENGTH: usize = {FastStringRegisterSize};");
+				writer.WriteLine(RustConstants.AttributeAllowDeadCode);
 				writer.WriteLine($"pub(super) const PADDING_SIZE: usize = {extraPadding};");
 			});
 		}

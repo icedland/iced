@@ -19,7 +19,7 @@ use crate::formatter::masm::info::*;
 use crate::formatter::masm::mem_size_tbl::Info;
 use crate::formatter::masm::mem_size_tbl::MEM_SIZE_TBL;
 use crate::formatter::num_fmt::*;
-use crate::formatter::regs_tbl::REGS_TBL;
+use crate::formatter::regs_tbl_ls::REGS_TBL;
 use crate::formatter::*;
 use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
