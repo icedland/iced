@@ -228,7 +228,7 @@ build_test_current_version() {
 	echo "==== BUILD RELEASE ===="
 	cargo check --color always --release --features "serde code_asm mvex"
 
-	echo "==== TEST RELEASE ===="
+	echo "==== TEST ===="
 	extra_args=""
 	if [ "$test_code_asm" != "y" ]; then
 		extra_args="-- --skip lib.rs"
