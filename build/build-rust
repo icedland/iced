@@ -39,7 +39,7 @@ new_func() {
 generator_check() {
 	new_func "Run generator, verify no diff"
 
-	dotnet run -c $configuration -p "$root_dir/src/csharp/Intel/Generator/Generator.csproj"
+	dotnet run -c $configuration --project "$root_dir/src/csharp/Intel/Generator/Generator.csproj"
 	git diff --exit-code
 }
 
@@ -62,7 +62,7 @@ test_valid_invalid_instructions() {
 	fzgt_exe="$root_dir/src/rust/iced-x86-fzgt/target/$fzgt_output_dir/iced-x86-fzgt"
 	for bitness in 16 32 64; do
 		echo "==== ${bitness}-bit: Generating valid/invalid files ===="
-		dotnet run -c:$configuration --no-build -p "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file"
+		dotnet run -c:$configuration --no-build --project "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file"
 		echo "==== ${bitness}-bit: Testing valid instructions ===="
 		cov_test "test_valid_$bitness" "$fzgt_exe" -b $bitness -f "$valid_file"
 		echo "==== ${bitness}-bit: Testing invalid instructions ===="
@@ -71,7 +71,7 @@ test_valid_invalid_instructions() {
 
 	for bitness in 16 32 64; do
 		echo "==== ${bitness}-bit (AMD): Generating valid/invalid files ===="
-		dotnet run -c:$configuration --no-build -p "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file" --amd
+		dotnet run -c:$configuration --no-build --project "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file" --amd
 		echo "==== ${bitness}-bit (AMD): Testing valid instructions ===="
 		cov_test "test_amd_valid_$bitness" "$fzgt_exe" -b $bitness -f "$valid_file" --amd
 		echo "==== ${bitness}-bit (AMD): Testing invalid instructions ===="
