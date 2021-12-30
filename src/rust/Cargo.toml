@@ -11,6 +11,9 @@ members = [
     "iced-x86",
 ]
 
+[profile.test]
+opt-level = 3
+
 [profile.release]
 codegen-units = 1
 lto = true

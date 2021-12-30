@@ -233,7 +233,7 @@ build_test_current_version() {
 	if [ "$test_code_asm" != "y" ]; then
 		extra_args="-- --skip lib.rs"
 	fi
-	cargo test --color always --release --features "serde $test_code_asm_feat mvex" $extra_args
+	cargo test --color always --features "serde $test_code_asm_feat mvex" $extra_args
 
 	# Make sure the two read-mem methods behave the same
 	# Also test serde code. It needs encoder to also test 'db x,y,z', see serde tests
