@@ -5,7 +5,6 @@
 #![cfg_attr(doc, cfg_attr(doc, doc = include_str!("../README.md")))]
 #![cfg_attr(not(doc), doc = "Run cargo doc to see the docs (needs Rust 1.54.0 or later)")]
 #![doc(html_logo_url = "https://raw.githubusercontent.com/icedland/iced/master/logo.png")]
-#![doc(html_root_url = "https://docs.rs/iced-x86/1.15.0")]
 #![allow(unknown_lints)]
 #![warn(absolute_paths_not_starting_with_crate)]
 #![warn(anonymous_parameters)]
