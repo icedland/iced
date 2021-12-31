@@ -101,8 +101,6 @@ compile_error!("`std` or `no_std` feature must be defined");
 extern crate alloc;
 #[cfg(feature = "std")]
 extern crate core;
-#[cfg(feature = "serde")]
-extern crate serde_crate as serde;
 
 #[macro_use]
 mod iced_assert {
