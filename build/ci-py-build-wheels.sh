@@ -61,7 +61,7 @@ patchci_undo_patch() {
 }
 
 # Build the wheel with the minimum supported Python version only
-if python --version 2>&1 | grep "Python 3\.6"; then
+if python --version 2>&1 | grep 'Python 3\.6'; then
 	patchci_verify_not_patched
 	patchci_patch
 	patchci_verify_patched
