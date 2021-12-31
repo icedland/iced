@@ -2594,10 +2594,10 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn ip_rel_memory_address(&self) -> u64 {
-		if self.memory_base() == Register::EIP {
-			self.memory_displacement32() as u64
-		} else {
+		if self.memory_base() == Register::RIP {
 			self.memory_displacement64()
+		} else {
+			self.memory_displacement32() as u64
 		}
 	}
 
