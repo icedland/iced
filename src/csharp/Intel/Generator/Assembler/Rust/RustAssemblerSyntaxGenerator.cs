@@ -456,6 +456,8 @@ namespace Generator.Assembler.Rust {
 			var filename = genTypes.Dirs.GetRustFilename("code_asm", "asm_traits.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
+				writer.WriteLine(RustConstants.InnerAttributeMissingErrorsDoc);
+				writer.WriteLine(RustConstants.InnerAttributeAllowMissingDocs);
 				writer.WriteLine(RustConstants.InnerAttributeAllowNonCamelCaseTypes);
 				writer.WriteLine();
 				writer.WriteLine($"use crate::{ErrorType};");
@@ -695,6 +697,7 @@ namespace Generator.Assembler.Rust {
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine("#![allow(clippy::if_same_then_else)]");
+				writer.WriteLine("#![allow(clippy::missing_inline_in_public_items)]");
 				writer.WriteLine();
 				writer.WriteLine("use crate::code_asm::asm_traits::*;");
 				writer.WriteLine("use crate::code_asm::mem::*;");

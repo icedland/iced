@@ -19,6 +19,8 @@ namespace Generator {
 		public const string AttributeMustUse = "#[must_use]";
 		public const string AttributeNonExhaustive = "#[cfg_attr(not(feature = \"exhaustive_enums\"), non_exhaustive)]";
 		public const string AttributeInline = "#[inline]";
+		public const string InnerAttributeMissingErrorsDoc = "#![allow(clippy::missing_errors_doc)]";
+		public const string InnerAttributeAllowMissingDocs = "#![allow(missing_docs)]";
 		public const string AttributeAllowMissingDocs = "#[allow(missing_docs)]";
 		public const string AttributeAllowMissingCopyImplementations = "#[allow(missing_copy_implementations)]";
 		public const string AttributeAllowMissingDebugImplementations = "#[allow(missing_debug_implementations)]";
