@@ -17,10 +17,6 @@ use alloc::rc::Rc;
 use alloc::vec::Vec;
 use core::cell::RefCell;
 use core::mem;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
-#[cfg(feature = "std")]
-use std::collections::HashMap;
 
 /// Relocation info
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
@@ -114,7 +110,7 @@ pub struct BlockEncoder {
 	// it here because of borrowck.
 	blocks: Vec<(Rc<RefCell<Block>>, Vec<Rc<RefCell<dyn Instr>>>)>,
 	null_encoder: Encoder,
-	to_instr: HashMap<u64, Rc<RefCell<dyn Instr>>>,
+	to_instr: Vec<(u64, Rc<RefCell<dyn Instr>>)>,
 	has_multiple_zero_ip_instrs: bool,
 }
 
@@ -136,7 +132,7 @@ impl BlockEncoder {
 			options,
 			blocks: Vec::with_capacity(instr_blocks.len()),
 			null_encoder: Encoder::try_new(bitness)?,
-			to_instr: HashMap::new(),
+			to_instr: Vec::new(),
 			has_multiple_zero_ip_instrs: false,
 		};
 
@@ -163,23 +159,40 @@ impl BlockEncoder {
 		// Optimize from low to high addresses
 		this.blocks.sort_unstable_by(|a, b| a.0.borrow().rip.cmp(&b.0.borrow().rip));
 
+		this.to_instr = Vec::with_capacity(instr_count);
 		// There must not be any instructions with the same IP, except if IP = 0 (default value)
-		this.to_instr = HashMap::with_capacity(instr_count);
+		let mut num_ip_0 = 0;
 		for info in &this.blocks {
-			for instr in &info.1 {
+			// Reverse here since we'll sort them in reverse order, see below
+			for instr in info.1.iter().rev() {
 				let orig_ip = instr.borrow().orig_ip();
-				if this.to_instr.get(&orig_ip).is_some() {
-					if orig_ip != 0 {
-						return Err(IcedError::with_string(format!("Multiple instructions with the same IP: 0x{:X}", orig_ip)));
-					}
-					this.has_multiple_zero_ip_instrs = true;
+				let insert = if orig_ip == 0 {
+					num_ip_0 += 1;
+					num_ip_0 == 1
 				} else {
-					let _ = this.to_instr.insert(orig_ip, instr.clone());
+					true
+				};
+				if insert {
+					this.to_instr.push((orig_ip, instr.clone()));
 				}
 			}
 		}
-		if this.has_multiple_zero_ip_instrs {
-			let _ = this.to_instr.remove(&0);
+		// We sort them in reverse order so that if we must remove the 'ip==0' entry, we just need to pop()
+		this.to_instr.sort_unstable_by(|a, b| b.0.cmp(&a.0));
+		if num_ip_0 > 1 {
+			if let Some(kv) = this.to_instr.last() {
+				debug_assert_eq!(kv.0, 0);
+				if kv.0 == 0 {
+					let _ = this.to_instr.pop();
+				}
+			}
+		}
+		let mut prev_ip = this.to_instr.get(0).map(|(ip, _)| *ip).unwrap_or_default();
+		for (ip, _) in this.to_instr.iter().skip(1) {
+			if *ip == prev_ip {
+				return Err(IcedError::with_string(format!("Multiple instructions with the same IP: 0x{:X}", ip)));
+			}
+			prev_ip = *ip;
 		}
 
 		let mut tmp_blocks = mem::take(&mut this.blocks);
@@ -397,7 +410,10 @@ impl BlockEncoder {
 		if (address != 0 || !self.has_multiple_zero_ip_instrs) && instr.orig_ip() == address {
 			TargetInstr::new_owner()
 		} else {
-			self.to_instr.get(&address).map_or_else(|| TargetInstr::new_address(address), |instr| TargetInstr::new_instr(instr.clone()))
+			match self.to_instr.binary_search_by(|(ip, _)| address.cmp(ip)) {
+				Ok(index) => TargetInstr::new_instr(self.to_instr[index].1.clone()),
+				Err(_) => TargetInstr::new_address(address),
+			}
 		}
 	}
 
