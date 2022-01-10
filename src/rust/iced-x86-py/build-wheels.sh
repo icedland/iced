@@ -41,11 +41,11 @@ if [ "$pypy" = "y" ]; then
 	cd "$THISDIR"
 fi
 
-for PYBIN in /opt/python/cp36*/bin/python; do
+for PYBIN in /opt/python/cp37*/bin/python; do
 	# Make sure the files don't get extra *.so files (should be 1 per file)
 	rm -rf build/
 	"$PYBIN" -m pip install -r requirements.txt
-	"$PYBIN" setup.py bdist_wheel --py-limited-api=cp36
+	"$PYBIN" setup.py bdist_wheel --py-limited-api=cp37
 done
 for PYBIN in /tmp/pypy/pypy3.*/bin/pypy; do
 	if [ -f "$PYBIN" ]; then
@@ -64,7 +64,7 @@ for whl in orig-dist/*.whl; do
 done
 rm -rf orig-dist
 
-for PYBIN in /opt/python/cp{36,37,38,39,310}*/bin/python /tmp/pypy/pypy3.*/bin/pypy; do
+for PYBIN in /opt/python/cp{37,38,39,310}*/bin/python /tmp/pypy/pypy3.*/bin/pypy; do
 	if [ -f "$PYBIN" ]; then
 		"$PYBIN" -m pip install -U pytest
 		"$PYBIN" -m pip install iced-x86 --no-index -f dist/ --only-binary iced-x86

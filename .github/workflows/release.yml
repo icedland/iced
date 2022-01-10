@@ -101,8 +101,16 @@ jobs:
           node-version: ${{env.CI_NODE_MIN_VER}}
 
       - name: Install wasm-pack
+        if: ${{ !startsWith(matrix.os, 'windows-') }}
         shell: bash
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+      # https://github.com/rustwasm/wasm-pack/issues/1097
+      - name: Install wasm-pack
+        if: startsWith(matrix.os, 'windows-')
+        shell: bash
+        run: |
+          curl -L https://github.com/rustwasm/wasm-pack/releases/download/v0.10.2/wasm-pack-init.exe -o wasm-pack-init.exe
+          ./wasm-pack-init.exe
 
       - name: Build and test
         shell: bash
@@ -126,10 +134,10 @@ jobs:
 
   # If the supported Python versions get updated (added/removed), do:
   # - Update .github/workflows/*.yml
-  #     - Search for 3.6, 3\.6, 36, py36
+  #     - Search for 3.7, 3\.7, 37, py37
   # - Update py min ver in src/rust/iced-x86-py/README.md
-  # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 36)
-  # - Update src/rust/iced-x86-py/Cargo.toml (update "abi3-py36" to min supported version)
+  # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 37)
+  # - Update src/rust/iced-x86-py/Cargo.toml (update "abi3-py37" to min supported version)
   # - Update Python versions in src/rust/iced-x86-py/setup.py
   # - Update src/rust/iced-x86-py/tox.ini
 
@@ -177,11 +185,11 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: '3.6'
+          python-version: '3.7'
       - name: Install Python tools
         shell: bash
         run: |
-          python --version 2>&1 | grep 'Python 3\.6'
+          python --version 2>&1 | grep 'Python 3\.7'
           python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
       - name: Build and test
@@ -294,11 +302,11 @@ jobs:
       #       use setup-miniconda if this is a macos image.
       - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
-          python-version: '3.6'
+          python-version: '3.7'
       - name: Install Python tools
         shell: bash -le {0}
         run: |
-          python --version 2>&1 | grep 'Python 3\.6'
+          python --version 2>&1 | grep 'Python 3\.7'
           python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
       - name: Build and test
@@ -309,21 +317,12 @@ jobs:
 
       - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
-          python-version: '3.6'
-      - name: Build and test the wheel
-        shell: bash -le {0}
-        run: |
-          python --version 2>&1 | grep 'Python 3\.6'
-          bash build/ci-py-build-wheels.sh --build
-
-      - uses: conda-incubator/setup-miniconda@v2.1.1
-        with:
           python-version: '3.7'
       - name: Build and test the wheel
         shell: bash -le {0}
         run: |
           python --version 2>&1 | grep 'Python 3\.7'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
@@ -378,11 +377,11 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: '3.6'
+          python-version: '3.7'
       - name: Install Python tools
         shell: bash
         run: |
-          python --version 2>&1 | grep 'Python 3\.6'
+          python --version 2>&1 | grep 'Python 3\.7'
           python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
       - name: Build and test
@@ -393,21 +392,12 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: '3.6'
-      - name: Build and test the wheel
-        shell: bash
-        run: |
-          python --version 2>&1 | grep 'Python 3\.6'
-          bash build/ci-py-build-wheels.sh --build
-
-      - uses: actions/setup-python@v2.3.1
-        with:
           python-version: '3.7'
       - name: Build and test the wheel
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.7'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: actions/setup-python@v2.3.1
         with:
@@ -484,23 +474,13 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: '3.6'
-          architecture: x86
-      - name: Build and test the wheel
-        shell: bash
-        run: |
-          python --version 2>&1 | grep 'Python 3\.6'
-          bash build/ci-py-build-wheels.sh --build
-
-      - uses: actions/setup-python@v2.3.1
-        with:
           python-version: '3.7'
           architecture: x86
       - name: Build and test the wheel
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.7'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: actions/setup-python@v2.3.1
         with:
@@ -598,7 +578,7 @@ jobs:
             cp "$path/"* /tmp/py-dist-tmp
           done
 
-          mv /tmp/py-dist-tmp/iced_x86-*-cp36-abi3*.whl /tmp/py-dist
+          mv /tmp/py-dist-tmp/iced_x86-*-cp37-abi3*.whl /tmp/py-dist
           mv /tmp/py-dist-tmp/iced-x86-*.tar.gz /tmp/py-dist
 
           if [ -n "$(ls -A /tmp/py-dist-tmp/* 2>/dev/null)" ]; then
