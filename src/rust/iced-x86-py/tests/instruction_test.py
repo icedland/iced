@@ -1277,7 +1277,8 @@ def test_pickle_invalid_data() -> None:
 	instr = Instruction.create(Code.AAA)
 	data = pickle.dumps(instr)
 	invalid_data = bytearray([0xFF for b in data])
-	with pytest.raises(pickle.UnpicklingError):
+	# KeyError if PyPy
+	with pytest.raises((pickle.UnpicklingError, KeyError)):
 		pickle.loads(invalid_data)
-	with pytest.raises(pickle.UnpicklingError):
+	with pytest.raises((pickle.UnpicklingError, KeyError)):
 		pickle.loads(bytes(invalid_data))

@@ -6,10 +6,24 @@ if [ ! "$GITHUB_ACTIONS" ]; then
 	exit 1
 fi
 
-python --version
-python -m pip --version
+python=python
+py_kind=cpy
+build=n
 
-python -m pip install -U setuptools wheel setuptools-rust pytest
+while [ "$#" -gt 0 ]; do
+	case $1 in
+	--python) shift; python=$1 ;;
+	--py-kind) shift; py_kind=$1 ;;
+	--build) build=y ;;
+	*) echo "Unknown arg: $1"; exit 1 ;;
+	esac
+	shift
+done
+
+"$python" --version
+"$python" -m pip --version
+
+"$python" -m pip install -U setuptools wheel setuptools-rust pytest
 
 # Needed so the wheel files don't get extra *.{so,pyd} files (should have exactly one)
 # from earlier builds
@@ -61,12 +75,16 @@ patchci_undo_patch() {
 }
 
 # Build the wheel with the minimum supported Python version only
-if python --version 2>&1 | grep 'Python 3\.6'; then
+if [ "$build" = "y" ]; then
 	patchci_verify_not_patched
 	patchci_patch
 	patchci_verify_patched
 
-	python setup.py bdist_wheel --py-limited-api=cp36
+	extra_args=
+	if [ "$py_kind" = "cpy" ]; then
+		extra_args=--py-limited-api=cp36
+	fi
+	"$python" setup.py bdist_wheel $extra_args
 	mkdir -p /tmp/py-dist
 	cp dist/* /tmp/py-dist
 
@@ -74,6 +92,6 @@ if python --version 2>&1 | grep 'Python 3\.6'; then
 fi
 
 echo "Testing it"
-python -m pip install iced-x86 --no-index -f /tmp/py-dist --only-binary iced-x86
-python -m pytest --color=yes --code-highlight=yes
-python -m pip uninstall -y iced-x86
+"$python" -m pip install iced-x86 --no-index -f /tmp/py-dist --only-binary iced-x86
+"$python" -m pytest --color=yes --code-highlight=yes
+"$python" -m pip uninstall -y iced-x86
