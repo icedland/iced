@@ -16,7 +16,7 @@ bincode = "1.3.3"
 [dependencies.pyo3]
 version = "0.15.0"
 default-features = false
-features = ["macros", "extension-module", "abi3-py36"]
+features = ["macros", "extension-module", "abi3-py37"]
 
 [dependencies.iced-x86]
 # If building from sdist, it should use the exact same version as the sdist.
