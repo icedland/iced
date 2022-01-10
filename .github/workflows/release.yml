@@ -127,7 +127,6 @@ jobs:
   # If the supported Python versions get updated (added/removed), do:
   # - Update .github/workflows/*.yml
   #     - Search for 3.6, 3\.6, 36, py36
-  # - Update version number check in build/ci-py-build-wheels.sh
   # - Update py min ver in src/rust/iced-x86-py/README.md
   # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 36)
   # - Update src/rust/iced-x86-py/Cargo.toml (update "abi3-py36" to min supported version)
@@ -178,7 +177,7 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.6
+          python-version: '3.6'
       - name: Install Python tools
         shell: bash
         run: |
@@ -206,7 +205,7 @@ jobs:
         shell: bash
         run: |
           git clean -xdf
-          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2010_x86_64"
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2010_x86_64" --pypy
 
       - uses: actions/upload-artifact@v2
         with:
@@ -295,7 +294,7 @@ jobs:
       #       use setup-miniconda if this is a macos image.
       - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
-          python-version: 3.6
+          python-version: '3.6'
       - name: Install Python tools
         shell: bash -le {0}
         run: |
@@ -310,16 +309,16 @@ jobs:
 
       - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
-          python-version: 3.6
+          python-version: '3.6'
       - name: Build and test the wheel
         shell: bash -le {0}
         run: |
           python --version 2>&1 | grep 'Python 3\.6'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
-          python-version: 3.7
+          python-version: '3.7'
       - name: Build and test the wheel
         shell: bash -le {0}
         run: |
@@ -328,7 +327,7 @@ jobs:
 
       - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
-          python-version: 3.8
+          python-version: '3.8'
       - name: Build and test the wheel
         shell: bash -le {0}
         run: |
@@ -337,7 +336,7 @@ jobs:
 
       - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
-          python-version: 3.9
+          python-version: '3.9'
       - name: Build and test the wheel
         shell: bash -le {0}
         run: |
@@ -346,7 +345,7 @@ jobs:
 
       - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
-          python-version: 3.10
+          python-version: '3.10'
       - name: Build and test the wheel
         shell: bash -le {0}
         run: |
@@ -379,7 +378,7 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.6
+          python-version: '3.6'
       - name: Install Python tools
         shell: bash
         run: |
@@ -394,16 +393,16 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.6
+          python-version: '3.6'
       - name: Build and test the wheel
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.6'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.7
+          python-version: '3.7'
       - name: Build and test the wheel
         shell: bash
         run: |
@@ -412,7 +411,7 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.8
+          python-version: '3.8'
       - name: Build and test the wheel
         shell: bash
         run: |
@@ -421,7 +420,7 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.9
+          python-version: '3.9'
       - name: Build and test the wheel
         shell: bash
         run: |
@@ -430,12 +429,22 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.10
+          python-version: '3.10'
       - name: Build and test the wheel
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.10'
           bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2.3.1
+        with:
+          python-version: 'pypy-3.8'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version
+          python --version 2>&1 | grep 'Python 3\.8'
+          bash build/ci-py-build-wheels.sh --build --py-kind pypy
 
       - name: Fix upload path
         shell: bash
@@ -475,17 +484,17 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.6
+          python-version: '3.6'
           architecture: x86
       - name: Build and test the wheel
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.6'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.7
+          python-version: '3.7'
           architecture: x86
       - name: Build and test the wheel
         shell: bash
@@ -495,7 +504,7 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.8
+          python-version: '3.8'
           architecture: x86
       - name: Build and test the wheel
         shell: bash
@@ -505,7 +514,7 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.9
+          python-version: '3.9'
           architecture: x86
       - name: Build and test the wheel
         shell: bash
@@ -515,7 +524,7 @@ jobs:
 
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.10
+          python-version: '3.10'
           architecture: x86
       - name: Build and test the wheel
         shell: bash
@@ -561,7 +570,7 @@ jobs:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
       - uses: actions/setup-python@v2.3.1
         with:
-          python-version: 3.x
+          python-version: '3.x'
       - uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
