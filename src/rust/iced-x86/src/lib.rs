@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-// This requires Rust 1.54.0 or later. The double cfg_attr is required so older versions can compile it.
-#![cfg_attr(doc, cfg_attr(doc, doc = include_str!("../README.md")))]
-#![cfg_attr(not(doc), doc = "Run cargo doc to see the docs (needs Rust 1.54.0 or later)")]
+#![doc = include_str!("../README.md")]
 #![doc(html_logo_url = "https://raw.githubusercontent.com/icedland/iced/master/logo.png")]
 #![allow(unknown_lints)]
 #![warn(absolute_paths_not_starting_with_crate)]

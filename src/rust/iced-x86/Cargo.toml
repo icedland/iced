@@ -51,8 +51,7 @@ static_assertions = "1.1.0"
 lazy_static = { version = "1.4.0", optional = true }
 
 # if: no_std and serde
-# 0.11.0 requires MSRV 1.49.0 but we support 1.48.0
-hashbrown = { version = ">=0.9.0, <100.0.0", optional = true }
+hashbrown = { version = "0.11.2", optional = true }
 
 # If: serde 
 [dependencies.serde]
