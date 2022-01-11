@@ -1431,9 +1431,9 @@ impl<'a> Decoder<'a> {
 		// SAFETY:
 		// - the instruction has only primitive integer types, nothing needs to be dropped
 		// - private method: no caller passes in a null ptr, a non-writable ptr or an unaligned ptr
-		ptr::write(instruction, Instruction::default());
+		unsafe { ptr::write(instruction, Instruction::default()) };
 		// SAFETY: private method: the only callers pass in their `&mut arg` or their own stack-allocated `MaybeUninit` instruction
-		let instruction = &mut *instruction;
+		let instruction = unsafe { &mut *instruction };
 
 		self.state.extra_register_base = 0;
 		self.state.extra_index_register_base = 0;
