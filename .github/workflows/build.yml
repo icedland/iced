@@ -99,8 +99,8 @@ jobs:
       - name: Install kcov
         shell: bash
         run: |
-          sudo apt update
-          sudo apt install kcov
+          sudo apt-get update
+          sudo apt-get install kcov
 
       - name: Build and test
         shell: bash
