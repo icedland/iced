@@ -1,7 +1,6 @@
 [package]
 name = "iced-x86-py"
 version = "1.15.0"
-authors = ["iced project and contributors <https://github.com/icedland>"]
 edition = "2018"
 publish = false
 

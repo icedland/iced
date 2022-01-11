@@ -1,16 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-// This requires Rust 1.54.0 or later. The double cfg_attr is required so older versions can compile it.
-#![cfg_attr(doc, cfg_attr(doc, doc = include_str!("../README.md")))]
-#![cfg_attr(not(doc), doc = "Run cargo doc to see the docs (needs Rust 1.54.0 or later)")]
+#![doc = include_str!("../README.md")]
 #![doc(html_logo_url = "https://raw.githubusercontent.com/icedland/iced/master/logo.png")]
 #![allow(unknown_lints)]
 #![warn(absolute_paths_not_starting_with_crate)]
 #![warn(anonymous_parameters)]
 #![warn(elided_lifetimes_in_paths)]
 #![warn(explicit_outlives_requirements)]
-#![warn(invalid_html_tags)]
 #![warn(keyword_idents)]
 #![warn(meta_variable_misuse)]
 #![warn(missing_copy_implementations)]
@@ -19,12 +16,14 @@
 #![warn(non_ascii_idents)]
 #![warn(trivial_casts)]
 #![warn(trivial_numeric_casts)]
+#![warn(unsafe_op_in_unsafe_fn)]
 #![warn(unused_extern_crates)]
 #![warn(unused_import_braces)]
 #![warn(unused_lifetimes)]
 #![warn(unused_must_use)]
 #![warn(unused_qualifications)]
 #![warn(unused_results)]
+#![warn(rustdoc::invalid_html_tags)]
 #![allow(clippy::bool_assert_comparison)]
 #![allow(clippy::branches_sharing_code)]
 #![allow(clippy::cast_lossless)]

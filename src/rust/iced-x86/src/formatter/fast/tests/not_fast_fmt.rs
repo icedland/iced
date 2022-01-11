@@ -13,7 +13,7 @@ impl SpecializedFormatterTraitOptions for NotFastFormatterTraitOptions {
 	const ENABLE_SYMBOL_RESOLVER: bool = DefaultFastFormatterTraitOptions::ENABLE_SYMBOL_RESOLVER;
 	const ENABLE_DB_DW_DD_DQ: bool = DefaultFastFormatterTraitOptions::ENABLE_DB_DW_DD_DQ;
 	unsafe fn verify_output_has_enough_bytes_left() -> bool {
-		DefaultFastFormatterTraitOptions::verify_output_has_enough_bytes_left()
+		unsafe { DefaultFastFormatterTraitOptions::verify_output_has_enough_bytes_left() }
 	}
 	fn space_after_operand_separator(options: &FastFormatterOptions) -> bool {
 		DefaultFastFormatterTraitOptions::space_after_operand_separator(options)
