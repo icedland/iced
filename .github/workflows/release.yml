@@ -135,10 +135,11 @@ jobs:
   # If the supported Python versions get updated (added/removed), do:
   # - Update .github/workflows/*.yml
   #     - Search for 3.7, 3\.7, 37, py37
-  # - Update py min ver in src/rust/iced-x86-py/README.md
-  # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 37)
+  # - Update build/ci-py-build-wheels.sh (update cp37)
   # - Update src/rust/iced-x86-py/Cargo.toml (update "abi3-py37" to min supported version)
-  # - Update Python versions in src/rust/iced-x86-py/setup.py
+  # - Update src/rust/iced-x86-py/README.md (py min ver: 'Python >= 3.7')
+  # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 37)
+  # - Update src/rust/iced-x86-py/setup.py (Python versions)
   # - Update src/rust/iced-x86-py/tox.ini
 
   build-rust-python-linux-aarch64:
