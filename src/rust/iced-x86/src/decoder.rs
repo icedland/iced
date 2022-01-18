@@ -1583,6 +1583,7 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
+	#[allow(clippy::nonminimal_bool)]
 	fn set_xacquire_xrelease_core(&mut self, instruction: &mut Instruction, flags: u32) {
 		debug_assert!(!((flags & HandlerFlags::XACQUIRE_XRELEASE_NO_LOCK) == 0 && !instruction.has_lock_prefix()));
 		match self.state.mandatory_prefix {

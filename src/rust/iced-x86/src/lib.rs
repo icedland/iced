@@ -32,6 +32,7 @@
 #![allow(clippy::field_reassign_with_default)]
 #![allow(clippy::manual_range_contains)]
 #![allow(clippy::match_ref_pats)]
+#![allow(clippy::needless_late_init)]
 #![allow(clippy::ptr_eq)]
 #![allow(clippy::redundant_closure)] // Clippy is buggy
 #![allow(clippy::too_many_arguments)]
