@@ -34,7 +34,15 @@ if [ "$pypy" = "y" ]; then
 	mkdir -p /tmp/pypy
 	cd /tmp/pypy
 	echo "Downloading PyPy"
-	curl https://downloads.python.org/pypy/pypy3.8-v7.3.7-linux64.tar.bz2 -o pypy3.8.tar.bz2
+	arch=$(uname -m)
+	if [ "$arch" = "x86_64" ]; then
+		curl https://downloads.python.org/pypy/pypy3.8-v7.3.7-linux64.tar.bz2 -o pypy3.8.tar.bz2
+	elif [ "$arch" = "aarch64" ]; then
+		curl https://downloads.python.org/pypy/pypy3.8-v7.3.7-aarch64.tar.bz2 -o pypy3.8.tar.bz2
+	else
+		echo "Non-supported arch: $arch"
+		exit 1
+	fi
 	for f in pypy*.tar.*; do
 		tar xf "$f"
 	done
