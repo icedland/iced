@@ -42,6 +42,22 @@ impl Instruction {
 		instruction.set_segment_prefix(memory.segment_prefix);
 	}
 
+	/// Creates an instruction with no operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value
+	#[must_use]
+	#[inline]
+	#[rustfmt::skip]
+	pub fn with(code: Code) -> Self {
+		let mut instruction = Self::default();
+		instruction.set_code(code);
+
+		debug_assert_eq!(instruction.op_count(), 0);
+		instruction
+	}
+
 	/// Creates an instruction with 1 operand
 	///
 	/// # Errors
@@ -215,24 +231,6 @@ impl Instruction {
 		Self: With5<T, U, V, W, X>,
 	{
 		<Self as With5<T, U, V, W, X>>::with5(code, op0, op1, op2, op3, op4)
-	}
-}
-
-impl Instruction {
-	/// Creates an instruction with no operands
-	///
-	/// # Arguments
-	///
-	/// * `code`: Code value
-	#[must_use]
-	#[inline]
-	#[rustfmt::skip]
-	pub fn with(code: Code) -> Self {
-		let mut instruction = Self::default();
-		instruction.set_code(code);
-
-		debug_assert_eq!(instruction.op_count(), 0);
-		instruction
 	}
 }
 
