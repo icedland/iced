@@ -34,17 +34,15 @@ namespace Generator.Encoder.Rust {
 
 		protected override void Generate(FileWriter writer) {
 			// Generate the trait impls
-			GenCreateMethods(writer, 1);
+			GenCreateMethods(writer, 0);
 
 			WriteItemSeparator(writer);
 
 			// Generate the other methods
 			writer.WriteLine("impl Instruction {");
 			ResetItemSeparator();
-			using (writer.Indent()) {
-				GenCreateMethods(writer, 0);
+			using (writer.Indent())
 				GenTheRest(writer);
-			}
 			writer.WriteLine("}");
 		}
 
@@ -162,9 +160,6 @@ namespace Generator.Encoder.Rust {
 			var tryMethodName = "try_" + methodName;
 			var ctx = new GenerateTryMethodContext(writer, method, opCount, methodName, tryMethodName);
 			GenerateMethodAndBody(ctx, flags, genBody, writeError, null, TryMethodKind.Result, methodName);
-			ctx.Writer.WriteLine();
-			var deprec = new RustDeprecatedInfo("1.14.0", $"Use {methodName}() instead");
-			GenerateCallNewMethod(ctx, flags | GenTryFlags.NoDocs, writeError, deprec, TryMethodKind.Result, tryMethodName, methodName);
 		}
 
 		void GenerateMethodAndBody(GenerateTryMethodContext ctx, GenTryFlags flags, Action<GenerateTryMethodContext, TryMethodKind> genBody,
@@ -242,32 +237,8 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group, int id) {
-			// 0 == generate deprecated methods
+			// 0 == generate new with{1,2,3,4,5}() impl methods
 			if (id == 0) {
-				int opCount = method.Args.Count - 1;
-				var methodName = gen.GetCreateName(method, genNames);
-				var newName = InstrCreateGenImpl.GetRustOverloadedCreateName(method);
-				var deprec = new RustDeprecatedInfo("1.14.0", $"Use {newName}() instead");
-
-				if (opCount == 0) {
-					var ctx = new GenerateTryMethodContext(writer, method, opCount, methodName, "try_" + methodName);
-					GenerateMethodAndBody(ctx, GenTryFlags.None, GenCreateBody, null, null, TryMethodKind.Normal);
-				}
-				else if (InstrCreateGenImpl.HasTryMethod(method)) {
-					var ctx = new GenerateTryMethodContext(writer, method, opCount, "try_" + methodName, newName);
-					GenerateCallNewMethod(ctx, GenTryFlags.NoDocs | GenTryFlags.CallNoDocs | GenTryFlags.Inline, null, deprec, TryMethodKind.Result);
-					writer.WriteLine();
-					ctx = new GenerateTryMethodContext(writer, method, opCount, methodName, newName);
-					GenerateCallNewMethod(ctx, GenTryFlags.NoDocs | GenTryFlags.DocHidden | GenTryFlags.Inline, null, deprec, TryMethodKind.Normal);
-				}
-				else {
-					var flags = GenTryFlags.NoDocs | GenTryFlags.Inline;
-					var ctx = new GenerateTryMethodContext(writer, method, opCount, methodName, newName);
-					GenerateCallNewMethod(ctx, flags, null, deprec, TryMethodKind.Panic);
-				}
-			}
-			// 1 == generate new with{1,2,3,4,5}() impl methods
-			else if (id == 1) {
 				int opCount = method.Args.Count - 1;
 				if (opCount == 0)
 					return;
