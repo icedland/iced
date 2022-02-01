@@ -42,8 +42,7 @@ test("Instruction info factory", () => {
 	expect(mem1[0].base).toBe(Register.RDI);
 	expect(mem1[0].index).toBe(Register.R12);
 	expect(mem1[0].scale).toBe(8);
-	expect(mem1[0].displacementHi).toBe(0xFFFFFFFF);
-	expect(mem1[0].displacementLo).toBe(0xA55A1234);
+	expect(mem1[0].displacement).toBe(0xFFFFFFFFA55A1234n);
 	expect(mem1[0].memorySize).toBe(MemorySize.UInt32);
 	expect(mem1[0].access).toBe(OpAccess.ReadWrite);
 
@@ -68,8 +67,7 @@ test("Instruction info factory", () => {
 	expect(mem3[0].base).toBe(Register.RDI);
 	expect(mem3[0].index).toBe(Register.R12);
 	expect(mem3[0].scale).toBe(8);
-	expect(mem3[0].displacementHi).toBe(0xFFFFFFFF);
-	expect(mem3[0].displacementLo).toBe(0xA55A1234);
+	expect(mem3[0].displacement).toBe(0xFFFFFFFFA55A1234n);
 	expect(mem3[0].memorySize).toBe(MemorySize.UInt32);
 	expect(mem3[0].access).toBe(OpAccess.ReadWrite);
 

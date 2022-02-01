@@ -39,8 +39,6 @@ build_and_check() {
 	cargo fmt -- --color always --check
 	echo "==== CLIPPY instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt mvex ===="
 	cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt mvex"
-	echo "==== CLIPPY instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt mvex bigint ===="
-	cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt mvex bigint"
 
 	set -- \
 		"decoder" \

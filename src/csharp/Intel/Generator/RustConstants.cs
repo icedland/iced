@@ -53,8 +53,6 @@ namespace Generator {
 		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"decoder\", feature = \"encoder\"))]";
 		public const string FeatureDecoderOrEncoderOrOpCodeInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"op_code_info\"))]";
 		public const string FeatureDecoderOrEncoderOrInstrInfoOrOpCodeInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"instr_info\", feature = \"op_code_info\"))]";
-		public const string FeatureBigInt = "#[cfg(feature = \"bigint\")]";
-		public const string FeatureNotBigInt = "#[cfg(not(feature = \"bigint\"))]";
 		public const string FeatureGasIntelNasm = "#[cfg(any(feature = \"gas\", feature = \"intel\", feature = \"nasm\"))]";
 
 		public static string? GetFeature(EncodingKind encoding) =>
