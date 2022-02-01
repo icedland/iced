@@ -18,11 +18,11 @@ use wasm_bindgen::prelude::*;
 /// // xchg ah,[rdx+rsi+16h]
 /// const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16]);
 /// const decoder = new Decoder(64, bytes, DecoderOptions.None);
-/// decoder.ip = 0x12345678;
+/// decoder.ip = 0x12345678n;
 /// const instr = decoder.decode();
 ///
 /// const encoder = new Encoder(64);
-/// const len = encoder.encode(instr, 0x55555555);
+/// const len = encoder.encode(instr, 0x55555555n);
 /// assert.equal(len, 4);
 /// // We're done, take ownership of the buffer
 /// const buffer = encoder.takeBuffer();
