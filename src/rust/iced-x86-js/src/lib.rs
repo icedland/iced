@@ -31,6 +31,7 @@
 #![allow(clippy::ptr_eq)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
+#![allow(clippy::unused_unit)] // wasm-bindgen 0.2.79 https://github.com/rustwasm/wasm-bindgen/issues/2774
 #![allow(clippy::upper_case_acronyms)]
 #![allow(clippy::wrong_self_convention)]
 #![warn(clippy::cloned_instead_of_copied)]
