@@ -810,18 +810,18 @@ impl Instruction {
 		self.0.set_memory_index_scale(newValue)
 	}
 
-	/// Gets signed low 32 bits of the memory operand's displacement or the 64-bit absolute address if it's
+	/// Gets signed 64 bits of the memory operand's displacement or the 64-bit absolute address if it's
 	/// an `EIP` or `RIP` relative memory operand.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "memoryDisplacement")]
-	pub fn memory_displacement(&self) -> i32 {
-		self.0.memory_displacement64() as i32
+	pub fn memory_displacement(&self) -> i64 {
+		self.0.memory_displacement64() as i64
 	}
 
-	/// Gets signed low 32 bits of the memory operand's displacement or the 64-bit absolute address if it's
+	/// Gets signed 64 bits of the memory operand's displacement or the 64-bit absolute address if it's
 	/// an `EIP` or `RIP` relative memory operand.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
@@ -833,19 +833,35 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[wasm_bindgen(js_name = "memoryDisplacement")]
 	#[cfg(feature = "encoder")]
-	pub fn set_memory_displacement(&mut self, #[allow(non_snake_case)] newValue: i32) {
+	pub fn set_memory_displacement(&mut self, #[allow(non_snake_case)] newValue: i64) {
 		self.0.set_memory_displacement64(newValue as u64)
 	}
 
-	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
+	/// Gets unsigned 64 bits of the memory operand's displacement or the 64-bit absolute address if it's
 	/// an `EIP` or `RIP` relative memory operand.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "memoryDisplacement64")]
-	pub fn memory_displacement64(&self) -> u64 {
+	#[wasm_bindgen(js_name = "memoryDisplacementU64")]
+	pub fn memory_displacement_u64(&self) -> u64 {
 		self.0.memory_displacement64()
+	}
+
+	/// Gets unsigned 64 bits of the memory operand's displacement or the 64-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
+	/// Use this method if the operand has kind [`OpKind.Memory`]
+	///
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
+	///
+	/// # Arguments
+	///
+	/// * `newValue`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "memoryDisplacementU64")]
+	#[cfg(feature = "encoder")]
+	pub fn set_memory_displacement_u64(&mut self, #[allow(non_snake_case)] newValue: u64) {
+		self.0.set_memory_displacement64(newValue)
 	}
 
 	/// Gets an operand's immediate value
@@ -1728,11 +1744,10 @@ impl Instruction {
 		self.0.is_ip_rel_memory_operand()
 	}
 
-	/// Gets the `RIP`/`EIP` releative address ([`memoryDisplacement`] or [`memoryDisplacement64`]).
+	/// Gets the `RIP`/`EIP` releative address ([`memoryDisplacement`]).
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`]
 	///
 	/// [`memoryDisplacement`]: #method.memory_displacement
-	/// [`memoryDisplacement64`]: #method.memory_displacement64
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ipRelMemoryAddress")]

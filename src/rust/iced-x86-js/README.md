@@ -210,9 +210,9 @@ instructions.push(Instruction.createReg(Code.Push_r64, Register.RDI));
 instructions.push(Instruction.createReg(Code.Push_r64, Register.RSI));
 instructions.push(Instruction.createRegU32(Code.Sub_rm64_imm32, Register.RSP, 0x50));
 instructions.push(Instruction.create(Code.VEX_Vzeroupper));
-instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.RBP, MemoryOperand.createBaseDispl(Register.RSP, 0x60)));
+instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.RBP, MemoryOperand.createBaseDispl(Register.RSP, 0x60n)));
 instructions.push(Instruction.createRegReg(Code.Mov_r64_rm64, Register.RSI, Register.RCX));
-instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.RDI, MemoryOperand.createBaseDispl(Register.RBP, -0x38)));
+instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.RDI, MemoryOperand.createBaseDispl(Register.RBP, -0x38n)));
 instructions.push(Instruction.createRegI32(Code.Mov_r32_imm32, Register.ECX, 0x0A));
 instructions.push(Instruction.createRegReg(Code.Xor_r32_rm32, Register.EAX, Register.EAX));
 instructions.push(Instruction.createRepStosd(bitness));
@@ -225,7 +225,7 @@ instructions.push(addLabel(label1, Instruction.createRegReg(Code.Xor_r32_rm32, R
 
 // Create an instruction that accesses some data using an RIP relative memory operand
 const data1 = createLabel();
-instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.R14, MemoryOperand.createBaseDispl(Register.RIP, Number(data1))));
+instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.R14, MemoryOperand.createBaseDispl(Register.RIP, data1)));
 instructions.push(Instruction.create(Code.Nopd));
 const rawData = new Uint8Array([0x12, 0x34, 0x56, 0x78]);
 instructions.push(addLabel(data1, Instruction.createDeclareByte(rawData)));
@@ -964,7 +964,7 @@ function usedMemoryToString(memInfo) {
         if (memInfo.scale !== 1)
             sb += "*" + memInfo.scale;
     }
-    if (memInfo.displacement !== 0 || !needPlus) {
+    if (memInfo.displacement !== 0n || !needPlus) {
         if (needPlus)
             sb += "+";
         if (memInfo.displacement <= 9)

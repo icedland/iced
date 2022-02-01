@@ -30,14 +30,14 @@ impl MemoryOperand {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(constructor)]
 	pub fn new(
-		base: Register, index: Register, scale: u32, displacement: i32, #[allow(non_snake_case)] displSize: u32,
+		base: Register, index: Register, scale: u32, displacement: i64, #[allow(non_snake_case)] displSize: u32,
 		#[allow(non_snake_case)] isBroadcast: bool, #[allow(non_snake_case)] segmentPrefix: Register,
 	) -> Self {
 		Self(iced_x86_rust::MemoryOperand::new(
 			register_to_iced(base),
 			register_to_iced(index),
 			scale,
-			displacement as i64,
+			displacement,
 			displSize,
 			isBroadcast,
 			register_to_iced(segmentPrefix),
@@ -113,12 +113,12 @@ impl MemoryOperand {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(js_name = "createBaseDisplSizeBcstSeg")]
 	pub fn with_base_displ_size_bcst_seg(
-		base: Register, displacement: i32, #[allow(non_snake_case)] displSize: u32, #[allow(non_snake_case)] isBroadcast: bool,
+		base: Register, displacement: i64, #[allow(non_snake_case)] displSize: u32, #[allow(non_snake_case)] isBroadcast: bool,
 		#[allow(non_snake_case)] segmentPrefix: Register,
 	) -> Self {
 		Self(iced_x86_rust::MemoryOperand::with_base_displ_size_bcst_seg(
 			register_to_iced(base),
-			displacement as i64,
+			displacement,
 			displSize,
 			isBroadcast,
 			register_to_iced(segmentPrefix),
@@ -140,13 +140,13 @@ impl MemoryOperand {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(js_name = "createIndexScaleDisplSizeBcstSeg")]
 	pub fn with_index_scale_displ_size_bcst_seg(
-		index: Register, scale: u32, displacement: i32, #[allow(non_snake_case)] displSize: u32, #[allow(non_snake_case)] isBroadcast: bool,
+		index: Register, scale: u32, displacement: i64, #[allow(non_snake_case)] displSize: u32, #[allow(non_snake_case)] isBroadcast: bool,
 		#[allow(non_snake_case)] segmentPrefix: Register,
 	) -> Self {
 		Self(iced_x86_rust::MemoryOperand::with_index_scale_displ_size_bcst_seg(
 			register_to_iced(index),
 			scale,
-			displacement as i64,
+			displacement,
 			displSize,
 			isBroadcast,
 			register_to_iced(segmentPrefix),
@@ -166,11 +166,11 @@ impl MemoryOperand {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(js_name = "createBaseDisplBcstSeg")]
 	pub fn with_base_displ_bcst_seg(
-		base: Register, displacement: i32, #[allow(non_snake_case)] isBroadcast: bool, #[allow(non_snake_case)] segmentPrefix: Register,
+		base: Register, displacement: i64, #[allow(non_snake_case)] isBroadcast: bool, #[allow(non_snake_case)] segmentPrefix: Register,
 	) -> Self {
 		Self(iced_x86_rust::MemoryOperand::with_base_displ_bcst_seg(
 			register_to_iced(base),
-			displacement as i64,
+			displacement,
 			isBroadcast,
 			register_to_iced(segmentPrefix),
 		))
@@ -190,13 +190,13 @@ impl MemoryOperand {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(js_name = "createBaseIndexScaleDisplSize")]
 	pub fn with_base_index_scale_displ_size(
-		base: Register, index: Register, scale: u32, displacement: i32, #[allow(non_snake_case)] displSize: u32,
+		base: Register, index: Register, scale: u32, displacement: i64, #[allow(non_snake_case)] displSize: u32,
 	) -> Self {
 		Self(iced_x86_rust::MemoryOperand::with_base_index_scale_displ_size(
 			register_to_iced(base),
 			register_to_iced(index),
 			scale,
-			displacement as i64,
+			displacement,
 			displSize,
 		))
 	}
@@ -241,8 +241,8 @@ impl MemoryOperand {
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(js_name = "createBaseDisplSize")]
-	pub fn with_base_displ_size(base: Register, displacement: i32, #[allow(non_snake_case)] displSize: u32) -> Self {
-		Self(iced_x86_rust::MemoryOperand::with_base_displ_size(register_to_iced(base), displacement as i64, displSize))
+	pub fn with_base_displ_size(base: Register, displacement: i64, #[allow(non_snake_case)] displSize: u32) -> Self {
+		Self(iced_x86_rust::MemoryOperand::with_base_displ_size(register_to_iced(base), displacement, displSize))
 	}
 
 	/// Constructor
@@ -257,8 +257,8 @@ impl MemoryOperand {
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(js_name = "createIndexScaleDisplSize")]
-	pub fn with_index_scale_displ_size(index: Register, scale: u32, displacement: i32, #[allow(non_snake_case)] displSize: u32) -> Self {
-		Self(iced_x86_rust::MemoryOperand::with_index_scale_displ_size(register_to_iced(index), scale, displacement as i64, displSize))
+	pub fn with_index_scale_displ_size(index: Register, scale: u32, displacement: i64, #[allow(non_snake_case)] displSize: u32) -> Self {
+		Self(iced_x86_rust::MemoryOperand::with_index_scale_displ_size(register_to_iced(index), scale, displacement, displSize))
 	}
 
 	/// Constructor
@@ -271,8 +271,8 @@ impl MemoryOperand {
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(js_name = "createBaseDispl")]
-	pub fn with_base_displ(base: Register, displacement: i32) -> Self {
-		Self(iced_x86_rust::MemoryOperand::with_base_displ(register_to_iced(base), displacement as i64))
+	pub fn with_base_displ(base: Register, displacement: i64) -> Self {
+		Self(iced_x86_rust::MemoryOperand::with_base_displ(register_to_iced(base), displacement))
 	}
 
 	/// Constructor
