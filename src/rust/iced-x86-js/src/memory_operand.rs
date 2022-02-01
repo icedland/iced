@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-//TODO: if bigint feature, use i64 displacement args instead of i32
-
 use crate::register::{register_to_iced, Register};
 use wasm_bindgen::prelude::*;
 
