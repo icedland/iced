@@ -80,7 +80,6 @@ Here's a list of all features you can enable when building the wasm file
 - `masm`: (👍 Enabled by default) Enables the masm formatter
 - `nasm`: (👍 Enabled by default) Enables the nasm formatter
 - `fast_fmt`: (👍 Enabled by default) Enables `FastFormatter` (masm syntax) which uses less code (smaller wasm files)
-- `bigint`: Enables public APIs with `i64`/`u64` arguments and return values (requires JavaScript `BigInt` type, eg. Node.js >= 10.4.0)
 - `no_vex`: Disables all `VEX` instructions. See below for more info.
 - `no_evex`: Disables all `EVEX` instructions. See below for more info.
 - `no_xop`: Disables all `XOP` instructions. See below for more info.
@@ -125,8 +124,7 @@ This code produces the following output:
 */
 
 const exampleBitness = 64;
-const exampleRipLo = 0xC46ACDA4;
-const exampleRipHi = 0x00007FFA;
+const exampleRip = 0x00007FFAC46ACDA4n;
 const exampleCode = new Uint8Array([
     0x48, 0x89, 0x5C, 0x24, 0x10, 0x48, 0x89, 0x74, 0x24, 0x18, 0x55, 0x57, 0x41, 0x56, 0x48, 0x8D,
     0xAC, 0x24, 0x00, 0xFF, 0xFF, 0xFF, 0x48, 0x81, 0xEC, 0x00, 0x02, 0x00, 0x00, 0x48, 0x8B, 0x05,
@@ -136,9 +134,7 @@ const exampleCode = new Uint8Array([
 const hexBytesColumnByteLength = 10;
 
 const decoder = new Decoder(exampleBitness, exampleCode, DecoderOptions.None);
-// You have to enable the bigint feature to get i64/u64 APIs, not all browsers support BigInt
-decoder.ipLo = exampleRipLo;
-decoder.ipHi = exampleRipHi;
+decoder.ip = exampleRip;
 // This decodes all bytes. There's also `decode()` which decodes the next instruction,
 // `decodeInstructions(count)` which decodes `count` instructions and `decodeOut(instruction)`
 // which overwrites an existing instruction.
@@ -158,10 +154,9 @@ instructions.forEach(instruction => {
     const disasm = formatter.format(instruction);
 
     // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
-    let line = ("0000000" + instruction.ipHi.toString(16)).substr(-8).toUpperCase() +
-               ("0000000" + instruction.ipLo.toString(16)).substr(-8).toUpperCase();
+    let line = ("000000000000000" + instruction.ip.toString(16)).substr(-16).toUpperCase();
     line += " ";
-    const startIndex = instruction.ipLo - exampleRipLo;
+    const startIndex = Number(instruction.ip - exampleRip);
     exampleCode.slice(startIndex, startIndex + instruction.length).forEach(b => {
         line += ("0" + b.toString(16)).substr(-2).toUpperCase();
     });
@@ -195,18 +190,16 @@ const bitness = 64;
 // All created instructions get an IP of 0. The label id is just an IP.
 // The branch instruction's *target* IP should be equal to the IP of the
 // target instruction.
-let labelId = 1;
+let labelId = 1n;
 function createLabel() {
     return labelId++;
 }
 function addLabel(id, instruction) {
-    instruction.ipLo = id >>> 0;
-    instruction.ipHi = (id / 0x100000000) >>> 0;
+    instruction.ip = id;
     return instruction;
 }
-function getAddress(hi, lo) {
-    return ("0000000" + hi.toString(16)).substr(-8).toUpperCase() +
-           ("0000000" + lo.toString(16)).substr(-8).toUpperCase();
+function getAddress(addr) {
+    return ("000000000000000" + addr.toString(16)).substr(-16).toUpperCase();
 }
 
 const label1 = createLabel();
@@ -223,16 +216,16 @@ instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.RDI, MemoryO
 instructions.push(Instruction.createRegI32(Code.Mov_r32_imm32, Register.ECX, 0x0A));
 instructions.push(Instruction.createRegReg(Code.Xor_r32_rm32, Register.EAX, Register.EAX));
 instructions.push(Instruction.createRepStosd(bitness));
-instructions.push(Instruction.createRegU64(Code.Cmp_rm64_imm32, Register.RSI, 0x00000000, 0x12345678));
+instructions.push(Instruction.createRegU64(Code.Cmp_rm64_imm32, Register.RSI, 0x12345678n));
 // Create a branch instruction that references label1
-instructions.push(Instruction.createBranch(Code.Jne_rel32_64, 0, label1));
+instructions.push(Instruction.createBranch(Code.Jne_rel32_64, label1));
 instructions.push(Instruction.create(Code.Nopd));
 // Add the instruction that is the target of the branch
 instructions.push(addLabel(label1, Instruction.createRegReg(Code.Xor_r32_rm32, Register.R15D, Register.R15D)));
 
 // Create an instruction that accesses some data using an RIP relative memory operand
 const data1 = createLabel();
-instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.R14, MemoryOperand.createBaseDispl(Register.RIP, data1)));
+instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.R14, MemoryOperand.createBaseDispl(Register.RIP, Number(data1))));
 instructions.push(Instruction.create(Code.Nopd));
 const rawData = new Uint8Array([0x12, 0x34, 0x56, 0x78]);
 instructions.push(addLabel(data1, Instruction.createDeclareByte(rawData)));
@@ -242,11 +235,10 @@ instructions.push(addLabel(data1, Instruction.createDeclareByte(rawData)));
 // It uses Encoder to encode all instructions.
 // If the target of a branch is too far away, it can fix it to use a longer branch.
 // This can be disabled by enabling some BlockEncoderOptions flags.
-const targetRipLo = 0xFC840000;
-const targetRipHi = 0x00001248;
+const targetRip = 0x00001248FC840000n;
 const blockEncoder = new BlockEncoder(bitness, BlockEncoderOptions.None);
 instructions.forEach(instruction => blockEncoder.add(instruction));
-const bytes = blockEncoder.encode(targetRipHi, targetRipLo);
+const bytes = blockEncoder.encode(targetRip);
 
 // Now disassemble the encoded instructions. Note that the 'jmp near'
 // instruction was turned into a 'jmp short' instruction because we
@@ -254,18 +246,17 @@ const bytes = blockEncoder.encode(targetRipHi, targetRipLo);
 const bytesCode = bytes.slice(0, bytes.length - rawData.length);
 const bytesData = bytes.slice(bytes.length - rawData.length);
 const decoder = new Decoder(bitness, bytesCode, DecoderOptions.None);
-decoder.ipLo = targetRipLo;
-decoder.ipHi = targetRipHi;
+decoder.ip = targetRip;
 const formatter = new Formatter(FormatterSyntax.Gas);
 formatter.firstOperandCharIndex = 8;
 const decodedInstructions = decoder.decodeAll();
 decodedInstructions.forEach(instruction => {
     const disasm = formatter.format(instruction);
-    console.log("%s %s", getAddress(instruction.ipHi, instruction.ipLo), disasm);
+    console.log("%s %s", getAddress(instruction.ip), disasm);
 });
 const db = Instruction.createDeclareByte(bytesData);
 const disasm = formatter.format(db);
-console.log("%s %s", getAddress(decoder.ipHi, decoder.ipLo), disasm);
+console.log("%s %s", getAddress(decoder.ip), disasm);
 
 // Free wasm memory
 decodedInstructions.forEach(instruction => instruction.free());
@@ -362,8 +353,7 @@ Moved code:
 */
 
 const exampleBitness = 64;
-const exampleRipLo = 0xC46ACDA4;
-const exampleRipHi = 0x00007FFA;
+const exampleRip = 0x00007FFAC46ACDA4n;
 const exampleCode = new Uint8Array([
     0x48, 0x89, 0x5C, 0x24, 0x10, 0x48, 0x89, 0x74, 0x24, 0x18, 0x55, 0x57, 0x41, 0x56, 0x48, 0x8D,
     0xAC, 0x24, 0x00, 0xFF, 0xFF, 0xFF, 0x48, 0x81, 0xEC, 0x00, 0x02, 0x00, 0x00, 0x48, 0x8B, 0x05,
@@ -371,11 +361,10 @@ const exampleCode = new Uint8Array([
     0x05, 0x2F, 0x24, 0x0A, 0x00, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0x04, 0x00, 0x33, 0xFF
 ]);
 
-function disassemble(code, ripHi, ripLo) {
+function disassemble(code, rip) {
     const formatter = new Formatter(FormatterSyntax.Nasm);
     const decoder = new Decoder(exampleBitness, code, DecoderOptions.None);
-    decoder.ipLo = ripLo;
-    decoder.ipHi = ripHi;
+    decoder.ip = rip;
 
     // decoder.decodeAll() can be used too but it's shown in another example. This shows
     // how to do it one instruction at a time.
@@ -384,8 +373,7 @@ function disassemble(code, ripHi, ripLo) {
         // Decode the next instruction, overwriting an already created instruction
         decoder.decodeOut(instruction);
         const disasm = formatter.format(instruction);
-        const address = ("0000000" + instruction.ipHi.toString(16)).substr(-8).toUpperCase() +
-                        ("0000000" + instruction.ipLo.toString(16)).substr(-8).toUpperCase();
+        const address = ("000000000000000" + instruction.ip.toString(16)).substr(-16).toUpperCase();
         console.log("%s %s", address, disasm)
     }
     console.log();
@@ -397,12 +385,10 @@ function disassemble(code, ripHi, ripLo) {
 }
 
 console.log("Original code:");
-disassemble(exampleCode, exampleRipHi, exampleRipLo);
+disassemble(exampleCode, exampleRip);
 
 const decoder = new Decoder(exampleBitness, exampleCode, DecoderOptions.None);
-// You have to enable the bigint feature to get i64/u64 APIs, not all browsers support BigInt
-decoder.ipLo = exampleRipLo;
-decoder.ipHi = exampleRipHi;
+decoder.ip = exampleRip;
 
 // In 64-bit mode, we need 12 bytes to jump to any address:
 //      mov rax,imm64   // 10
@@ -427,8 +413,7 @@ while (decoder.canDecode) {
 
         case FlowControl.UnconditionalBranch:
             if (instr.op0Kind === OpKind.NearBranch64) {
-                const targetLo = instr.nearBranchTargetLo;
-                const targetHi = instr.nearBranchTargetHi;
+                const target = instr.nearBranchTarget;
                 // You could check if it's just jumping forward a few bytes and follow it
                 // but this is a simple example so we'll fail.
             }
@@ -450,7 +435,7 @@ if (totalBytes < requiredBytes)
     throw new Error("Not enough bytes!");
 const lastInstr = origInstructions[origInstructions.length - 1];
 if (lastInstr.flowControl !== FlowControl.Return) {
-    const jmp = Instruction.createBranch(Code.Jmp_rel32_64, lastInstr.nextIPHi, lastInstr.nextIPLo);
+    const jmp = Instruction.createBranch(Code.Jmp_rel32_64, lastInstr.nextIP);
     origInstructions.push(jmp);
 }
 
@@ -464,35 +449,30 @@ if (lastInstr.flowControl !== FlowControl.Return) {
 // Note that a block is not the same thing as a basic block. A block can contain any
 // number of instructions, including any number of branch instructions. One block
 // should be enough unless you must relocate different blocks to different locations.
-let relocatedBaseAddressLo = ((exampleRipLo + 0x200000) & 0xFFFFFFFF) >>> 0;
-const relocatedBaseAddressHi = exampleRipHi + (relocatedBaseAddressLo < exampleRipLo ? 1 : 0);
+const relocatedBaseAddress = exampleRip + 0x200000n;
 const blockEncoder = new BlockEncoder(exampleBitness, BlockEncoderOptions.None);
 origInstructions.forEach(instruction => blockEncoder.add(instruction));
-const newCode = blockEncoder.encode(relocatedBaseAddressHi, relocatedBaseAddressLo);
+const newCode = blockEncoder.encode(relocatedBaseAddress);
 
 // Patch the original code. Pretend that we use some OS API to write to memory...
 // We could use the BlockEncoder/Encoder for this but it's easy to do yourself too.
 // This is 'mov rax,imm64; jmp rax'
-const YOUR_FUNC_LO = 0x9ABCDEF0;// Address of your code (low 32 bits)
-const YOUR_FUNC_HI = 0x12345678;// Address of your code (high 32 bits)
+const YOUR_FUNC = 0x123456789ABCDEF0n;// Address of your code
 exampleCode[0] = 0x48;// \ 'MOV RAX,imm64'
 exampleCode[1] = 0xB8;// /
-let v = YOUR_FUNC_LO;
-for (let i = 0; i < 4; i++, v >>= 8)
-    exampleCode[2 + i] = v & 0xFF;
-v = YOUR_FUNC_HI;
-for (let i = 0; i < 4; i++, v >>= 8)
-    exampleCode[6 + i] = v & 0xFF;
+let v = YOUR_FUNC;
+for (let i = 0; i < 8; i++, v >>= 8n)
+    exampleCode[2 + i] = Number(v & 0xFFn);
 exampleCode[10] = 0xFF;// \ JMP RAX
 exampleCode[11] = 0xE0;// /
 
 // Disassemble it
 console.log("Original + patched code:");
-disassemble(exampleCode, exampleRipHi, exampleRipLo);
+disassemble(exampleCode, exampleRip);
 
 // Disassemble the moved code
 console.log("Moved code:");
-disassemble(newCode, relocatedBaseAddressHi, relocatedBaseAddressLo);
+disassemble(newCode, relocatedBaseAddress);
 
 // Free wasm memory
 blockEncoder.free();
@@ -723,8 +703,7 @@ This code produces the following output:
 */
 
 const exampleBitness = 64;
-const exampleRipLo = 0xC46ACDA4;
-const exampleRipHi = 0x00007FFA;
+const exampleRip = 0x00007FFAC46ACDA4n;
 const exampleCode = new Uint8Array([
     0x48, 0x89, 0x5C, 0x24, 0x10, 0x48, 0x89, 0x74, 0x24, 0x18, 0x55, 0x57, 0x41, 0x56, 0x48, 0x8D,
     0xAC, 0x24, 0x00, 0xFF, 0xFF, 0xFF, 0x48, 0x81, 0xEC, 0x00, 0x02, 0x00, 0x00, 0x48, 0x8B, 0x05,
@@ -733,9 +712,7 @@ const exampleCode = new Uint8Array([
 ]);
 
 const decoder = new Decoder(exampleBitness, exampleCode, DecoderOptions.None);
-// You have to enable the bigint feature to get i64/u64 APIs, not all browsers support BigInt
-decoder.ipLo = exampleRipLo;
-decoder.ipHi = exampleRipHi;
+decoder.ip = exampleRip;
 
 // Use a factory to create the instruction info if you need register and
 // memory usage. If it's something else, eg. encoding, flags, etc, there
@@ -754,8 +731,7 @@ while (decoder.canDecode) {
 
     // For quick hacks, it's fine to call toString() to format an instruction,
     // but for real code, use a formatter. See other examples.
-    const address = ("0000000" + instr.ipHi.toString(16)).substr(-8).toUpperCase() +
-                    ("0000000" + instr.ipLo.toString(16)).substr(-8).toUpperCase();
+    const address = ("000000000000000" + instr.ip.toString(16)).substr(-16).toUpperCase();
     console.log("%s %s", address, instr.toString());
 
     const opCode = instr.opCode;
@@ -988,15 +964,13 @@ function usedMemoryToString(memInfo) {
         if (memInfo.scale !== 1)
             sb += "*" + memInfo.scale;
     }
-    if ((memInfo.displacementHi !== 0 || memInfo.displacementLo !== 0) || !needPlus) {
+    if (memInfo.displacement !== 0 || !needPlus) {
         if (needPlus)
             sb += "+";
-        if (memInfo.displacementHi === 0 && memInfo.displacementLo <= 9)
+        if (memInfo.displacement <= 9)
             sb += memInfo.displacement;
-        else if (memInfo.displacementHi === 0)
-            sb += "0x" + memInfo.displacementLo.toString(16).toUpperCase();
         else
-            sb += "0x" + memInfo.displacementHi.toString(16).toUpperCase() + ("0000000" + memInfo.displacementLo.toString(16)).substr(-8).toUpperCase();
+            sb += "0x" + memInfo.displacement.toString(16).toUpperCase();
     }
     sb += ";" + memorySizeToString(memInfo.memorySize) + ";" + opAccessToString(memInfo.access) + "]";
     return sb;
@@ -1052,9 +1026,7 @@ const bytes = new Uint8Array([
 let decoderOptions = DecoderOptions.MPX | DecoderOptions.MovTr |
     DecoderOptions.Cyrix | DecoderOptions.Cyrix_DMI | DecoderOptions.ALTINST;
 const decoder = new Decoder(32, bytes, decoderOptions);
-// You have to enable the bigint feature to get i64/u64 APIs, not all browsers support BigInt
-decoder.ipLo = 0x731E0A03;
-decoder.ipHi = 0x00000000;
+decoder.ip = 0x731E0A03n;
 
 const formatter = new Formatter(FormatterSyntax.Nasm);
 formatter.spaceAfterOperandSeparator = true;
@@ -1063,7 +1035,7 @@ const instructions = decoder.decodeAll();
 instructions.forEach(instruction => {
     const disasm = formatter.format(instruction);
 
-    let line = ("0000000" + instruction.ipLo.toString(16)).substr(-8).toUpperCase();
+    let line = ("0000000" + instruction.ip.toString(16)).substr(-8).toUpperCase();
     line += " ";
     line += disasm;
 

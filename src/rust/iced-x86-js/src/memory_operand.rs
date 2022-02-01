@@ -59,7 +59,6 @@ impl MemoryOperand {
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(js_name = "new64")]
-	#[cfg(feature = "bigint")]
 	pub fn new64(
 		base: Register, index: Register, scale: u32, displacement: u64, #[allow(non_snake_case)] displSize: u32,
 		#[allow(non_snake_case)] isBroadcast: bool, #[allow(non_snake_case)] segmentPrefix: Register,
@@ -69,40 +68,6 @@ impl MemoryOperand {
 			register_to_iced(index),
 			scale,
 			displacement as i64,
-			displSize,
-			isBroadcast,
-			register_to_iced(segmentPrefix),
-		))
-	}
-
-	/// Constructor
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// * `base`: Base register or [`Register.None`] (a [`Register`] value)
-	/// * `index`: Index register or [`Register.None`] (a [`Register`] value)
-	/// * `scale`: Index register scale (1, 2, 4, or 8)
-	/// * `displacementHi`: Memory displacement (high 32 bits)
-	/// * `displacementLo`: Memory displacement (low 32 bits)
-	/// * `displSize`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	/// * `isBroadcast`: `true` if it's broadcast memory (EVEX instructions)
-	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] value)
-	///
-	/// [`Register`]: enum.Register.html
-	/// [`Register.None`]: enum.Register.html#variant.None
-	#[wasm_bindgen(js_name = "new64")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn new64(
-		base: Register, index: Register, scale: u32, #[allow(non_snake_case)] displacementHi: u32, #[allow(non_snake_case)] displacementLo: u32,
-		#[allow(non_snake_case)] displSize: u32, #[allow(non_snake_case)] isBroadcast: bool, #[allow(non_snake_case)] segmentPrefix: Register,
-	) -> Self {
-		Self(iced_x86_rust::MemoryOperand::new(
-			register_to_iced(base),
-			register_to_iced(index),
-			scale,
-			(((displacementHi as u64) << 32) | (displacementLo as u64)) as i64,
 			displSize,
 			isBroadcast,
 			register_to_iced(segmentPrefix),

@@ -59,47 +59,17 @@ namespace Generator.Encoder.RustJS {
 			public readonly CreateMethod OrigMethod;
 			public readonly CreateMethod Method;
 			public string? Attribute;
-			public readonly List<SplitArg> SplitArgs;
 
-			public GenMethodContext(FileWriter writer, CreateMethod origMethod, CreateMethod method, string? attribute, List<SplitArg>? splitArgs) {
+			public GenMethodContext(FileWriter writer, CreateMethod origMethod, CreateMethod method, string? attribute) {
 				Writer = writer;
 				OrigMethod = origMethod;
 				Method = method;
 				Attribute = attribute;
-				SplitArgs = splitArgs ?? new List<SplitArg>();
 			}
 		}
 
 		void WriteDocs(in GenMethodContext ctx, Action? writeThrows = null) =>
 			gen.WriteDocs(ctx.Writer, ctx.Method, "Throws", writeThrows);
-
-		static bool TryCreateNo64Api(CreateMethod method, [NotNullWhen(true)] out CreateMethod? no64Method, [NotNullWhen(true)] out List<SplitArg>? splitArgs) {
-			bool is64 = method.Args.Any(a => Rust.InstrCreateGenImpl.Is64BitArgument(a.Type));
-			if (!is64) {
-				no64Method = null;
-				splitArgs = null;
-				return false;
-			}
-
-			splitArgs = new List<SplitArg>();
-			no64Method = new CreateMethod(method.Docs.ToArray());
-			no64Method.Docs.Add(string.Empty);
-			no64Method.Docs.Add("Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).");
-			for (int i = 0; i < method.Args.Count; i++) {
-				var arg = method.Args[i];
-				if (Rust.InstrCreateGenImpl.Is64BitArgument(arg.Type)) {
-					if (arg.DefaultValue is not null)
-						throw new InvalidOperationException();
-					int newIndex = no64Method.Args.Count;
-					splitArgs.Add(new SplitArg(i, newIndex, newIndex + 1));
-					no64Method.Args.Add(new MethodArg($"{arg.Doc} (high 32 bits)", MethodArgType.UInt32, arg.Name + "Hi", arg.DefaultValue));
-					no64Method.Args.Add(new MethodArg($"{arg.Doc} (low 32 bits)", MethodArgType.UInt32, arg.Name + "Lo", arg.DefaultValue));
-				}
-				else
-					no64Method.Args.Add(new MethodArg(arg.Doc, arg.Type, arg.Name, arg.DefaultValue));
-			}
-			return true;
-		}
 
 		static CreateMethod CloneAndUpdateDocs(CreateMethod method) {
 			var newMethod = new CreateMethod(method.Docs.ToArray());
@@ -121,33 +91,13 @@ namespace Generator.Encoder.RustJS {
 			return newMethod;
 		}
 
-		// Some methods take an i64/u64 argument. That will translate to BigInt in JS but not all JS impls
-		// support BigInt yet. Generate two methods, one with bigint and one with two u32 args. The 'bigint'
-		// feature enables the i64/u64 method and disables the other one.
 		static void GenerateMethod(FileWriter writer, CreateMethod method, Action<GenMethodContext> genMethod) {
 			method = CloneAndUpdateDocs(method);
-			if (TryCreateNo64Api(method, out var no64Method, out var splitArgs)) {
-				genMethod(new GenMethodContext(writer, method, method, RustConstants.FeatureBigInt, null));
-				writer.WriteLine();
-				genMethod(new GenMethodContext(writer, method, no64Method, RustConstants.FeatureNotBigInt, splitArgs));
-			}
-			else
-				genMethod(new GenMethodContext(writer, method, method, null, null));
+			genMethod(new GenMethodContext(writer, method, method, null));
 		}
 
 		void WriteCall(in GenMethodContext ctx, string rustName, bool canFail, bool isTryMethod) {
 			using (ctx.Writer.Indent()) {
-				var toLocalName = new Dictionary<int, string>();
-				foreach (var info in ctx.SplitArgs) {
-					var local = rustIdConverter.Argument(ctx.OrigMethod.Args[info.OrigIndex].Name);
-					var argHi = idConverter.Argument(ctx.Method.Args[info.NewIndexHi].Name);
-					var argLo = idConverter.Argument(ctx.Method.Args[info.NewIndexLo].Name);
-					var expr = $"(({argHi} as u64) << 32) | ({argLo} as u64)";
-					if (ctx.OrigMethod.Args[info.OrigIndex].Type == MethodArgType.Int64)
-						expr = $"({expr}) as i64";
-					ctx.Writer.WriteLine($"let {local} = {expr};");
-					toLocalName.Add(info.OrigIndex, local);
-				}
 				sb.Clear();
 				if (canFail)
 					sb.Append("Ok(");
@@ -161,8 +111,7 @@ namespace Generator.Encoder.RustJS {
 						sb.Append(", ");
 
 					var arg = ctx.OrigMethod.Args[i];
-					if (!toLocalName.TryGetValue(i, out var name))
-						name = idConverter.Argument(arg.Name);
+					var name = idConverter.Argument(arg.Name);
 
 					switch (arg.Type) {
 					case MethodArgType.Code:
@@ -327,13 +276,6 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, ctx => GenCreateDeclareDataSlice(ctx, elemSize, rustName, jsName));
 
 		void GenCreateDeclareDataSlice(GenMethodContext ctx, int elemSize, string rustName, string jsName) {
-			// &[u64] isn't supported if bigint feature is disabled
-			if (elemSize == 8) {
-				if (ctx.Attribute is not null)
-					throw new InvalidOperationException();
-				ctx.Attribute = RustConstants.FeatureBigInt;
-			}
-
 			const bool canFail = true;
 			ctx.Writer.WriteLine();
 			WriteDocs(ctx, () => WriteDataThrows(ctx, $"is not 1-{16 / elemSize}"));

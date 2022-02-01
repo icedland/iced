@@ -53,22 +53,6 @@ impl BlockEncoder {
 		self.instructions.push(instruction.0);
 	}
 
-	/// Encodes all instructions added by [`add()`] and returns the encoded bytes.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`add()`]: #method.add
-	///
-	/// # Arguments
-	///
-	/// * `ripHi`: High 32 bits of the base IP of all encoded instructions
-	/// * `ripLo`: Low 32 bits of the base IP of all encoded instructions
-	#[cfg(not(feature = "bigint"))]
-	pub fn encode(&mut self, #[allow(non_snake_case)] ripHi: u32, #[allow(non_snake_case)] ripLo: u32) -> Result<Vec<u8>, JsValue> {
-		let rip = ((ripHi as u64) << 32) | (ripLo as u64);
-		self.encode_core(rip)
-	}
-
 	/// Encodes all instructions added by [`add()`] and returns the encoded bytes
 	///
 	/// [`add()`]: #method.add
@@ -76,7 +60,6 @@ impl BlockEncoder {
 	/// # Arguments
 	///
 	/// * `rip`: Base IP of all encoded instructions
-	#[cfg(feature = "bigint")]
 	pub fn encode(&mut self, rip: u64) -> Result<Vec<u8>, JsValue> {
 		self.encode_core(rip)
 	}

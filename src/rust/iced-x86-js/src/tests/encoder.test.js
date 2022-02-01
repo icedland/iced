@@ -48,15 +48,14 @@ test("Encoder options", () => {
 test("16-bit encoder", () => {
 	const bytes = new Uint8Array([0x75, 0x02]);
 	const decoder = new Decoder(16, bytes, DecoderOptions.None);
-	decoder.ipLo = 0x8123;
-	decoder.ipHi = 0;
+	decoder.ip = 0x8123n;
 	const instr = decoder.decode();
 	const encoder = new Encoder(16);
 
 	expect(encoder.bitness).toBe(16);
 
 	encoder.writeU8(0xCC);
-	expect(encoder.encode(instr, 0, 0x8120)).toBe(2);
+	expect(encoder.encode(instr, 0x8120n)).toBe(2);
 	encoder.writeU8(0x90);
 
 	const buffer = encoder.takeBuffer();
@@ -73,15 +72,14 @@ test("16-bit encoder", () => {
 test("32-bit encoder", () => {
 	const bytes = new Uint8Array([0x75, 0x02]);
 	const decoder = new Decoder(32, bytes, DecoderOptions.None);
-	decoder.ipLo = 0x81234567;
-	decoder.ipHi = 0;
+	decoder.ip = 0x81234567n;
 	const instr = decoder.decode();
 	const encoder = new Encoder(32);
 
 	expect(encoder.bitness).toBe(32);
 
 	encoder.writeU8(0x90);
-	expect(encoder.encode(instr, 0, 0x81234563)).toBe(2);
+	expect(encoder.encode(instr, 0x81234563n)).toBe(2);
 	encoder.writeU8(0xCC);
 
 	const buffer = encoder.takeBuffer();
@@ -98,15 +96,14 @@ test("32-bit encoder", () => {
 test("64-bit encoder", () => {
 	const bytes = new Uint8Array([0x75, 0x02]);
 	const decoder = new Decoder(64, bytes, DecoderOptions.None);
-	decoder.ipLo = 0xABCDEF01;
-	decoder.ipHi = 0x81234567;
+	decoder.ip = 0x81234567ABCDEF01n;
 	const instr = decoder.decode();
 	const encoder = new Encoder(64);
 
 	expect(encoder.bitness).toBe(64);
 
 	encoder.writeU8(0xCD);
-	expect(encoder.encode(instr, 0x81234567, 0xABCDEEFF)).toBe(2);
+	expect(encoder.encode(instr, 0x81234567ABCDEEFFn)).toBe(2);
 	encoder.writeU8(0x91);
 
 	const buffer = encoder.takeBuffer();
@@ -127,7 +124,7 @@ test("Encoder constant offsets", () => {
 	const instr2 = decoder.decode();
 	const encoder = Encoder.withCapacity(64, 100);
 
-	encoder.encode(instr1);
+	encoder.encode(instr1, 0n);
 	const co1 = encoder.getConstantOffsets();
 	expect(co1.hasDisplacement).toBe(false);
 	expect(co1.displacementOffset).toBe(0);
@@ -139,7 +136,7 @@ test("Encoder constant offsets", () => {
 	expect(co1.immediateOffset2).toBe(0);
 	expect(co1.immediateSize2).toBe(0);
 
-	encoder.encode(instr2);
+	encoder.encode(instr2, 0n);
 	const co2 = encoder.getConstantOffsets();
 	expect(co2.hasDisplacement).toBe(true);
 	expect(co2.displacementOffset).toBe(2);

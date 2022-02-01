@@ -108,18 +108,6 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
-		public static bool Is64BitArgument(MethodArgType type) =>
-			type switch {
-				MethodArgType.Code or MethodArgType.Register or MethodArgType.RepPrefixKind or MethodArgType.Memory or
-				MethodArgType.UInt8 or MethodArgType.UInt16 or MethodArgType.Int32 or MethodArgType.UInt32 or
-				MethodArgType.PreferredInt32 or MethodArgType.ByteSlice or MethodArgType.WordSlice or MethodArgType.DwordSlice or
-				MethodArgType.QwordSlice => false,
-				MethodArgType.Int64 or MethodArgType.UInt64 => true,
-				// Never used, but if they're used in the future, they should be converted to u32 types if RustJS
-				MethodArgType.ArrayIndex or MethodArgType.ArrayLength => throw new InvalidOperationException(),
-				_ => throw new ArgumentOutOfRangeException(nameof(type)),
-			};
-
 		public static string GetRustOverloadedCreateName(CreateMethod method) => GetRustOverloadedCreateName(method.Args.Count - 1);
 		public static string GetRustOverloadedCreateName(int argCount) => argCount == 0 ? "with" : "with" + argCount.ToString();
 

@@ -329,11 +329,11 @@ test("Format instruction: gas", () => {
 	expect(formatter.formatI8(-0x10)).toBe("-0x10");
 	expect(formatter.formatI16(-0x10)).toBe("-0x10");
 	expect(formatter.formatI32(-0x10)).toBe("-0x10");
-	expect(formatter.formatI64(0xFFFFFFFF, 0xFFFFFFF0)).toBe("-0x10");
+	expect(formatter.formatI64(0xFFFFFFFFFFFFFFF0n)).toBe("-0x10");
 	expect(formatter.formatU8(0x5A)).toBe("0x5A");
 	expect(formatter.formatU16(0x5A)).toBe("0x5A");
 	expect(formatter.formatU32(0x5A)).toBe("0x5A");
-	expect(formatter.formatU64(0x12345678, 0x9ABCDEF1)).toBe("0x123456789ABCDEF1");
+	expect(formatter.formatU64(0x123456789ABCDEF1n)).toBe("0x123456789ABCDEF1");
 
 	instr.free();
 	instr2.free();
@@ -379,11 +379,11 @@ test("Format instruction: Intel", () => {
 	expect(formatter.formatI8(-0x10)).toBe("-10h");
 	expect(formatter.formatI16(-0x10)).toBe("-10h");
 	expect(formatter.formatI32(-0x10)).toBe("-10h");
-	expect(formatter.formatI64(0xFFFFFFFF, 0xFFFFFFF0)).toBe("-10h");
+	expect(formatter.formatI64(0xFFFFFFFFFFFFFFF0n)).toBe("-10h");
 	expect(formatter.formatU8(0x5A)).toBe("5Ah");
 	expect(formatter.formatU16(0x5A)).toBe("5Ah");
 	expect(formatter.formatU32(0x5A)).toBe("5Ah");
-	expect(formatter.formatU64(0x12345678, 0x9ABCDEF1)).toBe("123456789ABCDEF1h");
+	expect(formatter.formatU64(0x123456789ABCDEF1n)).toBe("123456789ABCDEF1h");
 
 	instr.free();
 	instr2.free();
@@ -429,11 +429,11 @@ test("Format instruction: masm", () => {
 	expect(formatter.formatI8(-0x10)).toBe("-10h");
 	expect(formatter.formatI16(-0x10)).toBe("-10h");
 	expect(formatter.formatI32(-0x10)).toBe("-10h");
-	expect(formatter.formatI64(0xFFFFFFFF, 0xFFFFFFF0)).toBe("-10h");
+	expect(formatter.formatI64(0xFFFFFFFFFFFFFFF0n)).toBe("-10h");
 	expect(formatter.formatU8(0x5A)).toBe("5Ah");
 	expect(formatter.formatU16(0x5A)).toBe("5Ah");
 	expect(formatter.formatU32(0x5A)).toBe("5Ah");
-	expect(formatter.formatU64(0x12345678, 0x9ABCDEF1)).toBe("123456789ABCDEF1h");
+	expect(formatter.formatU64(0x123456789ABCDEF1n)).toBe("123456789ABCDEF1h");
 
 	instr.free();
 	instr2.free();
@@ -479,11 +479,11 @@ test("Format instruction: nasm", () => {
 	expect(formatter.formatI8(-0x10)).toBe("-10h");
 	expect(formatter.formatI16(-0x10)).toBe("-10h");
 	expect(formatter.formatI32(-0x10)).toBe("-10h");
-	expect(formatter.formatI64(0xFFFFFFFF, 0xFFFFFFF0)).toBe("-10h");
+	expect(formatter.formatI64(0xFFFFFFFFFFFFFFF0n)).toBe("-10h");
 	expect(formatter.formatU8(0x5A)).toBe("5Ah");
 	expect(formatter.formatU16(0x5A)).toBe("5Ah");
 	expect(formatter.formatU32(0x5A)).toBe("5Ah");
-	expect(formatter.formatU64(0x12345678, 0x9ABCDEF1)).toBe("123456789ABCDEF1h");
+	expect(formatter.formatU64(0x123456789ABCDEF1n)).toBe("123456789ABCDEF1h");
 
 	instr.free();
 	instr2.free();

@@ -291,28 +291,12 @@ impl Formatter {
 		self.formatter.format_i32(value).to_owned()
 	}
 
-	/// Formats a `i64`.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// - `hi`: High 32 bits of `i64` value
-	/// - `lo`: Low 32 bits of `i64` value
-	#[wasm_bindgen(js_name = "formatI64")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn format_i64(&mut self, hi: u32, lo: u32) -> String {
-		let value = (((hi as u64) << 32) | (lo as u64)) as i64;
-		self.formatter.format_i64(value).to_owned()
-	}
-
 	/// Formats a `i64`
 	///
 	/// # Arguments
 	///
 	/// - `value`: Value
 	#[wasm_bindgen(js_name = "formatI64")]
-	#[cfg(feature = "bigint")]
 	pub fn format_i64(&mut self, value: i64) -> String {
 		self.formatter.format_i64(value).to_owned()
 	}
@@ -347,28 +331,12 @@ impl Formatter {
 		self.formatter.format_u32(value).to_owned()
 	}
 
-	/// Formats a `u64`.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// - `hi`: High 32 bits of `u64` value
-	/// - `lo`: Low 32 bits of `u64` value
-	#[wasm_bindgen(js_name = "formatU64")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn format_u64(&mut self, hi: u32, lo: u32) -> String {
-		let value = ((hi as u64) << 32) | (lo as u64);
-		self.formatter.format_u64(value).to_owned()
-	}
-
 	/// Formats a `u64`
 	///
 	/// # Arguments
 	///
 	/// - `value`: Value
 	#[wasm_bindgen(js_name = "formatU64")]
-	#[cfg(feature = "bigint")]
 	pub fn format_u64(&mut self, value: u64) -> String {
 		self.formatter.format_u64(value).to_owned()
 	}

@@ -75,29 +75,8 @@ impl Instruction {
 		Self(iced_x86_rust::Instruction::new())
 	}
 
-	/// Gets the low 32 bits of the 64-bit IP of the instruction.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "ipLo")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn ip_lo(&self) -> u32 {
-		self.0.ip() as u32
-	}
-
-	/// Gets the high 32 bits of the 64-bit IP of the instruction.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "ipHi")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn ip_hi(&self) -> u32 {
-		(self.0.ip() >> 32) as u32
-	}
-
 	/// Gets the 64-bit IP of the instruction
 	#[wasm_bindgen(getter)]
-	#[cfg(feature = "bigint")]
 	pub fn ip(&self) -> u64 {
 		self.0.ip()
 	}
@@ -153,38 +132,6 @@ impl Instruction {
 		self.0.set_ip32(newValue)
 	}
 
-	/// Sets the low 32 bits of the 64-bit IP of the instruction.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// * `lo`: Low 32 bits
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "ipLo")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_ip_lo(&mut self, lo: u32) {
-		let ip = (self.0.ip() & !0xFFFF_FFFF) | (lo as u64);
-		self.0.set_ip(ip)
-	}
-
-	/// Sets the high 32 bits of the 64-bit IP of the instruction.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// * `hi`: High 32 bits
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "ipHi")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_ip_hi(&mut self, hi: u32) {
-		let ip = ((hi as u64) << 32) | (self.0.ip() as u32 as u64);
-		self.0.set_ip(ip)
-	}
-
 	/// Sets the 64-bit IP of the instruction
 	///
 	/// # Arguments
@@ -192,7 +139,6 @@ impl Instruction {
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	#[cfg(feature = "bigint")]
 	pub fn set_ip(&mut self, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_ip(newValue)
 	}
@@ -235,64 +181,11 @@ impl Instruction {
 		self.0.set_next_ip32(newValue)
 	}
 
-	/// Gets the low 32 bits of the 64-bit IP of the next instruction.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "nextIPLo")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn next_ip_lo(&self) -> u32 {
-		self.0.next_ip() as u32
-	}
-
-	/// Gets the high 32 bits of the 64-bit IP of the next instruction.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "nextIPHi")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn next_ip_hi(&self) -> u32 {
-		(self.0.next_ip() >> 32) as u32
-	}
-
 	/// Gets the 64-bit IP of the next instruction
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "nextIP")]
-	#[cfg(feature = "bigint")]
 	pub fn next_ip(&self) -> u64 {
 		self.0.next_ip()
-	}
-
-	/// Sets the low 32 bits of the 64-bit IP of the next instruction.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// * `newValue`: new value
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "nextIPLo")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_next_ip_lo(&mut self, lo: u32) {
-		let ip = (self.0.next_ip() & !0xFFFF_FFFF) | (lo as u64);
-		self.0.set_next_ip(ip);
-	}
-
-	/// Sets the high 32 bits of the 64-bit IP of the next instruction.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// * `newValue`: new value
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "nextIPHi")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_next_ip_hi(&mut self, hi: u32) {
-		let ip = ((hi as u64) << 32) | (self.0.next_ip() as u32 as u64);
-		self.0.set_next_ip(ip);
 	}
 
 	/// Sets the 64-bit IP of the next instruction
@@ -303,7 +196,6 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[wasm_bindgen(js_name = "nextIP")]
 	#[cfg(feature = "encoder")]
-	#[cfg(feature = "bigint")]
 	pub fn set_next_ip(&mut self, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_next_ip(newValue)
 	}
@@ -949,74 +841,11 @@ impl Instruction {
 	/// an `EIP` or `RIP` relative memory operand.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "memoryDisplacement64Lo")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn memory_displacement64_lo(&self) -> u32 {
-		self.0.memory_displacement64() as u32
-	}
-
-	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
-	/// an `EIP` or `RIP` relative memory operand.
-	/// Use this method if the operand has kind [`OpKind.Memory`]
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "memoryDisplacement64Hi")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn memory_displacement64_hi(&self) -> u32 {
-		(self.0.memory_displacement64() >> 32) as u32
-	}
-
-	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
-	/// an `EIP` or `RIP` relative memory operand.
-	/// Use this method if the operand has kind [`OpKind.Memory`]
-	///
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "memoryDisplacement64")]
-	#[cfg(feature = "bigint")]
 	pub fn memory_displacement64(&self) -> u64 {
 		self.0.memory_displacement64()
-	}
-
-	/// Gets the low 32 bits of an operand's immediate value.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Throws
-	///
-	/// Throws if `operand` is invalid or if it's not an immediate operand
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	#[wasm_bindgen(js_name = "immediateLo")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn immediate_lo(&self, operand: u32) -> Result<u32, JsValue> {
-		Ok(self.0.try_immediate(operand).map_err(to_js_error)? as u32)
-	}
-
-	/// Gets the high 32 bits of an operand's immediate value.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Throws
-	///
-	/// Throws if `operand` is invalid or if it's not an immediate operand
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	#[cfg(not(feature = "bigint"))]
-	#[wasm_bindgen(js_name = "immediateHi")]
-	pub fn immediate_hi(&self, operand: u32) -> Result<u32, JsValue> {
-		Ok((self.0.try_immediate(operand).map_err(to_js_error)? >> 32) as u32)
 	}
 
 	/// Gets an operand's immediate value
@@ -1028,7 +857,6 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
-	#[cfg(feature = "bigint")]
 	pub fn immediate(&self, operand: u32) -> Result<u64, JsValue> {
 		self.0.try_immediate(operand).map_err(to_js_error)
 	}
@@ -1065,27 +893,6 @@ impl Instruction {
 		self.0.try_set_immediate_u32(operand, newValue).map_err(to_js_error)
 	}
 
-	/// Sets an operand's immediate value.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Throws
-	///
-	/// Throws if `operand` is invalid or if it's not an immediate operand
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	/// - `hi`: High 32 bits of immediate
-	/// - `lo`: Low 32 bits of immediate
-	#[wasm_bindgen(js_name = "setImmediateI64")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate_i64(&mut self, operand: u32, hi: u32, lo: u32) -> Result<(), JsValue> {
-		let new_value = (((hi as u64) << 32) | (lo as u64)) as i64;
-		self.0.try_set_immediate_i64(operand, new_value).map_err(to_js_error)
-	}
-
 	/// Sets an operand's immediate value
 	///
 	/// # Throws
@@ -1098,32 +905,10 @@ impl Instruction {
 	/// * `newValue`: Immediate
 	#[wasm_bindgen(js_name = "setImmediateI64")]
 	#[cfg(feature = "encoder")]
-	#[cfg(feature = "bigint")]
 	pub fn set_immediate_i64(&mut self, operand: u32, #[allow(non_snake_case)] newValue: i64) -> Result<(), JsValue> {
 		self.0.try_set_immediate_i64(operand, newValue).map_err(to_js_error)
 	}
 
-	/// Sets an operand's immediate value.
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Throws
-	///
-	/// Throws if `operand` is invalid or if it's not an immediate operand
-	///
-	/// # Arguments
-	///
-	/// * `operand`: Operand number, 0-4
-	/// - `hi`: High 32 bits of immediate
-	/// - `lo`: Low 32 bits of immediate
-	#[wasm_bindgen(js_name = "setImmediateU64")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate_u64(&mut self, operand: u32, hi: u32, lo: u32) -> Result<(), JsValue> {
-		let new_value = ((hi as u64) << 32) | (lo as u64);
-		self.0.try_set_immediate_u64(operand, new_value).map_err(to_js_error)
-	}
-
 	/// Sets an operand's immediate value
 	///
 	/// # Throws
@@ -1136,7 +921,6 @@ impl Instruction {
 	/// * `newValue`: Immediate
 	#[wasm_bindgen(js_name = "setImmediateU64")]
 	#[cfg(feature = "encoder")]
-	#[cfg(feature = "bigint")]
 	pub fn set_immediate_u64(&mut self, operand: u32, #[allow(non_snake_case)] newValue: u64) -> Result<(), JsValue> {
 		self.0.try_set_immediate_u64(operand, newValue).map_err(to_js_error)
 	}
@@ -1225,73 +1009,12 @@ impl Instruction {
 		self.0.set_immediate32(newValue)
 	}
 
-	/// Gets the low 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "immediate64Lo")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn immediate64_lo(&self) -> u32 {
-		self.0.immediate64() as u32
-	}
-
-	/// Gets the high 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "immediate64Hi")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn immediate64_hi(&self) -> u32 {
-		(self.0.immediate64() >> 32) as u32
-	}
-
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`]
 	///
 	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[wasm_bindgen(getter)]
-	#[cfg(feature = "bigint")]
 	pub fn immediate64(&self) -> u64 {
 		self.0.immediate64()
-	}
-
-	/// Sets the low 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
-	///
-	/// # Arguments
-	///
-	/// * `lo`: Low 32 bits
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "immediate64Lo")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate64_lo(&mut self, lo: u32) {
-		let new_value = (self.0.immediate64() & !0xFFFF_FFFF) | (lo as u64);
-		self.0.set_immediate64(new_value);
-	}
-
-	/// Sets the high 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
-	///
-	/// # Arguments
-	///
-	/// * `hi`: High 32 bits
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "immediate64Hi")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate64_hi(&mut self, hi: u32) {
-		let new_value = ((hi as u64) << 32) | (self.0.immediate64() as u32 as u64);
-		self.0.set_immediate64(new_value);
 	}
 
 	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`]
@@ -1303,7 +1026,6 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	#[cfg(feature = "bigint")]
 	pub fn set_immediate64(&mut self, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_immediate64(newValue)
 	}
@@ -1350,40 +1072,12 @@ impl Instruction {
 		self.0.set_immediate8to32(newValue)
 	}
 
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
-	#[wasm_bindgen(getter)]
-	#[cfg(not(feature = "bigint"))]
-	pub fn immediate8to64(&self) -> i32 {
-		self.0.immediate8to64() as i32
-	}
-
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`]
 	///
 	/// [`OpKind.Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
 	#[wasm_bindgen(getter)]
-	#[cfg(feature = "bigint")]
 	pub fn immediate8to64(&self) -> i64 {
 		self.0.immediate8to64()
-	}
-
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
-	///
-	/// # Arguments
-	///
-	/// * `newValue`: New value
-	#[wasm_bindgen(setter)]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate8to64(&mut self, #[allow(non_snake_case)] newValue: i32) {
-		self.0.set_immediate8to64(newValue as i64)
 	}
 
 	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`]
@@ -1395,45 +1089,16 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	#[cfg(feature = "bigint")]
 	pub fn set_immediate8to64(&mut self, #[allow(non_snake_case)] newValue: i64) {
 		self.0.set_immediate8to64(newValue)
-	}
-
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
-	#[wasm_bindgen(getter)]
-	#[cfg(not(feature = "bigint"))]
-	pub fn immediate32to64(&self) -> i32 {
-		self.0.immediate32to64() as i32
 	}
 
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`]
 	///
 	/// [`OpKind.Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
 	#[wasm_bindgen(getter)]
-	#[cfg(feature = "bigint")]
 	pub fn immediate32to64(&self) -> i64 {
 		self.0.immediate32to64()
-	}
-
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
-	///
-	/// # Arguments
-	///
-	/// * `newValue`: New value
-	#[wasm_bindgen(setter)]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate32to64(&mut self, #[allow(non_snake_case)] newValue: i32) {
-		self.0.set_immediate32to64(newValue as i64)
 	}
 
 	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`]
@@ -1445,7 +1110,6 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	#[cfg(feature = "bigint")]
 	pub fn set_immediate32to64(&mut self, #[allow(non_snake_case)] newValue: i64) {
 		self.0.set_immediate32to64(newValue)
 	}
@@ -1496,74 +1160,13 @@ impl Instruction {
 		self.0.set_near_branch32(newValue)
 	}
 
-	/// Gets the low 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "nearBranch64Lo")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn near_branch64_lo(&self) -> u32 {
-		self.0.near_branch64() as u32
-	}
-
-	/// Gets the high 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "nearBranch64Hi")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn near_branch64_hi(&self) -> u32 {
-		(self.0.near_branch64() >> 32) as u32
-	}
-
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`]
 	///
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "nearBranch64")]
-	#[cfg(feature = "bigint")]
 	pub fn near_branch64(&self) -> u64 {
 		self.0.near_branch64()
-	}
-
-	/// Sets the low 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
-	///
-	/// # Arguments
-	///
-	/// * `lo`: Low 32 bits
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "nearBranch64Lo")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_near_branch64_lo(&mut self, lo: u32) {
-		let new_value = (self.0.near_branch64() & !0xFFFF_FFFF) | (lo as u64);
-		self.0.set_near_branch64(new_value)
-	}
-
-	/// Sets the high 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
-	///
-	/// # Arguments
-	///
-	/// * `hi`: High 32 bits
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "nearBranch64Hi")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_near_branch64_hi(&mut self, hi: u32) {
-		let new_value = ((hi as u64) << 32) | (self.0.near_branch64() as u32 as u64);
-		self.0.set_near_branch64(new_value)
 	}
 
 	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`]
@@ -1576,41 +1179,8 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[wasm_bindgen(js_name = "nearBranch64")]
 	#[cfg(feature = "encoder")]
-	#[cfg(feature = "bigint")]
 	pub fn set_near_branch64(&mut self, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_near_branch64(newValue)
-	}
-
-	/// Gets the low 32 bits of the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
-	/// (i.e., if [`op0Kind`] is [`OpKind.NearBranch16`], [`OpKind.NearBranch32`] or [`OpKind.NearBranch64`]).
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`op0Kind`]: #method.op0_kind
-	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
-	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
-	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "nearBranchTargetLo")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn near_branch_target_lo(&self) -> u32 {
-		self.0.near_branch_target() as u32
-	}
-
-	/// Gets the high 32 bits of the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
-	/// (i.e., if [`op0Kind`] is [`OpKind.NearBranch16`], [`OpKind.NearBranch32`] or [`OpKind.NearBranch64`]).
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`op0Kind`]: #method.op0_kind
-	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
-	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
-	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "nearBranchTargetHi")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn near_branch_target_hi(&self) -> u32 {
-		(self.0.near_branch_target() >> 32) as u32
 	}
 
 	/// Gets the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
@@ -1622,7 +1192,6 @@ impl Instruction {
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "nearBranchTarget")]
-	#[cfg(feature = "bigint")]
 	pub fn near_branch_target(&self) -> u64 {
 		self.0.near_branch_target()
 	}
@@ -2159,36 +1728,6 @@ impl Instruction {
 		self.0.is_ip_rel_memory_operand()
 	}
 
-	/// Gets the low 32 bits of the `RIP`/`EIP` releative address ([`memoryDisplacement`] or [`memoryDisplacement64`]).
-	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`memoryDisplacement`]: #method.memory_displacement
-	/// [`memoryDisplacement64`]: #method.memory_displacement64
-	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "ipRelMemoryAddressLo")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn ip_rel_memory_address_lo(&self) -> u32 {
-		self.0.ip_rel_memory_address() as u32
-	}
-
-	/// Gets the high 32 bits of the `RIP`/`EIP` releative address ([`memoryDisplacement`] or [`memoryDisplacement64`]).
-	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`memoryDisplacement`]: #method.memory_displacement
-	/// [`memoryDisplacement64`]: #method.memory_displacement64
-	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "ipRelMemoryAddressHi")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn ip_rel_memory_address_hi(&self) -> u32 {
-		(self.0.ip_rel_memory_address() >> 32) as u32
-	}
-
 	/// Gets the `RIP`/`EIP` releative address ([`memoryDisplacement`] or [`memoryDisplacement64`]).
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`]
 	///
@@ -2197,7 +1736,6 @@ impl Instruction {
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ipRelMemoryAddress")]
-	#[cfg(feature = "bigint")]
 	pub fn ip_rel_memory_address(&self) -> u64 {
 		self.0.ip_rel_memory_address()
 	}
@@ -3249,33 +2787,6 @@ impl Instruction {
 	/// Sets a new `dq` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareQword`]
 	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`declareDataLength`]: #method.declare_data_length
-	/// [`code`]: #method.code
-	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
-	///
-	/// # Throws
-	///
-	/// Throws if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-1)
-	/// * `newValueHi`: High 32 bits of new value
-	/// * `newValueLo`: Low 32 bits of new value
-	#[wasm_bindgen(js_name = "setDeclareQwordValueI64")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_declare_qword_value_i64(
-		&mut self, index: u32, #[allow(non_snake_case)] newValueHi: u32, #[allow(non_snake_case)] newValueLo: u32,
-	) -> Result<(), JsValue> {
-		let new_value = (((newValueHi as u64) << 32) | (newValueLo as u64)) as i64;
-		self.0.try_set_declare_qword_value_i64(index as usize, new_value).map_err(to_js_error)
-	}
-
-	/// Sets a new `dq` value, see also [`declareDataLength`].
-	/// Can only be called if [`code`] is [`Code.DeclareQword`]
-	///
 	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
@@ -3289,7 +2800,6 @@ impl Instruction {
 	/// * `index`: Index (0-1)
 	/// * `newValue`: New value
 	#[wasm_bindgen(js_name = "setDeclareQwordValueI64")]
-	#[cfg(feature = "bigint")]
 	pub fn set_declare_qword_value_i64(&mut self, index: u32, #[allow(non_snake_case)] newValue: i64) -> Result<(), JsValue> {
 		self.0.try_set_declare_qword_value_i64(index as usize, newValue).map_err(to_js_error)
 	}
@@ -3297,33 +2807,6 @@ impl Instruction {
 	/// Sets a new `dq` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareQword`]
 	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`declareDataLength`]: #method.declare_data_length
-	/// [`code`]: #method.code
-	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
-	///
-	/// # Throws
-	///
-	/// Throws if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-1)
-	/// * `newValueHi`: High 32 bits of new value
-	/// * `newValueLo`: Low 32 bits of new value
-	#[wasm_bindgen(js_name = "setDeclareQwordValue")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_declare_qword_value(
-		&mut self, index: u32, #[allow(non_snake_case)] newValueHi: u32, #[allow(non_snake_case)] newValueLo: u32,
-	) -> Result<(), JsValue> {
-		let new_value = ((newValueHi as u64) << 32) | (newValueLo as u64);
-		self.0.try_set_declare_qword_value(index as usize, new_value).map_err(to_js_error)
-	}
-
-	/// Sets a new `dq` value, see also [`declareDataLength`].
-	/// Can only be called if [`code`] is [`Code.DeclareQword`]
-	///
 	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
@@ -3337,53 +2820,8 @@ impl Instruction {
 	/// * `index`: Index (0-1)
 	/// * `newValue`: New value
 	#[wasm_bindgen(js_name = "setDeclareQwordValue")]
-	#[cfg(feature = "bigint")]
 	pub fn set_declare_qword_value(&mut self, index: u32, #[allow(non_snake_case)] newValue: u64) -> Result<(), JsValue> {
 		self.0.try_set_declare_qword_value(index as usize, newValue).map_err(to_js_error)
-	}
-
-	/// Gets a `dq` value (high 32 bits), see also [`declareDataLength`].
-	/// Can only be called if [`code`] is [`Code.DeclareQword`]
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`declareDataLength`]: #method.declare_data_length
-	/// [`code`]: #method.code
-	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
-	///
-	/// # Throws
-	///
-	/// Throws if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-1)
-	#[wasm_bindgen(js_name = "getDeclareQwordValueHi")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn get_declare_qword_value_hi(&self, index: u32) -> Result<u32, JsValue> {
-		Ok((self.0.try_get_declare_qword_value(index as usize).map_err(to_js_error)? >> 32) as u32)
-	}
-
-	/// Gets a `dq` value (low 32 bits), see also [`declareDataLength`].
-	/// Can only be called if [`code`] is [`Code.DeclareQword`]
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`declareDataLength`]: #method.declare_data_length
-	/// [`code`]: #method.code
-	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
-	///
-	/// # Throws
-	///
-	/// Throws if `index` is invalid
-	///
-	/// # Arguments
-	///
-	/// * `index`: Index (0-1)
-	#[wasm_bindgen(js_name = "getDeclareQwordValueLo")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn get_declare_qword_value_lo(&self, index: u32) -> Result<u32, JsValue> {
-		Ok(self.0.try_get_declare_qword_value(index as usize).map_err(to_js_error)? as u32)
 	}
 
 	/// Gets a `dq` value, see also [`declareDataLength`].
@@ -3401,7 +2839,6 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-1)
 	#[wasm_bindgen(js_name = "getDeclareQwordValue")]
-	#[cfg(feature = "bigint")]
 	pub fn get_declare_qword_value(&self, index: u32) -> Result<u64, JsValue> {
 		Ok(self.0.try_get_declare_qword_value(index as usize).map_err(to_js_error)?)
 	}
@@ -3421,7 +2858,6 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-1)
 	#[wasm_bindgen(js_name = "getDeclareQwordValueI64")]
-	#[cfg(feature = "bigint")]
 	pub fn get_declare_qword_value_i64(&self, index: u32) -> Result<i64, JsValue> {
 		Ok(self.0.try_get_declare_qword_value(index as usize).map_err(to_js_error)? as i64)
 	}
@@ -3589,34 +3025,8 @@ impl Instruction {
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
-	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegI64")]
 	pub fn with_reg_i64(code: Code, register: Register, immediate: i64) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
-	}
-
-	/// Creates an instruction with 2 operands
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Throws
-	///
-	/// Throws if one of the operands is invalid (basic checks)
-	///
-	/// # Arguments
-	///
-	/// * `code`: Code value (a [`Code`] enum value)
-	/// * `register`: op0: Register (a [`Register`] enum value)
-	/// * `immediateHi`: op1: Immediate value (high 32 bits)
-	/// * `immediateLo`: op1: Immediate value (low 32 bits)
-	///
-	/// [`Code`]: enum.Code.html
-	/// [`Register`]: enum.Register.html
-	#[rustfmt::skip]
-	#[cfg(not(feature = "bigint"))]
-	#[wasm_bindgen(js_name = "createRegI64")]
-	pub fn with_reg_i64(code: Code, register: Register, #[allow(non_snake_case)] immediateHi: u32, #[allow(non_snake_case)] immediateLo: u32) -> Result<Instruction, JsValue> {
-		let immediate = (((immediateHi as u64) << 32) | (immediateLo as u64)) as i64;
 		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
 	}
 
@@ -3635,34 +3045,8 @@ impl Instruction {
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
 	#[rustfmt::skip]
-	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegU64")]
 	pub fn with_reg_u64(code: Code, register: Register, immediate: u64) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
-	}
-
-	/// Creates an instruction with 2 operands
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Throws
-	///
-	/// Throws if one of the operands is invalid (basic checks)
-	///
-	/// # Arguments
-	///
-	/// * `code`: Code value (a [`Code`] enum value)
-	/// * `register`: op0: Register (a [`Register`] enum value)
-	/// * `immediateHi`: op1: Immediate value (high 32 bits)
-	/// * `immediateLo`: op1: Immediate value (low 32 bits)
-	///
-	/// [`Code`]: enum.Code.html
-	/// [`Register`]: enum.Register.html
-	#[rustfmt::skip]
-	#[cfg(not(feature = "bigint"))]
-	#[wasm_bindgen(js_name = "createRegU64")]
-	pub fn with_reg_u64(code: Code, register: Register, #[allow(non_snake_case)] immediateHi: u32, #[allow(non_snake_case)] immediateLo: u32) -> Result<Instruction, JsValue> {
-		let immediate = ((immediateHi as u64) << 32) | (immediateLo as u64);
 		Ok(Self(iced_x86_rust::Instruction::with2(code_to_iced(code), register_to_iced(register), immediate).map_err(to_js_error)?))
 	}
 
@@ -4423,32 +3807,8 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	#[rustfmt::skip]
-	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createBranch")]
 	pub fn with_branch(code: Code, target: u64) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::with_branch(code_to_iced(code), target).map_err(to_js_error)?))
-	}
-
-	/// Creates a new near/short branch instruction
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Throws
-	///
-	/// Throws if the created instruction doesn't have a near branch operand
-	///
-	/// # Arguments
-	///
-	/// * `code`: Code value (a [`Code`] enum value)
-	/// * `targetHi`: Target address (high 32 bits)
-	/// * `targetLo`: Target address (low 32 bits)
-	///
-	/// [`Code`]: enum.Code.html
-	#[rustfmt::skip]
-	#[cfg(not(feature = "bigint"))]
-	#[wasm_bindgen(js_name = "createBranch")]
-	pub fn with_branch(code: Code, #[allow(non_snake_case)] targetHi: u32, #[allow(non_snake_case)] targetLo: u32) -> Result<Instruction, JsValue> {
-		let target = ((targetHi as u64) << 32) | (targetLo as u64);
 		Ok(Self(iced_x86_rust::Instruction::with_branch(code_to_iced(code), target).map_err(to_js_error)?))
 	}
 
@@ -4482,30 +3842,8 @@ impl Instruction {
 	/// * `bitness`: 16, 32, or 64
 	/// * `target`: Target address
 	#[rustfmt::skip]
-	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createXbegin")]
 	pub fn with_xbegin(bitness: u32, target: u64) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::with_xbegin(bitness, target).map_err(to_js_error)?))
-	}
-
-	/// Creates a new `XBEGIN` instruction
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Throws
-	///
-	/// Throws if `bitness` is not one of 16, 32, 64.
-	///
-	/// # Arguments
-	///
-	/// * `bitness`: 16, 32, or 64
-	/// * `targetHi`: Target address (high 32 bits)
-	/// * `targetLo`: Target address (low 32 bits)
-	#[rustfmt::skip]
-	#[cfg(not(feature = "bigint"))]
-	#[wasm_bindgen(js_name = "createXbegin")]
-	pub fn with_xbegin(bitness: u32, #[allow(non_snake_case)] targetHi: u32, #[allow(non_snake_case)] targetLo: u32) -> Result<Instruction, JsValue> {
-		let target = ((targetHi as u64) << 32) | (targetLo as u64);
 		Ok(Self(iced_x86_rust::Instruction::with_xbegin(bitness, target).map_err(to_js_error)?))
 	}
 
@@ -6134,25 +5472,8 @@ impl Instruction {
 	///
 	/// * `q0`: Qword 0
 	#[rustfmt::skip]
-	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createDeclareQword_1")]
 	pub fn with_declare_qword_1(q0: u64) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_declare_qword_1(q0).map_err(to_js_error)?))
-	}
-
-	/// Creates a `dq`/`.quad` asm directive
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// * `q0Hi`: Qword 0 (high 32 bits)
-	/// * `q0Lo`: Qword 0 (low 32 bits)
-	#[rustfmt::skip]
-	#[cfg(not(feature = "bigint"))]
-	#[wasm_bindgen(js_name = "createDeclareQword_1")]
-	pub fn with_declare_qword_1(#[allow(non_snake_case)] q0Hi: u32, #[allow(non_snake_case)] q0Lo: u32) -> Result<Instruction, JsValue> {
-		let q0 = ((q0Hi as u64) << 32) | (q0Lo as u64);
 		Ok(Self(iced_x86_rust::Instruction::try_with_declare_qword_1(q0).map_err(to_js_error)?))
 	}
 
@@ -6163,28 +5484,8 @@ impl Instruction {
 	/// * `q0`: Qword 0
 	/// * `q1`: Qword 1
 	#[rustfmt::skip]
-	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createDeclareQword_2")]
 	pub fn with_declare_qword_2(q0: u64, q1: u64) -> Result<Instruction, JsValue> {
-		Ok(Self(iced_x86_rust::Instruction::try_with_declare_qword_2(q0, q1).map_err(to_js_error)?))
-	}
-
-	/// Creates a `dq`/`.quad` asm directive
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// * `q0Hi`: Qword 0 (high 32 bits)
-	/// * `q0Lo`: Qword 0 (low 32 bits)
-	/// * `q1Hi`: Qword 1 (high 32 bits)
-	/// * `q1Lo`: Qword 1 (low 32 bits)
-	#[rustfmt::skip]
-	#[cfg(not(feature = "bigint"))]
-	#[wasm_bindgen(js_name = "createDeclareQword_2")]
-	pub fn with_declare_qword_2(#[allow(non_snake_case)] q0Hi: u32, #[allow(non_snake_case)] q0Lo: u32, #[allow(non_snake_case)] q1Hi: u32, #[allow(non_snake_case)] q1Lo: u32) -> Result<Instruction, JsValue> {
-		let q0 = ((q0Hi as u64) << 32) | (q0Lo as u64);
-		let q1 = ((q1Hi as u64) << 32) | (q1Lo as u64);
 		Ok(Self(iced_x86_rust::Instruction::try_with_declare_qword_2(q0, q1).map_err(to_js_error)?))
 	}
 
@@ -6198,7 +5499,6 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[rustfmt::skip]
-	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createDeclareQword")]
 	pub fn with_declare_qword(data: &[u64]) -> Result<Instruction, JsValue> {
 		Ok(Self(iced_x86_rust::Instruction::with_declare_qword(data).map_err(to_js_error)?))

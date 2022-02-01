@@ -210,17 +210,11 @@ test("Create a Decoder with multiple options", () => {
 
 test("Decoder.IP prop", () => {
 	const decoder = new Decoder(64, new Uint8Array([0x90]), DecoderOptions.None);
-	expect(decoder.ipLo).toBe(0);
-	expect(decoder.ipHi).toBe(0);
-	decoder.ipLo = 0x12345678;
-	expect(decoder.ipLo).toBe(0x12345678);
-	expect(decoder.ipHi).toBe(0);
-	decoder.ipHi = 0x9ABCDEFD;
-	expect(decoder.ipLo).toBe(0x12345678);
-	expect(decoder.ipHi).toBe(0x9ABCDEFD);
-	decoder.ipLo = 0x5AA54321;
-	expect(decoder.ipLo).toBe(0x5AA54321);
-	expect(decoder.ipHi).toBe(0x9ABCDEFD);
+	expect(decoder.ip).toBe(0n);
+	decoder.ip = 0x12345678n;
+	expect(decoder.ip).toBe(0x12345678n);
+	decoder.ip = 0x9ABCDEFD12345678n;
+	expect(decoder.ip).toBe(0x9ABCDEFD12345678n);
 	decoder.free();
 });
 
