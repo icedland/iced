@@ -3767,6 +3767,18 @@ class Instruction:
 	def is_jkcc_short(self) -> bool:
 		"""bool: Checks if it's a `JKccD SHORT` instruction"""
 		...
+	@property
+	def is_jcx_short(self) -> bool:
+		"""bool: Checks if it's a `JCXZ SHORT`, `JECXZ SHORT` or `JRCXZ SHORT` instruction"""
+		...
+	@property
+	def is_loopcc(self) -> bool:
+		"""bool: Checks if it's a `LOOPcc SHORT` instruction"""
+		...
+	@property
+	def is_loop(self) -> bool:
+		"""bool: Checks if it's a `LOOP SHORT` instruction"""
+		...
 	def negate_condition_code(self) -> None:
 		"""
 		Negates the condition code, eg. `JE` -> `JNE`.

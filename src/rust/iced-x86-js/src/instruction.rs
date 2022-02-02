@@ -2357,6 +2357,27 @@ impl Instruction {
 		self.0.is_jkcc_short()
 	}
 
+	/// Checks if it's a `JCXZ SHORT`, `JECXZ SHORT` or `JRCXZ SHORT` instruction
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isJcxShort")]
+	pub fn is_jcx_short(&self) -> bool {
+		self.0.is_jcx_short()
+	}
+
+	/// Checks if it's a `LOOPcc SHORT` instruction
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isLoopcc")]
+	pub fn is_loopcc(&self) -> bool {
+		self.0.is_loopcc()
+	}
+
+	/// Checks if it's a `LOOP SHORT` instruction
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isLoop")]
+	pub fn is_loop(&self) -> bool {
+		self.0.is_loop()
+	}
+
 	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc` and does
 	/// nothing if the instruction doesn't have a condition code.
 	///

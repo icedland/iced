@@ -3558,6 +3558,27 @@ impl Instruction {
 		self.code().is_jkcc_short()
 	}
 
+	/// Checks if it's a `JCXZ SHORT`, `JECXZ SHORT` or `JRCXZ SHORT` instruction
+	#[must_use]
+	#[inline]
+	pub fn is_jcx_short(&self) -> bool {
+		self.code().is_jcx_short()
+	}
+
+	/// Checks if it's a `LOOPcc SHORT` instruction
+	#[must_use]
+	#[inline]
+	pub fn is_loopcc(&self) -> bool {
+		self.code().is_loopcc()
+	}
+
+	/// Checks if it's a `LOOP SHORT` instruction
+	#[must_use]
+	#[inline]
+	pub fn is_loop(&self) -> bool {
+		self.code().is_loop()
+	}
+
 	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc`
 	/// and does nothing if the instruction doesn't have a condition code.
 	///

@@ -43897,6 +43897,27 @@ impl Code {
 			_ => false,
 		}
 	}
+
+	/// Checks if it's a `JCXZ SHORT`, `JECXZ SHORT` or `JRCXZ SHORT` instruction
+	#[must_use]
+	#[inline]
+	pub fn is_jcx_short(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jcxz_rel8_16 as u32) <= (Code::Jrcxz_rel8_64 as u32 - Code::Jcxz_rel8_16 as u32)
+	}
+
+	/// Checks if it's a `LOOPcc SHORT` instruction
+	#[must_use]
+	#[inline]
+	pub fn is_loopcc(self) -> bool {
+		(self as u32).wrapping_sub(Code::Loopne_rel8_16_CX as u32) <= (Code::Loope_rel8_64_RCX as u32 - Code::Loopne_rel8_16_CX as u32)
+	}
+
+	/// Checks if it's a `LOOP SHORT` instruction
+	#[must_use]
+	#[inline]
+	pub fn is_loop(self) -> bool {
+		(self as u32).wrapping_sub(Code::Loop_rel8_16_CX as u32) <= (Code::Loop_rel8_64_RCX as u32 - Code::Loop_rel8_16_CX as u32)
+	}
 }
 
 #[cfg(any(feature = "instr_info", feature = "fast_fmt"))]
