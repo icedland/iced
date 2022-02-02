@@ -528,6 +528,7 @@ fn register_info() {
 fn is_branch_call() {
 	let data = &*MISC_TESTS_DATA;
 	let jcc_short = &data.jcc_short;
+	let jcx_short = &data.jrcxz;
 	let jmp_near = &data.jmp_near;
 	let jmp_far = &data.jmp_far;
 	let jmp_short = &data.jmp_short;
@@ -542,6 +543,7 @@ fn is_branch_call() {
 	let jkcc_short = &data.jkcc_short;
 	#[cfg(feature = "mvex")]
 	let jkcc_near = &data.jkcc_near;
+	let loop_ = &data.loop_;
 
 	for code in Code::values() {
 		let mut instr = Instruction::default();
@@ -555,6 +557,9 @@ fn is_branch_call() {
 
 		assert_eq!(code.is_jcc_short(), jcc_short.contains(&code));
 		assert_eq!(instr.is_jcc_short(), code.is_jcc_short());
+
+		assert_eq!(code.is_jcx_short(), jcx_short.contains(&code));
+		assert_eq!(instr.is_jcx_short(), code.is_jcx_short());
 
 		assert_eq!(code.is_jmp_short(), jmp_short.contains(&code));
 		assert_eq!(instr.is_jmp_short(), code.is_jmp_short());
@@ -597,6 +602,10 @@ fn is_branch_call() {
 			assert_eq!(code.is_jkcc_short(), jkcc_short.contains(&code));
 			assert_eq!(instr.is_jkcc_short(), code.is_jkcc_short());
 		}
+
+		assert_eq!(loop_.contains(&code), code.is_loop() || code.is_loopcc());
+		assert_eq!(code.is_loop(), instr.is_loop());
+		assert_eq!(code.is_loopcc(), instr.is_loopcc());
 	}
 }
 

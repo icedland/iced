@@ -106,6 +106,9 @@ test("Instruction props", () => {
 		expect(instr.isJkccNear).toBe(false);
 		expect(instr.isJkccShort).toBe(false);
 	}
+	expect(instr.isJcxShort).toBe(false);
+	expect(instr.isLoopcc).toBe(false);
+	expect(instr.isLoop).toBe(false);
 	expect(instr.conditionCode).toBe(ConditionCode.None);
 	expect(instr.isStringInstruction).toBe(false);
 

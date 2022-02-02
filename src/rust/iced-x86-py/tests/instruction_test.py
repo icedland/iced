@@ -930,6 +930,21 @@ def test_br_checks() -> None:
 	assert not instr.is_jkcc_short
 	assert instr.is_jkcc_near
 
+	instr = Decoder(64, b"\xE0\x5A").decode()
+	assert not instr.is_jcx_short
+	assert instr.is_loopcc
+	assert not instr.is_loop
+
+	instr = Decoder(64, b"\xE2\x5A").decode()
+	assert not instr.is_jcx_short
+	assert not instr.is_loopcc
+	assert instr.is_loop
+
+	instr = Decoder(64, b"\xE3\x5A").decode()
+	assert instr.is_jcx_short
+	assert not instr.is_loopcc
+	assert not instr.is_loop
+
 def test_condition_code() -> None:
 	instr = Decoder(64, b"\x70\x00").decode()
 

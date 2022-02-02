@@ -454,15 +454,6 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a <c>Jcxz SHORT</c>, <c>Jecxz SHORT</c> or <c>Jrcxz SHORT</c> instruction
-		/// </summary>
-		/// <returns></returns>
-		public readonly bool IsJcxShort {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Code.IsJcxShort();
-		}
-
-		/// <summary>
 		/// Checks if it's a <c>Jcc SHORT</c> instruction
 		/// </summary>
 		/// <returns></returns>
@@ -561,24 +552,6 @@ namespace Iced.Intel {
 			get => Code.IsCallFarIndirect();
 		}
 
-		/// <summary>
-		/// Checks if it's a <c>LOOPcc SHORT</c> instruction
-		/// </summary>
-		/// <returns></returns>
-		public readonly bool IsLoopcc {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Code.IsLoopcc();
-		}
-
-		/// <summary>
-		/// Checks if it's a <c>LOOP SHORT</c> instruction
-		/// </summary>
-		/// <returns></returns>
-		public readonly bool IsLoop {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Code.IsLoop();
-		}
-
 #if MVEX
 		/// <summary>
 		/// Checks if it's a <c>JKccD SHORT</c> or <c>JKccD NEAR</c> instruction
@@ -607,6 +580,33 @@ namespace Iced.Intel {
 			get => Code.IsJkccShort();
 		}
 #endif
+
+		/// <summary>
+		/// Checks if it's a <c>JCXZ SHORT</c>, <c>JECXZ SHORT</c> or <c>JRCXZ SHORT</c> instruction
+		/// </summary>
+		/// <returns></returns>
+		public readonly bool IsJcxShort {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.IsJcxShort();
+		}
+
+		/// <summary>
+		/// Checks if it's a <c>LOOPcc SHORT</c> instruction
+		/// </summary>
+		/// <returns></returns>
+		public readonly bool IsLoopcc {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.IsLoopcc();
+		}
+
+		/// <summary>
+		/// Checks if it's a <c>LOOP SHORT</c> instruction
+		/// </summary>
+		/// <returns></returns>
+		public readonly bool IsLoop {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.IsLoop();
+		}
 
 		/// <summary>
 		/// Negates the condition code, eg. <c>JE</c> -> <c>JNE</c>. Can be used if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c>
