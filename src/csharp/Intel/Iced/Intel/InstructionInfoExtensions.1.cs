@@ -322,7 +322,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a <c>Jcxz SHORT</c>, <c>Jecxz SHORT</c> or <c>Jrcxz SHORT</c> instruction
+		/// Checks if it's a <c>JCXZ SHORT</c>, <c>JECXZ SHORT</c> or <c>JRCXZ SHORT</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
