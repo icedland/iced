@@ -1586,7 +1586,7 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 # fs clzero
 64 0F01 FC, Clzerod, Legacy, CLZERO, r=eax;fs
 # rep montmul
-67 F3 0FA6 C0, Montmul_16, Legacy, PADLOCK_PMM, crm=es:si;Unknown cr=es;si cw=edx r=ecx cr=eax cw=eax;ecx
+67 F3 0FA6 C0, Montmul_16, Legacy, PADLOCK_PMM, crm=es:si;Unknown cr=es;si cw=edx r=ecx cr=eax cw=eax;ecx decopt=NoInvalidCheck
 # rep montmul
 F3 0FA6 C0, Montmul_32, Legacy, PADLOCK_PMM, crm=es:esi;Unknown cr=es;esi cw=edx r=ecx cr=eax cw=eax;ecx
 # rep xsha1
@@ -1929,3 +1929,19 @@ F3 0FA7 F0, Ccs_encrypt_32, Legacy, PADLOCK_GMI, crm=es:edx;Unknown crm=es:ebx;U
 0F0E, Rdudbg, Legacy, UDBG, priv r=eax;ecx w=edx;ebx decopt=Udbg
 # wrudbg
 0F0F, Wrudbg, Legacy, UDBG, priv r=eax;ecx;edx cr=ebx cw=edx;ebx decopt=Udbg
+# rep undoc
+67 F3 0FA6 F0, Via_undoc_F30FA6F0_16, Legacy, PADLOCK_UNDOC, save-restore
+# rep undoc
+F3 0FA6 F0, Via_undoc_F30FA6F0_32, Legacy, PADLOCK_UNDOC, save-restore
+# rep undoc
+67 F3 0FA6 F8, Via_undoc_F30FA6F8_16, Legacy, PADLOCK_UNDOC, save-restore
+# rep undoc
+F3 0FA6 F8, Via_undoc_F30FA6F8_32, Legacy, PADLOCK_UNDOC, save-restore
+# rep xsha512
+67 F3 0FA6 E0, Xsha512_16, Legacy, PADLOCK_PHE, crm=es:di;Unknown cwm=es:di;Unknown crm=es:si;Unknown cr=es cr=si;di cw=si rcw=cx
+# rep xsha512
+F3 0FA6 E0, Xsha512_32, Legacy, PADLOCK_PHE, crm=es:edi;Unknown cwm=es:edi;Unknown crm=es:esi;Unknown cr=es cr=esi;edi cw=esi rcw=ecx
+# rep xstore2
+67 F3 0FA7 F8, Xstore2_16, Legacy, PADLOCK_RNG, cwm=es:di;Unknown cr=es cr=di cw=di cr=edx cw=eax rcw=cx
+# rep xstore2
+F3 0FA7 F8, Xstore2_32, Legacy, PADLOCK_RNG, cwm=es:edi;Unknown cr=es cr=edi cw=edi cr=edx cw=eax rcw=ecx

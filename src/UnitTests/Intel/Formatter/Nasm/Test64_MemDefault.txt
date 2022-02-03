@@ -13005,3 +13005,11 @@ vpsubrsetbd zmm2,k6,zmm19{bbbb}
 vpsubrsetbd zmm2,k6,zmm27{cccc}
 vpsubrsetbd zmm2,k6,zmm3{dddd}
 vpsubrsetbd zmm2,k6,zmm3
+a32 rep undoc
+rep undoc
+a32 rep undoc
+rep undoc
+a32 rep xsha512
+rep xsha512
+a32 rep xstore2
+rep xstore2

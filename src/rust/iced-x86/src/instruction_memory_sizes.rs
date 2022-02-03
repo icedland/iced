@@ -4826,6 +4826,18 @@ pub(super) static SIZES_NORMAL: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0
 	MemorySize::Unknown,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1
 	MemorySize::Unknown,// MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
+	MemorySize::Unknown,// Via_undoc_F30FA6F0_16
+	MemorySize::Unknown,// Via_undoc_F30FA6F0_32
+	MemorySize::Unknown,// Via_undoc_F30FA6F0_64
+	MemorySize::Unknown,// Via_undoc_F30FA6F8_16
+	MemorySize::Unknown,// Via_undoc_F30FA6F8_32
+	MemorySize::Unknown,// Via_undoc_F30FA6F8_64
+	MemorySize::Unknown,// Xsha512_16
+	MemorySize::Unknown,// Xsha512_32
+	MemorySize::Unknown,// Xsha512_64
+	MemorySize::Unknown,// Xstore2_16
+	MemorySize::Unknown,// Xstore2_32
+	MemorySize::Unknown,// Xstore2_64
 ];
 
 #[rustfmt::skip]
@@ -9648,4 +9660,16 @@ pub(super) static SIZES_BCST: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0
 	MemorySize::Unknown,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1
 	MemorySize::Unknown,// MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
+	MemorySize::Unknown,// Via_undoc_F30FA6F0_16
+	MemorySize::Unknown,// Via_undoc_F30FA6F0_32
+	MemorySize::Unknown,// Via_undoc_F30FA6F0_64
+	MemorySize::Unknown,// Via_undoc_F30FA6F8_16
+	MemorySize::Unknown,// Via_undoc_F30FA6F8_32
+	MemorySize::Unknown,// Via_undoc_F30FA6F8_64
+	MemorySize::Unknown,// Xsha512_16
+	MemorySize::Unknown,// Xsha512_32
+	MemorySize::Unknown,// Xsha512_64
+	MemorySize::Unknown,// Xstore2_16
+	MemorySize::Unknown,// Xstore2_32
+	MemorySize::Unknown,// Xstore2_64
 ];

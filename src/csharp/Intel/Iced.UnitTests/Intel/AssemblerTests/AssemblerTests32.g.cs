@@ -47143,10 +47143,26 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void xsha512() {
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else */ { /* if (Bitness >= 32) */
+				TestAssembler(c => c.xsha512(), Instruction.Create(Code.Xsha512_32), TestInstrFlags.RemoveRepRepnePrefixes);
+			} /* else skip !(Bitness >= 32) not supported by this Assembler bitness */
+		}
+
+		[Fact]
 		public void xstore() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { /* if (Bitness >= 32) */
 				TestAssembler(c => c.xstore(), Instruction.Create(Code.Xstore_32), TestInstrFlags.RemoveRepRepnePrefixes);
+			} /* else skip !(Bitness >= 32) not supported by this Assembler bitness */
+		}
+
+		[Fact]
+		public void xstore2() {
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else */ { /* if (Bitness >= 32) */
+				TestAssembler(c => c.xstore2(), Instruction.Create(Code.Xstore2_32), TestInstrFlags.RemoveRepRepnePrefixes);
 			} /* else skip !(Bitness >= 32) not supported by this Assembler bitness */
 		}
 

@@ -18091,4 +18091,43 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
 	0x01,// Normal_1
 	0x96, 0x0D,// 1686 = "vcvtfxpntpd2dq"
+
+	// Via_undoc_F30FA6F0_16
+	0x01,// Normal_1
+	0x00,// 0 = "undoc"
+
+	// Via_undoc_F30FA6F0_32
+	0x00,// Previous
+
+	// Via_undoc_F30FA6F0_64
+	0x00,// Previous
+
+	// Via_undoc_F30FA6F8_16
+	0x00,// Previous
+
+	// Via_undoc_F30FA6F8_32
+	0x00,// Previous
+
+	// Via_undoc_F30FA6F8_64
+	0x00,// Previous
+
+	// Xsha512_16
+	0x01,// Normal_1
+	0x97, 0x0D,// 1687 = "xsha512"
+
+	// Xsha512_32
+	0x00,// Previous
+
+	// Xsha512_64
+	0x00,// Previous
+
+	// Xstore2_16
+	0x01,// Normal_1
+	0x98, 0x0D,// 1688 = "xstore2"
+
+	// Xstore2_32
+	0x00,// Previous
+
+	// Xstore2_64
+	0x00,// Previous
 ];

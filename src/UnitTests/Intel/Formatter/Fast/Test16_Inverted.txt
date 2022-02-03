@@ -518,3 +518,11 @@ pvalidate
 serialize
 xsusldtrk
 xresldtrk
+rep undoc
+rep undoc
+rep undoc
+rep undoc
+rep xsha512
+rep xsha512
+rep xstore2
+rep xstore2

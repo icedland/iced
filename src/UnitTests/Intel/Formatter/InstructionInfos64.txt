@@ -8260,7 +8260,7 @@ C4E3CD CF 10 A5, VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
 64 0F01 FC, Clzeroq
 64 67 F3 0FAE F5, Umonitor_r32
 64 F3 0FAE F5, Umonitor_r64
-F3 0FA6 C0, Montmul_64
+F3 0FA6 C0, Montmul_64, NoInvalidCheck
 67 F3 0FA6 C0, Montmul_32
 F3 0FA6 C8, Xsha1_64
 67 F3 0FA6 C8, Xsha1_32
@@ -13005,3 +13005,11 @@ C4E379 3E D3 A5, VEX_KNC_Kextract_kr_r64_imm8, KNC
 62 924968 6F D3, MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt, KNC
 62 F24978 6F D3, MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt, KNC
 62 F24988 6F D3, MVEX_Vpsubrsetbd_zmm_k1_kr_zmmmt, KNC
+67 F3 0FA6 F0, Via_undoc_F30FA6F0_32
+F3 0FA6 F0, Via_undoc_F30FA6F0_64
+67 F3 0FA6 F8, Via_undoc_F30FA6F8_32
+F3 0FA6 F8, Via_undoc_F30FA6F8_64
+67 F3 0FA6 E0, Xsha512_32
+F3 0FA6 E0, Xsha512_64
+67 F3 0FA7 F8, Xstore2_32
+F3 0FA7 F8, Xstore2_64

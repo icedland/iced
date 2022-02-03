@@ -2036,6 +2036,11 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					if (CodeUtils.IsIgnored(codeNames[i]))
 						continue;
 					var code = (Code)i;
+					switch (code) {
+					case Code.Montmul_16:
+					case Code.Montmul_64:
+						continue;
+					}
 					var opCode = code.ToOpCode();
 					if (!opCode.IsInstruction || opCode.Code == Code.Popw_CS)
 						continue;

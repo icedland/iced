@@ -17966,4 +17966,64 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
 	0x01,// Normal_1
 	0x96, 0x0D,// 1686 = "vcvtfxpntpd2dq"
+
+	// Via_undoc_F30FA6F0_16
+	0x03,// asz
+	0x00,// 0 = "undoc"
+	0x10,// 0x10
+
+	// Via_undoc_F30FA6F0_32
+	0x03,// asz
+	0x00,// 0 = "undoc"
+	0x20,// 0x20
+
+	// Via_undoc_F30FA6F0_64
+	0x03,// asz
+	0x00,// 0 = "undoc"
+	0x40,// 0x40
+
+	// Via_undoc_F30FA6F8_16
+	0x03,// asz
+	0x00,// 0 = "undoc"
+	0x10,// 0x10
+
+	// Via_undoc_F30FA6F8_32
+	0x03,// asz
+	0x00,// 0 = "undoc"
+	0x20,// 0x20
+
+	// Via_undoc_F30FA6F8_64
+	0x03,// asz
+	0x00,// 0 = "undoc"
+	0x40,// 0x40
+
+	// Xsha512_16
+	0x03,// asz
+	0x97, 0x0D,// 1687 = "xsha512"
+	0x10,// 0x10
+
+	// Xsha512_32
+	0x03,// asz
+	0x97, 0x0D,// 1687 = "xsha512"
+	0x20,// 0x20
+
+	// Xsha512_64
+	0x03,// asz
+	0x97, 0x0D,// 1687 = "xsha512"
+	0x40,// 0x40
+
+	// Xstore2_16
+	0x03,// asz
+	0x98, 0x0D,// 1688 = "xstore2"
+	0x10,// 0x10
+
+	// Xstore2_32
+	0x03,// asz
+	0x98, 0x0D,// 1688 = "xstore2"
+	0x20,// 0x20
+
+	// Xstore2_64
+	0x03,// asz
+	0x98, 0x0D,// 1688 = "xstore2"
+	0x40,// 0x40
 ];

@@ -486,10 +486,13 @@ pub(crate) enum ImpliedAccess {
 	t_Reax_Recx_Wedx_Webx,
 	t_Reax_Recx_Redx_CRebx_CWedx_CWebx,
 	t_memdisplm64,
+	t_CRmem_CRmem_CWmem_CRsi_CRdi_CRes_CWsi_RCWcx,
+	t_CRmem_CRmem_CWmem_CResi_CRedi_CRes_CWesi_RCWecx,
+	t_CRmem_CRmem_CWmem_CRrsi_CRrdi_CRes_CWrsi_RCWrcx,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_IMPLIED_ACCESS: [&str; 194] = [
+static GEN_DEBUG_IMPLIED_ACCESS: [&str; 197] = [
 	"None",
 	"Shift_Ib_MASK1FMOD9",
 	"Shift_Ib_MASK1FMOD11",
@@ -684,6 +687,9 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 194] = [
 	"t_Reax_Recx_Wedx_Webx",
 	"t_Reax_Recx_Redx_CRebx_CWedx_CWebx",
 	"t_memdisplm64",
+	"t_CRmem_CRmem_CWmem_CRsi_CRdi_CRes_CWsi_RCWcx",
+	"t_CRmem_CRmem_CWmem_CResi_CRedi_CRes_CWesi_RCWecx",
+	"t_CRmem_CRmem_CWmem_CRrsi_CRrdi_CRes_CWrsi_RCWrcx",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for ImpliedAccess {
@@ -1078,10 +1084,11 @@ pub(crate) enum CpuidFeatureInternal {
 	AVX512VL_and_AVX512_FP16,
 	UDBG,
 	KNC,
+	PADLOCK_UNDOC,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 182] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 183] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1264,6 +1271,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 182] = [
 	"AVX512VL_and_AVX512_FP16",
 	"UDBG",
 	"KNC",
+	"PADLOCK_UNDOC",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

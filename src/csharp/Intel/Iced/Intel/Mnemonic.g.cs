@@ -1843,6 +1843,8 @@ namespace Iced.Intel {
 		Vscatterpf0hintdps = 1831,
 		Vsubrpd = 1832,
 		Vsubrps = 1833,
+		Xsha512 = 1834,
+		Xstore2 = 1835,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

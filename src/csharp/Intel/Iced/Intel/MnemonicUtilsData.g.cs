@@ -4826,6 +4826,18 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Undoc,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0
 			(ushort)Mnemonic.Undoc,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1
 			(ushort)Mnemonic.Vcvtfxpntpd2dq,// MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
+			(ushort)Mnemonic.Undoc,// Via_undoc_F30FA6F0_16
+			(ushort)Mnemonic.Undoc,// Via_undoc_F30FA6F0_32
+			(ushort)Mnemonic.Undoc,// Via_undoc_F30FA6F0_64
+			(ushort)Mnemonic.Undoc,// Via_undoc_F30FA6F8_16
+			(ushort)Mnemonic.Undoc,// Via_undoc_F30FA6F8_32
+			(ushort)Mnemonic.Undoc,// Via_undoc_F30FA6F8_64
+			(ushort)Mnemonic.Xsha512,// Xsha512_16
+			(ushort)Mnemonic.Xsha512,// Xsha512_32
+			(ushort)Mnemonic.Xsha512,// Xsha512_64
+			(ushort)Mnemonic.Xstore2,// Xstore2_16
+			(ushort)Mnemonic.Xstore2,// Xstore2_32
+			(ushort)Mnemonic.Xstore2,// Xstore2_64
 		};
 	}
 }

@@ -4825,4 +4825,16 @@ pub(super) static OP_COUNT: [u8; IcedConstants::CODE_ENUM_COUNT] = [
 	3,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0
 	3,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1
 	3,// MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
+	0,// Via_undoc_F30FA6F0_16
+	0,// Via_undoc_F30FA6F0_32
+	0,// Via_undoc_F30FA6F0_64
+	0,// Via_undoc_F30FA6F8_16
+	0,// Via_undoc_F30FA6F8_32
+	0,// Via_undoc_F30FA6F8_64
+	0,// Xsha512_16
+	0,// Xsha512_32
+	0,// Xsha512_64
+	0,// Xstore2_16
+	0,// Xstore2_32
+	0,// Xstore2_64
 ];

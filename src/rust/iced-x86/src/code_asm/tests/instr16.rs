@@ -12429,7 +12429,7 @@ fn montmul() {
 		// Montmul_16
 		test_instr(16, |a| a.montmul().unwrap(),
 			Instruction::with(Code::Montmul_16),
-			TestInstrFlags::REMOVE_REP_REPNE_PREFIXES, DecoderOptions::NONE);
+			TestInstrFlags::REMOVE_REP_REPNE_PREFIXES, DecoderOptions::NO_INVALID_CHECK);
 	}
 }
 
@@ -94203,6 +94203,21 @@ fn xsha256() {
 
 #[test]
 #[rustfmt::skip]
+fn xsha512() {
+	/* if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Xsha512_16
+		test_instr(16, |a| a.xsha512().unwrap(),
+			Instruction::with(Code::Xsha512_16),
+			TestInstrFlags::REMOVE_REP_REPNE_PREFIXES, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
 fn xstore() {
 	/* if self.bitness() == 64 */ {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
@@ -94212,6 +94227,21 @@ fn xstore() {
 		// Xstore_16
 		test_instr(16, |a| a.xstore().unwrap(),
 			Instruction::with(Code::Xstore_16),
+			TestInstrFlags::REMOVE_REP_REPNE_PREFIXES, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn xstore2() {
+	/* if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// skip `if self.bitness() >= 32` since it's not supported by the current test bitness
+	} /* else */ {
+		// Xstore2_16
+		test_instr(16, |a| a.xstore2().unwrap(),
+			Instruction::with(Code::Xstore2_16),
 			TestInstrFlags::REMOVE_REP_REPNE_PREFIXES, DecoderOptions::NONE);
 	}
 }

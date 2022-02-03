@@ -20133,6 +20133,66 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x0B,// er_2
 				0x96, 0x0D,// 1686 = "vcvtfxpntpd2dq"
 				0x00,// 0x0
+
+				// Via_undoc_F30FA6F0_16
+				0x07,// asz
+				0x00,// 0 = "undoc"
+				0x10,// 0x10
+
+				// Via_undoc_F30FA6F0_32
+				0x07,// asz
+				0x00,// 0 = "undoc"
+				0x20,// 0x20
+
+				// Via_undoc_F30FA6F0_64
+				0x07,// asz
+				0x00,// 0 = "undoc"
+				0x40,// 0x40
+
+				// Via_undoc_F30FA6F8_16
+				0x07,// asz
+				0x00,// 0 = "undoc"
+				0x10,// 0x10
+
+				// Via_undoc_F30FA6F8_32
+				0x07,// asz
+				0x00,// 0 = "undoc"
+				0x20,// 0x20
+
+				// Via_undoc_F30FA6F8_64
+				0x07,// asz
+				0x00,// 0 = "undoc"
+				0x40,// 0x40
+
+				// Xsha512_16
+				0x07,// asz
+				0x97, 0x0D,// 1687 = "xsha512"
+				0x10,// 0x10
+
+				// Xsha512_32
+				0x07,// asz
+				0x97, 0x0D,// 1687 = "xsha512"
+				0x20,// 0x20
+
+				// Xsha512_64
+				0x07,// asz
+				0x97, 0x0D,// 1687 = "xsha512"
+				0x40,// 0x40
+
+				// Xstore2_16
+				0x07,// asz
+				0x98, 0x0D,// 1688 = "xstore2"
+				0x10,// 0x10
+
+				// Xstore2_32
+				0x07,// asz
+				0x98, 0x0D,// 1688 = "xstore2"
+				0x20,// 0x20
+
+				// Xstore2_64
+				0x07,// asz
+				0x98, 0x0D,// 1688 = "xstore2"
+				0x40,// 0x40
 			};
 	}
 }

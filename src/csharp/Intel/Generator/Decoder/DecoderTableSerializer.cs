@@ -349,6 +349,7 @@ namespace Generator.Decoder {
 				{ opCodeHandlerKind[nameof(LegacyOpCodeHandlerKind.Simple2Iw)], (1, 3) },
 				{ opCodeHandlerKind[nameof(LegacyOpCodeHandlerKind.Simple3)], (1, 3) },
 				{ opCodeHandlerKind[nameof(LegacyOpCodeHandlerKind.Simple5)], (1, 3) },
+				{ opCodeHandlerKind[nameof(LegacyOpCodeHandlerKind.Simple5_a32)], (1, 3) },
 				{ opCodeHandlerKind[nameof(LegacyOpCodeHandlerKind.Simple5_ModRM_as)], (1, 3) },
 				{ opCodeHandlerKind[nameof(LegacyOpCodeHandlerKind.Sw_Ev)], (1, 3) },
 				{ opCodeHandlerKind[nameof(LegacyOpCodeHandlerKind.Xv_Yv)], (1, 3) },

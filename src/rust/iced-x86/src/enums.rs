@@ -2660,10 +2660,12 @@ pub enum CpuidFeature {
 	UDBG = 159,
 	/// Intel Knights Corner
 	KNC = 160,
+	/// Undocumented instruction
+	PADLOCK_UNDOC = 161,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 161] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 162] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -2825,6 +2827,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 161] = [
 	"AVX512_FP16",
 	"UDBG",
 	"KNC",
+	"PADLOCK_UNDOC",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

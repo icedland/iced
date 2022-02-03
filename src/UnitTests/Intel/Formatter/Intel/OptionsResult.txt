@@ -2068,6 +2068,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb [rdi],dx
 repne insw [rdi],dx
@@ -2128,6 +2132,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb [edi],dx
 repne insw [edi],dx
@@ -2183,6 +2191,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb [di],dx
 repne insw [di],dx
@@ -2243,6 +2255,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb [rdi],dx
 repne insw [rdi],dx
@@ -2303,6 +2319,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb [edi],dx
 repne insw [edi],dx
@@ -2358,6 +2378,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb [di],dx
 repne insw [di],dx
@@ -2418,6 +2442,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb [rdi],dx
 repne insw [rdi],dx
@@ -2478,6 +2506,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb [edi],dx
 repne insw [edi],dx
@@ -2533,6 +2565,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb [di],dx
 repne insw [di],dx
@@ -2593,6 +2629,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repnz insb [rdi],dx
 repnz insw [rdi],dx
@@ -2653,6 +2693,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repnz insb [edi],dx
 repnz insw [edi],dx
@@ -2708,6 +2752,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repnz insb [di],dx
 repnz insw [di],dx

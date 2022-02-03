@@ -1143,6 +1143,8 @@ namespace IcedFuzzer.Core {
 					}
 					if (instr.AddressSize != 0 && instr.AddressSize != bitness)
 						fflags |= FuzzerInstructionFlags.DontUsePrefix67;
+					if (instr.RequiresAddressSize32 && instr.AddressSize == 32)
+						fflags |= FuzzerInstructionFlags.DontUsePrefix67;
 				}
 				info.SetInstructionFlags(prefix, fflags);
 				if ((fflags & FuzzerInstructionFlags.DontUsePrefixREXW) == 0) {
@@ -1529,6 +1531,26 @@ namespace IcedFuzzer.Core {
 				_ => false,
 			};
 
+		static bool IgnoresModRmLow3Bits(Code code) =>
+			code switch {
+				Code.Montmul_16 or Code.Montmul_32 or Code.Montmul_64 or
+				Code.Xsha1_16 or Code.Xsha1_32 or Code.Xsha1_64 or
+				Code.Xsha256_16 or Code.Xsha256_32 or Code.Xsha256_64 or
+				Code.Xsha512_16 or Code.Xsha512_32 or Code.Xsha512_64 or
+				Code.Xstore_16 or Code.Xstore_32 or Code.Xstore_64 or
+				Code.Xcryptecb_16 or Code.Xcryptecb_32 or Code.Xcryptecb_64 or
+				Code.Xcryptcbc_16 or Code.Xcryptcbc_32 or Code.Xcryptcbc_64 or
+				Code.Xcryptctr_16 or Code.Xcryptctr_32 or Code.Xcryptctr_64 or
+				Code.Xcryptcfb_16 or Code.Xcryptcfb_32 or Code.Xcryptcfb_64 or
+				Code.Xcryptofb_16 or Code.Xcryptofb_32 or Code.Xcryptofb_64 or
+				Code.Xstore2_16 or Code.Xstore2_32 or Code.Xstore2_64 or
+				Code.Ccs_hash_16 or Code.Ccs_hash_32 or Code.Ccs_hash_64 or
+				Code.Via_undoc_F30FA6F0_16 or Code.Via_undoc_F30FA6F0_32 or Code.Via_undoc_F30FA6F0_64 or
+				Code.Via_undoc_F30FA6F8_16 or Code.Via_undoc_F30FA6F8_32 or Code.Via_undoc_F30FA6F8_64 or
+				Code.Ccs_encrypt_16 or Code.Ccs_encrypt_32 or Code.Ccs_encrypt_64 => true,
+				_ => false,
+			};
+
 		static IEnumerable<(bool hasModrm, FuzzerInstruction)> GetInstructions(int bitness, OpCodeInfo[] opCodes) {
 			// Split up instructions with a reg/mem (modrm) operand into two instructions,
 			// one with reg only ops and the other one with reg+mem ops, eg. `add r16,rm16`
@@ -1540,6 +1562,14 @@ namespace IcedFuzzer.Core {
 							yield return info;
 					}
 				}
+				else if (IgnoresModRmLow3Bits(opCode.Code)) {
+					for (int i = 0; i < 8; i++) {
+						Assert.True((opCode.OpCode & 7) == 0);
+						var realOpCode = OpCode.CreateFromUInt32(opCode.OpCode + (uint)i, opCode.OpCodeLength);
+						foreach (var info in GetInstructions(bitness, opCode, opCode.MandatoryPrefix, opCode.GroupIndex, realOpCode))
+							yield return info;
+					}
+				}
 				else {
 					foreach (var info in GetInstructions(bitness, opCode, opCode.MandatoryPrefix, opCode.GroupIndex))
 						yield return info;
@@ -1547,13 +1577,13 @@ namespace IcedFuzzer.Core {
 			}
 		}
 
-		static IEnumerable<(bool hasModrm, FuzzerInstruction)> GetInstructions(int bitness, OpCodeInfo opCode, MandatoryPrefix mandatoryPrefix, int groupIndex) {
+		static IEnumerable<(bool hasModrm, FuzzerInstruction)> GetInstructions(int bitness, OpCodeInfo opCode, MandatoryPrefix mandatoryPrefix, int groupIndex, OpCode? realOpCode = null) {
 			var (hasModrm, kind) = HasModRmWithRegAndMemOps(opCode);
 			foreach (var (w, l) in GetLW(bitness, opCode)) {
 				if (kind == ModrmMemoryKind.Mem || kind == ModrmMemoryKind.RegOrMem)
-					yield return (hasModrm, FuzzerInstruction.CreateValid(opCode.Code, isModrmMemory: true, w, l, mandatoryPrefix, groupIndex));
+					yield return (hasModrm, FuzzerInstruction.CreateValid(opCode.Code, isModrmMemory: true, w, l, mandatoryPrefix, groupIndex, realOpCode));
 				if (kind == ModrmMemoryKind.Other || kind == ModrmMemoryKind.RegOrMem)
-					yield return (hasModrm, FuzzerInstruction.CreateValid(opCode.Code, isModrmMemory: false, w, l, mandatoryPrefix, groupIndex));
+					yield return (hasModrm, FuzzerInstruction.CreateValid(opCode.Code, isModrmMemory: false, w, l, mandatoryPrefix, groupIndex, realOpCode));
 			}
 		}
 

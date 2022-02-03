@@ -147,6 +147,18 @@ namespace Iced.Intel.FormatterInternal {
 			case Code.Ccs_encrypt_16:
 			case Code.Ccs_encrypt_32:
 			case Code.Ccs_encrypt_64:
+			case Code.Via_undoc_F30FA6F0_16:
+			case Code.Via_undoc_F30FA6F0_32:
+			case Code.Via_undoc_F30FA6F0_64:
+			case Code.Via_undoc_F30FA6F8_16:
+			case Code.Via_undoc_F30FA6F8_32:
+			case Code.Via_undoc_F30FA6F8_64:
+			case Code.Xsha512_16:
+			case Code.Xsha512_32:
+			case Code.Xsha512_64:
+			case Code.Xstore2_16:
+			case Code.Xstore2_32:
+			case Code.Xstore2_64:
 				return true;
 
 			default:

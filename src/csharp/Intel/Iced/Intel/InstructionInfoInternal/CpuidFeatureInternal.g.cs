@@ -190,6 +190,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		AVX512VL_and_AVX512_FP16,
 		UDBG,
 		KNC,
+		PADLOCK_UNDOC,
 	}
 }
 #endif

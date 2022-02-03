@@ -15806,7 +15806,8 @@ END
 INSTRUCTION: a16 F3 0F A6 C0 | MONTMUL | PADLOCK_PMM
 	implied: cr=[es:si=Unknown] rcw=ecx cr=eax cw=eax;edx
 	code-suffix: 16
-	flags: 16 32
+	# Requires 32-bit addressing (Zhaoxin KX-6580 CPU, tested by @tremalrik)
+	flags: 16 32 a32-req
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15816,6 +15817,8 @@ END
 INSTRUCTION: a32 F3 0F A6 C0 | MONTMUL | PADLOCK_PMM
 	implied: cr=[es:esi=Unknown] rcw=ecx cr=eax cw=eax;edx
 	code-suffix: 32
+	# Requires 32-bit addressing (Zhaoxin KX-6580 CPU, tested by @tremalrik)
+	flags: a32-req
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15825,7 +15828,8 @@ END
 INSTRUCTION: a64 F3 0F A6 C0 | MONTMUL | PADLOCK_PMM
 	implied: cr=[es:rsi=Unknown] rcw=rcx cr=eax cw=eax;edx
 	code-suffix: 64
-	flags: 64
+	# Requires 32-bit addressing (Zhaoxin KX-6580 CPU, tested by @tremalrik)
+	flags: 64 a32-req
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15882,6 +15886,37 @@ END
 # Code: Xsha256_64
 INSTRUCTION: a64 F3 0F A6 D0 | XSHA256 | PADLOCK_PHE
 	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rax;rcx
+	code-suffix: 64
+	flags: 64
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Xsha512_16
+INSTRUCTION: a16 F3 0F A6 E0 | XSHA512 | PADLOCK_PHE
+	# https://github.com/openssl/openssl/blob/27aca04e13ca8a9bead49de7bc380110ecb7064e/engines/asm/e_padlock-x86.pl#L597
+	# rAX isn't used like in XSHA256
+	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si rcw=cx
+	code-suffix: 16
+	flags: 16 32
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Xsha512_32
+INSTRUCTION: a32 F3 0F A6 E0 | XSHA512 | PADLOCK_PHE
+	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi rcw=ecx
+	code-suffix: 32
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Xsha512_64
+INSTRUCTION: a64 F3 0F A6 E0 | XSHA512 | PADLOCK_PHE
+	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rcx
 	code-suffix: 64
 	flags: 64
 	gas: asz
@@ -16073,6 +16108,36 @@ END
 # Code: Xcryptofb_64
 INSTRUCTION: a64 F3 0F A7 E8 | XCRYPTOFB | PADLOCK_ACE
 	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi
+	code-suffix: 64
+	flags: 64
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Xstore2_16
+INSTRUCTION: a16 F3 0F A7 F8 | XSTORE2 | PADLOCK_RNG
+	# Seems to be an alias of XSTORE but doesn't accept F2 prefix (Zhaoxin KX-6580 CPU, tested by @tremalrik)
+	implied: xstore=2
+	code-suffix: 16
+	flags: 16 32
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Xstore2_32
+INSTRUCTION: a32 F3 0F A7 F8 | XSTORE2 | PADLOCK_RNG
+	implied: xstore=4
+	code-suffix: 32
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Xstore2_64
+INSTRUCTION: a64 F3 0F A7 F8 | XSTORE2 | PADLOCK_RNG
+	implied: xstore=8
 	code-suffix: 64
 	flags: 64
 	gas: asz
@@ -29856,6 +29921,68 @@ INSTRUCTION: a64 F3 0F A6 E8 | CCS_HASH | PADLOCK_GMI
 	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rax;rcx cr=rbx
 	code-suffix: 64
 	flags: 64
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Via_undoc_F30FA6F0_16
+INSTRUCTION: a16 F3 0F A6 F0 | UNDOC | PADLOCK_UNDOC
+	# Undocumented instruction (Zhaoxin KX-6580 CPU, tested by @tremalrik)
+	code-mnemonic: via_undoc
+	code-suffix: F30FA6F0_16
+	flags: 16 32 save-restore asm-ig
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Via_undoc_F30FA6F0_32
+INSTRUCTION: a32 F3 0F A6 F0 | UNDOC | PADLOCK_UNDOC
+	code-mnemonic: via_undoc
+	code-suffix: F30FA6F0_32
+	flags: save-restore asm-ig
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Via_undoc_F30FA6F0_64
+INSTRUCTION: a64 F3 0F A6 F0 | UNDOC | PADLOCK_UNDOC
+	code-mnemonic: via_undoc
+	code-suffix: F30FA6F0_64
+	flags: 64 save-restore asm-ig
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Via_undoc_F30FA6F8_16
+INSTRUCTION: a16 F3 0F A6 F8 | UNDOC | PADLOCK_UNDOC
+	# Undocumented instruction (Zhaoxin KX-6580 CPU, tested by @tremalrik)
+	code-mnemonic: via_undoc
+	code-suffix: F30FA6F8_16
+	flags: 16 32 save-restore asm-ig
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Via_undoc_F30FA6F8_32
+INSTRUCTION: a32 F3 0F A6 F8 | UNDOC | PADLOCK_UNDOC
+	code-mnemonic: via_undoc
+	code-suffix: F30FA6F8_32
+	flags: save-restore asm-ig
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Via_undoc_F30FA6F8_64
+INSTRUCTION: a64 F3 0F A6 F8 | UNDOC | PADLOCK_UNDOC
+	code-mnemonic: via_undoc
+	code-suffix: F30FA6F8_64
+	flags: 64 save-restore asm-ig
 	gas: asz
 	intel: asz
 	nasm: asz

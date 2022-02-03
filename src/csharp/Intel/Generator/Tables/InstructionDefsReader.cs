@@ -634,6 +634,7 @@ namespace Generator.Tables {
 						case "tile-stride-index": state.Flags3 |= InstructionDefFlags3.TileStrideIndex; break;
 						case "unique-dest-reg-num": state.Flags3 |= InstructionDefFlags3.RequiresUniqueDestRegNum; break;
 						case "is-string-op": state.Flags3 |= InstructionDefFlags3.IsStringOp; break;
+						case "a32-req": state.Flags3 |= InstructionDefFlags3.RequiresAddressSize32; break;
 
 						case "vmx":
 							if (state.VmxMode != VmxMode.None) {

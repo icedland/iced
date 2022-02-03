@@ -386,6 +386,10 @@ namespace Generator.Tables {
 		/// Code assembler ignores it when generating memory operand methods
 		/// </summary>
 		AsmIgnoreMemory			= 0x02000000,
+		/// <summary>
+		/// Address size must be 32 or #UD
+		/// </summary>
+		RequiresAddressSize32	= 0x04000000,//TODO: Add to OpCodeInfo
 	}
 
 	enum VmxMode {

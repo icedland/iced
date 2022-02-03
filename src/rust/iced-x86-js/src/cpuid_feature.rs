@@ -338,5 +338,7 @@ pub enum CpuidFeature {
 	UDBG = 159,
 	/// Intel Knights Corner
 	KNC = 160,
+	/// Undocumented instruction
+	PADLOCK_UNDOC = 161,
 }
 // GENERATOR-END: Enum

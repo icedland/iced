@@ -38522,5 +38522,101 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8 = 4817,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>a16 F3 0F A6 F0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_UNDOC</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Via_undoc_F30FA6F0_16 = 4818,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>a32 F3 0F A6 F0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_UNDOC</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Via_undoc_F30FA6F0_32 = 4819,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>a64 F3 0F A6 F0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_UNDOC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Via_undoc_F30FA6F0_64 = 4820,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>a16 F3 0F A6 F8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_UNDOC</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Via_undoc_F30FA6F8_16 = 4821,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>a32 F3 0F A6 F8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_UNDOC</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Via_undoc_F30FA6F8_32 = 4822,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>a64 F3 0F A6 F8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_UNDOC</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Via_undoc_F30FA6F8_64 = 4823,
+		/// <summary><c>XSHA512</c><br/>
+		/// <br/>
+		/// <c>a16 F3 0F A6 E0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_PHE</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Xsha512_16 = 4824,
+		/// <summary><c>XSHA512</c><br/>
+		/// <br/>
+		/// <c>a32 F3 0F A6 E0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_PHE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Xsha512_32 = 4825,
+		/// <summary><c>XSHA512</c><br/>
+		/// <br/>
+		/// <c>a64 F3 0F A6 E0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_PHE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Xsha512_64 = 4826,
+		/// <summary><c>XSTORE2</c><br/>
+		/// <br/>
+		/// <c>a16 F3 0F A7 F8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_RNG</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Xstore2_16 = 4827,
+		/// <summary><c>XSTORE2</c><br/>
+		/// <br/>
+		/// <c>a32 F3 0F A7 F8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_RNG</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Xstore2_32 = 4828,
+		/// <summary><c>XSTORE2</c><br/>
+		/// <br/>
+		/// <c>a64 F3 0F A7 F8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_RNG</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Xstore2_64 = 4829,
 	}
 }

@@ -1838,5 +1838,7 @@ namespace Generator.Enums {
 		Vscatterpf0hintdps,
 		Vsubrpd,
 		Vsubrps,
+		Xsha512,
+		Xstore2,
 	}
 }

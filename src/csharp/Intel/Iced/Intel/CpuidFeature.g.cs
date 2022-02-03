@@ -331,6 +331,8 @@ namespace Iced.Intel {
 		UDBG = 159,
 		/// <summary>Intel Knights Corner</summary>
 		KNC = 160,
+		/// <summary>Undocumented instruction</summary>
+		PADLOCK_UNDOC = 161,
 	}
 }
 #endif

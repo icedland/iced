@@ -661,3 +661,7 @@ KNC: CpuidFeature = 160 # type: ignore
 """
 Intel Knights Corner
 """
+PADLOCK_UNDOC: CpuidFeature = 161 # type: ignore
+"""
+Undocumented instruction
+"""

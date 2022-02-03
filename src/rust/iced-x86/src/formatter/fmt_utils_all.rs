@@ -67,6 +67,18 @@ pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {
 			| Code::Ccs_encrypt_16
 			| Code::Ccs_encrypt_32
 			| Code::Ccs_encrypt_64
+			| Code::Via_undoc_F30FA6F0_16
+			| Code::Via_undoc_F30FA6F0_32
+			| Code::Via_undoc_F30FA6F0_64
+			| Code::Via_undoc_F30FA6F8_16
+			| Code::Via_undoc_F30FA6F8_32
+			| Code::Via_undoc_F30FA6F8_64
+			| Code::Xsha512_16
+			| Code::Xsha512_32
+			| Code::Xsha512_64
+			| Code::Xstore2_16
+			| Code::Xstore2_32
+			| Code::Xstore2_64
 	)
 }
 
