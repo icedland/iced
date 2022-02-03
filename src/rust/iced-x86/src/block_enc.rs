@@ -322,7 +322,7 @@ impl BlockEncoder {
 	}
 
 	fn encode2(&mut self) -> Result<Vec<BlockEncoderResult>, IcedError> {
-		for _ in 0..1000 {
+		for _ in 0..30 {
 			let mut updated = false;
 			for info in &mut self.blocks {
 				let mut ip = info.0.borrow().rip;
