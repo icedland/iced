@@ -39,8 +39,8 @@ mvex = ["iced-x86-rust/mvex"]
 
 [dependencies]
 static_assertions = "1.1.0"
-wasm-bindgen = { version = "0.2.70", features = ["strict-macro"] }
-js-sys = "0.3.37"
+wasm-bindgen = { version = "0.2.79", features = ["strict-macro"] }
+js-sys = "0.3.56"
 
 [dependencies.iced-x86-rust]
 package = "iced-x86"
