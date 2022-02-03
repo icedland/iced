@@ -51718,6 +51718,25 @@ impl CodeAssembler {
 		<Self as CodeAsmXsha256>::xsha256(self)
 	}
 
+	/// `XSHA512` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `XSHA512` | `a16 F3 0F A6 E0` | `PADLOCK_PHE`
+	/// `XSHA512` | `a32 F3 0F A6 E0` | `PADLOCK_PHE`
+	/// `XSHA512` | `a64 F3 0F A6 E0` | `PADLOCK_PHE`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	#[inline]
+	pub fn xsha512(&mut self) -> Result<(), IcedError>
+	where
+		Self: CodeAsmXsha512,
+	{
+		<Self as CodeAsmXsha512>::xsha512(self)
+	}
+
 	/// `XSTORE` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -51735,6 +51754,25 @@ impl CodeAssembler {
 		Self: CodeAsmXstore,
 	{
 		<Self as CodeAsmXstore>::xstore(self)
+	}
+
+	/// `XSTORE2` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `XSTORE2` | `a16 F3 0F A7 F8` | `PADLOCK_RNG`
+	/// `XSTORE2` | `a32 F3 0F A7 F8` | `PADLOCK_RNG`
+	/// `XSTORE2` | `a64 F3 0F A7 F8` | `PADLOCK_RNG`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	#[inline]
+	pub fn xstore2(&mut self) -> Result<(), IcedError>
+	where
+		Self: CodeAsmXstore2,
+	{
+		<Self as CodeAsmXstore2>::xstore2(self)
 	}
 
 	/// `XSUSLDTRK` instruction

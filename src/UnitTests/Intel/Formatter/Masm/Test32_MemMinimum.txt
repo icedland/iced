@@ -729,3 +729,11 @@ rep ccs_hash
 rep ccs_hash
 rep ccs_encrypt
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep undoc
+rep undoc
+rep xsha512
+rep xsha512
+rep xstore2
+rep xstore2

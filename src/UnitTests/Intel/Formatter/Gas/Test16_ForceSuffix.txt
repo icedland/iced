@@ -518,3 +518,11 @@ addr32 pvalidate
 serialize
 xsusldtrk
 xresldtrk
+rep undoc
+addr32 rep undoc
+rep undoc
+addr32 rep undoc
+rep xsha512
+addr32 rep xsha512
+rep xstore2
+addr32 rep xstore2

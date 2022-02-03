@@ -231,7 +231,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	}
 
 	assert_eq!(instr.code().encoding(), tc.encoding);
-	#[cfg(feature = "encoder")]
+	#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 	{
 		assert_eq!(tc.encoding, tc.code.op_code().encoding());
 	}

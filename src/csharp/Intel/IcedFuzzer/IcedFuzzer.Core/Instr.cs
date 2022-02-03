@@ -114,6 +114,7 @@ namespace IcedFuzzer.Core {
 		ReservedNop						= 0x00200000,
 		DefaultOperandSize64			= 0x00400000,
 		RequiresUniqueDestRegNum		= 0x00800000,
+		RequiresAddressSize32			= 0x01000000,
 	}
 
 	[DebuggerDisplay("Mem={" + nameof(IsModrmMemory) + "} {" + nameof(MandatoryPrefix) + "} L{" + nameof(L) + ",d} W{" + nameof(W) + ",d} {" + nameof(Code) + "}")]
@@ -144,6 +145,7 @@ namespace IcedFuzzer.Core {
 		public bool IsReservedNop => (Flags & FuzzerInstructionFlags.ReservedNop) != 0;
 		public bool DefaultOperandSize64 => (Flags & FuzzerInstructionFlags.DefaultOperandSize64) != 0;
 		public bool RequiresUniqueDestRegNum => (Flags & FuzzerInstructionFlags.RequiresUniqueDestRegNum) != 0;
+		public bool RequiresAddressSize32 => (Flags & FuzzerInstructionFlags.RequiresAddressSize32) != 0;
 
 		public readonly Code Code;
 		internal FuzzerInstructionFlags Flags;
@@ -226,6 +228,11 @@ namespace IcedFuzzer.Core {
 			case Code.Nopd:
 			case Code.Nopq:
 				flags |= FuzzerInstructionFlags.IsNop;
+				break;
+			case Code.Montmul_16:
+			case Code.Montmul_32:
+			case Code.Montmul_64:
+				flags |= FuzzerInstructionFlags.RequiresAddressSize32;
 				break;
 			}
 

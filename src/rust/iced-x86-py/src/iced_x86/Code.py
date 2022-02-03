@@ -48167,3 +48167,123 @@ MVEX_VCVTFXPNTPD2DQ_ZMM_K1_ZMMMT_IMM8: Code = 4817 # type: ignore
 
 ``64-bit``
 """
+VIA_UNDOC_F30FA6F0_16: Code = 4818 # type: ignore
+"""
+``UNDOC``
+
+``a16 F3 0F A6 F0``
+
+``PADLOCK_UNDOC``
+
+``16/32-bit``
+"""
+VIA_UNDOC_F30FA6F0_32: Code = 4819 # type: ignore
+"""
+``UNDOC``
+
+``a32 F3 0F A6 F0``
+
+``PADLOCK_UNDOC``
+
+``16/32/64-bit``
+"""
+VIA_UNDOC_F30FA6F0_64: Code = 4820 # type: ignore
+"""
+``UNDOC``
+
+``a64 F3 0F A6 F0``
+
+``PADLOCK_UNDOC``
+
+``64-bit``
+"""
+VIA_UNDOC_F30FA6F8_16: Code = 4821 # type: ignore
+"""
+``UNDOC``
+
+``a16 F3 0F A6 F8``
+
+``PADLOCK_UNDOC``
+
+``16/32-bit``
+"""
+VIA_UNDOC_F30FA6F8_32: Code = 4822 # type: ignore
+"""
+``UNDOC``
+
+``a32 F3 0F A6 F8``
+
+``PADLOCK_UNDOC``
+
+``16/32/64-bit``
+"""
+VIA_UNDOC_F30FA6F8_64: Code = 4823 # type: ignore
+"""
+``UNDOC``
+
+``a64 F3 0F A6 F8``
+
+``PADLOCK_UNDOC``
+
+``64-bit``
+"""
+XSHA512_16: Code = 4824 # type: ignore
+"""
+``XSHA512``
+
+``a16 F3 0F A6 E0``
+
+``PADLOCK_PHE``
+
+``16/32-bit``
+"""
+XSHA512_32: Code = 4825 # type: ignore
+"""
+``XSHA512``
+
+``a32 F3 0F A6 E0``
+
+``PADLOCK_PHE``
+
+``16/32/64-bit``
+"""
+XSHA512_64: Code = 4826 # type: ignore
+"""
+``XSHA512``
+
+``a64 F3 0F A6 E0``
+
+``PADLOCK_PHE``
+
+``64-bit``
+"""
+XSTORE2_16: Code = 4827 # type: ignore
+"""
+``XSTORE2``
+
+``a16 F3 0F A7 F8``
+
+``PADLOCK_RNG``
+
+``16/32-bit``
+"""
+XSTORE2_32: Code = 4828 # type: ignore
+"""
+``XSTORE2``
+
+``a32 F3 0F A7 F8``
+
+``PADLOCK_RNG``
+
+``16/32/64-bit``
+"""
+XSTORE2_64: Code = 4829 # type: ignore
+"""
+``XSTORE2``
+
+``a64 F3 0F A7 F8``
+
+``PADLOCK_RNG``
+
+``64-bit``
+"""

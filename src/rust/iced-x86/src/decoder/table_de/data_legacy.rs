@@ -1957,176 +1957,174 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x07,// 7
 		0x02,// Invalid
 
-	// handlers_Grp_0FA6_lo
+	// handlers_Grp_0FA6
 	0x01,// ArrayReference
 	0x08,// 0x8
 	// 0 = 0x00
-	0x05,// Dup
-		0x08,// 8
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xD6,// Simple5_a32
+				0xA6, 0x0F,// Montmul_16
+			0x02,// Invalid
+			0x00,// 0x0
 		0x02,// Invalid
 
-	// handlers_Grp_0FA6_hi
-	0x01,// ArrayReference
-	0x40,// 0x40
-	// 0 = 0x00
-	0x12,// MandatoryPrefix4
-		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
-		0xAB,// Simple5
-			0xA6, 0x0F,// Montmul_16
-		0x03,// Invalid_NoModRM
-		0x00,// 0x0
-
 	// 1 = 0x01
-	0x05,// Dup
-		0x07,// 7
-		0x06,// Null
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xA9, 0x0F,// Xsha1_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 8 = 0x08
-	0x12,// MandatoryPrefix4
-		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
-		0xAB,// Simple5
-			0xA9, 0x0F,// Xsha1_16
-		0x03,// Invalid_NoModRM
-		0x00,// 0x0
+	// 2 = 0x02
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xAC, 0x0F,// Xsha256_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 9 = 0x09
-	0x05,// Dup
-		0x07,// 7
-		0x06,// Null
+	// 3 = 0x03
+	0x02,// Invalid
 
-	// 16 = 0x10
-	0x12,// MandatoryPrefix4
-		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
-		0xAB,// Simple5
-			0xAC, 0x0F,// Xsha256_16
-		0x03,// Invalid_NoModRM
-		0x00,// 0x0
+	// 4 = 0x04
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xD8, 0x25,// Xsha512_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 17 = 0x11
-	0x05,// Dup
-		0x17,// 23
-		0x06,// Null
+	// 5 = 0x05
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xD8, 0x21,// Ccs_hash_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 40 = 0x28
-	0x12,// MandatoryPrefix4
-		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
-		0xAB,// Simple5
-			0xD8, 0x21,// Ccs_hash_16
-		0x03,// Invalid_NoModRM
-		0x00,// 0x0
+	// 6 = 0x06
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xD2, 0x25,// Via_undoc_F30FA6F0_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 41 = 0x29
-	0x05,// Dup
-		0x17,// 23
-		0x06,// Null
+	// 7 = 0x07
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xD5, 0x25,// Via_undoc_F30FA6F8_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// handlers_Grp_0FA7_lo
+	// handlers_Grp_0FA7
 	0x01,// ArrayReference
 	0x08,// 0x8
 	// 0 = 0x00
-	0x05,// Dup
-		0x08,// 8
+	0x09,// RM
+		0xAB,// Simple5
+			0xB1, 0x0F,// Xstore_16
 		0x02,// Invalid
 
-	// handlers_Grp_0FA7_hi
-	0x01,// ArrayReference
-	0x40,// 0x40
-	// 0 = 0x00
-	0xAB,// Simple5
-		0xB1, 0x0F,// Xstore_16
-
 	// 1 = 0x01
-	0x05,// Dup
-		0x07,// 7
-		0x06,// Null
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xB4, 0x0F,// Xcryptecb_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 8 = 0x08
-	0x12,// MandatoryPrefix4
-		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
-		0xAB,// Simple5
-			0xB4, 0x0F,// Xcryptecb_16
-		0x03,// Invalid_NoModRM
-		0x00,// 0x0
+	// 2 = 0x02
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xB7, 0x0F,// Xcryptcbc_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 9 = 0x09
-	0x05,// Dup
-		0x07,// 7
-		0x06,// Null
+	// 3 = 0x03
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xBA, 0x0F,// Xcryptctr_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 16 = 0x10
-	0x12,// MandatoryPrefix4
-		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
-		0xAB,// Simple5
-			0xB7, 0x0F,// Xcryptcbc_16
-		0x03,// Invalid_NoModRM
-		0x00,// 0x0
+	// 4 = 0x04
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xBD, 0x0F,// Xcryptcfb_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 17 = 0x11
-	0x05,// Dup
-		0x07,// 7
-		0x06,// Null
+	// 5 = 0x05
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xC0, 0x0F,// Xcryptofb_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 24 = 0x18
-	0x12,// MandatoryPrefix4
-		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
-		0xAB,// Simple5
-			0xBA, 0x0F,// Xcryptctr_16
-		0x03,// Invalid_NoModRM
-		0x00,// 0x0
+	// 6 = 0x06
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xDB, 0x21,// Ccs_encrypt_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
-	// 25 = 0x19
-	0x05,// Dup
-		0x07,// 7
-		0x06,// Null
-
-	// 32 = 0x20
-	0x12,// MandatoryPrefix4
-		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
-		0xAB,// Simple5
-			0xBD, 0x0F,// Xcryptcfb_16
-		0x03,// Invalid_NoModRM
-		0x00,// 0x0
-
-	// 33 = 0x21
-	0x05,// Dup
-		0x07,// 7
-		0x06,// Null
-
-	// 40 = 0x28
-	0x12,// MandatoryPrefix4
-		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
-		0xAB,// Simple5
-			0xC0, 0x0F,// Xcryptofb_16
-		0x03,// Invalid_NoModRM
-		0x00,// 0x0
-
-	// 41 = 0x29
-	0x05,// Dup
-		0x07,// 7
-		0x06,// Null
-
-	// 48 = 0x30
-	0x12,// MandatoryPrefix4
-		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
-		0xAB,// Simple5
-			0xDB, 0x21,// Ccs_encrypt_16
-		0x03,// Invalid_NoModRM
-		0x00,// 0x0
-
-	// 49 = 0x31
-	0x05,// Dup
-		0x0F,// 15
-		0x06,// Null
+	// 7 = 0x07
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xDB, 0x25,// Xstore2_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
 	// handlers_Grp_0FBA
 	0x01,// ArrayReference
@@ -2861,10 +2859,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x00,// HandlerReference
 	0x09,// RM
 		0x07,// HandlerReference
-			0x37,// 0x37 = reservedNop_0F0D
+			0x35,// 0x35 = reservedNop_0F0D
 		0x0E,// Group
 			0x08,// ArrayReference
-				0x40,// 0x40 = handlers_Grp_0F0D_mem
+				0x3E,// 0x3E = handlers_Grp_0F0D_mem
 
 	// handlers_Grp_0F18_mem
 	0x01,// ArrayReference
@@ -2889,19 +2887,19 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x05,// Dup
 		0x04,// 4
 		0x07,// HandlerReference
-			0x38,// 0x38 = reservedNop_0F18
+			0x36,// 0x36 = reservedNop_0F18
 
 	// grp0F18
 	0x00,// HandlerReference
 	0x9E,// Reservednop
 		0x07,// HandlerReference
-			0x38,// 0x38 = reservedNop_0F18
+			0x36,// 0x36 = reservedNop_0F18
 		0x09,// RM
 			0x07,// HandlerReference
-				0x38,// 0x38 = reservedNop_0F18
+				0x36,// 0x36 = reservedNop_0F18
 			0x0E,// Group
 				0x08,// ArrayReference
-					0x42,// 0x42 = handlers_Grp_0F18_mem
+					0x40,// 0x40 = handlers_Grp_0F18_mem
 
 	// handlers_Grp_0F1C_mem
 	0x01,// ArrayReference
@@ -2911,30 +2909,30 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x6E,// M_1
 			0x9B, 0x08,// Cldemote_m8
 		0x07,// HandlerReference
-			0x3C,// 0x3C = reservedNop_0F1C
+			0x3A,// 0x3A = reservedNop_0F1C
 		0x07,// HandlerReference
-			0x3C,// 0x3C = reservedNop_0F1C
+			0x3A,// 0x3A = reservedNop_0F1C
 		0x07,// HandlerReference
-			0x3C,// 0x3C = reservedNop_0F1C
+			0x3A,// 0x3A = reservedNop_0F1C
 		0x00,// 0x0
 
 	// 1 = 0x01
 	0x05,// Dup
 		0x07,// 7
 		0x07,// HandlerReference
-			0x3C,// 0x3C = reservedNop_0F1C
+			0x3A,// 0x3A = reservedNop_0F1C
 
 	// grp0F1C
 	0x00,// HandlerReference
 	0x9E,// Reservednop
 		0x07,// HandlerReference
-			0x3C,// 0x3C = reservedNop_0F1C
+			0x3A,// 0x3A = reservedNop_0F1C
 		0x09,// RM
 			0x07,// HandlerReference
-				0x3C,// 0x3C = reservedNop_0F1C
+				0x3A,// 0x3A = reservedNop_0F1C
 			0x0E,// Group
 				0x08,// ArrayReference
-					0x44,// 0x44 = handlers_Grp_0F1C_mem
+					0x42,// 0x42 = handlers_Grp_0F1C_mem
 
 	// handlers_Grp_0F1E_reg_lo
 	0x01,// ArrayReference
@@ -2943,23 +2941,23 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x05,// Dup
 		0x08,// 8
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 
 	// grp0F1E_1
 	0x00,// HandlerReference
 	0x11,// MandatoryPrefix
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 		0x09,// RM
 			0x44,// Ev_REXW
 				0x9C, 0x08,// Rdsspd_r32
 				0x01,// 0x1
 			0x07,// HandlerReference
-				0x3E,// 0x3E = reservedNop_0F1E
+				0x3C,// 0x3C = reservedNop_0F1E
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 
 	// handlers_Grp_0F1E_reg_hi
 	0x01,// ArrayReference
@@ -2973,7 +2971,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x05,// Dup
 		0x08,// 8
 		0x07,// HandlerReference
-			0x47,// 0x47 = grp0F1E_1
+			0x45,// 0x45 = grp0F1E_1
 
 	// 16 = 0x10
 	0x05,// Dup
@@ -2983,24 +2981,24 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 58 = 0x3A
 	0x11,// MandatoryPrefix
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 		0xA5,// Simple_ModRM
 			0x9E, 0x08,// Endbr64
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 
 	// 59 = 0x3B
 	0x11,// MandatoryPrefix
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 		0xA5,// Simple_ModRM
 			0x9F, 0x08,// Endbr32
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 
 	// 60 = 0x3C
 	0x05,// Dup
@@ -3011,15 +3009,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x00,// HandlerReference
 	0x9E,// Reservednop
 		0x07,// HandlerReference
-			0x3E,// 0x3E = reservedNop_0F1E
+			0x3C,// 0x3C = reservedNop_0F1E
 		0x09,// RM
 			0x0F,// Group8x64
 				0x08,// ArrayReference
-					0x46,// 0x46 = handlers_Grp_0F1E_reg_lo
+					0x44,// 0x44 = handlers_Grp_0F1E_reg_lo
 				0x08,// ArrayReference
-					0x48,// 0x48 = handlers_Grp_0F1E_reg_hi
+					0x46,// 0x46 = handlers_Grp_0F1E_reg_hi
 			0x07,// HandlerReference
-				0x3E,// 0x3E = reservedNop_0F1E
+				0x3C,// 0x3C = reservedNop_0F1E
 
 	// handlers_Grp_0F1F
 	0x01,// ArrayReference
@@ -3032,16 +3030,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x05,// Dup
 		0x07,// 7
 		0x07,// HandlerReference
-			0x3F,// 0x3F = reservedNop_0F1F
+			0x3D,// 0x3D = reservedNop_0F1F
 
 	// grp0F1F
 	0x00,// HandlerReference
 	0x9E,// Reservednop
 		0x07,// HandlerReference
-			0x3F,// 0x3F = reservedNop_0F1F
+			0x3D,// 0x3D = reservedNop_0F1F
 		0x0E,// Group
 			0x08,// ArrayReference
-				0x4A,// 0x4A = handlers_Grp_0F1F
+				0x48,// 0x48 = handlers_Grp_0F1F
 
 	// handlers_Grp_660F78
 	0x01,// ArrayReference
@@ -3645,7 +3643,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x0E,// Group
 			0x08,// ArrayReference
-				0x4D,// 0x4D = handlers_Grp_F30F38D8
+				0x4B,// 0x4B = handlers_Grp_F30F38D8
 		0x02,// Invalid
 
 	// 217 = 0xD9
@@ -4073,9 +4071,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 240 = 0xF0
 	0x0F,// Group8x64
 		0x08,// ArrayReference
-			0x4E,// 0x4E = handlers_Grp_0F3AF0_lo
+			0x4C,// 0x4C = handlers_Grp_0F3AF0_lo
 		0x08,// ArrayReference
-			0x4F,// 0x4F = handlers_Grp_0F3AF0_hi
+			0x4D,// 0x4D = handlers_Grp_0F3AF0_hi
 
 	// 241 = 0xF1
 	0x05,// Dup
@@ -4170,9 +4168,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 13 = 0x0D
 	0x9E,// Reservednop
 		0x07,// HandlerReference
-			0x37,// 0x37 = reservedNop_0F0D
+			0x35,// 0x35 = reservedNop_0F0D
 		0x07,// HandlerReference
-			0x41,// 0x41 = grp0F0D
+			0x3F,// 0x3F = grp0F0D
 
 	// 14 = 0x0E
 	0x0A,// Options3
@@ -4327,23 +4325,23 @@ pub(super) static TBL_DATA: &[u8] = &[
 
 	// 24 = 0x18
 	0x07,// HandlerReference
-		0x43,// 0x43 = grp0F18
+		0x41,// 0x41 = grp0F18
 
 	// 25 = 0x19
 	0x07,// HandlerReference
-		0x39,// 0x39 = reservedNop_0F19
+		0x37,// 0x37 = reservedNop_0F19
 
 	// 26 = 0x1A
 	0x9E,// Reservednop
 		0x07,// HandlerReference
-			0x3A,// 0x3A = reservedNop_0F1A
+			0x38,// 0x38 = reservedNop_0F1A
 		0x0C,// Options_DontReadModRM
 			0x07,// HandlerReference
-				0x3A,// 0x3A = reservedNop_0F1A
+				0x38,// 0x38 = reservedNop_0F1A
 			0x11,// MandatoryPrefix
 				0x09,// RM
 					0x07,// HandlerReference
-						0x3A,// 0x3A = reservedNop_0F1A
+						0x38,// 0x38 = reservedNop_0F1A
 					0x1F,// B_MIB
 						0x8D, 0x08,// Bndldx_bnd_mib
 				0x1D,// B_BM
@@ -4359,21 +4357,21 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 27 = 0x1B
 	0x9E,// Reservednop
 		0x07,// HandlerReference
-			0x3B,// 0x3B = reservedNop_0F1B
+			0x39,// 0x39 = reservedNop_0F1B
 		0x0C,// Options_DontReadModRM
 			0x07,// HandlerReference
-				0x3B,// 0x3B = reservedNop_0F1B
+				0x39,// 0x39 = reservedNop_0F1B
 			0x11,// MandatoryPrefix
 				0x09,// RM
 					0x07,// HandlerReference
-						0x3B,// 0x3B = reservedNop_0F1B
+						0x39,// 0x39 = reservedNop_0F1B
 					0x76,// MIB_B
 						0x94, 0x08,// Bndstx_mib_bnd
 				0x20,// BM_B
 					0x95, 0x08,// Bndmov_bndm64_bnd
 				0x09,// RM
 					0x07,// HandlerReference
-						0x3B,// 0x3B = reservedNop_0F1B
+						0x39,// 0x39 = reservedNop_0F1B
 					0x1E,// B_Ev
 						0x97, 0x08,// Bndmk_bnd_m32
 						0x00,// false
@@ -4384,19 +4382,19 @@ pub(super) static TBL_DATA: &[u8] = &[
 
 	// 28 = 0x1C
 	0x07,// HandlerReference
-		0x45,// 0x45 = grp0F1C
+		0x43,// 0x43 = grp0F1C
 
 	// 29 = 0x1D
 	0x07,// HandlerReference
-		0x3D,// 0x3D = reservedNop_0F1D
+		0x3B,// 0x3B = reservedNop_0F1D
 
 	// 30 = 0x1E
 	0x07,// HandlerReference
-		0x49,// 0x49 = grp0F1E
+		0x47,// 0x47 = grp0F1E
 
 	// 31 = 0x1F
 	0x07,// HandlerReference
-		0x4B,// 0x4B = grp0F1F
+		0x49,// 0x49 = grp0F1F
 
 	// 32 = 0x20
 	0x8D,// R_C_3a
@@ -4574,7 +4572,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x0D,// AnotherTable
 			0x08,// ArrayReference
-				0x50,// 0x50 = Handlers_0F38
+				0x4E,// 0x4E = Handlers_0F38
 		0xA4,// Simple
 			0x90, 0x21,// Smint
 		0x80, 0x80, 0x40,// Cyrix
@@ -4590,7 +4588,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC9,// Options1632_2
 		0x0D,// AnotherTable
 			0x08,// ArrayReference
-				0x51,// 0x51 = Handlers_0F3A
+				0x4F,// 0x4F = Handlers_0F3A
 		0xA4,// Simple
 			0x92, 0x21,// Rdm
 		0x80, 0x80, 0x80, 0x02,// Cyrix_DMI
@@ -5071,17 +5069,17 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 113 = 0x71
 	0x0E,// Group
 		0x08,// ArrayReference
-			0x32,// 0x32 = handlers_Grp_0F71
+			0x30,// 0x30 = handlers_Grp_0F71
 
 	// 114 = 0x72
 	0x0E,// Group
 		0x08,// ArrayReference
-			0x33,// 0x33 = handlers_Grp_0F72
+			0x31,// 0x31 = handlers_Grp_0F72
 
 	// 115 = 0x73
 	0x0E,// Group
 		0x08,// ArrayReference
-			0x34,// 0x34 = handlers_Grp_0F73
+			0x32,// 0x32 = handlers_Grp_0F73
 
 	// 116 = 0x74
 	0x11,// MandatoryPrefix
@@ -5125,7 +5123,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 				0xCA, 0x0D,// Vmread_rm32_r32
 			0x0E,// Group
 				0x08,// ArrayReference
-					0x4C,// 0x4C = handlers_Grp_660F78
+					0x4A,// 0x4A = handlers_Grp_660F78
 			0x02,// Invalid
 			0xB6,// VRIbIb
 				0xDB, 0x0D,// Insertq_xmm_xmm_imm8_imm8
@@ -5380,42 +5378,34 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 166 = 0xA6
 	0x00,// Bitness
 		0x0B,// Options5
-			0x0F,// Group8x64
+			0x0E,// Group
 				0x08,// ArrayReference
-					0x28,// 0x28 = handlers_Grp_0FA6_lo
-				0x08,// ArrayReference
-					0x29,// 0x29 = handlers_Grp_0FA6_hi
+					0x28,// 0x28 = handlers_Grp_0FA6
 			0x51,// Gv_Ev_3b
 				0xAF, 0x0F,// Xbts_r16_rm16
 			0x10,// Xbts
 			0x2B,// Eb_Gb_1
 				0xC5, 0x0F,// Cmpxchg486_rm8_r8
 			0x20,// Cmpxchg486A
-		0x0F,// Group8x64
+		0x0E,// Group
 			0x08,// ArrayReference
-				0x28,// 0x28 = handlers_Grp_0FA6_lo
-			0x08,// ArrayReference
-				0x29,// 0x29 = handlers_Grp_0FA6_hi
+				0x28,// 0x28 = handlers_Grp_0FA6
 
 	// 167 = 0xA7
 	0x00,// Bitness
 		0x0B,// Options5
-			0x0F,// Group8x64
+			0x0E,// Group
 				0x08,// ArrayReference
-					0x2A,// 0x2A = handlers_Grp_0FA7_lo
-				0x08,// ArrayReference
-					0x2B,// 0x2B = handlers_Grp_0FA7_hi
+					0x29,// 0x29 = handlers_Grp_0FA7
 			0x38,// Ev_Gv_3b
 				0xC3, 0x0F,// Ibts_rm16_r16
 			0x10,// Xbts
 			0x38,// Ev_Gv_3b
 				0xC6, 0x0F,// Cmpxchg486_rm16_r16
 			0x20,// Cmpxchg486A
-		0x0F,// Group8x64
+		0x0E,// Group
 			0x08,// ArrayReference
-				0x2A,// 0x2A = handlers_Grp_0FA7_lo
-			0x08,// ArrayReference
-				0x2B,// 0x2B = handlers_Grp_0FA7_hi
+				0x29,// 0x29 = handlers_Grp_0FA7
 
 	// 168 = 0xA8
 	0x88,// PushOpSizeReg_4a
@@ -5447,9 +5437,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 174 = 0xAE
 	0x0F,// Group8x64
 		0x08,// ArrayReference
-			0x35,// 0x35 = handlers_Grp_0FAE_lo
+			0x33,// 0x33 = handlers_Grp_0FAE_lo
 		0x08,// ArrayReference
-			0x36,// 0x36 = handlers_Grp_0FAE_hi
+			0x34,// 0x34 = handlers_Grp_0FAE_hi
 
 	// 175 = 0xAF
 	0x50,// Gv_Ev_3a
@@ -5518,7 +5508,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 186 = 0xBA
 	0x0E,// Group
 		0x08,// ArrayReference
-			0x2C,// 0x2C = handlers_Grp_0FBA
+			0x2A,// 0x2A = handlers_Grp_0FBA
 
 	// 187 = 0xBB
 	0x39,// Ev_Gv_4
@@ -5626,7 +5616,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 199 = 0xC7
 	0x0E,// Group
 		0x08,// ArrayReference
-			0x2D,// 0x2D = handlers_Grp_0FC7
+			0x2B,// 0x2B = handlers_Grp_0FC7
 
 	// 200 = 0xC8
 	0xAD,// SimpleReg
@@ -6181,7 +6171,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 15 = 0x0F
 	0x0D,// AnotherTable
 		0x08,// ArrayReference
-			0x52,// 0x52 = Handlers_0F
+			0x50,// 0x50 = Handlers_0F
 
 	// 16 = 0x10
 	0x2C,// Eb_Gb_2
@@ -7062,16 +7052,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 198 = 0xC6
 	0x0F,// Group8x64
 		0x08,// ArrayReference
-			0x2E,// 0x2E = handlers_Grp_C6_lo
+			0x2C,// 0x2C = handlers_Grp_C6_lo
 		0x08,// ArrayReference
-			0x2F,// 0x2F = handlers_Grp_C6_hi
+			0x2D,// 0x2D = handlers_Grp_C6_hi
 
 	// 199 = 0xC7
 	0x0F,// Group8x64
 		0x08,// ArrayReference
-			0x30,// 0x30 = handlers_Grp_C7_lo
+			0x2E,// 0x2E = handlers_Grp_C7_lo
 		0x08,// ArrayReference
-			0x31,// 0x31 = handlers_Grp_C7_hi
+			0x2F,// 0x2F = handlers_Grp_C7_hi
 
 	// 200 = 0xC8
 	0x68,// Iw_Ib
@@ -7362,6 +7352,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x08,// ArrayReference
 			0x1E,// 0x1E = handlers_Grp_FF
 ];
-pub(super) const MAX_ID_NAMES: usize = 84;
+pub(super) const MAX_ID_NAMES: usize = 82;
 #[allow(dead_code)]
-pub(super) const HANDLERS_MAP0_INDEX: usize = 83;
+pub(super) const HANDLERS_MAP0_INDEX: usize = 81;

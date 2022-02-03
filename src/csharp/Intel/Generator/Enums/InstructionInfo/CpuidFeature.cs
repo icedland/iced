@@ -326,5 +326,7 @@ namespace Generator.Enums.InstructionInfo {
 		UDBG,
 		[Comment("Intel Knights Corner")]
 		KNC,
+		[Comment("Undocumented instruction")]
+		PADLOCK_UNDOC,
 	}
 }

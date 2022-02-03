@@ -2259,6 +2259,31 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
+	sealed class OpCodeHandler_Simple5_a32 : OpCodeHandler {
+		readonly Code code16;
+		readonly Code code32;
+		readonly Code code64;
+
+		public OpCodeHandler_Simple5_a32(Code code16, Code code32, Code code64) {
+			this.code16 = code16;
+			this.code32 = code32;
+			this.code64 = code64;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			if (state.addressSize != OpSize.Size32 && decoder.invalidCheckMask != 0)
+				decoder.SetInvalidInstruction();
+			if (state.addressSize == OpSize.Size64)
+				instruction.Code = code64;
+			else if (state.addressSize == OpSize.Size32)
+				instruction.Code = code32;
+			else
+				instruction.Code = code16;
+		}
+	}
+
 	sealed class OpCodeHandler_Simple5_ModRM_as : OpCodeHandlerModRM {
 		readonly Code code16;
 		readonly Code code32;

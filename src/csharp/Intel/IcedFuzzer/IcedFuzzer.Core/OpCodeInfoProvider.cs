@@ -80,6 +80,16 @@ namespace IcedFuzzer.Core {
 				if (!options.Filter.ShouldInclude(code))
 					continue;
 
+				switch (code) {
+				case Code.Montmul_16:
+				case Code.Montmul_32:
+				case Code.Montmul_64:
+					// Address size must be 32
+					if (opCode.AddressSize != 32)
+						continue;
+					break;
+				}
+
 				switch (opCode.Encoding) {
 				case EncodingKind.Legacy:
 					break;

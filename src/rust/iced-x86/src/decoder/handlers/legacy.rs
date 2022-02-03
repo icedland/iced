@@ -2367,6 +2367,29 @@ impl OpCodeHandler_Simple5 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub(in crate::decoder) struct OpCodeHandler_Simple5_a32 {
+	has_modrm: bool,
+	code: [Code; 3],
+}
+
+impl OpCodeHandler_Simple5_a32 {
+	#[inline]
+	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_Simple5_a32::decode, Self { has_modrm: false, code: [code16, code32, code64] })
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
+		if decoder.state.address_size != OpSize::Size32 && decoder.invalid_check_mask != 0 {
+			decoder.set_invalid_instruction();
+		}
+		instruction.set_code(this.code[decoder.state.address_size as usize]);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Simple5_ModRM_as {
 	has_modrm: bool,
 	reg_base: [u32; 3],

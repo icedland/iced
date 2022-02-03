@@ -209,7 +209,7 @@ fn reg_size(reg: Register) -> u32 {
 	} else if Register::RAX <= reg && reg <= Register::R15 || reg == Register::RIP {
 		8
 	} else {
-		panic!()
+		unreachable!()
 	}
 }
 
@@ -249,7 +249,7 @@ fn reg_number(reg: Register) -> u32 {
 	} else if Register::TR0 <= reg && reg <= Register::TR7 {
 		reg as u32 - Register::TR0 as u32
 	} else {
-		panic!()
+		unreachable!()
 	}
 }
 
@@ -382,7 +382,7 @@ fn test_wig_instructions_ignore_w() {
 		} else if encoding == EncodingKind::Legacy || encoding == EncodingKind::D3NOW {
 			continue;
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 }
@@ -490,7 +490,7 @@ fn test_lig_instructions_ignore_l() {
 		} else if encoding == EncodingKind::Legacy || encoding == EncodingKind::D3NOW || encoding == EncodingKind::MVEX {
 			continue;
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 }
@@ -866,7 +866,7 @@ fn verify_invalid_vvvv() {
 				assert_ne!(decoder.last_error(), DecoderError::None);
 			}
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 }
@@ -877,7 +877,7 @@ fn get_vvvvv_info(op_code: &OpCodeInfo) -> (bool, bool, u8) {
 	let mut vvvv_mask = match op_code.encoding() {
 		EncodingKind::EVEX | EncodingKind::MVEX => 0x1F,
 		EncodingKind::VEX | EncodingKind::XOP => 0xF,
-		EncodingKind::Legacy | EncodingKind::D3NOW => panic!(),
+		EncodingKind::Legacy | EncodingKind::D3NOW => unreachable!(),
 	};
 	for &op_kind in op_code.op_kinds() {
 		match op_kind {
@@ -1089,7 +1089,7 @@ fn verify_gpr_rrxb_bits() {
 				}
 			}
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 }
@@ -1298,7 +1298,7 @@ fn verify_k_reg_rrxb_bits() {
 				}
 			}
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 }
@@ -1359,7 +1359,7 @@ fn verify_vsib_with_invalid_index_register_evex() {
 				}
 			}
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 }
@@ -1479,7 +1479,7 @@ fn verify_vsib_with_invalid_index_mask_dest_register_vex() {
 				}
 			}
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 }
@@ -1625,7 +1625,7 @@ fn verify_that_test_cases_test_enough_bits() {
 			16 => &mut tested_infos_16,
 			32 => &mut tested_infos_32,
 			64 => &mut tested_infos_64,
-			_ => panic!(),
+			_ => unreachable!(),
 		};
 
 		let op_code = info.code().op_code();
@@ -1719,27 +1719,27 @@ fn verify_that_test_cases_test_enough_bits() {
 					OpCodeTableKind::Normal => {}
 					OpCodeTableKind::T0F => {
 						if bytes[i] != 0x0F {
-							panic!();
+							unreachable!();
 						}
 						i += 1;
 					}
 					OpCodeTableKind::T0F38 => {
 						if bytes[i] != 0x0F {
-							panic!();
+							unreachable!();
 						}
 						i += 1;
 						if bytes[i] != 0x38 {
-							panic!();
+							unreachable!();
 						}
 						i += 1;
 					}
 					OpCodeTableKind::T0F3A => {
 						if bytes[i] != 0x0F {
-							panic!();
+							unreachable!();
 						}
 						i += 1;
 						if bytes[i] != 0x3A {
-							panic!();
+							unreachable!();
 						}
 						i += 1;
 					}
@@ -1816,7 +1816,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				}
 			}
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 
@@ -1956,11 +1956,14 @@ fn verify_that_test_cases_test_enough_bits() {
 			16 => &tested_infos_16,
 			32 => &tested_infos_32,
 			64 => &tested_infos_64,
-			_ => panic!(),
+			_ => unreachable!(),
 		};
 
 		for code in Code::values() {
 			if is_ignored_code(code_names[code as usize]) {
+				continue;
+			}
+			if matches!(code, Code::Montmul_16 | Code::Montmul_64) {
 				continue;
 			}
 			let op_code = code.op_code();
@@ -1987,7 +1990,7 @@ fn verify_that_test_cases_test_enough_bits() {
 						continue;
 					}
 				}
-				_ => panic!(),
+				_ => unreachable!(),
 			}
 
 			let tested = &tested_infos[code as usize];
@@ -2014,7 +2017,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				match op_code.encoding() {
 					EncodingKind::VEX | EncodingKind::XOP => all_l_bits = 3, // 1 bit = 2 values
 					EncodingKind::EVEX => all_l_bits = 0xF,                  // 2 bits = 4 values
-					EncodingKind::Legacy | EncodingKind::D3NOW | EncodingKind::MVEX => panic!(),
+					EncodingKind::Legacy | EncodingKind::D3NOW | EncodingKind::MVEX => unreachable!(),
 				}
 				if tested.l_bits != all_l_bits {
 					get_vec(bitness, &mut lig_16, &mut lig_32, &mut lig_64).push(code);
@@ -2672,7 +2675,7 @@ fn verify_that_test_cases_test_enough_bits() {
 		match bitness {
 			16 => l16,
 			32 => l32,
-			_ => panic!(),
+			_ => unreachable!(),
 		}
 	}
 
@@ -2681,7 +2684,7 @@ fn verify_that_test_cases_test_enough_bits() {
 			16 => l16,
 			32 => l32,
 			64 => l64,
-			_ => panic!(),
+			_ => unreachable!(),
 		}
 	}
 }
@@ -2873,7 +2876,7 @@ fn verify_invalid_table_encoding() {
 			}
 		} else if op_code.encoding() == EncodingKind::Legacy || op_code.encoding() == EncodingKind::D3NOW {
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 }
@@ -2919,7 +2922,7 @@ fn verify_invalid_pp_field() {
 			}
 		} else if op_code.encoding() == EncodingKind::Legacy || op_code.encoding() == EncodingKind::D3NOW {
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 }
@@ -2953,35 +2956,35 @@ fn verify_regonly_or_regmemonly_mod_bits() {
 				OpCodeTableKind::Normal => {}
 				OpCodeTableKind::T0F => {
 					if bytes[m_index] != 0x0F {
-						panic!();
+						unreachable!();
 					}
 					m_index += 1;
 				}
 				OpCodeTableKind::T0F38 => {
 					if bytes[m_index] != 0x0F {
-						panic!();
+						unreachable!();
 					}
 					m_index += 1;
 					if bytes[m_index] != 0x38 {
-						panic!();
+						unreachable!();
 					}
 					m_index += 1;
 				}
 				OpCodeTableKind::T0F3A => {
 					if bytes[m_index] != 0x0F {
-						panic!();
+						unreachable!();
 					}
 					m_index += 1;
 					if bytes[m_index] != 0x3A {
-						panic!();
+						unreachable!();
 					}
 					m_index += 1;
 				}
-				_ => panic!(),
+				_ => unreachable!(),
 			}
 			m_index + 1
 		} else {
-			panic!();
+			unreachable!();
 		};
 
 		if bytes[m_index] >= 0xC0 {

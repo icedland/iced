@@ -753,6 +753,11 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			box_opcode_handler(OpCodeHandler_Simple5::new(code1, code2, code3))
 		}
 
+		LegacyOpCodeHandlerKind::Simple5_a32 => {
+			let (code1, code2, code3) = deserializer.read_code3();
+			box_opcode_handler(OpCodeHandler_Simple5_a32::new(code1, code2, code3))
+		}
+
 		LegacyOpCodeHandlerKind::Simple5_ModRM_as => {
 			let (code1, code2, code3) = deserializer.read_code3();
 			box_opcode_handler(OpCodeHandler_Simple5_ModRM_as::new(code1, code2, code3))

@@ -1845,6 +1845,8 @@ pub enum Mnemonic {
 	Vscatterpf0hintdps = 1831,
 	Vsubrpd = 1832,
 	Vsubrps = 1833,
+	Xsha512 = 1834,
+	Xstore2 = 1835,
 }
 // GENERATOR-END: Enum
 

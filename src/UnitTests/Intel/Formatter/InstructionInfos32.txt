@@ -644,7 +644,7 @@ F2 0F38F8 18, Enqcmd_r32_m512
 64 67 0F01 FC, Clzerow
 64 67 F3 0FAE F5, Umonitor_r16
 F3 0FA6 C0, Montmul_32
-67 F3 0FA6 C0, Montmul_16
+67 F3 0FA6 C0, Montmul_16, NoInvalidCheck
 F3 0FA6 C8, Xsha1_32
 67 F3 0FA6 C8, Xsha1_16
 F3 0FA6 D0, Xsha256_32
@@ -729,3 +729,11 @@ F3 0FA6 E8, Ccs_hash_32
 67 F3 0FA6 E8, Ccs_hash_16
 F3 0FA7 F0, Ccs_encrypt_32
 67 F3 0FA7 F0, Ccs_encrypt_16
+67 F3 0FA6 F0, Via_undoc_F30FA6F0_16
+F3 0FA6 F0, Via_undoc_F30FA6F0_32
+67 F3 0FA6 F8, Via_undoc_F30FA6F8_16
+F3 0FA6 F8, Via_undoc_F30FA6F8_32
+67 F3 0FA6 E0, Xsha512_16
+F3 0FA6 E0, Xsha512_32
+67 F3 0FA7 F8, Xstore2_16
+F3 0FA7 F8, Xstore2_32

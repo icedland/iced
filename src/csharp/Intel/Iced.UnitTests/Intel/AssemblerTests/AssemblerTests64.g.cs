@@ -7077,7 +7077,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void montmul() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.montmul(), Instruction.Create(Code.Montmul_64), TestInstrFlags.RemoveRepRepnePrefixes);
+				TestAssembler(c => c.montmul(), Instruction.Create(Code.Montmul_64), TestInstrFlags.RemoveRepRepnePrefixes, decoderOptions: DecoderOptions.NoInvalidCheck);
 			} /* else skip !(Bitness == 64) not supported by this Assembler bitness */
 		}
 
@@ -49108,9 +49108,23 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void xsha512() {
+			{ /* if (Bitness == 64) */
+				TestAssembler(c => c.xsha512(), Instruction.Create(Code.Xsha512_64), TestInstrFlags.RemoveRepRepnePrefixes);
+			} /* else skip !(Bitness == 64) not supported by this Assembler bitness */
+		}
+
+		[Fact]
 		public void xstore() {
 			{ /* if (Bitness == 64) */
 				TestAssembler(c => c.xstore(), Instruction.Create(Code.Xstore_64), TestInstrFlags.RemoveRepRepnePrefixes);
+			} /* else skip !(Bitness == 64) not supported by this Assembler bitness */
+		}
+
+		[Fact]
+		public void xstore2() {
+			{ /* if (Bitness == 64) */
+				TestAssembler(c => c.xstore2(), Instruction.Create(Code.Xstore2_64), TestInstrFlags.RemoveRepRepnePrefixes);
 			} /* else skip !(Bitness == 64) not supported by this Assembler bitness */
 		}
 

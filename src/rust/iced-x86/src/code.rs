@@ -38534,9 +38534,105 @@ pub enum Code {
 	///
 	/// `64-bit`
 	MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8 = 4817,
+	/// `UNDOC`
+	///
+	/// `a16 F3 0F A6 F0`
+	///
+	/// `PADLOCK_UNDOC`
+	///
+	/// `16/32-bit`
+	Via_undoc_F30FA6F0_16 = 4818,
+	/// `UNDOC`
+	///
+	/// `a32 F3 0F A6 F0`
+	///
+	/// `PADLOCK_UNDOC`
+	///
+	/// `16/32/64-bit`
+	Via_undoc_F30FA6F0_32 = 4819,
+	/// `UNDOC`
+	///
+	/// `a64 F3 0F A6 F0`
+	///
+	/// `PADLOCK_UNDOC`
+	///
+	/// `64-bit`
+	Via_undoc_F30FA6F0_64 = 4820,
+	/// `UNDOC`
+	///
+	/// `a16 F3 0F A6 F8`
+	///
+	/// `PADLOCK_UNDOC`
+	///
+	/// `16/32-bit`
+	Via_undoc_F30FA6F8_16 = 4821,
+	/// `UNDOC`
+	///
+	/// `a32 F3 0F A6 F8`
+	///
+	/// `PADLOCK_UNDOC`
+	///
+	/// `16/32/64-bit`
+	Via_undoc_F30FA6F8_32 = 4822,
+	/// `UNDOC`
+	///
+	/// `a64 F3 0F A6 F8`
+	///
+	/// `PADLOCK_UNDOC`
+	///
+	/// `64-bit`
+	Via_undoc_F30FA6F8_64 = 4823,
+	/// `XSHA512`
+	///
+	/// `a16 F3 0F A6 E0`
+	///
+	/// `PADLOCK_PHE`
+	///
+	/// `16/32-bit`
+	Xsha512_16 = 4824,
+	/// `XSHA512`
+	///
+	/// `a32 F3 0F A6 E0`
+	///
+	/// `PADLOCK_PHE`
+	///
+	/// `16/32/64-bit`
+	Xsha512_32 = 4825,
+	/// `XSHA512`
+	///
+	/// `a64 F3 0F A6 E0`
+	///
+	/// `PADLOCK_PHE`
+	///
+	/// `64-bit`
+	Xsha512_64 = 4826,
+	/// `XSTORE2`
+	///
+	/// `a16 F3 0F A7 F8`
+	///
+	/// `PADLOCK_RNG`
+	///
+	/// `16/32-bit`
+	Xstore2_16 = 4827,
+	/// `XSTORE2`
+	///
+	/// `a32 F3 0F A7 F8`
+	///
+	/// `PADLOCK_RNG`
+	///
+	/// `16/32/64-bit`
+	Xstore2_32 = 4828,
+	/// `XSTORE2`
+	///
+	/// `a64 F3 0F A7 F8`
+	///
+	/// `PADLOCK_RNG`
+	///
+	/// `64-bit`
+	Xstore2_64 = 4829,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_CODE: [&str; 4818] = [
+static GEN_DEBUG_CODE: [&str; 4830] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -43355,6 +43451,18 @@ static GEN_DEBUG_CODE: [&str; 4818] = [
 	"MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0",
 	"MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1",
 	"MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8",
+	"Via_undoc_F30FA6F0_16",
+	"Via_undoc_F30FA6F0_32",
+	"Via_undoc_F30FA6F0_64",
+	"Via_undoc_F30FA6F8_16",
+	"Via_undoc_F30FA6F8_32",
+	"Via_undoc_F30FA6F8_64",
+	"Xsha512_16",
+	"Xsha512_32",
+	"Xsha512_64",
+	"Xstore2_16",
+	"Xstore2_32",
+	"Xstore2_64",
 ];
 impl fmt::Debug for Code {
 	#[inline]

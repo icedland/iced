@@ -8,7 +8,7 @@
 #if INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	static class InstrInfoTable {
-		internal static readonly uint[] Data = new uint[9636] {
+		internal static readonly uint[] Data = new uint[9660] {
 			0x00000000, 0x00900000,// INVALID
 			0x00000000, 0x00900000,// DeclareByte
 			0x00000000, 0x00900000,// DeclareWord
@@ -4827,6 +4827,18 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000000, 0xB5020005,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0
 			0x00000000, 0xB5020005,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1
 			0x000000B8, 0xB5000005,// MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
+			0x00000000, 0xB6020000,// Via_undoc_F30FA6F0_16
+			0x00000000, 0xB6020000,// Via_undoc_F30FA6F0_32
+			0x00000000, 0xB6020000,// Via_undoc_F30FA6F0_64
+			0x00000000, 0xB6020000,// Via_undoc_F30FA6F8_16
+			0x00000000, 0xB6020000,// Via_undoc_F30FA6F8_32
+			0x00000000, 0xB6020000,// Via_undoc_F30FA6F8_64
+			0x0C200000, 0x5F000000,// Xsha512_16
+			0x0C300000, 0x5F000000,// Xsha512_32
+			0x0C400000, 0x5F000000,// Xsha512_64
+			0x08000000, 0x61000000,// Xstore2_16
+			0x08100000, 0x61000000,// Xstore2_32
+			0x08200000, 0x61000000,// Xstore2_64
 		};
 	}
 }

@@ -222,6 +222,7 @@ namespace Iced.Intel.DecoderInternal {
 		PrefixF2,
 		PrefixF3,
 		PrefixREX,
+		Simple5_a32,
 	}
 }
 #endif

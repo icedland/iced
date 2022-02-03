@@ -13,7 +13,7 @@ namespace Iced.Intel.EncoderInternal {
 		internal static readonly uint[] EncFlags3 = GetEncFlags3();
 
 		static uint[] GetEncFlags1() =>
-			new uint[4818] {
+			new uint[4830] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -4832,10 +4832,22 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000836,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0
 				0x00000836,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1
 				0x00000836,// MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
+				0x00000000,// Via_undoc_F30FA6F0_16
+				0x00000000,// Via_undoc_F30FA6F0_32
+				0x00000000,// Via_undoc_F30FA6F0_64
+				0x00000000,// Via_undoc_F30FA6F8_16
+				0x00000000,// Via_undoc_F30FA6F8_32
+				0x00000000,// Via_undoc_F30FA6F8_64
+				0x00000000,// Xsha512_16
+				0x00000000,// Xsha512_32
+				0x00000000,// Xsha512_64
+				0x00000000,// Xstore2_16
+				0x00000000,// Xstore2_32
+				0x00000000,// Xstore2_64
 			};
 
 		static uint[] GetEncFlags2() =>
-			new uint[4818] {
+			new uint[4830] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -9654,10 +9666,22 @@ namespace Iced.Intel.EncoderInternal {
 				0x461600D0,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0
 				0x461600D1,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1
 				0x467600E6,// MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
+				0x4023A6F0,// Via_undoc_F30FA6F0_16
+				0x4023A6F0,// Via_undoc_F30FA6F0_32
+				0x4023A6F0,// Via_undoc_F30FA6F0_64
+				0x4023A6F8,// Via_undoc_F30FA6F8_16
+				0x4023A6F8,// Via_undoc_F30FA6F8_32
+				0x4023A6F8,// Via_undoc_F30FA6F8_64
+				0x4023A6E0,// Xsha512_16
+				0x4023A6E0,// Xsha512_32
+				0x4023A6E0,// Xsha512_64
+				0x4023A7F8,// Xstore2_16
+				0x4023A7F8,// Xstore2_32
+				0x4023A7F8,// Xstore2_64
 			};
 
 		static uint[] GetEncFlags3() =>
-			new uint[4818] {
+			new uint[4830] {
 				0x00030000,// INVALID
 				0x00030000,// DeclareByte
 				0x00030000,// DeclareWord
@@ -14476,6 +14500,18 @@ namespace Iced.Intel.EncoderInternal {
 				0x38020005,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0
 				0x38020005,// MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1
 				0x38020005,// MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
+				0x00010020,// Via_undoc_F30FA6F0_16
+				0x00030040,// Via_undoc_F30FA6F0_32
+				0x00020060,// Via_undoc_F30FA6F0_64
+				0x00010020,// Via_undoc_F30FA6F8_16
+				0x00030040,// Via_undoc_F30FA6F8_32
+				0x00020060,// Via_undoc_F30FA6F8_64
+				0x00010020,// Xsha512_16
+				0x00030040,// Xsha512_32
+				0x00020060,// Xsha512_64
+				0x00010020,// Xstore2_16
+				0x00030040,// Xstore2_32
+				0x00020060,// Xstore2_64
 			};
 	}
 }

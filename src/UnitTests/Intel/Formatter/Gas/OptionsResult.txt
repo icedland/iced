@@ -2068,6 +2068,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb %dx,(%rdi)
 repne insw %dx,(%rdi)
@@ -2128,6 +2132,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb %dx,(%edi)
 repne insw %dx,(%edi)
@@ -2183,6 +2191,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb %dx,(%di)
 repne insw %dx,(%di)
@@ -2243,6 +2255,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb %dx,(%rdi)
 repne insw %dx,(%rdi)
@@ -2303,6 +2319,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb %dx,(%edi)
 repne insw %dx,(%edi)
@@ -2358,6 +2378,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb %dx,(%di)
 repne insw %dx,(%di)
@@ -2418,6 +2442,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb %dx,(%rdi)
 repne insw %dx,(%rdi)
@@ -2478,6 +2506,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb %dx,(%edi)
 repne insw %dx,(%edi)
@@ -2533,6 +2565,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb %dx,(%di)
 repne insw %dx,(%di)
@@ -2593,6 +2629,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repnz insb %dx,(%rdi)
 repnz insw %dx,(%rdi)
@@ -2653,6 +2693,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repnz insb %dx,(%edi)
 repnz insw %dx,(%edi)
@@ -2708,6 +2752,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repnz insb %dx,(%di)
 repnz insw %dx,(%di)

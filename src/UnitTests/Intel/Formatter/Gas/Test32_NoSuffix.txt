@@ -729,3 +729,11 @@ rep ccs_hash
 addr16 rep ccs_hash
 rep ccs_encrypt
 addr16 rep ccs_encrypt
+addr16 rep undoc
+rep undoc
+addr16 rep undoc
+rep undoc
+addr16 rep xsha512
+rep xsha512
+addr16 rep xstore2
+rep xstore2

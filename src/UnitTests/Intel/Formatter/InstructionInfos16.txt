@@ -518,3 +518,11 @@ F2 0F 01 FF, Pvalidatew
 0F 01 E8, Serialize
 F2 0F 01 E8, Xsusldtrk
 F2 0F 01 E9, Xresldtrk
+F3 0FA6 F0, Via_undoc_F30FA6F0_16
+67 F3 0FA6 F0, Via_undoc_F30FA6F0_32
+F3 0FA6 F8, Via_undoc_F30FA6F8_16
+67 F3 0FA6 F8, Via_undoc_F30FA6F8_32
+F3 0FA6 E0, Xsha512_16
+67 F3 0FA6 E0, Xsha512_32
+F3 0FA7 F8, Xstore2_16
+67 F3 0FA7 F8, Xstore2_32

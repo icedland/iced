@@ -218,5 +218,6 @@ namespace Generator.Enums.Decoder {
 		PrefixF2,
 		PrefixF3,
 		PrefixREX,
+		Simple5_a32,
 	}
 }

@@ -252,9 +252,10 @@ pub(crate) enum LegacyOpCodeHandlerKind {
 	PrefixF2,
 	PrefixF3,
 	PrefixREX,
+	Simple5_a32,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_LEGACY_OP_CODE_HANDLER_KIND: [&str; 214] = [
+static GEN_DEBUG_LEGACY_OP_CODE_HANDLER_KIND: [&str; 215] = [
 	"Bitness",
 	"Bitness_DontReadModRM",
 	"Invalid",
@@ -469,6 +470,7 @@ static GEN_DEBUG_LEGACY_OP_CODE_HANDLER_KIND: [&str; 214] = [
 	"PrefixF2",
 	"PrefixF3",
 	"PrefixREX",
+	"Simple5_a32",
 ];
 impl fmt::Debug for LegacyOpCodeHandlerKind {
 	#[inline]

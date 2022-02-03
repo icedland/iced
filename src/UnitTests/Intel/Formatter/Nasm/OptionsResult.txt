@@ -2068,6 +2068,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb
 repne insw
@@ -2128,6 +2132,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb
 repne insw
@@ -2183,6 +2191,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb
 repne insw
@@ -2243,6 +2255,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb
 repne insw
@@ -2303,6 +2319,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb
 repne insw
@@ -2358,6 +2378,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb
 repne insw
@@ -2418,6 +2442,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb
 repne insw
@@ -2478,6 +2506,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb
 repne insw
@@ -2533,6 +2565,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repne insb
 repne insw
@@ -2593,6 +2629,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repnz insb
 repnz insw
@@ -2653,6 +2693,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repnz insb
 repnz insw
@@ -2708,6 +2752,10 @@ rep xcryptcfb
 rep xcryptofb
 rep ccs_hash
 rep ccs_encrypt
+rep undoc
+rep undoc
+rep xsha512
+rep xstore2
 
 repnz insb
 repnz insw

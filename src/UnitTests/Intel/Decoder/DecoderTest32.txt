@@ -8751,35 +8751,158 @@ C4C1F9 99 D3, VEX_Ktestd_kr_kr, Ktestd, 2, op0=r;k2 op1=r;k3 enc=C4E1F999D3
 0FA5 CE, Shld_rm32_r32_CL, Shld, 3, op0=r;esi op1=r;ecx op2=r;cl
 0FA5 18, Shld_rm32_r32_CL, Shld, 3, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx op2=r;cl
 
-F3 67 0FA6 C0, Montmul_16, Montmul, 0, rep enc=67F30FA6C0
-67 F3 0FA6 C0, Montmul_16, Montmul, 0, rep
-67 0FA6 C0, INVALID, INVALID, 0, code=Montmul_16
+F3 67 0FA6 C0, INVALID, INVALID, 0, code=Montmul_16
+67 F3 0FA6 C0, INVALID, INVALID, 0, code=Montmul_16
+F3 67 0FA6 C0, Montmul_16, Montmul, 0, rep enc=67F30FA6C0 decopt=NoInvalidCheck
+67 F3 0FA6 C0, Montmul_16, Montmul, 0, rep decopt=NoInvalidCheck
+67 0FA6 C0, INVALID, INVALID, 0, code=Montmul_16 decopt=NoInvalidCheck
+67 F3 0FA6 C1, INVALID, INVALID, 0, code=Montmul_16
+67 F3 0FA6 C2, INVALID, INVALID, 0, code=Montmul_16
+67 F3 0FA6 C3, INVALID, INVALID, 0, code=Montmul_16
+67 F3 0FA6 C4, INVALID, INVALID, 0, code=Montmul_16
+67 F3 0FA6 C5, INVALID, INVALID, 0, code=Montmul_16
+67 F3 0FA6 C6, INVALID, INVALID, 0, code=Montmul_16
+67 F3 0FA6 C7, INVALID, INVALID, 0, code=Montmul_16
+67 F3 0FA6 C1, Montmul_16, Montmul, 0, rep decopt=NoInvalidCheck enc=67F30FA6C0
+67 F3 0FA6 C2, Montmul_16, Montmul, 0, rep decopt=NoInvalidCheck enc=67F30FA6C0
+67 F3 0FA6 C3, Montmul_16, Montmul, 0, rep decopt=NoInvalidCheck enc=67F30FA6C0
+67 F3 0FA6 C4, Montmul_16, Montmul, 0, rep decopt=NoInvalidCheck enc=67F30FA6C0
+67 F3 0FA6 C5, Montmul_16, Montmul, 0, rep decopt=NoInvalidCheck enc=67F30FA6C0
+67 F3 0FA6 C6, Montmul_16, Montmul, 0, rep decopt=NoInvalidCheck enc=67F30FA6C0
+67 F3 0FA6 C7, Montmul_16, Montmul, 0, rep decopt=NoInvalidCheck enc=67F30FA6C0
 
 F3 0FA6 C0, Montmul_32, Montmul, 0, rep
 F2 0FA6 C0, INVALID, INVALID, 0, code=Montmul_32
 F2 F3 0FA6 C0, Montmul_32, Montmul, 0, rep enc=F30FA6C0
 F3 F2 0FA6 C0, INVALID, INVALID, 0, code=Montmul_32
 0FA6 C0, INVALID, INVALID, 0, code=Montmul_32
+F3 0FA6 C1, Montmul_32, Montmul, 0, rep enc=F30FA6C0
+F3 0FA6 C2, Montmul_32, Montmul, 0, rep enc=F30FA6C0
+F3 0FA6 C3, Montmul_32, Montmul, 0, rep enc=F30FA6C0
+F3 0FA6 C4, Montmul_32, Montmul, 0, rep enc=F30FA6C0
+F3 0FA6 C5, Montmul_32, Montmul, 0, rep enc=F30FA6C0
+F3 0FA6 C6, Montmul_32, Montmul, 0, rep enc=F30FA6C0
+F3 0FA6 C7, Montmul_32, Montmul, 0, rep enc=F30FA6C0
 
 F3 67 0FA6 C8, Xsha1_16, Xsha1, 0, rep enc=67F30FA6C8
 67 F3 0FA6 C8, Xsha1_16, Xsha1, 0, rep
 67 0FA6 C8, INVALID, INVALID, 0, code=Xsha1_16
+67 F3 0FA6 C9, Xsha1_16, Xsha1, 0, rep enc=67F30FA6C8
+67 F3 0FA6 CA, Xsha1_16, Xsha1, 0, rep enc=67F30FA6C8
+67 F3 0FA6 CB, Xsha1_16, Xsha1, 0, rep enc=67F30FA6C8
+67 F3 0FA6 CC, Xsha1_16, Xsha1, 0, rep enc=67F30FA6C8
+67 F3 0FA6 CD, Xsha1_16, Xsha1, 0, rep enc=67F30FA6C8
+67 F3 0FA6 CE, Xsha1_16, Xsha1, 0, rep enc=67F30FA6C8
+67 F3 0FA6 CF, Xsha1_16, Xsha1, 0, rep enc=67F30FA6C8
 
 F3 0FA6 C8, Xsha1_32, Xsha1, 0, rep
 F2 0FA6 C8, INVALID, INVALID, 0, code=Xsha1_32
 F2 F3 0FA6 C8, Xsha1_32, Xsha1, 0, rep enc=F30FA6C8
 F3 F2 0FA6 C8, INVALID, INVALID, 0, code=Xsha1_32
 0FA6 C8, INVALID, INVALID, 0, code=Xsha1_32
+F3 0FA6 C9, Xsha1_32, Xsha1, 0, rep enc=F30FA6C8
+F3 0FA6 CA, Xsha1_32, Xsha1, 0, rep enc=F30FA6C8
+F3 0FA6 CB, Xsha1_32, Xsha1, 0, rep enc=F30FA6C8
+F3 0FA6 CC, Xsha1_32, Xsha1, 0, rep enc=F30FA6C8
+F3 0FA6 CD, Xsha1_32, Xsha1, 0, rep enc=F30FA6C8
+F3 0FA6 CE, Xsha1_32, Xsha1, 0, rep enc=F30FA6C8
+F3 0FA6 CF, Xsha1_32, Xsha1, 0, rep enc=F30FA6C8
 
 F3 67 0FA6 D0, Xsha256_16, Xsha256, 0, rep enc=67F30FA6D0
 67 F3 0FA6 D0, Xsha256_16, Xsha256, 0, rep
 67 0FA6 D0, INVALID, INVALID, 0, code=Xsha256_16
+67 F3 0FA6 D1, Xsha256_16, Xsha256, 0, rep enc=67F30FA6D0
+67 F3 0FA6 D2, Xsha256_16, Xsha256, 0, rep enc=67F30FA6D0
+67 F3 0FA6 D3, Xsha256_16, Xsha256, 0, rep enc=67F30FA6D0
+67 F3 0FA6 D4, Xsha256_16, Xsha256, 0, rep enc=67F30FA6D0
+67 F3 0FA6 D5, Xsha256_16, Xsha256, 0, rep enc=67F30FA6D0
+67 F3 0FA6 D6, Xsha256_16, Xsha256, 0, rep enc=67F30FA6D0
+67 F3 0FA6 D7, Xsha256_16, Xsha256, 0, rep enc=67F30FA6D0
 
 F3 0FA6 D0, Xsha256_32, Xsha256, 0, rep
 F2 0FA6 D0, INVALID, INVALID, 0, code=Xsha256_32
 F2 F3 0FA6 D0, Xsha256_32, Xsha256, 0, rep enc=F30FA6D0
 F3 F2 0FA6 D0, INVALID, INVALID, 0, code=Xsha256_32
 0FA6 D0, INVALID, INVALID, 0, code=Xsha256_32
+F3 0FA6 D1, Xsha256_32, Xsha256, 0, rep enc=F30FA6D0
+F3 0FA6 D2, Xsha256_32, Xsha256, 0, rep enc=F30FA6D0
+F3 0FA6 D3, Xsha256_32, Xsha256, 0, rep enc=F30FA6D0
+F3 0FA6 D4, Xsha256_32, Xsha256, 0, rep enc=F30FA6D0
+F3 0FA6 D5, Xsha256_32, Xsha256, 0, rep enc=F30FA6D0
+F3 0FA6 D6, Xsha256_32, Xsha256, 0, rep enc=F30FA6D0
+F3 0FA6 D7, Xsha256_32, Xsha256, 0, rep enc=F30FA6D0
+
+F3 67 0FA6 E0, Xsha512_16, Xsha512, 0, rep enc=67F30FA6E0
+67 F3 0FA6 E0, Xsha512_16, Xsha512, 0, rep
+67 0FA6 E0, INVALID, INVALID, 0, code=Xsha512_16
+67 F3 0FA6 E1, Xsha512_16, Xsha512, 0, rep enc=67F30FA6E0
+67 F3 0FA6 E2, Xsha512_16, Xsha512, 0, rep enc=67F30FA6E0
+67 F3 0FA6 E3, Xsha512_16, Xsha512, 0, rep enc=67F30FA6E0
+67 F3 0FA6 E4, Xsha512_16, Xsha512, 0, rep enc=67F30FA6E0
+67 F3 0FA6 E5, Xsha512_16, Xsha512, 0, rep enc=67F30FA6E0
+67 F3 0FA6 E6, Xsha512_16, Xsha512, 0, rep enc=67F30FA6E0
+67 F3 0FA6 E7, Xsha512_16, Xsha512, 0, rep enc=67F30FA6E0
+
+F3 0FA6 E0, Xsha512_32, Xsha512, 0, rep
+F2 0FA6 E0, INVALID, INVALID, 0, code=Xsha512_32
+F2 F3 0FA6 E0, Xsha512_32, Xsha512, 0, rep enc=F30FA6E0
+F3 F2 0FA6 E0, INVALID, INVALID, 0, code=Xsha512_32
+0FA6 E0, INVALID, INVALID, 0, code=Xsha512_32
+F3 0FA6 E1, Xsha512_32, Xsha512, 0, rep enc=F30FA6E0
+F3 0FA6 E2, Xsha512_32, Xsha512, 0, rep enc=F30FA6E0
+F3 0FA6 E3, Xsha512_32, Xsha512, 0, rep enc=F30FA6E0
+F3 0FA6 E4, Xsha512_32, Xsha512, 0, rep enc=F30FA6E0
+F3 0FA6 E5, Xsha512_32, Xsha512, 0, rep enc=F30FA6E0
+F3 0FA6 E6, Xsha512_32, Xsha512, 0, rep enc=F30FA6E0
+F3 0FA6 E7, Xsha512_32, Xsha512, 0, rep enc=F30FA6E0
+
+F3 67 0FA6 F0, Via_undoc_F30FA6F0_16, Undoc, 0, rep enc=67F30FA6F0
+67 F3 0FA6 F0, Via_undoc_F30FA6F0_16, Undoc, 0, rep
+67 0FA6 F0, INVALID, INVALID, 0, code=Via_undoc_F30FA6F0_16
+67 F3 0FA6 F1, Via_undoc_F30FA6F0_16, Undoc, 0, rep enc=67F30FA6F0
+67 F3 0FA6 F2, Via_undoc_F30FA6F0_16, Undoc, 0, rep enc=67F30FA6F0
+67 F3 0FA6 F3, Via_undoc_F30FA6F0_16, Undoc, 0, rep enc=67F30FA6F0
+67 F3 0FA6 F4, Via_undoc_F30FA6F0_16, Undoc, 0, rep enc=67F30FA6F0
+67 F3 0FA6 F5, Via_undoc_F30FA6F0_16, Undoc, 0, rep enc=67F30FA6F0
+67 F3 0FA6 F6, Via_undoc_F30FA6F0_16, Undoc, 0, rep enc=67F30FA6F0
+67 F3 0FA6 F7, Via_undoc_F30FA6F0_16, Undoc, 0, rep enc=67F30FA6F0
+
+F3 0FA6 F0, Via_undoc_F30FA6F0_32, Undoc, 0, rep
+F2 0FA6 F0, INVALID, INVALID, 0, code=Via_undoc_F30FA6F0_32
+F2 F3 0FA6 F0, Via_undoc_F30FA6F0_32, Undoc, 0, rep enc=F30FA6F0
+F3 F2 0FA6 F0, INVALID, INVALID, 0, code=Via_undoc_F30FA6F0_32
+0FA6 F0, INVALID, INVALID, 0, code=Via_undoc_F30FA6F0_32
+F3 0FA6 F1, Via_undoc_F30FA6F0_32, Undoc, 0, rep enc=F30FA6F0
+F3 0FA6 F2, Via_undoc_F30FA6F0_32, Undoc, 0, rep enc=F30FA6F0
+F3 0FA6 F3, Via_undoc_F30FA6F0_32, Undoc, 0, rep enc=F30FA6F0
+F3 0FA6 F4, Via_undoc_F30FA6F0_32, Undoc, 0, rep enc=F30FA6F0
+F3 0FA6 F5, Via_undoc_F30FA6F0_32, Undoc, 0, rep enc=F30FA6F0
+F3 0FA6 F6, Via_undoc_F30FA6F0_32, Undoc, 0, rep enc=F30FA6F0
+F3 0FA6 F7, Via_undoc_F30FA6F0_32, Undoc, 0, rep enc=F30FA6F0
+
+F3 67 0FA6 F8, Via_undoc_F30FA6F8_16, Undoc, 0, rep enc=67F30FA6F8
+67 F3 0FA6 F8, Via_undoc_F30FA6F8_16, Undoc, 0, rep
+67 0FA6 F8, INVALID, INVALID, 0, code=Via_undoc_F30FA6F8_16
+67 F3 0FA6 F9, Via_undoc_F30FA6F8_16, Undoc, 0, rep enc=67F30FA6F8
+67 F3 0FA6 FA, Via_undoc_F30FA6F8_16, Undoc, 0, rep enc=67F30FA6F8
+67 F3 0FA6 FB, Via_undoc_F30FA6F8_16, Undoc, 0, rep enc=67F30FA6F8
+67 F3 0FA6 FC, Via_undoc_F30FA6F8_16, Undoc, 0, rep enc=67F30FA6F8
+67 F3 0FA6 FD, Via_undoc_F30FA6F8_16, Undoc, 0, rep enc=67F30FA6F8
+67 F3 0FA6 FE, Via_undoc_F30FA6F8_16, Undoc, 0, rep enc=67F30FA6F8
+67 F3 0FA6 FF, Via_undoc_F30FA6F8_16, Undoc, 0, rep enc=67F30FA6F8
+
+F3 0FA6 F8, Via_undoc_F30FA6F8_32, Undoc, 0, rep
+F2 0FA6 F8, INVALID, INVALID, 0, code=Via_undoc_F30FA6F8_32
+F2 F3 0FA6 F8, Via_undoc_F30FA6F8_32, Undoc, 0, rep enc=F30FA6F8
+F3 F2 0FA6 F8, INVALID, INVALID, 0, code=Via_undoc_F30FA6F8_32
+0FA6 F8, INVALID, INVALID, 0, code=Via_undoc_F30FA6F8_32
+F3 0FA6 F9, Via_undoc_F30FA6F8_32, Undoc, 0, rep enc=F30FA6F8
+F3 0FA6 FA, Via_undoc_F30FA6F8_32, Undoc, 0, rep enc=F30FA6F8
+F3 0FA6 FB, Via_undoc_F30FA6F8_32, Undoc, 0, rep enc=F30FA6F8
+F3 0FA6 FC, Via_undoc_F30FA6F8_32, Undoc, 0, rep enc=F30FA6F8
+F3 0FA6 FD, Via_undoc_F30FA6F8_32, Undoc, 0, rep enc=F30FA6F8
+F3 0FA6 FE, Via_undoc_F30FA6F8_32, Undoc, 0, rep enc=F30FA6F8
+F3 0FA6 FF, Via_undoc_F30FA6F8_32, Undoc, 0, rep enc=F30FA6F8
 
 66 0FA6 CE, Xbts_r16_rm16, Xbts, 2, op0=r;cx op1=r;si decopt=Xbts
 66 0FA6 CE, Xbts_r16_rm16, Xbts, 2, op0=r;cx op1=r;si decopt=Xbts decopt=Cmpxchg486A
@@ -8803,62 +8926,200 @@ F3 F2 0FA6 D0, INVALID, INVALID, 0, code=Xsha256_32
 F3 67 0FA7 C0, Xstore_16, Xstore, 0, rep enc=67F30FA7C0
 67 F3 0FA7 C0, Xstore_16, Xstore, 0, rep
 67 0FA7 C0, Xstore_16, Xstore, 0,
+67 F3 0FA7 C1, Xstore_16, Xstore, 0, rep enc=67F30FA7C0
+67 F3 0FA7 C2, Xstore_16, Xstore, 0, rep enc=67F30FA7C0
+67 F3 0FA7 C3, Xstore_16, Xstore, 0, rep enc=67F30FA7C0
+67 F3 0FA7 C4, Xstore_16, Xstore, 0, rep enc=67F30FA7C0
+67 F3 0FA7 C5, Xstore_16, Xstore, 0, rep enc=67F30FA7C0
+67 F3 0FA7 C6, Xstore_16, Xstore, 0, rep enc=67F30FA7C0
+67 F3 0FA7 C7, Xstore_16, Xstore, 0, rep enc=67F30FA7C0
+67 F2 0FA7 C0, Xstore_16, Xstore, 0, repne enc=67F20FA7C0
+67 F2 0FA7 C1, Xstore_16, Xstore, 0, repne enc=67F20FA7C0
+67 F2 0FA7 C2, Xstore_16, Xstore, 0, repne enc=67F20FA7C0
+67 F2 0FA7 C3, Xstore_16, Xstore, 0, repne enc=67F20FA7C0
+67 F2 0FA7 C4, Xstore_16, Xstore, 0, repne enc=67F20FA7C0
+67 F2 0FA7 C5, Xstore_16, Xstore, 0, repne enc=67F20FA7C0
+67 F2 0FA7 C6, Xstore_16, Xstore, 0, repne enc=67F20FA7C0
+67 F2 0FA7 C7, Xstore_16, Xstore, 0, repne enc=67F20FA7C0
 
 F3 0FA7 C0, Xstore_32, Xstore, 0, rep
 F2 0FA7 C0, Xstore_32, Xstore, 0, repne
 F2 F3 0FA7 C0, Xstore_32, Xstore, 0, rep enc=F30FA7C0
 F3 F2 0FA7 C0, Xstore_32, Xstore, 0, repne enc=F20FA7C0
 0FA7 C0, Xstore_32, Xstore, 0,
+F3 0FA7 C1, Xstore_32, Xstore, 0, rep enc=F30FA7C0
+F3 0FA7 C2, Xstore_32, Xstore, 0, rep enc=F30FA7C0
+F3 0FA7 C3, Xstore_32, Xstore, 0, rep enc=F30FA7C0
+F3 0FA7 C4, Xstore_32, Xstore, 0, rep enc=F30FA7C0
+F3 0FA7 C5, Xstore_32, Xstore, 0, rep enc=F30FA7C0
+F3 0FA7 C6, Xstore_32, Xstore, 0, rep enc=F30FA7C0
+F3 0FA7 C7, Xstore_32, Xstore, 0, rep enc=F30FA7C0
+F2 0FA7 C1, Xstore_32, Xstore, 0, repne enc=F20FA7C0
+F2 0FA7 C2, Xstore_32, Xstore, 0, repne enc=F20FA7C0
+F2 0FA7 C3, Xstore_32, Xstore, 0, repne enc=F20FA7C0
+F2 0FA7 C4, Xstore_32, Xstore, 0, repne enc=F20FA7C0
+F2 0FA7 C5, Xstore_32, Xstore, 0, repne enc=F20FA7C0
+F2 0FA7 C6, Xstore_32, Xstore, 0, repne enc=F20FA7C0
+F2 0FA7 C7, Xstore_32, Xstore, 0, repne enc=F20FA7C0
+
+F3 67 0FA7 F8, Xstore2_16, Xstore2, 0, rep enc=67F30FA7F8
+67 F3 0FA7 F8, Xstore2_16, Xstore2, 0, rep
+67 0FA7 F8, INVALID, INVALID, 0, code=Xstore2_16
+67 F3 0FA7 F9, Xstore2_16, Xstore2, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FA, Xstore2_16, Xstore2, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FB, Xstore2_16, Xstore2, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FC, Xstore2_16, Xstore2, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FD, Xstore2_16, Xstore2, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FE, Xstore2_16, Xstore2, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FF, Xstore2_16, Xstore2, 0, rep enc=67F30FA7F8
+67 F2 0FA7 F8, INVALID, INVALID, 0, code=Xstore2_16
+67 F2 0FA7 F9, INVALID, INVALID, 0, code=Xstore2_16
+67 F2 0FA7 FA, INVALID, INVALID, 0, code=Xstore2_16
+67 F2 0FA7 FB, INVALID, INVALID, 0, code=Xstore2_16
+67 F2 0FA7 FC, INVALID, INVALID, 0, code=Xstore2_16
+67 F2 0FA7 FD, INVALID, INVALID, 0, code=Xstore2_16
+67 F2 0FA7 FE, INVALID, INVALID, 0, code=Xstore2_16
+67 F2 0FA7 FF, INVALID, INVALID, 0, code=Xstore2_16
+
+F3 0FA7 F8, Xstore2_32, Xstore2, 0, rep
+F2 0FA7 F8, INVALID, INVALID, 0, code=Xstore2_32
+F2 F3 0FA7 F8, Xstore2_32, Xstore2, 0, rep enc=F30FA7F8
+F3 F2 0FA7 F8, INVALID, INVALID, 0, code=Xstore2_32
+0FA7 F8, INVALID, INVALID, 0, code=Xstore2_32
+F3 0FA7 F9, Xstore2_32, Xstore2, 0, rep enc=F30FA7F8
+F3 0FA7 FA, Xstore2_32, Xstore2, 0, rep enc=F30FA7F8
+F3 0FA7 FB, Xstore2_32, Xstore2, 0, rep enc=F30FA7F8
+F3 0FA7 FC, Xstore2_32, Xstore2, 0, rep enc=F30FA7F8
+F3 0FA7 FD, Xstore2_32, Xstore2, 0, rep enc=F30FA7F8
+F3 0FA7 FE, Xstore2_32, Xstore2, 0, rep enc=F30FA7F8
+F3 0FA7 FF, Xstore2_32, Xstore2, 0, rep enc=F30FA7F8
+F2 0FA7 F9, INVALID, INVALID, 0, code=Xstore2_32
+F2 0FA7 FA, INVALID, INVALID, 0, code=Xstore2_32
+F2 0FA7 FB, INVALID, INVALID, 0, code=Xstore2_32
+F2 0FA7 FC, INVALID, INVALID, 0, code=Xstore2_32
+F2 0FA7 FD, INVALID, INVALID, 0, code=Xstore2_32
+F2 0FA7 FE, INVALID, INVALID, 0, code=Xstore2_32
+F2 0FA7 FF, INVALID, INVALID, 0, code=Xstore2_32
 
 F3 67 0FA7 C8, Xcryptecb_16, Xcryptecb, 0, rep enc=67F30FA7C8
 67 F3 0FA7 C8, Xcryptecb_16, Xcryptecb, 0, rep
 67 0FA7 C8, INVALID, INVALID, 0, code=Xcryptecb_16
+67 F3 0FA7 C9, Xcryptecb_16, Xcryptecb, 0, rep enc=67F30FA7C8
+67 F3 0FA7 CA, Xcryptecb_16, Xcryptecb, 0, rep enc=67F30FA7C8
+67 F3 0FA7 CB, Xcryptecb_16, Xcryptecb, 0, rep enc=67F30FA7C8
+67 F3 0FA7 CC, Xcryptecb_16, Xcryptecb, 0, rep enc=67F30FA7C8
+67 F3 0FA7 CD, Xcryptecb_16, Xcryptecb, 0, rep enc=67F30FA7C8
+67 F3 0FA7 CE, Xcryptecb_16, Xcryptecb, 0, rep enc=67F30FA7C8
+67 F3 0FA7 CF, Xcryptecb_16, Xcryptecb, 0, rep enc=67F30FA7C8
 
 F3 0FA7 C8, Xcryptecb_32, Xcryptecb, 0, rep
 F2 0FA7 C8, INVALID, INVALID, 0, code=Xcryptecb_32
 F2 F3 0FA7 C8, Xcryptecb_32, Xcryptecb, 0, rep enc=F30FA7C8
 F3 F2 0FA7 C8, INVALID, INVALID, 0, code=Xcryptecb_32
 0FA7 C8, INVALID, INVALID, 0, code=Xcryptecb_32
+F3 0FA7 C9, Xcryptecb_32, Xcryptecb, 0, rep enc=F30FA7C8
+F3 0FA7 CA, Xcryptecb_32, Xcryptecb, 0, rep enc=F30FA7C8
+F3 0FA7 CB, Xcryptecb_32, Xcryptecb, 0, rep enc=F30FA7C8
+F3 0FA7 CC, Xcryptecb_32, Xcryptecb, 0, rep enc=F30FA7C8
+F3 0FA7 CD, Xcryptecb_32, Xcryptecb, 0, rep enc=F30FA7C8
+F3 0FA7 CE, Xcryptecb_32, Xcryptecb, 0, rep enc=F30FA7C8
+F3 0FA7 CF, Xcryptecb_32, Xcryptecb, 0, rep enc=F30FA7C8
 
 F3 67 0FA7 D0, Xcryptcbc_16, Xcryptcbc, 0, rep enc=67F30FA7D0
 67 F3 0FA7 D0, Xcryptcbc_16, Xcryptcbc, 0, rep
 67 0FA7 D0, INVALID, INVALID, 0, code=Xcryptcbc_16
+67 F3 0FA7 D1, Xcryptcbc_16, Xcryptcbc, 0, rep enc=67F30FA7D0
+67 F3 0FA7 D2, Xcryptcbc_16, Xcryptcbc, 0, rep enc=67F30FA7D0
+67 F3 0FA7 D3, Xcryptcbc_16, Xcryptcbc, 0, rep enc=67F30FA7D0
+67 F3 0FA7 D4, Xcryptcbc_16, Xcryptcbc, 0, rep enc=67F30FA7D0
+67 F3 0FA7 D5, Xcryptcbc_16, Xcryptcbc, 0, rep enc=67F30FA7D0
+67 F3 0FA7 D6, Xcryptcbc_16, Xcryptcbc, 0, rep enc=67F30FA7D0
+67 F3 0FA7 D7, Xcryptcbc_16, Xcryptcbc, 0, rep enc=67F30FA7D0
 
 F3 0FA7 D0, Xcryptcbc_32, Xcryptcbc, 0, rep
 F2 0FA7 D0, INVALID, INVALID, 0, code=Xcryptcbc_32
 F2 F3 0FA7 D0, Xcryptcbc_32, Xcryptcbc, 0, rep enc=F30FA7D0
 F3 F2 0FA7 D0, INVALID, INVALID, 0, code=Xcryptcbc_32
 0FA7 D0, INVALID, INVALID, 0, code=Xcryptcbc_32
+F3 0FA7 D1, Xcryptcbc_32, Xcryptcbc, 0, rep enc=F30FA7D0
+F3 0FA7 D2, Xcryptcbc_32, Xcryptcbc, 0, rep enc=F30FA7D0
+F3 0FA7 D3, Xcryptcbc_32, Xcryptcbc, 0, rep enc=F30FA7D0
+F3 0FA7 D4, Xcryptcbc_32, Xcryptcbc, 0, rep enc=F30FA7D0
+F3 0FA7 D5, Xcryptcbc_32, Xcryptcbc, 0, rep enc=F30FA7D0
+F3 0FA7 D6, Xcryptcbc_32, Xcryptcbc, 0, rep enc=F30FA7D0
+F3 0FA7 D7, Xcryptcbc_32, Xcryptcbc, 0, rep enc=F30FA7D0
 
 F3 67 0FA7 D8, Xcryptctr_16, Xcryptctr, 0, rep enc=67F30FA7D8
 67 F3 0FA7 D8, Xcryptctr_16, Xcryptctr, 0, rep
 67 0FA7 D8, INVALID, INVALID, 0, code=Xcryptctr_16
+67 F3 0FA7 D9, Xcryptctr_16, Xcryptctr, 0, rep enc=67F30FA7D8
+67 F3 0FA7 DA, Xcryptctr_16, Xcryptctr, 0, rep enc=67F30FA7D8
+67 F3 0FA7 DB, Xcryptctr_16, Xcryptctr, 0, rep enc=67F30FA7D8
+67 F3 0FA7 DC, Xcryptctr_16, Xcryptctr, 0, rep enc=67F30FA7D8
+67 F3 0FA7 DD, Xcryptctr_16, Xcryptctr, 0, rep enc=67F30FA7D8
+67 F3 0FA7 DE, Xcryptctr_16, Xcryptctr, 0, rep enc=67F30FA7D8
+67 F3 0FA7 DF, Xcryptctr_16, Xcryptctr, 0, rep enc=67F30FA7D8
 
 F3 0FA7 D8, Xcryptctr_32, Xcryptctr, 0, rep
 F2 0FA7 D8, INVALID, INVALID, 0, code=Xcryptctr_32
 F2 F3 0FA7 D8, Xcryptctr_32, Xcryptctr, 0, rep enc=F30FA7D8
 F3 F2 0FA7 D8, INVALID, INVALID, 0, code=Xcryptctr_32
 0FA7 D8, INVALID, INVALID, 0, code=Xcryptctr_32
+F3 0FA7 D9, Xcryptctr_32, Xcryptctr, 0, rep enc=F30FA7D8
+F3 0FA7 DA, Xcryptctr_32, Xcryptctr, 0, rep enc=F30FA7D8
+F3 0FA7 DB, Xcryptctr_32, Xcryptctr, 0, rep enc=F30FA7D8
+F3 0FA7 DC, Xcryptctr_32, Xcryptctr, 0, rep enc=F30FA7D8
+F3 0FA7 DD, Xcryptctr_32, Xcryptctr, 0, rep enc=F30FA7D8
+F3 0FA7 DE, Xcryptctr_32, Xcryptctr, 0, rep enc=F30FA7D8
+F3 0FA7 DF, Xcryptctr_32, Xcryptctr, 0, rep enc=F30FA7D8
 
 F3 67 0FA7 E0, Xcryptcfb_16, Xcryptcfb, 0, rep enc=67F30FA7E0
 67 F3 0FA7 E0, Xcryptcfb_16, Xcryptcfb, 0, rep
 67 0FA7 E0, INVALID, INVALID, 0, code=Xcryptcfb_16
+67 F3 0FA7 E1, Xcryptcfb_16, Xcryptcfb, 0, rep enc=67F30FA7E0
+67 F3 0FA7 E2, Xcryptcfb_16, Xcryptcfb, 0, rep enc=67F30FA7E0
+67 F3 0FA7 E3, Xcryptcfb_16, Xcryptcfb, 0, rep enc=67F30FA7E0
+67 F3 0FA7 E4, Xcryptcfb_16, Xcryptcfb, 0, rep enc=67F30FA7E0
+67 F3 0FA7 E5, Xcryptcfb_16, Xcryptcfb, 0, rep enc=67F30FA7E0
+67 F3 0FA7 E6, Xcryptcfb_16, Xcryptcfb, 0, rep enc=67F30FA7E0
+67 F3 0FA7 E7, Xcryptcfb_16, Xcryptcfb, 0, rep enc=67F30FA7E0
 
 F3 0FA7 E0, Xcryptcfb_32, Xcryptcfb, 0, rep
 F2 0FA7 E0, INVALID, INVALID, 0, code=Xcryptcfb_32
 F2 F3 0FA7 E0, Xcryptcfb_32, Xcryptcfb, 0, rep enc=F30FA7E0
 F3 F2 0FA7 E0, INVALID, INVALID, 0, code=Xcryptcfb_32
 0FA7 E0, INVALID, INVALID, 0, code=Xcryptcfb_32
+F3 0FA7 E1, Xcryptcfb_32, Xcryptcfb, 0, rep enc=F30FA7E0
+F3 0FA7 E2, Xcryptcfb_32, Xcryptcfb, 0, rep enc=F30FA7E0
+F3 0FA7 E3, Xcryptcfb_32, Xcryptcfb, 0, rep enc=F30FA7E0
+F3 0FA7 E4, Xcryptcfb_32, Xcryptcfb, 0, rep enc=F30FA7E0
+F3 0FA7 E5, Xcryptcfb_32, Xcryptcfb, 0, rep enc=F30FA7E0
+F3 0FA7 E6, Xcryptcfb_32, Xcryptcfb, 0, rep enc=F30FA7E0
+F3 0FA7 E7, Xcryptcfb_32, Xcryptcfb, 0, rep enc=F30FA7E0
 
 F3 67 0FA7 E8, Xcryptofb_16, Xcryptofb, 0, rep enc=67F30FA7E8
 67 F3 0FA7 E8, Xcryptofb_16, Xcryptofb, 0, rep
 67 0FA7 E8, INVALID, INVALID, 0, code=Xcryptofb_16
+67 F3 0FA7 E9, Xcryptofb_16, Xcryptofb, 0, rep enc=67F30FA7E8
+67 F3 0FA7 EA, Xcryptofb_16, Xcryptofb, 0, rep enc=67F30FA7E8
+67 F3 0FA7 EB, Xcryptofb_16, Xcryptofb, 0, rep enc=67F30FA7E8
+67 F3 0FA7 EC, Xcryptofb_16, Xcryptofb, 0, rep enc=67F30FA7E8
+67 F3 0FA7 ED, Xcryptofb_16, Xcryptofb, 0, rep enc=67F30FA7E8
+67 F3 0FA7 EE, Xcryptofb_16, Xcryptofb, 0, rep enc=67F30FA7E8
+67 F3 0FA7 EF, Xcryptofb_16, Xcryptofb, 0, rep enc=67F30FA7E8
 
 F3 0FA7 E8, Xcryptofb_32, Xcryptofb, 0, rep
 F2 0FA7 E8, INVALID, INVALID, 0, code=Xcryptofb_32
 F2 F3 0FA7 E8, Xcryptofb_32, Xcryptofb, 0, rep enc=F30FA7E8
 F3 F2 0FA7 E8, INVALID, INVALID, 0, code=Xcryptofb_32
 0FA7 E8, INVALID, INVALID, 0, code=Xcryptofb_32
+F3 0FA7 E9, Xcryptofb_32, Xcryptofb, 0, rep enc=F30FA7E8
+F3 0FA7 EA, Xcryptofb_32, Xcryptofb, 0, rep enc=F30FA7E8
+F3 0FA7 EB, Xcryptofb_32, Xcryptofb, 0, rep enc=F30FA7E8
+F3 0FA7 EC, Xcryptofb_32, Xcryptofb, 0, rep enc=F30FA7E8
+F3 0FA7 ED, Xcryptofb_32, Xcryptofb, 0, rep enc=F30FA7E8
+F3 0FA7 EE, Xcryptofb_32, Xcryptofb, 0, rep enc=F30FA7E8
+F3 0FA7 EF, Xcryptofb_32, Xcryptofb, 0, rep enc=F30FA7E8
 
 66 0FA7 CE, Cmpxchg486_rm16_r16, Cmpxchg, 2, op0=r;si op1=r;cx decopt=Cmpxchg486A
 66 0FA7 18, Cmpxchg486_rm16_r16, Cmpxchg, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx decopt=Cmpxchg486A
@@ -21749,22 +22010,50 @@ C4C24D 53 10, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm2 op1=r;ymm6
 F3 67 0FA6 E8, Ccs_hash_16, Ccs_hash, 0, rep enc=67F30FA6E8
 67 F3 0FA6 E8, Ccs_hash_16, Ccs_hash, 0, rep
 67 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_16
+67 F3 0FA6 E9, Ccs_hash_16, Ccs_hash, 0, rep enc=67F30FA6E8
+67 F3 0FA6 EA, Ccs_hash_16, Ccs_hash, 0, rep enc=67F30FA6E8
+67 F3 0FA6 EB, Ccs_hash_16, Ccs_hash, 0, rep enc=67F30FA6E8
+67 F3 0FA6 EC, Ccs_hash_16, Ccs_hash, 0, rep enc=67F30FA6E8
+67 F3 0FA6 ED, Ccs_hash_16, Ccs_hash, 0, rep enc=67F30FA6E8
+67 F3 0FA6 EE, Ccs_hash_16, Ccs_hash, 0, rep enc=67F30FA6E8
+67 F3 0FA6 EF, Ccs_hash_16, Ccs_hash, 0, rep enc=67F30FA6E8
 
 F3 0FA6 E8, Ccs_hash_32, Ccs_hash, 0, rep
 F2 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_32
 F2 F3 0FA6 E8, Ccs_hash_32, Ccs_hash, 0, rep enc=F30FA6E8
 F3 F2 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_32
 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_32
+F3 0FA6 E9, Ccs_hash_32, Ccs_hash, 0, rep enc=F30FA6E8
+F3 0FA6 EA, Ccs_hash_32, Ccs_hash, 0, rep enc=F30FA6E8
+F3 0FA6 EB, Ccs_hash_32, Ccs_hash, 0, rep enc=F30FA6E8
+F3 0FA6 EC, Ccs_hash_32, Ccs_hash, 0, rep enc=F30FA6E8
+F3 0FA6 ED, Ccs_hash_32, Ccs_hash, 0, rep enc=F30FA6E8
+F3 0FA6 EE, Ccs_hash_32, Ccs_hash, 0, rep enc=F30FA6E8
+F3 0FA6 EF, Ccs_hash_32, Ccs_hash, 0, rep enc=F30FA6E8
 
 F3 67 0FA7 F0, Ccs_encrypt_16, Ccs_encrypt, 0, rep enc=67F30FA7F0
 67 F3 0FA7 F0, Ccs_encrypt_16, Ccs_encrypt, 0, rep
 67 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_16
+67 F3 0FA7 F1, Ccs_encrypt_16, Ccs_encrypt, 0, rep enc=67F30FA7F0
+67 F3 0FA7 F2, Ccs_encrypt_16, Ccs_encrypt, 0, rep enc=67F30FA7F0
+67 F3 0FA7 F3, Ccs_encrypt_16, Ccs_encrypt, 0, rep enc=67F30FA7F0
+67 F3 0FA7 F4, Ccs_encrypt_16, Ccs_encrypt, 0, rep enc=67F30FA7F0
+67 F3 0FA7 F5, Ccs_encrypt_16, Ccs_encrypt, 0, rep enc=67F30FA7F0
+67 F3 0FA7 F6, Ccs_encrypt_16, Ccs_encrypt, 0, rep enc=67F30FA7F0
+67 F3 0FA7 F7, Ccs_encrypt_16, Ccs_encrypt, 0, rep enc=67F30FA7F0
 
 F3 0FA7 F0, Ccs_encrypt_32, Ccs_encrypt, 0, rep
 F2 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_32
 F2 F3 0FA7 F0, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=F30FA7F0
 F3 F2 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_32
 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_32
+F3 0FA7 F1, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=F30FA7F0
+F3 0FA7 F2, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=F30FA7F0
+F3 0FA7 F3, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=F30FA7F0
+F3 0FA7 F4, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=F30FA7F0
+F3 0FA7 F5, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=F30FA7F0
+F3 0FA7 F6, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=F30FA7F0
+F3 0FA7 F7, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=F30FA7F0
 
 62 F54C0B 58 50 01, EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16, Vaddph, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;16;1;Packed128_Float16 k3 co=0;0;0;0;6;1
 62 F54C9D 58 50 01, EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16, Vaddph, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;2;1;Broadcast128_Float16 bcst k5 zmsk co=0;0;0;0;6;1

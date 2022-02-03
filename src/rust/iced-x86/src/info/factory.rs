@@ -1871,6 +1871,54 @@ impl InstructionInfoFactory {
 			ImpliedAccess::t_memdisplm64 => {
 				Self::command_mem_displ(info, flags, -64);
 			}
+			ImpliedAccess::t_CRmem_CRmem_CWmem_CRsi_CRdi_CRes_CWsi_RCWcx => {
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, Register::ES, Register::SI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code16, 0);
+					Self::add_memory(info, Register::ES, Register::DI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code16, 0);
+					Self::add_memory(info, Register::ES, Register::DI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondWrite, CodeSize::Code16, 0);
+				}
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::SI, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::DI, OpAccess::CondRead);
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
+					}
+					Self::add_register(flags, info, Register::SI, OpAccess::CondWrite);
+					Self::add_register(flags, info, Register::CX, OpAccess::ReadCondWrite);
+				}
+			}
+			ImpliedAccess::t_CRmem_CRmem_CWmem_CResi_CRedi_CRes_CWesi_RCWecx => {
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, Register::ES, Register::ESI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code32, 0);
+					Self::add_memory(info, Register::ES, Register::EDI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code32, 0);
+					Self::add_memory(info, Register::ES, Register::EDI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondWrite, CodeSize::Code32, 0);
+				}
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::ESI, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::EDI, OpAccess::CondRead);
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
+					}
+					Self::add_register(flags, info, Register::ESI, OpAccess::CondWrite);
+					Self::add_register(flags, info, Register::ECX, OpAccess::ReadCondWrite);
+				}
+			}
+			ImpliedAccess::t_CRmem_CRmem_CWmem_CRrsi_CRrdi_CRes_CWrsi_RCWrcx => {
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, Register::ES, Register::RSI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code64, 0);
+					Self::add_memory(info, Register::ES, Register::RDI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code64, 0);
+					Self::add_memory(info, Register::ES, Register::RDI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondWrite, CodeSize::Code64, 0);
+				}
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RSI, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::RDI, OpAccess::CondRead);
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
+					}
+					Self::add_register(flags, info, Register::RSI, OpAccess::CondWrite);
+					Self::add_register(flags, info, Register::RCX, OpAccess::ReadCondWrite);
+				}
+			}
 			// GENERATOR-END: ImpliedAccessHandler
 		}
 	}

@@ -75947,6 +75947,20 @@ impl CodeAsmXsha256 for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmXsha512 for CodeAssembler {
+	fn xsha512(&mut self) -> Result<(), IcedError> {
+		let code = if self.bitness() == 64 {
+			Code::Xsha512_64
+		} else if self.bitness() >= 32 {
+			Code::Xsha512_32
+		} else {
+			Code::Xsha512_16
+		};
+		self.add_instr(Instruction::with(code))
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmXstore for CodeAssembler {
 	fn xstore(&mut self) -> Result<(), IcedError> {
 		let code = if self.bitness() == 64 {
@@ -75955,6 +75969,20 @@ impl CodeAsmXstore for CodeAssembler {
 			Code::Xstore_32
 		} else {
 			Code::Xstore_16
+		};
+		self.add_instr(Instruction::with(code))
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmXstore2 for CodeAssembler {
+	fn xstore2(&mut self) -> Result<(), IcedError> {
+		let code = if self.bitness() == 64 {
+			Code::Xstore2_64
+		} else if self.bitness() >= 32 {
+			Code::Xstore2_32
+		} else {
+			Code::Xstore2_16
 		};
 		self.add_instr(Instruction::with(code))
 	}

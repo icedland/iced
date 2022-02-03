@@ -7353,3 +7353,11 @@ VSUBRPS: Mnemonic = 1833 # type: ignore
 """
 <no docs>
 """
+XSHA512: Mnemonic = 1834 # type: ignore
+"""
+<no docs>
+"""
+XSTORE2: Mnemonic = 1835 # type: ignore
+"""
+<no docs>
+"""

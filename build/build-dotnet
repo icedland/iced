@@ -36,7 +36,7 @@ new_func() {
 generator_check() {
 	new_func "Run generator, verify no diff"
 
-	dotnet run -c $configuration -p "$root_dir/src/csharp/Intel/Generator/Generator.csproj"
+	dotnet run -c $configuration --project "$root_dir/src/csharp/Intel/Generator/Generator.csproj"
 	git diff --exit-code
 }
 

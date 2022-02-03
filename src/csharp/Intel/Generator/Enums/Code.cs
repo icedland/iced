@@ -4829,6 +4829,18 @@ namespace Generator.Enums {
 		MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0,
 		MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1,
 		MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8,
+		Via_undoc_F30FA6F0_16,
+		Via_undoc_F30FA6F0_32,
+		Via_undoc_F30FA6F0_64,
+		Via_undoc_F30FA6F8_16,
+		Via_undoc_F30FA6F8_32,
+		Via_undoc_F30FA6F8_64,
+		Xsha512_16,
+		Xsha512_32,
+		Xsha512_64,
+		Xstore2_16,
+		Xstore2_32,
+		Xstore2_64,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

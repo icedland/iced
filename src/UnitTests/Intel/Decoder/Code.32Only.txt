@@ -235,3 +235,7 @@ Cyrix_DEDE
 Frinear
 Ccs_hash_16
 Ccs_encrypt_16
+Via_undoc_F30FA6F0_16
+Via_undoc_F30FA6F8_16
+Xsha512_16
+Xstore2_16

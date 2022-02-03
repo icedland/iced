@@ -4829,6 +4829,18 @@ pub enum Code {
 	MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D0 = 4815,
 	MVEX_Undoc_zmm_k1_zmmmt_imm8_512_66_0F3A_W0_D1 = 4816,
 	MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8 = 4817,
+	Via_undoc_F30FA6F0_16 = 4818,
+	Via_undoc_F30FA6F0_32 = 4819,
+	Via_undoc_F30FA6F0_64 = 4820,
+	Via_undoc_F30FA6F8_16 = 4821,
+	Via_undoc_F30FA6F8_32 = 4822,
+	Via_undoc_F30FA6F8_64 = 4823,
+	Xsha512_16 = 4824,
+	Xsha512_32 = 4825,
+	Xsha512_64 = 4826,
+	Xstore2_16 = 4827,
+	Xstore2_32 = 4828,
+	Xstore2_64 = 4829,
 }
 // GENERATOR-END: Enum
 
