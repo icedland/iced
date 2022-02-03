@@ -579,7 +579,7 @@ jobs:
             cp "$path/"* /tmp/py-dist-tmp
           done
 
-          mv /tmp/py-dist-tmp/iced_x86-*-cp37-abi3*.whl /tmp/py-dist
+          mv /tmp/py-dist-tmp/iced_x86-*.whl /tmp/py-dist
           mv /tmp/py-dist-tmp/iced-x86-*.tar.gz /tmp/py-dist
 
           if [ -n "$(ls -A /tmp/py-dist-tmp/* 2>/dev/null)" ]; then
