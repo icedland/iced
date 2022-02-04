@@ -8831,6 +8831,30 @@ F3 67 0FA6 D0, Xsha256_32, Xsha256, 0, rep enc=67F30FA6D0
 67 F3 0FA6 D6, Xsha256_32, Xsha256, 0, rep enc=67F30FA6D0
 67 F3 0FA6 D7, Xsha256_32, Xsha256, 0, rep enc=67F30FA6D0
 
+F3 0FA6 D8, Xsha512_alt_16, Xsha512_alt, 0, rep
+F2 0FA6 D8, INVALID, INVALID, 0, code=Xsha512_alt_16
+F2 F3 0FA6 D8, Xsha512_alt_16, Xsha512_alt, 0, rep enc=F30FA6D8
+F3 F2 0FA6 D8, INVALID, INVALID, 0, code=Xsha512_alt_16
+0FA6 D8, INVALID, INVALID, 0, code=Xsha512_alt_16
+F3 0FA6 D9, Xsha512_alt_16, Xsha512_alt, 0, rep enc=F30FA6D8
+F3 0FA6 DA, Xsha512_alt_16, Xsha512_alt, 0, rep enc=F30FA6D8
+F3 0FA6 DB, Xsha512_alt_16, Xsha512_alt, 0, rep enc=F30FA6D8
+F3 0FA6 DC, Xsha512_alt_16, Xsha512_alt, 0, rep enc=F30FA6D8
+F3 0FA6 DD, Xsha512_alt_16, Xsha512_alt, 0, rep enc=F30FA6D8
+F3 0FA6 DE, Xsha512_alt_16, Xsha512_alt, 0, rep enc=F30FA6D8
+F3 0FA6 DF, Xsha512_alt_16, Xsha512_alt, 0, rep enc=F30FA6D8
+
+F3 67 0FA6 D8, Xsha512_alt_32, Xsha512_alt, 0, rep enc=67F30FA6D8
+67 F3 0FA6 D8, Xsha512_alt_32, Xsha512_alt, 0, rep
+67 0FA6 D8, INVALID, INVALID, 0, code=Xsha512_alt_32
+67 F3 0FA6 D9, Xsha512_alt_32, Xsha512_alt, 0, rep enc=67F30FA6D8
+67 F3 0FA6 DA, Xsha512_alt_32, Xsha512_alt, 0, rep enc=67F30FA6D8
+67 F3 0FA6 DB, Xsha512_alt_32, Xsha512_alt, 0, rep enc=67F30FA6D8
+67 F3 0FA6 DC, Xsha512_alt_32, Xsha512_alt, 0, rep enc=67F30FA6D8
+67 F3 0FA6 DD, Xsha512_alt_32, Xsha512_alt, 0, rep enc=67F30FA6D8
+67 F3 0FA6 DE, Xsha512_alt_32, Xsha512_alt, 0, rep enc=67F30FA6D8
+67 F3 0FA6 DF, Xsha512_alt_32, Xsha512_alt, 0, rep enc=67F30FA6D8
+
 F3 0FA6 E0, Xsha512_16, Xsha512, 0, rep
 F2 0FA6 E0, INVALID, INVALID, 0, code=Xsha512_16
 F2 F3 0FA6 E0, Xsha512_16, Xsha512, 0, rep enc=F30FA6E0
@@ -8961,43 +8985,43 @@ F3 67 0FA7 C0, Xstore_32, Xstore, 0, rep enc=67F30FA7C0
 67 F2 0FA7 C6, Xstore_32, Xstore, 0, repne enc=67F20FA7C0
 67 F2 0FA7 C7, Xstore_32, Xstore, 0, repne enc=67F20FA7C0
 
-F3 0FA7 F8, Xstore2_16, Xstore2, 0, rep
-F2 0FA7 F8, INVALID, INVALID, 0, code=Xstore2_16
-F2 F3 0FA7 F8, Xstore2_16, Xstore2, 0, rep enc=F30FA7F8
-F3 F2 0FA7 F8, INVALID, INVALID, 0, code=Xstore2_16
-0FA7 F8, INVALID, INVALID, 0, code=Xstore2_16
-F3 0FA7 F9, Xstore2_16, Xstore2, 0, rep enc=F30FA7F8
-F3 0FA7 FA, Xstore2_16, Xstore2, 0, rep enc=F30FA7F8
-F3 0FA7 FB, Xstore2_16, Xstore2, 0, rep enc=F30FA7F8
-F3 0FA7 FC, Xstore2_16, Xstore2, 0, rep enc=F30FA7F8
-F3 0FA7 FD, Xstore2_16, Xstore2, 0, rep enc=F30FA7F8
-F3 0FA7 FE, Xstore2_16, Xstore2, 0, rep enc=F30FA7F8
-F3 0FA7 FF, Xstore2_16, Xstore2, 0, rep enc=F30FA7F8
-F2 0FA7 F9, INVALID, INVALID, 0, code=Xstore2_16
-F2 0FA7 FA, INVALID, INVALID, 0, code=Xstore2_16
-F2 0FA7 FB, INVALID, INVALID, 0, code=Xstore2_16
-F2 0FA7 FC, INVALID, INVALID, 0, code=Xstore2_16
-F2 0FA7 FD, INVALID, INVALID, 0, code=Xstore2_16
-F2 0FA7 FE, INVALID, INVALID, 0, code=Xstore2_16
-F2 0FA7 FF, INVALID, INVALID, 0, code=Xstore2_16
+F3 0FA7 F8, Xstore_alt_16, Xstore_alt, 0, rep
+F2 0FA7 F8, INVALID, INVALID, 0, code=Xstore_alt_16
+F2 F3 0FA7 F8, Xstore_alt_16, Xstore_alt, 0, rep enc=F30FA7F8
+F3 F2 0FA7 F8, INVALID, INVALID, 0, code=Xstore_alt_16
+0FA7 F8, INVALID, INVALID, 0, code=Xstore_alt_16
+F3 0FA7 F9, Xstore_alt_16, Xstore_alt, 0, rep enc=F30FA7F8
+F3 0FA7 FA, Xstore_alt_16, Xstore_alt, 0, rep enc=F30FA7F8
+F3 0FA7 FB, Xstore_alt_16, Xstore_alt, 0, rep enc=F30FA7F8
+F3 0FA7 FC, Xstore_alt_16, Xstore_alt, 0, rep enc=F30FA7F8
+F3 0FA7 FD, Xstore_alt_16, Xstore_alt, 0, rep enc=F30FA7F8
+F3 0FA7 FE, Xstore_alt_16, Xstore_alt, 0, rep enc=F30FA7F8
+F3 0FA7 FF, Xstore_alt_16, Xstore_alt, 0, rep enc=F30FA7F8
+F2 0FA7 F9, INVALID, INVALID, 0, code=Xstore_alt_16
+F2 0FA7 FA, INVALID, INVALID, 0, code=Xstore_alt_16
+F2 0FA7 FB, INVALID, INVALID, 0, code=Xstore_alt_16
+F2 0FA7 FC, INVALID, INVALID, 0, code=Xstore_alt_16
+F2 0FA7 FD, INVALID, INVALID, 0, code=Xstore_alt_16
+F2 0FA7 FE, INVALID, INVALID, 0, code=Xstore_alt_16
+F2 0FA7 FF, INVALID, INVALID, 0, code=Xstore_alt_16
 
-F3 67 0FA7 F8, Xstore2_32, Xstore2, 0, rep enc=67F30FA7F8
-67 F3 0FA7 F8, Xstore2_32, Xstore2, 0, rep
-67 0FA7 F8, INVALID, INVALID, 0, code=Xstore2_32
-67 F3 0FA7 F9, Xstore2_32, Xstore2, 0, rep enc=67F30FA7F8
-67 F3 0FA7 FA, Xstore2_32, Xstore2, 0, rep enc=67F30FA7F8
-67 F3 0FA7 FB, Xstore2_32, Xstore2, 0, rep enc=67F30FA7F8
-67 F3 0FA7 FC, Xstore2_32, Xstore2, 0, rep enc=67F30FA7F8
-67 F3 0FA7 FD, Xstore2_32, Xstore2, 0, rep enc=67F30FA7F8
-67 F3 0FA7 FE, Xstore2_32, Xstore2, 0, rep enc=67F30FA7F8
-67 F3 0FA7 FF, Xstore2_32, Xstore2, 0, rep enc=67F30FA7F8
-67 F2 0FA7 F9, INVALID, INVALID, 0, code=Xstore2_32
-67 F2 0FA7 FA, INVALID, INVALID, 0, code=Xstore2_32
-67 F2 0FA7 FB, INVALID, INVALID, 0, code=Xstore2_32
-67 F2 0FA7 FC, INVALID, INVALID, 0, code=Xstore2_32
-67 F2 0FA7 FD, INVALID, INVALID, 0, code=Xstore2_32
-67 F2 0FA7 FE, INVALID, INVALID, 0, code=Xstore2_32
-67 F2 0FA7 FF, INVALID, INVALID, 0, code=Xstore2_32
+F3 67 0FA7 F8, Xstore_alt_32, Xstore_alt, 0, rep enc=67F30FA7F8
+67 F3 0FA7 F8, Xstore_alt_32, Xstore_alt, 0, rep
+67 0FA7 F8, INVALID, INVALID, 0, code=Xstore_alt_32
+67 F3 0FA7 F9, Xstore_alt_32, Xstore_alt, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FA, Xstore_alt_32, Xstore_alt, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FB, Xstore_alt_32, Xstore_alt, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FC, Xstore_alt_32, Xstore_alt, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FD, Xstore_alt_32, Xstore_alt, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FE, Xstore_alt_32, Xstore_alt, 0, rep enc=67F30FA7F8
+67 F3 0FA7 FF, Xstore_alt_32, Xstore_alt, 0, rep enc=67F30FA7F8
+67 F2 0FA7 F9, INVALID, INVALID, 0, code=Xstore_alt_32
+67 F2 0FA7 FA, INVALID, INVALID, 0, code=Xstore_alt_32
+67 F2 0FA7 FB, INVALID, INVALID, 0, code=Xstore_alt_32
+67 F2 0FA7 FC, INVALID, INVALID, 0, code=Xstore_alt_32
+67 F2 0FA7 FD, INVALID, INVALID, 0, code=Xstore_alt_32
+67 F2 0FA7 FE, INVALID, INVALID, 0, code=Xstore_alt_32
+67 F2 0FA7 FF, INVALID, INVALID, 0, code=Xstore_alt_32
 
 F3 0FA7 C8, Xcryptecb_16, Xcryptecb, 0, rep
 F2 0FA7 C8, INVALID, INVALID, 0, code=Xcryptecb_16

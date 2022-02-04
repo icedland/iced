@@ -12,7 +12,7 @@ namespace Iced.Intel.EncoderInternal {
 		internal static readonly uint[] OpcFlags2 = GetOpcFlags2();
 
 		static uint[] GetOpcFlags1() =>
-			new uint[4830] {
+			new uint[4833] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -4840,13 +4840,16 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// Xsha512_16
 				0x00000000,// Xsha512_32
 				0x00000000,// Xsha512_64
-				0x00000000,// Xstore2_16
-				0x00000000,// Xstore2_32
-				0x00000000,// Xstore2_64
+				0x00000000,// Xstore_alt_16
+				0x00000000,// Xstore_alt_32
+				0x00000000,// Xstore_alt_64
+				0x00000000,// Xsha512_alt_16
+				0x00000000,// Xsha512_alt_32
+				0x00000000,// Xsha512_alt_64
 			};
 
 		static uint[] GetOpcFlags2() =>
-			new uint[4830] {
+			new uint[4833] {
 				0x1E003FFF,// INVALID
 				0x1E003FFF,// DeclareByte
 				0x1E003FFF,// DeclareWord
@@ -9674,9 +9677,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x0A003FFF,// Xsha512_16
 				0x1E003FFF,// Xsha512_32
 				0x14003FF0,// Xsha512_64
-				0x0A003FFF,// Xstore2_16
-				0x1E003FFF,// Xstore2_32
-				0x14003FF0,// Xstore2_64
+				0x0A003FFF,// Xstore_alt_16
+				0x1E003FFF,// Xstore_alt_32
+				0x14003FF0,// Xstore_alt_64
+				0x0A003FFF,// Xsha512_alt_16
+				0x1E003FFF,// Xsha512_alt_32
+				0x14003FF0,// Xsha512_alt_64
 			};
 	}
 }

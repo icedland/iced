@@ -21997,7 +21997,11 @@ F3 0FA6 F8, Via_undoc_F30FA6F8_64, Legacy, PADLOCK_UNDOC, save-restore
 67 F3 0FA6 E0, Xsha512_32, Legacy, PADLOCK_PHE, crm=es:edi;Unknown cwm=es:edi;Unknown crm=es:esi;Unknown cr=esi;edi cw=rsi r=ecx cw=rcx
 # rep xsha512
 F3 0FA6 E0, Xsha512_64, Legacy, PADLOCK_PHE, crm=es:rdi;Unknown cwm=es:rdi;Unknown crm=es:rsi;Unknown cr=rsi;rdi cw=rsi rcw=rcx
-# rep xstore2
-67 F3 0FA7 F8, Xstore2_32, Legacy, PADLOCK_RNG, cwm=es:edi;Unknown cr=edi cw=rdi cr=edx cw=rax r=ecx cw=rcx
-# rep xstore2
-F3 0FA7 F8, Xstore2_64, Legacy, PADLOCK_RNG, cwm=es:rdi;Unknown cr=rdi cw=rdi cr=edx cw=rax rcw=rcx
+# rep xstore_alt
+67 F3 0FA7 F8, Xstore_alt_32, Legacy, PADLOCK_RNG, cwm=es:edi;Unknown cr=edi cw=rdi cr=edx cw=rax r=ecx cw=rcx
+# rep xstore_alt
+F3 0FA7 F8, Xstore_alt_64, Legacy, PADLOCK_RNG, cwm=es:rdi;Unknown cr=rdi cw=rdi cr=edx cw=rax rcw=rcx
+# rep xsha512_alt
+67 F3 0FA6 D8, Xsha512_alt_32, Legacy, PADLOCK_PHE, crm=es:edi;Unknown cwm=es:edi;Unknown crm=es:esi;Unknown cr=esi;edi cw=rsi r=ecx cw=rcx
+# rep xsha512_alt
+F3 0FA6 D8, Xsha512_alt_64, Legacy, PADLOCK_PHE, crm=es:rdi;Unknown cwm=es:rdi;Unknown crm=es:rsi;Unknown cr=rsi;rdi cw=rsi rcw=rcx

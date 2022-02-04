@@ -48257,9 +48257,9 @@ XSHA512_64: Code = 4826 # type: ignore
 
 ``64-bit``
 """
-XSTORE2_16: Code = 4827 # type: ignore
+XSTORE_ALT_16: Code = 4827 # type: ignore
 """
-``XSTORE2``
+``XSTORE_ALT``
 
 ``a16 F3 0F A7 F8``
 
@@ -48267,9 +48267,9 @@ XSTORE2_16: Code = 4827 # type: ignore
 
 ``16/32-bit``
 """
-XSTORE2_32: Code = 4828 # type: ignore
+XSTORE_ALT_32: Code = 4828 # type: ignore
 """
-``XSTORE2``
+``XSTORE_ALT``
 
 ``a32 F3 0F A7 F8``
 
@@ -48277,13 +48277,43 @@ XSTORE2_32: Code = 4828 # type: ignore
 
 ``16/32/64-bit``
 """
-XSTORE2_64: Code = 4829 # type: ignore
+XSTORE_ALT_64: Code = 4829 # type: ignore
 """
-``XSTORE2``
+``XSTORE_ALT``
 
 ``a64 F3 0F A7 F8``
 
 ``PADLOCK_RNG``
+
+``64-bit``
+"""
+XSHA512_ALT_16: Code = 4830 # type: ignore
+"""
+``XSHA512_ALT``
+
+``a16 F3 0F A6 D8``
+
+``PADLOCK_PHE``
+
+``16/32-bit``
+"""
+XSHA512_ALT_32: Code = 4831 # type: ignore
+"""
+``XSHA512_ALT``
+
+``a32 F3 0F A6 D8``
+
+``PADLOCK_PHE``
+
+``16/32/64-bit``
+"""
+XSHA512_ALT_64: Code = 4832 # type: ignore
+"""
+``XSHA512_ALT``
+
+``a64 F3 0F A6 D8``
+
+``PADLOCK_PHE``
 
 ``64-bit``
 """

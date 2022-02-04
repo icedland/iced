@@ -18121,13 +18121,23 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Xsha512_64
 	0x00,// Previous
 
-	// Xstore2_16
+	// Xstore_alt_16
 	0x01,// Normal_1
-	0x98, 0x0D,// 1688 = "xstore2"
+	0x98, 0x0D,// 1688 = "xstore_alt"
 
-	// Xstore2_32
+	// Xstore_alt_32
 	0x00,// Previous
 
-	// Xstore2_64
+	// Xstore_alt_64
+	0x00,// Previous
+
+	// Xsha512_alt_16
+	0x01,// Normal_1
+	0x99, 0x0D,// 1689 = "xsha512_alt"
+
+	// Xsha512_alt_32
+	0x00,// Previous
+
+	// Xsha512_alt_64
 	0x00,// Previous
 ];

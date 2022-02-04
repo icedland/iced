@@ -4835,9 +4835,12 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Xsha512,// Xsha512_16
 			(ushort)Mnemonic.Xsha512,// Xsha512_32
 			(ushort)Mnemonic.Xsha512,// Xsha512_64
-			(ushort)Mnemonic.Xstore2,// Xstore2_16
-			(ushort)Mnemonic.Xstore2,// Xstore2_32
-			(ushort)Mnemonic.Xstore2,// Xstore2_64
+			(ushort)Mnemonic.Xstore_alt,// Xstore_alt_16
+			(ushort)Mnemonic.Xstore_alt,// Xstore_alt_32
+			(ushort)Mnemonic.Xstore_alt,// Xstore_alt_64
+			(ushort)Mnemonic.Xsha512_alt,// Xsha512_alt_16
+			(ushort)Mnemonic.Xsha512_alt,// Xsha512_alt_32
+			(ushort)Mnemonic.Xsha512_alt,// Xsha512_alt_64
 		};
 	}
 }

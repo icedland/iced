@@ -11060,13 +11060,18 @@ pub trait CodeAsmXsha512 {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmXsha512_alt {
+	fn xsha512_alt(&mut self) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmXstore {
 	fn xstore(&mut self) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
-pub trait CodeAsmXstore2 {
-	fn xstore2(&mut self) -> Result<(), IcedError>;
+pub trait CodeAsmXstore_alt {
+	fn xstore_alt(&mut self) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]

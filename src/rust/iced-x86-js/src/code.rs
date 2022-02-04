@@ -4838,9 +4838,12 @@ pub enum Code {
 	Xsha512_16 = 4824,
 	Xsha512_32 = 4825,
 	Xsha512_64 = 4826,
-	Xstore2_16 = 4827,
-	Xstore2_32 = 4828,
-	Xstore2_64 = 4829,
+	Xstore_alt_16 = 4827,
+	Xstore_alt_32 = 4828,
+	Xstore_alt_64 = 4829,
+	Xsha512_alt_16 = 4830,
+	Xsha512_alt_32 = 4831,
+	Xsha512_alt_64 = 4832,
 }
 // GENERATOR-END: Enum
 

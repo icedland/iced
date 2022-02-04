@@ -51737,6 +51737,25 @@ impl CodeAssembler {
 		<Self as CodeAsmXsha512>::xsha512(self)
 	}
 
+	/// `XSHA512_ALT` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `XSHA512_ALT` | `a16 F3 0F A6 D8` | `PADLOCK_PHE`
+	/// `XSHA512_ALT` | `a32 F3 0F A6 D8` | `PADLOCK_PHE`
+	/// `XSHA512_ALT` | `a64 F3 0F A6 D8` | `PADLOCK_PHE`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	#[inline]
+	pub fn xsha512_alt(&mut self) -> Result<(), IcedError>
+	where
+		Self: CodeAsmXsha512_alt,
+	{
+		<Self as CodeAsmXsha512_alt>::xsha512_alt(self)
+	}
+
 	/// `XSTORE` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -51756,23 +51775,23 @@ impl CodeAssembler {
 		<Self as CodeAsmXstore>::xstore(self)
 	}
 
-	/// `XSTORE2` instruction
+	/// `XSTORE_ALT` instruction
 	///
 	/// Instruction | Opcode | CPUID
 	/// ------------|--------|------
-	/// `XSTORE2` | `a16 F3 0F A7 F8` | `PADLOCK_RNG`
-	/// `XSTORE2` | `a32 F3 0F A7 F8` | `PADLOCK_RNG`
-	/// `XSTORE2` | `a64 F3 0F A7 F8` | `PADLOCK_RNG`
+	/// `XSTORE_ALT` | `a16 F3 0F A7 F8` | `PADLOCK_RNG`
+	/// `XSTORE_ALT` | `a32 F3 0F A7 F8` | `PADLOCK_RNG`
+	/// `XSTORE_ALT` | `a64 F3 0F A7 F8` | `PADLOCK_RNG`
 	///
 	/// # Errors
 	///
 	/// Fails if an operand is invalid (basic checks only)
 	#[inline]
-	pub fn xstore2(&mut self) -> Result<(), IcedError>
+	pub fn xstore_alt(&mut self) -> Result<(), IcedError>
 	where
-		Self: CodeAsmXstore2,
+		Self: CodeAsmXstore_alt,
 	{
-		<Self as CodeAsmXstore2>::xstore2(self)
+		<Self as CodeAsmXstore_alt>::xstore_alt(self)
 	}
 
 	/// `XSUSLDTRK` instruction

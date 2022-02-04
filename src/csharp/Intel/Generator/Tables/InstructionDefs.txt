@@ -15807,7 +15807,7 @@ INSTRUCTION: a16 F3 0F A6 C0 | MONTMUL | PADLOCK_PMM
 	implied: cr=[es:si=Unknown] rcw=ecx cr=eax cw=eax;edx
 	code-suffix: 16
 	# Requires 32-bit addressing (Zhaoxin KX-6580 CPU, tested by @tremalrik)
-	flags: 16 32 a32-req
+	flags: 16 32 a32-req ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15818,7 +15818,7 @@ INSTRUCTION: a32 F3 0F A6 C0 | MONTMUL | PADLOCK_PMM
 	implied: cr=[es:esi=Unknown] rcw=ecx cr=eax cw=eax;edx
 	code-suffix: 32
 	# Requires 32-bit addressing (Zhaoxin KX-6580 CPU, tested by @tremalrik)
-	flags: a32-req
+	flags: a32-req ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15829,7 +15829,7 @@ INSTRUCTION: a64 F3 0F A6 C0 | MONTMUL | PADLOCK_PMM
 	implied: cr=[es:rsi=Unknown] rcw=rcx cr=eax cw=eax;edx
 	code-suffix: 64
 	# Requires 32-bit addressing (Zhaoxin KX-6580 CPU, tested by @tremalrik)
-	flags: 64 a32-req
+	flags: 64 a32-req ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15839,7 +15839,7 @@ END
 INSTRUCTION: a16 F3 0F A6 C8 | XSHA1 | PADLOCK_PHE
 	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si rcw=ax;cx
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15849,6 +15849,7 @@ END
 INSTRUCTION: a32 F3 0F A6 C8 | XSHA1 | PADLOCK_PHE
 	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi rcw=eax;ecx
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15858,7 +15859,7 @@ END
 INSTRUCTION: a64 F3 0F A6 C8 | XSHA1 | PADLOCK_PHE
 	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rax;rcx
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15868,7 +15869,7 @@ END
 INSTRUCTION: a16 F3 0F A6 D0 | XSHA256 | PADLOCK_PHE
 	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si rcw=ax;cx
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15878,6 +15879,7 @@ END
 INSTRUCTION: a32 F3 0F A6 D0 | XSHA256 | PADLOCK_PHE
 	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi rcw=eax;ecx
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15887,7 +15889,38 @@ END
 INSTRUCTION: a64 F3 0F A6 D0 | XSHA256 | PADLOCK_PHE
 	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rax;rcx
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Xsha512_alt_16
+INSTRUCTION: a16 F3 0F A6 D8 | XSHA512_ALT | PADLOCK_PHE
+	# Seems to be the same as XSHA512 (Zhaoxin KX-6580 CPU, tested by @tremalrik)
+	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si rcw=cx
+	code-suffix: 16
+	flags: 16 32 ig-modrm-low3
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Xsha512_alt_32
+INSTRUCTION: a32 F3 0F A6 D8 | XSHA512_ALT | PADLOCK_PHE
+	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi rcw=ecx
+	code-suffix: 32
+	flags: ig-modrm-low3
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Xsha512_alt_64
+INSTRUCTION: a64 F3 0F A6 D8 | XSHA512_ALT | PADLOCK_PHE
+	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rcx
+	code-suffix: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15899,7 +15932,7 @@ INSTRUCTION: a16 F3 0F A6 E0 | XSHA512 | PADLOCK_PHE
 	# rAX isn't used like in XSHA256
 	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si rcw=cx
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15909,6 +15942,7 @@ END
 INSTRUCTION: a32 F3 0F A6 E0 | XSHA512 | PADLOCK_PHE
 	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi rcw=ecx
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15918,7 +15952,7 @@ END
 INSTRUCTION: a64 F3 0F A6 E0 | XSHA512 | PADLOCK_PHE
 	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rcx
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15944,7 +15978,7 @@ END
 INSTRUCTION: a16 0F A7 C0 | XSTORE | PADLOCK_RNG
 	implied: xstore=2
 	code-suffix: 16
-	flags: 16 32 rep
+	flags: 16 32 rep ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15954,7 +15988,7 @@ END
 INSTRUCTION: a32 0F A7 C0 | XSTORE | PADLOCK_RNG
 	implied: xstore=4
 	code-suffix: 32
-	flags: rep
+	flags: rep ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15964,7 +15998,7 @@ END
 INSTRUCTION: a64 0F A7 C0 | XSTORE | PADLOCK_RNG
 	implied: xstore=8
 	code-suffix: 64
-	flags: 64 rep
+	flags: 64 rep ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15974,7 +16008,7 @@ END
 INSTRUCTION: a16 F3 0F A7 C8 | XCRYPTECB | PADLOCK_ACE
 	implied: cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15984,6 +16018,7 @@ END
 INSTRUCTION: a32 F3 0F A7 C8 | XCRYPTECB | PADLOCK_ACE
 	implied: cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -15993,7 +16028,7 @@ END
 INSTRUCTION: a64 F3 0F A7 C8 | XCRYPTECB | PADLOCK_ACE
 	implied: cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16003,7 +16038,7 @@ END
 INSTRUCTION: a16 F3 0F A7 D0 | XCRYPTCBC | PADLOCK_ACE
 	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16013,6 +16048,7 @@ END
 INSTRUCTION: a32 F3 0F A7 D0 | XCRYPTCBC | PADLOCK_ACE
 	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16022,7 +16058,7 @@ END
 INSTRUCTION: a64 F3 0F A7 D0 | XCRYPTCBC | PADLOCK_ACE
 	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16032,7 +16068,7 @@ END
 INSTRUCTION: a16 F3 0F A7 D8 | XCRYPTCTR | PADLOCK_ACE
 	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16042,6 +16078,7 @@ END
 INSTRUCTION: a32 F3 0F A7 D8 | XCRYPTCTR | PADLOCK_ACE
 	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16051,7 +16088,7 @@ END
 INSTRUCTION: a64 F3 0F A7 D8 | XCRYPTCTR | PADLOCK_ACE
 	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16061,7 +16098,7 @@ END
 INSTRUCTION: a16 F3 0F A7 E0 | XCRYPTCFB | PADLOCK_ACE
 	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16071,6 +16108,7 @@ END
 INSTRUCTION: a32 F3 0F A7 E0 | XCRYPTCFB | PADLOCK_ACE
 	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16080,7 +16118,7 @@ END
 INSTRUCTION: a64 F3 0F A7 E0 | XCRYPTCFB | PADLOCK_ACE
 	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16090,7 +16128,7 @@ END
 INSTRUCTION: a16 F3 0F A7 E8 | XCRYPTOFB | PADLOCK_ACE
 	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16100,6 +16138,7 @@ END
 INSTRUCTION: a32 F3 0F A7 E8 | XCRYPTOFB | PADLOCK_ACE
 	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -16109,37 +16148,38 @@ END
 INSTRUCTION: a64 F3 0F A7 E8 | XCRYPTOFB | PADLOCK_ACE
 	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
 END
 
-# Code: Xstore2_16
-INSTRUCTION: a16 F3 0F A7 F8 | XSTORE2 | PADLOCK_RNG
+# Code: Xstore_alt_16
+INSTRUCTION: a16 F3 0F A7 F8 | XSTORE_ALT | PADLOCK_RNG
 	# Seems to be an alias of XSTORE but doesn't accept F2 prefix (Zhaoxin KX-6580 CPU, tested by @tremalrik)
 	implied: xstore=2
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
 END
 
-# Code: Xstore2_32
-INSTRUCTION: a32 F3 0F A7 F8 | XSTORE2 | PADLOCK_RNG
+# Code: Xstore_alt_32
+INSTRUCTION: a32 F3 0F A7 F8 | XSTORE_ALT | PADLOCK_RNG
 	implied: xstore=4
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
 END
 
-# Code: Xstore2_64
-INSTRUCTION: a64 F3 0F A7 F8 | XSTORE2 | PADLOCK_RNG
+# Code: Xstore_alt_64
+INSTRUCTION: a64 F3 0F A7 F8 | XSTORE_ALT | PADLOCK_RNG
 	implied: xstore=8
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -29899,7 +29939,7 @@ INSTRUCTION: a16 F3 0F A6 E8 | CCS_HASH | PADLOCK_GMI
 	# SM3 instruction
 	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si rcw=ax;cx cr=bx
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -29910,6 +29950,7 @@ INSTRUCTION: a32 F3 0F A6 E8 | CCS_HASH | PADLOCK_GMI
 	# See a16 version above for more info
 	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi rcw=eax;ecx cr=ebx
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -29920,7 +29961,7 @@ INSTRUCTION: a64 F3 0F A6 E8 | CCS_HASH | PADLOCK_GMI
 	# See a16 version above for more info
 	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rax;rcx cr=rbx
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -29931,7 +29972,7 @@ INSTRUCTION: a16 F3 0F A6 F0 | UNDOC | PADLOCK_UNDOC
 	# Undocumented instruction (Zhaoxin KX-6580 CPU, tested by @tremalrik)
 	code-mnemonic: via_undoc
 	code-suffix: F30FA6F0_16
-	flags: 16 32 save-restore asm-ig
+	flags: 16 32 ig-modrm-low3 save-restore asm-ig
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -29941,7 +29982,7 @@ END
 INSTRUCTION: a32 F3 0F A6 F0 | UNDOC | PADLOCK_UNDOC
 	code-mnemonic: via_undoc
 	code-suffix: F30FA6F0_32
-	flags: save-restore asm-ig
+	flags: ig-modrm-low3 save-restore asm-ig
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -29951,7 +29992,7 @@ END
 INSTRUCTION: a64 F3 0F A6 F0 | UNDOC | PADLOCK_UNDOC
 	code-mnemonic: via_undoc
 	code-suffix: F30FA6F0_64
-	flags: 64 save-restore asm-ig
+	flags: 64 ig-modrm-low3 save-restore asm-ig
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -29962,7 +30003,7 @@ INSTRUCTION: a16 F3 0F A6 F8 | UNDOC | PADLOCK_UNDOC
 	# Undocumented instruction (Zhaoxin KX-6580 CPU, tested by @tremalrik)
 	code-mnemonic: via_undoc
 	code-suffix: F30FA6F8_16
-	flags: 16 32 save-restore asm-ig
+	flags: 16 32 ig-modrm-low3 save-restore asm-ig
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -29972,7 +30013,7 @@ END
 INSTRUCTION: a32 F3 0F A6 F8 | UNDOC | PADLOCK_UNDOC
 	code-mnemonic: via_undoc
 	code-suffix: F30FA6F8_32
-	flags: save-restore asm-ig
+	flags: ig-modrm-low3 save-restore asm-ig
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -29982,7 +30023,7 @@ END
 INSTRUCTION: a64 F3 0F A6 F8 | UNDOC | PADLOCK_UNDOC
 	code-mnemonic: via_undoc
 	code-suffix: F30FA6F8_64
-	flags: 64 save-restore asm-ig
+	flags: 64 ig-modrm-low3 save-restore asm-ig
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -29996,7 +30037,7 @@ INSTRUCTION: a16 F3 0F A7 F0 | CCS_ENCRYPT | PADLOCK_GMI
 	# SM4 instruction
 	implied: cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di cr=ax
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -30007,6 +30048,7 @@ INSTRUCTION: a32 F3 0F A7 F0 | CCS_ENCRYPT | PADLOCK_GMI
 	# See a16 version above for more info
 	implied: cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi cr=eax
 	code-suffix: 32
+	flags: ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz
@@ -30017,7 +30059,7 @@ INSTRUCTION: a64 F3 0F A7 F0 | CCS_ENCRYPT | PADLOCK_GMI
 	# See a16 version above for more info
 	implied: cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi cr=rax
 	code-suffix: 64
-	flags: 64
+	flags: 64 ig-modrm-low3
 	gas: asz
 	intel: asz
 	nasm: asz

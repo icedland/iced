@@ -735,5 +735,7 @@ addr16 rep undoc
 rep undoc
 addr16 rep xsha512
 rep xsha512
-addr16 rep xstore2
-rep xstore2
+addr16 rep xstore_alt
+rep xstore_alt
+addr16 rep xsha512_alt
+rep xsha512_alt
