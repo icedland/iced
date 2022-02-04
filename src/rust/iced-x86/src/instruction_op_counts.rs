@@ -4834,7 +4834,10 @@ pub(super) static OP_COUNT: [u8; IcedConstants::CODE_ENUM_COUNT] = [
 	0,// Xsha512_16
 	0,// Xsha512_32
 	0,// Xsha512_64
-	0,// Xstore2_16
-	0,// Xstore2_32
-	0,// Xstore2_64
+	0,// Xstore_alt_16
+	0,// Xstore_alt_32
+	0,// Xstore_alt_64
+	0,// Xsha512_alt_16
+	0,// Xsha512_alt_32
+	0,// Xsha512_alt_64
 ];

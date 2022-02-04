@@ -719,4 +719,5 @@ MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
 Via_undoc_F30FA6F0_64
 Via_undoc_F30FA6F8_64
 Xsha512_64
-Xstore2_64
+Xstore_alt_64
+Xsha512_alt_64

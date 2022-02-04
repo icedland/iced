@@ -18021,19 +18021,34 @@ namespace Iced.Intel.IntelFormatterInternal {
 				0x97, 0x0D,// 1687 = "xsha512"
 				0x40,// 0x40
 
-				// Xstore2_16
+				// Xstore_alt_16
 				0x03,// asz
-				0x98, 0x0D,// 1688 = "xstore2"
+				0x98, 0x0D,// 1688 = "xstore_alt"
 				0x10,// 0x10
 
-				// Xstore2_32
+				// Xstore_alt_32
 				0x03,// asz
-				0x98, 0x0D,// 1688 = "xstore2"
+				0x98, 0x0D,// 1688 = "xstore_alt"
 				0x20,// 0x20
 
-				// Xstore2_64
+				// Xstore_alt_64
 				0x03,// asz
-				0x98, 0x0D,// 1688 = "xstore2"
+				0x98, 0x0D,// 1688 = "xstore_alt"
+				0x40,// 0x40
+
+				// Xsha512_alt_16
+				0x03,// asz
+				0x99, 0x0D,// 1689 = "xsha512_alt"
+				0x10,// 0x10
+
+				// Xsha512_alt_32
+				0x03,// asz
+				0x99, 0x0D,// 1689 = "xsha512_alt"
+				0x20,// 0x20
+
+				// Xsha512_alt_64
+				0x03,// asz
+				0x99, 0x0D,// 1689 = "xsha512_alt"
 				0x40,// 0x40
 			};
 	}

@@ -34,7 +34,7 @@ impl IcedConstants {
 	pub(crate) const CC_NE_ENUM_COUNT: usize = 2;
 	pub(crate) const CC_NP_ENUM_COUNT: usize = 2;
 	pub(crate) const CC_P_ENUM_COUNT: usize = 2;
-	pub(crate) const CODE_ENUM_COUNT: usize = 4830;
+	pub(crate) const CODE_ENUM_COUNT: usize = 4833;
 	pub(crate) const CODE_SIZE_ENUM_COUNT: usize = 4;
 	pub(crate) const CONDITION_CODE_ENUM_COUNT: usize = 17;
 	pub(crate) const CPUID_FEATURE_ENUM_COUNT: usize = 162;
@@ -47,7 +47,7 @@ impl IcedConstants {
 	pub(crate) const MANDATORY_PREFIX_ENUM_COUNT: usize = 5;
 	pub(crate) const MEMORY_SIZE_ENUM_COUNT: usize = 160;
 	pub(crate) const MEMORY_SIZE_OPTIONS_ENUM_COUNT: usize = 4;
-	pub(crate) const MNEMONIC_ENUM_COUNT: usize = 1836;
+	pub(crate) const MNEMONIC_ENUM_COUNT: usize = 1837;
 	pub(crate) const MVEX_CONV_FN_ENUM_COUNT: usize = 13;
 	pub(crate) const MVEX_EHBIT_ENUM_COUNT: usize = 3;
 	pub(crate) const MVEX_REG_MEM_CONV_ENUM_COUNT: usize = 17;

@@ -1834,13 +1834,8 @@ namespace Generator.Assembler {
 
 			if (def.DecoderOption.Value != 0)
 				list.Add(decoderOptions[def.DecoderOption.RawName]);
-			switch ((Code)def.Code.Value) {
-			// Must use 32-bit addressing
-			case Code.Montmul_16:
-			case Code.Montmul_64:
+			if ((def.Flags3 & InstructionDefFlags3.RequiresAddressSize32) != 0 && def.AddressSize != CodeSize.Code32)
 				list.Add(decoderOptions[nameof(DecoderOptions.NoInvalidCheck)]);
-				break;
-			}
 			switch (bitness) {
 			case 16:
 				if ((def.Flags2 & InstructionDefFlags2.IntelDecoder16) == 0 && (def.Flags2 & InstructionDefFlags2.AmdDecoder16) != 0)

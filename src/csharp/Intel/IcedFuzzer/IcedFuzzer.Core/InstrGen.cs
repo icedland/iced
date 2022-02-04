@@ -1523,7 +1523,7 @@ namespace IcedFuzzer.Core {
 			return false;
 		}
 
-		static bool IsSETcc(Code code) =>
+		static bool IgnoresModRmRegBits(Code code) =>
 			code switch {
 				Code.Seto_rm8 or Code.Setno_rm8 or Code.Setb_rm8 or Code.Setae_rm8 or Code.Sete_rm8 or Code.Setne_rm8 or Code.Setbe_rm8 or
 				Code.Seta_rm8 or Code.Sets_rm8 or Code.Setns_rm8 or Code.Setp_rm8 or Code.Setnp_rm8 or Code.Setl_rm8 or Code.Setge_rm8 or
@@ -1537,13 +1537,14 @@ namespace IcedFuzzer.Core {
 				Code.Xsha1_16 or Code.Xsha1_32 or Code.Xsha1_64 or
 				Code.Xsha256_16 or Code.Xsha256_32 or Code.Xsha256_64 or
 				Code.Xsha512_16 or Code.Xsha512_32 or Code.Xsha512_64 or
+				Code.Xsha512_alt_16 or Code.Xsha512_alt_32 or Code.Xsha512_alt_64 or
 				Code.Xstore_16 or Code.Xstore_32 or Code.Xstore_64 or
 				Code.Xcryptecb_16 or Code.Xcryptecb_32 or Code.Xcryptecb_64 or
 				Code.Xcryptcbc_16 or Code.Xcryptcbc_32 or Code.Xcryptcbc_64 or
 				Code.Xcryptctr_16 or Code.Xcryptctr_32 or Code.Xcryptctr_64 or
 				Code.Xcryptcfb_16 or Code.Xcryptcfb_32 or Code.Xcryptcfb_64 or
 				Code.Xcryptofb_16 or Code.Xcryptofb_32 or Code.Xcryptofb_64 or
-				Code.Xstore2_16 or Code.Xstore2_32 or Code.Xstore2_64 or
+				Code.Xstore_alt_16 or Code.Xstore_alt_32 or Code.Xstore_alt_64 or
 				Code.Ccs_hash_16 or Code.Ccs_hash_32 or Code.Ccs_hash_64 or
 				Code.Via_undoc_F30FA6F0_16 or Code.Via_undoc_F30FA6F0_32 or Code.Via_undoc_F30FA6F0_64 or
 				Code.Via_undoc_F30FA6F8_16 or Code.Via_undoc_F30FA6F8_32 or Code.Via_undoc_F30FA6F8_64 or
@@ -1556,7 +1557,8 @@ namespace IcedFuzzer.Core {
 			// one with reg only ops and the other one with reg+mem ops, eg. `add r16,rm16`
 			// becomes `add r16,m16` and `add r16,r16`.
 			foreach (var opCode in opCodes) {
-				if (IsSETcc(opCode.Code)) {
+				if (IgnoresModRmRegBits(opCode.Code)) {
+					Assert.True(opCode.GroupIndex == -1);
 					for (int i = 0; i < 8; i++) {
 						foreach (var info in GetInstructions(bitness, opCode, opCode.MandatoryPrefix, i))
 							yield return info;

@@ -2071,7 +2071,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repne insb %dx,(%rdi)
 repne insw %dx,(%rdi)
@@ -2135,7 +2136,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repne insb %dx,(%edi)
 repne insw %dx,(%edi)
@@ -2194,7 +2196,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repne insb %dx,(%di)
 repne insw %dx,(%di)
@@ -2258,7 +2261,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repne insb %dx,(%rdi)
 repne insw %dx,(%rdi)
@@ -2322,7 +2326,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repne insb %dx,(%edi)
 repne insw %dx,(%edi)
@@ -2381,7 +2386,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repne insb %dx,(%di)
 repne insw %dx,(%di)
@@ -2445,7 +2451,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repne insb %dx,(%rdi)
 repne insw %dx,(%rdi)
@@ -2509,7 +2516,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repne insb %dx,(%edi)
 repne insw %dx,(%edi)
@@ -2568,7 +2576,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repne insb %dx,(%di)
 repne insw %dx,(%di)
@@ -2632,7 +2641,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repnz insb %dx,(%rdi)
 repnz insw %dx,(%rdi)
@@ -2696,7 +2706,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repnz insb %dx,(%edi)
 repnz insw %dx,(%edi)
@@ -2755,7 +2766,8 @@ rep ccs_encrypt
 rep undoc
 rep undoc
 rep xsha512
-rep xstore2
+rep xstore_alt
+rep xsha512_alt
 
 repnz insb %dx,(%di)
 repnz insw %dx,(%di)

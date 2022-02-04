@@ -38606,33 +38606,57 @@ pub enum Code {
 	///
 	/// `64-bit`
 	Xsha512_64 = 4826,
-	/// `XSTORE2`
+	/// `XSTORE_ALT`
 	///
 	/// `a16 F3 0F A7 F8`
 	///
 	/// `PADLOCK_RNG`
 	///
 	/// `16/32-bit`
-	Xstore2_16 = 4827,
-	/// `XSTORE2`
+	Xstore_alt_16 = 4827,
+	/// `XSTORE_ALT`
 	///
 	/// `a32 F3 0F A7 F8`
 	///
 	/// `PADLOCK_RNG`
 	///
 	/// `16/32/64-bit`
-	Xstore2_32 = 4828,
-	/// `XSTORE2`
+	Xstore_alt_32 = 4828,
+	/// `XSTORE_ALT`
 	///
 	/// `a64 F3 0F A7 F8`
 	///
 	/// `PADLOCK_RNG`
 	///
 	/// `64-bit`
-	Xstore2_64 = 4829,
+	Xstore_alt_64 = 4829,
+	/// `XSHA512_ALT`
+	///
+	/// `a16 F3 0F A6 D8`
+	///
+	/// `PADLOCK_PHE`
+	///
+	/// `16/32-bit`
+	Xsha512_alt_16 = 4830,
+	/// `XSHA512_ALT`
+	///
+	/// `a32 F3 0F A6 D8`
+	///
+	/// `PADLOCK_PHE`
+	///
+	/// `16/32/64-bit`
+	Xsha512_alt_32 = 4831,
+	/// `XSHA512_ALT`
+	///
+	/// `a64 F3 0F A6 D8`
+	///
+	/// `PADLOCK_PHE`
+	///
+	/// `64-bit`
+	Xsha512_alt_64 = 4832,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_CODE: [&str; 4830] = [
+static GEN_DEBUG_CODE: [&str; 4833] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -43460,9 +43484,12 @@ static GEN_DEBUG_CODE: [&str; 4830] = [
 	"Xsha512_16",
 	"Xsha512_32",
 	"Xsha512_64",
-	"Xstore2_16",
-	"Xstore2_32",
-	"Xstore2_64",
+	"Xstore_alt_16",
+	"Xstore_alt_32",
+	"Xstore_alt_64",
+	"Xsha512_alt_16",
+	"Xsha512_alt_32",
+	"Xsha512_alt_64",
 ];
 impl fmt::Debug for Code {
 	#[inline]

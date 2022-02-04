@@ -4838,9 +4838,12 @@ namespace Generator.Enums {
 		Xsha512_16,
 		Xsha512_32,
 		Xsha512_64,
-		Xstore2_16,
-		Xstore2_32,
-		Xstore2_64,
+		Xstore_alt_16,
+		Xstore_alt_32,
+		Xstore_alt_64,
+		Xsha512_alt_16,
+		Xsha512_alt_32,
+		Xsha512_alt_64,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

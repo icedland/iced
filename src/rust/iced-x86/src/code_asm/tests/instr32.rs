@@ -94224,6 +94224,21 @@ fn xsha512() {
 
 #[test]
 #[rustfmt::skip]
+fn xsha512_alt() {
+	/* if self.bitness() == 64 */ {
+		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
+	} /* else if self.bitness() >= 32 */ {
+		// Xsha512_alt_32
+		test_instr(32, |a| a.xsha512_alt().unwrap(),
+			Instruction::with(Code::Xsha512_alt_32),
+			TestInstrFlags::REMOVE_REP_REPNE_PREFIXES, DecoderOptions::NONE);
+	} /* else */ {
+		// skip `if !(self.bitness() >= 32)` since it's not supported by the current test bitness
+	}
+}
+
+#[test]
+#[rustfmt::skip]
 fn xstore() {
 	/* if self.bitness() == 64 */ {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
@@ -94239,13 +94254,13 @@ fn xstore() {
 
 #[test]
 #[rustfmt::skip]
-fn xstore2() {
+fn xstore_alt() {
 	/* if self.bitness() == 64 */ {
 		// skip `if self.bitness() == 64` since it's not supported by the current test bitness
 	} /* else if self.bitness() >= 32 */ {
-		// Xstore2_32
-		test_instr(32, |a| a.xstore2().unwrap(),
-			Instruction::with(Code::Xstore2_32),
+		// Xstore_alt_32
+		test_instr(32, |a| a.xstore_alt().unwrap(),
+			Instruction::with(Code::Xstore_alt_32),
 			TestInstrFlags::REMOVE_REP_REPNE_PREFIXES, DecoderOptions::NONE);
 	} /* else */ {
 		// skip `if !(self.bitness() >= 32)` since it's not supported by the current test bitness

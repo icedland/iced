@@ -7357,7 +7357,11 @@ XSHA512: Mnemonic = 1834 # type: ignore
 """
 <no docs>
 """
-XSTORE2: Mnemonic = 1835 # type: ignore
+XSTORE_ALT: Mnemonic = 1835 # type: ignore
+"""
+<no docs>
+"""
+XSHA512_ALT: Mnemonic = 1836 # type: ignore
 """
 <no docs>
 """

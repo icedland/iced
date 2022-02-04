@@ -390,6 +390,10 @@ namespace Generator.Tables {
 		/// Address size must be 32 or #UD
 		/// </summary>
 		RequiresAddressSize32	= 0x04000000,//TODO: Add to OpCodeInfo
+		/// <summary>
+		/// The low 3 bits of the modrm byte is ignored
+		/// </summary>
+		IgnoresModrmLow3Bits	= 0x08000000,//TODO: Add to OpCodeInfo
 	}
 
 	enum VmxMode {

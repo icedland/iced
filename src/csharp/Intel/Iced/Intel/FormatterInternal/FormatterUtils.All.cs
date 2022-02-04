@@ -156,9 +156,12 @@ namespace Iced.Intel.FormatterInternal {
 			case Code.Xsha512_16:
 			case Code.Xsha512_32:
 			case Code.Xsha512_64:
-			case Code.Xstore2_16:
-			case Code.Xstore2_32:
-			case Code.Xstore2_64:
+			case Code.Xstore_alt_16:
+			case Code.Xstore_alt_32:
+			case Code.Xstore_alt_64:
+			case Code.Xsha512_alt_16:
+			case Code.Xsha512_alt_32:
+			case Code.Xsha512_alt_64:
 				return true;
 
 			default:

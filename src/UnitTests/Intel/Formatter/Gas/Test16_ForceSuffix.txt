@@ -524,5 +524,7 @@ rep undoc
 addr32 rep undoc
 rep xsha512
 addr32 rep xsha512
-rep xstore2
-addr32 rep xstore2
+rep xstore_alt
+addr32 rep xstore_alt
+rep xsha512_alt
+addr32 rep xsha512_alt

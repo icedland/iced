@@ -635,6 +635,7 @@ namespace Generator.Tables {
 						case "unique-dest-reg-num": state.Flags3 |= InstructionDefFlags3.RequiresUniqueDestRegNum; break;
 						case "is-string-op": state.Flags3 |= InstructionDefFlags3.IsStringOp; break;
 						case "a32-req": state.Flags3 |= InstructionDefFlags3.RequiresAddressSize32; break;
+						case "ig-modrm-low3": state.Flags3 |= InstructionDefFlags3.IgnoresModrmLow3Bits; break;
 
 						case "vmx":
 							if (state.VmxMode != VmxMode.None) {

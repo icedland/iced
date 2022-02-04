@@ -1994,7 +1994,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 
 	// 3 = 0x03
-	0x02,// Invalid
+	0x09,// RM
+		0x12,// MandatoryPrefix4
+			0x02,// Invalid
+			0x02,// Invalid
+			0xAB,// Simple5
+				0xDE, 0x25,// Xsha512_alt_16
+			0x02,// Invalid
+			0x00,// 0x0
+		0x02,// Invalid
 
 	// 4 = 0x04
 	0x09,// RM
@@ -2121,7 +2129,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x02,// Invalid
 			0x02,// Invalid
 			0xAB,// Simple5
-				0xDB, 0x25,// Xstore2_16
+				0xDB, 0x25,// Xstore_alt_16
 			0x02,// Invalid
 			0x00,// 0x0
 		0x02,// Invalid

@@ -38594,29 +38594,53 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Xsha512_64 = 4826,
-		/// <summary><c>XSTORE2</c><br/>
+		/// <summary><c>XSTORE_ALT</c><br/>
 		/// <br/>
 		/// <c>a16 F3 0F A7 F8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_RNG</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
-		Xstore2_16 = 4827,
-		/// <summary><c>XSTORE2</c><br/>
+		Xstore_alt_16 = 4827,
+		/// <summary><c>XSTORE_ALT</c><br/>
 		/// <br/>
 		/// <c>a32 F3 0F A7 F8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_RNG</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		Xstore2_32 = 4828,
-		/// <summary><c>XSTORE2</c><br/>
+		Xstore_alt_32 = 4828,
+		/// <summary><c>XSTORE_ALT</c><br/>
 		/// <br/>
 		/// <c>a64 F3 0F A7 F8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_RNG</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		Xstore2_64 = 4829,
+		Xstore_alt_64 = 4829,
+		/// <summary><c>XSHA512_ALT</c><br/>
+		/// <br/>
+		/// <c>a16 F3 0F A6 D8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_PHE</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Xsha512_alt_16 = 4830,
+		/// <summary><c>XSHA512_ALT</c><br/>
+		/// <br/>
+		/// <c>a32 F3 0F A6 D8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_PHE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Xsha512_alt_32 = 4831,
+		/// <summary><c>XSHA512_ALT</c><br/>
+		/// <br/>
+		/// <c>a64 F3 0F A6 D8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_PHE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Xsha512_alt_64 = 4832,
 	}
 }

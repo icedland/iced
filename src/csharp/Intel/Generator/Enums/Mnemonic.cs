@@ -1839,6 +1839,7 @@ namespace Generator.Enums {
 		Vsubrpd,
 		Vsubrps,
 		Xsha512,
-		Xstore2,
+		Xstore_alt,
+		Xsha512_alt,
 	}
 }

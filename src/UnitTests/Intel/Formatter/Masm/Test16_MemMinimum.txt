@@ -524,5 +524,7 @@ rep undoc
 rep undoc
 rep xsha512
 rep xsha512
-rep xstore2
-rep xstore2
+rep xstore_alt
+rep xstore_alt
+rep xsha512_alt
+rep xsha512_alt

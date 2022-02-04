@@ -4835,9 +4835,12 @@ pub(super) static SIZES_NORMAL: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// Xsha512_16
 	MemorySize::Unknown,// Xsha512_32
 	MemorySize::Unknown,// Xsha512_64
-	MemorySize::Unknown,// Xstore2_16
-	MemorySize::Unknown,// Xstore2_32
-	MemorySize::Unknown,// Xstore2_64
+	MemorySize::Unknown,// Xstore_alt_16
+	MemorySize::Unknown,// Xstore_alt_32
+	MemorySize::Unknown,// Xstore_alt_64
+	MemorySize::Unknown,// Xsha512_alt_16
+	MemorySize::Unknown,// Xsha512_alt_32
+	MemorySize::Unknown,// Xsha512_alt_64
 ];
 
 #[rustfmt::skip]
@@ -9669,7 +9672,10 @@ pub(super) static SIZES_BCST: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// Xsha512_16
 	MemorySize::Unknown,// Xsha512_32
 	MemorySize::Unknown,// Xsha512_64
-	MemorySize::Unknown,// Xstore2_16
-	MemorySize::Unknown,// Xstore2_32
-	MemorySize::Unknown,// Xstore2_64
+	MemorySize::Unknown,// Xstore_alt_16
+	MemorySize::Unknown,// Xstore_alt_32
+	MemorySize::Unknown,// Xstore_alt_64
+	MemorySize::Unknown,// Xsha512_alt_16
+	MemorySize::Unknown,// Xsha512_alt_32
+	MemorySize::Unknown,// Xsha512_alt_64
 ];

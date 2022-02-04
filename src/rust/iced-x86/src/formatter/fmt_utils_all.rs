@@ -76,9 +76,12 @@ pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {
 			| Code::Xsha512_16
 			| Code::Xsha512_32
 			| Code::Xsha512_64
-			| Code::Xstore2_16
-			| Code::Xstore2_32
-			| Code::Xstore2_64
+			| Code::Xstore_alt_16
+			| Code::Xstore_alt_32
+			| Code::Xstore_alt_64
+			| Code::Xsha512_alt_16
+			| Code::Xsha512_alt_32
+			| Code::Xsha512_alt_64
 	)
 }
 

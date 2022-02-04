@@ -735,5 +735,7 @@ a16 rep undoc
 rep undoc
 a16 rep xsha512
 rep xsha512
-a16 rep xstore2
-rep xstore2
+a16 rep xstore_alt
+rep xstore_alt
+a16 rep xsha512_alt
+rep xsha512_alt
