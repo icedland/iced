@@ -180,6 +180,7 @@ impl BlockEncoder {
 		// We sort them in reverse order so that if we must remove the 'ip==0' entry, we just need to pop()
 		this.to_instr.sort_unstable_by(|a, b| b.0.cmp(&a.0));
 		if num_ip_0 > 1 {
+			this.has_multiple_zero_ip_instrs = true;
 			if let Some(kv) = this.to_instr.last() {
 				debug_assert_eq!(kv.0, 0);
 				if kv.0 == 0 {
