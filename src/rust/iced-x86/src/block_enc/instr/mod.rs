@@ -88,7 +88,7 @@ impl TargetInstr {
 		}
 	}
 
-	fn address(&self, owner: &dyn Instr) -> u64 {
+	fn address<I: Instr>(&self, owner: &I) -> u64 {
 		match self {
 			TargetInstr::Instruction(instr) => instr.borrow().ip(),
 			TargetInstr::Address(address) => *address,
