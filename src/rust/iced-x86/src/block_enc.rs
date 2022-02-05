@@ -108,7 +108,7 @@ pub struct BlockEncoder {
 	options: u32, // BlockEncoderOptions
 	// .1 is 'instructions' and is barely used by Block. Had to move
 	// it here because of borrowck.
-	blocks: Vec<(Rc<RefCell<Block>>, Vec<Rc<RefCell<dyn Instr>>>)>,
+	blocks: Vec<(Block, Vec<Rc<RefCell<dyn Instr>>>)>,
 	null_encoder: Encoder,
 	to_instr: Vec<(u64, Rc<RefCell<dyn Instr>>)>,
 	has_multiple_zero_ip_instrs: bool,
@@ -139,11 +139,11 @@ impl BlockEncoder {
 		let mut instr_count = 0;
 		for (block_id, instr_block) in instr_blocks.iter().enumerate() {
 			let instructions = instr_block.instructions;
-			let block = Rc::new(RefCell::new(Block::new(
+			let block = Block::new(
 				this.bitness,
 				instr_block.rip,
 				if (options & BlockEncoderOptions::RETURN_RELOC_INFOS) != 0 { Some(Vec::new()) } else { None },
-			)?));
+			)?;
 			let mut instrs = Vec::with_capacity(instructions.len());
 			let mut ip = instr_block.rip;
 			for instruction in instructions {
@@ -154,10 +154,10 @@ impl BlockEncoder {
 				debug_assert!(instr.borrow().size() != 0);
 				ip = ip.wrapping_add(instr.borrow().size() as u64);
 			}
-			this.blocks.push((block.clone(), instrs));
+			this.blocks.push((block, instrs));
 		}
 		// Optimize from low to high addresses
-		this.blocks.sort_unstable_by(|a, b| a.0.borrow().rip.cmp(&b.0.borrow().rip));
+		this.blocks.sort_unstable_by(|a, b| a.0.rip.cmp(&b.0.rip));
 
 		this.to_instr = Vec::with_capacity(instr_count);
 		// There must not be any instructions with the same IP, except if IP = 0 (default value)
@@ -198,12 +198,12 @@ impl BlockEncoder {
 
 		let mut tmp_blocks = mem::take(&mut this.blocks);
 		for info in &mut tmp_blocks {
-			let mut ip = info.0.borrow().rip;
+			let mut ip = info.0.rip;
 			for instr in &mut info.1 {
 				let mut instr = instr.borrow_mut();
 				instr.set_ip(ip);
 				let old_size = instr.size();
-				instr.initialize(&this, &mut info.0.borrow_mut());
+				instr.initialize(&this, &mut info.0);
 				if instr.size() > old_size {
 					return Err(IcedError::new("Internal error"));
 				}
@@ -326,14 +326,13 @@ impl BlockEncoder {
 		for _ in 0..30 {
 			let mut updated = false;
 			for info in &mut self.blocks {
-				let mut block = info.0.borrow_mut();
-				let mut ip = block.rip;
+				let mut ip = info.0.rip;
 				let mut gained = 0;
 				for instr in &mut info.1 {
 					let mut instr = instr.borrow_mut();
 					instr.set_ip(ip);
 					let old_size = instr.size();
-					if instr.optimize(gained) {
+					if instr.optimize(&mut info.0, gained) {
 						let instr_size = instr.size();
 						if instr_size > old_size {
 							return Err(IcedError::new("Internal error"));
@@ -354,56 +353,47 @@ impl BlockEncoder {
 		}
 
 		for info in &mut self.blocks {
-			info.0.borrow_mut().initialize_data(&info.1);
+			info.0.initialize_data(&info.1);
 		}
 
 		let mut result_vec: Vec<BlockEncoderResult> = Vec::with_capacity(self.blocks.len());
 		for info in &mut self.blocks {
-			let mut block = info.0.borrow_mut();
-			let mut ip = block.rip;
+			let mut ip = info.0.rip;
 			let mut new_instruction_offsets: Vec<u32> =
 				if (self.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 { Vec::with_capacity(info.1.len()) } else { Vec::new() };
 			let mut constant_offsets: Vec<ConstantOffsets> =
 				if (self.options & BlockEncoderOptions::RETURN_CONSTANT_OFFSETS) != 0 { Vec::with_capacity(info.1.len()) } else { Vec::new() };
 			for instr in &mut info.1 {
 				let mut instr = instr.borrow_mut();
-				let buffer_pos = block.buffer_pos();
+				let buffer_pos = info.0.buffer_pos();
 				let is_original_instruction = if (self.options & BlockEncoderOptions::RETURN_CONSTANT_OFFSETS) != 0 {
-					let result = instr.encode(&mut block)?;
+					let result = instr.encode(&mut info.0)?;
 					constant_offsets.push(result.0);
 					result.1
 				} else {
-					instr.encode(&mut block)?.1
+					instr.encode(&mut info.0)?.1
 				};
-				let size = block.buffer_pos() - buffer_pos;
+				let size = info.0.buffer_pos() - buffer_pos;
 				if size != instr.size() as usize {
 					return Err(IcedError::new("Internal error"));
 				}
 				if (self.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 {
-					new_instruction_offsets.push(if is_original_instruction { ip.wrapping_sub(block.rip) as u32 } else { u32::MAX });
+					new_instruction_offsets.push(if is_original_instruction { ip.wrapping_sub(info.0.rip) as u32 } else { u32::MAX });
 				}
 				ip = ip.wrapping_add(size as u64);
 			}
-			block.write_data()?;
+			info.0.write_data()?;
 			result_vec.push(BlockEncoderResult {
-				rip: block.rip,
-				code_buffer: block.take_buffer(),
-				reloc_infos: block.take_reloc_infos(),
+				rip: info.0.rip,
+				code_buffer: info.0.take_buffer(),
+				reloc_infos: info.0.take_reloc_infos(),
 				new_instruction_offsets,
 				constant_offsets,
 			});
-			block.dispose();
+			info.0.dispose();
 			info.1.clear();
 		}
 		self.to_instr.clear();
-		if cfg!(debug_assertions) {
-			for info in &self.blocks {
-				// dispose() and other clear() calls should've removed all cyclic refs
-				if Rc::strong_count(&info.0) != 1 {
-					return Err(IcedError::new("Internal error"));
-				}
-			}
-		}
 
 		Ok(result_vec)
 	}
