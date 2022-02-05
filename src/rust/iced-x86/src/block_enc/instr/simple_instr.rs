@@ -4,22 +4,21 @@
 use crate::block_enc::instr::*;
 use crate::block_enc::*;
 use crate::iced_error::IcedError;
-use core::cell::RefCell;
 
 pub(super) struct SimpleInstr {
 	orig_ip: u64,
 	ip: u64,
-	block: Rc<RefCell<Block>>,
+	block_id: u32,
 	size: u32,
 	instruction: Instruction,
 }
 
 impl SimpleInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncoder, block_id: u32, instruction: &Instruction) -> Self {
 		Self {
 			orig_ip: instruction.ip(),
 			ip: 0,
-			block,
+			block_id,
 			size: block_encoder.get_instruction_size(instruction, instruction.ip()),
 			instruction: *instruction,
 		}
@@ -27,8 +26,8 @@ impl SimpleInstr {
 }
 
 impl Instr for SimpleInstr {
-	fn block(&self) -> Rc<RefCell<Block>> {
-		self.block.clone()
+	fn block_id(&self) -> u32 {
+		self.block_id
 	}
 
 	fn size(&self) -> u32 {
@@ -47,9 +46,9 @@ impl Instr for SimpleInstr {
 		self.orig_ip
 	}
 
-	fn initialize(&mut self, _block_encoder: &BlockEncoder) {}
+	fn initialize(&mut self, _block_encoder: &BlockEncoder, _block: &mut Block) {}
 
-	fn optimize(&mut self, _gained: u64) -> bool {
+	fn optimize(&mut self, _block: &mut Block, _gained: u64) -> bool {
 		false
 	}
 

@@ -137,7 +137,7 @@ impl BlockEncoder {
 		};
 
 		let mut instr_count = 0;
-		for instr_block in instr_blocks {
+		for (block_id, instr_block) in instr_blocks.iter().enumerate() {
 			let instructions = instr_block.instructions;
 			let block = Rc::new(RefCell::new(Block::new(
 				&this,
@@ -147,7 +147,7 @@ impl BlockEncoder {
 			let mut instrs = Vec::with_capacity(instructions.len());
 			let mut ip = instr_block.rip;
 			for instruction in instructions {
-				let instr = InstrUtils::create(&mut this, block.clone(), instruction);
+				let instr = InstrUtils::create(&mut this, block_id as u32, instruction);
 				instr.borrow_mut().set_ip(ip);
 				instrs.push(instr.clone());
 				instr_count += 1;
@@ -202,7 +202,7 @@ impl BlockEncoder {
 				let mut instr = instr.borrow_mut();
 				instr.set_ip(ip);
 				let old_size = instr.size();
-				instr.initialize(&this);
+				instr.initialize(&this, &mut info.0.borrow_mut());
 				if instr.size() > old_size {
 					return Err(IcedError::new("Internal error"));
 				}
@@ -325,7 +325,8 @@ impl BlockEncoder {
 		for _ in 0..30 {
 			let mut updated = false;
 			for info in &mut self.blocks {
-				let mut ip = info.0.borrow().rip;
+				let mut block = info.0.borrow_mut();
+				let mut ip = block.rip;
 				let mut gained = 0;
 				for instr in &mut info.1 {
 					let mut instr = instr.borrow_mut();

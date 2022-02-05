@@ -500,11 +500,11 @@ namespace Generator.Encoder.Rust {
 
 		protected override void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr) {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("block_enc", "instr", "mod.rs");
-			GenerateCases(filename, "JccInstr", jccInstr, "return Rc::new(RefCell::new(JccInstr::new(block_encoder, block, instruction)))");
-			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr, "return Rc::new(RefCell::new(SimpleBranchInstr::new(block_encoder, block, instruction)))");
-			GenerateCases(filename, "CallInstr", callInstr, "return Rc::new(RefCell::new(CallInstr::new(block_encoder, block, instruction)))");
-			GenerateCases(filename, "JmpInstr", jmpInstr, "return Rc::new(RefCell::new(JmpInstr::new(block_encoder, block, instruction)))");
-			GenerateCases(filename, "XbeginInstr", xbeginInstr, "return Rc::new(RefCell::new(XbeginInstr::new(block_encoder, block, instruction)))");
+			GenerateCases(filename, "JccInstr", jccInstr, "return Rc::new(RefCell::new(JccInstr::new(block_encoder, block_id, instruction)))");
+			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr, "return Rc::new(RefCell::new(SimpleBranchInstr::new(block_encoder, block_id, instruction)))");
+			GenerateCases(filename, "CallInstr", callInstr, "return Rc::new(RefCell::new(CallInstr::new(block_encoder, block_id, instruction)))");
+			GenerateCases(filename, "JmpInstr", jmpInstr, "return Rc::new(RefCell::new(JmpInstr::new(block_encoder, block_id, instruction)))");
+			GenerateCases(filename, "XbeginInstr", xbeginInstr, "return Rc::new(RefCell::new(XbeginInstr::new(block_encoder, block_id, instruction)))");
 		}
 
 		protected override void GenerateVsib(EnumValue[] vsib32, EnumValue[] vsib64) {

@@ -4,7 +4,6 @@
 use crate::block_enc::instr::*;
 use crate::block_enc::*;
 use crate::iced_error::IcedError;
-use core::cell::RefCell;
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
 enum InstrKind {
@@ -18,7 +17,7 @@ enum InstrKind {
 pub(super) struct IpRelMemOpInstr {
 	orig_ip: u64,
 	ip: u64,
-	block: Rc<RefCell<Block>>,
+	block_id: u32,
 	size: u32,
 	instruction: Instruction,
 	instr_kind: InstrKind,
@@ -28,7 +27,7 @@ pub(super) struct IpRelMemOpInstr {
 }
 
 impl IpRelMemOpInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncoder, block_id: u32, instruction: &Instruction) -> Self {
 		debug_assert!(instruction.is_ip_rel_memory_operand());
 
 		let mut instr_copy = *instruction;
@@ -43,7 +42,7 @@ impl IpRelMemOpInstr {
 		Self {
 			orig_ip: instruction.ip(),
 			ip: 0,
-			block,
+			block_id,
 			size: eip_instruction_size,
 			instruction: *instruction,
 			instr_kind: InstrKind::Uninitialized,
@@ -59,12 +58,12 @@ impl IpRelMemOpInstr {
 		}
 
 		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_rip = self.target_instr.is_in_block(self.block.clone());
+		let mut use_rip = self.target_instr.is_in_block(self.block_id);
 		let target_address = self.target_instr.address(self);
 		if !use_rip {
 			let next_rip = self.ip.wrapping_add(self.rip_instruction_size as u64);
 			let diff = target_address.wrapping_sub(next_rip) as i64;
-			let diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
+			let diff = correct_diff(self.target_instr.is_in_block(self.block_id()), diff, gained);
 			use_rip = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		}
 
@@ -87,8 +86,8 @@ impl IpRelMemOpInstr {
 }
 
 impl Instr for IpRelMemOpInstr {
-	fn block(&self) -> Rc<RefCell<Block>> {
-		self.block.clone()
+	fn block_id(&self) -> u32 {
+		self.block_id
 	}
 
 	fn size(&self) -> u32 {
@@ -107,12 +106,12 @@ impl Instr for IpRelMemOpInstr {
 		self.orig_ip
 	}
 
-	fn initialize(&mut self, block_encoder: &BlockEncoder) {
+	fn initialize(&mut self, block_encoder: &BlockEncoder, _block: &mut Block) {
 		self.target_instr = block_encoder.get_target(self, self.instruction.ip_rel_memory_address());
 		let _ = self.try_optimize(0);
 	}
 
-	fn optimize(&mut self, gained: u64) -> bool {
+	fn optimize(&mut self, _block: &mut Block, gained: u64) -> bool {
 		self.try_optimize(gained)
 	}
 

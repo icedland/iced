@@ -4,7 +4,6 @@
 use crate::block_enc::instr::*;
 use crate::block_enc::*;
 use crate::iced_error::IcedError;
-use core::cell::RefCell;
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
 enum InstrKind {
@@ -17,7 +16,7 @@ enum InstrKind {
 pub(super) struct XbeginInstr {
 	orig_ip: u64,
 	ip: u64,
-	block: Rc<RefCell<Block>>,
+	block_id: u32,
 	size: u32,
 	instruction: Instruction,
 	target_instr: TargetInstr,
@@ -27,7 +26,7 @@ pub(super) struct XbeginInstr {
 }
 
 impl XbeginInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncoder, block_id: u32, instruction: &Instruction) -> Self {
 		let mut instr_kind = InstrKind::Uninitialized;
 		let mut instr_copy: Instruction;
 		let size;
@@ -56,7 +55,7 @@ impl XbeginInstr {
 		Self {
 			orig_ip: instruction.ip(),
 			ip: 0,
-			block,
+			block_id,
 			size,
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
@@ -74,7 +73,7 @@ impl XbeginInstr {
 		let target_address = self.target_instr.address(self);
 		let next_rip = self.ip.wrapping_add(self.short_instruction_size as u64);
 		let diff = target_address.wrapping_sub(next_rip) as i64;
-		let diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
+		let diff = correct_diff(self.target_instr.is_in_block(self.block_id()), diff, gained);
 		if i16::MIN as i64 <= diff && diff <= i16::MAX as i64 {
 			self.instr_kind = InstrKind::Rel16;
 			self.size = self.short_instruction_size;
@@ -88,8 +87,8 @@ impl XbeginInstr {
 }
 
 impl Instr for XbeginInstr {
-	fn block(&self) -> Rc<RefCell<Block>> {
-		self.block.clone()
+	fn block_id(&self) -> u32 {
+		self.block_id
 	}
 
 	fn size(&self) -> u32 {
@@ -108,12 +107,12 @@ impl Instr for XbeginInstr {
 		self.orig_ip
 	}
 
-	fn initialize(&mut self, block_encoder: &BlockEncoder) {
+	fn initialize(&mut self, block_encoder: &BlockEncoder, _block: &mut Block) {
 		self.target_instr = block_encoder.get_target(self, self.instruction.near_branch_target());
 		let _ = self.try_optimize(0);
 	}
 
-	fn optimize(&mut self, gained: u64) -> bool {
+	fn optimize(&mut self, _block: &mut Block, gained: u64) -> bool {
 		self.try_optimize(gained)
 	}
 

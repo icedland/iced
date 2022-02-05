@@ -19,7 +19,7 @@ enum InstrKind {
 pub(super) struct JccInstr {
 	orig_ip: u64,
 	ip: u64,
-	block: Rc<RefCell<Block>>,
+	block_id: u32,
 	size: u32,
 	bitness: u32,
 	instruction: Instruction,
@@ -49,7 +49,7 @@ impl JccInstr {
 		2 + InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64
 	}
 
-	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncoder, block_id: u32, instruction: &Instruction) -> Self {
 		let mut instr_kind = InstrKind::Uninitialized;
 		let mut instr_copy: Instruction;
 		let size;
@@ -84,7 +84,7 @@ impl JccInstr {
 		Self {
 			orig_ip: instruction.ip(),
 			ip: 0,
-			block,
+			block_id,
 			size,
 			bitness: block_encoder.bitness(),
 			instruction: *instruction,
@@ -97,7 +97,7 @@ impl JccInstr {
 		}
 	}
 
-	fn try_optimize(&mut self, gained: u64) -> bool {
+	fn try_optimize(&mut self, block: &mut Block, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Short {
 			return false;
 		}
@@ -105,7 +105,7 @@ impl JccInstr {
 		let mut target_address = self.target_instr.address(self);
 		let mut next_rip = self.ip.wrapping_add(self.short_instruction_size as u64);
 		let mut diff = target_address.wrapping_sub(next_rip) as i64;
-		diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
+		diff = correct_diff(self.target_instr.is_in_block(self.block_id()), diff, gained);
 		if i8::MIN as i64 <= diff && diff <= i8::MAX as i64 {
 			if let Some(ref pointer_data) = self.pointer_data {
 				pointer_data.borrow_mut().is_valid = false;
@@ -116,12 +116,12 @@ impl JccInstr {
 		}
 
 		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(self.block.clone());
+		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(self.block_id);
 		if !use_near {
 			target_address = self.target_instr.address(self);
 			next_rip = self.ip.wrapping_add(self.near_instruction_size as u64);
 			diff = target_address.wrapping_sub(next_rip) as i64;
-			diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
+			diff = correct_diff(self.target_instr.is_in_block(self.block_id()), diff, gained);
 			use_near = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		}
 		if use_near {
@@ -134,7 +134,7 @@ impl JccInstr {
 		}
 
 		if self.pointer_data.is_none() {
-			self.pointer_data = Some(self.block.clone().borrow_mut().alloc_pointer_location());
+			self.pointer_data = Some(block.alloc_pointer_location());
 		}
 		self.instr_kind = InstrKind::Long;
 		false
@@ -182,8 +182,8 @@ impl JccInstr {
 }
 
 impl Instr for JccInstr {
-	fn block(&self) -> Rc<RefCell<Block>> {
-		self.block.clone()
+	fn block_id(&self) -> u32 {
+		self.block_id
 	}
 
 	fn size(&self) -> u32 {
@@ -202,13 +202,13 @@ impl Instr for JccInstr {
 		self.orig_ip
 	}
 
-	fn initialize(&mut self, block_encoder: &BlockEncoder) {
+	fn initialize(&mut self, block_encoder: &BlockEncoder, block: &mut Block) {
 		self.target_instr = block_encoder.get_target(self, self.instruction.near_branch_target());
-		let _ = self.try_optimize(0);
+		let _ = self.try_optimize(block, 0);
 	}
 
-	fn optimize(&mut self, gained: u64) -> bool {
-		self.try_optimize(gained)
+	fn optimize(&mut self, block: &mut Block, gained: u64) -> bool {
+		self.try_optimize(block, gained)
 	}
 
 	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
