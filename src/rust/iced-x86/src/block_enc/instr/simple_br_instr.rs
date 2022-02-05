@@ -18,8 +18,6 @@ enum InstrKind {
 
 pub(super) struct SimpleBranchInstr {
 	orig_ip: u64,
-	ip: u64,
-	block_id: u32,
 	size: u32,
 	bitness: u32,
 	instruction: Instruction,
@@ -34,7 +32,7 @@ pub(super) struct SimpleBranchInstr {
 }
 
 impl SimpleBranchInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncoder, block_id: u32, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncInt, instruction: &Instruction) -> Self {
 		let mut instr_kind = InstrKind::Uninitialized;
 		let mut instr_copy;
 		let native_code;
@@ -84,8 +82,6 @@ impl SimpleBranchInstr {
 		}
 		Self {
 			orig_ip: instruction.ip(),
-			ip: 0,
-			block_id,
 			size,
 			bitness: block_encoder.bitness(),
 			instruction: *instruction,
@@ -100,15 +96,15 @@ impl SimpleBranchInstr {
 		}
 	}
 
-	fn try_optimize(&mut self, block: &mut Block, gained: u64) -> bool {
+	fn try_optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Short {
 			return false;
 		}
 
-		let mut target_address = self.target_instr.address(self);
-		let mut next_rip = self.ip().wrapping_add(self.short_instruction_size as u64);
+		let mut target_address = self.target_instr.address(ctx);
+		let mut next_rip = ctx.ip.wrapping_add(self.short_instruction_size as u64);
 		let mut diff = target_address.wrapping_sub(next_rip) as i64;
-		diff = correct_diff(self.target_instr.is_in_block(self.block_id()), diff, gained);
+		diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
 		if i8::MIN as i64 <= diff && diff <= i8::MAX as i64 {
 			if let Some(ref pointer_data) = self.pointer_data {
 				pointer_data.borrow_mut().is_valid = false;
@@ -119,12 +115,12 @@ impl SimpleBranchInstr {
 		}
 
 		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(self.block_id);
+		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(ctx.block);
 		if !use_near {
-			target_address = self.target_instr.address(self);
-			next_rip = self.ip.wrapping_add(self.near_instruction_size as u64);
+			target_address = self.target_instr.address(ctx);
+			next_rip = ctx.ip.wrapping_add(self.near_instruction_size as u64);
 			diff = target_address.wrapping_sub(next_rip) as i64;
-			diff = correct_diff(self.target_instr.is_in_block(self.block_id()), diff, gained);
+			diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
 			use_near = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		}
 		if use_near {
@@ -137,7 +133,7 @@ impl SimpleBranchInstr {
 		}
 
 		if self.pointer_data.is_none() {
-			self.pointer_data = Some(block.alloc_pointer_location());
+			self.pointer_data = Some(ctx.block.alloc_pointer_location());
 		}
 		self.instr_kind = InstrKind::Long;
 		false
@@ -176,45 +172,33 @@ impl SimpleBranchInstr {
 }
 
 impl Instr for SimpleBranchInstr {
-	fn block_id(&self) -> u32 {
-		self.block_id
-	}
-
 	fn size(&self) -> u32 {
 		self.size
-	}
-
-	fn ip(&self) -> u64 {
-		self.ip
-	}
-
-	fn set_ip(&mut self, new_ip: u64) {
-		self.ip = new_ip
 	}
 
 	fn orig_ip(&self) -> u64 {
 		self.orig_ip
 	}
 
-	fn initialize(&mut self, block_encoder: &BlockEncoder, block: &mut Block) {
+	fn initialize<'a>(&mut self, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
 		self.target_instr = block_encoder.get_target(self, self.instruction.near_branch_target());
-		let _ = self.try_optimize(block, 0);
+		let _ = self.try_optimize(ctx, 0);
 	}
 
-	fn optimize(&mut self, block: &mut Block, gained: u64) -> bool {
-		self.try_optimize(block, gained)
+	fn optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+		self.try_optimize(ctx, gained)
 	}
 
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
+	fn encode<'a>(&mut self, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
 		let mut instr;
 		let mut size;
 		let instr_len;
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Short => {
-				self.instruction.set_near_branch64(self.target_instr.address(self));
-				block.encoder.encode(&self.instruction, self.ip).map_or_else(
+				self.instruction.set_near_branch64(self.target_instr.address(ctx));
+				ctx.block.encoder.encode(&self.instruction, ctx.ip).map_or_else(
 					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-					|_| Ok((block.encoder.get_constant_offsets(), true)),
+					|_| Ok((ctx.block.encoder.get_constant_offsets(), true)),
 				)
 			}
 
@@ -228,15 +212,16 @@ impl Instr for SimpleBranchInstr {
 
 				instr = self.instruction;
 				instr.set_code(self.native_code);
-				instr.set_near_branch64(self.ip.wrapping_add(self.native_instruction_size as u64).wrapping_add(2));
-				size = block
+				instr.set_near_branch64(ctx.ip.wrapping_add(self.native_instruction_size as u64).wrapping_add(2));
+				size = ctx
+					.block
 					.encoder
-					.encode(&instr, self.ip)
+					.encode(&instr, ctx.ip)
 					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
 
 				instr = Instruction::default();
-				instr.set_near_branch64(self.ip.wrapping_add(self.near_instruction_size as u64));
-				let code_near = match block.encoder.bitness() {
+				instr.set_near_branch64(ctx.ip.wrapping_add(self.near_instruction_size as u64));
+				let code_near = match ctx.block.encoder.bitness() {
 					16 => {
 						instr.set_code(Code::Jmp_rel8_16);
 						instr.set_op0_kind(OpKind::NearBranch16);
@@ -257,25 +242,26 @@ impl Instr for SimpleBranchInstr {
 
 					_ => unreachable!(),
 				};
-				instr_len = block
+				instr_len = ctx
+					.block
 					.encoder
-					.encode(&instr, self.ip.wrapping_add(size as u64))
+					.encode(&instr, ctx.ip.wrapping_add(size as u64))
 					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
 				size += instr_len;
 
 				instr.set_code(code_near);
-				instr.set_near_branch64(self.target_instr.address(self));
-				block.encoder.encode(&instr, self.ip.wrapping_add(size as u64)).map_or_else(
+				instr.set_near_branch64(self.target_instr.address(ctx));
+				ctx.block.encoder.encode(&instr, ctx.ip.wrapping_add(size as u64)).map_or_else(
 					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 					|_| Ok((ConstantOffsets::default(), false)),
 				)
 			}
 
 			InstrKind::Long => {
-				debug_assert_eq!(block.encoder.bitness(), 64);
+				debug_assert_eq!(ctx.block.encoder.bitness(), 64);
 				debug_assert!(self.pointer_data.is_some());
 				let pointer_data = self.pointer_data.clone().ok_or_else(|| IcedError::new("Internal error"))?;
-				pointer_data.borrow_mut().data = self.target_instr.address(self);
+				pointer_data.borrow_mut().data = self.target_instr.address(ctx);
 
 				// Code:
 				//		brins tmp		; native_instruction_size
@@ -286,15 +272,16 @@ impl Instr for SimpleBranchInstr {
 
 				instr = self.instruction;
 				instr.set_code(self.native_code);
-				instr.set_near_branch64(self.ip.wrapping_add(self.native_instruction_size as u64).wrapping_add(2));
-				size = block
+				instr.set_near_branch64(ctx.ip.wrapping_add(self.native_instruction_size as u64).wrapping_add(2));
+				size = ctx
+					.block
 					.encoder
-					.encode(&instr, self.ip)
+					.encode(&instr, ctx.ip)
 					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
 
 				instr = Instruction::default();
-				instr.set_near_branch64(self.ip.wrapping_add(self.long_instruction_size as u64));
-				match block.encoder.bitness() {
+				instr.set_near_branch64(ctx.ip.wrapping_add(self.long_instruction_size as u64));
+				match ctx.block.encoder.bitness() {
 					16 => {
 						instr.set_code(Code::Jmp_rel8_16);
 						instr.set_op0_kind(OpKind::NearBranch16);
@@ -312,17 +299,24 @@ impl Instr for SimpleBranchInstr {
 
 					_ => unreachable!(),
 				}
-				instr_len = block
+				instr_len = ctx
+					.block
 					.encoder
-					.encode(&instr, self.ip.wrapping_add(size as u64))
+					.encode(&instr, ctx.ip.wrapping_add(size as u64))
 					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
 				size += instr_len;
 
-				InstrUtils::encode_branch_to_pointer_data(block, false, self.ip.wrapping_add(size as u64), pointer_data, self.size.wrapping_sub(size))
-					.map_or_else(
-						|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-						|_| Ok((ConstantOffsets::default(), false)),
-					)
+				InstrUtils::encode_branch_to_pointer_data(
+					ctx.block,
+					false,
+					ctx.ip.wrapping_add(size as u64),
+					pointer_data,
+					self.size.wrapping_sub(size),
+				)
+				.map_or_else(
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|_| Ok((ConstantOffsets::default(), false)),
+				)
 			}
 
 			InstrKind::Uninitialized => unreachable!(),

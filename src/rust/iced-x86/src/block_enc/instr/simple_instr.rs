@@ -7,55 +7,35 @@ use crate::iced_error::IcedError;
 
 pub(super) struct SimpleInstr {
 	orig_ip: u64,
-	ip: u64,
-	block_id: u32,
 	size: u32,
 	instruction: Instruction,
 }
 
 impl SimpleInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncoder, block_id: u32, instruction: &Instruction) -> Self {
-		Self {
-			orig_ip: instruction.ip(),
-			ip: 0,
-			block_id,
-			size: block_encoder.get_instruction_size(instruction, instruction.ip()),
-			instruction: *instruction,
-		}
+	pub(super) fn new(block_encoder: &mut BlockEncInt, instruction: &Instruction) -> Self {
+		Self { orig_ip: instruction.ip(), size: block_encoder.get_instruction_size(instruction, instruction.ip()), instruction: *instruction }
 	}
 }
 
 impl Instr for SimpleInstr {
-	fn block_id(&self) -> u32 {
-		self.block_id
-	}
-
 	fn size(&self) -> u32 {
 		self.size
-	}
-
-	fn ip(&self) -> u64 {
-		self.ip
-	}
-
-	fn set_ip(&mut self, new_ip: u64) {
-		self.ip = new_ip
 	}
 
 	fn orig_ip(&self) -> u64 {
 		self.orig_ip
 	}
 
-	fn initialize(&mut self, _block_encoder: &BlockEncoder, _block: &mut Block) {}
+	fn initialize<'a>(&mut self, _block_encoder: &BlockEncInt, _ctx: &mut InstrContext<'a>) {}
 
-	fn optimize(&mut self, _block: &mut Block, _gained: u64) -> bool {
+	fn optimize<'a>(&mut self, _ctx: &mut InstrContext<'a>, _gained: u64) -> bool {
 		false
 	}
 
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
-		block.encoder.encode(&self.instruction, self.ip).map_or_else(
+	fn encode<'a>(&mut self, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
+		ctx.block.encoder.encode(&self.instruction, ctx.ip).map_or_else(
 			|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-			|_| Ok((block.encoder.get_constant_offsets(), true)),
+			|_| Ok((ctx.block.encoder.get_constant_offsets(), true)),
 		)
 	}
 }

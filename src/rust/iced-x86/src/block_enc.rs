@@ -15,8 +15,6 @@ use crate::iced_error::IcedError;
 use crate::*;
 use alloc::rc::Rc;
 use alloc::vec::Vec;
-use core::cell::RefCell;
-use core::mem;
 
 /// Relocation info
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
@@ -104,17 +102,23 @@ pub struct BlockEncoderResult {
 /// Encodes instructions. It can be used to move instructions from one location to another location.
 #[allow(missing_debug_implementations)]
 pub struct BlockEncoder {
-	bitness: u32,
-	options: u32, // BlockEncoderOptions
 	// .1 is 'instructions' and is barely used by Block. Had to move
 	// it here because of borrowck.
-	blocks: Vec<(Block, Vec<Rc<RefCell<dyn Instr>>>)>,
+	blocks: Vec<(Block, usize, usize)>,
+	all_instrs: Vec<Box<dyn Instr>>,
+	all_ips: Vec<u64>,
+	benc: BlockEncInt,
+}
+
+struct BlockEncInt {
+	bitness: u32,
+	options: u32, // BlockEncoderOptions
 	null_encoder: Encoder,
-	to_instr: Vec<(u64, Rc<RefCell<dyn Instr>>)>,
+	to_instr_index: Vec<(u64, usize)>,
 	has_multiple_zero_ip_instrs: bool,
 }
 
-impl BlockEncoder {
+impl BlockEncInt {
 	fn bitness(&self) -> u32 {
 		self.bitness
 	}
@@ -123,49 +127,74 @@ impl BlockEncoder {
 		(self.options & BlockEncoderOptions::DONT_FIX_BRANCHES) == 0
 	}
 
+	fn get_target(&self, instr: &dyn Instr, address: u64) -> TargetInstr {
+		if (address != 0 || !self.has_multiple_zero_ip_instrs) && instr.orig_ip() == address {
+			TargetInstr::new_owner()
+		} else {
+			match self.to_instr_index.binary_search_by(|(ip, _)| address.cmp(ip)) {
+				Ok(index) => TargetInstr::new_instr(self.to_instr_index[index].1),
+				Err(_) => TargetInstr::new_address(address),
+			}
+		}
+	}
+
+	fn get_instruction_size(&mut self, instruction: &Instruction, ip: u64) -> u32 {
+		self.null_encoder.clear_buffer();
+		self.null_encoder.encode(instruction, ip).map_or_else(|_| IcedConstants::MAX_INSTRUCTION_LENGTH as u32, |len| len as u32)
+	}
+}
+
+impl BlockEncoder {
 	fn new(bitness: u32, instr_blocks: &[InstructionBlock<'_>], options: u32) -> Result<Self, IcedError> {
 		if bitness != 16 && bitness != 32 && bitness != 64 {
 			return Err(IcedError::new("Invalid bitness"));
 		}
+		let total_instr_len = instr_blocks.iter().map(|b| b.instructions.len()).sum();
 		let mut this = Self {
-			bitness,
-			options,
 			blocks: Vec::with_capacity(instr_blocks.len()),
-			null_encoder: Encoder::try_new(bitness)?,
-			to_instr: Vec::new(),
-			has_multiple_zero_ip_instrs: false,
+			all_instrs: Vec::with_capacity(total_instr_len),
+			all_ips: Vec::with_capacity(total_instr_len),
+			benc: BlockEncInt {
+				bitness,
+				options,
+				null_encoder: Encoder::try_new(bitness)?,
+				to_instr_index: Vec::new(),
+				has_multiple_zero_ip_instrs: false,
+			},
 		};
 
 		let mut instr_count = 0;
-		for (block_id, instr_block) in instr_blocks.iter().enumerate() {
+		for instr_block in instr_blocks {
 			let instructions = instr_block.instructions;
-			let block = Block::new(
-				this.bitness,
+			let mut block = Block::new(
+				this.benc.bitness,
 				instr_block.rip,
 				if (options & BlockEncoderOptions::RETURN_RELOC_INFOS) != 0 { Some(Vec::new()) } else { None },
 			)?;
-			let mut instrs = Vec::with_capacity(instructions.len());
 			let mut ip = instr_block.rip;
+			let start_index = this.all_instrs.len();
 			for instruction in instructions {
-				let instr = InstrUtils::create(&mut this, block_id as u32, instruction);
-				instr.borrow_mut().set_ip(ip);
-				instrs.push(instr.clone());
+				let instr = InstrUtils::create(&mut this.benc, instruction);
 				instr_count += 1;
-				debug_assert!(instr.borrow().size() != 0);
-				ip = ip.wrapping_add(instr.borrow().size() as u64);
+				debug_assert!(instr.size() != 0);
+				ip = ip.wrapping_add(instr.size() as u64);
+				this.all_instrs.push(instr);
+				this.all_ips.push(ip);
 			}
-			this.blocks.push((block, instrs));
+			let end_index = this.all_instrs.len();
+			block.instr_indexes = (start_index, end_index);
+			this.blocks.push((block, start_index, end_index));
 		}
 		// Optimize from low to high addresses
 		this.blocks.sort_unstable_by(|a, b| a.0.rip.cmp(&b.0.rip));
 
-		this.to_instr = Vec::with_capacity(instr_count);
+		this.benc.to_instr_index = Vec::with_capacity(instr_count);
 		// There must not be any instructions with the same IP, except if IP = 0 (default value)
 		let mut num_ip_0 = 0;
 		for info in &this.blocks {
 			// Reverse here since we'll sort them in reverse order, see below
-			for instr in info.1.iter().rev() {
-				let orig_ip = instr.borrow().orig_ip();
+			for (i, instr) in this.all_instrs[info.1..info.2].iter().enumerate().rev() {
+				let orig_ip = instr.orig_ip();
 				let insert = if orig_ip == 0 {
 					num_ip_0 += 1;
 					num_ip_0 == 1
@@ -173,44 +202,42 @@ impl BlockEncoder {
 					true
 				};
 				if insert {
-					this.to_instr.push((orig_ip, instr.clone()));
+					this.benc.to_instr_index.push((orig_ip, info.1 + i));
 				}
 			}
 		}
 		// We sort them in reverse order so that if we must remove the 'ip==0' entry, we just need to pop()
-		this.to_instr.sort_unstable_by(|a, b| b.0.cmp(&a.0));
+		this.benc.to_instr_index.sort_unstable_by(|a, b| b.0.cmp(&a.0));
 		if num_ip_0 > 1 {
-			this.has_multiple_zero_ip_instrs = true;
-			if let Some(kv) = this.to_instr.last() {
+			this.benc.has_multiple_zero_ip_instrs = true;
+			if let Some(kv) = this.benc.to_instr_index.last() {
 				debug_assert_eq!(kv.0, 0);
 				if kv.0 == 0 {
-					let _ = this.to_instr.pop();
+					let _ = this.benc.to_instr_index.pop();
 				}
 			}
 		}
-		let mut prev_ip = this.to_instr.get(0).map(|(ip, _)| *ip).unwrap_or_default();
-		for (ip, _) in this.to_instr.iter().skip(1) {
+		let mut prev_ip = this.benc.to_instr_index.get(0).map(|(ip, _)| *ip).unwrap_or_default();
+		for (ip, _) in this.benc.to_instr_index.iter().skip(1) {
 			if *ip == prev_ip {
 				return Err(IcedError::with_string(format!("Multiple instructions with the same IP: 0x{:X}", ip)));
 			}
 			prev_ip = *ip;
 		}
 
-		let mut tmp_blocks = mem::take(&mut this.blocks);
-		for info in &mut tmp_blocks {
-			let mut ip = info.0.rip;
-			for instr in &mut info.1 {
-				let mut instr = instr.borrow_mut();
-				instr.set_ip(ip);
+		for info in &mut this.blocks {
+			let block_rip = info.0.rip;
+			let mut ctx = InstrContext { block: &mut info.0, all_ips: &mut this.all_ips, ip: block_rip };
+			for (i, instr) in this.all_instrs[info.1..info.2].iter_mut().enumerate() {
+				ctx.all_ips[info.1 + i] = ctx.ip;
 				let old_size = instr.size();
-				instr.initialize(&this, &mut info.0);
+				instr.initialize(&this.benc, &mut ctx);
 				if instr.size() > old_size {
 					return Err(IcedError::new("Internal error"));
 				}
-				ip = ip.wrapping_add(instr.size() as u64);
+				ctx.ip = ctx.ip.wrapping_add(instr.size() as u64);
 			}
 		}
-		this.blocks = tmp_blocks;
 
 		Ok(this)
 	}
@@ -326,13 +353,13 @@ impl BlockEncoder {
 		for _ in 0..30 {
 			let mut updated = false;
 			for info in &mut self.blocks {
-				let mut ip = info.0.rip;
 				let mut gained = 0;
-				for instr in &mut info.1 {
-					let mut instr = instr.borrow_mut();
-					instr.set_ip(ip);
+				let block_rip = info.0.rip;
+				let mut ctx = InstrContext { block: &mut info.0, all_ips: &mut self.all_ips, ip: block_rip };
+				for (i, instr) in self.all_instrs[info.1..info.2].iter_mut().enumerate() {
+					ctx.all_ips[info.1 + i] = ctx.ip;
 					let old_size = instr.size();
-					if instr.optimize(&mut info.0, gained) {
+					if instr.optimize(&mut ctx, gained) {
 						let instr_size = instr.size();
 						if instr_size > old_size {
 							return Err(IcedError::new("Internal error"));
@@ -344,7 +371,7 @@ impl BlockEncoder {
 					} else if instr.size() != old_size {
 						return Err(IcedError::new("Internal error"));
 					}
-					ip = ip.wrapping_add(instr.size() as u64);
+					ctx.ip = ctx.ip.wrapping_add(instr.size() as u64);
 				}
 			}
 			if !updated {
@@ -353,34 +380,45 @@ impl BlockEncoder {
 		}
 
 		for info in &mut self.blocks {
-			info.0.initialize_data(&info.1);
+			let index = info.2.wrapping_sub(1);
+			if let Some(last_instr) = self.all_instrs.get(index) {
+				let last_ip = self.all_ips[index];
+				let after_addr = last_ip.wrapping_add(last_instr.size() as u64);
+				info.0.initialize_data(after_addr);
+			} else {
+				debug_assert_eq!(info.2, 0);
+			}
 		}
 
 		let mut result_vec: Vec<BlockEncoderResult> = Vec::with_capacity(self.blocks.len());
 		for info in &mut self.blocks {
-			let mut ip = info.0.rip;
-			let mut new_instruction_offsets: Vec<u32> =
-				if (self.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 { Vec::with_capacity(info.1.len()) } else { Vec::new() };
+			let instr_count = info.2 - info.1;
+			let mut new_instruction_offsets: Vec<u32> = if (self.benc.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 {
+				Vec::with_capacity(instr_count)
+			} else {
+				Vec::new()
+			};
 			let mut constant_offsets: Vec<ConstantOffsets> =
-				if (self.options & BlockEncoderOptions::RETURN_CONSTANT_OFFSETS) != 0 { Vec::with_capacity(info.1.len()) } else { Vec::new() };
-			for instr in &mut info.1 {
-				let mut instr = instr.borrow_mut();
-				let buffer_pos = info.0.buffer_pos();
-				let is_original_instruction = if (self.options & BlockEncoderOptions::RETURN_CONSTANT_OFFSETS) != 0 {
-					let result = instr.encode(&mut info.0)?;
+				if (self.benc.options & BlockEncoderOptions::RETURN_CONSTANT_OFFSETS) != 0 { Vec::with_capacity(instr_count) } else { Vec::new() };
+			let block_rip = info.0.rip;
+			let mut ctx = InstrContext { block: &mut info.0, all_ips: &mut self.all_ips, ip: block_rip };
+			for instr in &mut self.all_instrs[info.1..info.2] {
+				let buffer_pos = ctx.block.buffer_pos();
+				let is_original_instruction = if (self.benc.options & BlockEncoderOptions::RETURN_CONSTANT_OFFSETS) != 0 {
+					let result = instr.encode(&mut ctx)?;
 					constant_offsets.push(result.0);
 					result.1
 				} else {
-					instr.encode(&mut info.0)?.1
+					instr.encode(&mut ctx)?.1
 				};
-				let size = info.0.buffer_pos() - buffer_pos;
+				let size = ctx.block.buffer_pos() - buffer_pos;
 				if size != instr.size() as usize {
 					return Err(IcedError::new("Internal error"));
 				}
-				if (self.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 {
-					new_instruction_offsets.push(if is_original_instruction { ip.wrapping_sub(info.0.rip) as u32 } else { u32::MAX });
+				if (self.benc.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 {
+					new_instruction_offsets.push(if is_original_instruction { ctx.ip.wrapping_sub(ctx.block.rip) as u32 } else { u32::MAX });
 				}
-				ip = ip.wrapping_add(size as u64);
+				ctx.ip = ctx.ip.wrapping_add(size as u64);
 			}
 			info.0.write_data()?;
 			result_vec.push(BlockEncoderResult {
@@ -391,26 +429,8 @@ impl BlockEncoder {
 				constant_offsets,
 			});
 			info.0.dispose();
-			info.1.clear();
 		}
-		self.to_instr.clear();
 
 		Ok(result_vec)
-	}
-
-	fn get_target(&self, instr: &dyn Instr, address: u64) -> TargetInstr {
-		if (address != 0 || !self.has_multiple_zero_ip_instrs) && instr.orig_ip() == address {
-			TargetInstr::new_owner()
-		} else {
-			match self.to_instr.binary_search_by(|(ip, _)| address.cmp(ip)) {
-				Ok(index) => TargetInstr::new_instr(self.to_instr[index].1.clone()),
-				Err(_) => TargetInstr::new_address(address),
-			}
-		}
-	}
-
-	fn get_instruction_size(&mut self, instruction: &Instruction, ip: u64) -> u32 {
-		self.null_encoder.clear_buffer();
-		self.null_encoder.encode(instruction, ip).map_or_else(|_| IcedConstants::MAX_INSTRUCTION_LENGTH as u32, |len| len as u32)
 	}
 }

@@ -16,8 +16,6 @@ enum InstrKind {
 
 pub(super) struct IpRelMemOpInstr {
 	orig_ip: u64,
-	ip: u64,
-	block_id: u32,
 	size: u32,
 	instruction: Instruction,
 	instr_kind: InstrKind,
@@ -27,7 +25,7 @@ pub(super) struct IpRelMemOpInstr {
 }
 
 impl IpRelMemOpInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncoder, block_id: u32, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncInt, instruction: &Instruction) -> Self {
 		debug_assert!(instruction.is_ip_rel_memory_operand());
 
 		let mut instr_copy = *instruction;
@@ -41,8 +39,6 @@ impl IpRelMemOpInstr {
 		debug_assert!(eip_instruction_size >= rip_instruction_size);
 		Self {
 			orig_ip: instruction.ip(),
-			ip: 0,
-			block_id,
 			size: eip_instruction_size,
 			instruction: *instruction,
 			instr_kind: InstrKind::Uninitialized,
@@ -52,18 +48,18 @@ impl IpRelMemOpInstr {
 		}
 	}
 
-	fn try_optimize(&mut self, gained: u64) -> bool {
+	fn try_optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Rip || self.instr_kind == InstrKind::Eip {
 			return false;
 		}
 
 		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_rip = self.target_instr.is_in_block(self.block_id);
-		let target_address = self.target_instr.address(self);
+		let mut use_rip = self.target_instr.is_in_block(ctx.block);
+		let target_address = self.target_instr.address(ctx);
 		if !use_rip {
-			let next_rip = self.ip.wrapping_add(self.rip_instruction_size as u64);
+			let next_rip = ctx.ip.wrapping_add(self.rip_instruction_size as u64);
 			let diff = target_address.wrapping_sub(next_rip) as i64;
-			let diff = correct_diff(self.target_instr.is_in_block(self.block_id()), diff, gained);
+			let diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
 			use_rip = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		}
 
@@ -86,36 +82,24 @@ impl IpRelMemOpInstr {
 }
 
 impl Instr for IpRelMemOpInstr {
-	fn block_id(&self) -> u32 {
-		self.block_id
-	}
-
 	fn size(&self) -> u32 {
 		self.size
-	}
-
-	fn ip(&self) -> u64 {
-		self.ip
-	}
-
-	fn set_ip(&mut self, new_ip: u64) {
-		self.ip = new_ip
 	}
 
 	fn orig_ip(&self) -> u64 {
 		self.orig_ip
 	}
 
-	fn initialize(&mut self, block_encoder: &BlockEncoder, _block: &mut Block) {
+	fn initialize<'a>(&mut self, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
 		self.target_instr = block_encoder.get_target(self, self.instruction.ip_rel_memory_address());
-		let _ = self.try_optimize(0);
+		let _ = self.try_optimize(ctx, 0);
 	}
 
-	fn optimize(&mut self, _block: &mut Block, gained: u64) -> bool {
-		self.try_optimize(gained)
+	fn optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+		self.try_optimize(ctx, gained)
 	}
 
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
+	fn encode<'a>(&mut self, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Rip | InstrKind::Eip => {
 				if self.instr_kind == InstrKind::Rip {
@@ -126,16 +110,16 @@ impl Instr for IpRelMemOpInstr {
 					debug_assert!(self.instr_kind == InstrKind::Unchanged);
 				};
 
-				let target_address = self.target_instr.address(self);
+				let target_address = self.target_instr.address(ctx);
 				self.instruction.set_memory_displacement64(target_address);
-				match block.encoder.encode(&self.instruction, self.ip) {
+				match ctx.block.encoder.encode(&self.instruction, ctx.ip) {
 					Ok(_) => {
 						let expected_rip =
 							if self.instruction.memory_base() == Register::EIP { target_address as u32 as u64 } else { target_address };
 						if self.instruction.ip_rel_memory_address() != expected_rip {
 							Err(IcedError::with_string(InstrUtils::create_error_message("Invalid IP relative address", &self.instruction)))
 						} else {
-							Ok((block.encoder.get_constant_offsets(), true))
+							Ok((ctx.block.encoder.get_constant_offsets(), true))
 						}
 					}
 					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
