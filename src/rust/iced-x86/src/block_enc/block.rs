@@ -20,13 +20,13 @@ pub(super) struct Block {
 }
 
 impl Block {
-	pub(super) fn new(block_encoder: &BlockEncoder, rip: u64, reloc_infos: Option<Vec<RelocInfo>>) -> Result<Self, IcedError> {
+	pub(super) fn new(bitness: u32, rip: u64, reloc_infos: Option<Vec<RelocInfo>>) -> Result<Self, IcedError> {
 		Ok(Self {
-			encoder: Encoder::try_new(block_encoder.bitness())?,
+			encoder: Encoder::try_new(bitness)?,
 			rip,
 			reloc_infos,
 			data_vec: Vec::new(),
-			alignment: block_encoder.bitness() as u64 / 8,
+			alignment: bitness as u64 / 8,
 			valid_data: Vec::new(),
 			valid_data_address: 0,
 			valid_data_address_aligned: 0,

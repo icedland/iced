@@ -140,7 +140,7 @@ impl BlockEncoder {
 		for (block_id, instr_block) in instr_blocks.iter().enumerate() {
 			let instructions = instr_block.instructions;
 			let block = Rc::new(RefCell::new(Block::new(
-				&this,
+				this.bitness,
 				instr_block.rip,
 				if (options & BlockEncoderOptions::RETURN_RELOC_INFOS) != 0 { Some(Vec::new()) } else { None },
 			)?));
