@@ -17,7 +17,9 @@ impl SimpleInstr {
 }
 
 impl Instr for SimpleInstr {
-	fn initialize<'a>(&mut self, _base: &mut InstrBase, _block_encoder: &BlockEncInt, _ctx: &mut InstrContext<'a>) {}
+	fn initialize<'a>(&mut self, base: &mut InstrBase, _block_encoder: &BlockEncInt, _ctx: &mut InstrContext<'a>) {
+		base.done = true;
+	}
 
 	fn optimize<'a>(&mut self, _base: &mut InstrBase, _ctx: &mut InstrContext<'a>, _gained: u64) -> bool {
 		false

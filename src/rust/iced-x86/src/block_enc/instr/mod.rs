@@ -44,6 +44,8 @@ pub(super) struct InstrContext<'a> {
 pub(super) struct InstrBase {
 	pub(super) size: u32,
 	pub(super) orig_ip: u64,
+	// If it can't be optimized, this will be set to true
+	pub(super) done: bool,
 }
 
 pub(super) trait Instr {

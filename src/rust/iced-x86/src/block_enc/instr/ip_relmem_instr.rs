@@ -47,6 +47,7 @@ impl IpRelMemOpInstr {
 
 	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Rip || self.instr_kind == InstrKind::Eip {
+			base.done = true;
 			return false;
 		}
 
@@ -63,6 +64,7 @@ impl IpRelMemOpInstr {
 		if use_rip {
 			base.size = self.rip_instruction_size;
 			self.instr_kind = InstrKind::Rip;
+			base.done = true;
 			return true;
 		}
 
@@ -70,6 +72,7 @@ impl IpRelMemOpInstr {
 		if target_address <= u32::MAX as u64 {
 			base.size = self.eip_instruction_size;
 			self.instr_kind = InstrKind::Eip;
+			base.done = true;
 			return true;
 		}
 

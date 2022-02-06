@@ -90,6 +90,7 @@ impl JccInstr {
 
 	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Short {
+			base.done = true;
 			return false;
 		}
 
@@ -103,6 +104,7 @@ impl JccInstr {
 			}
 			self.instr_kind = InstrKind::Short;
 			base.size = self.short_instruction_size;
+			base.done = true;
 			return true;
 		}
 

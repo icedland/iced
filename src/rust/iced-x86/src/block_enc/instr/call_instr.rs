@@ -47,6 +47,7 @@ impl CallInstr {
 
 	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.done {
+			base.done = true;
 			return false;
 		}
 
@@ -67,6 +68,7 @@ impl CallInstr {
 			base.size = self.orig_instruction_size;
 			self.use_orig_instruction = true;
 			self.done = true;
+			base.done = true;
 			return true;
 		}
 

@@ -168,7 +168,7 @@ impl BlockEncoder {
 			let mut ip = instr_block.rip;
 			let start_index = this.all_instrs.len();
 			for instruction in instructions {
-				let mut base = InstrBase { orig_ip: instruction.ip(), size: 0 };
+				let mut base = InstrBase { orig_ip: instruction.ip(), size: 0, done: false };
 				let instr = InstrUtils::create(&mut this.benc, &mut base, instruction);
 				instr_count += 1;
 				debug_assert!(base.size != 0);
@@ -359,18 +359,21 @@ impl BlockEncoder {
 				let mut ctx = InstrContext { block: &mut info.0, all_ips: &mut self.all_ips, ip: block_rip };
 				for (i, (base, instr)) in self.all_instrs[info.1..info.2].iter_mut().enumerate() {
 					ctx.all_ips[info.1 + i] = ctx.ip;
-					let old_size = base.size;
-					if instr.optimize(base, &mut ctx, gained) {
-						let instr_size = base.size;
-						if instr_size > old_size {
+					// If it can't be optimized further, don't call its virtual optimize() fn for a nice speedup
+					if !base.done {
+						let old_size = base.size;
+						if instr.optimize(base, &mut ctx, gained) {
+							let instr_size = base.size;
+							if instr_size > old_size {
+								return Err(IcedError::new("Internal error"));
+							}
+							if instr_size < old_size {
+								gained += (old_size - instr_size) as u64;
+								updated = true;
+							}
+						} else if base.size != old_size {
 							return Err(IcedError::new("Internal error"));
 						}
-						if instr_size < old_size {
-							gained += (old_size - instr_size) as u64;
-							updated = true;
-						}
-					} else if base.size != old_size {
-						return Err(IcedError::new("Internal error"));
 					}
 					ctx.ip = ctx.ip.wrapping_add(base.size as u64);
 				}
