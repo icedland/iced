@@ -8,8 +8,6 @@ use core::cell::RefCell;
 use core::cmp;
 
 pub(super) struct CallInstr {
-	orig_ip: u64,
-	size: u32,
 	bitness: u32,
 	instruction: Instruction,
 	target_instr: TargetInstr,
@@ -20,13 +18,13 @@ pub(super) struct CallInstr {
 }
 
 impl CallInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncInt, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncInt, base: &mut InstrBase, instruction: &Instruction) -> Self {
 		let mut instr_copy = *instruction;
 		instr_copy.set_near_branch64(0);
 		let orig_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
 		let mut done = false;
 		let mut use_orig_instruction = false;
-		let size = if !block_encoder.fix_branches() {
+		base.size = if !block_encoder.fix_branches() {
 			use_orig_instruction = true;
 			done = true;
 			orig_instruction_size
@@ -37,8 +35,6 @@ impl CallInstr {
 			orig_instruction_size
 		};
 		Self {
-			orig_ip: instruction.ip(),
-			size,
 			bitness: block_encoder.bitness(),
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
@@ -49,7 +45,7 @@ impl CallInstr {
 		}
 	}
 
-	fn try_optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.done {
 			return false;
 		}
@@ -68,7 +64,7 @@ impl CallInstr {
 			if let Some(ref pointer_data) = self.pointer_data {
 				pointer_data.borrow_mut().is_valid = false;
 			}
-			self.size = self.orig_instruction_size;
+			base.size = self.orig_instruction_size;
 			self.use_orig_instruction = true;
 			self.done = true;
 			return true;
@@ -82,24 +78,16 @@ impl CallInstr {
 }
 
 impl Instr for CallInstr {
-	fn size(&self) -> u32 {
-		self.size
+	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
+		self.target_instr = block_encoder.get_target(base, self.instruction.near_branch_target());
+		let _ = self.try_optimize(base, ctx, 0);
 	}
 
-	fn orig_ip(&self) -> u64 {
-		self.orig_ip
+	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+		self.try_optimize(base, ctx, gained)
 	}
 
-	fn initialize<'a>(&mut self, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
-		self.target_instr = block_encoder.get_target(self, self.instruction.near_branch_target());
-		let _ = self.try_optimize(ctx, 0);
-	}
-
-	fn optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
-		self.try_optimize(ctx, gained)
-	}
-
-	fn encode<'a>(&mut self, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
+	fn encode<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
 		if self.use_orig_instruction {
 			self.instruction.set_near_branch64(self.target_instr.address(ctx));
 			ctx.block.encoder.encode(&self.instruction, ctx.ip).map_or_else(
@@ -110,7 +98,7 @@ impl Instr for CallInstr {
 			debug_assert!(self.pointer_data.is_some());
 			let pointer_data = self.pointer_data.clone().ok_or_else(|| IcedError::new("Internal error"))?;
 			pointer_data.borrow_mut().data = self.target_instr.address(ctx);
-			InstrUtils::encode_branch_to_pointer_data(ctx.block, true, ctx.ip, pointer_data, self.size).map_or_else(
+			InstrUtils::encode_branch_to_pointer_data(ctx.block, true, ctx.ip, pointer_data, base.size).map_or_else(
 				|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 				|_| Ok((ConstantOffsets::default(), false)),
 			)

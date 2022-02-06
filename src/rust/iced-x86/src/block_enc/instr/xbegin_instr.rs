@@ -14,8 +14,6 @@ enum InstrKind {
 }
 
 pub(super) struct XbeginInstr {
-	orig_ip: u64,
-	size: u32,
 	instruction: Instruction,
 	target_instr: TargetInstr,
 	instr_kind: InstrKind,
@@ -24,17 +22,16 @@ pub(super) struct XbeginInstr {
 }
 
 impl XbeginInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncInt, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncInt, base: &mut InstrBase, instruction: &Instruction) -> Self {
 		let mut instr_kind = InstrKind::Uninitialized;
 		let mut instr_copy: Instruction;
-		let size;
 		let short_instruction_size;
 		let near_instruction_size;
 		if !block_encoder.fix_branches() {
 			instr_kind = InstrKind::Unchanged;
 			instr_copy = *instruction;
 			instr_copy.set_near_branch64(0);
-			size = block_encoder.get_instruction_size(&instr_copy, 0);
+			base.size = block_encoder.get_instruction_size(&instr_copy, 0);
 			short_instruction_size = 0;
 			near_instruction_size = 0;
 		} else {
@@ -48,20 +45,12 @@ impl XbeginInstr {
 			instr_copy.set_near_branch64(0);
 			near_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
 
-			size = near_instruction_size;
+			base.size = near_instruction_size;
 		}
-		Self {
-			orig_ip: instruction.ip(),
-			size,
-			instruction: *instruction,
-			target_instr: TargetInstr::default(),
-			instr_kind,
-			short_instruction_size,
-			near_instruction_size,
-		}
+		Self { instruction: *instruction, target_instr: TargetInstr::default(), instr_kind, short_instruction_size, near_instruction_size }
 	}
 
-	fn try_optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Rel16 {
 			return false;
 		}
@@ -72,35 +61,27 @@ impl XbeginInstr {
 		let diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
 		if i16::MIN as i64 <= diff && diff <= i16::MAX as i64 {
 			self.instr_kind = InstrKind::Rel16;
-			self.size = self.short_instruction_size;
+			base.size = self.short_instruction_size;
 			true
 		} else {
 			self.instr_kind = InstrKind::Rel32;
-			self.size = self.near_instruction_size;
+			base.size = self.near_instruction_size;
 			false
 		}
 	}
 }
 
 impl Instr for XbeginInstr {
-	fn size(&self) -> u32 {
-		self.size
+	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
+		self.target_instr = block_encoder.get_target(base, self.instruction.near_branch_target());
+		let _ = self.try_optimize(base, ctx, 0);
 	}
 
-	fn orig_ip(&self) -> u64 {
-		self.orig_ip
+	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+		self.try_optimize(base, ctx, gained)
 	}
 
-	fn initialize<'a>(&mut self, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
-		self.target_instr = block_encoder.get_target(self, self.instruction.near_branch_target());
-		let _ = self.try_optimize(ctx, 0);
-	}
-
-	fn optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
-		self.try_optimize(ctx, gained)
-	}
-
-	fn encode<'a>(&mut self, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
+	fn encode<'a>(&mut self, _base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Rel16 | InstrKind::Rel32 => {
 				if self.instr_kind == InstrKind::Unchanged {

@@ -17,8 +17,6 @@ enum InstrKind {
 }
 
 pub(super) struct SimpleBranchInstr {
-	orig_ip: u64,
-	size: u32,
 	bitness: u32,
 	instruction: Instruction,
 	target_instr: TargetInstr,
@@ -32,11 +30,10 @@ pub(super) struct SimpleBranchInstr {
 }
 
 impl SimpleBranchInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncInt, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncInt, base: &mut InstrBase, instruction: &Instruction) -> Self {
 		let mut instr_kind = InstrKind::Uninitialized;
 		let mut instr_copy;
 		let native_code;
-		let size;
 		let short_instruction_size;
 		let near_instruction_size;
 		let long_instruction_size;
@@ -45,7 +42,7 @@ impl SimpleBranchInstr {
 			instr_kind = InstrKind::Unchanged;
 			instr_copy = *instruction;
 			instr_copy.set_near_branch64(0);
-			size = block_encoder.get_instruction_size(&instr_copy, 0);
+			base.size = block_encoder.get_instruction_size(&instr_copy, 0);
 			native_code = Code::INVALID;
 			short_instruction_size = 0;
 			near_instruction_size = 0;
@@ -72,7 +69,7 @@ impl SimpleBranchInstr {
 				_ => unreachable!(),
 			};
 
-			size = if block_encoder.bitness() == 64 {
+			base.size = if block_encoder.bitness() == 64 {
 				long_instruction_size = native_instruction_size + 2 + InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64;
 				cmp::max(cmp::max(short_instruction_size, near_instruction_size), long_instruction_size)
 			} else {
@@ -81,8 +78,6 @@ impl SimpleBranchInstr {
 			};
 		}
 		Self {
-			orig_ip: instruction.ip(),
-			size,
 			bitness: block_encoder.bitness(),
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
@@ -96,7 +91,7 @@ impl SimpleBranchInstr {
 		}
 	}
 
-	fn try_optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Short {
 			return false;
 		}
@@ -110,7 +105,7 @@ impl SimpleBranchInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Short;
-			self.size = self.short_instruction_size;
+			base.size = self.short_instruction_size;
 			return true;
 		}
 
@@ -128,7 +123,7 @@ impl SimpleBranchInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Near;
-			self.size = self.near_instruction_size;
+			base.size = self.near_instruction_size;
 			return true;
 		}
 
@@ -172,24 +167,16 @@ impl SimpleBranchInstr {
 }
 
 impl Instr for SimpleBranchInstr {
-	fn size(&self) -> u32 {
-		self.size
+	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
+		self.target_instr = block_encoder.get_target(base, self.instruction.near_branch_target());
+		let _ = self.try_optimize(base, ctx, 0);
 	}
 
-	fn orig_ip(&self) -> u64 {
-		self.orig_ip
+	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+		self.try_optimize(base, ctx, gained)
 	}
 
-	fn initialize<'a>(&mut self, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
-		self.target_instr = block_encoder.get_target(self, self.instruction.near_branch_target());
-		let _ = self.try_optimize(ctx, 0);
-	}
-
-	fn optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
-		self.try_optimize(ctx, gained)
-	}
-
-	fn encode<'a>(&mut self, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
+	fn encode<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
 		let mut instr;
 		let mut size;
 		let instr_len;
@@ -311,7 +298,7 @@ impl Instr for SimpleBranchInstr {
 					false,
 					ctx.ip.wrapping_add(size as u64),
 					pointer_data,
-					self.size.wrapping_sub(size),
+					base.size.wrapping_sub(size),
 				)
 				.map_or_else(
 					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),

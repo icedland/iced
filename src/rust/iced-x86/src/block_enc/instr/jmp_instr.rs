@@ -17,8 +17,6 @@ enum InstrKind {
 }
 
 pub(super) struct JmpInstr {
-	orig_ip: u64,
-	size: u32,
 	bitness: u32,
 	instruction: Instruction,
 	target_instr: TargetInstr,
@@ -29,17 +27,16 @@ pub(super) struct JmpInstr {
 }
 
 impl JmpInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncInt, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncInt, base: &mut InstrBase, instruction: &Instruction) -> Self {
 		let mut instr_kind = InstrKind::Uninitialized;
 		let mut instr_copy: Instruction;
-		let size;
 		let short_instruction_size;
 		let near_instruction_size;
 		if !block_encoder.fix_branches() {
 			instr_kind = InstrKind::Unchanged;
 			instr_copy = *instruction;
 			instr_copy.set_near_branch64(0);
-			size = block_encoder.get_instruction_size(&instr_copy, 0);
+			base.size = block_encoder.get_instruction_size(&instr_copy, 0);
 			short_instruction_size = 0;
 			near_instruction_size = 0;
 		} else {
@@ -53,7 +50,7 @@ impl JmpInstr {
 			instr_copy.set_near_branch64(0);
 			near_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
 
-			size = if block_encoder.bitness() == 64 {
+			base.size = if block_encoder.bitness() == 64 {
 				// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
 				cmp::max(near_instruction_size, InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64)
 			} else {
@@ -61,8 +58,6 @@ impl JmpInstr {
 			}
 		}
 		Self {
-			orig_ip: instruction.ip(),
-			size,
 			bitness: block_encoder.bitness(),
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
@@ -73,7 +68,7 @@ impl JmpInstr {
 		}
 	}
 
-	fn try_optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Short {
 			return false;
 		}
@@ -87,7 +82,7 @@ impl JmpInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Short;
-			self.size = self.short_instruction_size;
+			base.size = self.short_instruction_size;
 			return true;
 		}
 
@@ -105,7 +100,7 @@ impl JmpInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Near;
-			self.size = self.near_instruction_size;
+			base.size = self.near_instruction_size;
 			return true;
 		}
 
@@ -118,24 +113,16 @@ impl JmpInstr {
 }
 
 impl Instr for JmpInstr {
-	fn size(&self) -> u32 {
-		self.size
+	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
+		self.target_instr = block_encoder.get_target(base, self.instruction.near_branch_target());
+		let _ = self.try_optimize(base, ctx, 0);
 	}
 
-	fn orig_ip(&self) -> u64 {
-		self.orig_ip
+	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+		self.try_optimize(base, ctx, gained)
 	}
 
-	fn initialize<'a>(&mut self, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
-		self.target_instr = block_encoder.get_target(self, self.instruction.near_branch_target());
-		let _ = self.try_optimize(ctx, 0);
-	}
-
-	fn optimize<'a>(&mut self, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
-		self.try_optimize(ctx, gained)
-	}
-
-	fn encode<'a>(&mut self, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
+	fn encode<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Short | InstrKind::Near => {
 				if self.instr_kind == InstrKind::Unchanged {
@@ -157,7 +144,7 @@ impl Instr for JmpInstr {
 				debug_assert!(self.pointer_data.is_some());
 				let pointer_data = self.pointer_data.clone().ok_or_else(|| IcedError::new("Internal error"))?;
 				pointer_data.borrow_mut().data = self.target_instr.address(ctx);
-				InstrUtils::encode_branch_to_pointer_data(ctx.block, false, ctx.ip, pointer_data, self.size).map_or_else(
+				InstrUtils::encode_branch_to_pointer_data(ctx.block, false, ctx.ip, pointer_data, base.size).map_or_else(
 					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 					|_| Ok((ConstantOffsets::default(), false)),
 				)

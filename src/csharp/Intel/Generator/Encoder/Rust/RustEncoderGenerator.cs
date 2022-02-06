@@ -500,11 +500,11 @@ namespace Generator.Encoder.Rust {
 
 		protected override void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr) {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("block_enc", "instr", "mod.rs");
-			GenerateCases(filename, "JccInstr", jccInstr, "return Box::new(JccInstr::new(block_encoder, instruction))");
-			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr, "return Box::new(SimpleBranchInstr::new(block_encoder, instruction))");
-			GenerateCases(filename, "CallInstr", callInstr, "return Box::new(CallInstr::new(block_encoder, instruction))");
-			GenerateCases(filename, "JmpInstr", jmpInstr, "return Box::new(JmpInstr::new(block_encoder, instruction))");
-			GenerateCases(filename, "XbeginInstr", xbeginInstr, "return Box::new(XbeginInstr::new(block_encoder, instruction))");
+			GenerateCases(filename, "JccInstr", jccInstr, "return Box::new(JccInstr::new(block_encoder, base, instruction))");
+			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr, "return Box::new(SimpleBranchInstr::new(block_encoder, base, instruction))");
+			GenerateCases(filename, "CallInstr", callInstr, "return Box::new(CallInstr::new(block_encoder, base, instruction))");
+			GenerateCases(filename, "JmpInstr", jmpInstr, "return Box::new(JmpInstr::new(block_encoder, base, instruction))");
+			GenerateCases(filename, "XbeginInstr", xbeginInstr, "return Box::new(XbeginInstr::new(block_encoder, base, instruction))");
 		}
 
 		protected override void GenerateVsib(EnumValue[] vsib32, EnumValue[] vsib64) {
