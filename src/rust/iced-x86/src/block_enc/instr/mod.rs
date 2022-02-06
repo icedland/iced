@@ -19,25 +19,43 @@ use crate::block_enc::instr::simple_instr::SimpleInstr;
 use crate::block_enc::instr::xbegin_instr::XbeginInstr;
 use crate::block_enc::*;
 use crate::iced_error::IcedError;
-use alloc::rc::Rc;
+use alloc::boxed::Box;
 use alloc::string::String;
 use core::cell::RefCell;
 use core::fmt::Display;
 
-pub(super) trait Instr {
-	fn block(&self) -> Rc<RefCell<Block>>;
-	fn size(&self) -> u32;
-	fn ip(&self) -> u64;
-	fn set_ip(&mut self, new_ip: u64);
-	fn orig_ip(&self) -> u64;
+// This is a little bit ugly.
+//
+// TargetInstr::address() needs to get the ip of the target instr. We can't pass in the `all_instrs`
+// slice since the caller is `&mut` from inside that very same slice. So we had to move the `ip` field
+// from Instr to its own vec, which is stored in the `all_ips` slice.
+//
+// `ip` is also used by the Instr methods so need to be part of the context as well.
+//
+// The old code used Rc<RefCell<dyn Instr>> but it was slower. Converting it to Box<dyn Instr> resulted in
+// ~28% less execution time when encoding a lot of instructions.
+pub(super) struct InstrContext<'a> {
+	pub(super) block: &'a mut Block,
+	pub(super) all_ips: &'a mut [u64],
+	pub(super) ip: u64,
+}
 
+// Data common among all `Instr` impls. It eliminates many slow virtual calls to getters.
+pub(super) struct InstrBase {
+	pub(super) size: u32,
+	pub(super) orig_ip: u64,
+	// If it can't be optimized, this will be set to true
+	pub(super) done: bool,
+}
+
+pub(super) trait Instr {
 	/// Initializes the target address and tries to optimize the instruction
-	fn initialize(&mut self, block_encoder: &BlockEncoder);
+	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>);
 
 	/// Returns `true` if the instruction was updated to a shorter instruction, `false` if nothing changed
-	fn optimize(&mut self, gained: u64) -> bool;
+	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool;
 
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError>;
+	fn encode<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError>;
 }
 
 fn correct_diff(in_block: bool, diff: i64, gained: u64) -> i64 {
@@ -51,7 +69,7 @@ fn correct_diff(in_block: bool, diff: i64, gained: u64) -> i64 {
 
 pub(super) enum TargetInstr {
 	Uninitialized,
-	Instruction(Rc<RefCell<dyn Instr>>),
+	Instruction(usize),
 	Address(u64),
 	IsOwner,
 }
@@ -64,8 +82,8 @@ impl Default for TargetInstr {
 
 impl TargetInstr {
 	#[inline]
-	pub(super) fn new_instr(instruction: Rc<RefCell<dyn Instr>>) -> Self {
-		TargetInstr::Instruction(instruction)
+	pub(super) fn new_instr(instr_index: usize) -> Self {
+		TargetInstr::Instruction(instr_index)
 	}
 
 	#[inline]
@@ -78,9 +96,9 @@ impl TargetInstr {
 		TargetInstr::IsOwner
 	}
 
-	fn is_in_block(&self, block: Rc<RefCell<Block>>) -> bool {
+	fn is_in_block(&self, block: &Block) -> bool {
 		match self {
-			TargetInstr::Instruction(instr) => Rc::ptr_eq(&instr.borrow().block(), &block),
+			TargetInstr::Instruction(instr_index) => block.is_in_block(*instr_index),
 			TargetInstr::Address(_) => false,
 			// The owner checks if the input block is part of its block, so return true
 			TargetInstr::IsOwner => true,
@@ -88,11 +106,11 @@ impl TargetInstr {
 		}
 	}
 
-	fn address(&self, owner: &dyn Instr) -> u64 {
+	fn address<'a>(&self, ctx: &mut InstrContext<'a>) -> u64 {
 		match self {
-			TargetInstr::Instruction(instr) => instr.borrow().ip(),
+			TargetInstr::Instruction(instr_index) => ctx.all_ips[*instr_index],
 			TargetInstr::Address(address) => *address,
-			TargetInstr::IsOwner => owner.ip(),
+			TargetInstr::IsOwner => ctx.ip,
 			TargetInstr::Uninitialized => unreachable!(),
 		}
 	}
@@ -113,7 +131,7 @@ impl InstrUtils {
 		format!("{} : 0x{:X}", error_message, instruction.ip())
 	}
 
-	pub(super) fn create(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Rc<RefCell<dyn Instr>> {
+	pub(super) fn create(block_encoder: &mut BlockEncInt, base: &mut InstrBase, instruction: &Instruction) -> Box<dyn Instr> {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match instruction.code() {
 			// GENERATOR-BEGIN: JccInstr
@@ -218,7 +236,7 @@ impl InstrUtils {
 			| Code::VEX_KNC_Jknzd_kr_rel8_64
 			| Code::VEX_KNC_Jkzd_kr_rel32_64
 			| Code::VEX_KNC_Jknzd_kr_rel32_64
-			=> return Rc::new(RefCell::new(JccInstr::new(block_encoder, block, instruction))),
+			=> return Box::new(JccInstr::new(block_encoder, base, instruction)),
 			// GENERATOR-END: JccInstr
 
 			// GENERATOR-BEGIN: SimpleBranchInstr
@@ -251,7 +269,7 @@ impl InstrUtils {
 			| Code::Jecxz_rel8_64
 			| Code::Jrcxz_rel8_16
 			| Code::Jrcxz_rel8_64
-			=> return Rc::new(RefCell::new(SimpleBranchInstr::new(block_encoder, block, instruction))),
+			=> return Box::new(SimpleBranchInstr::new(block_encoder, base, instruction)),
 			// GENERATOR-END: SimpleBranchInstr
 
 			// GENERATOR-BEGIN: CallInstr
@@ -259,7 +277,7 @@ impl InstrUtils {
 			Code::Call_rel16
 			| Code::Call_rel32_32
 			| Code::Call_rel32_64
-			=> return Rc::new(RefCell::new(CallInstr::new(block_encoder, block, instruction))),
+			=> return Box::new(CallInstr::new(block_encoder, base, instruction)),
 			// GENERATOR-END: CallInstr
 
 			// GENERATOR-BEGIN: JmpInstr
@@ -270,31 +288,28 @@ impl InstrUtils {
 			| Code::Jmp_rel8_16
 			| Code::Jmp_rel8_32
 			| Code::Jmp_rel8_64
-			=> return Rc::new(RefCell::new(JmpInstr::new(block_encoder, block, instruction))),
+			=> return Box::new(JmpInstr::new(block_encoder, base, instruction)),
 			// GENERATOR-END: JmpInstr
 
 			// GENERATOR-BEGIN: XbeginInstr
 			// ⚠️This was generated by GENERATOR!🦹‍♂️
 			Code::Xbegin_rel16
 			| Code::Xbegin_rel32
-			=> return Rc::new(RefCell::new(XbeginInstr::new(block_encoder, block, instruction))),
+			=> return Box::new(XbeginInstr::new(block_encoder, base, instruction)),
 			// GENERATOR-END: XbeginInstr
 
 			_ => {},
 		}
 
 		if block_encoder.bitness() == 64 {
-			for i in 0..instruction.op_count() {
-				if instruction.op_kind(i) == OpKind::Memory {
-					if instruction.is_ip_rel_memory_operand() {
-						return Rc::new(RefCell::new(IpRelMemOpInstr::new(block_encoder, block, instruction)));
-					}
-					break;
+			if instruction.is_ip_rel_memory_operand() {
+				if instruction.op_kinds().any(|op_kind| op_kind == OpKind::Memory) {
+					return Box::new(IpRelMemOpInstr::new(block_encoder, base, instruction));
 				}
 			}
 		}
 
-		Rc::new(RefCell::new(SimpleInstr::new(block_encoder, block, instruction)))
+		Box::new(SimpleInstr::new(block_encoder, base, instruction))
 	}
 
 	fn encode_branch_to_pointer_data(

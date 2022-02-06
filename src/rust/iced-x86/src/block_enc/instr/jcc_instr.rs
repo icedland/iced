@@ -17,10 +17,6 @@ enum InstrKind {
 }
 
 pub(super) struct JccInstr {
-	orig_ip: u64,
-	ip: u64,
-	block: Rc<RefCell<Block>>,
-	size: u32,
 	bitness: u32,
 	instruction: Instruction,
 	target_instr: TargetInstr,
@@ -49,10 +45,9 @@ impl JccInstr {
 		2 + InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64
 	}
 
-	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncInt, base: &mut InstrBase, instruction: &Instruction) -> Self {
 		let mut instr_kind = InstrKind::Uninitialized;
 		let mut instr_copy: Instruction;
-		let size;
 		let short_instruction_size;
 		let near_instruction_size;
 		let long_instruction_size64 = Self::long_instruction_size64(instruction);
@@ -60,7 +55,7 @@ impl JccInstr {
 			instr_kind = InstrKind::Unchanged;
 			instr_copy = *instruction;
 			instr_copy.set_near_branch64(0);
-			size = block_encoder.get_instruction_size(&instr_copy, 0);
+			base.size = block_encoder.get_instruction_size(&instr_copy, 0);
 			short_instruction_size = 0;
 			near_instruction_size = 0;
 		} else {
@@ -74,7 +69,7 @@ impl JccInstr {
 			instr_copy.set_near_branch64(0);
 			near_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
 
-			size = if block_encoder.bitness() == 64 {
+			base.size = if block_encoder.bitness() == 64 {
 				// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
 				cmp::max(near_instruction_size, long_instruction_size64)
 			} else {
@@ -82,10 +77,6 @@ impl JccInstr {
 			};
 		}
 		Self {
-			orig_ip: instruction.ip(),
-			ip: 0,
-			block,
-			size,
 			bitness: block_encoder.bitness(),
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
@@ -97,31 +88,33 @@ impl JccInstr {
 		}
 	}
 
-	fn try_optimize(&mut self, gained: u64) -> bool {
+	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Short {
+			base.done = true;
 			return false;
 		}
 
-		let mut target_address = self.target_instr.address(self);
-		let mut next_rip = self.ip.wrapping_add(self.short_instruction_size as u64);
+		let mut target_address = self.target_instr.address(ctx);
+		let mut next_rip = ctx.ip.wrapping_add(self.short_instruction_size as u64);
 		let mut diff = target_address.wrapping_sub(next_rip) as i64;
-		diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
+		diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
 		if i8::MIN as i64 <= diff && diff <= i8::MAX as i64 {
 			if let Some(ref pointer_data) = self.pointer_data {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Short;
-			self.size = self.short_instruction_size;
+			base.size = self.short_instruction_size;
+			base.done = true;
 			return true;
 		}
 
 		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(self.block.clone());
+		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(ctx.block);
 		if !use_near {
-			target_address = self.target_instr.address(self);
-			next_rip = self.ip.wrapping_add(self.near_instruction_size as u64);
+			target_address = self.target_instr.address(ctx);
+			next_rip = ctx.ip.wrapping_add(self.near_instruction_size as u64);
 			diff = target_address.wrapping_sub(next_rip) as i64;
-			diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
+			diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
 			use_near = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		}
 		if use_near {
@@ -129,12 +122,12 @@ impl JccInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Near;
-			self.size = self.near_instruction_size;
+			base.size = self.near_instruction_size;
 			return true;
 		}
 
 		if self.pointer_data.is_none() {
-			self.pointer_data = Some(self.block.clone().borrow_mut().alloc_pointer_location());
+			self.pointer_data = Some(ctx.block.alloc_pointer_location());
 		}
 		self.instr_kind = InstrKind::Long;
 		false
@@ -182,36 +175,16 @@ impl JccInstr {
 }
 
 impl Instr for JccInstr {
-	fn block(&self) -> Rc<RefCell<Block>> {
-		self.block.clone()
+	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
+		self.target_instr = block_encoder.get_target(base, self.instruction.near_branch_target());
+		let _ = self.try_optimize(base, ctx, 0);
 	}
 
-	fn size(&self) -> u32 {
-		self.size
+	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+		self.try_optimize(base, ctx, gained)
 	}
 
-	fn ip(&self) -> u64 {
-		self.ip
-	}
-
-	fn set_ip(&mut self, new_ip: u64) {
-		self.ip = new_ip
-	}
-
-	fn orig_ip(&self) -> u64 {
-		self.orig_ip
-	}
-
-	fn initialize(&mut self, block_encoder: &BlockEncoder) {
-		self.target_instr = block_encoder.get_target(self, self.instruction.near_branch_target());
-		let _ = self.try_optimize(0);
-	}
-
-	fn optimize(&mut self, gained: u64) -> bool {
-		self.try_optimize(gained)
-	}
-
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
+	fn encode<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Short | InstrKind::Near => {
 				if self.instr_kind == InstrKind::Unchanged {
@@ -222,21 +195,21 @@ impl Instr for JccInstr {
 					debug_assert!(self.instr_kind == InstrKind::Near);
 					self.instruction.set_code(self.instruction.code().as_near_branch());
 				}
-				self.instruction.set_near_branch64(self.target_instr.address(self));
-				block.encoder.encode(&self.instruction, self.ip).map_or_else(
+				self.instruction.set_near_branch64(self.target_instr.address(ctx));
+				ctx.block.encoder.encode(&self.instruction, ctx.ip).map_or_else(
 					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-					|_| Ok((block.encoder.get_constant_offsets(), true)),
+					|_| Ok((ctx.block.encoder.get_constant_offsets(), true)),
 				)
 			}
 
 			InstrKind::Long => {
 				debug_assert!(self.pointer_data.is_some());
 				let pointer_data = self.pointer_data.clone().ok_or_else(|| IcedError::new("Internal error"))?;
-				pointer_data.borrow_mut().data = self.target_instr.address(self);
+				pointer_data.borrow_mut().data = self.target_instr.address(ctx);
 				let mut instr = Instruction::default();
 				instr.set_code(Self::short_br_to_native_br(
 					self.instruction.code().negate_condition_code().as_short_branch(),
-					block.encoder.bitness(),
+					ctx.block.encoder.bitness(),
 				));
 				if self.instruction.op_count() == 1 {
 					instr.set_op0_kind(OpKind::NearBranch64);
@@ -251,18 +224,25 @@ impl Instr for JccInstr {
 					#[cfg(not(feature = "mvex"))]
 					unreachable!();
 				}
-				debug_assert!(block.encoder.bitness() == 64);
+				debug_assert!(ctx.block.encoder.bitness() == 64);
 				debug_assert!(self.long_instruction_size64 <= i8::MAX as u32);
-				instr.set_near_branch64(self.ip.wrapping_add(self.long_instruction_size64 as u64));
-				let instr_len = block
+				instr.set_near_branch64(ctx.ip.wrapping_add(self.long_instruction_size64 as u64));
+				let instr_len = ctx
+					.block
 					.encoder
-					.encode(&instr, self.ip)
+					.encode(&instr, ctx.ip)
 					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
-				InstrUtils::encode_branch_to_pointer_data(block, false, self.ip.wrapping_add(instr_len as u64), pointer_data, self.size - instr_len)
-					.map_or_else(
-						|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-						|_| Ok((ConstantOffsets::default(), false)),
-					)
+				InstrUtils::encode_branch_to_pointer_data(
+					ctx.block,
+					false,
+					ctx.ip.wrapping_add(instr_len as u64),
+					pointer_data,
+					base.size - instr_len,
+				)
+				.map_or_else(
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|_| Ok((ConstantOffsets::default(), false)),
+				)
 			}
 
 			InstrKind::Uninitialized => unreachable!(),

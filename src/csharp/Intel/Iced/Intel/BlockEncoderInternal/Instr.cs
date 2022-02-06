@@ -11,6 +11,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public uint Size;
 		public ulong IP;
 		public readonly ulong OrigIP;
+		// If it can't be optimized, this will be set to true
+		public bool Done;
 
 		// 6 = FF 15 XXXXXXXX = call qword ptr [rip+mem_target]
 		protected const uint CallOrJmpPointerDataInstructionSize64 = 6;

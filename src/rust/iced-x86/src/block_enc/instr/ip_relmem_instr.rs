@@ -4,7 +4,6 @@
 use crate::block_enc::instr::*;
 use crate::block_enc::*;
 use crate::iced_error::IcedError;
-use core::cell::RefCell;
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
 enum InstrKind {
@@ -16,10 +15,6 @@ enum InstrKind {
 }
 
 pub(super) struct IpRelMemOpInstr {
-	orig_ip: u64,
-	ip: u64,
-	block: Rc<RefCell<Block>>,
-	size: u32,
 	instruction: Instruction,
 	instr_kind: InstrKind,
 	eip_instruction_size: u32,
@@ -28,7 +23,7 @@ pub(super) struct IpRelMemOpInstr {
 }
 
 impl IpRelMemOpInstr {
-	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncInt, base: &mut InstrBase, instruction: &Instruction) -> Self {
 		debug_assert!(instruction.is_ip_rel_memory_operand());
 
 		let mut instr_copy = *instruction;
@@ -39,12 +34,9 @@ impl IpRelMemOpInstr {
 		instr_copy.set_memory_base(Register::EIP);
 		let eip_instruction_size = block_encoder.get_instruction_size(&instr_copy, instr_copy.ip_rel_memory_address());
 
+		base.size = eip_instruction_size;
 		debug_assert!(eip_instruction_size >= rip_instruction_size);
 		Self {
-			orig_ip: instruction.ip(),
-			ip: 0,
-			block,
-			size: eip_instruction_size,
 			instruction: *instruction,
 			instr_kind: InstrKind::Uninitialized,
 			eip_instruction_size,
@@ -53,31 +45,34 @@ impl IpRelMemOpInstr {
 		}
 	}
 
-	fn try_optimize(&mut self, gained: u64) -> bool {
+	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Rip || self.instr_kind == InstrKind::Eip {
+			base.done = true;
 			return false;
 		}
 
 		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_rip = self.target_instr.is_in_block(self.block.clone());
-		let target_address = self.target_instr.address(self);
+		let mut use_rip = self.target_instr.is_in_block(ctx.block);
+		let target_address = self.target_instr.address(ctx);
 		if !use_rip {
-			let next_rip = self.ip.wrapping_add(self.rip_instruction_size as u64);
+			let next_rip = ctx.ip.wrapping_add(self.rip_instruction_size as u64);
 			let diff = target_address.wrapping_sub(next_rip) as i64;
-			let diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
+			let diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
 			use_rip = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		}
 
 		if use_rip {
-			self.size = self.rip_instruction_size;
+			base.size = self.rip_instruction_size;
 			self.instr_kind = InstrKind::Rip;
+			base.done = true;
 			return true;
 		}
 
 		// If it's in the lower 4GB we can use EIP relative addressing
 		if target_address <= u32::MAX as u64 {
-			self.size = self.eip_instruction_size;
+			base.size = self.eip_instruction_size;
 			self.instr_kind = InstrKind::Eip;
+			base.done = true;
 			return true;
 		}
 
@@ -87,36 +82,16 @@ impl IpRelMemOpInstr {
 }
 
 impl Instr for IpRelMemOpInstr {
-	fn block(&self) -> Rc<RefCell<Block>> {
-		self.block.clone()
+	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
+		self.target_instr = block_encoder.get_target(base, self.instruction.ip_rel_memory_address());
+		let _ = self.try_optimize(base, ctx, 0);
 	}
 
-	fn size(&self) -> u32 {
-		self.size
+	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+		self.try_optimize(base, ctx, gained)
 	}
 
-	fn ip(&self) -> u64 {
-		self.ip
-	}
-
-	fn set_ip(&mut self, new_ip: u64) {
-		self.ip = new_ip
-	}
-
-	fn orig_ip(&self) -> u64 {
-		self.orig_ip
-	}
-
-	fn initialize(&mut self, block_encoder: &BlockEncoder) {
-		self.target_instr = block_encoder.get_target(self, self.instruction.ip_rel_memory_address());
-		let _ = self.try_optimize(0);
-	}
-
-	fn optimize(&mut self, gained: u64) -> bool {
-		self.try_optimize(gained)
-	}
-
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
+	fn encode<'a>(&mut self, _base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Rip | InstrKind::Eip => {
 				if self.instr_kind == InstrKind::Rip {
@@ -127,16 +102,16 @@ impl Instr for IpRelMemOpInstr {
 					debug_assert!(self.instr_kind == InstrKind::Unchanged);
 				};
 
-				let target_address = self.target_instr.address(self);
+				let target_address = self.target_instr.address(ctx);
 				self.instruction.set_memory_displacement64(target_address);
-				match block.encoder.encode(&self.instruction, self.ip) {
+				match ctx.block.encoder.encode(&self.instruction, ctx.ip) {
 					Ok(_) => {
 						let expected_rip =
 							if self.instruction.memory_base() == Register::EIP { target_address as u32 as u64 } else { target_address };
 						if self.instruction.ip_rel_memory_address() != expected_rip {
 							Err(IcedError::with_string(InstrUtils::create_error_message("Invalid IP relative address", &self.instruction)))
 						} else {
-							Ok((block.encoder.get_constant_offsets(), true))
+							Ok((ctx.block.encoder.get_constant_offsets(), true))
 						}
 					}
 					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),

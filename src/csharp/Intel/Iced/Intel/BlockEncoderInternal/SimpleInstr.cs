@@ -15,7 +15,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			Size = blockEncoder.GetInstructionSize(instruction, instruction.IP);
 		}
 
-		public override void Initialize(BlockEncoder blockEncoder) { }
+		public override void Initialize(BlockEncoder blockEncoder) => Done = true;
 		public override bool Optimize(ulong gained) => false;
 
 		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {

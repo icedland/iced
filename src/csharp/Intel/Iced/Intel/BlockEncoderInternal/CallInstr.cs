@@ -16,7 +16,6 @@ namespace Iced.Intel.BlockEncoderInternal {
 		readonly uint origInstructionSize;
 		BlockData? pointerData;
 		bool useOrigInstruction;
-		bool done;
 
 		public CallInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
 			: base(block, instruction.IP) {
@@ -28,7 +27,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			if (!blockEncoder.FixBranches) {
 				Size = origInstructionSize;
 				useOrigInstruction = true;
-				done = true;
+				Done = true;
 			}
 			else if (blockEncoder.Bitness == 64) {
 				// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
@@ -46,7 +45,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public override bool Optimize(ulong gained) => TryOptimize(gained);
 
 		bool TryOptimize(ulong gained) {
-			if (done)
+			if (Done)
 				return false;
 
 			// If it's in the same block, we assume the target is at most 2GB away.
@@ -64,7 +63,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 					pointerData.IsValid = false;
 				Size = origInstructionSize;
 				useOrigInstruction = true;
-				done = true;
+				Done = true;
 				return true;
 			}
 

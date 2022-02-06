@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::block_enc::instr::*;
 use crate::block_enc::*;
 use crate::iced_error::IcedError;
 use alloc::rc::Rc;
@@ -17,20 +16,27 @@ pub(super) struct Block {
 	valid_data: Vec<Rc<RefCell<BlockData>>>,
 	valid_data_address: u64,
 	valid_data_address_aligned: u64,
+	// start and end indexes (exclusive) of its instructions, eg. all_instrs[x.0..x.1]
+	instr_indexes: (usize, usize),
 }
 
 impl Block {
-	pub(super) fn new(block_encoder: &BlockEncoder, rip: u64, reloc_infos: Option<Vec<RelocInfo>>) -> Result<Self, IcedError> {
+	pub(super) fn new(bitness: u32, rip: u64, reloc_infos: Option<Vec<RelocInfo>>, start_index: usize, end_index: usize) -> Result<Self, IcedError> {
 		Ok(Self {
-			encoder: Encoder::try_new(block_encoder.bitness())?,
+			encoder: Encoder::try_new(bitness)?,
 			rip,
 			reloc_infos,
 			data_vec: Vec::new(),
-			alignment: block_encoder.bitness() as u64 / 8,
+			alignment: bitness as u64 / 8,
 			valid_data: Vec::new(),
 			valid_data_address: 0,
 			valid_data_address_aligned: 0,
+			instr_indexes: (start_index, end_index),
 		})
+	}
+
+	pub(super) fn is_in_block(&self, instr_index: usize) -> bool {
+		self.instr_indexes.0 <= instr_index && instr_index < self.instr_indexes.1
 	}
 
 	pub(super) fn alloc_pointer_location(&mut self) -> Rc<RefCell<BlockData>> {
@@ -39,11 +45,7 @@ impl Block {
 		data
 	}
 
-	pub(super) fn initialize_data(&mut self, instructions: &[Rc<RefCell<dyn Instr>>]) {
-		let base_addr = match instructions.last() {
-			Some(instr) => instr.borrow().ip().wrapping_add(instr.borrow().size() as u64),
-			None => self.rip,
-		};
+	pub(super) fn initialize_data(&mut self, base_addr: u64) {
 		self.valid_data_address = base_addr;
 
 		let mut addr = base_addr.wrapping_add(self.alignment).wrapping_sub(1) & !self.alignment.wrapping_sub(1);

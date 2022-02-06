@@ -50,8 +50,10 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public override bool Optimize(ulong gained) => TryOptimize(gained);
 
 		bool TryOptimize(ulong gained) {
-			if (instrKind == InstrKind.Unchanged || instrKind == InstrKind.Rip || instrKind == InstrKind.Eip)
+			if (instrKind == InstrKind.Unchanged || instrKind == InstrKind.Rip || instrKind == InstrKind.Eip) {
+				Done = true;
 				return false;
+			}
 
 			// If it's in the same block, we assume the target is at most 2GB away.
 			bool useRip = targetInstr.IsInBlock(Block);
@@ -66,6 +68,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			if (useRip) {
 				Size = ripInstructionSize;
 				instrKind = InstrKind.Rip;
+				Done = true;
 				return true;
 			}
 
@@ -73,6 +76,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			if (targetAddress <= uint.MaxValue) {
 				Size = eipInstructionSize;
 				instrKind = InstrKind.Eip;
+				Done = true;
 				return true;
 			}
 
