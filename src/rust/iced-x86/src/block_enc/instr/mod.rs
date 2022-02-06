@@ -302,12 +302,9 @@ impl InstrUtils {
 		}
 
 		if block_encoder.bitness() == 64 {
-			for i in 0..instruction.op_count() {
-				if instruction.op_kind(i) == OpKind::Memory {
-					if instruction.is_ip_rel_memory_operand() {
-						return Box::new(IpRelMemOpInstr::new(block_encoder, base, instruction));
-					}
-					break;
+			if instruction.is_ip_rel_memory_operand() {
+				if instruction.op_kinds().any(|op_kind| op_kind == OpKind::Memory) {
+					return Box::new(IpRelMemOpInstr::new(block_encoder, base, instruction));
 				}
 			}
 		}
