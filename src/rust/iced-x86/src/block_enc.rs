@@ -166,11 +166,6 @@ impl BlockEncoder {
 		let mut instr_count = 0;
 		for instr_block in instr_blocks {
 			let instructions = instr_block.instructions;
-			let mut block = Block::new(
-				this.benc.bitness,
-				instr_block.rip,
-				if (options & BlockEncoderOptions::RETURN_RELOC_INFOS) != 0 { Some(Vec::new()) } else { None },
-			)?;
 			let mut ip = instr_block.rip;
 			let start_index = this.all_instrs.len();
 			for instruction in instructions {
@@ -182,7 +177,13 @@ impl BlockEncoder {
 				this.all_ips.push(ip);
 			}
 			let end_index = this.all_instrs.len();
-			block.instr_indexes = (start_index, end_index);
+			let block = Block::new(
+				this.benc.bitness,
+				instr_block.rip,
+				if (options & BlockEncoderOptions::RETURN_RELOC_INFOS) != 0 { Some(Vec::new()) } else { None },
+				start_index,
+				end_index,
+			)?;
 			this.blocks.push((block, start_index, end_index));
 		}
 		// Optimize from low to high addresses

@@ -21,7 +21,7 @@ pub(super) struct Block {
 }
 
 impl Block {
-	pub(super) fn new(bitness: u32, rip: u64, reloc_infos: Option<Vec<RelocInfo>>) -> Result<Self, IcedError> {
+	pub(super) fn new(bitness: u32, rip: u64, reloc_infos: Option<Vec<RelocInfo>>, start_index: usize, end_index: usize) -> Result<Self, IcedError> {
 		Ok(Self {
 			encoder: Encoder::try_new(bitness)?,
 			rip,
@@ -31,7 +31,7 @@ impl Block {
 			valid_data: Vec::new(),
 			valid_data_address: 0,
 			valid_data_address_aligned: 0,
-			instr_indexes: (0, 0),
+			instr_indexes: (start_index, end_index),
 		})
 	}
 
