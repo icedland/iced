@@ -102,8 +102,7 @@ pub struct BlockEncoderResult {
 /// Encodes instructions. It can be used to move instructions from one location to another location.
 #[allow(missing_debug_implementations)]
 pub struct BlockEncoder {
-	// .1 is 'instructions' and is barely used by Block. Had to move
-	// it here because of borrowck.
+	// The usizes are the same as block.instr_indexes, but inlined here for a small perf increase.
 	blocks: Vec<(Block, usize, usize)>,
 	all_instrs: Vec<Box<dyn Instr>>,
 	all_ips: Vec<u64>,

@@ -17,7 +17,7 @@ pub(super) struct Block {
 	valid_data_address: u64,
 	valid_data_address_aligned: u64,
 	// start and end indexes (exclusive) of its instructions, eg. all_instrs[x.0..x.1]
-	pub(super) instr_indexes: (usize, usize),
+	instr_indexes: (usize, usize),
 }
 
 impl Block {
