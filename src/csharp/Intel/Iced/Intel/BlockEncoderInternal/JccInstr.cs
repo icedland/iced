@@ -83,8 +83,10 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public override bool Optimize(ulong gained) => TryOptimize(gained);
 
 		bool TryOptimize(ulong gained) {
-			if (instrKind == InstrKind.Unchanged || instrKind == InstrKind.Short)
+			if (instrKind == InstrKind.Unchanged || instrKind == InstrKind.Short) {
+				Done = true;
 				return false;
+			}
 
 			var targetAddress = targetInstr.GetAddress();
 			var nextRip = IP + shortInstructionSize;
@@ -95,6 +97,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 					pointerData.IsValid = false;
 				instrKind = InstrKind.Short;
 				Size = shortInstructionSize;
+				Done = true;
 				return true;
 			}
 

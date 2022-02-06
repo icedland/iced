@@ -274,22 +274,24 @@ namespace Iced.Intel {
 					ulong gained = 0;
 					foreach (var instr in block.Instructions) {
 						instr.IP = ip;
-						var oldSize = instr.Size;
-						if (instr.Optimize(gained)) {
-							if (instr.Size > oldSize) {
-								errorMessage = "Internal error: new size > old size";
+						if (!instr.Done) {
+							var oldSize = instr.Size;
+							if (instr.Optimize(gained)) {
+								if (instr.Size > oldSize) {
+									errorMessage = "Internal error: new size > old size";
+									result = null;
+									return false;
+								}
+								if (instr.Size < oldSize) {
+									gained += oldSize - instr.Size;
+									updated = true;
+								}
+							}
+							else if (instr.Size != oldSize) {
+								errorMessage = "Internal error: new size != old size";
 								result = null;
 								return false;
 							}
-							if (instr.Size < oldSize) {
-								gained += oldSize - instr.Size;
-								updated = true;
-							}
-						}
-						else if (instr.Size != oldSize) {
-							errorMessage = "Internal error: new size != old size";
-							result = null;
-							return false;
 						}
 						ip += instr.Size;
 					}

@@ -59,8 +59,10 @@ namespace Iced.Intel.BlockEncoderInternal {
 		public override bool Optimize(ulong gained) => TryOptimize(gained);
 
 		bool TryOptimize(ulong gained) {
-			if (instrKind == InstrKind.Unchanged || instrKind == InstrKind.Rel16)
+			if (instrKind == InstrKind.Unchanged || instrKind == InstrKind.Rel16) {
+				Done = true;
 				return false;
+			}
 
 			var targetAddress = targetInstr.GetAddress();
 			var nextRip = IP + shortInstructionSize;
