@@ -14,7 +14,6 @@ pub(super) struct CallInstr {
 	orig_instruction_size: u32,
 	pointer_data: Option<Rc<RefCell<BlockData>>>,
 	use_orig_instruction: bool,
-	done: bool,
 }
 
 impl CallInstr {
@@ -22,11 +21,10 @@ impl CallInstr {
 		let mut instr_copy = *instruction;
 		instr_copy.set_near_branch64(0);
 		let orig_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
-		let mut done = false;
 		let mut use_orig_instruction = false;
 		base.size = if !block_encoder.fix_branches() {
 			use_orig_instruction = true;
-			done = true;
+			base.done = true;
 			orig_instruction_size
 		} else if block_encoder.bitness() == 64 {
 			// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
@@ -41,13 +39,11 @@ impl CallInstr {
 			orig_instruction_size,
 			pointer_data: None,
 			use_orig_instruction,
-			done,
 		}
 	}
 
 	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
-		if self.done {
-			base.done = true;
+		if base.done {
 			return false;
 		}
 
@@ -67,7 +63,6 @@ impl CallInstr {
 			}
 			base.size = self.orig_instruction_size;
 			self.use_orig_instruction = true;
-			self.done = true;
 			base.done = true;
 			return true;
 		}
