@@ -13,6 +13,7 @@ use crate::block_enc::instr::*;
 use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
 use crate::*;
+use alloc::boxed::Box;
 use alloc::rc::Rc;
 use alloc::vec::Vec;
 
