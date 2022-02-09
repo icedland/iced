@@ -50,7 +50,7 @@ pub(super) struct InstrBase {
 
 pub(super) trait Instr {
 	/// Initializes the target address and tries to optimize the instruction
-	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>);
+	fn initialize(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt);
 
 	/// Returns `true` if the instruction was updated to a shorter instruction, `false` if nothing changed
 	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool;

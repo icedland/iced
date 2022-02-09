@@ -11,15 +11,14 @@ pub(crate) struct SimpleInstr {
 
 impl SimpleInstr {
 	pub(super) fn new(block_encoder: &mut BlockEncInt, base: &mut InstrBase, instruction: &Instruction) -> Self {
+		base.done = true;
 		base.size = block_encoder.get_instruction_size(instruction, instruction.ip());
 		Self { instruction: *instruction }
 	}
 }
 
 impl Instr for SimpleInstr {
-	fn initialize<'a>(&mut self, base: &mut InstrBase, _block_encoder: &BlockEncInt, _ctx: &mut InstrContext<'a>) {
-		base.done = true;
-	}
+	fn initialize(&mut self, _base: &mut InstrBase, _block_encoder: &BlockEncInt) {}
 
 	fn optimize<'a>(&mut self, _base: &mut InstrBase, _ctx: &mut InstrContext<'a>, _gained: u64) -> bool {
 		false

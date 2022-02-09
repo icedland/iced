@@ -42,10 +42,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 			Size = eipInstructionSize;
 		}
 
-		public override void Initialize(BlockEncoder blockEncoder) {
+		public override void Initialize(BlockEncoder blockEncoder) =>
 			targetInstr = blockEncoder.GetTarget(instruction.IPRelativeMemoryAddress);
-			TryOptimize(0);
-		}
 
 		public override bool Optimize(ulong gained) => TryOptimize(gained);
 

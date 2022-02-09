@@ -211,10 +211,8 @@ namespace Iced.Intel {
 				ulong ip = block.RIP;
 				foreach (var instr in block.Instructions) {
 					instr.IP = ip;
-					var oldSize = instr.Size;
-					instr.Initialize(this);
-					if (instr.Size > oldSize)
-						throw new InvalidOperationException();
+					if (!instr.Done)
+						instr.Initialize(this);
 					ip += instr.Size;
 				}
 			}

@@ -228,16 +228,13 @@ impl BlockEncoder {
 		}
 
 		for info in &mut this.blocks {
-			let block_rip = info.0.rip;
-			let mut ctx = InstrContext { block: &mut info.0, all_ips: &mut this.all_ips, ip: block_rip };
+			let mut ip = info.0.rip;
 			for (i, (base, instr)) in this.all_instrs[info.1..info.2].iter_mut().enumerate() {
-				ctx.all_ips[info.1 + i] = ctx.ip;
-				let old_size = base.size;
-				instr.initialize(base, &this.benc, &mut ctx);
-				if base.size > old_size {
-					return Err(IcedError::new("Internal error"));
+				this.all_ips[info.1 + i] = ip;
+				if !base.done {
+					instr.initialize(base, &this.benc);
 				}
-				ctx.ip = ctx.ip.wrapping_add(base.size as u64);
+				ip = ip.wrapping_add(base.size as u64);
 			}
 		}
 

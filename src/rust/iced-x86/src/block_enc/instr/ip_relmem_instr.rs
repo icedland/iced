@@ -82,9 +82,8 @@ impl IpRelMemOpInstr {
 }
 
 impl Instr for IpRelMemOpInstr {
-	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
+	fn initialize(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt) {
 		self.target_instr = block_encoder.get_target(base, self.instruction.ip_rel_memory_address());
-		let _ = self.try_optimize(base, ctx, 0);
 	}
 
 	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {

@@ -176,10 +176,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 			};
 		}
 
-		public override void Initialize(BlockEncoder blockEncoder) {
+		public override void Initialize(BlockEncoder blockEncoder) =>
 			targetInstr = blockEncoder.GetTarget(instruction.NearBranchTarget);
-			TryOptimize(0);
-		}
 
 		public override bool Optimize(ulong gained) => TryOptimize(gained);
 
