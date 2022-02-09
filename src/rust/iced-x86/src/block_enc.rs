@@ -166,16 +166,16 @@ impl BlockEncoder {
 		let mut instr_count = 0;
 		for instr_block in instr_blocks {
 			let instructions = instr_block.instructions;
+			instr_count += instructions.len();
 			let mut ip = instr_block.rip;
 			let start_index = this.all_instrs.len();
 			for instruction in instructions {
 				let mut base = InstrBase { orig_ip: instruction.ip(), size: 0, done: false };
 				let instr = InstrUtils::create(&mut this.benc, &mut base, instruction);
-				instr_count += 1;
 				debug_assert!(base.size != 0);
 				ip = ip.wrapping_add(base.size as u64);
-				this.all_instrs.push((base, instr));
 				this.all_ips.push(ip);
+				this.all_instrs.push((base, instr));
 			}
 			let end_index = this.all_instrs.len();
 			let block = Block::new(
@@ -228,16 +228,14 @@ impl BlockEncoder {
 		}
 
 		for info in &mut this.blocks {
-			let block_rip = info.0.rip;
-			let mut ctx = InstrContext { block: &mut info.0, all_ips: &mut this.all_ips, ip: block_rip };
+			let mut ip = info.0.rip;
 			for (i, (base, instr)) in this.all_instrs[info.1..info.2].iter_mut().enumerate() {
-				ctx.all_ips[info.1 + i] = ctx.ip;
-				let old_size = base.size;
-				instr.initialize(base, &this.benc, &mut ctx);
-				if base.size > old_size {
-					return Err(IcedError::new("Internal error"));
+				this.all_ips[info.1 + i] = ip;
+				if !base.done {
+					let (target_instr, target_ip) = instr.get_target_instr();
+					*target_instr = this.benc.get_target(base, target_ip);
 				}
-				ctx.ip = ctx.ip.wrapping_add(base.size as u64);
+				ip = ip.wrapping_add(base.size as u64);
 			}
 		}
 
@@ -352,7 +350,9 @@ impl BlockEncoder {
 	}
 
 	fn encode2(&mut self) -> Result<Vec<BlockEncoderResult>, IcedError> {
-		for _ in 0..30 {
+		// 5 iters is enough even if millions of instructions are encoded. < 10 instructions are optimized per loop
+		// iteration after only a few loop iters. It's not worth optimizing the remaining few instructions.
+		for _ in 0..5 {
 			let mut updated = false;
 			for info in &mut self.blocks {
 				let mut gained = 0;

@@ -16,15 +16,14 @@ enum InstrKind {
 	Uninitialized,
 }
 
-pub(super) struct JccInstr {
-	bitness: u32,
+pub(crate) struct JccInstr {
 	instruction: Instruction,
 	target_instr: TargetInstr,
 	pointer_data: Option<Rc<RefCell<BlockData>>>,
 	instr_kind: InstrKind,
-	short_instruction_size: u32,
-	near_instruction_size: u32,
-	long_instruction_size64: u32,
+	short_instruction_size: u8,
+	near_instruction_size: u8,
+	long_instruction_size64: u8,
 }
 
 impl JccInstr {
@@ -50,7 +49,7 @@ impl JccInstr {
 		let mut instr_copy: Instruction;
 		let short_instruction_size;
 		let near_instruction_size;
-		let long_instruction_size64 = Self::long_instruction_size64(instruction);
+		let long_instruction_size64 = Self::long_instruction_size64(instruction) as u8;
 		if !block_encoder.fix_branches() {
 			instr_kind = InstrKind::Unchanged;
 			instr_copy = *instruction;
@@ -62,22 +61,21 @@ impl JccInstr {
 			instr_copy = *instruction;
 			instr_copy.set_code(instruction.code().as_short_branch());
 			instr_copy.set_near_branch64(0);
-			short_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
+			short_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0) as u8;
 
 			instr_copy = *instruction;
 			instr_copy.set_code(instruction.code().as_near_branch());
 			instr_copy.set_near_branch64(0);
-			near_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
+			near_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0) as u8;
 
 			base.size = if block_encoder.bitness() == 64 {
 				// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
 				cmp::max(near_instruction_size, long_instruction_size64)
 			} else {
 				near_instruction_size
-			};
+			} as u32;
 		}
 		Self {
-			bitness: block_encoder.bitness(),
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
 			pointer_data: None,
@@ -103,26 +101,27 @@ impl JccInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Short;
-			base.size = self.short_instruction_size;
+			base.size = self.short_instruction_size as u32;
 			base.done = true;
 			return true;
 		}
 
-		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(ctx.block);
-		if !use_near {
-			target_address = self.target_instr.address(ctx);
-			next_rip = ctx.ip.wrapping_add(self.near_instruction_size as u64);
-			diff = target_address.wrapping_sub(next_rip) as i64;
-			diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
-			use_near = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
-		}
+		target_address = self.target_instr.address(ctx);
+		next_rip = ctx.ip.wrapping_add(self.near_instruction_size as u64);
+		diff = target_address.wrapping_sub(next_rip) as i64;
+		diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
+		let use_near = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		if use_near {
 			if let Some(ref pointer_data) = self.pointer_data {
 				pointer_data.borrow_mut().is_valid = false;
 			}
+			if diff < (IcedConstants::MAX_INSTRUCTION_LENGTH as i64) * (i8::MIN as i64)
+				|| diff > (IcedConstants::MAX_INSTRUCTION_LENGTH as i64) * (i8::MAX as i64)
+			{
+				base.done = true;
+			}
 			self.instr_kind = InstrKind::Near;
-			base.size = self.near_instruction_size;
+			base.size = self.near_instruction_size as u32;
 			return true;
 		}
 
@@ -175,9 +174,8 @@ impl JccInstr {
 }
 
 impl Instr for JccInstr {
-	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
-		self.target_instr = block_encoder.get_target(base, self.instruction.near_branch_target());
-		let _ = self.try_optimize(base, ctx, 0);
+	fn get_target_instr(&mut self) -> (&mut TargetInstr, u64) {
+		(&mut self.target_instr, self.instruction.near_branch_target())
 	}
 
 	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
@@ -225,7 +223,7 @@ impl Instr for JccInstr {
 					unreachable!();
 				}
 				debug_assert!(ctx.block.encoder.bitness() == 64);
-				debug_assert!(self.long_instruction_size64 <= i8::MAX as u32);
+				debug_assert!(self.long_instruction_size64 <= i8::MAX as u8);
 				instr.set_near_branch64(ctx.ip.wrapping_add(self.long_instruction_size64 as u64));
 				let instr_len = ctx
 					.block

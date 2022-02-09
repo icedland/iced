@@ -12,11 +12,11 @@ namespace Iced.Intel.BlockEncoderInternal {
 	sealed class IpRelMemOpInstr : Instr {
 		Instruction instruction;
 		InstrKind instrKind;
-		readonly uint eipInstructionSize;
-		readonly uint ripInstructionSize;
+		readonly byte eipInstructionSize;
+		readonly byte ripInstructionSize;
 		TargetInstr targetInstr;
 
-		enum InstrKind {
+		enum InstrKind : byte {
 			Unchanged,
 			Rip,
 			Eip,
@@ -33,19 +33,17 @@ namespace Iced.Intel.BlockEncoderInternal {
 			var instrCopy = instruction;
 			instrCopy.MemoryBase = Register.RIP;
 			instrCopy.MemoryDisplacement64 = 0;
-			ripInstructionSize = blockEncoder.GetInstructionSize(instrCopy, instrCopy.IPRelativeMemoryAddress);
+			ripInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, instrCopy.IPRelativeMemoryAddress);
 
 			instrCopy.MemoryBase = Register.EIP;
-			eipInstructionSize = blockEncoder.GetInstructionSize(instrCopy, instrCopy.IPRelativeMemoryAddress);
+			eipInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, instrCopy.IPRelativeMemoryAddress);
 
 			Debug.Assert(eipInstructionSize >= ripInstructionSize);
 			Size = eipInstructionSize;
 		}
 
-		public override void Initialize(BlockEncoder blockEncoder) {
+		public override void Initialize(BlockEncoder blockEncoder) =>
 			targetInstr = blockEncoder.GetTarget(instruction.IPRelativeMemoryAddress);
-			TryOptimize(0);
-		}
 
 		public override bool Optimize(ulong gained) => TryOptimize(gained);
 

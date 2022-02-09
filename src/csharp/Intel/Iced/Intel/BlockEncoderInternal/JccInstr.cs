@@ -10,14 +10,13 @@ namespace Iced.Intel.BlockEncoderInternal {
 	/// Jcc instruction
 	/// </summary>
 	sealed class JccInstr : Instr {
-		readonly int bitness;
 		Instruction instruction;
 		TargetInstr targetInstr;
 		BlockData? pointerData;
 		InstrKind instrKind;
-		readonly uint shortInstructionSize;
-		readonly uint nearInstructionSize;
-		readonly uint longInstructionSize64;
+		readonly byte shortInstructionSize;
+		readonly byte nearInstructionSize;
+		readonly byte longInstructionSize64;
 
 		static uint GetLongInstructionSize64(in Instruction instruction) {
 #if MVEX
@@ -32,7 +31,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			return 2 + CallOrJmpPointerDataInstructionSize64;
 		}
 
-		enum InstrKind {
+		enum InstrKind : byte {
 			Unchanged,
 			Short,
 			Near,
@@ -42,10 +41,9 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public JccInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
 			: base(block, instruction.IP) {
-			bitness = blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
-			longInstructionSize64 = GetLongInstructionSize64(instruction);
+			longInstructionSize64 = (byte)GetLongInstructionSize64(instruction);
 
 			Instruction instrCopy;
 
@@ -59,12 +57,12 @@ namespace Iced.Intel.BlockEncoderInternal {
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToShortBranch());
 				instrCopy.NearBranch64 = 0;
-				shortInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+				shortInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToNearBranch());
 				instrCopy.NearBranch64 = 0;
-				nearInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+				nearInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				if (blockEncoder.Bitness == 64) {
 					// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
@@ -75,10 +73,8 @@ namespace Iced.Intel.BlockEncoderInternal {
 			}
 		}
 
-		public override void Initialize(BlockEncoder blockEncoder) {
+		public override void Initialize(BlockEncoder blockEncoder) =>
 			targetInstr = blockEncoder.GetTarget(instruction.NearBranchTarget);
-			TryOptimize(0);
-		}
 
 		public override bool Optimize(ulong gained) => TryOptimize(gained);
 
@@ -101,18 +97,18 @@ namespace Iced.Intel.BlockEncoderInternal {
 				return true;
 			}
 
-			// If it's in the same block, we assume the target is at most 2GB away.
-			bool useNear = bitness != 64 || targetInstr.IsInBlock(Block);
-			if (!useNear) {
-				targetAddress = targetInstr.GetAddress();
-				nextRip = IP + nearInstructionSize;
-				diff = (long)(targetAddress - nextRip);
-				diff = CorrectDiff(targetInstr.IsInBlock(Block), diff, gained);
-				useNear = int.MinValue <= diff && diff <= int.MaxValue;
-			}
+			targetAddress = targetInstr.GetAddress();
+			nextRip = IP + nearInstructionSize;
+			diff = (long)(targetAddress - nextRip);
+			diff = CorrectDiff(targetInstr.IsInBlock(Block), diff, gained);
+			bool useNear = int.MinValue <= diff && diff <= int.MaxValue;
 			if (useNear) {
 				if (pointerData is not null)
 					pointerData.IsValid = false;
+				if (diff < (long)IcedConstants.MaxInstructionLength * sbyte.MinValue ||
+					diff > (long)IcedConstants.MaxInstructionLength * sbyte.MaxValue) {
+					Done = true;
+				}
 				instrKind = InstrKind.Near;
 				Size = nearInstructionSize;
 				return true;

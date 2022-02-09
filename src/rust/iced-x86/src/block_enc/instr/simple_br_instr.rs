@@ -16,16 +16,15 @@ enum InstrKind {
 	Uninitialized,
 }
 
-pub(super) struct SimpleBranchInstr {
-	bitness: u32,
+pub(crate) struct SimpleBranchInstr {
 	instruction: Instruction,
 	target_instr: TargetInstr,
 	pointer_data: Option<Rc<RefCell<BlockData>>>,
 	instr_kind: InstrKind,
-	short_instruction_size: u32,
-	near_instruction_size: u32,
-	long_instruction_size: u32,
-	native_instruction_size: u32,
+	short_instruction_size: u8,
+	near_instruction_size: u8,
+	long_instruction_size: u8,
+	native_instruction_size: u8,
 	native_code: Code,
 }
 
@@ -51,7 +50,7 @@ impl SimpleBranchInstr {
 		} else {
 			instr_copy = *instruction;
 			instr_copy.set_near_branch64(0);
-			short_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
+			short_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0) as u8;
 
 			native_code = Self::as_native_branch_code(instruction.code(), block_encoder.bitness());
 			native_instruction_size = if native_code == instruction.code() {
@@ -60,7 +59,7 @@ impl SimpleBranchInstr {
 				instr_copy = *instruction;
 				instr_copy.set_code(native_code);
 				instr_copy.set_near_branch64(0);
-				block_encoder.get_instruction_size(&instr_copy, 0)
+				block_encoder.get_instruction_size(&instr_copy, 0) as u8
 			};
 
 			near_instruction_size = match block_encoder.bitness() {
@@ -70,15 +69,14 @@ impl SimpleBranchInstr {
 			};
 
 			base.size = if block_encoder.bitness() == 64 {
-				long_instruction_size = native_instruction_size + 2 + InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64;
+				long_instruction_size = native_instruction_size + 2 + InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64 as u8;
 				cmp::max(cmp::max(short_instruction_size, near_instruction_size), long_instruction_size)
 			} else {
 				long_instruction_size = 0;
 				cmp::max(short_instruction_size, near_instruction_size)
-			};
+			} as u32;
 		}
 		Self {
-			bitness: block_encoder.bitness(),
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
 			pointer_data: None,
@@ -106,26 +104,27 @@ impl SimpleBranchInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Short;
-			base.size = self.short_instruction_size;
+			base.size = self.short_instruction_size as u32;
 			base.done = true;
 			return true;
 		}
 
-		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(ctx.block);
-		if !use_near {
-			target_address = self.target_instr.address(ctx);
-			next_rip = ctx.ip.wrapping_add(self.near_instruction_size as u64);
-			diff = target_address.wrapping_sub(next_rip) as i64;
-			diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
-			use_near = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
-		}
+		target_address = self.target_instr.address(ctx);
+		next_rip = ctx.ip.wrapping_add(self.near_instruction_size as u64);
+		diff = target_address.wrapping_sub(next_rip) as i64;
+		diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
+		let use_near = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		if use_near {
 			if let Some(ref pointer_data) = self.pointer_data {
 				pointer_data.borrow_mut().is_valid = false;
 			}
+			if diff < (IcedConstants::MAX_INSTRUCTION_LENGTH as i64) * (i8::MIN as i64)
+				|| diff > (IcedConstants::MAX_INSTRUCTION_LENGTH as i64) * (i8::MAX as i64)
+			{
+				base.done = true;
+			}
 			self.instr_kind = InstrKind::Near;
-			base.size = self.near_instruction_size;
+			base.size = self.near_instruction_size as u32;
 			return true;
 		}
 
@@ -169,9 +168,8 @@ impl SimpleBranchInstr {
 }
 
 impl Instr for SimpleBranchInstr {
-	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
-		self.target_instr = block_encoder.get_target(base, self.instruction.near_branch_target());
-		let _ = self.try_optimize(base, ctx, 0);
+	fn get_target_instr(&mut self) -> (&mut TargetInstr, u64) {
+		(&mut self.target_instr, self.instruction.near_branch_target())
 	}
 
 	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {

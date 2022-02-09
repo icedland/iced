@@ -7,11 +7,11 @@ use crate::iced_error::IcedError;
 use core::cell::RefCell;
 use core::cmp;
 
-pub(super) struct CallInstr {
-	bitness: u32,
+pub(crate) struct CallInstr {
+	bitness: u8,
 	instruction: Instruction,
 	target_instr: TargetInstr,
-	orig_instruction_size: u32,
+	orig_instruction_size: u8,
 	pointer_data: Option<Rc<RefCell<BlockData>>>,
 	use_orig_instruction: bool,
 }
@@ -20,7 +20,7 @@ impl CallInstr {
 	pub(super) fn new(block_encoder: &mut BlockEncInt, base: &mut InstrBase, instruction: &Instruction) -> Self {
 		let mut instr_copy = *instruction;
 		instr_copy.set_near_branch64(0);
-		let orig_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
+		let orig_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0) as u8;
 		let mut use_orig_instruction = false;
 		base.size = if !block_encoder.fix_branches() {
 			use_orig_instruction = true;
@@ -28,12 +28,12 @@ impl CallInstr {
 			orig_instruction_size
 		} else if block_encoder.bitness() == 64 {
 			// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
-			cmp::max(orig_instruction_size, InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64)
+			cmp::max(orig_instruction_size, InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64 as u8)
 		} else {
 			orig_instruction_size
-		};
+		} as u32;
 		Self {
-			bitness: block_encoder.bitness(),
+			bitness: block_encoder.bitness() as u8,
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
 			orig_instruction_size,
@@ -61,7 +61,7 @@ impl CallInstr {
 			if let Some(ref pointer_data) = self.pointer_data {
 				pointer_data.borrow_mut().is_valid = false;
 			}
-			base.size = self.orig_instruction_size;
+			base.size = self.orig_instruction_size as u32;
 			self.use_orig_instruction = true;
 			base.done = true;
 			return true;
@@ -75,9 +75,8 @@ impl CallInstr {
 }
 
 impl Instr for CallInstr {
-	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
-		self.target_instr = block_encoder.get_target(base, self.instruction.near_branch_target());
-		let _ = self.try_optimize(base, ctx, 0);
+	fn get_target_instr(&mut self) -> (&mut TargetInstr, u64) {
+		(&mut self.target_instr, self.instruction.near_branch_target())
 	}
 
 	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {

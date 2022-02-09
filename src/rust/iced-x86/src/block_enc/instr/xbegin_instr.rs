@@ -13,12 +13,12 @@ enum InstrKind {
 	Uninitialized,
 }
 
-pub(super) struct XbeginInstr {
+pub(crate) struct XbeginInstr {
 	instruction: Instruction,
 	target_instr: TargetInstr,
 	instr_kind: InstrKind,
-	short_instruction_size: u32,
-	near_instruction_size: u32,
+	short_instruction_size: u8,
+	near_instruction_size: u8,
 }
 
 impl XbeginInstr {
@@ -38,14 +38,14 @@ impl XbeginInstr {
 			instr_copy = *instruction;
 			instr_copy.set_code(Code::Xbegin_rel16);
 			instr_copy.set_near_branch64(0);
-			short_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
+			short_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0) as u8;
 
 			instr_copy = *instruction;
 			instr_copy.set_code(Code::Xbegin_rel32);
 			instr_copy.set_near_branch64(0);
-			near_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
+			near_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0) as u8;
 
-			base.size = near_instruction_size;
+			base.size = near_instruction_size as u32;
 		}
 		Self { instruction: *instruction, target_instr: TargetInstr::default(), instr_kind, short_instruction_size, near_instruction_size }
 	}
@@ -62,20 +62,19 @@ impl XbeginInstr {
 		let diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
 		if i16::MIN as i64 <= diff && diff <= i16::MAX as i64 {
 			self.instr_kind = InstrKind::Rel16;
-			base.size = self.short_instruction_size;
+			base.size = self.short_instruction_size as u32;
 			true
 		} else {
 			self.instr_kind = InstrKind::Rel32;
-			base.size = self.near_instruction_size;
+			base.size = self.near_instruction_size as u32;
 			false
 		}
 	}
 }
 
 impl Instr for XbeginInstr {
-	fn initialize<'a>(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt, ctx: &mut InstrContext<'a>) {
-		self.target_instr = block_encoder.get_target(base, self.instruction.near_branch_target());
-		let _ = self.try_optimize(base, ctx, 0);
+	fn get_target_instr(&mut self) -> (&mut TargetInstr, u64) {
+		(&mut self.target_instr, self.instruction.near_branch_target())
 	}
 
 	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {

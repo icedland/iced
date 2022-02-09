@@ -11,11 +11,12 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public SimpleInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
 			: base(block, instruction.IP) {
+			Done = true;
 			this.instruction = instruction;
 			Size = blockEncoder.GetInstructionSize(instruction, instruction.IP);
 		}
 
-		public override void Initialize(BlockEncoder blockEncoder) => Done = true;
+		public override void Initialize(BlockEncoder blockEncoder) {}
 		public override bool Optimize(ulong gained) => false;
 
 		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
