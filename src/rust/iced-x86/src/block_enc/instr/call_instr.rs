@@ -24,7 +24,6 @@ impl CallInstr {
 		let mut use_orig_instruction = false;
 		base.size = if !block_encoder.fix_branches() {
 			use_orig_instruction = true;
-			base.done = true;
 			orig_instruction_size
 		} else if block_encoder.bitness() == 64 {
 			// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
@@ -43,7 +42,8 @@ impl CallInstr {
 	}
 
 	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
-		if base.done {
+		if base.done || self.use_orig_instruction {
+			base.done = true;
 			return false;
 		}
 
