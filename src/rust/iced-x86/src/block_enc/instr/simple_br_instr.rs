@@ -17,7 +17,6 @@ enum InstrKind {
 }
 
 pub(crate) struct SimpleBranchInstr {
-	bitness: u8,
 	instruction: Instruction,
 	target_instr: TargetInstr,
 	pointer_data: Option<Rc<RefCell<BlockData>>>,
@@ -78,7 +77,6 @@ impl SimpleBranchInstr {
 			} as u32;
 		}
 		Self {
-			bitness: block_encoder.bitness() as u8,
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
 			pointer_data: None,
@@ -111,18 +109,19 @@ impl SimpleBranchInstr {
 			return true;
 		}
 
-		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(ctx.block);
-		if !use_near {
-			target_address = self.target_instr.address(ctx);
-			next_rip = ctx.ip.wrapping_add(self.near_instruction_size as u64);
-			diff = target_address.wrapping_sub(next_rip) as i64;
-			diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
-			use_near = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
-		}
+		target_address = self.target_instr.address(ctx);
+		next_rip = ctx.ip.wrapping_add(self.near_instruction_size as u64);
+		diff = target_address.wrapping_sub(next_rip) as i64;
+		diff = correct_diff(self.target_instr.is_in_block(ctx.block), diff, gained);
+		let use_near = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		if use_near {
 			if let Some(ref pointer_data) = self.pointer_data {
 				pointer_data.borrow_mut().is_valid = false;
+			}
+			if diff < (IcedConstants::MAX_INSTRUCTION_LENGTH as i64) * (i8::MIN as i64)
+				|| diff > (IcedConstants::MAX_INSTRUCTION_LENGTH as i64) * (i8::MAX as i64)
+			{
+				base.done = true;
 			}
 			self.instr_kind = InstrKind::Near;
 			base.size = self.near_instruction_size as u32;
