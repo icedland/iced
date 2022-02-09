@@ -174,8 +174,8 @@ impl BlockEncoder {
 				let instr = InstrUtils::create(&mut this.benc, &mut base, instruction);
 				debug_assert!(base.size != 0);
 				ip = ip.wrapping_add(base.size as u64);
-				this.all_instrs.push((base, instr));
 				this.all_ips.push(ip);
+				this.all_instrs.push((base, instr));
 			}
 			let end_index = this.all_instrs.len();
 			let block = Block::new(
