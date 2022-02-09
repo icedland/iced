@@ -232,7 +232,8 @@ impl BlockEncoder {
 			for (i, (base, instr)) in this.all_instrs[info.1..info.2].iter_mut().enumerate() {
 				this.all_ips[info.1 + i] = ip;
 				if !base.done {
-					instr.initialize(base, &this.benc);
+					let (target_instr, target_ip) = instr.get_target_instr();
+					*target_instr = this.benc.get_target(base, target_ip);
 				}
 				ip = ip.wrapping_add(base.size as u64);
 			}

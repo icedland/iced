@@ -18,7 +18,10 @@ impl SimpleInstr {
 }
 
 impl Instr for SimpleInstr {
-	fn initialize(&mut self, _base: &mut InstrBase, _block_encoder: &BlockEncInt) {}
+	fn get_target_instr(&mut self) -> (&mut TargetInstr, u64) {
+		// Never called since base.done == true
+		unreachable!()
+	}
 
 	fn optimize<'a>(&mut self, _base: &mut InstrBase, _ctx: &mut InstrContext<'a>, _gained: u64) -> bool {
 		false

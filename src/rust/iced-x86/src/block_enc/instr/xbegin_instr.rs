@@ -73,8 +73,8 @@ impl XbeginInstr {
 }
 
 impl Instr for XbeginInstr {
-	fn initialize(&mut self, base: &mut InstrBase, block_encoder: &BlockEncInt) {
-		self.target_instr = block_encoder.get_target(base, self.instruction.near_branch_target());
+	fn get_target_instr(&mut self) -> (&mut TargetInstr, u64) {
+		(&mut self.target_instr, self.instruction.near_branch_target())
 	}
 
 	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
