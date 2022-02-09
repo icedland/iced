@@ -264,7 +264,7 @@ namespace Iced.Intel {
 			new BlockEncoder(bitness, blocks, options).Encode(out errorMessage, out result);
 
 		bool Encode([NotNullWhen(false)] out string? errorMessage, [NotNullWhen(true)] out BlockEncoderResult[]? result) {
-			const int MAX_ITERS = 30;
+			const int MAX_ITERS = 5;
 			for (int iter = 0; iter < MAX_ITERS; iter++) {
 				bool updated = false;
 				foreach (var block in blocks) {

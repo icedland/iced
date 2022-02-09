@@ -350,7 +350,9 @@ impl BlockEncoder {
 	}
 
 	fn encode2(&mut self) -> Result<Vec<BlockEncoderResult>, IcedError> {
-		for _ in 0..30 {
+		// 5 iters is enough even if millions of instructions are encoded. < 10 instructions are optimized per loop
+		// iteration after only a few loop iters. It's not worth optimizing the remaining few instructions.
+		for _ in 0..5 {
 			let mut updated = false;
 			for info in &mut self.blocks {
 				let mut gained = 0;
