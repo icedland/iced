@@ -13,10 +13,10 @@ namespace Iced.Intel.BlockEncoderInternal {
 		Instruction instruction;
 		TargetInstr targetInstr;
 		InstrKind instrKind;
-		readonly uint shortInstructionSize;
-		readonly uint nearInstructionSize;
+		readonly byte shortInstructionSize;
+		readonly byte nearInstructionSize;
 
-		enum InstrKind {
+		enum InstrKind : byte {
 			Unchanged,
 			Rel16,
 			Rel32,
@@ -40,12 +40,12 @@ namespace Iced.Intel.BlockEncoderInternal {
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(Code.Xbegin_rel16);
 				instrCopy.NearBranch64 = 0;
-				shortInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+				shortInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(Code.Xbegin_rel32);
 				instrCopy.NearBranch64 = 0;
-				nearInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+				nearInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				Size = nearInstructionSize;
 			}

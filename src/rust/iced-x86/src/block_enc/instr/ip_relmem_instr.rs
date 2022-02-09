@@ -14,11 +14,11 @@ enum InstrKind {
 	Uninitialized,
 }
 
-pub(super) struct IpRelMemOpInstr {
+pub(crate) struct IpRelMemOpInstr {
 	instruction: Instruction,
 	instr_kind: InstrKind,
-	eip_instruction_size: u32,
-	rip_instruction_size: u32,
+	eip_instruction_size: u8,
+	rip_instruction_size: u8,
 	target_instr: TargetInstr,
 }
 
@@ -29,12 +29,12 @@ impl IpRelMemOpInstr {
 		let mut instr_copy = *instruction;
 		instr_copy.set_memory_base(Register::RIP);
 		instr_copy.set_memory_displacement64(0);
-		let rip_instruction_size = block_encoder.get_instruction_size(&instr_copy, instr_copy.ip_rel_memory_address());
+		let rip_instruction_size = block_encoder.get_instruction_size(&instr_copy, instr_copy.ip_rel_memory_address()) as u8;
 
 		instr_copy.set_memory_base(Register::EIP);
-		let eip_instruction_size = block_encoder.get_instruction_size(&instr_copy, instr_copy.ip_rel_memory_address());
+		let eip_instruction_size = block_encoder.get_instruction_size(&instr_copy, instr_copy.ip_rel_memory_address()) as u8;
 
-		base.size = eip_instruction_size;
+		base.size = eip_instruction_size as u32;
 		debug_assert!(eip_instruction_size >= rip_instruction_size);
 		Self {
 			instruction: *instruction,
@@ -62,7 +62,7 @@ impl IpRelMemOpInstr {
 		}
 
 		if use_rip {
-			base.size = self.rip_instruction_size;
+			base.size = self.rip_instruction_size as u32;
 			self.instr_kind = InstrKind::Rip;
 			base.done = true;
 			return true;
@@ -70,7 +70,7 @@ impl IpRelMemOpInstr {
 
 		// If it's in the lower 4GB we can use EIP relative addressing
 		if target_address <= u32::MAX as u64 {
-			base.size = self.eip_instruction_size;
+			base.size = self.eip_instruction_size as u32;
 			self.instr_kind = InstrKind::Eip;
 			base.done = true;
 			return true;

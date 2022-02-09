@@ -10,15 +10,15 @@ namespace Iced.Intel.BlockEncoderInternal {
 	/// Jmp instruction
 	/// </summary>
 	sealed class JmpInstr : Instr {
-		readonly int bitness;
+		readonly byte bitness;
 		Instruction instruction;
 		TargetInstr targetInstr;
 		BlockData? pointerData;
 		InstrKind instrKind;
-		readonly uint shortInstructionSize;
-		readonly uint nearInstructionSize;
+		readonly byte shortInstructionSize;
+		readonly byte nearInstructionSize;
 
-		enum InstrKind {
+		enum InstrKind : byte {
 			Unchanged,
 			Short,
 			Near,
@@ -28,7 +28,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public JmpInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
 			: base(block, instruction.IP) {
-			bitness = blockEncoder.Bitness;
+			bitness = (byte)blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 
@@ -44,12 +44,12 @@ namespace Iced.Intel.BlockEncoderInternal {
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToShortBranch());
 				instrCopy.NearBranch64 = 0;
-				shortInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+				shortInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToNearBranch());
 				instrCopy.NearBranch64 = 0;
-				nearInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+				nearInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				if (blockEncoder.Bitness == 64) {
 					// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.

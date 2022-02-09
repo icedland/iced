@@ -16,16 +16,16 @@ enum InstrKind {
 	Uninitialized,
 }
 
-pub(super) struct SimpleBranchInstr {
-	bitness: u32,
+pub(crate) struct SimpleBranchInstr {
+	bitness: u8,
 	instruction: Instruction,
 	target_instr: TargetInstr,
 	pointer_data: Option<Rc<RefCell<BlockData>>>,
 	instr_kind: InstrKind,
-	short_instruction_size: u32,
-	near_instruction_size: u32,
-	long_instruction_size: u32,
-	native_instruction_size: u32,
+	short_instruction_size: u8,
+	near_instruction_size: u8,
+	long_instruction_size: u8,
+	native_instruction_size: u8,
 	native_code: Code,
 }
 
@@ -51,7 +51,7 @@ impl SimpleBranchInstr {
 		} else {
 			instr_copy = *instruction;
 			instr_copy.set_near_branch64(0);
-			short_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
+			short_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0) as u8;
 
 			native_code = Self::as_native_branch_code(instruction.code(), block_encoder.bitness());
 			native_instruction_size = if native_code == instruction.code() {
@@ -60,7 +60,7 @@ impl SimpleBranchInstr {
 				instr_copy = *instruction;
 				instr_copy.set_code(native_code);
 				instr_copy.set_near_branch64(0);
-				block_encoder.get_instruction_size(&instr_copy, 0)
+				block_encoder.get_instruction_size(&instr_copy, 0) as u8
 			};
 
 			near_instruction_size = match block_encoder.bitness() {
@@ -70,15 +70,15 @@ impl SimpleBranchInstr {
 			};
 
 			base.size = if block_encoder.bitness() == 64 {
-				long_instruction_size = native_instruction_size + 2 + InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64;
+				long_instruction_size = native_instruction_size + 2 + InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64 as u8;
 				cmp::max(cmp::max(short_instruction_size, near_instruction_size), long_instruction_size)
 			} else {
 				long_instruction_size = 0;
 				cmp::max(short_instruction_size, near_instruction_size)
-			};
+			} as u32;
 		}
 		Self {
-			bitness: block_encoder.bitness(),
+			bitness: block_encoder.bitness() as u8,
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
 			pointer_data: None,
@@ -106,7 +106,7 @@ impl SimpleBranchInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Short;
-			base.size = self.short_instruction_size;
+			base.size = self.short_instruction_size as u32;
 			base.done = true;
 			return true;
 		}
@@ -125,7 +125,7 @@ impl SimpleBranchInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Near;
-			base.size = self.near_instruction_size;
+			base.size = self.near_instruction_size as u32;
 			return true;
 		}
 

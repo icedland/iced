@@ -10,18 +10,18 @@ namespace Iced.Intel.BlockEncoderInternal {
 	/// Simple branch instruction that only has one code value, eg. loopcc, jrcxz
 	/// </summary>
 	sealed class SimpleBranchInstr : Instr {
-		readonly int bitness;
+		readonly byte bitness;
 		Instruction instruction;
 		TargetInstr targetInstr;
 		BlockData? pointerData;
 		InstrKind instrKind;
-		readonly uint shortInstructionSize;
-		readonly uint nearInstructionSize;
-		readonly uint longInstructionSize;
-		readonly uint nativeInstructionSize;
+		readonly byte shortInstructionSize;
+		readonly byte nearInstructionSize;
+		readonly byte longInstructionSize;
+		readonly byte nativeInstructionSize;
 		readonly Code nativeCode;
 
-		enum InstrKind {
+		enum InstrKind : byte {
 			Unchanged,
 			Short,
 			Near,
@@ -31,7 +31,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public SimpleBranchInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
 			: base(block, instruction.IP) {
-			bitness = blockEncoder.Bitness;
+			bitness = (byte)blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 
@@ -46,7 +46,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			else {
 				instrCopy = instruction;
 				instrCopy.NearBranch64 = 0;
-				shortInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+				shortInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				nativeCode = ToNativeBranchCode(instruction.Code, blockEncoder.Bitness);
 				if (nativeCode == instruction.Code)
@@ -55,17 +55,17 @@ namespace Iced.Intel.BlockEncoderInternal {
 					instrCopy = instruction;
 					instrCopy.InternalSetCodeNoCheck(nativeCode);
 					instrCopy.NearBranch64 = 0;
-					nativeInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+					nativeInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 				}
 
-				nearInstructionSize = blockEncoder.Bitness switch {
+				nearInstructionSize = (byte)(blockEncoder.Bitness switch {
 					16 => nativeInstructionSize + 2 + 3,
 					32 or 64 => nativeInstructionSize + 2 + 5,
 					_ => throw new InvalidOperationException(),
-				};
+				});
 
 				if (blockEncoder.Bitness == 64) {
-					longInstructionSize = nativeInstructionSize + 2 + CallOrJmpPointerDataInstructionSize64;
+					longInstructionSize = (byte)(nativeInstructionSize + 2 + CallOrJmpPointerDataInstructionSize64);
 					Size = Math.Max(Math.Max(shortInstructionSize, nearInstructionSize), longInstructionSize);
 				}
 				else

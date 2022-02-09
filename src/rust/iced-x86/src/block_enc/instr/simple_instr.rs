@@ -5,7 +5,7 @@ use crate::block_enc::instr::*;
 use crate::block_enc::*;
 use crate::iced_error::IcedError;
 
-pub(super) struct SimpleInstr {
+pub(crate) struct SimpleInstr {
 	instruction: Instruction,
 }
 

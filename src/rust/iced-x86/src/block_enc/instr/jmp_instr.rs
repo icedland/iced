@@ -16,14 +16,14 @@ enum InstrKind {
 	Uninitialized,
 }
 
-pub(super) struct JmpInstr {
-	bitness: u32,
+pub(crate) struct JmpInstr {
+	bitness: u8,
 	instruction: Instruction,
 	target_instr: TargetInstr,
 	pointer_data: Option<Rc<RefCell<BlockData>>>,
 	instr_kind: InstrKind,
-	short_instruction_size: u32,
-	near_instruction_size: u32,
+	short_instruction_size: u8,
+	near_instruction_size: u8,
 }
 
 impl JmpInstr {
@@ -43,22 +43,22 @@ impl JmpInstr {
 			instr_copy = *instruction;
 			instr_copy.set_code(instruction.code().as_short_branch());
 			instr_copy.set_near_branch64(0);
-			short_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
+			short_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0) as u8;
 
 			instr_copy = *instruction;
 			instr_copy.set_code(instruction.code().as_near_branch());
 			instr_copy.set_near_branch64(0);
-			near_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);
+			near_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0) as u8;
 
 			base.size = if block_encoder.bitness() == 64 {
 				// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
-				cmp::max(near_instruction_size, InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64)
+				cmp::max(near_instruction_size, InstrUtils::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64 as u8)
 			} else {
 				near_instruction_size
-			}
+			} as u32
 		}
 		Self {
-			bitness: block_encoder.bitness(),
+			bitness: block_encoder.bitness() as u8,
 			instruction: *instruction,
 			target_instr: TargetInstr::default(),
 			pointer_data: None,
@@ -83,7 +83,7 @@ impl JmpInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Short;
-			base.size = self.short_instruction_size;
+			base.size = self.short_instruction_size as u32;
 			base.done = true;
 			return true;
 		}
@@ -102,7 +102,7 @@ impl JmpInstr {
 				pointer_data.borrow_mut().is_valid = false;
 			}
 			self.instr_kind = InstrKind::Near;
-			base.size = self.near_instruction_size;
+			base.size = self.near_instruction_size as u32;
 			return true;
 		}
 

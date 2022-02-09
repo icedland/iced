@@ -10,14 +10,14 @@ namespace Iced.Intel.BlockEncoderInternal {
 	/// Jcc instruction
 	/// </summary>
 	sealed class JccInstr : Instr {
-		readonly int bitness;
+		readonly byte bitness;
 		Instruction instruction;
 		TargetInstr targetInstr;
 		BlockData? pointerData;
 		InstrKind instrKind;
-		readonly uint shortInstructionSize;
-		readonly uint nearInstructionSize;
-		readonly uint longInstructionSize64;
+		readonly byte shortInstructionSize;
+		readonly byte nearInstructionSize;
+		readonly byte longInstructionSize64;
 
 		static uint GetLongInstructionSize64(in Instruction instruction) {
 #if MVEX
@@ -32,7 +32,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			return 2 + CallOrJmpPointerDataInstructionSize64;
 		}
 
-		enum InstrKind {
+		enum InstrKind : byte {
 			Unchanged,
 			Short,
 			Near,
@@ -42,10 +42,10 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public JccInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
 			: base(block, instruction.IP) {
-			bitness = blockEncoder.Bitness;
+			bitness = (byte)blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
-			longInstructionSize64 = GetLongInstructionSize64(instruction);
+			longInstructionSize64 = (byte)GetLongInstructionSize64(instruction);
 
 			Instruction instrCopy;
 
@@ -59,12 +59,12 @@ namespace Iced.Intel.BlockEncoderInternal {
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToShortBranch());
 				instrCopy.NearBranch64 = 0;
-				shortInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+				shortInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				instrCopy = instruction;
 				instrCopy.InternalSetCodeNoCheck(instruction.Code.ToNearBranch());
 				instrCopy.NearBranch64 = 0;
-				nearInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+				nearInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 
 				if (blockEncoder.Bitness == 64) {
 					// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.

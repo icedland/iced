@@ -10,20 +10,20 @@ namespace Iced.Intel.BlockEncoderInternal {
 	/// Call near instruction
 	/// </summary>
 	sealed class CallInstr : Instr {
-		readonly int bitness;
+		readonly byte bitness;
 		Instruction instruction;
 		TargetInstr targetInstr;
-		readonly uint origInstructionSize;
+		readonly byte origInstructionSize;
 		BlockData? pointerData;
 		bool useOrigInstruction;
 
 		public CallInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
 			: base(block, instruction.IP) {
-			bitness = blockEncoder.Bitness;
+			bitness = (byte)blockEncoder.Bitness;
 			this.instruction = instruction;
 			var instrCopy = instruction;
 			instrCopy.NearBranch64 = 0;
-			origInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
+			origInstructionSize = (byte)blockEncoder.GetInstructionSize(instrCopy, 0);
 			if (!blockEncoder.FixBranches) {
 				Size = origInstructionSize;
 				useOrigInstruction = true;
