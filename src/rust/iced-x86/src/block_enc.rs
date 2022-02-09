@@ -166,12 +166,12 @@ impl BlockEncoder {
 		let mut instr_count = 0;
 		for instr_block in instr_blocks {
 			let instructions = instr_block.instructions;
+			instr_count += instructions.len();
 			let mut ip = instr_block.rip;
 			let start_index = this.all_instrs.len();
 			for instruction in instructions {
 				let mut base = InstrBase { orig_ip: instruction.ip(), size: 0, done: false };
 				let instr = InstrUtils::create(&mut this.benc, &mut base, instruction);
-				instr_count += 1;
 				debug_assert!(base.size != 0);
 				ip = ip.wrapping_add(base.size as u64);
 				this.all_instrs.push((base, instr));
