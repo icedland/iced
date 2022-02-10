@@ -268,6 +268,7 @@ namespace Iced.Intel {
 		public static Decoder Create(int bitness, byte[] data, DecoderOptions options = DecoderOptions.None) =>
 			Create(bitness, new ByteArrayCodeReader(data), 0, options);
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;
 			if (instrLen < IcedConstants.MaxInstructionLength) {
