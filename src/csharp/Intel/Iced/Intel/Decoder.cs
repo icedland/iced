@@ -644,6 +644,8 @@ namespace Iced.Intel {
 			uint p0 = state.modrm;
 			uint p1 = ReadByte();
 			uint p2 = ReadByte();
+			uint p3 = ReadByte();
+			uint p4 = ReadByte();
 
 			if ((p1 & 4) != 0) {
 #if NO_EVEX
@@ -716,13 +718,12 @@ namespace Iced.Intel {
 						SetInvalidInstruction();
 						return;
 					}
-					var handler = handlers[(int)ReadByte()];
+					var handler = handlers[(int)p3];
 					Debug.Assert(handler.HasModRM);
-					uint m = ReadByte();
-					state.modrm = m;
-					state.mod = m >> 6;
-					state.reg = (m >> 3) & 7;
-					state.rm = m & 7;
+					state.modrm = p4;
+					state.mod = p4 >> 6;
+					state.reg = (p4 >> 3) & 7;
+					state.rm = p4 & 7;
 					// Invalid if LL=3 and no rc
 					Static.Assert((uint)StateFlags.b > 3 ? 0 : -1);
 					if ((((uint)(state.flags & StateFlags.b) | state.vectorLength) & invalidCheckMask) == 3)
@@ -785,13 +786,12 @@ namespace Iced.Intel {
 						SetInvalidInstruction();
 						return;
 					}
-					var handler = handlers[(int)ReadByte()];
+					var handler = handlers[(int)p3];
 					Debug.Assert(handler.HasModRM);
-					uint m = ReadByte();
-					state.modrm = m;
-					state.mod = m >> 6;
-					state.reg = (m >> 3) & 7;
-					state.rm = m & 7;
+					state.modrm = p4;
+					state.mod = p4 >> 6;
+					state.reg = (p4 >> 3) & 7;
+					state.rm = p4 & 7;
 					handler.Decode(this, ref instruction);
 				}
 #endif
