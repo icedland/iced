@@ -350,16 +350,7 @@ namespace Iced.Intel {
 				b = ReadByte();
 			}
 			DecodeTable(handlers_MAP0[b], ref instruction);
-			var flags = state.flags;
-			if ((flags & (StateFlags.IsInvalid | StateFlags.Lock)) != 0) {
-				if ((flags & StateFlags.IsInvalid) != 0 ||
-					(((uint)(flags & (StateFlags.Lock | StateFlags.AllowLock)) & invalidCheckMask) == (uint)StateFlags.Lock)) {
-					instruction = default;
-					Static.Assert(Code.INVALID == 0 ? 0 : -1);
-					//instruction.Code = Code.INVALID;
-					state.flags = flags | StateFlags.IsInvalid;
-				}
-			}
+
 			instruction.InternalCodeSize = defaultCodeSize;
 			uint instrLen = state.instructionLength;
 			Debug.Assert(0 <= instrLen && instrLen <= IcedConstants.MaxInstructionLength);// Could be 0 if there were no bytes available
@@ -368,10 +359,33 @@ namespace Iced.Intel {
 			ip += instrLen;
 			instructionPointer = ip;
 			instruction.NextIP = ip;
-			if ((state.flags & StateFlags.IpRel64) != 0)
-				instruction.MemoryDisplacement64 += ip;
-			else if ((state.flags & StateFlags.IpRel32) != 0)
-				instruction.MemoryDisplacement64 = (uint)ip + instruction.MemoryDisplacement32;
+
+			var flags = state.flags;
+			if ((flags & (StateFlags.IsInvalid | StateFlags.Lock | StateFlags.IpRel32 | StateFlags.IpRel64)) != 0) {
+				var addr = instruction.MemoryDisplacement64 + ip;
+				instruction.MemoryDisplacement64 = addr;
+				// RIP rel ops are common, but invalid/lock bits are usually never set, so exit early if possible
+				if ((flags & (StateFlags.IsInvalid | StateFlags.Lock | StateFlags.IpRel64)) == StateFlags.IpRel64)
+					return;
+				if ((state.flags & StateFlags.IpRel64) == 0) {
+					// Undo what we did above
+					instruction.MemoryDisplacement64 = addr - ip;
+				}
+				if ((state.flags & StateFlags.IpRel32) != 0)
+					instruction.MemoryDisplacement64 = (uint)instruction.MemoryDisplacement64 + (uint)ip;
+
+				if ((flags & StateFlags.IsInvalid) != 0 ||
+					(((uint)(flags & (StateFlags.Lock | StateFlags.AllowLock)) & invalidCheckMask) == (uint)StateFlags.Lock)) {
+					instruction = default;
+					Static.Assert(Code.INVALID == 0 ? 0 : -1);
+					//instruction.Code = Code.INVALID;
+					state.flags = flags | StateFlags.IsInvalid;
+
+					instruction.InternalCodeSize = defaultCodeSize;
+					instruction.Length = (int)instrLen;
+					instruction.NextIP = ip;
+				}
+			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
