@@ -68,13 +68,12 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			if (state.operandSize != OpSize.Size16)
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			if (decoder.state.operandSize != OpSize.Size16)
 				instruction.Code = code32;
 			else
 				instruction.Code = code16;
-			Debug.Assert(state.mod != 3);
+			Debug.Assert(decoder.state.mod != 3);
 			instruction.Op0Kind = OpKind.Memory;
 			decoder.ReadOpMem(ref instruction);
 		}

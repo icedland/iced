@@ -34,15 +34,14 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
-			if ((state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
+			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.OpMask = Register.None; // It's ignored (see ctor)
 			instruction.Code = code;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3)
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -63,18 +62,17 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
-			if ((state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
+			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.Code = code;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3)
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
-				if (mvex.CanUseEvictionHint && (state.flags & StateFlags.MvexEH) != 0)
+				if (mvex.CanUseEvictionHint && (decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
@@ -83,7 +81,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX) + Register.ZMM0;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase + decoder.state.extraRegisterBaseEVEX) + Register.ZMM0;
 		}
 	}
 
@@ -98,22 +96,21 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
-			if ((state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
+			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.Code = code;
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX) + Register.ZMM0;
+			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase + decoder.state.extraRegisterBaseEVEX) + Register.ZMM0;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3) {
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
-				if ((state.flags & StateFlags.MvexEH) != 0) {
+				instruction.Op1Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0) {
 					if (mvex.CanUseSuppressAllExceptions) {
 						if ((sss & 4) != 0)
 							instruction.InternalSetSuppressAllExceptions();
@@ -138,7 +135,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
@@ -159,20 +156,19 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
 			instruction.Code = code;
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.vvvv + Register.ZMM0;
+			instruction.Op0Register = (int)decoder.state.vvvv + Register.ZMM0;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3) {
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
-				if ((state.flags & StateFlags.MvexEH) != 0) {
+				instruction.Op1Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0) {
 					if (mvex.CanUseSuppressAllExceptions) {
 						if ((sss & 4) != 0)
 							instruction.InternalSetSuppressAllExceptions();
@@ -197,7 +193,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
@@ -220,22 +216,21 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
-			if ((state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
+			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.Code = code;
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX) + Register.ZMM0;
+			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase + decoder.state.extraRegisterBaseEVEX) + Register.ZMM0;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3) {
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
-				if ((state.flags & StateFlags.MvexEH) != 0) {
+				instruction.Op1Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0) {
 					if (mvex.CanUseSuppressAllExceptions) {
 						if ((sss & 4) != 0)
 							instruction.InternalSetSuppressAllExceptions();
@@ -260,7 +255,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
@@ -283,25 +278,24 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
 			instruction.Code = code;
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX) + Register.ZMM0;
+			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase + decoder.state.extraRegisterBaseEVEX) + Register.ZMM0;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + Register.ZMM0;
+			instruction.Op1Register = (int)decoder.state.vvvv + Register.ZMM0;
 			var mvex = new MvexInfo(code);
-			if (mvex.RequireOpMaskRegister && decoder.invalidCheckMask != 0 && state.aaa == 0)
+			if (mvex.RequireOpMaskRegister && decoder.invalidCheckMask != 0 && decoder.state.aaa == 0)
 				decoder.SetInvalidInstruction();
-			var sss = state.Sss;
-			if (state.mod == 3) {
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op2Kind = OpKind.Register;
-				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
-				if ((state.flags & StateFlags.MvexEH) != 0) {
+				instruction.Op2Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0) {
 					if (mvex.CanUseSuppressAllExceptions) {
 						if ((sss & 4) != 0)
 							instruction.InternalSetSuppressAllExceptions();
@@ -326,7 +320,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.Op2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
@@ -347,23 +341,22 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
 			instruction.Code = code;
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX) + Register.ZMM0;
+			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase + decoder.state.extraRegisterBaseEVEX) + Register.ZMM0;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + Register.ZMM0;
+			instruction.Op1Register = (int)decoder.state.vvvv + Register.ZMM0;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3) {
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op2Kind = OpKind.Register;
-				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
-				if ((state.flags & StateFlags.MvexEH) != 0) {
+				instruction.Op2Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0) {
 					if (mvex.CanUseSuppressAllExceptions) {
 						if ((sss & 4) != 0)
 							instruction.InternalSetSuppressAllExceptions();
@@ -388,7 +381,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.Op2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
@@ -411,25 +404,24 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
-			if ((state.vvvv & decoder.invalidCheckMask) > 7)
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
+			if ((decoder.state.vvvv & decoder.invalidCheckMask) > 7)
 				decoder.SetInvalidInstruction();
 			instruction.Code = code;
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX) + Register.ZMM0;
+			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase + decoder.state.extraRegisterBaseEVEX) + Register.ZMM0;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = ((int)state.vvvv & 7) + Register.K0;
+			instruction.Op1Register = ((int)decoder.state.vvvv & 7) + Register.K0;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3) {
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op2Kind = OpKind.Register;
-				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
-				if ((state.flags & StateFlags.MvexEH) != 0) {
+				instruction.Op2Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0) {
 					if (mvex.CanUseSuppressAllExceptions) {
 						if ((sss & 4) != 0)
 							instruction.InternalSetSuppressAllExceptions();
@@ -454,7 +446,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.Op2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
@@ -475,23 +467,22 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
 			instruction.Code = code;
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.K0;
+			instruction.Op0Register = (int)decoder.state.reg + Register.K0;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + Register.ZMM0;
+			instruction.Op1Register = (int)decoder.state.vvvv + Register.ZMM0;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3) {
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op2Kind = OpKind.Register;
-				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
-				if ((state.flags & StateFlags.MvexEH) != 0) {
+				instruction.Op2Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0) {
 					if (mvex.CanUseSuppressAllExceptions) {
 						if ((sss & 4) != 0)
 							instruction.InternalSetSuppressAllExceptions();
@@ -516,14 +507,14 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.Op2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
 				instruction.InternalSetMvexRegMemConv(MvexRegMemConv.MemConvNone + sss);
 				decoder.ReadOpMem(ref instruction, mvex.GetTupleType(sss));
 			}
-			if (((state.extraRegisterBase | state.extraRegisterBaseEVEX) & decoder.invalidCheckMask) != 0)
+			if (((decoder.state.extraRegisterBase | decoder.state.extraRegisterBaseEVEX) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 		}
 	}
@@ -539,23 +530,22 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
 			instruction.Code = code;
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.K0;
+			instruction.Op0Register = (int)decoder.state.reg + Register.K0;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)state.vvvv + Register.ZMM0;
+			instruction.Op1Register = (int)decoder.state.vvvv + Register.ZMM0;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3) {
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op2Kind = OpKind.Register;
-				instruction.Op2Register = (int)(state.rm + state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
-				if ((state.flags & StateFlags.MvexEH) != 0) {
+				instruction.Op2Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBaseEVEX) + Register.ZMM0;
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0) {
 					if (mvex.CanUseSuppressAllExceptions) {
 						if ((sss & 4) != 0)
 							instruction.InternalSetSuppressAllExceptions();
@@ -580,14 +570,14 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.Op2Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
 				instruction.InternalSetMvexRegMemConv(MvexRegMemConv.MemConvNone + sss);
 				decoder.ReadOpMem(ref instruction, mvex.GetTupleType(sss));
 			}
-			if (((state.extraRegisterBase | state.extraRegisterBaseEVEX) & decoder.invalidCheckMask) != 0)
+			if (((decoder.state.extraRegisterBase | decoder.state.extraRegisterBaseEVEX) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.Op3Kind = OpKind.Immediate8;
 			instruction.Immediate8 = (byte)decoder.ReadByte();
@@ -605,19 +595,18 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
-			if (decoder.invalidCheckMask != 0 && ((state.vvvv_invalidCheck & 0xF) != 0 || state.aaa == 0))
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
+			if (decoder.invalidCheckMask != 0 && ((decoder.state.vvvv_invalidCheck & 0xF) != 0 || decoder.state.aaa == 0))
 				decoder.SetInvalidInstruction();
 			instruction.Code = code;
 
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3)
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
@@ -638,22 +627,21 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
-			if (decoder.invalidCheckMask != 0 && ((state.vvvv_invalidCheck & 0xF) != 0 || state.aaa == 0))
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
+			if (decoder.invalidCheckMask != 0 && ((decoder.state.vvvv_invalidCheck & 0xF) != 0 || decoder.state.aaa == 0))
 				decoder.SetInvalidInstruction();
 			instruction.Code = code;
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX) + Register.ZMM0;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase + decoder.state.extraRegisterBaseEVEX) + Register.ZMM0;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3)
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
@@ -674,23 +662,22 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.MVEX);
-			if (decoder.invalidCheckMask != 0 && ((state.vvvv_invalidCheck & 0xF) != 0 || state.aaa == 0))
+			Debug.Assert(decoder.state.Encoding == EncodingKind.MVEX);
+			if (decoder.invalidCheckMask != 0 && ((decoder.state.vvvv_invalidCheck & 0xF) != 0 || decoder.state.aaa == 0))
 				decoder.SetInvalidInstruction();
 			instruction.Code = code;
 
-			int regNum = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX);
+			int regNum = (int)(decoder.state.reg + decoder.state.extraRegisterBase + decoder.state.extraRegisterBaseEVEX);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = regNum + Register.ZMM0;
 			var mvex = new MvexInfo(code);
-			var sss = state.Sss;
-			if (state.mod == 3)
+			var sss = decoder.state.Sss;
+			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op1Kind = OpKind.Memory;
-				if ((state.flags & StateFlags.MvexEH) != 0)
+				if ((decoder.state.flags & StateFlags.MvexEH) != 0)
 					instruction.InternalSetIsMvexEvictionHint();
 				if ((mvex.InvalidConvFns & (1U << sss) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();

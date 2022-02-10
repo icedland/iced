@@ -47,15 +47,14 @@ namespace Iced.Intel.DecoderInternal {
 		readonly Code[] codeValues = CodeValues;
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
-			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
-			instruction.Op0Register = (int)state.reg + Register.MM0;
-			if (state.mod == 3) {
+			instruction.Op0Register = (int)decoder.state.reg + Register.MM0;
+			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)state.rm + Register.MM0;
+				instruction.Op1Register = (int)decoder.state.rm + Register.MM0;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
