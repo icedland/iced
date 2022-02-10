@@ -337,12 +337,12 @@ namespace Iced.Intel {
 			state.addressSize = defaultAddressSize;
 			uint b = ReadByte();
 			if ((b & rexMask) == 0x40) {
+				var flags2 = state.flags | StateFlags.HasRex;
 				if ((b & 8) != 0) {
+					flags2 |= StateFlags.W;
 					state.operandSize = OpSize.Size64;
-					state.flags |= StateFlags.HasRex | StateFlags.W;
 				}
-				else
-					state.flags |= StateFlags.HasRex;
+				state.flags = flags2;
 				state.extraRegisterBase = (b & 4) << 1;
 				state.extraIndexRegisterBase = (b & 2) << 2;
 				state.extraBaseRegisterBase = (b & 1) << 3;
