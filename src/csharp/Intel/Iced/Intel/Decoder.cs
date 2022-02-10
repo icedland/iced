@@ -85,6 +85,7 @@ namespace Iced.Intel {
 		internal readonly uint invalidCheckMask;// All 1s if we should check for invalid instructions, else 0
 		internal readonly uint is64bMode_and_W;// StateFlags.W if 64-bit mode, 0 if 16/32-bit mode
 		internal readonly uint reg15Mask;// 7 in 16/32-bit mode, 15 in 64-bit mode
+		readonly uint maskE0;
 		readonly uint rexMask;
 		internal readonly CodeSize defaultCodeSize;
 		internal readonly OpSize defaultOperandSize;
@@ -172,6 +173,7 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size16;
 				defaultAddressSize = OpSize.Size64;
 				defaultInvertedAddressSize = OpSize.Size32;
+				maskE0 = 0xE0;
 				rexMask = 0xF0;
 			}
 			else if (bitness == 32) {
@@ -181,6 +183,7 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size16;
 				defaultAddressSize = OpSize.Size32;
 				defaultInvertedAddressSize = OpSize.Size16;
+				maskE0 = 0;
 				rexMask = 0;
 			}
 			else {
@@ -191,6 +194,7 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size32;
 				defaultAddressSize = OpSize.Size16;
 				defaultInvertedAddressSize = OpSize.Size32;
+				maskE0 = 0;
 				rexMask = 0;
 			}
 			is64bMode_and_W = is64bMode ? (uint)StateFlags.W : 0;
@@ -522,7 +526,6 @@ namespace Iced.Intel {
 #if DEBUG
 			state.flags |= (StateFlags)((uint)EncodingKind.VEX << (int)StateFlags.EncodingShift);
 #endif
-			uint b1 = state.modrm;
 			uint b2 = ReadByte();
 
 			Static.Assert((int)StateFlags.W == 0x80 ? 0 : -1);
@@ -539,18 +542,13 @@ namespace Iced.Intel {
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
 			b2 = (~b2 >> 3) & 0x0F;
-			if (is64bMode) {
-				state.vvvv = b2;
-				state.vvvv_invalidCheck = b2;
-				uint b1x = ~b1;
-				state.extraRegisterBase = (b1x >> 4) & 8;
-				state.extraIndexRegisterBase = (b1x >> 3) & 8;
-				state.extraBaseRegisterBase = (b1x >> 2) & 8;
-			}
-			else {
-				state.vvvv_invalidCheck = b2;
-				state.vvvv = b2 & 0x07;
-			}
+			state.vvvv_invalidCheck = b2;
+			state.vvvv = b2 & reg15Mask;
+			uint b1 = state.modrm;
+			uint b1x = ~b1 & maskE0;
+			state.extraRegisterBase = (b1x >> 4) & 8;
+			state.extraIndexRegisterBase = (b1x >> 3) & 8;
+			state.extraBaseRegisterBase = (b1x >> 2) & 8;
 
 			OpCodeHandler[] handlers;
 			var b = ReadByte();
@@ -585,7 +583,6 @@ namespace Iced.Intel {
 #if DEBUG
 			state.flags |= (StateFlags)((uint)EncodingKind.XOP << (int)StateFlags.EncodingShift);
 #endif
-			uint b1 = state.modrm;
 			uint b2 = ReadByte();
 
 			Static.Assert((int)StateFlags.W == 0x80 ? 0 : -1);
@@ -602,18 +599,13 @@ namespace Iced.Intel {
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
 			b2 = (~b2 >> 3) & 0x0F;
-			if (is64bMode) {
-				state.vvvv = b2;
-				state.vvvv_invalidCheck = b2;
-				uint b1x = ~b1;
-				state.extraRegisterBase = (b1x >> 4) & 8;
-				state.extraIndexRegisterBase = (b1x >> 3) & 8;
-				state.extraBaseRegisterBase = (b1x >> 2) & 8;
-			}
-			else {
-				state.vvvv_invalidCheck = b2;
-				state.vvvv = b2 & 0x07;
-			}
+			state.vvvv_invalidCheck = b2;
+			state.vvvv = b2;
+			uint b1 = state.modrm;
+			uint b1x = ~b1 & maskE0;
+			state.extraRegisterBase = (b1x >> 4) & 8;
+			state.extraIndexRegisterBase = (b1x >> 3) & 8;
+			state.extraBaseRegisterBase = (b1x >> 2) & 8;
 
 			OpCodeHandler[] handlers;
 			var b = ReadByte();
