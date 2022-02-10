@@ -234,6 +234,9 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
 				instruction.InternalSetCodeNoCheck(code64);
@@ -252,9 +255,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 		}
 	}
 
@@ -274,6 +274,9 @@ namespace Iced.Intel.DecoderInternal {
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg1;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
@@ -283,9 +286,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg1;
 		}
 	}
 
@@ -329,15 +329,15 @@ namespace Iced.Intel.DecoderInternal {
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
 		}
 	}
 
@@ -610,6 +610,9 @@ namespace Iced.Intel.DecoderInternal {
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op2Kind = OpKind.Register;
+			instruction.Op2Register = (int)decoder.state.vvvv + baseReg;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
@@ -619,9 +622,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op2Kind = OpKind.Register;
-			instruction.Op2Register = (int)decoder.state.vvvv + baseReg;
 		}
 	}
 
@@ -689,18 +689,18 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			instruction.InternalSetCodeNoCheck(code);
-			if (decoder.state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
 			instruction.Op1Register = (int)decoder.state.vvvv + baseReg;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op2Kind = OpKind.Register;
 			instruction.Op2Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
+			if (decoder.state.mod == 3)
+				decoder.SetInvalidInstruction();
+			else {
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
+			}
 		}
 	}
 
@@ -1021,15 +1021,15 @@ namespace Iced.Intel.DecoderInternal {
 			if (((decoder.state.vvvv_invalidCheck | decoder.state.extraRegisterBase) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)decoder.state.reg + Register.K0;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)decoder.state.reg + Register.K0;
 		}
 	}
 
@@ -1300,6 +1300,9 @@ namespace Iced.Intel.DecoderInternal {
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + gpr;
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op2Kind = OpKind.Register;
+			instruction.Op2Register = (int)decoder.state.vvvv + gpr;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
@@ -1309,9 +1312,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op2Kind = OpKind.Register;
-			instruction.Op2Register = (int)decoder.state.vvvv + gpr;
 		}
 	}
 

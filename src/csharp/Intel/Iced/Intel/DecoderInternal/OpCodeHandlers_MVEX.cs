@@ -66,6 +66,9 @@ namespace Iced.Intel.DecoderInternal {
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase + decoder.state.extraRegisterBaseEVEX) + Register.ZMM0;
 			var mvex = new MvexInfo(code);
 			var sss = decoder.state.Sss;
 			if (decoder.state.mod == 3)
@@ -79,9 +82,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalSetMvexRegMemConv(MvexRegMemConv.MemConvNone + sss);
 				decoder.ReadOpMem(ref instruction, mvex.GetTupleType(sss));
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase + decoder.state.extraRegisterBaseEVEX) + Register.ZMM0;
 		}
 	}
 
@@ -476,6 +476,8 @@ namespace Iced.Intel.DecoderInternal {
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
 			instruction.Op1Register = (int)decoder.state.vvvv + Register.ZMM0;
+			if (((decoder.state.extraRegisterBase | decoder.state.extraRegisterBaseEVEX) & decoder.invalidCheckMask) != 0)
+				decoder.SetInvalidInstruction();
 			var mvex = new MvexInfo(code);
 			var sss = decoder.state.Sss;
 			if (decoder.state.mod == 3) {
@@ -514,8 +516,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalSetMvexRegMemConv(MvexRegMemConv.MemConvNone + sss);
 				decoder.ReadOpMem(ref instruction, mvex.GetTupleType(sss));
 			}
-			if (((decoder.state.extraRegisterBase | decoder.state.extraRegisterBaseEVEX) & decoder.invalidCheckMask) != 0)
-				decoder.SetInvalidInstruction();
 		}
 	}
 

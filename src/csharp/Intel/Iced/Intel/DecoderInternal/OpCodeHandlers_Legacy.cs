@@ -6,6 +6,18 @@ using System;
 using System.Diagnostics;
 
 namespace Iced.Intel.DecoderInternal {
+	// fixed fields must be in structs and can't be inlined
+	struct Code3 {
+		public unsafe fixed ushort codes[3];
+		public Code3(Code code16, Code code32, Code code64) {
+			unsafe {
+				codes[0] = (ushort)code16;
+				codes[1] = (ushort)code32;
+				codes[2] = (ushort)code64;
+			}
+		}
+	}
+
 	sealed class OpCodeHandler_VEX2 : OpCodeHandlerModRM {
 		readonly OpCodeHandler handlerMem;
 
@@ -260,11 +272,11 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
-			instruction.Op0Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadByte();
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
 			instruction.Op1Register = reg;
+			instruction.Op0Kind = OpKind.Immediate8;
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -513,56 +525,43 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Ev_Iz : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 		readonly HandlerFlags flags;
 
-		public OpCodeHandler_Ev_Iz(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ev_Iz(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public OpCodeHandler_Ev_Iz(Code code16, Code code32, Code code64, HandlerFlags flags) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
+			codes = new Code3(code16, code32, code64);
 			this.flags = flags;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.mod == 3) {
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
-			}
-			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			if (decoder.state.mod < 3) {
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				decoder.state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
+			else {
+				Static.Assert(OpKind.Register == 0 ? 0 : -1);
+				//instruction.Op0Kind = OpKind.Register;
+				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+			}
+			if ((uint)operandSize == (uint)OpSize.Size32) {
 				instruction.Op1Kind = OpKind.Immediate32;
 				instruction.Immediate32 = decoder.ReadUInt32();
 			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
+			else if ((uint)operandSize == (uint)OpSize.Size64) {
 				instruction.Op1Kind = OpKind.Immediate32to64;
 				instruction.Immediate32 = decoder.ReadUInt32();
 			}
 			else {
-				instruction.InternalSetCodeNoCheck(code16);
 				instruction.Op1Kind = OpKind.Immediate16;
 				instruction.InternalImmediate16 = decoder.ReadUInt16();
 			}
@@ -570,106 +569,72 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Ev_Ib : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 		readonly HandlerFlags flags;
 
-		public OpCodeHandler_Ev_Ib(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ev_Ib(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public OpCodeHandler_Ev_Ib(Code code16, Code code32, Code code64, HandlerFlags flags) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
+			codes = new Code3(code16, code32, code64);
 			this.flags = flags;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				decoder.state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
+			if ((uint)operandSize == (uint)OpSize.Size32)
 				instruction.Op1Kind = OpKind.Immediate8to32;
-				instruction.InternalImmediate8 = decoder.ReadByte();
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
+			else if ((uint)operandSize == (uint)OpSize.Size64)
 				instruction.Op1Kind = OpKind.Immediate8to64;
-				instruction.InternalImmediate8 = decoder.ReadByte();
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
+			else
 				instruction.Op1Kind = OpKind.Immediate8to16;
-				instruction.InternalImmediate8 = decoder.ReadByte();
-			}
+			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
 	sealed class OpCodeHandler_Ev_Ib2 : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 		readonly HandlerFlags flags;
 
-		public OpCodeHandler_Ev_Ib2(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ev_Ib2(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public OpCodeHandler_Ev_Ib2(Code code16, Code code32, Code code64, HandlerFlags flags) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
+			codes = new Code3(code16, code32, code64);
 			this.flags = flags;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				decoder.state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
 			instruction.Op1Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
@@ -677,164 +642,102 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Ev_1 : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Ev_1(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ev_1(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			instruction.Op1Kind = OpKind.Immediate8;
+			instruction.InternalImmediate8 = 1;
+			decoder.state.flags |= StateFlags.NoImm;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			instruction.Op1Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = 1;
-			decoder.state.flags |= StateFlags.NoImm;
 		}
 	}
 
 	sealed class OpCodeHandler_Ev_CL : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Ev_CL(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ev_CL(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = Register.CL;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = Register.CL;
 		}
 	}
 
 	sealed class OpCodeHandler_Ev : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 		readonly HandlerFlags flags;
 
-		public OpCodeHandler_Ev(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ev(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public OpCodeHandler_Ev(Code code16, Code code32, Code code64, HandlerFlags flags) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
+			codes = new Code3(code16, code32, code64);
 			this.flags = flags;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				decoder.state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
 		}
 	}
 
 	sealed class OpCodeHandler_Rv : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Rv(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Rv(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
-			}
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			Debug.Assert(decoder.state.mod == 3);
 		}
 	}
@@ -917,10 +820,10 @@ namespace Iced.Intel.DecoderInternal {
 					decoder.SetInvalidInstruction();
 			}
 			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
 				if ((disallowMem & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
 		}
 	}
@@ -943,7 +846,11 @@ namespace Iced.Intel.DecoderInternal {
 					instruction.InternalSetCodeNoCheck(code64);
 				else
 					instruction.InternalSetCodeNoCheck(code16);
-				if (decoder.state.mod == 3) {
+				if (decoder.state.mod < 3) {
+					instruction.Op0Kind = OpKind.Memory;
+					decoder.ReadOpMem(ref instruction);
+				}
+				else {
 					Static.Assert(OpKind.Register == 0 ? 0 : -1);
 					//instruction.Op0Kind = OpKind.Register;
 					if ((decoder.options & DecoderOptions.AMD) == 0 || decoder.state.operandSize != OpSize.Size16)
@@ -951,27 +858,23 @@ namespace Iced.Intel.DecoderInternal {
 					else
 						instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 				}
-				else {
-					instruction.Op0Kind = OpKind.Memory;
-					decoder.ReadOpMem(ref instruction);
-				}
 			}
 			else {
 				if (decoder.state.operandSize == OpSize.Size32)
 					instruction.InternalSetCodeNoCheck(code32);
 				else
 					instruction.InternalSetCodeNoCheck(code16);
-				if (decoder.state.mod == 3) {
+				if (decoder.state.mod < 3) {
+					instruction.Op0Kind = OpKind.Memory;
+					decoder.ReadOpMem(ref instruction);
+				}
+				else {
 					Static.Assert(OpKind.Register == 0 ? 0 : -1);
 					//instruction.Op0Kind = OpKind.Register;
 					if (decoder.state.operandSize == OpSize.Size32)
 						instruction.Op0Register = (int)decoder.state.rm + Register.EAX;
 					else
 						instruction.Op0Register = (int)decoder.state.rm + Register.AX;
-				}
-				else {
-					instruction.Op0Kind = OpKind.Memory;
-					decoder.ReadOpMem(ref instruction);
 				}
 			}
 		}
@@ -1006,34 +909,20 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Evw : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Evw(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Evw(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -1043,34 +932,20 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Ew : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Ew(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ew(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -1105,50 +980,27 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gv_Ev : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gv_Ev(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gv_Ev(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
+			if (decoder.state.mod < 3) {
+				instruction.Op1Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
 			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
-			}
-			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op1Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op1Register = (int)index + Register.RAX;
-				else
-					instruction.Op1Register = (int)index + Register.AX;
-			}
-			else {
-				instruction.Op1Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
+				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 		}
 	}
@@ -1175,36 +1027,18 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gv_M_as : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gv_M_as(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gv_M_as(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.addressSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else if (decoder.state.addressSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
-			}
+			nuint addressSize = (nuint)decoder.state.addressSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[addressSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)addressSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -1215,46 +1049,26 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gdq_Ev : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gdq_Ev(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gdq_Ev(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			if ((uint)operandSize != (uint)OpSize.Size64)
 				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
+			else
 				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op1Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op1Register = (int)index + Register.RAX;
-				else
-					instruction.Op1Register = (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
@@ -1264,46 +1078,23 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gv_Ev3 : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gv_Ev3(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gv_Ev3(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
-			}
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op1Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op1Register = (int)index + Register.RAX;
-				else
-					instruction.Op1Register = (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
@@ -1313,36 +1104,18 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gv_Ev2 : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gv_Ev2(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gv_Ev2(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
-			}
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
@@ -1767,61 +1540,36 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Ev_Gv : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 		readonly HandlerFlags flags;
 
-		public OpCodeHandler_Ev_Gv(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ev_Gv(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public OpCodeHandler_Ev_Gv(Code code16, Code code32, Code code64, HandlerFlags flags) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
+			codes = new Code3(code16, code32, code64);
 			this.flags = flags;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)decoder.state.operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				decoder.state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
-			}
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
 		}
 	}
@@ -1846,6 +1594,9 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalSetCodeNoCheck(code32);
 				baseReg = Register.EAX;
 			}
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
@@ -1855,57 +1606,31 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
 		}
 	}
 
 	sealed class OpCodeHandler_Ev_Gv_Ib : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Ev_Gv_Ib(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ev_Gv_Ib(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
-			}
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			}
 			instruction.Op2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
@@ -1913,54 +1638,31 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Ev_Gv_CL : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Ev_Gv_CL(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ev_Gv_CL(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op2Kind = OpKind.Register;
+			instruction.Op2Register = Register.CL;
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
-			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op2Kind = OpKind.Register;
-			instruction.Op2Register = Register.CL;
 		}
 	}
 
@@ -2005,36 +1707,18 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gv_Eb : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gv_Eb(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gv_Eb(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
-			}
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3) {
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
 				if ((decoder.state.flags & StateFlags.HasRex) != 0 && index >= 4)
@@ -2051,36 +1735,18 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gv_Ew : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gv_Ew(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gv_Ew(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
-			}
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
@@ -2122,46 +1788,28 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Simple2 : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Simple2(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Simple2(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 		}
 	}
 
 	sealed class OpCodeHandler_Simple2Iw : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Simple2Iw(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Simple2Iw(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 			instruction.Op0Kind = OpKind.Immediate16;
 			instruction.InternalImmediate16 = decoder.ReadUInt16();
 		}
@@ -2196,76 +1844,44 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Simple5 : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Simple5(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Simple5(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.addressSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else if (decoder.state.addressSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint addressSize = (nuint)decoder.state.addressSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[addressSize]); }
 		}
 	}
 
 	sealed class OpCodeHandler_Simple5_a32 : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Simple5_a32(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Simple5_a32(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			if (decoder.state.addressSize != OpSize.Size32 && decoder.invalidCheckMask != 0)
 				decoder.SetInvalidInstruction();
-			if (decoder.state.addressSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else if (decoder.state.addressSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint addressSize = (nuint)decoder.state.addressSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[addressSize]); }
 		}
 	}
 
 	sealed class OpCodeHandler_Simple5_ModRM_as : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Simple5_ModRM_as(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Simple5_ModRM_as(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.addressSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.RAX;
-			}
-			else if (decoder.state.addressSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.EAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
-			}
+			nuint addressSize = (nuint)decoder.state.addressSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[addressSize]); }
+			instruction.Op0Register = ((int)addressSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 		}
 	}
 
@@ -2707,6 +2323,8 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 				baseReg = Register.AX;
 			}
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
@@ -2716,60 +2334,41 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
 		}
 	}
 
 	sealed class OpCodeHandler_Gv_Ev_Ib : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gv_Ev_Ib(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gv_Ev_Ib(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op1Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op1Register = (int)index + Register.RAX;
-				else
-					instruction.Op1Register = (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			if (decoder.state.operandSize == OpSize.Size32) {
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-				instruction.InternalSetCodeNoCheck(code32);
+			if ((uint)operandSize == (uint)OpSize.Size32) {
 				instruction.Op2Kind = OpKind.Immediate8to32;
 				instruction.InternalImmediate8 = decoder.ReadByte();
 			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-				instruction.InternalSetCodeNoCheck(code64);
+			else if ((uint)operandSize == (uint)OpSize.Size64) {
 				instruction.Op2Kind = OpKind.Immediate8to64;
 				instruction.InternalImmediate8 = decoder.ReadByte();
 			}
 			else {
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
-				instruction.InternalSetCodeNoCheck(code16);
 				instruction.Op2Kind = OpKind.Immediate8to16;
 				instruction.InternalImmediate8 = decoder.ReadByte();
 			}
@@ -2843,63 +2442,46 @@ namespace Iced.Intel.DecoderInternal {
 					decoder.SetInvalidInstruction();
 			}
 			else {
-				instruction.Op1Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
 				if ((disallowMem & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
+				instruction.Op1Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
 		}
 	}
 
 	sealed class OpCodeHandler_Gv_Ev_Iz : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gv_Ev_Iz(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gv_Ev_Iz(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op1Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op1Register = (int)index + Register.RAX;
-				else
-					instruction.Op1Register = (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
+			if ((uint)operandSize == (uint)OpSize.Size32) {
 				instruction.Op2Kind = OpKind.Immediate32;
 				instruction.Immediate32 = decoder.ReadUInt32();
 			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
+			else if ((uint)operandSize == (uint)OpSize.Size64) {
 				instruction.Op2Kind = OpKind.Immediate32to64;
 				instruction.Immediate32 = decoder.ReadUInt32();
 			}
 			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 				instruction.Op2Kind = OpKind.Immediate16;
 				instruction.InternalImmediate16 = decoder.ReadUInt16();
 			}
@@ -2918,55 +2500,37 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = reg;
 			if (decoder.state.addressSize == OpSize.Size64)
 				instruction.Op0Kind = OpKind.MemoryESRDI;
 			else if (decoder.state.addressSize == OpSize.Size32)
 				instruction.Op0Kind = OpKind.MemoryESEDI;
 			else
 				instruction.Op0Kind = OpKind.MemoryESDI;
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = reg;
 		}
 	}
 
 	sealed class OpCodeHandler_Yv_Reg : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Yv_Reg(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Yv_Reg(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = ((int)operandSize << 4) + Register.AX;
 			if (decoder.state.addressSize == OpSize.Size64)
 				instruction.Op0Kind = OpKind.MemoryESRDI;
 			else if (decoder.state.addressSize == OpSize.Size32)
 				instruction.Op0Kind = OpKind.MemoryESEDI;
 			else
 				instruction.Op0Kind = OpKind.MemoryESDI;
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = Register.AX;
-			}
 		}
 	}
 
@@ -2981,12 +2545,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.addressSize == OpSize.Size64)
-				instruction.Op0Kind = OpKind.MemoryESRDI;
-			else if (decoder.state.addressSize == OpSize.Size32)
-				instruction.Op0Kind = OpKind.MemoryESEDI;
-			else
-				instruction.Op0Kind = OpKind.MemoryESDI;
 			if (decoder.state.operandSize != OpSize.Size16) {
 				instruction.InternalSetCodeNoCheck(code32);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -2999,6 +2557,12 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op1Kind = OpKind.Register;
 				instruction.Op1Register = Register.DX;
 			}
+			if (decoder.state.addressSize == OpSize.Size64)
+				instruction.Op0Kind = OpKind.MemoryESRDI;
+			else if (decoder.state.addressSize == OpSize.Size32)
+				instruction.Op0Kind = OpKind.MemoryESEDI;
+			else
+				instruction.Op0Kind = OpKind.MemoryESDI;
 		}
 	}
 
@@ -3027,42 +2591,24 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Reg_Xv : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Reg_Xv(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Reg_Xv(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + Register.AX;
 			if (decoder.state.addressSize == OpSize.Size64)
 				instruction.Op1Kind = OpKind.MemorySegRSI;
 			else if (decoder.state.addressSize == OpSize.Size32)
 				instruction.Op1Kind = OpKind.MemorySegESI;
 			else
 				instruction.Op1Kind = OpKind.MemorySegSI;
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = Register.AX;
-			}
 		}
 	}
 
@@ -3077,12 +2623,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.addressSize == OpSize.Size64)
-				instruction.Op1Kind = OpKind.MemorySegRSI;
-			else if (decoder.state.addressSize == OpSize.Size32)
-				instruction.Op1Kind = OpKind.MemorySegESI;
-			else
-				instruction.Op1Kind = OpKind.MemorySegSI;
 			if (decoder.state.operandSize != OpSize.Size16) {
 				instruction.InternalSetCodeNoCheck(code32);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -3095,6 +2635,12 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op0Kind = OpKind.Register;
 				instruction.Op0Register = Register.DX;
 			}
+			if (decoder.state.addressSize == OpSize.Size64)
+				instruction.Op1Kind = OpKind.MemorySegRSI;
+			else if (decoder.state.addressSize == OpSize.Size32)
+				instruction.Op1Kind = OpKind.MemorySegESI;
+			else
+				instruction.Op1Kind = OpKind.MemorySegSI;
 		}
 	}
 
@@ -3123,42 +2669,24 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Reg_Yv : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Reg_Yv(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Reg_Yv(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + Register.AX;
 			if (decoder.state.addressSize == OpSize.Size64)
 				instruction.Op1Kind = OpKind.MemoryESRDI;
 			else if (decoder.state.addressSize == OpSize.Size32)
 				instruction.Op1Kind = OpKind.MemoryESEDI;
 			else
 				instruction.Op1Kind = OpKind.MemoryESDI;
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = Register.AX;
-			}
 		}
 	}
 
@@ -3186,18 +2714,15 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Yv_Xv : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Yv_Xv(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Yv_Xv(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 			if (decoder.state.addressSize == OpSize.Size64) {
 				instruction.Op0Kind = OpKind.MemoryESRDI;
 				instruction.Op1Kind = OpKind.MemorySegRSI;
@@ -3210,12 +2735,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.MemoryESDI;
 				instruction.Op1Kind = OpKind.MemorySegSI;
 			}
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
 		}
 	}
 
@@ -3243,18 +2762,15 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Xv_Yv : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Xv_Yv(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Xv_Yv(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 			if (decoder.state.addressSize == OpSize.Size64) {
 				instruction.Op0Kind = OpKind.MemorySegRSI;
 				instruction.Op1Kind = OpKind.MemoryESRDI;
@@ -3267,52 +2783,32 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.MemorySegSI;
 				instruction.Op1Kind = OpKind.MemoryESDI;
 			}
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
 		}
 	}
 
 	sealed class OpCodeHandler_Ev_Sw : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Ev_Sw(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ev_Sw(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = decoder.ReadOpSegReg();
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op0Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op0Register = (int)index + Register.RAX;
-				else
-					instruction.Op0Register = (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = decoder.ReadOpSegReg();
 		}
 	}
 
@@ -3324,77 +2820,50 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = decoder.ReadOpSegReg();
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = decoder.ReadOpSegReg();
 		}
 	}
 
 	sealed class OpCodeHandler_Gv_M : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gv_M(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gv_M(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
-			}
-			if (decoder.state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
+			if (decoder.state.mod < 3) {
 				instruction.Op1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
+			else
+				decoder.SetInvalidInstruction();
 		}
 	}
 
 	sealed class OpCodeHandler_Sw_Ev : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Sw_Ev(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Sw_Ev(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32)
-				instruction.InternalSetCodeNoCheck(code32);
-			else if (decoder.state.operandSize == OpSize.Size64)
-				instruction.InternalSetCodeNoCheck(code64);
-			else
-				instruction.InternalSetCodeNoCheck(code16);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			var sreg = decoder.ReadOpSegReg();
@@ -3405,12 +2874,7 @@ namespace Iced.Intel.DecoderInternal {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				if (decoder.state.operandSize == OpSize.Size32)
-					instruction.Op1Register = (int)index + Register.EAX;
-				else if (decoder.state.operandSize == OpSize.Size64)
-					instruction.Op1Register = (int)index + Register.RAX;
-				else
-					instruction.Op1Register = (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
@@ -3482,30 +2946,22 @@ namespace Iced.Intel.DecoderInternal {
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = reg;
 			decoder.displIndex = decoder.state.instructionLength;
+			//instruction.InternalMemoryIndexScale = 0;
+			//instruction.InternalMemoryBase = Register.None;
+			//instruction.InternalMemoryIndex = Register.None;
+			instruction.Op1Kind = OpKind.Memory;
 			if (decoder.state.addressSize == OpSize.Size64) {
 				instruction.InternalSetMemoryDisplSize(4);
 				decoder.state.flags |= StateFlags.Addr64;
 				instruction.MemoryDisplacement64 = decoder.ReadUInt64();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op1Kind = OpKind.Memory;
 			}
 			else if (decoder.state.addressSize == OpSize.Size32) {
 				instruction.InternalSetMemoryDisplSize(3);
 				instruction.MemoryDisplacement64 = decoder.ReadUInt32();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op1Kind = OpKind.Memory;
 			}
 			else {
 				instruction.InternalSetMemoryDisplSize(2);
 				instruction.MemoryDisplacement64 = decoder.ReadUInt16();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op1Kind = OpKind.Memory;
 			}
 		}
 	}
@@ -3523,153 +2979,93 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
 			decoder.displIndex = decoder.state.instructionLength;
+			//instruction.InternalMemoryIndexScale = 0;
+			//instruction.InternalMemoryBase = Register.None;
+			//instruction.InternalMemoryIndex = Register.None;
+			instruction.Op0Kind = OpKind.Memory;
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = reg;
 			if (decoder.state.addressSize == OpSize.Size64) {
 				instruction.InternalSetMemoryDisplSize(4);
 				decoder.state.flags |= StateFlags.Addr64;
 				instruction.MemoryDisplacement64 = decoder.ReadUInt64();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op0Kind = OpKind.Memory;
 			}
 			else if (decoder.state.addressSize == OpSize.Size32) {
 				instruction.InternalSetMemoryDisplSize(3);
 				instruction.MemoryDisplacement64 = decoder.ReadUInt32();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op0Kind = OpKind.Memory;
 			}
 			else {
 				instruction.InternalSetMemoryDisplSize(2);
 				instruction.MemoryDisplacement64 = decoder.ReadUInt16();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op0Kind = OpKind.Memory;
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = reg;
 		}
 	}
 
 	sealed class OpCodeHandler_Reg_Ov : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Reg_Ov(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Reg_Ov(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			decoder.displIndex = decoder.state.instructionLength;
+			//instruction.InternalMemoryIndexScale = 0;
+			//instruction.InternalMemoryBase = Register.None;
+			//instruction.InternalMemoryIndex = Register.None;
+			instruction.Op1Kind = OpKind.Memory;
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + Register.AX;
 			if (decoder.state.addressSize == OpSize.Size64) {
 				instruction.InternalSetMemoryDisplSize(4);
 				decoder.state.flags |= StateFlags.Addr64;
 				instruction.MemoryDisplacement64 = decoder.ReadUInt64();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op1Kind = OpKind.Memory;
 			}
 			else if (decoder.state.addressSize == OpSize.Size32) {
 				instruction.InternalSetMemoryDisplSize(3);
 				instruction.MemoryDisplacement64 = decoder.ReadUInt32();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op1Kind = OpKind.Memory;
 			}
 			else {
 				instruction.InternalSetMemoryDisplSize(2);
 				instruction.MemoryDisplacement64 = decoder.ReadUInt16();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op1Kind = OpKind.Memory;
-			}
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = Register.AX;
 			}
 		}
 	}
 
 	sealed class OpCodeHandler_Ov_Reg : OpCodeHandler {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Ov_Reg(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Ov_Reg(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			decoder.displIndex = decoder.state.instructionLength;
+			//instruction.InternalMemoryIndexScale = 0;
+			//instruction.InternalMemoryBase = Register.None;
+			//instruction.InternalMemoryIndex = Register.None;
+			instruction.Op0Kind = OpKind.Memory;
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = ((int)operandSize << 4) + Register.AX;
 			if (decoder.state.addressSize == OpSize.Size64) {
 				instruction.InternalSetMemoryDisplSize(4);
 				decoder.state.flags |= StateFlags.Addr64;
 				instruction.MemoryDisplacement64 = decoder.ReadUInt64();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op0Kind = OpKind.Memory;
 			}
 			else if (decoder.state.addressSize == OpSize.Size32) {
 				instruction.InternalSetMemoryDisplSize(3);
 				instruction.MemoryDisplacement64 = decoder.ReadUInt32();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op0Kind = OpKind.Memory;
 			}
 			else {
 				instruction.InternalSetMemoryDisplSize(2);
 				instruction.MemoryDisplacement64 = decoder.ReadUInt16();
-				//instruction.InternalMemoryIndexScale = 0;
-				//instruction.InternalMemoryBase = Register.None;
-				//instruction.InternalMemoryIndex = Register.None;
-				instruction.Op0Kind = OpKind.Memory;
-			}
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = Register.AX;
 			}
 		}
 	}
@@ -3745,6 +3141,10 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			instruction.Op0Kind = OpKind.Immediate16;
+			instruction.InternalImmediate16 = decoder.ReadUInt16();
+			instruction.Op1Kind = OpKind.Immediate8_2nd;
+			instruction.InternalImmediate8_2nd = decoder.ReadByte();
 			if (decoder.is64bMode) {
 				if (decoder.state.operandSize != OpSize.Size16)
 					instruction.InternalSetCodeNoCheck(code64);
@@ -3757,10 +3157,6 @@ namespace Iced.Intel.DecoderInternal {
 				else
 					instruction.InternalSetCodeNoCheck(code16);
 			}
-			instruction.Op0Kind = OpKind.Immediate16;
-			instruction.InternalImmediate16 = decoder.ReadUInt16();
-			instruction.Op1Kind = OpKind.Immediate8_2nd;
-			instruction.InternalImmediate8_2nd = decoder.ReadByte();
 		}
 	}
 
@@ -3775,6 +3171,8 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			instruction.Op1Kind = OpKind.Immediate8;
+			instruction.InternalImmediate8 = decoder.ReadByte();
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			if (decoder.state.operandSize != OpSize.Size16) {
@@ -3785,8 +3183,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalSetCodeNoCheck(code16);
 				instruction.Op0Register = Register.AX;
 			}
-			instruction.Op1Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
 	}
 
@@ -3827,6 +3223,9 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = Register.DX;
 			if (decoder.state.operandSize != OpSize.Size16) {
 				instruction.InternalSetCodeNoCheck(code32);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -3839,9 +3238,6 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op0Kind = OpKind.Register;
 				instruction.Op0Register = Register.AX;
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = Register.DX;
 		}
 	}
 
@@ -3888,20 +3284,20 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
-			if (decoder.state.mod == 3) {
+			if (decoder.state.mod < 3) {
+				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
+				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
+				decoder.state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
+			}
+			else {
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
 				if ((decoder.state.flags & StateFlags.HasRex) != 0 && index >= 4)
 					index += 4;
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				instruction.Op0Register = (int)index + Register.AL;
-			}
-			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
-				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
-				decoder.state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
 			}
 			instruction.Op1Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
@@ -3916,6 +3312,9 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
+			instruction.Op1Kind = OpKind.Immediate8;
+			instruction.InternalImmediate8 = 1;
+			decoder.state.flags |= StateFlags.NoImm;
 			if (decoder.state.mod == 3) {
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
 				if ((decoder.state.flags & StateFlags.HasRex) != 0 && index >= 4)
@@ -3928,9 +3327,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			instruction.Op1Kind = OpKind.Immediate8;
-			instruction.InternalImmediate8 = 1;
-			decoder.state.flags |= StateFlags.NoImm;
 		}
 	}
 
@@ -3942,6 +3338,9 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = Register.CL;
 			if (decoder.state.mod == 3) {
 				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
 				if ((decoder.state.flags & StateFlags.HasRex) != 0 && index >= 4)
@@ -3954,9 +3353,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = Register.CL;
 		}
 	}
 
@@ -3983,11 +3379,11 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Register = (int)index + Register.AL;
 			}
 			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				decoder.state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
 		}
 	}
@@ -4007,6 +3403,12 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
 			uint index;
+			index = decoder.state.reg + decoder.state.extraRegisterBase;
+			if ((decoder.state.flags & StateFlags.HasRex) != 0 && index >= 4)
+				index += 4;
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)index + Register.AL;
 			if (decoder.state.mod == 3) {
 				index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
 				if ((decoder.state.flags & StateFlags.HasRex) != 0 && index >= 4)
@@ -4016,18 +3418,12 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Register = (int)index + Register.AL;
 			}
 			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
 				Static.Assert((int)StateFlags.AllowLock == 0x00002000 ? 0 : -1);
 				decoder.state.flags |= (StateFlags)((uint)(flags & HandlerFlags.Lock) << (13 - 3));
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
-			index = decoder.state.reg + decoder.state.extraRegisterBase;
-			if ((decoder.state.flags & StateFlags.HasRex) != 0 && index >= 4)
-				index += 4;
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)index + Register.AL;
 		}
 	}
 
@@ -4137,6 +3533,8 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
+			instruction.InternalMemoryIndex = Register.AL;
+			instruction.Op0Kind = OpKind.Memory;
 			//instruction.MemoryDisplacement64 = 0;
 			//instruction.InternalMemoryIndexScale = 0;
 			//instruction.InternalSetMemoryDisplSize(0);
@@ -4146,8 +3544,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalMemoryBase = Register.EBX;
 			else
 				instruction.InternalMemoryBase = Register.BX;
-			instruction.InternalMemoryIndex = Register.AL;
-			instruction.Op0Kind = OpKind.Memory;
 		}
 	}
 
@@ -4192,18 +3588,18 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
-			if (decoder.state.mod == 3) {
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
+			if (decoder.state.mod < 3) {
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
+			}
+			else {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.XMM0;
 			}
-			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 		}
 	}
 
@@ -4289,15 +3685,15 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 		}
 	}
 
@@ -4355,6 +3751,9 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)decoder.state.reg + Register.MM0;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
@@ -4364,9 +3763,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)decoder.state.reg + Register.MM0;
 		}
 	}
 
@@ -4378,15 +3774,15 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)decoder.state.reg + Register.MM0;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)decoder.state.reg + Register.MM0;
 		}
 	}
 
@@ -4542,6 +3938,9 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)decoder.state.reg + Register.MM0;
 			Register gpr;
 			if ((decoder.state.flags & StateFlags.W) != 0) {
 				instruction.InternalSetCodeNoCheck(code64);
@@ -4560,9 +3959,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)decoder.state.reg + Register.MM0;
 		}
 	}
 
@@ -4751,6 +4147,9 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 			Register gpr;
 			if ((decoder.state.flags & StateFlags.W) != 0) {
 				instruction.InternalSetCodeNoCheck(code64);
@@ -4769,9 +4168,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 			instruction.Op2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
@@ -4823,6 +4219,9 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 			Register gpr;
 			if ((decoder.state.flags & StateFlags.W) != 0) {
 				instruction.InternalSetCodeNoCheck(code64);
@@ -4841,9 +4240,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 		}
 	}
 
@@ -4947,15 +4343,15 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.reg > 3 || (decoder.state.extraRegisterBase & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			instruction.InternalSetCodeNoCheck(code);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)decoder.state.reg + Register.BND0;
 			Debug.Assert(decoder.state.mod != 3);
 			instruction.Op0Kind = OpKind.Memory;
 			decoder.ReadOpMem_MPX(ref instruction);
 			// It can't be EIP since if it's MPX + 64-bit, the address size is always 64-bit
 			if (decoder.invalidCheckMask != 0 && instruction.MemoryBase == Register.RIP)
 				decoder.SetInvalidInstruction();
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)decoder.state.reg + Register.BND0;
 		}
 	}
 
@@ -5010,6 +4406,9 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalSetCodeNoCheck(code64);
 			else
 				instruction.InternalSetCodeNoCheck(code32);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)decoder.state.reg + Register.BND0;
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
@@ -5021,9 +4420,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem_MPX(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)decoder.state.reg + Register.BND0;
 		}
 	}
 
@@ -5080,12 +4476,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.mod == 3)
-				decoder.SetInvalidInstruction();
-			else {
-				instruction.Op0Kind = OpKind.Memory;
-				decoder.ReadOpMem(ref instruction);
-			}
 			if ((decoder.state.flags & StateFlags.W) != 0) {
 				instruction.InternalSetCodeNoCheck(code64);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -5097,6 +4487,12 @@ namespace Iced.Intel.DecoderInternal {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
 				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
+			}
+			if (decoder.state.mod == 3)
+				decoder.SetInvalidInstruction();
+			else {
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
 			}
 		}
 	}
@@ -5187,36 +4583,18 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Gv_Mv : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Gv_Mv(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Gv_Mv(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op0Kind = OpKind.Register;
-				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
-			}
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -5227,41 +4605,23 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_Mv_Gv : OpCodeHandlerModRM {
-		readonly Code code16;
-		readonly Code code32;
-		readonly Code code64;
+		readonly Code3 codes;
 
-		public OpCodeHandler_Mv_Gv(Code code16, Code code32, Code code64) {
-			this.code16 = code16;
-			this.code32 = code32;
-			this.code64 = code64;
-		}
+		public OpCodeHandler_Mv_Gv(Code code16, Code code32, Code code64) =>
+			codes = new Code3(code16, code32, code64);
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			nuint operandSize = (nuint)decoder.state.operandSize;
+			unsafe { instruction.InternalSetCodeNoCheck((Code)codes.codes[operandSize]); }
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = ((int)operandSize << 4) + (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
-			}
-			if (decoder.state.operandSize == OpSize.Size32) {
-				instruction.InternalSetCodeNoCheck(code32);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
-			}
-			else if (decoder.state.operandSize == OpSize.Size64) {
-				instruction.InternalSetCodeNoCheck(code64);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
-			}
-			else {
-				instruction.InternalSetCodeNoCheck(code16);
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.Op1Kind = OpKind.Register;
-				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.AX;
 			}
 		}
 	}
@@ -5353,9 +4713,6 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			Debug.Assert(decoder.state.mod != 3);
-			instruction.Op0Kind = OpKind.Memory;
-			decoder.ReadOpMem(ref instruction);
 			if ((decoder.state.flags & StateFlags.W) != 0) {
 				instruction.InternalSetCodeNoCheck(code64);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -5368,6 +4725,9 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.Op1Kind = OpKind.Register;
 				instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
 			}
+			Debug.Assert(decoder.state.mod != 3);
+			instruction.Op0Kind = OpKind.Memory;
+			decoder.ReadOpMem(ref instruction);
 		}
 	}
 
@@ -5382,6 +4742,9 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 			Register gpr;
 			if ((decoder.state.flags & StateFlags.W) != 0) {
 				instruction.InternalSetCodeNoCheck(code64);
@@ -5400,9 +4763,6 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.Op0Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
-			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.Op1Kind = OpKind.Register;
-			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.XMM0;
 			instruction.Op2Kind = OpKind.Immediate8;
 			instruction.InternalImmediate8 = decoder.ReadByte();
 		}
