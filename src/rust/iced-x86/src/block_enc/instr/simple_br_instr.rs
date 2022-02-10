@@ -16,7 +16,7 @@ enum InstrKind {
 	Uninitialized,
 }
 
-pub(crate) struct SimpleBranchInstr {
+pub(super) struct SimpleBranchInstr {
 	instruction: Instruction,
 	target_instr: TargetInstr,
 	pointer_data: Option<Rc<RefCell<BlockData>>>,

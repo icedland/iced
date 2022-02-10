@@ -13,7 +13,7 @@ enum InstrKind {
 	Uninitialized,
 }
 
-pub(crate) struct XbeginInstr {
+pub(super) struct XbeginInstr {
 	instruction: Instruction,
 	target_instr: TargetInstr,
 	instr_kind: InstrKind,
