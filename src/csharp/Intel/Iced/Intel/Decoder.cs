@@ -552,19 +552,24 @@ namespace Iced.Intel {
 				state.vvvv = b2 & 0x07;
 			}
 
+			OpCodeHandler[] handlers;
+			var b = ReadByte();
 			int table = (int)(b1 & 0x1F);
 			if (table == 1)
-				DecodeTable(handlers_VEX_0F, ref instruction);
+				handlers = handlers_VEX_0F;
 			else if (table == 2)
-				DecodeTable(handlers_VEX_0F38, ref instruction);
+				handlers = handlers_VEX_0F38;
 			else if (table == 3)
-				DecodeTable(handlers_VEX_0F3A, ref instruction);
+				handlers = handlers_VEX_0F3A;
 #if MVEX
 			else if (table == 0)
-				DecodeTable(handlers_VEX_MAP0, ref instruction);
+				handlers = handlers_VEX_MAP0;
 #endif
-			else
+			else {
 				SetInvalidInstruction();
+				return;
+			}
+			DecodeTable(handlers[b], ref instruction);
 #endif
 		}
 
@@ -610,15 +615,20 @@ namespace Iced.Intel {
 				state.vvvv = b2 & 0x07;
 			}
 
+			OpCodeHandler[] handlers;
+			var b = ReadByte();
 			int table = (int)(b1 & 0x1F);
 			if (table == 8)
-				DecodeTable(handlers_XOP_MAP8, ref instruction);
+				handlers = handlers_XOP_MAP8;
 			else if (table == 9)
-				DecodeTable(handlers_XOP_MAP9, ref instruction);
+				handlers = handlers_XOP_MAP9;
 			else if (table == 10)
-				DecodeTable(handlers_XOP_MAP10, ref instruction);
-			else
+				handlers = handlers_XOP_MAP10;
+			else {
 				SetInvalidInstruction();
+				return;
+			}
+			DecodeTable(handlers[b], ref instruction);
 #endif
 		}
 
