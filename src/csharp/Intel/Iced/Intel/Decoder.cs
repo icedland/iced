@@ -487,7 +487,6 @@ namespace Iced.Intel {
 			state.flags |= (StateFlags)((uint)EncodingKind.VEX << (int)StateFlags.EncodingShift);
 #endif
 			uint b = state.modrm;
-			state.extraRegisterBase = ((b >> 4) ^ 8) & 8;
 
 			Static.Assert((int)VectorLength.L128 == 0 ? 0 : -1);
 			Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
@@ -499,8 +498,11 @@ namespace Iced.Intel {
 			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b & 3);
 
+			b = ~b;
+			state.extraRegisterBase = (b >> 4) & 8;
+
 			// Bit 6 can only be 1 if it's 16/32-bit mode, so we don't need to change the mask
-			b = (~b >> 3) & 0x0F;
+			b = (b >> 3) & 0x0F;
 			state.vvvv = b;
 			state.vvvv_invalidCheck = b;
 
