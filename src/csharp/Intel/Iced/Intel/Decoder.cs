@@ -85,7 +85,7 @@ namespace Iced.Intel {
 		internal readonly uint invalidCheckMask;// All 1s if we should check for invalid instructions, else 0
 		internal readonly uint is64bMode_and_W;// StateFlags.W if 64-bit mode, 0 if 16/32-bit mode
 		internal readonly uint reg15Mask;// 7 in 16/32-bit mode, 15 in 64-bit mode
-		readonly uint mask64b;
+		readonly uint rexMask;
 		internal readonly CodeSize defaultCodeSize;
 		internal readonly OpSize defaultOperandSize;
 		readonly OpSize defaultAddressSize;
@@ -172,7 +172,7 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size16;
 				defaultAddressSize = OpSize.Size64;
 				defaultInvertedAddressSize = OpSize.Size32;
-				mask64b = uint.MaxValue;
+				rexMask = 0xF0;
 			}
 			else if (bitness == 32) {
 				is64bMode = false;
@@ -181,7 +181,7 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size16;
 				defaultAddressSize = OpSize.Size32;
 				defaultInvertedAddressSize = OpSize.Size16;
-				mask64b = 0;
+				rexMask = 0;
 			}
 			else {
 				Debug.Assert(bitness == 16);
@@ -191,7 +191,7 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size32;
 				defaultAddressSize = OpSize.Size16;
 				defaultInvertedAddressSize = OpSize.Size32;
-				mask64b = 0;
+				rexMask = 0;
 			}
 			is64bMode_and_W = is64bMode ? (uint)StateFlags.W : 0;
 			reg15Mask = is64bMode ? 0xFU : 0x7;
@@ -336,7 +336,7 @@ namespace Iced.Intel {
 			state.operandSize = defaultOperandSize;
 			state.addressSize = defaultAddressSize;
 			uint b = ReadByte();
-			if (((b >> 4) & mask64b) == 4) {
+			if ((b & rexMask) == 0x40) {
 				if ((b & 8) != 0) {
 					state.operandSize = OpSize.Size64;
 					state.flags |= StateFlags.HasRex | StateFlags.W;
