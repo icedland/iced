@@ -600,7 +600,7 @@ namespace Iced.Intel {
 
 			b2 = (~b2 >> 3) & 0x0F;
 			state.vvvv_invalidCheck = b2;
-			state.vvvv = b2;
+			state.vvvv = b2 & reg15Mask;
 			uint b1 = state.modrm;
 			uint b1x = ~b1 & maskE0;
 			state.extraRegisterBase = (b1x >> 4) & 8;
