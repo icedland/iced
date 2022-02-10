@@ -61,7 +61,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 		}
 	}
 
@@ -80,11 +80,11 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = codeW1;
+				instruction.InternalSetCodeNoCheck(codeW1);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = codeW0;
+				instruction.InternalSetCodeNoCheck(codeW0);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -120,11 +120,11 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = codeW1;
+				instruction.InternalSetCodeNoCheck(codeW1);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = codeW0;
+				instruction.InternalSetCodeNoCheck(codeW0);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -168,7 +168,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg1;
@@ -199,11 +199,11 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -236,11 +236,11 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			if (decoder.state.mod == 3) {
@@ -273,7 +273,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
@@ -302,7 +302,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
@@ -328,7 +328,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -350,7 +350,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -374,13 +374,13 @@ namespace Iced.Intel.DecoderInternal {
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.EAX;
@@ -403,7 +403,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			if (decoder.state.addressSize == OpSize.Size64)
 				instruction.Op0Kind = OpKind.MemorySegRDI;
 			else if (decoder.state.addressSize == OpSize.Size32)
@@ -448,9 +448,9 @@ namespace Iced.Intel.DecoderInternal {
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0)
-				instruction.Code = codeW1;
+				instruction.InternalSetCodeNoCheck(codeW1);
 			else
-				instruction.Code = codeW0;
+				instruction.InternalSetCodeNoCheck(codeW0);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg1;
@@ -483,7 +483,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
@@ -518,11 +518,11 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			if (decoder.state.mod == 3) {
@@ -582,13 +582,13 @@ namespace Iced.Intel.DecoderInternal {
 			//instruction.Op1Kind = OpKind.Register;
 			instruction.Op1Register = (int)decoder.state.vvvv + baseReg2;
 			if (decoder.state.mod == 3) {
-				instruction.Code = codeR;
+				instruction.InternalSetCodeNoCheck(codeR);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op2Kind = OpKind.Register;
 				instruction.Op2Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + baseReg3;
 			}
 			else {
-				instruction.Code = codeM;
+				instruction.InternalSetCodeNoCheck(codeM);
 				instruction.Op2Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
@@ -606,7 +606,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
@@ -637,7 +637,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			Debug.Assert(decoder.state.mod == 3);
-			instruction.Code = codeR;
+			instruction.InternalSetCodeNoCheck(codeR);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + baseReg;
@@ -661,7 +661,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
@@ -688,7 +688,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -726,7 +726,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg1;
@@ -758,7 +758,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)decoder.state.vvvv + baseReg;
@@ -785,7 +785,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
@@ -818,7 +818,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
@@ -851,7 +851,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
@@ -887,7 +887,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + baseReg;
@@ -921,7 +921,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (decoder.invalidCheckMask != 0 && (decoder.state.vvvv > 7 || decoder.state.extraRegisterBase != 0))
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)decoder.state.reg + Register.K0;
@@ -947,7 +947,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (((decoder.state.vvvv_invalidCheck | decoder.state.extraRegisterBase) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)decoder.state.reg + Register.K0;
@@ -970,7 +970,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (((decoder.state.vvvv_invalidCheck | decoder.state.extraRegisterBase) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)decoder.state.reg + Register.K0;
@@ -995,7 +995,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (((decoder.state.vvvv_invalidCheck | decoder.state.extraRegisterBase) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)decoder.state.reg + Register.K0;
@@ -1020,7 +1020,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (((decoder.state.vvvv_invalidCheck | decoder.state.extraRegisterBase) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			if (decoder.state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -1046,7 +1046,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (((decoder.state.vvvv_invalidCheck | decoder.state.extraRegisterBase) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)decoder.state.reg + Register.K0;
@@ -1073,7 +1073,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + gpr;
@@ -1103,13 +1103,13 @@ namespace Iced.Intel.DecoderInternal {
 			if ((decoder.state.vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = codeW1;
+				instruction.InternalSetCodeNoCheck(codeW1);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
 			}
 			else {
-				instruction.Code = codeW0;
+				instruction.InternalSetCodeNoCheck(codeW0);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.EAX;
@@ -1143,11 +1143,11 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -1180,11 +1180,11 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -1217,7 +1217,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			int regNum = (int)(decoder.state.reg + decoder.state.extraRegisterBase);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
@@ -1252,11 +1252,11 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -1290,11 +1290,11 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -1328,11 +1328,11 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -1362,13 +1362,13 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				instruction.Op0Register = (int)decoder.state.vvvv + Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
 				instruction.Op0Register = (int)decoder.state.vvvv + Register.EAX;
@@ -1404,11 +1404,11 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			if (decoder.state.mod == 3) {
@@ -1443,11 +1443,11 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -1482,11 +1482,11 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -1515,7 +1515,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (((decoder.state.vvvv_invalidCheck | decoder.state.extraRegisterBase) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)decoder.state.reg + Register.TMM0;
@@ -1537,7 +1537,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (((decoder.state.vvvv_invalidCheck | decoder.state.extraRegisterBase) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op1Kind = OpKind.Register;
 			instruction.Op1Register = (int)decoder.state.reg + Register.TMM0;
@@ -1559,7 +1559,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (((decoder.state.vvvv_invalidCheck | decoder.state.extraRegisterBase) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)decoder.state.reg + Register.TMM0;
@@ -1575,7 +1575,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (decoder.invalidCheckMask != 0 && (decoder.state.vvvv > 7 || decoder.state.extraRegisterBase != 0))
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)decoder.state.reg + Register.TMM0;
@@ -1605,7 +1605,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (decoder.invalidCheckMask != 0 && decoder.state.vvvv > 7)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.reg + decoder.state.extraRegisterBase) + Register.RAX;
@@ -1635,7 +1635,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
 			if (((decoder.state.vvvv_invalidCheck | decoder.state.extraRegisterBase) & decoder.invalidCheckMask) != 0)
 				decoder.SetInvalidInstruction();
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)decoder.state.reg + Register.K0;
@@ -1665,7 +1665,7 @@ namespace Iced.Intel.DecoderInternal {
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.vvvv & 7) + Register.K0;
 			Debug.Assert(decoder.is64bMode);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			instruction.Op1Kind = OpKind.NearBranch64;
 			// The modrm byte has the imm8 value
 			instruction.NearBranch64 = (ulong)(sbyte)decoder.state.modrm + decoder.GetCurrentInstructionPointer64();
@@ -1685,7 +1685,7 @@ namespace Iced.Intel.DecoderInternal {
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = (int)(decoder.state.vvvv & 7) + Register.K0;
 			Debug.Assert(decoder.is64bMode);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			instruction.Op1Kind = OpKind.NearBranch64;
 			// The modrm byte has the low 8 bits of imm32
 			uint imm = decoder.state.modrm | (decoder.ReadByte() << 8) | (decoder.ReadByte() << 16) | (decoder.ReadByte() << 24);
@@ -1708,11 +1708,11 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -1745,11 +1745,11 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 			Register gpr;
 			if (((uint)decoder.state.flags & decoder.is64bMode_and_W) != 0) {
-				instruction.Code = code64;
+				instruction.InternalSetCodeNoCheck(code64);
 				gpr = Register.RAX;
 			}
 			else {
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 				gpr = Register.EAX;
 			}
 			if (decoder.state.mod == 3) {

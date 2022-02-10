@@ -12,7 +12,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = Register.ST0;
@@ -29,7 +29,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = Register.ST0 + (int)decoder.state.rm;
@@ -46,7 +46,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.Op0Kind = OpKind.Register;
 			instruction.Op0Register = Register.ST0 + (int)decoder.state.rm;
@@ -70,9 +70,9 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			if (decoder.state.operandSize != OpSize.Size16)
-				instruction.Code = code32;
+				instruction.InternalSetCodeNoCheck(code32);
 			else
-				instruction.Code = code16;
+				instruction.InternalSetCodeNoCheck(code16);
 			Debug.Assert(decoder.state.mod != 3);
 			instruction.Op0Kind = OpKind.Memory;
 			decoder.ReadOpMem(ref instruction);

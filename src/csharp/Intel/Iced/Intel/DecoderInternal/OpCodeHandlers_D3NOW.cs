@@ -68,7 +68,7 @@ namespace Iced.Intel.DecoderInternal {
 					code = Code.INVALID;
 				break;
 			}
-			instruction.Code = code;
+			instruction.InternalSetCodeNoCheck(code);
 			if (code == Code.INVALID)
 				decoder.SetInvalidInstruction();
 		}
