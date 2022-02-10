@@ -85,7 +85,8 @@ namespace Iced.Intel {
 		internal readonly uint invalidCheckMask;// All 1s if we should check for invalid instructions, else 0
 		internal readonly uint is64bMode_and_W;// StateFlags.W if 64-bit mode, 0 if 16/32-bit mode
 		internal readonly uint reg15Mask;// 7 in 16/32-bit mode, 15 in 64-bit mode
-		readonly uint mask64b;
+		readonly uint maskE0;
+		readonly uint rexMask;
 		internal readonly CodeSize defaultCodeSize;
 		internal readonly OpSize defaultOperandSize;
 		readonly OpSize defaultAddressSize;
@@ -172,7 +173,8 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size16;
 				defaultAddressSize = OpSize.Size64;
 				defaultInvertedAddressSize = OpSize.Size32;
-				mask64b = uint.MaxValue;
+				maskE0 = 0xE0;
+				rexMask = 0xF0;
 			}
 			else if (bitness == 32) {
 				is64bMode = false;
@@ -181,7 +183,8 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size16;
 				defaultAddressSize = OpSize.Size32;
 				defaultInvertedAddressSize = OpSize.Size16;
-				mask64b = 0;
+				maskE0 = 0;
+				rexMask = 0;
 			}
 			else {
 				Debug.Assert(bitness == 16);
@@ -191,7 +194,8 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size32;
 				defaultAddressSize = OpSize.Size16;
 				defaultInvertedAddressSize = OpSize.Size32;
-				mask64b = 0;
+				maskE0 = 0;
+				rexMask = 0;
 			}
 			is64bMode_and_W = is64bMode ? (uint)StateFlags.W : 0;
 			reg15Mask = is64bMode ? 0xFU : 0x7;
@@ -268,6 +272,7 @@ namespace Iced.Intel {
 		public static Decoder Create(int bitness, byte[] data, DecoderOptions options = DecoderOptions.None) =>
 			Create(bitness, new ByteArrayCodeReader(data), 0, options);
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;
 			if (instrLen < IcedConstants.MaxInstructionLength) {
@@ -335,13 +340,13 @@ namespace Iced.Intel {
 			state.operandSize = defaultOperandSize;
 			state.addressSize = defaultAddressSize;
 			uint b = ReadByte();
-			if (((b >> 4) & mask64b) == 4) {
+			if ((b & rexMask) == 0x40) {
+				var flags2 = state.flags | StateFlags.HasRex;
 				if ((b & 8) != 0) {
+					flags2 |= StateFlags.W;
 					state.operandSize = OpSize.Size64;
-					state.flags |= StateFlags.HasRex | StateFlags.W;
 				}
-				else
-					state.flags |= StateFlags.HasRex;
+				state.flags = flags2;
 				state.extraRegisterBase = (b & 4) << 1;
 				state.extraIndexRegisterBase = (b & 2) << 2;
 				state.extraBaseRegisterBase = (b & 1) << 3;
@@ -349,16 +354,7 @@ namespace Iced.Intel {
 				b = ReadByte();
 			}
 			DecodeTable(handlers_MAP0[b], ref instruction);
-			var flags = state.flags;
-			if ((flags & (StateFlags.IsInvalid | StateFlags.Lock)) != 0) {
-				if ((flags & StateFlags.IsInvalid) != 0 ||
-					(((uint)(flags & (StateFlags.Lock | StateFlags.AllowLock)) & invalidCheckMask) == (uint)StateFlags.Lock)) {
-					instruction = default;
-					Static.Assert(Code.INVALID == 0 ? 0 : -1);
-					//instruction.Code = Code.INVALID;
-					state.flags = flags | StateFlags.IsInvalid;
-				}
-			}
+
 			instruction.InternalCodeSize = defaultCodeSize;
 			uint instrLen = state.instructionLength;
 			Debug.Assert(0 <= instrLen && instrLen <= IcedConstants.MaxInstructionLength);// Could be 0 if there were no bytes available
@@ -367,10 +363,33 @@ namespace Iced.Intel {
 			ip += instrLen;
 			instructionPointer = ip;
 			instruction.NextIP = ip;
-			if ((state.flags & StateFlags.IpRel64) != 0)
-				instruction.MemoryDisplacement64 += ip;
-			else if ((state.flags & StateFlags.IpRel32) != 0)
-				instruction.MemoryDisplacement64 = (uint)ip + instruction.MemoryDisplacement32;
+
+			var flags = state.flags;
+			if ((flags & (StateFlags.IsInvalid | StateFlags.Lock | StateFlags.IpRel32 | StateFlags.IpRel64)) != 0) {
+				var addr = instruction.MemoryDisplacement64 + ip;
+				instruction.MemoryDisplacement64 = addr;
+				// RIP rel ops are common, but invalid/lock bits are usually never set, so exit early if possible
+				if ((flags & (StateFlags.IsInvalid | StateFlags.Lock | StateFlags.IpRel64)) == StateFlags.IpRel64)
+					return;
+				if ((state.flags & StateFlags.IpRel64) == 0) {
+					// Undo what we did above
+					instruction.MemoryDisplacement64 = addr - ip;
+				}
+				if ((state.flags & StateFlags.IpRel32) != 0)
+					instruction.MemoryDisplacement64 = (uint)instruction.MemoryDisplacement64 + (uint)ip;
+
+				if ((flags & StateFlags.IsInvalid) != 0 ||
+					(((uint)(flags & (StateFlags.Lock | StateFlags.AllowLock)) & invalidCheckMask) == (uint)StateFlags.Lock)) {
+					instruction = default;
+					Static.Assert(Code.INVALID == 0 ? 0 : -1);
+					//instruction.Code = Code.INVALID;
+					state.flags = flags | StateFlags.IsInvalid;
+
+					instruction.InternalCodeSize = defaultCodeSize;
+					instruction.Length = (int)instrLen;
+					instruction.NextIP = ip;
+				}
+			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -472,7 +491,6 @@ namespace Iced.Intel {
 			state.flags |= (StateFlags)((uint)EncodingKind.VEX << (int)StateFlags.EncodingShift);
 #endif
 			uint b = state.modrm;
-			state.extraRegisterBase = ((b >> 4) ^ 8) & 8;
 
 			Static.Assert((int)VectorLength.L128 == 0 ? 0 : -1);
 			Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
@@ -484,8 +502,11 @@ namespace Iced.Intel {
 			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b & 3);
 
+			b = ~b;
+			state.extraRegisterBase = (b >> 4) & 8;
+
 			// Bit 6 can only be 1 if it's 16/32-bit mode, so we don't need to change the mask
-			b = (~b >> 3) & 0x0F;
+			b = (b >> 3) & 0x0F;
 			state.vvvv = b;
 			state.vvvv_invalidCheck = b;
 
@@ -505,7 +526,6 @@ namespace Iced.Intel {
 #if DEBUG
 			state.flags |= (StateFlags)((uint)EncodingKind.VEX << (int)StateFlags.EncodingShift);
 #endif
-			uint b1 = state.modrm;
 			uint b2 = ReadByte();
 
 			Static.Assert((int)StateFlags.W == 0x80 ? 0 : -1);
@@ -522,32 +542,32 @@ namespace Iced.Intel {
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
 			b2 = (~b2 >> 3) & 0x0F;
-			if (is64bMode) {
-				state.vvvv = b2;
-				state.vvvv_invalidCheck = b2;
-				uint b1x = ~b1;
-				state.extraRegisterBase = (b1x >> 4) & 8;
-				state.extraIndexRegisterBase = (b1x >> 3) & 8;
-				state.extraBaseRegisterBase = (b1x >> 2) & 8;
-			}
-			else {
-				state.vvvv_invalidCheck = b2;
-				state.vvvv = b2 & 0x07;
-			}
+			state.vvvv_invalidCheck = b2;
+			state.vvvv = b2 & reg15Mask;
+			uint b1 = state.modrm;
+			uint b1x = ~b1 & maskE0;
+			state.extraRegisterBase = (b1x >> 4) & 8;
+			state.extraIndexRegisterBase = (b1x >> 3) & 8;
+			state.extraBaseRegisterBase = (b1x >> 2) & 8;
 
+			OpCodeHandler[] handlers;
+			var b = ReadByte();
 			int table = (int)(b1 & 0x1F);
 			if (table == 1)
-				DecodeTable(handlers_VEX_0F, ref instruction);
+				handlers = handlers_VEX_0F;
 			else if (table == 2)
-				DecodeTable(handlers_VEX_0F38, ref instruction);
+				handlers = handlers_VEX_0F38;
 			else if (table == 3)
-				DecodeTable(handlers_VEX_0F3A, ref instruction);
+				handlers = handlers_VEX_0F3A;
 #if MVEX
 			else if (table == 0)
-				DecodeTable(handlers_VEX_MAP0, ref instruction);
+				handlers = handlers_VEX_MAP0;
 #endif
-			else
+			else {
 				SetInvalidInstruction();
+				return;
+			}
+			DecodeTable(handlers[b], ref instruction);
 #endif
 		}
 
@@ -563,7 +583,6 @@ namespace Iced.Intel {
 #if DEBUG
 			state.flags |= (StateFlags)((uint)EncodingKind.XOP << (int)StateFlags.EncodingShift);
 #endif
-			uint b1 = state.modrm;
 			uint b2 = ReadByte();
 
 			Static.Assert((int)StateFlags.W == 0x80 ? 0 : -1);
@@ -580,28 +599,28 @@ namespace Iced.Intel {
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
 			b2 = (~b2 >> 3) & 0x0F;
-			if (is64bMode) {
-				state.vvvv = b2;
-				state.vvvv_invalidCheck = b2;
-				uint b1x = ~b1;
-				state.extraRegisterBase = (b1x >> 4) & 8;
-				state.extraIndexRegisterBase = (b1x >> 3) & 8;
-				state.extraBaseRegisterBase = (b1x >> 2) & 8;
-			}
-			else {
-				state.vvvv_invalidCheck = b2;
-				state.vvvv = b2 & 0x07;
-			}
+			state.vvvv_invalidCheck = b2;
+			state.vvvv = b2 & reg15Mask;
+			uint b1 = state.modrm;
+			uint b1x = ~b1 & maskE0;
+			state.extraRegisterBase = (b1x >> 4) & 8;
+			state.extraIndexRegisterBase = (b1x >> 3) & 8;
+			state.extraBaseRegisterBase = (b1x >> 2) & 8;
 
+			OpCodeHandler[] handlers;
+			var b = ReadByte();
 			int table = (int)(b1 & 0x1F);
 			if (table == 8)
-				DecodeTable(handlers_XOP_MAP8, ref instruction);
+				handlers = handlers_XOP_MAP8;
 			else if (table == 9)
-				DecodeTable(handlers_XOP_MAP9, ref instruction);
+				handlers = handlers_XOP_MAP9;
 			else if (table == 10)
-				DecodeTable(handlers_XOP_MAP10, ref instruction);
-			else
+				handlers = handlers_XOP_MAP10;
+			else {
 				SetInvalidInstruction();
+				return;
+			}
+			DecodeTable(handlers[b], ref instruction);
 #endif
 		}
 
@@ -617,6 +636,8 @@ namespace Iced.Intel {
 			uint p0 = state.modrm;
 			uint p1 = ReadByte();
 			uint p2 = ReadByte();
+			uint p3 = ReadByte();
+			uint p4 = ReadByte();
 
 			if ((p1 & 4) != 0) {
 #if NO_EVEX
@@ -689,13 +710,12 @@ namespace Iced.Intel {
 						SetInvalidInstruction();
 						return;
 					}
-					var handler = handlers[(int)ReadByte()];
+					var handler = handlers[(int)p3];
 					Debug.Assert(handler.HasModRM);
-					uint m = ReadByte();
-					state.modrm = m;
-					state.mod = m >> 6;
-					state.reg = (m >> 3) & 7;
-					state.rm = m & 7;
+					state.modrm = p4;
+					state.mod = p4 >> 6;
+					state.reg = (p4 >> 3) & 7;
+					state.rm = p4 & 7;
 					// Invalid if LL=3 and no rc
 					Static.Assert((uint)StateFlags.b > 3 ? 0 : -1);
 					if ((((uint)(state.flags & StateFlags.b) | state.vectorLength) & invalidCheckMask) == 3)
@@ -758,13 +778,12 @@ namespace Iced.Intel {
 						SetInvalidInstruction();
 						return;
 					}
-					var handler = handlers[(int)ReadByte()];
+					var handler = handlers[(int)p3];
 					Debug.Assert(handler.HasModRM);
-					uint m = ReadByte();
-					state.modrm = m;
-					state.mod = m >> 6;
-					state.reg = (m >> 3) & 7;
-					state.rm = m & 7;
+					state.modrm = p4;
+					state.mod = p4 >> 6;
+					state.reg = (p4 >> 3) & 7;
+					state.rm = p4 & 7;
 					handler.Decode(this, ref instruction);
 				}
 #endif

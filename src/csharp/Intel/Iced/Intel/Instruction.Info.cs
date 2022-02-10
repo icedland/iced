@@ -613,19 +613,19 @@ namespace Iced.Intel {
 		/// and does nothing if the instruction doesn't have a condition code.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public void NegateConditionCode() => Code = Code.NegateConditionCode();
+		public void NegateConditionCode() => InternalSetCodeNoCheck(Code.NegateConditionCode());
 
 		/// <summary>
 		/// Converts <c>Jcc/JMP NEAR</c> to <c>Jcc/JMP SHORT</c> and does nothing if it's not a <c>Jcc/JMP NEAR</c> instruction
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public void ToShortBranch() => Code = Code.ToShortBranch();
+		public void ToShortBranch() => InternalSetCodeNoCheck(Code.ToShortBranch());
 
 		/// <summary>
 		/// Converts <c>Jcc/JMP SHORT</c> to <c>Jcc/JMP NEAR</c> and does nothing if it's not a <c>Jcc/JMP SHORT</c> instruction
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public void ToNearBranch() => Code = Code.ToNearBranch();
+		public void ToNearBranch() => InternalSetCodeNoCheck(Code.ToNearBranch());
 
 		/// <summary>
 		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c> else <see cref="ConditionCode.None"/> is returned

@@ -34,13 +34,13 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_Simple : OpCodeHandler {
 		readonly Code code;
 		public OpCodeHandler_Simple(Code code) => this.code = code;
-		public override void Decode(Decoder decoder, ref Instruction instruction) => instruction.Code = code;
+		public override void Decode(Decoder decoder, ref Instruction instruction) => instruction.InternalSetCodeNoCheck(code);
 	}
 
 	sealed class OpCodeHandler_Simple_ModRM : OpCodeHandlerModRM {
 		readonly Code code;
 		public OpCodeHandler_Simple_ModRM(Code code) => this.code = code;
-		public override void Decode(Decoder decoder, ref Instruction instruction) => instruction.Code = code;
+		public override void Decode(Decoder decoder, ref Instruction instruction) => instruction.InternalSetCodeNoCheck(code);
 	}
 
 	sealed class OpCodeHandler_Group8x8 : OpCodeHandlerModRM {
@@ -57,12 +57,11 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
 			OpCodeHandler handler;
-			if (state.mod == 3)
-				handler = tableHigh[state.reg];
+			if (decoder.state.mod == 3)
+				handler = tableHigh[decoder.state.reg];
 			else
-				handler = tableLow[state.reg];
+				handler = tableLow[decoder.state.reg];
 			handler.Decode(decoder, ref instruction);
 		}
 	}
@@ -81,14 +80,13 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			ref var state = ref decoder.state;
 			OpCodeHandler handler;
-			if (state.mod == 3) {
+			if (decoder.state.mod == 3) {
 				// A handler can be null in tableHigh, useful in 0F01 table and similar tables
-				handler = tableHigh[state.modrm & 0x3F] ?? tableLow[state.reg];
+				handler = tableHigh[decoder.state.modrm & 0x3F] ?? tableLow[decoder.state.reg];
 			}
 			else
-				handler = tableLow[state.reg];
+				handler = tableLow[decoder.state.reg];
 			handler.Decode(decoder, ref instruction);
 		}
 	}

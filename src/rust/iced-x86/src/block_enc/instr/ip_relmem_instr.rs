@@ -14,7 +14,7 @@ enum InstrKind {
 	Uninitialized,
 }
 
-pub(crate) struct IpRelMemOpInstr {
+pub(super) struct IpRelMemOpInstr {
 	instruction: Instruction,
 	instr_kind: InstrKind,
 	eip_instruction_size: u8,

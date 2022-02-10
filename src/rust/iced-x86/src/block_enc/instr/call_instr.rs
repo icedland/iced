@@ -7,7 +7,7 @@ use crate::iced_error::IcedError;
 use core::cell::RefCell;
 use core::cmp;
 
-pub(crate) struct CallInstr {
+pub(super) struct CallInstr {
 	bitness: u8,
 	instruction: Instruction,
 	target_instr: TargetInstr,
