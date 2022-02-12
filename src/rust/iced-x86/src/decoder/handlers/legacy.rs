@@ -290,8 +290,8 @@ impl OpCodeHandler_PrefixF3 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_PrefixREX {
 	has_modrm: bool,
-	handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	rex: u32,
+	handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 }
 
 impl OpCodeHandler_PrefixREX {
@@ -335,8 +335,8 @@ impl OpCodeHandler_PrefixREX {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Reg {
 	has_modrm: bool,
-	code: Code,
 	reg: Register,
+	code: Code,
 }
 
 impl OpCodeHandler_Reg {
@@ -357,8 +357,8 @@ impl OpCodeHandler_Reg {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_RegIb {
 	has_modrm: bool,
-	code: Code,
 	reg: Register,
+	code: Code,
 }
 
 impl OpCodeHandler_RegIb {
@@ -381,8 +381,8 @@ impl OpCodeHandler_RegIb {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_IbReg {
 	has_modrm: bool,
-	code: Code,
 	reg: Register,
+	code: Code,
 }
 
 impl OpCodeHandler_IbReg {
@@ -594,11 +594,11 @@ impl OpCodeHandler_MandatoryPrefix3 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_MandatoryPrefix4 {
 	has_modrm: bool,
+	flags: u32,
 	handler_np: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
-	flags: u32,
 }
 
 impl OpCodeHandler_MandatoryPrefix4 {
@@ -704,8 +704,8 @@ impl OpCodeHandler_Reservednop {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev_Iz {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 	state_flags_or_value: u32,
 }
 
@@ -758,10 +758,10 @@ impl OpCodeHandler_Ev_Iz {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev_Ib {
 	has_modrm: bool,
-	reg_base: [u32; 3],
-	code: [Code; 3],
-	state_flags_or_value: u32,
 	op_kinds: [OpKind; 3],
+	reg_base: [u32; 3],
+	state_flags_or_value: u32,
+	code: [Code; 3],
 }
 
 impl OpCodeHandler_Ev_Ib {
@@ -806,8 +806,8 @@ impl OpCodeHandler_Ev_Ib {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev_Ib2 {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 	state_flags_or_value: u32,
 }
 
@@ -852,8 +852,8 @@ impl OpCodeHandler_Ev_Ib2 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev_1 {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Ev_1 {
@@ -888,8 +888,8 @@ impl OpCodeHandler_Ev_1 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev_CL {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Ev_CL {
@@ -922,8 +922,8 @@ impl OpCodeHandler_Ev_CL {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 	state_flags_or_value: u32,
 }
 
@@ -966,8 +966,8 @@ impl OpCodeHandler_Ev {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Rv {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Rv {
@@ -1104,10 +1104,10 @@ impl OpCodeHandler_Ev_REXW {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Evj {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code16: Code,
 	code32: Code,
 	code64: Code,
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Evj {
@@ -1199,8 +1199,8 @@ impl OpCodeHandler_Ep {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Evw {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Evw {
@@ -1232,8 +1232,8 @@ impl OpCodeHandler_Evw {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ew {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Ew {
@@ -1297,8 +1297,8 @@ impl OpCodeHandler_Ms {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gv_Ev {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gv_Ev {
@@ -1357,8 +1357,8 @@ impl OpCodeHandler_Gd_Rd {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gv_M_as {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gv_M_as {
@@ -1391,8 +1391,8 @@ impl OpCodeHandler_Gv_M_as {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gdq_Ev {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gdq_Ev {
@@ -1429,8 +1429,8 @@ impl OpCodeHandler_Gdq_Ev {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gv_Ev3 {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gv_Ev3 {
@@ -1463,8 +1463,8 @@ impl OpCodeHandler_Gv_Ev3 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gv_Ev2 {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gv_Ev2 {
@@ -1502,9 +1502,9 @@ impl OpCodeHandler_Gv_Ev2 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_R_C {
 	has_modrm: bool,
+	base_reg: Register,
 	code32: Code,
 	code64: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_R_C {
@@ -1556,9 +1556,9 @@ impl OpCodeHandler_R_C {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_C_R {
 	has_modrm: bool,
+	base_reg: Register,
 	code32: Code,
 	code64: Code,
-	base_reg: Register,
 }
 
 impl OpCodeHandler_C_R {
@@ -1851,10 +1851,10 @@ impl OpCodeHandler_Jdisp {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_PushOpSizeReg {
 	has_modrm: bool,
+	reg: Register,
 	code16: Code,
 	code32: Code,
 	code64: Code,
-	reg: Register,
 }
 
 impl OpCodeHandler_PushOpSizeReg {
@@ -1941,8 +1941,8 @@ impl OpCodeHandler_PushEv {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev_Gv {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Ev_Gv {
@@ -1975,8 +1975,8 @@ impl OpCodeHandler_Ev_Gv {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev_Gv_flags {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 	state_flags_or_value: u32,
 }
 
@@ -2058,8 +2058,8 @@ impl OpCodeHandler_Ev_Gv_32_64 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev_Gv_Ib {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Ev_Gv_Ib {
@@ -2094,8 +2094,8 @@ impl OpCodeHandler_Ev_Gv_Ib {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev_Gv_CL {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Ev_Gv_CL {
@@ -2167,8 +2167,8 @@ impl OpCodeHandler_Gv_Mp {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gv_Eb {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gv_Eb {
@@ -2205,8 +2205,8 @@ impl OpCodeHandler_Gv_Eb {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gv_Ew {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gv_Ew {
@@ -2392,8 +2392,8 @@ impl OpCodeHandler_Simple5_a32 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Simple5_ModRM_as {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Simple5_ModRM_as {
@@ -2444,10 +2444,10 @@ impl OpCodeHandler_Simple4 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_PushSimpleReg {
 	has_modrm: bool,
-	index: u32,
 	code16: Code,
 	code32: Code,
 	code64: Code,
+	index: u32,
 }
 
 impl OpCodeHandler_PushSimpleReg {
@@ -2483,8 +2483,8 @@ impl OpCodeHandler_PushSimpleReg {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_SimpleReg {
 	has_modrm: bool,
-	index: u32,
 	code: Code,
+	index: u32,
 }
 
 impl OpCodeHandler_SimpleReg {
@@ -2878,8 +2878,8 @@ impl OpCodeHandler_RvMw_Gw {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gv_Ev_Ib {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gv_Ev_Ib {
@@ -3004,8 +3004,8 @@ impl OpCodeHandler_Gv_Ev_32_64 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gv_Ev_Iz {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gv_Ev_Iz {
@@ -3048,8 +3048,8 @@ impl OpCodeHandler_Gv_Ev_Iz {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Yb_Reg {
 	has_modrm: bool,
-	code: Code,
 	reg: Register,
+	code: Code,
 }
 
 impl OpCodeHandler_Yb_Reg {
@@ -3144,8 +3144,8 @@ impl OpCodeHandler_Yv_Reg2 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Reg_Xb {
 	has_modrm: bool,
-	code: Code,
 	reg: Register,
+	code: Code,
 }
 
 impl OpCodeHandler_Reg_Xb {
@@ -3240,8 +3240,8 @@ impl OpCodeHandler_Reg_Xv2 {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Reg_Yb {
 	has_modrm: bool,
-	code: Code,
 	reg: Register,
+	code: Code,
 }
 
 impl OpCodeHandler_Reg_Yb {
@@ -3423,8 +3423,8 @@ impl OpCodeHandler_Xv_Yv {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ev_Sw {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Ev_Sw {
@@ -3487,8 +3487,8 @@ impl OpCodeHandler_M_Sw {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gv_M {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gv_M {
@@ -3521,8 +3521,8 @@ impl OpCodeHandler_Gv_M {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Sw_Ev {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Sw_Ev {
@@ -3620,8 +3620,8 @@ impl OpCodeHandler_Ap {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Reg_Ob {
 	has_modrm: bool,
-	code: Code,
 	reg: Register,
+	code: Code,
 }
 
 impl OpCodeHandler_Reg_Ob {
@@ -3658,8 +3658,8 @@ impl OpCodeHandler_Reg_Ob {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Ob_Reg {
 	has_modrm: bool,
-	code: Code,
 	reg: Register,
+	code: Code,
 }
 
 impl OpCodeHandler_Ob_Reg {
@@ -5521,8 +5521,8 @@ impl OpCodeHandler_VN {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Gv_Mv {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Gv_Mv {
@@ -5555,8 +5555,8 @@ impl OpCodeHandler_Gv_Mv {
 #[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_Mv_Gv {
 	has_modrm: bool,
-	reg_base: [u32; 3],
 	code: [Code; 3],
+	reg_base: [u32; 3],
 }
 
 impl OpCodeHandler_Mv_Gv {
