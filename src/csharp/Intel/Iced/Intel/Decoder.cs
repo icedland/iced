@@ -317,6 +317,7 @@ namespace Iced.Intel {
 		/// See also <see cref="LastError"/>
 		/// </summary>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public Instruction Decode() {
 			Decode(out var instr);
 			return instr;
