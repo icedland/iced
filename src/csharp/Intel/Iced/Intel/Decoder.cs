@@ -368,11 +368,11 @@ namespace Iced.Intel {
 				// RIP rel ops are common, but invalid/lock bits are usually never set, so exit early if possible
 				if ((flags & (StateFlags.IsInvalid | StateFlags.Lock | StateFlags.IpRel64)) == StateFlags.IpRel64)
 					return;
-				if ((state.zs.flags & StateFlags.IpRel64) == 0) {
+				if ((flags & StateFlags.IpRel64) == 0) {
 					// Undo what we did above
 					instruction.MemoryDisplacement64 = addr - ip;
 				}
-				if ((state.zs.flags & StateFlags.IpRel32) != 0)
+				if ((flags & StateFlags.IpRel32) != 0)
 					instruction.MemoryDisplacement64 = (uint)instruction.MemoryDisplacement64 + (uint)ip;
 
 				if ((flags & StateFlags.IsInvalid) != 0 ||
