@@ -132,7 +132,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.state.Encoding == EncodingKind.EVEX ||
 				decoder.state.Encoding == EncodingKind.XOP ||
 				decoder.state.Encoding == EncodingKind.MVEX);
-			handlers[(int)decoder.state.mandatoryPrefix].Decode(decoder, ref instruction);
+			handlers[(int)decoder.state.zs.mandatoryPrefix].Decode(decoder, ref instruction);
 		}
 	}
 
@@ -162,7 +162,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.state.Encoding == EncodingKind.EVEX ||
 				decoder.state.Encoding == EncodingKind.XOP ||
 				decoder.state.Encoding == EncodingKind.MVEX);
-			handlers[(int)decoder.state.mandatoryPrefix].Decode(decoder, ref instruction);
+			handlers[(int)decoder.state.zs.mandatoryPrefix].Decode(decoder, ref instruction);
 		}
 	}
 
@@ -183,7 +183,7 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.state.Encoding == EncodingKind.EVEX ||
 				decoder.state.Encoding == EncodingKind.XOP ||
 				decoder.state.Encoding == EncodingKind.MVEX);
-			((decoder.state.flags & StateFlags.W) != 0 ? handlerW1 : handlerW0).Decode(decoder, ref instruction);
+			((decoder.state.zs.flags & StateFlags.W) != 0 ? handlerW1 : handlerW0).Decode(decoder, ref instruction);
 		}
 	}
 

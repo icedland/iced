@@ -525,7 +525,7 @@ struct State {
 	aaa: u32,
 	extra_register_base_evex: u32,      // EVEX/MVEX.R' << 4
 	extra_base_register_base_evex: u32, // EVEX/MVEX.XB << 3
-	// The order of these 4 fields are important. They're accessed as a u32 (decode_out_ptr()) by the compiler so should be 4 byte aligned.
+	// The order of these 4 fields is important. They're accessed as a u32 (decode_out_ptr()) by the compiler so should be 4 byte aligned.
 	address_size: OpSize,
 	operand_size: OpSize,
 	segment_prio: u8, // 0=ES/CS/SS/DS, 1=FS/GS
@@ -629,7 +629,7 @@ where
 	mask_e0: u32,
 	rex_mask: u32,
 	bitness: u32,
-	// The order of these 4 fields are important. They're accessed as a u32 (decode_out_ptr()) by the compiler so should be 4 byte aligned.
+	// The order of these 4 fields is important. They're accessed as a u32 (decode_out_ptr()) by the compiler so should be 4 byte aligned.
 	default_address_size: OpSize,
 	default_operand_size: OpSize,
 	segment_prio: u8, // Always 0
