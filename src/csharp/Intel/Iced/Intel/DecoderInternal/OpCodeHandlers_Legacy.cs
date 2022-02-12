@@ -211,9 +211,9 @@ namespace Iced.Intel.DecoderInternal {
 					else
 						decoder.state.operandSize = OpSize.Size16;
 				}
-				decoder.state.zs.extraRegisterBase = (rex & 4) << 1;
-				decoder.state.zs.extraIndexRegisterBase = (rex & 2) << 2;
-				decoder.state.zs.extraBaseRegisterBase = (rex & 1) << 3;
+				decoder.state.zs.extraRegisterBase = (rex << 1) & 8;
+				decoder.state.zs.extraIndexRegisterBase = (rex << 2) & 8;
+				decoder.state.zs.extraBaseRegisterBase = (rex << 3) & 8;
 
 				decoder.CallOpCodeHandlerXXTable(ref instruction);
 			}

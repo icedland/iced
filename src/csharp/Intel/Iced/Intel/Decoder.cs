@@ -344,9 +344,9 @@ namespace Iced.Intel {
 					state.operandSize = OpSize.Size64;
 				}
 				state.zs.flags = flags2;
-				state.zs.extraRegisterBase = (b & 4) << 1;
-				state.zs.extraIndexRegisterBase = (b & 2) << 2;
-				state.zs.extraBaseRegisterBase = (b & 1) << 3;
+				state.zs.extraRegisterBase = (b << 1) & 8;
+				state.zs.extraIndexRegisterBase = (b << 2) & 8;
+				state.zs.extraBaseRegisterBase = (b << 3) & 8;
 
 				b = ReadByte();
 			}
