@@ -550,8 +550,7 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			if ((uint)operandSize == (uint)OpSize.Size32) {
 				instruction.Op1Kind = OpKind.Immediate32;
@@ -587,8 +586,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
@@ -626,8 +624,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
@@ -657,8 +654,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -683,8 +679,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -712,8 +707,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
@@ -921,8 +915,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -944,8 +937,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -999,8 +991,7 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 		}
 	}
@@ -1067,8 +1058,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
@@ -1093,8 +1083,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
@@ -1561,8 +1550,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)decoder.state.operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				Static.Assert((int)HandlerFlags.Lock == 8 ? 0 : -1);
@@ -1625,8 +1613,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -1656,8 +1643,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -2353,8 +2339,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
@@ -2466,8 +2451,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
@@ -2802,8 +2786,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op0Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op0Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op0Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op0Kind = OpKind.Memory;
@@ -2873,8 +2856,7 @@ namespace Iced.Intel.DecoderInternal {
 			if (decoder.state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.Op1Kind = OpKind.Register;
-				uint index = decoder.state.rm + decoder.state.extraBaseRegisterBase;
-				instruction.Op1Register = ((int)operandSize << 4) + (int)index + Register.AX;
+				instruction.Op1Register = ((int)operandSize << 4) + (int)(decoder.state.rm + decoder.state.extraBaseRegisterBase) + Register.AX;
 			}
 			else {
 				instruction.Op1Kind = OpKind.Memory;
