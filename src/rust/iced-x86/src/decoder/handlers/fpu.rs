@@ -102,9 +102,12 @@ impl OpCodeHandler_Mf {
 		} else {
 			instruction.set_code(this.code16);
 		}
-		debug_assert_ne!(decoder.state.mod_, 3);
-		read_op_mem_stmt!(decoder, instruction, {
-			instruction.set_op0_kind(OpKind::Memory);
-		});
+		if decoder.state.mod_ < 3 {
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
+		} else {
+			decoder.set_invalid_instruction();
+		}
 	}
 }

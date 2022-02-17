@@ -1279,17 +1279,20 @@ impl OpCodeHandler_Ms {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		debug_assert_ne!(decoder.state.mod_, 3);
-		read_op_mem_stmt!(decoder, instruction, {
-			if decoder.is64b_mode {
-				instruction.set_code(this.code64);
-			} else if decoder.state.operand_size == OpSize::Size32 {
-				instruction.set_code(this.code32);
-			} else {
-				instruction.set_code(this.code16);
-			}
-			instruction.set_op0_kind(OpKind::Memory);
-		});
+		if decoder.state.mod_ < 3 {
+			read_op_mem_stmt!(decoder, instruction, {
+				if decoder.is64b_mode {
+					instruction.set_code(this.code64);
+				} else if decoder.state.operand_size == OpSize::Size32 {
+					instruction.set_code(this.code32);
+				} else {
+					instruction.set_code(this.code16);
+				}
+				instruction.set_op0_kind(OpKind::Memory);
+			});
+		} else {
+			decoder.set_invalid_instruction();
+		}
 	}
 }
 
@@ -2830,10 +2833,13 @@ impl OpCodeHandler_Gv_Ma {
 			instruction.set_code(this.code16);
 			write_op0_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::AX as u32);
 		}
-		debug_assert_ne!(decoder.state.mod_, 3);
-		read_op_mem_stmt!(decoder, instruction, {
-			instruction.set_op1_kind(OpKind::Memory);
-		});
+		if decoder.state.mod_ < 3 {
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op1_kind(OpKind::Memory);
+			});
+		} else {
+			decoder.set_invalid_instruction();
+		}
 	}
 }
 
@@ -5225,11 +5231,14 @@ impl OpCodeHandler_B_MIB {
 		}
 		instruction.set_code(this.code);
 		write_op0_reg!(instruction, (decoder.state.reg & 3) + Register::BND0 as u32);
-		debug_assert_ne!(decoder.state.mod_, 3);
-		instruction.set_op1_kind(OpKind::Memory);
-		decoder.read_op_mem_mpx(instruction);
-		// It can't be EIP since if it's MPX + 64-bit mode, the address size is always 64-bit
-		if decoder.invalid_check_mask != 0 && instruction.memory_base() == Register::RIP {
+		if decoder.state.mod_ < 3 {
+			instruction.set_op1_kind(OpKind::Memory);
+			decoder.read_op_mem_mpx(instruction);
+			// It can't be EIP since if it's MPX + 64-bit mode, the address size is always 64-bit
+			if decoder.invalid_check_mask != 0 && instruction.memory_base() == Register::RIP {
+				decoder.set_invalid_instruction();
+			}
+		} else {
 			decoder.set_invalid_instruction();
 		}
 	}
@@ -5256,11 +5265,14 @@ impl OpCodeHandler_MIB_B {
 		}
 		instruction.set_code(this.code);
 		write_op1_reg!(instruction, (decoder.state.reg & 3) + Register::BND0 as u32);
-		debug_assert_ne!(decoder.state.mod_, 3);
-		instruction.set_op0_kind(OpKind::Memory);
-		decoder.read_op_mem_mpx(instruction);
-		// It can't be EIP since if it's MPX + 64-bit mode, the address size is always 64-bit
-		if decoder.invalid_check_mask != 0 && instruction.memory_base() == Register::RIP {
+		if decoder.state.mod_ < 3 {
+			instruction.set_op0_kind(OpKind::Memory);
+			decoder.read_op_mem_mpx(instruction);
+			// It can't be EIP since if it's MPX + 64-bit mode, the address size is always 64-bit
+			if decoder.invalid_check_mask != 0 && instruction.memory_base() == Register::RIP {
+				decoder.set_invalid_instruction();
+			}
+		} else {
 			decoder.set_invalid_instruction();
 		}
 	}
@@ -5678,7 +5690,6 @@ impl OpCodeHandler_Ev_Gv_REX {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		debug_assert_ne!(decoder.state.mod_, 3);
 		if (decoder.state.flags & StateFlags::W) != 0 {
 			instruction.set_code(this.code64);
 			write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::RAX as u32);
@@ -5686,9 +5697,13 @@ impl OpCodeHandler_Ev_Gv_REX {
 			instruction.set_code(this.code32);
 			write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + Register::EAX as u32);
 		}
-		read_op_mem_stmt!(decoder, instruction, {
-			instruction.set_op0_kind(OpKind::Memory);
-		});
+		if decoder.state.mod_ < 3 {
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
+		} else {
+			decoder.set_invalid_instruction();
+		}
 	}
 }
 
