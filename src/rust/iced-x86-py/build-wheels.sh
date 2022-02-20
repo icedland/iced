@@ -36,9 +36,9 @@ if [ "$pypy" = "y" ]; then
 	echo "Downloading PyPy"
 	arch=$(uname -m)
 	if [ "$arch" = "x86_64" ]; then
-		curl https://downloads.python.org/pypy/pypy3.8-v7.3.7-linux64.tar.bz2 -o pypy3.8.tar.bz2
+		curl https://downloads.python.org/pypy/pypy3.8-v7.3.8-linux64.tar.bz2 -o pypy3.8.tar.bz2
 	elif [ "$arch" = "aarch64" ]; then
-		curl https://downloads.python.org/pypy/pypy3.8-v7.3.7-aarch64.tar.bz2 -o pypy3.8.tar.bz2
+		curl https://downloads.python.org/pypy/pypy3.8-v7.3.8-aarch64.tar.bz2 -o pypy3.8.tar.bz2
 	else
 		echo "Non-supported arch: $arch"
 		exit 1
