@@ -30,7 +30,7 @@ pub use crate::code_asm::mem::*;
 pub use crate::code_asm::reg::*;
 pub use crate::code_asm::registers::*;
 pub use crate::IcedError;
-use crate::Instruction;
+use crate::{BlockEncoderResult, Instruction};
 use alloc::vec::Vec;
 use core::hash::{Hash, Hasher};
 
@@ -202,5 +202,54 @@ impl CodeLabel {
 	#[inline]
 	pub(crate) fn id(&self) -> u64 {
 		self.id
+	}
+}
+
+/// Result of assembling the instructions
+#[derive(Debug)]
+pub struct CodeAssemblerResult {
+	/// Inner `BlockEncoder` result
+	pub inner: BlockEncoderResult,
+}
+
+impl CodeAssemblerResult {
+	/// Gets the address of a label
+	///
+	/// # Notes
+	///
+	/// You should pass [`BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS`] to [`CodeAssembler::assemble_options()`] or this method will fail.
+	///
+	/// # Arguments
+	///
+	/// * `label`: The label
+	///
+	/// # Errors
+	///
+	/// Fails if the label is invalid
+	///
+	/// [`BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS`]: struct.BlockEncoderOptions.html#associatedconstant.RETURN_NEW_INSTRUCTION_OFFSETS
+	/// [`CodeAssembler::assemble_options()`]: struct.CodeAssembler.html#method.assemble_options
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn label_ip(&self, label: &CodeLabel) -> Result<u64, IcedError> {
+		if label.is_empty() {
+			return Err(IcedError::new("Invalid label. Must be created via `CodeAssembler::create_label()`."));
+		}
+		if !label.has_instruction_index() {
+			return Err(IcedError::new(
+				"The label is not associated with an instruction index. It must be emitted via `CodeAssembler::set_label()`.",
+			));
+		}
+		let new_offset = if let Some(new_offset) = self.inner.new_instruction_offsets.get(label.instruction_index) {
+			*new_offset
+		} else {
+			return Err(IcedError::new(
+				"Invalid label instruction index or `BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS` option was not enabled when calling `assemble_options()`.",
+			));
+		};
+		if new_offset == u32::MAX {
+			Err(IcedError::new("The instruction was re-written to a longer instruction (eg. JE NEAR -> JE FAR) and there's no instruction offset. Consider using a `zero_bytes()` instruction as a label instead of a normal instruction or disable branch optimizations."))
+		} else {
+			Ok(self.inner.rip.wrapping_add(new_offset as u64))
+		}
 	}
 }

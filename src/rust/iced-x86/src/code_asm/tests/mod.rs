@@ -972,10 +972,9 @@ fn test_instr(bitness: u32, create: fn(&mut CodeAssembler), mut expected: Instru
 
 	let rip = 0;
 	let bytes = if (flags & TestInstrFlags::BRANCH_U64) != 0 {
-		// The private assemble_options() isn't called because we should use the public API, if possible.
 		a.assemble(rip).unwrap()
 	} else {
-		a.assemble_options(rip, BlockEncoderOptions::DONT_FIX_BRANCHES).unwrap()
+		a.assemble_options(rip, BlockEncoderOptions::DONT_FIX_BRANCHES).unwrap().inner.code_buffer
 	};
 
 	let mut decoder = Decoder::with_ip(bitness, &bytes, rip, decoder_options);
@@ -1126,4 +1125,23 @@ fn test_zero_bytes() {
 
 	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
 	assert_eq!(bytes, b"\x74\x02\x74\x00\x90");
+}
+
+#[test]
+fn test_label_ip() {
+	for &bitness in &[16, 32, 64] {
+		let mut a = CodeAssembler::new(bitness).unwrap();
+		let label0 = a.create_label();
+		let mut label1 = a.create_label();
+		a.nop().unwrap();
+		a.nop().unwrap();
+		a.nop().unwrap();
+		a.set_label(&mut label1).unwrap();
+		a.nop().unwrap();
+
+		let result = a.assemble_options(0x1234_5678_9ABC_DEF0, BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS).unwrap();
+		let label1_ip = result.label_ip(&label1).unwrap();
+		assert_eq!(label1_ip, 0x1234_5678_9ABC_DEF3);
+		assert!(result.label_ip(&label0).is_err());
+	}
 }
