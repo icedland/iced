@@ -6,7 +6,7 @@
 // such as the constructor, prefix fns, etc.
 
 use crate::code_asm::op_state::CodeAsmOpState;
-use crate::code_asm::{CodeAssembler, CodeAssemblerOptions, CodeLabel, PrefixFlags};
+use crate::code_asm::{CodeAssembler, CodeAssemblerOptions, CodeAssemblerResult, CodeLabel, PrefixFlags};
 use crate::IcedError;
 use crate::{BlockEncoder, BlockEncoderOptions, Code, Instruction, InstructionBlock, MemoryOperand, Register};
 use alloc::vec::Vec;
@@ -1065,12 +1065,46 @@ impl CodeAssembler {
 	/// ```
 	#[inline]
 	pub fn assemble(&mut self, ip: u64) -> Result<Vec<u8>, IcedError> {
-		self.assemble_options(ip, BlockEncoderOptions::NONE)
+		Ok(self.assemble_options(ip, BlockEncoderOptions::NONE)?.inner.code_buffer)
 	}
 
-	// Used by tests, we shouldn't expose this since using the BlockEncoder is currently an impl detail
+	/// Encodes all added instructions and returns the result
+	///
+	/// # Errors
+	///
+	/// Fails if an error was detected (eg. an invalid instruction operand)
+	///
+	/// # Arguments
+	///
+	/// * `ip`: Base address of all instructions
+	/// * `options`: `BlockEncoderOptions` flags
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::BlockEncoderOptions;
+	/// use iced_x86::code_asm::*;
+	///
+	/// # fn main() -> Result<(), IcedError> {
+	/// let mut a = CodeAssembler::new(64)?;
+	/// let mut label1 = a.create_label();
+	/// a.push(rcx)?;
+	/// // The address of this label is the next added instruction
+	/// a.set_label(&mut label1)?;
+	/// a.xor(rcx, rdx)?;
+	/// // Target is the `xor rcx, rdx` instruction
+	/// a.je(label1)?;
+	/// a.nop()?;
+	/// let result = a.assemble_options(0x1234_5678, BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS)?;
+	/// assert_eq!(result.inner.rip, 0x1234_5678);
+	/// assert_eq!(result.inner.code_buffer, b"\x51\x48\x31\xD1\x74\xFB\x90");
+	/// // Get the address of the label, requires `BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS`
+	/// assert_eq!(result.label_ip(&label1)?, 0x1234_5679);
+	/// # Ok(())
+	/// # }
+	/// ```
 	#[inline]
-	pub(crate) fn assemble_options(&mut self, ip: u64, options: u32) -> Result<Vec<u8>, IcedError> {
+	pub fn assemble_options(&mut self, ip: u64, options: u32) -> Result<CodeAssemblerResult, IcedError> {
 		if self.prefix_flags != 0 {
 			return Err(IcedError::new("Unused prefixes. Did you forget to add an instruction?"));
 		}
@@ -1086,7 +1120,7 @@ impl CodeAssembler {
 
 		let block = InstructionBlock::new(self.instructions(), ip);
 		let result = BlockEncoder::encode(self.bitness(), block, options)?;
-		Ok(result.code_buffer)
+		Ok(CodeAssemblerResult { inner: result })
 	}
 
 	/// Gets the bitness (16, 32 or 64)

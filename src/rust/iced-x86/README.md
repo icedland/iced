@@ -254,7 +254,8 @@ pub(crate) fn how_to_use_code_assembler() -> Result<(), IcedError> {
     a.evex().vucomiss(xmm31, xmm15.sae())?;
     a.vex().vucomiss(xmm15, xmm14)?;
 
-    // Encode all added instructions
+    // Encode all added instructions.
+    // Use `assemble_options()` if you must get the address of a label
     let bytes = a.assemble(0x1234_5678)?;
     assert_eq!(bytes.len(), 82);
     // If you don't want to encode them, you can get all instructions by calling
