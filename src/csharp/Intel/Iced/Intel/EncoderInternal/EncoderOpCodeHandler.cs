@@ -13,19 +13,19 @@ namespace Iced.Intel.EncoderInternal {
 		internal readonly bool Is2ByteOpCode;
 		internal readonly int GroupIndex;
 		internal readonly int RmGroupIndex;
-		internal readonly bool IsDeclareData;
+		internal readonly bool IsSpecialInstr;
 		internal readonly EncFlags3 EncFlags3;
 		internal readonly CodeSize OpSize;
 		internal readonly CodeSize AddrSize;
 		internal readonly TryConvertToDisp8N? TryConvertToDisp8N;
 		internal readonly Op[] Operands;
-		protected OpCodeHandler(EncFlags2 encFlags2, EncFlags3 encFlags3, bool isDeclareData, TryConvertToDisp8N? tryConvertToDisp8N, Op[] operands) {
+		protected OpCodeHandler(EncFlags2 encFlags2, EncFlags3 encFlags3, bool isSpecialInstr, TryConvertToDisp8N? tryConvertToDisp8N, Op[] operands) {
 			EncFlags3 = encFlags3;
 			OpCode = GetOpCode(encFlags2);
 			Is2ByteOpCode = (encFlags2 & EncFlags2.OpCodeIs2Bytes) != 0;
 			GroupIndex = (encFlags2 & EncFlags2.HasGroupIndex) == 0 ? -1 : (int)(((uint)encFlags2 >> (int)EncFlags2.GroupIndexShift) & 7);
 			RmGroupIndex = (encFlags3 & EncFlags3.HasRmGroupIndex) == 0 ? -1 : (int)(((uint)encFlags2 >> (int)EncFlags2.GroupIndexShift) & 7);
-			IsDeclareData = isDeclareData;
+			IsSpecialInstr = isSpecialInstr;
 			OpSize = (CodeSize)(((uint)encFlags3 >> (int)EncFlags3.OperandSizeShift) & (uint)EncFlags3.OperandSizeMask);
 			AddrSize = (CodeSize)(((uint)encFlags3 >> (int)EncFlags3.AddressSizeShift) & (uint)EncFlags3.AddressSizeMask);
 			TryConvertToDisp8N = tryConvertToDisp8N;
@@ -70,6 +70,15 @@ namespace Iced.Intel.EncoderInternal {
 			int length = declDataCount * elemLength;
 			for (int i = 0; i < length; i++)
 				encoder.WriteByteInternal(instruction.GetDeclareByteValue(i));
+		}
+	}
+
+	sealed class ZeroBytesHandler : OpCodeHandler {
+		public ZeroBytesHandler(Code code)
+			: base(EncFlags2.None, EncFlags3.Bit16or32 | EncFlags3.Bit64, true, null, Array2.Empty<Op>()) {
+		}
+
+		public override void Encode(Encoder encoder, in Instruction instruction) {
 		}
 	}
 

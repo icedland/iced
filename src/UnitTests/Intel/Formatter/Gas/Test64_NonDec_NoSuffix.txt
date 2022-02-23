@@ -19,6 +19,7 @@ fsave %fs:(%rax)
 fstsw (%rax)
 fstsw %fs:(%rax)
 fstsw %ax
+zero_bytes
 .byte 0x77
 .byte 0x77,0xa9
 .byte 0x77,0xa9,0xce

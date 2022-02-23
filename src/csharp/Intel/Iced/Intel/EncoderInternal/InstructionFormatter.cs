@@ -279,6 +279,7 @@ namespace Iced.Intel.EncoderInternal {
 					Code.DeclareWord => "<dw>",
 					Code.DeclareDword => "<dd>",
 					Code.DeclareQword => "<dq>",
+					Code.Zero_bytes => "ZERO_BYTES",
 					// GENERATOR-END: InstrFmtNotInstructionString
 					_ => throw new InvalidOperationException(),
 				};

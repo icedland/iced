@@ -421,7 +421,7 @@ impl OpCodeInfo {
 		self.encoding
 	}
 
-	/// `true` if it's an instruction, `false` if it's eg. [`Code::INVALID`], [`db`], [`dw`], [`dd`], [`dq`]
+	/// `true` if it's an instruction, `false` if it's eg. [`Code::INVALID`], [`db`], [`dw`], [`dd`], [`dq`], [`zero_bytes`]
 	///
 	/// # Examples
 	///
@@ -438,10 +438,11 @@ impl OpCodeInfo {
 	/// [`dw`]: enum.Code.html#variant.DeclareWord
 	/// [`dd`]: enum.Code.html#variant.DeclareDword
 	/// [`dq`]: enum.Code.html#variant.DeclareQword
+	/// [`zero_bytes`]: enum.Code.html#variant.Zero_bytes
 	#[must_use]
 	#[inline]
 	pub fn is_instruction(&self) -> bool {
-		self.code > Code::DeclareQword
+		!(self.code <= Code::DeclareQword || self.code == Code::Zero_bytes)
 	}
 
 	/// `true` if it's an instruction available in 16-bit mode

@@ -22005,3 +22005,5 @@ F3 0FA7 F8, Xstore_alt_64, Legacy, PADLOCK_RNG, cwm=es:rdi;Unknown cr=rdi cw=rdi
 67 F3 0FA6 D8, Xsha512_alt_32, Legacy, PADLOCK_PHE, crm=es:edi;Unknown cwm=es:edi;Unknown crm=es:esi;Unknown cr=esi;edi cw=rsi r=ecx cw=rcx
 # rep xsha512_alt
 F3 0FA6 D8, Xsha512_alt_64, Legacy, PADLOCK_PHE, crm=es:rdi;Unknown cwm=es:rdi;Unknown crm=es:rsi;Unknown cr=rsi;rdi cw=rsi rcw=rcx
+# zero_bytes
+, Zero_bytes, Legacy, INTEL8086, special

@@ -18796,6 +18796,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x04,// asz
 				0x99, 0x0D,// 1689 = "xsha512_alt"
 				0x40,// 0x40
+
+				// Zero_bytes
+				0x01,// Normal_1
+				0x9A, 0x0D,// 1690 = "zero_bytes"
 			};
 	}
 }

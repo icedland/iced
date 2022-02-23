@@ -226,6 +226,8 @@ pub(crate) fn how_to_use_code_assembler() -> Result<(), IcedError> {
     let mut after_loop1 = a.create_label();
     a.mov(ecx, 10)?;
     a.set_label(&mut loop_lbl1)?;
+    // If needed, a zero-bytes instruction can be used as a label but this is optional
+    a.zero_bytes()?;
     a.dec(ecx)?;
     a.jp(after_loop1)?;
     a.jne(loop_lbl1)?;

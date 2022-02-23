@@ -84,7 +84,7 @@ impl OpCodeInfo {
 		self.info.encoding() as u32
 	}
 
-	/// bool: ``True`` if it's an instruction, ``False`` if it's eg. :class:`Code.INVALID`, ``db``, ``dw``, ``dd``, ``dq``
+	/// bool: ``True`` if it's an instruction, ``False`` if it's eg. :class:`Code.INVALID`, ``db``, ``dw``, ``dd``, ``dq``, ``zero_bytes``
 	///
 	/// Examples:
 	///

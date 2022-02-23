@@ -1848,6 +1848,7 @@ pub enum Mnemonic {
 	Xsha512 = 1834,
 	Xstore_alt = 1835,
 	Xsha512_alt = 1836,
+	Zero_bytes = 1837,
 }
 // GENERATOR-END: Enum
 

@@ -22,6 +22,7 @@ fstsw fs:[eax]
 fstsw ax
 fstdw ax
 fstsg ax
+zero_bytes
 db 77h
 db 77h, -57h
 db 77h, -57h, -32h

@@ -29,6 +29,8 @@ lazy_static! {
 						invalid_handler
 					} else if code <= Code::DeclareQword {
 						Box::into_raw(Box::new(DeclareDataHandler::new(code))) as *const OpCodeHandler
+					} else if code == Code::Zero_bytes {
+						Box::into_raw(Box::new(ZeroBytesHandler::new(code))) as *const OpCodeHandler
 					} else {
 						Box::into_raw(Box::new(LegacyHandler::new(enc_flags1, enc_flags2, enc_flags3))) as *const OpCodeHandler
 					}

@@ -25,6 +25,8 @@ namespace Iced.Intel.EncoderInternal {
 						handler = invalidHandler;
 					else if (code <= Code.DeclareQword)
 						handler = new DeclareDataHandler(code);
+					else if (code == Code.Zero_bytes)
+						handler = new ZeroBytesHandler(code);
 					else
 						handler = new LegacyHandler((EncFlags1)encFlags1[i], (EncFlags2)encFlags2[i], encFlags3);
 					break;

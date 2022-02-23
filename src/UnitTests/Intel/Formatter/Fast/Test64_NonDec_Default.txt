@@ -19,6 +19,7 @@ fsave fpustate108 ptr fs:[rax]
 fstsw [rax]
 fstsw fs:[rax]
 fstsw ax
+zero_bytes
 db 77h
 db 77h,0A9h
 db 77h,0A9h,0CEh

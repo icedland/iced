@@ -4841,6 +4841,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Xsha512_alt,// Xsha512_alt_16
 			(ushort)Mnemonic.Xsha512_alt,// Xsha512_alt_32
 			(ushort)Mnemonic.Xsha512_alt,// Xsha512_alt_64
+			(ushort)Mnemonic.Zero_bytes,// Zero_bytes
 		};
 	}
 }

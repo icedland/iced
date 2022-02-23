@@ -4844,6 +4844,8 @@ namespace Generator.Enums {
 		Xsha512_alt_16,
 		Xsha512_alt_32,
 		Xsha512_alt_64,
+		[Comment("A zero-sized instruction. Can be used as a label.")]
+		Zero_bytes,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

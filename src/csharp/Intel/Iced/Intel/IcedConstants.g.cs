@@ -33,7 +33,7 @@ namespace Iced.Intel {
 		internal const int CC_ne_EnumCount = 2;
 		internal const int CC_np_EnumCount = 2;
 		internal const int CC_p_EnumCount = 2;
-		internal const int CodeEnumCount = 4833;
+		internal const int CodeEnumCount = 4834;
 		internal const int CodeSizeEnumCount = 4;
 		internal const int ConditionCodeEnumCount = 17;
 		internal const int CpuidFeatureEnumCount = 162;
@@ -46,7 +46,7 @@ namespace Iced.Intel {
 		internal const int MandatoryPrefixEnumCount = 5;
 		internal const int MemorySizeEnumCount = 160;
 		internal const int MemorySizeOptionsEnumCount = 4;
-		internal const int MnemonicEnumCount = 1837;
+		internal const int MnemonicEnumCount = 1838;
 		internal const int MvexConvFnEnumCount = 13;
 		internal const int MvexEHBitEnumCount = 3;
 		internal const int MvexRegMemConvEnumCount = 17;

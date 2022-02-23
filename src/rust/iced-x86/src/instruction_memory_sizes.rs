@@ -4841,6 +4841,7 @@ pub(super) static SIZES_NORMAL: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// Xsha512_alt_16
 	MemorySize::Unknown,// Xsha512_alt_32
 	MemorySize::Unknown,// Xsha512_alt_64
+	MemorySize::Unknown,// Zero_bytes
 ];
 
 #[rustfmt::skip]
@@ -9678,4 +9679,5 @@ pub(super) static SIZES_BCST: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// Xsha512_alt_16
 	MemorySize::Unknown,// Xsha512_alt_32
 	MemorySize::Unknown,// Xsha512_alt_64
+	MemorySize::Unknown,// Zero_bytes
 ];

@@ -50,8 +50,13 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			foreach (var b in writer.ToArray())
 				instructionAsBytes.Append($"{b:X2} ");
 
-			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(writer.ToArray()), decoderOptions);
-			var decodedInstr = decoder.Decode();
+			var instrBytes = writer.ToArray();
+			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(instrBytes), decoderOptions);
+			Instruction decodedInstr;
+			if (expected.Code == Code.Zero_bytes && instrBytes.Length == 0)
+				decodedInstr = Instruction.Create(Code.Zero_bytes);
+			else
+				decodedInstr = decoder.Decode();
 			if ((flags & TestInstrFlags.IgnoreCode) != 0)
 				decodedInstr.Code = asmInstr.Code;
 			if ((flags & TestInstrFlags.RemoveRepRepnePrefixes) != 0) {

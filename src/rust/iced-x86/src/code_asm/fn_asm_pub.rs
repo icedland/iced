@@ -51827,4 +51827,21 @@ impl CodeAssembler {
 	{
 		<Self as CodeAsmXtest>::xtest(self)
 	}
+
+	/// `ZERO_BYTES` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `ZERO_BYTES` | `<zero_bytes>` | `8086+`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	#[inline]
+	pub fn zero_bytes(&mut self) -> Result<(), IcedError>
+	where
+		Self: CodeAsmZero_bytes,
+	{
+		<Self as CodeAsmZero_bytes>::zero_bytes(self)
+	}
 }

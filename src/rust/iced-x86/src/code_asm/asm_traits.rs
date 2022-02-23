@@ -11083,3 +11083,8 @@ pub trait CodeAsmXsusldtrk {
 pub trait CodeAsmXtest {
 	fn xtest(&mut self) -> Result<(), IcedError>;
 }
+
+#[rustfmt::skip]
+pub trait CodeAsmZero_bytes {
+	fn zero_bytes(&mut self) -> Result<(), IcedError>;
+}

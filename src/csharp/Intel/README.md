@@ -232,6 +232,8 @@ static class HowTo_Assemble {
 
         // Emit label1:
         c.Label(ref label1);
+        // If needed, a zero-bytes instruction can be used as a label but this is optional
+        c.zero_bytes();
         c.pop(r15);
         c.ret();
         c.Label(ref data1);

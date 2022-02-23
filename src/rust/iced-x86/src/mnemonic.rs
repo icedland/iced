@@ -1852,9 +1852,10 @@ pub enum Mnemonic {
 	Xsha512 = 1834,
 	Xstore_alt = 1835,
 	Xsha512_alt = 1836,
+	Zero_bytes = 1837,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_MNEMONIC: [&str; 1837] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1838] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3692,6 +3693,7 @@ static GEN_DEBUG_MNEMONIC: [&str; 1837] = [
 	"Xsha512",
 	"Xstore_alt",
 	"Xsha512_alt",
+	"Zero_bytes",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

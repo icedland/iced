@@ -18,6 +18,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Code.DeclareDword,
 			Code.DeclareQword,
 			Code.DeclareWord,
+			Code.Zero_bytes,
 			Code.Fclex,
 			Code.Fdisi,
 			Code.Feni,

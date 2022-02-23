@@ -304,9 +304,9 @@ namespace Iced.Intel {
 		public EncodingKind Encoding => (EncodingKind)encoding;
 
 		/// <summary>
-		/// <see langword="true"/> if it's an instruction, <see langword="false"/> if it's eg. <see cref="Code.INVALID"/>, <c>db</c>, <c>dw</c>, <c>dd</c>, <c>dq</c>
+		/// <see langword="true"/> if it's an instruction, <see langword="false"/> if it's eg. <see cref="Code.INVALID"/>, <c>db</c>, <c>dw</c>, <c>dd</c>, <c>dq</c>, <c>zero_bytes</c>
 		/// </summary>
-		public bool IsInstruction => code > (ushort)Code.DeclareQword;
+		public bool IsInstruction => !(code <= (ushort)Code.DeclareQword || code == (ushort)Code.Zero_bytes);
 
 		/// <summary>
 		/// <see langword="true"/> if it's an instruction available in 16-bit mode

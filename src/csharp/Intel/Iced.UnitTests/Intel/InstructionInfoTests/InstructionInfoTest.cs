@@ -89,6 +89,13 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					default: throw new InvalidOperationException();
 					}
 				}
+				else if (code == Code.Zero_bytes) {
+					instruction = default;
+					instruction.Code = code;
+					Assert.Equal(64, bitness);
+					instruction.CodeSize = CodeSize.Code64;
+					Assert.Equal("", hexBytes);
+				}
 				else {
 					var decoder = CreateDecoder(bitness, codeBytes, testCase.IP, options);
 					instruction = decoder.Decode();

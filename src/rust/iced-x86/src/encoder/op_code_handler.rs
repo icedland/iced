@@ -32,7 +32,7 @@ pub(crate) struct OpCodeHandler {
 	pub(super) op_size: CodeSize,
 	pub(super) addr_size: CodeSize,
 	pub(super) is_2byte_opcode: bool,
-	pub(super) is_declare_data: bool,
+	pub(super) is_special_instr: bool,
 }
 
 #[repr(C)]
@@ -54,7 +54,7 @@ impl InvalidHandler {
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
 				is_2byte_opcode: false,
-				is_declare_data: false,
+				is_special_instr: false,
 			},
 		}
 	}
@@ -86,7 +86,7 @@ impl DeclareDataHandler {
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
 				is_2byte_opcode: false,
-				is_declare_data: true,
+				is_special_instr: true,
 			},
 			elem_size: match code {
 				Code::DeclareByte => 1,
@@ -111,6 +111,33 @@ impl DeclareDataHandler {
 			}
 		}
 	}
+}
+
+#[repr(C)]
+pub(super) struct ZeroBytesHandler {
+	base: OpCodeHandler,
+}
+
+impl ZeroBytesHandler {
+	pub(super) fn new(_code: Code) -> Self {
+		Self {
+			base: OpCodeHandler {
+				encode: Self::encode,
+				try_convert_to_disp8n: None,
+				operands: Box::new([]),
+				op_code: 0,
+				group_index: -1,
+				rm_group_index: -1,
+				enc_flags3: EncFlags3::NONE,
+				op_size: CodeSize::Unknown,
+				addr_size: CodeSize::Unknown,
+				is_2byte_opcode: false,
+				is_special_instr: true,
+			},
+		}
+	}
+
+	fn encode(_self_ptr: *const OpCodeHandler, _encoder: &mut Encoder, _instruction: &Instruction) {}
 }
 
 fn get_op_code(enc_flags2: u32) -> u32 {
@@ -192,7 +219,7 @@ impl LegacyHandler {
 					mem::transmute(((enc_flags3 >> EncFlags3::ADDRESS_SIZE_SHIFT) & EncFlags3::ADDRESS_SIZE_MASK) as CodeSizeUnderlyingType)
 				},
 				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
-				is_declare_data: false,
+				is_special_instr: false,
 			},
 			table_byte1,
 			table_byte2,
@@ -317,7 +344,7 @@ impl VexHandler {
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
 				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
-				is_declare_data: false,
+				is_special_instr: false,
 			},
 			table: (enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK,
 			last_byte,
@@ -434,7 +461,7 @@ impl XopHandler {
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
 				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
-				is_declare_data: false,
+				is_special_instr: false,
 			},
 			table: 8 + ((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK),
 			last_byte,
@@ -545,7 +572,7 @@ impl EvexHandler {
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
 				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
-				is_declare_data: false,
+				is_special_instr: false,
 			},
 			table: (enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK,
 			p1_bits,
@@ -712,7 +739,7 @@ impl MvexHandler {
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
 				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
-				is_declare_data: false,
+				is_special_instr: false,
 			},
 			table: (enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK,
 			p1_bits,
@@ -870,7 +897,7 @@ impl D3nowHandler {
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
 				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
-				is_declare_data: false,
+				is_special_instr: false,
 			},
 			immediate: get_op_code(enc_flags2),
 		}

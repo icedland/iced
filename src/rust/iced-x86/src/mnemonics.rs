@@ -4841,4 +4841,5 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::CODE_ENUM_COUNT] = [
 	Mnemonic::Xsha512_alt,// Xsha512_alt_16
 	Mnemonic::Xsha512_alt,// Xsha512_alt_32
 	Mnemonic::Xsha512_alt,// Xsha512_alt_64
+	Mnemonic::Zero_bytes,// Zero_bytes
 ];
