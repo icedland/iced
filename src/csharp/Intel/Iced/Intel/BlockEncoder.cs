@@ -180,7 +180,7 @@ namespace Iced.Intel {
 					instr.IP = ip;
 					instrs[j] = instr;
 					instrCount++;
-					Debug.Assert(instr.Size != 0);
+					Debug.Assert(instr.Size != 0 || instruction.Code == Code.Zero_bytes);
 					ip += instr.Size;
 				}
 				block.SetInstructions(instrs);

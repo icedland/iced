@@ -319,7 +319,7 @@ impl Encoder {
 			CodeSize::Code32 => self.encoder_flags |= self.adrsize32_flags,
 		}
 
-		if !handler.is_declare_data {
+		if !handler.is_special_instr {
 			let ops = &*handler.operands;
 			for (i, op) in ops.iter().copied().enumerate() {
 				op.encode(self, instruction, i as u32);
@@ -351,7 +351,7 @@ impl Encoder {
 		}
 
 		let instr_len = (self.current_rip as usize).wrapping_sub(rip as usize);
-		if instr_len > IcedConstants::MAX_INSTRUCTION_LENGTH && !handler.is_declare_data {
+		if instr_len > IcedConstants::MAX_INSTRUCTION_LENGTH && !handler.is_special_instr {
 			self.set_error_message(format!("Instruction length > {} bytes", IcedConstants::MAX_INSTRUCTION_LENGTH));
 		}
 		if !self.error_message.is_empty() {
@@ -1128,7 +1128,7 @@ impl Encoder {
 	}
 
 	fn write_prefixes(&mut self, instruction: &Instruction, can_write_f3: bool) {
-		debug_assert_eq!(self.handler.is_declare_data, false);
+		debug_assert_eq!(self.handler.is_special_instr, false);
 		let seg = instruction.segment_prefix();
 		if seg != Register::None {
 			static SEGMENT_OVERRIDES: [u8; 6] = [0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65];
@@ -1160,7 +1160,7 @@ impl Encoder {
 	}
 
 	fn write_mod_rm(&mut self) {
-		debug_assert_eq!(self.handler.is_declare_data, false);
+		debug_assert_eq!(self.handler.is_special_instr, false);
 		debug_assert!((self.encoder_flags & (EncoderFlags::MOD_RM | EncoderFlags::DISPL)) != 0);
 		if (self.encoder_flags & EncoderFlags::MOD_RM) != 0 {
 			self.write_byte_internal(self.mod_rm as u32);
@@ -1232,7 +1232,7 @@ impl Encoder {
 	}
 
 	fn write_immediate(&mut self) {
-		debug_assert_eq!(self.handler.is_declare_data, false);
+		debug_assert_eq!(self.handler.is_special_instr, false);
 		let ip;
 		let eip;
 		let rip;

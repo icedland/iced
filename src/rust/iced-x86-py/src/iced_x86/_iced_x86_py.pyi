@@ -7396,7 +7396,7 @@ class OpCodeInfo:
 	@property
 	def is_instruction(self) -> bool:
 		"""
-		bool: `True` if it's an instruction, `False` if it's eg. `Code.INVALID`, `db`, `dw`, `dd`, `dq`
+		bool: `True` if it's an instruction, `False` if it's eg. `Code.INVALID`, `db`, `dw`, `dd`, `dq`, `zero_bytes`
 
 		### Examples:
 

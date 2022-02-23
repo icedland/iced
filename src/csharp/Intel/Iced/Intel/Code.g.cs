@@ -38642,5 +38642,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Xsha512_alt_64 = 4832,
+		/// <summary>A zero-sized instruction. Can be used as a label.</summary>
+		Zero_bytes = 4833,
 	}
 }

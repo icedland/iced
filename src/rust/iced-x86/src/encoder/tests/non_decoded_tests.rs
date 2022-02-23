@@ -69,6 +69,7 @@ lazy_static! {
 			("9B DF E0", c16(Instruction::with1(Code::Fstsw_AX, Register::AX).unwrap())),
 			("9B DF E1", c16(Instruction::with1(Code::Fstdw_AX, Register::AX).unwrap())),
 			("9B DF E2", c16(Instruction::with1(Code::Fstsg_AX, Register::AX).unwrap())),
+			("", c16(Instruction::with(Code::Zero_bytes))),
 		];
 		#[rustfmt::skip]
 		let array_db = [
@@ -132,6 +133,7 @@ lazy_static! {
 			("9B DF E0", c32(Instruction::with1(Code::Fstsw_AX, Register::AX).unwrap())),
 			("9B DF E1", c32(Instruction::with1(Code::Fstdw_AX, Register::AX).unwrap())),
 			("9B DF E2", c32(Instruction::with1(Code::Fstsg_AX, Register::AX).unwrap())),
+			("", c32(Instruction::with(Code::Zero_bytes))),
 		];
 		#[rustfmt::skip]
 		let array_db = [
@@ -192,6 +194,7 @@ lazy_static! {
 			("9B DD 38", c64(Instruction::with1(Code::Fstsw_m2byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::None)).unwrap())),
 			("9B 64 DD 38", c64(Instruction::with1(Code::Fstsw_m2byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::FS)).unwrap())),
 			("9B DF E0", c64(Instruction::with1(Code::Fstsw_AX, Register::AX).unwrap())),
+			("", c64(Instruction::with(Code::Zero_bytes))),
 		];
 		#[rustfmt::skip]
 		let array_db = [

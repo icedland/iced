@@ -22,6 +22,7 @@ fstsw word ptr fs:[eax]
 fstsw ax
 fstdw ax
 fstsg ax
+zero_bytes
 db 0x77
 db 0x77, 0xa9
 db 0x77, 0xa9, 0xce

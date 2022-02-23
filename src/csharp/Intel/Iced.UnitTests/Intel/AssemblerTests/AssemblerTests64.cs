@@ -421,6 +421,35 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				0x62, 0xF1, 0xED, 0x08, 0x58, 0xCB,
 			}, bytes);
 		}
+
+		[Fact]
+		void Test_zero_bytes() {
+			var a = new Assembler(64);
+
+			var lblf = a.CreateLabel();
+			var lbll = a.CreateLabel();
+			var lbl1 = a.CreateLabel();
+			var lbl2 = a.CreateLabel();
+
+			a.Label(ref lblf);
+			a.zero_bytes();
+
+			a.je(lbl1);
+			a.je(lbl2);
+			a.Label(ref lbl1);
+			a.zero_bytes();
+			a.Label(ref lbl2);
+			a.nop();
+
+			a.Label(ref lbll);
+			a.zero_bytes();
+			a.@lock.rep.zero_bytes();
+
+			var writer = new CodeWriterImpl();
+			a.Assemble(writer, 0);
+			var bytes = writer.ToArray();
+			Assert.Equal(new byte[] { 0x74, 0x02, 0x74, 0x00, 0x90 }, bytes);
+		}
 	}
 }
 #endif

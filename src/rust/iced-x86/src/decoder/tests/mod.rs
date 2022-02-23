@@ -24,11 +24,12 @@ use core::fmt::Write;
 use static_assertions::const_assert_eq;
 
 #[rustfmt::skip]
-pub(crate) static NON_DECODED_CODE_VALUES: [Code; 16] = [
+pub(crate) static NON_DECODED_CODE_VALUES: [Code; 17] = [
 	Code::DeclareByte,
 	Code::DeclareDword,
 	Code::DeclareQword,
 	Code::DeclareWord,
+	Code::Zero_bytes,
 	Code::Fclex,
 	Code::Fdisi,
 	Code::Feni,

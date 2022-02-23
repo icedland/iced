@@ -76017,3 +76017,11 @@ impl CodeAsmXtest for CodeAssembler {
 		self.add_instr(Instruction::with(Code::Xtest))
 	}
 }
+
+#[rustfmt::skip]
+impl CodeAsmZero_bytes for CodeAssembler {
+	#[inline]
+	fn zero_bytes(&mut self) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with(Code::Zero_bytes))
+	}
+}

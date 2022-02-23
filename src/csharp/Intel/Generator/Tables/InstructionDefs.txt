@@ -56,6 +56,11 @@ INSTRUCTION: <dq> | <dq> | INTEL8086
 	nasm: decl
 END
 
+# Code: Zero_bytes
+INSTRUCTION: <zero_bytes> | ZERO_BYTES | INTEL8086
+	flags: no-instr
+END
+
 # Code: Add_rm8_r8
 INSTRUCTION: 00 /r | ADD r/m8, r8 | INTEL8086
 	ops: rw=rm r=reg | UInt8

@@ -979,7 +979,8 @@ fn test_instr(bitness: u32, create: fn(&mut CodeAssembler), mut expected: Instru
 	};
 
 	let mut decoder = Decoder::with_ip(bitness, &bytes, rip, decoder_options);
-	let mut decoded_instr = decoder.decode();
+	let mut decoded_instr =
+		if expected.code() == Code::Zero_bytes && bytes.is_empty() { Instruction::with(Code::Zero_bytes) } else { decoder.decode() };
 	if (flags & TestInstrFlags::IGNORE_CODE) != 0 {
 		decoded_instr.set_code(asm_instr.code());
 	}
@@ -1098,4 +1099,31 @@ fn test_vex_evex_prefixes() {
 		\x62\xF1\xED\x08\x58\xCB\
 		\x62\xF1\xED\x08\x58\xCB"
 	);
+}
+
+#[test]
+fn test_zero_bytes() {
+	let mut a = CodeAssembler::new(64).unwrap();
+
+	let mut lblf = a.create_label();
+	let mut lbll = a.create_label();
+	let mut lbl1 = a.create_label();
+	let mut lbl2 = a.create_label();
+
+	a.set_label(&mut lblf).unwrap();
+	a.zero_bytes().unwrap();
+
+	a.je(lbl1).unwrap();
+	a.je(lbl2).unwrap();
+	a.set_label(&mut lbl1).unwrap();
+	a.zero_bytes().unwrap();
+	a.set_label(&mut lbl2).unwrap();
+	a.nop().unwrap();
+
+	a.set_label(&mut lbll).unwrap();
+	a.zero_bytes().unwrap();
+	a.lock().rep().zero_bytes().unwrap();
+
+	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
+	assert_eq!(bytes, b"\x74\x02\x74\x00\x90");
 }

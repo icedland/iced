@@ -16629,6 +16629,10 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Xsha512_alt_64
 				0x02,// SameAsPrev
+
+				// Zero_bytes
+				0x00,// No flags set
+				0x9A, 0x0D,// 1690 = "zero_bytes"
 			};
 	}
 }

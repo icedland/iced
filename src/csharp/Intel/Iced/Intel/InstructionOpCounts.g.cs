@@ -4845,6 +4845,7 @@ namespace Iced.Intel {
 			0,// Xsha512_alt_16
 			0,// Xsha512_alt_32
 			0,// Xsha512_alt_64
+			0,// Zero_bytes
 		};
 	}
 }

@@ -94284,3 +94284,12 @@ fn xtest() {
 		Instruction::with(Code::Xtest),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
+
+#[test]
+#[rustfmt::skip]
+fn zero_bytes() {
+	// Zero_bytes
+	test_instr(32, |a| a.zero_bytes().unwrap(),
+		Instruction::with(Code::Zero_bytes),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}

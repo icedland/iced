@@ -18140,4 +18140,8 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Xsha512_alt_64
 	0x00,// Previous
+
+	// Zero_bytes
+	0x01,// Normal_1
+	0x9A, 0x0D,// 1690 = "zero_bytes"
 ];

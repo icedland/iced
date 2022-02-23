@@ -38654,9 +38654,11 @@ pub enum Code {
 	///
 	/// `64-bit`
 	Xsha512_alt_64 = 4832,
+	/// A zero-sized instruction. Can be used as a label.
+	Zero_bytes = 4833,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_CODE: [&str; 4833] = [
+static GEN_DEBUG_CODE: [&str; 4834] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -43490,6 +43492,7 @@ static GEN_DEBUG_CODE: [&str; 4833] = [
 	"Xsha512_alt_16",
 	"Xsha512_alt_32",
 	"Xsha512_alt_64",
+	"Zero_bytes",
 ];
 impl fmt::Debug for Code {
 	#[inline]

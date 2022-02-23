@@ -1841,5 +1841,6 @@ namespace Generator.Enums {
 		Xsha512,
 		Xstore_alt,
 		Xsha512_alt,
+		Zero_bytes,
 	}
 }

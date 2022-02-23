@@ -4844,6 +4844,7 @@ pub enum Code {
 	Xsha512_alt_16 = 4830,
 	Xsha512_alt_32 = 4831,
 	Xsha512_alt_64 = 4832,
+	Zero_bytes = 4833,
 }
 // GENERATOR-END: Enum
 

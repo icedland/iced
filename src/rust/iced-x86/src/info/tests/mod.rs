@@ -116,6 +116,12 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 				}
 				_ => unreachable!(),
 			}
+		} else if tc.code == Code::Zero_bytes {
+			instr = Instruction::default();
+			instr.set_code(tc.code);
+			assert_eq!(tc.bitness, 64);
+			instr.set_code_size(CodeSize::Code64);
+			assert_eq!(tc.hex_bytes, "");
 		} else {
 			let mut decoder = create_decoder(tc.bitness, &code_bytes, tc.ip, tc.decoder_options).0;
 			instr = decoder.decode();

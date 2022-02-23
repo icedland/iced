@@ -1846,6 +1846,7 @@ namespace Iced.Intel {
 		Xsha512 = 1834,
 		Xstore_alt = 1835,
 		Xsha512_alt = 1836,
+		Zero_bytes = 1837,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

@@ -292,6 +292,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 				Code::DeclareWord => return String::from("<dw>"),
 				Code::DeclareDword => return String::from("<dd>"),
 				Code::DeclareQword => return String::from("<dq>"),
+				Code::Zero_bytes => return String::from("ZERO_BYTES"),
 				// GENERATOR-END: InstrFmtNotInstructionString
 				_ => unreachable!(),
 			}

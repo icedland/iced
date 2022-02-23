@@ -48317,3 +48317,7 @@ XSHA512_ALT_64: Code = 4832 # type: ignore
 
 ``64-bit``
 """
+ZERO_BYTES: Code = 4833 # type: ignore
+"""
+A zero-sized instruction. Can be used as a label.
+"""

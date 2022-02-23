@@ -7365,3 +7365,7 @@ XSHA512_ALT: Mnemonic = 1836 # type: ignore
 """
 <no docs>
 """
+ZERO_BYTES: Mnemonic = 1837 # type: ignore
+"""
+<no docs>
+"""

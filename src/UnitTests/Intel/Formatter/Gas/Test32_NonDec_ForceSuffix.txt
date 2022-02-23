@@ -22,6 +22,7 @@ fstsww fs:(eax)
 fstsw ax
 fstdw ax
 fstsg ax
+zero_bytes
 .byte 0x77
 .byte 0x77, -0x57
 .byte 0x77, -0x57, -0x32

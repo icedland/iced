@@ -68,6 +68,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				Code::DeclareWord => String::from("<dw>"),
 				Code::DeclareDword => String::from("<dd>"),
 				Code::DeclareQword => String::from("<dq>"),
+				Code::Zero_bytes => String::from("<zero_bytes>"),
 				// GENERATOR-END: OpCodeFmtNotInstructionString
 				_ => unreachable!(),
 			}

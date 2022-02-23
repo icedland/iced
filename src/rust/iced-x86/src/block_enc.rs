@@ -172,7 +172,7 @@ impl BlockEncoder {
 			for instruction in instructions {
 				let mut base = InstrBase { orig_ip: instruction.ip(), size: 0, done: false };
 				let instr = InstrUtils::create(&mut this.benc, &mut base, instruction);
-				debug_assert!(base.size != 0);
+				debug_assert!(base.size != 0 || instruction.code() == Code::Zero_bytes);
 				ip = ip.wrapping_add(base.size as u64);
 				this.all_ips.push(ip);
 				this.all_instrs.push((base, instr));

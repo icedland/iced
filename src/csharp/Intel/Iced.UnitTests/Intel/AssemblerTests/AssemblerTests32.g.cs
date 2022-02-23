@@ -47184,6 +47184,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			TestAssembler(c => c.xtest(), Instruction.Create(Code.Xtest));
 		}
 
+		[Fact]
+		public void zero_bytes() {
+			TestAssembler(c => c.zero_bytes(), Instruction.Create(Code.Zero_bytes));
+		}
+
 	}
 }
 #endif

@@ -267,7 +267,7 @@ namespace Iced.Intel {
 				throw new InvalidOperationException();
 			}
 
-			if (!handler.IsDeclareData) {
+			if (!handler.IsSpecialInstr) {
 				var ops = handler.Operands;
 				for (int i = 0; i < ops.Length; i++)
 					ops[i].Encode(this, instruction, i);
@@ -297,7 +297,7 @@ namespace Iced.Intel {
 			}
 
 			uint instrLen = (uint)currentRip - (uint)rip;
-			if (instrLen > IcedConstants.MaxInstructionLength && !handler.IsDeclareData)
+			if (instrLen > IcedConstants.MaxInstructionLength && !handler.IsSpecialInstr)
 				ErrorMessage = $"Instruction length > {IcedConstants.MaxInstructionLength} bytes";
 			errorMessage = this.errorMessage;
 			if (errorMessage is not null) {
@@ -1017,7 +1017,7 @@ namespace Iced.Intel {
 			new byte[6] { 0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65 };
 
 		internal void WritePrefixes(in Instruction instruction, bool canWriteF3 = true) {
-			Debug.Assert(!handler.IsDeclareData);
+			Debug.Assert(!handler.IsSpecialInstr);
 			var seg = instruction.SegmentPrefix;
 			if (seg != Register.None) {
 				Debug.Assert((uint)(seg - Register.ES) < (uint)SegmentOverrides.Length);
@@ -1036,7 +1036,7 @@ namespace Iced.Intel {
 		}
 
 		void WriteModRM() {
-			Debug.Assert(!handler.IsDeclareData);
+			Debug.Assert(!handler.IsSpecialInstr);
 			Debug.Assert((EncoderFlags & (EncoderFlags.ModRM | EncoderFlags.Displ)) != 0);
 			if ((EncoderFlags & EncoderFlags.ModRM) != 0) {
 				WriteByteInternal(ModRM);
@@ -1108,7 +1108,7 @@ namespace Iced.Intel {
 		}
 
 		void WriteImmediate() {
-			Debug.Assert(!handler.IsDeclareData);
+			Debug.Assert(!handler.IsSpecialInstr);
 			ushort ip;
 			uint eip;
 			ulong rip;
