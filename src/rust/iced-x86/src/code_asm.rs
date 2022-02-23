@@ -207,6 +207,7 @@ impl CodeLabel {
 
 /// Result of assembling the instructions
 #[derive(Debug)]
+#[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
 pub struct CodeAssemblerResult {
 	/// Inner `BlockEncoder` result
 	pub inner: BlockEncoderResult,
