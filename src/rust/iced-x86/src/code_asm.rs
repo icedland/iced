@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies.iced-x86]
-//! version = "1.16.0"
+//! version = "1.17.0"
 //! features = ["code_asm"]
 //! ```
 //!
@@ -57,7 +57,7 @@ impl CodeAssemblerOptions {
 ///
 /// ```toml
 /// [dependencies.iced-x86]
-/// version = "1.16.0"
+/// version = "1.17.0"
 /// features = ["code_asm"]
 /// ```
 ///
