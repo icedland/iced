@@ -15,13 +15,6 @@ if [[ "$OSTYPE" = "darwin"* ]]; then
 	rustup component add clippy
 fi
 
-# Force 1.57.0 until the clippy perf bug has been added to stable
-# https://github.com/rust-lang/rust-clippy/pull/8182
-rustup install 1.57.0
-rustup default 1.57.0
-rustup component add rustfmt
-rustup component add clippy
-
 # It fails on Windows so disable auto self update
 rustup toolchain install 1.54.0 --no-self-update
 rustup target add wasm32-unknown-unknown
