@@ -29,6 +29,7 @@
 #![allow(clippy::manual_range_contains)]
 #![allow(clippy::match_ref_pats)]
 #![allow(clippy::ptr_eq)]
+#![allow(clippy::return_self_not_must_use)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::unused_unit)] // wasm-bindgen 0.2.79 https://github.com/rustwasm/wasm-bindgen/issues/2774
