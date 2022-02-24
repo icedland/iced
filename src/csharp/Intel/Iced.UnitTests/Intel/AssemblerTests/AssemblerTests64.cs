@@ -440,10 +440,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			a.zero_bytes();
 			a.Label(ref lbl2);
 			a.nop();
+			a.@lock.rep.zero_bytes();
 
 			a.Label(ref lbll);
 			a.zero_bytes();
-			a.@lock.rep.zero_bytes();
 
 			var writer = new CodeWriterImpl();
 			a.Assemble(writer, 0);

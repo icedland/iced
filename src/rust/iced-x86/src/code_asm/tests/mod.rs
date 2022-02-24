@@ -1118,10 +1118,10 @@ fn test_zero_bytes() {
 	a.zero_bytes().unwrap();
 	a.set_label(&mut lbl2).unwrap();
 	a.nop().unwrap();
+	a.lock().rep().zero_bytes().unwrap();
 
 	a.set_label(&mut lbll).unwrap();
 	a.zero_bytes().unwrap();
-	a.lock().rep().zero_bytes().unwrap();
 
 	let bytes = a.assemble(0x1234_5678_9ABC_DEF0).unwrap();
 	assert_eq!(bytes, b"\x74\x02\x74\x00\x90");
