@@ -1077,7 +1077,7 @@ impl CodeAssembler {
 	/// # Arguments
 	///
 	/// * `ip`: Base address of all instructions
-	/// * `options`: `BlockEncoderOptions` flags
+	/// * `options`: [`BlockEncoderOptions`] flags
 	///
 	/// # Examples
 	///
@@ -1103,6 +1103,8 @@ impl CodeAssembler {
 	/// # Ok(())
 	/// # }
 	/// ```
+	///
+	/// [`BlockEncoderOptions`]: ../struct.BlockEncoderOptions.html
 	#[inline]
 	pub fn assemble_options(&mut self, ip: u64, options: u32) -> Result<CodeAssemblerResult, IcedError> {
 		if self.prefix_flags != 0 {

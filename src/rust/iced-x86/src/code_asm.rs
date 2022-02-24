@@ -228,7 +228,7 @@ impl CodeAssemblerResult {
 	///
 	/// Fails if the label is invalid
 	///
-	/// [`BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS`]: struct.BlockEncoderOptions.html#associatedconstant.RETURN_NEW_INSTRUCTION_OFFSETS
+	/// [`BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS`]: ../struct.BlockEncoderOptions.html#associatedconstant.RETURN_NEW_INSTRUCTION_OFFSETS
 	/// [`CodeAssembler::assemble_options()`]: struct.CodeAssembler.html#method.assemble_options
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn label_ip(&self, label: &CodeLabel) -> Result<u64, IcedError> {
