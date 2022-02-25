@@ -146,7 +146,7 @@ jobs:
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-node@v2.5.1
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
 
