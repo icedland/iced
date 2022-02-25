@@ -10,6 +10,7 @@ on:
       - master
   pull_request:
     paths:
+      - ".github/workflows/build.yml"
       - "build/**"
       - "src/**"
       - "!**/*.md"
