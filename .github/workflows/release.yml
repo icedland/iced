@@ -6,10 +6,10 @@ on:
 
 # Keep this in sync with the other *.yml files
 env:
-  CI_REQ_DOTNET_SDK_VER: 6.0.100
-  CI_NODE_MIN_VER: 14.0.0
-  RUSTFLAGS: -D warnings
-  MACOSX_DEPLOYMENT_TARGET: 10.12
+  CI_REQ_DOTNET_SDK_VER: '6.0.x'
+  CI_NODE_MIN_VER: '14.0.0'
+  RUSTFLAGS: '-D warnings'
+  MACOSX_DEPLOYMENT_TARGET: '10.12'
 
 jobs:
 
