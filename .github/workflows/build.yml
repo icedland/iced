@@ -1,6 +1,13 @@
 name: GitHub CI
 on:
   push:
+    paths:
+      - ".github/workflows/build.yml"
+      - "build/**"
+      - "src/**"
+      - "!**/*.md"
+    branches:
+      - master
   pull_request:
     paths:
       - ".github/workflows/build.yml"
