@@ -7,10 +7,10 @@ use crate::utils::to_value_error;
 use core::slice;
 use pyo3::class::iter::IterNextOutput;
 use pyo3::exceptions::PyTypeError;
-use pyo3::gc::{PyGCProtocol, PyVisit};
+use pyo3::gc::PyVisit;
 use pyo3::prelude::*;
 use pyo3::types::{PyByteArray, PyBytes};
-use pyo3::{PyIterProtocol, PyTraverseError};
+use pyo3::PyTraverseError;
 use static_assertions::const_assert_eq;
 
 enum DecoderDataRef {
@@ -382,10 +382,7 @@ impl Decoder {
 	fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {
 		ConstantOffsets { offsets: self.decoder.get_constant_offsets(&instruction.instr) }
 	}
-}
 
-#[pyproto]
-impl PyGCProtocol for Decoder {
 	fn __traverse__(&self, visit: PyVisit<'_>) -> Result<(), PyTraverseError> {
 		if let DecoderDataRef::PyObj(ref data_obj) = self.data_ref {
 			visit.call(data_obj)?
@@ -399,15 +396,12 @@ impl PyGCProtocol for Decoder {
 			self.data_ref = DecoderDataRef::None;
 		}
 	}
-}
 
-#[pyproto]
-impl PyIterProtocol for Decoder {
-	fn __iter__(slf: PyRef<Self>) -> PyRef<Self> {
+	fn __iter__(slf: PyRef<'_, Self>) -> PyRef<'_, Self> {
 		slf
 	}
 
-	fn __next__(mut slf: PyRefMut<Self>) -> IterNextOutput<Instruction, ()> {
+	fn __next__(mut slf: PyRefMut<'_, Self>) -> IterNextOutput<Instruction, ()> {
 		if slf.can_decode() {
 			IterNextOutput::Yield(slf.decode())
 		} else {
