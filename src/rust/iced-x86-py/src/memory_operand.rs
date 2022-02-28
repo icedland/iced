@@ -5,7 +5,6 @@ use crate::enum_utils::to_register;
 use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
 use pyo3::prelude::*;
-use pyo3::PyObjectProtocol;
 use static_assertions::const_assert_eq;
 use std::collections::hash_map::DefaultHasher;
 
@@ -100,11 +99,8 @@ impl MemoryOperand {
 	fn copy(&self) -> Self {
 		*self
 	}
-}
 
-#[pyproto]
-impl PyObjectProtocol for MemoryOperand {
-	fn __richcmp__(&self, other: PyRef<MemoryOperand>, op: CompareOp) -> PyObject {
+	fn __richcmp__(&self, other: PyRef<'_, MemoryOperand>, op: CompareOp) -> PyObject {
 		match op {
 			CompareOp::Eq => (self.mem == other.mem).into_py(other.py()),
 			CompareOp::Ne => (self.mem != other.mem).into_py(other.py()),

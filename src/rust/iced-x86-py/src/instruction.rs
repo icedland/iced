@@ -8,11 +8,9 @@ use crate::utils::{get_temporary_byte_array_ref, to_value_error};
 use bincode::{deserialize, serialize};
 use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
-use pyo3::class::PySequenceProtocol;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 use pyo3::types::PyBytes;
-use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
 
 /// A 16/32/64-bit x86 instruction. Created by :class:`Decoder` or by ``Instruction.create*()`` methods.
@@ -4977,10 +4975,7 @@ impl Instruction {
 	fn __format__(&self, format_spec: &str) -> PyResult<String> {
 		self.format(format_spec)
 	}
-}
 
-#[pyproto]
-impl PyObjectProtocol for Instruction {
 	fn __repr__(&self) -> PyResult<String> {
 		self.format("")
 	}
@@ -4989,7 +4984,7 @@ impl PyObjectProtocol for Instruction {
 		self.format("")
 	}
 
-	fn __richcmp__(&self, other: PyRef<Instruction>, op: CompareOp) -> PyObject {
+	fn __richcmp__(&self, other: PyRef<'_, Instruction>, op: CompareOp) -> PyObject {
 		match op {
 			CompareOp::Eq => (self.instr == other.instr).into_py(other.py()),
 			CompareOp::Ne => (self.instr != other.instr).into_py(other.py()),
@@ -5006,10 +5001,7 @@ impl PyObjectProtocol for Instruction {
 	fn __bool__(&self) -> bool {
 		!self.instr.is_invalid()
 	}
-}
 
-#[pyproto]
-impl PySequenceProtocol for Instruction {
 	fn __len__(&self) -> usize {
 		self.instr.len()
 	}

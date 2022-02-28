@@ -7,7 +7,6 @@ use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
-use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
 
 /// Opcode info, returned by :class:`Instruction.op_code` or created by the constructor
@@ -878,10 +877,7 @@ impl OpCodeInfo {
 			_ => Err(PyValueError::new_err(format!("Unknown format specifier '{}'", format_spec))),
 		}
 	}
-}
 
-#[pyproto]
-impl PyObjectProtocol for OpCodeInfo {
 	fn __repr__(&self) -> &str {
 		self.info.instruction_string()
 	}
@@ -890,7 +886,7 @@ impl PyObjectProtocol for OpCodeInfo {
 		self.info.instruction_string()
 	}
 
-	fn __richcmp__(&self, other: PyRef<OpCodeInfo>, op: CompareOp) -> PyObject {
+	fn __richcmp__(&self, other: PyRef<'_, OpCodeInfo>, op: CompareOp) -> PyObject {
 		match op {
 			CompareOp::Eq => (self.info.code() == other.info.code()).into_py(other.py()),
 			CompareOp::Ne => (self.info.code() != other.info.code()).into_py(other.py()),

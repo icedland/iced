@@ -4,7 +4,6 @@
 use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
 use pyo3::prelude::*;
-use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
 
 /// Contains the offsets of the displacement and immediate.
@@ -110,11 +109,8 @@ impl ConstantOffsets {
 	fn copy(&self) -> Self {
 		*self
 	}
-}
 
-#[pyproto]
-impl PyObjectProtocol for ConstantOffsets {
-	fn __richcmp__(&self, other: PyRef<ConstantOffsets>, op: CompareOp) -> PyObject {
+	fn __richcmp__(&self, other: PyRef<'_, ConstantOffsets>, op: CompareOp) -> PyObject {
 		match op {
 			CompareOp::Eq => (self.offsets == other.offsets).into_py(other.py()),
 			CompareOp::Ne => (self.offsets != other.offsets).into_py(other.py()),

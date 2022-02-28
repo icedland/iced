@@ -6,7 +6,6 @@ use crate::utils::to_value_error;
 use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
 use pyo3::prelude::*;
-use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
 
 /// A register used by an instruction
@@ -63,11 +62,8 @@ impl UsedRegister {
 	fn copy(&self) -> Self {
 		*self
 	}
-}
 
-#[pyproto]
-impl PyObjectProtocol for UsedRegister {
-	fn __richcmp__(&self, other: PyRef<UsedRegister>, op: CompareOp) -> PyObject {
+	fn __richcmp__(&self, other: PyRef<'_, UsedRegister>, op: CompareOp) -> PyObject {
 		match op {
 			CompareOp::Eq => (self.info == other.info).into_py(other.py()),
 			CompareOp::Ne => (self.info != other.info).into_py(other.py()),
@@ -184,11 +180,8 @@ impl UsedMemory {
 	fn copy(&self) -> Self {
 		*self
 	}
-}
 
-#[pyproto]
-impl PyObjectProtocol for UsedMemory {
-	fn __richcmp__(&self, other: PyRef<UsedMemory>, op: CompareOp) -> PyObject {
+	fn __richcmp__(&self, other: PyRef<'_, UsedMemory>, op: CompareOp) -> PyObject {
 		match op {
 			CompareOp::Eq => (self.info == other.info).into_py(other.py()),
 			CompareOp::Ne => (self.info != other.info).into_py(other.py()),
