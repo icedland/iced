@@ -182,7 +182,7 @@ jobs:
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-python@v2.3.2
+      - uses: actions/setup-python@v3
         with:
           python-version: '3.7'
       - name: Install Python tools
