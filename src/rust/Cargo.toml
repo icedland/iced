@@ -12,7 +12,7 @@ members = [
 ]
 
 [profile.test]
-opt-level = 3
+opt-level = 0
 
 [profile.release]
 codegen-units = 1
