@@ -80,7 +80,7 @@ Instruction info:
 
 ## Disassemble (decode and format instructions)
 
-```C#
+```cs
 using System;
 using System.Collections.Generic;
 using Iced.Intel;
@@ -153,7 +153,7 @@ static class HowTo_Disassemble {
 
 ## Assemble instructions
 
-```C#
+```cs
 using System;
 using System.IO;
 using Iced.Intel;
@@ -260,7 +260,7 @@ static class HowTo_Assemble {
 
 ## Disassemble with a symbol resolver
 
-```C#
+```cs
 using System;
 using System.Collections.Generic;
 using Iced.Intel;
@@ -306,7 +306,7 @@ static class HowTo_SymbolResolver {
 
 ## Disassemble with colorized text
 
-```C#
+```cs
 using System;
 using System.Collections.Generic;
 using Iced.Intel;
@@ -371,7 +371,7 @@ static class HowTo_ColorizedText {
 
 ## Move code in memory (eg. hook a function)
 
-```C#
+```cs
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -582,7 +582,7 @@ Moved code:
 
 ## Get instruction info, eg. read/written regs/mem, control flow info, etc
 
-```C#
+```cs
 using System;
 using Iced.Intel;
 
@@ -889,7 +889,7 @@ static class HowTo_InstructionInfo {
 
 ## Get the virtual address of a memory operand
 
-```C#
+```cs
 using System;
 using System.Diagnostics;
 using Iced.Intel;
@@ -925,7 +925,7 @@ static class HowTo_GetVirtualAddress {
 
 ## Disassemble old/deprecated CPU instructions
 
-```C#
+```cs
 using System;
 using Iced.Intel;
 
