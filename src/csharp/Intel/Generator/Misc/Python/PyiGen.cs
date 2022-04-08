@@ -354,11 +354,15 @@ namespace Generator.Misc.Python {
 				return "bool";
 			case "&str" or "String":
 				return "str";
-			case "PyRef<Self>" or "PyRefMut<Self>" or "Self":
+			case "PyRef<'_, Self>" or "PyRefMut<'_, Self>" or "Self":
 				return pyClass.Name;
 			case "&PyAny":
 				return "Any";
 			default:
+				if (ParseUtils.TryRemovePrefixSuffix(rustType, "PyRef<'_, ", ">", out extractedType))
+					return extractedType;
+				if (ParseUtils.TryRemovePrefixSuffix(rustType, "PyRefMut<'_, ", ">", out extractedType))
+					return extractedType;
 				if (ParseUtils.TryRemovePrefixSuffix(rustType, "IterNextOutput<", ", ()>", out extractedType))
 					return extractedType;
 				break;

@@ -260,6 +260,29 @@ namespace Generator.Misc.Python {
 			return line.TrimStart();
 		}
 
+		static IEnumerable<string> GetArgs(string argsLine) {
+			var prevValue = string.Empty;
+			foreach (var arg in argsLine.Split(',', StringSplitOptions.RemoveEmptyEntries)) {
+				if (prevValue == string.Empty) {
+					// Check if it's a generic, eg. `PyRef<'_, Instruction>` in which case
+					// arg == `PyRef<'_` and next value is ` Instruction>`
+					if (arg.Contains('<', StringComparison.Ordinal) && !arg.EndsWith('>'))
+						prevValue = arg;
+					else
+						yield return arg;
+				}
+				else {
+					prevValue = prevValue + "," + arg;
+					if (arg.EndsWith('>')) {
+						yield return prevValue;
+						prevValue = string.Empty;
+					}
+				}
+			}
+			if (prevValue != string.Empty)
+				throw new InvalidOperationException($"Invalid arg line: `{argsLine}`, prevValue = `{prevValue}`");
+		}
+
 		string ParseMethodArgsAndRetType(string fullLine, string line, bool isInstanceMethod, bool isSpecial, out List<PyMethodArg> args, out string rustReturnType) {
 			args = new List<PyMethodArg>();
 
@@ -280,7 +303,7 @@ namespace Generator.Misc.Python {
 					argsLine = line;
 					line = string.Empty;
 				}
-				foreach (var tmp in argsLine.Split(',', StringSplitOptions.RemoveEmptyEntries)) {
+				foreach (var tmp in GetArgs(argsLine)) {
 					var argInfo = tmp.Trim();
 					if (argInfo == string.Empty)
 						continue;
@@ -291,9 +314,6 @@ namespace Generator.Misc.Python {
 					switch (argInfo) {
 					case "&mut self":
 					case "&self":
-						if (args.Count != 0)
-							throw GetException("`self` must be the first arg");
-						foundThis = true;
 						arg = new PyMethodArg(selfArgName, argInfo, isSelf: true);
 						break;
 					default:
@@ -313,18 +333,18 @@ namespace Generator.Misc.Python {
 							name = name[1..];
 						}
 						bool isSelf = false;
-						if (rustType == "PyRef<Self>" || rustType == "PyRefMut<Self>") {
-							if (args.Count != 0)
-								throw GetException("`self` must be the first arg");
-							foundThis = true;
+						if (rustType == "PyRef<'_, Self>" || rustType == "PyRefMut<'_, Self>") {
 							name = selfArgName;
 							isSelf = true;
 						}
 						if (name.Contains(' ', StringComparison.Ordinal))
-							throw GetException("Name has a space");
+							throw GetException($"Name has a space: `{name}`");
 						arg = new PyMethodArg(name, rustType, isSelf);
 						break;
 					}
+					if (arg.IsSelf && args.Count != 0)
+						throw GetException("`self` must be the first arg");
+					foundThis |= arg.IsSelf;
 					args.Add(arg);
 				}
 
