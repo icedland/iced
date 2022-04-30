@@ -1,0 +1,45 @@
+[package]
+name = "iced-x86-lua"
+version = "1.17.0"
+edition = "2018"
+publish = false
+
+[lib]
+name = "iced_x86_priv"
+crate-type = ["cdylib"]
+
+[features]
+default = []
+lua51 = ["mlua/lua51", "mlua/vendored"]
+lua52 = ["mlua/lua52", "mlua/vendored"]
+lua53 = ["mlua/lua53", "mlua/vendored"]
+lua54 = ["mlua/lua54", "mlua/vendored"]
+luajit = ["mlua/luajit", "mlua/vendored"]
+luajit52 = ["mlua/luajit52", "mlua/vendored"]
+luau = ["mlua/luau"]
+
+[dependencies.mlua]
+version = "0.8.0-beta.4"
+default-features = false
+features = ["module", "send"]
+
+[dependencies.iced-x86]
+# The version must match the one we expect, it should not be the latest version on crates.io
+version = "=1.17.0"
+default-features = false
+features = ["std", "exhaustive_enums", "decoder", "mvex"]
+# To use ../iced-x86 source code, add this to your $HOME/.cargo/config.toml
+#	paths = ["/abs/path/to/iced/src/rust/iced-x86"]
+# or uncomment this line:
+#path = "/abs/path/to/iced/src/rust/iced-x86"
+# Don't remove/modify the next line. Build scripts replace it with the real path
+#pathci
+
+[workspace]
+# We can only override [profile.release] if this is the root workspace.
+# So make sure this is the root workspace.
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3

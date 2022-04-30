@@ -1,10 +1,11 @@
 [workspace]
 
 exclude = [
-    # Exclude it so it can override the [profile.release] section
-    "iced-x86-js",
-    "iced-x86-py",
+    # Exclude them so they can override the [profile.release] section
     "iced-x86-fzgt",
+    "iced-x86-js",
+    "iced-x86-lua",
+    "iced-x86-py",
 ]
 
 members = [
