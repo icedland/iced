@@ -10,5 +10,6 @@ namespace Generator {
 		// Rust JavaScript bindings code
 		RustJS,
 		Python,
+		Lua,
 	}
 }

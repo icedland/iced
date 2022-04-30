@@ -164,4 +164,20 @@ namespace Generator {
 		public override string Namespace(string name) => ToSnakeCase(name);
 		public override string Argument(string name) => ToSnakeCase(name);
 	}
+
+	sealed class LuaIdentifierConverter : IdentifierConverter {
+		public static IdentifierConverter Create() => new LuaIdentifierConverter();
+		LuaIdentifierConverter() { }
+		protected override string EnumSeparator => ".";
+		public override string Type(string name) => name;
+		public override string Field(string name) => ToSnakeCase(name);
+		public override string EnumField(string name) => name;
+		public override string PropertyDoc(string name) => ToSnakeCase(name);
+		public override string MethodDoc(string name) => ToSnakeCase(name) + "()";
+		public override string Method(string name) => ToSnakeCase(name);
+		public override string Constant(string name) => ToScreamingSnakeCase(name);
+		public override string Static(string name) => ToScreamingSnakeCase(name);
+		public override string Namespace(string name) => ToSnakeCase(name);
+		public override string Argument(string name) => ToSnakeCase(name);
+	}
 }

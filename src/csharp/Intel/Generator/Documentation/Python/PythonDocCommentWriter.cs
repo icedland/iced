@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Generator.Enums;
+using Generator.Enums.Python;
 using Generator.IO;
 
 namespace Generator.Documentation.Python {
