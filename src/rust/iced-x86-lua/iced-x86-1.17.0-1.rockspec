@@ -10,6 +10,12 @@ source = {
 }
 description = {
 	summary = "x86/x64 disassembler, assembler and instruction decoder",
+	detailed = [[
+		x86/x64 disassembler, assembler and instruction decoder
+
+		This Lua rock uses a library written in Rust so Rust must be installed
+		to compile it: https://www.rust-lang.org/tools/install
+	]],
 	license = "MIT",
 	homepage = "https://github.com/icedland/iced",
 }
