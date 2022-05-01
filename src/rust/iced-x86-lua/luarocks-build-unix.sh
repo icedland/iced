@@ -4,7 +4,7 @@ set -e
 # This file should only be called by luarocks, see the *.rockspec file
 
 check_requirements() {
-	if ! which cargo; then
+	if ! which cargo > /dev/null; then
 		echo ""
 		echo "***************************************************"
 		echo "    Rust is required to build this library!"
@@ -16,7 +16,7 @@ check_requirements() {
 }
 
 build() {
-	lua_ver=$($1 -v 2>&1)
+	lua_ver=$("$1" -v 2>&1)
 	if echo "$lua_ver" | grep 'Lua 5\.1\.' > /dev/null; then
 		lua_feat=lua51
 	elif echo "$lua_ver" | grep 'Lua 5\.2\.' > /dev/null; then
@@ -55,13 +55,15 @@ if [ "$1" = "build" ]; then
 		echo "Too many/few args: $@"
 		exit 1
 	fi
-	build "$2"
+	shift
+	build "$@"
 elif [ "$1" = "install" ]; then
 	if [ "$#" -ne 6 ]; then
 		echo "Too many/few args: $@"
 		exit 1
 	fi
-	install "$2" "$3" "$4" "$5" "$6"
+	shift
+	install "$@"
 else
 	echo "Invalid args: $@"
 	exit 1
