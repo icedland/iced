@@ -76,18 +76,21 @@ end
 ---The current `IP`/`EIP`/`RIP` value, see also `Decoder:position()`
 ---@return integer
 function Decoder:ip()
+	---@diagnostic disable-next-line: undefined-field
 	return iced_dec.decoder_ip(self._dec)
 end
 
 ---The current `IP`/`EIP`/`RIP` value, see also `Decoder:position()`
 ---@param value integer #New value
 function Decoder:set_ip(value)
+	---@diagnostic disable-next-line: undefined-field
 	iced_dec.decoder_set_ip(self._dec, value)
 end
 
 ---Gets the bitness (16, 32 or 64)
 ---@return integer
 function Decoder:bitness()
+	---@diagnostic disable-next-line: undefined-field
 	return iced_dec.decoder_bitness(self._dec)
 end
 
@@ -96,6 +99,7 @@ end
 ---This is the size of the data that gets decoded to instructions and it's the length of the data that was passed to the constructor.
 ---@return integer
 function Decoder:max_position()
+	---@diagnostic disable-next-line: undefined-field
 	return iced_dec.decoder_max_position(self._dec)
 end
 
@@ -134,12 +138,14 @@ end
 ---assert(decoder.position() == 3)
 ---```
 function Decoder:position()
+	---@diagnostic disable-next-line: undefined-field
 	return iced_dec.decoder_position(self._dec)
 end
 
 ---The current data position, which is the index into the data passed to the constructor.
 ---@param value integer #New position
 function Decoder:set_position(value)
+	---@diagnostic disable-next-line: undefined-field
 	iced_dec.decoder_set_position(self._dec, value)
 end
 
@@ -180,6 +186,7 @@ end
 ---assert(not decoder.can_decode())
 ---```
 function Decoder:can_decode()
+	---@diagnostic disable-next-line: undefined-field
 	return iced_dec.decoder_can_decode(self._dec)
 end
 
@@ -188,6 +195,7 @@ end
 ---Unless you need to know the reason it failed, it's better to check `Instruction:is_invalid()`.
 ---@return integer #`DecoderError` enum value
 function Decoder:last_error()
+	---@diagnostic disable-next-line: undefined-field
 	return iced_dec.decoder_last_error(self._dec)
 end
 
@@ -234,6 +242,7 @@ end
 ---assert(instr.has_xrelease_prefix())
 ---```
 function Decoder:decode()
+	---@diagnostic disable-next-line: undefined-field
 	local instr = iced_dec.decoder_decode(self._dec)
 	return Instruction:_from_raw(instr)
 end
@@ -283,6 +292,7 @@ end
 ---assert(instr.has_xrelease_prefix())
 ---```
 function Decoder:decode_out(instr)
+	---@diagnostic disable-next-line: undefined-field
 	iced_dec.decoder_decode_out(self._dec, instr._instr)
 end
 
