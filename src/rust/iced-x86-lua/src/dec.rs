@@ -38,26 +38,26 @@ impl LuaUserData for Decoder {}
 #[mlua::lua_module]
 fn iced_x86_priv_dec(lua: &Lua) -> LuaResult<LuaTable<'_>> {
 	let exports = lua.create_table()?;
-	lua_ctor!(lua, exports, Decoder = fn decoder_new(bitness: u32, data: LuaString<'_>, options: u32, ip: u64,) {
+	lua_ctor!(lua, exports = fn decoder_new(bitness: u32, data: LuaString<'_>, options: u32, ip: u64,) {
 		Ok(Decoder::new(bitness, data, options, ip))
 	});
-	lua_getter!(lua, exports, Decoder = fn decoder_ip(this) { Ok(this.decoder.ip()) });
-	lua_setter!(lua, exports, Decoder = fn decoder_set_ip(this, value: u64) {
+	lua_getter!(lua, exports = fn decoder_ip(this: Decoder) { Ok(this.decoder.ip()) });
+	lua_setter!(lua, exports = fn decoder_set_ip(this: Decoder, value: u64) {
 		this.decoder.set_ip(value);
 		Ok(())
 	});
-	lua_getter!(lua, exports, Decoder = fn decoder_bitness(this) { Ok(this.decoder.bitness()) });
-	lua_getter!(lua, exports, Decoder = fn decoder_max_position(this) { Ok(this.decoder.max_position()) });
-	lua_getter!(lua, exports, Decoder = fn decoder_position(this) { Ok(this.decoder.position()) });
-	lua_setter!(lua, exports, Decoder = fn decoder_set_position(this, value: usize) {
+	lua_getter!(lua, exports = fn decoder_bitness(this: Decoder) { Ok(this.decoder.bitness()) });
+	lua_getter!(lua, exports = fn decoder_max_position(this: Decoder) { Ok(this.decoder.max_position()) });
+	lua_getter!(lua, exports = fn decoder_position(this: Decoder) { Ok(this.decoder.position()) });
+	lua_setter!(lua, exports = fn decoder_set_position(this: Decoder, value: usize) {
 		this.decoder.set_position(value).map_err(to_mlua_error)
 	});
-	lua_getter!(lua, exports, Decoder = fn decoder_can_decode(this) { Ok(this.decoder.can_decode()) });
-	lua_getter!(lua, exports, Decoder = fn decoder_last_error(this) { Ok(this.decoder.last_error() as u32) });
-	lua_method_mut!(lua, exports, Decoder = fn decoder_decode(this,) {
+	lua_getter!(lua, exports = fn decoder_can_decode(this: Decoder) { Ok(this.decoder.can_decode()) });
+	lua_getter!(lua, exports = fn decoder_last_error(this: Decoder) { Ok(this.decoder.last_error() as u32) });
+	lua_method_mut!(lua, exports = fn decoder_decode(this: Decoder,) {
 		Ok(this.decode())
 	});
-	lua_method_mut!(lua, exports, Decoder = fn decoder_decode_out(this, instr: LuaAnyUserData<'_>,) {
+	lua_method_mut!(lua, exports = fn decoder_decode_out(this: Decoder, instr: LuaAnyUserData<'_>,) {
 		let instr = &mut *instr.borrow_mut::<Instruction>()?;
 		this.decode_out(instr);
 		Ok(())

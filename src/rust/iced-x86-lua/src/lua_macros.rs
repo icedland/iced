@@ -6,7 +6,7 @@
 // (mlua 0.8.0-beta.4)
 
 macro_rules! lua_ctor {
-	($lua:ident, $exports:ident, $ud_ty:ty = fn $name:ident($($arg:ident : $arg_ty:ty,)*) $code:block) => {
+	($lua:ident, $exports:ident = fn $name:ident($($arg:ident : $arg_ty:ty,)*) $code:block) => {
 		$exports.raw_set(
 			stringify!($name),
 			$lua.create_function(|_, ($($arg,)*): ($($arg_ty,)*)| {
@@ -17,11 +17,11 @@ macro_rules! lua_ctor {
 }
 
 macro_rules! lua_method {
-	($lua:ident, $exports:ident, $ud_ty:ty = fn $name:ident($this:ident, $($arg:ident : $arg_ty:ty,)*) $code:block) => {
+	($lua:ident, $exports:ident = fn $name:ident($this:ident : $this_ty:ty, $($arg:ident : $arg_ty:ty,)*) $code:block) => {
 		$exports.raw_set(
 			stringify!($name),
 			$lua.create_function(|_, ($this, $($arg,)*): (LuaAnyUserData<'_>, $($arg_ty,)*)| {
-				let $this = &*$this.borrow::<$ud_ty>()?;
+				let $this = &*$this.borrow::<$this_ty>()?;
 				$code
 			})?,
 		)?;
@@ -29,11 +29,11 @@ macro_rules! lua_method {
 }
 
 macro_rules! lua_method_mut {
-	($lua:ident, $exports:ident, $ud_ty:ty = fn $name:ident($this:ident, $($arg:ident : $arg_ty:ty,)*) $code:block) => {
+	($lua:ident, $exports:ident = fn $name:ident($this:ident : $this_ty:ty, $($arg:ident : $arg_ty:ty,)*) $code:block) => {
 		$exports.raw_set(
 			stringify!($name),
 			$lua.create_function(|_, ($this, $($arg,)*): (LuaAnyUserData<'_>, $($arg_ty,)*)| {
-				let $this = &mut *$this.borrow_mut::<$ud_ty>()?;
+				let $this = &mut *$this.borrow_mut::<$this_ty>()?;
 				$code
 			})?,
 		)?;
@@ -41,13 +41,13 @@ macro_rules! lua_method_mut {
 }
 
 macro_rules! lua_getter {
-	($lua:ident, $exports:ident, $ud_ty:ty = fn $name:ident($this:ident) $code:block) => {
-		lua_method!($lua, $exports, $ud_ty = fn $name($this,) $code)
+	($lua:ident, $exports:ident = fn $name:ident($this:ident : $this_ty:ty) $code:block) => {
+		lua_method!($lua, $exports = fn $name($this: $this_ty,) $code)
 	};
 }
 
 macro_rules! lua_setter {
-	($lua:ident, $exports:ident, $ud_ty:ty = fn $name:ident($this:ident, $arg:ident : $arg_ty:ty) $code:block) => {
-		lua_method_mut!($lua, $exports, $ud_ty = fn $name($this, $arg: $arg_ty,) $code)
+	($lua:ident, $exports:ident = fn $name:ident($this:ident : $this_ty:ty, $arg:ident : $arg_ty:ty) $code:block) => {
+		lua_method_mut!($lua, $exports = fn $name($this: $this_ty, $arg: $arg_ty,) $code)
 	};
 }

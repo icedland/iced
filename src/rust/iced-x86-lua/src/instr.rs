@@ -18,7 +18,7 @@ impl LuaUserData for Instruction {}
 #[mlua::lua_module]
 fn iced_x86_priv_instr(lua: &Lua) -> LuaResult<LuaTable<'_>> {
 	let exports = lua.create_table()?;
-	lua_ctor!(lua, exports, Instruction = fn instruction_new() {
+	lua_ctor!(lua, exports = fn instruction_new() {
 		Ok(Instruction::new())
 	});
 	Ok(exports)
