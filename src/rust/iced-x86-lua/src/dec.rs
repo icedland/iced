@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::errconv::to_mlua_error;
 use crate::instr::Instruction;
 use mlua::prelude::*;
 use std::slice;
@@ -18,7 +17,7 @@ impl Decoder {
 		let data = lua_data.as_bytes().to_vec();
 		let decoder_data: &'static [u8] = unsafe { slice::from_raw_parts(data.as_ptr(), data.len()) };
 
-		let decoder = iced_x86::Decoder::try_with_ip(bitness, decoder_data, ip, options).map_err(to_mlua_error)?;
+		let decoder = iced_x86::Decoder::try_with_ip(bitness, decoder_data, ip, options).map_err(mlua::Error::external)?;
 		Ok(Decoder { data, decoder })
 	}
 
@@ -50,7 +49,7 @@ fn iced_x86_priv_dec(lua: &Lua) -> LuaResult<LuaTable<'_>> {
 	lua_getter!(lua, exports = fn decoder_max_position(this: Decoder) { Ok(this.decoder.max_position()) });
 	lua_getter!(lua, exports = fn decoder_position(this: Decoder) { Ok(this.decoder.position()) });
 	lua_setter!(lua, exports = fn decoder_set_position(this: Decoder, value: usize) {
-		this.decoder.set_position(value).map_err(to_mlua_error)
+		this.decoder.set_position(value).map_err(mlua::Error::external)
 	});
 	lua_getter!(lua, exports = fn decoder_can_decode(this: Decoder) { Ok(this.decoder.can_decode()) });
 	lua_getter!(lua, exports = fn decoder_last_error(this: Decoder) { Ok(this.decoder.last_error() as u32) });

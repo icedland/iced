@@ -70,5 +70,4 @@
 #[macro_use]
 mod lua_macros;
 mod dec;
-mod errconv;
 mod instr;
