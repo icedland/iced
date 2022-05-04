@@ -1,0 +1,19 @@
+[package]
+# luna was taken, so I renamed it even though it's close to 0% probability
+# that this crate gets uploaded to crates.io.
+name = "loona"
+version = "0.1.0"
+edition = "2018"
+publish = false
+
+[features]
+default = []
+lua51 = []
+lua52 = []
+lua53 = []
+lua54 = []
+
+[dependencies]
+libc = "0.2"
+
+[workspace]
