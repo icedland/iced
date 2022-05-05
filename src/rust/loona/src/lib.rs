@@ -51,6 +51,7 @@
 #![warn(clippy::match_on_vec_items)]
 #![warn(clippy::match_wild_err_arm)]
 #![warn(clippy::missing_errors_doc)]
+#![warn(clippy::missing_inline_in_public_items)]
 #![warn(clippy::needless_borrow)]
 #![warn(clippy::print_stderr)]
 #![warn(clippy::print_stdout)]
@@ -68,4 +69,6 @@
 #![warn(clippy::useless_transmute)]
 #![warn(clippy::zero_sized_map_values)]
 
+pub mod macros;
+pub mod lua;
 pub mod lua_api;

@@ -1,0 +1,962 @@
+// SPDX-License-Identifier: MIT
+// Copyright (C) 2018-present iced project and contributors
+
+#![allow(clippy::missing_safety_doc)]
+#![allow(clippy::missing_errors_doc)]
+
+use crate::lua_api::*;
+use libc::{c_char, c_int, c_void, size_t};
+use static_assertions::const_assert;
+use std::marker::PhantomData;
+use std::{mem, ptr, slice};
+
+// We have some assumptions so verify them
+type LuaSignedIntegerType = isize;
+type LuaUnsignedIntegerType = usize;
+const_assert!(mem::size_of::<LuaSignedIntegerType>() == mem::size_of::<LuaUnsignedIntegerType>());
+const_assert!(mem::size_of::<lua_Integer>() == mem::size_of::<LuaSignedIntegerType>());
+#[allow(trivial_numeric_casts, clippy::unnecessary_cast)]
+const _: LuaSignedIntegerType = 1 as lua_Integer;
+
+pub unsafe trait LuaUserData {
+	/// This must be a unique ID. No other `LuaUserData` must have the same value. This should also
+	/// be a 'random' number, i.e., not common numbers such as 0, 1, etc.
+	const UNIQUE_ID: u32;
+	/// This must be a unique metatable key passed to `luaL_newmetatable()` and `luaL_getmetatable()`
+	const METATABLE_KEY: LuaCStr<'static>;
+}
+
+#[allow(missing_debug_implementations)]
+#[allow(missing_copy_implementations)]
+pub struct LuaCStr<'a>(pub &'a [u8]);
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ConvErr {
+	/// Doesn't fit in target type (eg. an i32)
+	OutOfRange,
+	/// It's not a number (or number as a string), eg. it's a table or something
+	NotANumber,
+}
+
+macro_rules! gen_get_signed_int {
+	($try_get_i:ident, $get_i:ident, $get_i_default:ident, $ty_i:ty, $ty_u:ty) => {
+		#[inline]
+		pub unsafe fn $try_get_i(&self, idx: c_int) -> Result<$ty_i, ConvErr> {
+			unsafe {
+				match self.try_get_i64(idx) {
+					Ok(value) => {
+						// We accept all valid signed and unsigned values
+						if <$ty_i>::MIN as i64 <= value && value <= <$ty_u>::MAX as i64 {
+							Ok(value as $ty_i)
+						} else {
+							Err(ConvErr::OutOfRange)
+						}
+					}
+					Err(e) => Err(e),
+				}
+			}
+		}
+
+		#[inline]
+		pub unsafe fn $get_i(&self, idx: c_int) -> $ty_i {
+			unsafe {
+				match self.$try_get_i(idx) {
+					Ok(value) => value,
+					Err(e) => {
+						let msg = match e {
+							ConvErr::OutOfRange => "Integer is too big/small",
+							ConvErr::NotANumber => "Expected an integer",
+						};
+						self.push_literal(msg);
+						self.error();
+					}
+				}
+			}
+		}
+
+		#[inline]
+		pub unsafe fn $get_i_default(&self, idx: c_int, default: $ty_i) -> $ty_i {
+			unsafe {
+				if self.is_none_or_nil(idx) {
+					default
+				} else {
+					match self.$try_get_i(idx) {
+						Ok(value) => value,
+						Err(e) => {
+							let msg = match e {
+								ConvErr::OutOfRange => "Integer is too big/small",
+								ConvErr::NotANumber => "Expected an optional integer",
+							};
+							self.push_literal(msg);
+							self.error();
+						}
+					}
+				}
+			}
+		}
+	};
+}
+
+macro_rules! gen_get_unsigned_int {
+	($try_get_u:ident, $get_u:ident, $get_u_default:ident, $ty_i:ty, $ty_u:ty) => {
+		#[inline]
+		pub unsafe fn $try_get_u(&self, idx: c_int) -> Result<$ty_u, ConvErr> {
+			unsafe {
+				match self.try_get_i64(idx) {
+					Ok(value) => {
+						// We accept all valid signed and unsigned values
+						if <$ty_i>::MIN as i64 <= value && value <= <$ty_u>::MAX as i64 {
+							Ok(value as $ty_u)
+						} else {
+							Err(ConvErr::OutOfRange)
+						}
+					}
+					Err(e) => Err(e),
+				}
+			}
+		}
+
+		#[inline]
+		pub unsafe fn $get_u(&self, idx: c_int) -> $ty_u {
+			unsafe {
+				match self.$try_get_u(idx) {
+					Ok(value) => value,
+					Err(e) => {
+						let msg = match e {
+							ConvErr::OutOfRange => "Integer is too big/small",
+							ConvErr::NotANumber => "Expected an integer",
+						};
+						self.push_literal(msg);
+						self.error();
+					}
+				}
+			}
+		}
+
+		#[inline]
+		pub unsafe fn $get_u_default(&self, idx: c_int, default: $ty_u) -> $ty_u {
+			unsafe {
+				if self.is_none_or_nil(idx) {
+					default
+				} else {
+					match self.$try_get_u(idx) {
+						Ok(value) => value,
+						Err(e) => {
+							let msg = match e {
+								ConvErr::OutOfRange => "Integer is too big/small",
+								ConvErr::NotANumber => "Expected an optional integer",
+							};
+							self.push_literal(msg);
+							self.error();
+						}
+					}
+				}
+			}
+		}
+	};
+}
+
+/// Wraps a `lua_State`. Any references returned by it have the same lifetime as the `L: lua_State`
+#[allow(missing_debug_implementations)]
+#[allow(missing_copy_implementations)]
+#[repr(transparent)]
+pub struct Lua<'lua> {
+	state: lua_State,
+	_phantom: PhantomData<&'lua lua_State>,
+}
+
+#[repr(C)]
+struct WrappedUserData<T: LuaUserData> {
+	// This field must be the first field, see get_user_data()
+	id: u32,
+	ud: T,
+}
+
+impl<'lua> Lua<'lua> {
+	/// Creates a new instance
+	#[inline]
+	pub unsafe fn new(state: &'lua lua_State) -> Self {
+		debug_assert!(!state.is_null());
+		Self { state: *state, _phantom: PhantomData }
+	}
+
+	#[inline]
+	pub unsafe fn push_user_data<T: LuaUserData>(&self, ud: T) -> &'lua mut T {
+		unsafe {
+			// Make sure it's not a common number, it should be 'random'
+			debug_assert!(T::UNIQUE_ID > 0x1_0000);
+			let ptr_ud = self.new_user_data(mem::size_of::<WrappedUserData<T>>()).cast::<WrappedUserData<T>>();
+			ptr::write(ptr_ud, WrappedUserData { id: T::UNIQUE_ID, ud });
+			&mut (*ptr_ud).ud
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_user_data<T: LuaUserData>(&self, idx: c_int) -> &'lua mut T {
+		unsafe {
+			// lua_touserdata() returns a valid pointer if it's a userdata or a lightuserdata.
+			// lua_objlen()/lua_rawlen() return 0 if it's a lightuserdata and the size of the
+			// userdata if it's a userdata.
+			// The userdata is a WrappedUserData<T> and its size is never 0 since it has an `id`
+			// field of type `u32`.
+			// This means we don't have to check if the type is userdata, saving one call and
+			// speeding up this code a little bit.
+			let ptr = self.to_user_data(idx);
+			if !ptr.is_null() && self.raw_len(idx) == mem::size_of::<WrappedUserData<T>>() {
+				// Make sure it's our userdata. We can only check this after we've verified
+				// the size (see above).
+				// We assume that the `id` field is at offset 0.
+				if *ptr.cast::<u32>() == T::UNIQUE_ID {
+					// Now that we know it's our data, we can create a ref to it
+					let wrapped = &mut *ptr.cast::<WrappedUserData<T>>();
+					return &mut wrapped.ud;
+				}
+			}
+			self.push_literal("Expected a userdata");
+			self.error();
+		}
+	}
+
+	unsafe fn from_c_str(p: *const c_char) -> Option<&'lua [u8]> {
+		if !p.is_null() {
+			unsafe {
+				let len = Self::c_str_len_not_null(p);
+				Some(slice::from_raw_parts(p.cast::<u8>(), len))
+			}
+		} else {
+			None
+		}
+	}
+
+	unsafe fn c_str_len_not_null(mut s: *const c_char) -> usize {
+		let mut len = 0;
+		loop {
+			let c = unsafe { ptr::read(s) };
+			if c == 0 {
+				break;
+			}
+			len += 1;
+			s = unsafe { s.add(1) };
+		}
+		len
+	}
+
+	#[inline]
+	pub unsafe fn try_get_i64(&self, idx: c_int) -> Result<i64, ConvErr> {
+		unsafe {
+			let value = self.to_integer(idx);
+			if value != 0 || self.is_number(idx) {
+				let value: LuaSignedIntegerType = value;
+				// into() doesn't work, so make sure `as i64` won't truncate.
+				// try_into() would also work but I want a compilation error.
+				const_assert!(mem::size_of::<LuaSignedIntegerType>() <= mem::size_of::<i64>());
+				Ok(value as i64)
+			} else {
+				Err(ConvErr::NotANumber)
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn try_get_u64(&self, idx: c_int) -> Result<u64, ConvErr> {
+		unsafe {
+			let value = self.to_integer(idx);
+			if value != 0 || self.is_number(idx) {
+				let value: LuaSignedIntegerType = value;
+				let value: LuaUnsignedIntegerType = value as LuaUnsignedIntegerType;
+				// into() doesn't work, so make sure `as u64` won't truncate.
+				// try_into() would also work but I want a compilation error.
+				const_assert!(mem::size_of::<LuaUnsignedIntegerType>() <= mem::size_of::<u64>());
+				Ok(value as u64)
+			} else {
+				Err(ConvErr::NotANumber)
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn try_get_f64(&self, idx: c_int) -> Result<f64, ConvErr> {
+		unsafe {
+			let value = self.to_number(idx);
+			if value != 0.0 || self.is_number(idx) {
+				#[allow(dead_code)]
+				type ExpectedType = f64;
+				const_assert!(mem::size_of::<ExpectedType>() <= mem::size_of::<f64>());
+				#[allow(clippy::useless_conversion)]
+				Ok(value.into())
+			} else {
+				Err(ConvErr::NotANumber)
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_i64(&self, idx: c_int) -> i64 {
+		unsafe {
+			match self.try_get_i64(idx) {
+				Ok(value) => value,
+				Err(e) => {
+					let msg = match e {
+						ConvErr::OutOfRange => "Integer is too big/small",
+						ConvErr::NotANumber => "Expected an integer",
+					};
+					self.push_literal(msg);
+					self.error();
+				}
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_i64_default(&self, idx: c_int, default: i64) -> i64 {
+		unsafe {
+			if self.is_none_or_nil(idx) {
+				default
+			} else {
+				match self.try_get_i64(idx) {
+					Ok(value) => value,
+					Err(e) => {
+						let msg = match e {
+							ConvErr::OutOfRange => "Integer is too big/small",
+							ConvErr::NotANumber => "Expected an optional integer",
+						};
+						self.push_literal(msg);
+						self.error();
+					}
+				}
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_u64(&self, idx: c_int) -> u64 {
+		unsafe {
+			match self.try_get_u64(idx) {
+				Ok(value) => value,
+				Err(e) => {
+					let msg = match e {
+						ConvErr::OutOfRange => "Integer is too big/small",
+						ConvErr::NotANumber => "Expected an integer",
+					};
+					self.push_literal(msg);
+					self.error();
+				}
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_u64_default(&self, idx: c_int, default: u64) -> u64 {
+		unsafe {
+			if self.is_none_or_nil(idx) {
+				default
+			} else {
+				match self.try_get_u64(idx) {
+					Ok(value) => value,
+					Err(e) => {
+						let msg = match e {
+							ConvErr::OutOfRange => "Integer is too big/small",
+							ConvErr::NotANumber => "Expected an optional integer",
+						};
+						self.push_literal(msg);
+						self.error();
+					}
+				}
+			}
+		}
+	}
+
+	gen_get_signed_int! {try_get_i32, get_i32, get_i32_default, i32, u32}
+	gen_get_signed_int! {try_get_i16, get_i16, get_i16_default, i16, u16}
+	gen_get_signed_int! {try_get_i8, get_i8, get_i8_default, i8, u8}
+
+	gen_get_unsigned_int! {try_get_u32, get_u32, get_u32_default, i32, u32}
+	gen_get_unsigned_int! {try_get_u16, get_u16, get_u16_default, i16, u16}
+	gen_get_unsigned_int! {try_get_u8, get_u8, get_u8_default, i8, u8}
+
+	#[inline]
+	pub unsafe fn get_f64(&self, idx: c_int) -> f64 {
+		unsafe {
+			match self.try_get_f64(idx) {
+				Ok(value) => value,
+				Err(_) => {
+					self.push_literal("Expected a number");
+					self.error();
+				}
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_f64_default(&self, idx: c_int, default: f64) -> f64 {
+		unsafe {
+			if self.is_none_or_nil(idx) {
+				default
+			} else {
+				match self.try_get_f64(idx) {
+					Ok(value) => value,
+					Err(_) => {
+						self.push_literal("Expected an optional number");
+						self.error();
+					}
+				}
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_f32(&self, idx: c_int) -> f32 {
+		unsafe { self.get_f64(idx) as f32 }
+	}
+
+	#[inline]
+	pub unsafe fn get_f32_default(&self, idx: c_int, default: f32) -> f32 {
+		unsafe { self.get_f64_default(idx, default as f64) as f32 }
+	}
+
+	#[inline]
+	pub unsafe fn try_get_bool(&self, idx: c_int) -> Option<bool> {
+		unsafe {
+			// We only allow booleans. self.to_boolean() can be called if you want to convert any
+			// value to a boolean.
+			if self.type_(idx) == LUA_TBOOLEAN {
+				Some(self.to_boolean(idx))
+			} else {
+				None
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_bool(&self, idx: c_int) -> bool {
+		unsafe {
+			if let Some(value) = self.try_get_bool(idx) {
+				value
+			} else {
+				self.push_literal("Expected a boolean");
+				self.error();
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_bool_default(&self, idx: c_int, default: bool) -> bool {
+		unsafe { self.try_get_bool(idx).unwrap_or(default) }
+	}
+
+	#[inline]
+	pub unsafe fn try_get_string(&self, idx: c_int) -> Option<&'lua [u8]> {
+		unsafe { self.to_l_string(idx) }
+	}
+
+	#[inline]
+	pub unsafe fn get_string(&self, idx: c_int) -> &'lua [u8] {
+		unsafe {
+			if let Some(value) = self.try_get_string(idx) {
+				value
+			} else {
+				self.push_literal("Expected a string");
+				self.error();
+			}
+		}
+	}
+}
+
+// Simple wrappers calling the Lua C API
+impl<'lua> Lua<'lua> {
+	#[inline]
+	pub unsafe fn up_value_index(i: c_int) -> c_int {
+		unsafe { lua_upvalueindex(i) }
+	}
+
+	#[inline]
+	pub unsafe fn new_thread(&self) -> lua_State {
+		unsafe { lua_newthread(self.state) }
+	}
+
+	#[inline]
+	pub unsafe fn at_panic(&self, panicf: lua_CFunction) -> lua_CFunction {
+		unsafe { lua_atpanic(self.state, panicf) }
+	}
+
+	#[inline]
+	pub unsafe fn get_top(&self) -> c_int {
+		unsafe { lua_gettop(self.state) }
+	}
+
+	#[inline]
+	pub unsafe fn set_top(&self, idx: c_int) {
+		unsafe {
+			lua_settop(self.state, idx);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_value(&self, idx: c_int) {
+		unsafe {
+			lua_pushvalue(self.state, idx);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn remove(&self, idx: c_int) {
+		unsafe {
+			lua_remove(self.state, idx);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn insert(&self, idx: c_int) {
+		unsafe {
+			lua_insert(self.state, idx);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn replace(&self, idx: c_int) {
+		unsafe {
+			lua_replace(self.state, idx);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn check_stack(&self, sz: c_int) -> c_int {
+		unsafe { lua_checkstack(self.state, sz) }
+	}
+
+	#[inline]
+	pub unsafe fn is_number(&self, idx: c_int) -> bool {
+		unsafe { lua_isnumber(self.state, idx) != 0 }
+	}
+
+	#[inline]
+	pub unsafe fn is_string(&self, idx: c_int) -> bool {
+		unsafe { lua_isstring(self.state, idx) != 0 }
+	}
+
+	#[inline]
+	pub unsafe fn is_c_function(&self, idx: c_int) -> bool {
+		unsafe { lua_iscfunction(self.state, idx) != 0 }
+	}
+
+	#[inline]
+	pub unsafe fn is_user_data(&self, idx: c_int) -> bool {
+		unsafe { lua_isuserdata(self.state, idx) != 0 }
+	}
+
+	#[inline]
+	pub unsafe fn type_(&self, idx: c_int) -> c_int {
+		unsafe { lua_type(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn type_name(&self, tp: c_int) -> &'lua [u8] {
+		unsafe { Self::from_c_str(lua_typename(self.state, tp)).unwrap_or_default() }
+	}
+
+	#[inline]
+	pub unsafe fn equal(&self, idx1: c_int, idx2: c_int) -> c_int {
+		unsafe { lua_equal(self.state, idx1, idx2) }
+	}
+
+	#[inline]
+	pub unsafe fn raw_equal(&self, idx1: c_int, idx2: c_int) -> c_int {
+		unsafe { lua_rawequal(self.state, idx1, idx2) }
+	}
+
+	#[inline]
+	pub unsafe fn less_than(&self, idx1: c_int, idx2: c_int) -> c_int {
+		unsafe { lua_lessthan(self.state, idx1, idx2) }
+	}
+
+	#[inline]
+	pub unsafe fn to_number(&self, idx: c_int) -> lua_Number {
+		unsafe { lua_tonumber(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn to_integer(&self, idx: c_int) -> lua_Integer {
+		unsafe { lua_tointeger(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn to_boolean(&self, idx: c_int) -> bool {
+		unsafe { lua_toboolean(self.state, idx) != 0 }
+	}
+
+	#[inline]
+	pub unsafe fn to_l_string(&self, idx: c_int) -> Option<&'lua [u8]> {
+		unsafe {
+			let mut len = 0;
+			let data = lua_tolstring(self.state, idx, &mut len);
+			if !data.is_null() {
+				Some(slice::from_raw_parts(data.cast(), len))
+			} else {
+				None
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn raw_len(&self, idx: c_int) -> size_t {
+		unsafe { lua_objlen(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn to_c_function(&self, idx: c_int) -> lua_CFunction {
+		unsafe { lua_tocfunction(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn to_user_data(&self, idx: c_int) -> *mut c_void {
+		unsafe { lua_touserdata(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn to_thread(&self, idx: c_int) -> lua_State {
+		unsafe { lua_tothread(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn to_pointer(&self, idx: c_int) -> *const c_void {
+		unsafe { lua_topointer(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn push_nil(&self) {
+		unsafe {
+			lua_pushnil(self.state);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_number(&self, n: lua_Number) {
+		unsafe {
+			lua_pushnumber(self.state, n);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_integer(&self, n: lua_Integer) {
+		unsafe {
+			lua_pushinteger(self.state, n);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_bytes(&self, s: &'_ [u8]) {
+		unsafe {
+			lua_pushlstring(self.state, s.as_ptr().cast(), s.len());
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_string(&self, s: &'_ str) {
+		unsafe {
+			lua_pushlstring(self.state, s.as_ptr().cast(), s.len());
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_c_closure(&self, f: lua_CFunction, n: c_int) {
+		unsafe {
+			lua_pushcclosure(self.state, f, n);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_boolean(&self, b: c_int) {
+		unsafe {
+			lua_pushboolean(self.state, b);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_light_user_data(&self, p: *const c_void) {
+		unsafe {
+			lua_pushlightuserdata(self.state, p);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_thread(&self) -> c_int {
+		unsafe { lua_pushthread(self.state) }
+	}
+
+	#[inline]
+	pub unsafe fn get_table(&self, idx: c_int) {
+		unsafe {
+			lua_gettable(self.state, idx);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_field(&self, idx: c_int, k: LuaCStr<'_>) {
+		unsafe {
+			lua_getfield(self.state, idx, k.0.as_ptr().cast());
+		}
+	}
+
+	#[inline]
+	pub unsafe fn raw_get(&self, idx: c_int) {
+		unsafe {
+			lua_rawget(self.state, idx);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn raw_get_i(&self, idx: c_int, n: c_int) {
+		unsafe {
+			lua_rawgeti(self.state, idx, n);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn create_table(&self, narr: c_int, nrec: c_int) {
+		unsafe {
+			lua_createtable(self.state, narr, nrec);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn new_user_data(&self, sz: size_t) -> *mut c_void {
+		unsafe { lua_newuserdata(self.state, sz) }
+	}
+
+	#[inline]
+	pub unsafe fn get_metatable(&self, objindex: c_int) -> c_int {
+		unsafe { lua_getmetatable(self.state, objindex) }
+	}
+
+	#[inline]
+	pub unsafe fn get_f_env(&self, idx: c_int) {
+		unsafe {
+			lua_getfenv(self.state, idx);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn set_table(&self, idx: c_int) {
+		unsafe {
+			lua_settable(self.state, idx);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn set_field(&self, idx: c_int, k: LuaCStr<'_>) {
+		unsafe {
+			lua_setfield(self.state, idx, k.0.as_ptr().cast());
+		}
+	}
+
+	#[inline]
+	pub unsafe fn raw_set(&self, idx: c_int) {
+		unsafe {
+			lua_rawset(self.state, idx);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn raw_set_i(&self, idx: c_int, n: c_int) {
+		unsafe {
+			lua_rawseti(self.state, idx, n);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn set_metatable(&self, objindex: c_int) -> c_int {
+		unsafe { lua_setmetatable(self.state, objindex) }
+	}
+
+	#[inline]
+	pub unsafe fn set_f_env(&self, idx: c_int) -> c_int {
+		unsafe { lua_setfenv(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn call(&self, nargs: c_int, nresults: c_int) {
+		unsafe {
+			lua_call(self.state, nargs, nresults);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn pcall(&self, nargs: c_int, nresults: c_int, errfunc: c_int) -> c_int {
+		unsafe { lua_pcall(self.state, nargs, nresults, errfunc) }
+	}
+
+	#[inline]
+	pub unsafe fn cpcall(&self, func: lua_CFunction, ud: *mut c_void) -> c_int {
+		unsafe { lua_cpcall(self.state, func, ud) }
+	}
+
+	#[inline]
+	pub unsafe fn load(&self, reader: lua_Reader, dt: *mut c_void, chunkname: LuaCStr<'_>) -> c_int {
+		unsafe { lua_load(self.state, reader, dt, chunkname.0.as_ptr().cast()) }
+	}
+
+	#[inline]
+	pub unsafe fn dump(&self, writer: lua_Writer, data: *mut c_void) -> c_int {
+		unsafe { lua_dump(self.state, writer, data) }
+	}
+
+	#[inline]
+	pub unsafe fn yield_(&self, nresults: c_int) -> c_int {
+		unsafe { lua_yield(self.state, nresults) }
+	}
+
+	#[inline]
+	pub unsafe fn resume(&self, narg: c_int) -> c_int {
+		unsafe { lua_resume(self.state, narg) }
+	}
+
+	#[inline]
+	pub unsafe fn status(&self) -> c_int {
+		unsafe { lua_status(self.state) }
+	}
+
+	#[inline]
+	pub unsafe fn gc(&self, what: c_int, data: c_int) -> c_int {
+		unsafe { lua_gc(self.state, what, data) }
+	}
+
+	#[inline]
+	pub unsafe fn error(&self) -> ! {
+		unsafe { lua_error(self.state) }
+	}
+
+	#[inline]
+	pub unsafe fn next(&self, idx: c_int) -> c_int {
+		unsafe { lua_next(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn concat(&self, n: c_int) {
+		unsafe {
+			lua_concat(self.state, n);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn pop(&self, n: c_int) {
+		unsafe {
+			lua_pop(self.state, n);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn new_table(&self) {
+		unsafe {
+			lua_newtable(self.state);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn register(&self, n: LuaCStr<'_>, f: lua_CFunction) {
+		unsafe {
+			lua_register(self.state, n.0.as_ptr().cast(), f);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_c_function(&self, f: lua_CFunction) {
+		unsafe {
+			lua_pushcfunction(self.state, f);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn strlen(&self, i: c_int) -> size_t {
+		unsafe { lua_strlen(self.state, i) }
+	}
+
+	#[inline]
+	pub unsafe fn is_function(&self, n: c_int) -> bool {
+		unsafe { lua_isfunction(self.state, n) }
+	}
+
+	#[inline]
+	pub unsafe fn is_table(&self, n: c_int) -> bool {
+		unsafe { lua_istable(self.state, n) }
+	}
+
+	#[inline]
+	pub unsafe fn is_light_user_data(&self, n: c_int) -> bool {
+		unsafe { lua_islightuserdata(self.state, n) }
+	}
+
+	#[inline]
+	pub unsafe fn is_nil(&self, n: c_int) -> bool {
+		unsafe { lua_isnil(self.state, n) }
+	}
+
+	#[inline]
+	pub unsafe fn is_boolean(&self, n: c_int) -> bool {
+		unsafe { lua_isboolean(self.state, n) }
+	}
+
+	#[inline]
+	pub unsafe fn is_thread(&self, n: c_int) -> bool {
+		unsafe { lua_isthread(self.state, n) }
+	}
+
+	#[inline]
+	pub unsafe fn is_none(&self, n: c_int) -> bool {
+		unsafe { lua_isnone(self.state, n) }
+	}
+
+	#[inline]
+	pub unsafe fn is_none_or_nil(&self, n: c_int) -> bool {
+		unsafe { lua_isnoneornil(self.state, n) }
+	}
+
+	#[inline]
+	pub unsafe fn push_literal(&self, s: &str) {
+		unsafe {
+			lua_pushliteral(self.state, s);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn set_global(&self, s: LuaCStr<'_>) {
+		unsafe {
+			lua_setglobal(self.state, s.0.as_ptr().cast());
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_global(&self, s: LuaCStr<'_>) {
+		unsafe {
+			lua_getglobal(self.state, s.0.as_ptr().cast());
+		}
+	}
+
+	#[inline]
+	pub unsafe fn to_string(&self, i: c_int) -> Option<&'lua [u8]> {
+		unsafe { Self::from_c_str(lua_tostring(self.state, i)) }
+	}
+
+	#[inline]
+	pub unsafe fn get_registry(&self) {
+		unsafe {
+			lua_getregistry(self.state);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_gc_count(&self) -> c_int {
+		unsafe { lua_getgccount(self.state) }
+	}
+
+	#[inline]
+	pub unsafe fn get_registry_metatable(&self, name: LuaCStr<'_>) {
+		unsafe {
+			luaL_getmetatable(self.state, name.0.as_ptr().cast());
+		}
+	}
+
+	#[inline]
+	pub unsafe fn new_registry_metatable(&self, name: LuaCStr<'_>) -> bool {
+		unsafe { luaL_newmetatable(self.state, name.0.as_ptr().cast()) != 0 }
+	}
+}

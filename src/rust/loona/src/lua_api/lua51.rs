@@ -29,7 +29,8 @@ pub const LUA_ERRSYNTAX: c_int = 3;
 pub const LUA_ERRMEM: c_int = 4;
 pub const LUA_ERRERR: c_int = 5;
 
-pub type lua_State = usize;
+// It's probably not safe for `struct Lua` to impl Send or Sync so this type must not be Send + Sync.
+pub type lua_State = *mut c_void;
 pub type lua_CFunction = unsafe extern "C" fn(L: lua_State) -> c_int;
 pub type lua_Reader = unsafe extern "C" fn(L: lua_State, ud: *mut c_void, sz: *mut size_t) -> *const c_char;
 pub type lua_Writer = unsafe extern "C" fn(L: lua_State, p: *const c_void, sz: size_t, ud: *mut c_void) -> c_int;
@@ -99,7 +100,7 @@ extern "C" {
 	pub fn lua_pushfstring(L: lua_State, fmt: *const c_char, ...) -> *const c_char;
 	pub fn lua_pushcclosure(L: lua_State, f: lua_CFunction, n: c_int);
 	pub fn lua_pushboolean(L: lua_State, b: c_int);
-	pub fn lua_pushlightuserdata(L: lua_State, p: *mut c_void);
+	pub fn lua_pushlightuserdata(L: lua_State, p: *const c_void);
 	pub fn lua_pushthread(L: lua_State) -> c_int;
 
 	pub fn lua_gettable(L: lua_State, idx: c_int);
@@ -301,4 +302,15 @@ pub struct lua_Debug {
 	pub lastlinedefined: c_int,
 	pub short_src: [c_char; LUA_IDSIZE],
 	pub i_ci: c_int,
+}
+
+extern "C" {
+	pub fn luaL_newmetatable(L: lua_State, tname: *const c_char) -> c_int;
+}
+
+#[inline]
+pub unsafe fn luaL_getmetatable(L: lua_State, n: *const c_char) {
+	unsafe {
+		lua_getfield(L, LUA_REGISTRYINDEX, n);
+	}
 }
