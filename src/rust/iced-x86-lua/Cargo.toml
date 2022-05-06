@@ -10,6 +10,13 @@ crate-type = ["cdylib"]
 
 [features]
 default = []
+lua51 = ["loona/lua51"]
+lua52 = ["loona/lua52"]
+lua53 = ["loona/lua53"]
+lua54 = ["loona/lua54"]
+
+[dependencies]
+libc = "0.2"
 
 [dependencies.iced-x86]
 # The version must match the one we expect, it should not be the latest version on crates.io
@@ -22,6 +29,10 @@ features = ["std", "exhaustive_enums", "decoder", "mvex"]
 #path = "/abs/path/to/iced/src/rust/iced-x86"
 # Don't remove/modify the next line. Build scripts replace it with the real path
 #pathci
+
+[dependencies.loona]
+path = "../loona"
+features = []
 
 [workspace]
 # We can only override [profile.release] if this is the root workspace.

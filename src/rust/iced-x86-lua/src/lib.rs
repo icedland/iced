@@ -15,6 +15,7 @@
 #![warn(non_ascii_idents)]
 #![warn(trivial_casts)]
 #![warn(trivial_numeric_casts)]
+#![warn(unsafe_op_in_unsafe_fn)]
 #![warn(unused_extern_crates)]
 #![warn(unused_import_braces)]
 #![warn(unused_lifetimes)]
@@ -66,3 +67,9 @@
 #![warn(clippy::useless_let_if_seq)]
 #![warn(clippy::useless_transmute)]
 #![warn(clippy::zero_sized_map_values)]
+
+#[macro_use]
+mod lua_macros;
+mod dec;
+mod instr;
+mod ud;

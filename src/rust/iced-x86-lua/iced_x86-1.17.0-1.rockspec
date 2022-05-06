@@ -1,8 +1,8 @@
 local modver = "1.17.0"
 local specrev = "-1"
-local libname = "iced_x86_priv"
+local libname = "iced_x86"
 
-package = "iced-x86"
+package = "iced_x86"
 version = modver .. specrev
 source = {
 	url = "git+https://git@github.com/icedland/iced.git",
