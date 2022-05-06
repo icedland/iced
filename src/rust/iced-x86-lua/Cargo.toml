@@ -5,23 +5,11 @@ edition = "2018"
 publish = false
 
 [lib]
-name = "iced_x86_priv"
+name = "iced_x86"
 crate-type = ["cdylib"]
 
 [features]
 default = []
-lua51 = ["mlua/lua51", "mlua/vendored"]
-lua52 = ["mlua/lua52", "mlua/vendored"]
-lua53 = ["mlua/lua53", "mlua/vendored"]
-lua54 = ["mlua/lua54", "mlua/vendored"]
-luajit = ["mlua/luajit", "mlua/vendored"]
-luajit52 = ["mlua/luajit52", "mlua/vendored"]
-luau = ["mlua/luau"]
-
-[dependencies.mlua]
-version = "0.8.0-beta.4"
-default-features = false
-features = ["module", "send"]
 
 [dependencies.iced-x86]
 # The version must match the one we expect, it should not be the latest version on crates.io

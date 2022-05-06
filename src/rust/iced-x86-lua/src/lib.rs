@@ -66,8 +66,3 @@
 #![warn(clippy::useless_let_if_seq)]
 #![warn(clippy::useless_transmute)]
 #![warn(clippy::zero_sized_map_values)]
-
-#[macro_use]
-mod lua_macros;
-mod dec;
-mod instr;
