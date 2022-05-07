@@ -46,7 +46,6 @@
 #![warn(clippy::get_unwrap)]
 #![warn(clippy::implicit_saturating_sub)]
 #![warn(clippy::large_digit_groups)]
-#![warn(clippy::let_unit_value)]
 #![warn(clippy::match_bool)]
 #![warn(clippy::match_on_vec_items)]
 #![warn(clippy::match_wild_err_arm)]
