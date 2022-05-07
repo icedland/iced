@@ -1076,7 +1076,7 @@ impl<'lua> Lua<'lua> {
 	#[cfg(feature = "lua52")]
 	pub unsafe fn callk(&self, nargs: c_int, nresults: c_int, ctx: c_int, k: lua_CFunction) {
 		unsafe {
-			lua_callk(self.state, nargs, nresults, ctx, k);
+			lua_callk(self.state, nargs, nresults, ctx, Some(k));
 		}
 	}
 
@@ -1084,20 +1084,20 @@ impl<'lua> Lua<'lua> {
 	#[cfg(any(feature = "lua53", feature = "lua54"))]
 	pub unsafe fn callk(&self, nargs: c_int, nresults: c_int, ctx: lua_KContext, k: lua_KFunction) {
 		unsafe {
-			lua_callk(self.state, nargs, nresults, ctx, k);
+			lua_callk(self.state, nargs, nresults, ctx, Some(k));
 		}
 	}
 
 	#[inline]
 	#[cfg(feature = "lua52")]
 	pub unsafe fn pcallk(&self, nargs: c_int, nresults: c_int, errfunc: c_int, ctx: c_int, k: lua_CFunction) -> c_int {
-		unsafe { lua_pcallk(self.state, nargs, nresults, errfunc, ctx, k) }
+		unsafe { lua_pcallk(self.state, nargs, nresults, errfunc, ctx, Some(k)) }
 	}
 
 	#[inline]
 	#[cfg(any(feature = "lua53", feature = "lua54"))]
 	pub unsafe fn pcallk(&self, nargs: c_int, nresults: c_int, errfunc: c_int, ctx: lua_KContext, k: lua_KFunction) -> c_int {
-		unsafe { lua_pcallk(self.state, nargs, nresults, errfunc, ctx, k) }
+		unsafe { lua_pcallk(self.state, nargs, nresults, errfunc, ctx, Some(k)) }
 	}
 
 	#[inline]
@@ -1150,13 +1150,13 @@ impl<'lua> Lua<'lua> {
 	#[inline]
 	#[cfg(feature = "lua52")]
 	pub unsafe fn yieldk(&self, nresults: c_int, ctx: c_int, k: lua_CFunction) -> c_int {
-		unsafe { lua_yieldk(self.state, nresults, ctx, k) }
+		unsafe { lua_yieldk(self.state, nresults, ctx, Some(k)) }
 	}
 
 	#[inline]
 	#[cfg(any(feature = "lua53", feature = "lua54"))]
 	pub unsafe fn yieldk(&self, nresults: c_int, ctx: lua_KContext, k: lua_KFunction) -> c_int {
-		unsafe { lua_yieldk(self.state, nresults, ctx, k) }
+		unsafe { lua_yieldk(self.state, nresults, ctx, Some(k)) }
 	}
 
 	#[inline]

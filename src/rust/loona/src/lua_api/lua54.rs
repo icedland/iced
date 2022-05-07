@@ -9,6 +9,7 @@
 #![allow(clippy::unreadable_literal)]
 
 use libc::{c_char, c_double, c_int, c_uchar, c_uint, c_ushort, c_void, ptrdiff_t, size_t};
+use static_assertions::const_assert;
 use std::{mem, ptr};
 
 // Needed to make the API method sigs identical without #[cfg]s
@@ -175,15 +176,15 @@ extern "C" {
 	pub fn lua_setmetatable(L: lua_State, objindex: c_int) -> c_int;
 	pub fn lua_setiuservalue(L: lua_State, idx: c_int, n: c_int) -> c_int;
 
-	pub fn lua_callk(L: lua_State, nargs: c_int, nresults: c_int, ctx: lua_KContext, k: lua_KFunction);
+	pub fn lua_callk(L: lua_State, nargs: c_int, nresults: c_int, ctx: lua_KContext, k: Option<lua_KFunction>);
 
-	pub fn lua_pcallk(L: lua_State, nargs: c_int, nresults: c_int, errfunc: c_int, ctx: lua_KContext, k: lua_KFunction) -> c_int;
+	pub fn lua_pcallk(L: lua_State, nargs: c_int, nresults: c_int, errfunc: c_int, ctx: lua_KContext, k: Option<lua_KFunction>) -> c_int;
 
 	pub fn lua_load(L: lua_State, reader: lua_Reader, dt: *mut c_void, chunkname: *const c_char, mode: *const c_char) -> c_int;
 
 	pub fn lua_dump(L: lua_State, writer: lua_Writer, data: *mut c_void, strip: c_int) -> c_int;
 
-	pub fn lua_yieldk(L: lua_State, nresults: c_int, ctx: lua_KContext, k: lua_KFunction) -> c_int;
+	pub fn lua_yieldk(L: lua_State, nresults: c_int, ctx: lua_KContext, k: Option<lua_KFunction>) -> c_int;
 	pub fn lua_resume(L: lua_State, from: lua_State, narg: c_int, nres: *mut c_int) -> c_int;
 	pub fn lua_status(L: lua_State) -> c_int;
 	pub fn lua_isyieldable(L: lua_State) -> c_int;
@@ -192,21 +193,23 @@ extern "C" {
 	pub fn lua_warning(L: lua_State, msg: *const c_char, tocont: c_int);
 }
 
+const_assert!(mem::size_of::<Option<lua_KFunction>>() == mem::size_of::<lua_KFunction>());
+
 #[inline]
 pub unsafe fn lua_call(L: lua_State, n: c_int, r: c_int) {
 	unsafe {
-		lua_callk(L, n, r, 0, mem::transmute(ptr::null::<c_void>()));
+		lua_callk(L, n, r, 0, None);
 	}
 }
 
 #[inline]
 pub unsafe fn lua_pcall(L: lua_State, n: c_int, r: c_int, f: c_int) -> c_int {
-	unsafe { lua_pcallk(L, n, r, f, 0, mem::transmute(ptr::null::<c_void>())) }
+	unsafe { lua_pcallk(L, n, r, f, 0, None) }
 }
 
 #[inline]
 pub unsafe fn lua_yield(L: lua_State, n: c_int) -> c_int {
-	unsafe { lua_yieldk(L, n, 0, mem::transmute(ptr::null::<c_void>())) }
+	unsafe { lua_yieldk(L, n, 0, None) }
 }
 
 #[inline]
@@ -415,7 +418,9 @@ pub unsafe fn lua_getuservalue(L: lua_State, idx: c_int) -> c_int {
 
 #[inline]
 pub unsafe fn lua_setuservalue(L: lua_State, idx: c_int) {
-	unsafe { let _ = lua_setiuservalue(L, idx, 1); }
+	unsafe {
+		let _ = lua_setiuservalue(L, idx, 1);
+	}
 }
 
 pub const LUA_NUMTAGS: i32 = LUA_NUMTYPES;
