@@ -69,6 +69,6 @@
 #![warn(clippy::useless_transmute)]
 #![warn(clippy::zero_sized_map_values)]
 
-pub mod macros;
 pub mod lua;
 pub mod lua_api;
+pub mod macros;

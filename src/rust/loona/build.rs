@@ -17,6 +17,18 @@ fn main() {
 		{
 			"lua5.1".into()
 		}
+		#[cfg(feature = "lua52")]
+		{
+			"lua5.2".into()
+		}
+		#[cfg(feature = "lua53")]
+		{
+			"lua5.3".into()
+		}
+		#[cfg(feature = "lua54")]
+		{
+			"lua5.4".into()
+		}
 	};
 	println!("cargo:rustc-link-lib={}", lua_lib_name.display());
 }
