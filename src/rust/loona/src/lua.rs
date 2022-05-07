@@ -11,14 +11,6 @@ use std::error::Error;
 use std::marker::PhantomData;
 use std::{mem, ptr, slice};
 
-// We have some assumptions so verify them
-type LuaSignedIntegerType = isize;
-type LuaUnsignedIntegerType = usize;
-const_assert!(mem::size_of::<LuaSignedIntegerType>() == mem::size_of::<LuaUnsignedIntegerType>());
-const_assert!(mem::size_of::<lua_Integer>() == mem::size_of::<LuaSignedIntegerType>());
-#[allow(trivial_numeric_casts, clippy::unnecessary_cast)]
-const _: LuaSignedIntegerType = 1 as lua_Integer;
-
 pub unsafe trait LuaUserData {
 	/// This must be a unique ID. No other `LuaUserData` must have the same value. This should also
 	/// be a 'random' number, i.e., not common numbers such as 0, 1, etc.
@@ -158,8 +150,7 @@ macro_rules! gen_get_unsigned_int {
 }
 
 /// Wraps a `lua_State`. Any references returned by it have the same lifetime as arg `L: lua_State`
-#[allow(missing_debug_implementations)]
-#[allow(missing_copy_implementations)]
+#[derive(Debug, Clone, Copy)]
 #[repr(transparent)]
 pub struct Lua<'lua> {
 	state: lua_State,
@@ -168,6 +159,7 @@ pub struct Lua<'lua> {
 
 #[repr(C)]
 struct WrappedUserData<T: LuaUserData> {
+	// LuaUserData::UNIQUE_ID is stored in this field so we can check if it's our userdata.
 	// This field must be the first field, see get_user_data()
 	id: u32,
 	ud: T,
@@ -186,7 +178,7 @@ impl<'lua> Lua<'lua> {
 		unsafe {
 			// Make sure it's not a common number, it should be 'random'
 			debug_assert!(T::UNIQUE_ID > 0x1_0000);
-			let ptr_ud = self.new_user_data(mem::size_of::<WrappedUserData<T>>()).cast::<WrappedUserData<T>>();
+			let ptr_ud = self.new_user_data_no_uv(mem::size_of::<WrappedUserData<T>>()).cast::<WrappedUserData<T>>();
 			ptr::write(ptr_ud, WrappedUserData { id: T::UNIQUE_ID, ud });
 			&mut (*ptr_ud).ud
 		}
@@ -218,6 +210,18 @@ impl<'lua> Lua<'lua> {
 		}
 	}
 
+	#[inline]
+	unsafe fn new_user_data_no_uv(&self, sz: size_t) -> *mut c_void {
+		#[cfg(any(feature = "lua51", feature = "lua52", feature = "lua53"))]
+		unsafe {
+			self.new_user_data(sz)
+		}
+		#[cfg(feature = "lua54")]
+		unsafe {
+			self.new_user_data_uv(sz, 0)
+		}
+	}
+
 	unsafe fn from_c_str(p: *const c_char) -> Option<&'lua [u8]> {
 		if !p.is_null() {
 			unsafe {
@@ -245,12 +249,13 @@ impl<'lua> Lua<'lua> {
 	#[inline]
 	pub unsafe fn try_get_i64(&self, idx: c_int) -> Result<i64, ConvErr> {
 		unsafe {
-			let value = self.to_integer(idx);
-			if value != 0 || self.is_number(idx) {
-				let value: LuaSignedIntegerType = value;
+			let mut is_int = 0;
+			let value = self.to_integer_x(idx, &mut is_int);
+			if is_int != 0 {
 				// into() doesn't work, so make sure `as i64` won't truncate.
 				// try_into() would also work but I want a compilation error.
-				const_assert!(mem::size_of::<LuaSignedIntegerType>() <= mem::size_of::<i64>());
+				const_assert!(mem::size_of::<lua_Integer>() <= mem::size_of::<i64>());
+				#[allow(trivial_numeric_casts)]
 				Ok(value as i64)
 			} else {
 				Err(ConvErr::NotANumber)
@@ -260,26 +265,15 @@ impl<'lua> Lua<'lua> {
 
 	#[inline]
 	pub unsafe fn try_get_u64(&self, idx: c_int) -> Result<u64, ConvErr> {
-		unsafe {
-			let value = self.to_integer(idx);
-			if value != 0 || self.is_number(idx) {
-				let value: LuaSignedIntegerType = value;
-				let value: LuaUnsignedIntegerType = value as LuaUnsignedIntegerType;
-				// into() doesn't work, so make sure `as u64` won't truncate.
-				// try_into() would also work but I want a compilation error.
-				const_assert!(mem::size_of::<LuaUnsignedIntegerType>() <= mem::size_of::<u64>());
-				Ok(value as u64)
-			} else {
-				Err(ConvErr::NotANumber)
-			}
-		}
+		unsafe { self.try_get_i64(idx).map(|v| v as u64) }
 	}
 
 	#[inline]
 	pub unsafe fn try_get_f64(&self, idx: c_int) -> Result<f64, ConvErr> {
 		unsafe {
-			let value = self.to_number(idx);
-			if value != 0.0 || self.is_number(idx) {
+			let mut is_num = 0;
+			let value = self.to_number_x(idx, &mut is_num);
+			if is_num != 0 {
 				#[allow(dead_code)]
 				type ExpectedType = f64;
 				const_assert!(mem::size_of::<ExpectedType>() <= mem::size_of::<f64>());
@@ -564,6 +558,12 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(feature = "lua54")]
+	pub unsafe fn reset_thread(&self) -> c_int {
+		unsafe { lua_resetthread(self.state) }
+	}
+
+	#[inline]
 	pub unsafe fn new_thread(&self) -> lua_State {
 		unsafe { lua_newthread(self.state) }
 	}
@@ -571,6 +571,12 @@ impl<'lua> Lua<'lua> {
 	#[inline]
 	pub unsafe fn at_panic(&self, panicf: lua_CFunction) -> lua_CFunction {
 		unsafe { lua_atpanic(self.state, panicf) }
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn abs_index(&self, idx: c_int) -> c_int {
+		unsafe { lua_absindex(self.state, idx) }
 	}
 
 	#[inline]
@@ -614,6 +620,22 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(any(feature = "lua53", feature = "lua54"))]
+	pub unsafe fn rotate(&self, idx: c_int, n: c_int) {
+		unsafe {
+			lua_rotate(self.state, idx, n);
+		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn copy(&self, fromidx: c_int, toidx: c_int) {
+		unsafe {
+			lua_copy(self.state, fromidx, toidx);
+		}
+	}
+
+	#[inline]
 	pub unsafe fn check_stack(&self, sz: c_int) -> c_int {
 		unsafe { lua_checkstack(self.state, sz) }
 	}
@@ -631,6 +653,12 @@ impl<'lua> Lua<'lua> {
 	#[inline]
 	pub unsafe fn is_c_function(&self, idx: c_int) -> bool {
 		unsafe { lua_iscfunction(self.state, idx) != 0 }
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua53", feature = "lua54"))]
+	pub unsafe fn is_integer(&self, idx: c_int) -> bool {
+		unsafe { lua_isinteger(self.state, idx) != 0 }
 	}
 
 	#[inline]
@@ -664,6 +692,12 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn compare(&self, idx1: c_int, idx2: c_int, op: c_int) -> c_int {
+		unsafe { lua_compare(self.state, idx1, idx2, op) }
+	}
+
+	#[inline]
 	pub unsafe fn to_number(&self, idx: c_int) -> lua_Number {
 		unsafe { lua_tonumber(self.state, idx) }
 	}
@@ -671,6 +705,50 @@ impl<'lua> Lua<'lua> {
 	#[inline]
 	pub unsafe fn to_integer(&self, idx: c_int) -> lua_Integer {
 		unsafe { lua_tointeger(self.state, idx) }
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn to_unsigned(&self, idx: c_int) -> lua_Unsigned {
+		unsafe { lua_tounsigned(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn to_number_x(&self, idx: c_int, isnum: *mut c_int) -> lua_Number {
+		#[cfg(feature = "lua51")]
+		unsafe {
+			let value = self.to_number(idx);
+			if !isnum.is_null() {
+				*isnum = (value != lua_Number::default() || self.is_number(idx)) as c_int;
+			}
+			value
+		}
+		#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+		unsafe {
+			lua_tonumberx(self.state, idx, isnum)
+		}
+	}
+
+	#[inline]
+	pub unsafe fn to_integer_x(&self, idx: c_int, isnum: *mut c_int) -> lua_Integer {
+		#[cfg(feature = "lua51")]
+		unsafe {
+			let value = self.to_integer(idx);
+			if !isnum.is_null() {
+				*isnum = (value != lua_Integer::default() || self.is_number(idx)) as c_int;
+			}
+			value
+		}
+		#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+		unsafe {
+			lua_tointegerx(self.state, idx, isnum)
+		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn to_unsigned_x(&self, idx: c_int, isnum: *mut c_int) -> lua_Unsigned {
+		unsafe { lua_tounsignedx(self.state, idx, isnum) }
 	}
 
 	#[inline]
@@ -692,8 +770,21 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
-	pub unsafe fn raw_len(&self, idx: c_int) -> size_t {
+	pub unsafe fn obj_len(&self, idx: c_int) -> size_t {
 		unsafe { lua_objlen(self.state, idx) }
+	}
+
+	#[inline]
+	pub unsafe fn raw_len(&self, idx: c_int) -> size_t {
+		#[cfg(feature = "lua51")]
+		unsafe {
+			lua_objlen(self.state, idx)
+		}
+		#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+		#[allow(trivial_numeric_casts)]
+		unsafe {
+			lua_rawlen(self.state, idx) as size_t
+		}
 	}
 
 	#[inline]
@@ -714,6 +805,14 @@ impl<'lua> Lua<'lua> {
 	#[inline]
 	pub unsafe fn to_pointer(&self, idx: c_int) -> *const c_void {
 		unsafe { lua_topointer(self.state, idx) }
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn arith(&self, op: c_int) {
+		unsafe {
+			lua_arith(self.state, op);
+		}
 	}
 
 	#[inline]
@@ -738,16 +837,24 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn push_unsigned(&self, n: lua_Unsigned) {
+		unsafe {
+			lua_pushunsigned(self.state, n);
+		}
+	}
+
+	#[inline]
 	pub unsafe fn push_bytes(&self, s: &'_ [u8]) {
 		unsafe {
-			lua_pushlstring(self.state, s.as_ptr().cast(), s.len());
+			let _ = lua_pushlstring(self.state, s.as_ptr().cast(), s.len());
 		}
 	}
 
 	#[inline]
 	pub unsafe fn push_string(&self, s: &'_ str) {
 		unsafe {
-			lua_pushlstring(self.state, s.as_ptr().cast(), s.len());
+			let _ = lua_pushlstring(self.state, s.as_ptr().cast(), s.len());
 		}
 	}
 
@@ -773,6 +880,18 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	pub unsafe fn push_global_table(&self) {
+		#[cfg(feature = "lua51")]
+		unsafe {
+			self.push_value(LUA_GLOBALSINDEX)
+		}
+		#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+		unsafe {
+			lua_pushglobaltable(self.state);
+		}
+	}
+
+	#[inline]
 	pub unsafe fn push_thread(&self) -> c_int {
 		unsafe { lua_pushthread(self.state) }
 	}
@@ -780,28 +899,36 @@ impl<'lua> Lua<'lua> {
 	#[inline]
 	pub unsafe fn get_table(&self, idx: c_int) {
 		unsafe {
-			lua_gettable(self.state, idx);
+			let _ = lua_gettable(self.state, idx);
 		}
 	}
 
 	#[inline]
 	pub unsafe fn get_field(&self, idx: c_int, k: LuaCStr<'_>) {
 		unsafe {
-			lua_getfield(self.state, idx, k.0.as_ptr().cast());
+			let _ = lua_getfield(self.state, idx, k.0.as_ptr().cast());
 		}
 	}
 
 	#[inline]
 	pub unsafe fn raw_get(&self, idx: c_int) {
 		unsafe {
-			lua_rawget(self.state, idx);
+			let _ = lua_rawget(self.state, idx);
 		}
 	}
 
 	#[inline]
-	pub unsafe fn raw_get_i(&self, idx: c_int, n: c_int) {
+	pub unsafe fn raw_get_i(&self, idx: c_int, n: lua_GetIType) {
 		unsafe {
-			lua_rawgeti(self.state, idx, n);
+			let _ = lua_rawgeti(self.state, idx, n);
+		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn raw_get_p(&self, idx: c_int, p: *const c_void) {
+		unsafe {
+			let _ = lua_rawgetp(self.state, idx, p);
 		}
 	}
 
@@ -818,15 +945,36 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(feature = "lua54")]
+	pub unsafe fn new_user_data_uv(&self, sz: size_t, nuvalue: c_int) -> *mut c_void {
+		unsafe { lua_newuserdatauv(self.state, sz, nuvalue) }
+	}
+
+	#[inline]
 	pub unsafe fn get_metatable(&self, objindex: c_int) -> c_int {
 		unsafe { lua_getmetatable(self.state, objindex) }
 	}
 
 	#[inline]
+	#[cfg(feature = "lua51")]
 	pub unsafe fn get_f_env(&self, idx: c_int) {
 		unsafe {
 			lua_getfenv(self.state, idx);
 		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn get_user_value(&self, idx: c_int) {
+		unsafe {
+			let _ = lua_getuservalue(self.state, idx);
+		}
+	}
+
+	#[inline]
+	#[cfg(feature = "lua54")]
+	pub unsafe fn get_i_user_value(&self, idx: c_int, n: c_int) -> c_int {
+		unsafe { lua_getiuservalue(self.state, idx, n) }
 	}
 
 	#[inline]
@@ -844,6 +992,14 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(any(feature = "lua53", feature = "lua54"))]
+	pub unsafe fn set_i(&self, idx: c_int, n: lua_GetIType) {
+		unsafe {
+			lua_seti(self.state, idx, n);
+		}
+	}
+
+	#[inline]
 	pub unsafe fn raw_set(&self, idx: c_int) {
 		unsafe {
 			lua_rawset(self.state, idx);
@@ -851,9 +1007,17 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
-	pub unsafe fn raw_set_i(&self, idx: c_int, n: c_int) {
+	pub unsafe fn raw_set_i(&self, idx: c_int, n: lua_GetIType) {
 		unsafe {
 			lua_rawseti(self.state, idx, n);
+		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn raw_set_p(&self, idx: c_int, p: *const c_void) {
+		unsafe {
+			lua_rawsetp(self.state, idx, p);
 		}
 	}
 
@@ -863,8 +1027,23 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(feature = "lua51")]
 	pub unsafe fn set_f_env(&self, idx: c_int) -> c_int {
 		unsafe { lua_setfenv(self.state, idx) }
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn set_user_value(&self, idx: c_int) {
+		unsafe {
+			lua_setuservalue(self.state, idx);
+		}
+	}
+
+	#[inline]
+	#[cfg(feature = "lua54")]
+	pub unsafe fn set_i_user_value(&self, idx: c_int, n: c_int) -> c_int {
+		unsafe { lua_setiuservalue(self.state, idx, n) }
 	}
 
 	#[inline]
@@ -885,13 +1064,73 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(feature = "lua52")]
+	pub unsafe fn callk(&self, nargs: c_int, nresults: c_int, ctx: c_int, k: lua_CFunction) {
+		unsafe {
+			lua_callk(self.state, nargs, nresults, ctx, k);
+		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua53", feature = "lua54"))]
+	pub unsafe fn callk(&self, nargs: c_int, nresults: c_int, ctx: lua_KContext, k: lua_KFunction) {
+		unsafe {
+			lua_callk(self.state, nargs, nresults, ctx, k);
+		}
+	}
+
+	#[inline]
+	#[cfg(feature = "lua52")]
+	pub unsafe fn pcallk(&self, nargs: c_int, nresults: c_int, errfunc: c_int, ctx: c_int, k: lua_CFunction) -> c_int {
+		unsafe { lua_pcallk(self.state, nargs, nresults, errfunc, ctx, k) }
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua53", feature = "lua54"))]
+	pub unsafe fn pcallk(&self, nargs: c_int, nresults: c_int, errfunc: c_int, ctx: lua_KContext, k: lua_KFunction) -> c_int {
+		unsafe { lua_pcallk(self.state, nargs, nresults, errfunc, ctx, k) }
+	}
+
+	#[inline]
+	#[cfg(feature = "lua52")]
+	pub unsafe fn get_ctx(&self, ctx: &mut c_int) -> c_int {
+		unsafe { lua_getctx(self.state, ctx) }
+	}
+
+	#[inline]
 	pub unsafe fn load(&self, reader: lua_Reader, dt: *mut c_void, chunkname: LuaCStr<'_>) -> c_int {
-		unsafe { lua_load(self.state, reader, dt, chunkname.0.as_ptr().cast()) }
+		#[cfg(feature = "lua51")]
+		unsafe {
+			lua_load(self.state, reader, dt, chunkname.0.as_ptr().cast())
+		}
+		#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+		unsafe {
+			lua_load(self.state, reader, dt, chunkname.0.as_ptr().cast(), ptr::null())
+		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn load4(&self, reader: lua_Reader, dt: *mut c_void, chunkname: LuaCStr<'_>, mode: LuaCStr<'_>) -> c_int {
+		unsafe { lua_load(self.state, reader, dt, chunkname.0.as_ptr().cast(), mode.0.as_ptr().cast()) }
 	}
 
 	#[inline]
 	pub unsafe fn dump(&self, writer: lua_Writer, data: *mut c_void) -> c_int {
-		unsafe { lua_dump(self.state, writer, data) }
+		#[cfg(any(feature = "lua51", feature = "lua52"))]
+		unsafe {
+			lua_dump(self.state, writer, data)
+		}
+		#[cfg(any(feature = "lua53", feature = "lua54"))]
+		unsafe {
+			lua_dump(self.state, writer, data, 0)
+		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua53", feature = "lua54"))]
+	pub unsafe fn dump3(&self, writer: lua_Writer, data: *mut c_void, strip: c_int) -> c_int {
+		unsafe { lua_dump(self.state, writer, data, strip) }
 	}
 
 	#[inline]
@@ -900,13 +1139,79 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(feature = "lua52")]
+	pub unsafe fn yieldk(&self, nresults: c_int, ctx: c_int, k: lua_CFunction) -> c_int {
+		unsafe { lua_yieldk(self.state, nresults, ctx, k) }
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua53", feature = "lua54"))]
+	pub unsafe fn yieldk(&self, nresults: c_int, ctx: lua_KContext, k: lua_KFunction) -> c_int {
+		unsafe { lua_yieldk(self.state, nresults, ctx, k) }
+	}
+
+	#[inline]
 	pub unsafe fn resume(&self, narg: c_int) -> c_int {
-		unsafe { lua_resume(self.state, narg) }
+		#[cfg(feature = "lua51")]
+		unsafe {
+			lua_resume(self.state, narg)
+		}
+		#[cfg(any(feature = "lua52", feature = "lua53"))]
+		unsafe {
+			lua_resume(self.state, ptr::null_mut(), narg)
+		}
+		#[cfg(feature = "lua54")]
+		unsafe {
+			let mut nres = 0;
+			lua_resume(self.state, ptr::null_mut(), narg, &mut nres)
+		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn resume2(&self, from: lua_State, narg: c_int) -> c_int {
+		#[cfg(any(feature = "lua52", feature = "lua53"))]
+		unsafe {
+			lua_resume(self.state, from, narg)
+		}
+		#[cfg(feature = "lua54")]
+		unsafe {
+			let mut nres = 0;
+			lua_resume(self.state, from, narg, &mut nres)
+		}
+	}
+
+	#[inline]
+	#[cfg(feature = "lua54")]
+	pub unsafe fn resume3(&self, from: lua_State, narg: c_int, nres: &mut c_int) -> c_int {
+		unsafe { lua_resume(self.state, from, narg, nres) }
 	}
 
 	#[inline]
 	pub unsafe fn status(&self) -> c_int {
 		unsafe { lua_status(self.state) }
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua53", feature = "lua54"))]
+	pub unsafe fn is_yieldable(&self) -> bool {
+		unsafe { lua_isyieldable(self.state) != 0 }
+	}
+
+	#[inline]
+	#[cfg(feature = "lua54")]
+	pub unsafe fn set_warn_f(&self, f: lua_WarnFunction, ud: *mut c_void) {
+		unsafe {
+			lua_setwarnf(self.state, f, ud);
+		}
+	}
+
+	#[inline]
+	#[cfg(feature = "lua54")]
+	pub unsafe fn warning(&self, msg: LuaCStr<'_>, tocont: c_int) {
+		unsafe {
+			lua_warning(self.state, msg.0.as_ptr().cast(), tocont);
+		}
 	}
 
 	#[inline]
@@ -929,6 +1234,42 @@ impl<'lua> Lua<'lua> {
 		unsafe {
 			lua_concat(self.state, n);
 		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+	pub unsafe fn len(&self, idx: c_int) {
+		unsafe {
+			lua_len(self.state, idx);
+		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua53", feature = "lua54"))]
+	pub unsafe fn string_to_number(&self, s: LuaCStr<'_>) -> bool {
+		unsafe { lua_stringtonumber(self.state, s.0.as_ptr().cast()) != 0 }
+	}
+
+	#[inline]
+	#[cfg(feature = "lua54")]
+	pub unsafe fn to_close(&self, idx: c_int) {
+		unsafe {
+			lua_toclose(self.state, idx);
+		}
+	}
+
+	#[inline]
+	#[cfg(feature = "lua54")]
+	pub unsafe fn close_slot(&self, idx: c_int) {
+		unsafe {
+			lua_closeslot(self.state, idx);
+		}
+	}
+
+	#[inline]
+	#[cfg(any(feature = "lua53", feature = "lua54"))]
+	pub unsafe fn get_extra_space(&self) -> *mut c_void {
+		unsafe { lua_getextraspace(self.state) }
 	}
 
 	#[inline]
@@ -1021,7 +1362,7 @@ impl<'lua> Lua<'lua> {
 	#[inline]
 	pub unsafe fn get_global(&self, s: LuaCStr<'_>) {
 		unsafe {
-			lua_getglobal(self.state, s.0.as_ptr().cast());
+			let _ = lua_getglobal(self.state, s.0.as_ptr().cast());
 		}
 	}
 
@@ -1031,6 +1372,7 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(feature = "lua51")]
 	pub unsafe fn get_registry(&self) {
 		unsafe {
 			lua_getregistry(self.state);
@@ -1038,6 +1380,7 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[cfg(feature = "lua51")]
 	pub unsafe fn get_gc_count(&self) -> c_int {
 		unsafe { lua_getgccount(self.state) }
 	}
