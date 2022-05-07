@@ -1060,7 +1060,16 @@ impl<'lua> Lua<'lua> {
 
 	#[inline]
 	pub unsafe fn cpcall(&self, func: lua_CFunction, ud: *mut c_void) -> c_int {
-		unsafe { lua_cpcall(self.state, func, ud) }
+		#[cfg(feature = "lua51")]
+		unsafe {
+			lua_cpcall(self.state, func, ud)
+		}
+		#[cfg(any(feature = "lua52", feature = "lua53", feature = "lua54"))]
+		unsafe {
+			self.push_c_function(func);
+			self.push_light_user_data(ud);
+			self.pcall(1, 0, 0)
+		}
 	}
 
 	#[inline]

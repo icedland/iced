@@ -205,15 +205,6 @@ pub unsafe fn lua_pcall(L: lua_State, n: c_int, r: c_int, f: c_int) -> c_int {
 }
 
 #[inline]
-pub unsafe fn lua_cpcall(L: lua_State, f: lua_CFunction, u: *mut c_void) -> c_int {
-	unsafe {
-		lua_pushcfunction(L, f);
-		lua_pushlightuserdata(L, u);
-		lua_pcall(L, 1, 0, 0)
-	}
-}
-
-#[inline]
 pub unsafe fn lua_yield(L: lua_State, n: c_int) -> c_int {
 	unsafe { lua_yieldk(L, n, 0, mem::transmute(ptr::null::<c_void>())) }
 }
