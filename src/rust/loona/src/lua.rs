@@ -7,6 +7,7 @@
 use crate::lua_api::*;
 use libc::{c_char, c_int, c_void, size_t};
 use static_assertions::const_assert;
+use std::convert::TryFrom;
 use std::error::Error;
 use std::marker::PhantomData;
 use std::{mem, ptr, slice};
@@ -542,17 +543,69 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
-	pub unsafe fn try_get_string(&self, idx: c_int) -> Option<&'lua [u8]> {
+	pub unsafe fn try_get_char(&self, idx: c_int) -> Result<char, ConvErr> {
+		unsafe {
+			match self.try_get_u64(idx) {
+				Ok(value) => {
+					if let Ok(value) = <u32 as TryFrom<u64>>::try_from(value) {
+						if let Some(c) = char::from_u32(value) {
+							return Ok(c);
+						}
+					}
+					Err(ConvErr::OutOfRange)
+				}
+				Err(e) => Err(e),
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_char(&self, idx: c_int) -> char {
+		unsafe {
+			if let Ok(value) = self.try_get_char(idx) {
+				value
+			} else {
+				self.push_literal("Expected a char (unicode code point)");
+				self.error();
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_char_default(&self, idx: c_int, default: char) -> char {
+		unsafe { self.try_get_char(idx).unwrap_or(default) }
+	}
+
+	#[inline]
+	pub unsafe fn try_get_byte_slice(&self, idx: c_int) -> Option<&'lua [u8]> {
 		unsafe { self.to_l_string(idx) }
 	}
 
 	#[inline]
-	pub unsafe fn get_string(&self, idx: c_int) -> &'lua [u8] {
+	pub unsafe fn get_byte_slice(&self, idx: c_int) -> &'lua [u8] {
 		unsafe {
-			if let Some(value) = self.try_get_string(idx) {
+			if let Some(value) = self.try_get_byte_slice(idx) {
 				value
 			} else {
-				self.push_literal("Expected a string");
+				self.push_literal("Expected a string (bytes)");
+				self.error();
+			}
+		}
+	}
+
+	#[inline]
+	pub unsafe fn try_get_bytes(&self, idx: c_int) -> Option<Vec<u8>> {
+		#[allow(clippy::redundant_closure_for_method_calls)] // `[u8]::to_vec` did not work
+		unsafe { self.to_l_string(idx) }.map(|bytes| bytes.to_vec())
+	}
+
+	#[inline]
+	pub unsafe fn get_bytes(&self, idx: c_int) -> Vec<u8> {
+		unsafe {
+			if let Some(value) = self.try_get_bytes(idx) {
+				value
+			} else {
+				self.push_literal("Expected a string (bytes)");
 				self.error();
 			}
 		}

@@ -54,9 +54,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the instruction code (a `Code` enum value), see also `Instruction:mnemonic()`
 	/// @return Code
-	unsafe fn code(lua) -> 1 {
+	unsafe fn code(lua, instr: &Instruction) -> 1 {
 		unsafe {
-			let instr: &Instruction = lua.get_user_data(1);
 			lua.push_integer(instr.inner.code() as lua_Integer);
 		}
 	}

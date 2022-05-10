@@ -37,7 +37,7 @@ macro_rules! lua_module {
 
 #[macro_export]
 macro_rules! lua_methods {
-	($($(#[$attr:meta])* unsafe fn $method_name:ident($lua:ident) -> $ret_vals:literal $block:block)*) => {
+	($($(#[$attr:meta])* unsafe fn $method_name:ident($lua:ident $(, $arg:ident:$arg_ty:ty)*) -> $ret_vals:literal $block:block)*) => {
 		$(
 			$(#[$attr])*
 			#[allow(non_snake_case)]
@@ -46,6 +46,13 @@ macro_rules! lua_methods {
 
 				#[cfg(debug_assertions)]
 				let _orig_top = unsafe { $lua.get_top() };
+
+				// Unfortunately consts don't work, eg. const A: c_int = 1; const A: c_int = A + 1; etc.
+				let _lua_index: ::libc::c_int = 1;
+				$(
+					let $arg: <$arg_ty as FromLua<'_>>::RetType = <$arg_ty as FromLua<'_>>::from_lua(&$lua, _lua_index);
+					let _lua_index: ::libc::c_int = _lua_index + 1;
+				)*
 
 				$block
 
@@ -64,8 +71,8 @@ macro_rules! lua_methods {
 
 #[macro_export]
 macro_rules! lua_pub_methods {
-	(static $export_name:ident => $($(#[$attr:meta])* unsafe fn $method_name:ident($lua:ident) -> $ret_vals:literal $block:block)*) => {
-		$crate::lua_methods! { $($(#[$attr])* unsafe fn $method_name($lua) -> $ret_vals $block)* }
+	(static $export_name:ident => $($(#[$attr:meta])* unsafe fn $method_name:ident($lua:ident $(, $arg:ident:$arg_ty:ty)*) -> $ret_vals:literal $block:block)*) => {
+		$crate::lua_methods! { $($(#[$attr])* unsafe fn $method_name($lua $(, $arg:$arg_ty)*) -> $ret_vals $block)* }
 		static $export_name: &[(&str, ::loona::lua_api::lua_CFunction)] = &[
 			$(
 				(stringify!($method_name), $method_name),
