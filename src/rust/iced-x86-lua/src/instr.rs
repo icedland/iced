@@ -12,13 +12,13 @@ lua_impl_userdata! { Instruction }
 /// A 16/32/64-bit x86 instruction. Created by `Decoder` or by `Instruction:create*()` methods
 /// @class Instruction
 pub(crate) struct Instruction {
-	pub(crate) instr: iced_x86::Instruction,
+	pub(crate) inner: iced_x86::Instruction,
 }
 
 impl Instruction {
 	pub(crate) unsafe fn new<'lua>(lua: &Lua<'lua>) -> &'lua mut Instruction {
 		unsafe {
-			let instr = Instruction { instr: iced_x86::Instruction::new() };
+			let instr = Instruction { inner: iced_x86::Instruction::new() };
 			let instr = lua.push_user_data(instr);
 
 			lua.get_registry_metatable(Instruction::METATABLE_KEY);
@@ -63,7 +63,7 @@ lua_methods! {
 	unsafe fn instruction_code(lua) -> 1 {
 		unsafe {
 			let instr: &Instruction = lua.get_user_data(1);
-			lua.push_integer(instr.instr.code() as lua_Integer);
+			lua.push_integer(instr.inner.code() as lua_Integer);
 		}
 	}
 }

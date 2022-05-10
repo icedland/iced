@@ -19,7 +19,7 @@ struct Decoder {
 	// The decoder holds a reference to this data
 	#[allow(dead_code)]
 	data: Vec<u8>,
-	decoder: iced_x86::Decoder<'static>,
+	inner: iced_x86::Decoder<'static>,
 }
 
 impl Decoder {
@@ -28,7 +28,7 @@ impl Decoder {
 		let decoder_data: &'static [u8] = unsafe { slice::from_raw_parts(data.as_ptr(), data.len()) };
 
 		let decoder = iced_x86::Decoder::try_with_ip(bitness, decoder_data, ip, options)?;
-		Ok(Decoder { data, decoder })
+		Ok(Decoder { data, inner: decoder })
 	}
 
 	unsafe fn init_metatable(lua: &Lua<'_>) {
@@ -152,7 +152,7 @@ lua_methods! {
 	unsafe fn decoder_ip(lua) -> 1 {
 		unsafe {
 			let decoder: &Decoder = lua.get_user_data(1);
-			lua.push_integer(decoder.decoder.ip() as lua_Integer)
+			lua.push_integer(decoder.inner.ip() as lua_Integer)
 		}
 	}
 
@@ -162,7 +162,7 @@ lua_methods! {
 		unsafe {
 			let decoder: &mut Decoder = lua.get_user_data_mut(1);
 			let ip = lua.get_u64(2);
-			decoder.decoder.set_ip(ip);
+			decoder.inner.set_ip(ip);
 		}
 	}
 
@@ -171,7 +171,7 @@ lua_methods! {
 	unsafe fn decoder_bitness(lua) -> 1 {
 		unsafe {
 			let decoder: &Decoder = lua.get_user_data(1);
-			lua.push_integer(decoder.decoder.bitness() as lua_Integer);
+			lua.push_integer(decoder.inner.bitness() as lua_Integer);
 		}
 	}
 
@@ -182,7 +182,7 @@ lua_methods! {
 	unsafe fn decoder_max_position(lua) -> 1 {
 		unsafe {
 			let decoder: &Decoder = lua.get_user_data(1);
-			lua.push_integer(decoder.decoder.max_position() as lua_Integer);
+			lua.push_integer(decoder.inner.max_position() as lua_Integer);
 		}
 	}
 
@@ -223,7 +223,7 @@ lua_methods! {
 	unsafe fn decoder_position(lua) -> 1 {
 		unsafe {
 			let decoder: &Decoder = lua.get_user_data(1);
-			lua.push_integer(decoder.decoder.position() as lua_Integer);
+			lua.push_integer(decoder.inner.position() as lua_Integer);
 		}
 	}
 
@@ -233,7 +233,7 @@ lua_methods! {
 		unsafe {
 			let decoder: &mut Decoder = lua.get_user_data_mut(1);
 			let pos = lua.get_usize(2);
-			if let Err(e) = decoder.decoder.set_position(pos) {
+			if let Err(e) = decoder.inner.set_position(pos) {
 				lua.throw_error(e);
 			}
 		}
@@ -278,7 +278,7 @@ lua_methods! {
 	unsafe fn decoder_can_decode(lua) -> 1 {
 		unsafe {
 			let decoder: &Decoder = lua.get_user_data(1);
-			lua.push_boolean(decoder.decoder.can_decode() as c_int);
+			lua.push_boolean(decoder.inner.can_decode() as c_int);
 		}
 	}
 
@@ -289,7 +289,7 @@ lua_methods! {
 	unsafe fn decoder_last_error(lua) -> 1 {
 		unsafe {
 			let decoder: &Decoder = lua.get_user_data(1);
-			lua.push_integer(decoder.decoder.last_error() as lua_Integer);
+			lua.push_integer(decoder.inner.last_error() as lua_Integer);
 		}
 	}
 
@@ -339,7 +339,7 @@ lua_methods! {
 		unsafe {
 			let decoder: &mut Decoder = lua.get_user_data_mut(1);
 			let instr = Instruction::new(&lua);
-			decoder.decoder.decode_out(&mut instr.instr);
+			decoder.inner.decode_out(&mut instr.inner);
 		}
 	}
 
@@ -392,8 +392,8 @@ lua_methods! {
 		unsafe {
 			let decoder: &mut Decoder = lua.get_user_data_mut(1);
 			let instr: &mut Instruction = lua.get_user_data_mut(2);
-			lua.push_boolean(if decoder.decoder.can_decode() { 1 } else { 0 });
-			decoder.decoder.decode_out(&mut instr.instr);
+			lua.push_boolean(if decoder.inner.can_decode() { 1 } else { 0 });
+			decoder.inner.decode_out(&mut instr.inner);
 		}
 	}
 
@@ -419,8 +419,8 @@ lua_methods! {
 		unsafe {
 			let decoder: &mut Decoder = lua.get_user_data_mut(1);
 			let instr: &mut Instruction = lua.get_user_data_mut(2);
-			if decoder.decoder.can_decode() {
-				decoder.decoder.decode_out(&mut instr.instr);
+			if decoder.inner.can_decode() {
+				decoder.inner.decode_out(&mut instr.inner);
 				lua.push_value(2);
 			} else {
 				lua.push_nil();
@@ -441,9 +441,9 @@ lua_methods! {
 	unsafe fn decoder_iter_slow_copy_worker(lua) -> 1 {
 		unsafe {
 			let decoder: &mut Decoder = lua.get_user_data_mut(1);
-			if decoder.decoder.can_decode() {
+			if decoder.inner.can_decode() {
 				let instr = Instruction::new(&lua);
-				decoder.decoder.decode_out(&mut instr.instr);
+				decoder.inner.decode_out(&mut instr.inner);
 			} else {
 				lua.push_nil();
 			}
