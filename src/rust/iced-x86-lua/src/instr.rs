@@ -4,7 +4,7 @@
 use crate::ud::UserDataIds;
 use loona::lua::{Lua, LuaUserData};
 use loona::lua_api::*;
-use loona::lua_method;
+use loona::lua_methods;
 
 lua_struct_module! { luaopen_iced_x86_Instruction : Instruction }
 lua_impl_userdata! { Instruction }
@@ -49,7 +49,7 @@ impl Instruction {
 	}
 }
 
-lua_method! {
+lua_methods! {
 	/// Creates a new empty instruction
 	/// @return Instruction
 	unsafe fn instruction_new(lua) -> 1 {
@@ -57,9 +57,7 @@ lua_method! {
 			let _ = Instruction::new(&lua);
 		}
 	}
-}
 
-lua_method! {
 	/// Gets the instruction code (a `Code` enum value), see also `Instruction:mnemonic`
 	/// @return Code
 	unsafe fn instruction_code(lua) -> 1 {

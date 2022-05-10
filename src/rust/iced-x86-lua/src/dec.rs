@@ -7,7 +7,7 @@ use iced_x86::{DecoderOptions, IcedError};
 use libc::c_int;
 use loona::lua::{Lua, LuaUserData};
 use loona::lua_api::{lua_CFunction, lua_Integer};
-use loona::lua_method;
+use loona::lua_methods;
 use std::{ptr, slice};
 
 lua_struct_module! { luaopen_iced_x86_Decoder : Decoder }
@@ -68,7 +68,7 @@ impl Decoder {
 	}
 }
 
-lua_method! {
+lua_methods! {
 	/// Creates a new decoder
 	///
 	/// @param bitness integer #16, 32 or 64
@@ -146,9 +146,7 @@ lua_method! {
 			let _ = lua.set_metatable(-2);
 		}
 	}
-}
 
-lua_method! {
 	/// The current `IP`/`EIP`/`RIP` value, see also `Decoder:position()`
 	/// @return integer
 	unsafe fn decoder_ip(lua) -> 1 {
@@ -157,9 +155,7 @@ lua_method! {
 			lua.push_integer(decoder.decoder.ip() as lua_Integer)
 		}
 	}
-}
 
-lua_method! {
 	/// The current `IP`/`EIP`/`RIP` value, see also `Decoder:position()`
 	/// @param value integer #New value
 	unsafe fn decoder_set_ip(lua) -> 0 {
@@ -169,9 +165,7 @@ lua_method! {
 			decoder.decoder.set_ip(ip);
 		}
 	}
-}
 
-lua_method! {
 	/// Gets the bitness (16, 32 or 64)
 	/// @return integer
 	unsafe fn decoder_bitness(lua) -> 1 {
@@ -180,9 +174,7 @@ lua_method! {
 			lua.push_integer(decoder.decoder.bitness() as lua_Integer);
 		}
 	}
-}
 
-lua_method! {
 	/// Gets the max value that can be written to `Decoder:position()`
 	///
 	/// This is the size of the data that gets decoded to instructions and it's the length of the data that was passed to the constructor.
@@ -193,9 +185,7 @@ lua_method! {
 			lua.push_integer(decoder.decoder.max_position() as lua_Integer);
 		}
 	}
-}
 
-lua_method! {
 	/// The current data position, which is the index into the data passed to the constructor.
 	///
 	/// This value is always <= `Decoder:max_position()`. When `Decoder:position()` == `Decoder:max_position()`, it's not possible to decode more
@@ -236,9 +226,7 @@ lua_method! {
 			lua.push_integer(decoder.decoder.position() as lua_Integer);
 		}
 	}
-}
 
-lua_method! {
 	/// The current data position, which is the index into the data passed to the constructor.
 	/// @param value integer #New position
 	unsafe fn decoder_set_position(lua) -> 0 {
@@ -250,9 +238,7 @@ lua_method! {
 			}
 		}
 	}
-}
 
-lua_method! {
 	/// Returns `true` if there's at least one more byte to decode.
 	///
 	/// It doesn't verify that the next instruction is valid, it only checks if there's
@@ -295,9 +281,7 @@ lua_method! {
 			lua.push_boolean(decoder.decoder.can_decode() as c_int);
 		}
 	}
-}
 
-lua_method! {
 	/// Gets the last decoder error (a `DecoderError` enum value).
 	///
 	/// Unless you need to know the reason it failed, it's better to check `Instruction:is_invalid()`.
@@ -308,9 +292,7 @@ lua_method! {
 			lua.push_integer(decoder.decoder.last_error() as lua_Integer);
 		}
 	}
-}
 
-lua_method! {
 	/// Decodes and returns the next instruction.
 	///
 	/// See also `Decoder:decode_out()` which avoids copying the decoded instruction to the caller's return variable.
@@ -360,9 +342,7 @@ lua_method! {
 			decoder.decoder.decode_out(&mut instr.instr);
 		}
 	}
-}
 
-lua_method! {
 	/// Decodes the next instruction. Returns a boolean indicating whether there was at least one
 	/// byte available to read when this method was called.
 	///
@@ -416,9 +396,7 @@ lua_method! {
 			decoder.decoder.decode_out(&mut instr.instr);
 		}
 	}
-}
 
-lua_method! {
 	//TODO: doc comments here
 	unsafe fn decoder_iter_out(lua) -> 3 {
 		unsafe {
@@ -436,9 +414,7 @@ lua_method! {
 			}
 		}
 	}
-}
 
-lua_method! {
 	unsafe fn decoder_iter_out_worker(lua) -> 1 {
 		unsafe {
 			let decoder: &mut Decoder = lua.get_user_data(1);
@@ -451,9 +427,7 @@ lua_method! {
 			}
 		}
 	}
-}
 
-lua_method! {
 	//TODO: doc comments here
 	unsafe fn decoder_iter_slow_copy(lua) -> 3 {
 		unsafe {
@@ -463,9 +437,7 @@ lua_method! {
 			lua.push_nil();
 		}
 	}
-}
 
-lua_method! {
 	unsafe fn decoder_iter_slow_copy_worker(lua) -> 1 {
 		unsafe {
 			let decoder: &mut Decoder = lua.get_user_data(1);
@@ -477,9 +449,7 @@ lua_method! {
 			}
 		}
 	}
-}
 
-lua_method! {
 	unsafe fn decoder_dtor(lua) -> 0 {
 		unsafe {
 			let decoder: *mut Decoder = lua.get_user_data(1);
