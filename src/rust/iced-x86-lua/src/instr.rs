@@ -2,9 +2,8 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::ud::UserDataIds;
-use loona::lua::{Lua, LuaUserData};
 use loona::lua_api::*;
-use loona::lua_pub_methods;
+use loona::prelude::*;
 
 lua_struct_module! { luaopen_iced_x86_Instruction : Instruction }
 lua_impl_userdata! { Instruction }

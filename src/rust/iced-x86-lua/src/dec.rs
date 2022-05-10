@@ -5,9 +5,8 @@ use crate::instr::Instruction;
 use crate::ud::UserDataIds;
 use iced_x86::{DecoderOptions, IcedError};
 use libc::c_int;
-use loona::lua::{Lua, LuaUserData};
 use loona::lua_api::lua_Integer;
-use loona::{lua_methods, lua_pub_methods};
+use loona::prelude::*;
 use std::{ptr, slice};
 
 lua_struct_module! { luaopen_iced_x86_Decoder : Decoder }
