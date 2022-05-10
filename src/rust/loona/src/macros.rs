@@ -61,3 +61,15 @@ macro_rules! lua_methods {
 		)*
 	};
 }
+
+#[macro_export]
+macro_rules! lua_pub_methods {
+	(static $export_name:ident => $($(#[$attr:meta])* unsafe fn $method_name:ident($lua:ident) -> $ret_vals:literal $block:block)*) => {
+		$crate::lua_methods! { $($(#[$attr])* unsafe fn $method_name($lua) -> $ret_vals $block)* }
+		static $export_name: &[(&str, ::loona::lua_api::lua_CFunction)] = &[
+			$(
+				(stringify!($method_name), $method_name),
+			)*
+		];
+	};
+}

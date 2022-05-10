@@ -4,7 +4,7 @@
 use crate::ud::UserDataIds;
 use loona::lua::{Lua, LuaUserData};
 use loona::lua_api::*;
-use loona::lua_methods;
+use loona::lua_pub_methods;
 
 lua_struct_module! { luaopen_iced_x86_Instruction : Instruction }
 lua_impl_userdata! { Instruction }
@@ -32,12 +32,7 @@ impl Instruction {
 			lua.push_literal("__index");
 			lua.new_table();
 
-			let methods: &[(&str, lua_CFunction)] = &[
-				("new", instruction_new),
-				("code", instruction_code),
-				//TODO:
-			];
-			for &(name, method) in methods {
+			for &(name, method) in INSTRUCTION_EXPORTS {
 				lua.push_literal(name);
 				lua.push_c_function(method);
 				lua.raw_set(-3);
@@ -49,21 +44,23 @@ impl Instruction {
 	}
 }
 
-lua_methods! {
+lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Creates a new empty instruction
 	/// @return Instruction
-	unsafe fn instruction_new(lua) -> 1 {
+	unsafe fn new(lua) -> 1 {
 		unsafe {
 			let _ = Instruction::new(&lua);
 		}
 	}
 
-	/// Gets the instruction code (a `Code` enum value), see also `Instruction:mnemonic`
+	/// Gets the instruction code (a `Code` enum value), see also `Instruction:mnemonic()`
 	/// @return Code
-	unsafe fn instruction_code(lua) -> 1 {
+	unsafe fn code(lua) -> 1 {
 		unsafe {
 			let instr: &Instruction = lua.get_user_data(1);
 			lua.push_integer(instr.inner.code() as lua_Integer);
 		}
 	}
+
+	//TODO:
 }
