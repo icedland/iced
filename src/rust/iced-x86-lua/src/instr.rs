@@ -62,7 +62,7 @@ lua_methods! {
 	/// @return Code
 	unsafe fn instruction_code(lua) -> 1 {
 		unsafe {
-			let instr: &mut Instruction = lua.get_user_data(1);
+			let instr: &Instruction = lua.get_user_data(1);
 			lua.push_integer(instr.instr.code() as lua_Integer);
 		}
 	}

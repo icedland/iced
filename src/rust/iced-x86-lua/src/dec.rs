@@ -151,7 +151,7 @@ lua_methods! {
 	/// @return integer
 	unsafe fn decoder_ip(lua) -> 1 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
+			let decoder: &Decoder = lua.get_user_data(1);
 			lua.push_integer(decoder.decoder.ip() as lua_Integer)
 		}
 	}
@@ -160,7 +160,7 @@ lua_methods! {
 	/// @param value integer #New value
 	unsafe fn decoder_set_ip(lua) -> 0 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
+			let decoder: &mut Decoder = lua.get_user_data_mut(1);
 			let ip = lua.get_u64(2);
 			decoder.decoder.set_ip(ip);
 		}
@@ -170,7 +170,7 @@ lua_methods! {
 	/// @return integer
 	unsafe fn decoder_bitness(lua) -> 1 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
+			let decoder: &Decoder = lua.get_user_data(1);
 			lua.push_integer(decoder.decoder.bitness() as lua_Integer);
 		}
 	}
@@ -181,7 +181,7 @@ lua_methods! {
 	/// @return integer
 	unsafe fn decoder_max_position(lua) -> 1 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
+			let decoder: &Decoder = lua.get_user_data(1);
 			lua.push_integer(decoder.decoder.max_position() as lua_Integer);
 		}
 	}
@@ -222,7 +222,7 @@ lua_methods! {
 	/// ```
 	unsafe fn decoder_position(lua) -> 1 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
+			let decoder: &Decoder = lua.get_user_data(1);
 			lua.push_integer(decoder.decoder.position() as lua_Integer);
 		}
 	}
@@ -231,7 +231,7 @@ lua_methods! {
 	/// @param value integer #New position
 	unsafe fn decoder_set_position(lua) -> 0 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
+			let decoder: &mut Decoder = lua.get_user_data_mut(1);
 			let pos = lua.get_usize(2);
 			if let Err(e) = decoder.decoder.set_position(pos) {
 				lua.throw_error(e);
@@ -277,7 +277,7 @@ lua_methods! {
 	/// ```
 	unsafe fn decoder_can_decode(lua) -> 1 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
+			let decoder: &Decoder = lua.get_user_data(1);
 			lua.push_boolean(decoder.decoder.can_decode() as c_int);
 		}
 	}
@@ -288,7 +288,7 @@ lua_methods! {
 	/// @return integer #`DecoderError` enum value
 	unsafe fn decoder_last_error(lua) -> 1 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
+			let decoder: &Decoder = lua.get_user_data(1);
 			lua.push_integer(decoder.decoder.last_error() as lua_Integer);
 		}
 	}
@@ -337,7 +337,7 @@ lua_methods! {
 	/// ```
 	unsafe fn decoder_decode(lua) -> 1 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
+			let decoder: &mut Decoder = lua.get_user_data_mut(1);
 			let instr = Instruction::new(&lua);
 			decoder.decoder.decode_out(&mut instr.instr);
 		}
@@ -390,8 +390,8 @@ lua_methods! {
 	/// ```
 	unsafe fn decoder_decode_out(lua) -> 1 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
-			let instr: &mut Instruction = lua.get_user_data(2);
+			let decoder: &mut Decoder = lua.get_user_data_mut(1);
+			let instr: &mut Instruction = lua.get_user_data_mut(2);
 			lua.push_boolean(if decoder.decoder.can_decode() { 1 } else { 0 });
 			decoder.decoder.decode_out(&mut instr.instr);
 		}
@@ -400,10 +400,10 @@ lua_methods! {
 	//TODO: doc comments here
 	unsafe fn decoder_iter_out(lua) -> 3 {
 		unsafe {
-			let _decoder: &mut Decoder = lua.get_user_data(1);
+			let _decoder: &Decoder = lua.get_user_data(1);
 			let has_instr = lua.get_top() >= 2;
 			if has_instr {
-				let _instr: &mut Instruction = lua.get_user_data(2);
+				let _instr: &Instruction = lua.get_user_data(2);
 			}
 			lua.push_c_function(decoder_iter_out_worker);
 			lua.push_value(1);
@@ -417,8 +417,8 @@ lua_methods! {
 
 	unsafe fn decoder_iter_out_worker(lua) -> 1 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
-			let instr: &mut Instruction = lua.get_user_data(2);
+			let decoder: &mut Decoder = lua.get_user_data_mut(1);
+			let instr: &mut Instruction = lua.get_user_data_mut(2);
 			if decoder.decoder.can_decode() {
 				decoder.decoder.decode_out(&mut instr.instr);
 				lua.push_value(2);
@@ -431,7 +431,7 @@ lua_methods! {
 	//TODO: doc comments here
 	unsafe fn decoder_iter_slow_copy(lua) -> 3 {
 		unsafe {
-			let _decoder: &mut Decoder = lua.get_user_data(1);
+			let _decoder: &Decoder = lua.get_user_data(1);
 			lua.push_c_function(decoder_iter_slow_copy_worker);
 			lua.push_value(1);
 			lua.push_nil();
@@ -440,7 +440,7 @@ lua_methods! {
 
 	unsafe fn decoder_iter_slow_copy_worker(lua) -> 1 {
 		unsafe {
-			let decoder: &mut Decoder = lua.get_user_data(1);
+			let decoder: &mut Decoder = lua.get_user_data_mut(1);
 			if decoder.decoder.can_decode() {
 				let instr = Instruction::new(&lua);
 				decoder.decoder.decode_out(&mut instr.instr);
@@ -452,7 +452,7 @@ lua_methods! {
 
 	unsafe fn decoder_dtor(lua) -> 0 {
 		unsafe {
-			let decoder: *mut Decoder = lua.get_user_data(1);
+			let decoder: *mut Decoder = lua.get_user_data_mut(1);
 			ptr::drop_in_place(decoder);
 		}
 	}

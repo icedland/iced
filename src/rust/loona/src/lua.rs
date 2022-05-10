@@ -149,6 +149,30 @@ macro_rules! gen_get_unsigned_int {
 	};
 }
 
+macro_rules! get_user_data_body {
+	($slf:ident, $idx:ident, $ptr:ident: $ptr_ty:ty, $code:block) => {{
+		// lua_touserdata() returns a valid pointer if it's a userdata or a lightuserdata.
+		// lua_objlen()/lua_rawlen() return 0 if it's a lightuserdata and the size of the
+		// userdata if it's a userdata.
+		// The userdata is a WrappedUserData<T> and its size is never 0 since it has an `id`
+		// field of type `u32`.
+		// This means we don't have to check if the type is userdata, saving one call and
+		// speeding up this code a little bit.
+		let $ptr: $ptr_ty = $slf.to_user_data($idx);
+		if !$ptr.is_null() && $slf.raw_len($idx) == mem::size_of::<WrappedUserData<T>>() {
+			// Make sure it's our userdata. We can only check this after we've verified
+			// the size (see above).
+			// We assume that the `id` field is at offset 0.
+			if *$ptr.cast::<u32>() == T::UNIQUE_ID {
+				// Now that we know it's our data, we can create a ref to it
+				$code
+			}
+		}
+		$slf.push_literal("Expected a userdata");
+		$slf.error();
+	}};
+}
+
 /// Wraps a `lua_State`. Any references returned by it have the same lifetime as arg `L: lua_State`
 #[derive(Debug, Clone, Copy)]
 #[repr(transparent)]
@@ -185,28 +209,22 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
-	pub unsafe fn get_user_data<T: LuaUserData>(&self, idx: c_int) -> &'lua mut T {
+	pub unsafe fn get_user_data<T: LuaUserData>(&self, idx: c_int) -> &'lua T {
 		unsafe {
-			// lua_touserdata() returns a valid pointer if it's a userdata or a lightuserdata.
-			// lua_objlen()/lua_rawlen() return 0 if it's a lightuserdata and the size of the
-			// userdata if it's a userdata.
-			// The userdata is a WrappedUserData<T> and its size is never 0 since it has an `id`
-			// field of type `u32`.
-			// This means we don't have to check if the type is userdata, saving one call and
-			// speeding up this code a little bit.
-			let ptr = self.to_user_data(idx);
-			if !ptr.is_null() && self.raw_len(idx) == mem::size_of::<WrappedUserData<T>>() {
-				// Make sure it's our userdata. We can only check this after we've verified
-				// the size (see above).
-				// We assume that the `id` field is at offset 0.
-				if *ptr.cast::<u32>() == T::UNIQUE_ID {
-					// Now that we know it's our data, we can create a ref to it
-					let wrapped = &mut *ptr.cast::<WrappedUserData<T>>();
-					return &mut wrapped.ud;
-				}
-			}
-			self.push_literal("Expected a userdata");
-			self.error();
+			get_user_data_body!(self, idx, ptr: *const c_void, {
+				let wrapped = &*ptr.cast::<WrappedUserData<T>>();
+				return &wrapped.ud;
+			})
+		}
+	}
+
+	#[inline]
+	pub unsafe fn get_user_data_mut<T: LuaUserData>(&self, idx: c_int) -> &'lua mut T {
+		unsafe {
+			get_user_data_body!(self, idx, ptr: *mut c_void, {
+				let wrapped = &mut *ptr.cast::<WrappedUserData<T>>();
+				return &mut wrapped.ud;
+			})
 		}
 	}
 
