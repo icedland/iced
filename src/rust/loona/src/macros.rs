@@ -36,6 +36,22 @@ macro_rules! lua_module {
 }
 
 #[macro_export]
+macro_rules! lua_struct_module {
+	($mod_name:ident : $class:ident) => {
+		::loona::lua_module! {unsafe fn $mod_name(lua) {
+			unsafe {
+				let mt_res = lua.new_registry_metatable($class::METATABLE_KEY);
+				debug_assert!(mt_res);
+				$class::init_metatable(&lua);
+				lua.push_literal("__index");
+				lua.raw_get(-2);
+				lua.replace(-2); // replace metatable with metatable.__index
+			}
+		}}
+	};
+}
+
+#[macro_export]
 macro_rules! lua_methods {
 	($($(#[$attr:meta])* unsafe fn $method_name:ident($lua:ident $(, $arg:ident:$arg_ty:ty)*) -> $ret_vals:literal $block:block)*) => {
 		$(
