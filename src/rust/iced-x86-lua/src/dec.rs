@@ -4,8 +4,7 @@
 use crate::instr::Instruction;
 use crate::ud::UserDataIds;
 use iced_x86::{DecoderOptions, IcedError};
-use libc::c_int;
-use loona::lua_api::lua_Integer;
+use loona::lua_api::lua_CFunction;
 use loona::prelude::*;
 use std::{ptr, slice};
 
@@ -44,9 +43,15 @@ impl Decoder {
 			// Write to __index
 			lua.raw_set(-3);
 
-			lua.push_literal("__gc");
-			lua.push_c_function(decoder_dtor);
-			lua.raw_set(-3);
+			#[rustfmt::skip]
+			let special_methods: &[(&str, lua_CFunction)] = &[
+				("__gc", decoder_dtor),
+			];
+			for &(name, method) in special_methods {
+				lua.push_literal(name);
+				lua.push_c_function(method);
+				lua.raw_set(-3);
+			}
 		}
 	}
 }
@@ -119,7 +124,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 			};
 			let _ = lua.push_user_data(decoder);
 
-			lua.get_registry_metatable(Decoder::METATABLE_KEY);
+			lua_get_or_init_metatable!(Decoder : lua);
 			let _ = lua.set_metatable(-2);
 		}
 	}
@@ -128,7 +133,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// @return integer
 	unsafe fn ip(lua, decoder: &Decoder) -> 1 {
 		unsafe {
-			lua.push_integer(decoder.inner.ip() as lua_Integer)
+			lua.push_u64(decoder.inner.ip())
 		}
 	}
 
@@ -142,7 +147,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// @return integer
 	unsafe fn bitness(lua, decoder: &Decoder) -> 1 {
 		unsafe {
-			lua.push_integer(decoder.inner.bitness() as lua_Integer);
+			lua.push_u32(decoder.inner.bitness());
 		}
 	}
 
@@ -152,7 +157,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// @return integer
 	unsafe fn max_position(lua, decoder: &Decoder) -> 1 {
 		unsafe {
-			lua.push_integer(decoder.inner.max_position() as lua_Integer);
+			lua.push_usize(decoder.inner.max_position());
 		}
 	}
 
@@ -192,7 +197,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// ```
 	unsafe fn position(lua, decoder: &Decoder) -> 1 {
 		unsafe {
-			lua.push_integer(decoder.inner.position() as lua_Integer);
+			lua.push_usize(decoder.inner.position());
 		}
 	}
 
@@ -244,7 +249,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// ```
 	unsafe fn can_decode(lua, decoder: &Decoder) -> 1 {
 		unsafe {
-			lua.push_boolean(decoder.inner.can_decode() as c_int);
+			lua.push_bool(decoder.inner.can_decode());
 		}
 	}
 
@@ -254,7 +259,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// @return integer #`DecoderError` enum value
 	unsafe fn last_error(lua, decoder: &Decoder) -> 1 {
 		unsafe {
-			lua.push_integer(decoder.inner.last_error() as lua_Integer);
+			lua.push_u32(decoder.inner.last_error() as u32);
 		}
 	}
 
@@ -302,7 +307,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// ```
 	unsafe fn decode(lua, decoder: &mut Decoder) -> 1 {
 		unsafe {
-			let instr = Instruction::new(&lua);
+			let instr = Instruction::push_new(&lua);
 			decoder.inner.decode_out(&mut instr.inner);
 		}
 	}
@@ -354,7 +359,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// ```
 	unsafe fn decode_out(lua, decoder: &mut Decoder, instr: &mut Instruction) -> 1 {
 		unsafe {
-			lua.push_boolean(if decoder.inner.can_decode() { 1 } else { 0 });
+			lua.push_bool(decoder.inner.can_decode());
 		}
 		decoder.inner.decode_out(&mut instr.inner);
 	}
@@ -367,7 +372,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 			if instr.is_some() {
 				lua.push_value(2);
 			} else {
-				let _instr = Instruction::new(&lua);
+				let _instr = Instruction::push_new(&lua);
 			}
 		}
 	}
@@ -399,7 +404,7 @@ lua_methods! {
 	unsafe fn iter_slow_copy_worker(lua, decoder: &mut Decoder) -> 1 {
 		unsafe {
 			if decoder.inner.can_decode() {
-				let instr = Instruction::new(&lua);
+				let instr = Instruction::push_new(&lua);
 				decoder.inner.decode_out(&mut instr.inner);
 			} else {
 				lua.push_nil();

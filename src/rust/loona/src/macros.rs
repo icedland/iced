@@ -17,6 +17,7 @@ macro_rules! lua_module {
 		unsafe extern "C" fn $modname(L: $crate::lua_api::lua_State) -> ::libc::c_int {
 			const RET_VALS: ::libc::c_int = 1;
 			let $lua = unsafe { $crate::lua::Lua::new(&L) };
+			let $lua = &$lua;
 
 			#[cfg(debug_assertions)]
 			let _orig_top = unsafe { $lua.get_top() };
@@ -38,16 +39,23 @@ macro_rules! lua_module {
 #[macro_export]
 macro_rules! lua_struct_module {
 	($mod_name:ident : $class:ident) => {
-		::loona::lua_module! {unsafe fn $mod_name(lua) {
+		$crate::lua_module! {unsafe fn $mod_name(lua) {
 			unsafe {
-				let mt_res = lua.new_registry_metatable($class::METATABLE_KEY);
-				debug_assert!(mt_res);
-				$class::init_metatable(&lua);
+				$crate::lua_get_or_init_metatable!($class : lua);
 				lua.push_literal("__index");
 				lua.raw_get(-2);
 				lua.replace(-2); // replace metatable with metatable.__index
 			}
 		}}
+	};
+}
+
+#[macro_export]
+macro_rules! lua_get_or_init_metatable {
+	($class:ty : $lua:ident) => {
+		if $lua.new_registry_metatable(<$class>::METATABLE_KEY) {
+			<$class>::init_metatable($lua);
+		}
 	};
 }
 
@@ -59,6 +67,7 @@ macro_rules! lua_methods {
 			#[allow(non_snake_case)]
 			unsafe extern "C" fn $method_name(L: $crate::lua_api::lua_State) -> libc::c_int {
 				let $lua = unsafe { $crate::lua::Lua::new(&L) };
+				let $lua = &$lua;
 
 				#[cfg(debug_assertions)]
 				let _orig_top = unsafe { $lua.get_top() };
@@ -66,7 +75,7 @@ macro_rules! lua_methods {
 				// Unfortunately consts don't work, eg. const A: c_int = 1; const A: c_int = A + 1; etc.
 				let _lua_index: ::libc::c_int = 1;
 				$(
-					let $arg: <$arg_ty as FromLua<'_>>::RetType = <$arg_ty as FromLua<'_>>::from_lua(&$lua, _lua_index);
+					let $arg: <$arg_ty as FromLua<'_>>::RetType = <$arg_ty as FromLua<'_>>::from_lua($lua, _lua_index);
 					let _lua_index: ::libc::c_int = _lua_index + 1;
 				)*
 
@@ -89,7 +98,7 @@ macro_rules! lua_methods {
 macro_rules! lua_pub_methods {
 	(static $export_name:ident => $($(#[$attr:meta])* unsafe fn $method_name:ident($lua:ident $(, $arg:ident:$arg_ty:ty)*) -> $ret_vals:literal $block:block)*) => {
 		$crate::lua_methods! { $($(#[$attr])* unsafe fn $method_name($lua $(, $arg:$arg_ty)*) -> $ret_vals $block)* }
-		static $export_name: &[(&str, ::loona::lua_api::lua_CFunction)] = &[
+		static $export_name: &[(&str, $crate::lua_api::lua_CFunction)] = &[
 			$(
 				(stringify!($method_name), $method_name),
 			)*

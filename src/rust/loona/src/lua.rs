@@ -210,6 +210,17 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	pub unsafe fn push_user_data_copy<T: LuaUserData + Copy>(&self, ud: &T) -> &'lua mut T {
+		unsafe {
+			// Make sure it's not a common number, it should be 'random'
+			debug_assert!(T::UNIQUE_ID > 0x1_0000);
+			let ptr_ud = self.new_user_data_no_uv(mem::size_of::<WrappedUserData<T>>()).cast::<WrappedUserData<T>>();
+			ptr::write(ptr_ud, WrappedUserData { id: T::UNIQUE_ID, ud: *ud });
+			&mut (*ptr_ud).ud
+		}
+	}
+
+	#[inline]
 	pub unsafe fn get_user_data<T: LuaUserData>(&self, idx: c_int) -> &'lua T {
 		unsafe {
 			get_user_data_body!(self, idx, ptr: *const c_void, {
@@ -617,6 +628,138 @@ impl<'lua> Lua<'lua> {
 			let msg = e.to_string();
 			self.push_literal(&msg);
 			self.error();
+		}
+	}
+
+	#[inline]
+	pub unsafe fn throw_error_msg(&self, msg: &str) -> ! {
+		unsafe {
+			self.push_literal(msg);
+			self.error();
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_bool(&self, value: bool) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_boolean(value as c_int);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_char(&self, value: char) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_integer(value as lua_Integer);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_i8(&self, value: i8) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_integer(value as lua_Integer);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_i16(&self, value: i16) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_integer(value as lua_Integer);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_i32(&self, value: i32) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_integer(value as lua_Integer);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_i64(&self, value: i64) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_integer(value as lua_Integer);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_isize(&self, value: isize) {
+		#[cfg(target_pointer_width = "32")]
+		unsafe {
+			const_assert!(mem::size_of::<isize>() == 4);
+			self.push_i32(value as i32)
+		}
+		#[cfg(target_pointer_width = "64")]
+		unsafe {
+			const_assert!(mem::size_of::<isize>() == 8);
+			self.push_i64(value as i64)
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_u8(&self, value: u8) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_integer(value as lua_Integer);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_u16(&self, value: u16) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_integer(value as lua_Integer);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_u32(&self, value: u32) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_integer(value as lua_Integer);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_u64(&self, value: u64) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_integer(value as lua_Integer);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_usize(&self, value: usize) {
+		#[cfg(target_pointer_width = "32")]
+		unsafe {
+			const_assert!(mem::size_of::<usize>() == 4);
+			self.push_u32(value as u32)
+		}
+		#[cfg(target_pointer_width = "64")]
+		unsafe {
+			const_assert!(mem::size_of::<usize>() == 8);
+			self.push_u64(value as u64)
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_f32(&self, value: f32) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_number(value as lua_Number);
+		}
+	}
+
+	#[inline]
+	pub unsafe fn push_f64(&self, value: f64) {
+		unsafe {
+			#[allow(trivial_numeric_casts)]
+			self.push_number(value as lua_Number);
 		}
 	}
 }

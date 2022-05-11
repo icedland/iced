@@ -71,5 +71,6 @@
 #[macro_use]
 mod lua_macros;
 mod dec;
+mod enum_utils;
 mod instr;
 mod ud;
