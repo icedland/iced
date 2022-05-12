@@ -19,12 +19,12 @@ macro_rules! lua_module {
 			let $lua = unsafe { $crate::lua::Lua::new(&L) };
 			let $lua = &$lua;
 
-			#[cfg(debug_assertions)]
+			#[cfg(any(debug_assertions, feature = "extra_checks"))]
 			let _orig_top = unsafe { $lua.get_top() };
 
 			$block
 
-			#[cfg(debug_assertions)]
+			#[cfg(any(debug_assertions, feature = "extra_checks"))]
 			unsafe {
 				let _new_top = $lua.get_top();
 				let _stack_usage = $lua.get_top().wrapping_sub(_orig_top);
@@ -69,7 +69,7 @@ macro_rules! lua_methods {
 				let $lua = unsafe { $crate::lua::Lua::new(&L) };
 				let $lua = &$lua;
 
-				#[cfg(debug_assertions)]
+				#[cfg(any(debug_assertions, feature = "extra_checks"))]
 				let _orig_top = unsafe { $lua.get_top() };
 
 				// Unfortunately consts don't work, eg. const A: c_int = 1; const A: c_int = A + 1; etc.
@@ -87,7 +87,7 @@ macro_rules! lua_methods {
 				}
 				$block
 
-				#[cfg(debug_assertions)]
+				#[cfg(any(debug_assertions, feature = "extra_checks"))]
 				unsafe {
 					let _new_top = $lua.get_top();
 					let _stack_usage = $lua.get_top().wrapping_sub(_orig_top);
