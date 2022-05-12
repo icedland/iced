@@ -858,8 +858,8 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
-	pub unsafe fn check_stack(&self, sz: c_int) -> c_int {
-		unsafe { lua_checkstack(self.state, sz) }
+	pub unsafe fn check_stack(&self, sz: c_int) -> bool {
+		unsafe { lua_checkstack(self.state, sz) != 0 }
 	}
 
 	#[inline]
