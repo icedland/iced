@@ -2,7 +2,9 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::enum_utils::{to_code, to_code_size, to_mvex_reg_mem_conv, to_op_kind, to_register, to_rounding_control};
+use crate::fpui::FpuStackIncrementInfo;
 use crate::ud::UserDataIds;
+use libc::c_int;
 use loona::lua_api::lua_CFunction;
 use loona::prelude::*;
 
@@ -1304,6 +1306,29 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 		unsafe { lua.push_i32(instr.inner.stack_pointer_increment()); }
 	}
 
+	/// Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop and whether `TOP` is written.
+	///
+	/// @return FpuStackIncrementInfo # FPU stack info
+	///
+	/// # Examples
+	/// ```lua
+	/// from iced_x86 import *
+	///
+	/// # ficomp dword ptr [rax]
+	/// data = b"\xDA\x18"
+	/// decoder = Decoder(64, data)
+	/// instr = decoder.decode()
+	///
+	/// info = instr.fpu_stack_increment_info()
+	/// # It pops the stack once
+	/// assert info.increment == 1
+	/// assert not info.conditional
+	/// assert info.writes_top
+	/// ```
+	unsafe fn fpu_stack_increment_info(lua, instr: &Instruction) -> 1 {
+		unsafe { let _ = FpuStackIncrementInfo::init_and_push_iced(lua, &instr.inner.fpu_stack_increment_info()); }
+	}
+
 	/// Instruction encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP (an `EncodingKind` enum value)
 	/// @return integer # An `EncodingKind` enum value
 	///
@@ -1320,6 +1345,44 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```
 	unsafe fn encoding(lua, instr: &Instruction) -> 1 {
 		unsafe { lua.push_u32(instr.inner.encoding() as u32); }
+	}
+
+	/// Gets the CPU or CPUID feature flags (an array of `CpuidFeature` enum values)
+	///
+	/// @return integer[] # (A `CpuidFeature` array) CPU or CPUID feature flags
+	///
+	/// # Examples
+	/// ```lua
+	/// from iced_x86 import *
+	///
+	/// # vmovaps xmm1,xmm5
+	/// # vmovaps xmm10{k3}{z},xmm19
+	/// data = b"\xC5\xF8\x28\xCD\x62\x31\x7C\x8B\x28\xD3"
+	/// decoder = Decoder(64, data)
+	///
+	/// # vmovaps xmm1,xmm5
+	/// instr = decoder.decode()
+	/// cpuid = instr.cpuid_features()
+	/// assert len(cpuid) == 1
+	/// assert cpuid[0] == CpuidFeature.AVX
+	///
+	/// # vmovaps xmm10{k3}{z},xmm19
+	/// instr = decoder.decode()
+	/// cpuid = instr.cpuid_features()
+	/// assert len(cpuid) == 2
+	/// assert cpuid[0] == CpuidFeature.AVX512VL
+	/// assert cpuid[1] == CpuidFeature.AVX512F
+	/// ```
+	unsafe fn cpuid_features(lua, instr: &Instruction) -> 1 {
+		let cpuid_features = instr.inner.cpuid_features();
+		unsafe {
+			lua.create_table(cpuid_features.len() as c_int, 0);
+			for (i, &cpuid) in cpuid_features.iter().enumerate() {
+				lua.push_usize(i + 1);
+				lua.push_u32(cpuid as u32);
+				lua.raw_set(-3);
+			}
+		}
 	}
 
 	/// Control flow info (a `FlowControl` enum value)

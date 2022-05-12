@@ -4,4 +4,5 @@
 pub(crate) enum UserDataIds {
 	Instruction = 0x47C1_23A0,
 	Decoder,
+	FpuStackIncrementInfo,
 }
