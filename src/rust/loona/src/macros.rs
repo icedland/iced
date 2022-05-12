@@ -75,7 +75,7 @@ macro_rules! lua_methods {
 				// Unfortunately consts don't work, eg. const A: c_int = 1; const A: c_int = A + 1; etc.
 				let _lua_index: ::libc::c_int = 1;
 				$(
-					let $arg: <$arg_ty as FromLua<'_>>::RetType = <$arg_ty as FromLua<'_>>::from_lua($lua, _lua_index);
+					let $arg: <$arg_ty as $crate::tofrom::FromLua<'_>>::RetType = <$arg_ty as $crate::tofrom::FromLua<'_>>::from_lua($lua, _lua_index);
 					let _lua_index: ::libc::c_int = _lua_index + 1;
 				)*
 
