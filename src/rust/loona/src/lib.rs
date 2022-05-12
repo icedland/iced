@@ -68,6 +68,8 @@
 #![warn(clippy::useless_transmute)]
 #![warn(clippy::zero_sized_map_values)]
 
+#[doc(hidden)]
+pub mod libc;
 pub mod lua;
 pub mod lua_api;
 pub mod macros;

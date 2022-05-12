@@ -14,8 +14,8 @@ macro_rules! lua_module {
 	($(#[$attr:meta])* unsafe fn $modname:ident($lua:ident) $block:block) => {
 		$(#[$attr])*
 		#[no_mangle]
-		unsafe extern "C" fn $modname(L: $crate::lua_api::lua_State) -> ::libc::c_int {
-			const RET_VALS: ::libc::c_int = 1;
+		unsafe extern "C" fn $modname(L: $crate::lua_api::lua_State) -> $crate::libc::c_int {
+			const RET_VALS: $crate::libc::c_int = 1;
 			let $lua = unsafe { $crate::lua::Lua::new(&L) };
 			let $lua = &$lua;
 
@@ -65,7 +65,7 @@ macro_rules! lua_methods {
 		$(
 			$(#[$attr])*
 			#[allow(non_snake_case)]
-			unsafe extern "C" fn $method_name(L: $crate::lua_api::lua_State) -> libc::c_int {
+			unsafe extern "C" fn $method_name(L: $crate::lua_api::lua_State) -> $crate::libc::c_int {
 				let $lua = unsafe { $crate::lua::Lua::new(&L) };
 				let $lua = &$lua;
 
@@ -73,15 +73,15 @@ macro_rules! lua_methods {
 				let _orig_top = unsafe { $lua.get_top() };
 
 				// Unfortunately consts don't work, eg. const A: c_int = 1; const A: c_int = A + 1; etc.
-				let _lua_index: ::libc::c_int = 1;
+				let _lua_index: $crate::libc::c_int = 1;
 				$(
 					let $arg: <$arg_ty as $crate::tofrom::FromLua<'_>>::RetType = <$arg_ty as $crate::tofrom::FromLua<'_>>::from_lua($lua, _lua_index);
-					let _lua_index: ::libc::c_int = _lua_index + 1;
+					let _lua_index: $crate::libc::c_int = _lua_index + 1;
 				)*
 
 				const _: [(); 0 - !($ret_vals >= 0) as usize] = []; //TODO: Rust 1.57: use const _: () = assert!($ret_vals >= 0);
 				if $ret_vals > $crate::lua_api::LUA_MINSTACK {
-					if !$lua.check_stack($ret_vals as ::libc::c_int) {
+					if !$lua.check_stack($ret_vals as $crate::libc::c_int) {
 						$lua.throw_error_msg("Couldn't grow the stack");
 					}
 				}
