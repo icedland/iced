@@ -42,7 +42,7 @@ macro_rules! lua_struct_module {
 		$crate::lua_module! {unsafe fn $mod_name(lua) {
 			unsafe {
 				$crate::lua_get_or_init_metatable!($class : lua);
-				lua.push_literal("__index");
+				lua.push("__index");
 				lua.raw_get(-2);
 				lua.replace(-2); // replace metatable with metatable.__index
 			}

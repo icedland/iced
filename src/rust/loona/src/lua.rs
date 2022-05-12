@@ -5,6 +5,7 @@
 #![allow(clippy::missing_errors_doc)]
 
 use crate::lua_api::*;
+use crate::prelude::ToLua;
 use libc::{c_char, c_int, c_void, size_t};
 use static_assertions::const_assert;
 use std::convert::TryFrom;
@@ -762,6 +763,13 @@ impl<'lua> Lua<'lua> {
 			self.push_number(value as lua_Number);
 		}
 	}
+
+	#[inline]
+	pub unsafe fn push<T: ToLua>(&self, value: T) {
+		unsafe {
+			value.to_lua(self);
+		}
+	}
 }
 
 // Simple wrappers calling the Lua C API
@@ -1059,14 +1067,14 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
-	pub unsafe fn push_bytes(&self, s: &'_ [u8]) {
+	pub unsafe fn push_bytes(&self, s: &[u8]) {
 		unsafe {
 			let _ = lua_pushlstring(self.state, s.as_ptr().cast(), s.len());
 		}
 	}
 
 	#[inline]
-	pub unsafe fn push_string(&self, s: &'_ str) {
+	pub unsafe fn push_string(&self, s: &str) {
 		unsafe {
 			let _ = lua_pushlstring(self.state, s.as_ptr().cast(), s.len());
 		}

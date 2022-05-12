@@ -2,6 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::lua::Lua;
+use crate::lua_api::lua_CFunction;
 use crate::prelude::LuaUserData;
 use libc::c_int;
 
@@ -12,6 +13,13 @@ pub trait FromLua<'lua> {
 	///
 	/// `idx` must be a valid index that can be passed to Lua API functions.
 	unsafe fn from_lua(lua: &Lua<'lua>, idx: c_int) -> Self::RetType;
+}
+
+pub trait ToLua {
+	/// # Safety
+	///
+	/// There must be enough Lua stack space left when pushing the value on the stack (see `check_stack()`)
+	unsafe fn to_lua(&self, lua: &Lua<'_>);
 }
 
 /// A value that is ignored
@@ -164,3 +172,58 @@ impl<'lua, T: LuaUserData + 'lua> FromLua<'lua> for Option<&mut T> {
 		}
 	}
 }
+
+/// Pushes a Lua `nil` value, eg. `lua.push(Nil)`
+#[derive(Debug, Clone, Copy)]
+pub struct Nil;
+
+macro_rules! impl_to_lua {
+    ($lua:ident, $value:ident { $($ty:ty => $block:expr,)+ }) => {
+		$(
+			impl ToLua for $ty {
+				#[inline]
+				unsafe fn to_lua(&self, $lua: &Lua<'_>) {
+					let $value = self;
+					$block
+				}
+			}
+
+			impl ToLua for Option<$ty> {
+				#[inline]
+				unsafe fn to_lua(&self, $lua: &Lua<'_>) {
+					if let Some($value) = self {
+						$block
+					} else {
+						// SAFETY: caller guarantees we can push a value
+						unsafe { $lua.push_nil(); }
+					}
+				}
+			}
+		)+
+    };
+}
+
+// SAFETY: caller guarantees we can push a value
+impl_to_lua! { lua, value {
+	Nil => unsafe { let _ = value; lua.push_nil() },
+	bool => unsafe { lua.push_bool(*value) },
+	char => unsafe { lua.push_char(*value) },
+	i8 => unsafe { lua.push_i8(*value) },
+	i16 => unsafe { lua.push_i16(*value) },
+	i32 => unsafe { lua.push_i32(*value) },
+	i64 => unsafe { lua.push_i64(*value) },
+	isize => unsafe { lua.push_isize(*value) },
+	u8 => unsafe { lua.push_u8(*value) },
+	u16 => unsafe { lua.push_u16(*value) },
+	u32 => unsafe { lua.push_u32(*value) },
+	u64 => unsafe { lua.push_u64(*value) },
+	usize => unsafe { lua.push_usize(*value) },
+	&str => unsafe { lua.push_literal(*value) },
+	String => unsafe { lua.push_literal(&*value) },
+	&String => unsafe { lua.push_literal(*value) },
+	&[u8] => unsafe { lua.push_bytes(*value) },
+	Vec<u8> => unsafe { lua.push_bytes(&*value) },
+	&Vec<u8> => unsafe { lua.push_bytes(&**value) },
+	//TODO: lua.push(method_name) doesn't work, but if we add `let method_name: lua_CFunction = method_name` before the push() it works...
+	lua_CFunction => unsafe { lua.push_c_function(*value) },
+}}

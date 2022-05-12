@@ -41,12 +41,12 @@ impl FpuStackIncrementInfo {
 
 	unsafe fn init_metatable(lua: &Lua<'_>) {
 		unsafe {
-			lua.push_literal("__index");
+			lua.push("__index");
 			lua.new_table();
 
 			for &(name, method) in FPU_INFO_EXPORTS {
-				lua.push_literal(name);
-				lua.push_c_function(method);
+				lua.push(name);
+				lua.push(method);
 				lua.raw_set(-3);
 			}
 
@@ -58,8 +58,8 @@ impl FpuStackIncrementInfo {
 				("__eq", fpuinfo_eq),
 			];
 			for &(name, method) in special_methods {
-				lua.push_literal(name);
-				lua.push_c_function(method);
+				lua.push(name);
+				lua.push(method);
 				lua.raw_set(-3);
 			}
 		}
@@ -83,24 +83,24 @@ lua_pub_methods! { static FPU_INFO_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn increment(lua, fpui: &FpuStackIncrementInfo) -> 1 {
-		unsafe { lua.push_i32(fpui.inner.increment()); }
+		unsafe { lua.push(fpui.inner.increment()); }
 	}
 
 	/// `true` if it's a conditional push/pop (eg. `FPTAN` or `FSINCOS`)
 	/// @return boolean
 	unsafe fn conditional(lua, fpui: &FpuStackIncrementInfo) -> 1 {
-		unsafe { lua.push_bool(fpui.inner.conditional()); }
+		unsafe { lua.push(fpui.inner.conditional()); }
 	}
 
 	/// `true` if `TOP` is written (it's a conditional/unconditional push/pop, `FNSAVE`, `FLDENV`, etc)
 	/// @return boolean
 	unsafe fn writes_top(lua, fpui: &FpuStackIncrementInfo) -> 1 {
-		unsafe { lua.push_bool(fpui.inner.writes_top()); }
+		unsafe { lua.push(fpui.inner.writes_top()); }
 	}
 }
 
 lua_methods! {
 	unsafe fn fpuinfo_eq(lua, fpui: &FpuStackIncrementInfo, fpui2: &FpuStackIncrementInfo) -> 1 {
-		unsafe { lua.push_bool(fpui.inner == fpui2.inner) }
+		unsafe { lua.push(fpui.inner == fpui2.inner) }
 	}
 }

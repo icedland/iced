@@ -38,12 +38,12 @@ impl Instruction {
 
 	unsafe fn init_metatable(lua: &Lua<'_>) {
 		unsafe {
-			lua.push_literal("__index");
+			lua.push("__index");
 			lua.new_table();
 
 			for &(name, method) in INSTRUCTION_EXPORTS {
-				lua.push_literal(name);
-				lua.push_c_function(method);
+				lua.push(name);
+				lua.push(method);
 				lua.raw_set(-3);
 			}
 
@@ -57,8 +57,8 @@ impl Instruction {
 				("__len", instruction_len),
 			];
 			for &(name, method) in special_methods {
-				lua.push_literal(name);
-				lua.push_c_function(method);
+				lua.push(name);
+				lua.push(method);
 				lua.raw_set(-3);
 			}
 		}
@@ -85,14 +85,14 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `==` ignores some fields.
 	unsafe fn eq_all_bits(lua, instr: &Instruction, instr2: &Instruction) -> 1 {
 		unsafe {
-			lua.push_bool(instr.inner.eq_all_bits(&instr2.inner))
+			lua.push(instr.inner.eq_all_bits(&instr2.inner))
 		}
 	}
 
 	/// Gets the 16-bit IP of the instruction
 	/// @return integer
 	unsafe fn ip16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u16(instr.inner.ip16()); }
+		unsafe { lua.push(instr.inner.ip16()); }
 	}
 
 	/// Gets the 16-bit IP of the instruction
@@ -103,7 +103,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets the 32-bit IP of the instruction
 	/// @return integer
 	unsafe fn ip32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.ip32()); }
+		unsafe { lua.push(instr.inner.ip32()); }
 	}
 
 	/// Gets the 32-bit IP of the instruction
@@ -114,7 +114,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets the 64-bit IP of the instruction
 	/// @return integer
 	unsafe fn ip(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u64(instr.inner.ip()); }
+		unsafe { lua.push(instr.inner.ip()); }
 	}
 
 	/// Gets the 64-bit IP of the instruction
@@ -125,7 +125,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets the 16-bit IP of the next instruction
 	/// @return integer
 	unsafe fn next_ip16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u16(instr.inner.next_ip16()); }
+		unsafe { lua.push(instr.inner.next_ip16()); }
 	}
 
 	/// Gets the 16-bit IP of the next instruction
@@ -136,7 +136,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets the 32-bit IP of the next instruction
 	/// @return integer
 	unsafe fn next_ip32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.next_ip32()); }
+		unsafe { lua.push(instr.inner.next_ip32()); }
 	}
 
 	/// Gets the 32-bit IP of the next instruction
@@ -147,7 +147,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets the 64-bit IP of the next instruction
 	/// @return integer
 	unsafe fn next_ip(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u64(instr.inner.next_ip()); }
+		unsafe { lua.push(instr.inner.next_ip()); }
 	}
 
 	/// Gets the 64-bit IP of the next instruction
@@ -162,7 +162,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `CodeSize` enum value
 	unsafe fn code_size(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.code_size() as u32); }
+		unsafe { lua.push(instr.inner.code_size() as u32); }
 	}
 
 	/// Gets the code size (a `CodeSize` enum value) when the instruction was decoded.
@@ -173,13 +173,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Checks if it's an invalid instruction (`Instruction:code()` == `Code.INVALID`)
 	/// @return boolean
 	unsafe fn is_invalid(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_invalid()); }
+		unsafe { lua.push(instr.inner.is_invalid()); }
 	}
 
 	/// Gets the instruction code (a `Code` enum value), see also `Instruction:mnemonic()`
 	/// @return integer # A `Code` enum value
 	unsafe fn code(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.code() as u32); }
+		unsafe { lua.push(instr.inner.code() as u32); }
 	}
 
 	/// Gets the instruction code (a `Code` enum value), see also `Instruction:mnemonic()`
@@ -190,7 +190,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets the mnemonic (a `Mnemonic` enum value), see also `Instruction:code()`
 	/// @return integer # A `Mnemonic` enum value
 	unsafe fn mnemonic(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.mnemonic() as u32); }
+		unsafe { lua.push(instr.inner.mnemonic() as u32); }
 	}
 
 	/// Gets the operand count. An instruction can have 0-5 operands.
@@ -208,7 +208,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.op_count == 2
 	/// ```
 	unsafe fn op_count(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op_count()); }
+		unsafe { lua.push(instr.inner.op_count()); }
 	}
 
 	/// Gets the length of the instruction, 0-15 bytes.
@@ -220,7 +220,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn len(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_usize(instr.inner.len()); }
+		unsafe { lua.push(instr.inner.len()); }
 	}
 
 	/// Gets the length of the instruction, 0-15 bytes.
@@ -231,7 +231,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// `true` if the instruction has the `XACQUIRE` prefix (`F2`)
 	/// @return boolean
 	unsafe fn has_xacquire_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.has_xacquire_prefix()); }
+		unsafe { lua.push(instr.inner.has_xacquire_prefix()); }
 	}
 
 	/// `true` if the instruction has the `XACQUIRE` prefix (`F2`)
@@ -242,7 +242,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// `true` if the instruction has the `XRELEASE` prefix (`F3`)
 	/// @return boolean
 	unsafe fn has_xrelease_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.has_xrelease_prefix()); }
+		unsafe { lua.push(instr.inner.has_xrelease_prefix()); }
 	}
 
 	/// `true` if the instruction has the `XRELEASE` prefix (`F3`)
@@ -253,7 +253,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
 	/// @return boolean
 	unsafe fn has_rep_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.has_rep_prefix()); }
+		unsafe { lua.push(instr.inner.has_rep_prefix()); }
 	}
 
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
@@ -264,7 +264,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
 	/// @return boolean
 	unsafe fn has_repe_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.has_repe_prefix()); }
+		unsafe { lua.push(instr.inner.has_repe_prefix()); }
 	}
 
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
@@ -275,7 +275,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// `true` if the instruction has the `REPNE` prefix (`F2`)
 	/// @return boolean
 	unsafe fn has_repne_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.has_repne_prefix()); }
+		unsafe { lua.push(instr.inner.has_repne_prefix()); }
 	}
 
 	/// `true` if the instruction has the `REPNE` prefix (`F2`)
@@ -286,7 +286,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// `true` if the instruction has the `LOCK` prefix (`F0`)
 	/// @return boolean
 	unsafe fn has_lock_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.has_lock_prefix()); }
+		unsafe { lua.push(instr.inner.has_lock_prefix()); }
 	}
 
 	/// `true` if the instruction has the `LOCK` prefix (`F0`)
@@ -297,7 +297,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets operand #0's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	/// @return integer # An `OpKind` enum value
 	unsafe fn op0_kind(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op0_kind() as u32); }
+		unsafe { lua.push(instr.inner.op0_kind() as u32); }
 	}
 
 	/// Gets operand #0's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
@@ -308,7 +308,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets operand #1's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	/// @return integer # An `OpKind` enum value
 	unsafe fn op1_kind(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op1_kind() as u32); }
+		unsafe { lua.push(instr.inner.op1_kind() as u32); }
 	}
 
 	/// Gets operand #1's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
@@ -319,7 +319,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets operand #2's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	/// @return integer # An `OpKind` enum value
 	unsafe fn op2_kind(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op2_kind() as u32); }
+		unsafe { lua.push(instr.inner.op2_kind() as u32); }
 	}
 
 	/// Gets operand #2's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
@@ -330,7 +330,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets operand #3's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	/// @return integer # An `OpKind` enum value
 	unsafe fn op3_kind(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op3_kind() as u32); }
+		unsafe { lua.push(instr.inner.op3_kind() as u32); }
 	}
 
 	/// Gets operand #3's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
@@ -341,7 +341,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets operand #4's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	/// @return integer # An `OpKind` enum value
 	unsafe fn op4_kind(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op4_kind() as u32); }
+		unsafe { lua.push(instr.inner.op4_kind() as u32); }
 	}
 
 	/// Gets operand #4's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
@@ -375,7 +375,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```
 	unsafe fn op_kind(lua, instr: &Instruction, operand: u32) -> 1 {
 		match instr.inner.try_op_kind(operand) {
-			Ok(op_kind) => unsafe { lua.push_u32(op_kind as u32) },
+			Ok(op_kind) => unsafe { lua.push(op_kind as u32) },
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
 	}
@@ -394,7 +394,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Checks if the instruction has a segment override prefix, see `Instruction:segment_prefix()`
 	/// @return boolean
 	unsafe fn has_segment_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.has_segment_prefix()); }
+		unsafe { lua.push(instr.inner.has_segment_prefix()); }
 	}
 
 	/// Gets the segment override prefix (a `Register` enum value) or `Register.None` if none.
@@ -406,7 +406,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `Register` enum value
 	unsafe fn segment_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.segment_prefix() as u32); }
+		unsafe { lua.push(instr.inner.segment_prefix() as u32); }
 	}
 
 	/// Gets the segment override prefix (a `Register` enum value) or `Register.None` if none.
@@ -420,7 +420,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `Register` enum value
 	unsafe fn memory_segment(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.memory_segment() as u32); }
+		unsafe { lua.push(instr.inner.memory_segment() as u32); }
 	}
 
 	/// Gets the size of the memory displacement in bytes.
@@ -434,7 +434,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn memory_displ_size(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.memory_displ_size()); }
+		unsafe { lua.push(instr.inner.memory_displ_size()); }
 	}
 
 	/// Gets the size of the memory displacement in bytes.
@@ -445,7 +445,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// `true` if the data is broadcast (EVEX instructions only)
 	/// @return boolean
 	unsafe fn is_broadcast(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_broadcast()); }
+		unsafe { lua.push(instr.inner.is_broadcast()); }
 	}
 
 	/// `true` if the data is broadcast (EVEX instructions only)
@@ -456,7 +456,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// `true` if eviction hint bit is set (`{eh}`) (MVEX instructions only)
 	/// @return boolean
 	unsafe fn is_mvex_eviction_hint(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_mvex_eviction_hint()); }
+		unsafe { lua.push(instr.inner.is_mvex_eviction_hint()); }
 	}
 
 	/// `true` if eviction hint bit is set (`{eh}`) (MVEX instructions only)
@@ -467,7 +467,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// (MVEX) Register/memory operand conversion function (a `MvexRegMemConv` enum value)
 	/// @return integer # An `MvexRegMemConv` enum value
 	unsafe fn mvex_reg_mem_conv(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.mvex_reg_mem_conv() as u32); }
+		unsafe { lua.push(instr.inner.mvex_reg_mem_conv() as u32); }
 	}
 
 	/// (MVEX) Register/memory operand conversion function (a `MvexRegMemConv` enum value)
@@ -485,7 +485,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `MemorySize` enum value
 	unsafe fn memory_size(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.memory_size() as u32); }
+		unsafe { lua.push(instr.inner.memory_size() as u32); }
 	}
 
 	/// Gets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`.
@@ -494,7 +494,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn memory_index_scale(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.memory_index_scale()); }
+		unsafe { lua.push(instr.inner.memory_index_scale()); }
 	}
 
 	/// Gets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`.
@@ -509,7 +509,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn memory_displacement(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u64(instr.inner.memory_displacement64()); }
+		unsafe { lua.push(instr.inner.memory_displacement64()); }
 	}
 
 	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
@@ -527,7 +527,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
-		unsafe { lua.push_u64(value); }
+		unsafe { lua.push(value); }
 	}
 
 	/// Sets an operand's immediate value
@@ -580,7 +580,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn immediate8(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u8(instr.inner.immediate8()); }
+		unsafe { lua.push(instr.inner.immediate8()); }
 	}
 
 	/// Gets the operand's immediate value.
@@ -594,7 +594,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn immediate8_2nd(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u8(instr.inner.immediate8_2nd()); }
+		unsafe { lua.push(instr.inner.immediate8_2nd()); }
 	}
 
 	/// Gets the operand's immediate value.
@@ -608,7 +608,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn immediate16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u16(instr.inner.immediate16()); }
+		unsafe { lua.push(instr.inner.immediate16()); }
 	}
 
 	/// Gets the operand's immediate value.
@@ -622,7 +622,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn immediate32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.immediate32()); }
+		unsafe { lua.push(instr.inner.immediate32()); }
 	}
 
 	/// Gets the operand's immediate value.
@@ -636,7 +636,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn immediate64(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u64(instr.inner.immediate64()); }
+		unsafe { lua.push(instr.inner.immediate64()); }
 	}
 
 	/// Gets the operand's immediate value.
@@ -650,7 +650,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn immediate8to16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_i16(instr.inner.immediate8to16()); }
+		unsafe { lua.push(instr.inner.immediate8to16()); }
 	}
 
 	/// Gets the operand's immediate value.
@@ -664,7 +664,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn immediate8to32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_i32(instr.inner.immediate8to32()); }
+		unsafe { lua.push(instr.inner.immediate8to32()); }
 	}
 
 	/// Gets the operand's immediate value.
@@ -678,7 +678,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn immediate8to64(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_i64(instr.inner.immediate8to64()); }
+		unsafe { lua.push(instr.inner.immediate8to64()); }
 	}
 
 	/// Gets the operand's immediate value.
@@ -692,7 +692,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn immediate32to64(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_i64(instr.inner.immediate32to64()); }
+		unsafe { lua.push(instr.inner.immediate32to64()); }
 	}
 
 	/// Gets the operand's immediate value.
@@ -706,7 +706,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn near_branch16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u16(instr.inner.near_branch16()); }
+		unsafe { lua.push(instr.inner.near_branch16()); }
 	}
 
 	/// Gets the operand's branch target.
@@ -720,7 +720,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn near_branch32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.near_branch32()); }
+		unsafe { lua.push(instr.inner.near_branch32()); }
 	}
 
 	/// Gets the operand's branch target.
@@ -734,7 +734,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn near_branch64(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u64(instr.inner.near_branch64()); }
+		unsafe { lua.push(instr.inner.near_branch64()); }
 	}
 
 	/// Gets the operand's branch target.
@@ -748,7 +748,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn near_branch_target(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u64(instr.inner.near_branch_target()); }
+		unsafe { lua.push(instr.inner.near_branch_target()); }
 	}
 
 	/// Gets the operand's branch target.
@@ -757,7 +757,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn far_branch16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u16(instr.inner.far_branch16()); }
+		unsafe { lua.push(instr.inner.far_branch16()); }
 	}
 
 	/// Gets the operand's branch target.
@@ -771,7 +771,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn far_branch32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.far_branch32()); }
+		unsafe { lua.push(instr.inner.far_branch32()); }
 	}
 
 	/// Gets the operand's branch target.
@@ -785,7 +785,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn far_branch_selector(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u16(instr.inner.far_branch_selector()); }
+		unsafe { lua.push(instr.inner.far_branch_selector()); }
 	}
 
 	/// Gets the operand's branch target selector.
@@ -799,7 +799,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `Register` enum value
 	unsafe fn memory_base(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.memory_base() as u32); }
+		unsafe { lua.push(instr.inner.memory_base() as u32); }
 	}
 
 	/// Gets the memory operand's base register (a `Register` enum value) or `Register.None` if none.
@@ -813,7 +813,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `Register` enum value
 	unsafe fn memory_index(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.memory_index() as u32); }
+		unsafe { lua.push(instr.inner.memory_index() as u32); }
 	}
 
 	/// Gets the memory operand's index register (a `Register` enum value) or `Register.None` if none.
@@ -827,7 +827,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `Register` enum value
 	unsafe fn op0_register(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op0_register() as u32); }
+		unsafe { lua.push(instr.inner.op0_register() as u32); }
 	}
 
 	/// Gets operand #0's register value (a `Register` enum value).
@@ -841,7 +841,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `Register` enum value
 	unsafe fn op1_register(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op1_register() as u32); }
+		unsafe { lua.push(instr.inner.op1_register() as u32); }
 	}
 
 	/// Gets operand #1's register value (a `Register` enum value).
@@ -855,7 +855,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `Register` enum value
 	unsafe fn op2_register(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op2_register() as u32); }
+		unsafe { lua.push(instr.inner.op2_register() as u32); }
 	}
 
 	/// Gets operand #2's register value (a `Register` enum value).
@@ -869,7 +869,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `Register` enum value
 	unsafe fn op3_register(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op3_register() as u32); }
+		unsafe { lua.push(instr.inner.op3_register() as u32); }
 	}
 
 	/// Gets operand #3's register value (a `Register` enum value).
@@ -883,7 +883,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `Register` enum value
 	unsafe fn op4_register(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op4_register() as u32); }
+		unsafe { lua.push(instr.inner.op4_register() as u32); }
 	}
 
 	/// Gets operand #4's register value (a `Register` enum value).
@@ -917,7 +917,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```
 	unsafe fn op_register(lua, instr: &Instruction, operand: u32) -> 1 {
 		match instr.inner.try_op_register(operand) {
-			Ok(register) => unsafe { lua.push_u32(register as u32) },
+			Ok(register) => unsafe { lua.push(register as u32) },
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
 	}
@@ -938,7 +938,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Gets the opmask register (`Register.K1` - `Register.K7`) or `Register.None` if none (a `Register` enum value)
 	/// @return integer # A `Register` enum value
 	unsafe fn op_mask(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.op_mask() as u32); }
+		unsafe { lua.push(instr.inner.op_mask() as u32); }
 	}
 
 	/// Gets the opmask register (`Register.K1` - `Register.K7`) or `Register.None` if none (a `Register` enum value)
@@ -949,7 +949,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Checks if there's an opmask register (`Instruction:op_mask()`)
 	/// @return boolean
 	unsafe fn has_op_mask(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.has_op_mask()); }
+		unsafe { lua.push(instr.inner.has_op_mask()); }
 	}
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
@@ -958,7 +958,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return boolean
 	unsafe fn zeroing_masking(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.zeroing_masking()); }
+		unsafe { lua.push(instr.inner.zeroing_masking()); }
 	}
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
@@ -972,7 +972,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return boolean
 	unsafe fn merging_masking(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.merging_masking()); }
+		unsafe { lua.push(instr.inner.merging_masking()); }
 	}
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
@@ -987,7 +987,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer # A `RoundingControl` enum value
 	unsafe fn rounding_control(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.rounding_control() as u32); }
+		unsafe { lua.push(instr.inner.rounding_control() as u32); }
 	}
 
 	/// Gets the rounding control (a `RoundingControl` enum value) or `RoundingControl.None` if the instruction doesn't use it.
@@ -1001,7 +1001,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn declare_data_len(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_usize(instr.inner.declare_data_len()); }
+		unsafe { lua.push(instr.inner.declare_data_len()); }
 	}
 
 	/// Gets the number of elements in a `db`/`dw`/`dd`/`dq` directive.
@@ -1046,7 +1046,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
-		unsafe { lua.push_u8(value); }
+		unsafe { lua.push(value); }
 	}
 
 	/// Gets a `db` value, see also `Instruction:declare_data_len()`.
@@ -1060,7 +1060,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
-		unsafe { lua.push_i8(value as i8); }
+		unsafe { lua.push(value as i8); }
 	}
 
 	/// Sets a new `dw` value, see also `Instruction:declare_data_len()`.
@@ -1100,7 +1100,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
-		unsafe { lua.push_u16(value); }
+		unsafe { lua.push(value); }
 	}
 
 	/// Gets a `dw` value, see also `Instruction:declare_data_len()`.
@@ -1114,7 +1114,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
-		unsafe { lua.push_i16(value as i16); }
+		unsafe { lua.push(value as i16); }
 	}
 
 	/// Sets a new `dd` value, see also `Instruction:declare_data_len()`.
@@ -1154,7 +1154,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
-		unsafe { lua.push_u32(value); }
+		unsafe { lua.push(value); }
 	}
 
 	/// Gets a `dd` value, see also `Instruction:declare_data_len()`.
@@ -1168,7 +1168,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
-		unsafe { lua.push_i32(value as i32); }
+		unsafe { lua.push(value as i32); }
 	}
 
 	/// Sets a new `dq` value, see also `Instruction:declare_data_len()`.
@@ -1208,7 +1208,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
-		unsafe { lua.push_u64(value); }
+		unsafe { lua.push(value); }
 	}
 
 	/// Gets a `dq` value, see also `Instruction:declare_data_len()`.
@@ -1222,25 +1222,25 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
-		unsafe { lua.push_i64(value as i64); }
+		unsafe { lua.push(value as i64); }
 	}
 
 	/// Checks if this is a VSIB instruction, see also `Instruction:is_vsib32()`, `Instruction:is_vsib64()`
 	/// @return boolean
 	unsafe fn is_vsib(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_vsib()); }
+		unsafe { lua.push(instr.inner.is_vsib()); }
 	}
 
 	/// VSIB instructions only (`Instruction:is_vsib()`): `true` if it's using 32-bit indexes, `false` if it's using 64-bit indexes
 	/// @return boolean
 	unsafe fn is_vsib32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_vsib32()); }
+		unsafe { lua.push(instr.inner.is_vsib32()); }
 	}
 
 	/// VSIB instructions only (`Instruction:is_vsib()`): `true` if it's using 64-bit indexes, `false` if it's using 32-bit indexes
 	/// @return boolean
 	unsafe fn is_vsib64(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_vsib64()); }
+		unsafe { lua.push(instr.inner.is_vsib64()); }
 	}
 
 	/// Checks if it's a vsib instruction.
@@ -1252,15 +1252,15 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @return boolean|nil
 	unsafe fn vsib(lua, instr: &Instruction) -> 1 {
 		match instr.inner.vsib() {
-			Some(b) => unsafe { lua.push_bool(b) },
-			None => unsafe { lua.push_nil() },
+			Some(b) => unsafe { lua.push(b) },
+			None => unsafe { lua.push(Nil) },
 		}
 	}
 
 	/// Gets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if `Instruction:rounding_control()` is not `RoundingControl.None`, SAE is implied but this method will still return `false`.
 	/// @return boolean
 	unsafe fn suppress_all_exceptions(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.suppress_all_exceptions()); }
+		unsafe { lua.push(instr.inner.suppress_all_exceptions()); }
 	}
 
 	/// Gets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if `Instruction:rounding_control()` is not `RoundingControl.None`, SAE is implied but this method will still return `false`.
@@ -1271,7 +1271,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Checks if the memory operand is `RIP`/`EIP` relative
 	/// @return boolean
 	unsafe fn is_ip_rel_memory_operand(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_ip_rel_memory_operand()); }
+		unsafe { lua.push(instr.inner.is_ip_rel_memory_operand()); }
 	}
 
 	/// Gets the `RIP`/`EIP` releative address (`Instruction:memory_displacement()`).
@@ -1280,7 +1280,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @return integer
 	unsafe fn ip_rel_memory_address(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u64(instr.inner.ip_rel_memory_address()); }
+		unsafe { lua.push(instr.inner.ip_rel_memory_address()); }
 	}
 
 	/// Gets the number of bytes added to `SP`/`ESP`/`RSP` or 0 if it's not an instruction that pushes or pops data.
@@ -1303,7 +1303,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.stack_pointer_increment == -8
 	/// ```
 	unsafe fn stack_pointer_increment(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_i32(instr.inner.stack_pointer_increment()); }
+		unsafe { lua.push(instr.inner.stack_pointer_increment()); }
 	}
 
 	/// Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop and whether `TOP` is written.
@@ -1344,7 +1344,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.encoding == EncodingKind.VEX
 	/// ```
 	unsafe fn encoding(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.encoding() as u32); }
+		unsafe { lua.push(instr.inner.encoding() as u32); }
 	}
 
 	/// Gets the CPU or CPUID feature flags (an array of `CpuidFeature` enum values)
@@ -1378,8 +1378,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 		unsafe {
 			lua.create_table(cpuid_features.len() as c_int, 0);
 			for (i, &cpuid) in cpuid_features.iter().enumerate() {
-				lua.push_usize(i + 1);
-				lua.push_u32(cpuid as u32);
+				lua.push(i + 1);
+				lua.push(cpuid as u32);
 				lua.raw_set(-3);
 			}
 		}
@@ -1411,13 +1411,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.flow_control == FlowControl.INDIRECT_CALL
 	/// ```
 	unsafe fn flow_control(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.flow_control() as u32); }
+		unsafe { lua.push(instr.inner.flow_control() as u32); }
 	}
 
 	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
 	/// @return boolean
 	unsafe fn is_privileged(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_privileged()); }
+		unsafe { lua.push(instr.inner.is_privileged()); }
 	}
 
 	/// `true` if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
@@ -1445,19 +1445,19 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.stack_pointer_increment == -8
 	/// ```
 	unsafe fn is_stack_instruction(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_stack_instruction()); }
+		unsafe { lua.push(instr.inner.is_stack_instruction()); }
 	}
 
 	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	/// @return boolean
 	unsafe fn is_save_restore_instruction(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_save_restore_instruction()); }
+		unsafe { lua.push(instr.inner.is_save_restore_instruction()); }
 	}
 
 	/// `true` if it's a "string" instruction, such as `MOVS`, `LODS`, `SCAS`, etc.
 	/// @return boolean
 	unsafe fn is_string_instruction(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_string_instruction()); }
+		unsafe { lua.push(instr.inner.is_string_instruction()); }
 	}
 
 	/// All flags that are read by the CPU when executing the instruction.
@@ -1494,7 +1494,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
 	/// ```
 	unsafe fn rflags_read(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.rflags_read()); }
+		unsafe { lua.push(instr.inner.rflags_read()); }
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
@@ -1531,7 +1531,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
 	/// ```
 	unsafe fn rflags_written(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.rflags_written()); }
+		unsafe { lua.push(instr.inner.rflags_written()); }
 	}
 
 	/// All flags that are always cleared by the CPU.
@@ -1568,7 +1568,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
 	/// ```
 	unsafe fn rflags_cleared(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.rflags_cleared()); }
+		unsafe { lua.push(instr.inner.rflags_cleared()); }
 	}
 
 	/// All flags that are always set by the CPU.
@@ -1605,7 +1605,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
 	/// ```
 	unsafe fn rflags_set(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.rflags_set()); }
+		unsafe { lua.push(instr.inner.rflags_set()); }
 	}
 
 	/// All flags that are undefined after executing the instruction.
@@ -1642,7 +1642,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
 	/// ```
 	unsafe fn rflags_undefined(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.rflags_undefined()); }
+		unsafe { lua.push(instr.inner.rflags_undefined()); }
 	}
 
 	/// All flags that are modified by the CPU. This is `rflags_written + rflags_cleared + rflags_set + rflags_undefined`.
@@ -1679,121 +1679,121 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
 	/// ```
 	unsafe fn rflags_modified(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.rflags_modified()); }
+		unsafe { lua.push(instr.inner.rflags_modified()); }
 	}
 
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
 	/// @return boolean
 	unsafe fn is_jcc_short_or_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jcc_short_or_near()); }
+		unsafe { lua.push(instr.inner.is_jcc_short_or_near()); }
 	}
 
 	/// Checks if it's a `Jcc NEAR` instruction
 	/// @return boolean
 	unsafe fn is_jcc_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jcc_near()); }
+		unsafe { lua.push(instr.inner.is_jcc_near()); }
 	}
 
 	/// Checks if it's a `Jcc SHORT` instruction
 	/// @return boolean
 	unsafe fn is_jcc_short(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jcc_short()); }
+		unsafe { lua.push(instr.inner.is_jcc_short()); }
 	}
 
 	/// Checks if it's a `JMP SHORT` instruction
 	/// @return boolean
 	unsafe fn is_jmp_short(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jmp_short()); }
+		unsafe { lua.push(instr.inner.is_jmp_short()); }
 	}
 
 	/// Checks if it's a `JMP NEAR` instruction
 	/// @return boolean
 	unsafe fn is_jmp_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jmp_near()); }
+		unsafe { lua.push(instr.inner.is_jmp_near()); }
 	}
 
 	/// Checks if it's a `JMP SHORT` or a `JMP NEAR` instruction
 	/// @return boolean
 	unsafe fn is_jmp_short_or_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jmp_short_or_near()); }
+		unsafe { lua.push(instr.inner.is_jmp_short_or_near()); }
 	}
 
 	/// Checks if it's a `JMP FAR` instruction
 	/// @return boolean
 	unsafe fn is_jmp_far(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jmp_far()); }
+		unsafe { lua.push(instr.inner.is_jmp_far()); }
 	}
 
 	/// Checks if it's a `CALL NEAR` instruction
 	/// @return boolean
 	unsafe fn is_call_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_call_near()); }
+		unsafe { lua.push(instr.inner.is_call_near()); }
 	}
 
 	/// Checks if it's a `CALL FAR` instruction
 	/// @return boolean
 	unsafe fn is_call_far(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_call_far()); }
+		unsafe { lua.push(instr.inner.is_call_far()); }
 	}
 
 	/// Checks if it's a `JMP NEAR reg/[mem]` instruction
 	/// @return boolean
 	unsafe fn is_jmp_near_indirect(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jmp_near_indirect()); }
+		unsafe { lua.push(instr.inner.is_jmp_near_indirect()); }
 	}
 
 	/// Checks if it's a `JMP FAR [mem]` instruction
 	/// @return boolean
 	unsafe fn is_jmp_far_indirect(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jmp_far_indirect()); }
+		unsafe { lua.push(instr.inner.is_jmp_far_indirect()); }
 	}
 
 	/// Checks if it's a `CALL NEAR reg/[mem]` instruction
 	/// @return boolean
 	unsafe fn is_call_near_indirect(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_call_near_indirect()); }
+		unsafe { lua.push(instr.inner.is_call_near_indirect()); }
 	}
 
 	/// Checks if it's a `CALL FAR [mem]` instruction
 	/// @return boolean
 	unsafe fn is_call_far_indirect(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_call_far_indirect()); }
+		unsafe { lua.push(instr.inner.is_call_far_indirect()); }
 	}
 
 	/// Checks if it's a `JKccD SHORT` or `JKccD NEAR` instruction
 	/// @return boolean
 	unsafe fn is_jkcc_short_or_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jkcc_short_or_near()); }
+		unsafe { lua.push(instr.inner.is_jkcc_short_or_near()); }
 	}
 
 	/// Checks if it's a `JKccD NEAR` instruction
 	/// @return boolean
 	unsafe fn is_jkcc_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jkcc_near()); }
+		unsafe { lua.push(instr.inner.is_jkcc_near()); }
 	}
 
 	/// Checks if it's a `JKccD SHORT` instruction
 	/// @return boolean
 	unsafe fn is_jkcc_short(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.is_jkcc_short()); }
+		unsafe { lua.push(instr.inner.is_jkcc_short()); }
 	}
 
 	/// Checks if it's a `JCXZ SHORT`, `JECXZ SHORT` or `JRCXZ SHORT` instruction
 	/// @return boolean
 	unsafe fn is_jcx_short(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.code().is_jcx_short()); }
+		unsafe { lua.push(instr.inner.code().is_jcx_short()); }
 	}
 
 	/// Checks if it's a `LOOPcc SHORT` instruction
 	/// @return boolean
 	unsafe fn is_loopcc(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.code().is_loopcc()); }
+		unsafe { lua.push(instr.inner.code().is_loopcc()); }
 	}
 
 	/// Checks if it's a `LOOP SHORT` instruction
 	/// @return boolean
 	unsafe fn is_loop(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner.code().is_loop()); }
+		unsafe { lua.push(instr.inner.code().is_loop()); }
 	}
 
 	/// Negates the condition code, eg. `JE` -> `JNE`.
@@ -1892,21 +1892,21 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert instr.condition_code == ConditionCode.NONE
 	/// ```
 	unsafe fn condition_code(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_u32(instr.inner.condition_code() as u32); }
+		unsafe { lua.push(instr.inner.condition_code() as u32); }
 	}
 }
 
 lua_methods! {
 	unsafe fn instruction_tostring(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_literal(&instr.inner.to_string()) }
+		unsafe { lua.push(&instr.inner.to_string()) }
 	}
 
 	unsafe fn instruction_eq(lua, instr: &Instruction, instr2: &Instruction) -> 1 {
-		unsafe { lua.push_bool(instr.inner == instr2.inner) }
+		unsafe { lua.push(instr.inner == instr2.inner) }
 	}
 
 	unsafe fn instruction_len(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push_usize(instr.inner.len()) }
+		unsafe { lua.push(instr.inner.len()) }
 	}
 }
 
