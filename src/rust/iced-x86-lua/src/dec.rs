@@ -307,7 +307,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// ```
 	unsafe fn decode(lua, decoder: &mut Decoder) -> 1 {
 		unsafe {
-			let instr = Instruction::push_new(&lua);
+			let instr = Instruction::push_new(lua);
 			decoder.inner.decode_out(&mut instr.inner);
 		}
 	}
@@ -372,7 +372,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 			if instr.is_some() {
 				lua.push_value(2);
 			} else {
-				let _instr = Instruction::push_new(&lua);
+				let _instr = Instruction::push_new(lua);
 			}
 		}
 	}
@@ -404,7 +404,7 @@ lua_methods! {
 	unsafe fn iter_slow_copy_worker(lua, decoder: &mut Decoder) -> 1 {
 		unsafe {
 			if decoder.inner.can_decode() {
-				let instr = Instruction::push_new(&lua);
+				let instr = Instruction::push_new(lua);
 				decoder.inner.decode_out(&mut instr.inner);
 			} else {
 				lua.push_nil();

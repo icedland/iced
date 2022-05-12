@@ -68,7 +68,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @return Instruction
 	unsafe fn new(lua) -> 1 {
 		unsafe {
-			let _ = Instruction::push_new(&lua);
+			let _ = Instruction::push_new(lua);
 		}
 	}
 
@@ -76,7 +76,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @return Instruction
 	unsafe fn copy(lua, instr: &Instruction) -> 1 {
 		unsafe {
-			let _ = Instruction::init_and_push(&lua, instr);
+			let _ = Instruction::init_and_push(lua, instr);
 		}
 	}
 
@@ -165,7 +165,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the code size (a `CodeSize` enum value) when the instruction was decoded.
 	unsafe fn set_code_size(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_code_size(unsafe { to_code_size(&lua, new_value) });
+		instr.inner.set_code_size(unsafe { to_code_size(lua, new_value) });
 	}
 
 	/// Checks if it's an invalid instruction (`Instruction:code()` == `Code.INVALID`)
@@ -182,7 +182,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the instruction code (a `Code` enum value), see also `Instruction:mnemonic()`
 	unsafe fn set_code(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_code(unsafe { to_code(&lua, new_value) });
+		instr.inner.set_code(unsafe { to_code(lua, new_value) });
 	}
 
 	/// Gets the mnemonic (a `Mnemonic` enum value), see also `Instruction:code()`
@@ -300,7 +300,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets operand #0's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	unsafe fn set_op0_kind(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op0_kind(unsafe { to_op_kind(&lua, new_value) });
+		instr.inner.set_op0_kind(unsafe { to_op_kind(lua, new_value) });
 	}
 
 	/// Gets operand #1's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
@@ -311,7 +311,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets operand #1's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	unsafe fn set_op1_kind(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op1_kind(unsafe { to_op_kind(&lua, new_value) });
+		instr.inner.set_op1_kind(unsafe { to_op_kind(lua, new_value) });
 	}
 
 	/// Gets operand #2's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
@@ -322,7 +322,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets operand #2's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	unsafe fn set_op2_kind(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op2_kind(unsafe { to_op_kind(&lua, new_value) });
+		instr.inner.set_op2_kind(unsafe { to_op_kind(lua, new_value) });
 	}
 
 	/// Gets operand #3's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
@@ -333,7 +333,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets operand #3's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	unsafe fn set_op3_kind(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op3_kind(unsafe { to_op_kind(&lua, new_value) });
+		instr.inner.set_op3_kind(unsafe { to_op_kind(lua, new_value) });
 	}
 
 	/// Gets operand #4's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
@@ -344,7 +344,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets operand #4's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	unsafe fn set_op4_kind(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		match instr.inner.try_set_op4_kind(unsafe { to_op_kind(&lua, new_value) }) {
+		match instr.inner.try_set_op4_kind(unsafe { to_op_kind(lua, new_value) }) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -383,7 +383,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param operand int # Operand number, 0-4
 	/// @param op_kind integer # Operand kind (An `OpKind` enum value)
 	unsafe fn set_op_kind(lua, instr: &mut Instruction, operand: u32, op_kind: u32) -> 0 {
-		match instr.inner.try_set_op_kind(operand, unsafe { to_op_kind(&lua, op_kind) }) {
+		match instr.inner.try_set_op_kind(operand, unsafe { to_op_kind(lua, op_kind) }) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -409,7 +409,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the segment override prefix (a `Register` enum value) or `Register.None` if none.
 	unsafe fn set_segment_prefix(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_segment_prefix(unsafe { to_register(&lua, new_value) });
+		instr.inner.set_segment_prefix(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets the effective segment register used to reference the memory location (a `Register` enum value).
@@ -470,7 +470,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// (MVEX) Register/memory operand conversion function (a `MvexRegMemConv` enum value)
 	unsafe fn set_mvex_reg_mem_conv(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_mvex_reg_mem_conv(unsafe { to_mvex_reg_mem_conv(&lua, new_value) });
+		instr.inner.set_mvex_reg_mem_conv(unsafe { to_mvex_reg_mem_conv(lua, new_value) });
 	}
 
 	/// Gets the size of the memory location (a `MemorySize` enum value) that is referenced by the operand.
@@ -802,7 +802,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the memory operand's base register (a `Register` enum value) or `Register.None` if none.
 	unsafe fn set_memory_base(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_memory_base(unsafe { to_register(&lua, new_value) });
+		instr.inner.set_memory_base(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets the memory operand's index register (a `Register` enum value) or `Register.None` if none.
@@ -816,7 +816,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the memory operand's index register (a `Register` enum value) or `Register.None` if none.
 	unsafe fn set_memory_index(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_memory_index(unsafe { to_register(&lua, new_value) });
+		instr.inner.set_memory_index(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets operand #0's register value (a `Register` enum value).
@@ -830,7 +830,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets operand #0's register value (a `Register` enum value).
 	unsafe fn set_op0_register(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op0_register(unsafe { to_register(&lua, new_value) });
+		instr.inner.set_op0_register(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets operand #1's register value (a `Register` enum value).
@@ -844,7 +844,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets operand #1's register value (a `Register` enum value).
 	unsafe fn set_op1_register(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op1_register(unsafe { to_register(&lua, new_value) });
+		instr.inner.set_op1_register(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets operand #2's register value (a `Register` enum value).
@@ -858,7 +858,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets operand #2's register value (a `Register` enum value).
 	unsafe fn set_op2_register(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op2_register(unsafe { to_register(&lua, new_value) });
+		instr.inner.set_op2_register(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets operand #3's register value (a `Register` enum value).
@@ -872,7 +872,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets operand #3's register value (a `Register` enum value).
 	unsafe fn set_op3_register(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op3_register(unsafe { to_register(&lua, new_value) });
+		instr.inner.set_op3_register(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets operand #4's register value (a `Register` enum value).
@@ -886,7 +886,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets operand #4's register value (a `Register` enum value).
 	unsafe fn set_op4_register(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		match instr.inner.try_set_op4_register(unsafe { to_register(&lua, new_value) }) {
+		match instr.inner.try_set_op4_register(unsafe { to_register(lua, new_value) }) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -927,7 +927,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param operand int # Operand number, 0-4
 	/// @param new_value integer # New value (A `Register` enum value)
 	unsafe fn set_op_register(lua, instr: &mut Instruction, operand: u32, new_value: u32) -> 0 {
-		match instr.inner.try_set_op_register(operand, unsafe { to_register(&lua, new_value) }) {
+		match instr.inner.try_set_op_register(operand, unsafe { to_register(lua, new_value) }) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -941,7 +941,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the opmask register (`Register.K1` - `Register.K7`) or `Register.None` if none (a `Register` enum value)
 	unsafe fn set_op_mask(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op_mask(unsafe { to_register(&lua, new_value) });
+		instr.inner.set_op_mask(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Checks if there's an opmask register (`Instruction:op_mask()`)
@@ -990,7 +990,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the rounding control (a `RoundingControl` enum value) or `RoundingControl.None` if the instruction doesn't use it.
 	unsafe fn set_rounding_control(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_rounding_control(unsafe { to_rounding_control(&lua, new_value) });
+		instr.inner.set_rounding_control(unsafe { to_rounding_control(lua, new_value) });
 	}
 
 	/// Gets the number of elements in a `db`/`dw`/`dd`/`dq` directive.
