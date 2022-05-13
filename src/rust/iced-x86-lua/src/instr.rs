@@ -213,7 +213,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the length of the instruction, 0-15 bytes.
 	///
-	/// You can also call `#instr` to get this value (Lua 5.2 or later).
+	/// You can also call `#instr` to get this value.
 	///
 	/// # Note
 	/// This is just informational. If you modify the instruction or create a new one, this method could return the wrong value.
@@ -1014,19 +1014,6 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Can only be called if `Instruction:code()` is `Code.DeclareByte`
 	///
 	/// @param index int # Index (0-15)
-	/// @param new_value int # (`i8`) New value
-	unsafe fn set_declare_byte_value_i8(lua, instr: &mut Instruction, index: usize, new_value: i8) -> 0 {
-		match instr.inner.try_set_declare_byte_value_i8(index, new_value) {
-			Ok(()) => {},
-			Err(e) => unsafe { lua.throw_error(e) },
-		}
-	}
-
-	/// Sets a new `db` value, see also `Instruction:declare_data_len()`.
-	///
-	/// Can only be called if `Instruction:code()` is `Code.DeclareByte`
-	///
-	/// @param index int # Index (0-15)
 	/// @param new_value int # (`u8`) New value
 	unsafe fn set_declare_byte_value(lua, instr: &mut Instruction, index: usize, new_value: u8) -> 0 {
 		match instr.inner.try_set_declare_byte_value(index, new_value) {
@@ -1061,19 +1048,6 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
 		unsafe { lua.push(value as i8); }
-	}
-
-	/// Sets a new `dw` value, see also `Instruction:declare_data_len()`.
-	///
-	/// Can only be called if `Instruction:code()` is `Code.DeclareWord`
-	///
-	/// @param index int # Index (0-7)
-	/// @param new_value int # (`i16`) New value
-	unsafe fn set_declare_word_value_i16(lua, instr: &mut Instruction, index: usize, new_value: i16) -> 0 {
-		match instr.inner.try_set_declare_word_value_i16(index, new_value) {
-			Ok(()) => {},
-			Err(e) => unsafe { lua.throw_error(e) },
-		}
 	}
 
 	/// Sets a new `dw` value, see also `Instruction:declare_data_len()`.
@@ -1122,19 +1096,6 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Can only be called if `Instruction:code()` is `Code.DeclareDword`
 	///
 	/// @param index int # Index (0-3)
-	/// @param new_value int # (`i32`) New value
-	unsafe fn set_declare_dword_value_i32(lua, instr: &mut Instruction, index: usize, new_value: i32) -> 0 {
-		match instr.inner.try_set_declare_dword_value_i32(index, new_value) {
-			Ok(()) => {},
-			Err(e) => unsafe { lua.throw_error(e) },
-		}
-	}
-
-	/// Sets a new `dd` value, see also `Instruction:declare_data_len()`.
-	///
-	/// Can only be called if `Instruction:code()` is `Code.DeclareDword`
-	///
-	/// @param index int # Index (0-3)
 	/// @param new_value int # (`u32`) New value
 	unsafe fn set_declare_dword_value(lua, instr: &mut Instruction, index: usize, new_value: u32) -> 0 {
 		match instr.inner.try_set_declare_dword_value(index, new_value) {
@@ -1169,19 +1130,6 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
 		unsafe { lua.push(value as i32); }
-	}
-
-	/// Sets a new `dq` value, see also `Instruction:declare_data_len()`.
-	///
-	/// Can only be called if `Instruction:code()` is `Code.DeclareQword`
-	///
-	/// @param index int # Index (0-1)
-	/// @param new_value int # (`i64`) New value
-	unsafe fn set_declare_qword_value_i64(lua, instr: &mut Instruction, index: usize, new_value: i64) -> 0 {
-		match instr.inner.try_set_declare_qword_value_i64(index, new_value) {
-			Ok(()) => {},
-			Err(e) => unsafe { lua.throw_error(e) },
-		}
 	}
 
 	/// Sets a new `dq` value, see also `Instruction:declare_data_len()`.

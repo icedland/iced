@@ -5,6 +5,8 @@ local M = {}
 
 local unpack = unpack or table.unpack
 
+M.has_int64 = string.format("0x%16X", 0xFEDCBA987654321F) == "0xFEDCBA987654321F"
+
 local function hex2bin(c, s)
 	if c >= 0x30 and c <= 0x39 then
 		return c - 0x30

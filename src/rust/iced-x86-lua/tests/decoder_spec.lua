@@ -2,6 +2,7 @@
 -- Copyright (C) 2018-present iced project and contributors
 
 local from_hex = require("iced_test_utils").from_hex
+local has_int64 = require("iced_test_utils").has_int64
 
 describe("Decoder", function()
 	local Code = require("iced_x86.Code")
@@ -72,10 +73,18 @@ describe("Decoder", function()
 		assert.equals(0x1234567A, decoder:ip())
 		decoder:set_ip(0x456789AB)
 		assert.equals(0x456789AB, decoder:ip())
+		decoder:set_ip(-0x456789AB)
+		assert.equals(-0x456789AB, decoder:ip())
+		if has_int64 then
+			decoder = Decoder:new(64, from_hex("F390"), nil, 0xFEDCBA987654321F)
+			assert.equals(0xFEDCBA987654321F, decoder:ip())
+			decoder:set_ip(0xE123456789ABCDF1)
+			assert.equals(0xE123456789ABCDF1, decoder:ip())
+		end
 	end)
 
 	it("position", function()
-		local decoder = Decoder:new(64, from_hex("F39090"), nil, 0x12345678)
+		local decoder = Decoder:new(64, from_hex("F390" .. "90"), nil, 0x12345678)
 		assert.equals(3, decoder:max_position())
 		assert.equals(0, decoder:position())
 		local _ = decoder:decode()
@@ -91,12 +100,15 @@ describe("Decoder", function()
 		decoder:set_position(3)
 		assert.equals(3, decoder:position())
 		assert.has_error(function()
+			decoder:set_position(-1)
+		end)
+		assert.has_error(function()
 			decoder:set_position(4)
 		end)
 	end)
 
 	it("can_decode", function()
-		local decoder = Decoder:new(64, from_hex("F39090"), nil, 0x12345678)
+		local decoder = Decoder:new(64, from_hex("F390" .. "90"), nil, 0x12345678)
 		assert.is_true(decoder:can_decode())
 		local _ = decoder:decode()
 		assert.is_true(decoder:can_decode())
@@ -105,7 +117,7 @@ describe("Decoder", function()
 	end)
 
 	it("last_error", function()
-		local decoder = Decoder:new(64, from_hex("F39090"), nil, 0x12345678)
+		local decoder = Decoder:new(64, from_hex("F390" .. "90"), nil, 0x12345678)
 		assert.equals(DecoderError.None, decoder:last_error())
 		local _ = decoder:decode()
 		assert.equals(DecoderError.None, decoder:last_error())
@@ -134,7 +146,7 @@ describe("Decoder", function()
 	end)
 
 	it("decode_out", function()
-		local decoder = Decoder:new(64, from_hex("F39090"), nil, 0x12345678)
+		local decoder = Decoder:new(64, from_hex("F390" .. "90"), nil, 0x12345678)
 		local instr = Instruction:new()
 		decoder:decode_out(instr)
 		assert.equals(Code.Pause, instr:code())
@@ -145,29 +157,29 @@ describe("Decoder", function()
 
 	it("decode_out invalid arg", function()
 		assert.has_error(function()
-			local decoder = Decoder:new(64, from_hex("F39090"))
+			local decoder = Decoder:new(64, from_hex("F390" .. "90"))
 			decoder:decode_out()
 		end)
 		assert.has_error(function()
-			local decoder = Decoder:new(64, from_hex("F39090"))
+			local decoder = Decoder:new(64, from_hex("F390" .. "90"))
 			decoder:decode_out(nil)
 		end)
 		assert.has_error(function()
-			local decoder = Decoder:new(64, from_hex("F39090"))
+			local decoder = Decoder:new(64, from_hex("F390" .. "90"))
 			decoder:decode_out("hello")
 		end)
 		assert.has_error(function()
-			local decoder = Decoder:new(64, from_hex("F39090"))
+			local decoder = Decoder:new(64, from_hex("F390" .. "90"))
 			decoder:decode_out(1)
 		end)
 		assert.has_error(function()
-			local decoder = Decoder:new(64, from_hex("F39090"))
+			local decoder = Decoder:new(64, from_hex("F390" .. "90"))
 			decoder:decode_out(decoder)
 		end)
 	end)
 
 	it("decode iter_out no arg", function()
-		local decoder = Decoder:new(64, from_hex("F39090"), nil, 0x12345678)
+		local decoder = Decoder:new(64, from_hex("F390" .. "90"), nil, 0x12345678)
 		local result = {}
 		for instr in decoder:iter_out() do
 			result[#result + 1] = instr
@@ -177,7 +189,7 @@ describe("Decoder", function()
 	end)
 
 	it("decode iter_out instr arg", function()
-		local decoder = Decoder:new(64, from_hex("F39090"), nil, 0x12345678)
+		local decoder = Decoder:new(64, from_hex("F390" .. "90"), nil, 0x12345678)
 		local result = {}
 		local orig_instr = Instruction:new()
 		for instr in decoder:iter_out(orig_instr) do
@@ -186,5 +198,22 @@ describe("Decoder", function()
 		end
 		assert.equals(2, #result)
 		assert.is_true(result[1]:eq_all_bits(result[2]))
+	end)
+
+	it("decode in all modes", function()
+		local decoder
+		local instr
+
+		decoder = Decoder:new(16, from_hex("50"))
+		instr = decoder:decode()
+		assert.equals(Code.Push_r16, instr:code())
+
+		decoder = Decoder:new(32, from_hex("50"))
+		instr = decoder:decode()
+		assert.equals(Code.Push_r32, instr:code())
+
+		decoder = Decoder:new(64, from_hex("50"))
+		instr = decoder:decode()
+		assert.equals(Code.Push_r64, instr:code())
 	end)
 end)
