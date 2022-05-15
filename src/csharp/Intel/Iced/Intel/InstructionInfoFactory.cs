@@ -1658,8 +1658,10 @@ namespace Iced.Intel {
 				}
 				CommandPop(instruction, flags, 5, 8);
 				break;
-			case ImpliedAccess.t_Wrsp_pop5x8:
+			case ImpliedAccess.t_Rcs_Rss_Wrsp_pop5x8:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.CS, OpAccess.Read);
+					AddRegister(flags, Register.SS, OpAccess.Read);
 					AddRegister(flags, Register.RSP, OpAccess.Write);
 				}
 				CommandPop(instruction, flags, 5, 8);

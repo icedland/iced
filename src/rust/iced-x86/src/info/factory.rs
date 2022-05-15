@@ -1844,8 +1844,10 @@ impl InstructionInfoFactory {
 				}
 				Self::command_pop(instruction, info, flags, 5, 8);
 			}
-			ImpliedAccess::t_Wrsp_pop5x8 => {
+			ImpliedAccess::t_Rcs_Rss_Wrsp_pop5x8 => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::CS, OpAccess::Read);
+					Self::add_register(flags, info, Register::SS, OpAccess::Read);
 					Self::add_register(flags, info, Register::RSP, OpAccess::Write);
 				}
 				Self::command_pop(instruction, info, flags, 5, 8);
