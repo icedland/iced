@@ -30110,7 +30110,7 @@ END
 
 # Code: Erets
 INSTRUCTION: F2 0F 01 CA | ERETS | FRED
-	implied: pop=5x8 w=rsp
+	implied: pop=5x8 w=rsp r=cs;ss
 	rflags: w=oszacpdiA
 	flags: 64 cpl0 sp=pop;40 cflow=ret
 END

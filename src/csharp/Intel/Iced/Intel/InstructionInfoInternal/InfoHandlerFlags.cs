@@ -329,7 +329,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		t_CRmem_CRmem_CRmem_CWmem_CRrax_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx,
 		t_gpr16_Wgs,
 		t_Wrsp_Wcs_Wss_pop5x8,
-		t_Wrsp_pop5x8,
+		t_Rcs_Rss_Wrsp_pop5x8,
 		t_Reax_Recx_Wedx_Webx,
 		t_Reax_Recx_Redx_CRebx_CWedx_CWebx,
 		t_memdisplm64,
