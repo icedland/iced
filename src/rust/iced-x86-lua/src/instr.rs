@@ -3,6 +3,7 @@
 
 use crate::enum_utils::{to_code, to_code_size, to_mvex_reg_mem_conv, to_op_kind, to_register, to_rounding_control};
 use crate::fpui::FpuStackIncrementInfo;
+use crate::opci::OpCodeInfo;
 use libc::c_int;
 use loona::lua_api::lua_CFunction;
 use loona::prelude::*;
@@ -1840,6 +1841,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```
 	unsafe fn condition_code(lua, instr: &Instruction) -> 1 {
 		unsafe { lua.push(instr.inner.condition_code() as u32); }
+	}
+
+	/// Gets the `OpCodeInfo`
+	///
+	/// @return OpCodeInfo # Op code info
+	unsafe fn op_code(lua, instr: &Instruction) -> 1 {
+		unsafe { let _ = OpCodeInfo::push_new(lua, instr.inner.code()); }
 	}
 }
 

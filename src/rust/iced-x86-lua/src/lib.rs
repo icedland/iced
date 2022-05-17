@@ -76,4 +76,5 @@ mod enc;
 mod enum_utils;
 mod fpui;
 mod instr;
+mod opci;
 mod ud;
