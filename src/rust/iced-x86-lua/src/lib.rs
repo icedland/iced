@@ -71,6 +71,7 @@
 #[macro_use]
 mod lua_macros;
 mod dec;
+mod enc;
 mod enum_utils;
 mod fpui;
 mod instr;

@@ -3,7 +3,6 @@
 
 use crate::enum_utils::{to_code, to_code_size, to_mvex_reg_mem_conv, to_op_kind, to_register, to_rounding_control};
 use crate::fpui::FpuStackIncrementInfo;
-use crate::ud::UserDataIds;
 use libc::c_int;
 use loona::lua_api::lua_CFunction;
 use loona::prelude::*;

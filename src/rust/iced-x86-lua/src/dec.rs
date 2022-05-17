@@ -2,7 +2,6 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::instr::Instruction;
-use crate::ud::UserDataIds;
 use iced_x86::{DecoderOptions, IcedError};
 use loona::lua_api::lua_CFunction;
 use loona::prelude::*;
