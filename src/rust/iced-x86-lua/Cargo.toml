@@ -14,6 +14,7 @@ lua51 = ["loona/lua51"]
 lua52 = ["loona/lua52"]
 lua53 = ["loona/lua53"]
 lua54 = ["loona/lua54"]
+extra_checks = ["loona/extra_checks"]
 
 [dependencies]
 libc = "0.2"

@@ -43,6 +43,7 @@ namespace Generator.Enums.Lua {
 
 			var dirs = generatorContext.Types.Dirs;
 			toFullFileInfo = new();
+			toFullFileInfo.Add(TypeIds.BlockEncoderOptions, new FullEnumFileInfo(dirs.GetLuaFilename("BlockEncoderOptions.lua")));
 			toFullFileInfo.Add(TypeIds.CC_a, new FullEnumFileInfo(dirs.GetLuaFilename("CC_a.lua")));
 			toFullFileInfo.Add(TypeIds.CC_ae, new FullEnumFileInfo(dirs.GetLuaFilename("CC_ae.lua")));
 			toFullFileInfo.Add(TypeIds.CC_b, new FullEnumFileInfo(dirs.GetLuaFilename("CC_b.lua")));
