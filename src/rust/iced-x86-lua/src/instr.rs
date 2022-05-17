@@ -354,7 +354,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets an operand's kind (an `OpKind` enum value) if it exists (see `Instruction:op_count()`)
 	///
-	/// @param operand int # Operand number, 0-4
+	/// @param operand integer # Operand number, 0-4
 	/// @return integer # An `OpKind` enum value
 	///
 	/// # Examples
@@ -382,7 +382,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Sets an operand's kind
 	///
-	/// @param operand int # Operand number, 0-4
+	/// @param operand integer # Operand number, 0-4
 	/// @param op_kind integer # Operand kind (An `OpKind` enum value)
 	unsafe fn set_op_kind(lua, instr: &mut Instruction, operand: u32, op_kind: u32) -> 0 {
 		match instr.inner.try_set_op_kind(operand, unsafe { to_op_kind(lua, op_kind) }) {
@@ -520,7 +520,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets an operand's immediate value
 	///
-	/// @param operand int # Operand number, 0-4
+	/// @param operand integer # Operand number, 0-4
 	/// @return integer # (`u64`) The immediate
 	unsafe fn immediate(lua, instr: &Instruction, operand: u32) -> 1 {
 		let value = match instr.inner.try_immediate(operand) {
@@ -532,8 +532,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Sets an operand's immediate value
 	///
-	/// @param operand int # Operand number, 0-4
-	/// @param new_value int # (`i32`) Immediate
+	/// @param operand integer # Operand number, 0-4
+	/// @param new_value integer # (`i32`) Immediate
 	unsafe fn set_immediate_i32(lua, instr: &mut Instruction, operand: u32, new_value: i32) -> 0 {
 		match instr.inner.try_set_immediate_i32(operand, new_value) {
 			Ok(()) => {},
@@ -543,8 +543,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Sets an operand's immediate value
 	///
-	/// @param operand int # Operand number, 0-4
-	/// @param new_value int # (`u32`) Immediate
+	/// @param operand integer # Operand number, 0-4
+	/// @param new_value integer # (`u32`) Immediate
 	unsafe fn set_immediate_u32(lua, instr: &mut Instruction, operand: u32, new_value: u32) -> 0 {
 		match instr.inner.try_set_immediate_u32(operand, new_value) {
 			Ok(()) => {},
@@ -554,8 +554,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Sets an operand's immediate value
 	///
-	/// @param operand int # Operand number, 0-4
-	/// @param new_value int # (`i64`) Immediate
+	/// @param operand integer # Operand number, 0-4
+	/// @param new_value integer # (`i64`) Immediate
 	unsafe fn set_immediate_i64(lua, instr: &mut Instruction, operand: u32, new_value: i64) -> 0 {
 		match instr.inner.try_set_immediate_i64(operand, new_value) {
 			Ok(()) => {},
@@ -565,8 +565,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Sets an operand's immediate value
 	///
-	/// @param operand int # Operand number, 0-4
-	/// @param new_value int # (`u64`) Immediate
+	/// @param operand integer # Operand number, 0-4
+	/// @param new_value integer # (`u64`) Immediate
 	unsafe fn set_immediate_u64(lua, instr: &mut Instruction, operand: u32, new_value: u64) -> 0 {
 		match instr.inner.try_set_immediate_u64(operand, new_value) {
 			Ok(()) => {},
@@ -898,7 +898,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Use this method if the operand has kind `OpKind.Register`
 	///
-	/// @param operand int # Operand number, 0-4
+	/// @param operand integer # Operand number, 0-4
 	/// @return integer # (A `Register` enum value) The operand's register value
 	///
 	/// # Examples
@@ -926,7 +926,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Use this method if the operand has kind `OpKind.Register`
 	///
-	/// @param operand int # Operand number, 0-4
+	/// @param operand integer # Operand number, 0-4
 	/// @param new_value integer # New value (A `Register` enum value)
 	unsafe fn set_op_register(lua, instr: &mut Instruction, operand: u32, new_value: u32) -> 0 {
 		match instr.inner.try_set_op_register(operand, unsafe { to_register(lua, new_value) }) {
@@ -1013,8 +1013,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareByte`
 	///
-	/// @param index int # Index (0-15)
-	/// @param new_value int # (`u8`) New value
+	/// @param index integer # Index (0-15)
+	/// @param new_value integer # (`u8`) New value
 	unsafe fn set_declare_byte_value(lua, instr: &mut Instruction, index: usize, new_value: u8) -> 0 {
 		match instr.inner.try_set_declare_byte_value(index, new_value) {
 			Ok(()) => {},
@@ -1026,7 +1026,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareByte`
 	///
-	/// @param index int # Index (0-15)
+	/// @param index integer # Index (0-15)
 	/// @return integer # (`u8`) The value
 	unsafe fn get_declare_byte_value(lua, instr: &Instruction, index: usize) -> 1 {
 		let value = match instr.inner.try_get_declare_byte_value(index) {
@@ -1040,7 +1040,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareByte`
 	///
-	/// @param index int # Index (0-15)
+	/// @param index integer # Index (0-15)
 	/// @return integer # (`i8`) The value
 	unsafe fn get_declare_byte_value_i8(lua, instr: &Instruction, index: usize) -> 1 {
 		let value = match instr.inner.try_get_declare_byte_value(index) {
@@ -1054,8 +1054,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareWord`
 	///
-	/// @param index int # Index (0-7)
-	/// @param new_value int # (`u16`) New value
+	/// @param index integer # Index (0-7)
+	/// @param new_value integer # (`u16`) New value
 	unsafe fn set_declare_word_value(lua, instr: &mut Instruction, index: usize, new_value: u16) -> 0 {
 		match instr.inner.try_set_declare_word_value(index, new_value) {
 			Ok(()) => {},
@@ -1067,7 +1067,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareWord`
 	///
-	/// @param index int # Index (0-7)
+	/// @param index integer # Index (0-7)
 	/// @return integer # (`u16`) The value
 	unsafe fn get_declare_word_value(lua, instr: &Instruction, index: usize) -> 1 {
 		let value = match instr.inner.try_get_declare_word_value(index) {
@@ -1081,7 +1081,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareWord`
 	///
-	/// @param index int # Index (0-7)
+	/// @param index integer # Index (0-7)
 	/// @return integer # (`i16`) The value
 	unsafe fn get_declare_word_value_i16(lua, instr: &Instruction, index: usize) -> 1 {
 		let value = match instr.inner.try_get_declare_word_value(index) {
@@ -1095,8 +1095,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareDword`
 	///
-	/// @param index int # Index (0-3)
-	/// @param new_value int # (`u32`) New value
+	/// @param index integer # Index (0-3)
+	/// @param new_value integer # (`u32`) New value
 	unsafe fn set_declare_dword_value(lua, instr: &mut Instruction, index: usize, new_value: u32) -> 0 {
 		match instr.inner.try_set_declare_dword_value(index, new_value) {
 			Ok(()) => {},
@@ -1108,7 +1108,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareDword`
 	///
-	/// @param index int # Index (0-3)
+	/// @param index integer # Index (0-3)
 	/// @return integer # (`u32`) The value
 	unsafe fn get_declare_dword_value(lua, instr: &Instruction, index: usize) -> 1 {
 		let value = match instr.inner.try_get_declare_dword_value(index) {
@@ -1122,7 +1122,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareDword`
 	///
-	/// @param index int # Index (0-3)
+	/// @param index integer # Index (0-3)
 	/// @return integer # (`i32`) The value
 	unsafe fn get_declare_dword_value_i32(lua, instr: &Instruction, index: usize) -> 1 {
 		let value = match instr.inner.try_get_declare_dword_value(index) {
@@ -1136,8 +1136,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareQword`
 	///
-	/// @param index int # Index (0-1)
-	/// @param new_value int # (`u64`) New value
+	/// @param index integer # Index (0-1)
+	/// @param new_value integer # (`u64`) New value
 	unsafe fn set_declare_qword_value(lua, instr: &mut Instruction, index: usize, new_value: u64) -> 0 {
 		match instr.inner.try_set_declare_qword_value(index, new_value) {
 			Ok(()) => {},
@@ -1149,7 +1149,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareQword`
 	///
-	/// @param index int # Index (0-1)
+	/// @param index integer # Index (0-1)
 	/// @return integer # (`u64`) The value
 	unsafe fn get_declare_qword_value(lua, instr: &Instruction, index: usize) -> 1 {
 		let value = match instr.inner.try_get_declare_qword_value(index) {
@@ -1163,7 +1163,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// Can only be called if `Instruction:code()` is `Code.DeclareQword`
 	///
-	/// @param index int # Index (0-1)
+	/// @param index integer # Index (0-1)
 	/// @return integer # (`i64`) The value
 	unsafe fn get_declare_qword_value_i64(lua, instr: &Instruction, index: usize) -> 1 {
 		let value = match instr.inner.try_get_declare_qword_value(index) {
@@ -1864,4 +1864,3 @@ lua_methods! {
 		unsafe { lua.push(instr.inner.len()) }
 	}
 }
-
