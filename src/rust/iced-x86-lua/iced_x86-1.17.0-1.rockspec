@@ -34,6 +34,8 @@ build = {
 				.. '" "$(PREFIX)" "$(LIBDIR)" "$(LUADIR)"',
 		},
 		windows = {
+			type = "command",
+			build_command = "Yeah, no! Send a PR to support Windows: https://github.com/icedland/iced",
 			--TODO: call a luarocks-build-windows.cmd file
 		},
 	},
