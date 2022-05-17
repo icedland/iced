@@ -29,6 +29,8 @@ build() {
 		echo "Unsupported Lua version: $lua_ver"
 		exit 1
 	fi
+	# Env var set by build-lua
+	lua_feat="$lua_feat $ICED_LUA_EXTRA_FEATURES"
 	cargo build --release -v --features "$lua_feat"
 }
 

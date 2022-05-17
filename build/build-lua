@@ -84,7 +84,7 @@ build_test_rock_lua() {
 
 	cd "$luasrc_dir"
 
-	luarocks make iced_x86-*.rockspec --local --lua-version $lua_maj.$lua_min
+	ICED_LUA_EXTRA_FEATURES="extra_checks" luarocks make iced_x86-*.rockspec --local --lua-version $lua_maj.$lua_min
 
 	eval $(luarocks path --lua-version $lua_maj.$lua_min)
 	busted_filename=/tmp/tmp-busted-runner
