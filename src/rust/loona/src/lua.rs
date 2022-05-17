@@ -152,7 +152,7 @@ macro_rules! gen_get_unsigned_int {
 }
 
 macro_rules! get_user_data_body {
-	($slf:ident, $idx:ident, $ptr:ident: $ptr_ty:ty, $code:block) => {{
+	($slf:ident, $idx:ident, $ptr:ident: $ptr_ty:ty, $code:block, $err_code:block) => {{
 		// lua_touserdata() returns a valid pointer if it's a userdata or a lightuserdata.
 		// lua_objlen()/lua_rawlen() return 0 if it's a lightuserdata and the size of the
 		// userdata if it's a userdata.
@@ -161,17 +161,17 @@ macro_rules! get_user_data_body {
 		// This means we don't have to check if the type is userdata, saving one call and
 		// speeding up this code a little bit.
 		let $ptr: $ptr_ty = $slf.to_user_data($idx);
-		if !$ptr.is_null() && $slf.raw_len($idx) == mem::size_of::<WrappedUserData<T>>() {
+		if !$ptr.is_null()
+			&& $slf.raw_len($idx) == mem::size_of::<WrappedUserData<T>>()
 			// Make sure it's our userdata. We can only check this after we've verified
 			// the size (see above).
 			// We assume that the `id` field is at offset 0.
-			if *$ptr.cast::<u32>() == T::UNIQUE_ID {
-				// Now that we know it's our data, we can create a ref to it
-				$code
-			}
+			&& *$ptr.cast::<u32>() == T::UNIQUE_ID {
+			// Now that we know it's our data, we can create a ref to it
+			$code
+		} else {
+			$err_code
 		}
-		$slf.push_literal("Expected a userdata");
-		$slf.error();
 	}};
 }
 
@@ -224,20 +224,70 @@ impl<'lua> Lua<'lua> {
 	#[inline]
 	pub unsafe fn get_user_data<T: LuaUserData>(&self, idx: c_int) -> &'lua T {
 		unsafe {
-			get_user_data_body!(self, idx, ptr: *const c_void, {
-				let wrapped = &*ptr.cast::<WrappedUserData<T>>();
-				return &wrapped.ud;
-			})
+			get_user_data_body!(
+				self,
+				idx,
+				ptr: *const c_void,
+				{
+					let wrapped = &*ptr.cast::<WrappedUserData<T>>();
+					&wrapped.ud
+				},
+				{
+					self.push_literal("Expected a userdata");
+					self.error();
+				}
+			)
+		}
+	}
+
+	#[inline]
+	pub unsafe fn try_get_user_data<T: LuaUserData>(&self, idx: c_int) -> Option<&'lua T> {
+		unsafe {
+			get_user_data_body!(
+				self,
+				idx,
+				ptr: *const c_void,
+				{
+					let wrapped = &*ptr.cast::<WrappedUserData<T>>();
+					Some(&wrapped.ud)
+				},
+				{ None }
+			)
 		}
 	}
 
 	#[inline]
 	pub unsafe fn get_user_data_mut<T: LuaUserData>(&self, idx: c_int) -> &'lua mut T {
 		unsafe {
-			get_user_data_body!(self, idx, ptr: *mut c_void, {
-				let wrapped = &mut *ptr.cast::<WrappedUserData<T>>();
-				return &mut wrapped.ud;
-			})
+			get_user_data_body!(
+				self,
+				idx,
+				ptr: *mut c_void,
+				{
+					let wrapped = &mut *ptr.cast::<WrappedUserData<T>>();
+					&mut wrapped.ud
+				},
+				{
+					self.push_literal("Expected a userdata");
+					self.error();
+				}
+			)
+		}
+	}
+
+	#[inline]
+	pub unsafe fn try_get_user_data_mut<T: LuaUserData>(&self, idx: c_int) -> Option<&'lua mut T> {
+		unsafe {
+			get_user_data_body!(
+				self,
+				idx,
+				ptr: *mut c_void,
+				{
+					let wrapped = &mut *ptr.cast::<WrappedUserData<T>>();
+					Some(&mut wrapped.ud)
+				},
+				{ None }
+			)
 		}
 	}
 
@@ -768,6 +818,45 @@ impl<'lua> Lua<'lua> {
 	pub unsafe fn push<T: ToLua>(&self, value: T) {
 		unsafe {
 			value.to_lua(self);
+		}
+	}
+
+	/// Reads an array. For each element of the Lua array, the current element is pushed onto
+	/// the Lua stack and then `read_elem()` is called. The callee should return the Rust value
+	/// but not pop the Lua stack.
+	#[inline]
+	pub unsafe fn read_array<T, F, E: Error>(&self, idx: c_int, read_elem: F) -> Vec<T>
+	where
+		F: Fn(&Self) -> Result<T, E>,
+	{
+		unsafe {
+			if !self.is_table(idx) {
+				self.throw_error_msg("Expected a table");
+			}
+			let len = self.raw_len(idx);
+			let mut result = Vec::with_capacity(len);
+			for i in 0..len {
+				self.raw_get_i(idx, (i + 1) as lua_GetIType);
+
+				#[cfg(any(debug_assertions, feature = "extra_checks"))]
+				let _orig_top = self.get_top();
+
+				if self.is_nil(-1) {
+					self.pop(1);
+					break;
+				}
+
+				//TODO: read_elem() could fail by calling lua_error() in which case we leak `result`
+				match read_elem(self) {
+					Ok(value) => result.push(value),
+					Err(e) => self.throw_error(e),
+				}
+
+				#[cfg(any(debug_assertions, feature = "extra_checks"))]
+				assert_eq!(0, self.get_top().wrapping_sub(_orig_top));
+				self.pop(1);
+			}
+			result
 		}
 	}
 }

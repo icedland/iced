@@ -25,11 +25,7 @@ macro_rules! lua_module {
 			$block
 
 			#[cfg(any(debug_assertions, feature = "extra_checks"))]
-			unsafe {
-				let _new_top = $lua.get_top();
-				let _stack_usage = $lua.get_top().wrapping_sub(_orig_top);
-				assert_eq!(RET_VALS, _stack_usage);
-			}
+			unsafe { assert_eq!(RET_VALS, $lua.get_top().wrapping_sub(_orig_top)); }
 
 			RET_VALS
 		}
@@ -88,11 +84,7 @@ macro_rules! lua_methods {
 				$block
 
 				#[cfg(any(debug_assertions, feature = "extra_checks"))]
-				unsafe {
-					let _new_top = $lua.get_top();
-					let _stack_usage = $lua.get_top().wrapping_sub(_orig_top);
-					assert_eq!($ret_vals, _stack_usage);
-				}
+				unsafe { assert_eq!($ret_vals, $lua.get_top().wrapping_sub(_orig_top)); }
 
 				$ret_vals
 			}

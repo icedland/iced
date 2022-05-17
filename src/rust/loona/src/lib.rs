@@ -68,6 +68,7 @@
 #![warn(clippy::useless_transmute)]
 #![warn(clippy::zero_sized_map_values)]
 
+pub mod error;
 #[doc(hidden)]
 pub mod libc;
 pub mod lua;

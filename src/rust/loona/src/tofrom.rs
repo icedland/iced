@@ -35,6 +35,22 @@ impl<'lua> FromLua<'lua> for LuaIgnore {
 	}
 }
 
+/// Any value, the index is stored in the instance
+#[derive(Debug, Clone, Copy)]
+pub struct LuaAny {
+	/// Index of value
+	pub idx: c_int,
+}
+
+impl<'lua> FromLua<'lua> for LuaAny {
+	type RetType = Self;
+
+	#[inline]
+	unsafe fn from_lua(_lua: &Lua<'lua>, idx: c_int) -> Self::RetType {
+		Self { idx }
+	}
+}
+
 macro_rules! create_lua_option {
     ($lua:ident, $idx:ident { $($struct_name:ident : $ty:ty => $expr:expr,)+ }) => {
 		$(
