@@ -70,6 +70,7 @@
 
 #[macro_use]
 mod lua_macros;
+mod blk_enc;
 mod dec;
 mod enc;
 mod enum_utils;

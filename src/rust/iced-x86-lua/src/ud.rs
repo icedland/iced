@@ -6,4 +6,5 @@ pub(crate) enum UserDataIds {
 	Decoder,
 	FpuStackIncrementInfo,
 	Encoder,
+	BlockEncoder,
 }
