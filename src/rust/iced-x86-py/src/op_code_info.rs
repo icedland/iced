@@ -175,55 +175,55 @@ impl OpCodeInfo {
 
 	/// :class:`MvexEHBit`: (MVEX) Gets the ``EH`` bit that's required to encode this instruction (an :class:`MvexEHBit` enum value)
 	#[getter]
-	pub fn mvex_eh_bit(&self) -> u32 {
+	fn mvex_eh_bit(&self) -> u32 {
 		self.info.mvex_eh_bit() as u32
 	}
 
 	/// bool: (MVEX) ``True`` if the instruction supports eviction hint (if it has a memory operand)
 	#[getter]
-	pub fn mvex_can_use_eviction_hint(&self) -> bool {
+	fn mvex_can_use_eviction_hint(&self) -> bool {
 		self.info.mvex_can_use_eviction_hint()
 	}
 
 	/// bool: (MVEX) ``True`` if the instruction's rounding control bits are stored in ``imm8[1:0]``
 	#[getter]
-	pub fn mvex_can_use_imm_rounding_control(&self) -> bool {
+	fn mvex_can_use_imm_rounding_control(&self) -> bool {
 		self.info.mvex_can_use_imm_rounding_control()
 	}
 
 	/// bool: (MVEX) ``True`` if the instruction ignores op mask registers (eg. ``{k1}``)
 	#[getter]
-	pub fn mvex_ignores_op_mask_register(&self) -> bool {
+	fn mvex_ignores_op_mask_register(&self) -> bool {
 		self.info.mvex_ignores_op_mask_register()
 	}
 
 	/// bool: (MVEX) ``True`` if the instruction must have ``MVEX.SSS=000`` if ``MVEX.EH=1``
 	#[getter]
-	pub fn mvex_no_sae_rc(&self) -> bool {
+	fn mvex_no_sae_rc(&self) -> bool {
 		self.info.mvex_no_sae_rc()
 	}
 
 	/// :class:`MvexTupleTypeLutKind`: (MVEX) Gets the tuple type / conv lut kind (an :class:`MvexTupleTypeLutKind` enum value)
 	#[getter]
-	pub fn mvex_tuple_type_lut_kind(&self) -> u32 {
+	fn mvex_tuple_type_lut_kind(&self) -> u32 {
 		self.info.mvex_tuple_type_lut_kind() as u32
 	}
 
 	/// :class:`MvexConvFn`: (MVEX) Gets the conversion function, eg. ``Sf32`` (an :class:`MvexConvFn` enum value)
 	#[getter]
-	pub fn mvex_conversion_func(&self) -> u32 {
+	fn mvex_conversion_func(&self) -> u32 {
 		self.info.mvex_conversion_func() as u32
 	}
 
 	/// int: (``u8``) (MVEX) Gets flags indicating which conversion functions are valid (bit 0 == func 0)
 	#[getter]
-	pub fn mvex_valid_conversion_funcs_mask(&self) -> u8 {
+	fn mvex_valid_conversion_funcs_mask(&self) -> u8 {
 		self.info.mvex_valid_conversion_funcs_mask()
 	}
 
 	/// int: (``u8``) (MVEX) Gets flags indicating which swizzle functions are valid (bit 0 == func 0)
 	#[getter]
-	pub fn mvex_valid_swizzle_funcs_mask(&self) -> u8 {
+	fn mvex_valid_swizzle_funcs_mask(&self) -> u8 {
 		self.info.mvex_valid_swizzle_funcs_mask()
 	}
 
