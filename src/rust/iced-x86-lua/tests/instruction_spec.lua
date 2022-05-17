@@ -1510,4 +1510,12 @@ describe("Instruction", function()
 			instr:set_declare_qword_value(2, 0)
 		end)
 	end)
+
+	it("OpCodeInfo", function()
+		local instr = Instruction:new()
+		instr:set_code(Code.Adc_AL_imm8)
+
+		local op_code = instr:op_code()
+		assert.equals(Code.Adc_AL_imm8, op_code:code())
+	end)
 end)
