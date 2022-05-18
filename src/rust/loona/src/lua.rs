@@ -327,17 +327,47 @@ impl<'lua> Lua<'lua> {
 		len
 	}
 
+	// If 5.1 and 5.2, convert an f64 to an i64 instead of using lua_tointegerx() for extra precision
+	#[inline]
+	unsafe fn to_i64(&self, idx: c_int, isnum: *mut c_int) -> i64 {
+		#[cfg(any(feature = "lua51", feature = "lua52"))]
+		unsafe {
+			let value = self.to_number_x(idx, isnum);
+			value as i64
+		}
+		#[cfg(any(feature = "lua53", feature = "lua54"))]
+		#[allow(trivial_numeric_casts)]
+		unsafe {
+			self.to_integer_x(idx, isnum) as i64
+		}
+	}
+
+	// If 5.1 and 5.2, convert an f64 to a u64 instead of using lua_tointegerx() for extra precision
+	#[inline]
+	unsafe fn to_u64(&self, idx: c_int, isnum: *mut c_int) -> u64 {
+		#[cfg(any(feature = "lua51", feature = "lua52"))]
+		unsafe {
+			// 0xFEDCBA9876543000 fails if we use lua_tointeger{,x}() with Lua 5.1 and 5.2
+			let value = self.to_number_x(idx, isnum);
+			if value < 0.0 {
+				(value as i64) as u64
+			} else {
+				value as u64
+			}
+		}
+		#[cfg(any(feature = "lua53", feature = "lua54"))]
+		unsafe {
+			self.to_integer_x(idx, isnum) as u64
+		}
+	}
+
 	#[inline]
 	pub unsafe fn try_get_i64(&self, idx: c_int) -> Result<i64, ConvErr> {
 		unsafe {
 			let mut is_int = 0;
-			let value = self.to_integer_x(idx, &mut is_int);
+			let value = self.to_i64(idx, &mut is_int);
 			if is_int != 0 {
-				// into() doesn't work, so make sure `as i64` won't truncate.
-				// try_into() would also work but I want a compilation error.
-				const_assert!(mem::size_of::<lua_Integer>() <= mem::size_of::<i64>());
-				#[allow(trivial_numeric_casts)]
-				Ok(value as i64)
+				Ok(value)
 			} else {
 				Err(ConvErr::NotANumber)
 			}
@@ -346,7 +376,15 @@ impl<'lua> Lua<'lua> {
 
 	#[inline]
 	pub unsafe fn try_get_u64(&self, idx: c_int) -> Result<u64, ConvErr> {
-		unsafe { self.try_get_i64(idx).map(|v| v as u64) }
+		unsafe {
+			let mut is_int = 0;
+			let value = self.to_u64(idx, &mut is_int);
+			if is_int != 0 {
+				Ok(value)
+			} else {
+				Err(ConvErr::NotANumber)
+			}
+		}
 	}
 
 	#[inline]
