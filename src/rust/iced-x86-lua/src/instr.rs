@@ -1323,14 +1323,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```
 	unsafe fn cpuid_features(lua, instr: &Instruction) -> 1 {
 		let cpuid_features = instr.inner.cpuid_features();
-		unsafe {
-			lua.create_table(cpuid_features.len() as c_int, 0);
-			for (i, &cpuid) in cpuid_features.iter().enumerate() {
-				lua.push(i + 1);
-				lua.push(cpuid as u32);
-				lua.raw_set(-3);
-			}
-		}
+		unsafe { lua.push_array(cpuid_features, |_, cpuid| *cpuid as u32); }
 	}
 
 	/// Control flow info (a `FlowControl` enum value)

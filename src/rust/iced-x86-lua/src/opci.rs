@@ -2,7 +2,6 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::enum_utils::to_code;
-use libc::c_int;
 use loona::lua_api::lua_CFunction;
 use loona::prelude::*;
 
@@ -852,15 +851,8 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	/// Gets all operand kinds (a list of `OpCodeOperandKind` enum values)
 	/// @returns integer[] # (`OpCodeOperandKind[]`) All operand kinds
 	unsafe fn op_kinds(lua, opci: &OpCodeInfo) -> 1 {
-		unsafe {
-			let op_kinds = opci.inner.op_kinds();
-			lua.create_table(op_kinds.len() as c_int, 0);
-			for (i, &op_kind) in op_kinds.iter().enumerate() {
-				lua.push(i + 1);
-				lua.push(op_kind as u32);
-				lua.raw_set(-3);
-			}
-		}
+		let op_kinds = opci.inner.op_kinds();
+		unsafe { lua.push_array(op_kinds, |_, op_kind| *op_kind as u32); }
 	}
 
 	/// Checks if the instruction is available in 16-bit mode, 32-bit mode or 64-bit mode

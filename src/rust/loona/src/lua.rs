@@ -825,9 +825,9 @@ impl<'lua> Lua<'lua> {
 	/// the Lua stack and then `read_elem()` is called. The callee should return the Rust value
 	/// but not pop the Lua stack.
 	#[inline]
-	pub unsafe fn read_array<T, F, E: Error>(&self, idx: c_int, read_elem: F) -> Vec<T>
+	pub unsafe fn read_array<T, F, E: Error>(&self, idx: c_int, mut read_elem: F) -> Vec<T>
 	where
-		F: Fn(&Self) -> Result<T, E>,
+		F: FnMut(&Self) -> Result<T, E>,
 	{
 		unsafe {
 			if !self.is_table(idx) {
@@ -857,6 +857,45 @@ impl<'lua> Lua<'lua> {
 				self.pop(1);
 			}
 			result
+		}
+	}
+
+	/// Creates a new array and pushes it onto the Lua stack and initializes it with the input array
+	#[inline]
+	pub unsafe fn push_array<T, TNew: ToLua, F>(&self, elems: &[T], mut convert: F)
+	where
+		F: FnMut(&Self, &T) -> TNew,
+	{
+		unsafe {
+			self.create_table(elems.len() as c_int, 0);
+			for (i, value) in elems.iter().enumerate() {
+				let new_value = convert(self, value);
+				self.push(i + 1);
+				self.push(new_value);
+				self.raw_set(-3);
+			}
+		}
+	}
+
+	/// Creates a new array and pushes it onto the Lua stack and initializes it with the input array
+	#[inline]
+	pub unsafe fn push_array2<T, F>(&self, elems: &[T], mut push_value: F)
+	where
+		F: FnMut(&Self, &T),
+	{
+		unsafe {
+			self.create_table(elems.len() as c_int, 0);
+			for (i, value) in elems.iter().enumerate() {
+				self.push(i + 1);
+
+				#[cfg(any(debug_assertions, feature = "extra_checks"))]
+				let _orig_top = self.get_top();
+				push_value(self, value);
+				#[cfg(any(debug_assertions, feature = "extra_checks"))]
+				assert_eq!(1, self.get_top().wrapping_sub(_orig_top));
+
+				self.raw_set(-3);
+			}
 		}
 	}
 }
