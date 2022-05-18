@@ -5,6 +5,7 @@ use crate::lua::Lua;
 use crate::lua_api::lua_CFunction;
 use crate::prelude::LuaUserData;
 use libc::c_int;
+use std::borrow::Cow;
 
 pub trait FromLua<'lua> {
 	type RetType;
@@ -48,6 +49,20 @@ impl<'lua> FromLua<'lua> for LuaAny {
 	#[inline]
 	unsafe fn from_lua(_lua: &Lua<'lua>, idx: c_int) -> Self::RetType {
 		Self { idx }
+	}
+}
+
+/// A Lua string converted to UTF-8 (lossy conversion if it's not utf-8)
+#[derive(Debug, Clone)]
+pub struct LuaLossyString<'a>(pub Cow<'a, str>);
+
+impl<'a, 'lua: 'a> FromLua<'lua> for LuaLossyString<'a> {
+	type RetType = Self;
+
+	#[inline]
+	unsafe fn from_lua(lua: &Lua<'lua>, idx: c_int) -> Self::RetType {
+		let bytes = unsafe { lua.get_byte_slice(idx) };
+		Self(String::from_utf8_lossy(bytes))
 	}
 }
 
