@@ -95,7 +95,7 @@ build_test_rock_lua() {
 }
 
 misc_tests() {
-	new_func "clippy, fmt, stylua"
+	new_func "clippy, rustfmt, stylua"
 
 	curr_dir=$(pwd)
 	cd "$luasrc_dir"
