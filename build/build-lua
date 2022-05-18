@@ -7,6 +7,7 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 	echo "Couldn't find the root dir"
 	exit 1
 fi
+luacrate_dir="$root_dir/src/rust/loona"
 luasrc_dir="$root_dir/src/rust/iced-x86-lua"
 cargo_toml="$luasrc_dir/Cargo.toml"
 
@@ -66,6 +67,28 @@ patchci_patch() {
 
 patchci_undo_patch() {
 	git checkout "$cargo_toml"
+}
+
+test_lua_crate() {
+	new_func "Test Lua crate"
+
+	curr_dir=$(pwd)
+	cd "$luacrate_dir"
+
+	set -- \
+		"lua51" \
+		"lua52" \
+		"lua53" \
+		"lua54"
+	for features in "$@"; do
+		echo "==== CLIPPY RELEASE $features ===="
+		cargo clippy --color always --release --features "$features"
+	done
+
+	echo "==== RUST FORMAT CHECK ===="
+	cargo fmt -- --color always --check
+
+	cd "$curr_dir"
 }
 
 build_test_rock() {
@@ -152,6 +175,7 @@ echo "stylua version"
 stylua --version
 
 patchci_patch
+test_lua_crate
 build_test_rock
 if [ "$full_check" = "y" ]; then
 	misc_tests
