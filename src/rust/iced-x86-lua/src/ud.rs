@@ -10,4 +10,5 @@ pub(crate) enum UserDataIds {
 	OpCodeInfo,
 	UsedRegister,
 	UsedMemory,
+	Formatter,
 }

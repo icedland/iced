@@ -23,7 +23,7 @@ libc = "0.2"
 # The version must match the one we expect, it should not be the latest version on crates.io
 version = "=1.17.0"
 default-features = false
-features = ["std", "exhaustive_enums", "decoder", "mvex", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm"]
+features = ["std", "decoder", "mvex", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm"]
 # To use ../iced-x86 source code, add this to your $HOME/.cargo/config.toml
 #	paths = ["/abs/path/to/iced/src/rust/iced-x86"]
 # or uncomment this line:

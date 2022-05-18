@@ -13,7 +13,7 @@ namespace Generator.Enums.Lua {
 		readonly IdentifierConverter rustIdConverter;
 		readonly Dictionary<TypeId, FullEnumFileInfo?> toFullFileInfo;
 		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;
-		readonly Documentation.Lua.LuaDocCommentWriter luaDocWriter;
+		readonly Documentation.Rust.RustDocCommentWriter rustDocWriter;
 
 		sealed class FullEnumFileInfo {
 			public readonly string Filename;
@@ -39,7 +39,7 @@ namespace Generator.Enums.Lua {
 			: base(generatorContext.Types) {
 			luaIdConverter = LuaIdentifierConverter.Create();
 			rustIdConverter = RustIdentifierConverter.Create();
-			luaDocWriter = new Documentation.Lua.LuaDocCommentWriter(luaIdConverter);
+			rustDocWriter = new Documentation.Rust.RustDocCommentWriter(rustIdConverter);
 
 			var dirs = generatorContext.Types.Dirs;
 			toFullFileInfo = new();
@@ -85,6 +85,7 @@ namespace Generator.Enums.Lua {
 			toFullFileInfo.Add(TypeIds.MvexTupleTypeLutKind, new FullEnumFileInfo(dirs.GetLuaFilename("MvexTupleTypeLutKind.lua")));
 
 			toPartialFileInfo = new();
+			toPartialFileInfo.Add(TypeIds.FormatterSyntax, new PartialEnumFileInfo("FormatterSyntax", TargetLanguage.Rust, dirs.GetLuaRustFilename("fmt.rs")));
 		}
 
 		public override void Generate(EnumType enumType) {
@@ -110,7 +111,7 @@ namespace Generator.Enums.Lua {
 		}
 
 		void WriteEnumRust(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
-			luaDocWriter.WriteSummary(writer, enumType.Documentation.GetComment(TargetLanguage.Lua), enumType.RawName);
+			rustDocWriter.WriteSummary(writer, enumType.Documentation.GetComment(TargetLanguage.Lua), enumType.RawName);
 			var enumTypeName = enumType.Name(rustIdConverter);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
@@ -121,7 +122,7 @@ namespace Generator.Enums.Lua {
 				foreach (var value in enumType.Values) {
 					if (value.DeprecatedInfo.IsDeprecatedAndRenamed)
 						continue;
-					luaDocWriter.WriteSummary(writer, value.Documentation.GetComment(TargetLanguage.Lua), enumType.RawName);
+					rustDocWriter.WriteSummary(writer, value.Documentation.GetComment(TargetLanguage.Lua), enumType.RawName);
 					if (enumType.IsFlags)
 						writer.WriteLine($"{value.Name(rustIdConverter)} = {NumberFormatter.FormatHexUInt32WithSep(value.Value)},");
 					else if (expectedValue != value.Value || enumType.IsPublic)
