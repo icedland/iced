@@ -31,7 +31,7 @@ namespace Generator.Documentation.Rust {
 			{ "u512", ("u512", false) },
 		};
 
-		public RustDocCommentWriter(IdentifierConverter idConverter, string typeSeparator = "::")
-			: base(idConverter, typeSeparator, "///", "/// ", true, toTypeInfo) {}
+		public RustDocCommentWriter(IdentifierConverter idConverter, string enumSeparator = "::", string fieldSeparator = "::", string propertySeparator = "::", string methodSeparator = "::")
+			: base(idConverter, enumSeparator, fieldSeparator, propertySeparator, methodSeparator, "///", "/// ", true, toTypeInfo) {}
 	}
 }

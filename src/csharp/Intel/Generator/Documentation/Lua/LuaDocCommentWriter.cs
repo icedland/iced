@@ -32,7 +32,7 @@ namespace Generator.Documentation.Lua {
 		};
 
 		public LuaDocCommentWriter(IdentifierConverter idConverter)
-			: base(idConverter, ".", "---", "---", false, toTypeInfo) {}
+			: base(idConverter, ".", ".", ":", ":", "---", "---", false, toTypeInfo) {}
 	}
 }
 

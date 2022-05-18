@@ -43,7 +43,7 @@ namespace Generator.Enums.Python {
 			: base(generatorContext.Types) {
 			pythonIdConverter = PythonIdentifierConverter.Create();
 			rustIdConverter = RustIdentifierConverter.Create();
-			rustDocWriter = new Documentation.Rust.RustDocCommentWriter(rustIdConverter, ".");
+			rustDocWriter = new Documentation.Rust.RustDocCommentWriter(rustIdConverter, ".", ".", ".", ".");
 			exportedPythonTypes = genTypes.GetObject<ExportedPythonTypes>(TypeIds.ExportedPythonTypes);
 
 			var dirs = generatorContext.Types.Dirs;

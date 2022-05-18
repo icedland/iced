@@ -9,7 +9,10 @@ using Generator.IO;
 namespace Generator.Documentation {
 	abstract class MarkdownDocCommentWriter : DocCommentWriter {
 		readonly IdentifierConverter idConverter;
-		readonly string typeSeparator;
+		readonly string enumSeparator;
+		readonly string fieldSeparator;
+		readonly string propertySeparator;
+		readonly string methodSeparator;
 		readonly bool supportsRefs;
 		readonly StringBuilder sb;
 		readonly StringBuilder sb2;
@@ -19,9 +22,14 @@ namespace Generator.Documentation {
 		readonly string emptyLineComment;
 		readonly string lineComment;
 
-		protected MarkdownDocCommentWriter(IdentifierConverter idConverter, string typeSeparator, string emptyLineComment, string lineComment, bool supportsRefs, Dictionary<string, (string type, bool isKeyword)> toTypeInfo) {
+		protected MarkdownDocCommentWriter(IdentifierConverter idConverter, string enumSeparator, string fieldSeparator, string propertySeparator,
+				string methodSeparator, string emptyLineComment, string lineComment, bool supportsRefs,
+				Dictionary<string, (string type, bool isKeyword)> toTypeInfo) {
 			this.idConverter = idConverter;
-			this.typeSeparator = typeSeparator;
+			this.enumSeparator = enumSeparator;
+			this.fieldSeparator = fieldSeparator;
+			this.propertySeparator = propertySeparator;
+			this.methodSeparator = methodSeparator;
 			this.emptyLineComment = emptyLineComment;
 			this.lineComment = lineComment;
 			this.supportsRefs = supportsRefs;
@@ -151,7 +159,7 @@ namespace Generator.Documentation {
 					t = idConverter.Type(info.value);
 					if (info.value != typeName) {
 						sb2.Append(t);
-						sb2.Append(typeSeparator);
+						sb2.Append(info.kind == TokenKind.EnumFieldReference ? enumSeparator : fieldSeparator);
 					}
 					m = info.kind == TokenKind.EnumFieldReference ? idConverter.EnumField(info.value2) : idConverter.Field(info.value2);
 					sb2.Append(m);
@@ -166,7 +174,7 @@ namespace Generator.Documentation {
 					t = idConverter.Type(info.value);
 					if (info.value != typeName) {
 						sb2.Append(t);
-						sb2.Append(typeSeparator);
+						sb2.Append(propertySeparator);
 					}
 					m = idConverter.PropertyDoc(info.value2);
 					sb2.Append(m);
@@ -181,7 +189,7 @@ namespace Generator.Documentation {
 					t = idConverter.Type(info.value);
 					if (info.value != typeName) {
 						sb2.Append(t);
-						sb2.Append(typeSeparator);
+						sb2.Append(methodSeparator);
 					}
 					m = idConverter.MethodDoc(TranslateMethodName(info.value2));
 					sb2.Append(m);
