@@ -464,13 +464,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 		instr.inner.set_is_mvex_eviction_hint(new_value);
 	}
 
-	/// (MVEX) Register/memory operand conversion function (a `MvexRegMemConv` enum value)
+	/// (MVEX) Register/memory operand conversion function (an `MvexRegMemConv` enum value)
 	/// @return integer # An `MvexRegMemConv` enum value
 	unsafe fn mvex_reg_mem_conv(lua, instr: &Instruction) -> 1 {
 		unsafe { lua.push(instr.inner.mvex_reg_mem_conv() as u32); }
 	}
 
-	/// (MVEX) Register/memory operand conversion function (a `MvexRegMemConv` enum value)
+	/// (MVEX) Register/memory operand conversion function (an `MvexRegMemConv` enum value)
 	unsafe fn set_mvex_reg_mem_conv(lua, instr: &mut Instruction, new_value: u32) -> 0 {
 		instr.inner.set_mvex_reg_mem_conv(unsafe { to_mvex_reg_mem_conv(lua, new_value) });
 	}

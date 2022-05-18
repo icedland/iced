@@ -9,7 +9,7 @@ use loona::prelude::*;
 lua_struct_module! { luaopen_iced_x86_OpCodeInfo : OpCodeInfo }
 lua_impl_userdata! { OpCodeInfo }
 
-/// Opcode info, returned by `Instruction.op_code()` or created by the constructor
+/// Opcode info, returned by `Instruction:op_code()` or created by the constructor
 /// @class OpCodeInfo
 #[allow(clippy::doc_markdown)]
 pub(crate) struct OpCodeInfo {
