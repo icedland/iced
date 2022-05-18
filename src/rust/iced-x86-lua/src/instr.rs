@@ -3,6 +3,8 @@
 
 use crate::enum_utils::{to_code, to_code_size, to_mvex_reg_mem_conv, to_op_kind, to_register, to_rounding_control};
 use crate::fpui::FpuStackIncrementInfo;
+use crate::info::mem::UsedMemory;
+use crate::info::regs::UsedRegister;
 use crate::opci::OpCodeInfo;
 use libc::c_int;
 use loona::lua_api::lua_CFunction;
@@ -1841,6 +1843,123 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @return OpCodeInfo # Op code info
 	unsafe fn op_code(lua, instr: &Instruction) -> 1 {
 		unsafe { let _ = OpCodeInfo::push_new(lua, instr.inner.code()); }
+	}
+
+	/// Gets all used registers
+	///
+	/// See also `Instruction:used_memory()`, `Instruction:op_accesses()`, `Instruction:used_regs_mem()`, `Instruction:used_values()`
+	///
+	/// @return UsedRegister[] # All used registers
+	///
+	/// # Examples
+	/// ```lua
+	/// --TODO: show an example here
+	/// ```
+	unsafe fn used_registers(lua, instr: &Instruction) -> 1 {
+		let mut factory = iced_x86::InstructionInfoFactory::new();
+		let info = factory.info_options(&instr.inner, iced_x86::InstructionInfoOptions::NO_MEMORY_USAGE);
+		unsafe { push_used_registers(lua, info); }
+	}
+
+	/// Gets all used memory locations
+	///
+	/// See also `Instruction:used_registers()`, `Instruction:op_accesses()`, `Instruction:used_regs_mem()`, `Instruction:used_values()`
+	///
+	/// @return UsedMemory[] # All used memory locations
+	///
+	/// # Examples
+	/// ```lua
+	/// --TODO: show an example here
+	/// ```
+	unsafe fn used_memory(lua, instr: &Instruction) -> 1 {
+		let mut factory = iced_x86::InstructionInfoFactory::new();
+		let info = factory.info_options(&instr.inner, iced_x86::InstructionInfoOptions::NO_REGISTER_USAGE);
+		unsafe { push_used_memory(lua, info); }
+	}
+
+	/// Gets all operand accesses (Array of `OpAccess` values)
+	///
+	/// See also `Instruction:used_registers()`, `Instruction:used_memory()`, `Instruction:used_regs_mem()`, `Instruction:used_values()`
+	///
+	/// @return integer[] # Array of `OpAccess` values
+	///
+	/// # Examples
+	/// ```lua
+	/// --TODO: show an example here
+	/// ```
+	unsafe fn op_accesses(lua, instr: &Instruction) -> 1 {
+		let mut factory = iced_x86::InstructionInfoFactory::new();
+		let info = factory.info_options(&instr.inner, iced_x86::InstructionInfoOptions::NO_MEMORY_USAGE | iced_x86::InstructionInfoOptions::NO_REGISTER_USAGE);
+		unsafe { push_op_accesses(lua, info, &instr.inner); }
+	}
+
+	/// Gets all used registers and all used memory locations
+	///
+	/// See also `Instruction:used_registers()`, `Instruction:used_memory()`, `Instruction:op_accesses()`, `Instruction:used_values()`
+	///
+	/// @return UsedRegister[], UsedMemory[] # Used registers, used memory locations
+	///
+	/// # Examples
+	/// ```lua
+	/// --TODO: show an example here
+	/// ```
+	unsafe fn used_regs_mem(lua, instr: &Instruction) -> 2 {
+		let mut factory = iced_x86::InstructionInfoFactory::new();
+		let info = factory.info_options(&instr.inner, iced_x86::InstructionInfoOptions::NONE);
+		unsafe {
+			push_used_registers(lua, info);
+			push_used_memory(lua, info);
+		}
+	}
+
+	/// Gets all used registers, all used memory locations and all operand accesses
+	///
+	/// See also `Instruction:used_registers()`, `Instruction:used_memory()`, `Instruction:op_accesses()`, `Instruction:used_regs_mem()`
+	///
+	/// @return UsedRegister[], UsedMemory[], integer[] # Used registers, used memory locations and `OpAccess`[]
+	///
+	/// # Examples
+	/// ```lua
+	/// --TODO: show an example here
+	/// ```
+	unsafe fn used_values(lua, instr: &Instruction) -> 3 {
+		let mut factory = iced_x86::InstructionInfoFactory::new();
+		let info = factory.info_options(&instr.inner, iced_x86::InstructionInfoOptions::NONE);
+		unsafe {
+			push_used_registers(lua, info);
+			push_used_memory(lua, info);
+			push_op_accesses(lua, info, &instr.inner);
+		}
+	}
+}
+
+unsafe fn push_used_registers(lua: &Lua<'_>, info: &iced_x86::InstructionInfo) {
+	unsafe {
+		lua.push_array2(info.used_registers(), |lua, used_reg| {
+			let used_reg = UsedRegister { inner: *used_reg };
+			let _ = UsedRegister::init_and_push(lua, &used_reg);
+		})
+	}
+}
+
+unsafe fn push_used_memory(lua: &Lua<'_>, info: &iced_x86::InstructionInfo) {
+	unsafe {
+		lua.push_array2(info.used_memory(), |lua, used_mem| {
+			let used_mem = UsedMemory { inner: *used_mem };
+			let _ = UsedMemory::init_and_push(lua, &used_mem);
+		})
+	}
+}
+
+unsafe fn push_op_accesses(lua: &Lua<'_>, info: &iced_x86::InstructionInfo, instr: &iced_x86::Instruction) {
+	let op_count = instr.op_count();
+	unsafe {
+		lua.create_table(op_count as c_int, 0);
+		for i in 0..op_count {
+			lua.push(i + 1);
+			lua.push(info.op_access(i) as u32);
+			lua.raw_set(-3);
+		}
 	}
 }
 

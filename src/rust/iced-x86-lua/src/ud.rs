@@ -8,4 +8,6 @@ pub(crate) enum UserDataIds {
 	Encoder,
 	BlockEncoder,
 	OpCodeInfo,
+	UsedRegister,
+	UsedMemory,
 }
