@@ -12,6 +12,7 @@ use crate::formatter::fast::trait_options::SpecializedFormatterTraitOptions;
 pub struct DefaultFastFormatterTraitOptions;
 
 impl SpecializedFormatterTraitOptions for DefaultFastFormatterTraitOptions {
+	/// DO NOT USE: NOT PART OF THE PUBLIC API
 	const __IS_FAST_FORMATTER: bool = true;
 
 	/// Set to `true` so symbol resolvers can be used
