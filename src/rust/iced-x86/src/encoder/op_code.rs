@@ -544,7 +544,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub const fn mvex_eh_bit(&self) -> MvexEHBit {
+	pub fn mvex_eh_bit(&self) -> MvexEHBit {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).eh_bit
 		} else {
@@ -556,7 +556,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub const fn mvex_can_use_eviction_hint(&self) -> bool {
+	pub fn mvex_can_use_eviction_hint(&self) -> bool {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).can_use_eviction_hint()
 		} else {
@@ -568,7 +568,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub const fn mvex_can_use_imm_rounding_control(&self) -> bool {
+	pub fn mvex_can_use_imm_rounding_control(&self) -> bool {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).can_use_imm_rounding_control()
 		} else {
@@ -580,7 +580,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub const fn mvex_ignores_op_mask_register(&self) -> bool {
+	pub fn mvex_ignores_op_mask_register(&self) -> bool {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).ignores_op_mask_register()
 		} else {
@@ -592,7 +592,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub const fn mvex_no_sae_rc(&self) -> bool {
+	pub fn mvex_no_sae_rc(&self) -> bool {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).no_sae_rc()
 		} else {
@@ -604,7 +604,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub const fn mvex_tuple_type_lut_kind(&self) -> MvexTupleTypeLutKind {
+	pub fn mvex_tuple_type_lut_kind(&self) -> MvexTupleTypeLutKind {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).tuple_type_lut_kind
 		} else {
@@ -616,7 +616,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub const fn mvex_conversion_func(&self) -> MvexConvFn {
+	pub fn mvex_conversion_func(&self) -> MvexConvFn {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).conv_fn
 		} else {
@@ -628,7 +628,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub const fn mvex_valid_conversion_funcs_mask(&self) -> u8 {
+	pub fn mvex_valid_conversion_funcs_mask(&self) -> u8 {
 		if self.encoding() == EncodingKind::MVEX {
 			!get_mvex_info(self.code()).invalid_conv_fns
 		} else {
@@ -640,7 +640,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub const fn mvex_valid_swizzle_funcs_mask(&self) -> u8 {
+	pub fn mvex_valid_swizzle_funcs_mask(&self) -> u8 {
 		if self.encoding() == EncodingKind::MVEX {
 			!get_mvex_info(self.code()).invalid_swizzle_fns
 		} else {

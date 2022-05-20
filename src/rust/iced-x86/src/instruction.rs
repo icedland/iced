@@ -869,7 +869,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "mvex")]
-	pub fn is_mvex_eviction_hint(&self) -> bool {
+	pub const fn is_mvex_eviction_hint(&self) -> bool {
 		IcedConstants::is_mvex(self.code()) && (self.immediate & MvexInstrFlags::EVICTION_HINT) != 0
 	}
 
@@ -1426,7 +1426,7 @@ impl Instruction {
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[allow(unused_mut)]
-	pub const fn near_branch_target(&self) -> u64 {
+	pub fn near_branch_target(&self) -> u64 {
 		let mut op_kind = self.op0_kind();
 		#[cfg(feature = "mvex")]
 		{

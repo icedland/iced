@@ -2654,7 +2654,7 @@ impl InstructionInfoFactory {
 
 	#[inline(always)]
 	#[allow(unused_variables)]
-	const fn is_clear_instr(instruction: &Instruction) -> bool {
+	fn is_clear_instr(instruction: &Instruction) -> bool {
 		#[cfg(feature = "mvex")]
 		{
 			matches!(instruction.mvex_reg_mem_conv(), MvexRegMemConv::None | MvexRegMemConv::RegSwizzleNone)

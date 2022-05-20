@@ -29,7 +29,7 @@ pub(super) struct JccInstr {
 impl JccInstr {
 	#[inline]
 	#[allow(unused_variables)]
-	const fn long_instruction_size64(instruction: &Instruction) -> u32 {
+	fn long_instruction_size64(instruction: &Instruction) -> u32 {
 		#[cfg(feature = "mvex")]
 		{
 			// Check if JKZD/JKNZD

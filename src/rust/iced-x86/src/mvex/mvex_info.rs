@@ -23,77 +23,77 @@ impl MvexInfo {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "op_code_info")]
-	pub(crate) fn is_ndd(&self) -> bool {
+	pub(crate) const fn is_ndd(&self) -> bool {
 		(self.flags1 & (MvexInfoFlags1::NDD as u8)) != 0
 	}
 
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "op_code_info")]
-	pub(crate) fn is_nds(&self) -> bool {
+	pub(crate) const fn is_nds(&self) -> bool {
 		(self.flags1 & (MvexInfoFlags1::NDS as u8)) != 0
 	}
 
 	#[must_use]
 	#[inline]
 	#[cfg(any(feature = "decoder", feature = "op_code_info"))]
-	pub(crate) fn can_use_eviction_hint(&self) -> bool {
+	pub(crate) const fn can_use_eviction_hint(&self) -> bool {
 		(self.flags1 & (MvexInfoFlags1::EVICTION_HINT as u8)) != 0
 	}
 
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "op_code_info")]
-	pub(crate) fn can_use_imm_rounding_control(&self) -> bool {
+	pub(crate) const fn can_use_imm_rounding_control(&self) -> bool {
 		(self.flags1 & (MvexInfoFlags1::IMM_ROUNDING_CONTROL as u8)) != 0
 	}
 
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "decoder")]
-	pub(crate) fn can_use_rounding_control(&self) -> bool {
+	pub(crate) const fn can_use_rounding_control(&self) -> bool {
 		(self.flags1 & (MvexInfoFlags1::ROUNDING_CONTROL as u8)) != 0
 	}
 
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "decoder")]
-	pub(crate) fn can_use_suppress_all_exceptions(&self) -> bool {
+	pub(crate) const fn can_use_suppress_all_exceptions(&self) -> bool {
 		(self.flags1 & (MvexInfoFlags1::SUPPRESS_ALL_EXCEPTIONS as u8)) != 0
 	}
 
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "decoder")]
-	pub(crate) fn ignores_op_mask_register(&self) -> bool {
+	pub(crate) const fn ignores_op_mask_register(&self) -> bool {
 		(self.flags1 & (MvexInfoFlags1::IGNORES_OP_MASK_REGISTER as u8)) != 0
 	}
 
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "decoder")]
-	pub(crate) fn require_op_mask_register(&self) -> bool {
+	pub(crate) const fn require_op_mask_register(&self) -> bool {
 		(self.flags1 & (MvexInfoFlags1::REQUIRE_OP_MASK_REGISTER as u8)) != 0
 	}
 
 	#[must_use]
 	#[inline]
 	#[cfg(any(feature = "decoder", feature = "op_code_info"))]
-	pub(crate) fn no_sae_rc(&self) -> bool {
+	pub(crate) const fn no_sae_rc(&self) -> bool {
 		(self.flags2 & (MvexInfoFlags2::NO_SAE_ROUNDING_CONTROL as u8)) != 0
 	}
 
 	#[must_use]
 	#[inline]
 	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
-	pub(crate) fn is_conv_fn_32(&self) -> bool {
+	pub(crate) const fn is_conv_fn_32(&self) -> bool {
 		(self.flags2 & (MvexInfoFlags2::CONV_FN32 as u8)) != 0
 	}
 
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "decoder")]
-	pub(crate) fn ignores_eviction_hint(&self) -> bool {
+	pub(crate) const fn ignores_eviction_hint(&self) -> bool {
 		(self.flags2 & (MvexInfoFlags2::IGNORES_EVICTION_HINT as u8)) != 0
 	}
 }
