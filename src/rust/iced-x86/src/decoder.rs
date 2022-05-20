@@ -537,7 +537,7 @@ impl State {
 	#[must_use]
 	#[inline(always)]
 	#[cfg(debug_assertions)]
-	fn encoding(&self) -> u32 {
+	const fn encoding(&self) -> u32 {
 		(self.flags >> StateFlags::ENCODING_SHIFT) & StateFlags::ENCODING_MASK
 	}
 
@@ -1100,7 +1100,7 @@ impl<'a> Decoder<'a> {
 	/// [`position()`]: #method.position
 	#[must_use]
 	#[inline]
-	pub fn ip(&self) -> u64 {
+	pub const fn ip(&self) -> u64 {
 		self.ip
 	}
 
@@ -1121,7 +1121,7 @@ impl<'a> Decoder<'a> {
 	/// Gets the bitness (16, 32 or 64)
 	#[must_use]
 	#[inline]
-	pub fn bitness(&self) -> u32 {
+	pub const fn bitness(&self) -> u32 {
 		self.bitness
 	}
 
@@ -1131,7 +1131,7 @@ impl<'a> Decoder<'a> {
 	/// [`try_set_position()`]: #method.try_set_position
 	#[must_use]
 	#[inline]
-	pub fn max_position(&self) -> usize {
+	pub const fn max_position(&self) -> usize {
 		self.data.len()
 	}
 
@@ -1246,7 +1246,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[must_use]
 	#[inline]
-	pub fn can_decode(&self) -> bool {
+	pub const fn can_decode(&self) -> bool {
 		self.data_ptr != self.data_ptr_end
 	}
 
@@ -1317,7 +1317,7 @@ impl<'a> Decoder<'a> {
 	/// [`instruction.is_invalid()`]: struct.Instruction.html#method.is_invalid
 	#[must_use]
 	#[inline]
-	pub fn last_error(&self) -> DecoderError {
+	pub const fn last_error(&self) -> DecoderError {
 		// NoMoreBytes error has highest priority
 		if (self.state.flags & StateFlags::NO_MORE_BYTES) != 0 {
 			DecoderError::NoMoreBytes

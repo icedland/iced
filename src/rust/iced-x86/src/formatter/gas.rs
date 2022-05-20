@@ -145,7 +145,7 @@ impl GasFormatter {
 		}
 	}
 
-	fn all_registers(d: &SelfData) -> &'static [FormatterString; IcedConstants::REGISTER_ENUM_COUNT] {
+	const fn all_registers(d: &SelfData) -> &'static [FormatterString; IcedConstants::REGISTER_ENUM_COUNT] {
 		if d.options.gas_naked_registers() {
 			d.all_registers_naked
 		} else {

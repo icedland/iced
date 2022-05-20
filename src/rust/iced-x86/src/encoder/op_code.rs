@@ -385,7 +385,7 @@ impl OpCodeInfo {
 	/// ```
 	#[must_use]
 	#[inline]
-	pub fn code(&self) -> Code {
+	pub const fn code(&self) -> Code {
 		self.code
 	}
 
@@ -417,7 +417,7 @@ impl OpCodeInfo {
 	/// ```
 	#[must_use]
 	#[inline]
-	pub fn encoding(&self) -> EncodingKind {
+	pub const fn encoding(&self) -> EncodingKind {
 		self.encoding
 	}
 
@@ -448,42 +448,42 @@ impl OpCodeInfo {
 	/// `true` if it's an instruction available in 16-bit mode
 	#[must_use]
 	#[inline]
-	pub fn mode16(&self) -> bool {
+	pub const fn mode16(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::BIT16OR32) != 0
 	}
 
 	/// `true` if it's an instruction available in 32-bit mode
 	#[must_use]
 	#[inline]
-	pub fn mode32(&self) -> bool {
+	pub const fn mode32(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::BIT16OR32) != 0
 	}
 
 	/// `true` if it's an instruction available in 64-bit mode
 	#[must_use]
 	#[inline]
-	pub fn mode64(&self) -> bool {
+	pub const fn mode64(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::BIT64) != 0
 	}
 
 	/// `true` if an `FWAIT` (`9B`) instruction is added before the instruction
 	#[must_use]
 	#[inline]
-	pub fn fwait(&self) -> bool {
+	pub const fn fwait(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::FWAIT) != 0
 	}
 
 	/// (Legacy encoding) Gets the required operand size (16,32,64) or 0
 	#[must_use]
 	#[inline]
-	pub fn operand_size(&self) -> u32 {
+	pub const fn operand_size(&self) -> u32 {
 		self.operand_size as u32
 	}
 
 	/// (Legacy encoding) Gets the required address size (16,32,64) or 0
 	#[must_use]
 	#[inline]
-	pub fn address_size(&self) -> u32 {
+	pub const fn address_size(&self) -> u32 {
 		self.address_size as u32
 	}
 
@@ -492,7 +492,7 @@ impl OpCodeInfo {
 	/// [`is_lig()`]: #method.is_lig
 	#[must_use]
 	#[inline]
-	pub fn l(&self) -> u32 {
+	pub const fn l(&self) -> u32 {
 		self.l as u32
 	}
 
@@ -502,7 +502,7 @@ impl OpCodeInfo {
 	/// [`is_wig32()`]: #method.is_wig32
 	#[must_use]
 	#[inline]
-	pub fn w(&self) -> u32 {
+	pub const fn w(&self) -> u32 {
 		if (self.flags & Flags::W) != 0 {
 			1
 		} else {
@@ -515,28 +515,28 @@ impl OpCodeInfo {
 	/// EVEX: if reg-only ops and `{er}` (`EVEX.b` is set), `L'L` is the rounding control and not ignored.
 	#[must_use]
 	#[inline]
-	pub fn is_lig(&self) -> bool {
+	pub const fn is_lig(&self) -> bool {
 		(self.flags & Flags::LIG) != 0
 	}
 
 	/// (VEX/XOP/EVEX/MVEX) `true` if the `W` field is ignored in 16/32/64-bit modes
 	#[must_use]
 	#[inline]
-	pub fn is_wig(&self) -> bool {
+	pub const fn is_wig(&self) -> bool {
 		(self.flags & Flags::WIG) != 0
 	}
 
 	/// (VEX/XOP/EVEX/MVEX) `true` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)
 	#[must_use]
 	#[inline]
-	pub fn is_wig32(&self) -> bool {
+	pub const fn is_wig32(&self) -> bool {
 		(self.flags & Flags::WIG32) != 0
 	}
 
 	/// (EVEX/MVEX) Gets the tuple type
 	#[must_use]
 	#[inline]
-	pub fn tuple_type(&self) -> TupleType {
+	pub const fn tuple_type(&self) -> TupleType {
 		self.tuple_type
 	}
 
@@ -544,7 +544,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub fn mvex_eh_bit(&self) -> MvexEHBit {
+	pub const fn mvex_eh_bit(&self) -> MvexEHBit {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).eh_bit
 		} else {
@@ -556,7 +556,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub fn mvex_can_use_eviction_hint(&self) -> bool {
+	pub const fn mvex_can_use_eviction_hint(&self) -> bool {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).can_use_eviction_hint()
 		} else {
@@ -568,7 +568,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub fn mvex_can_use_imm_rounding_control(&self) -> bool {
+	pub const fn mvex_can_use_imm_rounding_control(&self) -> bool {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).can_use_imm_rounding_control()
 		} else {
@@ -580,7 +580,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub fn mvex_ignores_op_mask_register(&self) -> bool {
+	pub const fn mvex_ignores_op_mask_register(&self) -> bool {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).ignores_op_mask_register()
 		} else {
@@ -592,7 +592,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub fn mvex_no_sae_rc(&self) -> bool {
+	pub const fn mvex_no_sae_rc(&self) -> bool {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).no_sae_rc()
 		} else {
@@ -604,7 +604,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub fn mvex_tuple_type_lut_kind(&self) -> MvexTupleTypeLutKind {
+	pub const fn mvex_tuple_type_lut_kind(&self) -> MvexTupleTypeLutKind {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).tuple_type_lut_kind
 		} else {
@@ -616,7 +616,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub fn mvex_conversion_func(&self) -> MvexConvFn {
+	pub const fn mvex_conversion_func(&self) -> MvexConvFn {
 		if self.encoding() == EncodingKind::MVEX {
 			get_mvex_info(self.code()).conv_fn
 		} else {
@@ -628,7 +628,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub fn mvex_valid_conversion_funcs_mask(&self) -> u8 {
+	pub const fn mvex_valid_conversion_funcs_mask(&self) -> u8 {
 		if self.encoding() == EncodingKind::MVEX {
 			!get_mvex_info(self.code()).invalid_conv_fns
 		} else {
@@ -640,7 +640,7 @@ impl OpCodeInfo {
 	#[cfg(feature = "mvex")]
 	#[must_use]
 	#[inline]
-	pub fn mvex_valid_swizzle_funcs_mask(&self) -> u8 {
+	pub const fn mvex_valid_swizzle_funcs_mask(&self) -> u8 {
 		if self.encoding() == EncodingKind::MVEX {
 			!get_mvex_info(self.code()).invalid_swizzle_fns
 		} else {
@@ -669,252 +669,252 @@ impl OpCodeInfo {
 	/// (EVEX) `true` if the instruction supports broadcasting (`EVEX.b` bit) (if it has a memory operand)
 	#[must_use]
 	#[inline]
-	pub fn can_broadcast(&self) -> bool {
+	pub const fn can_broadcast(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::BROADCAST) != 0
 	}
 
 	/// (EVEX/MVEX) `true` if the instruction supports rounding control
 	#[must_use]
 	#[inline]
-	pub fn can_use_rounding_control(&self) -> bool {
+	pub const fn can_use_rounding_control(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::ROUNDING_CONTROL) != 0
 	}
 
 	/// (EVEX/MVEX) `true` if the instruction supports suppress all exceptions
 	#[must_use]
 	#[inline]
-	pub fn can_suppress_all_exceptions(&self) -> bool {
+	pub const fn can_suppress_all_exceptions(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::SUPPRESS_ALL_EXCEPTIONS) != 0
 	}
 
 	/// (EVEX/MVEX) `true` if an opmask register can be used
 	#[must_use]
 	#[inline]
-	pub fn can_use_op_mask_register(&self) -> bool {
+	pub const fn can_use_op_mask_register(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::OP_MASK_REGISTER) != 0
 	}
 
 	/// (EVEX/MVEX) `true` if a non-zero opmask register must be used
 	#[must_use]
 	#[inline]
-	pub fn require_op_mask_register(&self) -> bool {
+	pub const fn require_op_mask_register(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::REQUIRE_OP_MASK_REGISTER) != 0
 	}
 
 	/// (EVEX) `true` if the instruction supports zeroing masking (if one of the opmask registers `K1`-`K7` is used and destination operand is not a memory operand)
 	#[must_use]
 	#[inline]
-	pub fn can_use_zeroing_masking(&self) -> bool {
+	pub const fn can_use_zeroing_masking(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::ZEROING_MASKING) != 0
 	}
 
 	/// `true` if the `LOCK` (`F0`) prefix can be used
 	#[must_use]
 	#[inline]
-	pub fn can_use_lock_prefix(&self) -> bool {
+	pub const fn can_use_lock_prefix(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::LOCK) != 0
 	}
 
 	/// `true` if the `XACQUIRE` (`F2`) prefix can be used
 	#[must_use]
 	#[inline]
-	pub fn can_use_xacquire_prefix(&self) -> bool {
+	pub const fn can_use_xacquire_prefix(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::XACQUIRE) != 0
 	}
 
 	/// `true` if the `XRELEASE` (`F3`) prefix can be used
 	#[must_use]
 	#[inline]
-	pub fn can_use_xrelease_prefix(&self) -> bool {
+	pub const fn can_use_xrelease_prefix(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::XRELEASE) != 0
 	}
 
 	/// `true` if the `REP` / `REPE` (`F3`) prefixes can be used
 	#[must_use]
 	#[inline]
-	pub fn can_use_rep_prefix(&self) -> bool {
+	pub const fn can_use_rep_prefix(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::REP) != 0
 	}
 
 	/// `true` if the `REPNE` (`F2`) prefix can be used
 	#[must_use]
 	#[inline]
-	pub fn can_use_repne_prefix(&self) -> bool {
+	pub const fn can_use_repne_prefix(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::REPNE) != 0
 	}
 
 	/// `true` if the `BND` (`F2`) prefix can be used
 	#[must_use]
 	#[inline]
-	pub fn can_use_bnd_prefix(&self) -> bool {
+	pub const fn can_use_bnd_prefix(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::BND) != 0
 	}
 
 	/// `true` if the `HINT-TAKEN` (`3E`) and `HINT-NOT-TAKEN` (`2E`) prefixes can be used
 	#[must_use]
 	#[inline]
-	pub fn can_use_hint_taken_prefix(&self) -> bool {
+	pub const fn can_use_hint_taken_prefix(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::HINT_TAKEN) != 0
 	}
 
 	/// `true` if the `NOTRACK` (`3E`) prefix can be used
 	#[must_use]
 	#[inline]
-	pub fn can_use_notrack_prefix(&self) -> bool {
+	pub const fn can_use_notrack_prefix(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::NOTRACK) != 0
 	}
 
 	/// `true` if rounding control is ignored (#UD is not generated)
 	#[must_use]
 	#[inline]
-	pub fn ignores_rounding_control(&self) -> bool {
+	pub const fn ignores_rounding_control(&self) -> bool {
 		(self.flags & Flags::IGNORES_ROUNDING_CONTROL) != 0
 	}
 
 	/// `true` if the `LOCK` prefix can be used as an extra register bit (bit 3) to access registers 8-15 without a `REX` prefix (eg. in 32-bit mode)
 	#[must_use]
 	#[inline]
-	pub fn amd_lock_reg_bit(&self) -> bool {
+	pub const fn amd_lock_reg_bit(&self) -> bool {
 		(self.flags & Flags::AMD_LOCK_REG_BIT) != 0
 	}
 
 	/// `true` if the default operand size is 64 in 64-bit mode. A `66` prefix can switch to 16-bit operand size.
 	#[must_use]
 	#[inline]
-	pub fn default_op_size64(&self) -> bool {
+	pub const fn default_op_size64(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::DEFAULT_OP_SIZE64) != 0
 	}
 
 	/// `true` if the operand size is always 64 in 64-bit mode. A `66` prefix is ignored.
 	#[must_use]
 	#[inline]
-	pub fn force_op_size64(&self) -> bool {
+	pub const fn force_op_size64(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::FORCE_OP_SIZE64) != 0
 	}
 
 	/// `true` if the Intel decoder forces 64-bit operand size. A `66` prefix is ignored.
 	#[must_use]
 	#[inline]
-	pub fn intel_force_op_size64(&self) -> bool {
+	pub const fn intel_force_op_size64(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::INTEL_FORCE_OP_SIZE64) != 0
 	}
 
 	/// `true` if it can only be executed when CPL=0
 	#[must_use]
 	#[inline]
-	pub fn must_be_cpl0(&self) -> bool {
+	pub const fn must_be_cpl0(&self) -> bool {
 		(self.flags & (Flags::CPL0 | Flags::CPL1 | Flags::CPL2 | Flags::CPL3)) == Flags::CPL0
 	}
 
 	/// `true` if it can be executed when CPL=0
 	#[must_use]
 	#[inline]
-	pub fn cpl0(&self) -> bool {
+	pub const fn cpl0(&self) -> bool {
 		(self.flags & Flags::CPL0) != 0
 	}
 
 	/// `true` if it can be executed when CPL=1
 	#[must_use]
 	#[inline]
-	pub fn cpl1(&self) -> bool {
+	pub const fn cpl1(&self) -> bool {
 		(self.flags & Flags::CPL1) != 0
 	}
 
 	/// `true` if it can be executed when CPL=2
 	#[must_use]
 	#[inline]
-	pub fn cpl2(&self) -> bool {
+	pub const fn cpl2(&self) -> bool {
 		(self.flags & Flags::CPL2) != 0
 	}
 
 	/// `true` if it can be executed when CPL=3
 	#[must_use]
 	#[inline]
-	pub fn cpl3(&self) -> bool {
+	pub const fn cpl3(&self) -> bool {
 		(self.flags & Flags::CPL3) != 0
 	}
 
 	/// `true` if the instruction accesses the I/O address space (eg. `IN`, `OUT`, `INS`, `OUTS`)
 	#[must_use]
 	#[inline]
-	pub fn is_input_output(&self) -> bool {
+	pub const fn is_input_output(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::INPUT_OUTPUT) != 0
 	}
 
 	/// `true` if it's one of the many nop instructions (does not include FPU nop instructions, eg. `FNOP`)
 	#[must_use]
 	#[inline]
-	pub fn is_nop(&self) -> bool {
+	pub const fn is_nop(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::NOP) != 0
 	}
 
 	/// `true` if it's one of the many reserved nop instructions (eg. `0F0D`, `0F18-0F1F`)
 	#[must_use]
 	#[inline]
-	pub fn is_reserved_nop(&self) -> bool {
+	pub const fn is_reserved_nop(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::RESERVED_NOP) != 0
 	}
 
 	/// `true` if it's a serializing instruction (Intel CPUs)
 	#[must_use]
 	#[inline]
-	pub fn is_serializing_intel(&self) -> bool {
+	pub const fn is_serializing_intel(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::SERIALIZING_INTEL) != 0
 	}
 
 	/// `true` if it's a serializing instruction (AMD CPUs)
 	#[must_use]
 	#[inline]
-	pub fn is_serializing_amd(&self) -> bool {
+	pub const fn is_serializing_amd(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::SERIALIZING_AMD) != 0
 	}
 
 	/// `true` if the instruction requires either CPL=0 or CPL<=3 depending on some CPU option (eg. `CR4.TSD`, `CR4.PCE`, `CR4.UMIP`)
 	#[must_use]
 	#[inline]
-	pub fn may_require_cpl0(&self) -> bool {
+	pub const fn may_require_cpl0(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::MAY_REQUIRE_CPL0) != 0
 	}
 
 	/// `true` if it's a tracked `JMP`/`CALL` indirect instruction (CET)
 	#[must_use]
 	#[inline]
-	pub fn is_cet_tracked(&self) -> bool {
+	pub const fn is_cet_tracked(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::CET_TRACKED) != 0
 	}
 
 	/// `true` if it's a non-temporal hint memory access (eg. `MOVNTDQ`)
 	#[must_use]
 	#[inline]
-	pub fn is_non_temporal(&self) -> bool {
+	pub const fn is_non_temporal(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::NON_TEMPORAL) != 0
 	}
 
 	/// `true` if it's a no-wait FPU instruction, eg. `FNINIT`
 	#[must_use]
 	#[inline]
-	pub fn is_fpu_no_wait(&self) -> bool {
+	pub const fn is_fpu_no_wait(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::FPU_NO_WAIT) != 0
 	}
 
 	/// `true` if the mod bits are ignored and it's assumed `modrm[7:6] == 11b`
 	#[must_use]
 	#[inline]
-	pub fn ignores_mod_bits(&self) -> bool {
+	pub const fn ignores_mod_bits(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::IGNORES_MOD_BITS) != 0
 	}
 
 	/// `true` if the `66` prefix is not allowed (it will #UD)
 	#[must_use]
 	#[inline]
-	pub fn no66(&self) -> bool {
+	pub const fn no66(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::NO66) != 0
 	}
 
 	/// `true` if the `F2`/`F3` prefixes aren't allowed
 	#[must_use]
 	#[inline]
-	pub fn nfx(&self) -> bool {
+	pub const fn nfx(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::NFX) != 0
 	}
 
@@ -922,7 +922,7 @@ impl OpCodeInfo {
 	/// eg. `MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]` is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
 	#[must_use]
 	#[inline]
-	pub fn requires_unique_reg_nums(&self) -> bool {
+	pub const fn requires_unique_reg_nums(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::REQUIRES_UNIQUE_REG_NUMS) != 0
 	}
 
@@ -930,266 +930,266 @@ impl OpCodeInfo {
 	/// is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
 	#[must_use]
 	#[inline]
-	pub fn requires_unique_dest_reg_num(&self) -> bool {
+	pub const fn requires_unique_dest_reg_num(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::REQUIRES_UNIQUE_DEST_REG_NUM) != 0
 	}
 
 	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
 	#[must_use]
 	#[inline]
-	pub fn is_privileged(&self) -> bool {
+	pub const fn is_privileged(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::PRIVILEGED) != 0
 	}
 
 	/// `true` if it reads/writes too many registers
 	#[must_use]
 	#[inline]
-	pub fn is_save_restore(&self) -> bool {
+	pub const fn is_save_restore(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::SAVE_RESTORE) != 0
 	}
 
 	/// `true` if it's an instruction that implicitly uses the stack register, eg. `CALL`, `POP`, etc
 	#[must_use]
 	#[inline]
-	pub fn is_stack_instruction(&self) -> bool {
+	pub const fn is_stack_instruction(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::STACK_INSTRUCTION) != 0
 	}
 
 	/// `true` if the instruction doesn't read the segment register if it uses a memory operand
 	#[must_use]
 	#[inline]
-	pub fn ignores_segment(&self) -> bool {
+	pub const fn ignores_segment(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::IGNORES_SEGMENT) != 0
 	}
 
 	/// `true` if the opmask register is read and written (instead of just read). This also implies that it can't be `K0`.
 	#[must_use]
 	#[inline]
-	pub fn is_op_mask_read_write(&self) -> bool {
+	pub const fn is_op_mask_read_write(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::OP_MASK_READ_WRITE) != 0
 	}
 
 	/// `true` if it can be executed in real mode
 	#[must_use]
 	#[inline]
-	pub fn real_mode(&self) -> bool {
+	pub const fn real_mode(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::REAL_MODE) != 0
 	}
 
 	/// `true` if it can be executed in protected mode
 	#[must_use]
 	#[inline]
-	pub fn protected_mode(&self) -> bool {
+	pub const fn protected_mode(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::PROTECTED_MODE) != 0
 	}
 
 	/// `true` if it can be executed in virtual 8086 mode
 	#[must_use]
 	#[inline]
-	pub fn virtual8086_mode(&self) -> bool {
+	pub const fn virtual8086_mode(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::VIRTUAL8086_MODE) != 0
 	}
 
 	/// `true` if it can be executed in compatibility mode
 	#[must_use]
 	#[inline]
-	pub fn compatibility_mode(&self) -> bool {
+	pub const fn compatibility_mode(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::COMPATIBILITY_MODE) != 0
 	}
 
 	/// `true` if it can be executed in 64-bit mode
 	#[must_use]
 	#[inline]
-	pub fn long_mode(&self) -> bool {
+	pub const fn long_mode(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::BIT64) != 0
 	}
 
 	/// `true` if it can be used outside SMM
 	#[must_use]
 	#[inline]
-	pub fn use_outside_smm(&self) -> bool {
+	pub const fn use_outside_smm(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::USE_OUTSIDE_SMM) != 0
 	}
 
 	/// `true` if it can be used in SMM
 	#[must_use]
 	#[inline]
-	pub fn use_in_smm(&self) -> bool {
+	pub const fn use_in_smm(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::USE_IN_SMM) != 0
 	}
 
 	/// `true` if it can be used outside an enclave (SGX)
 	#[must_use]
 	#[inline]
-	pub fn use_outside_enclave_sgx(&self) -> bool {
+	pub const fn use_outside_enclave_sgx(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::USE_OUTSIDE_ENCLAVE_SGX) != 0
 	}
 
 	/// `true` if it can be used inside an enclave (SGX1)
 	#[must_use]
 	#[inline]
-	pub fn use_in_enclave_sgx1(&self) -> bool {
+	pub const fn use_in_enclave_sgx1(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::USE_IN_ENCLAVE_SGX1) != 0
 	}
 
 	/// `true` if it can be used inside an enclave (SGX2)
 	#[must_use]
 	#[inline]
-	pub fn use_in_enclave_sgx2(&self) -> bool {
+	pub const fn use_in_enclave_sgx2(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::USE_IN_ENCLAVE_SGX2) != 0
 	}
 
 	/// `true` if it can be used outside VMX operation
 	#[must_use]
 	#[inline]
-	pub fn use_outside_vmx_op(&self) -> bool {
+	pub const fn use_outside_vmx_op(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::USE_OUTSIDE_VMX_OP) != 0
 	}
 
 	/// `true` if it can be used in VMX root operation
 	#[must_use]
 	#[inline]
-	pub fn use_in_vmx_root_op(&self) -> bool {
+	pub const fn use_in_vmx_root_op(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::USE_IN_VMX_ROOT_OP) != 0
 	}
 
 	/// `true` if it can be used in VMX non-root operation
 	#[must_use]
 	#[inline]
-	pub fn use_in_vmx_non_root_op(&self) -> bool {
+	pub const fn use_in_vmx_non_root_op(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::USE_IN_VMX_NON_ROOT_OP) != 0
 	}
 
 	/// `true` if it can be used outside SEAM
 	#[must_use]
 	#[inline]
-	pub fn use_outside_seam(&self) -> bool {
+	pub const fn use_outside_seam(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::USE_OUTSIDE_SEAM) != 0
 	}
 
 	/// `true` if it can be used in SEAM
 	#[must_use]
 	#[inline]
-	pub fn use_in_seam(&self) -> bool {
+	pub const fn use_in_seam(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::USE_IN_SEAM) != 0
 	}
 
 	/// `true` if #UD is generated in TDX non-root operation
 	#[must_use]
 	#[inline]
-	pub fn tdx_non_root_gen_ud(&self) -> bool {
+	pub const fn tdx_non_root_gen_ud(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::TDX_NON_ROOT_GEN_UD) != 0
 	}
 
 	/// `true` if #VE is generated in TDX non-root operation
 	#[must_use]
 	#[inline]
-	pub fn tdx_non_root_gen_ve(&self) -> bool {
+	pub const fn tdx_non_root_gen_ve(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::TDX_NON_ROOT_GEN_VE) != 0
 	}
 
 	/// `true` if an exception (eg. #GP(0), #VE) may be generated in TDX non-root operation
 	#[must_use]
 	#[inline]
-	pub fn tdx_non_root_may_gen_ex(&self) -> bool {
+	pub const fn tdx_non_root_may_gen_ex(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::TDX_NON_ROOT_MAY_GEN_EX) != 0
 	}
 
 	/// (Intel VMX) `true` if it causes a VM exit in VMX non-root operation
 	#[must_use]
 	#[inline]
-	pub fn intel_vm_exit(&self) -> bool {
+	pub const fn intel_vm_exit(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::INTEL_VM_EXIT) != 0
 	}
 
 	/// (Intel VMX) `true` if it may cause a VM exit in VMX non-root operation
 	#[must_use]
 	#[inline]
-	pub fn intel_may_vm_exit(&self) -> bool {
+	pub const fn intel_may_vm_exit(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::INTEL_MAY_VM_EXIT) != 0
 	}
 
 	/// (Intel VMX) `true` if it causes an SMM VM exit in VMX root operation (if dual-monitor treatment is activated)
 	#[must_use]
 	#[inline]
-	pub fn intel_smm_vm_exit(&self) -> bool {
+	pub const fn intel_smm_vm_exit(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::INTEL_SMM_VM_EXIT) != 0
 	}
 
 	/// (AMD SVM) `true` if it causes a #VMEXIT in guest mode
 	#[must_use]
 	#[inline]
-	pub fn amd_vm_exit(&self) -> bool {
+	pub const fn amd_vm_exit(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::AMD_VM_EXIT) != 0
 	}
 
 	/// (AMD SVM) `true` if it may cause a #VMEXIT in guest mode
 	#[must_use]
 	#[inline]
-	pub fn amd_may_vm_exit(&self) -> bool {
+	pub const fn amd_may_vm_exit(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::AMD_MAY_VM_EXIT) != 0
 	}
 
 	/// `true` if it causes a TSX abort inside a TSX transaction
 	#[must_use]
 	#[inline]
-	pub fn tsx_abort(&self) -> bool {
+	pub const fn tsx_abort(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::TSX_ABORT) != 0
 	}
 
 	/// `true` if it causes a TSX abort inside a TSX transaction depending on the implementation
 	#[must_use]
 	#[inline]
-	pub fn tsx_impl_abort(&self) -> bool {
+	pub const fn tsx_impl_abort(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::TSX_IMPL_ABORT) != 0
 	}
 
 	/// `true` if it may cause a TSX abort inside a TSX transaction depending on some condition
 	#[must_use]
 	#[inline]
-	pub fn tsx_may_abort(&self) -> bool {
+	pub const fn tsx_may_abort(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::TSX_MAY_ABORT) != 0
 	}
 
 	/// `true` if it's decoded by iced's 16-bit Intel decoder
 	#[must_use]
 	#[inline]
-	pub fn intel_decoder16(&self) -> bool {
+	pub const fn intel_decoder16(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::INTEL_DECODER16OR32) != 0
 	}
 
 	/// `true` if it's decoded by iced's 32-bit Intel decoder
 	#[must_use]
 	#[inline]
-	pub fn intel_decoder32(&self) -> bool {
+	pub const fn intel_decoder32(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::INTEL_DECODER16OR32) != 0
 	}
 
 	/// `true` if it's decoded by iced's 64-bit Intel decoder
 	#[must_use]
 	#[inline]
-	pub fn intel_decoder64(&self) -> bool {
+	pub const fn intel_decoder64(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::INTEL_DECODER64) != 0
 	}
 
 	/// `true` if it's decoded by iced's 16-bit AMD decoder
 	#[must_use]
 	#[inline]
-	pub fn amd_decoder16(&self) -> bool {
+	pub const fn amd_decoder16(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::AMD_DECODER16OR32) != 0
 	}
 
 	/// `true` if it's decoded by iced's 32-bit AMD decoder
 	#[must_use]
 	#[inline]
-	pub fn amd_decoder32(&self) -> bool {
+	pub const fn amd_decoder32(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::AMD_DECODER16OR32) != 0
 	}
 
 	/// `true` if it's decoded by iced's 64-bit AMD decoder
 	#[must_use]
 	#[inline]
-	pub fn amd_decoder64(&self) -> bool {
+	pub const fn amd_decoder64(&self) -> bool {
 		(self.opc_flags2 & OpCodeInfoFlags2::AMD_DECODER64) != 0
 	}
 
@@ -1212,14 +1212,14 @@ impl OpCodeInfo {
 	/// Gets the opcode table
 	#[must_use]
 	#[inline]
-	pub fn table(&self) -> OpCodeTableKind {
+	pub const fn table(&self) -> OpCodeTableKind {
 		self.table
 	}
 
 	/// Gets the mandatory prefix
 	#[must_use]
 	#[inline]
-	pub fn mandatory_prefix(&self) -> MandatoryPrefix {
+	pub const fn mandatory_prefix(&self) -> MandatoryPrefix {
 		self.mandatory_prefix
 	}
 
@@ -1241,7 +1241,7 @@ impl OpCodeInfo {
 	/// [`table()`]: #method.table
 	#[must_use]
 	#[inline]
-	pub fn op_code(&self) -> u32 {
+	pub const fn op_code(&self) -> u32 {
 		self.op_code as u32
 	}
 
@@ -1261,7 +1261,7 @@ impl OpCodeInfo {
 	/// [`op_code()`]: #method.op_code
 	#[must_use]
 	#[inline]
-	pub fn op_code_len(&self) -> u32 {
+	pub const fn op_code_len(&self) -> u32 {
 		if (self.enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0 {
 			2
 		} else {
@@ -1272,28 +1272,28 @@ impl OpCodeInfo {
 	/// `true` if it's part of a group
 	#[must_use]
 	#[inline]
-	pub fn is_group(&self) -> bool {
+	pub const fn is_group(&self) -> bool {
 		self.group_index >= 0
 	}
 
 	/// Group index (0-7) or -1. If it's 0-7, it's stored in the `reg` field of the `modrm` byte.
 	#[must_use]
 	#[inline]
-	pub fn group_index(&self) -> i32 {
+	pub const fn group_index(&self) -> i32 {
 		self.group_index as i32
 	}
 
 	/// `true` if it's part of a modrm.rm group
 	#[must_use]
 	#[inline]
-	pub fn is_rm_group(&self) -> bool {
+	pub const fn is_rm_group(&self) -> bool {
 		self.rm_group_index >= 0
 	}
 
 	/// Group index (0-7) or -1. If it's 0-7, it's stored in the `rm` field of the `modrm` byte.
 	#[must_use]
 	#[inline]
-	pub fn rm_group_index(&self) -> i32 {
+	pub const fn rm_group_index(&self) -> i32 {
 		self.rm_group_index as i32
 	}
 
@@ -1307,35 +1307,35 @@ impl OpCodeInfo {
 	/// Gets operand #0's opkind
 	#[must_use]
 	#[inline]
-	pub fn op0_kind(&self) -> OpCodeOperandKind {
+	pub const fn op0_kind(&self) -> OpCodeOperandKind {
 		self.op_kinds[0]
 	}
 
 	/// Gets operand #1's opkind
 	#[must_use]
 	#[inline]
-	pub fn op1_kind(&self) -> OpCodeOperandKind {
+	pub const fn op1_kind(&self) -> OpCodeOperandKind {
 		self.op_kinds[1]
 	}
 
 	/// Gets operand #2's opkind
 	#[must_use]
 	#[inline]
-	pub fn op2_kind(&self) -> OpCodeOperandKind {
+	pub const fn op2_kind(&self) -> OpCodeOperandKind {
 		self.op_kinds[2]
 	}
 
 	/// Gets operand #3's opkind
 	#[must_use]
 	#[inline]
-	pub fn op3_kind(&self) -> OpCodeOperandKind {
+	pub const fn op3_kind(&self) -> OpCodeOperandKind {
 		self.op_kinds[3]
 	}
 
 	/// Gets operand #4's opkind
 	#[must_use]
 	#[inline]
-	pub fn op4_kind(&self) -> OpCodeOperandKind {
+	pub const fn op4_kind(&self) -> OpCodeOperandKind {
 		self.op_kinds[4]
 	}
 
@@ -1380,7 +1380,7 @@ impl OpCodeInfo {
 	/// * `bitness`: 16, 32 or 64
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
-	pub fn is_available_in_mode(&self, bitness: u32) -> bool {
+	pub const fn is_available_in_mode(&self, bitness: u32) -> bool {
 		match bitness {
 			16 => self.mode16(),
 			32 => self.mode32(),

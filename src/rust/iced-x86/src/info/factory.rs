@@ -1926,7 +1926,7 @@ impl InstructionInfoFactory {
 	}
 
 	#[must_use]
-	fn get_a_rdi(instruction: &Instruction) -> Register {
+	const fn get_a_rdi(instruction: &Instruction) -> Register {
 		match instruction.op0_kind() {
 			OpKind::MemorySegDI => Register::DI,
 			OpKind::MemorySegEDI => Register::EDI,
@@ -2654,7 +2654,7 @@ impl InstructionInfoFactory {
 
 	#[inline(always)]
 	#[allow(unused_variables)]
-	fn is_clear_instr(instruction: &Instruction) -> bool {
+	const fn is_clear_instr(instruction: &Instruction) -> bool {
 		#[cfg(feature = "mvex")]
 		{
 			matches!(instruction.mvex_reg_mem_conv(), MvexRegMemConv::None | MvexRegMemConv::RegSwizzleNone)
@@ -2793,7 +2793,7 @@ impl InstructionInfoFactory {
 	}
 
 	#[must_use]
-	fn try_get_gpr_16_32_64_index(register: Register) -> i32 {
+	const fn try_get_gpr_16_32_64_index(register: Register) -> i32 {
 		let mut index;
 		let reg = register as u32;
 		index = reg.wrapping_sub(Register::EAX as u32);

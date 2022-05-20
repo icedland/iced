@@ -35,7 +35,7 @@ impl Block {
 		})
 	}
 
-	pub(super) fn is_in_block(&self, instr_index: usize) -> bool {
+	pub(super) const fn is_in_block(&self, instr_index: usize) -> bool {
 		self.instr_indexes.0 <= instr_index && instr_index < self.instr_indexes.1
 	}
 
@@ -116,7 +116,7 @@ impl Block {
 		self.valid_data.clear();
 	}
 
-	pub(super) fn can_add_reloc_infos(&self) -> bool {
+	pub(super) const fn can_add_reloc_infos(&self) -> bool {
 		self.reloc_infos.is_some()
 	}
 
@@ -135,7 +135,7 @@ pub(super) struct BlockData {
 }
 
 impl BlockData {
-	pub(super) fn address(&self) -> Result<u64, IcedError> {
+	pub(super) const fn address(&self) -> Result<u64, IcedError> {
 		if self.is_valid && self.address_initd {
 			Ok(self.address)
 		} else {

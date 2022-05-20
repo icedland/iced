@@ -24,14 +24,14 @@ impl ConstantOffsets {
 	/// The offset of the displacement, if any
 	#[must_use]
 	#[inline]
-	pub fn displacement_offset(&self) -> usize {
+	pub const fn displacement_offset(&self) -> usize {
 		self.displacement_offset as usize
 	}
 
 	/// Size in bytes of the displacement, or 0 if there's no displacement
 	#[must_use]
 	#[inline]
-	pub fn displacement_size(&self) -> usize {
+	pub const fn displacement_size(&self) -> usize {
 		self.displacement_size as usize
 	}
 
@@ -41,28 +41,28 @@ impl ConstantOffsets {
 	/// of the instruction stream, eg. `SHL AL,1`.
 	#[must_use]
 	#[inline]
-	pub fn immediate_offset(&self) -> usize {
+	pub const fn immediate_offset(&self) -> usize {
 		self.immediate_offset as usize
 	}
 
 	/// Size in bytes of the first immediate, or 0 if there's no immediate
 	#[must_use]
 	#[inline]
-	pub fn immediate_size(&self) -> usize {
+	pub const fn immediate_size(&self) -> usize {
 		self.immediate_size as usize
 	}
 
 	/// The offset of the second immediate, if any.
 	#[must_use]
 	#[inline]
-	pub fn immediate_offset2(&self) -> usize {
+	pub const fn immediate_offset2(&self) -> usize {
 		self.immediate_offset2 as usize
 	}
 
 	/// Size in bytes of the second immediate, or 0 if there's no second immediate
 	#[must_use]
 	#[inline]
-	pub fn immediate_size2(&self) -> usize {
+	pub const fn immediate_size2(&self) -> usize {
 		self.immediate_size2 as usize
 	}
 
@@ -72,7 +72,7 @@ impl ConstantOffsets {
 	/// [`displacement_size()`]: #method.displacement_size
 	#[must_use]
 	#[inline]
-	pub fn has_displacement(&self) -> bool {
+	pub const fn has_displacement(&self) -> bool {
 		self.displacement_size != 0
 	}
 
@@ -82,7 +82,7 @@ impl ConstantOffsets {
 	/// [`immediate_size()`]: #method.immediate_size
 	#[must_use]
 	#[inline]
-	pub fn has_immediate(&self) -> bool {
+	pub const fn has_immediate(&self) -> bool {
 		self.immediate_size != 0
 	}
 
@@ -92,7 +92,7 @@ impl ConstantOffsets {
 	/// [`immediate_size2()`]: #method.immediate_size2
 	#[must_use]
 	#[inline]
-	pub fn has_immediate2(&self) -> bool {
+	pub const fn has_immediate2(&self) -> bool {
 		self.immediate_size2 != 0
 	}
 }

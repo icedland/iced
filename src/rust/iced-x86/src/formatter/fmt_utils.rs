@@ -234,11 +234,11 @@ pub(super) fn get_flow_control(instruction: &Instruction) -> FormatterFlowContro
 	}
 }
 
-pub(super) fn show_rep_or_repe_prefix(code: Code, options: &FormatterOptions) -> bool {
+pub(super) const fn show_rep_or_repe_prefix(code: Code, options: &FormatterOptions) -> bool {
 	show_rep_or_repe_prefix_bool(code, options.show_useless_prefixes())
 }
 
-pub(super) fn show_repne_prefix(code: Code, options: &FormatterOptions) -> bool {
+pub(super) const fn show_repne_prefix(code: Code, options: &FormatterOptions) -> bool {
 	show_repne_prefix_bool(code, options.show_useless_prefixes())
 }
 
@@ -262,7 +262,7 @@ pub(super) fn get_segment_register_prefix_kind(register: Register) -> PrefixKind
 	unsafe { mem::transmute(((register as u32 - Register::ES as u32) + PrefixKind::ES as u32) as PrefixKindUnderlyingType) }
 }
 
-pub(super) fn show_index_scale(instruction: &Instruction, options: &FormatterOptions) -> bool {
+pub(super) const fn show_index_scale(instruction: &Instruction, options: &FormatterOptions) -> bool {
 	options.show_useless_prefixes() || !instruction.code().ignores_index()
 }
 

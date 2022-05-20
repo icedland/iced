@@ -36,7 +36,7 @@ impl RelocInfo {
 	/// * `address`: Address
 	#[must_use]
 	#[inline]
-	pub fn new(kind: RelocKind, address: u64) -> Self {
+	pub const fn new(kind: RelocKind, address: u64) -> Self {
 		Self { address, kind }
 	}
 }
@@ -59,7 +59,7 @@ impl<'a> InstructionBlock<'a> {
 	/// * `rip`: Base IP of all encoded instructions
 	#[must_use]
 	#[inline]
-	pub fn new(instructions: &'a [Instruction], rip: u64) -> Self {
+	pub const fn new(instructions: &'a [Instruction], rip: u64) -> Self {
 		Self { instructions, rip }
 	}
 }
@@ -119,11 +119,11 @@ struct BlockEncInt {
 }
 
 impl BlockEncInt {
-	fn bitness(&self) -> u32 {
+	const fn bitness(&self) -> u32 {
 		self.bitness
 	}
 
-	fn fix_branches(&self) -> bool {
+	const fn fix_branches(&self) -> bool {
 		(self.options & BlockEncoderOptions::DONT_FIX_BRANCHES) == 0
 	}
 

@@ -10,12 +10,12 @@ pub(crate) struct DataReader<'a> {
 }
 
 impl<'a> DataReader<'a> {
-	pub(crate) fn new(data: &'a [u8]) -> Self {
+	pub(crate) const fn new(data: &'a [u8]) -> Self {
 		Self { data, index: 0 }
 	}
 
 	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
-	pub(crate) fn index(&self) -> usize {
+	pub(crate) const fn index(&self) -> usize {
 		self.index
 	}
 
@@ -25,11 +25,11 @@ impl<'a> DataReader<'a> {
 	}
 
 	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
-	pub(crate) fn len_left(&self) -> usize {
+	pub(crate) const fn len_left(&self) -> usize {
 		self.data.len() - self.index
 	}
 
-	pub(crate) fn can_read(&self) -> bool {
+	pub(crate) const fn can_read(&self) -> bool {
 		self.index < self.data.len()
 	}
 

@@ -154,7 +154,7 @@ impl Op for OpRegSTi {
 #[allow(non_camel_case_types)]
 pub(super) struct OprDI;
 impl OprDI {
-	pub fn get_reg_size(op_kind: OpKind) -> u32 {
+	pub const fn get_reg_size(op_kind: OpKind) -> u32 {
 		match op_kind {
 			OpKind::MemorySegRDI => 8,
 			OpKind::MemorySegEDI => 4,
@@ -293,7 +293,7 @@ impl Op for OpI4 {
 #[allow(non_camel_case_types)]
 pub(super) struct OpX;
 impl OpX {
-	pub fn get_xreg_size(op_kind: OpKind) -> u32 {
+	pub const fn get_xreg_size(op_kind: OpKind) -> u32 {
 		match op_kind {
 			OpKind::MemorySegRSI => 8,
 			OpKind::MemorySegESI => 4,
@@ -302,7 +302,7 @@ impl OpX {
 		}
 	}
 
-	pub fn get_yreg_size(op_kind: OpKind) -> u32 {
+	pub const fn get_yreg_size(op_kind: OpKind) -> u32 {
 		match op_kind {
 			OpKind::MemoryESRDI => 8,
 			OpKind::MemoryESEDI => 4,

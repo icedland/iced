@@ -23,7 +23,7 @@ pub struct FastFormatterOptions {
 impl FastFormatterOptions {
 	#[must_use]
 	#[inline]
-	pub(super) fn new() -> Self {
+	pub(super) const fn new() -> Self {
 		Self { options1: Flags1::USE_PSEUDO_OPS | Flags1::UPPERCASE_HEX }
 	}
 
@@ -37,7 +37,7 @@ impl FastFormatterOptions {
 	/// 👍 | `false` | `mov rax,rcx`
 	#[must_use]
 	#[inline]
-	pub fn space_after_operand_separator(&self) -> bool {
+	pub const fn space_after_operand_separator(&self) -> bool {
 		(self.options1 & Flags1::SPACE_AFTER_OPERAND_SEPARATOR) != 0
 	}
 
@@ -68,7 +68,7 @@ impl FastFormatterOptions {
 	/// 👍 | `false` | `mov eax,[1029384756AFBECDh]`
 	#[must_use]
 	#[inline]
-	pub fn rip_relative_addresses(&self) -> bool {
+	pub const fn rip_relative_addresses(&self) -> bool {
 		(self.options1 & Flags1::RIP_RELATIVE_ADDRESSES) != 0
 	}
 
@@ -99,7 +99,7 @@ impl FastFormatterOptions {
 	/// _ | `false` | `vcmpsd xmm2,xmm6,xmm3,5h`
 	#[must_use]
 	#[inline]
-	pub fn use_pseudo_ops(&self) -> bool {
+	pub const fn use_pseudo_ops(&self) -> bool {
 		(self.options1 & Flags1::USE_PSEUDO_OPS) != 0
 	}
 
@@ -130,7 +130,7 @@ impl FastFormatterOptions {
 	/// 👍 | `false` | `mov eax,[myfield]`
 	#[must_use]
 	#[inline]
-	pub fn show_symbol_address(&self) -> bool {
+	pub const fn show_symbol_address(&self) -> bool {
 		(self.options1 & Flags1::SHOW_SYMBOL_ADDRESS) != 0
 	}
 
@@ -162,7 +162,7 @@ impl FastFormatterOptions {
 	/// 👍 | `false` | `mov eax,[ecx]`
 	#[must_use]
 	#[inline]
-	pub fn always_show_segment_register(&self) -> bool {
+	pub const fn always_show_segment_register(&self) -> bool {
 		(self.options1 & Flags1::ALWAYS_SHOW_SEGMENT_REGISTER) != 0
 	}
 
@@ -194,7 +194,7 @@ impl FastFormatterOptions {
 	/// 👍 | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
 	#[must_use]
 	#[inline]
-	pub fn always_show_memory_size(&self) -> bool {
+	pub const fn always_show_memory_size(&self) -> bool {
 		(self.options1 & Flags1::ALWAYS_SHOW_MEMORY_SIZE) != 0
 	}
 
@@ -225,7 +225,7 @@ impl FastFormatterOptions {
 	/// _ | `false` | `0xff`
 	#[must_use]
 	#[inline]
-	pub fn uppercase_hex(&self) -> bool {
+	pub const fn uppercase_hex(&self) -> bool {
 		(self.options1 & Flags1::UPPERCASE_HEX) != 0
 	}
 
@@ -256,7 +256,7 @@ impl FastFormatterOptions {
 	/// 👍 | `false` | `5Ah`
 	#[must_use]
 	#[inline]
-	pub fn use_hex_prefix(&self) -> bool {
+	pub const fn use_hex_prefix(&self) -> bool {
 		(self.options1 & Flags1::USE_HEX_PREFIX) != 0
 	}
 

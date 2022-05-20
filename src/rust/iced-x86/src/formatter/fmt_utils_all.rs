@@ -5,7 +5,7 @@ use crate::{Code, CodeSize, Instruction, Register};
 use static_assertions::const_assert_eq;
 
 #[must_use]
-pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {
+pub(super) const fn is_rep_repe_repne_instruction(code: Code) -> bool {
 	matches!(
 		code,
 		Code::Insb_m8_DX
@@ -86,7 +86,7 @@ pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {
 }
 
 #[must_use]
-pub(super) fn show_rep_or_repe_prefix_bool(code: Code, show_useless_prefixes: bool) -> bool {
+pub(super) const fn show_rep_or_repe_prefix_bool(code: Code, show_useless_prefixes: bool) -> bool {
 	if show_useless_prefixes || is_rep_repe_repne_instruction(code) {
 		true
 	} else {
@@ -99,7 +99,7 @@ pub(super) fn show_rep_or_repe_prefix_bool(code: Code, show_useless_prefixes: bo
 }
 
 #[must_use]
-pub(super) fn show_repne_prefix_bool(code: Code, show_useless_prefixes: bool) -> bool {
+pub(super) const fn show_repne_prefix_bool(code: Code, show_useless_prefixes: bool) -> bool {
 	// If it's a 'rep/repne' instruction, always show the prefix
 	if show_useless_prefixes || is_rep_repe_repne_instruction(code) {
 		true
@@ -150,7 +150,7 @@ pub(super) fn show_segment_prefix_bool(mut default_seg_reg: Register, instructio
 }
 
 #[must_use]
-pub(super) fn is_repe_or_repne_instruction(code: Code) -> bool {
+pub(super) const fn is_repe_or_repne_instruction(code: Code) -> bool {
 	matches!(
 		code,
 		Code::Cmpsb_m8_m8
@@ -166,7 +166,7 @@ pub(super) fn is_repe_or_repne_instruction(code: Code) -> bool {
 
 #[must_use]
 #[inline]
-pub(super) fn is_notrack_prefix_branch(code: Code) -> bool {
+pub(super) const fn is_notrack_prefix_branch(code: Code) -> bool {
 	const_assert_eq!(Code::Jmp_rm16 as u32 + 1, Code::Jmp_rm32 as u32);
 	const_assert_eq!(Code::Jmp_rm16 as u32 + 2, Code::Jmp_rm64 as u32);
 	const_assert_eq!(Code::Call_rm16 as u32 + 1, Code::Call_rm32 as u32);

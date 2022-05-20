@@ -188,7 +188,7 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
-	fn get_flags(leading_zeros: bool, small_hex_numbers_in_decimal: bool) -> u32 {
+	const fn get_flags(leading_zeros: bool, small_hex_numbers_in_decimal: bool) -> u32 {
 		let mut flags = NumberFormatterFlags::NONE;
 		if leading_zeros {
 			flags |= NumberFormatterFlags::LEADING_ZEROS;
