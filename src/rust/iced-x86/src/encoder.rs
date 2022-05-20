@@ -1567,7 +1567,7 @@ impl Encoder {
 	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
 	#[must_use]
 	#[inline]
-	pub fn prevent_vex2(&self) -> bool {
+	pub const fn prevent_vex2(&self) -> bool {
 		self.prevent_vex2 != 0
 	}
 
@@ -1584,7 +1584,7 @@ impl Encoder {
 	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[must_use]
 	#[inline]
-	pub fn vex_wig(&self) -> u32 {
+	pub const fn vex_wig(&self) -> u32 {
 		(self.internal_vex_wig_lig >> 7) & 1
 	}
 
@@ -1601,7 +1601,7 @@ impl Encoder {
 	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[must_use]
 	#[inline]
-	pub fn vex_lig(&self) -> u32 {
+	pub const fn vex_lig(&self) -> u32 {
 		(self.internal_vex_wig_lig >> 2) & 1
 	}
 
@@ -1619,7 +1619,7 @@ impl Encoder {
 	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[must_use]
 	#[inline]
-	pub fn evex_wig(&self) -> u32 {
+	pub const fn evex_wig(&self) -> u32 {
 		self.internal_evex_wig >> 7
 	}
 
@@ -1636,7 +1636,7 @@ impl Encoder {
 	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
 	#[must_use]
 	#[inline]
-	pub fn evex_lig(&self) -> u32 {
+	pub const fn evex_lig(&self) -> u32 {
 		self.internal_evex_lig >> 5
 	}
 
@@ -1654,7 +1654,7 @@ impl Encoder {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "mvex")]
-	pub fn mvex_wig(&self) -> u32 {
+	pub const fn mvex_wig(&self) -> u32 {
 		self.internal_mvex_wig >> 7
 	}
 
@@ -1672,7 +1672,7 @@ impl Encoder {
 	/// Gets the bitness (16, 32 or 64)
 	#[must_use]
 	#[inline]
-	pub fn bitness(&self) -> u32 {
+	pub const fn bitness(&self) -> u32 {
 		self.bitness
 	}
 }

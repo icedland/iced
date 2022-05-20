@@ -43,20 +43,20 @@ impl FormatterOperandOptions {
 	#[cfg(any(feature = "intel", feature = "masm", feature = "nasm"))]
 	#[must_use]
 	#[inline]
-	pub(super) fn new(flags: u32) -> Self {
+	pub(super) const fn new(flags: u32) -> Self {
 		Self { flags }
 	}
 
 	#[must_use]
 	#[inline]
-	pub(super) fn with_memory_size_options(options: MemorySizeOptions) -> Self {
+	pub(super) const fn with_memory_size_options(options: MemorySizeOptions) -> Self {
 		Self { flags: (options as u32) << FormatterOperandOptionsFlags::MEMORY_SIZE_SHIFT }
 	}
 
 	/// Show branch size (eg. `SHORT`, `NEAR PTR`)
 	#[must_use]
 	#[inline]
-	pub fn branch_size(&self) -> bool {
+	pub const fn branch_size(&self) -> bool {
 		(self.flags & FormatterOperandOptionsFlags::NO_BRANCH_SIZE) == 0
 	}
 
@@ -77,7 +77,7 @@ impl FormatterOperandOptions {
 	/// If `true`, show `RIP` relative addresses as `[rip+12345678h]`, else show the linear address eg. `[1029384756AFBECDh]`
 	#[must_use]
 	#[inline]
-	pub fn rip_relative_addresses(&self) -> bool {
+	pub const fn rip_relative_addresses(&self) -> bool {
 		(self.flags & FormatterOperandOptionsFlags::RIP_RELATIVE_ADDRESSES) != 0
 	}
 

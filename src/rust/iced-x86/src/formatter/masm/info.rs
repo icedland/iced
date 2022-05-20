@@ -29,7 +29,7 @@ impl<'a> InstrOpInfo<'a> {
 		unsafe { mem::transmute(op_kind as u8) }
 	}
 
-	pub(super) fn op_register(&self, operand: u32) -> Register {
+	pub(super) const fn op_register(&self, operand: u32) -> Register {
 		self.op_registers[operand as usize]
 	}
 
@@ -91,7 +91,7 @@ impl<'a> InstrOpInfo<'a> {
 		}
 	}
 
-	pub(super) fn operand_index(&self, instruction_operand: u32) -> Option<u32> {
+	pub(super) const fn operand_index(&self, instruction_operand: u32) -> Option<u32> {
 		let index: i32 = if instruction_operand == self.op_indexes[0] as u32 {
 			0
 		} else if instruction_operand == self.op_indexes[1] as u32 {

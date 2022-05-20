@@ -140,7 +140,7 @@ impl ZeroBytesHandler {
 	fn encode(_self_ptr: *const OpCodeHandler, _encoder: &mut Encoder, _instruction: &Instruction) {}
 }
 
-fn get_op_code(enc_flags2: u32) -> u32 {
+const fn get_op_code(enc_flags2: u32) -> u32 {
 	(enc_flags2 >> EncFlags2::OP_CODE_SHIFT) as u16 as u32
 }
 

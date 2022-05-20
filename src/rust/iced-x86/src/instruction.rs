@@ -404,7 +404,7 @@ impl Instruction {
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
 	#[must_use]
 	#[inline]
-	pub fn has_rep_prefix(&self) -> bool {
+	pub const fn has_rep_prefix(&self) -> bool {
 		(self.flags1 & InstrFlags1::REPE_PREFIX) != 0
 	}
 
@@ -425,7 +425,7 @@ impl Instruction {
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
 	#[must_use]
 	#[inline]
-	pub fn has_repe_prefix(&self) -> bool {
+	pub const fn has_repe_prefix(&self) -> bool {
 		(self.flags1 & InstrFlags1::REPE_PREFIX) != 0
 	}
 
@@ -446,7 +446,7 @@ impl Instruction {
 	/// `true` if the instruction has the `REPNE` prefix (`F2`)
 	#[must_use]
 	#[inline]
-	pub fn has_repne_prefix(&self) -> bool {
+	pub const fn has_repne_prefix(&self) -> bool {
 		(self.flags1 & InstrFlags1::REPNE_PREFIX) != 0
 	}
 
@@ -467,7 +467,7 @@ impl Instruction {
 	/// `true` if the instruction has the `LOCK` prefix (`F0`)
 	#[must_use]
 	#[inline]
-	pub fn has_lock_prefix(&self) -> bool {
+	pub const fn has_lock_prefix(&self) -> bool {
 		(self.flags1 & InstrFlags1::LOCK_PREFIX) != 0
 	}
 
@@ -811,7 +811,7 @@ impl Instruction {
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[must_use]
 	#[inline]
-	pub fn memory_displ_size(&self) -> u32 {
+	pub const fn memory_displ_size(&self) -> u32 {
 		let size = self.displ_size as u32;
 		if size <= 2 {
 			size
@@ -847,7 +847,7 @@ impl Instruction {
 	/// `true` if the data is broadcast (EVEX instructions only)
 	#[must_use]
 	#[inline]
-	pub fn is_broadcast(&self) -> bool {
+	pub const fn is_broadcast(&self) -> bool {
 		(self.flags1 & InstrFlags1::BROADCAST) != 0
 	}
 
@@ -869,7 +869,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "mvex")]
-	pub fn is_mvex_eviction_hint(&self) -> bool {
+	pub const fn is_mvex_eviction_hint(&self) -> bool {
 		IcedConstants::is_mvex(self.code()) && (self.immediate & MvexInstrFlags::EVICTION_HINT) != 0
 	}
 
@@ -2064,7 +2064,7 @@ impl Instruction {
 
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[doc(hidden)]
-	pub fn try_get_declare_byte_value(&self, index: usize) -> Result<u8, IcedError> {
+	pub const fn try_get_declare_byte_value(&self, index: usize) -> Result<u8, IcedError> {
 		Ok(match index {
 			0 => self.regs[0] as u8,
 			1 => self.regs[1] as u8,
@@ -2177,7 +2177,7 @@ impl Instruction {
 
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[doc(hidden)]
-	pub fn try_get_declare_word_value(&self, index: usize) -> Result<u16, IcedError> {
+	pub const fn try_get_declare_word_value(&self, index: usize) -> Result<u16, IcedError> {
 		Ok(match index {
 			0 => self.regs[0] as u16 | ((self.regs[1] as u16) << 8),
 			1 => self.regs[2] as u16 | ((self.regs[3] as u16) << 8),
@@ -2277,7 +2277,7 @@ impl Instruction {
 
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[doc(hidden)]
-	pub fn try_get_declare_dword_value(&self, index: usize) -> Result<u32, IcedError> {
+	pub const fn try_get_declare_dword_value(&self, index: usize) -> Result<u32, IcedError> {
 		Ok(match index {
 			0 => self.regs[0] as u32 | ((self.regs[1] as u32) << 8) | ((self.regs[2] as u32) << 16) | ((self.regs[3] as u32) << 24),
 			1 => self.immediate,
@@ -2372,7 +2372,7 @@ impl Instruction {
 
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[doc(hidden)]
-	pub fn try_get_declare_qword_value(&self, index: usize) -> Result<u64, IcedError> {
+	pub const fn try_get_declare_qword_value(&self, index: usize) -> Result<u64, IcedError> {
 		Ok(match index {
 			0 => {
 				self.regs[0] as u64
@@ -3145,7 +3145,7 @@ impl Instruction {
 	/// `true` if it's a "string" instruction, such as `MOVS`, `LODS`, `SCAS`, etc.
 	#[must_use]
 	#[inline]
-	pub fn is_string_instruction(&self) -> bool {
+	pub const fn is_string_instruction(&self) -> bool {
 		self.code().is_string_instruction()
 	}
 
@@ -3446,91 +3446,91 @@ impl Instruction {
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jcc_short_or_near(&self) -> bool {
+	pub const fn is_jcc_short_or_near(&self) -> bool {
 		self.code().is_jcc_short_or_near()
 	}
 
 	/// Checks if it's a `Jcc NEAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jcc_near(&self) -> bool {
+	pub const fn is_jcc_near(&self) -> bool {
 		self.code().is_jcc_near()
 	}
 
 	/// Checks if it's a `Jcc SHORT` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jcc_short(&self) -> bool {
+	pub const fn is_jcc_short(&self) -> bool {
 		self.code().is_jcc_short()
 	}
 
 	/// Checks if it's a `JMP SHORT` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_short(&self) -> bool {
+	pub const fn is_jmp_short(&self) -> bool {
 		self.code().is_jmp_short()
 	}
 
 	/// Checks if it's a `JMP NEAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_near(&self) -> bool {
+	pub const fn is_jmp_near(&self) -> bool {
 		self.code().is_jmp_near()
 	}
 
 	/// Checks if it's a `JMP SHORT` or a `JMP NEAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_short_or_near(&self) -> bool {
+	pub const fn is_jmp_short_or_near(&self) -> bool {
 		self.code().is_jmp_short_or_near()
 	}
 
 	/// Checks if it's a `JMP FAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_far(&self) -> bool {
+	pub const fn is_jmp_far(&self) -> bool {
 		self.code().is_jmp_far()
 	}
 
 	/// Checks if it's a `CALL NEAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_call_near(&self) -> bool {
+	pub const fn is_call_near(&self) -> bool {
 		self.code().is_call_near()
 	}
 
 	/// Checks if it's a `CALL FAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_call_far(&self) -> bool {
+	pub const fn is_call_far(&self) -> bool {
 		self.code().is_call_far()
 	}
 
 	/// Checks if it's a `JMP NEAR reg/[mem]` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_near_indirect(&self) -> bool {
+	pub const fn is_jmp_near_indirect(&self) -> bool {
 		self.code().is_jmp_near_indirect()
 	}
 
 	/// Checks if it's a `JMP FAR [mem]` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_far_indirect(&self) -> bool {
+	pub const fn is_jmp_far_indirect(&self) -> bool {
 		self.code().is_jmp_far_indirect()
 	}
 
 	/// Checks if it's a `CALL NEAR reg/[mem]` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_call_near_indirect(&self) -> bool {
+	pub const fn is_call_near_indirect(&self) -> bool {
 		self.code().is_call_near_indirect()
 	}
 
 	/// Checks if it's a `CALL FAR [mem]` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_call_far_indirect(&self) -> bool {
+	pub const fn is_call_far_indirect(&self) -> bool {
 		self.code().is_call_far_indirect()
 	}
 
@@ -3538,7 +3538,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "mvex")]
-	pub fn is_jkcc_short_or_near(&self) -> bool {
+	pub const fn is_jkcc_short_or_near(&self) -> bool {
 		self.code().is_jkcc_short_or_near()
 	}
 
@@ -3546,7 +3546,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "mvex")]
-	pub fn is_jkcc_near(&self) -> bool {
+	pub const fn is_jkcc_near(&self) -> bool {
 		self.code().is_jkcc_near()
 	}
 
@@ -3554,28 +3554,28 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "mvex")]
-	pub fn is_jkcc_short(&self) -> bool {
+	pub const fn is_jkcc_short(&self) -> bool {
 		self.code().is_jkcc_short()
 	}
 
 	/// Checks if it's a `JCXZ SHORT`, `JECXZ SHORT` or `JRCXZ SHORT` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jcx_short(&self) -> bool {
+	pub const fn is_jcx_short(&self) -> bool {
 		self.code().is_jcx_short()
 	}
 
 	/// Checks if it's a `LOOPcc SHORT` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_loopcc(&self) -> bool {
+	pub const fn is_loopcc(&self) -> bool {
 		self.code().is_loopcc()
 	}
 
 	/// Checks if it's a `LOOP SHORT` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_loop(&self) -> bool {
+	pub const fn is_loop(&self) -> bool {
 		self.code().is_loop()
 	}
 

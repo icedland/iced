@@ -30,7 +30,7 @@ pub(crate) fn internal_set_code_size(this: &mut Instruction, new_value: CodeSize
 #[cfg(feature = "instr_info")]
 #[must_use]
 #[inline]
-pub(crate) fn internal_has_repe_or_repne_prefix(this: &Instruction) -> bool {
+pub(crate) const fn internal_has_repe_or_repne_prefix(this: &Instruction) -> bool {
 	(this.flags1 & (InstrFlags1::REPE_PREFIX | InstrFlags1::REPNE_PREFIX)) != 0
 }
 
@@ -42,13 +42,13 @@ pub(crate) fn internal_set_has_repe_prefix(this: &mut Instruction) {
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 #[inline]
-pub(crate) fn internal_has_any_of_lock_rep_repne_prefix(this: &Instruction) -> u32 {
+pub(crate) const fn internal_has_any_of_lock_rep_repne_prefix(this: &Instruction) -> u32 {
 	this.flags1 & (InstrFlags1::LOCK_PREFIX | InstrFlags1::REPE_PREFIX | InstrFlags1::REPNE_PREFIX)
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 #[inline]
-pub(crate) fn internal_has_op_mask_or_zeroing_masking(this: &Instruction) -> bool {
+pub(crate) const fn internal_has_op_mask_or_zeroing_masking(this: &Instruction) -> bool {
 	(this.flags1 & ((InstrFlags1::OP_MASK_MASK << InstrFlags1::OP_MASK_SHIFT) | InstrFlags1::ZEROING_MASKING)) != 0
 }
 
@@ -67,7 +67,7 @@ pub(crate) fn internal_set_has_repne_prefix(this: &mut Instruction) {
 #[cfg(feature = "instr_info")]
 #[must_use]
 #[inline]
-pub(crate) fn internal_op0_is_not_reg_or_op1_is_not_reg(this: &Instruction) -> bool {
+pub(crate) const fn internal_op0_is_not_reg_or_op1_is_not_reg(this: &Instruction) -> bool {
 	const_assert_eq!(Register::None as u32, 0);
 	((this.op_kinds[0] as RegisterUnderlyingType) | (this.op_kinds[1] as RegisterUnderlyingType)) != 0
 }
@@ -81,7 +81,7 @@ pub(crate) fn internal_set_memory_displ_size(this: &mut Instruction, new_value: 
 
 #[must_use]
 #[inline]
-pub(crate) fn internal_get_memory_index_scale(this: &Instruction) -> u32 {
+pub(crate) const fn internal_get_memory_index_scale(this: &Instruction) -> u32 {
 	this.scale as u32
 }
 
@@ -141,7 +141,7 @@ pub(crate) fn internal_set_far_branch_selector(this: &mut Instruction, new_value
 
 #[cfg(feature = "fast_fmt")]
 #[inline]
-pub(crate) fn internal_segment_prefix_raw(this: &Instruction) -> u32 {
+pub(crate) const fn internal_segment_prefix_raw(this: &Instruction) -> u32 {
 	((this.flags1 >> InstrFlags1::SEGMENT_PREFIX_SHIFT) & InstrFlags1::SEGMENT_PREFIX_MASK).wrapping_sub(1)
 }
 
@@ -161,7 +161,7 @@ pub(crate) fn internal_op_register(this: &Instruction, operand: u32) -> Register
 #[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 #[must_use]
 #[inline]
-pub(crate) fn internal_op_mask(this: &Instruction) -> u32 {
+pub(crate) const fn internal_op_mask(this: &Instruction) -> u32 {
 	(this.flags1 >> InstrFlags1::OP_MASK_SHIFT) & InstrFlags1::OP_MASK_MASK
 }
 
@@ -183,7 +183,7 @@ pub(crate) fn internal_set_rounding_control(this: &mut Instruction, new_value: u
 
 #[cfg(any(feature = "intel", feature = "masm", feature = "fast_fmt"))]
 #[inline]
-pub(crate) fn internal_has_rounding_control_or_sae(this: &Instruction) -> bool {
+pub(crate) const fn internal_has_rounding_control_or_sae(this: &Instruction) -> bool {
 	(this.flags1 & ((InstrFlags1::ROUNDING_CONTROL_MASK << InstrFlags1::ROUNDING_CONTROL_SHIFT) | InstrFlags1::SUPPRESS_ALL_EXCEPTIONS)) != 0
 }
 

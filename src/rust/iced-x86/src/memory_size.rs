@@ -210,7 +210,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn memory_size(&self) -> MemorySize {
+		pub const fn memory_size(&self) -> MemorySize {
 			self.memory_size
 		}
 
@@ -229,7 +229,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn size(&self) -> usize {
+		pub const fn size(&self) -> usize {
 			self.size as usize
 		}
 
@@ -250,7 +250,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn element_size(&self) -> usize {
+		pub const fn element_size(&self) -> usize {
 			self.element_size as usize
 		}
 
@@ -269,7 +269,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn element_type(&self) -> MemorySize {
+		pub const fn element_type(&self) -> MemorySize {
 			self.element_type
 		}
 
@@ -307,7 +307,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn is_signed(&self) -> bool {
+		pub const fn is_signed(&self) -> bool {
 			self.is_signed
 		}
 
@@ -326,7 +326,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn is_broadcast(&self) -> bool {
+		pub const fn is_broadcast(&self) -> bool {
 			self.is_broadcast
 		}
 
@@ -348,7 +348,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn is_packed(&self) -> bool {
+		pub const fn is_packed(&self) -> bool {
 			self.element_size < self.size
 		}
 
@@ -369,7 +369,7 @@ mod info {
 		/// ```
 		#[must_use]
 		#[inline]
-		pub fn element_count(&self) -> usize {
+		pub const fn element_count(&self) -> usize {
 			// element_size can be 0 so we don't divide by it if es == s
 			if self.element_size == self.size {
 				1

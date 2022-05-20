@@ -1926,7 +1926,7 @@ impl InstructionInfoFactory {
 	}
 
 	#[must_use]
-	fn get_a_rdi(instruction: &Instruction) -> Register {
+	const fn get_a_rdi(instruction: &Instruction) -> Register {
 		match instruction.op0_kind() {
 			OpKind::MemorySegDI => Register::DI,
 			OpKind::MemorySegEDI => Register::EDI,
@@ -2793,7 +2793,7 @@ impl InstructionInfoFactory {
 	}
 
 	#[must_use]
-	fn try_get_gpr_16_32_64_index(register: Register) -> i32 {
+	const fn try_get_gpr_16_32_64_index(register: Register) -> i32 {
 		let mut index;
 		let reg = register as u32;
 		index = reg.wrapping_sub(Register::EAX as u32);

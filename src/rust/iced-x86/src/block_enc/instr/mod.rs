@@ -81,17 +81,17 @@ impl Default for TargetInstr {
 
 impl TargetInstr {
 	#[inline]
-	pub(super) fn new_instr(instr_index: usize) -> Self {
+	pub(super) const fn new_instr(instr_index: usize) -> Self {
 		TargetInstr::Instruction(instr_index)
 	}
 
 	#[inline]
-	pub(super) fn new_address(address: u64) -> Self {
+	pub(super) const fn new_address(address: u64) -> Self {
 		TargetInstr::Address(address)
 	}
 
 	#[inline]
-	pub(super) fn new_owner() -> Self {
+	pub(super) const fn new_owner() -> Self {
 		TargetInstr::IsOwner
 	}
 

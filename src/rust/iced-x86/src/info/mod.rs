@@ -31,21 +31,21 @@ impl UsedRegister {
 	/// * `access`: Register access
 	#[must_use]
 	#[inline]
-	pub fn new(register: Register, access: OpAccess) -> Self {
+	pub const fn new(register: Register, access: OpAccess) -> Self {
 		Self { register, access }
 	}
 
 	/// Gets the register
 	#[must_use]
 	#[inline]
-	pub fn register(&self) -> Register {
+	pub const fn register(&self) -> Register {
 		self.register
 	}
 
 	/// Gets the register access
 	#[must_use]
 	#[inline]
-	pub fn access(&self) -> OpAccess {
+	pub const fn access(&self) -> OpAccess {
 		self.access
 	}
 }
@@ -88,7 +88,9 @@ impl UsedMemory {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[must_use]
 	#[inline]
-	pub fn new(segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess) -> Self {
+	pub const fn new(
+		segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess,
+	) -> Self {
 		Self { segment, base, index, scale: scale as u8, displacement, memory_size, access, address_size: CodeSize::Unknown, vsib_size: 0 }
 	}
 
@@ -122,7 +124,7 @@ impl UsedMemory {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[must_use]
 	#[inline]
-	pub fn segment(&self) -> Register {
+	pub const fn segment(&self) -> Register {
 		self.segment
 	}
 
@@ -131,7 +133,7 @@ impl UsedMemory {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[must_use]
 	#[inline]
-	pub fn base(&self) -> Register {
+	pub const fn base(&self) -> Register {
 		self.base
 	}
 
@@ -140,49 +142,49 @@ impl UsedMemory {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[must_use]
 	#[inline]
-	pub fn index(&self) -> Register {
+	pub const fn index(&self) -> Register {
 		self.index
 	}
 
 	/// Index scale (1, 2, 4 or 8)
 	#[must_use]
 	#[inline]
-	pub fn scale(&self) -> u32 {
+	pub const fn scale(&self) -> u32 {
 		self.scale as u32
 	}
 
 	/// Displacement
 	#[must_use]
 	#[inline]
-	pub fn displacement(&self) -> u64 {
+	pub const fn displacement(&self) -> u64 {
 		self.displacement
 	}
 
 	/// Size of location
 	#[must_use]
 	#[inline]
-	pub fn memory_size(&self) -> MemorySize {
+	pub const fn memory_size(&self) -> MemorySize {
 		self.memory_size
 	}
 
 	/// Memory access
 	#[must_use]
 	#[inline]
-	pub fn access(&self) -> OpAccess {
+	pub const fn access(&self) -> OpAccess {
 		self.access
 	}
 
 	/// Address size
 	#[must_use]
 	#[inline]
-	pub fn address_size(&self) -> CodeSize {
+	pub const fn address_size(&self) -> CodeSize {
 		self.address_size
 	}
 
 	/// VSIB size (`0`, `4` or `8`)
 	#[must_use]
 	#[inline]
-	pub fn vsib_size(&self) -> u32 {
+	pub const fn vsib_size(&self) -> u32 {
 		self.vsib_size as u32
 	}
 
@@ -342,35 +344,35 @@ impl InstructionInfo {
 	/// Operand #0 access
 	#[must_use]
 	#[inline]
-	pub fn op0_access(&self) -> OpAccess {
+	pub const fn op0_access(&self) -> OpAccess {
 		self.op_accesses[0]
 	}
 
 	/// Operand #1 access
 	#[must_use]
 	#[inline]
-	pub fn op1_access(&self) -> OpAccess {
+	pub const fn op1_access(&self) -> OpAccess {
 		self.op_accesses[1]
 	}
 
 	/// Operand #2 access
 	#[must_use]
 	#[inline]
-	pub fn op2_access(&self) -> OpAccess {
+	pub const fn op2_access(&self) -> OpAccess {
 		self.op_accesses[2]
 	}
 
 	/// Operand #3 access
 	#[must_use]
 	#[inline]
-	pub fn op3_access(&self) -> OpAccess {
+	pub const fn op3_access(&self) -> OpAccess {
 		self.op_accesses[3]
 	}
 
 	/// Operand #4 access
 	#[must_use]
 	#[inline]
-	pub fn op4_access(&self) -> OpAccess {
+	pub const fn op4_access(&self) -> OpAccess {
 		self.op_accesses[4]
 	}
 

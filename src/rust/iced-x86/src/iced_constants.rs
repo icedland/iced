@@ -70,7 +70,7 @@ impl IcedConstants {
 impl IcedConstants {
 	#[allow(dead_code)]
 	#[allow(unused_variables)]
-	pub(crate) fn is_mvex(code: crate::Code) -> bool {
+	pub(crate) const fn is_mvex(code: crate::Code) -> bool {
 		#[cfg(feature = "mvex")]
 		{
 			(code as u32).wrapping_sub(Self::MVEX_START) < Self::MVEX_LENGTH

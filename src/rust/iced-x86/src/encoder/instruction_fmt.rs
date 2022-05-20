@@ -652,7 +652,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		}
 	}
 
-	fn is_sgdt_or_sidt(&self) -> bool {
+	const fn is_sgdt_or_sidt(&self) -> bool {
 		matches!(
 			self.op_code.code(),
 			Code::Sgdt_m1632_16 | Code::Sgdt_m1632 | Code::Sgdt_m1664 | Code::Sidt_m1632_16 | Code::Sidt_m1632 | Code::Sidt_m1664
@@ -757,7 +757,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		}
 	}
 
-	fn is_fpu_instruction(code: Code) -> bool {
+	const fn is_fpu_instruction(code: Code) -> bool {
 		(code as u32).wrapping_sub(Code::Fadd_m32fp as u32) <= (Code::Fcomip_st0_sti as u32 - Code::Fadd_m32fp as u32)
 	}
 }

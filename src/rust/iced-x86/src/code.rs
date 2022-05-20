@@ -43823,35 +43823,35 @@ impl Code {
 	/// Checks if it's a `Jcc NEAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jcc_near(self) -> bool {
+	pub const fn is_jcc_near(self) -> bool {
 		(self as u32).wrapping_sub(Code::Jo_rel16 as u32) <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32)
 	}
 
 	/// Checks if it's a `Jcc SHORT` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jcc_short(self) -> bool {
+	pub const fn is_jcc_short(self) -> bool {
 		(self as u32).wrapping_sub(Code::Jo_rel8_16 as u32) <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32)
 	}
 
 	/// Checks if it's a `JMP SHORT` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_short(self) -> bool {
+	pub const fn is_jmp_short(self) -> bool {
 		(self as u32).wrapping_sub(Code::Jmp_rel8_16 as u32) <= (Code::Jmp_rel8_64 as u32 - Code::Jmp_rel8_16 as u32)
 	}
 
 	/// Checks if it's a `JMP NEAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_near(self) -> bool {
+	pub const fn is_jmp_near(self) -> bool {
 		(self as u32).wrapping_sub(Code::Jmp_rel16 as u32) <= (Code::Jmp_rel32_64 as u32 - Code::Jmp_rel16 as u32)
 	}
 
 	/// Checks if it's a `JMP SHORT` or a `JMP NEAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_short_or_near(self) -> bool {
+	pub const fn is_jmp_short_or_near(self) -> bool {
 		(self as u32).wrapping_sub(Code::Jmp_rel8_16 as u32) <= (Code::Jmp_rel8_64 as u32 - Code::Jmp_rel8_16 as u32)
 			|| (self as u32).wrapping_sub(Code::Jmp_rel16 as u32) <= (Code::Jmp_rel32_64 as u32 - Code::Jmp_rel16 as u32)
 	}
@@ -43859,49 +43859,49 @@ impl Code {
 	/// Checks if it's a `JMP FAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_far(self) -> bool {
+	pub const fn is_jmp_far(self) -> bool {
 		(self as u32).wrapping_sub(Code::Jmp_ptr1616 as u32) <= (Code::Jmp_ptr1632 as u32 - Code::Jmp_ptr1616 as u32)
 	}
 
 	/// Checks if it's a `CALL NEAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_call_near(self) -> bool {
+	pub const fn is_call_near(self) -> bool {
 		(self as u32).wrapping_sub(Code::Call_rel16 as u32) <= (Code::Call_rel32_64 as u32 - Code::Call_rel16 as u32)
 	}
 
 	/// Checks if it's a `CALL FAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_call_far(self) -> bool {
+	pub const fn is_call_far(self) -> bool {
 		(self as u32).wrapping_sub(Code::Call_ptr1616 as u32) <= (Code::Call_ptr1632 as u32 - Code::Call_ptr1616 as u32)
 	}
 
 	/// Checks if it's a `JMP NEAR reg/[mem]` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_near_indirect(self) -> bool {
+	pub const fn is_jmp_near_indirect(self) -> bool {
 		(self as u32).wrapping_sub(Code::Jmp_rm16 as u32) <= (Code::Jmp_rm64 as u32 - Code::Jmp_rm16 as u32)
 	}
 
 	/// Checks if it's a `JMP FAR [mem]` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jmp_far_indirect(self) -> bool {
+	pub const fn is_jmp_far_indirect(self) -> bool {
 		(self as u32).wrapping_sub(Code::Jmp_m1616 as u32) <= (Code::Jmp_m1664 as u32 - Code::Jmp_m1616 as u32)
 	}
 
 	/// Checks if it's a `CALL NEAR reg/[mem]` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_call_near_indirect(self) -> bool {
+	pub const fn is_call_near_indirect(self) -> bool {
 		(self as u32).wrapping_sub(Code::Call_rm16 as u32) <= (Code::Call_rm64 as u32 - Code::Call_rm16 as u32)
 	}
 
 	/// Checks if it's a `CALL FAR [mem]` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_call_far_indirect(self) -> bool {
+	pub const fn is_call_far_indirect(self) -> bool {
 		(self as u32).wrapping_sub(Code::Call_m1616 as u32) <= (Code::Call_m1664 as u32 - Code::Call_m1616 as u32)
 	}
 
@@ -43909,7 +43909,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "mvex")]
-	pub fn is_jkcc_short_or_near(self) -> bool {
+	pub const fn is_jkcc_short_or_near(self) -> bool {
 		matches!(
 			self,
 			Code::VEX_KNC_Jkzd_kr_rel8_64 | Code::VEX_KNC_Jknzd_kr_rel8_64 | Code::VEX_KNC_Jkzd_kr_rel32_64 | Code::VEX_KNC_Jknzd_kr_rel32_64
@@ -43920,7 +43920,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "mvex")]
-	pub fn is_jkcc_near(self) -> bool {
+	pub const fn is_jkcc_near(self) -> bool {
 		matches!(self, Code::VEX_KNC_Jkzd_kr_rel32_64 | Code::VEX_KNC_Jknzd_kr_rel32_64)
 	}
 
@@ -43928,7 +43928,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	#[cfg(feature = "mvex")]
-	pub fn is_jkcc_short(self) -> bool {
+	pub const fn is_jkcc_short(self) -> bool {
 		matches!(self, Code::VEX_KNC_Jkzd_kr_rel8_64 | Code::VEX_KNC_Jknzd_kr_rel8_64)
 	}
 
@@ -43999,7 +43999,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	#[allow(clippy::match_like_matches_macro)]
-	pub fn is_string_instruction(self) -> bool {
+	pub const fn is_string_instruction(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
 			// GENERATOR-BEGIN: IsStringOpTable
@@ -44039,21 +44039,21 @@ impl Code {
 	/// Checks if it's a `JCXZ SHORT`, `JECXZ SHORT` or `JRCXZ SHORT` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jcx_short(self) -> bool {
+	pub const fn is_jcx_short(self) -> bool {
 		(self as u32).wrapping_sub(Code::Jcxz_rel8_16 as u32) <= (Code::Jrcxz_rel8_64 as u32 - Code::Jcxz_rel8_16 as u32)
 	}
 
 	/// Checks if it's a `LOOPcc SHORT` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_loopcc(self) -> bool {
+	pub const fn is_loopcc(self) -> bool {
 		(self as u32).wrapping_sub(Code::Loopne_rel8_16_CX as u32) <= (Code::Loope_rel8_64_RCX as u32 - Code::Loopne_rel8_16_CX as u32)
 	}
 
 	/// Checks if it's a `LOOP SHORT` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_loop(self) -> bool {
+	pub const fn is_loop(self) -> bool {
 		(self as u32).wrapping_sub(Code::Loop_rel8_16_CX as u32) <= (Code::Loop_rel8_64_RCX as u32 - Code::Loop_rel8_16_CX as u32)
 	}
 }
@@ -44063,7 +44063,7 @@ impl Code {
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
 	#[must_use]
 	#[inline]
-	pub fn is_jcc_short_or_near(self) -> bool {
+	pub const fn is_jcc_short_or_near(self) -> bool {
 		(self as u32).wrapping_sub(Code::Jo_rel8_16 as u32) <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32)
 			|| (self as u32).wrapping_sub(Code::Jo_rel16 as u32) <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32)
 	}
@@ -44221,7 +44221,7 @@ impl Code {
 impl Code {
 	#[must_use]
 	#[allow(clippy::match_like_matches_macro)]
-	pub(crate) fn ignores_segment(self) -> bool {
+	pub(crate) const fn ignores_segment(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
 			// GENERATOR-BEGIN: IgnoresSegmentTable
@@ -44246,7 +44246,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	#[allow(clippy::match_like_matches_macro)]
-	pub(crate) fn ignores_index(self) -> bool {
+	pub(crate) const fn ignores_index(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
 			// GENERATOR-BEGIN: IgnoresIndexTable
@@ -44261,7 +44261,7 @@ impl Code {
 
 	#[must_use]
 	#[inline]
-	pub(crate) fn is_tile_stride_index(self) -> bool {
+	pub(crate) const fn is_tile_stride_index(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
 			// GENERATOR-BEGIN: TileStrideIndexTable
