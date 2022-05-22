@@ -138,7 +138,7 @@ namespace Generator.Misc.Python {
 						SkipBlock(token.line);
 					}
 					else {
-						if (!Attributes.Any(AttributeKind.PyMethods, AttributeKind.PyProto))
+						if (!Attributes.Any(AttributeKind.PyMethods))
 							SkipBlock(token.line);
 						else
 							ReadStructImpl(token.line, pyClass);
@@ -633,7 +633,6 @@ namespace Generator.Misc.Python {
 			var attrKind = attrName switch {
 				"pyclass" => AttributeKind.PyClass,
 				"pymethods" => AttributeKind.PyMethods,
-				"pyproto" => AttributeKind.PyProto,
 				"new" => AttributeKind.New,
 				"getter" => AttributeKind.Getter,
 				"setter" => AttributeKind.Setter,
