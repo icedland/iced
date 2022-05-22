@@ -99,7 +99,9 @@ namespace Generator {
 		public string GetPythonDocsSrcFilename(params string[] names) => Path.Combine(Path.Combine(PythonDir, "docs", "src"), Path.Combine(names));
 		public string GetPythonRustDir() => Path.Combine(PythonDir, "src");
 		public string GetLuaFilename(params string[] names) => Path.Combine(Path.Combine(LuaDir, "lua"), Path.Combine(names));
+		public string GetLuaTypesFilename(params string[] names) => Path.Combine(Path.Combine(LuaDir, "lua", "types"), Path.Combine(names));
 		public string GetLuaRustFilename(params string[] names) => Path.Combine(Path.Combine(LuaDir, "src"), Path.Combine(names));
+		public string GetLuaRustDir() => Path.Combine(LuaDir, "src");
 		public string GetGeneratorFilename(params string[] names) => Path.Combine(GeneratorDir, Path.Combine(names));
 	}
 
