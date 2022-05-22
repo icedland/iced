@@ -186,7 +186,7 @@ pub struct Lua<'lua> {
 #[repr(C)]
 struct WrappedUserData<T: LuaUserData> {
 	// LuaUserData::UNIQUE_ID is stored in this field so we can check if it's our userdata.
-	// This field must be the first field, see get_user_data()
+	// This field must be the first field, see `get_user_data_body!()`
 	id: u32,
 	ud: T,
 }
