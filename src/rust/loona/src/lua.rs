@@ -909,7 +909,13 @@ impl<'lua> Lua<'lua> {
 			for (i, value) in elems.iter().enumerate() {
 				let new_value = convert(self, value);
 				self.push(i + 1);
+
+				#[cfg(any(debug_assertions, feature = "extra_checks"))]
+				let _orig_top = self.get_top();
 				self.push(new_value);
+				#[cfg(any(debug_assertions, feature = "extra_checks"))]
+				assert_eq!(1, self.get_top().wrapping_sub(_orig_top));
+
 				self.raw_set(-3);
 			}
 		}
