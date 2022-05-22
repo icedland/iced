@@ -12,7 +12,7 @@ lua_impl_userdata! { BlockEncoder }
 /// `Encoder` can only encode one instruction at a time. This class can encode any number of
 /// instructions and can also fix short branches if the target is too far away.
 ///
-/// It will fail if there's an instruction with a RIP-relative operand (`[rip+123h]`) and the target is too far away.
+/// It will fail if there's an instruction with an RIP-relative operand (`[rip+123h]`) and the target is too far away.
 /// A workaround is to use a new base RIP of the encoded instructions that is close (+/-2GB) to the original location.
 ///
 /// # Examples

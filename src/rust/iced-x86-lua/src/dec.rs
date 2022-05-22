@@ -136,8 +136,6 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 		}
 	}
 
-	/// The current `IP`/`EIP`/`RIP` value, see also `Decoder:position()`
-	/// @param value integer #New value
 	unsafe fn set_ip(lua, decoder: &mut Decoder, ip: u64) -> 0 {
 		decoder.inner.set_ip(ip);
 	}
@@ -200,8 +198,6 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 		}
 	}
 
-	/// The current data position, which is the index into the data passed to the constructor.
-	/// @param value integer #New position
 	unsafe fn set_position(lua, decoder: &mut Decoder, pos: usize) -> 0 {
 		unsafe {
 			if let Err(e) = decoder.inner.set_position(pos) {
@@ -363,7 +359,17 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 		decoder.inner.decode_out(&mut instr.inner);
 	}
 
-	//TODO: doc comments here
+	/// An iterator that returns the remaining instructions.
+	///
+	/// The iterator returns the passed in instruction, which gets overwritten with the next
+	/// decoded instruction. If no instruction is passed in, a new one is created and that one
+	/// is returned every iteration.
+	///
+	/// @param instr? Instruction #(optional) Overwrite this instruction with the new decoded instruction
+	///
+	/// ```lua
+	/// --TODO:
+	/// ```
 	unsafe fn iter_out(lua, _decoder: &Decoder, instr: Option<&Instruction>) -> 3 {
 		unsafe {
 			lua.push_c_function(iter_out_worker);
@@ -376,7 +382,14 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 		}
 	}
 
-	//TODO: doc comments here
+	/// An iterator that decodes and returns the remaining instructions.
+	///
+	/// This iterator is slower than `iter_out()` because it allocates and returns a new
+	/// instruction. `iter_out()` overwrites the passed in instruction and never allocates.
+	///
+	/// ```lua
+	/// --TODO:
+	/// ```
 	unsafe fn iter_slow_copy(lua, _decoder: &Decoder) -> 3 {
 		unsafe {
 			lua.push_c_function(iter_slow_copy_worker);

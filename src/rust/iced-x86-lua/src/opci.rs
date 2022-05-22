@@ -849,7 +849,7 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	}
 
 	/// Gets all operand kinds (a list of `OpCodeOperandKind` enum values)
-	/// @returns integer[] # (`OpCodeOperandKind[]`) All operand kinds
+	/// @return integer[] # (`OpCodeOperandKind[]`) All operand kinds
 	unsafe fn op_kinds(lua, opci: &OpCodeInfo) -> 1 {
 		let op_kinds = opci.inner.op_kinds();
 		unsafe { lua.push_array(op_kinds, |_, op_kind| *op_kind as u32); }
