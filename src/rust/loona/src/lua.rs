@@ -195,7 +195,7 @@ impl<'lua> Lua<'lua> {
 	/// Creates a new instance
 	#[inline]
 	pub unsafe fn new(state: &'lua lua_State) -> Self {
-		debug_assert!(!state.is_null());
+		debug_assert!(!(*state).is_null());
 		Self { state: *state, _phantom: PhantomData }
 	}
 
