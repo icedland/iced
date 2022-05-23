@@ -328,4 +328,39 @@ function Decoder:iter_out(instr) end
 ---```
 function Decoder:iter_slow_copy() end
 
+---Gets the offsets of the constants (memory displacement and immediate) in the decoded instruction.
+---
+---The caller can check if there are any relocations at those addresses.
+---
+---@param instr Instruction #The latest instruction that was decoded by this decoder
+---@return ConstantOffsets #Offsets and sizes of immediates
+---
+---# Examples
+---
+---```lua
+---from iced_x86 import *
+---
+---# nop
+---# xor dword ptr [rax-5AA5EDCCh],5Ah
+---#              00  01  02  03  04  05  06
+---#            \opc\mrm\displacement___\imm
+---data = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A"
+---decoder = Decoder(64, data, ip=0x1234_5678)
+---assert decoder.decode().code == Code.NOPD
+---instr = decoder.decode()
+---co = decoder.get_constant_offsets(instr)
+---
+---assert co.has_displacement
+---assert co.displacement_offset == 2
+---assert co.displacement_size == 4
+---assert co.has_immediate
+---assert co.immediate_offset == 6
+---assert co.immediate_size == 1
+---# It's not an instruction with two immediates (e.g. enter)
+---assert not co.has_immediate2
+---assert co.immediate_offset2 == 0
+---assert co.immediate_size2 == 0
+---```
+function Decoder:get_constant_offsets(instr) end
+
 return Decoder
