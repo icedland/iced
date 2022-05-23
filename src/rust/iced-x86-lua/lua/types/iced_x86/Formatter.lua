@@ -41,7 +41,7 @@ function Formatter:format(instruction) end
 ---Formats the mnemonic and any prefixes
 ---
 ---@param instruction Instruction #Instruction to format
----@param options integer #(default = `FormatMnemonicOptions.None`) Options (A `FormatMnemonicOptions` enum value)
+---@param options? integer #(default = `FormatMnemonicOptions.None`) Options (A `FormatMnemonicOptions` enum value)
 ---@return string #The formatted string
 function Formatter:format_mnemonic(instruction, options) end
 

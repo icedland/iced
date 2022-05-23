@@ -51,7 +51,7 @@ local BlockEncoder = {}
 ---@param bitness integer #16, 32 or 64
 ---@param instructions Instruction[] #Instructions to encode
 ---@param rip integer #Base IP of all encoded instructions
----@param options integer #(optional, default = `BlockEncoderOptions.None`) Options
+---@param options? integer #(optional, default = `BlockEncoderOptions.None`) Options
 ---@return table
 function BlockEncoder.encode(bitness, instructions, rip, options) end
 

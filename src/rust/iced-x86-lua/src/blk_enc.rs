@@ -71,7 +71,7 @@ lua_pub_methods! { static BLOCK_ENCODER_EXPORTS =>
 	/// @param bitness integer # 16, 32 or 64
 	/// @param instructions Instruction[] # Instructions to encode
 	/// @param rip integer # Base IP of all encoded instructions
-	/// @param options integer # (optional, default = `BlockEncoderOptions.None`) Options
+	/// @param options? integer # (optional, default = `BlockEncoderOptions.None`) Options
 	/// @return table
 	unsafe fn encode(lua, bitness: u32, instructions: LuaAny, rip: u64, options: Option<u32>) -> 1 {
 		let options = options.unwrap_or(iced_x86::BlockEncoderOptions::NONE);

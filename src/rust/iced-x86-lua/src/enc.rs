@@ -51,7 +51,7 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	/// See also `BlockEncoder` which can encode any number of instructions.
 	///
 	/// @param bitness integer # 16, 32 or 64
-	/// @param capacity integer # (default = 0) Initial capacity of the byte buffer
+	/// @param capacity? integer # (default = 0) Initial capacity of the byte buffer
 	/// @return Encoder
 	///
 	/// # Examples

@@ -122,7 +122,7 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// Formats the mnemonic and any prefixes
 	///
 	/// @param instruction Instruction # Instruction to format
-	/// @param options integer # (default = `FormatMnemonicOptions.None`) Options (A `FormatMnemonicOptions` enum value)
+	/// @param options? integer # (default = `FormatMnemonicOptions.None`) Options (A `FormatMnemonicOptions` enum value)
 	/// @return string # The formatted string
 	unsafe fn format_mnemonic(lua, fmt: &mut Formatter, instruction: &Instruction, options: Option<u32>) -> 1 {
 		let options = options.unwrap_or(iced_x86::FormatMnemonicOptions::NONE);
