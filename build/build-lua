@@ -125,6 +125,12 @@ misc_tests() {
 
 	patchci_verify_patched
 
+	echo "==== RUST FORMAT CHECK ===="
+	cargo fmt -- --color always --check
+
+	echo "==== LUA FORMAT CHECK ===="
+	stylua --color always --check tests -f ./stylua.toml
+
 	set -- \
 		"lua51" \
 		"lua52" \
@@ -134,12 +140,6 @@ misc_tests() {
 		echo "==== CLIPPY RELEASE $features ===="
 		cargo clippy --color always --release --features "$features"
 	done
-
-	echo "==== RUST FORMAT CHECK ===="
-	cargo fmt -- --color always --check
-
-	echo "==== LUA FORMAT CHECK ===="
-	stylua --color always --check tests -f ./stylua.toml
 
 	cd "$curr_dir"
 }
