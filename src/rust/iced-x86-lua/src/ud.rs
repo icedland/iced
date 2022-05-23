@@ -11,4 +11,5 @@ pub(crate) enum UserDataIds {
 	UsedRegister,
 	UsedMemory,
 	Formatter,
+	ConstantOffsets,
 }
