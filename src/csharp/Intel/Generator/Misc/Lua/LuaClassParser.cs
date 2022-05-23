@@ -820,7 +820,8 @@ namespace Generator.Misc.Lua {
 			// Check if it's one of our custom types, eg. "Decoder"
 			if (type.Length > 0 && char.IsUpper(type[0]))
 				return true;
-			return type is "nil" or "boolean" or "integer" or "number" or "string" or "table";
+			return type is "nil" or "any" or "boolean" or "string" or "number" or "integer" or
+							"function" or "table" or "thread" or "userdata" or "lightuserdata";
 		}
 
 		static bool TryGetLines(List<string> lines, ref int index, Func<string, bool> isValidLine, [NotNullWhen(true)] out List<string>? result, [NotNullWhen(false)] out string? error) {

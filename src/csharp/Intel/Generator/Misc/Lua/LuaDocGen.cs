@@ -68,7 +68,7 @@ namespace Generator.Misc.Lua {
 								sb.Append(", ");
 							sb.Append(method.Args[i].Name);
 						}
-						sb.Append(") end");;
+						sb.Append(") end");
 						writer.WriteLine(sb.ToString());
 					}
 					writer.WriteLine();
