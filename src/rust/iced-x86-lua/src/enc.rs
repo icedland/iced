@@ -178,9 +178,9 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	/// The caller can use this information to add relocations if needed.
 	///
 	/// @return ConstantOffsets # Offsets and sizes of immediates
-	#[allow(unreachable_code)] //TODO:
-	unsafe fn get_constant_offsets(lua, _encoder: &Encoder) -> 1 {
-		unsafe { lua.throw_error_msg("TODO: NYI"); }
+	unsafe fn get_constant_offsets(lua, encoder: &Encoder) -> 1 {
+		let co = ConstantOffsets { inner: encoder.inner.get_constant_offsets() };
+		let _ = unsafe { ConstantOffsets::init_and_push(lua, &co) };
 	}
 
 	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
