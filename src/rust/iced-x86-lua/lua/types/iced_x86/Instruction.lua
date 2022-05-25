@@ -1831,4 +1831,118 @@ function Instruction:used_regs_mem() end
 ---```
 function Instruction:used_values() end
 
+---Creates a `db`/`.byte` asm directive
+---
+---- If the single arg is a string, the length must be 1-16 bytes
+---- If the single arg is a table, it must be an array with 1-16 i8/u8 integer elements
+---- Else it must be 1-16 i8/u8 integer args
+---
+---# Examples
+---
+---```lua
+---local Instruction = require("iced_x86.Instruction")
+---
+---local instr1 = Instruction:db("abc")
+---local instr2 = Instruction:db({ 0x12, 0x34 })
+---local instr3 = Instruction:db(0x12, 0x34, 0x56)
+---```
+---
+---@return Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer, a16:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer): Instruction
+---@overload fun(_self: Instruction, values: integer[]): Instruction
+---@overload fun(_self: Instruction, bytes: string): Instruction
+function Instruction:db() end
+
+---Creates a `dw`/`.word` asm directive
+---
+---- If the single arg is a string, the length must be 2-16 bytes and a multiple of 2 bytes
+---- If the single arg is a table, it must be an array with 1-8 i16/u16 integer elements
+---- Else it must be 1-8 i16/u16 integer args
+---
+---# Examples
+---
+---```lua
+---local Instruction = require("iced_x86.Instruction")
+---
+---local instr1 = Instruction:dw("abcd")
+---local instr2 = Instruction:dw({ 0x1234, 0x5678 })
+---local instr3 = Instruction:dw(0x1234, 0x5678, 0x9ABC)
+---```
+---
+---@return Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer): Instruction
+---@overload fun(_self: Instruction, values: integer[]): Instruction
+---@overload fun(_self: Instruction, bytes: string): Instruction
+function Instruction:dw() end
+
+---Creates a `dd`/`.int` asm directive
+---
+---- If the single arg is a string, the length must be 4-16 bytes and a multiple of 4 bytes
+---- If the single arg is a table, it must be an array with 1-4 i32/u32 integer elements
+---- Else it must be 1-4 i32/u32 integer args
+---
+---# Examples
+---
+---```lua
+---local Instruction = require("iced_x86.Instruction")
+---
+---local instr1 = Instruction:dd("abcdefgh")
+---local instr2 = Instruction:dd({ 0x12345678, 0x9ABCDEF0 })
+---local instr3 = Instruction:dd(1, 2, 3, 4)
+---```
+---
+---@return Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer): Instruction
+---@overload fun(_self: Instruction, values: integer[]): Instruction
+---@overload fun(_self: Instruction, bytes: string): Instruction
+function Instruction:dd() end
+
+---Creates a `dq`/`.quad` asm directive
+---
+---- If the single arg is a string, the length must be 8-16 bytes and a multiple of 8 bytes
+---- If the single arg is a table, it must be an array with 1-2 i64/u64 integer elements
+---- Else it must be 1-2 i64/u64 integer args
+---
+---# Examples
+---
+---```lua
+---local Instruction = require("iced_x86.Instruction")
+---
+---local instr1 = Instruction:dq("abcdefgh")
+---local instr2 = Instruction:dq({ 0x12345678, 0x9ABCDEF0 })
+---local instr3 = Instruction:dq(1, 2)
+---```
+---
+---@return Instruction
+---@overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
+---@overload fun(_self: Instruction, a1: integer): Instruction
+---@overload fun(_self: Instruction, values: integer[]): Instruction
+---@overload fun(_self: Instruction, bytes: string): Instruction
+function Instruction:dq() end
+
 return Instruction

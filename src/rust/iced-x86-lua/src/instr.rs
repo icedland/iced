@@ -7,7 +7,7 @@ use crate::info::mem::UsedMemory;
 use crate::info::regs::UsedRegister;
 use crate::opci::OpCodeInfo;
 use libc::c_int;
-use loona::lua_api::lua_CFunction;
+use loona::lua_api::{lua_CFunction, lua_GetIType, LUA_TNUMBER, LUA_TSTRING, LUA_TTABLE};
 use loona::prelude::*;
 
 lua_struct_module! { luaopen_iced_x86_Instruction : Instruction }
@@ -65,6 +65,83 @@ impl Instruction {
 			}
 		}
 	}
+}
+
+macro_rules! mk_dx_body {
+	($lua:ident, $elem_size:literal, $lua_try_get_num:path, $str_arg_fn:path, $slice_arg_fn:path,
+	$err_string_arg:literal, $err_int_values:literal, $err_count_int_values:literal,) => {
+		const MAX_ELEMS: c_int = 16 / $elem_size;
+		const IGNORED_ARGS: c_int = 1;
+		const ERR_STRING_ARG: &str = $err_string_arg;
+		const ERR_INT_VALUES: &str = $err_int_values;
+		const ERR_COUNT_INT_VALUES: &str = $err_count_int_values;
+
+		let num_args = $lua.get_top().wrapping_sub(IGNORED_ARGS);
+		let type0 = $lua.type_(IGNORED_ARGS + 1);
+		if type0 == LUA_TSTRING {
+			if num_args != 1 {
+				$lua.throw_error_msg("Invalid number of args: expected one string");
+			}
+			let bytes = if let Some(bytes) = $lua.try_get_byte_slice(IGNORED_ARGS + 1) {
+				bytes
+			} else {
+				$lua.throw_error_msg("Expected one string");
+			};
+			let instr = if let Ok(instr) = $str_arg_fn(bytes) {
+				Instruction { inner: instr }
+			} else {
+				$lua.throw_error_msg(ERR_STRING_ARG);
+			};
+			let _ = Instruction::init_and_push($lua, &instr);
+		} else if type0 == LUA_TTABLE {
+			if num_args != 1 {
+				$lua.throw_error_msg("Invalid number of args: expected one array");
+			}
+			let table_len = $lua.raw_len(IGNORED_ARGS + 1);
+			if table_len < 1 || table_len > MAX_ELEMS as usize {
+				$lua.throw_error_msg("Array is empty or has too many elements");
+			}
+			let mut data = [0; MAX_ELEMS as usize];
+			for i in 0..(table_len as lua_GetIType) {
+				$lua.raw_get_i(IGNORED_ARGS + 1, i + 1);
+				let idx = -1;
+				if $lua.type_(idx) != LUA_TNUMBER {
+					$lua.throw_error_msg(ERR_INT_VALUES);
+				}
+				if let Ok(value) = $lua_try_get_num($lua, idx) {
+					data[i as usize] = value;
+				} else {
+					$lua.throw_error_msg(ERR_INT_VALUES);
+				}
+				$lua.pop(1);
+			}
+			let instr = if let Ok(instr) = $slice_arg_fn(&data[0..table_len]) {
+				Instruction { inner: instr }
+			} else {
+				$lua.throw_error_msg(ERR_COUNT_INT_VALUES);
+			};
+			let _ = Instruction::init_and_push($lua, &instr);
+		} else {
+			if num_args < 1 || num_args > MAX_ELEMS {
+				$lua.throw_error_msg(ERR_COUNT_INT_VALUES);
+			}
+			let mut data = [0; MAX_ELEMS as usize];
+			for i in 0..num_args {
+				let idx = IGNORED_ARGS + 1 + i;
+				if let Ok(value) = $lua_try_get_num($lua, idx) {
+					data[i as usize] = value;
+				} else {
+					$lua.throw_error_msg(ERR_INT_VALUES);
+				}
+			}
+			let instr = if let Ok(instr) = $slice_arg_fn(&data[0..num_args as usize]) {
+				Instruction { inner: instr }
+			} else {
+				$lua.throw_error_msg(ERR_COUNT_INT_VALUES);
+			};
+			let _ = Instruction::init_and_push($lua, &instr);
+		}
+	};
 }
 
 lua_pub_methods! { static INSTRUCTION_EXPORTS =>
@@ -1999,6 +2076,168 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			push_used_registers(lua, info);
 			push_used_memory(lua, info);
 			push_op_accesses(lua, info, &instr.inner);
+		}
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// - If the single arg is a string, the length must be 1-16 bytes
+	/// - If the single arg is a table, it must be an array with 1-16 i8/u8 integer elements
+	/// - Else it must be 1-16 i8/u8 integer args
+	///
+	/// # Examples
+	/// ```lua
+	/// local Instruction = require("iced_x86.Instruction")
+	///
+	/// local instr1 = Instruction:db("abc")
+	/// local instr2 = Instruction:db({ 0x12, 0x34 })
+	/// local instr3 = Instruction:db(0x12, 0x34, 0x56)
+	/// ```
+	///
+	/// @return Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer, a16:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer): Instruction
+	/// @overload fun(_self: Instruction, values: integer[]): Instruction
+	/// @overload fun(_self: Instruction, bytes: string): Instruction
+	unsafe fn db(lua, _ignore: LuaIgnore) -> 1 {
+		unsafe {
+			mk_dx_body!(
+				lua,
+				1,
+				Lua::try_get_u8,
+				iced_x86::Instruction::with_declare_byte,
+				iced_x86::Instruction::with_declare_byte,
+				"Expected a string with 1-16 bytes",
+				"Expected i8/u8 integer values",
+				"Expected 1-16 i8/u8 integer values",
+			);
+		}
+	}
+
+	/// Creates a `dw`/`.word` asm directive
+	///
+	/// - If the single arg is a string, the length must be 2-16 bytes and a multiple of 2 bytes
+	/// - If the single arg is a table, it must be an array with 1-8 i16/u16 integer elements
+	/// - Else it must be 1-8 i16/u16 integer args
+	///
+	/// # Examples
+	/// ```lua
+	/// local Instruction = require("iced_x86.Instruction")
+	///
+	/// local instr1 = Instruction:dw("abcd")
+	/// local instr2 = Instruction:dw({ 0x1234, 0x5678 })
+	/// local instr3 = Instruction:dw(0x1234, 0x5678, 0x9ABC)
+	/// ```
+	///
+	/// @return Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer): Instruction
+	/// @overload fun(_self: Instruction, values: integer[]): Instruction
+	/// @overload fun(_self: Instruction, bytes: string): Instruction
+	unsafe fn dw(lua, _ignore: LuaIgnore) -> 1 {
+		unsafe {
+			mk_dx_body!(
+				lua,
+				2,
+				Lua::try_get_u16,
+				iced_x86::Instruction::with_declare_word_slice_u8,
+				iced_x86::Instruction::with_declare_word,
+				"Expected a string with 2-16 bytes and a multiple of 2 bytes",
+				"Expected i16/u16 integer values",
+				"Expected 1-8 i16/u16 integer values",
+			);
+		}
+	}
+
+	/// Creates a `dd`/`.int` asm directive
+	///
+	/// - If the single arg is a string, the length must be 4-16 bytes and a multiple of 4 bytes
+	/// - If the single arg is a table, it must be an array with 1-4 i32/u32 integer elements
+	/// - Else it must be 1-4 i32/u32 integer args
+	///
+	/// # Examples
+	/// ```lua
+	/// local Instruction = require("iced_x86.Instruction")
+	///
+	/// local instr1 = Instruction:dd("abcdefgh")
+	/// local instr2 = Instruction:dd({ 0x12345678, 0x9ABCDEF0 })
+	/// local instr3 = Instruction:dd(1, 2, 3, 4)
+	/// ```
+	///
+	/// @return Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer): Instruction
+	/// @overload fun(_self: Instruction, values: integer[]): Instruction
+	/// @overload fun(_self: Instruction, bytes: string): Instruction
+	unsafe fn dd(lua, _ignore: LuaIgnore) -> 1 {
+		unsafe {
+			mk_dx_body!(
+				lua,
+				4,
+				Lua::try_get_u32,
+				iced_x86::Instruction::with_declare_dword_slice_u8,
+				iced_x86::Instruction::with_declare_dword,
+				"Expected a string with 4-16 bytes and a multiple of 4 bytes",
+				"Expected i32/u32 integer values",
+				"Expected 1-4 i32/u32 integer values",
+			);
+		}
+	}
+
+	/// Creates a `dq`/`.quad` asm directive
+	///
+	/// - If the single arg is a string, the length must be 8-16 bytes and a multiple of 8 bytes
+	/// - If the single arg is a table, it must be an array with 1-2 i64/u64 integer elements
+	/// - Else it must be 1-2 i64/u64 integer args
+	///
+	/// # Examples
+	/// ```lua
+	/// local Instruction = require("iced_x86.Instruction")
+	///
+	/// local instr1 = Instruction:dq("abcdefgh")
+	/// local instr2 = Instruction:dq({ 0x12345678, 0x9ABCDEF0 })
+	/// local instr3 = Instruction:dq(1, 2)
+	/// ```
+	///
+	/// @return Instruction
+	/// @overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
+	/// @overload fun(_self: Instruction, a1: integer): Instruction
+	/// @overload fun(_self: Instruction, values: integer[]): Instruction
+	/// @overload fun(_self: Instruction, bytes: string): Instruction
+	unsafe fn dq(lua, _ignore: LuaIgnore) -> 1 {
+		unsafe {
+			mk_dx_body!(
+				lua,
+				8,
+				Lua::try_get_u64,
+				iced_x86::Instruction::with_declare_qword_slice_u8,
+				iced_x86::Instruction::with_declare_qword,
+				"Expected a string with 8-16 bytes and a multiple of 8 bytes",
+				"Expected i64/u64 integer values",
+				"Expected 1-2 i64/u64 integer values",
+			);
 		}
 	}
 }

@@ -67,13 +67,20 @@ namespace Generator.Misc.Lua {
 		public LuaClassAnnot(LuaType type) => Type = type;
     }
 
+	sealed class LuaOverloadAnnot {
+		public readonly string Function;
+		public LuaOverloadAnnot(string function) => Function = function;
+    }
+
 	sealed class LuaAnnotationDocCommentSection : DocCommentSection {
 		public readonly LuaParamAnnot[] Params;
 		public readonly LuaReturnAnnot? Return;
+		public readonly LuaOverloadAnnot[] Overloads;
 		public readonly LuaClassAnnot? Class;
-		public LuaAnnotationDocCommentSection(LuaClassAnnot? @class, LuaReturnAnnot? @return, params LuaParamAnnot[] @params) {
+		public LuaAnnotationDocCommentSection(LuaClassAnnot? @class, LuaReturnAnnot? @return, LuaOverloadAnnot[] overloads, LuaParamAnnot[] @params) {
 			Params = @params;
 			Return = @return;
+			Overloads = overloads;
 			Class = @class;
 		}
     }
@@ -99,6 +106,7 @@ namespace Generator.Misc.Lua {
 		Method,
 		Function,
 		Constructor,
+		ConstructorMethod,
 	}
 
 	sealed class LuaMethod {

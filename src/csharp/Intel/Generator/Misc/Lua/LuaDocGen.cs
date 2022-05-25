@@ -56,7 +56,7 @@ namespace Generator.Misc.Lua {
 						sb.Append("function ");
 						sb.Append(clsName);
 						var methodSep = method.Kind switch {
-							LuaMethodKind.Method or LuaMethodKind.Constructor => ":",
+							LuaMethodKind.Method or LuaMethodKind.Constructor or LuaMethodKind.ConstructorMethod => ":",
 							LuaMethodKind.Function => ".",
 							_ => throw new InvalidOperationException(),
 						};
@@ -119,6 +119,8 @@ namespace Generator.Misc.Lua {
 						sb.Append(string.Join('|', luaClass.Type.Types));
 						writer.WriteLine(sb.ToString());
 					}
+					foreach (var overload in args.Overloads)
+						writer.WriteLine($"---@overload {overload.Function}");
 					break;
 
 				case TestCodeDocCommentSection code:

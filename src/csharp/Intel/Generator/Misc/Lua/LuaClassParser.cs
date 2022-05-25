@@ -276,7 +276,7 @@ namespace Generator.Misc.Lua {
 						if (luaReturn.Comment is string returnComment)
 							oldComment = $" ({returnComment})";
 						args.Add(new LuaParamAnnot(setter.Args[^1].Name, luaReturn.Types[0], $"New value{oldComment}", false));
-						section = new LuaAnnotationDocCommentSection(null, null, args.ToArray());
+						section = new LuaAnnotationDocCommentSection(null, null, Array.Empty<LuaOverloadAnnot>(), args.ToArray());
 					}
 					else
 						section = doc;
@@ -524,6 +524,9 @@ namespace Generator.Misc.Lua {
 						if (foundIgnored)
 							throw GetException("Multiple ignored args found");
 						foundIgnored = true;
+						// eg. Instruction:db() etc
+						if (kind != LuaMethodKind.Constructor)
+							kind = LuaMethodKind.ConstructorMethod;
 					}
 					else {
 						bool isSelf = args.Count == 0 && kind == LuaMethodKind.Method;
@@ -532,7 +535,7 @@ namespace Generator.Misc.Lua {
 					}
 				}
 				if (foundIgnored) {
-					if (kind != LuaMethodKind.Constructor)
+					if (kind != LuaMethodKind.Constructor && kind != LuaMethodKind.ConstructorMethod)
 						throw GetException("Did not expect _ignored since it's not a ctor");
 				}
 				else {
@@ -634,6 +637,7 @@ namespace Generator.Misc.Lua {
 						return false;
 					}
 					var args = new List<LuaParamAnnot>();
+					var overloads = new List<LuaOverloadAnnot>();
 					LuaReturnAnnot? luaReturn = null;
 					LuaClassAnnot? luaClass = null;
 					if (!TryGetLines(lines, ref i, line => line.StartsWith("@"), out var argLines, out error))
@@ -665,12 +669,17 @@ namespace Generator.Misc.Lua {
 							if (!TryParseClass(argLine, out luaClass, out error))
 								return false;
 						}
+						else if (argLine.StartsWith("@overload ")) {
+							if (!TryParseOverload(argLine, out var luaOverload, out error))
+								return false;
+							overloads.Add(luaOverload);
+						}
 						else {
 							error = "Expected one of: @param, @return, @class";
 							return false;
 						}
 					}
-					docs.Sections.Add(new LuaAnnotationDocCommentSection(luaClass, luaReturn, args.ToArray()));
+					docs.Sections.Add(new LuaAnnotationDocCommentSection(luaClass, luaReturn, overloads.ToArray(), args.ToArray()));
 					break;
 
 				case DocCommentKind.TestCode:
@@ -757,6 +766,28 @@ namespace Generator.Misc.Lua {
 				return false;
 
 			luaClass = new LuaClassAnnot(type);
+			error = null;
+			return true;
+		}
+
+		static bool TryParseOverload(string line, [NotNullWhen(true)] out LuaOverloadAnnot? luaOverload, [NotNullWhen(false)] out string? error) {
+			luaOverload = null;
+
+			const string pattern = "@overload ";
+			if (!line.StartsWith(pattern)) {
+				error = "Expected @overload";
+				return false;
+			}
+			line = line[pattern.Length..].Trim();
+
+			line = GetComment(line, out var comment);
+			if (!string.IsNullOrEmpty(comment)) {
+				error = "@overload can't have a comment";
+				return false;
+			}
+			var function = line;
+
+			luaOverload = new LuaOverloadAnnot(function);
 			error = null;
 			return true;
 		}
