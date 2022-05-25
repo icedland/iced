@@ -129,14 +129,14 @@ function Instruction:mnemonic() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
 ---
----# add [rax],ebx
----data = b"\x01\x18"
----decoder = Decoder(64, data)
----instr = decoder.decode()
+----- add [rax],ebx
+---local data = "\001\024"
+---local decoder = Decoder:new(64, data)
+---local instr = decoder:decode()
 ---
----assert instr.op_count == 2
+---assert(instr:op_count() == 2)
 ---```
 function Instruction:op_count() end
 
@@ -278,19 +278,21 @@ function Instruction:set_op4_kind(new_value) end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local OpKind = require("iced_x86.OpKind")
+---local Register = require("iced_x86.Register")
 ---
----# add [rax],ebx
----data = b"\x01\x18"
----decoder = Decoder(64, data)
----instr = decoder.decode()
+----- add [rax],ebx
+---local data = "\001\024"
+---local decoder = Decoder:new(64, data)
+---local instr = decoder:decode()
 ---
----assert instr.op_count == 2
----assert instr.op_kind(0) == OpKind.Memory
----assert instr.memory_base == Register.RAX
----assert instr.memory_index == Register.NONE
----assert instr.op_kind(1) == OpKind.Register
----assert instr.op_register(1) == Register.EBX
+---assert(instr:op_count() == 2)
+---assert(instr:op_kind(0) == OpKind.Memory)
+---assert(instr:memory_base() == Register.RAX)
+---assert(instr:memory_index() == Register.None)
+---assert(instr:op_kind(1) == OpKind.Register)
+---assert(instr:op_register(1) == Register.EBX)
 ---```
 function Instruction:op_kind(operand) end
 
@@ -302,19 +304,21 @@ function Instruction:op_kind(operand) end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local OpKind = require("iced_x86.OpKind")
+---local Register = require("iced_x86.Register")
 ---
----# add [rax],ebx
----data = b"\x01\x18"
----decoder = Decoder(64, data)
----instr = decoder.decode()
+----- add [rax],ebx
+---local data = "\001\024"
+---local decoder = Decoder:new(64, data)
+---local instr = decoder:decode()
 ---
----assert instr.op_count == 2
----assert instr.op_kind(0) == OpKind.Memory
----assert instr.memory_base == Register.RAX
----assert instr.memory_index == Register.NONE
----assert instr.op_kind(1) == OpKind.Register
----assert instr.op_register(1) == Register.EBX
+---assert(instr:op_count() == 2)
+---assert(instr:op_kind(0) == OpKind.Memory)
+---assert(instr:memory_base() == Register.RAX)
+---assert(instr:memory_index() == Register.None)
+---assert(instr:op_kind(1) == OpKind.Register)
+---assert(instr:op_register(1) == Register.EBX)
 ---```
 function Instruction:set_op_kind(operand, op_kind) end
 
@@ -800,17 +804,19 @@ function Instruction:set_op4_register(new_value) end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local OpKind = require("iced_x86.OpKind")
+---local Register = require("iced_x86.Register")
 ---
----# add [rax],ebx
----data = b"\x01\x18"
----decoder = Decoder(64, data)
----instr = decoder.decode()
+----- add [rax],ebx
+---local data = "\001\024"
+---local decoder = Decoder:new(64, data)
+---local instr = decoder:decode()
 ---
----assert instr.op_count == 2
----assert instr.op_kind(0) == OpKind.Memory
----assert instr.op_kind(1) == OpKind.Register
----assert instr.op_register(1) == Register.EBX
+---assert(instr:op_count() == 2)
+---assert(instr:op_kind(0) == OpKind.Memory)
+---assert(instr:op_kind(1) == OpKind.Register)
+---assert(instr:op_register(1) == Register.EBX)
 ---```
 function Instruction:op_register(operand) end
 
@@ -824,17 +830,19 @@ function Instruction:op_register(operand) end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local OpKind = require("iced_x86.OpKind")
+---local Register = require("iced_x86.Register")
 ---
----# add [rax],ebx
----data = b"\x01\x18"
----decoder = Decoder(64, data)
----instr = decoder.decode()
+----- add [rax],ebx
+---local data = "\001\024"
+---local decoder = Decoder:new(64, data)
+---local instr = decoder:decode()
 ---
----assert instr.op_count == 2
----assert instr.op_kind(0) == OpKind.Memory
----assert instr.op_kind(1) == OpKind.Register
----assert instr.op_register(1) == Register.EBX
+---assert(instr:op_count() == 2)
+---assert(instr:op_kind(0) == OpKind.Memory)
+---assert(instr:op_kind(1) == OpKind.Register)
+---assert(instr:op_register(1) == Register.EBX)
 ---```
 function Instruction:set_op_register(operand, new_value) end
 
@@ -1063,15 +1071,15 @@ function Instruction:ip_rel_memory_address() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
 ---
----# pushfq
----data = b"\x9C"
----decoder = Decoder(64, data)
----instr = decoder.decode()
+----- pushfq
+---local data = "\156"
+---local decoder = Decoder:new(64, data)
+---local instr = decoder:decode()
 ---
----assert instr.is_stack_instruction
----assert instr.stack_pointer_increment == -8
+---assert(instr:is_stack_instruction())
+---assert(instr:stack_pointer_increment() == -8)
 ---```
 function Instruction:stack_pointer_increment() end
 
@@ -1082,18 +1090,18 @@ function Instruction:stack_pointer_increment() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
 ---
----# ficomp dword ptr [rax]
----data = b"\xDA\x18"
----decoder = Decoder(64, data)
----instr = decoder.decode()
+----- ficomp dword ptr [rax]
+---local data = "\218\024"
+---local decoder = Decoder:new(64, data)
+---local instr = decoder:decode()
 ---
----info = instr.fpu_stack_increment_info()
----# It pops the stack once
----assert info.increment == 1
----assert not info.conditional
----assert info.writes_top
+---local info = instr:fpu_stack_increment_info()
+----- It pops the stack once
+---assert(info:increment() == 1)
+---assert(not info:conditional())
+---assert(info:writes_top())
 ---```
 function Instruction:fpu_stack_increment_info() end
 
@@ -1104,14 +1112,15 @@ function Instruction:fpu_stack_increment_info() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local EncodingKind = require("iced_x86.EncodingKind")
 ---
----# vmovaps xmm1,xmm5
----data = b"\xC5\xF8\x28\xCD"
----decoder = Decoder(64, data)
----instr = decoder.decode()
+----- vmovaps xmm1,xmm5
+---local data = "\197\248\040\205"
+---local decoder = Decoder:new(64, data)
+---local instr = decoder:decode()
 ---
----assert instr.encoding == EncodingKind.VEX
+---assert(instr:encoding() == EncodingKind.VEX)
 ---```
 function Instruction:encoding() end
 
@@ -1122,25 +1131,26 @@ function Instruction:encoding() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local CpuidFeature = require("iced_x86.CpuidFeature")
 ---
----# vmovaps xmm1,xmm5
----# vmovaps xmm10{k3}{z},xmm19
----data = b"\xC5\xF8\x28\xCD\x62\x31\x7C\x8B\x28\xD3"
----decoder = Decoder(64, data)
+----- vmovaps xmm1,xmm5
+----- vmovaps xmm10{k3}{z},xmm19
+---local data = "\197\248\040\205\098\049\124\139\040\211"
+---local decoder = Decoder:new(64, data)
 ---
----# vmovaps xmm1,xmm5
----instr = decoder.decode()
----cpuid = instr.cpuid_features()
----assert len(cpuid) == 1
----assert cpuid[0] == CpuidFeature.AVX
+----- vmovaps xmm1,xmm5
+---local instr = decoder:decode()
+---local cpuid = instr:cpuid_features()
+---assert(#cpuid == 1)
+---assert(cpuid[1] == CpuidFeature.AVX)
 ---
----# vmovaps xmm10{k3}{z},xmm19
----instr = decoder.decode()
----cpuid = instr.cpuid_features()
----assert len(cpuid) == 2
----assert cpuid[0] == CpuidFeature.AVX512VL
----assert cpuid[1] == CpuidFeature.AVX512F
+----- vmovaps xmm10{k3}{z},xmm19
+---local instr2 = decoder:decode()
+---local cpuid2 = instr2:cpuid_features()
+---assert(#cpuid2 == 2)
+---assert(cpuid2[1] == CpuidFeature.AVX512VL)
+---assert(cpuid2[2] == CpuidFeature.AVX512F)
 ---```
 function Instruction:cpuid_features() end
 
@@ -1151,25 +1161,26 @@ function Instruction:cpuid_features() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local FlowControl = require("iced_x86.FlowControl")
 ---
----# or ecx,esi
----# ud0 rcx,rsi
----# call rcx
----data = b"\x0B\xCE\x48\x0F\xFF\xCE\xFF\xD1"
----decoder = Decoder(64, data)
+----- or ecx,esi
+----- ud0 rcx,rsi
+----- call rcx
+---local data = "\011\206\072\015\255\206\255\209"
+---local decoder = Decoder:new(64, data)
 ---
----# or ecx,esi
----instr = decoder.decode()
----assert instr.flow_control == FlowControl.NEXT
+----- or ecx,esi
+---local instr = decoder:decode()
+---assert(instr:flow_control() == FlowControl.Next)
 ---
----# ud0 rcx,rsi
----instr = decoder.decode()
----assert instr.flow_control == FlowControl.EXCEPTION
+----- ud0 rcx,rsi
+---local instr2 = decoder:decode()
+---assert(instr2:flow_control() == FlowControl.Exception)
 ---
----# call rcx
----instr = decoder.decode()
----assert instr.flow_control == FlowControl.INDIRECT_CALL
+----- call rcx
+---local instr3 = decoder:decode()
+---assert(instr3:flow_control() == FlowControl.IndirectCall)
 ---```
 function Instruction:flow_control() end
 
@@ -1187,21 +1198,21 @@ function Instruction:is_privileged() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
 ---
----# or ecx,esi
----# push rax
----data = b"\x0B\xCE\x50"
----decoder = Decoder(64, data)
+----- or ecx,esi
+----- push rax
+---local data = "\011\206\080"
+---local decoder = Decoder:new(64, data)
 ---
----# or ecx,esi
----instr = decoder.decode()
----assert not instr.is_stack_instruction
+----- or ecx,esi
+---local instr = decoder:decode()
+---assert(not instr:is_stack_instruction())
 ---
----# push rax
----instr = decoder.decode()
----assert instr.is_stack_instruction
----assert instr.stack_pointer_increment == -8
+----- push rax
+---local instr2 = decoder:decode()
+---assert(instr2:is_stack_instruction())
+---assert(instr2:stack_pointer_increment() == -8)
 ---```
 function Instruction:is_stack_instruction() end
 
@@ -1224,30 +1235,31 @@ function Instruction:is_string_instruction() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local RflagsBits = require("iced_x86.RflagsBits")
 ---
----# adc rsi,rcx
----# xor rdi,5Ah
----data = b"\x48\x11\xCE\x48\x83\xF7\x5A"
----decoder = Decoder(64, data)
+----- adc rsi,rcx
+----- xor rdi,5Ah
+---local data = "\072\017\206\072\131\247\090"
+---local decoder = Decoder:new(64, data)
 ---
----# adc rsi,rcx
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.CF
----assert instr.rflags_written == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.NONE
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.NONE
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- adc rsi,rcx
+---local instr = decoder:decode()
+---assert(instr:rflags_read() == RflagsBits.CF)
+---assert(instr:rflags_written() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
+---assert(instr:rflags_cleared() == RflagsBits.None)
+---assert(instr:rflags_set() == RflagsBits.None)
+---assert(instr:rflags_undefined() == RflagsBits.None)
+---assert(instr:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---
----# xor rdi,5Ah
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.NONE
----assert instr.rflags_written == RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.OF | RflagsBits.CF
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.AF
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- xor rdi,5Ah
+---local instr2 = decoder:decode()
+---assert(instr2:rflags_read() == RflagsBits.None)
+---assert(instr2:rflags_written() == RflagsBits.SF + RflagsBits.ZF + RflagsBits.PF)
+---assert(instr2:rflags_cleared() == RflagsBits.OF + RflagsBits.CF)
+---assert(instr2:rflags_set() == RflagsBits.None)
+---assert(instr2:rflags_undefined() == RflagsBits.AF)
+---assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---```
 function Instruction:rflags_read() end
 
@@ -1260,30 +1272,31 @@ function Instruction:rflags_read() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local RflagsBits = require("iced_x86.RflagsBits")
 ---
----# adc rsi,rcx
----# xor rdi,5Ah
----data = b"\x48\x11\xCE\x48\x83\xF7\x5A"
----decoder = Decoder(64, data)
+----- adc rsi,rcx
+----- xor rdi,5Ah
+---local data = "\072\017\206\072\131\247\090"
+---local decoder = Decoder:new(64, data)
 ---
----# adc rsi,rcx
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.CF
----assert instr.rflags_written == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.NONE
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.NONE
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- adc rsi,rcx
+---local instr = decoder:decode()
+---assert(instr:rflags_read() == RflagsBits.CF)
+---assert(instr:rflags_written() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
+---assert(instr:rflags_cleared() == RflagsBits.None)
+---assert(instr:rflags_set() == RflagsBits.None)
+---assert(instr:rflags_undefined() == RflagsBits.None)
+---assert(instr:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---
----# xor rdi,5Ah
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.NONE
----assert instr.rflags_written == RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.OF | RflagsBits.CF
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.AF
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- xor rdi,5Ah
+---local instr2 = decoder:decode()
+---assert(instr2:rflags_read() == RflagsBits.None)
+---assert(instr2:rflags_written() == RflagsBits.SF + RflagsBits.ZF + RflagsBits.PF)
+---assert(instr2:rflags_cleared() == RflagsBits.OF + RflagsBits.CF)
+---assert(instr2:rflags_set() == RflagsBits.None)
+---assert(instr2:rflags_undefined() == RflagsBits.AF)
+---assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---```
 function Instruction:rflags_written() end
 
@@ -1296,30 +1309,31 @@ function Instruction:rflags_written() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local RflagsBits = require("iced_x86.RflagsBits")
 ---
----# adc rsi,rcx
----# xor rdi,5Ah
----data = b"\x48\x11\xCE\x48\x83\xF7\x5A"
----decoder = Decoder(64, data)
+----- adc rsi,rcx
+----- xor rdi,5Ah
+---local data = "\072\017\206\072\131\247\090"
+---local decoder = Decoder:new(64, data)
 ---
----# adc rsi,rcx
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.CF
----assert instr.rflags_written == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.NONE
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.NONE
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- adc rsi,rcx
+---local instr = decoder:decode()
+---assert(instr:rflags_read() == RflagsBits.CF)
+---assert(instr:rflags_written() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
+---assert(instr:rflags_cleared() == RflagsBits.None)
+---assert(instr:rflags_set() == RflagsBits.None)
+---assert(instr:rflags_undefined() == RflagsBits.None)
+---assert(instr:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---
----# xor rdi,5Ah
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.NONE
----assert instr.rflags_written == RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.OF | RflagsBits.CF
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.AF
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- xor rdi,5Ah
+---local instr2 = decoder:decode()
+---assert(instr2:rflags_read() == RflagsBits.None)
+---assert(instr2:rflags_written() == RflagsBits.SF + RflagsBits.ZF + RflagsBits.PF)
+---assert(instr2:rflags_cleared() == RflagsBits.OF + RflagsBits.CF)
+---assert(instr2:rflags_set() == RflagsBits.None)
+---assert(instr2:rflags_undefined() == RflagsBits.AF)
+---assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---```
 function Instruction:rflags_cleared() end
 
@@ -1332,30 +1346,31 @@ function Instruction:rflags_cleared() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local RflagsBits = require("iced_x86.RflagsBits")
 ---
----# adc rsi,rcx
----# xor rdi,5Ah
----data = b"\x48\x11\xCE\x48\x83\xF7\x5A"
----decoder = Decoder(64, data)
+----- adc rsi,rcx
+----- xor rdi,5Ah
+---local data = "\072\017\206\072\131\247\090"
+---local decoder = Decoder:new(64, data)
 ---
----# adc rsi,rcx
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.CF
----assert instr.rflags_written == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.NONE
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.NONE
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- adc rsi,rcx
+---local instr = decoder:decode()
+---assert(instr:rflags_read() == RflagsBits.CF)
+---assert(instr:rflags_written() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
+---assert(instr:rflags_cleared() == RflagsBits.None)
+---assert(instr:rflags_set() == RflagsBits.None)
+---assert(instr:rflags_undefined() == RflagsBits.None)
+---assert(instr:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---
----# xor rdi,5Ah
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.NONE
----assert instr.rflags_written == RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.OF | RflagsBits.CF
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.AF
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- xor rdi,5Ah
+---local instr2 = decoder:decode()
+---assert(instr2:rflags_read() == RflagsBits.None)
+---assert(instr2:rflags_written() == RflagsBits.SF + RflagsBits.ZF + RflagsBits.PF)
+---assert(instr2:rflags_cleared() == RflagsBits.OF + RflagsBits.CF)
+---assert(instr2:rflags_set() == RflagsBits.None)
+---assert(instr2:rflags_undefined() == RflagsBits.AF)
+---assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---```
 function Instruction:rflags_set() end
 
@@ -1368,30 +1383,31 @@ function Instruction:rflags_set() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local RflagsBits = require("iced_x86.RflagsBits")
 ---
----# adc rsi,rcx
----# xor rdi,5Ah
----data = b"\x48\x11\xCE\x48\x83\xF7\x5A"
----decoder = Decoder(64, data)
+----- adc rsi,rcx
+----- xor rdi,5Ah
+---local data = "\072\017\206\072\131\247\090"
+---local decoder = Decoder:new(64, data)
 ---
----# adc rsi,rcx
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.CF
----assert instr.rflags_written == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.NONE
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.NONE
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- adc rsi,rcx
+---local instr = decoder:decode()
+---assert(instr:rflags_read() == RflagsBits.CF)
+---assert(instr:rflags_written() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
+---assert(instr:rflags_cleared() == RflagsBits.None)
+---assert(instr:rflags_set() == RflagsBits.None)
+---assert(instr:rflags_undefined() == RflagsBits.None)
+---assert(instr:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---
----# xor rdi,5Ah
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.NONE
----assert instr.rflags_written == RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.OF | RflagsBits.CF
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.AF
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- xor rdi,5Ah
+---local instr2 = decoder:decode()
+---assert(instr2:rflags_read() == RflagsBits.None)
+---assert(instr2:rflags_written() == RflagsBits.SF + RflagsBits.ZF + RflagsBits.PF)
+---assert(instr2:rflags_cleared() == RflagsBits.OF + RflagsBits.CF)
+---assert(instr2:rflags_set() == RflagsBits.None)
+---assert(instr2:rflags_undefined() == RflagsBits.AF)
+---assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---```
 function Instruction:rflags_undefined() end
 
@@ -1404,30 +1420,31 @@ function Instruction:rflags_undefined() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Decoder = require("iced_x86.Decoder")
+---local RflagsBits = require("iced_x86.RflagsBits")
 ---
----# adc rsi,rcx
----# xor rdi,5Ah
----data = b"\x48\x11\xCE\x48\x83\xF7\x5A"
----decoder = Decoder(64, data)
+----- adc rsi,rcx
+----- xor rdi,5Ah
+---local data = "\072\017\206\072\131\247\090"
+---local decoder = Decoder:new(64, data)
 ---
----# adc rsi,rcx
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.CF
----assert instr.rflags_written == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.NONE
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.NONE
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- adc rsi,rcx
+---local instr = decoder:decode()
+---assert(instr:rflags_read() == RflagsBits.CF)
+---assert(instr:rflags_written() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
+---assert(instr:rflags_cleared() == RflagsBits.None)
+---assert(instr:rflags_set() == RflagsBits.None)
+---assert(instr:rflags_undefined() == RflagsBits.None)
+---assert(instr:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---
----# xor rdi,5Ah
----instr = decoder.decode()
----assert instr.rflags_read == RflagsBits.NONE
----assert instr.rflags_written == RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF
----assert instr.rflags_cleared == RflagsBits.OF | RflagsBits.CF
----assert instr.rflags_set == RflagsBits.NONE
----assert instr.rflags_undefined == RflagsBits.AF
----assert instr.rflags_modified == RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF
+----- xor rdi,5Ah
+---local instr2 = decoder:decode()
+---assert(instr2:rflags_read() == RflagsBits.None)
+---assert(instr2:rflags_written() == RflagsBits.SF + RflagsBits.ZF + RflagsBits.PF)
+---assert(instr2:rflags_cleared() == RflagsBits.OF + RflagsBits.CF)
+---assert(instr2:rflags_set() == RflagsBits.None)
+---assert(instr2:rflags_undefined() == RflagsBits.AF)
+---assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 ---```
 function Instruction:rflags_modified() end
 
@@ -1533,18 +1550,20 @@ function Instruction:is_loop() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Code = require("iced_x86.Code")
+---local ConditionCode = require("iced_x86.ConditionCode")
+---local Decoder = require("iced_x86.Decoder")
 ---
----# setbe al
----data = b"\x0F\x96\xC0"
----decoder = Decoder(64, data)
+----- setbe al
+---local data = "\015\150\192"
+---local decoder = Decoder:new(64, data)
 ---
----instr = decoder.decode()
----assert instr.code == Code.SETBE_RM8
----assert instr.condition_code == ConditionCode.BE
----instr.negate_condition_code()
----assert instr.code == Code.SETA_RM8
----assert instr.condition_code == ConditionCode.A
+---local instr = decoder:decode()
+---assert(instr:code() == Code.Setbe_rm8)
+---assert(instr:condition_code() == ConditionCode.be)
+---instr:negate_condition_code()
+---assert(instr:code() == Code.Seta_rm8)
+---assert(instr:condition_code() == ConditionCode.a)
 ---```
 function Instruction:negate_condition_code() end
 
@@ -1553,18 +1572,19 @@ function Instruction:negate_condition_code() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Code = require("iced_x86.Code")
+---local Decoder = require("iced_x86.Decoder")
 ---
----# jbe near ptr label
----data = b"\x0F\x86\x5A\xA5\x12\x34"
----decoder = Decoder(64, data)
+----- jbe near ptr label
+---local data = "\015\134\090\165\018\052"
+---local decoder = Decoder:new(64, data)
 ---
----instr = decoder.decode()
----assert instr.code == Code.JBE_REL32_64
----instr.as_short_branch()
----assert instr.code == Code.JBE_REL8_64
----instr.as_short_branch()
----assert instr.code == Code.JBE_REL8_64
+---local instr = decoder:decode()
+---assert(instr:code() == Code.Jbe_rel32_64)
+---instr:as_short_branch()
+---assert(instr:code() == Code.Jbe_rel8_64)
+---instr:as_short_branch()
+---assert(instr:code() == Code.Jbe_rel8_64)
 ---```
 function Instruction:as_short_branch() end
 
@@ -1573,18 +1593,19 @@ function Instruction:as_short_branch() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Code = require("iced_x86.Code")
+---local Decoder = require("iced_x86.Decoder")
 ---
----# jbe short label
----data = b"\x76\x5A"
----decoder = Decoder(64, data)
+----- jbe short label
+---local data = "\118\090"
+---local decoder = Decoder:new(64, data)
 ---
----instr = decoder.decode()
----assert instr.code == Code.JBE_REL8_64
----instr.as_near_branch()
----assert instr.code == Code.JBE_REL32_64
----instr.as_near_branch()
----assert instr.code == Code.JBE_REL32_64
+---local instr = decoder:decode()
+---assert(instr:code() == Code.Jbe_rel8_64)
+---instr:as_near_branch()
+---assert(instr:code() == Code.Jbe_rel32_64)
+---instr:as_near_branch()
+---assert(instr:code() == Code.Jbe_rel32_64)
 ---```
 function Instruction:as_near_branch() end
 
@@ -1595,30 +1616,31 @@ function Instruction:as_near_branch() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local ConditionCode = require("iced_x86.ConditionCode")
+---local Decoder = require("iced_x86.Decoder")
 ---
----# setbe al
----# jl short label
----# cmovne ecx,esi
----# nop
----data = b"\x0F\x96\xC0\x7C\x5A\x0F\x45\xCE\x90"
----decoder = Decoder(64, data)
+----- setbe al
+----- jl short label
+----- cmovne ecx,esi
+----- nop
+---local data = "\015\150\192\124\090\015\069\206\144"
+---local decoder = Decoder:new(64, data)
 ---
----# setbe al
----instr = decoder.decode()
----assert instr.condition_code == ConditionCode.BE
+----- setbe al
+---local instr = decoder:decode()
+---assert(instr:condition_code() == ConditionCode.be)
 ---
----# jl short label
----instr = decoder.decode()
----assert instr.condition_code == ConditionCode.L
+----- jl short label
+---local instr2 = decoder:decode()
+---assert(instr2:condition_code() == ConditionCode.l)
 ---
----# cmovne ecx,esi
----instr = decoder.decode()
----assert instr.condition_code == ConditionCode.NE
+----- cmovne ecx,esi
+---local instr3 = decoder:decode()
+---assert(instr3:condition_code() == ConditionCode.ne)
 ---
----# nop
----instr = decoder.decode()
----assert instr.condition_code == ConditionCode.NONE
+----- nop
+---local instr4 = decoder:decode()
+---assert(instr4:condition_code() == ConditionCode.None)
 ---```
 function Instruction:condition_code() end
 
@@ -1636,7 +1658,23 @@ function Instruction:op_code() end
 ---# Examples
 ---
 ---```lua
------TODO: show an example here
+---local Decoder = require("iced_x86.Decoder")
+---local OpAccess = require("iced_x86.OpAccess")
+---local Register = require("iced_x86.Register")
+---
+---local decoder = Decoder:new(64, "\196\227\073\072\016\065")
+---local instr = decoder:decode()
+---
+---local used_registers = instr:used_registers()
+---assert(#used_registers == 4)
+---assert(used_registers[1]:register() == Register.ZMM2)
+---assert(used_registers[1]:access() == OpAccess.Write)
+---assert(used_registers[2]:register() == Register.XMM6)
+---assert(used_registers[2]:access() == OpAccess.Read)
+---assert(used_registers[3]:register() == Register.RAX)
+---assert(used_registers[3]:access() == OpAccess.Read)
+---assert(used_registers[4]:register() == Register.XMM4)
+---assert(used_registers[4]:access() == OpAccess.Read)
 ---```
 function Instruction:used_registers() end
 
@@ -1649,7 +1687,27 @@ function Instruction:used_registers() end
 ---# Examples
 ---
 ---```lua
------TODO: show an example here
+---local CodeSize = require("iced_x86.CodeSize")
+---local Decoder = require("iced_x86.Decoder")
+---local MemorySize = require("iced_x86.MemorySize")
+---local OpAccess = require("iced_x86.OpAccess")
+---local Register = require("iced_x86.Register")
+---
+---local decoder = Decoder:new(64, "\196\227\073\072\016\065")
+---local instr = decoder:decode()
+---
+---local used_memory = instr:used_memory()
+---assert(#used_memory == 1)
+---local mem = used_memory[1]
+---assert(mem:segment() == Register.DS)
+---assert(mem:base() == Register.RAX)
+---assert(mem:index() == Register.None)
+---assert(mem:scale() == 1)
+---assert(mem:displacement() == 0)
+---assert(mem:memory_size() == MemorySize.Packed128_Float32)
+---assert(mem:access() == OpAccess.Read)
+---assert(mem:address_size() == CodeSize.Code64)
+---assert(mem:vsib_size() == 0)
 ---```
 function Instruction:used_memory() end
 
@@ -1662,7 +1720,19 @@ function Instruction:used_memory() end
 ---# Examples
 ---
 ---```lua
------TODO: show an example here
+---local Decoder = require("iced_x86.Decoder")
+---local OpAccess = require("iced_x86.OpAccess")
+---
+---local decoder = Decoder:new(64, "\196\227\073\072\016\065")
+---local instr = decoder:decode()
+---
+---local op_accesses = instr:op_accesses()
+---assert(#op_accesses == 5)
+---assert(op_accesses[1] == OpAccess.Write)
+---assert(op_accesses[2] == OpAccess.Read)
+---assert(op_accesses[3] == OpAccess.Read)
+---assert(op_accesses[4] == OpAccess.Read)
+---assert(op_accesses[5] == OpAccess.Read)
 ---```
 function Instruction:op_accesses() end
 
@@ -1675,7 +1745,38 @@ function Instruction:op_accesses() end
 ---# Examples
 ---
 ---```lua
------TODO: show an example here
+---local CodeSize = require("iced_x86.CodeSize")
+---local Decoder = require("iced_x86.Decoder")
+---local MemorySize = require("iced_x86.MemorySize")
+---local OpAccess = require("iced_x86.OpAccess")
+---local Register = require("iced_x86.Register")
+---
+---local decoder = Decoder:new(64, "\196\227\073\072\016\065")
+---local instr = decoder:decode()
+---
+---local used_registers, used_memory = instr:used_regs_mem()
+---
+---assert(#used_registers == 4)
+---assert(used_registers[1]:register() == Register.ZMM2)
+---assert(used_registers[1]:access() == OpAccess.Write)
+---assert(used_registers[2]:register() == Register.XMM6)
+---assert(used_registers[2]:access() == OpAccess.Read)
+---assert(used_registers[3]:register() == Register.RAX)
+---assert(used_registers[3]:access() == OpAccess.Read)
+---assert(used_registers[4]:register() == Register.XMM4)
+---assert(used_registers[4]:access() == OpAccess.Read)
+---
+---assert(#used_memory == 1)
+---local mem = used_memory[1]
+---assert(mem:segment() == Register.DS)
+---assert(mem:base() == Register.RAX)
+---assert(mem:index() == Register.None)
+---assert(mem:scale() == 1)
+---assert(mem:displacement() == 0)
+---assert(mem:memory_size() == MemorySize.Packed128_Float32)
+---assert(mem:access() == OpAccess.Read)
+---assert(mem:address_size() == CodeSize.Code64)
+---assert(mem:vsib_size() == 0)
 ---```
 function Instruction:used_regs_mem() end
 
@@ -1688,7 +1789,45 @@ function Instruction:used_regs_mem() end
 ---# Examples
 ---
 ---```lua
------TODO: show an example here
+---local CodeSize = require("iced_x86.CodeSize")
+---local Decoder = require("iced_x86.Decoder")
+---local MemorySize = require("iced_x86.MemorySize")
+---local OpAccess = require("iced_x86.OpAccess")
+---local Register = require("iced_x86.Register")
+---
+---local decoder = Decoder:new(64, "\196\227\073\072\016\065")
+---local instr = decoder:decode()
+---
+---local used_registers, used_memory, op_accesses = instr:used_values()
+---
+---assert(#used_registers == 4)
+---assert(used_registers[1]:register() == Register.ZMM2)
+---assert(used_registers[1]:access() == OpAccess.Write)
+---assert(used_registers[2]:register() == Register.XMM6)
+---assert(used_registers[2]:access() == OpAccess.Read)
+---assert(used_registers[3]:register() == Register.RAX)
+---assert(used_registers[3]:access() == OpAccess.Read)
+---assert(used_registers[4]:register() == Register.XMM4)
+---assert(used_registers[4]:access() == OpAccess.Read)
+---
+---assert(#used_memory == 1)
+---local mem = used_memory[1]
+---assert(mem:segment() == Register.DS)
+---assert(mem:base() == Register.RAX)
+---assert(mem:index() == Register.None)
+---assert(mem:scale() == 1)
+---assert(mem:displacement() == 0)
+---assert(mem:memory_size() == MemorySize.Packed128_Float32)
+---assert(mem:access() == OpAccess.Read)
+---assert(mem:address_size() == CodeSize.Code64)
+---assert(mem:vsib_size() == 0)
+---
+---assert(#op_accesses == 5)
+---assert(op_accesses[1] == OpAccess.Write)
+---assert(op_accesses[2] == OpAccess.Read)
+---assert(op_accesses[3] == OpAccess.Read)
+---assert(op_accesses[4] == OpAccess.Read)
+---assert(op_accesses[5] == OpAccess.Read)
 ---```
 function Instruction:used_values() end
 

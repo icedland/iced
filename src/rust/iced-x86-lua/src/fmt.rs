@@ -82,16 +82,18 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Decoder = require("iced_x86.Decoder")
+	/// local Formatter = require("iced_x86.Formatter")
+	/// local FormatterSyntax = require("iced_x86.FormatterSyntax")
 	///
-	/// data = b"\x62\xF2\x4F\xDD\x72\x50\x01"
-	/// decoder = Decoder(64, data)
-	/// instr = decoder.decode()
+	/// local data = "\098\242\079\221\114\080\001"
+	/// local decoder = Decoder:new(64, data)
+	/// local instr = decoder:decode()
 	///
-	/// formatter = Formatter(FormatterSyntax.MASM)
-	/// formatter.uppercase_mnemonics = True
-	/// disasm = formatter.format(instr)
-	/// assert disasm == "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]"
+	/// local formatter = Formatter:new(FormatterSyntax.Masm)
+	/// formatter:set_uppercase_mnemonics(true)
+	/// local disasm = formatter:format(instr)
+	/// assert(disasm == "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]")
 	/// ```
 	unsafe fn new(lua, _ignore: LuaIgnore, syntax: u32) -> 1 {
 		let formatter: Box<dyn iced_x86::Formatter> = if syntax == FormatterSyntax::Gas as u32 {

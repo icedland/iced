@@ -64,13 +64,15 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Code = require("iced_x86.Code")
+	/// local EncodingKind = require("iced_x86.EncodingKind")
+	/// local OpCodeInfo = require("iced_x86.OpCodeInfo")
 	///
-	/// op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-	/// assert op_code.op_code_string == "EVEX.256.66.0F.W1 28 /r"
-	/// assert op_code.encoding == EncodingKind.EVEX
-	/// assert OpCodeInfo(Code.SUB_R8_RM8).op_code == 0x2A
-	/// assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code == 0x2A
+	/// local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+	/// assert(op_code:op_code_string() == "EVEX.256.66.0F.W1 28 /r")
+	/// assert(op_code:encoding() == EncodingKind.EVEX)
+	/// assert(OpCodeInfo:new(Code.Sub_r8_rm8):op_code() == 0x2A)
+	/// assert(OpCodeInfo:new(Code.Cvtpi2ps_xmm_mmm64):op_code() == 0x2A)
 	/// ```
 	unsafe fn new(lua, _ignore: LuaIgnore, code: u32) -> 1 {
 		unsafe { let _ = OpCodeInfo::push_new(lua, to_code(lua, code)); }
@@ -81,10 +83,11 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Code = require("iced_x86.Code")
+	/// local OpCodeInfo = require("iced_x86.OpCodeInfo")
 	///
-	/// op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-	/// assert op_code.code == Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256
+	/// local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+	/// assert(op_code:code() == Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
 	/// ```
 	unsafe fn code(lua, opci: &OpCodeInfo) -> 1 {
 		unsafe { lua.push(opci.inner.code() as u32); }
@@ -95,10 +98,12 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Code = require("iced_x86.Code")
+	/// local OpCodeInfo = require("iced_x86.OpCodeInfo")
+	/// local Mnemonic = require("iced_x86.Mnemonic")
 	///
-	/// op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-	/// assert op_code.mnemonic == Mnemonic.VMOVAPD
+	/// local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+	/// assert(op_code:mnemonic() == Mnemonic.Vmovapd)
 	/// ```
 	unsafe fn mnemonic(lua, opci: &OpCodeInfo) -> 1 {
 		unsafe { lua.push(opci.inner.mnemonic() as u32); }
@@ -109,10 +114,12 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Code = require("iced_x86.Code")
+	/// local EncodingKind = require("iced_x86.EncodingKind")
+	/// local OpCodeInfo = require("iced_x86.OpCodeInfo")
 	///
-	/// op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-	/// assert op_code.encoding == EncodingKind.EVEX
+	/// local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+	/// assert(op_code:encoding() == EncodingKind.EVEX)
 	/// ```
 	unsafe fn encoding(lua, opci: &OpCodeInfo) -> 1 {
 		unsafe { lua.push(opci.inner.encoding() as u32); }
@@ -123,11 +130,12 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Code = require("iced_x86.Code")
+	/// local OpCodeInfo = require("iced_x86.OpCodeInfo")
 	///
-	/// assert OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256).is_instruction
-	/// assert not OpCodeInfo(Code.INVALID).is_instruction
-	/// assert not OpCodeInfo(Code.DECLAREBYTE).is_instruction
+	/// assert(OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256):is_instruction())
+	/// assert(not OpCodeInfo:new(Code.INVALID):is_instruction())
+	/// assert(not OpCodeInfo:new(Code.DeclareByte):is_instruction())
 	/// ```
 	unsafe fn is_instruction(lua, opci: &OpCodeInfo) -> 1 {
 		unsafe { lua.push(opci.inner.is_instruction()); }
@@ -750,12 +758,13 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Code = require("iced_x86.Code")
+	/// local OpCodeInfo = require("iced_x86.OpCodeInfo")
 	///
-	/// assert OpCodeInfo(Code.FFREEP_STI).op_code == 0xDFC0
-	/// assert OpCodeInfo(Code.VMRUNW).op_code == 0x01D8
-	/// assert OpCodeInfo(Code.SUB_R8_RM8).op_code == 0x2A
-	/// assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code == 0x2A
+	/// assert(OpCodeInfo:new(Code.Ffreep_sti):op_code() == 0xDFC0)
+	/// assert(OpCodeInfo:new(Code.Vmrunw):op_code() == 0x01D8)
+	/// assert(OpCodeInfo:new(Code.Sub_r8_rm8):op_code() == 0x2A)
+	/// assert(OpCodeInfo:new(Code.Cvtpi2ps_xmm_mmm64):op_code() == 0x2A)
 	/// ```
 	unsafe fn op_code(lua, opci: &OpCodeInfo) -> 1 {
 		unsafe { lua.push(opci.inner.op_code()); }
@@ -766,12 +775,13 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Code = require("iced_x86.Code")
+	/// local OpCodeInfo = require("iced_x86.OpCodeInfo")
 	///
-	/// assert OpCodeInfo(Code.FFREEP_STI).op_code_len == 2
-	/// assert OpCodeInfo(Code.VMRUNW).op_code_len == 2
-	/// assert OpCodeInfo(Code.SUB_R8_RM8).op_code_len == 1
-	/// assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code_len == 1
+	/// assert(OpCodeInfo:new(Code.Ffreep_sti):op_code_len() == 2)
+	/// assert(OpCodeInfo:new(Code.Vmrunw):op_code_len() == 2)
+	/// assert(OpCodeInfo:new(Code.Sub_r8_rm8):op_code_len() == 1)
+	/// assert(OpCodeInfo:new(Code.Cvtpi2ps_xmm_mmm64):op_code_len() == 1)
 	/// ```
 	unsafe fn op_code_len(lua, opci: &OpCodeInfo) -> 1 {
 		unsafe { lua.push(opci.inner.op_code_len()); }
@@ -868,10 +878,11 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Code = require("iced_x86.Code")
+	/// local OpCodeInfo = require("iced_x86.OpCodeInfo")
 	///
-	/// op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-	/// assert op_code.op_code_string == "EVEX.256.66.0F.W1 28 /r"
+	/// local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+	/// assert(op_code:op_code_string() == "EVEX.256.66.0F.W1 28 /r")
 	/// ```
 	unsafe fn op_code_string(lua, opci: &OpCodeInfo) -> 1 {
 		unsafe { lua.push(opci.inner.op_code_string()); }
@@ -882,10 +893,11 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Code = require("iced_x86.Code")
+	/// local OpCodeInfo = require("iced_x86.OpCodeInfo")
 	///
-	/// op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-	/// assert op_code.instruction_string == "VMOVAPD ymm1 {k1}{z}, ymm2/m256"
+	/// local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+	/// assert(op_code:instruction_string() == "VMOVAPD ymm1 {k1}{z}, ymm2/m256")
 	/// ```
 	unsafe fn instruction_string(lua, opci: &OpCodeInfo) -> 1 {
 		unsafe { lua.push(opci.inner.instruction_string()); }

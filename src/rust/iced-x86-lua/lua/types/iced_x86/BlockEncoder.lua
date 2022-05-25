@@ -17,28 +17,27 @@
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local BlockEncoder = require("iced_x86.BlockEncoder")
+---local Decoder = require("iced_x86.Decoder")
 ---
----data = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3"
----decoder = Decoder(64, data, ip=0x1234_5678)
+---local data = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
+---local decoder = Decoder:new(64, data, nil, 0x12345678)
 ---
----instrs = [instr for instr in decoder]
+---local instrs = {}
+---for instr in decoder:iter_out() do
+---    instrs[#instrs + 1] = instr:copy()
+---end
 ---
----encoder = BlockEncoder(64)
----# Add an instruction
----encoder.add(instrs[0])
----# Add more instructions
----encoder.add_many(instrs[1:])
----try:
----    # Encode all added instructions and get the raw bytes
----    raw_data = encoder.encode(0x3456_789A)
----except ValueError as ex:
----    print("Could not encode all instructions")
----    raise
+----- Encode all added instructions and get the raw bytes
+---local result = BlockEncoder.encode(64, instrs, 0x3456789A)
+---local raw_data = result.code_buffer
 ---
----# It has no IP-relative instructions (eg. branches or [rip+xxx] ops)
----# so the result should be identical to the original code.
----assert data == raw_data
+----- It has no IP-relative instructions (eg. branches or [rip+xxx] ops)
+----- so the result should be identical to the original code.
+---assert(#data, #raw_data)
+---for i = 1, #data do
+---    assert(data[i] == raw_data[i])
+---end
 ---```
 ---
 ---@class BlockEncoder

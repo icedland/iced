@@ -56,24 +56,21 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Decoder = require("iced_x86.Decoder")
+	/// local Encoder = require("iced_x86.Encoder")
 	///
-	/// # xchg ah,[rdx+rsi+16h]
-	/// data = b"\x86\x64\x32\x16"
-	/// decoder = Decoder(64, data, ip=0x1234_5678)
-	/// instr = decoder.decode()
+	/// -- xchg ah,[rdx+rsi+16h]
+	/// local data = "\134\100\050\022"
+	/// local decoder = Decoder:new(64, data, nil, 0x12345678)
+	/// local instr = decoder:decode()
 	///
-	/// encoder = Encoder(64)
-	/// try:
-	///     instr_len = encoder.encode(instr, 0x5555_5555)
-	///     assert instr_len == 4
-	/// except ValueError as ex:
-	///     print(f"Failed to encode the instruction: {ex}")
-	///     raise
+	/// local encoder = Encoder:new(64)
+	/// local instr_len = encoder:encode(instr, 0x55555555)
+	/// assert(instr_len == 4)
 	///
-	/// # We're done, take ownership of the buffer
-	/// buffer = encoder.take_buffer()
-	/// assert buffer == b"\x86\x64\x32\x16"
+	/// -- We're done, take ownership of the buffer
+	/// local buffer = encoder:take_buffer()
+	/// assert(buffer == "\134\100\050\022")
 	/// ```
 	unsafe fn new(lua, _ignore: LuaIgnore, bitness: u32, capacity: Option<usize>) -> 1 {
 		unsafe {
@@ -98,25 +95,22 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Decoder = require("iced_x86.Decoder")
+	/// local Encoder = require("iced_x86.Encoder")
 	///
-	/// # je short $+4
-	/// data = b"\x75\x02"
-	/// decoder = Decoder(64, data, ip=0x1234_5678)
-	/// instr = decoder.decode()
+	/// -- je short $+4
+	/// local data = "\117\002"
+	/// local decoder = Decoder:new(64, data, nil, 0x12345678)
+	/// local instr = decoder:decode()
 	///
-	/// encoder = Encoder(64)
-	/// try:
-	///     # Use a different IP (orig rip + 0x10)
-	///     instr_len = encoder.encode(instr, 0x1234_5688)
-	///     assert instr_len == 2
-	/// except ValueError as ex:
-	///     print(f"Failed to encode the instruction: {ex}")
-	///     raise
+	/// local encoder = Encoder:new(64)
+	/// -- Use a different IP (orig rip + 0x10)
+	/// local instr_len = encoder:encode(instr, 0x12345688)
+	/// assert(instr_len == 2)
 	///
-	/// # We're done, take ownership of the buffer
-	/// buffer = encoder.take_buffer()
-	/// assert buffer == b"\x75\xF2"
+	/// -- We're done, take ownership of the buffer
+	/// local buffer = encoder:take_buffer()
+	/// assert(buffer == "\117\242")
 	/// ```
 	unsafe fn encode(lua, encoder: &mut Encoder, instruction: &Instruction, rip: u64) -> 1 {
 		match encoder.inner.encode(&instruction.inner, rip) {
@@ -131,31 +125,28 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	///
 	/// # Examples
 	/// ```lua
-	/// from iced_x86 import *
+	/// local Decoder = require("iced_x86.Decoder")
+	/// local Encoder = require("iced_x86.Encoder")
 	///
-	/// # je short $+4
-	/// data = b"\x75\x02"
-	/// decoder = Decoder(64, data, ip=0x1234_5678)
-	/// instr = decoder.decode()
+	/// -- je short $+4
+	/// local data = "\117\002"
+	/// local decoder = Decoder:new(64, data, nil, 0x12345678)
+	/// local instr = decoder:decode()
 	///
-	/// encoder = Encoder(64)
-	/// # Add a random byte
-	/// encoder.write_u8(0x90)
+	/// local encoder = Encoder:new(64)
+	/// -- Add a random byte
+	/// encoder:write_u8(0x90)
 	///
-	/// try:
-	///     # Use a different IP (orig rip + 0x10)
-	///     instr_len = encoder.encode(instr, 0x1234_5688)
-	///     assert instr_len == 2
-	/// except ValueError as ex:
-	///     print(f"Failed to encode the instruction: {ex}")
-	///     raise
+	/// -- Use a different IP (orig rip + 0x10)
+	/// local instr_len = encoder:encode(instr, 0x12345688)
+	/// assert(instr_len == 2)
 	///
-	/// # Add a random byte
-	/// encoder.write_u8(0x90)
+	/// -- Add a random byte
+	/// encoder:write_u8(0x90)
 	///
-	/// # We're done, take ownership of the buffer
-	/// buffer = encoder.take_buffer()
-	/// assert buffer == b"\x90\x75\xF2\x90"
+	/// -- We're done, take ownership of the buffer
+	/// local buffer = encoder:take_buffer()
+	/// assert(buffer == "\144\117\242\144")
 	/// ```
 	unsafe fn write_u8(lua, encoder: &mut Encoder, value: u8) -> 0 {
 		encoder.inner.write_u8(value)

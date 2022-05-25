@@ -30,7 +30,7 @@ local Decoder = {}
 ----- xchg ah,[rdx+rsi+16h]
 ----- xacquire lock add dword ptr [rax],5Ah
 ----- vmovdqu64 zmm18{k3}{z},zmm11
----local bytes = "\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3"
+---local bytes = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
 ---local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
 ---
 ---local instr1 = decoder:decode()
@@ -59,16 +59,16 @@ local Decoder = {}
 ---local Code = require("iced_x86.Code")
 ---
 ----- lock add esi,ecx    lock not allowed
----local bytes = "\xF0\x01\xCE"
+---local bytes = "\240\001\206"
 ---local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
 ---local instr = decoder:decode()
 ---assert(instr:code() == Code.INVALID)
 ---
 ----- We want to decode some instructions with invalid encodings
----local decoder = Decoder:new(64, bytes, DecoderOptions.NoInvalidCheck, 0x12345678)
----local instr = decoder:decode()
----assert(instr:code() == Code.Add_rm32_r32)
----assert(instr:has_lock_prefix())
+---local decoder2 = Decoder:new(64, bytes, DecoderOptions.NoInvalidCheck, 0x12345678)
+---local instr2 = decoder2:decode()
+---assert(instr2:code() == Code.Add_rm32_r32)
+---assert(instr2:has_lock_prefix())
 ---```
 function Decoder:new(bitness, data, options, ip) end
 
@@ -108,7 +108,7 @@ function Decoder:max_position() end
 ---local Code = require("iced_x86.Code")
 ---
 ----- nop and pause
----local data = "\x90\xF3\x90"
+---local data = "\144\243\144"
 ---local decoder = Decoder:new(64, data)
 ---
 ---assert(decoder:position() == 0)
@@ -125,8 +125,8 @@ function Decoder:max_position() end
 ---decoder:set_position(0)
 ---decoder:set_ip(0)
 ---assert(decoder:position() == 0)
----assert(decoder:decode().code() == Code.Nopd)
----assert(decoder:decode().code() == Code.Pause)
+---assert(decoder:decode():code() == Code.Nopd)
+---assert(decoder:decode():code() == Code.Pause)
 ---assert(decoder:position() == 3)
 ---```
 function Decoder:position() end
@@ -145,7 +145,7 @@ function Decoder:position() end
 ---local Code = require("iced_x86.Code")
 ---
 ----- nop and pause
----local data = "\x90\xF3\x90"
+---local data = "\144\243\144"
 ---local decoder = Decoder:new(64, data)
 ---
 ---assert(decoder:position() == 0)
@@ -162,8 +162,8 @@ function Decoder:position() end
 ---decoder:set_position(0)
 ---decoder:set_ip(0)
 ---assert(decoder:position() == 0)
----assert(decoder:decode().code() == Code.Nopd)
----assert(decoder:decode().code() == Code.Pause)
+---assert(decoder:decode():code() == Code.Nopd)
+---assert(decoder:decode():code() == Code.Pause)
 ---assert(decoder:position() == 3)
 ---```
 function Decoder:set_position(pos) end
@@ -186,7 +186,7 @@ function Decoder:set_position(pos) end
 ---local DecoderError = require("iced_x86.DecoderError")
 ---
 ----- nop and an incomplete instruction
----local data = "\x90\xF3\x0F"
+---local data = "\144\243\015"
 ---local decoder = Decoder:new(64, data)
 ---
 ----- 3 bytes left to read
@@ -232,7 +232,7 @@ function Decoder:last_error() end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---
 ----- xrelease lock add [rax],ebx
----local data = "\xF0\xF3\x01\x18"
+---local data = "\240\243\001\024"
 ---local decoder = Decoder:new(64, data)
 ---local instr = decoder:decode()
 ---
@@ -278,8 +278,8 @@ function Decoder:decode() end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---
 ----- xrelease lock add [rax],ebx
----local data = "\xF0\xF3\x01\x18"
----local decoder = Decoder(64, data)
+---local data = "\240\243\001\024"
+---local decoder = Decoder:new(64, data)
 ---local instr = Instruction:new()
 ---decoder:decode_out(instr)
 ---
@@ -313,8 +313,32 @@ function Decoder:decode_out(instr) end
 ---
 ---@param instr? Instruction #(optional) Overwrite this instruction with the new decoded instruction
 ---
+---# Examples
+---
 ---```lua
------TODO:
+---local Decoder = require("iced_x86.Decoder")
+---local DecoderOptions = require("iced_x86.DecoderOptions")
+---
+---local bytes = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
+---local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
+---
+---local instrs = {}
+----- This iterator stops when there's nothing left to decode, but the
+----- `instr` it returns is always the same instruction instance (for
+----- performance)
+---for instr in decoder:iter_out() do
+---	-- Copy the instruction or we'd store the same instance (overwritten
+---	-- each iteartion) instead of a new value.
+---	instrs[#instrs + 1] = instr:copy()
+---end
+---for _, instr in ipairs(instrs) do
+---	print(string.format("0x%08X %s", instr:ip(), tostring(instr)))
+---end
+---
+----- Output:
+-----     0x12345678 xchg ah,[rdx+rsi+16h]
+-----     0x1234567C xacquire lock add dword ptr [rax],5Ah
+-----     0x12345681 vmovdqu64 zmm18{k3}{z},zmm11
 ---```
 function Decoder:iter_out(instr) end
 
@@ -323,8 +347,30 @@ function Decoder:iter_out(instr) end
 ---This iterator is slower than `iter_out()` because it allocates and returns a new
 ---instruction. `iter_out()` overwrites the passed in instruction and never allocates.
 ---
+---# Examples
+---
 ---```lua
------TODO:
+---local Decoder = require("iced_x86.Decoder")
+---local DecoderOptions = require("iced_x86.DecoderOptions")
+---
+---local bytes = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
+---local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
+---
+---local instrs = {}
+----- Decoder:iter_out() will overwrite the returned instruction
+----- instance (for performance reasons) but this slower iterator
+----- will always create a new instance.
+---for instr in decoder:iter_slow_copy() do
+---	instrs[#instrs + 1] = instr
+---end
+---for _, instr in ipairs(instrs) do
+---	print(string.format("0x%08X %s", instr:ip(), tostring(instr)))
+---end
+---
+----- Output:
+-----     0x12345678 xchg ah,[rdx+rsi+16h]
+-----     0x1234567C xacquire lock add dword ptr [rax],5Ah
+-----     0x12345681 vmovdqu64 zmm18{k3}{z},zmm11
 ---```
 function Decoder:iter_slow_copy() end
 
@@ -338,28 +384,29 @@ function Decoder:iter_slow_copy() end
 ---# Examples
 ---
 ---```lua
----from iced_x86 import *
+---local Code = require("iced_x86.Code")
+---local Decoder = require("iced_x86.Decoder")
 ---
----# nop
----# xor dword ptr [rax-5AA5EDCCh],5Ah
----#              00  01  02  03  04  05  06
----#            \opc\mrm\displacement___\imm
----data = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A"
----decoder = Decoder(64, data, ip=0x1234_5678)
----assert decoder.decode().code == Code.NOPD
----instr = decoder.decode()
----co = decoder.get_constant_offsets(instr)
+----- nop
+----- xor dword ptr [rax-5AA5EDCCh],5Ah
+-----                  00  01  02  03  04  05  06
+-----                \opc\mrm\displacement___\imm
+---local data = "\144\131\179\052\018\090\165\090"
+---local decoder = Decoder:new(64, data, nil, 0x12345678)
+---assert(decoder:decode():code() == Code.Nopd)
+---local instr = decoder:decode()
+---local co = decoder:get_constant_offsets(instr)
 ---
----assert co.has_displacement
----assert co.displacement_offset == 2
----assert co.displacement_size == 4
----assert co.has_immediate
----assert co.immediate_offset == 6
----assert co.immediate_size == 1
----# It's not an instruction with two immediates (e.g. enter)
----assert not co.has_immediate2
----assert co.immediate_offset2 == 0
----assert co.immediate_size2 == 0
+---assert(co:has_displacement())
+---assert(co:displacement_offset() == 2)
+---assert(co:displacement_size() == 4)
+---assert(co:has_immediate())
+---assert(co:immediate_offset() == 6)
+---assert(co:immediate_size() == 1)
+----- It's not an instruction with two immediates (e.g. enter)
+---assert(not co:has_immediate2())
+---assert(co:immediate_offset2() == 0)
+---assert(co:immediate_size2() == 0)
 ---```
 function Decoder:get_constant_offsets(instr) end
 
