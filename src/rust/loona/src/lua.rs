@@ -333,7 +333,11 @@ impl<'lua> Lua<'lua> {
 		#[cfg(any(feature = "lua51", feature = "lua52"))]
 		unsafe {
 			let value = self.to_number_x(idx, isnum);
-			value as i64
+			if value >= 0.0 {
+				(value as u64) as i64
+			} else {
+				value as i64
+			}
 		}
 		#[cfg(any(feature = "lua53", feature = "lua54"))]
 		#[allow(trivial_numeric_casts)]
