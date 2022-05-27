@@ -4,7 +4,7 @@
 local from_hex = require("iced_test_utils").from_hex
 local has_int64 = require("iced_test_utils").has_int64
 
-describe("Instruction", function()
+describe("Instruction: create", function()
 	local Code = require("iced_x86.Code")
 	local Instruction = require("iced_x86.Instruction")
 

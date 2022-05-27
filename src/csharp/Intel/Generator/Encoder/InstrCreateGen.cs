@@ -117,30 +117,31 @@ namespace Generator.Encoder {
 		}
 
 		protected void GenCreateMethods(FileWriter writer, int id) {
-			var groups = new InstructionGroups(genTypes).GetGroups();
-			foreach (var info in GetCreateMethods(groups)) {
+			var groups = new InstructionGroups(genTypes, true).GetGroups();
+			const bool useReg = false; // r/m was split into two groups, r and m so this can be anything
+			foreach (var info in GetCreateMethods(groups, useReg)) {
 				WriteItemSeparator(writer);
 				GenCreate(writer, info.method, info.group, id);
 			}
 		}
 
-		static IEnumerable<(CreateMethod method, InstructionGroup group)> GetCreateMethods(InstructionGroup[] groups) {
+		static IEnumerable<(CreateMethod method, InstructionGroup group)> GetCreateMethods(InstructionGroup[] groups, bool useReg) {
 			foreach (var group in groups) {
-				yield return (GetMethod(group, false), group);
-				if (GetOpKindCount(group).immCount > 0)
-					yield return (GetMethod(group, true), group);
+				yield return (GetMethod(group, unsigned: false, useReg), group);
+				if (GetOpKindCount(group, useReg).immCount > 0)
+					yield return (GetMethod(group, unsigned: true, useReg), group);
 			}
 		}
 
-		static void AddCodeArg(CreateMethod method) => method.Args.Add(new MethodArg("Code value", MethodArgType.Code, "code"));
+		protected static void AddCodeArg(CreateMethod method) => method.Args.Add(new MethodArg("Code value", MethodArgType.Code, "code"));
 		static void AddAddressSizeArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferredInt32, "addressSize"));
 		static void AddTargetArg(CreateMethod method) => method.Args.Add(new MethodArg("Target address", MethodArgType.UInt64, "target"));
 		static void AddBitnessArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferredInt32, "bitness"));
 		void AddSegmentPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Segment override or #(e:Register.None)#", MethodArgType.Register, "segmentPrefix", genTypes[TypeIds.Register][nameof(Register.None)]));
 		void AddRepPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Rep prefix or #(e:RepPrefixKind.None)#", MethodArgType.RepPrefixKind, "repPrefix", genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.None)]));
 
-		static CreateMethod GetMethod(InstructionGroup group, bool unsigned) {
-			var (regCount, immCount, memCount) = GetOpKindCount(group);
+		protected static CreateMethod GetMethod(InstructionGroup group, bool unsigned, bool useReg) {
+			var (regCount, immCount, memCount) = GetOpKindCount(group, useReg);
 			int regId = 1, immId = 1, memId = 1;
 			string doc = group.Operands.Length switch {
 				0 => "Creates an instruction with no operands",
@@ -152,7 +153,9 @@ namespace Generator.Encoder {
 			int opNum = -1;
 			foreach (var op in group.Operands) {
 				opNum++;
-				switch (op) {
+				switch (op.Split(useReg)) {
+				case InstructionOperand.RegisterMemory:
+					throw new InvalidOperationException();
 				case InstructionOperand.Register:
 					method.Args.Add(new MethodArg($"op{opNum}: Register", MethodArgType.Register, GetArgName("register", regCount, regId++)));
 					break;
@@ -178,13 +181,15 @@ namespace Generator.Encoder {
 			}
 		}
 
-		static (int regCount, int immCount, int memCount) GetOpKindCount(InstructionGroup group) {
+		static (int regCount, int immCount, int memCount) GetOpKindCount(InstructionGroup group, bool useReg) {
 			int regCount = 0;
 			int immCount = 0;
 			int memCount = 0;
 
 			foreach (var op in group.Operands) {
-				switch (op) {
+				switch (op.Split(useReg)) {
+				case InstructionOperand.RegisterMemory:
+					throw new InvalidOperationException();
 				case InstructionOperand.Register:
 					regCount++;
 					break;
@@ -684,6 +689,51 @@ namespace Generator.Encoder {
 				method.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
 				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Qword, ArrayType.QwordArray);
 			}
+		}
+
+		protected readonly struct DynCreateMethodTable {
+			/// Use the Code value as an index to get the group index into Groups below
+			public readonly int[] CodeIndexes;
+			/// If it's null (the first one), then it's an error (at runtime) since that Code
+			/// value can't be passed in to Create() methods (a more specialized Create*() method
+			/// should be used instead, eg. CreateBranch()).
+			public readonly InstructionGroup?[] Groups;
+
+			/// Original groups, sorted in the original order
+			public readonly InstructionGroup[] OrigGroups;
+
+			public DynCreateMethodTable(int[] codeIndexes, InstructionGroup?[] groups, InstructionGroup[] origGroups) {
+				CodeIndexes = codeIndexes;
+				Groups = groups;
+				OrigGroups = origGroups;
+			}
+		}
+
+		/// Can be used by dynamic languages for the Create() impl that can be passed any
+		/// number of arguments and each arg can be any supported operand type.
+		protected DynCreateMethodTable GetDynCreateMethodTable() {
+			var groups = new InstructionGroups(genTypes, false).GetGroups();
+			var newGroups = new InstructionGroup?[groups.Length + 1];
+			// Invalid Code value is an error at runtime
+			newGroups[0] = null;
+			for (int i = 0; i < groups.Length; i++)
+				newGroups[i + 1] = groups[i];
+
+			var codeEnum = genTypes[TypeIds.Code];
+			// The invalid index is `0` so we don't need to init it here
+			var codeIndexes = new int[codeEnum.Values.Length];
+			for (int newGroupIndex = 0; newGroupIndex < newGroups.Length; newGroupIndex++) {
+				if (newGroups[newGroupIndex] is not InstructionGroup group)
+					continue;
+				foreach (var def in group.Defs) {
+					// Make sure it isn't written twice
+					if (codeIndexes[(int)def.Code.Value] != 0)
+						throw new InvalidOperationException();
+					codeIndexes[(int)def.Code.Value] = newGroupIndex;
+				}
+			}
+
+			return new(codeIndexes, newGroups, groups);
 		}
 	}
 }

@@ -77,6 +77,7 @@ mod enc;
 mod enum_utils;
 mod fmt;
 mod fpui;
+mod grp_idx;
 mod info;
 mod instr;
 mod mem_op;

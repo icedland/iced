@@ -1945,4 +1945,488 @@ function Instruction:dd() end
 ---@overload fun(_self: Instruction, bytes: string): Instruction
 function Instruction:dq() end
 
+---Creates an instruction. All immediate values are assumed to be signed
+---
+---@param code integer #(A `Code` enum variant) Code value
+---@return Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate1: integer, immediate2: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register: integer, immediate1: integer, immediate2: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
+---@overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, immediate1: integer, immediate2: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, immediate: integer, register: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand): Instruction
+---@overload fun(_self: Instruction, code: integer, memory: MemoryOperand, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register: integer, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, immediate: integer): Instruction
+---@overload fun(_self: Instruction, code: integer, memory: MemoryOperand): Instruction
+---@overload fun(_self: Instruction, code: integer, register: integer): Instruction
+---@overload fun(_self: Instruction, code: integer): Instruction
+function Instruction:create(code) end
+
+---Creates a new near/short branch instruction
+---
+---@param code integer #(A `Code` enum variant) Code value
+---@param target integer #(`u64`) Target address
+---@return Instruction
+function Instruction:create_branch(code, target) end
+
+---Creates a new far branch instruction
+---
+---@param code integer #(A `Code` enum variant) Code value
+---@param selector integer #(`u16`) Selector/segment value
+---@param offset integer #(`u32`) Offset
+---@return Instruction
+function Instruction:create_far_branch(code, selector, offset) end
+
+---Creates a new `XBEGIN` instruction
+---
+---@param bitness integer #(`u32`) 16, 32, or 64
+---@param target integer #(`u64`) Target address
+---@return Instruction
+function Instruction:create_xbegin(bitness, target) end
+
+---Creates a `OUTSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_outsb(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP OUTSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_outsb(address_size) end
+
+---Creates a `OUTSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_outsw(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP OUTSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_outsw(address_size) end
+
+---Creates a `OUTSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_outsd(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP OUTSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_outsd(address_size) end
+
+---Creates a `LODSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_lodsb(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP LODSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_lodsb(address_size) end
+
+---Creates a `LODSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_lodsw(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP LODSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_lodsw(address_size) end
+
+---Creates a `LODSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_lodsd(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP LODSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_lodsd(address_size) end
+
+---Creates a `LODSQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_lodsq(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP LODSQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_lodsq(address_size) end
+
+---Creates a `SCASB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_scasb(address_size, rep_prefix) end
+
+---Creates a `REPE SCASB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repe_scasb(address_size) end
+
+---Creates a `REPNE SCASB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repne_scasb(address_size) end
+
+---Creates a `SCASW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_scasw(address_size, rep_prefix) end
+
+---Creates a `REPE SCASW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repe_scasw(address_size) end
+
+---Creates a `REPNE SCASW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repne_scasw(address_size) end
+
+---Creates a `SCASD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_scasd(address_size, rep_prefix) end
+
+---Creates a `REPE SCASD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repe_scasd(address_size) end
+
+---Creates a `REPNE SCASD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repne_scasd(address_size) end
+
+---Creates a `SCASQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_scasq(address_size, rep_prefix) end
+
+---Creates a `REPE SCASQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repe_scasq(address_size) end
+
+---Creates a `REPNE SCASQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repne_scasq(address_size) end
+
+---Creates a `INSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_insb(address_size, rep_prefix) end
+
+---Creates a `REP INSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_insb(address_size) end
+
+---Creates a `INSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_insw(address_size, rep_prefix) end
+
+---Creates a `REP INSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_insw(address_size) end
+
+---Creates a `INSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_insd(address_size, rep_prefix) end
+
+---Creates a `REP INSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_insd(address_size) end
+
+---Creates a `STOSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_stosb(address_size, rep_prefix) end
+
+---Creates a `REP STOSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_stosb(address_size) end
+
+---Creates a `STOSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_stosw(address_size, rep_prefix) end
+
+---Creates a `REP STOSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_stosw(address_size) end
+
+---Creates a `STOSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_stosd(address_size, rep_prefix) end
+
+---Creates a `REP STOSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_stosd(address_size) end
+
+---Creates a `STOSQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_stosq(address_size, rep_prefix) end
+
+---Creates a `REP STOSQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_stosq(address_size) end
+
+---Creates a `CMPSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_cmpsb(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REPE CMPSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repe_cmpsb(address_size) end
+
+---Creates a `REPNE CMPSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repne_cmpsb(address_size) end
+
+---Creates a `CMPSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_cmpsw(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REPE CMPSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repe_cmpsw(address_size) end
+
+---Creates a `REPNE CMPSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repne_cmpsw(address_size) end
+
+---Creates a `CMPSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_cmpsd(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REPE CMPSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repe_cmpsd(address_size) end
+
+---Creates a `REPNE CMPSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repne_cmpsd(address_size) end
+
+---Creates a `CMPSQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_cmpsq(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REPE CMPSQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repe_cmpsq(address_size) end
+
+---Creates a `REPNE CMPSQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_repne_cmpsq(address_size) end
+
+---Creates a `MOVSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_movsb(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP MOVSB` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_movsb(address_size) end
+
+---Creates a `MOVSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_movsw(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP MOVSW` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_movsw(address_size) end
+
+---Creates a `MOVSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_movsd(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP MOVSD` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_movsd(address_size) end
+
+---Creates a `MOVSQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
+---@return Instruction
+function Instruction:create_movsq(address_size, segment_prefix, rep_prefix) end
+
+---Creates a `REP MOVSQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@return Instruction
+function Instruction:create_rep_movsq(address_size) end
+
+---Creates a `MASKMOVQ` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param register1 integer #(A `Register` enum variant) Register
+---@param register2 integer #(A `Register` enum variant) Register
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@return Instruction
+function Instruction:create_maskmovq(address_size, register1, register2, segment_prefix) end
+
+---Creates a `MASKMOVDQU` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param register1 integer #(A `Register` enum variant) Register
+---@param register2 integer #(A `Register` enum variant) Register
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@return Instruction
+function Instruction:create_maskmovdqu(address_size, register1, register2, segment_prefix) end
+
+---Creates a `VMASKMOVDQU` instruction
+---
+---@param address_size integer #(`u32`) 16, 32, or 64
+---@param register1 integer #(A `Register` enum variant) Register
+---@param register2 integer #(A `Register` enum variant) Register
+---@param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
+---@return Instruction
+function Instruction:create_vmaskmovdqu(address_size, register1, register2, segment_prefix) end
+
 return Instruction

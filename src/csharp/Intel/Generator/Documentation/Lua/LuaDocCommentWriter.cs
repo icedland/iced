@@ -31,8 +31,11 @@ namespace Generator.Documentation.Lua {
 			{ "u512", ("u512", false) },
 		};
 
-		public LuaDocCommentWriter(IdentifierConverter idConverter)
-			: base(idConverter, ".", ".", ":", ":", "---", "---", false, toTypeInfo) {}
+		public LuaDocCommentWriter(IdentifierConverter idConverter, TargetLanguage language = TargetLanguage.Lua)
+			: base(idConverter, ".", ".", ":", ":",
+					language == TargetLanguage.Lua ? "---" : "///",
+					language == TargetLanguage.Lua ? "---" : "/// ",
+					false, toTypeInfo) {}
 	}
 }
 
