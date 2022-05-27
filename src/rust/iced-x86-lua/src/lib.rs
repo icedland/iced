@@ -79,5 +79,6 @@ mod fmt;
 mod fpui;
 mod info;
 mod instr;
+mod mem_op;
 mod opci;
 mod ud;
